@@ -1,0 +1,25 @@
+{
+  "total_count": 1,
+  "artifacts": [
+    {
+      "id": 14224644104,
+      "node_id": "MDg6QXJ0aWZhY3QxNDIyNDY0NDEwNA==",
+      "name": "android-native-proof",
+      "size_in_bytes": 550691,
+      "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14224644104",
+      "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14224644104/zip",
+      "expired": false,
+      "digest": "sha256:f1424af929cda85db6f563c7e28fa3b4fbd65bdd50d31696c788f9f78da5be6a",
+      "created_at": "2026-11-16T12:15:50Z",
+      "updated_at": "2026-11-16T12:15:50Z",
+      "expires_at": "2026-11-30T12:15:49Z",
+      "workflow_run": {
+        "id": 43863934379,
+        "repository_id": 1409443430,
+        "head_repository_id": 1409443430,
+        "head_branch": "codex/unified-redesign",
+        "head_sha": "3463aa21ad2010edf1eb17602286bd5288c202ec"
+      }
+    }
+  ]
+}

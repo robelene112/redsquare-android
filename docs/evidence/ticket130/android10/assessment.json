@@ -1,0 +1,164 @@
+{
+  "run": 43868275196,
+  "source": "1e5066800bf5a48eb72693266fd9d9d170d525c1",
+  "normalMethods": 21,
+  "intentionalProcessDeathStarts": 1,
+  "groups": [
+    {
+      "group": "received-storage",
+      "class": "FileshareStorageManagementTest",
+      "methods": [
+        "aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart"
+      ],
+      "log": ".scratch/device-evidence/api-29/received-storage-ui.txt",
+      "sha256": "54a197b1856d387e158abc264bb6b726a0d9cbd9131574b216e153ab02961f21"
+    },
+    {
+      "group": "received-storage-failure",
+      "class": "ReceivedFilesFailureTest",
+      "methods": [
+        "activeExportsAndOtherScopesStayIntactAndPartialRemovalCanBeFinishedDeliberately"
+      ],
+      "log": ".scratch/device-evidence/api-29/received-storage-failure-ui.txt",
+      "sha256": "b527a044b3e18aefcbc84e9864e460968d2cf84fbe8779a72f0c6821bb5851cc"
+    },
+    {
+      "group": "received-storage-motion",
+      "class": "ReceivedFilesMotionTest",
+      "methods": [
+        "nativeRemovalRespondsAtActualNormalAndZeroWindowMotion"
+      ],
+      "log": ".scratch/device-evidence/api-29/received-storage-motion-ui.txt",
+      "sha256": "63c414839e0135b327ab275a12c269ed629f43ab01ee5d63a56f11d0fed25308"
+    },
+    {
+      "group": "received-storage-viewport-320",
+      "class": "ReceivedFilesViewportTest",
+      "methods": [
+        "compactStorageStaysReachableAtLargeText"
+      ],
+      "log": ".scratch/device-evidence/api-29/received-storage-viewport-320-ui.txt",
+      "sha256": "731e02bc989271e5829cb3c32d8caea64855cad92dfbab17193508e3f01faa92"
+    },
+    {
+      "group": "received-storage-viewport-412",
+      "class": "ReceivedFilesPixelViewportTest",
+      "methods": [
+        "pixelStorageStaysReachableAtLargeText"
+      ],
+      "log": ".scratch/device-evidence/api-29/received-storage-viewport-412-ui.txt",
+      "sha256": "274a905dd2bbb219116566e867a53c5c151ede8a721eb2ee16d4d55569e3a0da"
+    },
+    {
+      "group": "file-menu",
+      "class": "FileshareAttachmentAvailabilityTest",
+      "methods": [
+        "initialLoadingExplainsOnlyTheFileRestrictionAndReadyOpensTheRealPickerOnce"
+      ],
+      "log": ".scratch/device-evidence/api-29/file-menu-ui.txt",
+      "sha256": "09a09ca815084d495a42018fe19fd786e7e8000d7a81213e9643c8a32319366a"
+    },
+    {
+      "group": "file-menu-busy",
+      "class": "FileshareAttachmentBusyTest",
+      "methods": [
+        "anAcceptedTransferExplainsTheFileRestrictionWithoutBlockingTheWriter",
+        "streamingPreparationExplainsTheFileRestrictionWhileOtherMediaStayEnabled"
+      ],
+      "log": ".scratch/device-evidence/api-29/file-menu-busy-ui.txt",
+      "sha256": "9f577f5e15b21920d7ae10375a855b372f8c491417adec72b35a493f24de9e98"
+    },
+    {
+      "group": "fileshare-send",
+      "class": "FileshareSendPreviewTest",
+      "methods": [
+        "aNativeFileReachesThePinnedBrowserWhileTheActivityIsHiddenAndTheScreenIsOff"
+      ],
+      "log": ".scratch/device-evidence/api-29/fileshare-send-ui.txt",
+      "sha256": "feab59d3467aa85f4b03c96a67a3da050d92a9ea225d2554283e9f7b3f78d1ee"
+    },
+    {
+      "group": "fileshare-receive",
+      "class": "FileshareReceivePreviewTest",
+      "methods": [
+        "acceptingBehindHeldSignallingRetainsForegroundControlsWhileScreenOff",
+        "actualPendingNotificationCancelStopsTheExactAcceptanceBeforeAnyGrant",
+        "anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes"
+      ],
+      "log": ".scratch/device-evidence/api-29/fileshare-receive-ui.txt",
+      "sha256": "8cc27e331357a44c67c22f931d75ec0030c2193957db1c1acc19c94e6f797103"
+    },
+    {
+      "group": "fileshare-cancel",
+      "class": "FileshareCancelPreviewTest",
+      "methods": [
+        "theActualNotificationCancelStopsTheSpecificTransferWithoutClaimingCompletion"
+      ],
+      "log": ".scratch/device-evidence/api-29/fileshare-cancel-ui.txt",
+      "sha256": "5261b11f5f7f2ab0222818736ce465fd34dae81c709e777df28360ad3b504bb9"
+    },
+    {
+      "group": "fileshare-unknown-size",
+      "class": "FileshareUnknownSizePreviewTest",
+      "methods": [
+        "anUnknownLengthDocumentIsPreparedAndDeliversTheExactBytes"
+      ],
+      "log": ".scratch/device-evidence/api-29/fileshare-unknown-size-ui.txt",
+      "sha256": "df07cf0310100f7c9aa93db3cdcfa22933670bede436ca54230cf93b8b386419"
+    },
+    {
+      "group": "fileshare-notifications",
+      "class": "FileshareNotificationPreviewTest",
+      "methods": [
+        "disabledNotificationsExplainTheNeededControlsWithoutStartingATransferOrLosingTheDraft"
+      ],
+      "log": ".scratch/device-evidence/api-29/fileshare-notifications-ui.txt",
+      "sha256": "1eb8ef02d63a0c301ee8ae19a4c5da3837b34b8f51c39b7aceaf9c6270fd51d8"
+    },
+    {
+      "group": "fileshare-preparation-cancel",
+      "class": "FilesharePreparationCancelPreviewTest",
+      "methods": [
+        "cancellationDuringStreamingPreparationCannotRestartWorkAndStopsTheForegroundService"
+      ],
+      "log": ".scratch/device-evidence/api-29/fileshare-preparation-cancel-ui.txt",
+      "sha256": "ca803d33900af2daf445a60fccbcde045cefe0b10c9b042165c799c48c156b4b"
+    },
+    {
+      "group": "fileshare-viewport-320",
+      "class": "FileshareNarrowViewportTest",
+      "methods": [
+        "receivedFilesAndUnsentDraftsRemainUsableAcrossThemesAndLargeTextAt320dp"
+      ],
+      "log": ".scratch/device-evidence/api-29/fileshare-viewport-320-ui.txt",
+      "sha256": "5e50f7450f86321a1daae731abf0b0bfbbac1f487cf61682b915ecb7c2fe4003"
+    },
+    {
+      "group": "fileshare-viewport-412",
+      "class": "FilesharePixelViewportTest",
+      "methods": [
+        "receivedFilesAndUnsentDraftsRemainUsableAcrossThemesAndLargeTextAt412dp"
+      ],
+      "log": ".scratch/device-evidence/api-29/fileshare-viewport-412-ui.txt",
+      "sha256": "bd0185e298884ed92605745f911511f934a42ff0735b0a10f8e0d7dd9d7c895e"
+    },
+    {
+      "group": "fileshare-large-receive",
+      "class": "FileshareLargeReceivePreviewTest",
+      "methods": [
+        "aLargerUnpacedBrowserFileCompletesWithScreenOffAndSavesEveryByte"
+      ],
+      "log": ".scratch/device-evidence/api-29/fileshare-large-receive-ui.txt",
+      "sha256": "154dacac055d4e8c5f1758a7f6f0c053172a7ba823bd233c10e10662d57accad"
+    }
+  ],
+  "allCompleteNativeAndCaptureChecksPassed": true,
+  "inheritedNativeGoalsAndBoundsByteIdentical": true,
+  "qualifications": [
+    "Owned emulators and controlled peers/provider/filesystem unlink only.",
+    "The unlink fault adapter returns failure only for the genuine encrypted inbox remainder; business state and rendered UI are not replaced.",
+    "Actual process death is seeded partial Fileshare recovery, separate from the two normal recovery/restoration completions.",
+    "Activity recreation proves retained storage navigation and local removal history; physical OEM and live-service acceptance remain outside this scope.",
+    "Final complete application and signed beta qualification belongs to131."
+  ]
+}

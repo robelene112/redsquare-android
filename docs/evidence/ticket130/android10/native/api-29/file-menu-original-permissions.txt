@@ -1,0 +1,219 @@
+Activity Resolver Table:
+  Full MIME Types:
+      */*:
+        c784f12 nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.MainActivity filter a99df8f
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "*"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Wild MIME Types:
+      *:
+        c784f12 nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.MainActivity filter a99df8f
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "*"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Schemes:
+      http:
+        c784f12 nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.MainActivity filter 3f2ce25
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "https"
+          Scheme: "http"
+          Authority: "saito.io": -1
+          Authority: "saito.davidengelen.nl": -1
+          Path: "PatternMatcher{LITERAL: /store}"
+          Path: "PatternMatcher{PREFIX: /store/}"
+      https:
+        c784f12 nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.MainActivity filter d3bf21c
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "https"
+          Authority: "saito.io": -1
+          Authority: "saito.davidengelen.nl": -1
+          Path: "PatternMatcher{LITERAL: /videocall}"
+          Path: "PatternMatcher{LITERAL: /videocall/}"
+        c784f12 nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.MainActivity filter 3f2ce25
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "https"
+          Scheme: "http"
+          Authority: "saito.io": -1
+          Authority: "saito.davidengelen.nl": -1
+          Path: "PatternMatcher{LITERAL: /store}"
+          Path: "PatternMatcher{PREFIX: /store/}"
+
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        c784f12 nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.MainActivity filter bbc1eee
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+
+  MIME Typed Actions:
+      android.intent.action.SEND:
+        c784f12 nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.MainActivity filter a99df8f
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "*"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        13d56e3 nl.davidengelen.redsquare.dev/androidx.profileinstaller.ProfileInstallReceiver filter 4243187
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        13d56e3 nl.davidengelen.redsquare.dev/androidx.profileinstaller.ProfileInstallReceiver filter 8a727a1
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      com.google.android.c2dm.intent.RECEIVE:
+        e2958e0 nl.davidengelen.redsquare.dev/com.google.firebase.iid.FirebaseInstanceIdReceiver filter ecf3bfa
+          Action: "com.google.android.c2dm.intent.RECEIVE"
+      androidx.profileinstaller.action.SKIP_FILE:
+        13d56e3 nl.davidengelen.redsquare.dev/androidx.profileinstaller.ProfileInstallReceiver filter 4c51dc6
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        13d56e3 nl.davidengelen.redsquare.dev/androidx.profileinstaller.ProfileInstallReceiver filter fea68b4
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+      android.intent.action.BOOT_COMPLETED:
+        def4799 nl.davidengelen.redsquare.dev/androidx.work.impl.background.systemalarm.RescheduleReceiver filter fdee5ab
+          Action: "android.intent.action.BOOT_COMPLETED"
+      androidx.work.diagnostics.REQUEST_DIAGNOSTICS:
+        84a5e nl.davidengelen.redsquare.dev/androidx.work.impl.diagnostics.DiagnosticsReceiver filter 9241408
+          Action: "androidx.work.diagnostics.REQUEST_DIAGNOSTICS"
+
+Service Resolver Table:
+  Non-Data Actions:
+      com.google.firebase.MESSAGING_EVENT:
+        ce47e3f nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.notifications.RedSquareMessagingService filter 1ed9cdd
+          Action: "com.google.firebase.MESSAGING_EVENT"
+        f7b230c nl.davidengelen.redsquare.dev/com.google.firebase.messaging.FirebaseMessagingService filter 7e55052
+          Action: "com.google.firebase.MESSAGING_EVENT"
+          mPriority=-500, mOrder=0, mHasPartialTypes=false
+
+Permissions:
+  Permission [nl.davidengelen.redsquare.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (363c455):
+    sourcePackage=nl.davidengelen.redsquare.dev
+    uid=10116 gids=null type=0 prot=signature
+    perm=Permission{60aae6a nl.davidengelen.redsquare.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    packageSetting=PackageSetting{3acbf5b nl.davidengelen.redsquare.dev/10116}
+
+Registered ContentProviders:
+  nl.davidengelen.redsquare.dev/androidx.startup.InitializationProvider:
+    Provider{e3d63f8 nl.davidengelen.redsquare.dev/androidx.startup.InitializationProvider}
+
+ContentProvider Authorities:
+  [nl.davidengelen.redsquare.dev.androidx-startup]:
+    Provider{e3d63f8 nl.davidengelen.redsquare.dev/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{e6950d1 nl.davidengelen.redsquare.dev}
+
+Key Set Manager:
+  [nl.davidengelen.redsquare.dev]
+      Signing KeySets: 6
+
+Packages:
+  Package [nl.davidengelen.redsquare.dev] (3acbf5b):
+    userId=10116
+    pkg=Package{c1d4736 nl.davidengelen.redsquare.dev}
+    codePath=/data/app/nl.davidengelen.redsquare.dev-I_HFqTESi7hJLJn6D59kjQ==
+    resourcePath=/data/app/nl.davidengelen.redsquare.dev-I_HFqTESi7hJLJn6D59kjQ==
+    legacyNativeLibraryDir=/data/app/nl.davidengelen.redsquare.dev-I_HFqTESi7hJLJn6D59kjQ==/lib
+    primaryCpuAbi=x86_64
+    secondaryCpuAbi=null
+    versionCode=1 minSdk=29 targetSdk=36
+    versionName=0.1.0
+    splits=[base]
+    apkSigningVersion=2
+    applicationInfo=ApplicationInfo{e6950d1 nl.davidengelen.redsquare.dev}
+    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE HAS_DOMAIN_URLS PARTIALLY_DIRECT_BOOT_AWARE ]
+    dataDir=/data/user/0/nl.davidengelen.redsquare.dev
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      androidx.window.extensions
+      androidx.window.sidecar
+    timeStamp=2026-11-16 12:43:11
+    firstInstallTime=2026-11-16 12:43:12
+    lastUpdateTime=2026-11-16 12:43:12
+    signatures=PackageSignatures{dedf637 version:2, signatures:[e41076b7], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    declared permissions:
+      nl.davidengelen.redsquare.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+    requested permissions:
+      android.permission.INTERNET
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.USE_BIOMETRIC
+      android.permission.POST_NOTIFICATIONS
+      android.permission.FOREGROUND_SERVICE
+      android.permission.FOREGROUND_SERVICE_DATA_SYNC
+      android.permission.WAKE_LOCK
+      android.permission.RECORD_AUDIO
+      android.permission.CAMERA
+      android.permission.MODIFY_AUDIO_SETTINGS
+      android.permission.BLUETOOTH_CONNECT
+      android.permission.FOREGROUND_SERVICE_MICROPHONE
+      android.permission.FOREGROUND_SERVICE_CAMERA
+      com.google.android.c2dm.permission.RECEIVE
+      android.permission.RECEIVE_BOOT_COMPLETED
+      nl.davidengelen.redsquare.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    install permissions:
+      android.permission.MODIFY_AUDIO_SETTINGS: granted=true
+      nl.davidengelen.redsquare.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      android.permission.INTERNET: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.USE_BIOMETRIC: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=123423 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3003]
+      runtime permissions:
+        android.permission.CAMERA: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.RECORD_AUDIO: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+
+Package Changes:
+  Sequence number=30
+  User 0:
+    seq=0, package=com.android.permissioncontroller
+    seq=1, package=com.android.systemui
+    seq=3, package=com.android.sdksetup
+    seq=4, package=com.android.provision
+    seq=9, package=com.android.messaging
+    seq=10, package=com.android.settings
+    seq=11, package=com.android.calendar
+    seq=12, package=com.android.camera2
+    seq=21, package=com.android.email
+    seq=22, package=nl.davidengelen.redsquare.dev
+    seq=23, package=com.android.gallery3d
+    seq=24, package=com.android.inputmethod.latin
+    seq=25, package=com.android.nfc
+    seq=26, package=nl.davidengelen.redsquare.dev.test
+    seq=28, package=com.android.traceur
+    seq=29, package=com.android.stk
+
+
+Dexopt state:
+  [nl.davidengelen.redsquare.dev]
+    path: /data/app/nl.davidengelen.redsquare.dev-I_HFqTESi7hJLJn6D59kjQ==/base.apk
+      x86_64: [status=verify] [reason=boot]
+
+
+Compiler stats:
+  [nl.davidengelen.redsquare.dev]
+     base.apk - 10282
+
+Active APEX packages:
+
+
+Inactive APEX packages:
+
+
+Factory APEX packages:
+
+
+  APEX session state:

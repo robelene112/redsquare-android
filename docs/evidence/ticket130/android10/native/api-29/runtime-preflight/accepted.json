@@ -1,0 +1,30 @@
+{
+  "result": "PASS",
+  "attempt": 1,
+  "maxAttempts": 3,
+  "observation": {
+    "package": "nl.davidengelen.redsquare.dev",
+    "sdk": 29,
+    "hardware": "ranchu",
+    "pid": 3461,
+    "parentPid": 1664,
+    "is64Bit": true,
+    "applicationFlags": 686308934,
+    "actualBytes": 536870912,
+    "declaredBytes": 536870912
+  },
+  "configurationSha256": {
+    "avd-config.ini": "79593541dcb6d294b3650b4e381a10d28d40e14caca9897ef5ae9cf05e9c51be",
+    "emulator-capacity.txt": "e3bc0f153844241b99bea4935b0140c43e5f46640d788cf46060ae2b20af4a97",
+    "system-image.txt": "8eaa79caa90322aec00875daaf69496d19a756b20360b71c1b0bd134cf62e30d",
+    "system-image.properties": "9db370b96467c9a94a68843aeb1a699bec44d4d05ef52a6774d8f6174418a847",
+    "system-build.txt": "6ae65e4e6a95d74db8a522b1941f25805a3cfd4c5828470d6f5ea1afd1c0a003",
+    "device-abi.txt": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62",
+    "page-size.txt": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91",
+    "requested-page-size.txt": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+  },
+  "emulatorStartupSha256": "196b19bcd95d4b1e94aeadfce1dead39b0e9078336f9e5db7d6aa86c80d54096",
+  "probeSha256": "47a02ef141346b11e4b3f5687945b51be670fba151f4ed76afc6771940d64e2c",
+  "elapsedMillis": 1958,
+  "qualification": "One separate provisioning JUnit observation before acceptance tests, retained in.log outside their counts; unchanged heap settings, no service restart or application-assertion retry."
+}

@@ -1,0 +1,29 @@
+{
+  "phase": "recovered",
+  "pid": 21821,
+  "backend": "owner",
+  "originalWalletDigest": "65a1947d7eab534eea48f33fc47df6222a5459caec111645aa3fb143a633f390",
+  "walletDigest": "1fa5e7145b9c05dba51fdb1a592edecd31a1493465c56ecb0ffc0ba2d2f90cd3",
+  "savedFiles": [
+    "wallet.v1"
+  ],
+  "preferences": [
+    {
+      "name": "name-directory",
+      "key": "enabled"
+    },
+    {
+      "name": "notification-permission",
+      "key": "offered"
+    },
+    {
+      "name": "notification-permission",
+      "key": "social-offered:pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+    },
+    {
+      "name": "wallet-backup-reminders",
+      "key": "hidden:pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+    }
+  ],
+  "recoveredPid": 21946
+}

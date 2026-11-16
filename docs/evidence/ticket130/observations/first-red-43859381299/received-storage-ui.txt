@@ -1,0 +1,71 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FileshareStorageManagementTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FileshareStorageManagementTest:
+INSTRUMENTATION_STATUS: test=aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FileshareStorageManagementTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Existing drafts require recovery
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save(EncryptedLocalFile.kt:70)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save$default(EncryptedLocalFile.kt:62)
+	at nl.davidengelen.redsquare.fileshare.FileTransferStore.save(FileTransferStore.kt:76)
+	at nl.davidengelen.redsquare.FileshareStorageManagementTest.aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart$lambda$12(FileshareStorageManagementTest.kt:48)
+	at nl.davidengelen.redsquare.FileshareStorageManagementTest.$r8$lambda$BRVu8ljKEyDE0SG3ZogPKAehpAU(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareStorageManagementTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FileshareStorageManagementTest.aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart(FileshareStorageManagementTest.kt:41)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart(nl.davidengelen.redsquare.FileshareStorageManagementTest):
+java.lang.IllegalArgumentException: Existing drafts require recovery
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save(EncryptedLocalFile.kt:70)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save$default(EncryptedLocalFile.kt:62)
+	at nl.davidengelen.redsquare.fileshare.FileTransferStore.save(FileTransferStore.kt:76)
+	at nl.davidengelen.redsquare.FileshareStorageManagementTest.aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart$lambda$12(FileshareStorageManagementTest.kt:48)
+	at nl.davidengelen.redsquare.FileshareStorageManagementTest.$r8$lambda$BRVu8ljKEyDE0SG3ZogPKAehpAU(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareStorageManagementTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FileshareStorageManagementTest.aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart(FileshareStorageManagementTest.kt:41)
+
+INSTRUMENTATION_STATUS: test=aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 2.544
+There was 1 failure:
+1) aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart(nl.davidengelen.redsquare.FileshareStorageManagementTest)
+java.lang.IllegalArgumentException: Existing drafts require recovery
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save(EncryptedLocalFile.kt:70)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save$default(EncryptedLocalFile.kt:62)
+	at nl.davidengelen.redsquare.fileshare.FileTransferStore.save(FileTransferStore.kt:76)
+	at nl.davidengelen.redsquare.FileshareStorageManagementTest.aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart$lambda$12(FileshareStorageManagementTest.kt:48)
+	at nl.davidengelen.redsquare.FileshareStorageManagementTest.$r8$lambda$BRVu8ljKEyDE0SG3ZogPKAehpAU(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareStorageManagementTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FileshareStorageManagementTest.aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart(FileshareStorageManagementTest.kt:41)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

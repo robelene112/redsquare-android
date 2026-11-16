@@ -1,0 +1,25 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.RuntimeHeapProbe
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.RuntimeHeapProbe:
+INSTRUMENTATION_STATUS: test=observesActualTargetProcessHeap
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: heapProbe={"package":"nl.davidengelen.redsquare.dev","sdk":29,"hardware":"ranchu","pid":3461,"parentPid":1664,"is64Bit":true,"applicationFlags":686308934,"actualBytes":536870912,"declaredBytes":536870912}
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.RuntimeHeapProbe
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=observesActualTargetProcessHeap
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 0.034
+
+OK (1 test)
+
+
+INSTRUMENTATION_CODE: -1

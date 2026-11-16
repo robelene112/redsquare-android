@@ -1,0 +1,164 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReceivedFilesViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ReceivedFilesViewportTest:
+INSTRUMENTATION_STATUS: test=compactStorageStaysReachableAtLargeText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReceivedFilesViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: performScrollToNode(Text + InputText + EditableText contains 'Retained document 1.txt' (ignoreCase: false))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (ScrollToIndex is defined)
+Nodes found:
+1) Node #302 at (l=18.0, t=312.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+CustomActions = '[CustomAccessibilityAction(label=Refresh, action=nl.davidengelen.redsquare.ui.RefreshActionKt$$ExternalSyntheticLambda0@e4ddfe4)]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@fb7fc4d'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 siblings
+2) Node #579 at (l=18.0, t=96.0, r=302.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=41, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@fb7fc4d'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=100.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 children, 2 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.verifyReceivedFilesViewports$lambda$8$lambda$7(ReceivedFilesViewportTest.kt:53)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.$r8$lambda$q0mX9OvzX8CJW7pIWT4w8Wk_gmY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.verifyReceivedFilesViewports$lambda$8(ReceivedFilesViewportTest.kt:45)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.$r8$lambda$vJf5m77A1m_06KFA1P7Blnn7Elw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.verifyReceivedFilesViewports(ReceivedFilesViewportTest.kt:35)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.access$verifyReceivedFilesViewports(ReceivedFilesViewportTest.kt:1)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTest.compactStorageStaysReachableAtLargeText(ReceivedFilesViewportTest.kt:18)
+
+INSTRUMENTATION_STATUS: stream=
+Error in compactStorageStaysReachableAtLargeText(nl.davidengelen.redsquare.ReceivedFilesViewportTest):
+java.lang.AssertionError: Failed: performScrollToNode(Text + InputText + EditableText contains 'Retained document 1.txt' (ignoreCase: false))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (ScrollToIndex is defined)
+Nodes found:
+1) Node #302 at (l=18.0, t=312.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+CustomActions = '[CustomAccessibilityAction(label=Refresh, action=nl.davidengelen.redsquare.ui.RefreshActionKt$$ExternalSyntheticLambda0@e4ddfe4)]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@fb7fc4d'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 siblings
+2) Node #579 at (l=18.0, t=96.0, r=302.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=41, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@fb7fc4d'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=100.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 children, 2 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.verifyReceivedFilesViewports$lambda$8$lambda$7(ReceivedFilesViewportTest.kt:53)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.$r8$lambda$q0mX9OvzX8CJW7pIWT4w8Wk_gmY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.verifyReceivedFilesViewports$lambda$8(ReceivedFilesViewportTest.kt:45)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.$r8$lambda$vJf5m77A1m_06KFA1P7Blnn7Elw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.verifyReceivedFilesViewports(ReceivedFilesViewportTest.kt:35)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.access$verifyReceivedFilesViewports(ReceivedFilesViewportTest.kt:1)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTest.compactStorageStaysReachableAtLargeText(ReceivedFilesViewportTest.kt:18)
+
+INSTRUMENTATION_STATUS: test=compactStorageStaysReachableAtLargeText
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.559
+There was 1 failure:
+1) compactStorageStaysReachableAtLargeText(nl.davidengelen.redsquare.ReceivedFilesViewportTest)
+java.lang.AssertionError: Failed: performScrollToNode(Text + InputText + EditableText contains 'Retained document 1.txt' (ignoreCase: false))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (ScrollToIndex is defined)
+Nodes found:
+1) Node #302 at (l=18.0, t=312.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+CustomActions = '[CustomAccessibilityAction(label=Refresh, action=nl.davidengelen.redsquare.ui.RefreshActionKt$$ExternalSyntheticLambda0@e4ddfe4)]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@fb7fc4d'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 siblings
+2) Node #579 at (l=18.0, t=96.0, r=302.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=41, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@fb7fc4d'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=100.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 children, 2 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.verifyReceivedFilesViewports$lambda$8$lambda$7(ReceivedFilesViewportTest.kt:53)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.$r8$lambda$q0mX9OvzX8CJW7pIWT4w8Wk_gmY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.verifyReceivedFilesViewports$lambda$8(ReceivedFilesViewportTest.kt:45)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.$r8$lambda$vJf5m77A1m_06KFA1P7Blnn7Elw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.verifyReceivedFilesViewports(ReceivedFilesViewportTest.kt:35)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTestKt.access$verifyReceivedFilesViewports(ReceivedFilesViewportTest.kt:1)
+	at nl.davidengelen.redsquare.ReceivedFilesViewportTest.compactStorageStaysReachableAtLargeText(ReceivedFilesViewportTest.kt:18)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

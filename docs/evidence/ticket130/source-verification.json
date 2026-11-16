@@ -1,0 +1,19 @@
+{
+  "run": 43868274993,
+  "source": "1e5066800bf5a48eb72693266fd9d9d170d525c1",
+  "core": {
+    "tests": 224,
+    "classes": 44,
+    "failures": 0,
+    "ignored": 0,
+    "execution": "FROM-CACHE"
+  },
+  "pushGatewayExecution": "FROM-CACHE",
+  "lintDebug": {
+    "errors": 0,
+    "warnings": 95,
+    "hints": 3
+  },
+  "actualDebugAndAndroidTestAssemblies": true,
+  "qualification": "Source/debug verification only. Execution/cache states are explicit. Current-source native, release and whole-app acceptance remain separate."
+}
