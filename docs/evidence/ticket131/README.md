@@ -14,9 +14,10 @@ update passes remain intermediate and must never be promoted.
 
 The current source freezes `source-profile-vault-export.json` and
 `verify-full-vault-export.py` before fresh whole-app execution. Both independent
-source/profile reviews pass with zero findings. Android17 full run43922010955
-requires all three original partitions and public reads. Android10 full and
-actual signed131-to137 update acceptance remain pending.
+source/profile reviews pass with zero findings. Android17 full run43922010955 and Android10 full run43925173800
+require all three original partitions and public reads. Both complete primaries
+remain pending. Actual signed131-to137 runs43923164655/43923170701 pass, with both
+independent source/binary/evidence reviews accepted as update-only.
 
 The earlier136 primaries43908922875/43908922433 were canceled after the10 Wallet
 measurement failure and the later export recovery correction. Both136 signed
@@ -134,7 +135,9 @@ not a physical-device performance claim. Android10 original43919788137 remained
 jobless queued; cancellation was rejected as completed while fresh metadata still
 said queued. Force-cancel then returned409 not queued. Those contradictions are
 retained. Alternate-pool run43921793430 uses
-frozen f027 with identical product trees; it remains pending.
+frozen f027 with identical product trees. It passes the same12 methods/six groups,
+including immediate usable recovery controls and20 balanced Main merges in2930ms,
+with zero cryptography under merge. Both independent focused10 reviews pass.
 
 ## Intermediate signed updates and boundaries
 
@@ -150,7 +153,11 @@ Both signed131-to135 updates also pass independent source/update review in their
 separate packets, but remain superseded. The136 signed updates also pass independent review but are superseded. None of
 these results accepts137 or the current whole app. Candidate137 uses a newly
 compiled same-source observer.
-Public delivery still requires the exact staged notes, bytes, package and certificate.
+[Current137 Android10](update137-android10/summary.json) and
+[Android17](update137-android17/summary.json) updates pass both independent axes.
+Exact candidate/observer bytes, package/cert, native in-place update/coldlaunch and
+local-work isolation agree. Whole-app acceptance remains separate. Public delivery
+still requires the exact staged notes, bytes, package and certificate.
 
 Physical/OEM, actual provider/node/schema/funding and Google Play gates stay open
 under #1/#36/#55/#84/#86/#105 and OWNER_INPUTS. Source-only Vault rental restoration

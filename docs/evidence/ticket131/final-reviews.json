@@ -83,6 +83,36 @@
       "mainMergeSpans": 20,
       "cryptoUnderMerge": 0
     },
-    "qualification": "Original recovery tests and benchmark15second20refresh/method-trace goals unchanged. Standard waitForIdle before measurement. Earlier failed parents retained; no host-only or physical-performance claim. Focus10/completeSDKs/signed137/publicdelivery pending."
+    "qualification": "Original recovery tests and benchmark15second20refresh/method-trace goals unchanged. Standard waitForIdle before measurement. Earlier failed parents retained; no host-only or physical-performance claim. Both corrected focusedSDKs accepted. CompleteSDKs/signed137/publicdelivery pending.",
+    "focusedAndroid10": {
+      "run": 43921793430,
+      "spec": "PASS_FOCUSED_ANDROID10",
+      "standards": "PASS_FOCUSED_ANDROID10",
+      "normalMethods": 12,
+      "nativeGroups": 6,
+      "refreshes": 20,
+      "elapsedMillis": 2930,
+      "mainMergeSpans": 20,
+      "cryptoUnderMerge": 0
+    }
+  },
+  "signedUpdate137": {
+    "source": "f0272926f326029040fb041b78afdd11159d2606",
+    "runs": [
+      43923164655,
+      43923170701
+    ],
+    "spec": {
+      "reviewer": "/root/integrated131_spec_final",
+      "result": "PASS_UPDATE_ONLY",
+      "findings": 0
+    },
+    "standards": {
+      "reviewer": "/root/integrated131_standards_final",
+      "result": "PASS_UPDATE_ONLY",
+      "findings": 0
+    },
+    "observations": "Both successful exact-source runs/server ZIP digests,205original ZIP files,62rawfiles/46native TAR members and20PNG/20XML validated and packet-byte-exact. Actual94265888byte candidate SHA/version/package/cert and fresh same-source observer SHA/cert verified;125nonmanifest/nonsignature observer entries equal freshAndroidTest. Actual signed131-to137 update/coldlaunch preserve wallet/node/draft/offlinecache/Light/debugUIDidentityisolation, all10encryptedrecords/exactlegacyFilesharepayload/history, pendingVaultStoreplan/draft/export. Independentrestoration has nofailures; guardedunsafe fixtures make no submissions.",
+    "qualification": "Signed update only. Both complete current-source SDK primaries and public-delivery acceptance remain pending. Candidate137 staged only; public latest131. No physical/OEM/live provider/node/schema/funding/Play acceptance."
   }
 }
