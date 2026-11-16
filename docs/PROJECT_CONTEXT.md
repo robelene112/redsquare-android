@@ -7,9 +7,9 @@ records twelve review defects and the owner-approved manual Fileshare retention
 controls. The approved children #118–#130 each deliver one behavior; final
 integration and beta ticket #131 is natively blocked by all thirteen.
 The owner requested implementation on 2026-11-15. Work stays sequential.
-#118–#125 and the reopened121 navigation follow-up are complete with relevant
+#118–#126 and the reopened121 navigation follow-up are complete with relevant
 Android10/17 scopes and independent source/evidence reviews. See the
-[latest bounded-photo packet](evidence/ticket125/README.md). Continue #126–#130
+[latest Following recovery packet](evidence/ticket126/README.md). Continue #127–#130
 sequentially, then final #131, without another approval. Ordinary development QA
 remains agent-owned.
 Public beta remains 0.1.131. Planning/implementation does not activate Vault or

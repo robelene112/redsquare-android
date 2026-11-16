@@ -1,0 +1,58 @@
+{
+  "source": "af3b0929e5255fcbc43c3a1834d09457ab7c4d17",
+  "run": 43820713096,
+  "normalMethods": 14,
+  "groups": [
+    {
+      "group": "following-partial",
+      "class": "FollowingPartialFailureTest",
+      "methods": [
+        "eitherFailureOrderingKeepsHealthyAndCachedPostsAndRetriesWithoutFalseRefreshSuccess"
+      ],
+      "nativeLogSha256": "dffa37eca3fc216f7c30b6ce9934612b505181117afbd69b9208250b5e5a3aff"
+    },
+    {
+      "group": "following",
+      "class": "FollowingPreviewTest",
+      "methods": [
+        "changingWalletKeepsFollowChoicesWithTheirOriginalIdentity",
+        "failedFollowSaveKeepsTheActionUnconfirmedAndAllowsRetry",
+        "followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts",
+        "followingChoicesSurviveBackendSwitchAndOfflineRestartWithSeparateHistory",
+        "followingLoadsAuthorHistoryBeyondTheGeneralPageAndRejectsOtherSigners",
+        "newerUnrelatedGeneralCacheCannotHideAvailableFollowedAuthorPosts",
+        "restoredFollowChoiceStorageCanBeRetriedWithoutRestarting",
+        "validFollowedAuthorResultsRemainAvailableWhenAnotherAuthorFails"
+      ],
+      "nativeLogSha256": "c25daaf8b1310c77b717533fc6e98d1b37a47650fdbbd3d53d9a7546b6e6628c"
+    },
+    {
+      "group": "following-photo-continuation",
+      "class": "PhotoArchiveContinuationTest",
+      "methods": [
+        "followingKeepsItsCachedAnchorAcrossMalformedSparseAndDuplicateTimestampRows"
+      ],
+      "nativeLogSha256": "141cad5133b104d7911fe672bc509e626599a3dd4499eee8639007a9c39b5579"
+    },
+    {
+      "group": "following-read-deadline",
+      "class": "ReadDeadlineRecoveryTest",
+      "methods": [
+        "cachedFeedStaysReadableDuringDeadlineAndPollingRecoversWithoutNavigation",
+        "firstFeedReadDeadlineShowsRetryAndPollingRecoversWithoutNavigation"
+      ],
+      "nativeLogSha256": "1511c6fb764140ec0b316f30b9e3de3138277e01a86a8d1c06ad59b645209a24"
+    },
+    {
+      "group": "following-read-cancellation",
+      "class": "ReadCancellationTest",
+      "methods": [
+        "callerCancellationDoesNotCommitTheLateArchiveReply",
+        "enclosingDeadlineDoesNotBecomeARecoverablePeerFailure"
+      ],
+      "nativeLogSha256": "92840967838f463043f9239685299c06722308d1c99668bf9d9cbba54eeff06b"
+    }
+  ],
+  "bothFailureOrderingsAndOriginalGoalsPassed": true,
+  "qualification": "Qualified with the reviewed queued-callback counting erratum; original numeric limits and reading assertions preserved"
+}

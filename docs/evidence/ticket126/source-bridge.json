@@ -1,0 +1,15 @@
+{
+  "from": "aa59eb9ed93df50694c686c8bb77349422fcbb5c",
+  "to": "0b88d268a06e687feac78aa6b461000bd93ab1d5",
+  "onlyDifferingPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/FollowingPartialFailureTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/FollowingPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PhotoPagesPreviewTest.kt"
+  ],
+  "productCoreResourcesBuildHarnessAndControlledPeerByteIdentical": true,
+  "qualification": "Reviewed queued-callback counting erratum and AndroidTest readiness/partial-label corrections",
+  "nativeThresholdsDeadlinesAndReadingAssertionsPreserved": true,
+  "observationPopulationChangedFromConstructedToQueuedCallbacks": true,
+  "android17Source": "af3b0929e5255fcbc43c3a1834d09457ab7c4d17",
+  "android17RequiresIndependentQueuedCallbackRecount": true
+}

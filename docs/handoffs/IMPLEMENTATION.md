@@ -10,7 +10,7 @@ Keep one implementation ticket active at a time; independent code-review agents
 remain permitted. Ordinary native/emulator QA is agent-owned. No production node/
 provider activation or public financial write is authorized.
 
-Current next ticket: #126 (keep Following progress when the first author fails).
+Current next ticket: #127 (consume Talk launch routes once).
 
 The reopened121navigation follow-up is complete atadcc1e9ca804372cd7b6a11c276168d106fcc328,
 with both independent axes reporting zero source/native findings. See
@@ -87,7 +87,25 @@ parents remain excluded, including the qualified stale-selection and slow fixtur
 observations; earlier duplicate-start and54px failure causes remain unproved.
 Originals: `/mnt/storage/redsquare-android-artifacts/photo-pages125`.
 
-Continue126–130 sequentially, then final131, without another approval. Public beta
+#126 is complete: product/source/lint at
+`aa59eb9ed93df50694c686c8bb77349422fcbb5c`, Android10 native at
+`0b88d268a06e687feac78aa6b461000bd93ab1d5`, Android17 native at
+`af3b0929e5255fcbc43c3a1834d09457ab7c4d17`. See
+[the packet](../evidence/ticket126/README.md). Whole native parents43821550823/
+43820713096 complete14 normal methods/five groups each, including both sorted-author
+failure orderings, all eight original Following methods, photo continuation,
+deadline and cancellation goals. Both independent axes accept all236 original ZIP
+files/86 TAR files and123 indexed packet copies. The explicit queued-callback
+counting erratum retains constructed payload counts separately, preserves numeric
+bounds and recomputes Android17's original trace; do not call it an unchanged
+old-counter pass. The three-AndroidTest source bridge preserves product/core/build/
+harness and explicitly updates one approved partial-error label and readiness.
+Source43819331801 actually executes224 core tests/44 classes with zero failures/
+ignored, gateway FROM-CACHE; lint0 errors/95 warnings/3 hints. All five failed/
+cancelled parents remain excluded. Originals:
+`/mnt/storage/redsquare-android-artifacts/following-resilience126`.
+
+Continue127–130 sequentially, then final131, without another approval. Public beta
 remains0.1.131 until final combined qualification and signed delivery. No production
 node/provider change or public financial write is authorized. Preserve the
 canonical dirty checkout.
