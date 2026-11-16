@@ -55,6 +55,141 @@ class SharedNodeConnectionTest {
         } finally { release.countDown() }
     }
 
+    @Test fun queuedIncomingMessagesStayInOrderWhileAnotherFeatureReads() = runBlocking {
+        val entered = java.util.concurrent.CountDownLatch(1)
+        val release = java.util.concurrent.CountDownLatch(1)
+        val retained = java.util.concurrent.CopyOnWriteArrayList<String>()
+        try {
+            Node().use { node ->
+                SaitoPeer(wallet, node.endpoint, { bytes ->
+                    val body = bytes.decodeToString()
+                    if (body == "first") {
+                        entered.countDown()
+                        check(release.await(15, java.util.concurrent.TimeUnit.SECONDS))
+                    }
+                    retained.add(body)
+                    true
+                }).use { receiver ->
+                    receiver.request("ready".toByteArray())
+                    node.deliver(wallet.publicKey, "first", 8811)
+                    assertTrue(withContext(Dispatchers.IO) { entered.await(5, java.util.concurrent.TimeUnit.SECONDS) })
+                    node.deliver(wallet.publicKey, "second", 8812)
+                    try {
+                        SaitoPeer(wallet, node.endpoint).use { reader ->
+                            // This callback is behind both incoming frames on the same real socket.
+                            assertEquals("history", withTimeout(5_000) { reader.request("history".toByteArray()).decodeToString() })
+                        }
+                        assertTrue(retained.isEmpty())
+                        assertTrue(node.acknowledgements.tryReceive().isFailure)
+                    } finally { release.countDown() }
+                    for (index in listOf(8811, 8812)) {
+                        val ack = withTimeout(5_000) { node.acknowledgements.receive() }
+                        assertEquals(13, ack[0].toInt())
+                        assertEquals(index, ByteBuffer.wrap(ack, 1, 4).int)
+                    }
+                    assertEquals(listOf("first", "second"), retained)
+                    assertTrue(node.acknowledgements.tryReceive().isFailure)
+                }
+            }
+        } finally { release.countDown() }
+    }
+
+    @Test fun retiringTheLastOwnerDiscardsQueuedDeliveryBeforeAReplacementConnects() = runBlocking {
+        val entered = java.util.concurrent.CountDownLatch(1)
+        val finished = java.util.concurrent.CountDownLatch(1)
+        val release = java.util.concurrent.CountDownLatch(1)
+        val started = java.util.concurrent.CopyOnWriteArrayList<String>()
+        try {
+            Node().use { node ->
+                SaitoPeer(wallet, node.endpoint, { bytes ->
+                    started.add(bytes.decodeToString())
+                    entered.countDown()
+                    try { check(release.await(15, java.util.concurrent.TimeUnit.SECONDS)); true }
+                    finally { finished.countDown() }
+                }).use { receiver ->
+                    receiver.request("ready".toByteArray())
+                    node.deliver(wallet.publicKey, "active", 8821)
+                    assertTrue(withContext(Dispatchers.IO) { entered.await(5, java.util.concurrent.TimeUnit.SECONDS) })
+                    node.deliver(wallet.publicKey, "queued", 8822)
+                    SaitoPeer(wallet, node.endpoint).use { reader ->
+                        assertEquals("barrier", withTimeout(5_000) { reader.request("barrier".toByteArray()).decodeToString() })
+                    }
+                    receiver.close()
+                    assertTrue(withContext(Dispatchers.IO) { finished.await(5, java.util.concurrent.TimeUnit.SECONDS) })
+                    assertEquals(listOf("active"), started)
+                    assertTrue(node.acknowledgements.tryReceive().isFailure)
+                    val fresh = java.util.concurrent.CopyOnWriteArrayList<String>()
+                    SaitoPeer(wallet, node.endpoint, { fresh.add(it.decodeToString()); true }).use { replacement ->
+                        replacement.request("ready".toByteArray())
+                        node.deliver(wallet.publicKey, "fresh", 8823)
+                        val ack = withTimeout(5_000) { node.acknowledgements.receive() }
+                        assertEquals(13, ack[0].toInt())
+                        assertEquals(8823, ByteBuffer.wrap(ack, 1, 4).int)
+                        assertEquals(listOf("fresh"), fresh)
+                        assertEquals(listOf("active"), started)
+                        assertTrue(node.acknowledgements.tryReceive().isFailure)
+                    }
+                }
+            }
+        } finally { release.countDown() }
+    }
+
+    @Test fun anIncomingBacklogRetiresWithoutAcknowledgingDiscardedWork() = runBlocking {
+        val entered = java.util.concurrent.CountDownLatch(1)
+        val finished = java.util.concurrent.CountDownLatch(1)
+        val release = java.util.concurrent.CountDownLatch(1)
+        val deliveries = java.util.concurrent.atomic.AtomicInteger()
+        try {
+            Node().use { node ->
+                SaitoPeer(wallet, node.endpoint, {
+                    deliveries.incrementAndGet(); entered.countDown()
+                    try { check(release.await(15, java.util.concurrent.TimeUnit.SECONDS)); true }
+                    finally { finished.countDown() }
+                }).use { receiver ->
+                    receiver.request("ready".toByteArray())
+                    node.deliver(wallet.publicKey, "active", 8831)
+                    assertTrue(withContext(Dispatchers.IO) { entered.await(5, java.util.concurrent.TimeUnit.SECONDS) })
+                    var queued = 0
+                    repeat(64) { if (node.tryDeliver(wallet.publicKey, "waiting-$it", 8900 + it)) queued++ }
+                    assertTrue(queued > 1)
+                    withTimeout(5_000) { receiver.awaitDisconnection() }
+                    assertTrue(withContext(Dispatchers.IO) { finished.await(5, java.util.concurrent.TimeUnit.SECONDS) })
+                    assertEquals(1, deliveries.get())
+                    assertTrue(node.acknowledgements.tryReceive().isFailure)
+                }
+            }
+        } finally { release.countDown() }
+    }
+
+    @Test fun aSecondValidLargeIncomingFrameCannotExceedTheRetainedByteBudget() = runBlocking {
+        val entered = java.util.concurrent.CountDownLatch(1)
+        val finished = java.util.concurrent.CountDownLatch(1)
+        val release = java.util.concurrent.CountDownLatch(1)
+        val deliveries = java.util.concurrent.atomic.AtomicInteger()
+        val body = "z".repeat(9 * 1024 * 1024)
+        try {
+            Node().use { node ->
+                SaitoPeer(wallet, node.endpoint, { bytes ->
+                    assertEquals(body.length, bytes.size)
+                    deliveries.incrementAndGet(); entered.countDown()
+                    try { check(release.await(15, java.util.concurrent.TimeUnit.SECONDS)); true }
+                    finally { finished.countDown() }
+                }).use { receiver ->
+                    receiver.request("ready".toByteArray())
+                    node.deliver(wallet.publicKey, body, 8841)
+                    assertTrue(withContext(Dispatchers.IO) { entered.await(5, java.util.concurrent.TimeUnit.SECONDS) })
+                    // Both frames independently fit the existing16MiB frame bound.
+                    // Only two frames are sent, so this cannot exhaust the count limit.
+                    assertTrue(node.tryDeliver(wallet.publicKey, body, 8842))
+                    withTimeout(5_000) { receiver.awaitDisconnection() }
+                    assertTrue(withContext(Dispatchers.IO) { finished.await(5, java.util.concurrent.TimeUnit.SECONDS) })
+                    assertEquals(1, deliveries.get())
+                    assertTrue(node.acknowledgements.tryReceive().isFailure)
+                }
+            }
+        } finally { release.countDown() }
+    }
+
     @Test fun aHeldRelayReplyDoesNotBlockAnIncomingAcknowledgementOnTheSharedSocket() = runBlocking {
         val entered = java.util.concurrent.CountDownLatch(1)
         val release = java.util.concurrent.CountDownLatch(1)
@@ -370,10 +505,10 @@ class SharedNodeConnectionTest {
             check(requireNotNull(peers[key]).send((byteArrayOf(13) +
                 ByteBuffer.allocate(4).putInt(index).array() + body.toByteArray()).toByteString()))
         }
-        fun deliver(key: String, body: String, index: Int) {
-            check(requireNotNull(peers[key]).send((byteArrayOf(12) + ByteBuffer.allocate(4).putInt(index).array() +
-                body.toByteArray()).toByteString()))
-        }
+        fun deliver(key: String, body: String, index: Int) { check(tryDeliver(key, body, index)) }
+        fun tryDeliver(key: String, body: String, index: Int): Boolean =
+            requireNotNull(peers[key]).send((byteArrayOf(12) + ByteBuffer.allocate(4).putInt(index).array() +
+                body.toByteArray()).toByteString())
         fun releaseReplacement() { val (key, index) = requireNotNull(replacementHeld); reply(key, index, "replacement-held") }
         fun releaseFeed() { val (key, index) = requireNotNull(held); reply(key, index, "feed") }
         fun disconnect(key: String) { check(requireNotNull(peers[key]).close(1001, "Owned test disconnect")) }

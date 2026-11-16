@@ -54,21 +54,6 @@ internal class GroupConversationFixture(private val ui: ComposeTestRule) {
             if (criteria.get("field3")?.asString == conversation) historyReads.incrementAndGet()
             "[]"
         })
-        val phases = java.util.ArrayDeque<GroupTransportPhase>()
-        var dropped = 0
-        fun phase(event: String, connection: Int = 0, lease: Int = 0, index: Int = 0, detail: String? = null) {
-            val value = GroupTransportPhase(System.nanoTime(), event, connection, lease, index, detail)
-            synchronized(phases) {
-                if (phases.size == 1024) { phases.removeFirst(); dropped++ }
-                phases.addLast(value)
-            }
-        }
-        var ownedEndpointHash: Int? = null
-        val observerFailuresBefore = SaitoPeer.phaseObserverFailures.get()
-        val previousObserver = SaitoPeer.phaseObserver
-        val observer: (String, Int, Int, Int, String?) -> Unit = ::phase
-        SaitoPeer.phaseObserver = observer
-        peer.phaseObserver = { event, connection, index -> phase(event, connection, index = index) }
         var primary: Throwable? = null
         try {
             retained.prepare()
@@ -85,12 +70,10 @@ internal class GroupConversationFixture(private val ui: ComposeTestRule) {
             originals.chunked(50).forEach { check(!cache.receiveAvailable(groupId, it)) }
             check(requireNotNull(cache.load(groupId)).messages.map { it.text } == bodies)
             peer.start().use { server ->
-                ownedEndpointHash = "ws://127.0.0.1:${server.port}/wsopen".hashCode()
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                     ui.withPostViewports(activity, folder, prefix, scales = scales) { label, _ ->
-                        phase("cell-start", detail = label)
                         val newestBeforeOpening = expectedBodies.last()
                         val chat = hasText("Chat") and hasClickAction() and isEnabled()
                         ui.waitUntil(15_000) { ui.onNode(chat).isDisplayed() }
@@ -101,16 +84,13 @@ internal class GroupConversationFixture(private val ui: ComposeTestRule) {
                         val row = hasClickAction() and isEnabled() and hasAnyDescendant(hasText(groupName))
                         ui.waitUntil(15_000) { ui.onNode(row, useUnmergedTree = true).isDisplayed() }
                         val previousReads = historyReads.get()
-                        phase("group-select", index = previousReads)
                         ui.onNode(row, useUnmergedTree = true).performClick()
                         ui.waitUntil(15_000) {
                             ui.onNodeWithText(bodies.first()).isDisplayed() || ui.onNodeWithText(newestBeforeOpening).isDisplayed()
                         }
                         val reader = NativeConversationReader(ui, folder, label, "Group messages") { expectedBodies.size }
                         reader.assertOpensAtNewest(newestBeforeOpening)
-                        phase("cached-newest-open", index = historyReads.get())
                         ui.waitUntil(15_000) { historyReads.get() > previousReads }
-                        phase("history-observed", index = historyReads.get())
                         fun deliver(body: String, timestamp: Long, requestId: Int) {
                             val transaction = GroupChat.message(contact, group, body, timestamp)
                             val bytes = transaction.applicationRequest(1).drop(5).toByteArray()
@@ -157,24 +137,9 @@ internal class GroupConversationFixture(private val ui: ComposeTestRule) {
                 check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })
                 peer.assertHealthy()
             }
-        } catch (failure: Throwable) {
-            primary = failure
-            phase("fixture-failure", detail = failure.javaClass.simpleName)
-            try { peer.assertHealthy() } catch (health: Throwable) { failure.addSuppressed(health) }
-            throw failure
-        }
+        } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
-            if (SaitoPeer.phaseObserver === observer) SaitoPeer.phaseObserver = previousObserver
-            peer.phaseObserver = null
-            cleanupAfterTest(primary, {
-                val report = synchronized(phases) { com.google.gson.JsonObject().apply {
-                    addProperty("ownedEndpointHash", ownedEndpointHash)
-                    addProperty("clientObserverFailures", SaitoPeer.phaseObserverFailures.get() - observerFailuresBefore)
-                    addProperty("serverObserverFailures", peer.phaseObserverFailures.get())
-                    addProperty("dropped", dropped); add("events", com.google.gson.Gson().toJsonTree(phases.toList()))
-                } }
-                File(folder, "$prefix-transport-phases.json").writeText(report.toString())
-            }, { retained.restoreFiles() },
+            cleanupAfterTest(primary, { retained.restoreFiles() },
                 { wallets.replace(wallets.loadOrCreate(), originalWallet) },
                 { backends.save(originalBackend) }, { retained.restorePreferences() },
                 { check(wallets.loadExisting().exportJson() == originalWallet.exportJson() && backends.load() == originalBackend) })
@@ -182,7 +147,3 @@ internal class GroupConversationFixture(private val ui: ComposeTestRule) {
     }
 
 }
-
-/** Temporary compact monotonic observation; serialized only after feature disposal. */
-private data class GroupTransportPhase(val nanoTime: Long, val event: String, val connection: Int,
-    val lease: Int, val index: Int, val detail: String?)

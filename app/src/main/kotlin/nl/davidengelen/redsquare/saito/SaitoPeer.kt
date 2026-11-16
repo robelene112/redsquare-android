@@ -22,6 +22,9 @@ import java.nio.ByteBuffer
 import java.security.SecureRandom
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.ArrayBlockingQueue
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.RejectedExecutionException
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -54,13 +57,6 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                 }
             }
         }
-    }
-
-    init { trace("lease-acquired", detail = endpoint.hashCode().toString()) }
-
-    private fun trace(phase: String, index: Int = 0, detail: String? = null) {
-        if (BuildConfig.DEBUG) try { phaseObserver?.invoke(phase, connection.id, leaseId, index, detail) }
-        catch (_: Throwable) { phaseObserverFailures.incrementAndGet() }
     }
 
     private fun requireActive() {
@@ -107,9 +103,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
 
     private suspend fun requestFrame(beforeSend: (() -> Unit)? = null, awaitRegistryCallback: Boolean = false,
         timeoutMillis: Long = 12_000, archiveRead: Boolean = false, frame: (Int) -> ByteArray): ByteArray = withTimeout(timeoutMillis) {
-        trace("request-auth-wait")
         authenticate()
-        trace("request-auth-ready")
         val index = nextRequestIndex.updateAndGet { previous ->
             if (previous == Int.MAX_VALUE) throw IOException("Peer request identities exhausted")
             previous + 1
@@ -120,9 +114,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
             val job = currentCoroutineContext().job
             // Authority mutations precede pool operations everywhere. Never call a feature
             // callback while holding poolLock: receivers may need SaitoLocalState.lock.
-            trace("request-authority-wait", index)
             synchronized(SaitoLocalState.lock) {
-                trace("request-authority-enter", index)
                 job.ensureActive()
                 beforeSend?.invoke()
                 val bytes = frame(index)
@@ -131,14 +123,13 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                     requireActive()
                     connection.pending[index] = request
                     lastWriteOffset = connection.send(connection.socket, bytes)
-                    trace("request-enqueued", index)
                 }
             }
-            await(response).also { trace("request-completed", index) }
+            await(response)
         } catch (failure: IOException) {
             currentCoroutineContext().ensureActive()
             throw (request.oversized ?: failure)
-        } finally { trace("request-finished", index); connection.pending.remove(index, request) }
+        } finally { connection.pending.remove(index, request) }
     }
 
     /** Local socket enqueue only. This protocol provides no per-post acknowledgement. */
@@ -171,10 +162,8 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
 
     /** Service announcements belong to the same authenticated physical connection. */
     suspend fun services(): Set<String> = withTimeout(12_000) {
-        trace("services-wait")
         authenticate()
-        trace("services-auth-ready")
-        await(connection.advertised).also { requireActive(); trace("services-ready") }
+        await(connection.advertised).also { requireActive() }
     }
 
     /** Suspend until this feature's ownership ends or its physical connection fails. */
@@ -208,7 +197,6 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
     override fun close() {
         synchronized(poolLock) {
             if (!active.getAndSet(false)) return
-            trace("lease-released")
             released.complete(Unit)
             connection.leases.remove(this)
             connection.pending.entries.forEach { (index, request) ->
@@ -226,11 +214,6 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
 
     private data class Address(val owner: String, val endpoint: String)
     private class Connection(private val wallet: SaitoWallet, val address: Address) {
-        val id = nextConnection.incrementAndGet()
-        private fun trace(phase: String, index: Int = 0, detail: String? = null) {
-            if (BuildConfig.DEBUG) try { phaseObserver?.invoke(phase, id, 0, index, detail) }
-            catch (_: Throwable) { phaseObserverFailures.incrementAndGet() }
-        }
         val ready = CompletableDeferred<Unit>()
         val advertised = CompletableDeferred<Set<String>>()
         val closed = CompletableDeferred<Unit>()
@@ -247,7 +230,6 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
             private set
         fun start() { socket = client.newWebSocket(Request.Builder().url(address.endpoint).build(), object : WebSocketListener() {
             override fun onOpen(webSocket: WebSocket, response: Response) {
-                trace("socket-open")
                 send(webSocket, byteArrayOf(1) + challenges.first())
                 send(webSocket, byteArrayOf(20))
             }
@@ -281,7 +263,6 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                             if (counter.any { it != 0.toByte() }) {
                                 send(webSocket, SaitoWire.handshakeReply(wallet, counter, ByteArray(32)))
                             }
-                            trace("authenticated")
                             ready.complete(Unit)
                         }
                         7 -> send(webSocket, byteArrayOf(16))
@@ -298,27 +279,21 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                                 fields[0]
                             }
                             require(services.size <= 256)
-                            trace("services-advertised")
                             advertised.complete(services.toSet())
                         }
                         12 -> {
                             require(frame.size >= 5)
                             if (!ready.isCompleted || ready.isCancelled || disconnected.get() || !hasIncomingReceiver()) return
-                            val accepted = acceptIncoming(frame.copyOfRange(5, frame.size), ByteBuffer.wrap(frame, 1, 4).int)
-                            val acknowledgement = if (accepted) "{\"err\":\"\",\"success\":1}" else
-                                "{\"err\":\"Message not accepted\",\"success\":0}"
-                            send(webSocket, byteArrayOf(if (accepted) 13.toByte() else 14.toByte()) +
-                                frame.copyOfRange(1, 5) + acknowledgement.toByteArray(Charsets.UTF_8))
+                            enqueueIncoming(webSocket, frame)
                         }
                         4 -> {
                             if (!ready.isCompleted || ready.isCancelled || disconnected.get() || !hasIncomingReceiver()) return
-                            acceptIncoming(frame.copyOfRange(1, frame.size))
+                            enqueueIncoming(webSocket, frame)
                         }
                         13, 14 -> {
                             require(frame.size >= 5)
                             if (!ready.isCompleted || ready.isCancelled) return
                             val index = ByteBuffer.wrap(frame, 1, 4).int
-                            trace("callback-received", index)
                             val request = pending[index] ?: return
                             // The Registry relay may send its dispatcher fallback before the registrar callback.
                             // Only this exact type13 body is provisional; type14 and all other responses are final.
@@ -331,7 +306,6 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                         }
                     }
                 } catch (failure: Exception) {
-                    trace("frame-rejected", detail = failure.javaClass.simpleName)
                     if (BuildConfig.DEBUG) Log.w("RedSquarePeer", "Rejected peer frame (${failure.javaClass.simpleName})")
                     fail()
                     webSocket.cancel()
@@ -340,18 +314,67 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
 
             override fun onMessage(webSocket: WebSocket, text: String) { fail(); webSocket.cancel() }
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-                trace("socket-failure", detail = t.javaClass.simpleName)
                 if (BuildConfig.DEBUG) Log.w("RedSquarePeer", "Connection failed (${t.javaClass.simpleName}, HTTP ${response?.code ?: 0})")
                 fail()
                 closed.completeExceptionally(IOException("Peer disconnected"))
             }
-            override fun onClosing(webSocket: WebSocket, code: Int, reason: String) { trace("socket-closing", detail = code.toString()); fail(); webSocket.close(code, null) }
+            override fun onClosing(webSocket: WebSocket, code: Int, reason: String) { fail(); webSocket.close(code, null) }
             override fun onClosed(webSocket: WebSocket, code: Int, reason: String) { fail(); closed.complete(Unit) }
         }) }
 
 
         private fun hasIncomingReceiver() = leases.any { it.active.get() && it.onIncoming != null } ||
             RealtimeIncoming.hasReceiver(wallet.publicKey, address.endpoint)
+
+        // Retention can perform signature verification and protected disk writes.
+        // Keep it FIFO on an owned worker so callbacks and WebSocket heartbeats
+        // remain readable. Positive acknowledgement still follows actual retention.
+        private val incomingBytes = AtomicInteger()
+        private val incomingWorker = ThreadPoolExecutor(1, 1, 30, TimeUnit.SECONDS,
+            ArrayBlockingQueue(32), { work -> Thread(work, "RedSquareIncoming").apply { isDaemon = true } })
+            .apply { allowCoreThreadTimeOut(true) }
+
+        private inner class IncomingDelivery(private val deliverySocket: WebSocket, private val frame: ByteArray) : Runnable {
+            private val owned = AtomicBoolean(true)
+            fun release() { if (owned.getAndSet(false)) incomingBytes.addAndGet(-frame.size) }
+            override fun run() {
+                try {
+                    if (disconnected.get() || !hasIncomingReceiver()) return
+                    if (frame[0] == 4.toByte()) {
+                        acceptIncoming(frame.copyOfRange(1, frame.size))
+                    } else {
+                        val accepted = acceptIncoming(frame.copyOfRange(5, frame.size), ByteBuffer.wrap(frame, 1, 4).int)
+                        val acknowledgement = if (accepted) "{\"err\":\"\",\"success\":1}" else
+                            "{\"err\":\"Message not accepted\",\"success\":0}"
+                        synchronized(poolLock) {
+                            if (!disconnected.get()) send(deliverySocket,
+                                byteArrayOf(if (accepted) 13.toByte() else 14.toByte()) +
+                                    frame.copyOfRange(1, 5) + acknowledgement.toByteArray(Charsets.UTF_8))
+                        }
+                    }
+                } catch (failure: Exception) {
+                    if (BuildConfig.DEBUG) Log.w("RedSquarePeer", "Incoming delivery failed (${failure.javaClass.simpleName})")
+                    fail()
+                    deliverySocket.cancel()
+                } finally { release() }
+            }
+        }
+
+        private fun enqueueIncoming(deliverySocket: WebSocket, frame: ByteArray) {
+            // Bound all retained original bytes, including the active delivery.
+            // Overload retires this connection without acknowledging lost work.
+            if (incomingBytes.addAndGet(frame.size) > MAX_RESPONSE_BYTES) {
+                incomingBytes.addAndGet(-frame.size)
+                fail(); deliverySocket.cancel()
+                return
+            }
+            val delivery = IncomingDelivery(deliverySocket, frame)
+            try { incomingWorker.execute(delivery) }
+            catch (_: RejectedExecutionException) {
+                delivery.release()
+                fail(); deliverySocket.cancel()
+            }
+        }
 
         private fun acceptIncoming(transaction: ByteArray, requestIndex: Int? = null): Boolean {
             try {
@@ -411,9 +434,9 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         } catch (_: Exception) { null }
 
         fun fail() {
-            trace("connection-failed")
             synchronized(poolLock) {
                 disconnected.set(true)
+                incomingWorker.shutdownNow().forEach { (it as IncomingDelivery).release() }
                 connections.remove(address, this)
                 ready.completeExceptionally(IOException("Peer disconnected"))
                 advertised.completeExceptionally(IOException("Peer disconnected"))
@@ -428,10 +451,6 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         private val poolLock = Any()
         private val connections = mutableMapOf<Address, Connection>()
         private val nextLease = AtomicInteger()
-        private val nextConnection = AtomicInteger()
-        /** Temporary bounded test observation only; never drives transport or feature state. */
-        internal val phaseObserverFailures = AtomicInteger()
-        @Volatile internal var phaseObserver: ((String, Int, Int, Int, String?) -> Unit)? = null
         // Node callbacks address the latest socket by public key even after reconnect.
         // Never reuse an index during this process; a random seed also reduces, but
         // cannot eliminate, stale-callback collisions across separate process starts.

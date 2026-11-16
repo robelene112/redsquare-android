@@ -28,12 +28,6 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val relayResponseExecutor: java.util.concurrent.Executor? = null,
     private val peer: SaitoWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1"),
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
-    val phaseObserverFailures = java.util.concurrent.atomic.AtomicInteger()
-    @Volatile var phaseObserver: ((String, Int, Int) -> Unit)? = null
-    private fun phase(socket: WebSocket, event: String, index: Int = 0) {
-        try { phaseObserver?.invoke(event, System.identityHashCode(socket), index) }
-        catch (_: Throwable) { phaseObserverFailures.incrementAndGet() }
-    }
     @Volatile var vaultUploadResponseExecutor: java.util.concurrent.Executor? = null
     @Volatile var vaultUploadResponse: ((nl.davidengelen.redsquare.saito.SignedSaitoMessage) -> String)? = null
     val vaultUploads = java.util.concurrent.CopyOnWriteArrayList<nl.davidengelen.redsquare.saito.SignedSaitoMessage>()
@@ -256,12 +250,10 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         private var authenticatedKey = ""
         private var interrupted = false
         override fun onOpen(webSocket: WebSocket, response: okhttp3.Response) {
-            phase(webSocket, "server-open")
             openSockets.addIfAbsent(webSocket)
             if (offline) webSocket.close(1001, "Controlled node outage")
         }
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-            phase(webSocket, "server-closing-$code")
             openSockets.remove(webSocket)
             authenticatedSockets.remove(webSocket)
             connectionIds.remove(webSocket)
@@ -280,7 +272,6 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
             connectionIds.remove(webSocket)
         }
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: okhttp3.Response?) {
-            phase(webSocket, "server-failure-${t.javaClass.simpleName}")
             openSockets.remove(webSocket)
             withheldClosingSockets.remove(webSocket)
             authenticatedSockets.remove(webSocket)
@@ -291,8 +282,6 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
             if (offline) { webSocket.close(1001, "Controlled node outage"); return }
             try {
                 val frame = bytes.toByteArray()
-                phase(webSocket, "server-frame-${frame[0].toInt()}",
-                    if (frame[0] in listOf(12.toByte(), 13.toByte(), 14.toByte()) && frame.size >= 5) ByteBuffer.wrap(frame, 1, 4).int else 0)
                 when (frame[0].toInt()) {
                     20 -> advertisedServices?.let {
                         require(frame.size == 1)
@@ -384,8 +373,6 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             return
                         }
                         val criteria = body.getAsJsonObject("data")
-                        if (body.get("request").asString == "archive" && criteria.has("field3") && !criteria.has("field1"))
-                            phase(webSocket, "server-group-history-received", ByteBuffer.wrap(frame, 1, 4).int)
                         if ((body.get("request").asString.startsWith("buysaito ") && criteria.get("module")?.asString == "Mixin") ||
                             (body.get("request").asString == "store-web3-status" && criteria.get("module")?.asString == "Store")) {
                             val original = SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(frame.copyOfRange(5, frame.size)))
@@ -551,7 +538,6 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                                 addProperty("bytes", archiveReply.size); addProperty("withheld", withheld); addProperty("queued", queued)
                             })
                         }
-                        phase(webSocket, "server-archive-reply-$queued", ByteBuffer.wrap(frame, 1, 4).int)
                         onArchiveResponse?.invoke(criteria.deepCopy(), response, queued)
                         requests.incrementAndGet()
                         received.countDown()
