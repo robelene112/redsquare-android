@@ -30,10 +30,13 @@ import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 import java.util.Locale
 
+/** A supported file action retains its reason while the underlying operation is unavailable. */
+internal data class FilePickerAction(val onPick: () -> Unit, val unavailableReason: Int?)
+
 /** Document picking preserves the Chat draft; transfer ownership remains outside composition. */
 @Composable
 internal fun FileAttachment(session: FileSession?, enabled: Boolean, beforePicker: suspend () -> Boolean,
-    content: @Composable (pickFile: (() -> Unit)?, panel: @Composable () -> Unit, hasFiles: Boolean) -> Unit) {
+    content: @Composable (pickFile: FilePickerAction?, panel: @Composable () -> Unit, hasFiles: Boolean) -> Unit) {
     if (session == null) { content(null, {}, false); return }
     val context = androidx.compose.ui.platform.LocalContext.current
     val scope = rememberCoroutineScope()
@@ -48,6 +51,15 @@ internal fun FileAttachment(session: FileSession?, enabled: Boolean, beforePicke
     val states by session.transfers.collectAsState()
     val preparing by session.preparation.collectAsState()
     val busy = states.any { it.phase.active || it.phase == FilePhase.OFFERED } || preparing?.phase == PreparationPhase.PREPARING
+    val error by session.error.collectAsState()
+    val unavailableReason = when {
+        !ready && error -> R.string.fileshare_action_unavailable
+        !ready -> R.string.fileshare_action_loading
+        preparing?.phase == PreparationPhase.PREPARING -> R.string.fileshare_action_preparing
+        busy -> R.string.fileshare_action_active
+        pickingFor != null -> R.string.fileshare_action_picker
+        else -> null
+    }
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         val accepted = pickingFor == binding
         pickingFor = null
@@ -57,7 +69,7 @@ internal fun FileAttachment(session: FileSession?, enabled: Boolean, beforePicke
             session.send(uri)
         }
     }
-    content({
+    content(FilePickerAction(onPick = {
         if (enabled && ready && !busy && pickingFor == null) scope.launch {
             try {
                 if (beforePicker() && currentEnabled) {
@@ -69,7 +81,7 @@ internal fun FileAttachment(session: FileSession?, enabled: Boolean, beforePicke
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { pickingFor = null; pickerFailed = true }
         }
-    }, {
+    }, unavailableReason = unavailableReason), {
         notifications.notice()
         InlineStatus(if (pickerFailed) stringResource(R.string.fileshare_error) else null, StatusTone.ERROR)
         FileTransferPanel(session, enabled)

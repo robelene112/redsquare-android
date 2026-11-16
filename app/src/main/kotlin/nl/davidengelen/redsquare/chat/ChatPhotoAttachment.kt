@@ -4,6 +4,11 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.tween
+import androidx.compose.material3.MaterialTheme
+import nl.davidengelen.redsquare.fileshare.FilePickerAction
+import nl.davidengelen.redsquare.ui.AppSpacing
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -36,7 +41,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBackend, enabled: Boolean, work: SelectedImagePreparation,
     beforePicker: suspend () -> Boolean, onPhoto: suspend (String) -> Boolean, onPreparing: (Boolean) -> Unit, onChange: (String) -> Unit, onSelectGif: (suspend (GiphyItem) -> Boolean)? = null, gifAttribution: GiphyAttribution? = null,
     showPickerActions: Boolean = true,
-    onAddFile: (() -> Unit)? = null,
+    onAddFile: FilePickerAction? = null,
     content: @Composable (preview: @Composable () -> Unit, actions: @Composable () -> Unit) -> Unit) = key(session) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -91,9 +96,16 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
                     stringResource(R.string.chat_attach_media))
             }
             DropdownMenu(expanded, onDismissRequest = { expanded = false }) {
-                if (onAddFile != null) DropdownMenuItem(text = { Text(stringResource(R.string.fileshare_add)) },
-                    enabled = enabled && !preparing && pickingFor == null && !selectingGif,
-                    onClick = { expanded = false; onAddFile() })
+                if (onAddFile != null) DropdownMenuItem(text = {
+                    Column(androidx.compose.ui.Modifier.animateContentSize(tween(AppSpacing.transitionMillis))) {
+                        Text(stringResource(R.string.fileshare_add))
+                        onAddFile.unavailableReason?.let { reason ->
+                            Text(stringResource(reason), style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
+                }, enabled = enabled && !preparing && pickingFor == null && !selectingGif && onAddFile.unavailableReason == null,
+                    onClick = { expanded = false; onAddFile.onPick() })
                 DropdownMenuItem(text = { Text(stringResource(R.string.chat_add_photo)) },
                     enabled = enabled && !preparing && pickingFor == null, onClick = {
                     expanded = false
