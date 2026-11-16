@@ -126,6 +126,8 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         return count
     }
     @Volatile var rejectedArchiveKinds: Set<String> = emptySet()
+    @Volatile var rejectedArchiveAuthors: Set<String> = emptySet()
+    @Volatile var disconnectedArchiveAuthors: Set<String> = emptySet()
     @Volatile var reportReplyIsError = false
     @Volatile private var offline = false
     @Volatile var rejectNewConnections = false
@@ -503,7 +505,19 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             require(criteria.get("flagged_ne").asInt == 1)
                             rows
                         }
-                        val archiveReply = (byteArrayOf(if (criteria.get("field1")?.asString in rejectedArchiveKinds) 14.toByte() else 13.toByte()) +
+                        val socialAuthor = criteria.get("field2")?.asString.takeIf {
+                            criteria.get("field1")?.asString in setOf("RedSquare", "RedSquareRetweet") }
+                        if (socialAuthor in disconnectedArchiveAuthors) {
+                            observeArchive(com.google.gson.JsonObject().apply {
+                                addProperty("event", "disconnect"); addProperty("at", System.currentTimeMillis())
+                                addProperty("index", ByteBuffer.wrap(frame, 1, 4).int)
+                                addProperty("connection", connectionIds[webSocket] ?: 0)
+                            })
+                            webSocket.close(1011, "Controlled author read interruption")
+                            return
+                        }
+                        val archiveReply = (byteArrayOf(if (criteria.get("field1")?.asString in rejectedArchiveKinds ||
+                            socialAuthor in rejectedArchiveAuthors) 14.toByte() else 13.toByte()) +
                             frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()
                         val withheld = synchronized(archiveReplyLock) {
                             withholdArchiveReply.also { held ->
