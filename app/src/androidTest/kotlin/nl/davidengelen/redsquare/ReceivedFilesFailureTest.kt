@@ -7,6 +7,7 @@ import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import nl.davidengelen.redsquare.fileshare.*
 import nl.davidengelen.redsquare.saito.*
+import nl.davidengelen.redsquare.vault.VaultDisk
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -26,7 +27,7 @@ class ReceivedFilesFailureTest {
         val wallet = wallets.loadOrCreate()
         val contact = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey
         val other = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey
-        val retained = ChatFixtureState(context, listOf("fileshare."), wallet.publicKey)
+        val retained = ChatFixtureState(context, listOf("fileshare.", "vault.${wallet.publicKey}."), wallet.publicKey)
         val folder = File(context.cacheDir, "received-storage-evidence").apply { mkdirs() }
         val exported = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/export-stalled-${UUID.randomUUID()}.bin")
         val executor = Executors.newSingleThreadExecutor()
@@ -53,8 +54,13 @@ class ReceivedFilesFailureTest {
                     listOf(foreign, official, active).any { file.name.endsWith("${it.token}.data") }
                 }.associate { it to it.readBytes() }
                 assertEquals(3, untouched.size)
+                val vaultDisk = VaultDisk(context, wallet.publicKey, SaitoBackend.OWNER)
+                val vaultId = UUID.randomUUID().toString().replace("-", "").repeat(4)
+                val vaultBytes = byteArrayOf(9, 8, 7, 6)
+                vaultDisk.save(VaultFile(vaultId, "Vault negative control.txt", "text/plain", vaultBytes))
                 val vault = context.noBackupFilesDir.listFiles()!!.filter { it.name.startsWith("vault.") && it.isFile }
                     .associate { it to it.readBytes() }
+                assertTrue("Genuine Vault payload and metadata are part of the negative control", vault.size >= 2)
                 val originalWallet = wallets.loadExisting().exportJson()
                 context.contentResolver.call(exported, "prepare", exported.lastPathSegment, Bundle().apply { putByteArray("bytes", byteArrayOf()) })
                 val export = executor.submit { store.export(value, exported) }
@@ -99,6 +105,7 @@ class ReceivedFilesFailureTest {
                 assertEquals(FilePhase.COMPLETE, store.load().single { it.token == value.token }.phase)
                 untouched.forEach { (file, bytes) -> assertArrayEquals(bytes, file.readBytes()) }
                 vault.forEach { (file, bytes) -> assertArrayEquals(bytes, file.readBytes()) }
+                assertArrayEquals(vaultBytes, vaultDisk.read(vaultId).bytes)
                 assertEquals(originalWallet, wallets.loadExisting().exportJson())
                 assertArrayEquals(byteArrayOf(1, 2, 3, 4, 5), context.contentResolver.openInputStream(exported)!!.use { it.readBytes() })
                 captureNativeScreen(File(folder, "partial-removal-finished.png"))

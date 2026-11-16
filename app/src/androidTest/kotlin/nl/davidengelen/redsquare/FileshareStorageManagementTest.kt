@@ -19,7 +19,10 @@ import java.util.UUID
 class FileshareStorageManagementTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart() {
+    @Test fun aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart() = verifyRetainedCopy()
+    @Test fun reducedMotionRemovalRetainsTheSameHistoryAndExport() = withNativeModuleMotionScale(0) { verifyRetainedCopy() }
+
+    private fun verifyRetainedCopy() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val wallets = AndroidWalletStore(context)
