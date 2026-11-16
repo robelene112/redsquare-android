@@ -1,0 +1,31 @@
+{
+  "signedProductSource": "f0272926f326029040fb041b78afdd11159d2606",
+  "fixtureSource": "14b5c7c6c2d4d3dfd255149152845f8bf9748a42",
+  "candidateVersion": 137,
+  "candidateSha256": "9a3db53d79e1faa6a1913caa2057d312fde652f1dc6f8eea2743fd509c896b83",
+  "excludedEvidenceDirectory": "docs/evidence/ticket131/",
+  "onlyOtherChangedPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SearchPresentationPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/VaultUploadPreviewTest.kt"
+  ],
+  "identicalEntries": 228764,
+  "canonicalLfEntryFormat": "sorted Git mode type object TAB path LF, excluding exactly the two listed AndroidTest files and ticket131 evidence documentation",
+  "identicalEntriesSha256": "8d5a45aa1b396f92c61b66083151ad2e79f900b67204ca05d6b4321af52d046f",
+  "tests": {
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/VaultUploadPreviewTest.kt": {
+      "originalSha256": "4e8a11cb742b422c4bce5de33d9a711193a3948c3197ffc1f864cbaf707efee9",
+      "fixtureSha256": "2d10885f216534a046d934a2815c00b86e37790f22b35191bb7a84410df5a6d7",
+      "restoredOriginalSha256": "4e8a11cb742b422c4bce5de33d9a711193a3948c3197ffc1f864cbaf707efee9",
+      "originalBodyByteExactAfterRemovingInputSetup": true
+    },
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SearchPresentationPreviewTest.kt": {
+      "originalSha256": "435e1eef032bd586c6f40ae390795e529feec99eda808cddb7cad6de18f21581",
+      "fixtureSha256": "7309d603c6d726cce61faaa0185644421a913d4154d212f2d8f8eca22f3d8456",
+      "restoredOriginalSha256": "435e1eef032bd586c6f40ae390795e529feec99eda808cddb7cad6de18f21581",
+      "originalBodyByteExactAfterRemovingInputSetup": true
+    }
+  },
+  "specReview": "PASS_SOURCE_ONLY,0findings",
+  "standardsReview": "PASS_SOURCE_ONLY,0findings",
+  "qualification": "No production change. Two original failed17 gestures have unknown causes; unchanged isolated comparisons are diagnostic only. Standard native input setup precedes the original single taps and all original assertions/deadlines remain. Unknown IME/window observations cannot satisfy readiness. The extra AnnotatedString setup-observer failure remains failed; exact editable characters are now checked independently of style. Requires fresh complete17 all3partitions and independent evidence review; no physical/OEM/live/provider/Play acceptance."
+}
