@@ -169,6 +169,13 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         }
     }
 
+    /** Deterministic scheduling at the owned actor boundary, restricted to isolated native QA. */
+    internal fun holdActorForTest(entered: CompletableDeferred<Unit>, release: Deferred<Unit>): Boolean {
+        check(BuildConfig.DEBUG && context.packageName == "nl.davidengelen.redsquare.dev" &&
+            android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        return post { entered.complete(Unit); release.await() }
+    }
+
     fun attach() { post { observers++; connect() } }
     fun detach() { post { observers = (observers - 1).coerceAtLeast(0); closeIfIdle() } }
     fun visibility() {
