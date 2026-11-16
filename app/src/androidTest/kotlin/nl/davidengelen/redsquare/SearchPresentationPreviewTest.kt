@@ -27,7 +27,7 @@ class SearchPresentationPreviewTest {
         val name = "NativeCase7@saito"
         withAppFrameFixture("search-sections", "search-presentation-evidence", "[]",
             registryResponse = { if (it.get("request").asString == "registry namecheck") registry else "{}" },
-            archiveResponse = { if (it.get("limit").asInt == 100 && !it.has("field4")) rows else "[]" }) {
+            archiveResponse = { if (it.get("limit").asInt == 100 && !it.has("field4")) rows else "[]" }) { activity ->
             ui.waitUntil(15_000) { ui.onNode(hasText("Later") and hasClickAction()).isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.onNode(hasText("Search") and hasClickAction()).performClick()
@@ -54,6 +54,7 @@ class SearchPresentationPreviewTest {
             ui.onNodeWithText(person).performScrollTo().assertIsDisplayed()
             captureNativeScreen(File(folder, "exact-identity.png"), person)
             ui.onNodeWithText("Done").performClick()
+            settleIdentityDismissal(activity, folder)
             ui.onNodeWithText("Posts").performClick().assertIsSelected()
             ui.onNodeWithText("Posts").assertIsDisplayed()
             ui.onNodeWithText(context.getString(R.string.search_empty)).assertIsDisplayed()
@@ -84,5 +85,42 @@ class SearchPresentationPreviewTest {
             ui.onNodeWithText(context.getString(R.string.search_empty)).assertIsDisplayed()
             captureNativeScreen(File(folder, "no-results.png"))
         }
+    }
+
+    private fun settleIdentityDismissal(activity: androidx.test.core.app.ActivityScenario<MainActivity>, folder: File) {
+        val started = android.os.SystemClock.elapsedRealtime()
+        lateinit var activityRoot: android.view.View
+        activity.onActivity { activityRoot = it.window.decorView }
+        var previous: androidx.compose.ui.geometry.Rect? = null
+        var stableSince = android.os.SystemClock.elapsedRealtime()
+        var activityFocused = false
+        val posts = ui.onNode(hasText("Posts") and isEnabled())
+        // The next original gesture targets the Activity, not the retiring dialog.
+        val remaining = 5_000 - (android.os.SystemClock.elapsedRealtime() - started)
+        check(remaining > 0) { "Native tab input setup exceeded five seconds" }
+        ui.waitUntil(remaining) {
+            var focused: android.view.View? = null
+            InstrumentationRegistry.getInstrumentation().runOnMainSync {
+                focused = android.view.inspector.WindowInspector.getGlobalWindowViews()
+                    .singleOrNull { it.isShown && it.hasWindowFocus() }
+            }
+            val dialogGone = ui.onAllNodesWithText("Done").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
+            val bounds = if (posts.isDisplayed()) posts.fetchSemanticsNode().boundsInRoot else null
+            activityFocused = focused === activityRoot
+            val ready = activityFocused && dialogGone && bounds != null
+            val now = android.os.SystemClock.elapsedRealtime()
+            if (!ready || bounds != previous) stableSince = now
+            previous = bounds
+            ready && now - stableSince >= 200
+        }
+        posts.assertIsDisplayed().assertIsEnabled()
+        check(android.os.SystemClock.elapsedRealtime() - started <= 5_000)
+        File(folder, "identity-dismissal-input-setup.json").writeText(com.google.gson.JsonObject().apply {
+            addProperty("activityWindowFocused", activityFocused)
+            addProperty("settledPostsBounds", requireNotNull(previous).toString())
+            addProperty("setupMillis", android.os.SystemClock.elapsedRealtime() - started)
+            addProperty("stableMillis", android.os.SystemClock.elapsedRealtime() - stableSince)
+            addProperty("qualification", "Test input setup only; the original single Posts tap and immediate selected assertion follow. Original failed gesture cause remains unproved.")
+        }.toString())
     }
 }

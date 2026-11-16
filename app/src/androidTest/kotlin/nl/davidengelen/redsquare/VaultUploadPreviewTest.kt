@@ -93,7 +93,7 @@ class VaultUploadPreviewTest {
 
     private fun settleAdvancedConfirmation(scene: VaultReadingScene) {
         val started = android.os.SystemClock.elapsedRealtime()
-        val initialIme = focusedWindowImeBottom()
+        val initialIme = observedImeBottom()
         val initialBounds = ui.onNodeWithText("Use these rules").fetchSemanticsNode().boundsInRoot
         androidx.test.espresso.Espresso.closeSoftKeyboard()
         var previous: androidx.compose.ui.geometry.Rect? = null
@@ -106,23 +106,42 @@ class VaultUploadPreviewTest {
         ui.waitUntil(remaining) {
             val bounds = if (confirmation.isDisplayed()) confirmation.fetchSemanticsNode().boundsInRoot else null
             val now = android.os.SystemClock.elapsedRealtime()
-            if (focusedWindowImeBottom() != 0 || bounds == null || bounds != previous) stableSince = now
+            if (observedImeBottom() != 0 || bounds == null || bounds != previous) stableSince = now
             previous = bounds
             bounds != null && now - stableSince >= 200
         }
-        check(android.os.SystemClock.elapsedRealtime() - started <= 5_000)
         ui.onNodeWithText("Access script").assert(SemanticsMatcher.expectValue(
             androidx.compose.ui.semantics.SemanticsProperties.EditableText,
             androidx.compose.ui.text.AnnotatedString("not valid JSON")))
         confirmation.assertIsDisplayed().assertIsEnabled()
+        val settledIme = observedImeBottom()
+        check(settledIme == 0 && android.os.SystemClock.elapsedRealtime() - started <= 5_000)
         File(scene.evidence, "advanced-confirmation-setup.json").writeText(com.google.gson.JsonObject().apply {
             addProperty("initialImePixels", initialIme)
             addProperty("initialButtonBounds", initialBounds.toString())
-            addProperty("settledImePixels", focusedWindowImeBottom())
+            addProperty("settledImePixels", settledIme)
             addProperty("settledButtonBounds", requireNotNull(previous).toString())
             addProperty("setupMillis", android.os.SystemClock.elapsedRealtime() - started)
             addProperty("stableMillis", android.os.SystemClock.elapsedRealtime() - stableSince)
             addProperty("qualification", "Test input setup only; one original native click and unchanged five-second visible validation follow. Original failure cause remains unproved.")
         }.toString())
+    }
+
+    /** Unknown root/insets are not evidence that the real keyboard is absent. */
+    private fun observedImeBottom(): Int? {
+        var result: Int? = null
+        InstrumentationRegistry.getInstrumentation().runOnMainSync {
+            val root = android.view.inspector.WindowInspector.getGlobalWindowViews()
+                .singleOrNull { it.isShown && it.hasWindowFocus() } ?: return@runOnMainSync
+            val insets = androidx.core.view.ViewCompat.getRootWindowInsets(root) ?: return@runOnMainSync
+            val type = androidx.core.view.WindowInsetsCompat.Type.ime()
+            val bottom = insets.getInsets(type).bottom
+            result = when {
+                bottom > 0 -> bottom
+                !insets.isVisible(type) -> 0
+                else -> null
+            }
+        }
+        return result
     }
 }
