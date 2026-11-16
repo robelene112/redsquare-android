@@ -31,6 +31,8 @@ adjustment remains intermediate; the final230 observation is copied/indexed here
 
 Original native test bodies, retransmission cadence,15s ACK/history budgets and
 all other deadlines remain. Fresh conversation10/17 runs43970202494/43970207700
-are pending. Wait for both before fresh whole SDK dispatch. Every complete parent,
+both pass with independent focused acceptance and zero findings. See
+`../coalesced-focused/README.md`. Fresh whole runs43972107183/43972111203
+started only after both passed, at frozen c6c01883. Every complete parent,
 actual new signed update, same-source observer and independent public delivery
 review remains required. No previous successful sibling supplies acceptance.

@@ -1,0 +1,15 @@
+{
+  "sha256": "ad07946e7df6b9a63d6a4fb3d45e0681e7d87ecc42afb3e3b687c3c99b280ac5",
+  "bytes": 11238296,
+  "package": "nl.davidengelen.redsquare.moduleupdate.test",
+  "target": "nl.davidengelen.redsquare",
+  "qualification": "Initial default urllib request received403; ordinary curl retrieves both old and new immutable helper URLs with200. Exact cause of client difference unproved. New helper downloaded bytes and signature match. Fresh same22native-tree debug input, manifest-only repack; emulator/unsafe-wallet guard. Never ordinaryAPK/latest.",
+  "source": "c6c01883b3593f02630e0cc42d485b51d12a90c8",
+  "compiledInputApkSha256": "84dd76c403becf8832e2d35d1ccde0cec1d354c8ee2668740a9f15ed22af7a81",
+  "manifestOnlyRepackMembers": 125,
+  "actualHttpStatus": 200,
+  "url": "https://davidengelen.nl/redsquare/qa/ad07946e7df6b9a63d6a4fb3d45e0681e7d87ecc42afb3e3b687c3c99b280ac5.apk",
+  "downloadedBytesExact": true,
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "initialUrllibHttpStatus": 403
+}

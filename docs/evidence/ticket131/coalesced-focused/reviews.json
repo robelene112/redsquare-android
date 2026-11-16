@@ -1,0 +1,39 @@
+{
+  "result": "PASS_FOCUSED",
+  "verifiedAtUtc": "2026-11-16T22:48:10.739380+00:00",
+  "source": "7b04e15f8af2d8159f1edce6a0e6a9377e01306c",
+  "frozenFullSource": "c6c01883b3593f02630e0cc42d485b51d12a90c8",
+  "nativeTreesIdentical": 22,
+  "spec": {
+    "reviewer": "/root/integrated131_spec_final",
+    "result": "PASS_FOCUSED",
+    "findings": 0
+  },
+  "standards": {
+    "reviewer": "/root/integrated131_standards_final",
+    "result": "PASS_FOCUSED",
+    "findings": 0
+  },
+  "runs": {
+    "10": 43970202494,
+    "17": 43970207700
+  },
+  "zipSha256": {
+    "10": "753b974f5f572f5fbaf6406099bc99108a51daf3af43ecfa6c760907a31d07c0",
+    "17": "dd064e3b54a9d132f750d6426dd03879734514ba49f2f832612afb585544cb0d"
+  },
+  "originalZipFiles": 183,
+  "tarMembers": 632,
+  "png": 212,
+  "xml": 212,
+  "perSdk": {
+    "originalMethods": 5,
+    "archives": 5,
+    "viewportCells": 16,
+    "groupViewportCells": 6,
+    "readingAnchors": 8,
+    "maximumAnchorDifferencePixels": 1
+  },
+  "originalGoals": "Exact signed originals, positiveACK,15s history/ACK and180sclass budgets;500ms retransmission cadence and all source/helper bodies unchanged. Both originalmethodsource and22tree equivalence independently verified.",
+  "qualification": "Focused only. Original rejected/canceled observations and exactcause qualifications remain. No completeparent/signing/publicdelivery acceptance."
+}

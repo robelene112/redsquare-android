@@ -341,8 +341,47 @@
       43970202494,
       43970207700
     ],
-    "nativeResult": "PENDING",
-    "qualification": "Real red establishes exact-pending retransmission queue retirement before coalescing. Original native10 ACK failure cause remains qualified. No completed acceptance cache, early ACK, native deadline change or fixture retry change. Fresh both SDK/native, signed update and public delivery remain required."
+    "nativeResult": "PASS_FOCUSED",
+    "qualification": "Real red establishes exact-pending retransmission queue retirement before coalescing. Original native10 ACK failure cause remains qualified. No completed acceptance cache, early ACK, native deadline change or fixture retry change. Fresh both SDK/native, signed update and public delivery remain required.",
+    "focusedEvidence": {
+      "result": "PASS_FOCUSED",
+      "verifiedAtUtc": "2026-11-16T22:48:10.739380+00:00",
+      "source": "7b04e15f8af2d8159f1edce6a0e6a9377e01306c",
+      "frozenFullSource": "c6c01883b3593f02630e0cc42d485b51d12a90c8",
+      "nativeTreesIdentical": 22,
+      "spec": {
+        "reviewer": "/root/integrated131_spec_final",
+        "result": "PASS_FOCUSED",
+        "findings": 0
+      },
+      "standards": {
+        "reviewer": "/root/integrated131_standards_final",
+        "result": "PASS_FOCUSED",
+        "findings": 0
+      },
+      "runs": {
+        "10": 43970202494,
+        "17": 43970207700
+      },
+      "zipSha256": {
+        "10": "753b974f5f572f5fbaf6406099bc99108a51daf3af43ecfa6c760907a31d07c0",
+        "17": "dd064e3b54a9d132f750d6426dd03879734514ba49f2f832612afb585544cb0d"
+      },
+      "originalZipFiles": 183,
+      "tarMembers": 632,
+      "png": 212,
+      "xml": 212,
+      "perSdk": {
+        "originalMethods": 5,
+        "archives": 5,
+        "viewportCells": 16,
+        "groupViewportCells": 6,
+        "readingAnchors": 8,
+        "maximumAnchorDifferencePixels": 1
+      },
+      "originalGoals": "Exact signed originals, positiveACK,15s history/ACK and180sclass budgets;500ms retransmission cadence and all source/helper bodies unchanged. Both originalmethodsource and22tree equivalence independently verified.",
+      "qualification": "Focused only. Original rejected/canceled observations and exactcause qualifications remain. No completeparent/signing/publicdelivery acceptance."
+    }
   },
   "coalescedIncomingQualification": {
     "productSource": "7b04e15f8af2d8159f1edce6a0e6a9377e01306c",
@@ -358,7 +397,41 @@
       "result": "PASS_SOURCE_ONLY",
       "findings": 0
     },
-    "completeResult": "PENDING_FOCUSED_THEN_FRESH_BOTH",
-    "qualification": "Prospective inputs frozen before any fresh whole dispatch. Require correctedfocused bothsuccess first, then both complete parents and same-source signing/update/publicdelivery acceptance. All earlier sourceprofiles remain immutable."
+    "completeResult": "PENDING_BOTH_COMPLETE_PARENTS",
+    "qualification": "Prospective inputs frozen before any fresh whole dispatch. Require correctedfocused bothsuccess first, then both complete parents and same-source signing/update/publicdelivery acceptance. All earlier sourceprofiles remain immutable.",
+    "frozenSource": "c6c01883b3593f02630e0cc42d485b51d12a90c8",
+    "focusedResult": "PASS_FOCUSED",
+    "runs": {
+      "10": 43972107183,
+      "17": 43972111203
+    }
+  },
+  "signedUpdate138": {
+    "source": "c6c01883b3593f02630e0cc42d485b51d12a90c8",
+    "candidate": {
+      "versionCode": 138,
+      "versionName": "0.1.138",
+      "applicationId": "nl.davidengelen.redsquare",
+      "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+      "sha256": "75ad9f8b972ec89c95df994deb95e08a68997998830aeec5d6b9029cb319f3c0",
+      "commit": "c6c01883b3593f02630e0cc42d485b51d12a90c8",
+      "variant": "release"
+    },
+    "bytes": 94282272,
+    "moduleObserverSha256": "ad07946e7df6b9a63d6a4fb3d45e0681e7d87ecc42afb3e3b687c3c99b280ac5",
+    "runs": [
+      {
+        "sdk": "10",
+        "run": 43974252411,
+        "api": "29"
+      },
+      {
+        "sdk": "17",
+        "run": 43974257105,
+        "api": "37.0"
+      }
+    ],
+    "result": "PENDING_ACTUAL_UPDATES",
+    "publication": "STAGED_ONLY_PUBLIC_LATEST131"
   }
 }

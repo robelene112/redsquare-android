@@ -5,7 +5,10 @@ Review base: `59594c5634cbfec2c49bc4375865e3e101503580`.
 
 **In progress.** Behavior children #118–#130 have focused acceptance. Public
 latest stays131; candidates132–137 remain intermediate and must not be promoted.
-No signed138 candidate or observer has been built or reserved. Both original137
+Signed138 and its fresh module observer are now staged at the exact frozen
+c6c01883 source. APK SHA25675ad9f8b972ec89c95df994deb95e08a68997998830aeec5d6b9029cb319f3c0,
+94,282,272bytes; established certificate, ordinary nondebug/nonprofileable,
+min29/target36. Actual immutable public APK bytes match. Public latest stays131. Both original137
 and a594 replacement complete parents are rejected and retained. Later ccc whole
 parents43966533019/43966540019 were canceled after the worker's focused10 incoming
 ACK failure required another product correction. Successful siblings do not supply
@@ -28,16 +31,18 @@ There is no completed-result cache or earlyACK. A real binary red reproduces
 connection retirement from duplicate pending admission. All230 completecore tests
 and both source/core reviews pass with zero findings. Exact original native failure
 causes remain qualified. See [pending coalescing](incoming-coalescing/README.md).
-Fresh conversation10/17 runs43970202494/43970207700 are pending, with all original
-native bodies, retransmission cadence and deadlines unchanged.
+Fresh conversation10/17 runs43970202494/43970207700 pass with independent
+focused acceptance on both axes, zero findings. All original native bodies,
+retransmission cadence and deadlines remain. See [focused evidence](coalesced-focused/README.md).
 
 The next prospective complete inputs are `source-profile-coalesced-incoming.json`
 and `verify-full-coalesced-incoming.py`. They retain every original native goal and
 historical profile. Wait for both corrected focused scopes before fresh whole SDK
-dispatch. Freeze reviewed inputs before dispatch. Each SDK must pass an ordinary
-complete three-part parent including public reads. A new same-source signed
-candidate/observer, actual signed updates and independent public delivery review
-remain required. All temporary diagnostic probes have been removed from product.
+dispatch. Reviewed inputs were frozen at c6c01883 before whole dispatch. Fresh ordinary
+three-part10/17 runs43972107183/43972111203 are pending, including all public reads.
+Actual signed131-to138 update runs43974252411/43974257105 use that same frozen
+source, the same-certificate138 APK and fresh observerad07946e7d. Complete parents,
+actual updates and independent public delivery acceptance remain required. All temporary diagnostic probes have been removed from product.
 
 ## Prospective complete source
 
