@@ -20,6 +20,7 @@ import java.io.Closeable
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.security.SecureRandom
+import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.ArrayBlockingQueue
@@ -330,13 +331,27 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         // Keep it FIFO on an owned worker so callbacks and WebSocket heartbeats
         // remain readable. Positive acknowledgement still follows actual retention.
         private val incomingBytes = AtomicInteger()
+        private val incomingDeliveries = ConcurrentHashMap<IncomingFrameIdentity, IncomingDelivery>()
+        private class IncomingFrameIdentity(private val bytes: ByteArray) {
+            private val digest = MessageDigest.getInstance("SHA-256").digest(bytes)
+            override fun hashCode() = digest.contentHashCode()
+            override fun equals(other: Any?) = other is IncomingFrameIdentity &&
+                digest.contentEquals(other.digest) && bytes.contentEquals(other.bytes)
+        }
         private val incomingWorker = ThreadPoolExecutor(1, 1, 30, TimeUnit.SECONDS,
             ArrayBlockingQueue(32), { work -> Thread(work, "RedSquareIncoming").apply { isDaemon = true } })
             .apply { allowCoreThreadTimeOut(true) }
 
-        private inner class IncomingDelivery(private val deliverySocket: WebSocket, private val frame: ByteArray) : Runnable {
+        private inner class IncomingDelivery(private val deliverySocket: WebSocket, private val frame: ByteArray,
+            private val identity: IncomingFrameIdentity) : Runnable {
             private val owned = AtomicBoolean(true)
-            fun release() { if (owned.getAndSet(false)) incomingBytes.addAndGet(-frame.size) }
+            fun release() {
+                if (owned.getAndSet(false)) {
+                    // Free the budget before admitting a late same-frame retry.
+                    incomingBytes.addAndGet(-frame.size)
+                    incomingDeliveries.remove(identity, this)
+                }
+            }
             override fun run() {
                 try {
                     if (disconnected.get() || !hasIncomingReceiver()) return
@@ -363,12 +378,17 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         private fun enqueueIncoming(deliverySocket: WebSocket, frame: ByteArray) {
             // Bound all retained original bytes, including the active delivery.
             // Overload retires this connection without acknowledging lost work.
+            val identity = IncomingFrameIdentity(frame)
+            val delivery = IncomingDelivery(deliverySocket, frame, identity)
+            // An exact in-flight retransmission shares the original's eventual
+            // response. Changed request indexes or payloads still dispatch.
+            // Equality compares every byte; a digest alone never admits content.
+            if (incomingDeliveries.putIfAbsent(identity, delivery) != null) return
             if (incomingBytes.addAndGet(frame.size) > MAX_RESPONSE_BYTES) {
-                incomingBytes.addAndGet(-frame.size)
+                delivery.release()
                 fail(); deliverySocket.cancel()
                 return
             }
-            val delivery = IncomingDelivery(deliverySocket, frame)
             try { incomingWorker.execute(delivery) }
             catch (_: RejectedExecutionException) {
                 delivery.release()
