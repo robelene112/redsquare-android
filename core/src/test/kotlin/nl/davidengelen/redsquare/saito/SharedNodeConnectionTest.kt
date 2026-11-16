@@ -190,6 +190,47 @@ class SharedNodeConnectionTest {
         } finally { release.countDown() }
     }
 
+    @Test fun exactPendingOriginalsShareRetentionWhileDistinctWireRequestsRemainIndependent() = runBlocking {
+        val entered = java.util.concurrent.CountDownLatch(1)
+        val release = java.util.concurrent.CountDownLatch(1)
+        val retained = java.util.concurrent.CopyOnWriteArrayList<String>()
+        try {
+            Node().use { node ->
+                SaitoPeer(wallet, node.endpoint, { bytes ->
+                    val body = bytes.decodeToString()
+                    if (body == "same") {
+                        entered.countDown()
+                        check(release.await(15, java.util.concurrent.TimeUnit.SECONDS))
+                    }
+                    retained.add(body)
+                    true
+                }).use { receiver ->
+                    receiver.request("ready".toByteArray())
+                    SaitoPeer(wallet, node.endpoint).use { reader ->
+                        node.deliver(wallet.publicKey, "same", 8851)
+                        assertTrue(withContext(Dispatchers.IO) { entered.await(5, java.util.concurrent.TimeUnit.SECONDS) })
+                        try {
+                            repeat(64) { assertTrue("A repeated pending original must not retire its connection",
+                                node.tryDeliver(wallet.publicKey, "same", 8851)) }
+                            node.deliver(wallet.publicKey, "same", 8852)
+                            node.deliver(wallet.publicKey, "different", 8851)
+                            assertEquals("barrier", withTimeout(5_000) { reader.request("barrier".toByteArray()).decodeToString() })
+                            assertTrue(retained.isEmpty())
+                            assertTrue("Retention is still held", node.acknowledgements.tryReceive().isFailure)
+                        } finally { release.countDown() }
+                        for (index in listOf(8851, 8852, 8851)) {
+                            val ack = withTimeout(5_000) { node.acknowledgements.receive() }
+                            assertEquals(13, ack[0].toInt())
+                            assertEquals(index, ByteBuffer.wrap(ack, 1, 4).int)
+                        }
+                        assertEquals(listOf("same", "same", "different"), retained)
+                        assertTrue(node.acknowledgements.tryReceive().isFailure)
+                    }
+                }
+            }
+        } finally { release.countDown() }
+    }
+
     @Test fun aHeldRelayReplyDoesNotBlockAnIncomingAcknowledgementOnTheSharedSocket() = runBlocking {
         val entered = java.util.concurrent.CountDownLatch(1)
         val release = java.util.concurrent.CountDownLatch(1)
