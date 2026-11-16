@@ -1,5 +1,5 @@
 {
-  "source": "245b79ee7750f51aaf12f73f7cb2fbaaad77a2f5",
+  "source": "b62597a2c899c1b13f2c182de088cc2cb5766554",
   "base": "59594c5634cbfec2c49bc4375865e3e101503580",
   "sourceAndSignedUpdate135": {
     "spec": {
@@ -15,6 +15,28 @@
       "actionableFowlerHeuristics": 0,
       "scope": "Independent live metadata/server digests,108/97original ZIP members,62rawfiles/46native members including20PNG/20XML. Actual94265888byte candidate hash/package/version/cert, exactobserver hash/cert and125nonmanifest/signature members against fresh AndroidTest APK. Inspected native draft/Light/offlinefeed captures. Guarded continuity and independent cleanup. Reproduced ordered signal mechanism green and genuine glare negative."
     },
-    "qualification": "Source and actual update only. Current completeSDK qualification and actual public delivery remain pending. Candidate135 staged only; no physical/OEM/live/provider/Play acceptance."
+    "qualification": "Source and actual update only. Current completeSDK qualification and actual public delivery remain pending. Candidate135 staged only; no physical/OEM/live/provider/Play acceptance.",
+    "source": "245b79ee7750f51aaf12f73f7cb2fbaaad77a2f5",
+    "superseded": true
+  },
+  "imageAdmission": {
+    "productSource": "245a44ec8d1c4ab4304acf2fadf02dc965eff3f6",
+    "frozenSource": "b62597a2c899c1b13f2c182de088cc2cb5766554",
+    "focusedRuns": [
+      43906443562,
+      43906443733,
+      43906443798
+    ],
+    "spec": {
+      "reviewer": "/root/integrated131_spec_final",
+      "result": "PASS_FOCUSED",
+      "findings": 0
+    },
+    "standards": {
+      "reviewer": "/root/integrated131_standards_final",
+      "result": "PASS_FOCUSED",
+      "findings": 0
+    },
+    "qualification": "Confirmed conditional source lost-wakeup corrected using cancellable idle-admission waits. Original17real-picker failure cause remains unproved; diagnostic-onlyscope passed beforefix. Original methods/predicates/deadlines retained. Current complete SDKs/signed136/update/publicdelivery pending."
   }
 }

@@ -117,6 +117,82 @@
       "originalFiles": 161,
       "failedInstrumentationOriginals": [],
       "qualification": "Corrected focused unfinished text storage/process recovery success; no assertion/deadline changes."
+    },
+    {
+      "run": 43892122003,
+      "head": "245b79ee7750f51aaf12f73f7cb2fbaaad77a2f5",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 1470,
+      "failedInstrumentationOriginals": [
+        "android-native-proof-social/.scratch/device-evidence/api-29/video-ui.txt"
+      ],
+      "qualification": "Whole245b10 canceled after completed Social video initial20second timeout; preceding fixture row visible, providerrequests0. Walletsuccess/Chatcancellation are not acceptance prefixes."
+    },
+    {
+      "run": 43892121738,
+      "head": "245b79ee7750f51aaf12f73f7cb2fbaaad77a2f5",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 1345,
+      "failedInstrumentationOriginals": [
+        "android-native-proof-social/.scratch/device-evidence/api-37.0/images-ui.txt"
+      ],
+      "qualification": "Whole245b17 canceled after completed Social real-picker rotation20second timeout while Preparing images. Cause unproved; surviving sibling prefixes are not accepted."
+    },
+    {
+      "run": 43901035128,
+      "head": "bb4d43b3dd9cc05725e0ae3c472376258a4e5806",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 99,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Video reading-isolation focused10success, original4methods and deadlines unchanged, exact captured state restoration."
+    },
+    {
+      "run": 43903526757,
+      "head": "c8f669f22235e0b9eb32c465b1d61dfdd1032013",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 87,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Diagnostic-only original real-picker/images17success before readiness-idle product correction. No causal fix claim; original failed primary retained."
+    },
+    {
+      "run": 43902462187,
+      "head": "e5b68783b4bd41d777ae3ff7c62ef66945cbe587",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 686,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Entire e5 fixture-only10 primary canceled because later product admission correction requires freshbothSDK acceptance. No failed app test or accepted prefix inferred."
+    },
+    {
+      "run": 43906443562,
+      "head": "245a44ec8d1c4ab4304acf2fadf02dc965eff3f6",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 87,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Corrected product real-picker/images17 focused success; original20second predicate and all image/process goals retained."
+    },
+    {
+      "run": 43906443733,
+      "head": "245a44ec8d1c4ab4304acf2fadf02dc965eff3f6",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 73,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Corrected selected-image17 five-method focused success, provideronce/recreation/module-return and preservation assertions unchanged."
+    },
+    {
+      "run": 43906443798,
+      "head": "245a44ec8d1c4ab4304acf2fadf02dc965eff3f6",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 84,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Corrected selected-image10 five-method focused success, provideronce/recreation/module-return and preservation assertions unchanged."
     }
   ]
 }

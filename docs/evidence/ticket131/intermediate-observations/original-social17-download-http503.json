@@ -1,0 +1,8 @@
+{
+  "observedAt": "2026-11-16T15:58:52.666236+00:00",
+  "run": 43892121738,
+  "artifactId": 14241373567,
+  "operation": "Download original ZIP",
+  "status": 503,
+  "qualification": "Read-only transport failure before ZIP verification, no app-test retry or acceptance. Partial response retained separately before another download attempt."
+}
