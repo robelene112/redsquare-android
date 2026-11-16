@@ -27,7 +27,7 @@ internal data class FilePreparation(val token: String, val owner: String, val ba
     val contact: String, val endpoint: String, val source: String, val phase: PreparationPhase = PreparationPhase.PREPARING,
     val name: String? = null, val bytes: Long = 0)
 
-internal enum class LocalFileCopy { AVAILABLE, REMOVED, UNAVAILABLE }
+internal enum class LocalFileCopy { AVAILABLE, REMOVED, REMOVAL_INCOMPLETE, UNAVAILABLE }
 
 internal data class FileTransfer(val token: String, val owner: String, val backend: SaitoBackend,
     val contact: String, val endpoint: String, val offer: Fileshare.Offer, val incoming: Boolean,
@@ -101,7 +101,7 @@ internal class FileTransferStore(private val context: Context, private val owner
     fun localCopy(value: FileTransfer): LocalFileCopy {
         if (!value.incoming || !value.phase.delivered) return value.localCopy
         return when {
-            removal(value.token).load() != null -> LocalFileCopy.REMOVED
+            removal(value.token).load() != null -> if (retainedBytes(value.token) == 0L) LocalFileCopy.REMOVED else LocalFileCopy.REMOVAL_INCOMPLETE
             file(value.token, "data").isFile -> LocalFileCopy.AVAILABLE
             else -> LocalFileCopy.UNAVAILABLE
         }

@@ -2,6 +2,9 @@ package nl.davidengelen.redsquare.fileshare
 
 import android.content.Context
 import com.google.gson.JsonParser
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import nl.davidengelen.redsquare.AndroidWalletStore
 import nl.davidengelen.redsquare.chat.ChatHistoryStore
 import nl.davidengelen.redsquare.saito.*
@@ -10,7 +13,6 @@ import java.io.File
 import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReentrantLock
-import kotlin.concurrent.withLock
 
 /** A public account scope can survive recreation. No signer or file path belongs in saved UI state. */
 internal data class ReceivedFilesScope(val owner: String, val backend: SaitoBackend) : Serializable
@@ -24,9 +26,15 @@ internal data class ReceivedFilesSnapshot(val files: List<ReceivedFile>, val inc
 /** Export holds the same per-copy lease as removal, without holding the wallet lock during streaming. */
 internal object ReceivedFileLocks {
     private val locks = ConcurrentHashMap<String, ReentrantLock>()
+    private val changes = MutableStateFlow(0L)
+    val revision = changes.asStateFlow()
     fun lock(value: FileTransfer) = locks.computeIfAbsent(
         "${value.owner}:${value.backend.id}:${value.contact}:${value.token}") { ReentrantLock() }
-    fun <T> withCopy(value: FileTransfer, action: () -> T): T = lock(value).withLock(action)
+    fun <T> withCopy(value: FileTransfer, action: () -> T): T {
+        val lease = lock(value)
+        lease.lock(); changes.update { it + 1 }
+        try { return action() } finally { lease.unlock(); changes.update { it + 1 } }
+    }
 }
 
 /** Device-only Fileshare storage. All callers run scans and unlink operations away from the main thread. */

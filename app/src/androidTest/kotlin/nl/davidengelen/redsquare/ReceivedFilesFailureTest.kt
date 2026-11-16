@@ -72,6 +72,7 @@ class ReceivedFilesFailureTest {
                 captureNativeScreen(File(folder, "actual-export-disables-removal.png"))
                 context.contentResolver.call(exported, "release", exported.lastPathSegment, null)
                 export.get(5, TimeUnit.SECONDS)
+                ui.waitUntil(5_000) { ui.onAllNodes(hasText("Remove") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 assertArrayEquals(byteArrayOf(1, 2, 3, 4, 5), context.contentResolver.openInputStream(exported)!!.use { it.readBytes() })
 
                 // Retain a genuine encrypted inbox remainder, then fail only its filesystem unlink.
@@ -83,7 +84,7 @@ class ReceivedFilesFailureTest {
                 assertEquals(81L, before.retainedBytes) // 41-byte payload plus 8-byte frame + 32-byte encrypted overhead.
                 assertTrue(runCatching { adverse.remove(before) }.isFailure)
                 assertEquals(40L, storage.snapshot().bytes)
-                assertEquals(LocalFileCopy.REMOVED, store.load().single { it.token == value.token }.localCopy)
+                assertEquals(LocalFileCopy.REMOVAL_INCOMPLETE, store.load().single { it.token == value.token }.localCopy)
                 assertTrue(runCatching { store.export(value, exported) }.isFailure)
                 ui.onNodeWithText("Refresh").performClick()
                 ui.waitUntil(5_000) { ui.onNodeWithText("40 B on this device").isDisplayed() }

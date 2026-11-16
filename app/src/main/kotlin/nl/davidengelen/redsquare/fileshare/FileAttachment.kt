@@ -183,7 +183,7 @@ private fun FileTransferCard(value: FileTransfer, session: FileSession, enabled:
                     Text(value.offer.name, style = MaterialTheme.typography.titleSmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
                     AnimatedContent(if (saving) R.string.fileshare_saving else when {
                         value.incoming && value.phase.delivered && value.localCopy == LocalFileCopy.REMOVED -> R.string.fileshare_copy_removed
-                        value.incoming && value.phase.delivered && value.localCopy == LocalFileCopy.UNAVAILABLE -> R.string.fileshare_copy_unavailable
+                        value.incoming && value.phase.delivered && value.localCopy in setOf(LocalFileCopy.UNAVAILABLE, LocalFileCopy.REMOVAL_INCOMPLETE) -> R.string.fileshare_copy_unavailable
                         else -> filePhaseLabel(value.phase, value.incoming)
                     }, label = "fileStatus") { label ->
                         Text(stringResource(label), style = MaterialTheme.typography.bodySmall,

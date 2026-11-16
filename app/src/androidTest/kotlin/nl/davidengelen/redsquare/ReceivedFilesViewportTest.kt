@@ -46,10 +46,11 @@ private fun ComposeTestRule.verifyReceivedFilesViewports(width: Int) {
                 openSettings()
                 onNodeWithText("Storage").performScrollTo().performClick()
                 waitUntil(10_000) { onAllNodesWithText("1.6 KB on this device").fetchSemanticsNodes().isNotEmpty() }
-                onNodeWithText("1.6 KB on this device").performScrollTo().assertIsDisplayed()
+                if (!onNodeWithText("1.6 KB on this device").isDisplayed()) onNodeWithText("1.6 KB on this device").performScrollTo()
+                onNodeWithText("1.6 KB on this device").assertIsDisplayed()
                 val list = onNode(hasScrollToIndexAction())
                 val deadline = android.os.SystemClock.elapsedRealtime() + 5_000
-                list.performScrollToIndex(40)
+                list.performScrollToNode(hasText("Retained document 1.txt"))
                 onNodeWithText("Retained document 1.txt").assertIsDisplayed()
                 onNode(hasText("Remove") and hasAnySibling(hasText("Retained document 1.txt")))
                     .assertHeightIsAtLeast(48.dp).performClick()

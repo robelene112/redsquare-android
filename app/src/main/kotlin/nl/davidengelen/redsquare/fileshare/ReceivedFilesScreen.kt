@@ -17,6 +17,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -42,12 +43,16 @@ internal fun ReceivedFilesScreen(binding: ReceivedFilesScope, onBack: () -> Unit
     }
     LaunchedEffect(storage, refresh) { reload() }
     LaunchedEffect(storage) {
-        FileshareRuntime.transfers.map { rows -> rows.filter { it.owner == binding.owner && it.backend == binding.backend }
-            .map { Triple(it.token, it.phase.delivered, it.localCopy) } }.distinctUntilChanged().collect { reload() }
+        combine(FileshareRuntime.transfers.map { rows -> rows.filter { it.owner == binding.owner && it.backend == binding.backend }
+            .map { Triple(it.token, it.phase.delivered, it.localCopy) } }, ReceivedFileLocks.revision) { rows, revision -> rows to revision }
+            .distinctUntilChanged().collect { reload() }
     }
     AccountDialog(title = stringResource(R.string.received_files), closeLabel = stringResource(R.string.settings_back),
         backLabel = stringResource(R.string.settings_back), onDismissRequest = onBack, text = {
-        Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+        LazyColumn(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(12.dp),
+            contentPadding = PaddingValues(bottom = 16.dp)) {
+            item {
+            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
             Text(stringResource(R.string.received_retention), style = MaterialTheme.typography.bodyMedium)
             snapshot?.let { current ->
                 Text(stringResource(R.string.received_total, fileSize(current.bytes)),
@@ -59,10 +64,10 @@ internal fun ReceivedFilesScreen(binding: ReceivedFilesScope, onBack: () -> Unit
             InlineStatus(if (failed) stringResource(R.string.received_failure) else null, StatusTone.ERROR)
             TextButton(onClick = { failed = false; refresh++ }, enabled = removing == null) { Text(stringResource(R.string.feed_refresh)) }
             if (snapshot == null && !failed) LinearProgressIndicator(Modifier.fillMaxWidth())
+            if (snapshot?.files?.isEmpty() == true) Text(stringResource(R.string.received_empty))
+            }
+            }
             snapshot?.let { current ->
-                if (current.files.isEmpty()) Text(stringResource(R.string.received_empty))
-                LazyColumn(Modifier.weight(1f).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp),
-                    contentPadding = PaddingValues(bottom = 16.dp)) {
                     items(current.files, key = { it.key }) { file ->
                         Surface(shape = RoundedCornerShape(18.dp), color = MaterialTheme.colorScheme.surfaceContainer) {
                             Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -80,7 +85,6 @@ internal fun ReceivedFilesScreen(binding: ReceivedFilesScope, onBack: () -> Unit
                             }
                         }
                     }
-                }
             }
         }
     })
