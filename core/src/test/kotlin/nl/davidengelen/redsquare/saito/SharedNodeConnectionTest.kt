@@ -19,6 +19,42 @@ class SharedNodeConnectionTest {
     // Public, deterministic test identities only.
     private val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
 
+    @Test fun heldIncomingRetentionDoesNotBlockSharedReadCallbacksOrAcknowledgeEarly() = runBlocking {
+        val entered = java.util.concurrent.CountDownLatch(1)
+        val release = java.util.concurrent.CountDownLatch(1)
+        val retained = java.util.concurrent.atomic.AtomicBoolean()
+        try {
+            Node().use { node ->
+                SaitoPeer(wallet, node.endpoint, {
+                    assertEquals("held incoming", it.decodeToString())
+                    entered.countDown()
+                    check(release.await(15, java.util.concurrent.TimeUnit.SECONDS))
+                    retained.set(true)
+                    true
+                }).use { peer ->
+                    peer.request("ready".toByteArray())
+                    node.deliver(wallet.publicKey, "held incoming", 8801)
+                    assertTrue(withContext(Dispatchers.IO) { entered.await(5, java.util.concurrent.TimeUnit.SECONDS) })
+                    try {
+                        assertFalse(retained.get())
+                        assertTrue(node.acknowledgements.tryReceive().isFailure)
+                        // A real callback must remain readable while durable incoming work waits.
+                        assertEquals("history", withTimeout(5_000) {
+                            peer.request("history".toByteArray()).decodeToString()
+                        })
+                        assertFalse(retained.get())
+                        assertTrue("Do not acknowledge before retention", node.acknowledgements.tryReceive().isFailure)
+                    } finally { release.countDown() }
+                    val ack = withTimeout(5_000) { node.acknowledgements.receive() }
+                    assertTrue(retained.get())
+                    assertEquals(13, ack[0].toInt())
+                    assertEquals(8801, ByteBuffer.wrap(ack, 1, 4).int)
+                    assertTrue(node.acknowledgements.tryReceive().isFailure)
+                }
+            }
+        } finally { release.countDown() }
+    }
+
     @Test fun aHeldRelayReplyDoesNotBlockAnIncomingAcknowledgementOnTheSharedSocket() = runBlocking {
         val entered = java.util.concurrent.CountDownLatch(1)
         val release = java.util.concurrent.CountDownLatch(1)
