@@ -757,6 +757,7 @@ fi
 verify_received_files() {
     verify_group_chat_native FileshareStorageManagementTest 180 received-storage received-storage-evidence
     verify_group_chat_native ReceivedFilesFailureTest 180 received-storage-failure received-storage-evidence
+    verify_group_chat_native ReceivedFilesMotionTest 180 received-storage-motion received-storage-evidence
     verify_group_chat_native ReceivedFilesViewportTest 180 received-storage-viewport-320 received-storage-evidence
     verify_group_chat_native ReceivedFilesPixelViewportTest 180 received-storage-viewport-412 received-storage-evidence
 }

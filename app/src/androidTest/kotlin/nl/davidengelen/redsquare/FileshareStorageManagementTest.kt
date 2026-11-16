@@ -19,13 +19,10 @@ import java.util.UUID
 class FileshareStorageManagementTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart() = withNativeModuleMotionScale(1) { verifyRetainedCopy(1) }
-    @Test fun reducedMotionRemovalRetainsTheSameHistoryAndExport() = withNativeModuleMotionScale(0) { verifyRetainedCopy(0) }
-
-    private fun verifyRetainedCopy(motion: Int) {
+    @Test fun aReceivedCopyStaysAfterExportUntilConfirmedRemovalAndHistorySurvivesRestart() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        val evidenceFolder = "received-storage-evidence/motion-$motion"
+        val evidenceFolder = "received-storage-evidence/lifecycle"
         val wallets = AndroidWalletStore(context)
         val original = wallets.loadOrCreate()
         val contact = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Published unsafe fixture only.
@@ -42,7 +39,7 @@ class FileshareStorageManagementTest {
         try {
             retained.prepare()
             wallets.replace(original, wallet)
-            withAppFrameFixture("received-storage-$motion", evidenceFolder = evidenceFolder, feedRows = "[]",
+            withAppFrameFixture("received-storage", evidenceFolder = evidenceFolder, feedRows = "[]",
                 advertisedServices = "archive||;relay||", archiveResponse = { "[]" }) { activity ->
                 val store = FileTransferStore(context, wallet.publicKey, SaitoBackend.OWNER, contact.publicKey)
                 val value = FileTransfer(token, wallet.publicKey, SaitoBackend.OWNER, contact.publicKey,
@@ -70,7 +67,6 @@ class FileshareStorageManagementTest {
                 ChatHistoryStore(context, wallet, SaitoBackend.OWNER, contact.publicKey).save(listOf(history.envelope()))
                 ChatWorkStore(context, wallet, SaitoBackend.OWNER, contact.publicKey).saveDraft("Keep this local draft")
 
-                observeModuleWindowMotionScale(activity, motion, File(context.cacheDir, evidenceFolder).apply { mkdirs() })
                 ui.openSettings()
                 ui.onNodeWithText("Storage").performScrollTo().assertIsDisplayed().performClick()
                 ui.waitUntil(10_000) { ui.onNodeWithText(name).isDisplayed() }
