@@ -8,11 +8,11 @@ assert hashlib.sha256(original.read_bytes()).hexdigest() == '2895a8c6623d875b68d
 text = original.read_text()
 # Keep the original245b profile/adapter runnable for its complete primary. The
 # fixture-only source has a distinct, pre-execution profile and adapter identity.
-for before, after in [
-    ('docs/evidence/ticket131/source-profile.json', 'docs/evidence/ticket131/source-profile-video-fixture.json'),
-    ('docs/evidence/ticket131/verify-full.py', 'docs/evidence/ticket131/verify-full-video-fixture.py'),
+for before, after, occurrences in [
+    ('docs/evidence/ticket131/source-profile.json', 'docs/evidence/ticket131/source-profile-video-fixture.json', 1),
+    ('docs/evidence/ticket131/verify-full.py', 'docs/evidence/ticket131/verify-full-video-fixture.py', 2),
 ]:
-    assert text.count(before) == 1
-    text = text.replace(before, after, 1)
+    assert text.count(before) == occurrences
+    text = text.replace(before, after, occurrences)
 exec(compile(text, str(original) + ':separate-video-fixture-profile', 'exec'),
     dict(__file__=__file__, __name__='__main__'))
