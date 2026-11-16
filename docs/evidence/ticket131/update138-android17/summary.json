@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "source": "c6c01883b3593f02630e0cc42d485b51d12a90c8",
+  "run": 43974257105,
+  "sdk": "17",
+  "versions": [
+    131,
+    138
+  ],
+  "candidateSha256": "75ad9f8b972ec89c95df994deb95e08a68997998830aeec5d6b9029cb319f3c0",
+  "candidateBytes": 94282272,
+  "rawFiles": 31,
+  "nativeMembers": 23,
+  "moduleObserverSha256": "ad07946e7df6b9a63d6a4fb3d45e0681e7d87ecc42afb3e3b687c3c99b280ac5",
+  "legacyFilesharePayloadAndHistoryPreserved": true,
+  "pendingVaultStoreAndOfflineDraftExportPreserved": true,
+  "walletNodeDraftCachePreferenceAndDebugIsolationPreserved": true,
+  "qualification": "Actual signed131-to138 install-r and cold relaunch on guarded disposable emulators. Unsafe public fixtures only, no network submissions. Module observer and signed candidate are both compiled at the same exact frozen current source as the complete app qualification. The ordinary in-place update and cold launch use actual public UI. Whole-app and physical/live/provider/Play acceptance remain separate."
+}

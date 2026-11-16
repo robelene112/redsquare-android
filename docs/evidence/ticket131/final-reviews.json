@@ -431,7 +431,28 @@
         "api": "37.0"
       }
     ],
-    "result": "PENDING_ACTUAL_UPDATES",
-    "publication": "STAGED_ONLY_PUBLIC_LATEST131"
+    "result": "PASS_UPDATE_ONLY",
+    "publication": "STAGED_ONLY_PUBLIC_LATEST131",
+    "spec": {
+      "reviewer": "/root/integrated131_spec_final",
+      "result": "PASS_UPDATE_ONLY",
+      "findings": 0
+    },
+    "standards": {
+      "reviewer": "/root/integrated131_standards_final",
+      "result": "PASS_UPDATE_ONLY",
+      "findings": 0
+    },
+    "evidence": {
+      "originalZipFiles": 205,
+      "indexedUpdateRawFiles": 62,
+      "nativeMembers": 46,
+      "png": 20,
+      "xml": 20,
+      "encryptedModuleRecordsPerSdk": 10,
+      "observerManifestOnlyBodyMembers": 125,
+      "restorationFailures": 0,
+      "networkSubmissions": 0
+    }
   }
 }

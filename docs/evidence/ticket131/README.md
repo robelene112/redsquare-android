@@ -40,9 +40,13 @@ and `verify-full-coalesced-incoming.py`. They retain every original native goal 
 historical profile. Wait for both corrected focused scopes before fresh whole SDK
 dispatch. Reviewed inputs were frozen at c6c01883 before whole dispatch. Fresh ordinary
 three-part10/17 runs43972107183/43972111203 are pending, including all public reads.
-Actual signed131-to138 update runs43974252411/43974257105 use that same frozen
-source, the same-certificate138 APK and fresh observerad07946e7d. Complete parents,
-actual updates and independent public delivery acceptance remain required. All temporary diagnostic probes have been removed from product.
+Actual signed131-to138 runs43974252411/43974257105 both pass at that same
+frozen source, with independent update-only acceptance and zero findings on both
+axes. The same-certificate138 APK and fresh observerad07946e7d preserve local
+work, all ten protected module records, legacy Fileshare, pending Vault/Store
+originals, cold launch and package isolation. Restoration reports zero failures
+and observers submit no transactions. Complete parents and independent public
+delivery acceptance remain required; actual updates never supply whole-app acceptance. All temporary diagnostic probes have been removed from product.
 
 ## Prospective complete source
 
