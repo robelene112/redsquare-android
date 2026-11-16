@@ -755,6 +755,8 @@ if [[ "${TEST_SCOPE:-full}" == talk || "${TEST_SCOPE:-full}" == talk-android17 ]
 fi
 
 verify_fileshare() {
+    verify_vault_notification_native FileshareAttachmentAvailabilityTest 180 file-menu file-menu-evidence
+    verify_fileshare_case FileshareAttachmentBusyTest file-menu-busy
     verify_fileshare_case FileshareSendPreviewTest fileshare-send
     verify_fileshare_case FileshareReceivePreviewTest fileshare-receive
     verify_fileshare_case FileshareCancelPreviewTest fileshare-cancel
@@ -1275,6 +1277,12 @@ verify_unfinished_text() {
 }
 if [[ "${TEST_SCOPE:-full}" == file-menu* ]]; then
     verify_vault_notification_native FileshareAttachmentAvailabilityTest 180 file-menu file-menu-evidence
+    verify_fileshare_case FileshareAttachmentBusyTest file-menu-busy
+    verify_fileshare_case FileshareSendPreviewTest fileshare-send
+    verify_fileshare_case FileshareReceivePreviewTest fileshare-receive
+    verify_fileshare_case FileshareCancelPreviewTest fileshare-cancel
+    verify_fileshare_case FilesharePreparationCancelPreviewTest fileshare-preparation-cancel
+    verify_fileshare_case FileshareNotificationPreviewTest fileshare-notifications denied
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == wallet-draft* ]]; then

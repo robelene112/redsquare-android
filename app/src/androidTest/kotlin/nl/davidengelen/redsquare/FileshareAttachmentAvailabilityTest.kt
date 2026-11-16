@@ -71,15 +71,8 @@ class FileshareAttachmentAvailabilityTest {
                         ui.waitUntil(15_000) { ui.onNode(editor).isDisplayed() }
                         ui.onNode(editor).performTextInput(draft)
                         assertFalse(session!!.ready.value)
-                        ui.onNodeWithContentDescription("Add media").performClick()
-                        ui.onNodeWithText("Send a file").assertIsDisplayed().assertIsNotEnabled()
-                        ui.onNodeWithText("Loading file sharing…").assertIsDisplayed()
-                        ui.onNodeWithText("Add photo").assertIsEnabled()
-                        ui.onNodeWithText("Add GIF").assertIsEnabled()
-                        captureNativeScreen(File(evidence, "initial-loading-menu.png"))
-                        device.pressBack()
-                        ui.waitUntil(5_000) { ui.onAllNodesWithText("Send a file").fetchSemanticsNodes().isEmpty() }
-                        ui.onNode(editor).assertIsEnabled().assertTextContains(draft)
+                        ui.assertFileActionUnavailable("Loading file sharing…", draft,
+                            File(evidence, "initial-loading-menu.png"))
                         gate.release()
                         ui.waitUntil(10_000) { session!!.ready.value }
                         ui.onNodeWithContentDescription("Add media").performClick()

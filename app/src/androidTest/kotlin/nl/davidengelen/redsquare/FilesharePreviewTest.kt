@@ -26,7 +26,8 @@ abstract class FileshareFixture {
     @get:Rule val ui = createEmptyComposeRule()
 
     protected fun transfer(incoming: Boolean, cancel: Boolean = false, unknown: Boolean = false,
-        denyNotifications: Boolean = false, preparationCancel: Boolean = false, viewportWidth: Int? = null, large: Boolean = false, pendingAccept: Boolean = false, pendingAcceptCancel: Boolean = false) {
+        denyNotifications: Boolean = false, preparationCancel: Boolean = false, viewportWidth: Int? = null, large: Boolean = false, pendingAccept: Boolean = false, pendingAcceptCancel: Boolean = false,
+        attachmentAvailability: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -194,6 +195,11 @@ abstract class FileshareFixture {
                                     val notifications = context.getSystemService(NotificationManager::class.java)
                                     try {
                                         waitUntil { notifications.activeNotifications.any { it.id == FileTransferService.NOTIFICATION_ID } }
+                                        if (attachmentAvailability) {
+                                            assertTrue(session!!.foregroundOwned)
+                                            ui.assertFileActionUnavailable("Finish or cancel the current file transfer first.", draft,
+                                                File(evidence, "file-action-accepted.png"))
+                                        }
                                         device.pressHome(); device.sleep()
                                         assertFalse(device.isScreenOn)
                                         val deadline = android.os.SystemClock.elapsedRealtime() + 3200
@@ -262,6 +268,9 @@ abstract class FileshareFixture {
                                     }
                                     ui.onNodeWithText("Preparing file…").performScrollTo().assertIsDisplayed()
                                     captureNativeScreen(File(evidence, "preparation-active.png"), "Preparing file…")
+                                    if (attachmentAvailability) ui.assertFileActionUnavailable(
+                                        "Wait for file preparation to finish or cancel it.", draft,
+                                        File(evidence, "file-action-preparing.png"))
                                     ui.onNodeWithText("Cancel").performScrollTo().performClick()
                                     waitUntil { session!!.preparation.value?.phase == PreparationPhase.CANCELLED }
                                     context.contentResolver.call(source, "release", null, null)
