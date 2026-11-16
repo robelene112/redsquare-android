@@ -746,6 +746,10 @@ verify_talk() {
     verify_talk_capture_native TalkDialPreviewTest talk-dial
     verify_talk_capture_native TalkActiveViewportTest talk-active
     verify_talk_browser_native TalkFilesharePreviewTest talk-fileshare
+    verify_group_chat_native TalkIdleRecoveryTest 180 talk-idle talk-idle-evidence
+    verify_talk_capture_native TalkRoutesRecoveryTest talk-routes
+    verify_talk_capture_native TalkAccountReplacementTest talk-account-replacement
+    verify_talk_capture_native TalkLaunchRoutePreviewTest talk-launch-route
     python3 "$repo_dir/scripts/talk-process-check" --evidence "$evidence/talk-process"
 }
 
@@ -2511,7 +2515,7 @@ verify_profiles() {
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-profile-import.json > /dev/null
     local profile_failed=0 profile_class profile_log
     : > "$evidence/profile-edit-ui.txt"
-    for profile_class in ProfileEditPreviewTest ProfilePublishingPreviewTest ProfileMediaPreviewTest ProfileNewEditPreviewTest ProfileImagePreparationRecreationTest; do
+    for profile_class in ProfileEditPreviewTest ProfilePublishingPreviewTest ProfileMediaPreviewTest ProfileNewEditPreviewTest; do
         profile_log="$evidence/${profile_class}-ui.txt"
         timeout 180 adb shell am instrument -w -r \
             -e class "nl.davidengelen.redsquare.$profile_class" \
@@ -2522,6 +2526,8 @@ verify_profiles() {
     done
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - profile-edit-evidence \
         > "$evidence/profile-edit-evidence.tar" || true
+    # Keep the historical four-log aggregate byte-identical; the new class owns a separate bounded result.
+    verify_group_chat_native ProfileImagePreparationRecreationTest 180 profile-image-recreation profile-edit-evidence || profile_failed=1
     if (( profile_failed )); then
         adb exec-out screencap -p > "$evidence/profile-edit-system-screen.png" || true
         adb logcat -d -v brief AndroidRuntime:E RedSquarePeer:W '*:S' > "$evidence/profile-edit-runtime.txt" || true
@@ -2591,6 +2597,19 @@ if [[ "${TEST_SCOPE:-full}" == ui-regression* ]]; then
     printf '%s\n' 'Current native control regression scopes only; not complete application acceptance.' > "$evidence/scope.txt"
     exit 0
 fi
+verify_review_read_recovery() {
+    verify_group_chat_native ReadDeadlineRecoveryTest 180 read-deadline read-deadline-evidence
+    verify_group_chat_native ProfileDeadlineRecoveryTest 180 profile-deadline profile-deadline-evidence
+    verify_group_chat_native StackDeadlineRecoveryTest 180 stack-deadline stack-deadline-evidence
+    verify_group_chat_native ConversationDeadlineRecoveryTest 180 conversation-deadline conversation-deadline-evidence
+    verify_group_chat_native ReadCancellationTest 180 read-cancellation read-cancellation-evidence
+    verify_group_chat_native FollowingPartialFailureTest 180 following-partial following-partial-evidence
+    verify_group_chat_native PhotoPagesPreviewTest 180 photo-pages photo-pages-evidence
+    verify_group_chat_native PhotoArchiveContinuationTest 180 photo-continuation photo-pages-evidence
+    verify_group_chat_native PhotoLargeRowPreviewTest 180 photo-large-rows photo-pages-evidence
+    verify_group_chat_native PhotoMultiStreamPreviewTest 180 photo-multistream photo-pages-evidence
+}
+if [[ "$full_social" == true ]]; then verify_review_read_recovery; fi
 if [[ "$full_social" == true ]]; then verify_unfinished_text; verify_browse; verify_post_presentation; verify_composer_focus; verify_composer_draft_status; verify_composer_publishing; verify_composer_work; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_image_viewer; verify_gifs; verify_videos; verify_profiles; verify_profile_hierarchy; verify_profile_keyboard; verify_profile_editor_presentation; verify_usernames; fi
 verify_search() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
