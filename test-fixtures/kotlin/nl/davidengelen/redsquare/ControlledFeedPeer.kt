@@ -69,6 +69,29 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     }
     @Volatile var disconnectAfterReport = false
     @Volatile var withholdReportReply = false
+    // Test broker only: exercise the reader's unchanged receive cap with a real RFC frame.
+    // OkHttp 5.4's public send refuses >16MiB before it reaches the client. Keep its
+    // original writer queue/thread and framing, bypassing only this broker's send cap.
+    @Volatile var sendOversizedArchiveFrames = false
+    private fun sendArchive(socket: WebSocket, frame: okio.ByteString): Boolean {
+        if (!sendOversizedArchiveFrames || frame.size <= 16 * 1024 * 1024) return socket.send(frame)
+        val type = Class.forName("okhttp3.internal.ws.RealWebSocket")
+        check(type.isInstance(socket))
+        synchronized(socket) {
+            check(!type.getDeclaredField("failed").apply { isAccessible = true }.getBoolean(socket))
+            check(!type.getDeclaredField("enqueuedClose").apply { isAccessible = true }.getBoolean(socket))
+            val size = type.getDeclaredField("queueSize").apply { isAccessible = true }
+            val queue = type.getDeclaredField("messageAndCloseQueue").apply { isAccessible = true }
+            val message = Class.forName("okhttp3.internal.ws.RealWebSocket\$Message")
+                .getDeclaredConstructor(Int::class.javaPrimitiveType, okio.ByteString::class.java)
+                .newInstance(2, frame)
+            @Suppress("UNCHECKED_CAST")
+            (queue.get(socket) as java.util.ArrayDeque<Any>).add(message)
+            size.setLong(socket, Math.addExact(size.getLong(socket), frame.size.toLong()))
+            type.getDeclaredMethod("runWriter").apply { isAccessible = true }.invoke(socket)
+        }
+        return true
+    }
     @Volatile var withholdArchiveReply = false
     @Volatile var retainWithheldArchiveReplies = false
     private val withheldArchiveReplies = java.util.concurrent.ConcurrentLinkedQueue<Pair<WebSocket, okio.ByteString>>()
@@ -460,7 +483,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()
                         val withheld = withholdArchiveReply
                         if (withheld && retainWithheldArchiveReplies) withheldArchiveReplies.add(webSocket to archiveReply)
-                        val queued = !withheld && webSocket.send(archiveReply)
+                        val queued = !withheld && sendArchive(webSocket, archiveReply)
                         onArchiveResponse?.invoke(criteria.deepCopy(), response, queued)
                         requests.incrementAndGet()
                         received.countDown()
