@@ -134,9 +134,14 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                 try { withTimeout(20_000) { transmit(message.transaction, expectedToken = message.token) } }
                 catch (failure: Exception) {
                     if (failure is CancellationException && !isActive) throw failure
-                    post { if (current?.let { it.token == message.token && it.phase.live } == true) {
-                        TalkRuntime.record("call-signal", failure); finish(CallPhase.UNAVAILABLE)
-                    } }
+                    post {
+                        current?.takeIf { it.token == message.token && it.phase.live }?.let { call ->
+                            TalkRuntime.record("call-signal", failure)
+                            // Once the user has started, signal loss is an interruption
+                            // even when it reaches the actor before route retirement.
+                            finish(if (call.phase.started) CallPhase.INTERRUPTED else CallPhase.UNAVAILABLE)
+                        }
+                    }
                 }
             }
         }
