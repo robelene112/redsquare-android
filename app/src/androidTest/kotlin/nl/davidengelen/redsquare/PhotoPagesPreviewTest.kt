@@ -110,6 +110,9 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
             if (following && id == 10L) remove("id")
         }
     }
+    // Encode owned row bodies once before starting the app. Per-query selection
+    // still follows the actual Archive filters, ordering and minimum page limit.
+    val encodedRows = indexedRows.associate { (id, row) -> id to row.toString() }
     // Prepare the deliberately large held page before the real twelve-second RPC
     // budget starts; this fixture is measuring delivery/continuation, not JVM cold serialization.
     val preparedFollowingPage = if (following) JsonArray().apply {
@@ -131,10 +134,10 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
             else if (query.has("created_earlier_than")) matching.sortedWith(
                 compareByDescending<Pair<Long, JsonObject>> { it.second.get("created_at").asLong }.thenByDescending { it.first })
             else matching.sortedByDescending { it.first }
-        }.map { it.second }.take((query.get("limit")?.asInt ?: 10).coerceIn(10, 100))
+        }.take((query.get("limit")?.asInt ?: 10).coerceIn(10, 100)).map { encodedRows.getValue(it.first) }
         (if (following && selected.size == 20 && query.get("limit")?.asInt == 20 &&
                 !query.has("created_at") && !query.has("id") && !query.has("ascending")) requireNotNull(preparedFollowingPage)
-            else JsonArray().apply { selected.forEach(::add) }.toString()).also {
+            else selected.joinToString(",", "[", "]")).also {
             if (it.toByteArray().size + 5 > SaitoPeer.MAX_RESPONSE_BYTES) oversized.incrementAndGet()
         }
     }

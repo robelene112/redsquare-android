@@ -312,13 +312,11 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     }
     LaunchedEffect(wallet, cacheReady, refresh, internet, followingView,
         following?.accounts.takeIf { followingView }, following?.ready.takeIf { followingView }) {
-        if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.d("Photo125", "effect wallet=${System.identityHashCode(wallet)} cache=${System.identityHashCode(cache)} ready=$cacheReady refresh=$refresh internet=$internet following=$followingView accounts=${following?.accounts.hashCode()} followReady=${following?.ready}")
         if (!internet.available) { hadOutage = true; recovered = false }
         if (wallet == null || !cacheReady) return@LaunchedEffect
         if (followingView && following?.ready != true) { loading = false; pullRefreshing = false; manualPullPending = false; pulledTopPost = null; return@LaunchedEffect }
         if (followingView && following?.accounts?.isEmpty() == true) { loading = false; pullRefreshing = false; manualPullPending = false; pulledTopPost = null; return@LaunchedEffect }
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.d("Photo125", "foreground reader wallet=${System.identityHashCode(wallet)} cache=${System.identityHashCode(cache)}")
             while (currentCoroutineContext().isActive) {
                 if (!internet.available) {
                     loading = false
