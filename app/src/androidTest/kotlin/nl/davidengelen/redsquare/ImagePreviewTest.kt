@@ -264,6 +264,30 @@ class ImagePreviewTest {
                         capture("images-evidence/system-picker-draft.png")
                     } catch (failure: Throwable) {
                         try {
+                            scenario.onActivity { current ->
+                                val owner = AndroidWalletStore(context).loadExisting().publicKey
+                                val memory = androidx.lifecycle.ViewModelProvider(current)[
+                                    "post:$owner:${SaitoBackend.OWNER.id}::quote:",
+                                    nl.davidengelen.redsquare.feed.PostComposerMemory::class.java]
+                                val selected = memory.imagePreparation.pending
+                                val result = selected?.result
+                                val diagnostic = com.google.gson.JsonObject().apply {
+                                    addProperty("lifecycle", current.lifecycle.currentState.name)
+                                    addProperty("orientation", current.resources.configuration.orientation)
+                                    addProperty("expectedTextMatches", memory.text == "Keep picker selection across rotation")
+                                    addProperty("selectedUris", selected?.uris?.size ?: 0)
+                                    addProperty("preparing", memory.imagePreparation.preparing)
+                                    addProperty("failed", memory.imagePreparation.failed)
+                                    addProperty("readStarted", result != null)
+                                    addProperty("readActive", result?.isActive)
+                                    addProperty("readCompleted", result?.isCompleted)
+                                    addProperty("readCancelled", result?.isCancelled)
+                                    addProperty("draftMutexLocked", memory.writes.isLocked)
+                                    addProperty("retainedImages", memory.images?.size ?: 0)
+                                }
+                                File(context.cacheDir, "images-evidence/system-picker-failure-state.json")
+                                    .apply { parentFile?.mkdirs(); writeText(diagnostic.toString()) }
+                            }
                             capture("images-evidence/system-picker-failure.png")
                             androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
                                 .dumpWindowHierarchy(File(context.cacheDir, "images-evidence/system-picker-failure.xml"))
