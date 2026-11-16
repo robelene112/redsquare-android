@@ -200,6 +200,36 @@
     "replacementFullRuns": {
       "10": 43938739034,
       "17": 43939468380
+    },
+    "completeResult": "REJECTED_BOTH_PARENTS",
+    "failedParents": {
+      "android10": {
+        "run": 43938739034,
+        "goal": "GroupConversationPolish original15s fresh history request receipt"
+      },
+      "android17": {
+        "run": 43939468380,
+        "goal": "LoadedMediaMotion original positive recorded intermediate samples"
+      }
     }
+  },
+  "preparedMedia": {
+    "source": "03d80ff15ef41548b3e517e171640325db1805f5",
+    "spec": {
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0
+    },
+    "standards": {
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0
+    },
+    "focusedRuns": [
+      43957716249,
+      43957720646,
+      43957725934,
+      43957732330
+    ],
+    "nativeResult": "PENDING",
+    "qualification": "Original tests byte-identical; no complete or delivery acceptance. Signed137 superseded by production change."
   }
 }

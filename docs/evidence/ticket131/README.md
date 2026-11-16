@@ -3,14 +3,29 @@
 Parent: [#117](https://github.com/robelene112/redsquare-android/issues/117).
 Review base: `59594c5634cbfec2c49bc4375865e3e101503580`.
 
-**In progress.** Behavior children #118–#130 have focused acceptance. Final
-integration also corrects selected-image idle admission and coherent Vault export
-recovery. Signed137 source is `f0272926f326029040fb041b78afdd11159d2606`, with
-product correction `cf1e38756825219111aeb054cf956538e98f6694`. Both replacement SDK
-qualifications are prospectively frozen at
-`a594f6e89b97589f837ad256677cb1b57beed6bb`, after three test-only input changes.
-Public latest remains131. Candidates132–136 are superseded; their focused or
-update passes remain intermediate and must never be promoted.
+**In progress.** Behavior children #118–#130 have focused acceptance. Both
+replacement137 complete SDK parents are rejected: Android10 run43938739034
+failed the original fresh group-history receipt goal; Android17 run43939468380
+failed the original recorded loaded-banner motion goal. Successful siblings do
+not supply acceptance. Public latest remains131. Signed137 remains staged and
+must be superseded after the production media preparation correction.
+
+The media correction at `03d80ff15ef41548b3e517e171640325db1805f5`
+prepares the incoming rendered result at positive opacity before starting the
+existing180ms overlap. Both source reviews pass with zero remaining findings.
+Original loaded-media and image-retry motion goals are unchanged. Fresh focused
+10/17 runs43957716249/43957720646 and43957725934/43957732330 are pending.
+The earlier observational probe43952067644 passed, recording substantial initial
+rendering cost. It does not establish the exact cause of the failed original
+recording. Its temporary instrumentation has been removed.
+
+Unchanged focused group run43953110416 and unchanged media run43949706276
+passed diagnostically. They neither explain nor replace the rejected complete
+parents. Group transport attribution is still under investigation; original15s
+history receipt and incoming original/positive-ACK goals remain unchanged.
+Candidates132–137 and their update/focused observations are intermediate only.
+A new signed candidate, fresh same-source observer, both complete SDK primaries,
+actual signed updates and independent delivery acceptance are required.
 
 ## Prospective complete source
 
@@ -21,6 +36,7 @@ Successful siblings cannot supply acceptance. The replacement profile uses
 before dispatch. Both independent source/binding reviews pass. Both SDKs must
 freshly complete all three original partitions, source checks and public reads.
 Replacement10 run43938739034 and17 run43939468380 use exact frozen a594.
+Both subsequently failed as qualified above; this old snapshot is not accepted.
 The earlier two-file, outstanding-SDK proposal at b618 was superseded before any
 whole replacement dispatch when the original10 Chat partition also failed.
 

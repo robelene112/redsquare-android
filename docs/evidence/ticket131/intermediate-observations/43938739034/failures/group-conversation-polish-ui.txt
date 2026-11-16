@@ -1,0 +1,71 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupConversationPolishPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupConversationPolishPreviewTest:
+INSTRUMENTATION_STATUS: test=groupDetailsAndMessageControlsRemainReachableWithNormalAndLargeText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupConversationPolishPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupConversationFixture.exercise$lambda$27$lambda$25$lambda$24(GroupConversationReadingPreviewTest.kt:93)
+	at nl.davidengelen.redsquare.GroupConversationFixture.$r8$lambda$eMP0WdJFE6L8QDDkjh0Mc7-txtI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupConversationFixture$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.GroupConversationFixture.exercise(GroupConversationReadingPreviewTest.kt:76)
+	at nl.davidengelen.redsquare.GroupConversationPolishPreviewTest.groupDetailsAndMessageControlsRemainReachableWithNormalAndLargeText(GroupConversationPolishPreviewTest.kt:12)
+
+INSTRUMENTATION_STATUS: stream=
+Error in groupDetailsAndMessageControlsRemainReachableWithNormalAndLargeText(nl.davidengelen.redsquare.GroupConversationPolishPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupConversationFixture.exercise$lambda$27$lambda$25$lambda$24(GroupConversationReadingPreviewTest.kt:93)
+	at nl.davidengelen.redsquare.GroupConversationFixture.$r8$lambda$eMP0WdJFE6L8QDDkjh0Mc7-txtI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupConversationFixture$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.GroupConversationFixture.exercise(GroupConversationReadingPreviewTest.kt:76)
+	at nl.davidengelen.redsquare.GroupConversationPolishPreviewTest.groupDetailsAndMessageControlsRemainReachableWithNormalAndLargeText(GroupConversationPolishPreviewTest.kt:12)
+
+INSTRUMENTATION_STATUS: test=groupDetailsAndMessageControlsRemainReachableWithNormalAndLargeText
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 48.518
+There was 1 failure:
+1) groupDetailsAndMessageControlsRemainReachableWithNormalAndLargeText(nl.davidengelen.redsquare.GroupConversationPolishPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupConversationFixture.exercise$lambda$27$lambda$25$lambda$24(GroupConversationReadingPreviewTest.kt:93)
+	at nl.davidengelen.redsquare.GroupConversationFixture.$r8$lambda$eMP0WdJFE6L8QDDkjh0Mc7-txtI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupConversationFixture$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.GroupConversationFixture.exercise(GroupConversationReadingPreviewTest.kt:76)
+	at nl.davidengelen.redsquare.GroupConversationPolishPreviewTest.groupDetailsAndMessageControlsRemainReachableWithNormalAndLargeText(GroupConversationPolishPreviewTest.kt:12)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
