@@ -1,0 +1,60 @@
+{
+  "source": "e2060c0161749244f06c2be73a6070bc43a0ba3d",
+  "run": 43835719858,
+  "normalMethods": 13,
+  "groups": [
+    {
+      "group": "talk-launch-route",
+      "class": "TalkLaunchRoutePreviewTest",
+      "methods": [
+        "aRealCallNotificationReturnsToTheCallAndItsConsumedColdRouteDoesNotReplayAfterEnding",
+        "consumedColdInvitationsDoNotReplayAndNewPendingDeliveriesSurviveRecreation"
+      ],
+      "nativeLogSha256": "bad6973df396e0892aeb153da831ce9f29e99958d4e72837b7bd376580d98622"
+    },
+    {
+      "group": "talk-invitation",
+      "class": "TalkInvitationPreviewTest",
+      "methods": [
+        "aNarrowInvitationPreviewsWithoutCaptureOrChangingTheNode",
+        "aSharedTalkUrlResolvesThroughAndroidToNativePrejoinWithoutCapture",
+        "aWideInvitationPreviewsWithoutCaptureOrChangingTheNode",
+        "anotherInvitationPreviewsWithoutReplacingTheActiveCall",
+        "newInvitationsWalletsAndNodesNeverInheritAnotherPrejoinChoice",
+        "prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips"
+      ],
+      "nativeLogSha256": "47df7ec8c8b3b6720d302712e9504f0ca5b265743702197aafd93e68428ceae0"
+    },
+    {
+      "group": "talk-routing",
+      "class": "TalkRoutingPreviewTest",
+      "methods": [
+        "aRejectedCallIsNotAcknowledgedByAnUnrelatedReceiver",
+        "anIncomingCallReachesTalkWhenTheAuthenticatedSocketBelongsToChat"
+      ],
+      "nativeLogSha256": "794fc60e4074435188473a46cee4d9938e86794904f071b2217e265f5d08969c"
+    },
+    {
+      "group": "talk-ownership",
+      "class": "TalkOwnershipPreviewTest",
+      "methods": [
+        "oldNotificationCannotEndANewerCallAndTheCurrentHangupReleasesCapture",
+        "walletNodeAndBlockingChangesSilenceTheOldCaptureBeforeTheWriteReturns"
+      ],
+      "nativeLogSha256": "d4e927081678f7e7802405a12430a6f5daea89cf6343492088350ee26ecec195"
+    },
+    {
+      "group": "module-push",
+      "class": "SocialPushTapPreviewTest",
+      "methods": [
+        "aReplyTapReturnsFromStackAfterConnectionDetailsCloseAndKeepsTheSavedPost"
+      ],
+      "nativeLogSha256": "98348d24559d0548620e86ff6cb5ed46c3bb1f4e0bb901db59d7c0a6dc76b1a3"
+    }
+  ],
+  "allCompleteNativeAndCaptureChecksPassed": true,
+  "limitations": [
+    "Original cold return URI is modeled from the live call with owned debug endpoints; subsequent return uses the actual Android notification PendingIntent.",
+    "Controlled Android emulators only; no physical/OEM, live default-domain association or final whole-app delivery acceptance."
+  ]
+}

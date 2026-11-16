@@ -10,7 +10,26 @@ Keep one implementation ticket active at a time; independent code-review agents
 remain permitted. Ordinary native/emulator QA is agent-owned. No production node/
 provider activation or public financial write is authorized.
 
-Current next ticket: #127 (consume Talk launch routes once).
+Current next ticket: #128 (retain editable wallet transfer input).
+
+#127 is complete: product/Android17 source319946d69e7c5f68b228fc06490f646a3a4069cb,
+Android10 fixturee2060c0161749244f06c2be73a6070bc43a0ba3d, final diagnostic
+cleanup/source compile2d7fd72b594943af9b86a3492275ca48bb82f219. See
+[the packet](../evidence/ticket127/README.md). Saved delivery generation and
+consumption prevent old invitation/return Intents replaying after recreation,
+while pending and genuinely new deliveries survive. Original Intent/endpoints,
+wallet/node and normal notification routing remain. Whole Android10/17 parents
+43835719858/43829235005 each pass13 normal methods/five groups. Original cold
+return URI is modeled with owned endpoints; the subsequent return uses the actual
+Android notification PendingIntent. Both independent axes accept native originals,
+236 indexed copies and source bridges (two AndroidTest paths,226179 identical
+entries). Final source43836186053 compiles actual AndroidTest/assemblies; core224/
+44 and gateway tasks FROM-CACHE, lint0errors/95warnings/3hints. Ten retained receipts
+contain836 ZIP files/497 TAR members; failed/diagnostic parents stay excluded,
+including earlier intermittent picker failures whose exact cause is unproved.
+Physical/OEM, live services and whole-app/release acceptance remain qualified.
+Public beta remains131; continue128–130 then final131 without approval.
+Originals: `/mnt/storage/redsquare-android-artifacts/talk-launch127`.
 
 The reopened121navigation follow-up is complete atadcc1e9ca804372cd7b6a11c276168d106fcc328,
 with both independent axes reporting zero source/native findings. See

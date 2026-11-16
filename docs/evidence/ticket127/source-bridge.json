@@ -1,0 +1,17 @@
+{
+  "from": "319946d69e7c5f68b228fc06490f646a3a4069cb",
+  "to": "2d7fd72b594943af9b86a3492275ca48bb82f219",
+  "onlyDifferingPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SocialPushTapPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/TalkInvitationPreviewTest.kt"
+  ],
+  "identicalGitEntries": 226179,
+  "canonicalIdenticalEntriesSha256": "625fa9632214d530eca23a24aa38864dd091b46bf2f445f99225811c27faf2cd",
+  "productCoreResourcesBuildHarnessAndControlledPeerByteIdentical": true,
+  "qualification": "Reviewed AndroidTest restored-input/picker readiness and bounded diagnostic observations; exact earlier intermittent picker failure cause remains unproved.",
+  "nativeThresholdsDeadlinesAndAssertionsPreserved": true,
+  "android10Source": "e2060c0161749244f06c2be73a6070bc43a0ba3d",
+  "android17Source": "319946d69e7c5f68b228fc06490f646a3a4069cb",
+  "android10ToFinalOnlyDiagnosticFailurePreservation": true,
+  "canonicalIdenticalEntriesSerialization": "UTF-8, LF terminated: sort lexically by path each identical Git entry as path + TAB + git ls-tree left-of-TAB (mode SPACE type SPACE OID), join LF and append final LF"
+}
