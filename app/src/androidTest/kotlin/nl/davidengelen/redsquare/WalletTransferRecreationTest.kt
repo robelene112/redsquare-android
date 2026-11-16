@@ -9,6 +9,8 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
+import androidx.test.runner.lifecycle.Stage
 import nl.davidengelen.redsquare.saito.TransferStore
 import org.junit.Assert.*
 import org.junit.Rule
@@ -33,13 +35,11 @@ class WalletTransferRecreationTest {
             val owner = displayedWalletAddress(ui)
             val before = TransferStore(context, owner).pending()
             ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
-            values.forEach { (label, value) ->
-                ui.onNodeWithContentDescription(label).performScrollTo().performTextReplacement(value)
-            }
+            enterValues()
             assertEditableValues()
             captureNativeScreen(File(context.cacheDir, "wallet-input-evidence/editable-before.png"))
             activity.recreate()
-            ui.waitUntil(10_000) { ui.onAllNodes(hasContentDescription("Recipient address") and hasSetTextAction()).fetchSemanticsNodes().size == 1 }
+            waitForEditableTask()
             assertEditableValues()
             ui.onAllNodesWithText("Confirm SAITO transfer").assertCountEquals(0)
             ui.onAllNodesWithText("Authenticate and send").assertCountEquals(0)
@@ -81,7 +81,7 @@ class WalletTransferRecreationTest {
                     challenge.parentFile!!.mkdirs()
                     device.dumpWindowHierarchy(challenge)
                     assertTrue(peer.transactions.isEmpty())
-                    activity.recreate()
+                    recreateBehindCredential()
                     cancelRealSystemAuthentication(device, context.packageName)
                     waitForEditableTask()
                     assertEditableValues()
@@ -179,6 +179,26 @@ class WalletTransferRecreationTest {
                 }
                 check(wallets.loadExisting().exportJson() == original.exportJson())
             })
+        }
+    }
+
+    private fun recreateBehindCredential() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        fun activities(): List<MainActivity> {
+            var result = emptyList<MainActivity>()
+            instrumentation.runOnMainSync {
+                val monitor = ActivityLifecycleMonitorRegistry.getInstance()
+                result = listOf(Stage.CREATED, Stage.STARTED, Stage.RESUMED, Stage.PAUSED, Stage.STOPPED)
+                    .flatMap { monitor.getActivitiesInStage(it) }.filterIsInstance<MainActivity>().distinct()
+            }
+            return result
+        }
+        val previous = activities().single()
+        // ActivityScenario.recreate first forces RESUMED, which a real credential window prevents.
+        // Ask the actual stopped Activity to recreate without stealing the credential window's focus.
+        instrumentation.runOnMainSync { previous.recreate() }
+        ui.waitUntil(10_000) {
+            previous.isDestroyed && activities().singleOrNull()?.let { it !== previous } == true
         }
     }
 
