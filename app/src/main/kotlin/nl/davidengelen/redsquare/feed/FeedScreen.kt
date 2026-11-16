@@ -310,7 +310,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         cacheWarning = saved.unreadable
         cacheReady = true
     }
-    LaunchedEffect(wallet, cacheReady, refresh, internet, followingView, following?.accounts, following?.ready) {
+    LaunchedEffect(wallet, cacheReady, refresh, internet, followingView,
+        following?.accounts.takeIf { followingView }, following?.ready.takeIf { followingView }) {
         if (!internet.available) { hadOutage = true; recovered = false }
         if (wallet == null || !cacheReady) return@LaunchedEffect
         if (followingView && following?.ready != true) { loading = false; pullRefreshing = false; manualPullPending = false; pulledTopPost = null; return@LaunchedEffect }
