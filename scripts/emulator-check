@@ -1287,6 +1287,7 @@ if [[ "${TEST_SCOPE:-full}" == photo-pages* ]]; then
     verify_group_chat_native PhotoLargeRowPreviewTest 180 photo-large-rows photo-pages-evidence
     verify_group_chat_native PhotoMultiStreamPreviewTest 180 photo-multistream photo-pages-evidence
     verify_group_chat_native ReadDeadlineRecoveryTest 180 photo-read-deadline read-deadline-evidence
+    verify_group_chat_native ReadCancellationTest 180 photo-read-cancellation read-cancellation-evidence
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == talk-idle-routes* ]]; then

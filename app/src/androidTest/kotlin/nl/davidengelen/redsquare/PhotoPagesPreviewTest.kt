@@ -110,6 +110,11 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
             if (following && id == 10L) remove("id")
         }
     }
+    // Prepare the deliberately large held page before the real twelve-second RPC
+    // budget starts; this fixture is measuring delivery/continuation, not JVM cold serialization.
+    val preparedFollowingPage = if (following) JsonArray().apply {
+        indexedRows.sortedByDescending { it.first }.take(20).forEach { add(it.second) }
+    }.toString() else null
     val queries = CopyOnWriteArrayList<JsonObject>()
     val oversized = AtomicInteger()
     val respond: (JsonObject) -> String = { query ->
@@ -127,7 +132,9 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
                 compareByDescending<Pair<Long, JsonObject>> { it.second.get("created_at").asLong }.thenByDescending { it.first })
             else matching.sortedByDescending { it.first }
         }.map { it.second }.take((query.get("limit")?.asInt ?: 10).coerceIn(10, 100))
-        JsonArray().apply { selected.forEach(::add) }.toString().also {
+        (if (following && selected.size == 20 && query.get("limit")?.asInt == 20 &&
+                !query.has("created_at") && !query.has("id") && !query.has("ascending")) requireNotNull(preparedFollowingPage)
+            else JsonArray().apply { selected.forEach(::add) }.toString()).also {
             if (it.toByteArray().size + 5 > SaitoPeer.MAX_RESPONSE_BYTES) oversized.incrementAndGet()
         }
     }
@@ -159,12 +166,24 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
                     if (following) {
                         ui.waitUntil(20_000) { ui.onAllNodesWithText("Following").fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText("Following").performClick()
-                        ui.waitUntil(20_000) { queries.any { it.has("field2") } &&
-                            ui.onAllNodesWithText(requireNotNull(cached).text).fetchSemanticsNodes().isNotEmpty() }
+                        ui.waitUntil(20_000) {
+                            peer.archiveObservations.any { event -> event.get("event").asString == "reply" &&
+                                event.get("kind").asString == "RedSquare" && event.get("authorFiltered").asBoolean &&
+                                event.get("withheld").asBoolean } &&
+                                ui.onAllNodesWithText(requireNotNull(cached).text).fetchSemanticsNodes().isNotEmpty()
+                        }
+                        val held = peer.archiveObservations.last { event -> event.get("event").asString == "reply" &&
+                            event.get("kind").asString == "RedSquare" && event.get("authorFiltered").asBoolean &&
+                            event.get("withheld").asBoolean }
+                        ui.onAllNodesWithText("Node unavailable").assertCountEquals(0)
                         val before = ui.onNodeWithText(requireNotNull(cached).text).fetchSemanticsNode().boundsInRoot.top
                         captureNativeScreen(File(context.cacheDir, "photo-pages-evidence/following-before.png"))
+                        check(System.currentTimeMillis() - held.get("started").asLong < 5_000) {
+                            "The fixture did not establish its held-callback precondition before the real RPC deadline"
+                        }
+                        ui.onAllNodesWithText("Node unavailable").assertCountEquals(0)
                         peer.withholdArchiveReply = false
-                        check(peer.releaseWithheldArchiveReplies() > 0)
+                        check(peer.releaseWithheldArchiveReplies(held.get("index").asInt) == 1)
                         ui.waitUntil(30_000) {
                             ui.onNodeWithTag("feed-post-list").fetchSemanticsNode().config[SemanticsProperties.CollectionInfo].rowCount == postCount + 1
                         }

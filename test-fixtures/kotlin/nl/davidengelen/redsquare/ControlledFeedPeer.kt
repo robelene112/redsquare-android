@@ -99,11 +99,22 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     }
     @Volatile var withholdArchiveReply = false
     @Volatile var retainWithheldArchiveReplies = false
+    private val archiveReplyLock = Any()
     private val withheldArchiveReplies = java.util.concurrent.ConcurrentLinkedQueue<Pair<WebSocket, okio.ByteString>>()
-    fun releaseWithheldArchiveReplies(): Int {
+    fun releaseWithheldArchiveReplies(requestIndex: Int? = null): Int {
+        val pending = synchronized(archiveReplyLock) {
+            val selected = mutableListOf<Pair<WebSocket, okio.ByteString>>()
+            val retained = mutableListOf<Pair<WebSocket, okio.ByteString>>()
+            while (true) {
+                val item = withheldArchiveReplies.poll() ?: break
+                val index = ByteBuffer.wrap(item.second.substring(1, 5).toByteArray()).int
+                if (requestIndex == null || index == requestIndex) selected.add(item) else retained.add(item)
+            }
+            retained.forEach(withheldArchiveReplies::add)
+            selected
+        }
         var count = 0
-        while (true) {
-            val (socket, response) = withheldArchiveReplies.poll() ?: return count
+        for ((socket, response) in pending) {
             val sent = sendArchive(socket, response)
             observeArchive(com.google.gson.JsonObject().apply {
                 addProperty("event", "release"); addProperty("at", System.currentTimeMillis())
@@ -112,6 +123,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
             })
             if (sent) count++
         }
+        return count
     }
     @Volatile var rejectedArchiveKinds: Set<String> = emptySet()
     @Volatile var reportReplyIsError = false
@@ -493,8 +505,11 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         }
                         val archiveReply = (byteArrayOf(if (criteria.get("field1")?.asString in rejectedArchiveKinds) 14.toByte() else 13.toByte()) +
                             frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()
-                        val withheld = withholdArchiveReply
-                        if (withheld && retainWithheldArchiveReplies) withheldArchiveReplies.add(webSocket to archiveReply)
+                        val withheld = synchronized(archiveReplyLock) {
+                            withholdArchiveReply.also { held ->
+                                if (held && retainWithheldArchiveReplies) withheldArchiveReplies.add(webSocket to archiveReply)
+                            }
+                        }
                         val queued = !withheld && sendArchive(webSocket, archiveReply)
                         if (criteria.get("field1")?.asString in setOf("RedSquare", "RedSquareRetweet")) {
                             observeArchive(com.google.gson.JsonObject().apply {
