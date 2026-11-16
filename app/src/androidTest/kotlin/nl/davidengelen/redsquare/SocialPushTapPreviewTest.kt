@@ -313,16 +313,18 @@ class SocialPushTapPreviewTest {
                             observeHeader("before-click")
                             ui.onNode(moduleHeader).performClick()
                             val stackChoice = hasText("Stack") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())
-                            try {
-                                ui.waitUntil(remainingModuleBudget()) {
-                                    observeHeader("after-click")
-                                    ui.onAllNodes(stackChoice).fetchSemanticsNodes().size == 1
-                                }
-                            } finally {
+                            val retainObservations: () -> Unit = {
                                 File(context.cacheDir, "social-push-evidence/module-picker-observations.json").apply {
                                     parentFile!!.mkdirs(); writeText(observations.toString())
                                 }
                             }
+                            withFailureCapture(retainObservations) {
+                                ui.waitUntil(remainingModuleBudget()) {
+                                    observeHeader("after-click")
+                                    ui.onAllNodes(stackChoice).fetchSemanticsNodes().size == 1
+                                }
+                            }
+                            retainObservations()
                             ui.onNode(stackChoice).performClick()
                             ui.waitUntil(remainingModuleBudget()) { ui.onNode(hasContentDescription("Switch app: Stack") and isEnabled()).isDisplayed() }
                             remainingModuleBudget()
