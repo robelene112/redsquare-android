@@ -1277,6 +1277,7 @@ if [[ "${TEST_SCOPE:-full}" == talk-account-replacement* ]]; then
     verify_talk_capture_native TalkAccountReplacementTest talk-account-replacement
     verify_talk_capture_native TalkOwnershipPreviewTest talk-ownership
     verify_talk_capture_native TalkLifecyclePreviewTest talk-lifecycle
+    verify_talk_capture_native TalkCameraLifecyclePreviewTest talk-camera-lifecycle
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == read-deadline-conversation* ]]; then
