@@ -145,7 +145,8 @@ internal class SearchViewState {
 
     fun loadMore() {
         paused = false
-        pending = cursors.filterValues { it != null }.keys.toList()
+        val remaining = cursors.filterValues { it != null }.keys.toList()
+        pending = (pending.filter { it in remaining } + remaining).distinct()
         request++
     }
 }
@@ -229,6 +230,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                         // Paging/retrying post streams must not repeat a completed username attempt.
                         withContext(Dispatchers.Main.immediate) { view.usernamePending = false }
                     }
+                    val publishedMatches = mutableSetOf<String>()
                     for ((stream, cursor) in pages) {
                         if (withContext(Dispatchers.Main.immediate) { view.limitReached }) break
                         val criteria = JsonObject().apply {
@@ -243,14 +245,25 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                         revisions.reconcileDeletions(archive.peer, page.deletions, page.posts + observed)
                         page.posts.forEach(revisions::observe)
                         val searchedQuery = withContext(Dispatchers.Main.immediate) { view.searchedQuery }
+                        val incomingIds = withContext(Dispatchers.Main.immediate) {
+                            page.posts.filterNot { personal.hidesPosts(it.author) }.map { it.id }.toSet()
+                        }
+                        var deferred = false
                         while (true) {
                             val known = withContext(Dispatchers.Main.immediate) { view.posts }
                             val checkedRevision = AndroidPostRevisions.changes.value
                             val applied = cache.retain(page.posts + known, searchedQuery,
-                                if (received.adapted) page.posts.map { it.id }.toSet() else emptySet())
+                                incomingIds + publishedMatches)
                             val published = withContext(Dispatchers.Main.immediate) {
                                 if (view.posts !== known || AndroidPostRevisions.changes.value != checkedRevision) false
-                                else {
+                                else if (publishedMatches.isNotEmpty() && applied.preferredOmitted) {
+                                    // This action must leave every newly consumed match visible.
+                                    // Keep this stream/cursor pending, first on the next Load more.
+                                    // Its next read uses the learned bound, never the rejected size.
+                                    deferred = true
+                                    view.windowLimited = true
+                                    true
+                                } else {
                                     social?.observe(page.posts)
                                     view.posts = applied.posts
                                     view.unreadable = view.unreadable || applied.unreadable || page.ignored > 0
@@ -258,8 +271,10 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                                     view.pagingUnavailable = view.pagingUnavailable || received.pagingUnavailable
                                     view.cursors = view.cursors + (stream to next)
                                     view.pending = view.pending - stream
-                                    view.windowLimited = view.windowLimited || (applied.limited && received.adapted)
-                                    if (applied.limited && !received.adapted) {
+                                    view.windowLimited = view.windowLimited || applied.byteLimited
+                                    publishedMatches.addAll(applied.posts.filter { it.id in incomingIds &&
+                                        it.text.contains(searchedQuery, ignoreCase = true) }.map { it.id })
+                                    if (applied.limited && !applied.byteLimited) {
                                         view.limitReached = true
                                         view.cursors = view.cursors.mapValues { null }
                                         view.pending = emptyList()
@@ -270,9 +285,10 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                             // Reuse this verified page; do not repeat a completed network read.
                             if (published) break
                         }
+                        if (deferred) break
                         val retained = withContext(Dispatchers.Main.immediate) { view.posts to view.searchedQuery }
                         val saved = try { cache.save(retained.first, retained.second,
-                            if (received.adapted) retained.first.map { it.id }.toSet() else emptySet()); true }
+                            retained.first.map { it.id }.toSet()); true }
                         catch (cancelled: CancellationException) { throw cancelled }
                         catch (_: Exception) { false }
                         withContext(Dispatchers.Main.immediate) { view.saveError = !saved }

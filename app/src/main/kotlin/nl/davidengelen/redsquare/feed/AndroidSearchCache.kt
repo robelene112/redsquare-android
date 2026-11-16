@@ -9,7 +9,8 @@ internal class AndroidSearchCache(context: Context, backend: SaitoBackend) {
     private val feed = AndroidFeedCache(context, backend)
     private val profiles = AndroidProfileCache(context, backend)
     private val revisions = AndroidPostRevisions(context, backend)
-    data class History(val posts: List<FeedPost>, val unreadable: Boolean, val limited: Boolean = false)
+    data class History(val posts: List<FeedPost>, val unreadable: Boolean, val limited: Boolean = false,
+        val byteLimited: Boolean = false, val preferredOmitted: Boolean = false)
 
     fun load(): History {
         val saved = decode(storage.load())
@@ -28,8 +29,12 @@ internal class AndroidSearchCache(context: Context, backend: SaitoBackend) {
             it.text.contains(query, ignoreCase = true)
         }.thenByDescending { it.id in preferredIds }.thenByDescending { it.createdAt })
         val retained = ordered.take(storage.fittingEntryCount(ordered.asSequence().map { it.envelope }))
+        val retainedIds = retained.map { it.id }.toSet()
+        val omitted = ordered.any { it.id in preferredIds && it.id !in retainedIds &&
+            it.text.contains(query, ignoreCase = true) }
         return History(retained, applied.unreadable,
-            retained.size == MAX_POSTS || retained.size < ordered.size)
+            retained.size == MAX_POSTS || retained.size < ordered.size,
+            retained.size < minOf(ordered.size, MAX_POSTS), omitted)
     }
 
     fun save(posts: List<FeedPost>, query: String, preferredIds: Set<String> = emptySet()) {

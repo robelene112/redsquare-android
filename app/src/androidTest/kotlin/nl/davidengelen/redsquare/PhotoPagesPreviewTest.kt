@@ -41,7 +41,7 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
     val oldBackend = backends.load()
     val retained = ChatFixtureState(context, listOf("feed.${SaitoBackend.OWNER.id}.",
         "followingfeed.${SaitoBackend.OWNER.id}.${wallet.publicKey}.", "following.${wallet.publicKey}.",
-        "search.${SaitoBackend.OWNER.id}.", "personal.${wallet.publicKey}."), wallet.publicKey)
+        "search.${SaitoBackend.OWNER.id}.", "quoteoriginal.${SaitoBackend.OWNER.id}.", "personal.${wallet.publicKey}."), wallet.publicKey)
     val mode = when { following -> "following"; largeRows -> "large-rows"; bothStreams -> "multi-search"; differentTimes -> "older-search"; search -> "search"; else -> "feed" }
     val postCount = if (largeRows) 8 else 20
     val timestamp = 1700000000123L
