@@ -333,6 +333,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                                     val accepted = if (author == null) page else page.copy(posts = page.posts.filter { it.author == author })
                                     rowCount += accepted.rowCount
                                     validCount += accepted.posts.size
+                                    if (accepted.posts.isEmpty() && accepted.deletions.isEmpty()) {
+                                        withContext(Dispatchers.Main.immediate) { unreadablePage = rowCount > 0 && validCount == 0 }
+                                        return
+                                    }
                                     val known = withContext(Dispatchers.Main.immediate) { posts.toList() }
                                     revisions.reconcileDeletions(archive.peer, accepted.deletions, accepted.posts + known)
                                     withContext(Dispatchers.Main.immediate) {

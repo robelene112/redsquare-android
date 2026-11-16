@@ -99,7 +99,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         var count = 0
         while (true) {
             val (socket, response) = withheldArchiveReplies.poll() ?: return count
-            if (socket.send(response)) count++
+            if (sendArchive(socket, response)) count++
         }
     }
     @Volatile var rejectedArchiveKinds: Set<String> = emptySet()
