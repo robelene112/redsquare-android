@@ -4,7 +4,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
-import androidx.compose.ui.test.junit4.ComposeContentTestRule
+import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.semantics.SemanticsProperties
 import nl.davidengelen.redsquare.feed.AndroidFeedCache
 import nl.davidengelen.redsquare.feed.PublicStringStore
@@ -26,10 +26,11 @@ class PhotoPagesPreviewTest {
 
     @Test fun allPhotoPostsAtOneTimestampStayReachableAfterAnOversizedFeedResponse() = exercisePhotoPages(ui)
     @Test fun searchCanContinueThroughAllPhotoPostsAtOneTimestamp() = exercisePhotoPages(ui, search = true)
+    @Test fun searchCanReachOlderPhotoMatchesAfterTheVisibleWindowFills() = exercisePhotoPages(ui, search = true, differentTimes = true)
 }
 
-internal fun exercisePhotoPages(ui: ComposeContentTestRule, search: Boolean = false,
-    following: Boolean = false, largeRows: Boolean = false) {
+internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
+    following: Boolean = false, largeRows: Boolean = false, differentTimes: Boolean = false) {
     val context = InstrumentationRegistry.getInstrumentation().targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev")
     check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -41,7 +42,7 @@ internal fun exercisePhotoPages(ui: ComposeContentTestRule, search: Boolean = fa
     val retained = ChatFixtureState(context, listOf("feed.${SaitoBackend.OWNER.id}.",
         "followingfeed.${SaitoBackend.OWNER.id}.${wallet.publicKey}.", "following.${wallet.publicKey}.",
         "search.${SaitoBackend.OWNER.id}.", "personal.${wallet.publicKey}."), wallet.publicKey)
-    val mode = when { following -> "following"; largeRows -> "large-rows"; search -> "search"; else -> "feed" }
+    val mode = when { following -> "following"; largeRows -> "large-rows"; differentTimes -> "older-search"; search -> "search"; else -> "feed" }
     val postCount = if (largeRows) 8 else 20
     val timestamp = 1700000000123L
     val random = java.util.Random(125)
@@ -55,6 +56,7 @@ internal fun exercisePhotoPages(ui: ComposeContentTestRule, search: Boolean = fa
     val image = "data:image/jpeg;base64," + java.util.Base64.getEncoder().encodeToString(jpeg)
     check(jpeg.size < 2 * 1024 * 1024)
     val signedRows = (1..postCount).map { number ->
+        val createdAt = timestamp + if (differentTimes) number else 0
         val body = JsonObject().apply {
             addProperty("module", "RedSquare"); addProperty("request", "create tweet")
             add("data", JsonObject().apply {
@@ -65,12 +67,12 @@ internal fun exercisePhotoPages(ui: ComposeContentTestRule, search: Boolean = fa
         // Incoming social decoding already admits these signed normal type0 messages
         // within its existing 8MiB envelope bound. The native publisher's 1MiB factory
         // is unchanged; use the existing larger wire factory only for this owned fixture.
-        val envelope = (if (largeRows) SaitoTransaction.createVaultMessage(wallet, body, timestamp)
-            else SaitoTransaction.create(wallet, body, timestamp)).envelope()
+        val envelope = (if (largeRows) null
+            else SaitoTransaction.create(wallet, body, createdAt))?.envelope() ?: signedLargePhotoEnvelope(wallet, body, createdAt)
         val post = RedSquareFeed.decode(envelope)
         check(post.images.size == (if (largeRows) 3 else 1) && post.text == "Photo page item $number")
         JsonObject().apply {
-            addProperty("id", if (following && number > 10) number + 10 else number); addProperty("sig", post.id); addProperty("created_at", timestamp)
+            addProperty("id", if (following && number > 10) number + 10 else number); addProperty("sig", post.id); addProperty("created_at", createdAt)
             addProperty("field1", "RedSquare"); addProperty("field2", wallet.publicKey)
             addProperty("field4", ""); addProperty("field5", post.threadId); addProperty("tx", envelope)
         }
@@ -94,20 +96,29 @@ internal fun exercisePhotoPages(ui: ComposeContentTestRule, search: Boolean = fa
     check(combinedBytes > SaitoPeer.MAX_RESPONSE_BYTES)
     val minimumPageBytes = JsonArray().apply { rows.take(10).forEach(::add) }.toString().toByteArray().size
     check(if (largeRows) minimumPageBytes > SaitoPeer.MAX_RESPONSE_BYTES else minimumPageBytes < SaitoPeer.MAX_RESPONSE_BYTES)
+    val indexedRows = rows.map { row ->
+        val id = row.get("id").asLong
+        id to row.deepCopy().apply {
+            if (following && id == 22L) addProperty("id", "unreadable")
+            if (following && id == 10L) remove("id")
+        }
+    }
     val queries = CopyOnWriteArrayList<JsonObject>()
     val oversized = AtomicInteger()
     val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" }, archiveResponse = { query ->
         queries.add(query.deepCopy())
-        val selected = if (query.get("field1")?.asString != "RedSquare" || (search && query.has("field4")) || (following && !query.has("field2"))) emptyList() else rows.filter { row ->
-            (!query.has("id") || query.get("id").asLong == row.get("id").asLong) &&
+        val selected = if (query.get("field1")?.asString != "RedSquare" || (search && query.has("field4")) || (following && !query.has("field2"))) emptyList() else indexedRows.filter { (id, row) ->
+            (!query.has("id") || query.get("id").asLong == id) &&
                 (!query.has("sig") || query.get("sig").asString == row.get("sig").asString) &&
-                (!query.has("created_at") || query.get("created_at").asLong == timestamp) &&
-                (!query.has("created_earlier_than") || timestamp < query.get("created_earlier_than").asLong) &&
-                (!query.has("created_later_than") || timestamp > query.get("created_later_than").asLong)
+                (!query.has("created_at") || query.get("created_at").asLong == row.get("created_at").asLong) &&
+                (!query.has("created_earlier_than") || row.get("created_at").asLong < query.get("created_earlier_than").asLong) &&
+                (!query.has("created_later_than") || row.get("created_at").asLong > query.get("created_later_than").asLong)
         }.let { matching ->
-            if (query.has("ascending")) matching.sortedBy { it.get("id").asLong }
-            else matching.sortedByDescending { it.get("id").asLong }
-        }.take((query.get("limit")?.asInt ?: 10).coerceIn(10, 100))
+            if (query.has("ascending")) matching.sortedBy { it.first }
+            else if (query.has("created_earlier_than")) matching.sortedWith(
+                compareByDescending<Pair<Long, JsonObject>> { it.second.get("created_at").asLong }.thenByDescending { it.first })
+            else matching.sortedByDescending { it.first }
+        }.map { it.second }.take((query.get("limit")?.asInt ?: 10).coerceIn(10, 100))
         JsonArray().apply { selected.forEach(::add) }.toString().also {
             if (it.toByteArray().size + 5 > SaitoPeer.MAX_RESPONSE_BYTES) oversized.incrementAndGet()
         }
@@ -164,27 +175,35 @@ internal fun exercisePhotoPages(ui: ComposeContentTestRule, search: Boolean = fa
                         list.fetchSemanticsNode().config[SemanticsProperties.CollectionInfo].rowCount == postCount + (if (following) 1 else 0)
                     }
                     val reached = mutableSetOf<Int>()
-                    for (window in 0 until if (search) 5 else 1) {
-                        val available = if (!search) (postCount downTo 1).toList() else {
-                            // A byte-bounded result window may replace earlier cards. Observe
-                            // each native window before explicitly continuing to the next one.
-                            val lowRead = queries.any { query -> query.has("ascending") }
-                            if (lowRead) (1..10).toList() else (20 downTo 11).toList()
+                    for (window in 0 until if (search) 8 else 1) {
+                    if (search) {
+                        // Observe actual rendered windows, independent of the continuation strategy.
+                        val count = list.fetchSemanticsNode().config[SemanticsProperties.CollectionInfo].rowCount
+                        for (index in 0 until count) {
+                            list.performScrollToIndex(index)
+                            val visible = ui.onAllNodes(hasText("Photo page item", substring = true), useUnmergedTree = true)
+                                .fetchSemanticsNodes().filter { it.boundsInRoot.height > 0 && it.boundsInRoot.width > 0 }
+                            for (node in visible) {
+                                val text = node.config[SemanticsProperties.Text].single().text
+                                val number = Regex("""Photo page item (\d+)""").matchEntire(text)?.groupValues?.get(1)?.toInt() ?: continue
+                                ui.onNodeWithText(text, useUnmergedTree = true).assertIsDisplayed()
+                                check(number in 1..postCount)
+                                reached.add(number)
+                            }
                         }
-                        for (number in available) {
-                            list.performScrollToIndex(0)
-                            list.performScrollToNode(hasText("Photo page item $number"))
-                            ui.onNodeWithText("Photo page item $number", useUnmergedTree = true).assertIsDisplayed()
-                            reached.add(number)
-                        }
-                        if (search && reached.size < postCount) {
-                            list.performScrollToNode(hasText("Load more"))
-                            ui.onNodeWithText("Load more").assertIsEnabled().performClick()
-                            ui.waitUntil(30_000) { ui.onAllNodes(hasContentDescription("Search history") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                        }
-                        if (reached.size == postCount) break
+                    } else for (number in postCount downTo 1) {
+                        list.performScrollToIndex(0)
+                        list.performScrollToNode(hasText("Photo page item $number"))
+                        ui.onNodeWithText("Photo page item $number", useUnmergedTree = true).assertIsDisplayed()
+                        reached.add(number)
                     }
-                    check(reached.size == postCount)
+                    if (reached.size == postCount) break
+                    list.performScrollToIndex(0)
+                    list.performScrollToNode(hasText("Load more"))
+                    ui.onNodeWithText("Load more").assertIsEnabled().performClick()
+                    ui.waitUntil(30_000) { ui.onAllNodes(hasContentDescription("Search history") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                }
+                check(reached.size == postCount)
                     check(if (largeRows) oversized.get() in 1..4 else oversized.get() == 1) { "The same oversized page was requested again" }
                     check(peer.transactions.isEmpty())
                     check(backends.load() == SaitoBackend.OWNER)
@@ -203,4 +222,27 @@ internal fun exercisePhotoPages(ui: ComposeContentTestRule, search: Boolean = fa
     finally { cleanupAfterTest(primary, { retained.restoreFiles() },
         { wallets.replace(wallets.loadOrCreate(), previous) }, { backends.save(oldBackend) },
         { retained.restorePreferences() }) }
+}
+
+/** Independently form the reference normal wire preimage for a large incoming owned post.
+ * The app publisher's factory/admission stays unchanged. The actual reader verifies it.
+ */
+private fun signedLargePhotoEnvelope(wallet: SaitoWallet, body: JsonObject, timestamp: Long): String {
+    val envelope = com.google.gson.JsonParser.parseString(SaitoTransaction.create(wallet, JsonObject().apply {
+        addProperty("module", "RedSquare"); addProperty("request", "create tweet")
+        add("data", JsonObject().apply { addProperty("text", "Owned header fixture") })
+    }, timestamp).envelope()).asJsonObject
+    val encoder = java.util.Base64.getEncoder()
+    val header = java.util.Base64.getDecoder().decode(envelope.get("t").asString)
+    val framing = java.nio.ByteBuffer.wrap(header)
+    check(header.size == 211 && framing.getInt(0) == 1 && framing.getInt(4) == 1 && framing.getInt(8) == 0)
+    val message = body.toString().toByteArray(Charsets.UTF_8)
+    val preimage = java.nio.ByteBuffer.allocate(102 + message.size).putLong(timestamp)
+    repeat(2) { index -> val offset = 93 + 59 * index; preimage.put(header, offset, 41).put(header, offset + 57, 2) }
+    preimage.putInt(1).putInt(0).put(message)
+    val signature = wallet.sign(preimage.array()).chunked(2).map { it.toInt(16).toByte() }.toByteArray()
+    check(signature.size == 64)
+    signature.copyInto(header, 16)
+    envelope.addProperty("t", encoder.encodeToString(header)); envelope.addProperty("m", encoder.encodeToString(message))
+    return envelope.toString()
 }
