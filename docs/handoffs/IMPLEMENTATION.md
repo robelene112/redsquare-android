@@ -10,7 +10,7 @@ Keep one implementation ticket active at a time; independent code-review agents
 remain permitted. Ordinary native/emulator QA is agent-owned. No production node/
 provider activation or public financial write is authorized.
 
-Current active ticket: #124 (restore idle incoming Talk after signalling loss).
+Current active ticket: #125 (read valid photo-heavy pages within existing response bounds).
 
 The reopened121navigation follow-up is complete atadcc1e9ca804372cd7b6a11c276168d106fcc328,
 with both independent axes reporting zero source/native findings. See
@@ -52,12 +52,30 @@ are identical. Core224 tests/44 classes and gateway task FROM-CACHE, lint0errors
 replaced/cancelled parents remain excluded. Originals:
 `/mnt/storage/redsquare-android-artifacts/talk-account123`.
 
-Continue124–130 sequentially, then final131, without another approval. #124 restores
-visible idle Talk after route loss with bounded automatic reconnect and actual
-manual Retry. Keep active-call interruption and exact wallet/node ownership.
-Public beta remains0.1.131; whole-app qualification and signed delivery belong
-only to131. No production node/provider change or public financial write is
-permitted. Preserve the canonical dirty checkout.
+#124 is complete: Android10/source/lint a84517c57d94f90fb765e42af5fe1b9905fcb944,
+corrected Android17 42989c5ad5ba9c7a05335ba2138d666391dcae13. See
+[the packet](../evidence/ticket124/README.md). Owned idle routes reconnect with
+bounded backoff, truthful Relay-ready aggregation and real Retry. Exact route
+resources retire together; test-only dual-route overrides require debug/dev/
+emulator/loopback and do not change production routing. Whole successful parents
+43785835845/43787674128 each pass11 normal methods/seven groups. Both independent
+axes accept199 native ZIP entries,85 TAR members and104 copied packet receipts/
+logs/captures, plus55 source/lint originals. Source bridge adds only the established
+5-second server-handshake precondition and diagnostics in one AndroidTest file;
+product/core/build/harness/assertions and original deadlines are identical. First
+SDK17 parent43786130608 remains failed/cause unproved after four new cases passed.
+Core224 tests/44 classes and gateway FROM-CACHE are explicit; lint0errors,
+95warnings/3hints. Some immediate loss/interruption images retain prior UI frames;
+use exact native assertions and later visible readiness/incoming checks, not those
+images as rendered endpoint proof. Launcher captures remain background-only.
+Originals: `/mnt/storage/redsquare-android-artifacts/talk-idle124`.
+
+Continue125–130 sequentially, then final131, without another approval. #125 uses
+bounded smaller Archive reads/continuation for valid signed image pages over16MiB,
+including tied timestamps and malformed rows, without raising existing bounds or
+skipping valid items. Public beta remains0.1.131 until final combined qualification
+and signed delivery in131. No production node/provider change or public financial
+write is authorized. Preserve the canonical dirty checkout.
 
 ### Initial121 acceptance492c61b64, before the reopened navigation follow-up
 
@@ -81,7 +99,7 @@ under120 and new2 completes11.984s under180. Public beta remains0.1.131; integra
 qualification and combined delivery belong to131. Originals:
 `/mnt/storage/redsquare-android-artifacts/selected-images121`.
 
-Continue124–130 sequentially, then131, without another approval. No production
+Continue125–130 sequentially, then131, without another approval. No production
 node/provider change or public financial write is authorized. Preserve the dirty
 canonical checkout; ordinary native QA remains agent-owned.
 
@@ -100,7 +118,7 @@ source builds and first failed composer fixture remain retained without prefix
 acceptance. Public beta remains0.1.131; final integrated delivery belongs to131.
 Originals: `/mnt/storage/redsquare-android-artifacts/unfinished-text120`.
 
-Continue124–130 sequentially, then131, without another approval question. Ordinary
+Continue125–130 sequentially, then131, without another approval question. Ordinary
 QA remains agent-owned. No production node/provider change or public financial
 write is authorized. The canonical dirty checkout remains untouched.
 
@@ -114,7 +132,7 @@ ends the original token with0grants/chunks/bytes and retained draft. Core224/44 
 lint0errors pass. Invalid Android10 setup and a replaced slow source build remain
 retained and excluded. Current public beta remains0.1.131.
 
-Continue #124–#130 sequentially, then integrated qualification/beta #131, without
+Continue #125–#130 sequentially, then integrated qualification/beta #131, without
 asking for another approval. Preserve all prior deadlines, native goals and
 physical/OEM/live-service/Play qualifications. No production node/provider change
 or public financial write occurred. Canonical dirty checkout remains untouched.

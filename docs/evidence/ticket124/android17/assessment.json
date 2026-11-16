@@ -1,0 +1,118 @@
+{
+  "source": "42989c5ad5ba9c7a05335ba2138d666391dcae13",
+  "run": 43787674128,
+  "passedNativeMethods": 11,
+  "groups": [
+    {
+      "group": "talk-idle",
+      "class": "TalkIdleRecoveryTest",
+      "passedMethods": [
+        "launchDuringOutageShowsTruthfulFailureAndManualRetryRecoversIncomingCalls",
+        "visibleIdleTalkRecoversWithoutNavigationAndReceivesAFreshIncomingCall"
+      ],
+      "sha256": "f803a9db6cae77fd295a8849ac5cce186db164871747a7449196513b682caef0"
+    },
+    {
+      "group": "talk-routes",
+      "class": "TalkRoutesRecoveryTest",
+      "passedMethods": [
+        "losingAllRoutesInterruptsTheExactStartedCallAndRecoveryDoesNotRestartIt",
+        "oneHealthyRouteStaysAvailableAndDeliversAnInvitationWhileTheOtherFails"
+      ],
+      "sha256": "6920392198ac7c5f4f01989516dd60622e4e953d03a3c124e1b3cfe955e10b47"
+    },
+    {
+      "group": "talk-routing",
+      "class": "TalkRoutingPreviewTest",
+      "passedMethods": [
+        "aRejectedCallIsNotAcknowledgedByAnUnrelatedReceiver",
+        "anIncomingCallReachesTalkWhenTheAuthenticatedSocketBelongsToChat"
+      ],
+      "sha256": "f27653c9368c81d7d2869737200ae07f2f3c0edff6ab5bdd34d0ccdf4a178f0b"
+    },
+    {
+      "group": "talk-account-replacement",
+      "class": "TalkAccountReplacementTest",
+      "passedMethods": [
+        "replacementReceivesIncomingCallsAndStartsACallAfterTheOldDetach"
+      ],
+      "sha256": "cfbc85416150f092a006d21efb67cf37fcf24225c1d2e278f46364db667d0ed9"
+    },
+    {
+      "group": "talk-ownership",
+      "class": "TalkOwnershipPreviewTest",
+      "passedMethods": [
+        "oldNotificationCannotEndANewerCallAndTheCurrentHangupReleasesCapture",
+        "walletNodeAndBlockingChangesSilenceTheOldCaptureBeforeTheWriteReturns"
+      ],
+      "sha256": "2b1002baab0845317f425cc9f701ff64f50d314fb3366af8664c4a3d4cf6c3a5"
+    },
+    {
+      "group": "talk-lifecycle",
+      "class": "TalkLifecyclePreviewTest",
+      "passedMethods": [
+        "losingAndroidAudioFocusInterruptsTheExactCallAndReleasesItsForegroundOwnership"
+      ],
+      "sha256": "8ea59a8a1d3d988aba6b75bd6f145e8031847e527ee16c2fd9532a120018ce0f"
+    },
+    {
+      "group": "talk-camera-lifecycle",
+      "class": "TalkCameraLifecyclePreviewTest",
+      "passedMethods": [
+        "enablingVideoInAVoiceRoomUpdatesForegroundOwnershipAndPausesAndResumesActualCameraCapture"
+      ],
+      "sha256": "851d602db454c2f8ead03a8b3f967a17609d0c62a2679a51271879c52b6d2b23"
+    }
+  ],
+  "replacementObservation": {
+    "oldDetachQueuedAt": 124912,
+    "replacementAcquiredAt": 124912,
+    "oldDetachReleasedAt": 124913,
+    "authenticatedRecipientsBeforeInvite": 1,
+    "incomingReachedReplacement": true,
+    "incomingAcknowledgementsAfterDelivery": 1,
+    "actualActivityRecreationRetainsCall": true,
+    "controlledCallStarted": true,
+    "activeCallSurvivesBackground": true
+  },
+  "idleObservations": [
+    {
+      "allRoutesLostAt": 90551,
+      "networkRestoredAt": 91159,
+      "recoveredAt": 92498,
+      "incomingInvitationReceived": true,
+      "retryTapped": false,
+      "lifecycleRestarted": false,
+      "activityRecreated": false,
+      "moduleChangedDuringRecovery": false
+    },
+    {
+      "networkRestoredAt": 82049,
+      "recoveredAt": 82839,
+      "incomingInvitationReceived": true,
+      "retryTapped": true,
+      "lifecycleRestarted": false,
+      "activityRecreated": false,
+      "moduleChangedDuringRecovery": false
+    }
+  ],
+  "routeObservations": [
+    {
+      "healthyFallbackAuthenticated": true,
+      "primaryFailing": true,
+      "incomingFromHealthyFallback": true,
+      "ownedListenersAndConnectionsReleased": true
+    },
+    {
+      "healthyFallbackAuthenticated": true,
+      "primaryFailing": false,
+      "incomingFromHealthyFallback": true,
+      "exactStartedCallInterrupted": true,
+      "networkRecoveryDoesNotRestartCall": true,
+      "ownedListenersAndConnectionsReleased": true
+    }
+  ],
+  "limitations": [
+    "Owned emulator peers; no production node/provider, physical/OEM, TURN/NAT or killed-app incoming qualification."
+  ]
+}

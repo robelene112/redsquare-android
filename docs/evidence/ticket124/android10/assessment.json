@@ -1,0 +1,116 @@
+{
+  "source": "a84517c57d94f90fb765e42af5fe1b9905fcb944",
+  "run": 43785835845,
+  "passedNativeMethods": 11,
+  "groups": [
+    {
+      "group": "talk-idle",
+      "class": "TalkIdleRecoveryTest",
+      "passedMethods": [
+        "launchDuringOutageShowsTruthfulFailureAndManualRetryRecoversIncomingCalls",
+        "visibleIdleTalkRecoversWithoutNavigationAndReceivesAFreshIncomingCall"
+      ],
+      "sha256": "005ceb4ac5776ae5f9cda5acf554420d992ebe7b399c059580728b7341c007b4"
+    },
+    {
+      "group": "talk-routes",
+      "class": "TalkRoutesRecoveryTest",
+      "passedMethods": [
+        "losingAllRoutesInterruptsTheExactStartedCallAndRecoveryDoesNotRestartIt",
+        "oneHealthyRouteStaysAvailableAndDeliversAnInvitationWhileTheOtherFails"
+      ],
+      "sha256": "f0aca3cae5d2021c42a328e4fa1911fa3af24e362eb31e99a30abf9aeffd4314"
+    },
+    {
+      "group": "talk-routing",
+      "class": "TalkRoutingPreviewTest",
+      "passedMethods": [
+        "aRejectedCallIsNotAcknowledgedByAnUnrelatedReceiver",
+        "anIncomingCallReachesTalkWhenTheAuthenticatedSocketBelongsToChat"
+      ],
+      "sha256": "b003c9298fa507a1c16de6eeb97338a93056c8aae0f38df2beaa03f92084bd68"
+    },
+    {
+      "group": "talk-account-replacement",
+      "class": "TalkAccountReplacementTest",
+      "passedMethods": [
+        "replacementReceivesIncomingCallsAndStartsACallAfterTheOldDetach"
+      ],
+      "sha256": "b03c4518f92120b5a6e894d98c5c849d0cbe1340ac4f01141d5b8adcb70abf32"
+    },
+    {
+      "group": "talk-ownership",
+      "class": "TalkOwnershipPreviewTest",
+      "passedMethods": [
+        "oldNotificationCannotEndANewerCallAndTheCurrentHangupReleasesCapture",
+        "walletNodeAndBlockingChangesSilenceTheOldCaptureBeforeTheWriteReturns"
+      ],
+      "sha256": "2e3f88f1601c82e577d623d1fa48a86e9ec81dce8782a137febe82ee195f8ba7"
+    },
+    {
+      "group": "talk-lifecycle",
+      "class": "TalkLifecyclePreviewTest",
+      "passedMethods": [
+        "losingAndroidAudioFocusInterruptsTheExactCallAndReleasesItsForegroundOwnership"
+      ],
+      "sha256": "f27048494a255765426f66d219956231ef9007c3dd96989970300a81ef8588e2"
+    },
+    {
+      "group": "talk-camera-lifecycle",
+      "class": "TalkCameraLifecyclePreviewTest",
+      "passedMethods": [
+        "enablingVideoInAVoiceRoomUpdatesForegroundOwnershipAndPausesAndResumesActualCameraCapture"
+      ],
+      "sha256": "551a7873d6dc6b06e3e207b439e339b6a7d0edfcd175a21cbe35ab123ac8e29d"
+    }
+  ],
+  "replacementObservation": {
+    "oldDetachQueuedAt": 58535,
+    "replacementAcquiredAt": 58535,
+    "oldDetachReleasedAt": 58535,
+    "incomingReachedReplacement": true,
+    "actualActivityRecreationRetainsCall": true,
+    "controlledCallStarted": true,
+    "activeCallSurvivesBackground": true
+  },
+  "idleObservations": [
+    {
+      "allRoutesLostAt": 38293,
+      "networkRestoredAt": 39073,
+      "recoveredAt": 39416,
+      "incomingInvitationReceived": true,
+      "retryTapped": false,
+      "lifecycleRestarted": false,
+      "activityRecreated": false,
+      "moduleChangedDuringRecovery": false
+    },
+    {
+      "networkRestoredAt": 35000,
+      "recoveredAt": 35402,
+      "incomingInvitationReceived": true,
+      "retryTapped": true,
+      "lifecycleRestarted": false,
+      "activityRecreated": false,
+      "moduleChangedDuringRecovery": false
+    }
+  ],
+  "routeObservations": [
+    {
+      "healthyFallbackAuthenticated": true,
+      "primaryFailing": true,
+      "incomingFromHealthyFallback": true,
+      "ownedListenersAndConnectionsReleased": true
+    },
+    {
+      "healthyFallbackAuthenticated": true,
+      "primaryFailing": false,
+      "incomingFromHealthyFallback": true,
+      "exactStartedCallInterrupted": true,
+      "networkRecoveryDoesNotRestartCall": true,
+      "ownedListenersAndConnectionsReleased": true
+    }
+  ],
+  "limitations": [
+    "Owned emulator peers; no production node/provider, physical/OEM, TURN/NAT or killed-app incoming qualification."
+  ]
+}
