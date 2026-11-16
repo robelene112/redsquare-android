@@ -172,12 +172,15 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
                                 event.get("withheld").asBoolean } &&
                                 ui.onAllNodesWithText(requireNotNull(cached).text).fetchSemanticsNodes().isNotEmpty()
                         }
-                        val held = peer.archiveObservations.last { event -> event.get("event").asString == "reply" &&
-                            event.get("kind").asString == "RedSquare" && event.get("authorFiltered").asBoolean &&
-                            event.get("withheld").asBoolean }
                         ui.onAllNodesWithText("Node unavailable").assertCountEquals(0)
                         val before = ui.onNodeWithText(requireNotNull(cached).text).fetchSemanticsNode().boundsInRoot.top
                         captureNativeScreen(File(context.cacheDir, "photo-pages-evidence/following-before.png"))
+                        // Capture can take a second while initialization replaces an earlier
+                        // reader. Select the latest completed callback after that observer work.
+                        ui.waitForIdle()
+                        val held = peer.archiveObservations.last { event -> event.get("event").asString == "reply" &&
+                            event.get("kind").asString == "RedSquare" && event.get("authorFiltered").asBoolean &&
+                            event.get("withheld").asBoolean }
                         check(System.currentTimeMillis() - held.get("started").asLong < 5_000) {
                             "The fixture did not establish its held-callback precondition before the real RPC deadline"
                         }
