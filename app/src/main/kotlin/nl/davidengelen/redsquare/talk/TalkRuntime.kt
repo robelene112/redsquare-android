@@ -18,6 +18,8 @@ import java.io.Closeable
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 
+internal enum class TalkConnectionPhase { PAUSED, CONNECTING, AVAILABLE, UNAVAILABLE }
+
 internal enum class CallPhase {
     VERIFYING, INCOMING, DIALING, JOINING, ACTIVE, ENDED, DECLINED, NO_ANSWER, INTERRUPTED, UNAVAILABLE;
     val live get() = this in setOf(VERIFYING, INCOMING, DIALING, JOINING, ACTIVE)
@@ -107,6 +109,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     private val routes = if (BuildConfig.DEBUG && endpoint != backend.peerUrl) listOf(endpoint)
         else listOf(endpoint, SaitoBackend.OFFICIAL.peerUrl).distinct()
     val online = MutableStateFlow(false)
+    val connectionPhase = MutableStateFlow(TalkConnectionPhase.PAUSED)
     val failed = MutableStateFlow(false)
 
     init {
@@ -229,15 +232,28 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         retries[route] = Retry(attempts, SystemClock.elapsedRealtime() + delay)
     }
 
-    private fun updateOnline() { online.value = connections.values.any { it.ready } }
+    private fun updateConnection() {
+        online.value = connections.values.any { it.ready }
+        connectionPhase.value = when {
+            online.value -> TalkConnectionPhase.AVAILABLE
+            connections.isNotEmpty() -> TalkConnectionPhase.CONNECTING
+            !closed && ((TalkRuntime.visible && synchronized(ownershipLock) { owners > 0 }) ||
+                current?.phase?.started == true) -> TalkConnectionPhase.UNAVAILABLE
+            else -> TalkConnectionPhase.PAUSED
+        }
+    }
+
+    fun retryConnection() { post { retries.clear(); connect() } }
 
     private suspend fun connect() {
         val observing = synchronized(ownershipLock) { owners > 0 }
         if (closed || (!TalkRuntime.visible && current?.phase?.started != true) ||
             (!observing && current?.phase?.started != true)) return
+        val due = routes.filter { !connections.containsKey(it) && SystemClock.elapsedRealtime() >= (retries[it]?.after ?: 0) }
+        // Healthy idle connections need no wallet/policy IO on the periodic retry tick.
+        if (due.isEmpty()) return
         guard()
-        for (route in routes) {
-            if (connections.containsKey(route) || SystemClock.elapsedRealtime() < (retries[route]?.after ?: 0)) continue
+        for (route in due) {
             val hook = RealtimeIncoming.register(wallet.publicKey, route) { bytes ->
                 receive(bytes, null) ?: if (FileshareRuntime.receive(wallet.publicKey, backend, endpoint, bytes)) true else null
             }
@@ -261,7 +277,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                         if (connections[route] === connection) {
                             connection.ready = true
                             retries.remove(route)
-                            updateOnline()
+                            updateConnection()
                         }
                     }
                     connection.socket.awaitDisconnection()
@@ -273,7 +289,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                             val wasReady = connection.ready
                             connection.close()
                             retryLater(route)
-                            updateOnline()
+                            updateConnection()
                             if (!online.value && current?.phase?.live == true && (wasReady || connections.isEmpty()))
                                 finish(CallPhase.INTERRUPTED)
                         }
@@ -281,6 +297,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                 }
             }
         }
+        updateConnection()
     }
 
     private fun receive(bytes: ByteArray, boundPeer: String?): Boolean? =
@@ -754,7 +771,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         connections.clear()
         previous.forEach { it.close() }
         retries.clear()
-        online.value = false
+        updateConnection()
     }
     private fun closeIfIdle() {
         if (current?.phase?.live == true) return

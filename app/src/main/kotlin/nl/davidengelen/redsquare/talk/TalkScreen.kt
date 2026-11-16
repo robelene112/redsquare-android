@@ -176,6 +176,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
     val requested by TalkRuntime.choices.collectAsState()
     val desired = requested?.takeIf { it.token == call?.token }
     val online by account.online.collectAsState()
+    val connectionPhase by account.connectionPhase.collectAsState()
     val gate = rememberTalkPermissionGate()
     val link = remember(entry?.url) { entry?.let { TalkLink.parse(it.url) } }
     val showingInvitation = link != null && entry != null
@@ -206,6 +207,20 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
             verticalArrangement = Arrangement.spacedBy(18.dp)) {
             if (call?.phase?.live != true || call.phase == CallPhase.INCOMING || showingInvitation)
                 item { Text(stringResource(R.string.talk_calls), style = MaterialTheme.typography.headlineMedium) }
+            if (call?.phase?.started != true) item {
+                InlineStatus(when (connectionPhase) {
+                    TalkConnectionPhase.PAUSED -> null
+                    TalkConnectionPhase.CONNECTING -> stringResource(R.string.talk_checking_network)
+                    TalkConnectionPhase.AVAILABLE -> stringResource(R.string.talk_available)
+                    TalkConnectionPhase.UNAVAILABLE -> stringResource(R.string.talk_connection_unavailable)
+                }, when (connectionPhase) {
+                    TalkConnectionPhase.CONNECTING -> StatusTone.WORKING
+                    TalkConnectionPhase.AVAILABLE -> StatusTone.SUCCESS
+                    TalkConnectionPhase.UNAVAILABLE -> StatusTone.WARNING
+                    TalkConnectionPhase.PAUSED -> StatusTone.NEUTRAL
+                }, actionLabel = if (connectionPhase == TalkConnectionPhase.UNAVAILABLE) stringResource(R.string.retry) else null,
+                    onAction = account::retryConnection)
+            }
             if (call?.phase?.live == true && call.phase != CallPhase.INCOMING && !showingInvitation) {
                 val invitationFirst = call.direct == null && call.link.room.host == wallet.publicKey && call.participants.isEmpty()
                 val invitation: @Composable () -> Unit = {
@@ -312,8 +327,6 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                     }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.talk_review_invite)) }
                 }
                 item {
-                    Text(stringResource(if (online) R.string.talk_available else R.string.talk_checking_network),
-                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Text(stringResource(R.string.talk_incoming_limit), style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
