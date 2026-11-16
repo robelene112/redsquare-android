@@ -1273,6 +1273,14 @@ verify_unfinished_text() {
     verify_group_chat_native UnfinishedTextStorageTest 180 unfinished-text-storage unfinished-text-storage-evidence
     python3 "$repo_dir/scripts/unfinished-text-process-check" --evidence "$evidence/unfinished-text-process"
 }
+if [[ "${TEST_SCOPE:-full}" == following-resilience* ]]; then
+    verify_group_chat_native FollowingPartialFailureTest 180 following-partial following-partial-evidence
+    verify_group_chat_native FollowingPreviewTest 180 following following-evidence
+    verify_group_chat_native PhotoArchiveContinuationTest 180 following-photo-continuation photo-pages-evidence
+    verify_group_chat_native ReadDeadlineRecoveryTest 180 following-read-deadline read-deadline-evidence
+    verify_group_chat_native ReadCancellationTest 180 following-read-cancellation read-cancellation-evidence
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == following-partial* ]]; then
     verify_group_chat_native FollowingPartialFailureTest 180 following-partial following-partial-evidence
     exit 0

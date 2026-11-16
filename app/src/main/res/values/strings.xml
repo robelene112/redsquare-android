@@ -74,6 +74,8 @@
     <string name="feed_title">All posts</string>
     <string name="feed_refresh">Refresh</string>
     <string name="feed_loading">Loading posts…</string>
+    <string name="following_partial_error">Some followed accounts could not load.</string>
+    <string name="following_partial_details">Loaded posts remain available. Retry to refresh the missing accounts.</string>
     <string name="feed_error">Posts could not be refreshed. Try again.</string>
     <string name="feed_refresh_success">Feed updated.</string>
     <string name="feed_empty">No posts are available from this node yet.</string>
