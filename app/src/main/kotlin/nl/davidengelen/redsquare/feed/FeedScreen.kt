@@ -349,7 +349,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                                         }
                                         val merged = applied.posts
                                             .filter { !followingView || it.author in following!!.accounts }
-                                            .sortedByDescending { it.createdAt }.take(AndroidFeedCache.MAX_POSTS)
+                                            .sortedWith(compareByDescending<FeedPost> { it.createdAt }.thenByDescending { it.id })
+                                            .take(AndroidFeedCache.MAX_POSTS)
                                         cacheWarning = withContext(Dispatchers.IO) {
                                             try { cache.save(merged); applied.unreadable } catch (_: Exception) { true }
                                         }
