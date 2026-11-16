@@ -235,6 +235,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                 try {
                     if (bytes.size > MAX_RESPONSE_BYTES && bytes[0] == 13.toByte() && ready.isCompleted && !ready.isCancelled) {
                         val index = ByteBuffer.wrap(bytes.substring(1, 5).toByteArray()).int
+                        if (BuildConfig.DEBUG) Log.w("RedSquarePeer", "[photo125] oversized callback index=$index archive=${pending[index]?.archiveRead == true}")
                         pending[index]?.takeIf { it.archiveRead }?.let { request ->
                             request.oversized = ResponseTooLarge(archiveHint(bytes))
                         }

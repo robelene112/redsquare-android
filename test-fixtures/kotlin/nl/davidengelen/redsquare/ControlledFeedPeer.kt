@@ -92,6 +92,11 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         }
         return true
     }
+    val archiveObservations = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
+    private fun observeArchive(value: com.google.gson.JsonObject) {
+        if (archiveObservations.size >= 256) archiveObservations.removeAt(0)
+        archiveObservations.add(value)
+    }
     @Volatile var withholdArchiveReply = false
     @Volatile var retainWithheldArchiveReplies = false
     private val withheldArchiveReplies = java.util.concurrent.ConcurrentLinkedQueue<Pair<WebSocket, okio.ByteString>>()
@@ -99,7 +104,13 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         var count = 0
         while (true) {
             val (socket, response) = withheldArchiveReplies.poll() ?: return count
-            if (sendArchive(socket, response)) count++
+            val sent = sendArchive(socket, response)
+            observeArchive(com.google.gson.JsonObject().apply {
+                addProperty("event", "release"); addProperty("at", System.currentTimeMillis())
+                addProperty("index", ByteBuffer.wrap(response.substring(1, 5).toByteArray()).int)
+                addProperty("bytes", response.size); addProperty("queued", sent)
+            })
+            if (sent) count++
         }
     }
     @Volatile var rejectedArchiveKinds: Set<String> = emptySet()
@@ -450,6 +461,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         }
                         require(body.get("request").asString == "archive")
                         require(criteria.get("request").asString == "load")
+                        val startedArchiveAt = System.currentTimeMillis()
                         val response = if (criteria.get("field1")?.asString == "Profile") {
                             require(criteria.get("field2").asString.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}")))
                             require(criteria.get("limit").asInt in 1..100)
@@ -484,6 +496,19 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         val withheld = withholdArchiveReply
                         if (withheld && retainWithheldArchiveReplies) withheldArchiveReplies.add(webSocket to archiveReply)
                         val queued = !withheld && sendArchive(webSocket, archiveReply)
+                        if (criteria.get("field1")?.asString in setOf("RedSquare", "RedSquareRetweet")) {
+                            observeArchive(com.google.gson.JsonObject().apply {
+                                addProperty("event", "reply"); addProperty("started", startedArchiveAt)
+                                addProperty("at", System.currentTimeMillis())
+                                addProperty("index", ByteBuffer.wrap(frame, 1, 4).int)
+                                addProperty("connection", connectionIds[webSocket] ?: 0)
+                                addProperty("kind", criteria.get("field1").asString)
+                                addProperty("authorFiltered", criteria.has("field2"))
+                                for (key in listOf("limit", "id", "created_at", "created_earlier_than", "ascending"))
+                                    criteria.get(key)?.let { add(key, it.deepCopy()) }
+                                addProperty("bytes", archiveReply.size); addProperty("withheld", withheld); addProperty("queued", queued)
+                            })
+                        }
                         onArchiveResponse?.invoke(criteria.deepCopy(), response, queued)
                         requests.incrementAndGet()
                         received.countDown()

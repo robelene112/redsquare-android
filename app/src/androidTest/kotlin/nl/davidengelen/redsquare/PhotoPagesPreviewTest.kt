@@ -149,7 +149,13 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
             val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use {
-                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "photo-pages-evidence/$mode-failure.png")) }) {
+                withFailureCapture({
+                    File(context.cacheDir, "photo-pages-evidence").mkdirs()
+                    File(context.cacheDir, "photo-pages-evidence/$mode-wire-failure.json").writeText(JsonArray().apply {
+                        peer.archiveObservations.forEach { add(it) }
+                    }.toString())
+                    captureNativeScreen(File(context.cacheDir, "photo-pages-evidence/$mode-failure.png"))
+                }) {
                     if (following) {
                         ui.waitUntil(20_000) { ui.onAllNodesWithText("Following").fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText("Following").performClick()
@@ -231,6 +237,7 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
                             addProperty("cachedAnchorBefore", before); addProperty("cachedAnchorAfter", after)
                         }
                         add("queries", JsonArray().apply { queries.forEach(::add) })
+                        add("callbacks", JsonArray().apply { peer.archiveObservations.forEach { add(it) } })
                     }.toString())
                     peer.assertHealthy()
                 }
