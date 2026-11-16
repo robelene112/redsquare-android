@@ -1,16 +1,13 @@
 package nl.davidengelen.redsquare.fileshare
 
 import android.content.Context
-import com.google.gson.JsonParser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import nl.davidengelen.redsquare.AndroidWalletStore
-import nl.davidengelen.redsquare.chat.ChatHistoryStore
 import nl.davidengelen.redsquare.saito.*
 import java.io.Serializable
 import java.io.File
-import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReentrantLock
 
@@ -48,38 +45,9 @@ internal class ReceivedFiles(private val context: Context, private val scope: Re
 
     fun snapshot(): ReceivedFilesSnapshot {
         val wallet = selected()
-        val entries = requireNotNull(context.noBackupFilesDir.listFiles())
-        val pattern = Regex("fileshare\\.([0-9a-f]{64})\\.([0-9a-f-]{36})\\.info(?:\\.bak)?")
-        var incomplete = false
-        var legacyContacts: Map<String, String>? = null
-        val contacts = linkedSetOf<String>()
-        for (name in entries.map { it.name.removeSuffix(".bak") }.distinct()) {
-            val match = pattern.matchEntire(name) ?: continue
-            try {
-                val record = requireNotNull(EncryptedLocalFile(context, name, "fileshare.metadata.v1", "fileshare.").load())
-                require(record.version == 1.toByte())
-                val body = JsonParser.parseString(record.text).asJsonObject
-                val contact = if (body.has("owner")) {
-                    if (body.get("owner").asString != scope.owner || body.get("backend").asString != scope.backend.id) continue
-                    body.get("contact").asString
-                } else {
-                    if (legacyContacts == null) {
-                        val history = ChatHistoryStore.contacts(context, wallet, scope.backend)
-                        incomplete = incomplete || history.unreadable || history.unavailable
-                        legacyContacts = (wallet.chatContacts() + history.accounts + FileshareRuntime.transfers.value
-                            .filter { it.owner == scope.owner && it.backend == scope.backend }.map { it.contact })
-                            .distinct().associateBy { digest("${scope.owner}:${scope.backend.id}:$it") }
-                    }
-                    val legacy = legacyContacts[match.groupValues[1]]
-                    if (legacy == null) { incomplete = true; continue }
-                    legacy
-                }
-                require(SaitoWallet.isPublicKey(contact) && contact != scope.owner)
-                require(digest("${scope.owner}:${scope.backend.id}:$contact") == match.groupValues[1])
-                contacts.add(contact)
-            } catch (_: Exception) { incomplete = true }
-        }
-        val files = contacts.flatMap { contact ->
+        val discovery = FileTransferStore.retainedContacts(context, wallet, scope.backend)
+        var incomplete = discovery.incomplete
+        val files = discovery.contacts.flatMap { contact ->
             try {
                 val store = FileTransferStore(context, scope.owner, scope.backend, contact)
                 store.load().filter { it.incoming && it.phase.delivered }.mapNotNull { value ->
@@ -114,6 +82,4 @@ internal class ReceivedFiles(private val context: Context, private val scope: Re
         }
     }
 
-    private fun digest(value: String) = MessageDigest.getInstance("SHA-256").digest(value.toByteArray(Charsets.UTF_8))
-        .joinToString("") { "%02x".format(it) }
 }

@@ -1,5 +1,7 @@
 package nl.davidengelen.redsquare.fileshare
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -41,8 +43,7 @@ internal fun ReceivedFilesScreen(binding: ReceivedFilesScope, onBack: () -> Unit
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true; snapshot = null }
     }
-    LaunchedEffect(storage, refresh) { reload() }
-    LaunchedEffect(storage) {
+    LaunchedEffect(storage, refresh) {
         combine(FileshareRuntime.transfers.map { rows -> rows.filter { it.owner == binding.owner && it.backend == binding.backend }
             .map { Triple(it.token, it.phase.delivered, it.localCopy) } }, ReceivedFileLocks.revision) { rows, revision -> rows to revision }
             .distinctUntilChanged().collect { reload() }
@@ -52,7 +53,7 @@ internal fun ReceivedFilesScreen(binding: ReceivedFilesScope, onBack: () -> Unit
         LazyColumn(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = PaddingValues(bottom = 16.dp)) {
             item {
-            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+            Column(Modifier.fillMaxWidth().animateContentSize(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
             Text(stringResource(R.string.received_retention), style = MaterialTheme.typography.bodyMedium)
             snapshot?.let { current ->
                 Text(stringResource(R.string.received_total, fileSize(current.bytes)),
@@ -63,13 +64,13 @@ internal fun ReceivedFilesScreen(binding: ReceivedFilesScope, onBack: () -> Unit
             }
             InlineStatus(if (failed) stringResource(R.string.received_failure) else null, StatusTone.ERROR)
             TextButton(onClick = { failed = false; refresh++ }, enabled = removing == null) { Text(stringResource(R.string.feed_refresh)) }
-            if (snapshot == null && !failed) LinearProgressIndicator(Modifier.fillMaxWidth())
+            AnimatedVisibility(snapshot == null && !failed) { LinearProgressIndicator(Modifier.fillMaxWidth()) }
             if (snapshot?.files?.isEmpty() == true) Text(stringResource(R.string.received_empty))
             }
             }
             snapshot?.let { current ->
                     items(current.files, key = { it.key }) { file ->
-                        Surface(shape = RoundedCornerShape(18.dp), color = MaterialTheme.colorScheme.surfaceContainer) {
+                        Surface(modifier = Modifier.animateItem(), shape = RoundedCornerShape(18.dp), color = MaterialTheme.colorScheme.surfaceContainer) {
                             Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                 Text(file.transfer.offer.name, style = MaterialTheme.typography.titleMedium)
                                 Text(stringResource(R.string.received_file_size, fileSize(file.transfer.offer.size), fileSize(file.retainedBytes)),

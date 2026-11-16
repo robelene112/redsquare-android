@@ -7,6 +7,7 @@ import android.security.keystore.KeyProperties
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.*
+import nl.davidengelen.redsquare.chat.ChatHistoryStore
 import java.io.*
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
@@ -26,6 +27,8 @@ internal enum class PreparationPhase { PREPARING, CANCELLED, INTERRUPTED, FAILED
 internal data class FilePreparation(val token: String, val owner: String, val backend: SaitoBackend,
     val contact: String, val endpoint: String, val source: String, val phase: PreparationPhase = PreparationPhase.PREPARING,
     val name: String? = null, val bytes: Long = 0)
+
+internal data class FileStoreContacts(val contacts: List<String>, val incomplete: Boolean)
 
 internal enum class LocalFileCopy { AVAILABLE, REMOVED, REMOVAL_INCOMPLETE, UNAVAILABLE }
 
@@ -304,6 +307,41 @@ internal class FileTransferStore(private val context: Context, private val owner
     }
 
     companion object {
+        /** Discover attributed records and legacy counterparties without assigning unknown files to this owner. */
+        fun retainedContacts(context: Context, wallet: SaitoWallet, backend: SaitoBackend): FileStoreContacts {
+            val entries = requireNotNull(context.noBackupFilesDir.listFiles())
+            val pattern = Regex("fileshare\\.([0-9a-f]{64})\\.([0-9a-f-]{36})\\.info(?:\\.bak)?")
+            var incomplete = false
+            var legacyContacts: Map<String, String>? = null
+            val contacts = linkedSetOf<String>()
+            for (name in entries.map { it.name.removeSuffix(".bak") }.distinct()) {
+                val match = pattern.matchEntire(name) ?: continue
+                try {
+                    val record = requireNotNull(EncryptedLocalFile(context, name, "fileshare.metadata.v1", "fileshare.").load())
+                    require(record.version == 1.toByte())
+                    val body = JsonParser.parseString(record.text).asJsonObject
+                    val contact = if (body.has("owner")) {
+                        if (body.get("owner").asString != wallet.publicKey || body.get("backend").asString != backend.id) continue
+                        body.get("contact").asString
+                    } else {
+                        if (legacyContacts == null) {
+                            val history = ChatHistoryStore.contacts(context, wallet, backend)
+                            incomplete = incomplete || history.unreadable || history.unavailable
+                            legacyContacts = (wallet.chatContacts() + history.accounts + FileshareRuntime.transfers.value
+                                .filter { it.owner == wallet.publicKey && it.backend == backend }.map { it.contact })
+                                .distinct().associateBy { digest("${wallet.publicKey}:${backend.id}:$it") }
+                        }
+                        val legacy = legacyContacts[match.groupValues[1]]
+                        if (legacy == null) { incomplete = true; continue }
+                        legacy
+                    }
+                    require(SaitoWallet.isPublicKey(contact) && contact != wallet.publicKey)
+                    require(digest("${wallet.publicKey}:${backend.id}:$contact") == match.groupValues[1])
+                    contacts.add(contact)
+                } catch (_: Exception) { incomplete = true }
+            }
+            return FileStoreContacts(contacts.toList(), incomplete)
+        }
         private const val MAGIC = 0x46534831
         private fun digest(value: String) = MessageDigest.getInstance("SHA-256").digest(value.toByteArray(Charsets.UTF_8))
             .joinToString("") { "%02x".format(it) }
