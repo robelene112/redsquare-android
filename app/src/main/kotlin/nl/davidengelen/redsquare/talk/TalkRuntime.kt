@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare.talk
 
 import android.content.Context
+import android.os.SystemClock
 import com.google.gson.JsonObject
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
@@ -69,8 +70,18 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     private data class Outgoing(val token: String?, val transaction: SaitoTransaction)
     private val outgoing = Channel<Outgoing>(128)
     private val requested = MutableStateFlow<TalkChoices?>(null)
-    private val sockets = ConcurrentHashMap<String, SaitoPeer>()
-    private val hooks = mutableListOf<Closeable>()
+    private class SignalRoute(val socket: SaitoPeer, private val receivers: List<Closeable>) {
+        @Volatile var ready = false
+        var monitor: Job? = null
+        fun close() {
+            monitor?.cancel()
+            receivers.forEach { it.close() }
+            socket.close()
+        }
+    }
+    private data class Retry(val attempts: Int, val after: Long)
+    private val connections = ConcurrentHashMap<String, SignalRoute>()
+    private val retries = mutableMapOf<String, Retry>()
     private val leases = mutableMapOf<String, RtcLease>()
     private val seen = LinkedHashSet<String>()
     private val retired = LinkedHashMap<String, Long>()
@@ -145,6 +156,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
             while (isActive) {
                 delay(1000)
                 post {
+                    connect()
                     if (current?.phase?.live == true) {
                         guard()
                         capture?.let { devices ->
@@ -211,33 +223,60 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         latestWallet = selected
     }
 
+    private fun retryLater(route: String) {
+        val attempts = ((retries[route]?.attempts ?: 0) + 1).coerceAtMost(6)
+        val delay = (1_000L shl (attempts - 1)).coerceAtMost(30_000L)
+        retries[route] = Retry(attempts, SystemClock.elapsedRealtime() + delay)
+    }
+
+    private fun updateOnline() { online.value = connections.values.any { it.ready } }
+
     private suspend fun connect() {
-        if (closed || (!TalkRuntime.visible && current?.phase?.started != true)) return
+        val observing = synchronized(ownershipLock) { owners > 0 }
+        if (closed || (!TalkRuntime.visible && current?.phase?.started != true) ||
+            (!observing && current?.phase?.started != true)) return
         guard()
         for (route in routes) {
-            if (sockets.containsKey(route)) continue
+            if (connections.containsKey(route) || SystemClock.elapsedRealtime() < (retries[route]?.after ?: 0)) continue
             val hook = RealtimeIncoming.register(wallet.publicKey, route) { bytes ->
                 receive(bytes, null) ?: if (FileshareRuntime.receive(wallet.publicKey, backend, endpoint, bytes)) true else null
             }
             val direct = RealtimeIncoming.registerDirect(wallet.publicKey, route) { peer, envelope -> receiveEnvelope(envelope, peer) }
-            hooks.add(hook); hooks.add(direct)
-            val socket = SaitoPeer(wallet, route, onIncoming = { bytes ->
+            val receivers = listOf(hook, direct)
+            val connection = try {
+                SignalRoute(SaitoPeer(wallet, route, onIncoming = { bytes ->
+                    try {
+                        guard()
+                        val peer = receiveChat(context, latestWallet, backend, bytes, endpoint)
+                        FileshareRuntime.chatChanges.tryEmit(Triple(wallet.publicKey, backend, peer)); true
+                    } catch (_: Exception) { false }
+                }), receivers)
+            } catch (cancelled: CancellationException) { receivers.forEach { it.close() }; throw cancelled }
+            catch (_: Exception) { receivers.forEach { it.close() }; retryLater(route); continue }
+            connections[route] = connection
+            connection.monitor = scope.launch {
                 try {
-                    guard()
-                    val peer = receiveChat(context, latestWallet, backend, bytes, endpoint)
-                    FileshareRuntime.chatChanges.tryEmit(Triple(wallet.publicKey, backend, peer)); true
-                } catch (_: Exception) { false }
-            })
-            sockets[route] = socket
-            scope.launch {
-                try {
-                    check("relay" in socket.services()); online.value = true
-                    socket.awaitDisconnection()
-                } catch (_: Exception) { }
-                post {
-                    if (sockets.remove(route, socket)) {
-                        socket.close(); online.value = sockets.isNotEmpty()
-                        if (!online.value && current?.phase?.live == true) finish(CallPhase.INTERRUPTED)
+                    check("relay" in connection.socket.services())
+                    post {
+                        if (connections[route] === connection) {
+                            connection.ready = true
+                            retries.remove(route)
+                            updateOnline()
+                        }
+                    }
+                    connection.socket.awaitDisconnection()
+                } catch (cancelled: CancellationException) { if (!isActive) throw cancelled }
+                catch (_: Exception) { }
+                finally {
+                    post {
+                        if (connections.remove(route, connection)) {
+                            val wasReady = connection.ready
+                            connection.close()
+                            retryLater(route)
+                            updateOnline()
+                            if (!online.value && current?.phase?.live == true && (wasReady || connections.isEmpty()))
+                                finish(CallPhase.INTERRUPTED)
+                        }
                     }
                 }
             }
@@ -403,7 +442,8 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         val previous = leases[peer]
         // A verified invitation probe becomes a media lease only after explicit acceptance.
         if (previous != null && (!media || previous.callbacks.media)) return
-        val route = routes.firstOrNull { sockets.containsKey(it) } ?: error("Call network unavailable")
+        val route = routes.firstOrNull { connections[it]?.ready == true }
+            ?: routes.firstOrNull { connections.containsKey(it) } ?: error("Call network unavailable")
         val lease = SharedRtcPeers.acquire(context, wallet, backend.id, peer, route,
             !BuildConfig.DEBUG || endpoint == backend.peerUrl, RtcCallbacks(validate = {
                 guard(peer); check(current?.token == token && current?.phase?.live == true)
@@ -658,7 +698,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         guard()
         val token = expectedToken
         if (token != null) check(current?.token == token && (allowEnded || current?.phase?.live == true))
-        val targets = sockets.values.toList()
+        val targets = connections.values.map { it.socket }
         check(targets.isNotEmpty()) { "No Talk relay is connected" }
         val results = Channel<Boolean>(targets.size)
         // Fan out the same signature. A slow secondary route must not hold up
@@ -710,8 +750,11 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         if (!deferIdle) closeIfIdle()
     }
     private fun closeNetwork() {
-        hooks.forEach { it.close() }; hooks.clear()
-        sockets.values.forEach { it.close() }; sockets.clear(); online.value = false
+        val previous = connections.values.toList()
+        connections.clear()
+        previous.forEach { it.close() }
+        retries.clear()
+        online.value = false
     }
     private fun closeIfIdle() {
         if (current?.phase?.live == true) return
