@@ -44,6 +44,8 @@ class FileshareStorageManagementTest {
                 val value = FileTransfer(token, wallet.publicKey, SaitoBackend.OWNER, contact.publicKey,
                     "ws://127.0.0.1:1/wsopen", Fileshare.Offer("retention130", name, 5, "text/plain"), true,
                     FilePhase.COMPLETE, 5)
+                // Actual reception commits its metadata before creating the first encrypted payload.
+                store.save(value.copy(phase = FilePhase.RECEIVING, bytes = 0))
                 store.begin(value).use { spool -> spool.append(bytes); spool.finish(5) }
                 store.save(value)
                 val payload = context.noBackupFilesDir.listFiles()!!.single { it.name.endsWith("$token.data") }
