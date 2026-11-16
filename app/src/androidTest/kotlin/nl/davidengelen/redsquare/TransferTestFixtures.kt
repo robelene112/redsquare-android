@@ -12,6 +12,18 @@ import mockwebserver3.RecordedRequest
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.util.regex.Pattern
 
+/** Explicit old recovery journeys reopen via Wallet after dismissing a now-restored transfer task. */
+internal fun ComposeTestRule.closeRetainedTransferBeforeWalletReopen() {
+    val close = hasText("Close transfer") and hasClickAction()
+    val retained = onAllNodes(close).fetchSemanticsNodes(atLeastOneRootRequired = false)
+    check(retained.size <= 1)
+    if (retained.isNotEmpty()) {
+        onNode(close).assertIsDisplayed().assertIsEnabled().performClick()
+        waitUntil(5_000) { onNode(hasText("Wallet") and hasAnyAncestor(isDialog())).isDisplayed() }
+        closeWalletOverview()
+    }
+}
+
 /** Shared controlled funding and observed-IME handling; journeys retain their own assertions. */
 internal fun enterNativeTransfer(ui: ComposeTestRule, recipient: String, amount: String, fee: String) {
     ui.onNodeWithContentDescription("Recipient address").performTextInput(recipient)

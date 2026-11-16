@@ -135,6 +135,7 @@ class WalletTransferPreviewTest {
                             .writeText(Base64.getEncoder().encodeToString(frame))
                         scenario.recreate()
                         ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
+                        ui.closeRetainedTransferBeforeWalletReopen()
                         ui.openWallet()
                         ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
                         ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
@@ -386,6 +387,7 @@ class WalletTransferPreviewTest {
                             captureNativeScreen(File(context.cacheDir, "transfer-evidence/storage-blocked-review.png"), recovery)
                             scenario.recreate()
                             ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
+                            ui.closeRetainedTransferBeforeWalletReopen()
                             ui.openWallet()
                             ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
                             ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
@@ -400,6 +402,7 @@ class WalletTransferPreviewTest {
                             check(fault.delete())
                             scenario.recreate()
                             ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
+                            ui.closeRetainedTransferBeforeWalletReopen()
                             ui.openWallet()
                             ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
                             ui.onNodeWithText("Send SAITO").performScrollTo().performClick()

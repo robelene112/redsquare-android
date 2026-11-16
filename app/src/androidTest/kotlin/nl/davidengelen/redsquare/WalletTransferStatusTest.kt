@@ -388,6 +388,7 @@ class WalletTransferStatusTest {
     private fun reopenTransfers(scenario: ActivityScenario<MainActivity>, author: String) {
         scenario.recreate()
         ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
+        ui.closeRetainedTransferBeforeWalletReopen()
         ui.openWallet()
         ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
         ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
