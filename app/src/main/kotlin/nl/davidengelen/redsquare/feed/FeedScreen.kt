@@ -58,6 +58,7 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.collect
 import nl.davidengelen.redsquare.notifications.SocialPush
 import nl.davidengelen.redsquare.notifications.NotificationRoutes
 import nl.davidengelen.redsquare.ui.InlineStatus
@@ -172,6 +173,16 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         } }
     }
     val position = rememberLazyListState()
+    var readingEndSpace by rememberSaveable(wallet?.publicKey, backend, followingOwner) { mutableIntStateOf(0) }
+    LaunchedEffect(position, cache) {
+        snapshotFlow { position.layoutInfo }.collect { layout ->
+            // Once the end is outside the viewport, removing its spare space cannot
+            // clamp the reader. Keep it while the short cached ending is visible.
+            if (readingEndSpace > 0 && layout.visibleItemsInfo.lastOrNull()?.index?.let {
+                    it < layout.totalItemsCount - 1
+                } == true) readingEndSpace = 0
+        }
+    }
     val formNavigation = requireNotNull(LocalPostNavigation.current)
     val navigationNotice = remember { SnackbarHostState() }
     var submittedPosts by remember(wallet?.publicKey, backend) { mutableIntStateOf(0) }
@@ -353,6 +364,18 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                                             .take(AndroidFeedCache.MAX_POSTS)
                                         cacheWarning = withContext(Dispatchers.IO) {
                                             try { cache.save(merged); applied.unreadable } catch (_: Exception) { true }
+                                        }
+                                        if (merged.size > posts.size && !position.isScrollInProgress &&
+                                            !position.canScrollBackward && !position.canScrollForward) {
+                                            val layout = position.layoutInfo
+                                            val last = layout.visibleItemsInfo.lastOrNull()
+                                            if (last != null) {
+                                                // A short cache has unused viewport space. Preserve
+                                                // that space in the same measure as prepended posts,
+                                                // so LazyColumn does not clamp the old key downward.
+                                                readingEndSpace += (layout.viewportEndOffset - last.offset -
+                                                    last.size - layout.afterContentPadding).coerceAtLeast(0)
+                                            }
                                         }
                                         posts = merged
                                         unreadablePage = continuationUnavailable || (rowCount > 0 && validCount == 0)
@@ -601,7 +624,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 modifier = Modifier.weight(1f).fillMaxWidth()
             ) {
                 LazyColumn(Modifier.fillMaxSize().testTag("feed-post-list").refreshAction(wallet != null && !loading, refreshContent).then(readingAnchor), state = position,
-                    contentPadding = PaddingValues(bottom = 88.dp)) {
+                    contentPadding = PaddingValues(bottom = 88.dp + with(LocalDensity.current) { readingEndSpace.toDp() })) {
                     items(visiblePosts, key = { it.id }) { post ->
                         PostCard(post, backend, onIdentity = { openProfile(it) },
                             onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, quotes = quotes,

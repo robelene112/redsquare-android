@@ -138,6 +138,7 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
         retainWithheldArchiveReplies = following
     }
     var primary: Throwable? = null
+    var cachedAnchor: Pair<Float, Float>? = null
     try {
         retained.prepare(); wallets.replace(previous, wallet); backends.save(SaitoBackend.OWNER)
         if (following) {
@@ -164,6 +165,7 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
                         ui.onNodeWithText(cached.text).assertIsDisplayed()
                         val after = ui.onNodeWithText(cached.text).fetchSemanticsNode().boundsInRoot.top
                         check(kotlin.math.abs(after - before) <= 2f) { "The cached reading position moved: $before to $after" }
+                        cachedAnchor = before to after
                         ui.onAllNodesWithText("Wrong author must stay hidden").assertCountEquals(0)
                         captureNativeScreen(File(context.cacheDir, "photo-pages-evidence/following-anchor-preserved.png"))
                         ui.onNodeWithTag("feed-post-list").performScrollToIndex(0)
@@ -225,6 +227,9 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
                     File(context.cacheDir, "photo-pages-evidence/$mode-reads.json").writeText(JsonObject().apply {
                         addProperty("combinedBytes", combinedBytes); addProperty("oversizedReplies", oversized.get())
                         addProperty("reachedPosts", postCount); addProperty("cachedAnchorPreserved", following); addProperty("publications", peer.transactions.size)
+                        cachedAnchor?.let { (before, after) ->
+                            addProperty("cachedAnchorBefore", before); addProperty("cachedAnchorAfter", after)
+                        }
                         add("queries", JsonArray().apply { queries.forEach(::add) })
                     }.toString())
                     peer.assertHealthy()
