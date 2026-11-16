@@ -435,15 +435,11 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     }
                     if (hadOutage) { recovered = true; hadOutage = false }
                 } catch (_: TimeoutCancellationException) {
-                    if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.w("RedSquareFeed", "[photo125] read deadline")
                     // The request's own deadline must not cancel the foreground polling loop.
                     currentCoroutineContext().ensureActive()
                     manualPullPending = false; pulledTopPost = null; failed = true; hadOutage = true; recovered = false
                 } catch (cancelled: CancellationException) { throw cancelled }
-                catch (failure: Exception) {
-                    if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.w("RedSquareFeed", "[photo125] read failure ${failure.javaClass.simpleName}")
-                    manualPullPending = false; pulledTopPost = null; failed = true; hadOutage = true; recovered = false
-                }
+                catch (_: Exception) { manualPullPending = false; pulledTopPost = null; failed = true; hadOutage = true; recovered = false }
                 finally { if (currentCoroutineContext().isActive) { loading = false; pullRefreshing = false } }
                 delay(if (failed) 5_000 else 30_000)
             }
