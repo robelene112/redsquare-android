@@ -16,7 +16,10 @@ import java.io.File
 class TalkIdleRecoveryTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun visibleIdleTalkRecoversWithoutNavigationAndReceivesAFreshIncomingCall() {
+    @Test fun visibleIdleTalkRecoversWithoutNavigationAndReceivesAFreshIncomingCall() = exercise(false)
+    @Test fun launchDuringOutageShowsTruthfulFailureAndManualRetryRecoversIncomingCalls() = exercise(true)
+
+    private fun exercise(initialOutage: Boolean) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -26,7 +29,8 @@ class TalkIdleRecoveryTest {
         val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture only.
         val caller = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
         val files = ChatFixtureState(context, listOf("personal.${owner.publicKey}.", "chatwork.", "feed.owner."), owner.publicKey)
-        val folder = File(context.cacheDir, "talk-idle-evidence").apply { mkdirs() }
+        val mode = if (initialOutage) "initial-retry" else "automatic"
+        val folder = File(context.cacheDir, "talk-idle-evidence/$mode").apply { mkdirs() }
         val record = JsonObject()
         var observer: TalkAccount? = null
         fun endOwnedInvitation() {
@@ -36,7 +40,7 @@ class TalkIdleRecoveryTest {
         var primary: Throwable? = null
         try {
             files.prepare(); wallets.replace(previous, owner); backends.save(SaitoBackend.OWNER)
-            val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||")
+            val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||").apply { rejectNewConnections = initialOutage }
             peer.start().use { server ->
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
                 var hostFailure: Throwable? = null
@@ -50,18 +54,39 @@ class TalkIdleRecoveryTest {
                             ui.waitUntil(20_000) { ui.onNodeWithContentDescription("Switch app: Red Square").isDisplayed() }
                             ui.switchStackModule("Red Square", "Saito Talk", scrollTarget = true)
                             val account = TalkRuntime.account(context, owner, SaitoBackend.OWNER, endpoint).also { observer = it; it.attach() }
-                            ui.waitUntil(15_000) { account.online.value }
-                            val initialConnections = peer.authenticatedConnectionIds.size
-                            check(initialConnections > 0)
-                            peer.goOffline()
-                            ui.waitUntil(10_000) { !account.online.value && peer.authenticatedConnectionIds.isEmpty() }
-                            record.addProperty("allRoutesLostAt", SystemClock.elapsedRealtime())
-                            captureNativeScreen(File(folder, "all-routes-lost.png"))
-                            peer.rejectNewConnections = false
-                            record.addProperty("networkRestoredAt", SystemClock.elapsedRealtime())
-                            // No Retry, Activity replacement, module switch or lifecycle transition.
-                            ui.waitUntil(20_000) { account.online.value && peer.authenticatedConnectionIds.isNotEmpty() }
-                            check(peer.authenticatedConnectionIds.size <= initialConnections) { "Recovery must not duplicate authenticated connections" }
+                            if (initialOutage) {
+                                val unavailable = "Call connection unavailable."
+                                ui.waitUntil(20_000) {
+                                    runCatching {
+                                        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(unavailable))
+                                        ui.onNodeWithText(unavailable).isDisplayed()
+                                    }.getOrDefault(false)
+                                }
+                                ui.onNodeWithText("Retry").assertIsDisplayed().assertIsEnabled()
+                                check(!account.online.value)
+                                captureNativeScreen(File(folder, "initial-outage.png"))
+                                val attempts = peer.connectionAttempts.get()
+                                peer.rejectNewConnections = false
+                                record.addProperty("networkRestoredAt", SystemClock.elapsedRealtime())
+                                ui.onNodeWithText("Retry").performClick()
+                                ui.waitUntil(20_000) { account.online.value && peer.connectionAttempts.get() > attempts }
+                                ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(context.getString(R.string.talk_available)))
+                                ui.onNodeWithText(context.getString(R.string.talk_available)).assertIsDisplayed()
+                                ui.onAllNodesWithText(unavailable).assertCountEquals(0)
+                            } else {
+                                ui.waitUntil(15_000) { account.online.value }
+                                val initialConnections = peer.authenticatedConnectionIds.size
+                                check(initialConnections > 0)
+                                peer.goOffline()
+                                ui.waitUntil(10_000) { !account.online.value && peer.authenticatedConnectionIds.isEmpty() }
+                                record.addProperty("allRoutesLostAt", SystemClock.elapsedRealtime())
+                                captureNativeScreen(File(folder, "all-routes-lost.png"))
+                                peer.rejectNewConnections = false
+                                record.addProperty("networkRestoredAt", SystemClock.elapsedRealtime())
+                                // No Retry, Activity replacement, module switch or lifecycle transition.
+                                ui.waitUntil(20_000) { account.online.value && peer.authenticatedConnectionIds.isNotEmpty() }
+                                check(peer.authenticatedConnectionIds.size <= initialConnections) { "Recovery must not duplicate authenticated connections" }
+                            }
                             record.addProperty("recoveredAt", SystemClock.elapsedRealtime())
                             val invitation = TalkProtocol.invite(caller, owner.publicKey,
                                 TalkRoom(caller.publicKey, caller.publicKey), TalkDial.REQUEST, System.currentTimeMillis())
@@ -71,7 +96,7 @@ class TalkIdleRecoveryTest {
                             check(TalkRuntime.call.value?.let { it.owner == owner.publicKey && it.direct == caller.publicKey &&
                                 it.savedBackend == SaitoBackend.OWNER && it.phase == CallPhase.INCOMING } == true)
                             record.addProperty("incomingInvitationReceived", true)
-                            record.addProperty("retryTapped", false); record.addProperty("lifecycleRestarted", false)
+                            record.addProperty("retryTapped", initialOutage); record.addProperty("lifecycleRestarted", false)
                             record.addProperty("activityRecreated", false); record.addProperty("moduleChangedDuringRecovery", false)
                             File(folder, "stage.json").writeText(record.toString())
                             captureNativeScreen(File(folder, "incoming-after-recovery.png"))
