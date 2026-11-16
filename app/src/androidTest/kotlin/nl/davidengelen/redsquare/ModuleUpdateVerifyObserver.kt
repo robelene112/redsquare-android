@@ -46,10 +46,12 @@ class ModuleUpdateVerifyObserver {
         assertEquals(operation.candidate.transaction.encoded(), plan.mint.encoded())
         assertEquals(VaultRuleMode.STANDARD, disk.draftRules(draft.id).mode)
         assertArrayEquals(bytes, requireNotNull(disk.export()).bytes)
+        val filesharePreserved = FileshareUpdateFixture.verify(context, owner)
         instrumentation.sendStatus(0, Bundle().apply { putString("moduleUpdateContinuity", JsonObject().apply {
             addProperty("owner", owner); addProperty("version", context.packageManager.getPackageInfo(context.packageName, 0).longVersionCode)
             addProperty("exactPendingStoreOriginal", true); addProperty("exactPendingVaultOriginal", true); addProperty("pendingVaultPlanReconstructed", true)
             addProperty("exactVaultDraft", true); addProperty("exactOfflineAndPendingExportBytes", true)
+            addProperty("exactRetainedFileshareAndInterruptedHistory", filesharePreserved)
             addProperty("encryptedRecordsUnchanged", seed.getAsJsonArray("records").size()); addProperty("noNetworkSubmission", true)
         }.toString()) })
     }
