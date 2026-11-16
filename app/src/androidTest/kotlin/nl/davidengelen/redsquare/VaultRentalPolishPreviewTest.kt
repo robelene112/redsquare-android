@@ -28,6 +28,9 @@ class VaultRentalPolishPreviewTest {
             try { ui.waitUntil(15_000) { loaded.isCompleted }; runBlocking { loaded.await() } }
             finally { if (!loaded.isCompleted) runBlocking { loaded.cancelAndJoin() } }
             assertTrue(library.entries.single().creatorMaster)
+            // Exclude ordinary startup transitions from the local-refresh measurement.
+            // Background work remains active; all measured refresh goals stay unchanged.
+            ui.waitForIdle()
             val start = SystemClock.uptimeMillis()
             Debug.startMethodTracing(File(scene.evidence, "creator-discovery.trace").absolutePath, 64 * 1024 * 1024, 0)
             val refreshed = scope.async { repeat(20) { library.refreshLocal() } }

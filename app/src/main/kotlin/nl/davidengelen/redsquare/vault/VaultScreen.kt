@@ -86,6 +86,8 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     val exportDocument = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         scope.launch {
             busy = true; error = null; feedback = null
+            var terminalError: Int? = null
+            var terminalFeedback: Int? = null
             try {
                 val destination = result.data?.data.takeIf { result.resultCode == Activity.RESULT_OK }
                 if (destination != null) {
@@ -96,14 +98,22 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                             output.write(file.bytes); output.flush()
                         }
                     }
-                    feedback = R.string.vault_file_saved
+                    terminalFeedback = R.string.vault_file_saved
                 }
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { error = R.string.vault_save_failed }
+            catch (_: Exception) { terminalError = R.string.vault_save_failed }
             finally {
-                try { withContext(NonCancellable + Dispatchers.IO) { library.disk.finishExport() }; warning = null }
-                catch (_: Exception) { warning = R.string.vault_export_cleanup }
-                exporting = false; busy = false; library.refreshLocal()
+                try {
+                    try { withContext(NonCancellable + Dispatchers.IO) { library.disk.finishExport() }; warning = null }
+                    catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { warning = R.string.vault_export_cleanup }
+                    library.refreshLocal()
+                } finally {
+                    exporting = false; busy = false
+                    if (currentCoroutineContext().isActive) {
+                        error = terminalError; feedback = terminalFeedback
+                    }
+                }
             }
         }
     }
@@ -150,6 +160,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
         if (busy || exporting) return
         busy = true; feedback = null; error = null
         fileJob = scope.launch {
+            var terminalError: Int? = null
             try {
                 val file = library.download(entry, supplied)
                 try { withContext(Dispatchers.IO) { currentCoroutineContext().ensureActive(); library.disk.prepareExport(file) } }
@@ -162,20 +173,27 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                     exportDocument.launch(Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
                         .setType(file.mime).putExtra(Intent.EXTRA_TITLE,
                             file.name.substringAfterLast('/').substringAfterLast('\\').ifBlank { "Vault file" }))
-                } catch (_: Exception) { exporting = false; error = R.string.vault_save_failed }
+                } catch (_: Exception) { exporting = false; terminalError = R.string.vault_save_failed }
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: VaultLocalFailure) { exporting = false; error = R.string.vault_export_prepare_failed }
+            catch (_: VaultLocalFailure) { exporting = false; terminalError = R.string.vault_export_prepare_failed }
             catch (_: Exception) {
                 exporting = false
-                error = if (supplied != null) R.string.vault_unlock_denied else R.string.vault_access_failed
+                terminalError = if (supplied != null) R.string.vault_unlock_denied else R.string.vault_access_failed
             }
             finally {
-                if (!exporting) {
-                    try { withContext(NonCancellable + Dispatchers.IO) { library.disk.finishExport() }; warning = null }
-                    catch (_: Exception) { warning = R.string.vault_export_cleanup }
-                    library.refreshLocal()
+                try {
+                    if (!exporting) {
+                        try { withContext(NonCancellable + Dispatchers.IO) { library.disk.finishExport() }; warning = null }
+                        catch (cancelled: CancellationException) { throw cancelled }
+                        catch (_: Exception) { warning = R.string.vault_export_cleanup }
+                        library.refreshLocal()
+                    }
+                } finally {
+                    // A terminal result and usable recovery controls become visible
+                    // together, after private staging cleanup has finished.
+                    busy = false
+                    if (terminalError != null && currentCoroutineContext().isActive) error = terminalError
                 }
-                busy = false
             }
         }
     }
