@@ -62,7 +62,16 @@ window.releaseTransfer = () => {
 let rtc, dc, makingOffer = false, ignored = false, queuedCandidates = [];
 let pendingFile;
 const polite = Host.publicKey() < Host.nativeKey();
-function signal(request, details = {}) { Host.signal(JSON.stringify({request, ...details})); }
+const rtcTrace = [];
+function traceRtc(event, details = {}) {
+  rtcTrace.push({event, state:rtc && rtc.signalingState, makingOffer, ...details});
+  if (rtcTrace.length > 24) rtcTrace.shift();
+}
+function rtcFailure(error) { Host.failure(String(error) + ' RTC trace: ' + JSON.stringify(rtcTrace)); }
+function signal(request, details = {}) {
+  if (request === 'peer-description') traceRtc('send', {type:details.description.type});
+  Host.signal(JSON.stringify({request, ...details}));
+}
 function connection(initiator = false) {
   if (rtc && ['new','connecting','connected'].includes(rtc.connectionState) && dc.readyState !== 'closed') return;
   if (rtc) rtc.close();
@@ -74,14 +83,15 @@ function connection(initiator = false) {
     // Match pinned Stun: a lower-key receiver also starts negotiated-channel setup.
     // File direction does not determine the SDP offerer.
     if (!initiator && !polite) return;
+    traceRtc('negotiationneeded');
     try { makingOffer = true; await rtc.setLocalDescription(await rtc.createOffer());
       signal('peer-description', {description:{type:rtc.localDescription.type,sdp:rtc.localDescription.sdp}});
-    } catch (e) { Host.failure(String(e)); } finally { makingOffer = false; }
+    } catch (e) { rtcFailure(e); } finally { makingOffer = false; }
   };
   dc.onopen = () => { Host.opened(); if (pendingFile) { const action = pendingFile; pendingFile = null; action(); } };
   dc.onmessage = async e => {
     try { await fss.handlePeerTransaction(app, new FixtureTransaction(JSON.parse(Host.inspect(e.data)))); }
-    catch (e) { Host.failure(String(e)); }
+    catch (e) { rtcFailure(e); }
   };
 }
 window.nativeSignal = async body => {
@@ -90,6 +100,7 @@ window.nativeSignal = async body => {
     connection();
     if (body.request === 'peer-description') {
       const description = body.description;
+      traceRtc('receive', {type:description.type});
       const collision = description.type === 'offer' && (makingOffer || rtc.signalingState !== 'stable');
       ignored = collision && !polite;
       if (ignored) return;
@@ -105,7 +116,7 @@ window.nativeSignal = async body => {
       if (rtc.remoteDescription) await rtc.addIceCandidate(body.iceCandidate);
       else queuedCandidates.push(body.iceCandidate);
     }
-  } catch (e) { Host.failure(String(e)); }
+  } catch (e) { rtcFailure(e); }
 };
 const fss = Object.create(Fileshare.prototype);
 Object.assign(fss, {app, publicKey:Host.publicKey(), name:'Fileshare', chunkSize:64256, incoming:{}, outgoing_files:{},
@@ -138,10 +149,11 @@ Host.ready();
 
 // An owned valid renegotiation keeps the file channel open while its Relay ACK is held.
 window.renegotiateFileChannel = async () => {
+  traceRtc('explicit-renegotiation');
   try {
     makingOffer = true;
     await rtc.setLocalDescription(await rtc.createOffer());
     signal('peer-description', {description:{type:rtc.localDescription.type,sdp:rtc.localDescription.sdp}});
-  } catch (error) { Host.failure(String(error)); }
+  } catch (error) { rtcFailure(error); }
   finally { makingOffer = false; }
 };
