@@ -105,31 +105,33 @@ private class ActivityTalkAccount(val account: TalkAccount) : RememberObserver {
 }
 
 class MainActivity : ComponentActivity() {
-    private val notificationRoutes by lazy {
+    private val routeModels by lazy {
         // This exported Activity's Intent extras are untrusted, not saved route defaults.
         // Keep registry/owner restoration support while admitting only our own route state.
         val arguments = androidx.lifecycle.viewmodel.MutableCreationExtras(defaultViewModelCreationExtras).apply {
             this[androidx.lifecycle.DEFAULT_ARGS_KEY] = Bundle()
         }
-        val provider = androidx.lifecycle.ViewModelProvider(viewModelStore, defaultViewModelProviderFactory, arguments)
-        provider[nl.davidengelen.redsquare.notifications.NotificationRoutes.VIEW_MODEL_KEY,
+        androidx.lifecycle.ViewModelProvider(viewModelStore, defaultViewModelProviderFactory, arguments)
+    }
+    private val notificationRoutes by lazy {
+        routeModels[nl.davidengelen.redsquare.notifications.NotificationRoutes.VIEW_MODEL_KEY,
             nl.davidengelen.redsquare.notifications.NotificationRoutes::class.java]
+    }
+    private val talkRoutes by lazy {
+        routeModels[nl.davidengelen.redsquare.talk.TalkLaunchRoutes::class.java]
     }
 
     private val incomingVaultFiles by lazy {
         androidx.lifecycle.ViewModelProvider(this)[nl.davidengelen.redsquare.vault.VaultIncomingFiles::class.java]
     }
     private val storeUris = kotlinx.coroutines.flow.MutableStateFlow<Uri?>(null)
-    private val talkUris = kotlinx.coroutines.flow.MutableStateFlow<Uri?>(null)
-    private fun isTalkUri(uri: Uri?): Boolean = uri != null &&
-        (uri.scheme == "redsquare-talk" || TalkLink.parse(uri.toString()) != null)
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         // Preserve the original launch configuration, including controlled peer endpoints.
         if (incomingVaultFiles.receive(this, intent)) return
         if (nl.davidengelen.redsquare.saito.StoreLink.parse(intent.data?.toString().orEmpty()) != null) storeUris.value = intent.data
-        else if (isTalkUri(intent.data)) talkUris.value = intent.data else notificationRoutes.enqueue(intent.data)
+        else if (nl.davidengelen.redsquare.talk.TalkLaunchRoutes.accepts(intent.data)) talkRoutes.enqueue(intent.data) else notificationRoutes.enqueue(intent.data)
     }
 
     private var videoDiagnostics: VideoDiagnostics? = null
@@ -156,9 +158,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) incomingVaultFiles.receive(this, intent)
+        talkRoutes.initialize(intent.data)
         if (nl.davidengelen.redsquare.saito.StoreLink.parse(intent.data?.toString().orEmpty()) != null) {
             if (savedInstanceState == null) storeUris.value = intent.data
-        } else if (isTalkUri(intent.data)) talkUris.value = intent.data else notificationRoutes.initialize(intent.data)
+        } else if (!nl.davidengelen.redsquare.talk.TalkLaunchRoutes.accepts(intent.data)) notificationRoutes.initialize(intent.data)
         videoDiagnostics = VideoDiagnostics.fromIntent(this, intent)
         setContent {
             val appearanceStore = remember { AndroidAppearanceStore(applicationContext) }
@@ -398,24 +401,31 @@ class MainActivity : ComponentActivity() {
                 }
                 moduleSwitchFailed = !moved
             }
-            val pendingTalkUri by talkUris.collectAsState()
-            LaunchedEffect(pendingTalkUri, address, talkBackend) {
-                val uri = pendingTalkUri ?: return@LaunchedEffect
+            val pendingTalkDelivery by talkRoutes.pending.collectAsState()
+            LaunchedEffect(pendingTalkDelivery, address, talkBackend, savingBackend, walletImport.busy, walletExport.busy) {
+                val delivery = pendingTalkDelivery ?: return@LaunchedEffect
+                if (savingBackend || walletImport.busy || walletExport.busy) return@LaunchedEffect
+                val uri = talkRoutes.uri(delivery) ?: run { talkRoutes.consume(delivery); return@LaunchedEffect }
                 val owner = address ?: return@LaunchedEffect
                 val node = talkBackend ?: return@LaunchedEffect
                 postNavigation.awaitSettled()
+                if (!talkRoutes.current(delivery)) return@LaunchedEffect
                 val link = TalkLink.parse(uri.toString())
                 val active = TalkRuntime.call.value
                 val exactCall = uri.scheme == "redsquare-talk" && uri.host == "call" &&
                     uri.pathSegments.singleOrNull() == active?.token && uri.getQueryParameter("owner") == owner &&
                     uri.getQueryParameter("backend") == node.id && active != null && active.owner == owner && active.savedBackend == node && active.phase.live
-                if (link == null && !exactCall) { talkReturnExpired = true; talkUris.value = null; return@LaunchedEffect }
+                if (link == null && !exactCall) { talkReturnExpired = true; talkRoutes.consume(delivery); return@LaunchedEffect }
                 val moved = postNavigation.navigate {
-                    if (wallet?.publicKey != owner || backend != node || savingBackend || walletImport.busy || walletExport.busy) false
-                    else { talkDraft = link?.let { TalkDraft(it.url(), owner = owner, savedBackend = node) }; stackLinkEntry = null; module = AppModule.TALK; true }
+                    if (!talkRoutes.current(delivery) || wallet?.publicKey != owner || backend != node || savingBackend || walletImport.busy || walletExport.busy) false
+                    else {
+                        talkDraft = link?.let { TalkDraft(it.url(), owner = owner, savedBackend = node) }
+                        stackLinkEntry = null; module = AppModule.TALK; talkReturnExpired = false
+                        talkRoutes.consume(delivery)
+                        true
+                    }
                 }
-                talkUris.value = null
-                moduleSwitchFailed = !moved
+                if (moved || talkRoutes.current(delivery)) moduleSwitchFailed = !moved
             }
             val launchTalk: (String, TalkMode) -> Unit = { peer, mode ->
                 val owner = address
@@ -459,7 +469,7 @@ class MainActivity : ComponentActivity() {
             val readingUri = remember(externalUri) {
                 object : androidx.compose.ui.platform.UriHandler {
                     override fun openUri(uri: String) {
-                        if (TalkLink.parse(uri) != null) { talkUris.value = Uri.parse(uri); return }
+                        if (TalkLink.parse(uri) != null) { talkRoutes.enqueue(Uri.parse(uri)); return }
                         val storeTarget = nl.davidengelen.redsquare.saito.StoreLink.parse(uri)
                         val target = nl.davidengelen.redsquare.saito.StackLink.parse(uri)
                         if (target == null && storeTarget == null) { externalUri.openUri(uri); return }
