@@ -180,7 +180,7 @@ internal fun exercisePhotoPages(ui: ComposeContentTestRule, search: Boolean = fa
                         if (search && reached.size < postCount) {
                             list.performScrollToNode(hasText("Load more"))
                             ui.onNodeWithText("Load more").assertIsEnabled().performClick()
-                            ui.waitUntil(30_000) { ui.onAllNodes(hasText("Load more") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.waitUntil(30_000) { ui.onAllNodes(hasContentDescription("Search history") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         }
                         if (reached.size == postCount) break
                     }
