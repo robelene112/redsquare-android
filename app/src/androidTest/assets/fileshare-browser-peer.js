@@ -94,7 +94,14 @@ function connection(initiator = false) {
     catch (e) { rtcFailure(e); }
   };
 }
-window.nativeSignal = async body => {
+let incomingSignals = Promise.resolve();
+window.nativeSignal = body => {
+  // WebView evaluateJavascript does not await returned promises. Preserve Relay
+  // order until each asynchronous SDP/ICE operation completes, as the native actor does.
+  incomingSignals = incomingSignals.then(() => receiveNativeSignal(body));
+  return incomingSignals;
+};
+async function receiveNativeSignal(body) {
   try {
     if (body.request === 'peer-left') { if (rtc) rtc.close(); return; }
     connection();
