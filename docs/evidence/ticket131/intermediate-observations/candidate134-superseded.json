@@ -1,0 +1,8 @@
+{
+  "version": 134,
+  "source": "d3314b923e69c5f03247358317c3135b66025c5b",
+  "staged": true,
+  "promoted": false,
+  "sha256": "fb0df0083b618d65bcbd01710113705c0c7379c8a84e11ca1b01dd3a52b99ca5",
+  "reason": "Whole Android10 Social43885183681 exposes lost established Unsaved changes status when recovery warning appears. Corrected in d1cba3a36823145f2dd40a9a53464d6013fdcbc9, no native assertions or deadlines changed. Actual signed131-to134 update passes are intermediate only. Whole10 Chat separately exposes legacy WebView RTC glare; bounded diagnostics ongoing. Both superseded whole parents canceled after this product correction; original completed failures retained."
+}

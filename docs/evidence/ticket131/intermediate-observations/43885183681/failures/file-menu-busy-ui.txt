@@ -1,0 +1,85 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FileshareAttachmentBusyTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FileshareAttachmentBusyTest:
+INSTRUMENTATION_STATUS: test=streamingPreparationExplainsTheFileRestrictionWhileOtherMediaStayEnabled
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FileshareAttachmentBusyTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=streamingPreparationExplainsTheFileRestrictionWhileOtherMediaStayEnabled
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FileshareAttachmentBusyTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAcceptedTransferExplainsTheFileRestrictionWithoutBlockingTheWriter
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FileshareAttachmentBusyTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Browser peer: TypeError: Failed to execute 'setLocalDescription' on 'RTCPeerConnection': The provided value 'rollback' is not a valid enum value of type RTCSdpType.
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$waitUntil$lambda$4(FilesharePreviewTest.kt:75)
+	at nl.davidengelen.redsquare.FileshareFixture.$r8$lambda$cSVuq4BTlbv_xXXYuIb9V5xWolA(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareFixture$$ExternalSyntheticLambda51.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$waitUntil(FilesharePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$lambda$99$lambda$98$lambda$97$lambda$96(FilesharePreviewTest.kt:184)
+	at nl.davidengelen.redsquare.FileshareFixture.$r8$lambda$Y-Oz7eiIG53t9npUwsSJC7zk1H4(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareFixture$$ExternalSyntheticLambda49.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer(FilesharePreviewTest.kt:99)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$default(FilesharePreviewTest.kt:28)
+	at nl.davidengelen.redsquare.FileshareAttachmentBusyTest.anAcceptedTransferExplainsTheFileRestrictionWithoutBlockingTheWriter(FileshareAttachmentBusyTest.kt:11)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anAcceptedTransferExplainsTheFileRestrictionWithoutBlockingTheWriter(nl.davidengelen.redsquare.FileshareAttachmentBusyTest):
+java.lang.AssertionError: Browser peer: TypeError: Failed to execute 'setLocalDescription' on 'RTCPeerConnection': The provided value 'rollback' is not a valid enum value of type RTCSdpType.
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$waitUntil$lambda$4(FilesharePreviewTest.kt:75)
+	at nl.davidengelen.redsquare.FileshareFixture.$r8$lambda$cSVuq4BTlbv_xXXYuIb9V5xWolA(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareFixture$$ExternalSyntheticLambda51.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$waitUntil(FilesharePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$lambda$99$lambda$98$lambda$97$lambda$96(FilesharePreviewTest.kt:184)
+	at nl.davidengelen.redsquare.FileshareFixture.$r8$lambda$Y-Oz7eiIG53t9npUwsSJC7zk1H4(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareFixture$$ExternalSyntheticLambda49.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer(FilesharePreviewTest.kt:99)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$default(FilesharePreviewTest.kt:28)
+	at nl.davidengelen.redsquare.FileshareAttachmentBusyTest.anAcceptedTransferExplainsTheFileRestrictionWithoutBlockingTheWriter(FileshareAttachmentBusyTest.kt:11)
+
+INSTRUMENTATION_STATUS: test=anAcceptedTransferExplainsTheFileRestrictionWithoutBlockingTheWriter
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 13.348
+There was 1 failure:
+1) anAcceptedTransferExplainsTheFileRestrictionWithoutBlockingTheWriter(nl.davidengelen.redsquare.FileshareAttachmentBusyTest)
+java.lang.AssertionError: Browser peer: TypeError: Failed to execute 'setLocalDescription' on 'RTCPeerConnection': The provided value 'rollback' is not a valid enum value of type RTCSdpType.
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$waitUntil$lambda$4(FilesharePreviewTest.kt:75)
+	at nl.davidengelen.redsquare.FileshareFixture.$r8$lambda$cSVuq4BTlbv_xXXYuIb9V5xWolA(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareFixture$$ExternalSyntheticLambda51.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$waitUntil(FilesharePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$lambda$99$lambda$98$lambda$97$lambda$96(FilesharePreviewTest.kt:184)
+	at nl.davidengelen.redsquare.FileshareFixture.$r8$lambda$Y-Oz7eiIG53t9npUwsSJC7zk1H4(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareFixture$$ExternalSyntheticLambda49.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer(FilesharePreviewTest.kt:99)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$default(FilesharePreviewTest.kt:28)
+	at nl.davidengelen.redsquare.FileshareAttachmentBusyTest.anAcceptedTransferExplainsTheFileRestrictionWithoutBlockingTheWriter(FileshareAttachmentBusyTest.kt:11)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,106 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest:
+INSTRUMENTATION_STATUS: test=unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Unsaved changes' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns$lambda$11$lambda$10(ComposerDraftStatusPreviewTest.kt:49)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.$r8$lambda$Z3WL6y6BnQdwDa4jC5MvW_mq3wM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns$lambda$11(ComposerDraftStatusPreviewTest.kt:21)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.$r8$lambda$mMb5e1gkUAXh9sa_q_9kLsx4rtE(Unknown Source:0)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns(ComposerDraftStatusPreviewTest.kt:18)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns(nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Unsaved changes' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns$lambda$11$lambda$10(ComposerDraftStatusPreviewTest.kt:49)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.$r8$lambda$Z3WL6y6BnQdwDa4jC5MvW_mq3wM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns$lambda$11(ComposerDraftStatusPreviewTest.kt:21)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.$r8$lambda$mMb5e1gkUAXh9sa_q_9kLsx4rtE(Unknown Source:0)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns(ComposerDraftStatusPreviewTest.kt:18)
+
+INSTRUMENTATION_STATUS: test=unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 16.206
+There was 1 failure:
+1) unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns(nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Unsaved changes' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns$lambda$11$lambda$10(ComposerDraftStatusPreviewTest.kt:49)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.$r8$lambda$Z3WL6y6BnQdwDa4jC5MvW_mq3wM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns$lambda$11(ComposerDraftStatusPreviewTest.kt:21)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.$r8$lambda$mMb5e1gkUAXh9sa_q_9kLsx4rtE(Unknown Source:0)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns(ComposerDraftStatusPreviewTest.kt:18)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

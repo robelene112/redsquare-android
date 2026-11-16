@@ -1,0 +1,122 @@
+{
+  "qualification": "Intermediate or unsuccessful observations only. Original complete parent conclusions and all raw indexed bytes retained externally; no assembly of passing prefixes.",
+  "observations": [
+    {
+      "run": 43875784814,
+      "head": "f52fddeb10aadcfffa14147d26bfd739d65709ef",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 55,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Intermediate source/debug success before later product corrections; not final source acceptance."
+    },
+    {
+      "run": 43876396655,
+      "head": "99eb5755287b0bed374da60e72ba23805ab70832",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 422,
+      "failedInstrumentationOriginals": [
+        "android-native-proof-chat/.scratch/device-evidence/api-29/appearance-ui.txt"
+      ],
+      "qualification": "Whole10 parent canceled after original Chat Appearance hidden failure; Social/Wallet canceled, no prefix acceptance."
+    },
+    {
+      "run": 43876396464,
+      "head": "99eb5755287b0bed374da60e72ba23805ab70832",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 331,
+      "failedInstrumentationOriginals": [
+        "android-native-proof-chat/.scratch/device-evidence/api-37.0/appearance-ui.txt"
+      ],
+      "qualification": "Whole17 parent canceled after original Chat Appearance hidden failure; Social/Wallet canceled, no prefix acceptance."
+    },
+    {
+      "run": 43880973729,
+      "head": "2036c2c8857bba6596c943415f73bb9b7e3f48b1",
+      "status": "completed",
+      "conclusion": "failure",
+      "originalFiles": 83,
+      "failedInstrumentationOriginals": [
+        "android-native-proof/.scratch/device-evidence/api-29/appearance-ui.txt"
+      ],
+      "qualification": "Focused10 fails original fresh Settings re-entry Privacy visibility after recreation. Product scroll reset follows."
+    },
+    {
+      "run": 43880973840,
+      "head": "2036c2c8857bba6596c943415f73bb9b7e3f48b1",
+      "status": "queued",
+      "conclusion": "",
+      "originalFiles": 0,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Upstream queued jobless observation; cancel CLI and force-cancel API contradictory rejections retained, no runtime acceptance."
+    },
+    {
+      "run": 43883334811,
+      "head": "d3314b923e69c5f03247358317c3135b66025c5b",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 84,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Corrected focused Settings full light/dark/system, recreation/re-entry success10, not full app."
+    },
+    {
+      "run": 43883335014,
+      "head": "d3314b923e69c5f03247358317c3135b66025c5b",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 73,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Corrected focused Settings full light/dark/system, recreation/re-entry success17, not full app."
+    },
+    {
+      "run": 43885183681,
+      "head": "d3314b923e69c5f03247358317c3135b66025c5b",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 703,
+      "failedInstrumentationOriginals": [
+        "android-native-proof-chat/.scratch/device-evidence/api-29/file-menu-busy-ui.txt",
+        "android-native-proof-social/.scratch/device-evidence/api-29/composer-draft-ui.txt"
+      ],
+      "qualification": "Whole10 canceled after completed Chat initial WebView invalid rollback and Social lost Unsaved changes failures; no passing prefixes."
+    },
+    {
+      "run": 43885184118,
+      "head": "d3314b923e69c5f03247358317c3135b66025c5b",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 737,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Whole17 canceled after product correction required by whole10; no app pass/failure inferred from cancellation."
+    },
+    {
+      "run": 43890250544,
+      "head": "43f50aa7e772f0ce43007609467ab5035565252d",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 135,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Trace-only focused file menu success; no signaling behavior change, cannot prove original race causality or replace failed full parent."
+    },
+    {
+      "run": 43890691524,
+      "head": "d1cba3a36823145f2dd40a9a53464d6013fdcbc9",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 81,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Corrected focused original composer draft tests success after product status correction; no assertion/deadline changes."
+    },
+    {
+      "run": 43890691538,
+      "head": "d1cba3a36823145f2dd40a9a53464d6013fdcbc9",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 161,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Corrected focused unfinished text storage/process recovery success; no assertion/deadline changes."
+    }
+  ]
+}

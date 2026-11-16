@@ -1,0 +1,9 @@
+{
+  "url": "https://davidengelen.nl/redsquare/qa/943848cbb5a2281cc44a29990e43012d2b4a30b4895a04a53ba2fb9776fd9469.apk",
+  "status": 200,
+  "sha256": "943848cbb5a2281cc44a29990e43012d2b4a30b4895a04a53ba2fb9776fd9469",
+  "bytes": 11217816,
+  "testSource": "245b79ee7750f51aaf12f73f7cb2fbaaad77a2f5",
+  "qualification": "Test APK only; emulator and published unsafe wallet guards. Never part of the ordinary APK.",
+  "initialObservation": "Python urllib fetch returned403 before curl canonical fetch200; no filesystem permission change. Initial cause unproved."
+}

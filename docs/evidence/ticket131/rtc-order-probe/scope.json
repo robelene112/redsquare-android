@@ -1,0 +1,9 @@
+{
+  "scope": "Owned test browser adapter only; deterministic asynchronous SDP delivery mechanism probe, not real WebRTC or complete native acceptance.",
+  "redSource": "43f50aa7e772f0ce43007609467ab5035565252d",
+  "correctedSource": "70af43b14f9ffb2c4721d127fb387269b8ac9bbb",
+  "originalNativeFailureRun": 43885183681,
+  "nativeFailureLocation": "FilesharePreviewTest.kt:184 initial incoming Accept file readiness",
+  "traceOnlyFocusedSuccess": 43890250544,
+  "qualification": "The concurrency probe reproduces the original error text, and ordered processing fixes that mechanism while genuine glare still emits the legacy error. Attribution of the original native failure to this mechanism remains inference because its source had no RTC trace. No native acceptance assertion or deadline changes."
+}

@@ -32,5 +32,39 @@
       "reviewer": "/root/storage130_standards"
     },
     "qualification": "Native corrected composer and unfinished-text evidence still required. RTC delta is bounded diagnostic-only, no negotiation behavior changed."
+  },
+  "orderedBrowserSignals": {
+    "source": "70af43b14f9ffb2c4721d127fb387269b8ac9bbb",
+    "spec": {
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0,
+      "reviewer": "/root/storage130_spec"
+    },
+    "standards": {
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0,
+      "reviewer": "/root/storage130_standards",
+      "independentlyReproducedRedGreenProbe": true
+    },
+    "qualification": "Genuine collision/error propagation preserved; original native causality qualified inference. No assertions/deadlines changed."
+  },
+  "correctedComposerNative": {
+    "source": "d1cba3a36823145f2dd40a9a53464d6013fdcbc9",
+    "runs": [
+      43890691524,
+      43890691538
+    ],
+    "spec": {
+      "result": "PASS_FOCUSED",
+      "findings": 0,
+      "reviewer": "/root/storage130_spec"
+    },
+    "standards": {
+      "result": "PASS_FOCUSED",
+      "findings": 0,
+      "reviewer": "/root/storage130_standards"
+    },
+    "observations": "Original composer2 normal methods; unfinished storage3normal plus8modes with16normal recovery/restoration methods and8separate intentional deaths. Exact protected prior/latest text, unsent explicit draft, changed PIDs, recovery warning and Retry with usable editor, empty restoration failures. Tests byte-identical and all22prospective tree pins match.",
+    "qualification": "Focused correction only; no whole-app or public delivery acceptance."
   }
 }

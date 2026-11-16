@@ -1,0 +1,25 @@
+{"calls":["remote-start:answer","remote-end:answer"],"errors":["TypeError: The provided value 'rollback' is not a valid enum value of type RTCSdpType. RTC trace: [{\"event\":\"receive\",\"state\":\"have-local-offer\",\"makingOffer\":false,\"type\":\"answer\"},{\"event\":\"receive\",\"state\":\"have-local-offer\",\"makingOffer\":false,\"type\":\"offer\"}]"]}
+node:internal/process/promises:324
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+AssertionError [ERR_ASSERTION]: No false glare from concurrently delivered answer and subsequent valid offer
++ actual - expected
+
++ [
++   `TypeError: The provided value 'rollback' is not a valid enum value of type RTCSdpType. RTC trace: [{"event":"receive","state":"have-local-offer","makingOffer":false,"type":"answer"},{"event":"receive","state":"have-local-offer","makingOffer":false,"type":"offer"}]`
++ ]
+- []
+
+    at /proof/rtc-signal-order-probe.js:31:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [
+    `TypeError: The provided value 'rollback' is not a valid enum value of type RTCSdpType. RTC trace: [{"event":"receive","state":"have-local-offer","makingOffer":false,"type":"answer"},{"event":"receive","state":"have-local-offer","makingOffer":false,"type":"offer"}]`
+  ],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v26.7.0
