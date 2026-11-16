@@ -397,7 +397,7 @@
       "result": "PASS_SOURCE_ONLY",
       "findings": 0
     },
-    "completeResult": "PENDING_BOTH_COMPLETE_PARENTS",
+    "completeResult": "REJECTED_FULL17_CHAT_AND_CANCELED_BOTH",
     "qualification": "Prospective inputs frozen before any fresh whole dispatch. Require correctedfocused bothsuccess first, then both complete parents and same-source signing/update/publicdelivery acceptance. All earlier sourceprofiles remain immutable.",
     "frozenSource": "c6c01883b3593f02630e0cc42d485b51d12a90c8",
     "focusedResult": "PASS_FOCUSED",
@@ -432,7 +432,7 @@
       }
     ],
     "result": "PASS_UPDATE_ONLY",
-    "publication": "STAGED_ONLY_PUBLIC_LATEST131",
+    "publication": "SUPERSEDED_DO_NOT_PROMOTE",
     "spec": {
       "reviewer": "/root/integrated131_spec_final",
       "result": "PASS_UPDATE_ONLY",
@@ -454,5 +454,43 @@
       "restorationFailures": 0,
       "networkSubmissions": 0
     }
+  },
+  "talkInterruption": {
+    "source": "b19efd41c2d33294c11809950c21539a8462c541",
+    "spec": {
+      "reviewer": "/root/integrated131_spec_final",
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0
+    },
+    "standards": {
+      "reviewer": "/root/integrated131_standards_final",
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0
+    },
+    "localCompile": "PASS :app:compileDebugAndroidTestKotlin5m51",
+    "focusedRuns": {
+      "10": 43980510614,
+      "17": 43980514439
+    },
+    "nativeResult": "PENDING",
+    "qualification": "Existing nativeTalkRoutes test is byte-identical and supplies realred. Startedcall/actualFGS precedesallrouteoutage; call-signal failurebranch choosesinitialUNAVAILABLE beforemonitor. Newphasechoice preservesexacttoken/liveguard, initialunstartedUNAVAILABLE andexistingcleanup/retry/no-autorestart. Native/nextsignedcandidate/freshwholeboth/update/publicdelivery acceptance pending;138superseded."
+  },
+  "talkInterruptionQualification": {
+    "productSource": "b19efd41c2d33294c11809950c21539a8462c541",
+    "profile": "source-profile-talk-interruption.json",
+    "adapter": "verify-full-talk-interruption.py",
+    "spec": {
+      "reviewer": "/root/integrated131_spec_final",
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0
+    },
+    "standards": {
+      "reviewer": "/root/integrated131_standards_final",
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0
+    },
+    "focusedResult": "PENDING_BOTH_AND_REVIEWS",
+    "completeResult": "PENDING_FRESH_BOTH_AFTER_FOCUSED_ACCEPTANCE",
+    "qualification": "Frozen prospective inputs preservealloriginalnativegoals.138superseded;freshnextcandidate/observer/131updatesboth/publicdelivery required. No sourcecore230change ornewmirrortest."
   }
 }

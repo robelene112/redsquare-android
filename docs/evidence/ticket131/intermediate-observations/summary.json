@@ -549,6 +549,30 @@
       "failedInstrumentationOriginals": [],
       "assumptionInstrumentationOriginals": [],
       "qualification": "Prospective ccc complete17CANCELED after ccefocused10failure requiresnewproductcorrection. Allthreecanceledpartitions retained, noappfailure orprefixacceptance inferred solelyfromcancellation."
+    },
+    {
+      "run": 43972107183,
+      "head": "c6c01883b3593f02630e0cc42d485b51d12a90c8",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 1195,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [
+        "android-native-proof-social/.scratch/device-evidence/api-29/ProfilePublishingPreviewTest-ui.txt"
+      ],
+      "qualification": "Complete138 Android10 CANCELED because Talk product correction is required after full17Chat failure. All original3part artifacts retained; no prefixacceptance or appfailure inferred solelyfromcancellation."
+    },
+    {
+      "run": 43972111203,
+      "head": "c6c01883b3593f02630e0cc42d485b51d12a90c8",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 905,
+      "failedInstrumentationOriginals": [
+        "android-native-proof-chat/.scratch/device-evidence/api-37.0/talk-routes-ui.txt"
+      ],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Complete138 Android17 CANCELED after Chat FAILED original TalkRoutesRecoveryTest15s exactstartedcallINTERRUPTED goal. Actualstartedcall+FGS precededownedallrouteoutage; call-signal failurecatch choseUNAVAILABLE before route retirement. Originalstack/log/PNG preserved. Social/Wallet canceledprefixes cannotacceptapp. Newproduct/source/candidate andfreshwholebothrequired."
     }
   ]
 }

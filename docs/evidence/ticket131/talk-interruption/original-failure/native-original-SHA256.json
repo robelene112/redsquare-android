@@ -1,0 +1,50 @@
+{
+  "talk-routes-evidence/active-interruption/ready-with-fallback.xml": {
+    "bytes": 31611,
+    "sha256": "b90a2b5038a7667a4a62ceacb50b1e71a333bf41e22ed1b31c4fe82fbc47577a"
+  },
+  "talk-routes-evidence/active-interruption/ready-with-fallback.png": {
+    "bytes": 34676,
+    "sha256": "97efe6c20f43f3f723a3abd3d507ebf406bab9c7b93dba16cc75c8a32dba2660"
+  },
+  "talk-routes-evidence/active-interruption/native-capture-timings.jsonl": {
+    "bytes": 318,
+    "sha256": "d53b1b6a2a3b58bd87bb368a6837e5204447c7c82c3bebd639241861ae6458e8"
+  },
+  "talk-routes-evidence/active-interruption/stage.json": {
+    "bytes": 139,
+    "sha256": "4eec9dd48e81d2f54de486620ddefcb5a3b1c7e2fbac6a4234b515feb8c064f4"
+  },
+  "talk-routes-evidence/active-interruption/failure.xml": {
+    "bytes": 34123,
+    "sha256": "eeb0099ebcf4a43c5ec4acdb206d860b6c5c1689480f110718808e8771908074"
+  },
+  "talk-routes-evidence/active-interruption/failure.png": {
+    "bytes": 32254,
+    "sha256": "af8e8020fb41c6eae49ea46f9e7e4fba195c5cf8145eb47eef976d66df44ab04"
+  },
+  "talk-routes-evidence/mixed-routes/ready-with-fallback.xml": {
+    "bytes": 32841,
+    "sha256": "492b2494efa4900316c46235b73e4212425c8c0ec9b6b523fac367b2d06ad274"
+  },
+  "talk-routes-evidence/mixed-routes/ready-with-fallback.png": {
+    "bytes": 33062,
+    "sha256": "e837841f7e7884751c8b04858629d2f44331f8e23fb735fc59b68c6861804e03"
+  },
+  "talk-routes-evidence/mixed-routes/native-capture-timings.jsonl": {
+    "bytes": 338,
+    "sha256": "3fef66538ddc807d2f2dda8e003476321d5ee75fa053f42636bfcca89122d926"
+  },
+  "talk-routes-evidence/mixed-routes/incoming-on-healthy-route.xml": {
+    "bytes": 22028,
+    "sha256": "b1120c25660d0aa7f445a1abc07553cb07dd73871ce741e1cf6315dd8ab6d7d1"
+  },
+  "talk-routes-evidence/mixed-routes/incoming-on-healthy-route.png": {
+    "bytes": 28780,
+    "sha256": "b1d2cf7f52d2369402b938f182cc5fcc471896dbd2320df679ea4d52c37075cb"
+  },
+  "talk-routes-evidence/mixed-routes/stage.json": {
+    "bytes": 138,
+    "sha256": "06e2109cf72cb0d1b8398c37c12ce14cb422640daba91b05cc888388b20384a6"
+  }
+}

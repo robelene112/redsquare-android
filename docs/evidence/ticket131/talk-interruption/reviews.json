@@ -1,0 +1,20 @@
+{
+  "source": "b19efd41c2d33294c11809950c21539a8462c541",
+  "spec": {
+    "reviewer": "/root/integrated131_spec_final",
+    "result": "PASS_SOURCE_ONLY",
+    "findings": 0
+  },
+  "standards": {
+    "reviewer": "/root/integrated131_standards_final",
+    "result": "PASS_SOURCE_ONLY",
+    "findings": 0
+  },
+  "localCompile": "PASS :app:compileDebugAndroidTestKotlin5m51",
+  "focusedRuns": {
+    "10": 43980510614,
+    "17": 43980514439
+  },
+  "nativeResult": "PENDING",
+  "qualification": "Existing nativeTalkRoutes test is byte-identical and supplies realred. Startedcall/actualFGS precedesallrouteoutage; call-signal failurebranch choosesinitialUNAVAILABLE beforemonitor. Newphasechoice preservesexacttoken/liveguard, initialunstartedUNAVAILABLE andexistingcleanup/retry/no-autorestart. Native/nextsignedcandidate/freshwholeboth/update/publicdelivery acceptance pending;138superseded."
+}

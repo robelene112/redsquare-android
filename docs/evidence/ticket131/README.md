@@ -4,49 +4,36 @@ Parent: [#117](https://github.com/robelene112/redsquare-android/issues/117).
 Review base: `59594c5634cbfec2c49bc4375865e3e101503580`.
 
 **In progress.** Behavior children #118–#130 have focused acceptance. Public
-latest stays131; candidates132–137 remain intermediate and must not be promoted.
-Signed138 and its fresh module observer are now staged at the exact frozen
-c6c01883 source. APK SHA25675ad9f8b972ec89c95df994deb95e08a68997998830aeec5d6b9029cb319f3c0,
-94,282,272bytes; established certificate, ordinary nondebug/nonprofileable,
-min29/target36. Actual immutable public APK bytes match. Public latest stays131. Both original137
-and a594 replacement complete parents are rejected and retained. Later ccc whole
-parents43966533019/43966540019 were canceled after the worker's focused10 incoming
-ACK failure required another product correction. Successful siblings do not supply
-acceptance, and cancellation alone is not an app failure.
+latest stays131. Candidates132–138 remain intermediate and must not be promoted.
+Signed138 and its same-source observer passed actual updates on both SDKs, but
+its complete17 Chat partition fails the original TalkRoutes exact-started-call
+interruption goal. Both138 parents were canceled/rejected for a required product
+correction. Successful siblings and update/focused results cannot accept138.
 
-The media correction03d80ff15 has source and original loaded-media/retry10/17
-focused acceptance on both review axes. It prepares a positive media frame before
-the unchanged180ms overlap. Original tests/goals remain. See
-[prepared media](prepared-media/README.md).
+Current productb19efd41 preservesINTERRUPTED when signal failure reaches a
+started call before route retirement. Initial unstarted failures remainUNAVAILABLE;
+token/live guards, teardown, retry delays and no-autorestart behavior remain.
+Both source reviews pass with zero findings and local compilation succeeds.
+The original real native test/budgets are unchanged. See
+[Talk interruption](talk-interruption/README.md). Complete Talk recovery10/17
+runs43980510614/43980514439 are pending. No new139 candidate/observer exists yet.
 
-Sourcecce5d423 moves incoming retention off the socket reader, retaining FIFO,
-bounds and ACK-after-retention. Its deterministic red and229 completecore pass
-remain valid, but focused10 run43965648855 fails original15s incomingACK in the
-fourth/font200Dark cell;17 run43965653546 passes. That focused set is rejected.
-See [incoming retention](incoming-retention/README.md).
+Earlier media preparation03d80ff15 retains both source and original media/retry
+focused acceptance on both SDKs. Incoming worker/coalescer7b04e15f retains230core
+and corrected conversation10/17 focused acceptance. Those component observations
+remain valid at their named sources; they are not complete/delivery acceptance.
+All original failed/canceled parents, source profiles, adapters and exact cause
+qualifications remain preserved. The138 Talk failure has original native/log
+support for the terminal-state race; the namespaced scene supersedes a temporary
+flatstageJSON extraction collision, explicitly qualified in that packet.
 
-Current product7b04e15f additionally coalesces only exact pending full wire frames,
-including type/index. Changed index or payload still dispatches independently.
-There is no completed-result cache or earlyACK. A real binary red reproduces
-connection retirement from duplicate pending admission. All230 completecore tests
-and both source/core reviews pass with zero findings. Exact original native failure
-causes remain qualified. See [pending coalescing](incoming-coalescing/README.md).
-Fresh conversation10/17 runs43970202494/43970207700 pass with independent
-focused acceptance on both axes, zero findings. All original native bodies,
-retransmission cadence and deadlines remain. See [focused evidence](coalesced-focused/README.md).
-
-The next prospective complete inputs are `source-profile-coalesced-incoming.json`
-and `verify-full-coalesced-incoming.py`. They retain every original native goal and
-historical profile. Wait for both corrected focused scopes before fresh whole SDK
-dispatch. Reviewed inputs were frozen at c6c01883 before whole dispatch. Fresh ordinary
-three-part10/17 runs43972107183/43972111203 are pending, including all public reads.
-Actual signed131-to138 runs43974252411/43974257105 both pass at that same
-frozen source, with independent update-only acceptance and zero findings on both
-axes. The same-certificate138 APK and fresh observerad07946e7d preserve local
-work, all ten protected module records, legacy Fileshare, pending Vault/Store
-originals, cold launch and package isolation. Restoration reports zero failures
-and observers submit no transactions. Complete parents and independent public
-delivery acceptance remain required; actual updates never supply whole-app acceptance. All temporary diagnostic probes have been removed from product.
+The next prospective inputs are `source-profile-talk-interruption.json` and
+`verify-full-talk-interruption.py`, keeping all original goals and immutable
+historical profiles. Both corrected focused scopes must pass with independent
+acceptance before fresh whole SDK dispatch. Freeze reviewed inputs first. Each
+SDK must pass an ordinary complete three-part parent including all public reads.
+New same-source signing/observer, actual signed131-to-new updates and independent
+public delivery acceptance remain required. All temporary probes are removed.
 
 ## Prospective complete source
 
