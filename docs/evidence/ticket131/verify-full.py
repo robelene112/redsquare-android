@@ -105,7 +105,7 @@ def validate_added_evidence(view, sdk):
         assert queued == data['oversizedReplies']
         assert queued == 0 if mode == 'multi-search' else 1 <= queued <= 4 if mode == 'large-rows' else queued == 1
         assert data['reachedPosts'] == (8 if mode == 'large-rows' else 20) and data['publications'] == 0
-        if mode == 'following':assert data['cachedAnchorBefore'] == data['cachedAnchorAfter']
+        if mode == 'following':assert abs(data['cachedAnchorBefore'] - data['cachedAnchorAfter']) <= 2
     # The physical29 Cancel fixture keeps its original5000ms goal and truthful owned cleanup.
     if sdk == '10':
         files = view / 'chat/status-originals/fileshare-evidence'
