@@ -32,6 +32,11 @@ class TalkAccountReplacementTest {
         var old: TalkAccount? = null; var replacement: TalkAccount? = null
         var oldDetached = false
         var token: String? = null
+        val ownedRooms = mutableSetOf(caller.publicKey)
+        fun endOwnedCall() {
+            TalkRuntime.call.value?.takeIf { it.owner == owner.publicKey && it.savedBackend == SaitoBackend.OWNER &&
+                it.link.room.id in ownedRooms }?.let { TalkRuntime.end(it.token) }
+        }
         val record = JsonObject()
         val folder = File(context.cacheDir, "talk-account-replacement-evidence").apply { mkdirs() }
         var primary: Throwable? = null
@@ -79,7 +84,9 @@ class TalkAccountReplacementTest {
                                 record.addProperty("incomingReachedReplacement", true)
                                 TalkRuntime.end(requireNotNull(token))
                                 await("Incoming call ends") { TalkRuntime.call.value?.phase?.live == false }
-                                check(next.start(TalkLink(SaitoBackend.OWNER, TalkRoom(SaitoWallet.create().publicKey, owner.publicKey)),
+                                val outgoingRoom = TalkRoom(SaitoWallet.create().publicKey, owner.publicKey)
+                                ownedRooms.add(outgoingRoom.id)
+                                check(next.start(TalkLink(SaitoBackend.OWNER, outgoingRoom),
                                     null, camera = false, microphone = false)) { "Replacement must start a controlled call" }
                                 val call = requireNotNull(TalkRuntime.call.value).also { token = it.token }
                                 check(call.owner == owner.publicKey && call.savedBackend == SaitoBackend.OWNER && call.phase.started)
@@ -118,18 +125,21 @@ class TalkAccountReplacementTest {
                 finally {
                     cleanupAfterTest(hostFailure,
                         { releaseOld.complete(Unit); releaseReplacement.complete(Unit) },
-                        { token?.let(TalkRuntime::end) },
+                        { endOwnedCall() },
                         { if (!oldDetached) { old?.detach(); oldDetached = true } },
                         { replacement?.detach(); replacement = null },
                         { TalkRuntime.visibility(false) },
-                        { await("Disposed fixture listener releases its socket") { !RealtimeIncoming.hasReceiver(owner.publicKey, endpoint) } })
+                        { await("Disposed fixture listener releases its socket") {
+                            endOwnedCall()
+                            !RealtimeIncoming.hasReceiver(owner.publicKey, endpoint)
+                        } })
                 }
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
             cleanupAfterTest(primary,
                 { releaseOld.complete(Unit); releaseReplacement.complete(Unit) },
-                { token?.let(TalkRuntime::end) },
+                { endOwnedCall() },
                 { if (!oldDetached) old?.detach() },
                 { replacement?.detach() },
                 { TalkRuntime.visibility(false) },
