@@ -754,7 +754,14 @@ if [[ "${TEST_SCOPE:-full}" == talk || "${TEST_SCOPE:-full}" == talk-android17 ]
     exit 0
 fi
 
+verify_received_files() {
+    verify_group_chat_native FileshareStorageManagementTest 180 received-storage received-storage-evidence
+    verify_group_chat_native ReceivedFilesFailureTest 180 received-storage-failure received-storage-evidence
+    verify_group_chat_native ReceivedFilesViewportTest 180 received-storage-viewport-320 received-storage-evidence
+    verify_group_chat_native ReceivedFilesPixelViewportTest 180 received-storage-viewport-412 received-storage-evidence
+}
 verify_fileshare() {
+    verify_received_files
     verify_vault_notification_native FileshareAttachmentAvailabilityTest 180 file-menu file-menu-evidence
     verify_fileshare_case FileshareAttachmentBusyTest file-menu-busy
     verify_fileshare_case FileshareSendPreviewTest fileshare-send
@@ -1276,10 +1283,7 @@ verify_unfinished_text() {
     python3 "$repo_dir/scripts/unfinished-text-process-check" --evidence "$evidence/unfinished-text-process"
 }
 if [[ "${TEST_SCOPE:-full}" == received-storage* ]]; then
-    verify_group_chat_native FileshareStorageManagementTest 180 received-storage received-storage-evidence
-    verify_group_chat_native ReceivedFilesFailureTest 180 received-storage-failure received-storage-evidence
-    verify_group_chat_native ReceivedFilesViewportTest 180 received-storage-viewport-320 received-storage-evidence
-    verify_group_chat_native ReceivedFilesPixelViewportTest 180 received-storage-viewport-412 received-storage-evidence
+    verify_fileshare
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == file-menu* ]]; then
