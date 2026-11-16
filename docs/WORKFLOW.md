@@ -13,10 +13,9 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 The owner approved [specification #117](https://github.com/robelene112/redsquare-android/issues/117)
 and children #118–#131, then requested implementation on 2026-11-15. Execute one
-behavior ticket at a time in priority order. #118–#121, including the reopened121
+behavior ticket at a time in priority order. #118–#122, including the reopened121
 prepared-media navigation follow-up, have relevant SDK and independent acceptance.
-Continue122 from its already committed first tracer/minimal polling fix, then
-finish123–130 and final131 without another approval. Use the existing
+Continue123–130 and final131 without another approval. Use the existing
 native/owned-peer/process seams and targeted adverse/corrected checks for each
 child. Complete app qualification and the combined signed beta belong to final
 #131, natively blocked by all thirteen behavior tickets. Preserve every current

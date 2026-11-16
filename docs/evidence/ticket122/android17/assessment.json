@@ -1,0 +1,94 @@
+{
+  "source": "a653ebb6034e759154194739141b6183df4ec46a",
+  "run": 43776845884,
+  "passedNativeMethods": 7,
+  "groups": [
+    {
+      "group": "read-deadline",
+      "class": "ReadDeadlineRecoveryTest",
+      "passedMethods": [
+        "cachedFeedStaysReadableDuringDeadlineAndPollingRecoversWithoutNavigation",
+        "firstFeedReadDeadlineShowsRetryAndPollingRecoversWithoutNavigation"
+      ],
+      "sha256": "d29ba2b0a0fc9e70ad3bf818ae61c20d8bc6441037a01d5bf19bfecf1efe0234"
+    },
+    {
+      "group": "profile-deadline",
+      "class": "ProfileDeadlineRecoveryTest",
+      "passedMethods": [
+        "profileHistoryDeadlineKeepsCachedReadingAndExplicitRefreshRecovers"
+      ],
+      "sha256": "5d9b055759e2de7a7e0ef903099cc7c07e52be30acf07e83cea9ca6f67d71783"
+    },
+    {
+      "group": "stack-deadline",
+      "class": "StackDeadlineRecoveryTest",
+      "passedMethods": [
+        "stackDeadlineKeepsCachedArticleAndRetryLoadsActualNewWriting"
+      ],
+      "sha256": "d49142334eed99d8862120f105407ca697ab1287444a9ba95bae72fc243d0a94"
+    },
+    {
+      "group": "conversation-deadline",
+      "class": "ConversationDeadlineRecoveryTest",
+      "passedMethods": [
+        "timedOutThreadStillRecoversItsIndependentlyCachedParent"
+      ],
+      "sha256": "245e6af475e23f4b3a2a78a9f0c726f20f0523cc942317d60afd636e91d08f7a"
+    },
+    {
+      "group": "read-cancellation",
+      "class": "ReadCancellationTest",
+      "passedMethods": [
+        "callerCancellationDoesNotCommitTheLateArchiveReply",
+        "enclosingDeadlineDoesNotBecomeARecoverablePeerFailure"
+      ],
+      "sha256": "4a31f9278544d2e46bd08cedb7ae7d5bc73407f839de7b1fce48c37de1c56451"
+    }
+  ],
+  "feedObservations": [
+    {
+      "cachedReading": false,
+      "withheldAt": 79936,
+      "failedAt": 91790,
+      "recoveredAt": 97102,
+      "archiveReads": 2,
+      "activityRecreated": false,
+      "retryTapped": false,
+      "lifecycleRestarted": false,
+      "publications": 0
+    },
+    {
+      "cachedReading": true,
+      "withheldAt": 100261,
+      "failedAt": 112622,
+      "recoveredAt": 117654,
+      "archiveReads": 2,
+      "activityRecreated": false,
+      "retryTapped": false,
+      "lifecycleRestarted": false,
+      "publications": 0
+    }
+  ],
+  "cancellationObservations": [
+    {
+      "callerCancelled": true,
+      "cancellationMillis": 2,
+      "lateRepliesReplayed": 1,
+      "nextReaderArticles": 1,
+      "cancelledReaderArticles": 0,
+      "publications": 0
+    },
+    {
+      "callerCancelled": true,
+      "cancellationMillis": 2985,
+      "lateRepliesReplayed": 1,
+      "nextReaderArticles": 1,
+      "cancelledReaderArticles": 0,
+      "publications": 0
+    }
+  ],
+  "limitations": [
+    "Owned emulator peer; no production node/provider or physical/OEM qualification."
+  ]
+}

@@ -10,7 +10,7 @@ Keep one implementation ticket active at a time; independent code-review agents
 remain permitted. Ordinary native/emulator QA is agent-owned. No production node/
 provider activation or public financial write is authorized.
 
-Current active ticket: #122 (recover reads and feed polling after request deadlines).
+Current active ticket: #123 (keep Talk accounts usable across Activity replacement).
 
 The reopened121navigation follow-up is complete atadcc1e9ca804372cd7b6a11c276168d106fcc328,
 with both independent axes reporting zero source/native findings. See
@@ -25,13 +25,23 @@ its profile phase is not reached. Initial eight-scope acceptance below remains
 historical at its own sources. No beta or whole-app acceptance is implied.
 Originals: `/mnt/storage/redsquare-android-artifacts/selected-images121-navigation`.
 
-#122 first feed-deadline tracer5b718d7b3 and minimal polling fix0b549754b are already
-committed. Original red43769541018 fails the expected first-feed error feedback;
-source/debug43769682332 passes. Originals are retained at
-`/mnt/storage/redsquare-android-artifacts/read-deadlines122`. Resume122 by running
-the first corrected tracer, then finish remaining122criteria before123–130 and
-final131. No further approval is needed. No production node/provider change or
-public financial write is authorized. Preserve the canonical dirty checkout.
+#122 is complete at native/source/lint source a653ebb6034e759154194739141b6183df4ec46a.
+See [the packet](../evidence/ticket122/README.md). Complete Android10/17 parents
+43776843142/43776845884 each pass all seven methods: cold/cached foreground polling,
+profile history, Stack new reading, independent conversation-parent recovery and
+caller/enclosing cancellation with exact stale callback replay. Both independent
+axes accept181 native ZIP entries,52 TAR members,66 copied native packet files,
+and55 source/lint originals. Core224 tests and gateway task FROM-CACHE are explicit;
+lint has0errors,94warnings,3hints. Earlier failed/cancelled runs remain excluded,
+including lazy viewport and duplicate-search-matcher fixture corrections. Existing
+12-second peer deadline and poll intervals are unchanged. Originals:
+`/mnt/storage/redsquare-android-artifacts/read-deadlines122`.
+
+Continue123–130 sequentially, then final131, without another approval. #123 starts
+with the explicit old-detach/replacement-acquire/attach actor-barrier scenario.
+Public beta remains0.1.131; complete app qualification and signed release belong
+only to131. No production node/provider change or public financial write is
+permitted. Preserve the canonical dirty checkout.
 
 ### Initial121 acceptance492c61b64, before the reopened navigation follow-up
 
@@ -55,7 +65,7 @@ under120 and new2 completes11.984s under180. Public beta remains0.1.131; integra
 qualification and combined delivery belong to131. Originals:
 `/mnt/storage/redsquare-android-artifacts/selected-images121`.
 
-Continue122–130 sequentially, then131, without another approval. No production
+Continue123–130 sequentially, then131, without another approval. No production
 node/provider change or public financial write is authorized. Preserve the dirty
 canonical checkout; ordinary native QA remains agent-owned.
 
@@ -74,7 +84,7 @@ source builds and first failed composer fixture remain retained without prefix
 acceptance. Public beta remains0.1.131; final integrated delivery belongs to131.
 Originals: `/mnt/storage/redsquare-android-artifacts/unfinished-text120`.
 
-Continue122–130 sequentially, then131, without another approval question. Ordinary
+Continue123–130 sequentially, then131, without another approval question. Ordinary
 QA remains agent-owned. No production node/provider change or public financial
 write is authorized. The canonical dirty checkout remains untouched.
 
@@ -88,7 +98,7 @@ ends the original token with0grants/chunks/bytes and retained draft. Core224/44 
 lint0errors pass. Invalid Android10 setup and a replaced slow source build remain
 retained and excluded. Current public beta remains0.1.131.
 
-Continue #122–#130 sequentially, then integrated qualification/beta #131, without
+Continue #123–#130 sequentially, then integrated qualification/beta #131, without
 asking for another approval. Preserve all prior deadlines, native goals and
 physical/OEM/live-service/Play qualifications. No production node/provider change
 or public financial write occurred. Canonical dirty checkout remains untouched.
