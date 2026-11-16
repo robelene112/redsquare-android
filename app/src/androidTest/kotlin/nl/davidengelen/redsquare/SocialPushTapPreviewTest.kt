@@ -294,9 +294,35 @@ class SocialPushTapPreviewTest {
                             fun remainingModuleBudget(): Long = (moduleDeadline - android.os.SystemClock.elapsedRealtime()).also {
                                 check(it > 0) { "Module selection exceeded its original five-second budget" }
                             }
+                            val observations = com.google.gson.JsonArray()
+                            fun observeHeader(stage: String) {
+                                if (observations.size() >= 128) return
+                                val headers = ui.onAllNodes(moduleHeader).fetchSemanticsNodes(atLeastOneRootRequired = false)
+                                observations.add(JsonObject().apply {
+                                    addProperty("stage", stage)
+                                    addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime())
+                                    addProperty("imeHidden", nativeKeyboardHidden())
+                                    addProperty("headers", headers.size)
+                                    headers.singleOrNull()?.let {
+                                        addProperty("nodeId", it.id)
+                                        addProperty("bounds", it.boundsInRoot.toString())
+                                        addProperty("size", it.size.toString())
+                                    }
+                                })
+                            }
+                            observeHeader("before-click")
                             ui.onNode(moduleHeader).performClick()
                             val stackChoice = hasText("Stack") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())
-                            ui.waitUntil(remainingModuleBudget()) { ui.onAllNodes(stackChoice).fetchSemanticsNodes().size == 1 }
+                            try {
+                                ui.waitUntil(remainingModuleBudget()) {
+                                    observeHeader("after-click")
+                                    ui.onAllNodes(stackChoice).fetchSemanticsNodes().size == 1
+                                }
+                            } finally {
+                                File(context.cacheDir, "social-push-evidence/module-picker-observations.json").apply {
+                                    parentFile!!.mkdirs(); writeText(observations.toString())
+                                }
+                            }
                             ui.onNode(stackChoice).performClick()
                             ui.waitUntil(remainingModuleBudget()) { ui.onNode(hasContentDescription("Switch app: Stack") and isEnabled()).isDisplayed() }
                             remainingModuleBudget()
