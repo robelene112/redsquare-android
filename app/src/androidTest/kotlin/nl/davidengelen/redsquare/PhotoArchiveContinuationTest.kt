@@ -15,3 +15,9 @@ class PhotoLargeRowPreviewTest {
     @Test fun individuallyAcceptedPhotoRowsStayReachableWhenEvenTenRowsExceedTheReceiveBound() =
         exercisePhotoPages(ui, largeRows = true)
 }
+
+class PhotoMultiStreamPreviewTest {
+    @get:Rule val ui = createEmptyComposeRule()
+    @Test fun everyRootAndQuoteMatchRemainsReachableWhenTheirCombinedWindowExceedsTheCacheBound() =
+        exercisePhotoPages(ui, search = true, bothStreams = true)
+}

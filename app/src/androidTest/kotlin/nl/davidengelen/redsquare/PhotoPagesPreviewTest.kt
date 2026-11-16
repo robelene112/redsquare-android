@@ -30,7 +30,7 @@ class PhotoPagesPreviewTest {
 }
 
 internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
-    following: Boolean = false, largeRows: Boolean = false, differentTimes: Boolean = false) {
+    following: Boolean = false, largeRows: Boolean = false, differentTimes: Boolean = false, bothStreams: Boolean = false) {
     val context = InstrumentationRegistry.getInstrumentation().targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev")
     check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -42,7 +42,7 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
     val retained = ChatFixtureState(context, listOf("feed.${SaitoBackend.OWNER.id}.",
         "followingfeed.${SaitoBackend.OWNER.id}.${wallet.publicKey}.", "following.${wallet.publicKey}.",
         "search.${SaitoBackend.OWNER.id}.", "personal.${wallet.publicKey}."), wallet.publicKey)
-    val mode = when { following -> "following"; largeRows -> "large-rows"; differentTimes -> "older-search"; search -> "search"; else -> "feed" }
+    val mode = when { following -> "following"; largeRows -> "large-rows"; bothStreams -> "multi-search"; differentTimes -> "older-search"; search -> "search"; else -> "feed" }
     val postCount = if (largeRows) 8 else 20
     val timestamp = 1700000000123L
     val random = java.util.Random(125)
@@ -55,12 +55,15 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
     bitmap.recycle()
     val image = "data:image/jpeg;base64," + java.util.Base64.getEncoder().encodeToString(jpeg)
     check(jpeg.size < 2 * 1024 * 1024)
+    var quoteTarget = ""
     val signedRows = (1..postCount).map { number ->
+        val quote = bothStreams && number > 10
         val createdAt = timestamp + if (differentTimes) number else 0
         val body = JsonObject().apply {
-            addProperty("module", "RedSquare"); addProperty("request", "create tweet")
+            addProperty("module", "RedSquare"); addProperty("request", if (quote) "retweet" else "create tweet")
             add("data", JsonObject().apply {
                 addProperty("text", "Photo page item $number")
+                if (quote) addProperty("signature", quoteTarget)
                 add("images", JsonArray().apply { repeat(if (largeRows) 3 else 1) { add(image) } })
             })
         }
@@ -70,12 +73,13 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
         val envelope = (if (largeRows) null
             else SaitoTransaction.create(wallet, body, createdAt))?.envelope() ?: signedLargePhotoEnvelope(wallet, body, createdAt)
         val post = RedSquareFeed.decode(envelope)
+        if (number == 1) quoteTarget = post.id
         check(post.images.size == (if (largeRows) 3 else 1) && post.text == "Photo page item $number")
         JsonObject().apply {
             addProperty("id", if (following && number > 10) number + 10 else number); addProperty("sig", post.id); addProperty("created_at", createdAt)
-            addProperty("field1", "RedSquare"); addProperty("field2", wallet.publicKey)
+            addProperty("field1", if (quote) "RedSquareRetweet" else "RedSquare"); addProperty("field2", wallet.publicKey)
             addProperty("field4", ""); addProperty("field5", post.threadId); addProperty("tx", envelope)
-        }
+        }.also { row -> if (quote) check(RedSquareFeed.readCurrentQuotes("[$row]").posts.single().id == post.id) }
     }
     val rows = if (!following) signedRows else signedRows + listOf(
         signedRows.first().deepCopy().apply { addProperty("id", 17); addProperty("tx", "not a signed envelope") },
@@ -108,9 +112,10 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
     }
     val queries = CopyOnWriteArrayList<JsonObject>()
     val oversized = AtomicInteger()
-    val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" }, archiveResponse = { query ->
+    val respond: (JsonObject) -> String = { query ->
         queries.add(query.deepCopy())
-        val selected = if (query.get("field1")?.asString != "RedSquare" || (search && query.has("field4")) || (following && !query.has("field2"))) emptyList() else indexedRows.filter { (id, row) ->
+        val selected = if (query.get("field1")?.asString !in setOf("RedSquare", "RedSquareRetweet") || (search && query.has("field4")) || (following && !query.has("field2"))) emptyList() else indexedRows.filter { (id, row) ->
+            row.get("field1")?.asString == query.get("field1").asString &&
             (!query.has("id") || query.get("id").asLong == id) &&
                 (!query.has("sig") || query.get("sig").asString == row.get("sig").asString) &&
                 (!query.has("created_at") || query.get("created_at").asLong == row.get("created_at").asLong) &&
@@ -125,7 +130,9 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
         JsonArray().apply { selected.forEach(::add) }.toString().also {
             if (it.toByteArray().size + 5 > SaitoPeer.MAX_RESPONSE_BYTES) oversized.incrementAndGet()
         }
-    }).apply {
+    }
+    val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" },
+        quoteArchiveResponse = respond, archiveResponse = respond).apply {
         sendOversizedArchiveFrames = true
         withholdArchiveReply = following
         retainWithheldArchiveReplies = following
@@ -171,9 +178,13 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
                     }
                     ui.waitUntil(30_000) {
                         peer.assertHealthy()
-                        ui.onAllNodesWithText("Photo page item $postCount", useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
+                        if (search) ui.onAllNodes(hasText("Photo page item", substring = true), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
+                    else ui.onAllNodesWithText("Photo page item $postCount", useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
                     }
-                    val list = ui.onNode(hasScrollToNodeAction())
+                    if (search) ui.waitUntil(30_000) {
+                    ui.onAllNodes(hasContentDescription("Search history") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                }
+                val list = ui.onNode(hasScrollToNodeAction())
                     if (!search) ui.waitUntil(30_000) {
                         list.fetchSemanticsNode().config[SemanticsProperties.CollectionInfo].rowCount == postCount + (if (following) 1 else 0)
                     }
@@ -189,7 +200,7 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
                             for (node in visible) {
                                 val text = node.config[SemanticsProperties.Text].single().text
                                 val number = Regex("""Photo page item (\d+)""").matchEntire(text)?.groupValues?.get(1)?.toInt() ?: continue
-                                ui.onNodeWithText(text, useUnmergedTree = true).assertIsDisplayed()
+                                ui.onNode(SemanticsMatcher("visible photo text") { it.id == node.id }, useUnmergedTree = true).assertIsDisplayed()
                                 check(number in 1..postCount)
                                 reached.add(number)
                             }
@@ -207,7 +218,7 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
                     ui.waitUntil(30_000) { ui.onAllNodes(hasContentDescription("Search history") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 }
                 check(reached.size == postCount)
-                    check(if (largeRows) oversized.get() in 1..4 else oversized.get() == 1) { "The same oversized page was requested again" }
+                    check(when { bothStreams -> oversized.get() == 0; largeRows -> oversized.get() in 1..4; else -> oversized.get() == 1 }) { "The same oversized page was requested again" }
                     check(peer.transactions.isEmpty())
                     check(backends.load() == SaitoBackend.OWNER)
                     check(wallets.loadExisting().exportJson() == wallet.exportJson())
