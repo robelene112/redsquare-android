@@ -73,6 +73,9 @@ class TalkAccountReplacementTest {
                                 await("Replacement incoming listener survives old disposal") {
                                     next.online.value && RealtimeIncoming.hasReceiver(owner.publicKey, endpoint)
                                 }
+                                // Client readiness can precede server consumption of the final handshake frame.
+                                await("Owned server verified the client's actual handshake") { peer.authenticatedConnectionIds.isNotEmpty() }
+                                record.addProperty("authenticatedRecipientsBeforeInvite", peer.authenticatedConnectionIds.size)
                                 val invitation = TalkProtocol.invite(caller, owner.publicKey,
                                     TalkRoom(caller.publicKey, caller.publicKey), TalkDial.REQUEST, System.currentTimeMillis())
                                     .applicationRequest(1).drop(5).toByteArray()
@@ -82,6 +85,7 @@ class TalkAccountReplacementTest {
                                 }
                                 token = requireNotNull(TalkRuntime.call.value).token
                                 record.addProperty("incomingReachedReplacement", true)
+                                record.addProperty("incomingAcknowledgementsAfterDelivery", peer.incomingAcknowledgements.size)
                                 TalkRuntime.end(requireNotNull(token))
                                 await("Incoming call ends") { TalkRuntime.call.value?.phase?.live == false }
                                 val outgoingRoom = TalkRoom(SaitoWallet.create().publicKey, owner.publicKey)
