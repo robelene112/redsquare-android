@@ -52,7 +52,7 @@ private fun ComposeTestRule.verifyReceivedFilesViewports(width: Int) {
                 val deadline = android.os.SystemClock.elapsedRealtime() + 5_000
                 list.performScrollToNode(hasText("Retained document 1.txt"))
                 onNodeWithText("Retained document 1.txt").assertIsDisplayed()
-                onNode(hasText("Remove") and hasAnySibling(hasText("Retained document 1.txt")))
+                onNodeWithContentDescription("Remove Retained document 1.txt")
                     .assertHeightIsAtLeast(48.dp).performClick()
                 onNodeWithText("Remove local copy?").assertIsDisplayed()
                 onNodeWithText("Remove copy").assertIsDisplayed().assertHeightIsAtLeast(48.dp)

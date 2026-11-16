@@ -1279,6 +1279,7 @@
     <string name="received_file_size">File: %1$s · Device storage: %2$s</string>
     <string name="received_incomplete">Some file records could not be read or assigned to this account. The total includes only the received copies listed here.</string>
     <string name="received_empty">No received files stored</string>
+    <string name="received_remove_accessible">Remove %1$s</string>
     <string name="received_remove">Remove</string>
     <string name="received_remove_title">Remove local copy?</string>
     <string name="received_remove_detail">You will no longer be able to open or save this copy from the app. Its chat record and copies saved elsewhere will stay. You can ask the sender to share it again.</string>

@@ -13,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
@@ -79,7 +80,9 @@ internal fun ReceivedFilesScreen(binding: ReceivedFilesScope, onBack: () -> Unit
                                     Text(stringResource(R.string.received_removal_incomplete), style = MaterialTheme.typography.bodySmall)
                                 if (file.busy) Text(stringResource(R.string.received_saving), style = MaterialTheme.typography.bodySmall)
                                 if (removing == file.key) LinearProgressIndicator(Modifier.fillMaxWidth())
-                                TextButton(enabled = removing == null && !file.busy, onClick = { confirmation = file },
+                                val removeDescription = stringResource(R.string.received_remove_accessible, file.transfer.offer.name)
+                                TextButton(modifier = Modifier.semantics { contentDescription = removeDescription },
+                                    enabled = removing == null && !file.busy, onClick = { confirmation = file },
                                     colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)) {
                                     Text(stringResource(R.string.received_remove))
                                 }
