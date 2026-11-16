@@ -128,7 +128,10 @@ ZIP/TAR extraction checks remain externally at
 Both independent Spec and Standards axes report zero remaining source findings
 and independently accept each complete native parent, original digest/bytes,
 source-qualified bridge and modeled-cold-return qualification. Final source/debug
-compilation succeeds. Copied packet review is pending.
+compilation succeeds. Both axes independently verify all236 indexed copies
+against their exact originals and hashes, all10 retained receipts (836 ZIP files/
+497 TAR members), and the226179-entry canonical source-bridge digest. Final
+Spec and Standards acceptance report zero remaining findings.
 
 Controlled emulators establish the agreed Activity/Intent/notification/storage
 behavior. Physical/OEM behavior, default third-party domain association, live
