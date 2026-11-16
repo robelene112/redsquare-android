@@ -46,9 +46,11 @@ internal object TalkRuntime {
     @Volatile var visible = false
         private set
     fun account(context: Context, wallet: SaitoWallet, backend: SaitoBackend, endpoint: String): TalkAccount =
-        accounts.computeIfAbsent("${wallet.publicKey}:${backend.id}:$endpoint") {
-            TalkAccount(context.applicationContext, wallet, backend, endpoint)
-        }
+        requireNotNull(accounts.compute("${wallet.publicKey}:${backend.id}:$endpoint") { _, existing ->
+            // Reserve before returning: a queued old detach must not retire the new owner's account.
+            existing?.takeIf { it.reserveOwner() }
+                ?: TalkAccount(context.applicationContext, wallet, backend, endpoint).also { check(it.reserveOwner()) }
+        })
     fun end(token: String) { accounts.values.forEach { it.end(token) } }
     fun visibility(value: Boolean) { visible = value; accounts.values.forEach { it.visibility() } }
     fun interrupt(token: String? = null) { accounts.values.forEach { it.interrupt(token) } }
@@ -76,7 +78,8 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     private data class MediaChoice(val token: String, val transaction: SaitoTransaction)
     private val mediaChoices = ConcurrentHashMap<String, MediaChoice>()
     private val mediaChoiceWake = Channel<Unit>(Channel.CONFLATED)
-    private var observers = 0
+    private val ownershipLock = Any()
+    private var owners = 0
     @Volatile private var closed = false
     @Volatile private var current: TalkCall? = null
     @Volatile private var capture: TalkCapture? = null
@@ -176,8 +179,14 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         return post { entered.complete(Unit); release.await() }
     }
 
-    fun attach() { post { observers++; connect() } }
-    fun detach() { post { observers = (observers - 1).coerceAtLeast(0); closeIfIdle() } }
+    internal fun reserveOwner(): Boolean = synchronized(ownershipLock) {
+        if (closed) false else { owners++; true }
+    }
+    fun attach() { post { connect() } }
+    fun detach() { post {
+        synchronized(ownershipLock) { owners = (owners - 1).coerceAtLeast(0) }
+        closeIfIdle()
+    } }
     fun visibility() {
         if (!TalkRuntime.visible) capture?.silenceVideo()
         post {
@@ -707,8 +716,11 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     private fun closeIfIdle() {
         if (current?.phase?.live == true) return
         if (!TalkRuntime.visible) closeNetwork()
-        if (observers == 0) {
-            closeNetwork(); closed = true; events.close(); TalkRuntime.remove(this); scope.cancel()
+        val retire = synchronized(ownershipLock) {
+            if (owners != 0) false else { closed = true; true }
+        }
+        if (retire) {
+            closeNetwork(); events.close(); TalkRuntime.remove(this); scope.cancel()
         }
     }
     private fun post(operation: suspend () -> Unit): Boolean {

@@ -97,6 +97,13 @@ import nl.davidengelen.redsquare.policy.PublishingAgreementController
 import nl.davidengelen.redsquare.policy.PublishingAgreementDialog
 import nl.davidengelen.redsquare.policy.LocalPublishingAgreement
 
+/** Each composition owns exactly one acquisition, including a composition that is abandoned. */
+private class ActivityTalkAccount(val account: TalkAccount) : RememberObserver {
+    override fun onRemembered() = account.attach()
+    override fun onForgotten() = account.detach()
+    override fun onAbandoned() = account.detach()
+}
+
 class MainActivity : ComponentActivity() {
     private val notificationRoutes by lazy {
         // This exported Activity's Intent extras are untrusted, not saved route defaults.
@@ -354,10 +361,11 @@ class MainActivity : ComponentActivity() {
             val talkWallet = wallet
             val talkBackend = backend
             val talkEndpoint = talkBackend?.let { FeedEndpoints.fromIntent(intent, it) }
-            val talkAccount = remember(address, talkBackend, talkEndpoint) {
+            val talkOwnership = remember(address, talkBackend, talkEndpoint) {
                 if (talkWallet != null && talkBackend != null && talkEndpoint != null)
-                    TalkRuntime.account(applicationContext, talkWallet, talkBackend, talkEndpoint) else null
+                    ActivityTalkAccount(TalkRuntime.account(applicationContext, talkWallet, talkBackend, talkEndpoint)) else null
             }
+            val talkAccount = talkOwnership?.account
             DisposableEffect(talkAccount) {
                 val observer = LifecycleEventObserver { _, event ->
                     if (event == Lifecycle.Event.ON_RESUME) TalkRuntime.visibility(true)
@@ -365,8 +373,7 @@ class MainActivity : ComponentActivity() {
                 }
                 lifecycle.addObserver(observer)
                 TalkRuntime.visibility(lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED))
-                talkAccount?.attach()
-                onDispose { lifecycle.removeObserver(observer); talkAccount?.detach() }
+                onDispose { lifecycle.removeObserver(observer) }
             }
             LaunchedEffect(address, talkBackend) {
                 if (address != null && talkBackend != null && talkDraft?.let {
