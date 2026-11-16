@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.clearAndSetSemantics
 
@@ -16,10 +17,13 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 @Composable
 internal fun <T> VisualResultReveal(target: T, modifier: Modifier, content: @Composable (T, Boolean) -> Unit) {
     val latest by rememberUpdatedState(target)
+    if (nl.davidengelen.redsquare.BuildConfig.DEBUG && MediaResultDrawObservation.listener != null)
+        SideEffect { MediaResultDrawObservation.record("target-composition", target) }
     Crossfade(targetState = target, modifier = modifier,
         animationSpec = tween(AppSpacing.transitionMillis, easing = LinearEasing), label = "Loaded result") { rendered ->
         val current = rendered == latest
-        Box(Modifier.fillMaxSize().then(if (current) Modifier else Modifier.clearAndSetSemantics { })) {
+        Box(Modifier.fillMaxSize().then(if (current) Modifier else Modifier.clearAndSetSemantics { })
+            .then(observeMediaResultDraw(rendered))) {
             content(rendered, current)
         }
     }
