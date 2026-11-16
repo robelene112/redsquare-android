@@ -19,20 +19,22 @@ internal class AndroidSearchCache(context: Context, backend: SaitoBackend) {
             saved.unreadable || roots.unreadable || people.unreadable)
     }
 
-    /** Keep discovered matches first, within both the entry and encoded public-store budget. */
-    fun retain(posts: List<FeedPost>, query: String): History {
+    /** Bound history by entries and bytes. An incoming/visible window wins over older matches
+     * so timestamp sorting cannot discard a discovered result before the reader sees it.
+     */
+    fun retain(posts: List<FeedPost>, query: String, preferredIds: Set<String> = emptySet()): History {
         val applied = revisions.apply(RedSquareFeed.newest(posts))
         val ordered = applied.posts.sortedWith(compareByDescending<FeedPost> {
             it.text.contains(query, ignoreCase = true)
-        }.thenByDescending { it.createdAt })
+        }.thenByDescending { it.id in preferredIds }.thenByDescending { it.createdAt })
         val retained = ordered.take(storage.fittingEntryCount(ordered.asSequence().map { it.envelope }))
         return History(retained, applied.unreadable,
             retained.size == MAX_POSTS || retained.size < ordered.size)
     }
 
-    fun save(posts: List<FeedPost>, query: String) {
+    fun save(posts: List<FeedPost>, query: String, preferredIds: Set<String> = emptySet()) {
         storage.update { previous ->
-            val retained = retain(posts + decode(previous).posts, query)
+            val retained = retain(posts + decode(previous).posts, query, preferredIds)
             check(!retained.unreadable)
             retained.posts.map { it.envelope }
         }

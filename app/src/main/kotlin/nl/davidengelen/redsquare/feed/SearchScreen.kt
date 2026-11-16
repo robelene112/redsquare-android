@@ -79,6 +79,7 @@ internal class SearchViewState {
     var usernamePending = false
 
     fun search() {
+        archivePolicy.retryContinuations()
         paused = false
         submitted = true
         searchedQuery = query.trim()
@@ -172,7 +173,10 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         while (true) {
             val known = view.posts
             val checkedRevision = AndroidPostRevisions.changes.value
-            val retained = withContext(Dispatchers.IO) { cache.retain(known + saved.posts, view.searchedQuery) }
+            val retained = withContext(Dispatchers.IO) {
+                cache.retain(known + saved.posts, view.searchedQuery,
+                    if (view.submitted) known.map { it.id }.toSet() else emptySet())
+            }
             if (view.posts !== known || AndroidPostRevisions.changes.value != checkedRevision) continue
             view.posts = retained.posts
             view.unreadable = view.unreadable || saved.unreadable || retained.unreadable
@@ -230,7 +234,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                         val criteria = JsonObject().apply {
                             addProperty("request", "load"); addProperty("field1", stream)
                             addProperty("flagged_ne", 1); addProperty("limit", 100)
-                            addProperty("created_earlier_than", (cursor as? ArchiveReadCursor.Before)?.timestamp ?: Long.MAX_VALUE)
+                            addProperty("created_earlier_than", cursor.timestamp)
                         }
                         val received = archive.next(criteria, cursor)
                         val page = if (stream == "RedSquare") RedSquareFeed.readSearch(received.response)
@@ -242,7 +246,8 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                         while (true) {
                             val known = withContext(Dispatchers.Main.immediate) { view.posts }
                             val checkedRevision = AndroidPostRevisions.changes.value
-                            val applied = cache.retain(page.posts + known, searchedQuery)
+                            val applied = cache.retain(page.posts + known, searchedQuery,
+                                if (received.adapted) page.posts.map { it.id }.toSet() else emptySet())
                             val published = withContext(Dispatchers.Main.immediate) {
                                 if (view.posts !== known || AndroidPostRevisions.changes.value != checkedRevision) false
                                 else {
@@ -266,7 +271,8 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                             if (published) break
                         }
                         val retained = withContext(Dispatchers.Main.immediate) { view.posts to view.searchedQuery }
-                        val saved = try { cache.save(retained.first, retained.second); true }
+                        val saved = try { cache.save(retained.first, retained.second,
+                            if (received.adapted) retained.first.map { it.id }.toSet() else emptySet()); true }
                         catch (cancelled: CancellationException) { throw cancelled }
                         catch (_: Exception) { false }
                         withContext(Dispatchers.Main.immediate) { view.saveError = !saved }
@@ -333,7 +339,6 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
             if (view.unreadable) add(stringResource(R.string.search_unreadable))
             if (view.pagingUnavailable) add(stringResource(R.string.search_paging_unavailable))
             if (view.limitReached) add(stringResource(R.string.search_limit))
-            if (view.windowLimited) add(stringResource(R.string.search_window_limit))
         }
     }
     val warningSummary = when {
@@ -431,6 +436,12 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                 }
                 }
                 item(key = "more") {
+                    androidx.compose.animation.AnimatedVisibility(view.windowLimited) {
+                        Text(stringResource(R.string.search_window_limit),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(vertical = AppSpacing.small))
+                    }
                     TextButton(modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                         enabled = wallet != null && !loading && !view.failed && !view.paused && view.cursors.values.any { it != null },
                         onClick = { loading = true; view.loadMore() }) { Text(stringResource(R.string.search_more)) }

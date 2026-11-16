@@ -4,17 +4,20 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import java.io.Closeable
-import java.io.IOException
 
 /** Read policy belongs to the reader's selected wallet/node, never a different endpoint. */
 internal class ArchiveReadPolicy {
     private val limits = mutableMapOf<String, Int>()
+    private val unavailableContinuations = mutableSetOf<String>()
     private fun key(criteria: JsonObject) = criteria.deepCopy().apply {
         remove("limit"); remove("created_earlier_than")
     }.toString()
     @Synchronized fun limit(criteria: JsonObject): Int = minOf(criteria.get("limit").asInt, limits[key(criteria)] ?: 100)
     @Synchronized fun reduce(criteria: JsonObject, limit: Int) { limits[key(criteria)] = limit }
     @Synchronized fun adapted(criteria: JsonObject) = limits.containsKey(key(criteria))
+    @Synchronized fun canContinue(criteria: JsonObject) = key(criteria) !in unavailableContinuations
+    @Synchronized fun markUnavailable(criteria: JsonObject) { unavailableContinuations.add(key(criteria)) }
+    @Synchronized fun retryContinuations() { unavailableContinuations.clear() }
 }
 
 /** A tie is drained before advancing time. Old Archive has no offset or composite cursor.
@@ -22,10 +25,11 @@ internal class ArchiveReadPolicy {
  * the interval between its lowest/highest batches. Sparse IDs cost reads, never gaps.
  */
 internal sealed interface ArchiveReadCursor {
-    data class Before(val timestamp: Long) : ArchiveReadCursor
-    data class High(val timestamp: Long) : ArchiveReadCursor
-    data class Low(val timestamp: Long, val lastInteriorId: Long) : ArchiveReadCursor
-    data class Interior(val timestamp: Long, val nextId: Long, val lastId: Long) : ArchiveReadCursor
+    val timestamp: Long
+    data class Before(override val timestamp: Long) : ArchiveReadCursor
+    data class High(override val timestamp: Long) : ArchiveReadCursor
+    data class Low(override val timestamp: Long, val lastInteriorId: Long) : ArchiveReadCursor
+    data class Interior(override val timestamp: Long, val nextId: Long, val lastId: Long) : ArchiveReadCursor
 }
 
 internal class BoundedArchiveReader(private val wallet: SaitoWallet, private val endpoint: String,
@@ -43,13 +47,7 @@ internal class BoundedArchiveReader(private val wallet: SaitoWallet, private val
             is ArchiveReadCursor.Before -> query.addProperty("created_earlier_than", position.timestamp)
             else -> {
                 query.remove("created_earlier_than")
-                val timestamp = when (position) {
-                    is ArchiveReadCursor.High -> position.timestamp
-                    is ArchiveReadCursor.Low -> position.timestamp
-                    is ArchiveReadCursor.Interior -> position.timestamp
-                    else -> error("Unreachable cursor")
-                }
-                query.addProperty("created_at", timestamp)
+                query.addProperty("created_at", position.timestamp)
                 when (position) {
                     is ArchiveReadCursor.Low -> query.addProperty("ascending", 1)
                     is ArchiveReadCursor.Interior -> query.addProperty("id", position.nextId)
@@ -72,18 +70,21 @@ internal class BoundedArchiveReader(private val wallet: SaitoWallet, private val
                         catch (_: Exception) { null }
                     }.minOrNull()
                     if (oldest == null) { unavailable = true; null }
+                    else if (adapted && !policy.canContinue(criteria)) { unavailable = true; null }
                     else if (adapted) ArchiveReadCursor.High(oldest) else older(oldest)
                 }
             }
             is ArchiveReadCursor.High -> {
                 if (rows.isEmpty) older(position.timestamp)
-                else ArchiveReadCursor.Low(position.timestamp, ids(rows).min() - 1)
+                else ids(rows).minOrNull()?.let { ArchiveReadCursor.Low(position.timestamp, it - 1) }
+                    ?: run { unavailable = true; null }
             }
             is ArchiveReadCursor.Low -> {
                 if (rows.isEmpty) older(position.timestamp)
                 else {
-                    val last = ids(rows).max()
-                    if (last >= position.lastInteriorId) older(position.timestamp)
+                    val last = ids(rows).maxOrNull()
+                    if (last == null) { unavailable = true; null }
+                    else if (last >= position.lastInteriorId) older(position.timestamp)
                     else ArchiveReadCursor.Interior(position.timestamp, last + 1, position.lastInteriorId)
                 }
             }
@@ -93,13 +94,14 @@ internal class BoundedArchiveReader(private val wallet: SaitoWallet, private val
                 else position.copy(nextId = position.nextId + 1)
             }
         }
+        if (unavailable) policy.markUnavailable(criteria)
         return Page(read.response, next, adapted, unavailable)
     }
 
     private fun older(timestamp: Long) = if (timestamp > 0) ArchiveReadCursor.Before(timestamp) else null
-    private fun ids(rows: JsonArray): List<Long> = rows.map { row ->
-        try { requireNotNull(row.asJsonObject.get("id").asString.toLongOrNull()).also { require(it >= 0) } }
-        catch (_: Exception) { throw IOException("Archive continuation is unavailable") }
+    private fun ids(rows: JsonArray): List<Long> = rows.mapNotNull { row ->
+        try { row.asJsonObject.get("id")?.asString?.toLongOrNull()?.takeIf { it >= 0 } }
+        catch (_: Exception) { null }
     }
 
     private suspend fun read(query: JsonObject, base: JsonObject): Read {

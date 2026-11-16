@@ -66,7 +66,7 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
         }
         // Incoming social decoding already admits these signed normal type0 messages
         // within its existing 8MiB envelope bound. The native publisher's 1MiB factory
-        // is unchanged; use the existing larger wire factory only for this owned fixture.
+        // is unchanged; independently sign only this incoming owned wire fixture.
         val envelope = (if (largeRows) null
             else SaitoTransaction.create(wallet, body, createdAt))?.envelope() ?: signedLargePhotoEnvelope(wallet, body, createdAt)
         val post = RedSquareFeed.decode(envelope)

@@ -318,10 +318,12 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 loading = true
                 try {
                     withContext(Dispatchers.IO) {
+                        if (manualPullPending) archivePolicy.retryContinuations()
                         BoundedArchiveReader(wallet, endpoint, archivePolicy).use { archive ->
                             val authors = if (followingView) following!!.accounts.sorted() else listOf<String?>(null)
                             var rowCount = 0
                             var validCount = 0
+                            var continuationUnavailable = false
                             for (author in authors) {
                                 val criteria = com.google.gson.JsonObject().apply {
                                     addProperty("request", "load"); addProperty("field1", "RedSquare")
@@ -334,7 +336,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                                     rowCount += accepted.rowCount
                                     validCount += accepted.posts.size
                                     if (accepted.posts.isEmpty() && accepted.deletions.isEmpty()) {
-                                        withContext(Dispatchers.Main.immediate) { unreadablePage = rowCount > 0 && validCount == 0 }
+                                        withContext(Dispatchers.Main.immediate) { unreadablePage = continuationUnavailable || (rowCount > 0 && validCount == 0) }
                                         return
                                     }
                                     val known = withContext(Dispatchers.Main.immediate) { posts.toList() }
@@ -352,7 +354,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                                             try { cache.save(merged); applied.unreadable } catch (_: Exception) { true }
                                         }
                                         posts = merged
-                                        unreadablePage = rowCount > 0 && validCount == 0
+                                        unreadablePage = continuationUnavailable || (rowCount > 0 && validCount == 0)
                                     }
                                 }
                                 suspend fun readStream(base: com.google.gson.JsonObject, decode: (String) -> ArchiveFeedPage) {
@@ -367,8 +369,11 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                                         val page = archive.next(query, cursor)
                                         val decoded = decode(page.response)
                                         publish(decoded)
-                                        if (page.pagingUnavailable && page.adapted)
-                                            throw java.io.IOException("Archive continuation is unavailable")
+                                        if (page.pagingUnavailable && page.adapted) {
+                                            archiveContinuations.remove(key)
+                                            withContext(Dispatchers.Main.immediate) { continuationUnavailable = true; unreadablePage = true }
+                                            return
+                                        }
                                         seen.addAll(decoded.posts.map { it.id })
                                         cursor = page.next
                                         if (cursor == null || (cursor is ArchiveReadCursor.Before &&
