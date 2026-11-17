@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket131/verify-full-feed-observer.py", line 17, in <module>
+    exec(compile(text, str(original) + ':separate-feed-observer-profile', 'exec'),
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        dict(__file__=__file__, __name__='__main__'))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket131/verify-full.py:separate-feed-observer-profile", line 147, in <module>
+  File "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket115/verify-qualified-full.py:explicit131-additive-adaptation", line 624, in <module>
+AssertionError: {'normalCompletions': 385, 'deliberateInterruptions': 52, 'continuityRecords': 51}
