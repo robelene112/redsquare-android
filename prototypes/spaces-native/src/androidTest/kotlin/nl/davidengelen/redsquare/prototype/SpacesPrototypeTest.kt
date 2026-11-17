@@ -81,4 +81,45 @@ class SpacesPrototypeTest {
         ui.onNodeWithText("Upload a file").assertIsNotEnabled();shot("19-storage-full")
         ui.onNodeWithText("Scenarios").performClick();click("Expired");click("files");shot("20-storage-expired")
     }
+
+    @Test fun separateOfflineMessagesSurviveCancellation() {
+        ui.onNodeWithText("Scenarios").performClick();click("Offline");click("chat")
+        ui.onNode(hasSetTextAction()).performTextInput("First queued text")
+        ui.onNodeWithContentDescription("Send preview message").performClick()
+        ui.onNode(hasSetTextAction()).performTextInput("Second queued text")
+        ui.onNodeWithContentDescription("Send preview message").performClick()
+        ui.onAllNodesWithText("Preview: waiting for connection").assertCountEquals(2)
+        ui.onNode(hasSetTextAction()).performTextInput("Fresh unsent text")
+        ui.onAllNodesWithText("Cancel")[0].performClick()
+        ui.onNode(hasSetTextAction()).assertTextContains("First queued text",substring=true)
+        ui.onNode(hasSetTextAction()).assertTextContains("Fresh unsent text",substring=true)
+        ui.onAllNodesWithText("Preview: waiting for connection").assertCountEquals(1)
+        shot("21-independent-queue-items")
+    }
+    @Test fun backRestoresChannelAndSpace() {
+        ui.onNodeWithText("Independent Voices").performClick()
+        ui.onNodeWithContentDescription("Switch Space or channel").performClick()
+        ui.onNodeWithText("reading room").performScrollTo().performClick()
+        ui.onNodeWithText("Articles").assertExists()
+        ui.onNodeWithContentDescription("Back").performClick()
+        ui.onNodeWithText("general").assertExists()
+        ui.onNodeWithContentDescription("Switch Space or channel").performClick()
+        ui.onNodeWithText("Saito Builders").performScrollTo().performClick()
+        ui.onNodeWithText("Saito Builders").assertExists()
+        ui.onNodeWithContentDescription("Back").performClick()
+        ui.onNodeWithText("Independent Voices").assertExists()
+        ui.onNodeWithText("general").assertExists()
+        shot("22-back-restores-destination")
+    }
+    @Test fun ownerControlsAndArchivedRoom() {
+        ui.onNodeWithText("Scenarios").performClick();click("Admin");click("settings")
+        ui.onNodeWithText("Only the owner can change visibility and discoverability.").assertExists()
+        ui.onNodeWithContentDescription("Private Space").assertDoesNotExist()
+        jump("room");jump("settings")
+        ui.onNodeWithTag("prototype-content").performScrollToNode(hasContentDescription("Archive current channel"))
+        ui.onNodeWithContentDescription("Archive current channel").performClick()
+        jump("room")
+        ui.onNodeWithText("Join preview room").assertIsNotEnabled()
+        shot("23-archived-room")
+    }
 }

@@ -18,6 +18,13 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          sparse-checkout: |
+            prototypes/spaces-native
+            app/src/main/res
+            app/src/main/kotlin/nl/davidengelen/redsquare/ui
+            gradle
+            scripts
       - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6
         with:
           distribution: temurin
@@ -64,10 +71,10 @@ jobs:
           timeout 480 adb shell am instrument -w -r nl.davidengelen.redsquare.spaces.prototype.test/androidx.test.runner.AndroidJUnitRunner | tee .scratch/spaces-prototype/instrumentation.txt
           TASK_TEST_EXIT=${PIPESTATUS[0]}
           set -e
-          adb pull /sdcard/Android/data/nl.davidengelen.redsquare.spaces.prototype/files/prototype-evidence .scratch/spaces-prototype/ || true
-          adb logcat -d > .scratch/spaces-prototype/logcat.txt
+          timeout 30 adb logcat -d > .scratch/spaces-prototype/logcat.txt || true
+          timeout 60 adb pull /sdcard/Android/data/nl.davidengelen.redsquare.spaces.prototype/files/prototype-evidence .scratch/spaces-prototype/ || true
           test "$TASK_TEST_EXIT" == 0
-          grep -q 'OK (3 tests)' .scratch/spaces-prototype/instrumentation.txt
+          grep -q 'OK (6 tests)' .scratch/spaces-prototype/instrumentation.txt
           ! grep -Eq 'FAILURES|INSTRUMENTATION_FAILED|Process crashed' .scratch/spaces-prototype/instrumentation.txt
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         if: always()
