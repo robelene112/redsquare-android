@@ -1,5 +1,20 @@
 # Implementation handoff
 
+## Current implementation priority: composer #132
+
+The owner reports that starting New post unexpectedly showed an uncertain-send
+recovery screen and the app became unresponsive. [Issue #132](https://github.com/robelene112/redsquare-android/issues/132)
+records the screenshot observations, unknown cause/version, accepted #95 fresh
+composer behavior and agent-owned native verification requirements. Fix and
+verify it before implementing Spaces; preserve original signed attempts and
+unfinished work, and do not infer actual ANR or failed publication from one image.
+
+The owner explicitly allows the Spaces grill to continue meanwhile. It has not
+advanced to specification, implementation tickets or implementation. Agreed
+vocabulary and private-content/Chat encryption requirements are recorded in
+GLOSSARY.md and ADR0004. The completed beta 139 record below remains historical
+acceptance, not evidence that this newly reported bug has been resolved.
+
 ## Delivered sequential remediation #118–#131, beta 139
 
 The approved sequence is complete in
