@@ -14,3 +14,5 @@ From the repository root, `prototypes/spaces-native/build-prototype` compiles an
 User review: install alongside the normal beta, open **Spaces Prototype**, explore the communities, then use **Scenarios** to change role/state or jump to a flow. Feedback should identify the screen, action and desired behavior. Keep ordinary app testing agent-owned.
 
 Delivered prototype1: https://davidengelen.nl/redsquare/spaces-prototype/ . See [the acceptance packet](../../docs/evidence/spaces-prototype1/README.md) for exact source,36 native outcomes, public APK verification and phase limits. Owner UI feedback remains pending.
+
+Current revision: [prototype2](https://davidengelen.nl/redsquare/spaces-prototype/) moves **Channels** to the left in a fixed Space bar. The owner approved the rest of the direction and requested this change before another look. See [the prototype2 receipt](../../docs/evidence/spaces-prototype2/README.md) for the exact signed source,36 native passes and verified public download. The control stays reachable while scrolling; large text gives the Space name its own row.
