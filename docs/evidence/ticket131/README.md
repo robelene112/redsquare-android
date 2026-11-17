@@ -33,7 +33,9 @@ flatstageJSON extraction collision, explicitly qualified in that packet.
 Current complete inputs are `source-profile-talk-interruption.json` and
 `verify-full-talk-interruption.py`, reviewed/frozen at9513495d before dispatch.
 Fresh ordinary whole10/17 runs43983497246/43983501451 started only after both
-focused reviews passed and retain every original goal/public read. They are pending.
+focused reviews passed and retain every original goal/public read. Original10 is
+subsequently rejected for the cold-feed observer abort below;17 remains pending
+at its exact original951 source/profile.
 
 Signed139 is staged only at951: SHA256a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3,
 94,282,272bytes, established certificate, ordinary nondebug/nonprofileable,
@@ -46,6 +48,34 @@ legacy Fileshare, pending Vault/Store and export/history bytes survive actual
 update and cold launch. Restoration failures and observer submissions are zero.
 Complete parents and independent public delivery acceptance remain required. Public
 latest stays131. All temporary probes are removed;138 remains superseded.
+
+
+## Cold feed observer follow-up
+
+The original13910 Wallet job reached a UIAutomator explicit null root immediately
+after cold launch. Its subsequent cat found no fresh XML and aborted the original
+30s polling loop. All native Wallet methods before that point passed, but the
+entire parent is rejected. Its later screenshot shows the expected cached post
+and Node unavailable; this supplies no retrospective XML or parent acceptance.
+See [the original observer failure and actual-script host proof](feed-observer/README.md).
+
+Only scripts/feed-device-check changes at8a80d99bf24432d212f7ef88e1405b2f9fe9b788:
+remove stale XML before each dump, treat only the exact successful null-root dump
+as not yet observable, retain attempts, and require the unchanged parsed predicate
+within the same original30s budget. Other errors remain fatal; no app/test retry
+is added. Both independent code/host-proof and prospective source-binding reviews
+report zero findings. The [one-script source bridge](feed-observer-source-bridge.json)
+independently reproduces228765 identical other entries; app/core/native tests,
+signed139, its observer and actual signed update proofs remain exact951.
+
+Corrected10 inputs source-profile-feed-observer.json and verify-full-feed-observer.py
+are separately frozen ate72ec7deab926c97e655e3d7c224ea1c159a9a44 before dispatch.
+Native focused feed43993432043 is pending. After its acceptance, require a fresh
+complete corrected10 parent across all three original partitions/public reads.
+Do not reuse any original failed10 sibling/prefix. Android17 may qualify only if
+its original43983501451 whole parent succeeds at951 with the unchanged original
+Talk profile/adapter. Both complete independent reviews and actual public delivery
+remain mandatory. Public latest remains131;139 stays staged only.
 
 ## Prospective complete source
 

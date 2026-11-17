@@ -1,0 +1,19 @@
+{
+  "result": "PASS_SOURCE_ONLY",
+  "fixtureSource": "8a80d99bf24432d212f7ef88e1405b2f9fe9b788",
+  "frozenSource": "e72ec7deab926c97e655e3d7c224ea1c159a9a44",
+  "tag": "proof-lifecycle131-feed-observer",
+  "signedProductSource": "9513495d367ff55c83afb155c070560005816789",
+  "spec": {
+    "reviewer": "/root/release139_spec",
+    "findings": 0
+  },
+  "standards": {
+    "reviewer": "/root/release139_standards",
+    "findings": 0
+  },
+  "identicalNonExcludedEntries": 228765,
+  "canonicalSha256": "7834a4010454e70af6d0429d2c7f44b2151667d26b860d81505079c1a587ff60",
+  "observedAtUtc": "2026-11-17T01:11:45.560293+00:00",
+  "qualification": "Both independent actual observer/hostproof and prospective bridge/profile reviews before freeze and focused dispatch. Original13910 rejected. Focused43993432043 and freshcomplete10 required. Original17whole remains exact951/originalTalkprofile; signed139 unchanged. No native or public acceptance yet."
+}
