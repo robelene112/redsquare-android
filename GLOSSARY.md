@@ -55,7 +55,12 @@ An optional named grouping of channels within a Space.
 A Space whose content can be viewed without membership.
 
 **Private Space**:
-A Space whose content can be viewed only by its members.
+A Space whose shared content is restricted to its members. Ending membership
+blocks access to new private content but cannot recall previously received content.
+
+**Space member**:
+A Saito identity whose membership of a Space is active. Posting requires
+membership; reading public content does not.
 
 **Space owner**:
 The single person responsible for a Space, with authority to appoint its
@@ -64,6 +69,14 @@ administrators. The creator is its first owner.
 **Space administrator**:
 A person appointed by the Space owner to share the community's day-to-day
 administration.
+
+**Space removal**:
+Ending a member's current membership. The same identity may rejoin through the
+Space's normal admission rules.
+
+**Space ban**:
+Ending a Saito identity's membership and preventing it from rejoining until the
+ban is lifted.
 
 **Space invitation**:
 A link issued by a Space owner or administrator that allows its holder to join

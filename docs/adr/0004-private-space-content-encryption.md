@@ -18,6 +18,10 @@ Joining a private Space grants access to its available earlier messages. The
 key-sharing design must support this agreed history access; it does not promise
 complete or permanent archive availability.
 
+When a member leaves or is removed, access to subsequent private content ends.
+Previously received messages and files cannot be guaranteed to disappear from
+that person's devices or copies. Public Space content remains publicly readable.
+
 The protocol, key management, metadata visibility and hosting
 design are still open during the grill. This records the privacy requirement,
 not an implemented capability or authorization to activate a node or provider.
