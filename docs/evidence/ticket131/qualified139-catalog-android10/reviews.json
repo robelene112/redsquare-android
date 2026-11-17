@@ -1,0 +1,52 @@
+{
+  "result": "ACCEPT_COMPLETE_SDK10_AND_OVERALL_PREPROMOTION_WITH_EXPLICIT_QUALIFICATIONS",
+  "run": 43995894442,
+  "nativeSource": "e72ec7deab926c97e655e3d7c224ea1c159a9a44",
+  "signedSource": "9513495d367ff55c83afb155c070560005816789",
+  "qualifiedAssessorCommit": "785de01eaaaf8957e03887887159802d08262b80",
+  "qualifiedAssessorSha256": "aad2e4279a3cb4c1fca53a555fab7a914ec8baeb1fd5e95b2425433e8bb9ff22",
+  "spec": {
+    "reviewer": "/root/release139_spec",
+    "findings": 0,
+    "originalZipFiles": 1834,
+    "indexedOriginals": 1675,
+    "physicalArchives": 274,
+    "regularTarMembers": 12521,
+    "aliasedMembers": 410,
+    "zeroExitReceipts": 267
+  },
+  "standards": {
+    "reviewer": "/root/release139_standards",
+    "findings": 0,
+    "originalZipFiles": 1834,
+    "indexedOriginals": 1675,
+    "physicalArchives": 274,
+    "aliasedMembers": 410,
+    "independentUnchangedQualifiedReplay": "PASS",
+    "regeneratedPacketFilesByteExact": 9
+  },
+  "observedIdentities": 901,
+  "terminalOrAssumptionIdentities": 888,
+  "intentionalStarts": 13,
+  "classes": 344,
+  "normalCompletions": 385,
+  "deliberateInterruptions": 52,
+  "continuityRecords": 51,
+  "logicalArchiveRequirements": 283,
+  "frozenAdapterPassed": false,
+  "coldFeedObserver": {
+    "explicitNullRoots": 1,
+    "commands": 5,
+    "freshExactXmlGoalSeconds": 3.3324913349997587,
+    "originalDeadlineSeconds": 30,
+    "singleAppRestart": true
+  },
+  "sourceBridge": {
+    "identicalEntries": 228765,
+    "canonicalSha256": "7834a4010454e70af6d0429d2c7f44b2151667d26b860d81505079c1a587ff60",
+    "onlyOtherChangedPath": "scripts/feed-device-check"
+  },
+  "provisioningQualification": "Four separate original preflight observations: Chat/Social first boots PASS; Wallet first boot16MiB INVALID_HEAP, predeclared second cold boot512MiB PASS with identical configuration and full teardown. No acceptance assertion retry; not included in385 normal completions.",
+  "assumptionQualification": "One exact inherited API29 ProfilePublishing case remains the allowed assumption in the unchanged original contract.",
+  "qualification": "Both complete per-SDK qualified parents, original source/one-script bridge, exact signed139 and actual131-to139 updates accepted by both independent axes. Preserve both original frozenFAILs, all original unsuccessful observations, classification126/capture/unavailablearchive/Talk limits. Physical/OEM/live/provider/Play and UNDEPLOYED-rental gates remain."
+}

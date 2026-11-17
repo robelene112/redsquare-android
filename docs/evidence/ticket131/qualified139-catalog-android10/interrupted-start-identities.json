@@ -1,0 +1,80 @@
+[
+  {
+    "path": "store-crypto-process/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.StoreCryptoProcessRecoveryTest",
+    "test": "terminateAfterTheProviderReservesAnInvoiceButItsReplyIsLost",
+    "occurrences": 1
+  },
+  {
+    "path": "store-purchase-process/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.StorePurchaseProcessRecoveryTest",
+    "test": "terminateAfterAnAuthenticatedStorePaymentWithUnknownDelivery",
+    "occurrences": 1
+  },
+  {
+    "path": "store-seller-process/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.StoreSellerProcessRecoveryTest",
+    "test": "terminateAfterAnAuthenticatedStoreOfferWithUnknownAvailability",
+    "occurrences": 1
+  },
+  {
+    "path": "store-withdrawal-process/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.StoreWithdrawalProcessRecoveryTest",
+    "test": "terminateAfterAnAuthenticatedWithdrawalWithUnknownAvailability",
+    "occurrences": 1
+  },
+  {
+    "path": "unfinished-text-process/continuous/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.UnfinishedTextProcessTest",
+    "test": "backgroundWithUnfinishedTextThenTerminateTheActualProcess",
+    "occurrences": 1
+  },
+  {
+    "path": "unfinished-text-process/post-saved/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.UnfinishedTextProcessTest",
+    "test": "backgroundWithUnfinishedTextThenTerminateTheActualProcess",
+    "occurrences": 1
+  },
+  {
+    "path": "unfinished-text-process/post/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.UnfinishedTextProcessTest",
+    "test": "backgroundWithUnfinishedTextThenTerminateTheActualProcess",
+    "occurrences": 1
+  },
+  {
+    "path": "unfinished-text-process/profile-saved/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.UnfinishedTextProcessTest",
+    "test": "backgroundWithUnfinishedTextThenTerminateTheActualProcess",
+    "occurrences": 1
+  },
+  {
+    "path": "unfinished-text-process/profile/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.UnfinishedTextProcessTest",
+    "test": "backgroundWithUnfinishedTextThenTerminateTheActualProcess",
+    "occurrences": 1
+  },
+  {
+    "path": "unfinished-text-process/quote/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.UnfinishedTextProcessTest",
+    "test": "backgroundWithUnfinishedTextThenTerminateTheActualProcess",
+    "occurrences": 1
+  },
+  {
+    "path": "unfinished-text-process/reply/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.UnfinishedTextProcessTest",
+    "test": "backgroundWithUnfinishedTextThenTerminateTheActualProcess",
+    "occurrences": 1
+  },
+  {
+    "path": "unfinished-text-process/storage-failure/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.UnfinishedTextProcessTest",
+    "test": "backgroundWithUnfinishedTextThenTerminateTheActualProcess",
+    "occurrences": 1
+  },
+  {
+    "path": "vault-upload-process/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.VaultUploadProcessRecoveryTest",
+    "test": "terminateAfterAnAuthenticatedVaultMintAndRejectedFile",
+    "occurrences": 1
+  }
+]

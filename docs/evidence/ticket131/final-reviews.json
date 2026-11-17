@@ -1,5 +1,5 @@
 {
-  "source": "f0272926f326029040fb041b78afdd11159d2606",
+  "source": "9513495d367ff55c83afb155c070560005816789",
   "base": "59594c5634cbfec2c49bc4375865e3e101503580",
   "sourceAndSignedUpdate135": {
     "spec": {
@@ -575,5 +575,46 @@
       "restorationFailures": 0,
       "observerSubmissions": 0
     }
+  },
+  "previousRootSource": "f0272926f326029040fb041b78afdd11159d2606",
+  "delivery139": {
+    "result": "DELIVERED_BETA139_WITH_EXPLICIT_QUALIFICATIONS",
+    "completedAtUtc": "2026-11-17T03:08:47.196300+00:00",
+    "native10": "qualified139-catalog-android10/reviews.json",
+    "native17": "qualified139-catalog-android17/reviews.json",
+    "sourceBridge": "feed-observer-source-bridge.json",
+    "sourceAndUpdateGate": "prepromotion139-gate.json",
+    "public": {
+      "result": "ACCEPT_ACTUAL_PUBLIC_DELIVERY",
+      "spec": {
+        "reviewer": "/root/release139_spec",
+        "findings": 0,
+        "receipt": "public139-spec-review.json"
+      },
+      "standards": {
+        "reviewer": "/root/release139_standards",
+        "findings": 0,
+        "receipt": "public139-standards-review.json"
+      },
+      "publicLatest": 139,
+      "source": "9513495d367ff55c83afb155c070560005816789",
+      "bytes": 94282272,
+      "sha256": "a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3",
+      "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+      "canonicalAndFreshObservedVersion": 139,
+      "actualPublicApkByteExact": true,
+      "downloadedPackageVersionAndCertificateVerified": true,
+      "actualPageTemplateByteExact": true,
+      "qualification": "Both reviewers independently download actual public page/metadata/fullAPK with ordinarycurl200, recheck version/signature/notes/source/route. Actual canonical139/DYNAMIC observations are time-specific. Retain all native/catalog/API29/inherited and physical/OEM/live/provider/Play/UNDEPLOYED qualifications."
+    },
+    "remainingOpenIssues": [
+      1,
+      36,
+      55,
+      84,
+      86,
+      105
+    ],
+    "qualification": "Approved118\u2013131 sequential remediation and signedbeta delivery achieved. Earlier phase/source records remain historical, not substituted for final139 acceptance. Both frozen full adapters remain failed; separately reviewed catalog assessment preserves every original native goal and remaining validator."
   }
 }

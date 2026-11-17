@@ -1,0 +1,29 @@
+{
+  "result": "ACCEPT_SOURCE_NATIVE_SIGNED_UPDATES_BEFORE_PROMOTION",
+  "recordedAtUtc": "2026-11-17T03:03:15.923899+00:00",
+  "spec": {
+    "reviewer": "/root/release139_spec",
+    "findings": 0
+  },
+  "standards": {
+    "reviewer": "/root/release139_standards",
+    "findings": 0
+  },
+  "nativeRuns": {
+    "10": 43995894442,
+    "17": 43983501451
+  },
+  "nativeSources": {
+    "10": "e72ec7deab926c97e655e3d7c224ea1c159a9a44",
+    "17": "9513495d367ff55c83afb155c070560005816789"
+  },
+  "signedSource": "9513495d367ff55c83afb155c070560005816789",
+  "candidateVersion": 139,
+  "candidateSha256": "a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3",
+  "qualifiedAssessorSha256": "aad2e4279a3cb4c1fca53a555fab7a914ec8baeb1fd5e95b2425433e8bb9ff22",
+  "updates": [
+    43985908653,
+    43985912300
+  ],
+  "qualification": "Both axes accept actual complete per-SDK qualified evidence and exact one-script observer bridge/signed139 update bindings. Both original frozen failures and all inherited/provisioning/API29/physical/live/provider/Play/UNDEPLOYED qualifications retained. Public delivery still requires actualverification and independent reviews."
+}

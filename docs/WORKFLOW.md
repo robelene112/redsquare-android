@@ -9,22 +9,32 @@ requested, carry its code, verification, review, fixes and commit to completion.
 Work through tickets sequentially; a request to implement a sequence authorizes
 that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
-## Active approved review follow-up
+## Delivered lifecycle and recovery follow-up
 
-The owner approved [specification #117](https://github.com/robelene112/redsquare-android/issues/117)
-and children #118–#131, then requested implementation on 2026-11-15. Execute one
-behavior ticket at a time in priority order. #118–#130, including the reopened121
-prepared-media navigation follow-up, have relevant SDK and independent acceptance.
-Continue final131 without another approval; all thirteen behavior prerequisites
-are complete. Use the existing
-native/owned-peer/process seams and targeted adverse/corrected checks for each
-child. Complete app qualification and the combined signed beta belong to final
-#131, natively blocked by all thirteen behavior tickets. Preserve every current
-release goal and operational qualification. Public beta remains 0.1.131 until final
-delivery. The historical stop-after-#116 boundary below is superseded by this
-explicit request only for the approved follow-up scope.
+The owner-approved [specification #117](https://github.com/robelene112/redsquare-android/issues/117)
+and sequential children #118–#131 are delivered in
+[signed beta 0.1.139](https://davidengelen.nl/redsquare/). The twelve review defects
+and manual received-file storage controls are complete. Both complete Android
+10/17 runs, actual signed 131-to-139 updates and independent source, evidence and
+public delivery reviews pass with explicit catalog, API 29 and inherited
+qualifications. The actual downloaded APK, page, metadata, notes, version and
+signature match. See [the #131 packet](evidence/ticket131/README.md).
 
-## Current completed owner scope
+Signed product and Android 17 use source `9513495d`. Android 10 uses `e72ec7de`,
+which changes only the reviewed host observer; app and native test code are
+identical. Original frozen collectors remain failed. The separate catalog
+assessment preserves all native goals and remaining validators, without
+assembling passing prefixes or fabricating archives. Original unsuccessful
+observations remain preserved.
+
+The approved sequence is complete. Await the owner's next implementation request.
+Keep #1/#36/#55/#84/#86/#105 open: physical/OEM, live node/provider/schema/funding
+and Play gates remain. Source-only Vault rental restoration stays UNDEPLOYED.
+Ordinary QA stays agent-owned. No node/provider activation or public financial
+write occurred. Older stop boundaries below are historical and were superseded
+only for this completed approved follow-up.
+
+## Earlier completed feed refresh scope
 
 Feed refresh spacing [#116](https://github.com/robelene112/redsquare-android/issues/116)
 is delivered in [signed beta 0.1.131](https://davidengelen.nl/redsquare/).

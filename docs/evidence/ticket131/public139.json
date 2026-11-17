@@ -1,0 +1,53 @@
+{
+  "result": "PASS",
+  "verifiedAt": "2026-11-17T03:03:32.375382+00:00",
+  "manifest": {
+    "versionCode": 139,
+    "versionName": "0.1.139",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3",
+    "commit": "9513495d367ff55c83afb155c070560005816789",
+    "variant": "release",
+    "apkUrl": "https://davidengelen.nl/redsquare/releases/139/redsquare.apk",
+    "notes": "Lifecycle and recovery fixes for unfinished writing, selected photos, call setup and wallet transfer input. More reliable incoming calls, read recovery, photo-heavy feeds and Following. Clearer file attachment availability and received-file controls in Settings > Storage. More consistent navigation, unsaved-work feedback and export recovery. Smoother loaded-image transitions, including fast repeated taps and reduced-motion settings. Clearer interruption feedback when a call loses its connection."
+  },
+  "freshPublicLatest": 139,
+  "canonicalLatestObservedCode": 139,
+  "http": {
+    "latest.json": {
+      "status": 200,
+      "bytes": 943,
+      "sha256": "4574ec4bb6cf2dc016f3bc69a1949cb1b7f0c487a6a695f578e595e44f668e65",
+      "finalUrl": "https://davidengelen.nl/redsquare/latest.json"
+    },
+    "latest.json?check=1794884608632819565": {
+      "status": 200,
+      "bytes": 943,
+      "sha256": "4574ec4bb6cf2dc016f3bc69a1949cb1b7f0c487a6a695f578e595e44f668e65",
+      "finalUrl": "https://davidengelen.nl/redsquare/latest.json?check=1794884608632819565"
+    },
+    "releases/139/manifest.json": {
+      "status": 200,
+      "bytes": 943,
+      "sha256": "4574ec4bb6cf2dc016f3bc69a1949cb1b7f0c487a6a695f578e595e44f668e65",
+      "finalUrl": "https://davidengelen.nl/redsquare/releases/139/manifest.json"
+    },
+    "releases/139/redsquare.apk": {
+      "status": 200,
+      "bytes": 94282272,
+      "sha256": "a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3",
+      "finalUrl": "https://davidengelen.nl/redsquare/releases/139/redsquare.apk"
+    },
+    "?check=1794884610837971554": {
+      "status": 200,
+      "bytes": 2629,
+      "sha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b",
+      "finalUrl": "https://davidengelen.nl/redsquare/?check=1794884610837971554"
+    }
+  },
+  "fullDownloadedApkByteExact": true,
+  "pageByteExact": true,
+  "downloadedSignatureAndVersionVerified": true,
+  "qualification": "Fresh cachebusted latest/page verification follows the actual distribution page and established127 delivery procedure. Canonical CDN metadata may retain an earlier response until its4h cache expires; the observed code is explicit. Actual provider/physical/OEM/Play gates remain open."
+}

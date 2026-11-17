@@ -1,0 +1,23 @@
+{
+  "result": "ACCEPT_ACTUAL_PUBLIC_DELIVERY",
+  "spec": {
+    "reviewer": "/root/release139_spec",
+    "findings": 0,
+    "receipt": "public139-spec-review.json"
+  },
+  "standards": {
+    "reviewer": "/root/release139_standards",
+    "findings": 0,
+    "receipt": "public139-standards-review.json"
+  },
+  "publicLatest": 139,
+  "source": "9513495d367ff55c83afb155c070560005816789",
+  "bytes": 94282272,
+  "sha256": "a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "canonicalAndFreshObservedVersion": 139,
+  "actualPublicApkByteExact": true,
+  "downloadedPackageVersionAndCertificateVerified": true,
+  "actualPageTemplateByteExact": true,
+  "qualification": "Both reviewers independently download actual public page/metadata/fullAPK with ordinarycurl200, recheck version/signature/notes/source/route. Actual canonical139/DYNAMIC observations are time-specific. Retain all native/catalog/API29/inherited and physical/OEM/live/provider/Play/UNDEPLOYED qualifications."
+}

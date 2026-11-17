@@ -1,21 +1,31 @@
 # Red Square Android project context
 
-## Active lifecycle and recovery remediation
+## Delivered lifecycle recovery and received-file controls, beta 139
 
 [Specification #117](https://github.com/robelene112/redsquare-android/issues/117)
-records twelve review defects and the owner-approved manual Fileshare retention
-controls. The approved children #118–#130 each deliver one behavior; final
-integration and beta ticket #131 is natively blocked by all thirteen.
-The owner requested implementation on 2026-11-15. Work stays sequential.
-#118–#130 and the reopened121 navigation follow-up are complete with relevant
-Android10/17 scopes and independent source/evidence reviews. See the
-[latest received-file storage packet](evidence/ticket130/README.md). All thirteen
-behavior prerequisites are complete. Continue final #131 without another approval. Ordinary development QA
-remains agent-owned.
-Public beta remains 0.1.131. Planning/implementation does not activate Vault or
-other services on the owner's node or close real-service/physical/Play gates.
+and sequential children #118–#131 are complete in
+[signed beta 0.1.139](https://davidengelen.nl/redsquare/). Unfinished writing,
+selected photos, call setup/listening, read deadlines, photo-heavy pages,
+Following, Talk routing and wallet input now recover truthfully. File attachment
+states explain restrictions, and Settings > Storage provides manual local
+received-file retention and removal controls.
 
-## Delivered feed refresh polish, beta 131
+Both complete Android 10/17 runs, actual signed 131-to-139 updates and independent
+source, evidence and public reviews pass with the explicit catalog, API 29 and
+inherited qualifications in [the #131 packet](evidence/ticket131/README.md).
+Public metadata, notes, page and full downloaded APK bytes/version/signature
+match signed source `9513495d`. Android 17 stays at that source; Android 10 uses
+`e72ec7de`, changing only the host observer under the reviewed one-script bridge.
+App and native test code are identical. Frozen collectors remain failed; the
+separate assessment preserves original goals, remaining validators and original
+unsuccessful observations.
+
+Await the next owner request. Keep #1/#36/#55/#84/#86/#105 open and physical/OEM,
+live node/provider/schema/funding and Play gates explicit. Source-only Vault
+rental remains UNDEPLOYED. No node/provider activation or public financial write
+occurred. The release 131 and older entries below retain historical context.
+
+## Earlier feed refresh delivery, beta131
 
 [Signed beta 0.1.131](https://davidengelen.nl/redsquare/) addresses owner feedback
 in [#116](https://github.com/robelene112/redsquare-android/issues/116): the

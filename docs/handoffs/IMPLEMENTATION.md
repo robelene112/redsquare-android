@@ -1,16 +1,37 @@
 # Implementation handoff
 
-## Active uninterrupted review-remediation sequence #119–#131
+## Delivered sequential remediation #118–#131, beta 139
 
-The owner explicitly requested all remaining tickets consecutively without stopping
-on 2026-11-15, after #118 was completed. Authorization covers implementing and
-verifying #119–#130 sequentially, followed by integrated qualification and the
-combined beta in #131. Do not stop after each ticket to ask for another approval.
-Keep one implementation ticket active at a time; independent code-review agents
-remain permitted. Ordinary native/emulator QA is agent-owned. No production node/
-provider activation or public financial write is authorized.
+The approved sequence is complete in
+[signed beta 0.1.139](https://davidengelen.nl/redsquare/). All thirteen behavior
+children #118–#130, final integration/delivery #131 and parent #117 are complete.
+No implementation ticket is active; await a new owner request. Keep one ticket
+active at a time and ordinary QA agent-owned.
 
-Current next ticket: #131 (integrated qualification and signed beta delivery).
+Signed product `9513495d367ff55c83afb155c070560005816789` is 94,282,272 bytes,
+SHA256 `a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3`,
+using the established certificate. Android 17 run `43983501451` uses that exact
+source. Fresh Android 10 run `43995894442` uses
+`e72ec7deab926c97e655e3d7c224ea1c159a9a44`, changing only the reviewed host
+observer. Both complete assessments, actual 131-to-139 updates and public
+page/metadata/full APK/version/signature checks pass both independent review
+axes, with zero final findings. See [the #131 packet](../evidence/ticket131/README.md).
+
+Preserve the source-derived catalog qualification: frozen collectors failed.
+Separate assessments retain 901/902 identities, 344 classes, 385/386 normal
+invocations, 52 deliberate interruptions, 51 continuity records and 13 separate
+planned starts. There are 283 logical capture requirements and 274 genuine
+physical archives. All original validators/goals and unsuccessful observations
+remain. The inherited API 29 profile assumption, predeclared heap-provisioning
+boots, #126 counter and capture/archive/Talk limitations stay explicit.
+
+Keep #1/#36/#55/#84/#86/#105 open. Physical/OEM, live node/provider/schema/funding
+and Play gates remain; source-only Vault rental is UNDEPLOYED. No node/provider
+activation or public financial write occurred. Earlier per-child entries retain
+their source-time status; instructions to continue #131 or retain beta 131 are
+superseded by this delivered beta 139 record.
+
+## Historical per-child acceptance
 
 #130 is complete at product/source/native1e5066800bf5a48eb72693266fd9d9d170d525c1.
 See [the storage packet](../evidence/ticket130/README.md). Settings → Storage lists

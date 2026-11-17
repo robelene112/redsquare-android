@@ -3,7 +3,44 @@
 Parent: [#117](https://github.com/robelene112/redsquare-android/issues/117).
 Review base: `59594c5634cbfec2c49bc4375865e3e101503580`.
 
-**In progress.** Behavior children #118–#130 have focused acceptance. Public
+## Delivered beta 139
+
+[Signed beta 0.1.139](https://davidengelen.nl/redsquare/) delivers approved
+#118–#131 after sequential implementation. Both complete SDK runs, actual signed
+131-to-139 updates and independent source, evidence and public reviews pass with
+zero final findings and the explicit qualifications below. Actual public page,
+notes, canonical/fresh metadata and the full 94,282,272-byte downloaded APK match
+the reviewed build, version and established signing certificate.
+
+Signed source is `9513495d367ff55c83afb155c070560005816789`, APK SHA256
+`a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3`.
+Android 17 run `43983501451` uses that exact source; corrected Android 10 run
+`43995894442` uses `e72ec7de` with the reviewed one-script observer bridge. See
+[Android 10 acceptance](qualified139-catalog-android10/README.md),
+[Android 17 acceptance](qualified139-catalog-android17/README.md),
+[actual updates](update139-android10/summary.json),
+[public verification](public139.json) and [final reviews](final-reviews.json).
+
+The original frozen full adapters did not pass. The separately committed
+[catalog qualification](catalog-erratum/README.md) preserves every original
+identity, assertion, deadline and remaining validator: 901/902 identities,
+344 classes, 385/386 normal invocations, 52 deliberate interruptions and
+51 continuity records per SDK. The 13 planned starts stay separately classified.
+There are 283 logical capture requirements and 274 actual physical archives;
+no original is invented. The API 29 profile assumption, predeclared provisioning
+boots, #126 counting erratum, inherited missing public-failure captures/unavailable
+archive, protected credential/API 29 disabled-label and Talk 17 immediate-frame
+limitations remain explicit. All original unsuccessful observations are retained.
+
+Keep #1/#36/#55/#84/#86/#105 open. Physical/OEM, live provider/node/schema/funding
+and Play acceptance remain separate; source-only Vault rental stays UNDEPLOYED.
+No production node/provider activation or public financial write occurred.
+The chronological records below retain their source-time pending/historical
+statements; this delivered record and final reviews govern current status.
+
+## Historical pre-delivery qualification
+
+**Before delivery.** Behavior children #118–#130 have focused acceptance. Public
 latest stays131. Candidates132–138 remain intermediate and must not be promoted.
 Signed138 and its same-source observer passed actual updates on both SDKs, but
 its complete17 Chat partition fails the original TalkRoutes exact-started-call
