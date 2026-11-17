@@ -1,19 +1,41 @@
 # Implementation handoff
 
-## Current implementation priority: composer #132
+## Current implementation priorities: UI bugs #132 and #133
 
-The owner reports that starting New post unexpectedly showed an uncertain-send
-recovery screen and the app became unresponsive. [Issue #132](https://github.com/robelene112/redsquare-android/issues/132)
-records the screenshot observations, unknown cause/version, accepted #95 fresh
-composer behavior and agent-owned native verification requirements. Fix and
-verify it before implementing Spaces; preserve original signed attempts and
-unfinished work, and do not infer actual ANR or failed publication from one image.
+Fix and verify [composer #132](https://github.com/robelene112/redsquare-android/issues/132)
+and [feed #133](https://github.com/robelene112/redsquare-android/issues/133) before
+implementing Spaces. Work one implementation issue at a time. The owner permits
+the Spaces grill to continue, and no Spaces specification/ticket/implementation
+phase has been approved yet. Both bugs become predecessors of later Spaces
+implementation work; do not invent a dependency between these independent fixes.
 
-The owner explicitly allows the Spaces grill to continue meanwhile. It has not
-advanced to specification, implementation tickets or implementation. Agreed
-vocabulary and private-content/Chat encryption requirements are recorded in
+#132: starting New post unexpectedly shows uncertain-send recovery; the owner
+reports unresponsiveness. The image does not establish ANR, root cause, affected
+version or failed publication. Retain #95's safe fresh-composer/original-attempt
+semantics and agent-owned native verification.
+
+#133: the owner recording visibly replaces an already loaded embedded original
+with Loading original during scrolling, then restores it and repeats. Exact
+before/after frames are 1.482511s/1.494622s. Silent quarter-speed excerpt and exact
+frame/source hashes are retained privately under
+`/home/david/.cache/redsquare-android-artifacts/scroll-report-20261117/analysis-receipt.json`.
+The notification-shade tail was excluded from the focused excerpt; do not publish
+private owner media. An initial frame-dropping export is explicitly unused for
+timestamp claims; 52 passthrough frames match 52 timestamp records. This is visible
+recording evidence, not an agent-run native reproduction or source-cause proof.
+
+Agreed Spaces vocabulary and privacy/Chat encryption requirements are in
 GLOSSARY.md and ADR0004. The completed beta 139 record below remains historical
-acceptance, not evidence that this newly reported bug has been resolved.
+acceptance, not proof that these newly reported bugs have been resolved.
+
+Storage note for this isolated worktree: after the additional mount filled, its
+ignored `.scratch/review-builds` cache was relocated to
+`/home/david/.cache/redsquare-android-artifacts/retained-review-builds-20261117`,
+retaining the original path as a symlink. All 318 files were hash-verified before
+source removal. The interrupted glossary write was recovered from its preserved
+complete Spaces section and unchanged committed remaining sections. Actual app,
+service and owner data were not moved. Verify the resolved mount before large
+builds; this does not authorize pruning another task's data or Docker volumes.
 
 ## Delivered sequential remediation #118–#131, beta 139
 

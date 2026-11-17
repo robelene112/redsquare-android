@@ -1,15 +1,21 @@
 # Red Square Android project context
 
-## Current follow-up: composer bug before Spaces implementation
+## Current follow-up: two UI bugs before Spaces implementation
 
-The owner reported an unexpected uncertain-send state and unresponsiveness when
-starting a new post. [Bug #132](https://github.com/robelene112/redsquare-android/issues/132)
-must be resolved before Spaces implementation. The root cause, actual ANR versus
-blocked task, and affected APK version remain unestablished. Reproduce and verify
-through owned native/emulator seams while preserving drafts and signed originals.
-The owner permits the Spaces grill to continue meanwhile. Spaces and the added
-Chat end-to-end encryption requirement remain planning work, not delivered
-features; see [the privacy decision](adr/0004-private-space-content-encryption.md).
+Resolve and verify [composer #132](https://github.com/robelene112/redsquare-android/issues/132)
+and [feed #133](https://github.com/robelene112/redsquare-android/issues/133) before
+implementing Spaces. The owner permits the Spaces grill to continue meanwhile.
+Implementation stays sequential; the two reports are independent, not a proven
+technical dependency.
+
+The composer report shows uncertain-send recovery on New post and reported
+unresponsiveness. The feed recording visibly replaces a loaded embedded original
+with Loading original during scrolling, shrinking the card before it returns.
+Exact inspected transition: 1.482511s to 1.494622s. Native reproduction, internal
+causes and affected APK versions remain unestablished. Use owned emulators and
+controlled peers while preserving content, signed work and reading position.
+Spaces and Chat end-to-end encryption remain planning requirements; see
+[the privacy decision](adr/0004-private-space-content-encryption.md).
 
 ## Delivered lifecycle recovery and received-file controls, beta 139
 
