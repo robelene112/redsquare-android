@@ -57,7 +57,8 @@ jobs:
           mkdir -p "$ANDROID_AVD_HOME"
           printf 'no\n' | avdmanager create avd -n spaces-prototype -k "$PROTOTYPE_IMAGE"
           test -f "$ANDROID_AVD_HOME/spaces-prototype.ini"
-          printf '%s\n' 'vm.heapSize=512' 'disk.dataPartition.size=2G' >> "$ANDROID_AVD_HOME/spaces-prototype.avd/config.ini"
+          sed -i '/^vm[.]heapSize=/d; /^disk[.]dataPartition[.]size=/d; /^hw[.]lcd[.]width=/d; /^hw[.]lcd[.]height=/d; /^hw[.]lcd[.]density=/d' "$ANDROID_AVD_HOME/spaces-prototype.avd/config.ini"
+          printf '%s\n' 'vm.heapSize=512' 'disk.dataPartition.size=2G' "hw.lcd.width=${PROTOTYPE_SIZE%x*}" "hw.lcd.height=${PROTOTYPE_SIZE#*x}" "hw.lcd.density=$PROTOTYPE_DENSITY" >> "$ANDROID_AVD_HOME/spaces-prototype.avd/config.ini"
           cp "$ANDROID_AVD_HOME/spaces-prototype.avd/config.ini" .scratch/spaces-prototype/avd-config.ini
           emulator -avd spaces-prototype -no-window -no-audio -no-snapshot -no-boot-anim -gpu swiftshader_indirect -feature -Vulkan -cores 2 -memory 2048 > .scratch/spaces-prototype/emulator.log 2>&1 &
           TASK_EMULATOR_PID=$!
@@ -76,6 +77,7 @@ jobs:
           adb shell wm size "$PROTOTYPE_SIZE"
           adb shell wm density "$PROTOTYPE_DENSITY"
           adb shell settings put system font_scale "$PROTOTYPE_FONT"
+          { adb shell wm size; adb shell wm density; adb shell settings get system font_scale; } > .scratch/spaces-prototype/actual-display.txt
           python3 - <<'PYAPK'
           import json, pathlib, subprocess
           for location in ('debug', 'androidTest/debug'):
@@ -85,7 +87,7 @@ jobs:
               subprocess.run(['adb','install',str(directory/metadata['elements'][0]['outputFile'])],check=True)
           PYAPK
           set +e
-          timeout 480 adb shell am instrument -w -r nl.davidengelen.redsquare.spaces.prototype.test/androidx.test.runner.AndroidJUnitRunner | tee .scratch/spaces-prototype/instrumentation.txt
+          timeout 480 adb shell am instrument -w -r -e expectedWidthDp "$(( ${PROTOTYPE_SIZE%x*} * 160 / PROTOTYPE_DENSITY ))" -e expectedDensity "$PROTOTYPE_DENSITY" -e expectedFont "$PROTOTYPE_FONT" nl.davidengelen.redsquare.spaces.prototype.test/androidx.test.runner.AndroidJUnitRunner | tee .scratch/spaces-prototype/instrumentation.txt
           TASK_TEST_EXIT=${PIPESTATUS[0]}
           set -e
           timeout 30 adb logcat -d > .scratch/spaces-prototype/logcat.txt || true

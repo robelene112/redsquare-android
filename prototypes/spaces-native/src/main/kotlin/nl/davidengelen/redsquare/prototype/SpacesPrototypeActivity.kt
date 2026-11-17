@@ -41,6 +41,8 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.drop
 import androidx.compose.ui.text.SpanStyle
@@ -142,6 +144,8 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
         if(role=="Visitor" || memberships[callSpace]==false || scenario=="Access denied") {activeCall=false;mic=false;camera=false}
         if(scenario=="Timeout" || archives["$callSpace:$callChannel"]==true) {mic=false;camera=false}
     }
+    val keyboard=LocalSoftwareKeyboardController.current
+    val focus=LocalFocusManager.current
     val imeVisible=WindowInsets.ime.getBottom(LocalDensity.current)>0
     val inThisRoom=activeCall && callSpace==space && callChannel==channel
     LaunchedEffect(space,channel,page) {
@@ -157,11 +161,12 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     val canWrite = !outsider && !denied && !archived && scenario != "Timeout" && (channel!="announcements" || page==Page.THREAD || admin)
     fun go(target:Page,newSpace:String=space,newChannel:String=channel,message:ChatRow=selectedMessage,articleId:Int=selectedArticle,fileId:Int=selectedFile) {
         if(page!=target || space!=newSpace || channel!=newChannel || selectedMessage!=message || selectedArticle!=articleId || selectedFile!=fileId) {
+            keyboard?.hide();focus.clearFocus()
             history.add(Destination(page,space,channel,selectedMessage,selectedArticle,selectedFile))
             page=target;space=newSpace;channel=newChannel;selectedMessage=message;selectedArticle=articleId;selectedFile=fileId
         }
     }
-    fun back() { if(history.isNotEmpty()) {val prior=history.removeAt(history.lastIndex);page=prior.page;space=prior.space;channel=prior.channel;selectedMessage=prior.message;selectedArticle=prior.article;selectedFile=prior.file} else page=Page.HOME }
+    fun back() { keyboard?.hide();focus.clearFocus();if(history.isNotEmpty()) {val prior=history.removeAt(history.lastIndex);page=prior.page;space=prior.space;channel=prior.channel;selectedMessage=prior.message;selectedArticle=prior.article;selectedFile=prior.file} else page=Page.HOME }
     BackHandler(page != Page.HOME || drawer.isOpen) { if(drawer.isOpen) coroutine.launch { drawer.close() } else back() }
     LaunchedEffect(scenario,role,memberships.toMap(),archives.toMap()) {
         if(scenario == "Normal" && role!="Visitor") {
@@ -170,7 +175,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
         }
     }
     ModalNavigationDrawer(drawerState=drawer, drawerContent={
-        ModalDrawerSheet(Modifier.widthIn(max=340.dp)) {
+        ModalDrawerSheet(Modifier.widthIn(max=340.dp).testTag("channel-switcher")) {
             Column(Modifier.verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement=Arrangement.spacedBy(12.dp)) {
                 Text("Your communities",style=MaterialTheme.typography.titleLarge)
                 communityNames.forEach { name ->
@@ -204,7 +209,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                     IconButton(onClick={go(Page.PREVIEW)}) { Avatar("AM",Color(0xffa35b43),36) }
                 }
                 Row(Modifier.fillMaxWidth().padding(bottom=8.dp),verticalAlignment=Alignment.CenterVertically) {
-                    Text("Native design prototype",style=MaterialTheme.typography.labelSmall,color=MaterialTheme.colorScheme.primary,modifier=Modifier.weight(1f))
+                    Text(if(LocalDensity.current.fontScale>1.3f) "Prototype" else "Native design prototype",style=MaterialTheme.typography.labelSmall,color=MaterialTheme.colorScheme.primary,modifier=Modifier.weight(1f))
                     TextButton(onClick={go(Page.PREVIEW)},contentPadding=PaddingValues(horizontal=8.dp)) { Text("Scenarios",style=MaterialTheme.typography.labelSmall) }
                 }
                 }
@@ -213,7 +218,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
             Column(Modifier.navigationBarsPadding().imePadding()) {
                 if(activeCall && page != Page.CALL) Surface(color=MaterialTheme.colorScheme.secondaryContainer) {
                     Row(Modifier.fillMaxWidth().padding(horizontal=12.dp),verticalAlignment=Alignment.CenterVertically) {
-                        TextButton(onClick={go(Page.CALL,newSpace=callSpace,newChannel=callChannel)},modifier=Modifier.weight(1f)) { Glyph(R.drawable.ic_video); Spacer(Modifier.width(8.dp)); Text(if(imeVisible) "Call" else "$callSpace · Preview call") }
+                        TextButton(onClick={go(Page.CALL,newSpace=callSpace,newChannel=callChannel)},modifier=Modifier.weight(1f).semantics{contentDescription="Return to call in $callSpace"}) { Glyph(R.drawable.ic_video); Spacer(Modifier.width(8.dp)); Text(if(imeVisible || LocalDensity.current.fontScale>1.3f) "Call" else "$callSpace · Preview call") }
                         IconButton(enabled=scenario!="Timeout" && archives["$callSpace:$callChannel"]!=true,onClick={mic=!mic}) { Glyph(if(mic) R.drawable.ic_microphone else R.drawable.ic_microphone_off,label=if(mic) "Mute" else "Unmute") }
                         IconButton(onClick={activeCall=false;mic=false;camera=false}) { Glyph(R.drawable.ic_call_end,label="End preview call") }
                     }
@@ -240,11 +245,11 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                     Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                         if(page !in listOf(Page.HOME,Page.DISCOVER,Page.ACTIVITY)) IconButton(onClick={back()}) { Glyph(R.drawable.ic_back,label="Back") }
                         Column(Modifier.weight(1f)) {
-                            if(!imeVisible && page in listOf(Page.CHAT,Page.ANNOUNCEMENTS,Page.ARTICLES,Page.FILES,Page.ROOM,Page.THREAD)) Text(space,style=MaterialTheme.typography.labelMedium,color=MaterialTheme.colorScheme.onSurfaceVariant)
+                            if(!imeVisible && page in listOf(Page.CHAT,Page.ANNOUNCEMENTS,Page.ARTICLES,Page.FILES,Page.ROOM,Page.THREAD)) Text(space,maxLines=1,overflow=TextOverflow.Ellipsis,style=MaterialTheme.typography.labelMedium,color=MaterialTheme.colorScheme.onSurfaceVariant)
                             Text(when(page) { Page.HOME->"Your people. Your spaces."; Page.DISCOVER->"Discover"; Page.CHAT->channel; Page.THREAD->"Replies"; Page.ROOM->"the lounge"; else->page.name.lowercase().replaceFirstChar{it.uppercase()} },style=if(imeVisible) MaterialTheme.typography.titleMedium else MaterialTheme.typography.headlineSmall,modifier=Modifier.semantics{heading()})
                         }
-                        if(page in listOf(Page.CHAT,Page.ARTICLES,Page.FILES,Page.ANNOUNCEMENTS,Page.ROOM)) IconButton(onClick={coroutine.launch { drawer.open() }}) { Glyph(R.drawable.ic_read_all,label="Switch Space or channel") }
-                        if(page==Page.CHAT) IconButton(onClick={go(Page.INFO)}) { Glyph(R.drawable.ic_info,label="Space information") }
+                        if(page in listOf(Page.CHAT,Page.ARTICLES,Page.FILES,Page.ANNOUNCEMENTS,Page.ROOM)) IconButton(onClick={coroutine.launch { drawer.open() }}) { Glyph(R.drawable.ic_spaces_channels,label="Switch Space or channel") }
+                        if(page==Page.CHAT && LocalDensity.current.fontScale<=1.3f && !imeVisible) IconButton(onClick={go(Page.INFO)}) { Glyph(R.drawable.ic_info,label="Space information") }
                     }
                 }
                 if(scenario!="Normal" && page!=Page.PREVIEW) item("scenario") { Notice(when(scenario) { "Loading"->"Preview: loading new content. Saved content stays visible."; "Offline"->"Offline preview · showing saved content"; "Timeout"->"Preview: writing paused in this channel until 14:30"; "Storage full"->"Preview: storage full. New uploads are paused."; "Expired"->"Preview: shared storage has expired."; else->"Preview: access to this channel is unavailable." }) }
@@ -254,10 +259,10 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                 else if(scenario=="Empty" && page in listOf(Page.CHAT,Page.THREAD,Page.ARTICLES,Page.FILES,Page.ACTIVITY)) item {Panel("A little room to begin","There is no content here yet. Start a conversation or share something useful.",R.drawable.ic_chat);Action("Show populated preview"){scenario="Normal"}}
                 else when(page) {
                     Page.HOME -> {
-                        item { Hero("A place to belong.","Conversations with a little more room.\nBuilt around people, not algorithms.") { go(Page.CREATE) } }
                         item { Section("YOUR COMMUNITIES") }
                         items(communityNames.filter{memberships[it]!=false},key={it}) { name -> CommunityRow(name,if(name=="Independent Voices") "2 mentions · general" else "Open your community",name==space,if(name=="Saito Builders") Color(0xff487e82) else Color(0xffa35b43)) {val place=lastPlaces[name]?: (Page.CHAT to "general");go(place.first,newSpace=name,newChannel=place.second)} }
                         item { OutlinedButton(onClick={go(Page.CREATE)},modifier=Modifier.fillMaxWidth()) { Glyph(R.drawable.ic_compose); Spacer(Modifier.width(8.dp));Text("Create a Space") } }
+                        item { Hero("A place to belong.","Conversations with a little more room.\nBuilt around people, not algorithms.") { go(Page.CREATE) } }
                     }
                     Page.DISCOVER -> {
                         item { OutlinedTextField(search,{search=it},placeholder={Text("Find your community")},leadingIcon={Glyph(R.drawable.ic_search)},modifier=Modifier.fillMaxWidth(),singleLine=true) }
@@ -320,7 +325,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                     Page.EDITOR -> {
                         item { Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {FilterChip(selected=!source,onClick={richDrafts.remove(articleKey);source=false},label={Text("Visual")});FilterChip(selected=source,onClick={if(!source) articleDrafts[articleKey]=TextFieldValue(richDrafts[articleKey]?.toMarkdown()?:article.text);source=true},label={Text("Markdown")})} }
                         item { NativeArticleEditor(articleKey,article,source,richDrafts) {articleDrafts[articleKey]=it} }
-                        item {Notice("The same native editor used by Stack. Switch to Markdown at any time; publication stays inside this Space.")}
+                        item {Notice("Write naturally. Switch to Markdown whenever you want; publication stays inside this Space.")}
                         item {Action("Review article") {if(!source) articleDrafts[articleKey]=TextFieldValue(richDrafts[articleKey]?.toMarkdown()?:article.text);go(Page.REVIEW)} }
                     }
                     Page.FILES -> {
