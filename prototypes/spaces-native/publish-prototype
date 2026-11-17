@@ -22,7 +22,9 @@ manifest=ET.fromstring(subprocess.check_output(command+['apkanalyzer','manifest'
 a='{http://schemas.android.com/apk/res/android}'
 assert manifest.get('package')==metadata['applicationId']=='nl.davidengelen.redsquare.spaces.prototype'
 assert int(manifest.get(a+'versionCode'))==metadata['versionCode']==1
-assert not manifest.findall('uses-permission')
+internal=manifest.get('package')+'.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'
+assert all(e.get(a+'name')==internal for e in manifest.findall('uses-permission'))
+assert any(e.get(a+'name')==internal and e.get(a+'protectionLevel')=='signature' for e in manifest.findall('permission'))
 assert manifest.find('application').get(a+'debuggable','false')=='false'
 site=Path('/home/david/projects/docker/website/html/redsquare')
 # Preserve the ordinary beta metadata byte for byte. Only the dedicated prototype subtree is writable here.
