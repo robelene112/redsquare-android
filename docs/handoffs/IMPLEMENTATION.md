@@ -18,13 +18,18 @@ then the [native prototype download](https://davidengelen.nl/redsquare/spaces-pr
 Await owner design feedback. The specification remains open; functional Spaces,
 implementation-ticket publication and a replacement beta are not part of this phase.
 
+Current **prototype 2** addresses owner feedback: a left-hand **Channels** button
+in a fixed Space bar, next to the Space name or stacked for large text. The owner
+approved the broader direction and requested another look at this control.
 Prototype branch `codex/spaces-native-prototype` retains all isolated source and
-[delivery evidence](https://github.com/robelene112/redsquare-android/blob/codex/spaces-native-prototype/docs/evidence/spaces-prototype1/README.md).
-Signed/tested source `b968b51da7d214a634c717e7b44575d2cf645e3e` passes the complete12
-native journeys on each of Android10, Android17 and compact320dp/200percent text,
-with87 screenshots. The full public APK was downloaded and its bytes, identity
-and signature independently checked. Standards and Spec reviews have zero remaining
-product findings. See the packet for failed observations and exact scope limits.
+[delivery evidence](https://github.com/robelene112/redsquare-android/blob/codex/spaces-native-prototype/docs/evidence/spaces-prototype2/README.md).
+Signed/tested source `1c070633c507c8076109344d1f1cf5fc426124e5` passes all 12 native
+journeys on Android 10, Android 17 and compact 320dp / 200% text, with 93 images.
+The revised journey verifies exact fixed button bounds after scroll and opens the
+drawer. Debug/release lint and independent Standards/Spec reviews pass. Full public
+APK bytes, identity, version and signature are verified. It updates prototype 1;
+ordinary beta 139 and immutable prototype 1 files remain unchanged. See the packet
+for exact identities and prototype limits. Owner feedback on this revision is pending.
 
 **Spaces Prototype** is a separate synthetic in-memory package, installing alongside
 the ordinary beta139, whose page and metadata remain unchanged. No wallet, network,

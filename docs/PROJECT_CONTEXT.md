@@ -19,12 +19,17 @@ The separate **Spaces Prototype** package installs alongside beta139 and uses
 synthetic in-memory content. Functional Spaces and encryption are not implemented
 by this prototype. Ordinary beta139 is unchanged.
 
-Signed/tested source `b968b51da` on `codex/spaces-native-prototype` passes all36
-native cases across Android10, Android17 and320dp/200percent text. Public APK
-bytes, package, version and certificate are verified. See the
-[acceptance packet](https://github.com/robelene112/redsquare-android/blob/codex/spaces-native-prototype/docs/evidence/spaces-prototype1/README.md)
-for exact identities, screenshots, reviews and limits. Prototype source stays on
-its isolated branch; only these delivery pointers belong on the normal branch.
+Current **prototype 2** delivers the owner's requested left-hand **Channels**
+button in a fixed Space bar. The owner approved the broader design direction;
+feedback on this relocated control remains pending. Signed/tested source
+`1c070633c` on `codex/spaces-native-prototype` passes all 36 native cases across
+Android 10, Android 17 and 320dp / 200% text, including stationary menu geometry
+after scroll and drawer opening. Public APK bytes, package, version and certificate
+are verified. See the
+[prototype 2 packet](https://github.com/robelene112/redsquare-android/blob/codex/spaces-native-prototype/docs/evidence/spaces-prototype2/README.md)
+for exact identities, 93 screenshots, reviews and limits. It updates the previous
+prototype in place; ordinary beta 139 and immutable prototype 1 are preserved.
+Prototype source stays isolated; only these pointers belong on the normal branch.
 
 Await owner UI feedback. Do not publish implementation tickets or start functional
 Spaces without the later requested phase. Bugs #132, #133 and #135 remain open prerequisites
