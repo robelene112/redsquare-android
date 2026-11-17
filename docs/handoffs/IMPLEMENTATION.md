@@ -1,15 +1,29 @@
 # Implementation handoff
 
-## Current authorized work: Spaces quality plan, specification and native prototype
+## Delivered Spaces quality plan, specification and native prototype
 
-On 2026-11-17 the owner requested these phases in order: serious defect-prevention
-plan, unified specification, then a downloadable native UI prototype for review.
-The quality contract is [Spaces quality plan](../quality/SPACES_QUALITY_PLAN.md).
-The prototype is an isolated synthetic application, not functional Spaces
-integration or a replacement beta. Publishing its download on the existing VPS
-is authorized. No bulk implementation tickets or functional Spaces build is
-requested yet. #132/#133 still block functional integration, not this isolated
-prototype. Ordinary verification remains agent-owned.
+The owner's requested phases are complete in order: [quality plan](../quality/SPACES_QUALITY_PLAN.md),
+[unified specification134](https://github.com/robelene112/redsquare-android/issues/134),
+then the [native prototype download](https://davidengelen.nl/redsquare/spaces-prototype/).
+Await owner design feedback. The specification remains open; functional Spaces,
+implementation-ticket publication and a replacement beta are not part of this phase.
+
+Prototype branch `codex/spaces-native-prototype` retains all isolated source and
+[delivery evidence](https://github.com/robelene112/redsquare-android/blob/codex/spaces-native-prototype/docs/evidence/spaces-prototype1/README.md).
+Signed/tested source `b968b51da7d214a634c717e7b44575d2cf645e3e` passes the complete12
+native journeys on each of Android10, Android17 and compact320dp/200percent text,
+with87 screenshots. The full public APK was downloaded and its bytes, identity
+and signature independently checked. Standards and Spec reviews have zero remaining
+product findings. See the packet for failed observations and exact scope limits.
+
+**Spaces Prototype** is a separate synthetic in-memory package, installing alongside
+the ordinary beta139, whose page and metadata remain unchanged. No wallet, network,
+real media, encryption or provider operation is delivered by the prototype. These
+results are native UI evidence, not backend, E2E or physical/OEM acceptance.
+
+Only delivery documentation is backported to `codex/unified-redesign`; prototype
+code must stay isolated. #132/#133 still block functional integration, not the
+completed design prototype. Ordinary verification remains agent-owned.
 
 ## Current implementation priorities: UI bugs #132 and #133
 

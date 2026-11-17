@@ -1,5 +1,25 @@
 # Red Square Android project context
 
+## Delivered Spaces planning and native prototype, awaiting design feedback
+
+The requested phases are delivered in order: [quality plan](quality/SPACES_QUALITY_PLAN.md),
+[unified specification #134](https://github.com/robelene112/redsquare-android/issues/134),
+then [downloadable native prototype](https://davidengelen.nl/redsquare/spaces-prototype/).
+The separate **Spaces Prototype** package installs alongside beta139 and uses
+synthetic in-memory content. Functional Spaces and encryption are not implemented
+by this prototype. Ordinary beta139 is unchanged.
+
+Signed/tested source `b968b51da` on `codex/spaces-native-prototype` passes all36
+native cases across Android10, Android17 and320dp/200percent text. Public APK
+bytes, package, version and certificate are verified. See the
+[acceptance packet](https://github.com/robelene112/redsquare-android/blob/codex/spaces-native-prototype/docs/evidence/spaces-prototype1/README.md)
+for exact identities, screenshots, reviews and limits. Prototype source stays on
+its isolated branch; only these delivery pointers belong on the normal branch.
+
+Await owner UI feedback. Do not publish implementation tickets or start functional
+Spaces without the later requested phase. Bugs132/133 remain open prerequisites
+for functional integration; the following reports are not resolved by prototype QA.
+
 ## Current follow-up: two UI bugs before Spaces implementation
 
 Resolve and verify [composer #132](https://github.com/robelene112/redsquare-android/issues/132)
