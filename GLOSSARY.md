@@ -38,6 +38,38 @@ checked that information. It describes that node's report, rather than a global
 network lag estimate or the completeness of post history.
 
 
+## Spaces
+
+**Space**:
+A community with its own members and channels for conversations and shared
+content. A person can participate in multiple Spaces.
+_Avoid_: Server (when referring to the community).
+
+**Space channel**:
+A named area within a Space for a particular conversation or shared content.
+
+**Space category**:
+An optional named grouping of channels within a Space.
+
+**Public Space**:
+A Space whose content can be viewed without membership.
+
+**Private Space**:
+A Space whose content can be viewed only by its members.
+
+**Space owner**:
+The single person responsible for a Space, with authority to appoint its
+administrators. The creator is its first owner.
+
+**Space administrator**:
+A person appointed by the Space owner to share the community's day-to-day
+administration.
+
+**Space invitation**:
+A link issued by a Space owner or administrator that allows its holder to join
+a private Space directly while the invitation remains valid. An invitation can
+expire or be revoked without removing people who have already joined.
+
 ## Fileshare
 
 **Retained received file**:
