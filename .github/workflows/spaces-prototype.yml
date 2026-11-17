@@ -52,15 +52,26 @@ jobs:
           scripts/ci-sdk-install "$(command -v sdkmanager)" "$PROTOTYPE_IMAGE" platform-tools
           test -x "$ANDROID_HOME/platform-tools/adb"
           sudo chmod a+rw /dev/kvm
+          export ANDROID_USER_HOME="$RUNNER_TEMP/spaces-device"
+          export ANDROID_AVD_HOME="$ANDROID_USER_HOME/avd"
+          mkdir -p "$ANDROID_AVD_HOME"
           printf 'no\n' | avdmanager create avd -n spaces-prototype -k "$PROTOTYPE_IMAGE"
-          emulator -avd spaces-prototype -no-window -no-audio -no-snapshot -gpu swiftshader_indirect -memory 2048 > .scratch/spaces-prototype/emulator.log 2>&1 &
-          trap 'adb emu kill || true' EXIT
-          timeout 240 adb wait-for-device
-          for i in $(seq 1 120); do
-            if [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" == 1 ]]; then break; fi
+          test -f "$ANDROID_AVD_HOME/spaces-prototype.ini"
+          printf '%s\n' 'vm.heapSize=512' 'disk.dataPartition.size=2G' >> "$ANDROID_AVD_HOME/spaces-prototype.avd/config.ini"
+          cp "$ANDROID_AVD_HOME/spaces-prototype.avd/config.ini" .scratch/spaces-prototype/avd-config.ini
+          emulator -avd spaces-prototype -no-window -no-audio -no-snapshot -no-boot-anim -gpu swiftshader_indirect -feature -Vulkan -cores 2 -memory 2048 > .scratch/spaces-prototype/emulator.log 2>&1 &
+          TASK_EMULATOR_PID=$!
+          trap 'kill "$TASK_EMULATOR_PID" 2>/dev/null || true' EXIT
+          adb start-server
+          TASK_BOOT_DEADLINE=$((SECONDS+240))
+          TASK_BOOTED=0
+          while (( SECONDS < TASK_BOOT_DEADLINE )); do
+            if ! kill -0 "$TASK_EMULATOR_PID" 2>/dev/null; then tail -50 .scratch/spaces-prototype/emulator.log; exit 1; fi
+            if [[ "$(timeout 5 adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" == 1 ]]; then TASK_BOOTED=1; break; fi
             sleep 2
           done
-          test "$(adb shell getprop sys.boot_completed | tr -d '\r')" == 1
+          if [[ "$TASK_BOOTED" != 1 ]]; then tail -50 .scratch/spaces-prototype/emulator.log; exit 1; fi
+          timeout 10 adb shell getprop dalvik.vm.heapsize > .scratch/spaces-prototype/runtime-heap.txt
           adb shell input keyevent 82
           adb shell wm size "$PROTOTYPE_SIZE"
           adb shell wm density "$PROTOTYPE_DENSITY"
