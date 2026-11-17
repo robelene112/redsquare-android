@@ -1,0 +1,13 @@
+2026-11-17T00:57:06.9301488Z ERROR: null root node returned by UiTestAutomationBridge.
+2026-11-17T00:57:07.2007290Z cat: /sdcard/feed-check.xml: No such file or directory
+2026-11-17T00:57:07.5204600Z Traceback (most recent call last):
+2026-11-17T00:57:07.5205546Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/feed-device-check", line 30, in <module>
+2026-11-17T00:57:07.5206166Z     xml = adb("shell", "cat", "/sdcard/feed-check.xml")
+2026-11-17T00:57:07.5206918Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/feed-device-check", line 14, in adb
+2026-11-17T00:57:07.5207644Z     return subprocess.check_output(["adb", *arguments], text=True, timeout=60)
+2026-11-17T00:57:07.5208164Z   File "/usr/lib/python3.10/subprocess.py", line 421, in check_output
+2026-11-17T00:57:07.5208646Z     return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+2026-11-17T00:57:07.5217560Z   File "/usr/lib/python3.10/subprocess.py", line 526, in run
+2026-11-17T00:57:07.5218168Z     raise CalledProcessError(retcode, process.args,
+2026-11-17T00:57:07.5218920Z subprocess.CalledProcessError: Command '['adb', 'shell', 'cat', '/sdcard/feed-check.xml']' returned non-zero exit status 1.
+2026-11-17T00:57:07.5328815Z ##[error]Process completed with exit code 1.

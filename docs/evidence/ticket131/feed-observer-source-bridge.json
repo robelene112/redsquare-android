@@ -1,0 +1,27 @@
+{
+  "signedProductSource": "9513495d367ff55c83afb155c070560005816789",
+  "fixtureSource": "8a80d99bf24432d212f7ef88e1405b2f9fe9b788",
+  "candidateVersion": 139,
+  "candidateSha256": "a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3",
+  "excludedEvidenceDirectory": "docs/evidence/ticket131/",
+  "onlyOtherChangedPaths": [
+    "scripts/feed-device-check"
+  ],
+  "identicalEntries": 228765,
+  "canonicalLfEntryFormat": "Git mode type object TAB path LF, sorted by path, excluding only scripts/feed-device-check and ticket131 evidence documentation",
+  "identicalEntriesSha256": "7834a4010454e70af6d0429d2c7f44b2151667d26b860d81505079c1a587ff60",
+  "observer": {
+    "path": "scripts/feed-device-check",
+    "originalSha256": "2dd9edc1e8f5329cdf12bf67996be4282101e49face66c355e676fde3b0da92c",
+    "fixtureSha256": "cacdeb6eecc3761908e8b5b6a5f39125a3968946ab385b3f8797e78310a93fd1",
+    "originalDeadlineSeconds": 30,
+    "originalPredicateUnchanged": true,
+    "singleForceStopAndColdLaunch": true,
+    "onlyExplicitExitZeroNullRootIsPending": true
+  },
+  "perSdk": {
+    "10": "Requires fresh corrected complete all-three-part parent at separately frozen observer profile; failed43983497246 rejected entirely.",
+    "17": "Original43983501451 remains at exact951 and unchanged Talk profile; only whole-parent success plus independent complete acceptance can qualify."
+  },
+  "qualification": "Observer-only correction, no production failure attribution or changed signed product. Exact failed parent/log/PNG preserved; missing originalXML not retrospectively accepted. Host fake-adb proof is mechanism-only, native focused/full and public-delivery acceptance remain required. No successful prefixes, changed assertions, enlarged budgets or app retries. All inherited operational/evidence limitations remain."
+}
