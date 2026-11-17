@@ -2,7 +2,7 @@
 # Build/sign the isolated prototype. Never publishes or modifies the ordinary beta.
 set -euo pipefail
 repo_dir=$(cd -- "$(dirname -- "$0")/../.." && pwd)
-artifact_dir=/home/david/.cache/redsquare-android-artifacts/spaces-planning-20261117/signed-prototype1
+artifact_dir=/home/david/.cache/redsquare-android-artifacts/spaces-prototype2/signed-prototype2
 cache_dir=/mnt/storage/redsquare-android-artifacts/redesign-build-cache
 signing_dir="$HOME/.local/share/redsquare-android/signing"
 [[ -z "$(git -C "$repo_dir" status --porcelain --untracked-files=no)" ]] || { echo 'Commit the reviewed source before signing'; exit 1; }

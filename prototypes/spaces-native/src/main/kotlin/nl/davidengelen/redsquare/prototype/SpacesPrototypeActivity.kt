@@ -177,6 +177,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
             sent.addAll(allowed);queued.removeAll(allowed.toSet())
         }
     }
+    val spaceNavigation = page !in listOf(Page.HOME,Page.DISCOVER,Page.ACTIVITY,Page.PREVIEW,Page.CREATE,Page.BACKUP)
     ModalNavigationDrawer(drawerState=drawer, drawerContent={
         ModalDrawerSheet(Modifier.widthIn(max=340.dp).testTag("channel-switcher")) {
             Column(Modifier.verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement=Arrangement.spacedBy(12.dp)) {
@@ -216,6 +217,27 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                     TextButton(onClick={go(Page.PREVIEW)},contentPadding=PaddingValues(horizontal=8.dp)) { Text("Scenarios",style=MaterialTheme.typography.labelSmall) }
                 }
                 }
+                if(spaceNavigation) {
+                    val largeText=LocalDensity.current.fontScale>1.3f
+                    Column(Modifier.fillMaxWidth().testTag("space-navigation").padding(bottom=8.dp),
+                        verticalArrangement=Arrangement.spacedBy(4.dp)) {
+                        Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,
+                            horizontalArrangement=Arrangement.spacedBy(12.dp)) {
+                            OutlinedButton(onClick={coroutine.launch{drawer.open()}},
+                                modifier=Modifier.heightIn(min=48.dp).testTag("channels-menu").semantics{contentDescription="Switch Space or channel"},
+                                shape=RoundedCornerShape(14.dp),contentPadding=PaddingValues(horizontal=12.dp,vertical=8.dp)) {
+                                Glyph(R.drawable.ic_spaces_channels,20)
+                                Spacer(Modifier.width(8.dp))
+                                Text("Channels",style=MaterialTheme.typography.labelLarge)
+                            }
+                            if(!largeText) Text(space,Modifier.weight(1f),maxLines=2,overflow=TextOverflow.Ellipsis,
+                                style=MaterialTheme.typography.labelLarge,color=MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                        if(largeText) Text(space,Modifier.fillMaxWidth(),maxLines=2,overflow=TextOverflow.Ellipsis,
+                            style=MaterialTheme.typography.labelLarge,color=MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                    HorizontalDivider()
+                }
             }
         }, bottomBar={
             Column(Modifier.navigationBarsPadding().imePadding()) {
@@ -244,10 +266,8 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                     Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                         if(page !in listOf(Page.HOME,Page.DISCOVER,Page.ACTIVITY)) IconButton(onClick={back()}) { Glyph(R.drawable.ic_back,label="Back") }
                         Column(Modifier.weight(1f)) {
-                            if(!imeVisible && page in listOf(Page.CHAT,Page.ANNOUNCEMENTS,Page.ARTICLES,Page.FILES,Page.ROOM,Page.THREAD)) Text(space,maxLines=1,overflow=TextOverflow.Ellipsis,style=MaterialTheme.typography.labelMedium,color=MaterialTheme.colorScheme.onSurfaceVariant)
                             Text(when(page) { Page.HOME->"Your people. Your spaces."; Page.DISCOVER->"Discover"; Page.CHAT->channel; Page.THREAD->"Replies"; Page.ROOM->"the lounge"; else->page.name.lowercase().replaceFirstChar{it.uppercase()} },style=if(imeVisible) MaterialTheme.typography.titleMedium else MaterialTheme.typography.headlineSmall,modifier=Modifier.semantics{heading()})
                         }
-                        if(page in listOf(Page.CHAT,Page.ARTICLES,Page.FILES,Page.ANNOUNCEMENTS,Page.ROOM)) IconButton(onClick={coroutine.launch { drawer.open() }}) { Glyph(R.drawable.ic_spaces_channels,label="Switch Space or channel") }
                         if(page==Page.CHAT && LocalDensity.current.fontScale<=1.3f && !imeVisible) IconButton(onClick={go(Page.INFO)}) { Glyph(R.drawable.ic_info,label="Space information") }
                     }
                 }

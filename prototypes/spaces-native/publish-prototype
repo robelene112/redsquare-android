@@ -10,7 +10,7 @@ import subprocess
 import tempfile
 import xml.etree.ElementTree as ET
 
-artifact=Path('/home/david/.cache/redsquare-android-artifacts/spaces-planning-20261117/signed-prototype1')
+artifact=Path('/home/david/.cache/redsquare-android-artifacts/spaces-prototype2/signed-prototype2')
 metadata=json.loads((artifact/'manifest.json').read_text())
 apk=artifact/'spaces-prototype.apk'
 assert hashlib.sha256(apk.read_bytes()).hexdigest()==metadata['sha256']
@@ -21,7 +21,7 @@ assert cert==metadata['certificateSha256']==(Path.home()/'.local/share/redsquare
 manifest=ET.fromstring(subprocess.check_output(command+['apkanalyzer','manifest','print','/artifacts/spaces-prototype.apk'],text=True))
 a='{http://schemas.android.com/apk/res/android}'
 assert manifest.get('package')==metadata['applicationId']=='nl.davidengelen.redsquare.spaces.prototype'
-assert int(manifest.get(a+'versionCode'))==metadata['versionCode']==1
+assert int(manifest.get(a+'versionCode'))==metadata['versionCode']==2
 internal=manifest.get('package')+'.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'
 assert all(e.get(a+'name')==internal for e in manifest.findall('uses-permission'))
 assert any(e.get(a+'name')==internal and e.get(a+'protectionLevel') in ('signature','0x2','2') for e in manifest.findall('permission'))
@@ -29,14 +29,15 @@ assert manifest.find('application').get(a+'debuggable','false')=='false'
 site=Path('/home/david/projects/docker/website/html/redsquare')
 # Preserve the ordinary beta metadata byte for byte. Only the dedicated prototype subtree is writable here.
 beta_before=(site/'latest.json').read_bytes()
+beta_page_before=(site/'index.html').read_bytes()
 destination=site/'spaces-prototype'
 releases=destination/'releases'
 releases.mkdir(parents=True,exist_ok=True)
 # Publication may inherit a private umask; only these public asset directories need traversal.
 destination.chmod(0o755)
 releases.chmod(0o755)
-release=releases/'1'
-public={**metadata,'apkUrl':'https://davidengelen.nl/redsquare/spaces-prototype/releases/1/spaces-prototype.apk'}
+release=releases/'2'
+public={**metadata,'apkUrl':'https://davidengelen.nl/redsquare/spaces-prototype/releases/2/spaces-prototype.apk'}
 if release.exists():
     assert json.loads((release/'manifest.json').read_text())==public
     assert hashlib.sha256((release/'spaces-prototype.apk').read_bytes()).hexdigest()==public['sha256']
@@ -53,9 +54,10 @@ else:
         if stage.exists(): shutil.rmtree(stage)
 page='''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><title>Spaces · Native Android prototype</title><style>
 *{box-sizing:border-box}body{margin:0;background:#101216;color:#f0f1f5;font:16px/1.6 system-ui,sans-serif}main{max-width:640px;margin:auto;padding:64px 24px}small{color:#ff8297}h1{font-size:clamp(34px,8vw,52px);line-height:1.12;letter-spacing:-1.5px;margin:20px 0}p,li{color:#bbc4d2}section{background:#191d24;border:1px solid #2b323c;border-radius:24px;padding:24px;margin:28px 0}a{color:#ff9daf}a.download{display:block;text-align:center;background:#ff8297;color:#3c0010;text-decoration:none;font-weight:650;padding:16px;border-radius:16px;margin:20px 0}code{font-size:12px;overflow-wrap:anywhere}nav{display:flex;gap:20px;flex-wrap:wrap}footer{font-size:13px;color:#9da8b9;margin-top:32px}@media(prefers-color-scheme:light){body{background:#fafbfd;color:#171c25}section{background:#f0f2f7;border-color:#dde2ec}p,li{color:#5c687a}a{color:#bd2645}}
-</style><main><small>SAITO SPACES · DESIGN PREVIEW</small><h1>A place for your<br>people to belong.</h1><p>Explore the native Android design for Spaces: conversations, shared writing, files and community rooms.</p><section><strong>Spaces Prototype 1</strong><p>Installs alongside your ordinary Red Square beta as a separate app. Uses example data only; messages, storage, encryption and calls are simulated.</p><a class="download" href="releases/1/spaces-prototype.apk">Download Android prototype · SIZE MB</a><ol><li>Download the APK. If Android asks, allow your browser to install apps.</li><li>Install and open <strong>Spaces Prototype</strong>.</li><li>Explore the communities. Tap <strong>Scenarios</strong> to change role, connection state or appearance.</li></ol><p>Android 10 or newer. No wallet import, network, microphone or camera permission is needed.</p></section><nav><a href="https://github.com/robelene112/redsquare-android/issues/134">Specification</a><a href="https://github.com/robelene112/redsquare-android/blob/codex/unified-redesign/docs/quality/SPACES_QUALITY_PLAN.md">Quality plan</a><a href="../">Ordinary beta</a></nav><footer>SHA256<br><code>CHECKSUM</code><p>This is a design study for feedback, not a functioning Spaces release. Existing beta data stays in the ordinary app.</p></footer></main></html>'''.replace('SIZE',f'{public["bytes"]/1000000:.1f}').replace('CHECKSUM',public['sha256'])
+</style><main><small>SAITO SPACES · DESIGN PREVIEW</small><h1>A place for your<br>people to belong.</h1><p>Explore the native Android design for Spaces: conversations, shared writing, files and community rooms.</p><section><strong>Spaces Prototype 2</strong><p>New: the Channels button now sits on the left in a fixed Space bar, within reach while you scroll.</p><p>Installs alongside your ordinary Red Square beta as a separate app. Uses example data only; messages, storage, encryption and calls are simulated.</p><a class="download" href="releases/2/spaces-prototype.apk">Download Android prototype · SIZE MB</a><ol><li>Download the APK. If Android asks, allow your browser to install apps.</li><li>Install and open <strong>Spaces Prototype</strong>.</li><li>Explore the communities. Tap <strong>Scenarios</strong> to change role, connection state or appearance.</li></ol><p>Android 10 or newer. No wallet import, network, microphone or camera permission is needed.</p></section><nav><a href="https://github.com/robelene112/redsquare-android/issues/134">Specification</a><a href="https://github.com/robelene112/redsquare-android/blob/codex/unified-redesign/docs/quality/SPACES_QUALITY_PLAN.md">Quality plan</a><a href="../">Ordinary beta</a></nav><footer>SHA256<br><code>CHECKSUM</code><p>This is a design study for feedback, not a functioning Spaces release. Existing beta data stays in the ordinary app.</p></footer></main></html>'''.replace('SIZE',f'{public["bytes"]/1000000:.1f}').replace('CHECKSUM',public['sha256'])
 with tempfile.NamedTemporaryFile('w',dir=destination,prefix='.index-',delete=False) as output:
     output.write(page);output.flush();os.fsync(output.fileno());temporary=Path(output.name)
 temporary.chmod(0o644);temporary.replace(destination/'index.html')
 assert (site/'latest.json').read_bytes()==beta_before
+assert (site/'index.html').read_bytes()==beta_page_before
 print('Published https://davidengelen.nl/redsquare/spaces-prototype/')

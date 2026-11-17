@@ -14,6 +14,7 @@ import androidx.test.uiautomator.UiDevice
 class SpacesPrototypeTest {
     @get:Rule val ui = createAndroidComposeRule<SpacesPrototypeActivity>()
     private fun content(label:String,substring:Boolean=false)=ui.onNode(hasText(label,substring=substring) and hasAnyAncestor(hasTestTag("prototype-content")))
+    private fun spaceName(label:String)=ui.onNode(hasText(label) and hasAnyAncestor(hasTestTag("space-navigation")))
     private fun drawerText(label:String)=ui.onNode(hasText(label) and hasAnyAncestor(hasTestTag("channel-switcher")))
     private fun nav(label:String) {ui.waitUntil(5_000){ui.onAllNodesWithText(label).fetchSemanticsNodes().isNotEmpty()};ui.onNodeWithText(label).performClick()}
     @Before fun verifyActualViewport() {
@@ -42,6 +43,15 @@ class SpacesPrototypeTest {
         click("Independent Voices")
         content("general").assertExists()
         shot("02-chat")
+        val menuBefore=ui.onNodeWithTag("channels-menu").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+        ui.onNodeWithTag("prototype-content").performScrollToNode(hasText("Could we do a community call this evening? The lounge is ready."))
+        val menuAfter=ui.onNodeWithTag("channels-menu").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+        assertEquals(menuBefore,menuAfter)
+        check(menuAfter.center.x < ui.onRoot().fetchSemanticsNode().boundsInRoot.center.x)
+        shot("30-pinned-channels-after-scroll")
+        ui.onNodeWithContentDescription("Switch Space or channel").performClick()
+        drawerText("general").performScrollTo().performClick()
+        shot("31-left-channels-drawer-return")
         click("3 replies")
         ui.onNodeWithText("Replies").assertExists()
         shot("03-thread")
@@ -119,9 +129,9 @@ class SpacesPrototypeTest {
         content("general").assertExists()
         ui.onNodeWithContentDescription("Switch Space or channel").performClick()
         drawerText("Saito Builders").performScrollTo().performClick()
-        content("Saito Builders").assertExists()
+        spaceName("Saito Builders").assertExists()
         ui.onNodeWithContentDescription("Back").performClick()
-        content("Independent Voices").assertExists()
+        spaceName("Independent Voices").assertExists()
         content("general").assertExists()
         shot("22-back-restores-destination")
     }
@@ -177,7 +187,7 @@ class SpacesPrototypeTest {
         ui.onNodeWithTag("prototype-content").performScrollToNode(hasText("Return to existing call"))
         ui.onNodeWithText("Return to existing call").assertExists();shot("28-another-room")
         ui.onNodeWithText("Return to existing call").performClick()
-        content("Saito Builders").assertDoesNotExist()
+        spaceName("Saito Builders").assertDoesNotExist()
         ui.onNodeWithTag("prototype-content").performScrollToNode(hasText("You're in the lounge"))
         ui.onNodeWithText("You're in the lounge").assertExists()
     }
