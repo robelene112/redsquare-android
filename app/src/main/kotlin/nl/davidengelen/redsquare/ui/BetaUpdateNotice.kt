@@ -19,6 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import nl.davidengelen.redsquare.R
 import androidx.compose.ui.unit.dp
 
@@ -31,7 +34,8 @@ internal fun BetaUpdateNotice(visible: Boolean, onOpen: () -> Unit) {
         exit = shrinkVertically(tween(AppSpacing.transitionMillis), shrinkTowards = Alignment.Top) +
             fadeOut(tween(AppSpacing.transitionMillis))) {
         Surface(onClick = onOpen,
-            modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)
+            modifier = Modifier.fillMaxWidth().semantics { role = Role.Button }
+                .padding(horizontal = AppSpacing.screen)
                 .padding(bottom = AppSpacing.small),
             shape = RoundedCornerShape(AppSpacing.cardRadius),
             color = MaterialTheme.colorScheme.surfaceContainerLow,
