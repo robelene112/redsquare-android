@@ -1,0 +1,14 @@
+{
+  "qualification": "Review invocation error only. Rejected before native evidence validation by the inherited output-label regex. Not a native failure or acceptance. Traceback copied from the original tool result, not a new execution.",
+  "script": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket131/verify-qualified-catalog.py",
+  "arguments": {
+    "sdk": "17",
+    "raw": "/home/david/.cache/redsquare-android-artifacts/integrated131/full131/raw-43983501451",
+    "run": "43983501451",
+    "source": "9513495d367ff55c83afb155c070560005816789",
+    "label": "Absolute temporary path from tempfile.TemporaryDirectory(prefix=\"standards13917-\",dir=\"/mnt/storage/redsquare-android-artifacts\") plus /qualification. Exact generated basename was not recorded and is not reconstructed."
+  },
+  "exitCode": 1,
+  "originalToolResultTraceback": "Traceback (most recent call last):\n  File \"/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket131/verify-qualified-catalog.py\", line 138, in <module>\n    exec(compile(text, str(original) + \":qualified-catalog-assessment\", \"exec\"),\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n         dict(__file__=str(adapter), __name__=\"__main__\", qualify_catalog=qualify_catalog,\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n              run_qualified_inherited=run_qualified_inherited))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket131/verify-full.py:qualified-catalog-assessment\", line 147, in <module>\n  File \"/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket131/verify-qualified-catalog.py\", line 119, in run_qualified_inherited\n    exec(compile(text, filename + \":qualified-catalog-emission\", \"exec\"), namespace)\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket115/verify-qualified-full.py:explicit131-additive-adaptation:qualified-catalog-emission\", line 21, in <module>\nAssertionError\n",
+  "subsequentIndependentReview": "Fresh standard label passed; all nine regenerated packet files were byte-identical to the supplied packet and reviewer temporary output was removed."
+}

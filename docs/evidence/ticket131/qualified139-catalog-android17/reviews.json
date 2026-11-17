@@ -1,0 +1,39 @@
+{
+  "result": "ACCEPT_COMPLETE_SDK17_WITH_EXPLICIT_CATALOG_AND_INHERITED_QUALIFICATIONS",
+  "run": 43983501451,
+  "nativeSource": "9513495d367ff55c83afb155c070560005816789",
+  "qualifiedAssessorCommit": "ac7554eaedaaf7c6ea1a1503cd134539c01b5ecd",
+  "qualifiedAssessorSha256": "aad2e4279a3cb4c1fca53a555fab7a914ec8baeb1fd5e95b2425433e8bb9ff22",
+  "spec": {
+    "reviewer": "/root/release139_spec",
+    "findings": 0,
+    "originalZipFiles": 1787,
+    "indexedOriginals": 1628,
+    "physicalArchives": 274,
+    "regularTarMembers": 13138,
+    "aliasedMembers": 450,
+    "zeroExitReceipts": 267
+  },
+  "standards": {
+    "reviewer": "/root/release139_standards",
+    "findings": 0,
+    "originalZipFiles": 1787,
+    "indexedOriginals": 1628,
+    "physicalArchives": 274,
+    "aliasedMembers": 450,
+    "independentUnchangedQualifiedReplay": "PASS",
+    "regeneratedPacketFilesByteExact": 9
+  },
+  "observedIdentities": 902,
+  "terminalIdentities": 889,
+  "intentionalStarts": 13,
+  "classes": 344,
+  "normalCompletions": 386,
+  "deliberateInterruptions": 52,
+  "continuityRecords": 51,
+  "logicalArchiveRequirements": 283,
+  "coreTestsPerPartition": 230,
+  "frozenAdapterPassed": false,
+  "reviewInvocationObservation": "Standards absolute-output-label invocation rejected before validation. Exact available trace/context retained separately; no native failure or acceptance and no native rerun. Unknown random basename remains explicitly unknown.",
+  "qualification": "One successful complete exact951 parent/all3 partitions, all original remaining validators accepted with separately pinned posthoc catalog erratum; no fabricated archive or successful-prefix assembly. Retain original frozenFAIL, 13-start classification,126 queue-counting qualification, inherited unavailable Chat archive/missingpublicfailurecaptures and Talk17 immediate capture limitation. SDK10, signed/public delivery and physical/OEM/live/provider/Play gates remain separately qualified."
+}

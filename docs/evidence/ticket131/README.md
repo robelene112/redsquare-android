@@ -34,8 +34,8 @@ Current complete inputs are `source-profile-talk-interruption.json` and
 `verify-full-talk-interruption.py`, reviewed/frozen at9513495d before dispatch.
 Fresh ordinary whole10/17 runs43983497246/43983501451 started only after both
 focused reviews passed and retain every original goal/public read. Original10 is
-subsequently rejected for the cold-feed observer abort below;17 remains pending
-at its exact original951 source/profile.
+subsequently rejected for the cold-feed observer abort below;17 succeeds and
+passes independent qualified evidence review at its exact original951 inputs.
 
 Signed139 is staged only at951: SHA256a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3,
 94,282,272bytes, established certificate, ordinary nondebug/nonprofileable,
@@ -95,7 +95,9 @@ goal or deadline changes, and the frozen collector is not claimed to pass.
 A separately pinned posthoc assessor/erratum corrects only those source-proven
 representations, requires per-alias member witnesses and executes all remaining
 original validators unchanged. Its first emitted result must identify its own
-committed bytes and the frozen failure. Reporter implementation/qualified native
+committed bytes and the frozen failure. Both source reviews accept the corrected reporter, and both complete17 evidence
+reviews accept its actual result with the explicit catalog qualification. See
+[complete17 acceptance](qualified139-catalog-android17/README.md). Corrected10
 and public delivery acceptance remain pending. Original inputs remain immutable;
 SDK17 stays951 and fresh SDK10 stayse72. No prefixes or fabricated archives.
 
