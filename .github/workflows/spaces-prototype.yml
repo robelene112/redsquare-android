@@ -75,7 +75,7 @@ jobs:
           timeout 30 adb logcat -d > .scratch/spaces-prototype/logcat.txt || true
           timeout 60 adb pull /sdcard/Android/data/nl.davidengelen.redsquare.spaces.prototype/files/prototype-evidence .scratch/spaces-prototype/ || true
           test "$TASK_TEST_EXIT" == 0
-          grep -q 'OK (6 tests)' .scratch/spaces-prototype/instrumentation.txt
+          grep -q 'OK (11 tests)' .scratch/spaces-prototype/instrumentation.txt
           ! grep -Eq 'FAILURES|INSTRUMENTATION_FAILED|Process crashed' .scratch/spaces-prototype/instrumentation.txt
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         if: always()

@@ -64,8 +64,8 @@ class SpacesPrototypeActivity : ComponentActivity() {
 private enum class Page { HOME, DISCOVER, ACTIVITY, CHAT, THREAD, ANNOUNCEMENTS, ARTICLES, ARTICLE, EDITOR, REVIEW,
     FILES, FILE, ROOM, CALL, MEMBERS, INFO, SETTINGS, INVITE, RULES, CREATE, REPORTS, LOG, BACKUP, PREVIEW }
 private data class ChatRow(val id: Int, val name: String, val time: String, val body: String, val replies: Int = 0, val own: Boolean = false)
-private data class Destination(val page:Page,val space:String,val channel:String,val message:ChatRow,val article:Int)
-private data class PreviewMessage(val id:Int,val scope:String,val text:String)
+private data class Destination(val page:Page,val space:String,val channel:String,val message:ChatRow,val article:Int,val file:Int)
+private data class PreviewMessage(val id:Int,val space:String,val channel:String,val thread:Int?,val text:String) {val scope get()="$space:$channel"+thread?.let{":thread:$it"}.orEmpty()}
 private val seeds = listOf(
     ChatRow(1,"Maya Chen","10:24","A small corner of the open web. Welcome to Independent Voices.",3),
     ChatRow(2,"Alex Morgan","10:26","I love that our conversations, articles and shared resources finally live together.",2,true),
@@ -109,8 +109,13 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     val articleKey="$space:$selectedArticle"
     val article=articleDrafts[articleKey]?:TextFieldValue(publishedArticles[articleKey]?:articleSamples[selectedArticle])
     var selectedFile by remember { mutableStateOf(1) }
+    val lastPlaces=remember{mutableStateMapOf<String,Pair<Page,String>>()}
+    val positions=remember { mutableMapOf<String,LazyListState>() }
+    var lastSendScope by remember {mutableStateOf("")}
+    var sendSequence by remember {mutableIntStateOf(0)}
     val filenames=listOf("Community handbook.pdf","Design resources.zip","Friday reading list.md")
     var selectedMessage by remember { mutableStateOf(seeds.first()) }
+    var actionMessage by remember {mutableStateOf(seeds.first())}
     val drafts = remember { mutableStateMapOf<String,String>() }
     val queued = remember { mutableStateListOf<PreviewMessage>() }
     val sent = remember { mutableStateListOf<PreviewMessage>() }
@@ -134,6 +139,12 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
         if(role=="Visitor" || memberships[callSpace]==false || scenario=="Access denied") {activeCall=false;mic=false;camera=false}
         if(scenario=="Timeout" || archives["$callSpace:$callChannel"]==true) {mic=false;camera=false}
     }
+    val imeVisible=WindowInsets.ime.getBottom(LocalDensity.current)>0
+    val inThisRoom=activeCall && callSpace==space && callChannel==channel
+    LaunchedEffect(space,channel,page) {
+        val parent=when(page){Page.CHAT,Page.THREAD->Page.CHAT;Page.ARTICLES,Page.ARTICLE,Page.EDITOR,Page.REVIEW->Page.ARTICLES;Page.FILES,Page.FILE->Page.FILES;Page.ROOM,Page.CALL->Page.ROOM;Page.ANNOUNCEMENTS->Page.ANNOUNCEMENTS;else->null}
+        if(parent!=null) lastPlaces[space]=parent to channel
+    }
     val admin = role == "Owner" || role == "Admin"
     val outsider = role == "Visitor" || !member
     val denied = scenario == "Access denied" || (channel == "team room" && !admin) || (privateSpace && outsider)
@@ -141,23 +152,26 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     val draftKey = if(page == Page.THREAD) "$scoped:thread:${selectedMessage.id}" else scoped
     val input = drafts[draftKey].orEmpty()
     val canWrite = !outsider && !denied && !archived && scenario != "Timeout"
-    fun go(target:Page,newSpace:String=space,newChannel:String=channel,message:ChatRow=selectedMessage,articleId:Int=selectedArticle) {
-        if(page!=target || space!=newSpace || channel!=newChannel || selectedMessage!=message || selectedArticle!=articleId) {
-            history.add(Destination(page,space,channel,selectedMessage,selectedArticle))
-            page=target;space=newSpace;channel=newChannel;selectedMessage=message;selectedArticle=articleId
+    fun go(target:Page,newSpace:String=space,newChannel:String=channel,message:ChatRow=selectedMessage,articleId:Int=selectedArticle,fileId:Int=selectedFile) {
+        if(page!=target || space!=newSpace || channel!=newChannel || selectedMessage!=message || selectedArticle!=articleId || selectedFile!=fileId) {
+            history.add(Destination(page,space,channel,selectedMessage,selectedArticle,selectedFile))
+            page=target;space=newSpace;channel=newChannel;selectedMessage=message;selectedArticle=articleId;selectedFile=fileId
         }
     }
-    fun back() { if(history.isNotEmpty()) {val prior=history.removeAt(history.lastIndex);page=prior.page;space=prior.space;channel=prior.channel;selectedMessage=prior.message;selectedArticle=prior.article} else page=Page.HOME }
+    fun back() { if(history.isNotEmpty()) {val prior=history.removeAt(history.lastIndex);page=prior.page;space=prior.space;channel=prior.channel;selectedMessage=prior.message;selectedArticle=prior.article;selectedFile=prior.file} else page=Page.HOME }
     BackHandler(page != Page.HOME || drawer.isOpen) { if(drawer.isOpen) coroutine.launch { drawer.close() } else back() }
-    LaunchedEffect(scenario) {
-        if(scenario == "Normal") { sent.addAll(queued); queued.clear() }
+    LaunchedEffect(scenario,role,memberships.toMap(),archives.toMap()) {
+        if(scenario == "Normal" && role!="Visitor") {
+            val allowed=queued.filter{memberships[it.space]!=false && archives["${it.space}:${it.channel}"]!=true && (it.channel!="team room" || admin)}
+            sent.addAll(allowed);queued.removeAll(allowed.toSet())
+        }
     }
     ModalNavigationDrawer(drawerState=drawer, drawerContent={
         ModalDrawerSheet(Modifier.widthIn(max=340.dp)) {
             Column(Modifier.verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement=Arrangement.spacedBy(12.dp)) {
                 Text("Your communities",style=MaterialTheme.typography.titleLarge)
                 communityNames.forEach { name ->
-                    CommunityRow(name, if(name == space) "Current Space" else "Open community", name == space) { go(Page.CHAT,newSpace=name,newChannel="general") }
+                    CommunityRow(name, if(name == space) "Current Space" else "Open community", name == space) { val place=lastPlaces[name]?: (Page.CHAT to "general");go(place.first,newSpace=name,newChannel=place.second);coroutine.launch{drawer.close()} }
                 }
                 HorizontalDivider(); Text(space,style=MaterialTheme.typography.titleMedium)
                 Text("CONVERSATIONS",style=MaterialTheme.typography.labelSmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
@@ -177,6 +191,8 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     }) {
         Scaffold(containerColor=MaterialTheme.colorScheme.background, topBar={
             Column(Modifier.statusBarsPadding().padding(horizontal=20.dp)) {
+                if(imeVisible) Row(Modifier.fillMaxWidth().heightIn(min=48.dp),verticalAlignment=Alignment.CenterVertically) {Text("Spaces",Modifier.weight(1f),style=MaterialTheme.typography.titleMedium);TextButton(onClick={go(Page.PREVIEW)}){Text("Scenarios")}}
+                else {
                 Row(Modifier.fillMaxWidth().heightIn(min=64.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(12.dp)) {
                     OutlinedButton(onClick={modal="Saito apps"},shape=RoundedCornerShape(14.dp),colors=ButtonDefaults.outlinedButtonColors(contentColor=MaterialTheme.colorScheme.onSurface,containerColor=MaterialTheme.colorScheme.surfaceContainerLow)) {
                         Text("Spaces",style=MaterialTheme.typography.titleLarge); Spacer(Modifier.width(10.dp)); Glyph(R.drawable.ic_chevron_down,18)
@@ -188,28 +204,23 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                     Text("Native design prototype",style=MaterialTheme.typography.labelSmall,color=MaterialTheme.colorScheme.primary,modifier=Modifier.weight(1f))
                     TextButton(onClick={go(Page.PREVIEW)},contentPadding=PaddingValues(horizontal=8.dp)) { Text("Scenarios",style=MaterialTheme.typography.labelSmall) }
                 }
+                }
             }
         }, bottomBar={
             Column(Modifier.navigationBarsPadding().imePadding()) {
                 if(activeCall && page != Page.CALL) Surface(color=MaterialTheme.colorScheme.secondaryContainer) {
                     Row(Modifier.fillMaxWidth().padding(horizontal=12.dp),verticalAlignment=Alignment.CenterVertically) {
-                        TextButton(onClick={go(Page.CALL,newSpace=callSpace,newChannel=callChannel)},modifier=Modifier.weight(1f)) { Glyph(R.drawable.ic_video); Spacer(Modifier.width(8.dp)); Text("the lounge · Preview call") }
+                        TextButton(onClick={go(Page.CALL,newSpace=callSpace,newChannel=callChannel)},modifier=Modifier.weight(1f)) { Glyph(R.drawable.ic_video); Spacer(Modifier.width(8.dp)); Text(if(imeVisible) "Call" else "$callSpace · Preview call") }
                         IconButton(enabled=scenario!="Timeout" && archives["$callSpace:$callChannel"]!=true,onClick={mic=!mic}) { Glyph(if(mic) R.drawable.ic_microphone else R.drawable.ic_microphone_off,label=if(mic) "Mute" else "Unmute") }
                         IconButton(onClick={activeCall=false;mic=false;camera=false}) { Glyph(R.drawable.ic_call_end,label="End preview call") }
                     }
                 }
                 if((page==Page.CHAT || page==Page.THREAD) && !denied) {
-                    queued.filter{it.scope==draftKey}.forEach { pending -> Surface(color=MaterialTheme.colorScheme.surfaceContainerLow) {
-                        Row(Modifier.fillMaxWidth().padding(horizontal=16.dp),verticalAlignment=Alignment.CenterVertically) {
-                            Text("Preview: waiting for connection",Modifier.weight(1f),style=MaterialTheme.typography.bodySmall)
-                            TextButton(onClick={ drafts[draftKey]=listOf(pending.text,drafts[draftKey].orEmpty()).filter{it.isNotBlank()}.joinToString("\n\n"); queued.remove(pending) }) { Text("Cancel") }
-                        }
-                    }}
                     Row(Modifier.fillMaxWidth().padding(horizontal=16.dp,vertical=8.dp),verticalAlignment=Alignment.Bottom,horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                         OutlinedTextField(value=input,onValueChange={drafts[draftKey]=it},enabled=canWrite,
                             placeholder={Text(if(archived) "Archived channel" else if(scenario=="Timeout") "Writing paused until 14:30" else if(outsider) "Join to contribute" else "Message $channel")},
-                            modifier=Modifier.weight(1f),shape=RoundedCornerShape(18.dp),maxLines=4)
-                        FilledIconButton(enabled=canWrite && input.isNotBlank(),onClick={ val message=PreviewMessage(nextMessage++,draftKey,input); if(scenario=="Offline") queued.add(message) else sent.add(message); drafts[draftKey]="" },modifier=Modifier.size(52.dp)) { Glyph(R.drawable.ic_send,label="Send preview message") }
+                            modifier=Modifier.weight(1f),shape=RoundedCornerShape(18.dp),maxLines=if(imeVisible && LocalDensity.current.fontScale>1.3f) 2 else 4)
+                        FilledIconButton(enabled=canWrite && input.isNotBlank(),onClick={ val message=PreviewMessage(nextMessage++,space,channel,if(page==Page.THREAD) selectedMessage.id else null,input); if(scenario=="Offline") queued.add(message) else sent.add(message); drafts[draftKey]="";lastSendScope=draftKey;sendSequence++ },modifier=Modifier.size(52.dp)) { Glyph(R.drawable.ic_send,label="Send preview message") }
                     }
                 }
                 if(WindowInsets.ime.getBottom(androidx.compose.ui.platform.LocalDensity.current)==0) NavigationBar(modifier=Modifier.heightIn(min=if(LocalDensity.current.fontScale>1.3f) 112.dp else 80.dp)) {
@@ -219,15 +230,15 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                 }
             }
         }) { padding ->
-            val positions=remember { mutableMapOf<String,LazyListState>() }
             val position=positions.getOrPut("$scoped:$page") { LazyListState() }
+            LaunchedEffect(sendSequence) {if(sendSequence>0 && lastSendScope==draftKey) {withFrameNanos{};position.animateScrollToItem((position.layoutInfo.totalItemsCount-1).coerceAtLeast(0))}}
             LazyColumn(state=position,modifier=Modifier.fillMaxSize().padding(padding).alpha(transitionAlpha.value).testTag("prototype-content"),contentPadding=PaddingValues(start=20.dp,end=20.dp,top=8.dp,bottom=24.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
                 item("heading") {
                     Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                         if(page !in listOf(Page.HOME,Page.DISCOVER,Page.ACTIVITY)) IconButton(onClick={back()}) { Glyph(R.drawable.ic_back,label="Back") }
                         Column(Modifier.weight(1f)) {
-                            if(page in listOf(Page.CHAT,Page.ANNOUNCEMENTS,Page.ARTICLES,Page.FILES,Page.ROOM,Page.THREAD)) Text(space,style=MaterialTheme.typography.labelMedium,color=MaterialTheme.colorScheme.onSurfaceVariant)
-                            Text(when(page) { Page.HOME->"Your people. Your spaces."; Page.DISCOVER->"Discover"; Page.CHAT->channel; Page.THREAD->"Replies"; Page.ROOM->"the lounge"; else->page.name.lowercase().replaceFirstChar{it.uppercase()} },style=MaterialTheme.typography.headlineSmall,modifier=Modifier.semantics{heading()})
+                            if(!imeVisible && page in listOf(Page.CHAT,Page.ANNOUNCEMENTS,Page.ARTICLES,Page.FILES,Page.ROOM,Page.THREAD)) Text(space,style=MaterialTheme.typography.labelMedium,color=MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(when(page) { Page.HOME->"Your people. Your spaces."; Page.DISCOVER->"Discover"; Page.CHAT->channel; Page.THREAD->"Replies"; Page.ROOM->"the lounge"; else->page.name.lowercase().replaceFirstChar{it.uppercase()} },style=if(imeVisible) MaterialTheme.typography.titleMedium else MaterialTheme.typography.headlineSmall,modifier=Modifier.semantics{heading()})
                         }
                         if(page in listOf(Page.CHAT,Page.ARTICLES,Page.FILES,Page.ANNOUNCEMENTS,Page.ROOM)) IconButton(onClick={coroutine.launch { drawer.open() }}) { Glyph(R.drawable.ic_read_all,label="Switch Space or channel") }
                         if(page==Page.CHAT) IconButton(onClick={go(Page.INFO)}) { Glyph(R.drawable.ic_info,label="Space information") }
@@ -242,13 +253,13 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                     Page.HOME -> {
                         item { Hero("A place to belong.","Conversations with a little more room.\nBuilt around people, not algorithms.") { go(Page.CREATE) } }
                         item { Section("YOUR COMMUNITIES") }
-                        items(communityNames.filter{memberships[it]!=false},key={it}) { name -> CommunityRow(name,if(name=="Independent Voices") "2 mentions · general" else "Open your community",name==space,if(name=="Saito Builders") Color(0xff487e82) else Color(0xffa35b43)) {go(Page.CHAT,newSpace=name,newChannel="general")} }
+                        items(communityNames.filter{memberships[it]!=false},key={it}) { name -> CommunityRow(name,if(name=="Independent Voices") "2 mentions · general" else "Open your community",name==space,if(name=="Saito Builders") Color(0xff487e82) else Color(0xffa35b43)) {val place=lastPlaces[name]?: (Page.CHAT to "general");go(place.first,newSpace=name,newChannel=place.second)} }
                         item { OutlinedButton(onClick={go(Page.CREATE)},modifier=Modifier.fillMaxWidth()) { Glyph(R.drawable.ic_compose); Spacer(Modifier.width(8.dp));Text("Create a Space") } }
                     }
                     Page.DISCOVER -> {
                         item { OutlinedTextField(search,{search=it},placeholder={Text("Find your community")},leadingIcon={Glyph(R.drawable.ic_search)},modifier=Modifier.fillMaxWidth(),singleLine=true) }
                         items(communityNames.filter{it.contains(search,true) && privateSpaces[it]!=true && listings[it]!=false}) { name ->
-                            CommunityRow(name, "Public Space · open conversations",false) {memberships[name]=false;go(Page.INVITE,newSpace=name)}
+                            CommunityRow(name, "Public Space · open conversations",false) {go(Page.INVITE,newSpace=name)}
                         }
                         item { Notice("Public Spaces are discoverable by default. Their owners can turn listing off.") }
                     }
@@ -269,7 +280,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                                 Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(10.dp)) {
                                     Avatar(row.name.split(" ").map{it.first()}.joinToString(""),if(row.own) Color(0xffa35b43) else Color(0xff477c7d),36)
                                     Column(Modifier.weight(1f)) {Text(row.name,style=MaterialTheme.typography.titleMedium); Text(row.time+if(edits.containsKey("$scoped:${row.id}")) " · edited" else "",style=MaterialTheme.typography.labelSmall,color=MaterialTheme.colorScheme.onSurfaceVariant)}
-                                    IconButton(onClick={ selectedMessage=row; modal="Message actions" }) {Glyph(R.drawable.ic_more,label="Message actions for ${row.name}")}
+                                    IconButton(onClick={ actionMessage=row; modal="Message actions" }) {Glyph(R.drawable.ic_more,label="Message actions for ${row.name}")}
                                 }
                                 AnimatedContent(targetState=if(removed.contains("$scoped:${row.id}")) "Message removed" else edits["$scoped:${row.id}"] ?: row.body,transitionSpec={fadeIn(tween(150)) togetherWith fadeOut(tween(100))},label="message-update") { body -> Text(body,style=MaterialTheme.typography.bodyLarge) }
                                 if(!removed.contains("$scoped:${row.id}")) Row(horizontalArrangement=Arrangement.spacedBy(8.dp),verticalAlignment=Alignment.CenterVertically) {
@@ -280,6 +291,12 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                             }
                         }
                         items(sent.filter{it.scope==draftKey},key={"sent:${it.id}"}) { entry -> Panel("You · preview message",entry.text,R.drawable.ic_chat,modifier=Modifier.animateItem()) }
+                        items(queued.filter{it.scope==draftKey},key={"queued:${it.id}"}) { pending ->
+                            Column(Modifier.animateItem(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
+                                Notice("Preview: waiting for connection");Text(pending.text)
+                                TextButton(modifier=Modifier.semantics{contentDescription="Cancel queued message ${pending.id}"},onClick={drafts[draftKey]=listOf(pending.text,drafts[draftKey].orEmpty()).filter{it.isNotBlank()}.joinToString("\n\n");queued.remove(pending)}){Text("Cancel")}
+                            }
+                        }
                         if(page==Page.ANNOUNCEMENTS && admin) item {Action("Write an announcement") {modal="Preview announcement"} }
                     }
                     Page.ARTICLES -> {
@@ -305,7 +322,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                     }
                     Page.FILES -> {
                         item {Panel("Shared library","${if(scenario=="Storage full") "5.0" else "1.8"} GB of 5 GB · ${if(scenario=="Expired") "Expired" else "Renews with owner confirmation"}",R.drawable.ic_vault) {go(Page.SETTINGS)}}
-                        items((1..3).filterNot{removedFiles.contains("$scoped:$it")}) { id -> Panel(filenames[id-1],listOf("Maya Chen · 2.4 MB · Today","Alex Morgan · 18 MB · Yesterday","Sam Rivera · 12 KB · Monday")[id-1],R.drawable.ic_file) {selectedFile=id;selectedMessage=seeds[id-1];go(Page.FILE)} }
+                        items((1..3).filterNot{removedFiles.contains("$scoped:$it")}) { id -> Panel(filenames[id-1],listOf("Maya Chen · 2.4 MB · Today","Alex Morgan · 18 MB · Yesterday","Sam Rivera · 12 KB · Monday")[id-1],R.drawable.ic_file) {go(Page.FILE,fileId=id,message=seeds[id-1])} }
                         if(canWrite) item {Button(onClick={modal="Preview upload"},enabled=scenario!="Storage full" && scenario!="Expired",modifier=Modifier.fillMaxWidth()){Text("Upload a file")}}
                     }
                     Page.FILE -> {
@@ -316,15 +333,15 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                         if(admin || selectedMessage.own) item {TextButton(onClick={modal="Remove shared file"}){Text("Remove from Space",color=MaterialTheme.colorScheme.error)}}
                     }
                     Page.ROOM,Page.CALL -> {
-                        item {Panel(if(activeCall) "You're in the lounge" else "A little room for conversation",if(activeCall) "Simulated call · no media is captured" else "2 people here · join when you're ready",R.drawable.ic_video)}
+                        item {Panel(if(inThisRoom) "You're in the lounge" else "A little room for conversation",if(inThisRoom) "Simulated call · no media is captured" else "2 people here · join when you're ready",R.drawable.ic_video)}
                         item {Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(12.dp)){PersonTile("Maya","MC",Modifier.weight(1f));PersonTile("Sam","SR",Modifier.weight(1f))}}
-                        if(page==Page.ROOM && !activeCall) {
-                            item {Notice("Microphone off. Camera off. Nothing activates before you join.")}
-                            item {Action("Join preview room",canWrite) {mic=false;camera=false;activeCall=true;callSpace=space;callChannel=channel;go(Page.CALL)} }
+                        if(!inThisRoom) {
+                            item {Notice(if(activeCall) "Your call in $callSpace continues. Return to it below." else "Microphone off. Camera off. Nothing activates before you join.")}
+                            item {Action(if(activeCall) "Return to existing call" else "Join preview room",!outsider && !denied && !archived) {if(activeCall) go(Page.CALL,newSpace=callSpace,newChannel=callChannel) else {mic=false;camera=false;activeCall=true;callSpace=space;callChannel=channel;go(Page.CALL)}} }
                         } else {
                             item {PersonTile("You · ${if(camera) "camera preview on" else "camera off"}","AM",Modifier.fillMaxWidth())}
                             item {Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(12.dp)){OutlinedButton(enabled=canWrite,onClick={mic=!mic},modifier=Modifier.weight(1f)){Glyph(if(mic) R.drawable.ic_microphone else R.drawable.ic_microphone_off);Spacer(Modifier.width(6.dp));Text(if(mic) "Mute" else "Unmute")};OutlinedButton(enabled=canWrite,onClick={camera=!camera},modifier=Modifier.weight(1f)){Glyph(if(camera) R.drawable.ic_video else R.drawable.ic_video_off);Spacer(Modifier.width(6.dp));Text(if(camera) "Camera off" else "Camera on")}}}
-                            item {OutlinedButton(onClick={go(Page.CHAT)},modifier=Modifier.fillMaxWidth()){Text("Browse while in the call")}}
+                            item {OutlinedButton(onClick={go(Page.CHAT,newChannel="general")},modifier=Modifier.fillMaxWidth()){Text("Browse while in the call")}}
                             item {Action("Leave preview call") {activeCall=false;mic=false;camera=false;go(Page.ROOM)} }
                         }
                         item {Notice("The channel stays here after everyone leaves. This prototype never requests microphone or camera permission.")}
@@ -401,7 +418,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
         AlertDialog(onDismissRequest={modal=null},title={Text(title)},text={Column(Modifier.verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(8.dp)) {
             when(title) {
                 "Saito apps" -> {Text("The Spaces prototype sits beside your existing Saito modules.");listOf("Red Square","Stack","Saito Talk","Vault","Store","Spaces").forEach { app->TextButton(onClick={detail=if(app=="Spaces") "You are in Spaces." else "$app remains in your ordinary beta. This isolated prototype contains Spaces only."}){Text(app)}};Text(detail)}
-                "Message actions" -> {Text(selectedMessage.body);if(selectedMessage.own || admin) TextButton(onClick={removed.add("$scoped:${selectedMessage.id}");modal=null}){Text("Remove message")};if(selectedMessage.own && canWrite) TextButton(onClick={editMessage=selectedMessage;editText=edits["$scoped:${selectedMessage.id}"]?:selectedMessage.body;modal=null}){Text("Edit message")};TextButton(onClick={modal="Report message"}){Text("Report to administrators")};if(admin) TextButton(onClick={modal="Pinned in preview"}){Text("Pin message")}}
+                "Message actions" -> {Text(actionMessage.body);if(actionMessage.own || admin) TextButton(onClick={removed.add("$scoped:${actionMessage.id}");modal=null}){Text("Remove message")};if(actionMessage.own && canWrite) TextButton(onClick={editMessage=actionMessage;editText=edits["$scoped:${actionMessage.id}"]?:actionMessage.body;modal=null}){Text("Edit message")};TextButton(onClick={modal="Report message"}){Text("Report to administrators")};if(admin) TextButton(onClick={modal="Pinned in preview"}){Text("Pin message")}}
                 "Moderate member" -> {Text("$editText · select a scope for a preview timeout.");var whole by remember{mutableStateOf(false)};Toggle("Whole Space",whole){whole=it};Text("Until 14:30. Reading and listening remain available.");TextButton(onClick={memberTimeouts["$space:$editText"]=if(whole) "the whole Space" else channel;modal="Timeout applied in preview"}){Text("Apply preview timeout")};TextButton(onClick={membersRemoved.add("$space:$editText");modal=null}){Text("Remove member")};TextButton(onClick={membersRemoved.add("$space:$editText");modal=null}){Text("Ban this identity")}}
                 "Report message" -> {Text("Report privately to the owner and administrators.");OutlinedTextField(detail,{detail=it},label={Text("Reason")});TextButton(onClick={modal="Report recorded in preview"}){Text("Submit preview report")}}
                 "Change visibility" -> Text(if(privateSpace) "Make this Space public? Existing private channels and their history stay private." else "Make this Space private? Previously public content may already have been copied.")
