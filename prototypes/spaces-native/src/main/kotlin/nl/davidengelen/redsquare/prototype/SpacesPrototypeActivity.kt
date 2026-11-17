@@ -11,6 +11,9 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -231,11 +234,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                         FilledIconButton(enabled=canWrite && input.isNotBlank(),onClick={ val message=PreviewMessage(nextMessage++,space,channel,if(page==Page.THREAD) selectedMessage.id else null,input); if(scenario=="Offline") queued.add(message) else sent.add(message); drafts[draftKey]="";lastSendScope=draftKey;sendSequence++ },modifier=Modifier.size(52.dp)) { Glyph(R.drawable.ic_send,label="Send preview message") }
                     }
                 }
-                if(WindowInsets.ime.getBottom(androidx.compose.ui.platform.LocalDensity.current)==0) NavigationBar(modifier=Modifier.heightIn(min=if(LocalDensity.current.fontScale>1.3f) 112.dp else 80.dp)) {
-                    listOf(Triple(Page.HOME,"My Spaces",R.drawable.ic_home),Triple(Page.DISCOVER,"Discover",R.drawable.ic_globe),Triple(Page.ACTIVITY,"Activity",R.drawable.ic_notifications)).forEach { (target,label,icon) ->
-                        NavigationBarItem(selected=page==target,onClick={go(target)},icon={Glyph(icon)},label={Text(label,maxLines=2,style=MaterialTheme.typography.labelSmall)})
-                    }
-                }
+                if(!imeVisible) SpacesBottomBar(page) {go(it)}
             }
         }) { padding ->
             val position=positions.getOrPut("$scoped:$page") { LazyListState() }
@@ -449,7 +448,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     editMessage?.let { row -> AlertDialog(onDismissRequest={editMessage=null},title={Text("Edit message")},text={OutlinedTextField(editText,{editText=it})},confirmButton={TextButton(onClick={if(canWrite) edits["$scoped:${row.id}"]=editText;editMessage=null}){Text("Save edit")}},dismissButton={TextButton(onClick={editMessage=null}){Text("Cancel")}}) }
 }
 @Composable private fun Glyph(id:Int,size:Int=22,label:String?=null) { Icon(painterResource(id),label,Modifier.size(size.dp)) }
-@Composable private fun Avatar(initials:String,color:Color,size:Int=44) { Box(Modifier.size(size.dp).background(color,CircleShape),contentAlignment=Alignment.Center){Text(initials,color=Color.White,fontWeight=FontWeight.SemiBold)} }
+@Composable private fun Avatar(initials:String,color:Color,size:Int=44) { Box(Modifier.size(size.dp).background(color,CircleShape),contentAlignment=Alignment.Center){Text(initials,color=Color.White,fontWeight=FontWeight.SemiBold,fontSize=(size*0.36f/LocalDensity.current.fontScale).sp,lineHeight=(size*0.4f/LocalDensity.current.fontScale).sp,maxLines=1,textAlign=TextAlign.Center)} }
 @Composable private fun Section(text:String) {Text(text,style=MaterialTheme.typography.labelMedium,color=MaterialTheme.colorScheme.onSurfaceVariant,modifier=Modifier.padding(bottom=8.dp))}
 @Composable private fun Notice(text:String) { Surface(color=MaterialTheme.colorScheme.surfaceContainerLow,shape=RoundedCornerShape(12.dp)) {Text(text,Modifier.fillMaxWidth().padding(14.dp),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)} }
 @Composable private fun Action(label:String,enabled:Boolean=true,click:()->Unit) {Button(onClick=click,enabled=enabled,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp),shape=RoundedCornerShape(16.dp),contentPadding=PaddingValues(horizontal=16.dp,vertical=12.dp)){Text(label)}}
@@ -461,7 +460,11 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
 }
 @Composable private fun CommunityRow(name:String,summary:String,current:Boolean,color:Color=Color(0xffa35b43),click:()->Unit) {
     Surface(onClick=click,color=MaterialTheme.colorScheme.surfaceContainerLow,shape=RoundedCornerShape(18.dp)) {
-        Row(Modifier.fillMaxWidth().padding(16.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(14.dp)){
+        if(LocalDensity.current.fontScale>1.3f) Column(Modifier.fillMaxWidth().padding(16.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
+            Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically){Avatar(name.split(" ").take(2).map{it.firstOrNull()?:'S'}.joinToString(""),color);Spacer(Modifier.weight(1f));if(current) Badge{Text("2")} else Glyph(R.drawable.ic_forward,18)}
+            Text(name,style=MaterialTheme.typography.titleMedium)
+            Text(summary,style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
+        } else Row(Modifier.fillMaxWidth().padding(16.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(14.dp)){
             Avatar(name.split(" ").take(2).map{it.firstOrNull()?:'S'}.joinToString(""),color)
             Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(4.dp)){Text(name,style=MaterialTheme.typography.titleMedium);Text(summary,style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)}
             if(current) Badge{Text("2")} else Glyph(R.drawable.ic_forward,18)
@@ -493,5 +496,19 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
             RichTextEditor(rich,modifier=Modifier.fillMaxWidth().heightIn(min=280.dp).semantics{contentDescription="Article body"},minLines=8,
                 colors=RichTextEditorDefaults.richTextEditorColors(textColor=MaterialTheme.colorScheme.onSurface,containerColor=Color.Transparent,cursorColor=MaterialTheme.colorScheme.primary),textStyle=MaterialTheme.typography.bodyLarge)
         }
+    }
+}
+
+@Composable private fun SpacesBottomBar(page:Page,onSelect:(Page)->Unit) {
+    val entries=listOf(Triple(Page.HOME,"My Spaces",R.drawable.ic_home),Triple(Page.DISCOVER,"Discover",R.drawable.ic_globe),Triple(Page.ACTIVITY,"Activity",R.drawable.ic_notifications))
+    val active=when(page){Page.DISCOVER->Page.DISCOVER;Page.ACTIVITY->Page.ACTIVITY;else->Page.HOME}
+    if(LocalDensity.current.fontScale<=1.3f) NavigationBar {entries.forEach{(target,label,icon)->NavigationBarItem(selected=active==target,onClick={onSelect(target)},icon={Glyph(icon)},label={Text(label,style=MaterialTheme.typography.labelSmall)})}}
+    else Surface(color=MaterialTheme.colorScheme.surfaceContainerLow) {
+        Row(Modifier.fillMaxWidth()) {entries.forEach{(target,label,icon)->
+            Column(Modifier.weight(1f).selectable(selected=active==target,role=Role.Tab,onClick={onSelect(target)}).padding(horizontal=4.dp,vertical=8.dp),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(6.dp)) {
+                Surface(shape=RoundedCornerShape(24.dp),color=if(active==target) MaterialTheme.colorScheme.secondaryContainer else Color.Transparent){Box(Modifier.size(width=56.dp,height=32.dp),contentAlignment=Alignment.Center){Glyph(icon)}}
+                Box(Modifier.fillMaxWidth().heightIn(min=64.dp),contentAlignment=Alignment.TopCenter){Text(label,Modifier.fillMaxWidth(),style=MaterialTheme.typography.labelSmall,textAlign=TextAlign.Center,maxLines=2)}
+            }
+        }}
     }
 }

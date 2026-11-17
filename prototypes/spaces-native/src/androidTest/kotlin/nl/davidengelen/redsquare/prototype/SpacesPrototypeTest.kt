@@ -40,7 +40,7 @@ class SpacesPrototypeTest {
     @Test fun coreJourney() {
         shot("01-home")
         click("Independent Voices")
-        ui.onNodeWithText("general").assertExists()
+        content("general").assertExists()
         shot("02-chat")
         click("3 replies")
         ui.onNodeWithText("Replies").assertExists()
@@ -90,7 +90,7 @@ class SpacesPrototypeTest {
         ui.onNodeWithTag("prototype-content").performScrollToNode(hasText("A small corner of the open web. Welcome to Independent Voices."));content("A small corner of the open web. Welcome to Independent Voices.").assertExists()
         shot("18-loading-preserves-content")
         ui.onNodeWithText("Scenarios").performClick();click("Storage full");click("files")
-        ui.onNodeWithText("Upload a file").assertIsNotEnabled();shot("19-storage-full")
+        ui.onNodeWithTag("prototype-content").performScrollToNode(hasText("Upload a file"));content("Upload a file").assertIsNotEnabled();shot("19-storage-full")
         ui.onNodeWithText("Scenarios").performClick();click("Expired");click("files");shot("20-storage-expired")
     }
 
@@ -115,13 +115,13 @@ class SpacesPrototypeTest {
         drawerText("reading room").performScrollTo().performClick()
         ui.onNodeWithText("Articles").assertExists()
         ui.onNodeWithContentDescription("Back").performClick()
-        ui.onNodeWithText("general").assertExists()
+        content("general").assertExists()
         ui.onNodeWithContentDescription("Switch Space or channel").performClick()
         drawerText("Saito Builders").performScrollTo().performClick()
         content("Saito Builders").assertExists()
         ui.onNodeWithContentDescription("Back").performClick()
         content("Independent Voices").assertExists()
-        ui.onNodeWithText("general").assertExists()
+        content("general").assertExists()
         shot("22-back-restores-destination")
     }
     @Test fun ownerControlsAndArchivedRoom() {
@@ -193,7 +193,7 @@ class SpacesPrototypeTest {
         ui.onNodeWithText("Scenarios").performClick();click("Normal")
         nav("My Spaces")
         click("Independent Voices")
-        ui.onNodeWithText("Announcements").assertExists()
+        ui.onNodeWithTag("prototype-content").performScrollToNode(hasText("Announcements"));content("Announcements").assertExists()
         ui.onNodeWithContentDescription("Send preview message").assertDoesNotExist()
         shot("29-announcement-restoration")
     }
