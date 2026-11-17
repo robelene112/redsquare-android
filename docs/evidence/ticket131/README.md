@@ -39,8 +39,12 @@ Signed139 is staged only at951: SHA256a436cb35038734912de204e76dde3115200902f34e
 94,282,272bytes, established certificate, ordinary nondebug/nonprofileable,
 min29/target36. Actual immutable public APK bytes match. Fresh same-source module
 observer11e8c7fb2c is separately emulator/unsafe-wallet guarded and byte/signature
-verified. Actual131-to139 runs43985908653/43985912300 are pending. Complete parents,
-actual updates and independent public delivery acceptance remain required. Public
+verified. Actual131-to139 runs43985908653/43985912300 both pass with independent
+update-only acceptance on both axes, zero findings. Identity/node, unsent work,
+cache, preference, debug isolation and all ten protected module records remain;
+legacy Fileshare, pending Vault/Store and export/history bytes survive actual
+update and cold launch. Restoration failures and observer submissions are zero.
+Complete parents and independent public delivery acceptance remain required. Public
 latest stays131. All temporary probes are removed;138 remains superseded.
 
 ## Prospective complete source
