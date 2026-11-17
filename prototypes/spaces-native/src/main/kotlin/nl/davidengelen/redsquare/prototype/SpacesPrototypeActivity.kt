@@ -469,6 +469,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
 }
 @Composable private fun PersonTile(name:String,initials:String,modifier:Modifier=Modifier) {Surface(modifier,shape=RoundedCornerShape(18.dp),color=MaterialTheme.colorScheme.surfaceContainerHigh){Column(Modifier.padding(18.dp).heightIn(min=125.dp),verticalArrangement=Arrangement.spacedBy(18.dp),horizontalAlignment=Alignment.CenterHorizontally){Avatar(initials,Color(0xff537c81),54);Text(name,style=MaterialTheme.typography.bodyMedium)}}}
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable private fun NativeArticleEditor(key:String,value:TextFieldValue,source:Boolean,onChange:(TextFieldValue)->Unit) {
     if(source) OutlinedTextField(value,onChange,label={Text("Markdown source")},modifier=Modifier.fillMaxWidth().heightIn(min=280.dp),shape=RoundedCornerShape(16.dp))
     else {

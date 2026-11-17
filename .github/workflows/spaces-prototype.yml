@@ -43,9 +43,11 @@ jobs:
           PROTOTYPE_SIZE: ${{ matrix.size }}
         run: |
           set -euo pipefail
+          export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH"
           mkdir -p .scratch/spaces-prototype
           git rev-parse HEAD > .scratch/spaces-prototype/source.txt
-          scripts/ci-sdk-install "$(command -v sdkmanager)" "$PROTOTYPE_IMAGE"
+          scripts/ci-sdk-install "$(command -v sdkmanager)" "$PROTOTYPE_IMAGE" platform-tools
+          test -x "$ANDROID_HOME/platform-tools/adb"
           sudo chmod a+rw /dev/kvm
           printf 'no\n' | avdmanager create avd -n spaces-prototype -k "$PROTOTYPE_IMAGE"
           emulator -avd spaces-prototype -no-window -no-audio -no-snapshot -gpu swiftshader_indirect -memory 2048 > .scratch/spaces-prototype/emulator.log 2>&1 &
