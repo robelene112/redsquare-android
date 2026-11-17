@@ -42,6 +42,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalDensity
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.drop
+import androidx.compose.ui.text.SpanStyle
+import com.mohamedrejeb.richeditor.model.RichTextState
+import com.mohamedrejeb.richeditor.ui.material3.RichTextEditor
+import com.mohamedrejeb.richeditor.ui.material3.RichTextEditorDefaults
+import com.mohamedrejeb.richeditor.ui.material3.RichText
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.ui.Appearance
 import nl.davidengelen.redsquare.ui.RedSquareTheme
@@ -111,6 +117,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     var nextMessage by remember {mutableIntStateOf(100)}
     val reactions = remember { mutableStateMapOf<String,Boolean>() }
     val removed = remember { mutableStateListOf<String>() }
+    val memberTimeouts=remember {mutableStateMapOf<String,String>()}
     val membersRemoved = remember { mutableStateListOf<String>() }
     val removedFiles = remember { mutableStateListOf<String>() }
     val history = remember { mutableStateListOf<Destination>() }
@@ -123,9 +130,9 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     val coroutine = rememberCoroutineScope()
     val transitionAlpha=remember { Animatable(1f) }
     LaunchedEffect(page) { transitionAlpha.snapTo(0.5f); transitionAlpha.animateTo(1f,tween(150)) }
-    LaunchedEffect(role,scenario,member,archives["$space:$channel"]) {
-        if(role=="Visitor" || !member || scenario=="Access denied") {activeCall=false;mic=false;camera=false}
-        if(scenario=="Timeout" || archives["$space:$channel"]==true) {mic=false;camera=false}
+    LaunchedEffect(role,scenario,memberships[callSpace],archives["$callSpace:$callChannel"]) {
+        if(role=="Visitor" || memberships[callSpace]==false || scenario=="Access denied") {activeCall=false;mic=false;camera=false}
+        if(scenario=="Timeout" || archives["$callSpace:$callChannel"]==true) {mic=false;camera=false}
     }
     val admin = role == "Owner" || role == "Admin"
     val outsider = role == "Visitor" || !member
@@ -187,7 +194,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                 if(activeCall && page != Page.CALL) Surface(color=MaterialTheme.colorScheme.secondaryContainer) {
                     Row(Modifier.fillMaxWidth().padding(horizontal=12.dp),verticalAlignment=Alignment.CenterVertically) {
                         TextButton(onClick={go(Page.CALL,newSpace=callSpace,newChannel=callChannel)},modifier=Modifier.weight(1f)) { Glyph(R.drawable.ic_video); Spacer(Modifier.width(8.dp)); Text("the lounge · Preview call") }
-                        IconButton(enabled=canWrite,onClick={mic=!mic}) { Glyph(if(mic) R.drawable.ic_microphone else R.drawable.ic_microphone_off,label=if(mic) "Mute" else "Unmute") }
+                        IconButton(enabled=scenario!="Timeout" && archives["$callSpace:$callChannel"]!=true,onClick={mic=!mic}) { Glyph(if(mic) R.drawable.ic_microphone else R.drawable.ic_microphone_off,label=if(mic) "Mute" else "Unmute") }
                         IconButton(onClick={activeCall=false;mic=false;camera=false}) { Glyph(R.drawable.ic_call_end,label="End preview call") }
                     }
                 }
@@ -284,7 +291,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                     }
                     Page.ARTICLE,Page.REVIEW -> {
                         item {Text(if(page==Page.REVIEW) "Review before publishing" else (if(selectedArticle==0) "Maya Chen" else "Alex Morgan")+" · $space",style=MaterialTheme.typography.labelMedium,color=MaterialTheme.colorScheme.primary)}
-                        items((if(page==Page.REVIEW) article.text else publishedArticles[articleKey]?:articleSamples[selectedArticle]).split("\n\n")) { paragraph -> Text(paragraph.removePrefix("# ").replace("**",""),style=if(paragraph.startsWith("# ")) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.bodyLarge) }
+                        item { val markdown=if(page==Page.REVIEW) article.text else publishedArticles[articleKey]?:articleSamples[selectedArticle]; val rich=remember(markdown) {RichTextState().setMarkdown(markdown)}; RichText(rich,style=MaterialTheme.typography.bodyLarge) }
                         if(page==Page.REVIEW) {
                             item {Panel("Publish to $space","${if(privateSpace || channel=="team room") "Private channel" else "This Space only"}. This does not publish to public Stack or Red Square.",R.drawable.ic_lock)}
                             item {Action("Publish preview article") {modal="Preview publication"} }
@@ -292,9 +299,8 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                     }
                     Page.EDITOR -> {
                         item { Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {FilterChip(selected=!source,onClick={source=false},label={Text("Visual")});FilterChip(selected=source,onClick={source=true},label={Text("Markdown")})} }
-                        item { if(!source) Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {OutlinedButton(onClick={ val t=article.text; val range=article.selection; val chosen=t.substring(range.min,range.max).ifBlank{"bold text"};val inserted="**$chosen**";articleDrafts[articleKey]=TextFieldValue(t.replaceRange(range.min,range.max,inserted),TextRange(range.min+inserted.length)) }){Text("Bold")};OutlinedButton(onClick={articleDrafts[articleKey]=TextFieldValue(article.text+"\n\n# Heading")}){Text("Heading")}} }
-                        item {OutlinedTextField(article,{articleDrafts[articleKey]=it},label={Text(if(source) "Markdown source" else "Article draft · Markdown-backed")},modifier=Modifier.fillMaxWidth().heightIn(min=280.dp),shape=RoundedCornerShape(16.dp))}
-                        item {Notice("Prototype editor: both views share one Markdown draft. Full rich-text editing will use Stack's editor.")}
+                        item { NativeArticleEditor(articleKey,article,source) {articleDrafts[articleKey]=it} }
+                        item {Notice("The same native editor used by Stack. Switch to Markdown at any time; publication stays inside this Space.")}
                         item {Action("Review article") {go(Page.REVIEW)} }
                     }
                     Page.FILES -> {
@@ -336,7 +342,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                         items(listOf("Alex Morgan" to role,"Maya Chen" to if(role=="Owner") "Admin" else "Owner","Sam Rivera" to "Member","Jules Park" to "Member").filterNot{membersRemoved.contains("$space:${it.first}")}) { (name,title) ->
                             Surface(shape=RoundedCornerShape(16.dp),color=MaterialTheme.colorScheme.surfaceContainerLow) {
                                 Column(Modifier.fillMaxWidth().padding(16.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
-                                    Text(name,style=MaterialTheme.typography.titleMedium);Text("${name.substringBefore(' ').lowercase()}@saito · $title",style=MaterialTheme.typography.bodySmall)
+                                    Text(name,style=MaterialTheme.typography.titleMedium);Text("${name.substringBefore(' ').lowercase()}@saito · $title",style=MaterialTheme.typography.bodySmall);memberTimeouts["$space:$name"]?.let{Text("Writing paused in $it until 14:30",style=MaterialTheme.typography.bodySmall)}
                                     Row(horizontalArrangement=Arrangement.spacedBy(8.dp)){TextButton(onClick={modal="Profile: $name"}){Text("Profile")};TextButton(onClick={modal="Private chat: $name"}){Text("Message")}}
                                     if(admin && title=="Member") TextButton(onClick={editText=name;modal="Moderate member"}){Text("Moderate")}
                                 }
@@ -396,7 +402,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
             when(title) {
                 "Saito apps" -> {Text("The Spaces prototype sits beside your existing Saito modules.");listOf("Red Square","Stack","Saito Talk","Vault","Store","Spaces").forEach { app->TextButton(onClick={detail=if(app=="Spaces") "You are in Spaces." else "$app remains in your ordinary beta. This isolated prototype contains Spaces only."}){Text(app)}};Text(detail)}
                 "Message actions" -> {Text(selectedMessage.body);if(selectedMessage.own || admin) TextButton(onClick={removed.add("$scoped:${selectedMessage.id}");modal=null}){Text("Remove message")};if(selectedMessage.own && canWrite) TextButton(onClick={editMessage=selectedMessage;editText=edits["$scoped:${selectedMessage.id}"]?:selectedMessage.body;modal=null}){Text("Edit message")};TextButton(onClick={modal="Report message"}){Text("Report to administrators")};if(admin) TextButton(onClick={modal="Pinned in preview"}){Text("Pin message")}}
-                "Moderate member" -> {Text("$editText · select a scope for a preview timeout.");var whole by remember{mutableStateOf(false)};Toggle("Whole Space",whole){whole=it};Text("Until 14:30. Reading and listening remain available.");TextButton(onClick={scenario="Timeout";modal=null}){Text("Apply preview timeout")};TextButton(onClick={membersRemoved.add("$space:$editText");modal=null}){Text("Remove member")};TextButton(onClick={membersRemoved.add("$space:$editText");modal=null}){Text("Ban this identity")}}
+                "Moderate member" -> {Text("$editText · select a scope for a preview timeout.");var whole by remember{mutableStateOf(false)};Toggle("Whole Space",whole){whole=it};Text("Until 14:30. Reading and listening remain available.");TextButton(onClick={memberTimeouts["$space:$editText"]=if(whole) "the whole Space" else channel;modal="Timeout applied in preview"}){Text("Apply preview timeout")};TextButton(onClick={membersRemoved.add("$space:$editText");modal=null}){Text("Remove member")};TextButton(onClick={membersRemoved.add("$space:$editText");modal=null}){Text("Ban this identity")}}
                 "Report message" -> {Text("Report privately to the owner and administrators.");OutlinedTextField(detail,{detail=it},label={Text("Reason")});TextButton(onClick={modal="Report recorded in preview"}){Text("Submit preview report")}}
                 "Change visibility" -> Text(if(privateSpace) "Make this Space public? Existing private channels and their history stay private." else "Make this Space private? Previously public content may already have been copied.")
                 "Remove shared file" -> Text("Remove the shared file from this Space? Already downloaded copies cannot be recalled. This differs from removing your own offline copy.")
@@ -445,3 +451,20 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     }}
 }
 @Composable private fun PersonTile(name:String,initials:String,modifier:Modifier=Modifier) {Surface(modifier,shape=RoundedCornerShape(18.dp),color=MaterialTheme.colorScheme.surfaceContainerHigh){Column(Modifier.padding(18.dp).heightIn(min=125.dp),verticalArrangement=Arrangement.spacedBy(18.dp),horizontalAlignment=Alignment.CenterHorizontally){Avatar(initials,Color(0xff537c81),54);Text(name,style=MaterialTheme.typography.bodyMedium)}}}
+
+@Composable private fun NativeArticleEditor(key:String,value:TextFieldValue,source:Boolean,onChange:(TextFieldValue)->Unit) {
+    if(source) OutlinedTextField(value,onChange,label={Text("Markdown source")},modifier=Modifier.fillMaxWidth().heightIn(min=280.dp),shape=RoundedCornerShape(16.dp))
+    else {
+        val rich=remember(key) {RichTextState().setMarkdown(value.text)}
+        val latestChange by rememberUpdatedState(onChange)
+        LaunchedEffect(rich) {snapshotFlow{rich.toMarkdown()}.drop(1).collect{latestChange(TextFieldValue(it))}}
+        Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
+            Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(onClick={rich.toggleSpanStyle(SpanStyle(fontWeight=FontWeight.Bold))}){Text("Bold")}
+                OutlinedButton(onClick={rich.insertMarkdownAfterSelection("\n## Heading\n")}){Text("Heading")}
+            }
+            RichTextEditor(rich,modifier=Modifier.fillMaxWidth().heightIn(min=280.dp).semantics{contentDescription="Article body"},minLines=8,
+                colors=RichTextEditorDefaults.richTextEditorColors(textColor=MaterialTheme.colorScheme.onSurface,containerColor=Color.Transparent,cursorColor=MaterialTheme.colorScheme.primary),textStyle=MaterialTheme.typography.bodyLarge)
+        }
+    }
+}

@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application") version "8.10.1"
+    id("com.android.library") version "8.10.1" apply false
     kotlin("android") version "2.1.20"
     kotlin("plugin.compose") version "2.1.20"
 }
@@ -30,6 +31,7 @@ android {
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach { dependsOn(sharedTheme) }
 tasks.matching { it.name.startsWith("lint") }.configureEach { dependsOn(sharedTheme) }
 dependencies {
+    implementation(project(":rich-editor-compat"))
     implementation(platform("androidx.compose:compose-bom:2026.06.01"))
     implementation("androidx.activity:activity-compose:1.10.1")
     implementation("androidx.compose.material3:material3")

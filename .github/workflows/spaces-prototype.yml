@@ -21,6 +21,7 @@ jobs:
         with:
           sparse-checkout: |
             prototypes/spaces-native
+            third-party/compose-rich-editor
             app/src/main/res
             app/src/main/kotlin/nl/davidengelen/redsquare/ui
             gradle
