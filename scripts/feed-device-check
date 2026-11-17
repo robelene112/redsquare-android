@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Observe cached feed recovery after actual process termination on an emulator."""
 import argparse
+import json
 from pathlib import Path
 import subprocess
 import time
@@ -23,19 +24,49 @@ adb("shell", "am", "force-stop", package)
 launch = adb("shell", "am", "start", "-W", "-n", package + "/nl.davidengelen.redsquare.MainActivity",
              "--es", "feedPeerUrl", "ws://127.0.0.1:1/wsopen")
 (args.evidence / "launch.txt").write_text(launch)
-deadline = time.monotonic() + 30
+poll_started = time.monotonic()
+deadline = poll_started + 30
+
+def poll_adb(*arguments):
+    remaining = deadline - time.monotonic()
+    if remaining <= 0:
+        raise TimeoutError("Cached feed observation exceeded its original 30-second deadline")
+    observation = {"observedAtUnixNs": time.time_ns(), "arguments": arguments,
+                   "elapsedSeconds": time.monotonic() - poll_started}
+    try:
+        result = subprocess.run(["adb", *arguments], text=True, capture_output=True,
+                                timeout=remaining)
+        observation.update(exitCode=result.returncode, stderr=result.stderr,
+                           stdout=result.stdout if arguments[1:3] == ("uiautomator", "dump")
+                           else None, stdoutBytes=len(result.stdout.encode()))
+    except subprocess.TimeoutExpired:
+        observation["timedOut"] = True
+        raise
+    finally:
+        observation["completedElapsedSeconds"] = time.monotonic() - poll_started
+        with (args.evidence / "observation-attempts.jsonl").open("a") as output:
+            output.write(json.dumps(observation) + "\n")
+    result.check_returncode()
+    if time.monotonic() >= deadline:
+        raise TimeoutError("Cached feed observation exceeded its original 30-second deadline")
+    return result
+
 try:
     while time.monotonic() < deadline:
-        adb("shell", "uiautomator", "dump", "/sdcard/feed-check.xml")
-        xml = adb("shell", "cat", "/sdcard/feed-check.xml")
-        (args.evidence / "last-ui.xml").write_text(xml)
-        texts = {node.get("text") for node in ET.fromstring(xml).iter("node")}
-        known_posts = {"Native Red Square reference post", "New reference post"} | {
-            f"Reference post {index:02d}" for index in range(1, 21)
-        }
-        if texts & known_posts and "Node unavailable" in texts:
-            break
-        time.sleep(0.5)
+        poll_adb("shell", "rm", "-f", "/sdcard/feed-check.xml")
+        dump = poll_adb("shell", "uiautomator", "dump", "/sdcard/feed-check.xml")
+        if (dump.stdout + dump.stderr).strip() != "ERROR: null root node returned by UiTestAutomationBridge.":
+            xml = poll_adb("shell", "cat", "/sdcard/feed-check.xml").stdout
+            (args.evidence / "last-ui.xml").write_text(xml)
+            texts = {node.get("text") for node in ET.fromstring(xml).iter("node")}
+            known_posts = {"Native Red Square reference post", "New reference post"} | {
+                f"Reference post {index:02d}" for index in range(1, 21)
+            }
+            if time.monotonic() >= deadline:
+                raise TimeoutError("Cached feed observation exceeded its original 30-second deadline")
+            if texts & known_posts and "Node unavailable" in texts:
+                break
+        time.sleep(min(0.5, max(0, deadline - time.monotonic())))
     else:
         raise AssertionError("Cached reference post and outage state did not survive process termination")
 finally:
