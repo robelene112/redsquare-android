@@ -145,7 +145,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     val imeVisible=WindowInsets.ime.getBottom(LocalDensity.current)>0
     val inThisRoom=activeCall && callSpace==space && callChannel==channel
     LaunchedEffect(space,channel,page) {
-        val parent=when(page){Page.CHAT,Page.THREAD->Page.CHAT;Page.ARTICLES,Page.ARTICLE,Page.EDITOR,Page.REVIEW->Page.ARTICLES;Page.FILES,Page.FILE->Page.FILES;Page.ROOM,Page.CALL->Page.ROOM;Page.ANNOUNCEMENTS->Page.ANNOUNCEMENTS;else->null}
+        val parent=when(page){Page.CHAT->Page.CHAT;Page.THREAD->if(channel=="announcements") Page.ANNOUNCEMENTS else Page.CHAT;Page.ARTICLES,Page.ARTICLE,Page.EDITOR,Page.REVIEW->Page.ARTICLES;Page.FILES,Page.FILE->Page.FILES;Page.ROOM,Page.CALL->Page.ROOM;Page.ANNOUNCEMENTS->Page.ANNOUNCEMENTS;else->null}
         if(parent!=null) lastPlaces[space]=parent to channel
     }
     val admin = role == "Owner" || role == "Admin"
@@ -154,7 +154,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     val scoped = "$space:$channel"
     val draftKey = if(page == Page.THREAD) "$scoped:thread:${selectedMessage.id}" else scoped
     val input = drafts[draftKey].orEmpty()
-    val canWrite = !outsider && !denied && !archived && scenario != "Timeout"
+    val canWrite = !outsider && !denied && !archived && scenario != "Timeout" && (channel!="announcements" || page==Page.THREAD || admin)
     fun go(target:Page,newSpace:String=space,newChannel:String=channel,message:ChatRow=selectedMessage,articleId:Int=selectedArticle,fileId:Int=selectedFile) {
         if(page!=target || space!=newSpace || channel!=newChannel || selectedMessage!=message || selectedArticle!=articleId || selectedFile!=fileId) {
             history.add(Destination(page,space,channel,selectedMessage,selectedArticle,selectedFile))
@@ -165,7 +165,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     BackHandler(page != Page.HOME || drawer.isOpen) { if(drawer.isOpen) coroutine.launch { drawer.close() } else back() }
     LaunchedEffect(scenario,role,memberships.toMap(),archives.toMap()) {
         if(scenario == "Normal" && role!="Visitor") {
-            val allowed=queued.filter{memberships[it.space]!=false && archives["${it.space}:${it.channel}"]!=true && (it.channel!="team room" || admin)}
+            val allowed=queued.filter{memberships[it.space]!=false && archives["${it.space}:${it.channel}"]!=true && (it.channel!="team room" || admin) && (it.channel!="announcements" || it.thread!=null || admin)}
             sent.addAll(allowed);queued.removeAll(allowed.toSet())
         }
     }
@@ -269,12 +269,12 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                     Page.ACTIVITY -> {
                         item { Notice("Personal mentions and replies. Ordinary unread activity uses a dot.") }
                         items(listOf("Maya mentioned you in general","Sam replied to your message","3 people reacted to your message")) { label ->
-                            Panel(label, "$space · 12 min ago",R.drawable.ic_notifications) {go(Page.THREAD,newChannel="general")}
+                            Panel(label, "$space · 12 min ago",R.drawable.ic_notifications) {go(Page.THREAD,newChannel="general",message=seeds.first())}
                         }
                     }
                     Page.CHAT,Page.THREAD,Page.ANNOUNCEMENTS -> {
-                        if(page==Page.ANNOUNCEMENTS) item { Panel("Community call this Friday","Maya Chen · Announcement\nJoin us in the lounge at 19:00. Everyone is welcome.",R.drawable.ic_bookmark) {selectedMessage=seeds.first();go(Page.THREAD)} }
-                        if(page==Page.CHAT) item { Surface(onClick={selectedMessage=seeds.first();go(Page.THREAD)},shape=RoundedCornerShape(14.dp),color=MaterialTheme.colorScheme.surfaceContainerLow) { Row(Modifier.fillMaxWidth().padding(14.dp),horizontalArrangement=Arrangement.spacedBy(10.dp)) {Glyph(R.drawable.ic_bookmark);Text("Pinned · Start here, make yourself at home.",style=MaterialTheme.typography.bodySmall)} } }
+                        if(page==Page.ANNOUNCEMENTS) item { Panel("Community call this Friday","Maya Chen · Announcement\nJoin us in the lounge at 19:00. Everyone is welcome.",R.drawable.ic_bookmark) {go(Page.THREAD,message=ChatRow(20,"Maya Chen","Friday","Community call this Friday. Join us in the lounge at 19:00.",3))} }
+                        if(page==Page.CHAT) item { Surface(onClick={go(Page.THREAD,message=ChatRow(20,"Maya Chen","Friday","Community call this Friday. Join us in the lounge at 19:00.",3))},shape=RoundedCornerShape(14.dp),color=MaterialTheme.colorScheme.surfaceContainerLow) { Row(Modifier.fillMaxWidth().padding(14.dp),horizontalArrangement=Arrangement.spacedBy(10.dp)) {Glyph(R.drawable.ic_bookmark);Text("Pinned · Start here, make yourself at home.",style=MaterialTheme.typography.bodySmall)} } }
                         if(outsider) item { Action("Join this Space") {go(Page.RULES)} }
                         if(page==Page.THREAD) item { Panel(selectedMessage.name,selectedMessage.body,R.drawable.ic_chat) }
                         val rows=if(page==Page.THREAD) listOf(ChatRow(11,"Maya Chen","10:30","Exactly. Good conversations are worth keeping."),ChatRow(12,"Sam Rivera","10:32","Count me in for Friday.")) else if(page==Page.ANNOUNCEMENTS) emptyList() else seeds
@@ -396,7 +396,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                             item {OutlinedButton(onClick={modal="Create channel"},modifier=Modifier.fillMaxWidth()){Text("Channels and categories")}}
                             item {Toggle("Archive current channel",archived){archives[scoped]=it};Text("Archived channels stay readable. Reopen to allow contributions.",style=MaterialTheme.typography.bodySmall)}
                             item {Section("STORAGE");Panel("Shared storage","1.8 GB / 5 GB · example provider\nProvider choice and costs need owner confirmation.",R.drawable.ic_vault)}
-                            item {OutlinedButton(onClick={modal="Select storage provider"},modifier=Modifier.fillMaxWidth()){Text("Storage provider and renewal")}}
+                            if(role=="Owner") item {OutlinedButton(onClick={modal="Select storage provider"},modifier=Modifier.fillMaxWidth()){Text("Storage provider and renewal")}}
                             item {Section("NOTIFICATIONS");val mode=notificationModes[scoped]?:"Mentions & replies";listOf("Mentions & replies","All messages","Silent").forEach { value -> FilterChip(selected=mode==value,onClick={notificationModes[scoped]=value},label={Text(value)}) };val groupAlerts=groupAlertModes[scoped]?:true;Toggle("Allow @everyone alerts",groupAlerts){groupAlertModes[scoped]=it}}
                             item {OutlinedButton(onClick={go(Page.BACKUP)},modifier=Modifier.fillMaxWidth()){Text("Identity and key recovery")}}
                             if(role=="Owner") {item {OutlinedButton(onClick={modal="Transfer ownership"},modifier=Modifier.fillMaxWidth()){Text("Transfer ownership")}};item {TextButton(onClick={modal="Dissolve Space"}){Text("Dissolve Space",color=MaterialTheme.colorScheme.error)}}}

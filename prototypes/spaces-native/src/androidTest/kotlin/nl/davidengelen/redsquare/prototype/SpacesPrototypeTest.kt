@@ -168,4 +168,21 @@ class SpacesPrototypeTest {
         ui.onNodeWithTag("prototype-content").performScrollToNode(hasText("You're in the lounge"))
         ui.onNodeWithText("You're in the lounge").assertExists()
     }
+
+    @Test fun announcementRepliesNeverEnableMemberAnnouncements() {
+        ui.onNodeWithText("Scenarios").performClick();click("Member");click("chat")
+        ui.onNodeWithContentDescription("Switch Space or channel").performClick()
+        ui.onNodeWithText("announcements").performScrollTo().performClick()
+        click("Community call this Friday")
+        ui.onNodeWithText("Community call this Friday. Join us in the lounge at 19:00.").assertExists()
+        ui.onNodeWithContentDescription("Send preview message").assertIsNotEnabled()
+        ui.onNode(hasSetTextAction()).performTextInput("A member can reply here")
+        ui.onNodeWithContentDescription("Send preview message").assertIsEnabled()
+        ui.onNodeWithText("Scenarios").performClick();click("Normal")
+        ui.onNodeWithText("My Spaces").performClick()
+        ui.onNodeWithText("Independent Voices").performClick()
+        ui.onNodeWithText("Announcements").assertExists()
+        ui.onNodeWithContentDescription("Send preview message").assertDoesNotExist()
+        shot("29-announcement-restoration")
+    }
 }

@@ -6,10 +6,12 @@ artifact_dir=/home/david/.cache/redsquare-android-artifacts/spaces-planning-2026
 cache_dir=/mnt/storage/redsquare-android-artifacts/redesign-build-cache
 signing_dir="$HOME/.local/share/redsquare-android/signing"
 [[ -z "$(git -C "$repo_dir" status --porcelain --untracked-files=no)" ]] || { echo 'Commit the reviewed source before signing'; exit 1; }
+source_commit=$(git -C "$repo_dir" rev-parse HEAD)
 mkdir -p "$artifact_dir"
 docker run --rm --cpus=2 --memory=2500m --user "$(id -u):$(id -g)" -e GRADLE_USER_HOME=/gradle-cache \
  --mount "type=bind,src=$repo_dir,dst=/workspace" --mount "type=bind,src=$cache_dir,dst=/gradle-cache" \
- redsquare-android-build:agp8.10.1 gradle --no-daemon --console=plain -p prototypes/spaces-native assembleRelease lintRelease
+ redsquare-android-build:agp8.10.1 gradle --no-daemon --console=plain -p prototypes/spaces-native :assembleRelease :lintRelease
+[[ "$source_commit" == "$(git -C "$repo_dir" rev-parse HEAD)" && -z "$(git -C "$repo_dir" status --porcelain --untracked-files=no)" ]] || { echo "Source changed during compilation; do not sign this artifact"; exit 1; }
 input_apk=$(python3 - "$repo_dir" <<'PY'
 import json,pathlib,sys
 p=pathlib.Path(sys.argv[1])/'prototypes/spaces-native/build/outputs/apk/release'
