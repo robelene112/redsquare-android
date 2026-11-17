@@ -1,0 +1,19 @@
+{
+  "result": "PASS_FOCUSED_PENDING_INDEPENDENT_ACCEPTANCE",
+  "run": 43993432043,
+  "source": "e72ec7deab926c97e655e3d7c224ea1c159a9a44",
+  "normalCompletions": 12,
+  "classes": 4,
+  "groups": {
+    "feed-ui.txt": 11,
+    "conversation-typography-ui.txt": 1
+  },
+  "originalZipFiles": 91,
+  "nativeMembers": 30,
+  "png": 17,
+  "xml": 9,
+  "coldFeedObservationSeconds": 1.5253978019998158,
+  "coldLaunch": true,
+  "exactFreshXmlPredicate": true,
+  "qualification": "Actual complete focusedfeed only; one cold launch with fixed observer. Native successful dump is not proof of null-root recurrence; host probe separately proves that mechanism. Fresh corrected complete10all3 and original complete17 exact951 plus independent full/public review remain mandatory. No failed parent prefixes or relaxed originalgoals."
+}

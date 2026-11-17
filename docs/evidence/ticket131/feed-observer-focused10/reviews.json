@@ -1,0 +1,24 @@
+{
+  "result": "PASS_FOCUSED",
+  "run": 43993432043,
+  "source": "e72ec7deab926c97e655e3d7c224ea1c159a9a44",
+  "spec": {
+    "reviewer": "/root/release139_spec",
+    "findings": 0
+  },
+  "standards": {
+    "reviewer": "/root/release139_standards",
+    "findings": 0
+  },
+  "evidence": {
+    "originalZipFiles": 91,
+    "nativeMembers": 30,
+    "png": 17,
+    "xml": 9,
+    "normalCompletions": 12,
+    "classes": 4,
+    "coldLaunchMilliseconds": 1033,
+    "observationSeconds": 1.5253978019998158
+  },
+  "qualification": "Focused native acceptance only; no native null-root recurrence claim, no complete/public acceptance. Failed original10 remains rejected. Freshwhole10dispatched43995894442 afterbothreviews0; original17remains951."
+}

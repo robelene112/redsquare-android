@@ -1,0 +1,17 @@
+{
+  "reviewedAtUtc": "2026-11-17T00:34:30.400165+00:00",
+  "base": "59594c5634cbfec2c49bc4375865e3e101503580",
+  "head": "c4c4f3f4749c38d41aba4ee4ae10698eab33675d",
+  "frozenNativeSource": "9513495d367ff55c83afb155c070560005816789",
+  "result": "PASS_SOURCE_ONLY",
+  "spec": {
+    "reviewer": "/root/release139_spec",
+    "findings": 0
+  },
+  "standards": {
+    "reviewer": "/root/release139_standards",
+    "documentedViolations": 0,
+    "actionableHeuristics": 0
+  },
+  "qualification": "Fresh independent reviews after earlier reviewers retired. Native full and actual public delivery not yet accepted; no tests or mutations performed by reviewers."
+}
