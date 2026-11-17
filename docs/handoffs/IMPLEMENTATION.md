@@ -1,5 +1,15 @@
 # Implementation handoff
 
+## Beta update notice #136, source ready for the next beta
+
+Source `1267c2fbd` implements the owner's focused UI polish: one compact,
+full-card update action using shared geometry/colors/motion, readable wrapping
+and explicit Button semantics. Existing newer-build checks, keyboard hiding and
+trusted destination are retained. Exact validation is recorded in
+[issue136](https://github.com/robelene112/redsquare-android/issues/136).
+This request does not publish a replacement beta or change the Spaces prototype.
+Continue to keep #132/#133/#135 open until individually fixed and verified.
+
 ## Delivered Spaces quality plan, specification and native prototype
 
 The owner's requested phases are complete in order: [quality plan](../quality/SPACES_QUALITY_PLAN.md),

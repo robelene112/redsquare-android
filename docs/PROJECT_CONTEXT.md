@@ -1,5 +1,15 @@
 # Red Square Android project context
 
+## Beta update notice polish #136
+
+The owner requested a cleaner new-beta notice. Source `1267c2fbd` replaces the
+loose heading/button with one compact native card, shared theme/spacing/motion,
+a decorative update icon, wrapping text and an explicit accessible button role.
+The complete card opens the existing beta page. See
+[issue136](https://github.com/robelene112/redsquare-android/issues/136) for validation
+and delivery status. This source change is queued for the next ordinary beta;
+the public beta139 and separate Spaces prototype are not replaced by this work.
+
 ## Delivered Spaces planning and native prototype, awaiting design feedback
 
 The requested phases are delivered in order: [quality plan](quality/SPACES_QUALITY_PLAN.md),
