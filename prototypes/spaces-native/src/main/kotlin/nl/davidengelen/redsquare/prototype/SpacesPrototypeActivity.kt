@@ -106,6 +106,9 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     val articleSamples=listOf("# A quieter kind of internet\n\nGood ideas need room to grow.\n\n**Independent voices** make a community worth coming back to.","# Building in the open\n\nSharing what we learn makes everyone stronger.","# Untitled article\n\nStart writing here.")
     val publishedArticles=remember {mutableStateMapOf<String,String>()}
     val articleDrafts=remember {mutableStateMapOf<String,TextFieldValue>()}
+    val richDrafts=remember {mutableMapOf<String,RichTextState>()}
+    val notificationModes=remember {mutableStateMapOf<String,String>()}
+    val groupAlertModes=remember {mutableStateMapOf<String,Boolean>()}
     val articleKey="$space:$selectedArticle"
     val article=articleDrafts[articleKey]?:TextFieldValue(publishedArticles[articleKey]?:articleSamples[selectedArticle])
     var selectedFile by remember { mutableStateOf(1) }
@@ -315,10 +318,10 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                         } else item {OutlinedButton(onClick={modal="Share article"},modifier=Modifier.fillMaxWidth()){Text("Share article link")}}
                     }
                     Page.EDITOR -> {
-                        item { Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {FilterChip(selected=!source,onClick={source=false},label={Text("Visual")});FilterChip(selected=source,onClick={source=true},label={Text("Markdown")})} }
-                        item { NativeArticleEditor(articleKey,article,source) {articleDrafts[articleKey]=it} }
+                        item { Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {FilterChip(selected=!source,onClick={richDrafts.remove(articleKey);source=false},label={Text("Visual")});FilterChip(selected=source,onClick={if(!source) articleDrafts[articleKey]=TextFieldValue(richDrafts[articleKey]?.toMarkdown()?:article.text);source=true},label={Text("Markdown")})} }
+                        item { NativeArticleEditor(articleKey,article,source,richDrafts) {articleDrafts[articleKey]=it} }
                         item {Notice("The same native editor used by Stack. Switch to Markdown at any time; publication stays inside this Space.")}
-                        item {Action("Review article") {go(Page.REVIEW)} }
+                        item {Action("Review article") {if(!source) articleDrafts[articleKey]=TextFieldValue(richDrafts[articleKey]?.toMarkdown()?:article.text);go(Page.REVIEW)} }
                     }
                     Page.FILES -> {
                         item {Panel("Shared library","${if(scenario=="Storage full") "5.0" else "1.8"} GB of 5 GB · ${if(scenario=="Expired") "Expired" else "Renews with owner confirmation"}",R.drawable.ic_vault) {go(Page.SETTINGS)}}
@@ -340,7 +343,8 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                             item {Action(if(activeCall) "Return to existing call" else "Join preview room",!outsider && !denied && !archived) {if(activeCall) go(Page.CALL,newSpace=callSpace,newChannel=callChannel) else {mic=false;camera=false;activeCall=true;callSpace=space;callChannel=channel;go(Page.CALL)}} }
                         } else {
                             item {PersonTile("You · ${if(camera) "camera preview on" else "camera off"}","AM",Modifier.fillMaxWidth())}
-                            item {Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(12.dp)){OutlinedButton(enabled=canWrite,onClick={mic=!mic},modifier=Modifier.weight(1f)){Glyph(if(mic) R.drawable.ic_microphone else R.drawable.ic_microphone_off);Spacer(Modifier.width(6.dp));Text(if(mic) "Mute" else "Unmute")};OutlinedButton(enabled=canWrite,onClick={camera=!camera},modifier=Modifier.weight(1f)){Glyph(if(camera) R.drawable.ic_video else R.drawable.ic_video_off);Spacer(Modifier.width(6.dp));Text(if(camera) "Camera off" else "Camera on")}}}
+                            item { if(LocalDensity.current.fontScale>1.3f) Column(verticalArrangement=Arrangement.spacedBy(12.dp)){OutlinedButton(enabled=canWrite,onClick={mic=!mic},modifier=Modifier.fillMaxWidth()){Glyph(if(mic) R.drawable.ic_microphone else R.drawable.ic_microphone_off);Spacer(Modifier.width(8.dp));Text(if(mic) "Mute" else "Unmute")};OutlinedButton(enabled=canWrite,onClick={camera=!camera},modifier=Modifier.fillMaxWidth()){Glyph(if(camera) R.drawable.ic_video else R.drawable.ic_video_off);Spacer(Modifier.width(8.dp));Text(if(camera) "Camera off" else "Camera on")}}
+                                else Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(12.dp)){OutlinedButton(enabled=canWrite,onClick={mic=!mic},modifier=Modifier.weight(1f)){Glyph(if(mic) R.drawable.ic_microphone else R.drawable.ic_microphone_off);Spacer(Modifier.width(6.dp));Text(if(mic) "Mute" else "Unmute")};OutlinedButton(enabled=canWrite,onClick={camera=!camera},modifier=Modifier.weight(1f)){Glyph(if(camera) R.drawable.ic_video else R.drawable.ic_video_off);Spacer(Modifier.width(6.dp));Text(if(camera) "Camera off" else "Camera on")}}}
                             item {OutlinedButton(onClick={go(Page.CHAT,newChannel="general")},modifier=Modifier.fillMaxWidth()){Text("Browse while in the call")}}
                             item {Action("Leave preview call") {activeCall=false;mic=false;camera=false;go(Page.ROOM)} }
                         }
@@ -393,7 +397,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                             item {Toggle("Archive current channel",archived){archives[scoped]=it};Text("Archived channels stay readable. Reopen to allow contributions.",style=MaterialTheme.typography.bodySmall)}
                             item {Section("STORAGE");Panel("Shared storage","1.8 GB / 5 GB · example provider\nProvider choice and costs need owner confirmation.",R.drawable.ic_vault)}
                             item {OutlinedButton(onClick={modal="Select storage provider"},modifier=Modifier.fillMaxWidth()){Text("Storage provider and renewal")}}
-                            item {Section("NOTIFICATIONS");var mode by remember {mutableStateOf("Mentions & replies")};listOf("Mentions & replies","All messages","Silent").forEach { value -> FilterChip(selected=mode==value,onClick={mode=value},label={Text(value)}) };var groupAlerts by remember{mutableStateOf(true)};Toggle("Allow @everyone alerts",groupAlerts){groupAlerts=it}}
+                            item {Section("NOTIFICATIONS");val mode=notificationModes[scoped]?:"Mentions & replies";listOf("Mentions & replies","All messages","Silent").forEach { value -> FilterChip(selected=mode==value,onClick={notificationModes[scoped]=value},label={Text(value)}) };val groupAlerts=groupAlertModes[scoped]?:true;Toggle("Allow @everyone alerts",groupAlerts){groupAlertModes[scoped]=it}}
                             item {OutlinedButton(onClick={go(Page.BACKUP)},modifier=Modifier.fillMaxWidth()){Text("Identity and key recovery")}}
                             if(role=="Owner") {item {OutlinedButton(onClick={modal="Transfer ownership"},modifier=Modifier.fillMaxWidth()){Text("Transfer ownership")}};item {TextButton(onClick={modal="Dissolve Space"}){Text("Dissolve Space",color=MaterialTheme.colorScheme.error)}}}
                         }
@@ -470,10 +474,10 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
 @Composable private fun PersonTile(name:String,initials:String,modifier:Modifier=Modifier) {Surface(modifier,shape=RoundedCornerShape(18.dp),color=MaterialTheme.colorScheme.surfaceContainerHigh){Column(Modifier.padding(18.dp).heightIn(min=125.dp),verticalArrangement=Arrangement.spacedBy(18.dp),horizontalAlignment=Alignment.CenterHorizontally){Avatar(initials,Color(0xff537c81),54);Text(name,style=MaterialTheme.typography.bodyMedium)}}}
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Composable private fun NativeArticleEditor(key:String,value:TextFieldValue,source:Boolean,onChange:(TextFieldValue)->Unit) {
+@Composable private fun NativeArticleEditor(key:String,value:TextFieldValue,source:Boolean,states:MutableMap<String,RichTextState>,onChange:(TextFieldValue)->Unit) {
     if(source) OutlinedTextField(value,onChange,label={Text("Markdown source")},modifier=Modifier.fillMaxWidth().heightIn(min=280.dp),shape=RoundedCornerShape(16.dp))
     else {
-        val rich=remember(key) {RichTextState().setMarkdown(value.text)}
+        val rich=remember(key) {states.getOrPut(key){RichTextState().setMarkdown(value.text)}}
         val latestChange by rememberUpdatedState(onChange)
         LaunchedEffect(rich) {snapshotFlow{rich.toMarkdown()}.drop(1).collect{latestChange(TextFieldValue(it))}}
         Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
