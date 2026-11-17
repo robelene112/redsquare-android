@@ -32,6 +32,9 @@ beta_before=(site/'latest.json').read_bytes()
 destination=site/'spaces-prototype'
 releases=destination/'releases'
 releases.mkdir(parents=True,exist_ok=True)
+# Publication may inherit a private umask; only these public asset directories need traversal.
+destination.chmod(0o755)
+releases.chmod(0o755)
 release=releases/'1'
 public={**metadata,'apkUrl':'https://davidengelen.nl/redsquare/spaces-prototype/releases/1/spaces-prototype.apk'}
 if release.exists():
