@@ -70,12 +70,34 @@ signed139, its observer and actual signed update proofs remain exact951.
 
 Corrected10 inputs source-profile-feed-observer.json and verify-full-feed-observer.py
 are separately frozen ate72ec7deab926c97e655e3d7c224ea1c159a9a44 before dispatch.
-Native focused feed43993432043 is pending. After its acceptance, require a fresh
-complete corrected10 parent across all three original partitions/public reads.
-Do not reuse any original failed10 sibling/prefix. Android17 may qualify only if
-its original43983501451 whole parent succeeds at951 with the unchanged original
-Talk profile/adapter. Both complete independent reviews and actual public delivery
+Native focused feed43993432043 is independently accepted on both axes, zero
+findings. Fresh complete corrected10 parent43995894442 starts after acceptance
+and must complete all three original partitions/public reads.
+Do not reuse any original failed10 sibling/prefix. Android17 native whole43983501451 succeeds at951 with its unchanged original
+Talk inputs; its frozen assessor subsequently fails on the source/catalog
+reporting discrepancy below. Qualified complete evidence acceptance remains required. Both complete independent reviews and actual public delivery
 remain mandatory. Public latest remains131;139 stays staged only.
+
+
+## Catalog reporting qualification
+
+The original17 frozen full assessment fails, with its exact failure retained in
+[catalog-erratum](catalog-erratum/README.md). Native whole17 succeeds, but the
+original catalog still locates two selected Chat photo methods in their older
+combined log and counts one fewer native invocation. Source59dc7f351/24db78cf0
+already splits those same tests into disjoint original ten-method120s and
+two-method180s invocations. The catalog also assumes prefix-based archives where
+the original helper actually writes shared capture-based names. Both independent
+source comparisons find the same901/902 identities and all goal witnesses:283
+logical capture requirements resolve to274 actual physical originals. No native
+goal or deadline changes, and the frozen collector is not claimed to pass.
+
+A separately pinned posthoc assessor/erratum corrects only those source-proven
+representations, requires per-alias member witnesses and executes all remaining
+original validators unchanged. Its first emitted result must identify its own
+committed bytes and the frozen failure. Reporter implementation/qualified native
+and public delivery acceptance remain pending. Original inputs remain immutable;
+SDK17 stays951 and fresh SDK10 stayse72. No prefixes or fabricated archives.
 
 ## Prospective complete source
 

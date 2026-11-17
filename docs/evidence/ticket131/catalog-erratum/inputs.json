@@ -1,0 +1,189 @@
+{
+  "qualification": "Separate posthoc reporting assessment only. Frozen original contracts/profiles/adapters remain unchanged and their failed original assessment remains explicit. This corrects source-proven representation, not native goals or time limits. No native result, archive or terminal completion is fabricated.",
+  "nativeSources": {
+    "10": "e72ec7deab926c97e655e3d7c224ea1c159a9a44",
+    "17": "9513495d367ff55c83afb155c070560005816789"
+  },
+  "frozenAdapters": {
+    "10": "verify-full-feed-observer.py",
+    "17": "verify-full-talk-interruption.py"
+  },
+  "frozenProfiles": {
+    "10": "source-profile-feed-observer.json",
+    "17": "source-profile-talk-interruption.json"
+  },
+  "originalAdapterSha256": "2895a8c6623d875b68d36512cc4f28dbcb1795b3ba4c3aa24e8de381c4f277e8",
+  "originalContractSha256": "35017dcb6574119e9d116813a3683c771d5b9d07e316066be6b65c22b0256f6d",
+  "qualifiedAssessorSha256": "aad2e4279a3cb4c1fca53a555fab7a914ec8baeb1fd5e95b2425433e8bb9ff22",
+  "sourceFacts": {
+    "splitIntroduced": "59dc7f351d7ac92a4461e5254b9bd17599274620",
+    "originalClassAndDisjointInvocationsPreserved": "24db78cf05e147f7243be5503566df5b79c9f871",
+    "sourceRule": "verify_chat_images invokes ten inherited methods under120s, then the two selected-read methods under180s. verify_group_chat_native writes capture.tar from its fourth argument, not prefix.tar from its third. Both facts predate131 frozen execution."
+  },
+  "normalCompletions": {
+    "10": 385,
+    "17": 386
+  },
+  "logicalArchiveRequirements": 283,
+  "physicalArchives": 274,
+  "identityPathMoves": [
+    {
+      "from": "chat-images-ui.txt",
+      "to": "chat-image-preparation-recreation-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.ChatImagesPreviewTest",
+      "test": "aSelectedPrivatePhotoContinuesOnceAcrossRecreationWhileTheProviderIsReading"
+    },
+    {
+      "from": "chat-images-ui.txt",
+      "to": "chat-image-preparation-recreation-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.ChatImagesPreviewTest",
+      "test": "aSelectedGroupPhotoContinuesOnceAcrossRecreationWhileTheProviderIsReading"
+    }
+  ],
+  "archiveAliases": {
+    "chat/file-menu-busy-evidence.tar": {
+      "archive": "chat/fileshare-evidence.tar",
+      "witnesses": [
+        "fileshare-evidence/file-action-preparing.png",
+        "fileshare-evidence/file-action-preparing.xml",
+        "fileshare-evidence/pending-acceptance/file-action-accepted.png",
+        "fileshare-evidence/pending-acceptance/file-action-accepted.xml"
+      ]
+    },
+    "chat/received-storage-failure-evidence.tar": {
+      "archive": "chat/received-storage-evidence.tar",
+      "witnesses": [
+        "received-storage-evidence/actual-export-disables-removal.png",
+        "received-storage-evidence/actual-export-disables-removal.xml",
+        "received-storage-evidence/partial-removal-counted-truthfully.png",
+        "received-storage-evidence/partial-removal-counted-truthfully.xml",
+        "received-storage-evidence/partial-removal-finished.png",
+        "received-storage-evidence/partial-removal-finished.xml"
+      ]
+    },
+    "chat/received-storage-motion-evidence.tar": {
+      "archive": "chat/received-storage-evidence.tar",
+      "witnesses": [
+        "received-storage-evidence/motion-0/scale-0-window.json",
+        "received-storage-evidence/motion-0/confirmed-removal.mp4",
+        "received-storage-evidence/motion-0/confirmed-removal-frames.json",
+        "received-storage-evidence/motion-1/scale-1-window.json",
+        "received-storage-evidence/motion-1/confirmed-removal.mp4",
+        "received-storage-evidence/motion-1/confirmed-removal-frames.json"
+      ]
+    },
+    "chat/received-storage-viewport-320-evidence.tar": {
+      "archive": "chat/received-storage-evidence.tar",
+      "witnesses": [
+        "received-storage-evidence/received-files-320-font100-light-configuration.json",
+        "received-storage-evidence/received-files-320-font100-light-storage-confirmation.png",
+        "received-storage-evidence/received-files-320-font100-light-storage-confirmation.xml",
+        "received-storage-evidence/received-files-320-font100-dark-configuration.json",
+        "received-storage-evidence/received-files-320-font100-dark-storage-confirmation.png",
+        "received-storage-evidence/received-files-320-font100-dark-storage-confirmation.xml",
+        "received-storage-evidence/received-files-320-font130-light-configuration.json",
+        "received-storage-evidence/received-files-320-font130-light-storage-confirmation.png",
+        "received-storage-evidence/received-files-320-font130-light-storage-confirmation.xml",
+        "received-storage-evidence/received-files-320-font130-dark-configuration.json",
+        "received-storage-evidence/received-files-320-font130-dark-storage-confirmation.png",
+        "received-storage-evidence/received-files-320-font130-dark-storage-confirmation.xml",
+        "received-storage-evidence/received-files-320-font200-light-configuration.json",
+        "received-storage-evidence/received-files-320-font200-light-storage-confirmation.png",
+        "received-storage-evidence/received-files-320-font200-light-storage-confirmation.xml",
+        "received-storage-evidence/received-files-320-font200-dark-configuration.json",
+        "received-storage-evidence/received-files-320-font200-dark-storage-confirmation.png",
+        "received-storage-evidence/received-files-320-font200-dark-storage-confirmation.xml"
+      ]
+    },
+    "chat/received-storage-viewport-412-evidence.tar": {
+      "archive": "chat/received-storage-evidence.tar",
+      "witnesses": [
+        "received-storage-evidence/received-files-412-font100-light-configuration.json",
+        "received-storage-evidence/received-files-412-font100-light-storage-confirmation.png",
+        "received-storage-evidence/received-files-412-font100-light-storage-confirmation.xml",
+        "received-storage-evidence/received-files-412-font100-dark-configuration.json",
+        "received-storage-evidence/received-files-412-font100-dark-storage-confirmation.png",
+        "received-storage-evidence/received-files-412-font100-dark-storage-confirmation.xml",
+        "received-storage-evidence/received-files-412-font130-light-configuration.json",
+        "received-storage-evidence/received-files-412-font130-light-storage-confirmation.png",
+        "received-storage-evidence/received-files-412-font130-light-storage-confirmation.xml",
+        "received-storage-evidence/received-files-412-font130-dark-configuration.json",
+        "received-storage-evidence/received-files-412-font130-dark-storage-confirmation.png",
+        "received-storage-evidence/received-files-412-font130-dark-storage-confirmation.xml",
+        "received-storage-evidence/received-files-412-font200-light-configuration.json",
+        "received-storage-evidence/received-files-412-font200-light-storage-confirmation.png",
+        "received-storage-evidence/received-files-412-font200-light-storage-confirmation.xml",
+        "received-storage-evidence/received-files-412-font200-dark-configuration.json",
+        "received-storage-evidence/received-files-412-font200-dark-storage-confirmation.png",
+        "received-storage-evidence/received-files-412-font200-dark-storage-confirmation.xml"
+      ]
+    },
+    "social/photo-continuation-evidence.tar": {
+      "archive": "social/photo-pages-evidence.tar",
+      "witnesses": [
+        "photo-pages-evidence/older-search-reads.json",
+        "photo-pages-evidence/older-search-all-reached.png",
+        "photo-pages-evidence/older-search-all-reached.xml"
+      ]
+    },
+    "social/photo-large-rows-evidence.tar": {
+      "archive": "social/photo-pages-evidence.tar",
+      "witnesses": [
+        "photo-pages-evidence/large-rows-reads.json",
+        "photo-pages-evidence/large-rows-all-reached.png",
+        "photo-pages-evidence/large-rows-all-reached.xml"
+      ]
+    },
+    "social/photo-multistream-evidence.tar": {
+      "archive": "social/photo-pages-evidence.tar",
+      "witnesses": [
+        "photo-pages-evidence/multi-search-reads.json",
+        "photo-pages-evidence/multi-search-all-reached.png",
+        "photo-pages-evidence/multi-search-all-reached.xml"
+      ]
+    },
+    "social/profile-image-recreation-evidence.tar": {
+      "archive": "social/profile-edit-evidence.tar",
+      "witnesses": [
+        "profile-edit-evidence/selected-profile-image.png",
+        "profile-edit-evidence/selected-profile-image.xml",
+        "profile-edit-evidence/selected-profile-image-module-return.png",
+        "profile-edit-evidence/selected-profile-image-module-return.xml",
+        "profile-edit-evidence/selected-profile-banner.png",
+        "profile-edit-evidence/selected-profile-banner.xml",
+        "profile-edit-evidence/selected-profile-banner-module-return.png",
+        "profile-edit-evidence/selected-profile-banner-module-return.xml"
+      ]
+    },
+    "social/wallet-input-recreation-evidence.tar": {
+      "archive": "social/wallet-input-evidence.tar",
+      "witnesses": [
+        "wallet-input-evidence/editable-before.png",
+        "wallet-input-evidence/editable-before.xml",
+        "wallet-input-evidence/editable-restored.png",
+        "wallet-input-evidence/editable-restored.xml",
+        "wallet-input-evidence/different-node-empty.png",
+        "wallet-input-evidence/different-node-empty.xml",
+        "wallet-input-evidence/different-wallet-empty.png",
+        "wallet-input-evidence/different-wallet-empty.xml",
+        "wallet-input-evidence/cancelled-auth-restored.png",
+        "wallet-input-evidence/cancelled-auth-restored.xml",
+        "wallet-input-evidence/interrupted-auth-restored.png",
+        "wallet-input-evidence/interrupted-auth-restored.xml",
+        "wallet-input-evidence/recreation-original-challenge.xml",
+        "wallet-input-evidence/fresh-authentication-challenge.xml",
+        "wallet-input-evidence/fresh-grant-submitted.png",
+        "wallet-input-evidence/fresh-grant-submitted.xml",
+        "wallet-input-evidence/authentication.json"
+      ]
+    }
+  },
+  "frozenAdapterSha256": {
+    "10": "fdf572f9bff590908e760d78cad472f8524773c8bd51b3b66a310a4db9c69e45",
+    "17": "bd2547b3bbfb46d98230f9f630d43f07e3d655dace761b71068cbdd2c464e608"
+  },
+  "frozenProfileSha256": {
+    "10": "a4661b2fcb7c53d68cd3e765bae0f193e8c9dfa10ecb8ff29ab31c5c4a10dc68",
+    "17": "1a50b80f8c57c66a685fc9b425b350e7291d92b7e719259a5b23b936109aea78"
+  }
+}
