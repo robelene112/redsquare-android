@@ -5,6 +5,9 @@ on:
     paths: ['prototypes/spaces-native/**', '.github/workflows/spaces-prototype.yml']
 permissions:
   contents: read
+concurrency:
+  group: spaces-native-prototype
+  cancel-in-progress: true
 jobs:
   prototype:
     strategy:
