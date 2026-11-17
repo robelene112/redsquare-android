@@ -42,9 +42,9 @@ class PreviewUpdateTest {
             ActivityScenario.launch<MainActivity>(intent).use {
                 try {
                     ui.waitUntil(10_000) {
-                        ui.onAllNodes(hasText("Preview update available")).fetchSemanticsNodes().isNotEmpty()
+                        ui.onAllNodes(hasText("New beta available")).fetchSemanticsNodes().isNotEmpty()
                     }
-                    ui.onNodeWithText("Preview update available").assertIsDisplayed()
+                    ui.onNodeWithText("New beta available").assertIsDisplayed()
                     ui.onNodeWithText("View update").assertIsDisplayed()
                     ui.onNodeWithText("View update").performClick()
                     Intents.intended(allOf(hasAction(Intent.ACTION_VIEW), hasData("https://davidengelen.nl/redsquare/")))

@@ -625,11 +625,8 @@ class MainActivity : ComponentActivity() {
                         appHeader()
                         if (module != AppModule.TALK) TalkActiveBar(address, backend) { selectModule(AppModule.TALK) { talkDraft = null } }
                         InlineStatus(if (talkReturnExpired) stringResource(R.string.talk_return_expired) else null, StatusTone.INFO)
-                        if (updateAvailable && !keyboardVisible) {
-                            Text(stringResource(R.string.preview_update_available))
-                            TextButton(onClick = {
-                                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PreviewUpdates.REVIEW_PAGE)))
-                            }) { Text(stringResource(R.string.view_update)) }
+                        nl.davidengelen.redsquare.ui.BetaUpdateNotice(updateAvailable && !keyboardVisible) {
+                            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PreviewUpdates.REVIEW_PAGE)))
                         }
                         if (publishingAgreement.savedNotice) Text(stringResource(R.string.publishing_saved),
                             Modifier.padding(bottom = 8.dp), style = MaterialTheme.typography.bodySmall)
