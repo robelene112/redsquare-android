@@ -2,7 +2,7 @@ name: Spaces native prototype
 on:
   push:
     branches: [codex/spaces-native-prototype]
-    paths: ['prototypes/spaces-native/**', '.github/workflows/spaces-prototype.yml']
+    paths: ['prototypes/spaces-native/src/**', 'prototypes/spaces-native/*.gradle.kts', 'prototypes/spaces-native/gradle.properties', '.github/workflows/spaces-prototype.yml']
 permissions:
   contents: read
 concurrency:

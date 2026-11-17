@@ -35,7 +35,7 @@ p=pathlib.Path(sys.argv[1]); root=ET.fromstring((p/'manifest.txt').read_text());
 assert root.get('package')=='nl.davidengelen.redsquare.spaces.prototype'
 internal=root.get('package')+'.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'
 assert all(e.get(a+'name')==internal for e in root.findall('uses-permission')), 'No device/network permissions allowed'
-assert any(e.get(a+'name')==internal and e.get(a+'protectionLevel')=='signature' for e in root.findall('permission')), 'Require the AndroidX signature-only receiver guard'
+assert any(e.get(a+'name')==internal and e.get(a+'protectionLevel') in ('signature','0x2','2') for e in root.findall('permission')), 'Require the AndroidX signature-only receiver guard'
 assert root.find('application').get(a+'debuggable','false')=='false'
 cert=re.search(r'certificate SHA-256 digest: ([0-9a-f]+)',(p/'signature.txt').read_text())[1]
 assert cert==(pathlib.Path.home()/'.local/share/redsquare-android/review/certificate.sha256').read_text().strip()
