@@ -47,12 +47,36 @@ _Avoid_: Server (when referring to the community).
 
 **Space channel**:
 A named area within a Space for a particular conversation or shared content.
+Its type is text chat, live voice/video, articles or files.
+
+**Private Space channel**:
+A channel whose content is restricted to the members admitted to that channel,
+including when its containing Space is public. The owner and administrators
+control admission and have access to every channel in their Space. Members
+without access do not see it in the channel list.
+
+**Space announcement channel**:
+A channel in which only the Space owner and administrators may publish
+announcements. Members may reply in threads attached to those announcements.
+
+**Archived Space channel**:
+A channel that remains readable to people with access but accepts no new
+contributions. The owner or administrators may reopen it.
+
+**Space chat thread**:
+A conversation attached to a particular chat message, opened through that
+message's replies while keeping the main channel readable.
 
 **Space category**:
 An optional named grouping of channels within a Space.
 
 **Public Space**:
-A Space whose content can be viewed without membership.
+A Space whose public channels can be viewed without membership. It may also
+contain private channels restricted to admitted members.
+
+**Space directory**:
+A searchable listing for discovering public Spaces. An unlisted public Space
+remains publicly readable through its link.
 
 **Private Space**:
 A Space whose shared content is restricted to its members. Ending membership
@@ -64,7 +88,12 @@ membership; reading public content does not.
 
 **Space owner**:
 The single person responsible for a Space, with authority to appoint its
-administrators. The creator is its first owner.
+administrators. Administrators cannot remove or ban the owner; the creator is
+the first owner.
+
+**Space ownership transfer**:
+A handover of the owner role to another Space member, confirmed by both the
+current owner and the successor.
 
 **Space administrator**:
 A person appointed by the Space owner to share the community's day-to-day
@@ -73,6 +102,13 @@ administration.
 **Space removal**:
 Ending a member's current membership. The same identity may rejoin through the
 Space's normal admission rules.
+
+**Space timeout**:
+A temporary restriction on contributions within Spaces until a stated end
+time, scoped to one channel or the whole Space. It covers messages, reactions,
+articles, uploads and speaking while
+preserving reading and listening access. It does not restrict independent
+activity in other modules, such as writing a standalone Stack article.
 
 **Space ban**:
 Ending a Saito identity's membership and preventing it from rejoining until the

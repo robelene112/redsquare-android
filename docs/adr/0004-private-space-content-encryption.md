@@ -14,6 +14,10 @@ history and interoperability with older clients must be examined during the
 specification; this does not claim that the delivered Chat already meets the
 new requirement.
 
+Public Spaces may also contain private channels. Their content requires the
+same end-to-end protection, restricted to the members admitted to that channel;
+public Space membership alone does not grant access to it.
+
 Joining a private Space grants access to its available earlier messages. The
 key-sharing design must support this agreed history access; it does not promise
 complete or permanent archive availability.
@@ -21,6 +25,12 @@ complete or permanent archive availability.
 When a member leaves or is removed, access to subsequent private content ends.
 Previously received messages and files cannot be guaranteed to disappear from
 that person's devices or copies. Public Space content remains publicly readable.
+
+The owner also requires guided backup and recovery of both the Saito identity
+and the encryption keys needed for available encrypted history on a replacement
+device. Restoring wallet identity alone must not be presented as proof that
+history keys or archived content have been recovered. This is a recovery
+requirement, not a claim that the current backup implementation covers these keys.
 
 The protocol, key management, metadata visibility and hosting
 design are still open during the grill. This records the privacy requirement,

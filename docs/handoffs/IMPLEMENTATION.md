@@ -1,12 +1,23 @@
 # Implementation handoff
 
+## Current authorized work: Spaces quality plan, specification and native prototype
+
+On 2026-11-17 the owner requested these phases in order: serious defect-prevention
+plan, unified specification, then a downloadable native UI prototype for review.
+The quality contract is [Spaces quality plan](../quality/SPACES_QUALITY_PLAN.md).
+The prototype is an isolated synthetic application, not functional Spaces
+integration or a replacement beta. Publishing its download on the existing VPS
+is authorized. No bulk implementation tickets or functional Spaces build is
+requested yet. #132/#133 still block functional integration, not this isolated
+prototype. Ordinary verification remains agent-owned.
+
 ## Current implementation priorities: UI bugs #132 and #133
 
 Fix and verify [composer #132](https://github.com/robelene112/redsquare-android/issues/132)
 and [feed #133](https://github.com/robelene112/redsquare-android/issues/133) before
 implementing Spaces. Work one implementation issue at a time. The owner permits
-the Spaces grill to continue, and no Spaces specification/ticket/implementation
-phase has been approved yet. Both bugs become predecessors of later Spaces
+the planning/prototype phases to continue; functional Spaces implementation
+and implementation-ticket publication have not been approved yet. Both bugs become predecessors of later Spaces
 implementation work; do not invent a dependency between these independent fixes.
 
 #132: starting New post unexpectedly shows uncertain-send recovery; the owner
@@ -25,8 +36,116 @@ timestamp claims; 52 passthrough frames match 52 timestamp records. This is visi
 recording evidence, not an agent-run native reproduction or source-cause proof.
 
 Agreed Spaces vocabulary and privacy/Chat encryption requirements are in
-GLOSSARY.md and ADR0004. The completed beta 139 record below remains historical
-acceptance, not proof that these newly reported bugs have been resolved.
+GLOSSARY.md and ADR0004. The owner now requests four questions per round for
+this grill. Agreed channel choices: owner/admin-controlled private-channel
+admission; announcement channels publishable only by owner/admins; private
+channels absent from unauthorized members' channel lists, including names and
+previews. This interface choice does not establish protocol metadata secrecy.
+Spaces default notifications cover personal mentions and replies to the user's
+messages, with per-channel all-messages or silent overrides. These are design
+agreements, not implemented capabilities or approval of the next workflow phase.
+Agreed navigation: Spaces has its own entry in the top module picker; retain
+each Space's last channel and reading position. Ordinary unread activity uses
+a dot; personal mentions use a count. Voice/video channels open a room page
+first and require explicit Join before activating microphone or camera.
+Agreed call experience: joining starts with microphone and camera off; an
+empty voice/video channel remains available after its call ends. People with
+channel access can see current room participants before joining. Calls permit
+navigation elsewhere in the app with continuing audio and a compact bar for
+return, microphone control and hang-up.
+Agreed text-chat behavior: replies form threads opened from a reply count on
+the original message; authors may edit their messages with a visible edited
+label. Authors may delete their own messages, and owner/admins may moderate
+messages. Retain a compact deleted-message placeholder where conversation
+context would otherwise be lost; deletion cannot recall already received
+copies. Automatically preserve a separate draft per channel across channel
+switches and temporary app closure.
+Agreed articles/files experience: article channels support sharing existing
+public Stack articles and writing new articles using Stack's editor and reader.
+Publishing inside a Space does not automatically publish to public Stack or
+Red Square; public sharing requires a separate deliberate action. File channels
+show a library with filename, sender, size and date plus open/save-to-device
+actions. Large files download only when opened or explicitly saved.
+Agreed file-storage requirements: shared files remain available while the
+uploader is offline; the Space owner deliberately selects a storage provider
+and confirms any costs. This does not activate a provider or make the owner's
+node a file server. Show shared storage usage; stop new uploads at capacity
+rather than silently deleting existing files. Distinguish removing a device's
+offline copy from removing the shared Space file; the latter requires
+appropriate rights and confirmation. Provider selection, retention duration
+and operating arrangements remain to be specified.
+Agreed community tools: members may add emoji reactions and remove their own
+reaction by tapping again; owner/admins may pin messages per channel. Each Space
+has search over accessible messages, articles and files with channel/content
+filters. Space creation includes a name, image, short description and an
+adaptable initial set of example channels.
+Agreed moderation: owner/admins have access to all private channels, disclosed
+when creating one. Announcement publishing remains owner/admin-only, with
+member replies allowed in attached threads. Only owner/admins may send a
+Space-wide @everyone notification; members may disable these group alerts.
+Owner/admins may impose a temporary writing timeout with an explicit end time,
+blocking contributions while retaining reading and listening access. The owner
+confirmed that the restriction covers articles, uploads and speaking as well
+as messages/reactions, but never unrelated activity such as a standalone Stack
+article. Admins may choose channel-only or whole-Space scope; the affected
+user sees both the scope and end time.
+Agreed discovery/admission: public Spaces are listed in discovery/search by
+default. The owner may turn off listing without making the Space private;
+this explicitly replaces the proposed opt-in default. Invitation links open a
+name/description preview with an explicit Join action, not automatic membership.
+Owners may optionally require new members to accept house rules before joining.
+Members have a member list with Saito names and owner/admin roles, supporting
+profile opening and deliberate private-chat initiation.
+Agreed additional moderation: admins may mute participants or remove them from
+a call, but may never activate someone else's microphone or camera. Members
+may report a message with a reason and the message itself to admins; the report
+is not public channel content. Owner/admins have an administrative action log
+covering removals, permission changes and channel changes, with actor and time.
+Agreed lifecycle: an owner leaving a continuing Space must first transfer
+ownership. Owner/admins may archive channels, preserving authorized reading
+while blocking new contributions, and later reopen them. Only the owner may
+dissolve the whole Space, with explicit confirmation and a reminder that copies
+already retained by members cannot be recalled.
+Agreed administration boundaries: the first version uses owner, administrator
+and member roles without custom roles. Only owner/admins create or change
+channels and categories. If the owner disappears, existing administration
+continues without automatic ownership promotion; restoring the same Saito
+identity restores its owner authority. Moderation against admins is reserved
+to the owner; admins cannot ban or time out one another.
+Agreed phone navigation: a communities overview shows images, names and
+unread activity; opening a Space returns to its remembered location. One
+slide-out panel switches communities and channels while preserving room for
+conversation. Bottom destinations are My Spaces, Discover and Activity; the top
+module picker continues switching Saito modules. Each Space has an information
+page for description, house rules, invitations and authorized administration.
+Agreed continuity: after ownership transfer, the former owner remains a normal
+member without automatic administrator rights; the new owner may appoint them.
+Voice/video channels are interactive group calls where admitted members may
+speak or enable video unless a moderation restriction applies. Offline text
+messages may be queued for automatic sending when connectivity returns, with
+a visible Waiting for connection state and cancellation before sending. Warn
+the owner before shared storage expires; renewal requires deliberate consent,
+not unexpected charges. Show members when files are no longer available.
+Agreed history/sharing: admission to a private channel grants its available
+earlier history. The owner may make a private Space public without making
+existing private channels public; the Space becomes discoverable, subject to
+its listing setting. Channels, messages and articles have links opening the
+correct native destination; private-content links never grant access by
+themselves. Previously loaded conversations and articles remain readable
+offline, with a last-updated indication.
+Agreed final access/retention choices: owners may also make public Spaces
+private, with explicit explanation that previously public copies cannot be
+made secret retroactively. Uploaders may remove their own shared files;
+owner/admins may moderate all shared files; other members may only remove their
+own offline copies. History has no automatic cleanup period by default while
+the storage arrangement supports retention, without promising permanent
+availability beyond its terms. Provide a guided backup/restore experience for
+both Saito identity and encryption keys so available encrypted history can be
+recovered when changing devices. The owner has now approved the quality-plan,
+specification and isolated native prototype phases, in that order. Grill
+answers alone do not authorize functional implementation.
+The completed beta 139 record below remains historical acceptance, not proof
+that these newly reported bugs have been resolved.
 
 Storage note for this isolated worktree: after the additional mount filled, its
 ignored `.scratch/review-builds` cache was relocated to
