@@ -17,15 +17,16 @@ for exact identities, screenshots, reviews and limits. Prototype source stays on
 its isolated branch; only these delivery pointers belong on the normal branch.
 
 Await owner UI feedback. Do not publish implementation tickets or start functional
-Spaces without the later requested phase. Bugs132/133 remain open prerequisites
+Spaces without the later requested phase. Bugs #132, #133 and #135 remain open prerequisites
 for functional integration; the following reports are not resolved by prototype QA.
 
-## Current follow-up: two UI bugs before Spaces implementation
+## Current follow-up: three UI bugs before Spaces implementation
 
-Resolve and verify [composer #132](https://github.com/robelene112/redsquare-android/issues/132)
-and [feed #133](https://github.com/robelene112/redsquare-android/issues/133) before
+Resolve and verify [composer #132](https://github.com/robelene112/redsquare-android/issues/132),
+[feed #133](https://github.com/robelene112/redsquare-android/issues/133),
+and [like counts #135](https://github.com/robelene112/redsquare-android/issues/135) before
 implementing Spaces. The owner permits the Spaces grill to continue meanwhile.
-Implementation stays sequential; the two reports are independent, not a proven
+Implementation stays sequential; the three reports are independent, not a proven
 technical dependency.
 
 The composer report shows uncertain-send recovery on New post and reported
@@ -34,6 +35,11 @@ with Loading original during scrolling, shrinking the card before it returns.
 Exact inspected transition: 1.482511s to 1.494622s. Native reproduction, internal
 causes and affected APK versions remain unestablished. Use owned emulators and
 controlled peers while preserving content, signed work and reading position.
+The second owner recording shows a pink Like heart without a count at 2.000289s,
+then totals of 14 and 7 on the same replies at 12.003156s. Missing labels do not prove
+actual starting totals of zero or failed network sends. #135 requires native
+zero-to-one and late reply-count hydration checks with independent signed-frame
+observation; no source cause or fix is established by this intake.
 Spaces and Chat end-to-end encryption remain planning requirements; see
 [the privacy decision](adr/0004-private-space-content-encryption.md).
 

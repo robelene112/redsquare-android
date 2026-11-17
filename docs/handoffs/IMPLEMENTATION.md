@@ -22,16 +22,17 @@ real media, encryption or provider operation is delivered by the prototype. Thes
 results are native UI evidence, not backend, E2E or physical/OEM acceptance.
 
 Only delivery documentation is backported to `codex/unified-redesign`; prototype
-code must stay isolated. #132/#133 still block functional integration, not the
+code must stay isolated. #132/#133/#135 still block functional integration, not the
 completed design prototype. Ordinary verification remains agent-owned.
 
-## Current implementation priorities: UI bugs #132 and #133
+## Current implementation priorities: UI bugs #132, #133 and #135
 
-Fix and verify [composer #132](https://github.com/robelene112/redsquare-android/issues/132)
-and [feed #133](https://github.com/robelene112/redsquare-android/issues/133) before
+Fix and verify [composer #132](https://github.com/robelene112/redsquare-android/issues/132),
+[feed #133](https://github.com/robelene112/redsquare-android/issues/133),
+and [like counts #135](https://github.com/robelene112/redsquare-android/issues/135) before
 implementing Spaces. Work one implementation issue at a time. The owner permits
 the planning/prototype phases to continue; functional Spaces implementation
-and implementation-ticket publication have not been approved yet. Both bugs become predecessors of later Spaces
+and implementation-ticket publication have not been approved yet. All three bugs are predecessors of later Spaces
 implementation work; do not invent a dependency between these independent fixes.
 
 #132: starting New post unexpectedly shows uncertain-send recovery; the owner
@@ -48,6 +49,16 @@ The notification-shade tail was excluded from the focused excerpt; do not publis
 private owner media. An initial frame-dropping export is explicitly unused for
 timestamp claims; 52 passthrough frames match 52 timestamp records. This is visible
 recording evidence, not an agent-run native reproduction or source-cause proof.
+
+#135: the next silent recording shows Like animation without a numeric count at
+source 2.000289s; the same replies show 14 and 7 by 12.003156s after a loading state.
+The report does not prove actual initial zero totals, per-tap receipt, affected APK
+version or source cause. Cover true zero-to-one and missing-count hydration on
+feed/reply routes, immediate local increments, signed peer effects and late-result
+reconciliation. Existing repeat-like native tests start at 4 likes, not zero. Private
+exact-frame/hash evidence remains at
+`/home/david/.cache/redsquare-android-artifacts/zero-like-report-20261117/analysis-receipt.json`.
+No private media is published; no native reproduction or fixed behavior is claimed.
 
 Agreed Spaces vocabulary and privacy/Chat encryption requirements are in
 GLOSSARY.md and ADR0004. The owner now requests four questions per round for
