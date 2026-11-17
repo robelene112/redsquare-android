@@ -15,6 +15,34 @@
     "10": 43980510614,
     "17": 43980514439
   },
-  "nativeResult": "PENDING",
-  "qualification": "Existing nativeTalkRoutes test is byte-identical and supplies realred. Startedcall/actualFGS precedesallrouteoutage; call-signal failurebranch choosesinitialUNAVAILABLE beforemonitor. Newphasechoice preservesexacttoken/liveguard, initialunstartedUNAVAILABLE andexistingcleanup/retry/no-autorestart. Native/nextsignedcandidate/freshwholeboth/update/publicdelivery acceptance pending;138superseded."
+  "nativeResult": "PASS_FOCUSED_WITH_EXPLICIT_CAPTURE_LIMITATION",
+  "qualification": "Existing nativeTalkRoutes test is byte-identical and supplies realred. Startedcall/actualFGS precedesallrouteoutage; call-signal failurebranch choosesinitialUNAVAILABLE beforemonitor. Newphasechoice preservesexacttoken/liveguard, initialunstartedUNAVAILABLE andexistingcleanup/retry/no-autorestart. Native/nextsignedcandidate/freshwholeboth/update/publicdelivery acceptance pending;138superseded.",
+  "focusedEvidence": {
+    "source": "b19efd41c2d33294c11809950c21539a8462c541",
+    "frozenSource": "9513495d367ff55c83afb155c070560005816789",
+    "spec": {
+      "reviewer": "/root/integrated131_spec_final",
+      "result": "PASS_FOCUSED_WITH_CAPTURE_LIMITATION",
+      "findings": 0
+    },
+    "standards": {
+      "reviewer": "/root/integrated131_standards_final",
+      "result": "PASS_FOCUSED",
+      "findings": 0
+    },
+    "runs": {
+      "10": 43980510614,
+      "17": 43980514439
+    },
+    "originalZipFiles": 199,
+    "nativeMembers": 85,
+    "png": 24,
+    "xml": 24,
+    "perSdk": {
+      "methods": 11,
+      "groups": 7
+    },
+    "captureQualification": "Android17 immediate all-routes-call-interrupted PNG/XML show precedingConnecting UI and cannotprovevisibleterminalcaption. OriginalnativeexacttokenINTERRUPTED/actualFGSremoval/noautorestart assertionspass; capturetimingcauseunproved,noUIdefectinferred. Android10showsidleCalls.",
+    "result": "PASS_FOCUSED_WITH_EXPLICIT_CAPTURE_LIMITATION"
+  }
 }

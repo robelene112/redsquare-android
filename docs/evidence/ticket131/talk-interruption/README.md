@@ -17,11 +17,12 @@ AndroidTest compilation succeeds. Original native test bodies and15s/other
 budgets are byte-identical. The existing real failing native case is retained;
 no shallow duplicate state-predicate test or relaxed assertion was introduced.
 
-Complete original Talk recovery10/17 scopes43980510614/43980514439 are pending.
-Both corrected scopes must pass with independent acceptance before fresh whole
-SDK qualification. Signed138 remains superseded and cannot be promoted. A new
-same-source candidate/observer, actual131-to-new updates, fresh whole parents and
-public delivery review remain required.
+Complete original Talk recovery10/17 scopes43980510614/43980514439 both pass
+with independent acceptance and the explicit immediate17-capture limitation in
+`../talk-focused/README.md`. Fresh whole SDK runs43983497246/43983501451 started
+only after those accepted focused results, at frozen9513495d. Signed138 remains superseded and cannot be promoted. Signed139 and its fresh951 observer now exist and are staged only. Actual
+131-to139 updates, fresh whole parents and public delivery acceptance remain
+required.
 
 The immutable failed Chat ZIP SHA256 is
 19db9fc53373fdbb281245f2e3fe287728915967070b3f95434ea5f8bd9e5b16.

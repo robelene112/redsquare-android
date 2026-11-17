@@ -1,0 +1,174 @@
+{
+  "talk-account-replacement-evidence.tar/talk-account-replacement-evidence/recreated-active-call.xml": {
+    "bytes": 35394,
+    "sha256": "292cda9635a2d819a4180e9ec71aa48cff54737a86de575f13bd208525f3a996"
+  },
+  "talk-account-replacement-evidence.tar/talk-account-replacement-evidence/recreated-active-call.png": {
+    "bytes": 35514,
+    "sha256": "dcc9a8a649362f299d2bf11001e9f915ba06888299f0a79018ef01fc6aed6a85"
+  },
+  "talk-account-replacement-evidence.tar/talk-account-replacement-evidence/native-capture-timings.jsonl": {
+    "bytes": 332,
+    "sha256": "558a267aa626c4d0eb436206bc25c57d72af1477cc63381aa7bb873290a3bbff"
+  },
+  "talk-account-replacement-evidence.tar/talk-account-replacement-evidence/stage.json": {
+    "bytes": 312,
+    "sha256": "dceb1c97b752a09811e412570b021532cdd08778d952468f6f622daf23f280bd"
+  },
+  "talk-account-replacement-evidence.tar/talk-account-replacement-evidence/replacement-call.xml": {
+    "bytes": 38144,
+    "sha256": "66a39f820a468a463373d1f441dbcb32af7cf131d58a17fbf6089ebcfb3c0c09"
+  },
+  "talk-account-replacement-evidence.tar/talk-account-replacement-evidence/replacement-call.png": {
+    "bytes": 182329,
+    "sha256": "35b7fbb79d7cfe169d42d6b112cab177cd0f5ec3a1e2f493aefd39b5e5550f6a"
+  },
+  "talk-camera-lifecycle-evidence.tar/talk-camera-lifecycle-evidence/video-services.txt": {
+    "bytes": 2382,
+    "sha256": "ad3c11571d252a6dec72df8cd94334a2a8681c87e737ebf7d2a8c72eeb157585"
+  },
+  "talk-camera-lifecycle-evidence.tar/talk-camera-lifecycle-evidence/camera-switch.json": {
+    "bytes": 106,
+    "sha256": "0b9737d3d6a7d9a73a8d46e69241d30653a648a3e5f2e82bc655ffee9982ae2d"
+  },
+  "talk-camera-lifecycle-evidence.tar/talk-camera-lifecycle-evidence/switched-camera.xml": {
+    "bytes": 38920,
+    "sha256": "726b936da3dc0d33cc4a65069cd2ed7826745b629faa3cd3c20bb547b6000052"
+  },
+  "talk-camera-lifecycle-evidence.tar/talk-camera-lifecycle-evidence/switched-camera.png": {
+    "bytes": 36680,
+    "sha256": "15b3372680fcfea515b5b705a1ed63a5e139c98713dd78fab8efdb670ba5e6dc"
+  },
+  "talk-camera-lifecycle-evidence.tar/talk-camera-lifecycle-evidence/native-capture-timings.jsonl": {
+    "bytes": 321,
+    "sha256": "4f5f921b6b3af5f3c30cc7b1414abd66e64e062c5a57a6a372192cba258f6189"
+  },
+  "talk-camera-lifecycle-evidence.tar/talk-camera-lifecycle-evidence/resumed-call.xml": {
+    "bytes": 38920,
+    "sha256": "726b936da3dc0d33cc4a65069cd2ed7826745b629faa3cd3c20bb547b6000052"
+  },
+  "talk-camera-lifecycle-evidence.tar/talk-camera-lifecycle-evidence/resumed-call.png": {
+    "bytes": 36680,
+    "sha256": "15b3372680fcfea515b5b705a1ed63a5e139c98713dd78fab8efdb670ba5e6dc"
+  },
+  "talk-camera-lifecycle-evidence.tar/talk-camera-lifecycle-evidence/camera.txt": {
+    "bytes": 193,
+    "sha256": "ba6b24f5681d5766f3e595c62f6ccf3ac8cccefb7edb234bd9518ba595acdc92"
+  },
+  "talk-idle-evidence.tar/talk-idle-evidence/initial-retry/initial-outage.xml": {
+    "bytes": 32896,
+    "sha256": "c4411c5674aacd8d12609110be4978883778565a3171553541d151bca03545bf"
+  },
+  "talk-idle-evidence.tar/talk-idle-evidence/initial-retry/initial-outage.png": {
+    "bytes": 33508,
+    "sha256": "740a8efea2f79198d3c082796303af4ee8a3ab4a904b5c53c781a92bce3fc8f2"
+  },
+  "talk-idle-evidence.tar/talk-idle-evidence/initial-retry/native-capture-timings.jsonl": {
+    "bytes": 330,
+    "sha256": "1e93986853944c57801d032036a7d081ee40f7f5dfabd8a62e8229fba89dacf4"
+  },
+  "talk-idle-evidence.tar/talk-idle-evidence/initial-retry/stage.json": {
+    "bytes": 189,
+    "sha256": "6c05f10c52acc02dc2a00e2ef21fc194a19e8306ea25921fa1dc5957de1a94d9"
+  },
+  "talk-idle-evidence.tar/talk-idle-evidence/initial-retry/incoming-after-recovery.xml": {
+    "bytes": 22027,
+    "sha256": "e7f12aae82f9bf1b9f0016084d7ec077f2731a19690f3805cd3775e676c0dec2"
+  },
+  "talk-idle-evidence.tar/talk-idle-evidence/initial-retry/incoming-after-recovery.png": {
+    "bytes": 28657,
+    "sha256": "287f757db1177d82a72d3552d345d1cb8cdaffa1136a3d42a464c27f6af74f27"
+  },
+  "talk-idle-evidence.tar/talk-idle-evidence/automatic/all-routes-lost.xml": {
+    "bytes": 32809,
+    "sha256": "ac9ba5078ce221955c8ca825efb302f6213370241ba720503d70303366440ece"
+  },
+  "talk-idle-evidence.tar/talk-idle-evidence/automatic/all-routes-lost.png": {
+    "bytes": 32177,
+    "sha256": "0f8a38d148ca36f69cd31ab3fd5a879bf495cd94e1b0d18e22ae7bd39deed18a"
+  },
+  "talk-idle-evidence.tar/talk-idle-evidence/automatic/native-capture-timings.jsonl": {
+    "bytes": 328,
+    "sha256": "f463f6744853fe9b95e499761960ac788364052879981d0addd3a8070e0cff0a"
+  },
+  "talk-idle-evidence.tar/talk-idle-evidence/automatic/stage.json": {
+    "bytes": 214,
+    "sha256": "85d68b4090c64ede16d3df69d8f64dad818a7f8ec518856bcc8c7ff9eab7469e"
+  },
+  "talk-idle-evidence.tar/talk-idle-evidence/automatic/incoming-after-recovery.xml": {
+    "bytes": 22025,
+    "sha256": "0df3b3d4f55f2e66100c736726f8ef529785c949525268a741df36519c4db6ed"
+  },
+  "talk-idle-evidence.tar/talk-idle-evidence/automatic/incoming-after-recovery.png": {
+    "bytes": 28865,
+    "sha256": "d516f9eda2eb6263caab53218405ba4b85aed491ab1a71d5810433381724ede9"
+  },
+  "talk-lifecycle-evidence.tar/talk-lifecycle-evidence/focus.txt": {
+    "bytes": 84,
+    "sha256": "79d327775a7ff7c427f34dfac13712fb294efb20d6727cd9d8d3695c34582c64"
+  },
+  "talk-ownership-evidence.tar/talk-ownership-evidence/notifications.txt": {
+    "bytes": 82,
+    "sha256": "f919ff4156c56e6e55d304391196dab08b7e8fd04c652a9e36e570e3c92baf88"
+  },
+  "talk-ownership-evidence.tar/talk-ownership-evidence/authority.txt": {
+    "bytes": 122,
+    "sha256": "e0d73fe53b9627fa1bf2ef544a5af5c80f373f4fda422d0bd6beb81c99dc5f8c"
+  },
+  "talk-routes-evidence.tar/talk-routes-evidence/active-interruption/ready-with-fallback.xml": {
+    "bytes": 31611,
+    "sha256": "a1935aefd2459fa55d4ad1a462ad1a01167eb09770fe426bfcd39a13676f060f"
+  },
+  "talk-routes-evidence.tar/talk-routes-evidence/active-interruption/ready-with-fallback.png": {
+    "bytes": 34828,
+    "sha256": "396e32d2dbfa9995e8c299a840f43904b34735e2df3d4d8f6bcc350f417eabc6"
+  },
+  "talk-routes-evidence.tar/talk-routes-evidence/active-interruption/native-capture-timings.jsonl": {
+    "bytes": 338,
+    "sha256": "612fe2fc118172efeb2548912826af74178e98c467e0d762f4315d8af8bb202a"
+  },
+  "talk-routes-evidence.tar/talk-routes-evidence/active-interruption/all-routes-call-interrupted.xml": {
+    "bytes": 32299,
+    "sha256": "c2970e0c8931e5801be9208ad1a567ba1d837cf913ca5ee8bec73562a87454af"
+  },
+  "talk-routes-evidence.tar/talk-routes-evidence/active-interruption/all-routes-call-interrupted.png": {
+    "bytes": 26088,
+    "sha256": "62de7868898cb53c7c2613aec69f22fdc252b6f382141eb86228063b29dd6791"
+  },
+  "talk-routes-evidence.tar/talk-routes-evidence/active-interruption/stage.json": {
+    "bytes": 215,
+    "sha256": "f94eacf45b186ff13c447ceab4c774413ea31b02dede8e0b1abfbdef354030f5"
+  },
+  "talk-routes-evidence.tar/talk-routes-evidence/mixed-routes/ready-with-fallback.xml": {
+    "bytes": 32839,
+    "sha256": "9c9c5c3e53dadbb351f19da9644e9c74187c7ea59293f2dcb2908c2577b4ba06"
+  },
+  "talk-routes-evidence.tar/talk-routes-evidence/mixed-routes/ready-with-fallback.png": {
+    "bytes": 33334,
+    "sha256": "fbc505e7f7f1bb1e097fc4ca5579055ad2a4ad42cde1e65f641efc320ea434cc"
+  },
+  "talk-routes-evidence.tar/talk-routes-evidence/mixed-routes/native-capture-timings.jsonl": {
+    "bytes": 336,
+    "sha256": "dbcb4de2f1e2a5c7fdfe9ffe0313661e6b5e9b7a352cc3e0b07bb4abc054d097"
+  },
+  "talk-routes-evidence.tar/talk-routes-evidence/mixed-routes/incoming-on-healthy-route.xml": {
+    "bytes": 22024,
+    "sha256": "c39b107393ef72d4c6742c621c03bb67d8f06ee1483f6e45346d3331a8f9859a"
+  },
+  "talk-routes-evidence.tar/talk-routes-evidence/mixed-routes/incoming-on-healthy-route.png": {
+    "bytes": 28861,
+    "sha256": "914d18605df87f7245594ac5185892cd1cd2da81f6792d720b42062d3a4014f6"
+  },
+  "talk-routes-evidence.tar/talk-routes-evidence/mixed-routes/stage.json": {
+    "bytes": 138,
+    "sha256": "06e2109cf72cb0d1b8398c37c12ce14cb422640daba91b05cc888388b20384a6"
+  },
+  "talk-routing-evidence.tar/talk-routing-evidence/rejected.txt": {
+    "bytes": 27,
+    "sha256": "29fec70892cf26ee5766156b92855341df15515cd804b6a125e8bae27fdf9883"
+  },
+  "talk-routing-evidence.tar/talk-routing-evidence/routing.txt": {
+    "bytes": 20,
+    "sha256": "d755767ef1d33c4d1680e2ac7fe0f4011929f307bd2421f4ef021159845d731a"
+  }
+}

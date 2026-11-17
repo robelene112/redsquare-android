@@ -16,7 +16,10 @@ token/live guards, teardown, retry delays and no-autorestart behavior remain.
 Both source reviews pass with zero findings and local compilation succeeds.
 The original real native test/budgets are unchanged. See
 [Talk interruption](talk-interruption/README.md). Complete Talk recovery10/17
-runs43980510614/43980514439 are pending. No new139 candidate/observer exists yet.
+runs43980510614/43980514439 both pass, with independent acceptance on both
+axes and the explicit17 immediate-capture limitation in
+[talk-focused evidence](talk-focused/README.md). The runtime/service/no-restart
+goals are proved; that one old-frame image is not terminal-caption proof.
 
 Earlier media preparation03d80ff15 retains both source and original media/retry
 focused acceptance on both SDKs. Incoming worker/coalescer7b04e15f retains230core
@@ -27,13 +30,18 @@ qualifications remain preserved. The138 Talk failure has original native/log
 support for the terminal-state race; the namespaced scene supersedes a temporary
 flatstageJSON extraction collision, explicitly qualified in that packet.
 
-The next prospective inputs are `source-profile-talk-interruption.json` and
-`verify-full-talk-interruption.py`, keeping all original goals and immutable
-historical profiles. Both corrected focused scopes must pass with independent
-acceptance before fresh whole SDK dispatch. Freeze reviewed inputs first. Each
-SDK must pass an ordinary complete three-part parent including all public reads.
-New same-source signing/observer, actual signed131-to-new updates and independent
-public delivery acceptance remain required. All temporary probes are removed.
+Current complete inputs are `source-profile-talk-interruption.json` and
+`verify-full-talk-interruption.py`, reviewed/frozen at9513495d before dispatch.
+Fresh ordinary whole10/17 runs43983497246/43983501451 started only after both
+focused reviews passed and retain every original goal/public read. They are pending.
+
+Signed139 is staged only at951: SHA256a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3,
+94,282,272bytes, established certificate, ordinary nondebug/nonprofileable,
+min29/target36. Actual immutable public APK bytes match. Fresh same-source module
+observer11e8c7fb2c is separately emulator/unsafe-wallet guarded and byte/signature
+verified. Actual131-to139 runs43985908653/43985912300 are pending. Complete parents,
+actual updates and independent public delivery acceptance remain required. Public
+latest stays131. All temporary probes are removed;138 remains superseded.
 
 ## Prospective complete source
 

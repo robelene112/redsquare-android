@@ -472,8 +472,36 @@
       "10": 43980510614,
       "17": 43980514439
     },
-    "nativeResult": "PENDING",
-    "qualification": "Existing nativeTalkRoutes test is byte-identical and supplies realred. Startedcall/actualFGS precedesallrouteoutage; call-signal failurebranch choosesinitialUNAVAILABLE beforemonitor. Newphasechoice preservesexacttoken/liveguard, initialunstartedUNAVAILABLE andexistingcleanup/retry/no-autorestart. Native/nextsignedcandidate/freshwholeboth/update/publicdelivery acceptance pending;138superseded."
+    "nativeResult": "PASS_FOCUSED_WITH_EXPLICIT_CAPTURE_LIMITATION",
+    "qualification": "Existing nativeTalkRoutes test is byte-identical and supplies realred. Startedcall/actualFGS precedesallrouteoutage; call-signal failurebranch choosesinitialUNAVAILABLE beforemonitor. Newphasechoice preservesexacttoken/liveguard, initialunstartedUNAVAILABLE andexistingcleanup/retry/no-autorestart. Native/nextsignedcandidate/freshwholeboth/update/publicdelivery acceptance pending;138superseded.",
+    "focusedEvidence": {
+      "source": "b19efd41c2d33294c11809950c21539a8462c541",
+      "frozenSource": "9513495d367ff55c83afb155c070560005816789",
+      "spec": {
+        "reviewer": "/root/integrated131_spec_final",
+        "result": "PASS_FOCUSED_WITH_CAPTURE_LIMITATION",
+        "findings": 0
+      },
+      "standards": {
+        "reviewer": "/root/integrated131_standards_final",
+        "result": "PASS_FOCUSED",
+        "findings": 0
+      },
+      "runs": {
+        "10": 43980510614,
+        "17": 43980514439
+      },
+      "originalZipFiles": 199,
+      "nativeMembers": 85,
+      "png": 24,
+      "xml": 24,
+      "perSdk": {
+        "methods": 11,
+        "groups": 7
+      },
+      "captureQualification": "Android17 immediate all-routes-call-interrupted PNG/XML show precedingConnecting UI and cannotprovevisibleterminalcaption. OriginalnativeexacttokenINTERRUPTED/actualFGSremoval/noautorestart assertionspass; capturetimingcauseunproved,noUIdefectinferred. Android10showsidleCalls.",
+      "result": "PASS_FOCUSED_WITH_EXPLICIT_CAPTURE_LIMITATION"
+    }
   },
   "talkInterruptionQualification": {
     "productSource": "b19efd41c2d33294c11809950c21539a8462c541",
@@ -489,8 +517,42 @@
       "result": "PASS_SOURCE_ONLY",
       "findings": 0
     },
-    "focusedResult": "PENDING_BOTH_AND_REVIEWS",
-    "completeResult": "PENDING_FRESH_BOTH_AFTER_FOCUSED_ACCEPTANCE",
-    "qualification": "Frozen prospective inputs preservealloriginalnativegoals.138superseded;freshnextcandidate/observer/131updatesboth/publicdelivery required. No sourcecore230change ornewmirrortest."
+    "focusedResult": "PASS_FOCUSED_WITH_EXPLICIT_CAPTURE_LIMITATION",
+    "completeResult": "PENDING_FRESH_BOTH",
+    "qualification": "Frozen prospective inputs preservealloriginalnativegoals.138superseded;freshnextcandidate/observer/131updatesboth/publicdelivery required. No sourcecore230change ornewmirrortest.",
+    "frozenSource": "9513495d367ff55c83afb155c070560005816789",
+    "captureQualification": "Android17 immediate all-routes-call-interrupted PNG/XML show precedingConnecting UI and cannotprovevisibleterminalcaption. OriginalnativeexacttokenINTERRUPTED/actualFGSremoval/noautorestart assertionspass; capturetimingcauseunproved,noUIdefectinferred. Android10showsidleCalls.",
+    "runs": {
+      "10": 43983497246,
+      "17": 43983501451
+    }
+  },
+  "signedUpdate139": {
+    "source": "9513495d367ff55c83afb155c070560005816789",
+    "candidate": {
+      "versionCode": 139,
+      "versionName": "0.1.139",
+      "applicationId": "nl.davidengelen.redsquare",
+      "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+      "sha256": "a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3",
+      "commit": "9513495d367ff55c83afb155c070560005816789",
+      "variant": "release"
+    },
+    "bytes": 94282272,
+    "moduleObserverSha256": "11e8c7fb2c661e8700a0432ec976a1e051109cde292f3b5fedab1ae178d97c4e",
+    "runs": [
+      {
+        "sdk": "10",
+        "run": 43985908653,
+        "api": "29"
+      },
+      {
+        "sdk": "17",
+        "run": 43985912300,
+        "api": "37.0"
+      }
+    ],
+    "result": "PENDING_ACTUAL_UPDATES",
+    "publication": "STAGED_ONLY_PUBLIC_LATEST131"
   }
 }
