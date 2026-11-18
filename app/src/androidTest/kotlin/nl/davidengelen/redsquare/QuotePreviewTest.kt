@@ -172,7 +172,12 @@ class QuotePreviewTest {
             addProperty("module", "RedSquare"); addProperty("request", "delete tweet")
             add("data", JsonObject().apply { addProperty("tweet_id", original.get("sig").asString) })
         }, original.get("created_at").asLong + 180_000, listOf(author.publicKey))
-        val deletedRow = postingArchiveRow(deletion)
+        val deletedRow = JsonObject().apply {
+            addProperty("sig", deletion.id); addProperty("field1", "RedSquare")
+            addProperty("field2", author.publicKey)
+            addProperty("created_at", SaitoEnvelope.decode(deletion.envelope()).createdAt)
+            addProperty("tx", deletion.envelope())
+        }
         val response = AtomicReference("[$legacy]")
         val target = AtomicReference<String?>("[$original]")
         val targetReads = java.util.concurrent.atomic.AtomicInteger()
@@ -188,7 +193,13 @@ class QuotePreviewTest {
                 else -> "[]"
             }
         })
-        peer.start().use { server ->
+        val retained = ChatFixtureState(context,
+            listOf("authorposts.${SaitoBackend.OWNER.id}.${original.get("sig").asString}.v1"),
+            AndroidWalletStore(context).loadOrCreate().publicKey)
+        var fixtureFailure: Throwable? = null
+        try {
+            retained.prepare()
+            peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                 val folder = java.io.File(context.cacheDir, "quote-evidence").apply { mkdirs() }
@@ -274,7 +285,9 @@ class QuotePreviewTest {
                     cleanupAfterTest(primary, { peer.withholdArchiveReply = false; peer.releaseWithheldArchiveReplies() })
                 }
             }
-        }
+            }
+        } catch (failure: Throwable) { fixtureFailure = failure; throw failure }
+        finally { cleanupAfterTest(fixtureFailure, retained::restoreFiles, retained::restorePreferences) }
     }
 
     @Test fun currentCommentaryRetweetLoadsItsVerifiedOriginalFromTheSelectedArchive() {
