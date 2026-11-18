@@ -22,7 +22,9 @@ by this prototype. Ordinary beta139 is unchanged.
 Current **prototype 3** compares five navigation alternatives: A Space switcher,
 B Channel title, C Bottom dock, D Floating button and E Space rail. Tap **Design
 A / 5** in the header. The owner says the broader UI looks good, but prototype 2's
-menu entry is still not attractive enough. No navigation winner is approved.
+menu entry was still not attractive enough. On 2026-11-18 the owner selected
+**B: Channel title**. The current channel title opens the community/channel drawer,
+with the Space name above it. Keep global module/account navigation separate.
 
 Signed/tested source `4dae92cdf` on `codex/spaces-native-prototype` passes all 39
 native cases across Android 10, Android 17 and 320dp / 200% text. The new journey
@@ -34,7 +36,8 @@ actual public APK/page/manifest/certificate verification. It updates previous
 prototypes; ordinary beta 139 and immutable prototype 1/2 files are preserved.
 Prototype source stays isolated; only these pointers belong on the normal branch.
 
-Await owner UI feedback. Do not publish implementation tickets or start functional
+Navigation choice B is approved. The other app design remains the agreed baseline.
+Do not publish implementation tickets or start functional
 Spaces without the later requested phase. Bugs #132, #133 and #135 remain open prerequisites
 for functional integration; the following reports are not resolved by prototype QA.
 

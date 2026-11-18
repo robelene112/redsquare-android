@@ -15,13 +15,16 @@ Continue to keep #132/#133/#135 open until individually fixed and verified.
 The owner's requested phases are complete in order: [quality plan](../quality/SPACES_QUALITY_PLAN.md),
 [unified specification134](https://github.com/robelene112/redsquare-android/issues/134),
 then the [native prototype download](https://davidengelen.nl/redsquare/spaces-prototype/).
-Await owner design feedback. The specification remains open; functional Spaces,
+The owner selected navigation B on 2026-11-18. The specification remains open; functional Spaces,
 implementation-ticket publication and a replacement beta are not part of this phase.
 
 Current **prototype 3** delivers the owner's request for five navigation alternatives:
 A Space switcher, B Channel title, C Bottom dock, D Floating button and E Space rail.
 Use **Design A / 5** in the header. The rest of the app remains the shared baseline.
-Prototype 2 was better but still not attractive enough; no winner is approved.
+Prototype 2 was better but still not attractive enough. On 2026-11-18 the owner
+selected **B: Channel title**. The fixed header shows the Space above the current
+channel; tapping the channel title opens the drawer. Preserve separate Back/Space
+information actions, accessible current context/heading and the approved rest of the UI.
 
 Prototype branch `codex/spaces-native-prototype` retains isolated source and
 [delivery evidence](https://github.com/robelene112/redsquare-android/blob/codex/spaces-native-prototype/docs/evidence/spaces-prototype3/README.md).
@@ -33,7 +36,10 @@ bounds and D's clearance from messages. Debug/release lint and independent revie
 pass. Exact public APK bytes, manifest, certificate and page are verified. It
 updates earlier prototypes; ordinary beta 139 and immutable prototype 1/2 remain
 unchanged. Prior failed runs/candidates and observer-only corrections stay retained.
-Only fresh complete final profiles establish acceptance. Await owner choice A-E.
+Only fresh complete final profiles establish acceptance. Choice B is now the
+implementation design authority; the five-choice build remains its comparison source.
+Remove the design selector from the eventual functional UI, rather than promoting
+the throwaway prototype state model into production.
 
 **Spaces Prototype** is a separate synthetic in-memory package, installing alongside
 the ordinary beta139, whose page and metadata remain unchanged. No wallet, network,
