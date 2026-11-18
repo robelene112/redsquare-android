@@ -377,19 +377,22 @@ class PostSubmissionPreviewTest {
             peer.start().use { server ->
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                    .putExtra("feedPeerUrl", endpoint)).use { activity ->
+                    .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use { activity ->
                     // Mount the real recovered composer in a fresh Activity/ViewModel
                     // host. This isolates entry after completion from the in-memory
                     // transaction ID retained by a still-mounted editor.
                     activity.onActivity { screen -> screen.setContent {
                         nl.davidengelen.redsquare.ui.RedSquareTheme(screen, nl.davidengelen.redsquare.ui.Appearance.LIGHT) {
                             CompositionLocalProvider(
-                                nl.davidengelen.redsquare.feed.LocalPostNavigation provides nl.davidengelen.redsquare.feed.PostNavigation(),
-                                nl.davidengelen.redsquare.policy.LocalPublishingAgreement provides nl.davidengelen.redsquare.policy.PublishingAgreementController(context)
+                                nl.davidengelen.redsquare.feed.LocalPostNavigation provides androidx.compose.runtime.remember { nl.davidengelen.redsquare.feed.PostNavigation() },
+                                nl.davidengelen.redsquare.policy.LocalPublishingAgreement provides androidx.compose.runtime.remember { nl.davidengelen.redsquare.policy.PublishingAgreementController(context) }
                             ) {
-                                nl.davidengelen.redsquare.feed.PostComposerScreen(wallet, endpoint, SaitoBackend.OWNER,
-                                    androidx.compose.ui.Modifier.fillMaxSize(), recovery = separate,
-                                    onSubmitted = { submitted.incrementAndGet() }, onClose = { closed.incrementAndGet() })
+                                nl.davidengelen.redsquare.registry.RegisteredIdentityScope(wallet, endpoint, SaitoBackend.OWNER,
+                                    directoryEndpoint = "http://127.0.0.1:1/names") {
+                                    nl.davidengelen.redsquare.feed.PostComposerScreen(wallet, endpoint, SaitoBackend.OWNER,
+                                        androidx.compose.ui.Modifier.fillMaxSize(), recovery = separate,
+                                        onSubmitted = { submitted.incrementAndGet() }, onClose = { closed.incrementAndGet() })
+                                }
                             }
                         }
                     } }
