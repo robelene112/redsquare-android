@@ -2340,6 +2340,7 @@ if [[ "${TEST_SCOPE:-full}" == social* ]]; then
 fi
 verify_quotes() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    verify_group_chat_native QuoteRecyclingMotionTest 180 quote-recycling-motion quote-motion-evidence
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.QuotePreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
@@ -2352,7 +2353,6 @@ verify_quotes() {
         adb pull /data/local/tmp/quote-failure.xml "$evidence/quote-system-window.xml" >/dev/null 2>&1 || true
         return 1
     fi
-    verify_group_chat_native QuoteRecyclingMotionTest 180 quote-recycling-motion quote-motion-evidence
     python3 "$repo_dir/scripts/post-process-check" --quote --evidence "$evidence/quote-process"
 }
 if [[ "${TEST_SCOPE:-full}" == quotes* ]]; then
