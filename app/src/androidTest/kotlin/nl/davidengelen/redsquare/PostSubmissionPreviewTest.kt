@@ -81,7 +81,7 @@ class PostSubmissionPreviewTest {
                         val manager = androidx.work.WorkManager.getInstance(context)
                         ui.waitUntil(2_000) {
                             manager.getWorkInfosForUniqueWork("post:${original.id}")
-                                .get(1, java.util.concurrent.TimeUnit.SECONDS).isNotEmpty()
+                                .get(1, java.util.concurrent.TimeUnit.SECONDS).any { !it.state.isFinished }
                         }
                         ui.onNode(hasSetTextAction()).performTextReplacement("Keep the independent next draft")
                         ui.attachSyntheticImage()

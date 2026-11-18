@@ -279,7 +279,12 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     }
                     if (transaction != null && !available && !queued && recovery == null) {
                         TextButton(enabled = !saving && !sending,
-                            onClick = { startAnotherDraft { observedTransaction = null } }) {
+                            onClick = { startAnotherDraft {
+                                observedTransaction = null
+                                try { withContext(Dispatchers.IO) { PostQueueScheduling.enqueue(context, owner, backend, endpoint) } }
+                                catch (cancelled: CancellationException) { throw cancelled }
+                                catch (_: Exception) { android.util.Log.w("PostRecovery", "Availability check scheduling deferred") }
+                            } }) {
                             Text(stringResource(R.string.post_start_another))
                         }
                         Text(stringResource(R.string.post_retained_detail), style = MaterialTheme.typography.bodySmall,

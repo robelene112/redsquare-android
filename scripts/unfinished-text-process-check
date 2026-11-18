@@ -6,7 +6,7 @@ import subprocess
 from pathlib import Path
 from process_check_utils import ProcessInstrumentation, assert_process_gone, finish_process_fixture
 
-MODES = ('post', 'post-saved', 'reply', 'quote', 'profile', 'profile-saved', 'continuous', 'storage-failure')
+MODES = ('post', 'post-saved', 'reply', 'quote', 'profile', 'profile-saved', 'continuous', 'storage-failure', 'post-separated', 'reply-separated', 'quote-separated')
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--evidence', type=Path, required=True)
 parser.add_argument('--mode', choices=('all', *MODES), default='all')

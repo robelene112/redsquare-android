@@ -307,7 +307,7 @@ internal class PostComposerState(
             finally { saving = false }
         }
     }
-    fun startAnotherDraft(onStarted: () -> Unit) {
+    fun startAnotherDraft(onStarted: suspend () -> Unit) {
         val candidate = transaction ?: return
         if (!ready || saving || sending || available || queued || store.observesOnly) return
         saving = true

@@ -31,6 +31,7 @@ class UnfinishedTextProcessTest {
     private val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val mode get() = InstrumentationRegistry.getArguments().getString("mode") ?: "post"
     private val profile get() = mode.startsWith("profile")
+    private val separated get() = mode.endsWith("-separated")
     private val body get() = if (mode == "post") "Unfinished private post 120, not explicitly saved" else "Unfinished private $mode text 120, never published"
     private val savedText get() = if (mode.endsWith("-saved")) "An explicitly saved $mode before later edits 120" else ""
     private val reference by lazy {
@@ -52,7 +53,19 @@ class UnfinishedTextProcessTest {
     private fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "unfinished-text-evidence/$mode/$name"))
     private val editor get() = hasSetTextAction() and isEnabled()
     private fun draft() = PostDraftStore(context, wallet.publicKey, AndroidBackendStore(context).load(),
-        parent = reference.takeIf { mode == "reply" }, quote = reference.takeIf { mode == "quote" })
+        parent = reference.takeIf { mode.startsWith("reply") }, quote = reference.takeIf { mode.startsWith("quote") })
+    private fun assertSeparatedOriginal(row: JsonObject) {
+        if (!separated) return
+        val id = row.get("originalSignature").asString
+        val saved = PostDraftStore.recovered(context, wallet.publicKey, AndroidBackendStore(context).load(), id).load()
+        assertEquals(row.get("originalDigest").asString, digest(requireNotNull(saved.transaction).encoded()))
+        assertFalse(saved.available)
+        assertFalse(draft().hasSubmission(id))
+        assertEquals(1, saved.images.size)
+        val post = RedSquareFeed.decode(saved.transaction.envelope())
+        assertEquals(if (mode.startsWith("reply")) reference.id else "", post.parentId)
+        assertEquals(if (mode.startsWith("quote")) reference.id else null, post.quoted?.id)
+    }
     private fun assertExplicitDraft() {
         if (profile) {
             val saved = ProfileDraftStore(context, wallet.publicKey, AndroidBackendStore(context).load()).load()
@@ -108,7 +121,7 @@ class UnfinishedTextProcessTest {
     }
 
     private fun editWithPeer(block: (ControlledFeedPeer) -> Unit) {
-        val rows = if (mode in listOf("reply", "quote")) {
+        val rows = if ((mode.startsWith("reply") || mode.startsWith("quote"))) {
             val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-following-reference.json")
                 .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root") }
             "[$root]"
@@ -128,12 +141,16 @@ class UnfinishedTextProcessTest {
                             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Edit profile") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                             ui.onNode(hasText("Edit profile") and hasClickAction()).performClick()
                         }
-                        mode in listOf("reply", "quote") -> {
+                        (mode.startsWith("reply") || mode.startsWith("quote")) -> {
                             ui.clickVisiblePostBody(reference.text)
                             ui.waitUntil(10_000) { ui.onNodeWithText("Conversation").isDisplayed() }
-                            if (mode == "reply") ui.replyToPost(reference.id) else ui.clickVisiblePostContent("Quote")
+                            if (mode.startsWith("reply")) ui.replyToPost(reference.id) else ui.clickVisiblePostContent("Quote")
                         }
                         else -> ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                    }
+                    if (separated && read().get("phase").asString == "prepared") {
+                        ui.waitUntil(10_000) { ui.onAllNodes(hasText("Start another draft") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                        ui.onNodeWithText("Start another draft").performScrollTo().performClick()
                     }
                     ui.waitUntil(10_000) { ui.onAllNodes(editor).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNode(editor).performScrollTo()
@@ -167,7 +184,22 @@ class UnfinishedTextProcessTest {
         }
         wallets.replace(previous, wallet)
         preferences().forEach { (name, key) -> check(context.getSharedPreferences(name, 0).edit().putBoolean(key, name != "name-directory").commit()) }
+        if (separated) {
+            val image = InstrumentationRegistry.getInstrumentation().context.assets.open("native-images-reference.json")
+                .reader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("images").get("red").asString }
+            val parent = reference.takeIf { mode.startsWith("reply") }
+            val quote = reference.takeIf { mode.startsWith("quote") }
+            val text = "Retain this earlier uncertain $mode original"
+            val recipients = (parent ?: quote)?.let { (listOf(it.author) + it.recipients).distinct() }.orEmpty()
+            val original = SaitoTransaction.create(wallet, RedSquarePosts.message(text, listOf(image), parent, quote),
+                1_700_000_000_000L, recipients)
+            draft().save(PostDraftStore.Saved(text, original, images = listOf(image)))
+            row.addProperty("originalSignature", original.id)
+            row.addProperty("originalDigest", digest(original.encoded()))
+            write(row)
+        }
         editWithPeer { peer ->
+            assertSeparatedOriginal(row)
             if (savedText.isNotEmpty()) {
                 ui.onNode(editor).performTextReplacement(savedText)
                 ui.onNodeWithText("Save draft").performClick()
@@ -219,6 +251,7 @@ class UnfinishedTextProcessTest {
         assertEquals(row.get("walletDigest").asString, digest(AndroidWalletStore(context).loadExisting().exportJson()))
         assertEquals(row.get("backend").asString, AndroidBackendStore(context).load().id)
         editWithPeer { peer ->
+            assertSeparatedOriginal(row)
             ui.onNode(editor).assertEditableTextEquals(body)
             if (!profile) {
                 ui.onNodeWithText("Unsaved changes").assertExists()
@@ -234,6 +267,8 @@ class UnfinishedTextProcessTest {
     @Test fun restoreOriginalEncryptedInstallationFiles() {
         if (!checkpoint.exists()) return
         val row = read()
+        if (row.has("originalSignature")) androidx.work.WorkManager.getInstance(context)
+            .cancelUniqueWork("post:${row.get("originalSignature").asString}").result.get()
         restoreProcessFixtureFiles(context, originals, names() + row.getAsJsonArray("savedFiles").map { it.asString }, row.getAsJsonArray("savedFiles"))
         row.getAsJsonArray("preferences").forEach { entry ->
             val pref = entry.asJsonObject; val name = pref.get("name").asString; val key = pref.get("key").asString
