@@ -133,7 +133,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
             currentCoroutineContext().ensureActive()
             throw (request.oversized ?: failure)
         } finally {
-            if (tracePhoto) Log.i("DEBUG132Photo", "rpc-end index=$index lease=$leaseId oversized=${request.oversized != null} active=${currentCoroutineContext().isActive}")
+            if (tracePhoto) Log.i("DEBUG132Photo", "rpc-end index=$index lease=$leaseId oversized=${request.oversized != null} active=${currentCoroutineContext().job.isActive}")
             connection.pending.remove(index, request)
         }
     }
