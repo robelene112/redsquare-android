@@ -267,17 +267,33 @@ class UnfinishedTextProcessTest {
     @Test fun restoreOriginalEncryptedInstallationFiles() {
         if (!checkpoint.exists()) return
         val row = read()
-        if (row.has("originalSignature")) androidx.work.WorkManager.getInstance(context)
-            .cancelUniqueWork("post:${row.get("originalSignature").asString}").result.get()
-        restoreProcessFixtureFiles(context, originals, names() + row.getAsJsonArray("savedFiles").map { it.asString }, row.getAsJsonArray("savedFiles"))
-        row.getAsJsonArray("preferences").forEach { entry ->
-            val pref = entry.asJsonObject; val name = pref.get("name").asString; val key = pref.get("key").asString
-            check(name to key in preferences())
-            check(context.getSharedPreferences(name, 0).edit().apply {
-                if (pref.has("value")) putBoolean(key, pref.get("value").asBoolean) else remove(key)
-            }.commit())
-        }
-        assertEquals(row.get("originalWalletDigest").asString, digest(AndroidWalletStore(context).loadExisting().exportJson()))
-        check(originals.deleteRecursively()); check(checkpoint.delete())
+        var filesRestored = false
+        var preferencesRestored = false
+        var walletRestored = false
+        cleanupAfterTest(null, {
+            if (row.has("originalSignature")) androidx.work.WorkManager.getInstance(context)
+                .cancelUniqueWork("post:${row.get("originalSignature").asString}").result.get()
+        }, {
+            restoreProcessFixtureFiles(context, originals, names() + row.getAsJsonArray("savedFiles").map { it.asString }, row.getAsJsonArray("savedFiles"))
+            filesRestored = true
+        }, {
+            val operations: List<() -> Unit> = row.getAsJsonArray("preferences").map { entry -> {
+                val pref = entry.asJsonObject; val name = pref.get("name").asString; val key = pref.get("key").asString
+                check(name to key in preferences())
+                check(context.getSharedPreferences(name, 0).edit().apply {
+                    if (pref.has("value")) putBoolean(key, pref.get("value").asBoolean) else remove(key)
+                }.commit())
+            } }
+            cleanupAfterTest(null, *operations.toTypedArray())
+            preferencesRestored = true
+        }, {
+            assertEquals(row.get("originalWalletDigest").asString, digest(AndroidWalletStore(context).loadExisting().exportJson()))
+            walletRestored = true
+        }, {
+            // Keep recovery snapshots if any restoration failed.
+            if (filesRestored && preferencesRestored && walletRestored) {
+                check(originals.deleteRecursively()); check(checkpoint.delete())
+            }
+        })
     }
 }

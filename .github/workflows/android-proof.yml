@@ -51,7 +51,7 @@ on:
       candidate_reference_version:
         description: Ordinary signed update baseline (default preserves the inherited83 gate)
         type: choice
-        options: ['83', '127', '131']
+        options: ['83', '127', '131', '139']
         default: '83'
       module_update_observer_sha256:
         description: Optional exact signed emulator-only module continuity observer

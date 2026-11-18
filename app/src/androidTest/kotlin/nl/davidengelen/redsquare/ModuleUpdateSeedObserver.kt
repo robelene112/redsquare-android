@@ -17,11 +17,11 @@ class ModuleUpdateSeedObserver {
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare" && Build.HARDWARE in listOf("ranchu", "goldfish"))
         val sourceVersion = context.packageManager.getPackageInfo(context.packageName, 0).longVersionCode
-        check(sourceVersion in setOf(127L, 131L))
+        check(sourceVersion in setOf(127L, 131L, 139L))
         check(context.noBackupFilesDir.listFiles().orEmpty().none { it.name.startsWith("wallet.") })
         val seed = instrumentation.context.assets.open("native-module-update-seed.json").reader().use { JsonParser.parseReader(it).asJsonObject }
         val fixtureWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Published unsafe fixture. Never fund.
-        val wallet = if (sourceVersion == 131L) fixtureWallet.withChatContact(FileshareUpdateFixture.contact) else fixtureWallet
+        val wallet = if (sourceVersion in setOf(131L, 139L)) fixtureWallet.withChatContact(FileshareUpdateFixture.contact) else fixtureWallet
         check(wallet.publicKey == "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU" && seed.get("owner").asString == wallet.publicKey)
         val wallets = AndroidWalletStore(context)
         wallets.replace(wallets.loadOrCreate(), wallet)
@@ -35,9 +35,9 @@ class ModuleUpdateSeedObserver {
             val contents = EncryptedLocalFile.Contents(1, record.get("text").asString)
             file.save(contents); assertEquals(contents, file.load())
         }
-        if (sourceVersion == 131L) FileshareUpdateFixture.seed(context, wallet.publicKey)
+        if (sourceVersion in setOf(131L, 139L)) FileshareUpdateFixture.seed(context, wallet.publicKey)
         instrumentation.sendStatus(0, Bundle().apply { putString("moduleUpdateSeed", JsonObject().apply {
-            addProperty("owner", wallet.publicKey); addProperty("sourceVersion", sourceVersion); addProperty("fileshareLegacyFormatSeed", sourceVersion == 131L)
+            addProperty("owner", wallet.publicKey); addProperty("sourceVersion", sourceVersion); addProperty("fileshareLegacyFormatSeed", sourceVersion in setOf(131L, 139L))
             addProperty("encryptedRecords", seed.getAsJsonArray("records").size()); addProperty("noNetworkSubmission", true)
             add("expected", seed.getAsJsonObject("expected"))
         }.toString()) })

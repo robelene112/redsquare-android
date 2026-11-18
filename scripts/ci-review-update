@@ -59,9 +59,9 @@ for version in [args.older, args.newer]:
 observer = "review-update-work-check" if args.retain_local_work else "wallet-device-check"
 subprocess.run(["python3", str(repo / "scripts" / observer), "--before", str(apks[0]),
     "--after", str(apks[1]), "--evidence", str(args.evidence)], check=True)
-if args.retain_local_work and args.older == 131:
+if args.retain_local_work and args.older in (131, 139):
     continuity = json.loads((args.evidence / "module-continuity.json").read_text())
     observed = continuity["observations"]
-    assert len(observed) == 3 and observed[0]["sourceVersion"] == 131 and observed[0]["fileshareLegacyFormatSeed"] is True
+    assert len(observed) == 3 and observed[0]["sourceVersion"] == args.older and observed[0]["fileshareLegacyFormatSeed"] is True
     assert all(row["exactRetainedFileshareAndInterruptedHistory"] is True for row in observed[1:])
 args.evidence.joinpath("versions.txt").write_text(f"{args.older} -> {args.newer}\nCertificate SHA-256: {certificate}\n")
