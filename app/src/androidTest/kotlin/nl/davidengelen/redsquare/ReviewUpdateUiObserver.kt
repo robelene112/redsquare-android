@@ -5,11 +5,13 @@ import android.os.Bundle
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.BySelector
-import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.StaleObjectException
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
+import android.graphics.Rect
+import android.view.accessibility.AccessibilityNodeInfo
+import org.json.JSONArray
 import org.json.JSONObject
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import org.junit.Test
@@ -27,6 +29,24 @@ class ReviewUpdateUiObserver {
         val application = "nl.davidengelen.redsquare"
         val device = UiDevice.getInstance(instrumentation)
         val folder = File(instrumentation.targetContext.cacheDir, "review-update-observation").apply { mkdirs() }
+        val captionInputs = JSONArray()
+        fun scrollFeed(remaining: Long) {
+            val started = android.os.SystemClock.elapsedRealtime()
+            check(remaining > 0)
+            fun nodes(root: AccessibilityNodeInfo): Sequence<AccessibilityNodeInfo> = sequence {
+                yield(root)
+                for (index in 0 until root.childCount) root.getChild(index)?.let { yieldAll(nodes(it)) }
+            }
+            val root = requireNotNull(instrumentation.uiAutomation.rootInActiveWindow)
+            val lists = nodes(root).filter { it.packageName?.toString() == application &&
+                it.isScrollable && it.isVisibleToUser }.toList()
+            check(lists.size == 1) { "The ordinary feed must expose one visible native reading list" }
+            val bounds = Rect().also(lists.single()::getBoundsInScreen)
+            val accepted = lists.single().performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD)
+            captionInputs.put(JSONObject().put("kind", "native-scroll-forward").put("started", started)
+                .put("returned", android.os.SystemClock.elapsedRealtime()).put("remainingBudgetMillis", remaining)
+                .put("accepted", accepted).put("bounds", bounds.toShortString()))
+        }
         val draft = "Redesign update check. This is an unsent local draft."
         val expectedPost = arguments.getString("reviewCachedPost")?.let(::JSONObject)
         fun find(selector: BySelector, timeout: Long = 20_000): UiObject2 =
@@ -59,7 +79,8 @@ class ReviewUpdateUiObserver {
             }
             return false
         }
-        withFailureCapture({ captureNativeScreen(File(folder, "$phase-failure.png")) }) {
+        var primary: Throwable? = null
+        try { withFailureCapture({ captureNativeScreen(File(folder, "$phase-failure.png")) }) {
             device.executeShellCommand("am start -W -n $application/nl.davidengelen.redsquare.MainActivity")
             feed()
             settings()
@@ -98,6 +119,7 @@ class ReviewUpdateUiObserver {
                 find(By.descStartsWith("View profile for "), 30_000)
                 var candidate: Pair<String, UiObject2>? = null
                 while (candidate == null && android.os.SystemClock.elapsedRealtime() < captionDeadline) {
+                    val queryStarted = android.os.SystemClock.elapsedRealtime()
                     candidate = try {
                         val authors = device.findObjects(By.pkg(application).descStartsWith("View profile for "))
                         authors.firstNotNullOfOrNull { author ->
@@ -122,13 +144,16 @@ class ReviewUpdateUiObserver {
                         // A real feed update can replace native nodes mid-read.
                         // Re-query only that observation within the same deadline.
                         continue
+                    } finally {
+                        captionInputs.put(JSONObject().put("kind", "caption-query").put("started", queryStarted)
+                            .put("returned", android.os.SystemClock.elapsedRealtime()).put("selected", candidate != null))
                     }
                     if (candidate == null) {
                         // A URL-only first post is valid content. Look farther down
                         // the actual feed rather than accepting its media button.
                         val remaining = captionDeadline - android.os.SystemClock.elapsedRealtime()
                         check(remaining > 0) { "Selecting an authored caption exceeded its observation deadline" }
-                        find(By.scrollable(true), remaining).scroll(Direction.DOWN, 0.6f)
+                        scrollFeed(remaining)
                     }
                 }
                 check(android.os.SystemClock.elapsedRealtime() <= captionDeadline) {
@@ -148,7 +173,7 @@ class ReviewUpdateUiObserver {
                 while (body == null && android.os.SystemClock.elapsedRealtime() < revealDeadline) {
                     val remaining = revealDeadline - android.os.SystemClock.elapsedRealtime()
                     check(remaining > 0) { "Revealing the cached caption exceeded its observation deadline" }
-                    find(By.scrollable(true), remaining).scroll(Direction.DOWN, 0.6f)
+                    scrollFeed(remaining)
                     body = device.findObject(selector)
                 }
                 check(android.os.SystemClock.elapsedRealtime() <= revealDeadline) {
@@ -194,6 +219,9 @@ class ReviewUpdateUiObserver {
                 .put("offlineCacheRequired", phase == "verify")
             File(folder, "$phase.json").writeText(observation.toString(2))
             instrumentation.sendStatus(0, Bundle().apply { putString("reviewWorkObservation", observation.toString()) })
-        }
+        } } catch (failure: Throwable) { primary = failure; throw failure }
+        finally { cleanupAfterTest(primary, {
+            File(folder, "$phase-caption-input.json").writeText(captionInputs.toString(2))
+        }) }
     }
 }
