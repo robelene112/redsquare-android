@@ -73,34 +73,63 @@ class QuoteRecyclingMotionTest {
                         previous = null; stableSince = 0
                         val high = bounds.top + bounds.height() / 5
                         val low = bounds.bottom - bounds.height() / 5
+                        // Once the commentary enters, fit the whole measured
+                        // card with a small native drag, without an overshoot.
+                        val correction = if (target != null && requiredPostHeight > 0) when {
+                            requireNotNull(top) < bounds.top -> bounds.top - top
+                            top + requiredPostHeight > bounds.bottom -> bounds.bottom - top - requiredPostHeight
+                            else -> 0
+                        } else 0
+                        val startY = if (correction != 0) bounds.centerY() else if (forward) low else high
+                        val endY = if (correction != 0) (startY + correction).coerceIn(high, low)
+                            else if (forward) high else low
                         val started = android.os.SystemClock.elapsedRealtime()
-                        assertTrue(device.swipe(bounds.centerX(), if (forward) low else high,
-                            bounds.centerX(), if (forward) high else low, 6))
+                        assertTrue(device.swipe(bounds.centerX(), startY,
+                            bounds.centerX(), endY, if (correction == 0) 6 else 20))
                         device.wait(Until.hasObject(By.text(label)), 75)
                         gestures.add(JsonObject().apply {
                             addProperty("target", label); addProperty("forward", forward)
                             addProperty("started", started); addProperty("returned", android.os.SystemClock.elapsedRealtime())
+                            addProperty("startY", startY); addProperty("endY", endY)
                             addProperty("bounds", bounds.toShortString()); addProperty("targetBounds", target?.toShortString())
                         })
                     }
                     fail("Real native swipes must reach stable $label within the declared input budget")
                 }
                 requireNotNull(device.wait(Until.findObject(By.text("Later")), 15_000)).click()
-                moveTo(commentary, forward = false, budgetMillis = 20_000)
+                val positionBy = android.os.SystemClock.elapsedRealtime() + 20_000
+                fun remainingPosition() = (positionBy - android.os.SystemClock.elapsedRealtime()).also { check(it > 0) }
+                moveTo(commentary, forward = false, budgetMillis = remainingPosition())
                 requireNotNull(device.wait(Until.findObject(By.text(text)), 20_000))
                 assertTrue("The real peer supplied this original before recycling", reads.get() > 0)
+                @Suppress("DEPRECATION")
                 fun cardBounds(): Rect {
                     val quote = requireNotNull(device.findObject(By.text(text))).visibleBounds
-                    var node = requireNotNull(device.findObject(By.text(commentary)))
-                    repeat(8) {
-                        val bounds = node.visibleBounds
-                        if (node.isClickable && bounds.contains(quote.centerX(), quote.centerY()) &&
-                            bounds.width() >= device.displayWidth * 0.8) return bounds
-                        node = requireNotNull(node.parent)
+                    // UiObject2.visibleBounds clips an offscreen card. Read the
+                    // actual native bounds, then explicitly fit them in view.
+                    val root = requireNotNull(instrumentation.uiAutomation.rootInActiveWindow)
+                    val nodes = mutableListOf(root)
+                    try {
+                        val matches = root.findAccessibilityNodeInfosByText(commentary).also(nodes::addAll)
+                        var node = matches.single { it.text?.toString() == commentary }
+                        repeat(8) {
+                            val bounds = Rect().also(node::getBoundsInScreen)
+                            if (node.isClickable && bounds.contains(quote.centerX(), quote.centerY()) &&
+                                bounds.width() >= device.displayWidth * 0.8) return bounds
+                            node = requireNotNull(node.parent).also(nodes::add)
+                        }
+                    } finally {
+                        nodes.forEach { it.recycle() }
                     }
                     error("The native quote and commentary must belong to one visible post action")
                 }
+                val initial = cardBounds()
+                val initialOffset = requireNotNull(device.findObject(By.text(commentary))).visibleBounds.top - initial.top
+                moveTo(commentary, forward = false, budgetMillis = remainingPosition(),
+                    requiredPostHeight = initial.height(), bodyOffset = initialOffset)
                 val before = cardBounds()
+                assertTrue("The entire baseline card must be inside its native viewport",
+                    requireNotNull(device.findObject(By.scrollable(true))).visibleBounds.contains(before))
                 val bodyOffset = requireNotNull(device.findObject(By.text(commentary))).visibleBounds.top - before.top
                 val relativeTop = requireNotNull(device.findObject(By.text(text))).visibleBounds.top -
                     requireNotNull(device.findObject(By.text(commentary))).visibleBounds.top
@@ -135,6 +164,8 @@ class QuoteRecyclingMotionTest {
                             assertTrue("The native original remains visible on re-entry", device.hasObject(By.text(text)))
                             assertFalse(device.hasObject(By.text("Loading original.")))
                             val after = cardBounds()
+                            assertTrue("The entire returned card must be inside its native viewport",
+                                requireNotNull(device.findObject(By.scrollable(true))).visibleBounds.contains(after))
                             assertEquals("The real post retains its complete rendered height", before.height(), after.height())
                             val afterRelativeTop = requireNotNull(device.findObject(By.text(text))).visibleBounds.top -
                                 requireNotNull(device.findObject(By.text(commentary))).visibleBounds.top
