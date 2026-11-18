@@ -79,6 +79,7 @@ class SpacesPrototypeTest {
         click("Offline"); click("chat")
         ui.onNode(hasSetTextAction()).performTextInput("Keep my offline draft")
         ui.onNodeWithContentDescription("Send preview message").performClick()
+        ui.onNodeWithTag("prototype-content").performScrollToNode(hasText("Preview: waiting for connection"))
         ui.onNodeWithText("Preview: waiting for connection").assertExists()
         shot("14-offline-queue")
         ui.onNodeWithTag("prototype-content").performScrollToNode(hasContentDescription("Cancel queued message 100"))
