@@ -1,0 +1,19 @@
+{
+  "productSource": "73b2ff8e0822dd4259d4ac394a0bd5d01a59e2fe",
+  "correctedFixtureSource": "91b619cafee76eed9cf345c184bc29133606b506",
+  "originalAndroid17NativeSource": "8420bc2c36bdabeffe01a2fd17af594de8b74b33",
+  "changedNonPacketPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/StoreCataloguePreviewTest.kt"
+  ],
+  "fixturePath": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/StoreCataloguePreviewTest.kt",
+  "beforeSha256": "89703f380cd7d8d5ee7b3bdd81c49a398d77fad5156804393d1357888cfc9f12",
+  "afterSha256": "9d748f576a8da4733a6d2d1174b4399a5fac5feb6bdbacd95ca8adaf82d5644d",
+  "fixtureDiffSha256": "7830f13bac2bff9ac073a3c52145febd2fba66d631500e2ebf9ae5a603070299",
+  "originalAdapterSha256": "5875ad682857ee2946ec01a045e33ea27a956ed1a8d50dc8680827b41312a9d8",
+  "originalProfileSha256": "3be9e15aa0d54b4e65c1aed8ad9642880cdc8fa7d5cfff1693931b6179b4b8d0",
+  "expectedWholeSdk": "10",
+  "originalFull10Run": "44286357738",
+  "originalFailedJob": 134739944164,
+  "originalFailure": "Missing Filter by Other after final return/category tap; Wallet failed, parent subsequently cancelled. No prefix acceptance.",
+  "qualification": "Exact original failure cause remains unproved. Unmodified focused44290866423 passes. The observer adds focused-window/complete stable bounds before one original tap and observes the sheet inside the original15s return budget. Existing Other/empty-result15s, class180s and all category/price/peer/no-write assertions remain. This is a prospective whole10 source admission, not a retrospective pass."
+}

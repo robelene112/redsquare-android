@@ -62,3 +62,34 @@ version, ANR, failed publication or data loss. The controlled reproduction
 establishes a gated composer while its UI-thread heartbeat still responds.
 Keep physical/OEM/live-provider/Play gates and source-only Vault rental's
 UNDEPLOYED status explicit. Spaces prototype and ordinary latest139 are separate.
+
+## Prospective Android10 Store observer follow-up
+
+The first frozen full10 `44286357738` reached a real Wallet assertion failure:
+the final category tap was followed by no `Filter by Other` node. Its screenshot
+shows the catalogue and closed sheet. The Wallet job failed and the parent was
+subsequently cancelled; no sibling or prefix is accepted. Original raw data is
+retained at `full10-original-wallet` in the external evidence directory.
+Unmodified focused10 `44290866423` passes all three cases. This does not prove
+the original failure's cause or turn the failed parent into a pass.
+
+Only `StoreCataloguePreviewTest.kt` changes at `91b619caf`: observe a focused
+Activity and complete stable target bounds for200ms, make one original tap,
+and observe the sheet within the remaining original15-second return budget.
+The Other selection, empty-result15s,180s class and all original assertions
+remain. Corrected focused `44292004282` passes at567ec5;91b adds an explicit
+nonnull precondition. Its exact-source focused execution remains separate.
+
+The new source bridge and Android10 profile/adapter admit only that one test
+file difference from signed product73, with all other nonpacket files identical.
+They retain every existing catalog goal, witness and qualification, and require
+a fresh complete three-job10 run after commitment/review. The original17 whole
+run `44286352915` stays bound to8420 and may be accepted only if it completes.
+There is no production change or replacement of immutable candidate140.
+
+Actual signed139-to140 runs `44292512691` (17) and `44292518648` (10) complete
+successfully using checked-out source8420 and same-source guarded observer
+`a56f40272a7847a85c809e9fa806a8240be96f1ba50d0f4ff8c66722c1d92ac1`.
+Their workflow ref is91b; workflow/harness inputs are unchanged. Independent
+actual-evidence review and complete qualification remain pending. Latest139
+is not promoted by staging or by these update observations.
