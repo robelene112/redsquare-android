@@ -66,3 +66,30 @@ reaches all8 posts with4 queued oversized replies and zero publication. The
 actual late Stack witness records2 replayed callbacks,16777867 body bytes,
 current success with1 article and1 unchanged physical connection, no cancelled
 reader success and zero publication. These remain focused observations.
+
+## Prospective closed-broker test follow-up
+
+Original whole10 `44309600389` fails at the final large-photo peer-health check.
+Its retained reads record already establishes8 reached rows,4 queued oversized
+replies and zero publication. The cause is the controlled broker's
+`enqueuedClose` precondition: a legitimate reply was prepared before its socket
+closed, then the oversized-only writer threw instead of returningfalse as the
+ordinary WebSocket send API does. The failed parent and cancelled siblings
+remain excluded; successful early goals do not qualify the whole run.
+
+The real owned-socket core regression atc5bc fails at that same closing check.
+Atbe2b the broker returnsfalse for closed/failed sockets, recording the refused
+write asunqueued. All3 outage and18 shared-connection core cases pass. The
+original unheld PhotoPages input, callback population,1..4 queued limit,
+eight-row requirement, publication/identity checks and native deadlines remain.
+Only the broker fixture and its new core regression differ from signedb929;
+ordinary141 bytes, application/runtime and accepted signed updates are unchanged.
+
+The peer-close bridge/profile/adapter admit exactly those two test-only paths.
+They require all original native predicates plus three original source-job HTML
+reports showing the added outage case passed. The new report paths/bytes/hashes
+are separately indexed in the summary; no native identity, archive count or
+intentional start is invented. Fresh corrected whole runs must start after
+commit/review. Original17 `44310512236` may qualify only if its entire1147 parent
+succeeds, using the unchanged original141 profile. All inherited qualifications
+and failed-parent boundaries remain explicit.

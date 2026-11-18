@@ -1,0 +1,34 @@
+{
+  "productSource": "b929927aa84e0ed0850d60b520871d8d630d0f54",
+  "correctedFixtureSource": "be2b3ea9118e1fd2857ba49a8b31a8a60422a297",
+  "expectedWholeSdks": [
+    "10",
+    "17"
+  ],
+  "changedNonPacketPaths": [
+    "core/src/test/kotlin/nl/davidengelen/redsquare/saito/ControlledNodeOutageTest.kt",
+    "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt"
+  ],
+  "fixtures": [
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/ControlledNodeOutageTest.kt",
+      "beforeSha256": "dd02ccc000b21a2061f1fdd1f7666fce361e0254d98376ca315d2841d18d6758",
+      "afterSha256": "c529b70e902cff2948bd73aaab1268f766c03df25bcf9adcd23d7494a3653e79"
+    },
+    {
+      "path": "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt",
+      "beforeSha256": "8145645cef1924e03c1856b5a4ee255acfdaf5f31ff865f09b63d016190bf3e7",
+      "afterSha256": "7688a44c4011ede125e7d35c6d654a4e99919fa82f6975d856406d3bf7caf0e7"
+    }
+  ],
+  "fixtureDiffSha256": "79cb2020db9ded533d865a4a9304bbe757a7f8dd50a9ef39186e16919f416d62",
+  "originalAdapterSha256": "52cbebf8e63b1d783f57305bc286ee7374f108a23af2fc10cb1efcd4cebd5533",
+  "originalProfileSha256": "bfbd33adfead96a8ea3536b4620410ac35f3a514d7ed0b5419750c5d6e469c42",
+  "rejectedFull10Run": "44309600389",
+  "originalFull17Run": "44310512236",
+  "originalFull17Source": "1147ded3834a8dd16b56dd1008aebb61ed694871",
+  "originalFailure": "All8photo rows reached,4queued oversized callbacks,zero publication; final peer.assertHealthy fails at the broker enqueuedClose precondition. Original failed parent and cancelled siblings remain rejected.",
+  "coreRedSource": "c5bc4956d1c9cc5ea8439de908ff203f471e4e1f",
+  "coreGoal": "Prepared oversized reply races actual owned socket close; ordinary refused write remains queued=false, peer healthy, zero publication.",
+  "qualification": "Two test-only files differ from signed141. Closed/failed broker writes returnfalse under the existing oversized-only flag, preserving ordinary WebSocket send semantics. All native callback observations and original unheld1..4receive budget remain. Original17 may qualify only as one complete successful1147parent under its original profile. Fresh corrected whole runs require this frozen profile and original goals, with three actual successful core report witnesses; no prefix assembly."
+}
