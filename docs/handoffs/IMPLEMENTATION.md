@@ -10,6 +10,34 @@ No functional Spaces work or completed133/135 fix is claimed by this handoff.
 Actual node/provider activation remains separately gated. Ordinary QA is owned
 by the agent; do not ask for repeated phone development tests.
 
+## Prerequisite #133: source and focused verification accepted
+
+Source `c00e4e81282da1968fe1e5d82b0e6e3ac84252e2` retains verified
+quoted originals during background refresh and cancelled rereads. Complete
+focused runs [Android17](https://github.com/robelene112/redsquare-android/actions/runs/44384091153)
+and [Android10](https://github.com/robelene112/redsquare-android/actions/runs/44385783479)
+pass nine semantic methods, one real native motion method, and both quote
+process-recovery windows each. Independent Spec and Standards reviews accept
+source and focused evidence, with zero hard findings; two optional local test
+helper duplication observations remain nonblocking. All519 retained original
+frames across twelve movies were visually reviewed, including actual normal
+and zero motion. No captured loading replacement or quote collapse occurred.
+
+The exact current native counterfactual
+[44384097049](https://github.com/robelene112/redsquare-android/actions/runs/44384097049)
+fails the original-visible assertion with the old QuoteState. Original failed
+runs remain failed. Whole original artifact ZIPs, digests, source bindings and
+independent visual reviews remain in the external task evidence directory
+`/home/david/.cache/redsquare-android-artifacts/spaces-implementation/` under
+`ticket133-away18-green10`, `ticket133-away18-green17` and
+`ticket133-native-adverse-away18`; prospective contractv9 binds these inputs.
+These observations do not establish general FPS or physical/OEM acceptance.
+
+Proceed sequentially to source #135. Keep #133 open until combined integration,
+signed beta/update and public verification are complete. Beta141 is still the
+last delivered ordinary release. Functional Spaces137–147 remains authorized
+and unimplemented; finish the shared133/135 delivery milestone before137.
+
 ## Completed #132, signed beta141; next #133
 
 The single requested composer ticket is complete and delivered at
