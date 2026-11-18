@@ -74,7 +74,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     // original writer queue/thread and framing, bypassing only this broker's send cap.
     @Volatile var sendOversizedArchiveFrames = false
     private fun sendArchive(socket: WebSocket, frame: okio.ByteString): Boolean {
-        if (!sendOversizedArchiveFrames || frame.size <= 16 * 1024 * 1024) return socket.send(frame)
+        if (!sendOversizedArchiveFrames || socket.queueSize() + frame.size <= 16 * 1024 * 1024) return socket.send(frame)
         val type = Class.forName("okhttp3.internal.ws.RealWebSocket")
         check(type.isInstance(socket))
         synchronized(socket) {

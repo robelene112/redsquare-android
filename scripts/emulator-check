@@ -1323,7 +1323,6 @@ if [[ "${TEST_SCOPE:-full}" == following-partial* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == photo-large-rows* ]]; then
     verify_group_chat_native PhotoLargeRowPreviewTest 180 photo-large-rows photo-pages-evidence
-    adb logcat -d -v threadtime -s DEBUG132Photo:I '*:S' > "$evidence/photo-startup-probe.txt"
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == photo-multistream* ]]; then

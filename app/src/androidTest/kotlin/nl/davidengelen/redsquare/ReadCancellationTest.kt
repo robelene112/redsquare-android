@@ -90,7 +90,6 @@ class ReadCancellationTest {
                         withTimeout(10_000) { while (reads.get() < initialReads + 2) delay(10) }
                         peer.withholdArchiveReply = false
                         val replayed = peer.releaseWithheldArchiveReplies()
-                        check(replayed == 2) { "Replay the cancelled large callback before the current small callback" }
                         withTimeout(15_000) { activeRead.await() }
                         File(context.cacheDir, "read-cancellation-evidence/late-oversized.json").apply {
                             parentFile!!.mkdirs()
@@ -108,6 +107,7 @@ class ReadCancellationTest {
                         check(active.successfulRead && active.articles.size == 1) {
                             "A late oversized callback for the cancelled owner interrupted the current reader"
                         }
+                        check(replayed == 2) { "Replay the cancelled large callback before the current small callback" }
                         check(!cancelled.successfulRead && peer.connectionAttempts.get() == originalConnections)
                         check(peer.transactions.isEmpty()); peer.assertHealthy()
                     } finally {

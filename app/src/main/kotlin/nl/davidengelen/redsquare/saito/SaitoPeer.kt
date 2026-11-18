@@ -111,8 +111,6 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         }
         val response = CompletableDeferred<ByteArray>()
         val request = Connection.PendingRequest(this@SaitoPeer, response, awaitRegistryCallback, archiveRead)
-        val tracePhoto = BuildConfig.DEBUG && archiveRead && endpoint.startsWith("ws://127.0.0.1:")
-        if (tracePhoto) Log.w("DEBUG132Photo", "rpc-start index=$index lease=$leaseId connection=${System.identityHashCode(connection)}")
         try {
             val job = currentCoroutineContext().job
             // Authority mutations precede pool operations everywhere. Never call a feature
@@ -133,8 +131,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
             currentCoroutineContext().ensureActive()
             throw (request.oversized ?: failure)
         } finally {
-            if (tracePhoto) Log.w("DEBUG132Photo", "rpc-end index=$index lease=$leaseId oversized=${request.oversized != null} active=${currentCoroutineContext().job.isActive}")
-            connection.pending.remove(index, request)
+            connection.retirePending(index, request)
         }
     }
 
@@ -206,7 +203,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
             released.complete(Unit)
             connection.leases.remove(this)
             connection.pending.entries.forEach { (index, request) ->
-                if (request.owner === this && connection.pending.remove(index, request)) {
+                if (request.owner === this && connection.retirePending(index, request)) {
                     request.response.completeExceptionally(IOException("Peer disconnected"))
                 }
             }
@@ -230,6 +227,14 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
             @Volatile var oversized: ResponseTooLarge? = null
         }
         val pending = ConcurrentHashMap<Int, PendingRequest>()
+        private val retiredReplies = LinkedHashSet<Int>()
+        /** Keep only bounded request identities, never retired response bodies. */
+        fun retirePending(index: Int, request: PendingRequest): Boolean = synchronized(retiredReplies) {
+            if (!pending.remove(index, request)) return@synchronized false
+            retiredReplies.add(index)
+            if (retiredReplies.size > 128) retiredReplies.iterator().run { next(); remove() }
+            true
+        }
         private val challenges = mutableListOf(randomNonce())
         var identifiedKey: String? = null
         lateinit var socket: WebSocket
@@ -242,10 +247,17 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
 
             override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
                 try {
-                    if (bytes.size > MAX_RESPONSE_BYTES && bytes[0] == 13.toByte() && ready.isCompleted && !ready.isCancelled) {
+                    if (bytes.size >= 5 && (bytes[0] == 13.toByte() || bytes[0] == 14.toByte()) &&
+                        ready.isCompleted && !ready.isCancelled) {
                         val index = ByteBuffer.wrap(bytes.substring(1, 5).toByteArray()).int
-                        pending[index]?.takeIf { it.archiveRead }?.let { request ->
-                            request.oversized = ResponseTooLarge(archiveHint(bytes))
+                        // A cancelled owner cannot use its late body. Discard that one
+                        // known callback before it can interrupt another shared reader.
+                        // Active and unknown responses retain the original receive bound.
+                        if (synchronized(retiredReplies) { retiredReplies.remove(index) }) return
+                        if (bytes.size > MAX_RESPONSE_BYTES && bytes[0] == 13.toByte()) {
+                            pending[index]?.takeIf { it.archiveRead }?.let { request ->
+                                request.oversized = ResponseTooLarge(archiveHint(bytes))
+                            }
                         }
                     }
                     require(bytes.size in 1..MAX_RESPONSE_BYTES)

@@ -45,9 +45,10 @@ class SharedNodeConnectionTest {
                         active = next
                         withTimeout(5_000) { while (reads.get() != 2) delay(10) }
                         fixture.withholdArchiveReply = false
-                        assertEquals(2, fixture.releaseWithheldArchiveReplies())
+                        val queued = fixture.releaseWithheldArchiveReplies()
                         val result = withTimeout(5_000) { next.await() }
-                        assertTrue("The cancelled owner's large callback must not interrupt the current reader: ${result.exceptionOrNull()}", result.isSuccess)
+                        assertTrue("The cancelled owner's large callback must not interrupt the current reader: queued=$queued, failure=${result.exceptionOrNull()}", result.isSuccess)
+                        assertEquals(2, queued)
                         assertEquals("[]", result.getOrThrow().decodeToString())
                         assertEquals(1, fixture.connectionAttempts.get())
                         response.set(oversized)
