@@ -17,6 +17,68 @@ import org.junit.Test
 class PostSubmissionPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun uncertainOriginalDoesNotBlockTheNewDraftActionWhileArchiveIsHeld() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val wallets = AndroidWalletStore(context)
+        val wallet = wallets.loadOrCreate()
+        val backends = AndroidBackendStore(context)
+        val originalBackend = backends.load()
+        val retained = ChatFixtureState(context, listOf("postdraft.", "feed."), wallet.publicKey)
+        val store = nl.davidengelen.redsquare.feed.PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER)
+        val body = "Retain this exact older uncertain attempt"
+        val original = nl.davidengelen.redsquare.saito.SaitoTransaction.create(wallet,
+            nl.davidengelen.redsquare.saito.RedSquarePosts.message(body), 1_700_000_000_000L)
+        val root = InstrumentationRegistry.getInstrumentation().context.assets
+            .open("native-following-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject.get("root") }
+        val heldOriginal = java.util.concurrent.atomic.AtomicInteger()
+        val peer = ControlledFeedPeer("[$root]", archiveResponse = { query ->
+            if (query.has("sig")) "[]" else "[$root]"
+        }, onArchiveResponse = { query, _, queued ->
+            if (!queued && query.has("sig") && query.get("sig").asString == original.id) heldOriginal.incrementAndGet()
+        })
+        val folder = File(context.cacheDir, "post-submission-evidence").apply { mkdirs() }
+        var primary: Throwable? = null
+        try {
+            retained.prepare()
+            backends.save(SaitoBackend.OWNER)
+            store.save(nl.davidengelen.redsquare.feed.PostDraftStore.Saved(body, original))
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                    withFailureCapture({ captureNativeScreen(File(folder, "fresh-held-original-failure.png")) }) {
+                        ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
+                        peer.withholdArchiveReply = true
+                        ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                        ui.waitUntil(5_000) { peer.assertHealthy(); heldOriginal.get() > 0 }
+                        val heartbeat = java.util.concurrent.CountDownLatch(1)
+                        android.os.Handler(android.os.Looper.getMainLooper()).post { heartbeat.countDown() }
+                        check(heartbeat.await(1, java.util.concurrent.TimeUnit.SECONDS)) { "The Android UI thread must remain responsive" }
+                        File(folder, "fresh-held-original-observation.txt").writeText(
+                            "heldOriginalQueries=${heldOriginal.get()}\nmainThreadHeartbeat=true\ntransmitted=${peer.transactions.size}\n")
+                        // The peer's actual Archive deadline is twelve seconds. New writing
+                        // must remain reachable before that independent deadline expires.
+                        ui.waitUntil(2_000) {
+                            ui.onAllNodes(hasText("Start another draft") and isEnabled())
+                                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+                        }
+                        ui.onNodeWithText("Start another draft").performScrollTo().assertIsEnabled()
+                        assertEquals(original.encoded(), store.load().transaction?.encoded())
+                        assertEquals(0, peer.transactions.size)
+                        captureNativeScreen(File(folder, "fresh-held-original-ready.png"))
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            peer.withholdArchiveReply = false
+            cleanupAfterTest(primary, { retained.restoreFiles() }, { retained.restorePreferences() }, {
+                backends.save(originalBackend)
+                check(wallets.loadExisting().exportJson() == wallet.exportJson())
+            })
+        }
+    }
+
     @Test fun submittedPostReturnsToReadingAndOpensAFreshDraftWhileArchiveIsDelayed() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
