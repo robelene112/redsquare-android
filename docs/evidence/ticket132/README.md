@@ -93,3 +93,44 @@ successfully using checked-out source8420 and same-source guarded observer
 Their workflow ref is91b; workflow/harness inputs are unchanged. Independent
 actual-evidence review and complete qualification remain pending. Latest139
 is not promoted by staging or by these update observations.
+
+## Governing prospective input-readiness profile for both SDKs
+
+The original8420 full17 `44286352915` also failed Social: legacy saved-post
+retry did not reach Post submitted within its unchanged15s. That failed parent
+was cancelled. Neither original8420 SDK parent is accepted, including successful
+siblings. The one-file Android10 profile above remains an unused historical
+prospective input; its suggestion that the original17 might finish no longer
+applies.
+
+Diagnostic17 `44295798003` at `bffbf9876` preserves the same legacy journey and
+adds a pre-input display assertion. It fails there: `displayedBeforeInput=false`,
+original frame count1 and target bounds622–662dp. Its native screenshot confirms
+the saved-post action is below the scroll viewport, behind the fixed controls.
+This proves the diagnostic's missing physical target prerequisite; it does not
+reconstruct the exact unrecorded original full-run input. No production failure
+or successful retry is inferred from the old timeout.
+
+At `00a3167a0`, that driver scrolls the original action into view before one
+physical tap. Exact original signature/frame2, Post submitted15s and empty next
+draft assertions remain. The separate Store driver retains focus/complete stable
+bounds and sheet appearance inside the original15s return budget. Focused Store
+`44294127057` passes all3 at91b. Original Store failure cause remains unproved.
+Both corrections affect only AndroidTest files; main/build/runtime and signed140
+remain byte-identical to product73. The original catalog/methods/counts, class
+deadlines, remaining validators and inherited qualifications are unchanged.
+
+`input-readiness-source-bridge.json`, `source-profile-input-readiness.json` and
+`verify-full-input-readiness.py` admit exactly those two test-file changes and
+require the real Store/retry input observations in each fresh complete SDK run.
+These inputs must be committed and independently reviewed before dispatch.
+Actual complete10/17 and final public delivery acceptance are still pending.
+Focused posting correction `44297301732` is diagnostic, never whole acceptance.
+
+Independent Spec and Standards reviewers accept both actual signed139-to140
+updates for their controlled preservation scope. They independently reproduce
+ZIP/original bytes, checkout8420 versus workflow91, all12 native observations,
+seeded exact records, isolated packages and restoration, actual candidate and
+observer bytes/certificates. The legacy Fileshare seed remains a fixture
+qualification. This is not full-native, physical/OEM/provider/Play or public
+promotion acceptance. Ordinary latest remains139.
