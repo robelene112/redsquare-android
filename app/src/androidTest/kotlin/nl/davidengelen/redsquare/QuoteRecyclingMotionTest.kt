@@ -100,6 +100,10 @@ class QuoteRecyclingMotionTest {
                                 else if (forward) high else low
                             val started = SystemClock.elapsedRealtime()
                             dragToRest(bounds.exactCenterX(), startY.toFloat(), endY.toFloat())
+                            // Let the actual accessibility publication catch up
+                            // before deciding whether another gesture is needed.
+                            // This remains inside the caller's original budget.
+                            device.wait(Until.hasObject(By.text(label)), 75)
                             gestures.add(JsonObject().apply {
                                 addProperty("target", label); addProperty("forward", forward)
                                 addProperty("started", started); addProperty("returned", SystemClock.elapsedRealtime())
