@@ -57,7 +57,7 @@ class QuoteRecyclingMotionTest {
                 val gestures = com.google.gson.JsonArray()
                 val positions = com.google.gson.JsonArray()
                 fun moveTo(label: String, forward: Boolean, budgetMillis: Long,
-                    requiredPostHeight: Int = 0) {
+                    requiredPostHeight: Int = 0, bodyOffset: Int? = null) {
                     val deadline = SystemClock.elapsedRealtime() + budgetMillis
                     var previous: NativePostGeometry? = null
                     var stableSince = 0L
@@ -67,7 +67,10 @@ class QuoteRecyclingMotionTest {
                             val geometry = nativePostGeometry(device, label)
                             val bounds = geometry.viewport
                             val target = geometry.body
-                            val top = geometry.card?.top
+                            // A partially visible ancestor's raw bounds can be
+                            // clipped above its text. Return using the known
+                            // text offset from the fully visible baseline.
+                            val top = if (bodyOffset == null) geometry.card?.top else target?.top?.minus(bodyOffset)
                             val fitted = bounds != null && target != null &&
                                 (requiredPostHeight == 0 || (top != null &&
                                     top >= bounds.top && top + requiredPostHeight <= bounds.bottom))
@@ -100,6 +103,10 @@ class QuoteRecyclingMotionTest {
                                 else if (forward) high else low
                             val started = SystemClock.elapsedRealtime()
                             dragToRest(bounds.exactCenterX(), startY.toFloat(), endY.toFloat())
+                            // Let the actual accessibility publication catch up
+                            // before deciding whether another gesture is needed.
+                            // This remains inside the caller's original budget.
+                            device.wait(Until.hasObject(By.text(label)), 75)
                             gestures.add(JsonObject().apply {
                                 addProperty("target", label); addProperty("forward", forward)
                                 addProperty("started", started); addProperty("returned", SystemClock.elapsedRealtime())
@@ -130,6 +137,7 @@ class QuoteRecyclingMotionTest {
                     requireNotNull(beforeGeometry.viewport).contains(before))
                 assertTrue("The commentary and original must belong to the same native post",
                     before.contains(requireNotNull(beforeGeometry.original)))
+                val bodyOffset = requireNotNull(beforeGeometry.body).top - before.top
                 val relativeTop = requireNotNull(beforeGeometry.original).top - requireNotNull(beforeGeometry.body).top
                 observeModuleWindowMotionScale(activity, scale, folder)
                 captureNativeScreen(File(folder, "scale-$scale-before.png"))
@@ -158,7 +166,7 @@ class QuoteRecyclingMotionTest {
                         val movie = File(folder, "scale-$scale-round-$round.mp4")
                         val frames = recordNativeCheckpointTransition(activity, movie) {
                             moveTo(commentary, forward = false, budgetMillis = 3_000,
-                                requiredPostHeight = before.height())
+                                requiredPostHeight = before.height(), bodyOffset = bodyOffset)
                             assertTrue("The native original remains visible on re-entry", device.hasObject(By.text(text)))
                             assertFalse(device.hasObject(By.text("Loading original.")))
                             val afterGeometry = nativePostGeometry(device, commentary, text)
@@ -243,9 +251,10 @@ class QuoteRecyclingMotionTest {
         var y = from
         var primary: Throwable? = null
         try {
-            for (step in 1..16) {
+            val samples = 8
+            for (step in 1..samples) {
                 SystemClock.sleep(8)
-                y = from + (to - from) * step / 16
+                y = from + (to - from) * step / samples
                 send(MotionEvent.ACTION_MOVE, y)
             }
             SystemClock.sleep(120)
