@@ -38,12 +38,13 @@ class WalletDeviceUiObserver {
             val close = requireNotNull(contents.singleOrNull { it.packageName?.toString() == "android" &&
                 it.text?.toString() == "Close app" && it.isEnabled && it.isClickable })
             val folder = File(instrumentation.targetContext.cacheDir, "review-update-observation").apply { mkdirs() }
-            captureNativeScreen(File(folder, "known-launcher-anr.png"))
+            val observedAt = android.os.SystemClock.elapsedRealtime()
+            captureNativeScreen(File(folder, "known-launcher-anr-$observedAt.png"))
             check(close.performAction(AccessibilityNodeInfo.ACTION_CLICK)) { "The known launcher dialog must accept Close app" }
             val observation = JSONObject().put("sdk", 29).put("systemPackage", "android")
                 .put("title", "Quickstep isn't responding").put("action", "Close app")
                 .put("elapsedMillis", android.os.SystemClock.elapsedRealtime())
-            File(folder, "known-launcher-anr.json").writeText(observation.toString(2))
+            File(folder, "known-launcher-anr-$observedAt.json").writeText(observation.toString(2))
             instrumentation.sendStatus(0, Bundle().apply { putString("walletSystemInterference", observation.toString()) })
         }
         withFailureCapture({ captureNativeScreen(capture) }) {
