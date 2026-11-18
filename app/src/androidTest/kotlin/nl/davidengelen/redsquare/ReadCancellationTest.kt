@@ -32,7 +32,8 @@ class ReadCancellationTest {
         val row = JsonObject().apply { addProperty("created_at", 1700001000000L)
             addProperty("tx", SaitoTransaction.create(wallet, body, 1700001000000L).envelope()) }
         val reads = AtomicInteger()
-        val peer = ControlledFeedPeer("[]", archiveResponse = { "[$row]" },
+        val response = java.util.concurrent.atomic.AtomicReference("[$row]")
+        val peer = ControlledFeedPeer("[]", archiveResponse = { response.get() },
             onArchiveResponse = { _, _, _ -> reads.incrementAndGet() }).apply {
             withholdArchiveReply = true; retainWithheldArchiveReplies = true
         }
@@ -66,6 +67,54 @@ class ReadCancellationTest {
                 check(!library.failed && !library.successfulRead && library.articles.isEmpty())
                 check(PublicStringStore(context, "stack.owner.v1", 100).load().values.size == 1)
                 check(peer.transactions.isEmpty()); peer.assertHealthy()
+                if (!enclosingDeadline) {
+                    val originalConnections = peer.connectionAttempts.get()
+                    val oversizedRow = row.deepCopy().apply {
+                        addProperty("latePadding", " ".repeat(SaitoPeer.MAX_RESPONSE_BYTES))
+                    }
+                    response.set("[$oversizedRow]")
+                    peer.sendOversizedArchiveFrames = true
+                    peer.withholdArchiveReply = true
+                    val initialReads = reads.get()
+                    val cancelled = StackLibrary(context, wallet, SaitoBackend.OWNER, endpoint)
+                    val old = launch(Dispatchers.Main) { cancelled.start() }
+                    var current: Deferred<Unit>? = null
+                    try {
+                        withTimeout(10_000) { while (reads.get() == initialReads) delay(10) }
+                        withTimeout(1_000) { old.cancelAndJoin() }
+                        check(old.isCancelled && !cancelled.successfulRead)
+                        response.set("[$row]")
+                        val active = StackLibrary(context, wallet, SaitoBackend.OWNER, endpoint)
+                        current = async(Dispatchers.Main) { active.start() }
+                        withTimeout(10_000) { while (reads.get() < initialReads + 2) delay(10) }
+                        peer.withholdArchiveReply = false
+                        val replayed = peer.releaseWithheldArchiveReplies()
+                        check(replayed == 2) { "Replay the cancelled large callback before the current small callback" }
+                        withTimeout(15_000) { current.await() }
+                        File(context.cacheDir, "read-cancellation-evidence/late-oversized.json").apply {
+                            parentFile!!.mkdirs()
+                        }.writeText(JsonObject().apply {
+                            addProperty("cancelled", old.isCancelled)
+                            addProperty("cancelledSuccessfulRead", cancelled.successfulRead)
+                            addProperty("lateBodyBytes", "[$oversizedRow]".toByteArray().size)
+                            addProperty("replayed", replayed)
+                            addProperty("activeSuccessfulRead", active.successfulRead)
+                            addProperty("activeArticles", active.articles.size)
+                            addProperty("connectionsBefore", originalConnections)
+                            addProperty("connectionsAfter", peer.connectionAttempts.get())
+                            addProperty("publications", peer.transactions.size)
+                        }.toString())
+                        check(active.successfulRead && active.articles.size == 1) {
+                            "A late oversized callback for the cancelled owner interrupted the current reader"
+                        }
+                        check(!cancelled.successfulRead && peer.connectionAttempts.get() == originalConnections)
+                        check(peer.transactions.isEmpty()); peer.assertHealthy()
+                    } finally {
+                        withContext(NonCancellable) { withTimeout(5_000) {
+                            old.cancelAndJoin(); current?.cancelAndJoin()
+                        } }
+                    }
+                }
                 val folder = File(context.cacheDir, "read-cancellation-evidence").apply { mkdirs() }
                 File(folder, "${if(enclosingDeadline) "enclosing-deadline" else "caller-cancel"}.json").writeText(JsonObject().apply {
                     addProperty("callerCancelled", reader.isCancelled); addProperty("cancellationMillis", cancellationMillis)

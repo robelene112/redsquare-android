@@ -1369,6 +1369,7 @@ if [[ "${TEST_SCOPE:-full}" == read-deadline-conversation* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == read-deadline-stack* ]]; then
+    verify_group_chat_native ReadCancellationTest 180 read-cancellation read-cancellation-evidence
     verify_group_chat_native StackDeadlineRecoveryTest 180 stack-deadline stack-deadline-evidence
     exit 0
 fi
