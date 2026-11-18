@@ -55,50 +55,65 @@ class QuoteRecyclingMotionTest {
                 }) { activity ->
                 val folder = File(context.cacheDir, "quote-motion-evidence").apply { mkdirs() }
                 val gestures = com.google.gson.JsonArray()
+                val positions = com.google.gson.JsonArray()
                 fun moveTo(label: String, forward: Boolean, budgetMillis: Long,
-                    requiredPostHeight: Int = 0, bodyOffset: Int = 0) {
-                    val deadline = android.os.SystemClock.elapsedRealtime() + budgetMillis
-                    var previous: Rect? = null
+                    requiredPostHeight: Int = 0) {
+                    val deadline = SystemClock.elapsedRealtime() + budgetMillis
+                    var previous: NativePostGeometry? = null
                     var stableSince = 0L
-                    while (android.os.SystemClock.elapsedRealtime() < deadline) {
-                        val bounds = requireNotNull(device.findObject(By.scrollable(true))).visibleBounds
-                        val target = device.findObject(By.text(label))?.visibleBounds?.takeUnless { it.isEmpty }
-                        val top = target?.top?.minus(bodyOffset)
-                        val fitted = target != null && (requiredPostHeight == 0 ||
-                            (requireNotNull(top) >= bounds.top && top + requiredPostHeight <= bounds.bottom))
-                        val now = android.os.SystemClock.elapsedRealtime()
-                        if (fitted) {
-                            if (target != previous) { previous = target; stableSince = now }
-                            if (now - stableSince >= 100) return
-                            android.os.SystemClock.sleep(20)
-                            continue
+                    var primary: Throwable? = null
+                    try {
+                        while (SystemClock.elapsedRealtime() < deadline) {
+                            val geometry = nativePostGeometry(device, label)
+                            val bounds = geometry.viewport
+                            val target = geometry.body
+                            val top = geometry.card?.top
+                            val fitted = bounds != null && target != null &&
+                                (requiredPostHeight == 0 || (top != null &&
+                                    top >= bounds.top && top + requiredPostHeight <= bounds.bottom))
+                            val now = SystemClock.elapsedRealtime()
+                            positions.add(JsonObject().apply {
+                                addProperty("target", label); addProperty("elapsed", now)
+                                addProperty("viewport", bounds?.toShortString()); addProperty("body", target?.toShortString())
+                                addProperty("card", geometry.card?.toShortString()); addProperty("fitted", fitted)
+                                addProperty("requiredHeight", requiredPostHeight)
+                            })
+                            if (fitted) {
+                                if (geometry != previous) { previous = geometry; stableSince = now }
+                                if (now - stableSince >= 100) return
+                                SystemClock.sleep(20)
+                                continue
+                            }
+                            previous = null; stableSince = 0
+                            if (bounds == null) { SystemClock.sleep(20); continue }
+                            val high = bounds.top + bounds.height() / 5
+                            val low = bounds.bottom - bounds.height() / 5
+                            val correction = if (target != null && top != null && requiredPostHeight > 0) when {
+                                top < bounds.top -> bounds.top - top
+                                top + requiredPostHeight > bounds.bottom -> bounds.bottom - top - requiredPostHeight
+                                else -> 0
+                            } else 0
+                            val startY = if (correction != 0) bounds.centerY() else if (forward) low else high
+                            val touchSlop = android.view.ViewConfiguration.get(context).scaledTouchSlop
+                            val fittedDrag = correction + if (correction > 0) touchSlop + 1 else -touchSlop - 1
+                            val endY = if (correction != 0) (startY + fittedDrag).coerceIn(high, low)
+                                else if (forward) high else low
+                            val started = SystemClock.elapsedRealtime()
+                            dragToRest(bounds.exactCenterX(), startY.toFloat(), endY.toFloat())
+                            gestures.add(JsonObject().apply {
+                                addProperty("target", label); addProperty("forward", forward)
+                                addProperty("started", started); addProperty("returned", SystemClock.elapsedRealtime())
+                                addProperty("startY", startY); addProperty("endY", endY)
+                                addProperty("bounds", bounds.toShortString()); addProperty("targetBounds", target?.toShortString())
+                            })
                         }
-                        previous = null; stableSince = 0
-                        val high = bounds.top + bounds.height() / 5
-                        val low = bounds.bottom - bounds.height() / 5
-                        // Once the commentary enters, fit the whole measured
-                        // card with a small native drag, without an overshoot.
-                        val correction = if (target != null && requiredPostHeight > 0) when {
-                            requireNotNull(top) < bounds.top -> bounds.top - top
-                            top + requiredPostHeight > bounds.bottom -> bounds.bottom - top - requiredPostHeight
-                            else -> 0
-                        } else 0
-                        val startY = if (correction != 0) bounds.centerY() else if (forward) low else high
-                        val touchSlop = android.view.ViewConfiguration.get(context).scaledTouchSlop
-                        val fittedDrag = correction + if (correction > 0) touchSlop + 1 else -touchSlop - 1
-                        val endY = if (correction != 0) (startY + fittedDrag).coerceIn(high, low)
-                            else if (forward) high else low
-                        val started = android.os.SystemClock.elapsedRealtime()
-                        dragToRest(bounds.exactCenterX(), startY.toFloat(), endY.toFloat())
-                        device.wait(Until.hasObject(By.text(label)), 75)
-                        gestures.add(JsonObject().apply {
-                            addProperty("target", label); addProperty("forward", forward)
-                            addProperty("started", started); addProperty("returned", android.os.SystemClock.elapsedRealtime())
-                            addProperty("startY", startY); addProperty("endY", endY)
-                            addProperty("bounds", bounds.toShortString()); addProperty("targetBounds", target?.toShortString())
-                        })
+                        fail("Real native swipes must reach stable $label within the declared input budget")
+                    } catch (failure: Throwable) { primary = failure; throw failure }
+                    finally {
+                        cleanupAfterTest(primary,
+                            { File(folder, "scale-$scale-native-gestures.json").writeText(gestures.toString()) },
+                            { File(folder, "scale-$scale-native-positions.json").writeText(positions.toString()) })
                     }
-                    fail("Real native swipes must reach stable $label within the declared input budget")
                 }
                 requireNotNull(device.wait(Until.findObject(By.text("Later")), 15_000)).click()
                 val positionBy = android.os.SystemClock.elapsedRealtime() + 20_000
@@ -106,47 +121,16 @@ class QuoteRecyclingMotionTest {
                 moveTo(commentary, forward = false, budgetMillis = remainingPosition())
                 requireNotNull(device.wait(Until.findObject(By.text(text)), 20_000))
                 assertTrue("The real peer supplied this original before recycling", reads.get() > 0)
-                @Suppress("DEPRECATION")
-                fun cardBounds(): Rect {
-                    val quote = requireNotNull(device.findObject(By.text(text))).visibleBounds
-                    // UiObject2.visibleBounds clips an offscreen card. Read the
-                    // actual native bounds, then explicitly fit them in view.
-                    val root = requireNotNull(instrumentation.uiAutomation.rootInActiveWindow)
-                    val nodes = mutableListOf(root)
-                    try {
-                        // Compose exposes virtual descendants through child
-                        // traversal; its provider need not implement text queries.
-                        fun findCommentary(node: android.view.accessibility.AccessibilityNodeInfo):
-                            android.view.accessibility.AccessibilityNodeInfo? {
-                            if (node.text?.toString() == commentary) return node
-                            for (index in 0 until node.childCount) {
-                                val child = node.getChild(index)?.also(nodes::add) ?: continue
-                                findCommentary(child)?.let { return it }
-                            }
-                            return null
-                        }
-                        var node = requireNotNull(findCommentary(root)) { "The actual native commentary must be present" }
-                        repeat(8) {
-                            val bounds = Rect().also(node::getBoundsInScreen)
-                            if (node.isClickable && bounds.contains(quote.centerX(), quote.centerY()) &&
-                                bounds.width() >= device.displayWidth * 0.8) return bounds
-                            node = requireNotNull(node.parent).also(nodes::add)
-                        }
-                    } finally {
-                        nodes.forEach { it.recycle() }
-                    }
-                    error("The native quote and commentary must belong to one visible post action")
-                }
-                val initial = cardBounds()
-                val initialOffset = requireNotNull(device.findObject(By.text(commentary))).visibleBounds.top - initial.top
+                val initial = requireNotNull(nativePostGeometry(device, commentary).card)
                 moveTo(commentary, forward = false, budgetMillis = remainingPosition(),
-                    requiredPostHeight = initial.height(), bodyOffset = initialOffset)
-                val before = cardBounds()
+                    requiredPostHeight = initial.height())
+                val beforeGeometry = nativePostGeometry(device, commentary, text)
+                val before = requireNotNull(beforeGeometry.card)
                 assertTrue("The entire baseline card must be inside its native viewport",
-                    requireNotNull(device.findObject(By.scrollable(true))).visibleBounds.contains(before))
-                val bodyOffset = requireNotNull(device.findObject(By.text(commentary))).visibleBounds.top - before.top
-                val relativeTop = requireNotNull(device.findObject(By.text(text))).visibleBounds.top -
-                    requireNotNull(device.findObject(By.text(commentary))).visibleBounds.top
+                    requireNotNull(beforeGeometry.viewport).contains(before))
+                assertTrue("The commentary and original must belong to the same native post",
+                    before.contains(requireNotNull(beforeGeometry.original)))
+                val relativeTop = requireNotNull(beforeGeometry.original).top - requireNotNull(beforeGeometry.body).top
                 observeModuleWindowMotionScale(activity, scale, folder)
                 captureNativeScreen(File(folder, "scale-$scale-before.png"))
                 repeat(3) { round ->
@@ -174,15 +158,18 @@ class QuoteRecyclingMotionTest {
                         val movie = File(folder, "scale-$scale-round-$round.mp4")
                         val frames = recordNativeCheckpointTransition(activity, movie) {
                             moveTo(commentary, forward = false, budgetMillis = 3_000,
-                                requiredPostHeight = before.height(), bodyOffset = bodyOffset)
+                                requiredPostHeight = before.height())
                             assertTrue("The native original remains visible on re-entry", device.hasObject(By.text(text)))
                             assertFalse(device.hasObject(By.text("Loading original.")))
-                            val after = cardBounds()
+                            val afterGeometry = nativePostGeometry(device, commentary, text)
+                            val after = requireNotNull(afterGeometry.card)
                             assertTrue("The entire returned card must be inside its native viewport",
-                                requireNotNull(device.findObject(By.scrollable(true))).visibleBounds.contains(after))
+                                requireNotNull(afterGeometry.viewport).contains(after))
+                            assertTrue("The returned original must belong to the same native post",
+                                after.contains(requireNotNull(afterGeometry.original)))
                             assertEquals("The real post retains its complete rendered height", before.height(), after.height())
-                            val afterRelativeTop = requireNotNull(device.findObject(By.text(text))).visibleBounds.top -
-                                requireNotNull(device.findObject(By.text(commentary))).visibleBounds.top
+                            val afterRelativeTop = requireNotNull(afterGeometry.original).top -
+                                requireNotNull(afterGeometry.body).top
                             assertEquals("The original keeps its position within the post", relativeTop, afterRelativeTop)
                             assertTrue("The cache remains held through the native observation",
                                 holding.get() && worker.isAlive && release.count == 1L)
@@ -205,6 +192,40 @@ class QuoteRecyclingMotionTest {
                 captureNativeScreen(File(folder, "scale-$scale-after.png"))
             }
         }
+    }
+
+    private data class NativePostGeometry(val viewport: Rect? = null, val body: Rect? = null,
+        val card: Rect? = null, val original: Rect? = null)
+
+    /** One native tree for coordinates; never mix UiObject2's clipped/cache-adjusted rectangles with it. */
+    @Suppress("DEPRECATION")
+    private fun nativePostGeometry(device: UiDevice, label: String, original: String? = null): NativePostGeometry {
+        val root = InstrumentationRegistry.getInstrumentation().uiAutomation.rootInActiveWindow
+            ?: return NativePostGeometry()
+        val nodes = mutableListOf<android.view.accessibility.AccessibilityNodeInfo>()
+        try {
+            fun collect(node: android.view.accessibility.AccessibilityNodeInfo) {
+                nodes.add(node)
+                for (index in 0 until node.childCount) node.getChild(index)?.let(::collect)
+            }
+            collect(root)
+            fun bounds(node: android.view.accessibility.AccessibilityNodeInfo) = Rect().also(node::getBoundsInScreen)
+            val viewport = nodes.firstOrNull { it.isScrollable && it.isVisibleToUser }?.let(::bounds)
+                ?: return NativePostGeometry()
+            val bodyNode = nodes.firstOrNull { it.text?.toString() == label && it.isVisibleToUser &&
+                Rect.intersects(bounds(it), viewport) } ?: return NativePostGeometry(viewport)
+            val body = bounds(bodyNode)
+            val quoted = original?.let { text -> nodes.firstOrNull { it.text?.toString() == text && it.isVisibleToUser }
+                ?.let(::bounds) }
+            var parent = bodyNode
+            repeat(8) {
+                val box = bounds(parent)
+                if (parent.isClickable && box.width() >= device.displayWidth * 0.8 && box.contains(body))
+                    return NativePostGeometry(viewport, body, box, quoted)
+                parent = parent.parent?.also(nodes::add) ?: return NativePostGeometry(viewport, body, original = quoted)
+            }
+            return NativePostGeometry(viewport, body, original = quoted)
+        } finally { nodes.forEach { it.recycle() } }
     }
 
     /** Fast native movement followed by stopping the finger, as when returning to read. */
