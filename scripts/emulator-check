@@ -2254,6 +2254,7 @@ if [[ "${TEST_SCOPE:-full}" == social-isolation* ]]; then
 fi
 verify_repeat_likes() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    verify_group_chat_native LikeCountPreviewTest 180 like-count like-count-evidence
     local repeat_exit=0
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.RepeatLikePreviewTest \
