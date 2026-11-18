@@ -102,7 +102,7 @@ class StoreCataloguePreviewTest {
                 activity.onActivity { focused = it.window.decorView.hasWindowFocus() }
                 val node = if (categoryAction.isDisplayed()) categoryAction.fetchSemanticsNode() else null
                 val bounds = node?.boundsInRoot
-                val complete = focused && bounds != null &&
+                val complete = focused && node != null && bounds != null &&
                     bounds.width == node.size.width.toFloat() && bounds.height == node.size.height.toFloat()
                 val now = android.os.SystemClock.elapsedRealtime()
                 if (!complete || bounds != previous) {
