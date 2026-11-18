@@ -2,6 +2,9 @@ package nl.davidengelen.redsquare
 
 import android.content.Intent
 import android.os.Build
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -90,6 +93,7 @@ class PostSubmissionPreviewTest {
                         exposeOriginal.set(true)
                         ui.waitForPostAvailability(wallet.publicKey, original.id)
                         ui.onNode(hasSetTextAction()).assertEditableTextEquals("Keep the independent next draft").assertIsEnabled().assertIsFocused()
+                        ui.onNode(hasSetTextAction()).performTextInputSelection(androidx.compose.ui.text.TextRange("Keep the independent next draft".length))
                         ui.onNode(hasSetTextAction()).performTextInput(" while the old one finishes")
                         ui.assertSyntheticRedImage()
                         activity.recreate()
@@ -320,8 +324,8 @@ class PostSubmissionPreviewTest {
                         ui.onNodeWithText("Queued posts").performClick()
                         ui.waitUntil(10_000) { ui.onNodeWithText("Open saved post").isDisplayed() }
                         ui.onNodeWithText("Open saved post").performClick()
-                        ui.waitUntil(10_000) { ui.onNode(hasSetTextAction()).isDisplayed() }
-                        ui.onNode(hasSetTextAction()).assertEditableTextEquals(body).assertIsNotEnabled()
+                        ui.waitUntil(10_000) { ui.onNodeWithText(body).isDisplayed() }
+                        ui.onNodeWithText(body).assertIsDisplayed().assertIsNotEnabled()
                         assertEquals(0, peer.transactions.size)
                         captureNativeScreen(File(folder, "reopened-exact-original.png"))
                         ui.onNodeWithText("Send saved post").performScrollTo().performClick()
@@ -345,6 +349,62 @@ class PostSubmissionPreviewTest {
             androidx.work.WorkManager.getInstance(context).cancelUniqueWork("post:${original.id}").result.get(5, java.util.concurrent.TimeUnit.SECONDS)
         }, { retained.restoreFiles() }, { retained.restorePreferences() }, {
             backends.save(originalBackend)
+            check(wallets.loadExisting().exportJson() == wallet.exportJson())
+        }) }
+    }
+
+    @Test fun completedRecoveryEntryWithFreshActivityMemoryReturnsWithoutTouchingTheNextDraft() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val wallets = AndroidWalletStore(context)
+        val wallet = wallets.loadOrCreate()
+        val retained = ChatFixtureState(context, listOf("postdraft.", "feed."), wallet.publicKey)
+        val store = nl.davidengelen.redsquare.feed.PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER)
+        val original = nl.davidengelen.redsquare.saito.SaitoTransaction.create(wallet,
+            nl.davidengelen.redsquare.saito.RedSquarePosts.message("An already completed recovery"), 1_700_000_000_000L)
+        val submitted = java.util.concurrent.atomic.AtomicInteger()
+        val closed = java.util.concurrent.atomic.AtomicInteger()
+        val peer = ControlledFeedPeer("[]")
+        var primary: Throwable? = null
+        try {
+            retained.prepare()
+            store.save(nl.davidengelen.redsquare.feed.PostDraftStore.Saved("An already completed recovery", original))
+            val separate = store.retainAttempt(original.id)
+            store.saveComposer(nl.davidengelen.redsquare.feed.PostDraftStore.Saved("Keep this newer unsent draft"))
+            // Seed a previously validated completion, not a new node observation.
+            check(separate.confirmAvailable(original.id))
+            separate.markSubmitted(original.id)
+            peer.start().use { server ->
+                val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", endpoint)).use { activity ->
+                    // Mount the real recovered composer in a fresh Activity/ViewModel
+                    // host. This isolates entry after completion from the in-memory
+                    // transaction ID retained by a still-mounted editor.
+                    activity.onActivity { screen -> screen.setContent {
+                        nl.davidengelen.redsquare.ui.RedSquareTheme(screen, nl.davidengelen.redsquare.ui.Appearance.LIGHT) {
+                            CompositionLocalProvider(
+                                nl.davidengelen.redsquare.feed.LocalPostNavigation provides nl.davidengelen.redsquare.feed.PostNavigation(),
+                                nl.davidengelen.redsquare.policy.LocalPublishingAgreement provides nl.davidengelen.redsquare.policy.PublishingAgreementController(context)
+                            ) {
+                                nl.davidengelen.redsquare.feed.PostComposerScreen(wallet, endpoint, SaitoBackend.OWNER,
+                                    androidx.compose.ui.Modifier.fillMaxSize(), recovery = separate,
+                                    onSubmitted = { submitted.incrementAndGet() }, onClose = { closed.incrementAndGet() })
+                            }
+                        }
+                    } }
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir, "post-submission-evidence/completed-entry-failure.png")) }) {
+                        ui.waitUntil(2_000) { closed.get() == 1 }
+                        assertEquals(1, submitted.get())
+                        assertEquals("Keep this newer unsent draft", store.load().text)
+                        assertEquals(null, store.load().transaction)
+                        assertEquals(0, peer.transactions.size)
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally { cleanupAfterTest(primary, { retained.restoreFiles() }, { retained.restorePreferences() }, {
             check(wallets.loadExisting().exportJson() == wallet.exportJson())
         }) }
     }
