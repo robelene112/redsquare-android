@@ -31,17 +31,17 @@ internal class SocialState(private val context: Context, private val wallet: Sai
     val reports = ReportState(context, wallet, backend, endpoint, scope)
     val actions = mutableStateMapOf<PostActionKey, ActionStatus>()
     val observedPosts = mutableStateMapOf<String, FeedPost>()
-    private data class LikeCountOverlay(val baseline: Long, val taps: Long)
-    private val optimisticLikeCounts = mutableStateMapOf<String, LikeCountOverlay>()
+    // Like totals are append-only, but unsigned node snapshots can arrive out of order.
+    // After a local tap retain the highest displayed total for this wallet/node session.
+    private val optimisticLikeCounts = mutableStateMapOf<String, Long>()
     private val generations = mutableMapOf<PostActionKey, Any>()
     /** Called only for fresh node responses, never when reopening older cached views. */
     fun observe(posts: List<FeedPost>) {
         posts.forEach { post ->
             observedPosts[post.id] = post
-            optimisticLikeCounts[post.id]?.let { overlay ->
+            optimisticLikeCounts[post.id]?.let { floor ->
                 val servedLikes = servedCount(post, "num_likes")
-                val expected = saturatingAdd(overlay.baseline, overlay.taps)
-                if (servedLikes != null && servedLikes >= expected) optimisticLikeCounts.remove(post.id)
+                if (servedLikes != null && servedLikes > floor) optimisticLikeCounts[post.id] = servedLikes
             }
             actions.keys.filter { it.target == post.id }.forEach { key ->
                 actions[key]?.let { actions[key] = it.copy(countsUnavailable = false) }
@@ -50,15 +50,14 @@ internal class SocialState(private val context: Context, private val wallet: Sai
     }
 
     fun displayLikeCount(postId: String, served: Long?): Long? {
-        val overlay = optimisticLikeCounts[postId] ?: return served
-        return maxOf(served ?: overlay.baseline, saturatingAdd(overlay.baseline, overlay.taps))
+        val floor = optimisticLikeCounts[postId] ?: return served
+        return maxOf(served ?: 0, floor)
     }
 
     private fun recordOptimisticLikeTap(post: FeedPost) {
-        val current = optimisticLikeCounts[post.id]
-        val baseline = current?.baseline ?: servedCount(observedPosts[post.id] ?: post, "num_likes") ?: return
-        optimisticLikeCounts[post.id] = LikeCountOverlay(baseline,
-            saturatingAdd(current?.taps ?: 0, 1))
+        val displayed = maxOf(optimisticLikeCounts[post.id] ?: 0,
+            servedCount(observedPosts[post.id] ?: post, "num_likes") ?: 0)
+        optimisticLikeCounts[post.id] = saturatingAdd(displayed, 1)
     }
     private fun journal(key: PostActionKey, node: SaitoBackend = backend) =
         SocialActionJournal(context, wallet.publicKey, node, key)

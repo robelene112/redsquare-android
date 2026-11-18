@@ -124,6 +124,8 @@ if [[ "${TEST_SCOPE:-full}" == scroll-profile* ]]; then
     exit 0
 fi
 
+sha256sum "$artifact" "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk" \
+    > "$evidence/built-apk-sha256.txt"
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
 if [[ "$TEST_DEVICE_API" == 29 ]]; then
