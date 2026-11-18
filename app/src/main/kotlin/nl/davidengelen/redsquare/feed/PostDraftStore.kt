@@ -20,20 +20,23 @@ import com.google.gson.Strictness
 internal class PostDraftStore private constructor(private val context: Context, private val owner: String, private val backend: SaitoBackend,
     private val parentId: String, private val parentThread: String?, private val quoteId: String = "",
     private val authorTarget: String = "", private val authorKind: AuthorActionKind? = null,
-    private val submissionId: String = "") {
+    private val submissionId: String = "", val recoveryId: String = "") {
     constructor(context: Context, owner: String, backend: SaitoBackend, parent: FeedPost? = null, quote: FeedPost? = null) :
         this(context, owner, backend, parent?.id.orEmpty(), parent?.threadId, quote?.id.orEmpty())
     init {
         require(owner.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}")))
         require(submissionId.isEmpty() || (authorKind == null && submissionId.matches(Regex("[0-9a-f]{128}"))))
+        require(recoveryId.isEmpty() || (authorKind == null && submissionId.isEmpty() && recoveryId.matches(Regex("[0-9a-f]{128}"))))
     }
     val isSubmittedRecord: Boolean get() = submissionId.isNotEmpty()
-    private val filename = "postdraft.${backend.id}.$owner${if (authorKind != null) ".author.${authorKind.storageId}.$authorTarget" else if (quoteId.isNotEmpty()) ".quote.$quoteId" else parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}${submissionId.takeIf { it.isNotEmpty() }?.let { ".submitted.$it" }.orEmpty()}.v1"
+    val isRecoveryRecord: Boolean get() = recoveryId.isNotEmpty()
+    val observesOnly: Boolean get() = isSubmittedRecord || isRecoveryRecord
+    private val filename = "postdraft.${backend.id}.$owner${if (authorKind != null) ".author.${authorKind.storageId}.$authorTarget" else if (quoteId.isNotEmpty()) ".quote.$quoteId" else parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}${submissionId.takeIf { it.isNotEmpty() }?.let { ".submitted.$it" }.orEmpty()}${recoveryId.takeIf { it.isNotEmpty() }?.let { ".recovery.$it" }.orEmpty()}.v1"
     private val file = EncryptedLocalFile(context, filename, "redsquare.postdraft.v1", "postdraft.")
     private val recovery by lazy { UnfinishedTextRecovery(context, filename, file::load) }
 
     fun unfinishedText(): UnfinishedTextRecovery.EditingSession = synchronized(lock) {
-        check(!isSubmittedRecord && authorKind == null && load().transaction == null)
+        check(!observesOnly && authorKind == null && load().transaction == null)
         recovery.open()
     }
 
@@ -86,7 +89,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
             val saved = Saved(content, transaction, queued, available, automatic, baseline, images, credits)
             // The receipt is the commit point. A crash need not atomically clear
             // another file before the next composer can safely start a new draft.
-            if (authorKind == null && !isSubmittedRecord && transaction != null && hasSubmission(transaction.id)) Saved("")
+            if (authorKind == null && !isSubmittedRecord && transaction != null && (hasSubmission(transaction.id) || hasRecovery(transaction.id))) Saved("")
             else saved
         }
     }
@@ -128,6 +131,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
 
     private fun validateTransaction(transaction: SaitoTransaction?, content: String, images: List<String>) {
         require(!isSubmittedRecord || transaction?.id == submissionId)
+        require(!isRecoveryRecord || transaction?.id == recoveryId)
         require(images.size <= RedSquareImages.MAX_COUNT && images.all {
             it.length <= RedSquarePosts.MAX_IMAGE_CHARS && RedSquareImages.safeSource(it) == it
         })
@@ -140,7 +144,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
             } else {
                 val post = RedSquareFeed.decode(it.envelope())
                 require(post.author == owner && post.text == content)
-                if (!isSubmittedRecord) {
+                if (!observesOnly) {
                     require(post.parentId == parentId && (parentThread == null || post.threadId == parentThread))
                     require(post.quoted?.id.orEmpty() == quoteId)
                 }
@@ -161,7 +165,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
     /** A mounted editor must preserve delivery progress recorded by another operation. */
     fun saveComposer(saved: Saved): Saved = synchronized(lock) {
         val current = load()
-        val replacement = if (saved.transaction?.let { hasSubmission(it.id) } == true) current
+        val replacement = if (saved.transaction?.let { hasSubmission(it.id) || hasRecovery(it.id) } == true) current
         else if (current.transaction == null) saved else {
             check(saved.transaction?.id == current.transaction.id)
             // Availability alone cannot clear the only durable original. The
@@ -182,6 +186,24 @@ internal class PostDraftStore private constructor(private val context: Context, 
         // receipt must not prevent recovery of an independently valid draft.
         try { submission(id).load().transaction?.id == id }
         catch (_: Exception) { false }
+    }
+
+    private fun hasRecovery(id: String): Boolean = synchronized(lock) {
+        if (authorKind != null || observesOnly) return@synchronized false
+        try { recovered(context, owner, backend, id).load().transaction?.id == id }
+        catch (_: Exception) { false }
+    }
+
+    /** Park an uncertain original without claiming it was submitted or permitting a resend. */
+    fun retainAttempt(id: String): PostDraftStore = synchronized(lock) {
+        check(authorKind == null && !observesOnly)
+        val saved = load()
+        check(saved.transaction?.id == id && !saved.queued && !saved.available)
+        val retained = recovered(context, owner, backend, id)
+        retained.save(saved.copy(automatic = true))
+        // Its validated record releases the slot, without a second destructive
+        // write. A stale mounted writer cannot reclaim this original.
+        retained
     }
 
     /** Retain the original signed work before releasing its composer slot. */
@@ -234,6 +256,10 @@ internal class PostDraftStore private constructor(private val context: Context, 
     }
 
     companion object {
+        fun recovered(context: Context, owner: String, backend: SaitoBackend, id: String): PostDraftStore {
+            require(id.matches(Regex("[0-9a-f]{128}")))
+            return PostDraftStore(context, owner, backend, "", null, recoveryId = id)
+        }
         fun authorWork(context: Context, owner: String, backend: SaitoBackend): List<AuthorWork> {
             val prefix = "postdraft.${backend.id}.$owner.author."
             val pattern = Regex("${Regex.escape(prefix)}(edit|delete)\\.([0-9a-f]{128})\\.v1")
@@ -262,12 +288,13 @@ internal class PostDraftStore private constructor(private val context: Context, 
         fun pendingDelivery(context: Context, owner: String, backend: SaitoBackend): List<PostDraftStore> {
             val prefix = "postdraft.${backend.id}.$owner"
             return requireNotNull(context.noBackupFilesDir.listFiles()).map { it.name.removeSuffix(".bak") }
-                .distinct().filter { it.matches(Regex("${Regex.escape(prefix)}(?:\\.(?:quote\\.)?[0-9a-f]{128}|\\.submitted\\.[0-9a-f]{128})?\\.v1")) }
+                .distinct().filter { it.matches(Regex("${Regex.escape(prefix)}(?:\\.(?:quote\\.)?[0-9a-f]{128}|\\.(?:submitted|recovery)\\.[0-9a-f]{128})?\\.v1")) }
                 .map { name ->
                     val suffix = name.removePrefix(prefix).removeSuffix(".v1")
                     val parent = suffix.removePrefix(".")
                     if (parent.startsWith("submitted."))
                         PostDraftStore(context, owner, backend, "", null, submissionId = parent.removePrefix("submitted."))
+                    else if (parent.startsWith("recovery.")) recovered(context, owner, backend, parent.removePrefix("recovery."))
                     else if (parent.startsWith("quote.")) PostDraftStore(context, owner, backend, "", null, parent.removePrefix("quote."))
                     else PostDraftStore(context, owner, backend, parent, null)
                 }.filter { store -> store.load().let { !it.available && (it.queued || it.automatic) } }

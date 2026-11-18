@@ -44,18 +44,18 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
 
 @Composable
 internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
-    parent: FeedPost? = null, quote: FeedPost? = null,
+    parent: FeedPost? = null, quote: FeedPost? = null, recovery: PostDraftStore? = null,
     onSubmitted: () -> Unit = LocalPostSubmissionNotice.current, onClose: () -> Unit) {
     require(parent == null || quote == null)
     val owner = wallet.publicKey
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
     val context = activity.applicationContext
-    val memory = remember(activity, owner, backend, parent?.id, quote?.id) {
-        ViewModelProvider(activity)["post:$owner:${backend.id}:${parent?.id.orEmpty()}:quote:${quote?.id.orEmpty()}", PostComposerMemory::class.java]
+    val memory = remember(activity, owner, backend, parent?.id, quote?.id, recovery?.recoveryId) {
+        ViewModelProvider(activity)["post:$owner:${backend.id}:${parent?.id.orEmpty()}:quote:${quote?.id.orEmpty()}:recovery:${recovery?.recoveryId.orEmpty()}", PostComposerMemory::class.java]
     }
-    val store = remember(owner, backend, parent?.id, quote?.id) { PostDraftStore(context, owner, backend, parent, quote) }
+    val store = remember(owner, backend, parent?.id, quote?.id, recovery) { recovery ?: PostDraftStore(context, owner, backend, parent, quote) }
     val navigation = requireNotNull(LocalPostNavigation.current)
-    val session = "$owner:${backend.id}:${parent?.id.orEmpty()}:quote:${quote?.id.orEmpty()}:$endpoint"
+    val session = "$owner:${backend.id}:${parent?.id.orEmpty()}:quote:${quote?.id.orEmpty()}:$endpoint:recovery:${recovery?.recoveryId.orEmpty()}"
     val editorView = remember(session) { BringIntoViewRequester() }
     var editorPlaced by remember(session) { mutableStateOf(false) }
     val state = key(session) {
@@ -196,7 +196,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), !saving && !sending && !preparingImages) {
                     if (ready) saveAndClose(closeEditor) else closeEditor()
                 }
-                Text(stringResource(if (quote != null) R.string.post_quote else if (parent == null) R.string.post_new else R.string.post_reply),
+                Text(stringResource(if (recovery != null) R.string.post_saved_title else if (quote != null) R.string.post_quote else if (parent == null) R.string.post_new else R.string.post_reply),
                     Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
 
             }
@@ -277,8 +277,17 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     if (queued && queueSaved) TextButton(enabled = !saving && !sending, onClick = ::cancelQueued) {
                         Text(stringResource(R.string.post_cancel_queued))
                     }
-                    if (transaction != null && !available && !queued) TextButton(enabled = !saving && !sending,
-                        onClick = { confirmClear = true }) { Text(stringResource(R.string.post_start_another)) }
+                    if (transaction != null && !available && !queued && recovery == null) {
+                        TextButton(enabled = !saving && !sending,
+                            onClick = { startAnotherDraft { observedTransaction = null } }) {
+                            Text(stringResource(R.string.post_start_another))
+                        }
+                        Text(stringResource(R.string.post_retained_detail), style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        TextButton(enabled = !saving && !sending, onClick = { confirmClear = true }) {
+                            Text(stringResource(R.string.post_remove_record))
+                        }
+                    }
                     if (transaction != null && !available && !queued && !submitted && !networkError && !error)
                         TextButton(enabled = !saving && !sending, onClick = { send(publishing::beforePublishing) }) {
                             Text(stringResource(R.string.post_send_saved))

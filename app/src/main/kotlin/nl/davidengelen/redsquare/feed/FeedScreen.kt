@@ -493,7 +493,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             return@content
         }
         if (reviewingQueue && wallet != null) {
-            QueuedPostsScreen(wallet.publicKey, backend, childModifier) { reviewingQueue = false }
+            QueuedPostsScreen(wallet, endpoint, backend, childModifier) { reviewingQueue = false }
             return@content
         }
         if (reviewingChanges && wallet != null) {

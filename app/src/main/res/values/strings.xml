@@ -228,6 +228,10 @@
     <string name="post_pending">Send requested. Availability on this node is not confirmed.</string>
     <string name="post_network_error">Could not check or send this post with the selected node. Retry checks for it first, then sends the original post if needed.</string>
     <string name="post_available">Available on this node.</string>
+    <string name="post_saved_title">Saved post</string>
+    <string name="post_open_saved">Open saved post</string>
+    <string name="post_remove_record">Remove local record</string>
+    <string name="post_retained_detail">Your previous post will stay saved separately in Queued posts.</string>
     <string name="post_start_another">Start another draft</string>
     <string name="post_clear_title">Clear this local posting record?</string>
     <string name="post_clear_detail">This post may already have reached the node. Clearing removes its saved text and retry record from this composer. It does not remove any published post or copies elsewhere.</string>

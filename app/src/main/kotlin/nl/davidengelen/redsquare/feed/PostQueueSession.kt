@@ -22,13 +22,13 @@ internal suspend fun resumeQueuedPosts(context: Context, wallet: SaitoWallet, ba
             var submitted: PostDraftStore? = null
             SaitoPeer(wallet, endpoint).use { peer ->
                 if (peer.hasPost(candidate, wallet.publicKey, saved.text)) {
-                    if (store.confirmAvailable(candidate.id) && !store.isSubmittedRecord)
+                    if (store.confirmAvailable(candidate.id) && !store.observesOnly)
                         store.markSubmitted(candidate.id)
                     return@use
                 }
                 // A completed submission is only being observed, never resent
                 // because the selected node's archive has not caught up yet.
-                if (store.isSubmittedRecord) return@use
+                if (store.observesOnly) return@use
                 // Authentication happened during the Archive request. The atomic
                 // claim rechecks durable identity/selection and races with Cancel.
                 if (!store.claim(saved)) return@use

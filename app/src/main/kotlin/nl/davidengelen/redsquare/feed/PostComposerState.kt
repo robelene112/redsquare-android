@@ -49,7 +49,8 @@ internal class PostComposerState(
     var saving by mutableStateOf(false)
     var error by mutableStateOf(false)
     var networkError by mutableStateOf(false)
-    var checking by mutableStateOf(false)
+    private var checkingId by mutableStateOf<String?>(null)
+    val checking: Boolean get() = checkingId == transaction?.id && checkingId != null
     var checkError by mutableStateOf(false)
     var validationError by mutableStateOf(false)
     var transaction by mutableStateOf<SaitoTransaction?>(null)
@@ -144,7 +145,7 @@ internal class PostComposerState(
         val candidate = transaction ?: return
         if (!ready || saving || sending || checking) return
         val content = text
-        checking = true
+        checkingId = candidate.id
         checkError = false
         scope.launch {
             try {
@@ -161,7 +162,7 @@ internal class PostComposerState(
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: DraftPersistenceFailure) { if (transaction?.id == candidate.id) error = true }
             catch (_: Exception) { if (transaction?.id == candidate.id) checkError = true }
-            finally { checking = false }
+            finally { if (checkingId == candidate.id) checkingId = null }
         }
     }
     suspend fun persist(): Boolean = writes.withLock {
@@ -297,6 +298,42 @@ internal class PostComposerState(
                         memory.images = images
                         memory.gifAttributions = gifAttributions
                         if (memory.unfinished == null) memory.unfinished = withContext(Dispatchers.IO) {
+                            store.unfinishedText().also { memory.addCloseable("unfinished-text", it) }
+                        }
+                    }
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { error = true }
+            finally { saving = false }
+        }
+    }
+    fun startAnotherDraft(onStarted: () -> Unit) {
+        val candidate = transaction ?: return
+        if (!ready || saving || sending || available || queued || store.observesOnly) return
+        saving = true
+        scope.launch {
+            try {
+                writes.withLock {
+                    withContext(NonCancellable) {
+                        withContext(Dispatchers.IO) { store.retainAttempt(candidate.id) }
+                        memory.clearSubmitted()
+                        onStarted()
+                        transaction = null
+                        text = ""
+                        images = emptyList()
+                        gifAttributions = emptyMap()
+                        queued = false
+                        queueSaved = false
+                        submitted = false
+                        available = false
+                        networkError = false
+                        checkError = false
+                        error = false
+                        savedContent = PostDraftStore.Saved("")
+                        memory.text = ""
+                        memory.images = emptyList()
+                        memory.gifAttributions = emptyMap()
+                        memory.unfinished = withContext(Dispatchers.IO) {
                             store.unfinishedText().also { memory.addCloseable("unfinished-text", it) }
                         }
                     }

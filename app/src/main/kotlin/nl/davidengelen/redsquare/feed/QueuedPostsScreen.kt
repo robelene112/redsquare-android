@@ -6,6 +6,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import nl.davidengelen.redsquare.saito.SaitoWallet
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
@@ -25,8 +27,16 @@ import nl.davidengelen.redsquare.ui.StatusTone
 private data class QueuedPostRow(val backend: SaitoBackend, val store: PostDraftStore, val saved: PostDraftStore.Saved)
 
 @Composable
-internal fun QueuedPostsScreen(owner: String, selected: SaitoBackend, modifier: Modifier, onBack: () -> Unit) {
+internal fun QueuedPostsScreen(wallet: SaitoWallet, endpoint: String, selected: SaitoBackend, modifier: Modifier, onBack: () -> Unit) {
+    val owner = wallet.publicKey
     val context = LocalContext.current.applicationContext
+    var recovering by rememberSaveable(owner, selected) { mutableStateOf<String?>(null) }
+    val recoveryId = recovering
+    if (recoveryId != null) {
+        val store = remember(owner, selected, recoveryId) { PostDraftStore.recovered(context, owner, selected, recoveryId) }
+        PostComposerScreen(wallet, endpoint, selected, modifier, recovery = store, onClose = { recovering = null })
+        return
+    }
     val scope = rememberCoroutineScope()
     var rows by remember(owner) { mutableStateOf<List<QueuedPostRow>>(emptyList()) }
     var ready by remember(owner) { mutableStateOf(false) }
@@ -70,6 +80,8 @@ internal fun QueuedPostsScreen(owner: String, selected: SaitoBackend, modifier: 
                         if (row.saved.queued || row.store.isSubmittedRecord) StatusTone.INFO else StatusTone.WARNING,
                         details = listOf(stringResource(R.string.status_origin_node, row.backend.domain)))
                     InlineStatus(if (row.backend != selected) stringResource(R.string.post_queue_paused) else null, StatusTone.WARNING)
+                    if (row.store.isRecoveryRecord) OutlinedButton(enabled = saving == null && row.backend == selected,
+                        onClick = { recovering = id }) { Text(stringResource(R.string.post_open_saved)) }
                     if (row.saved.queued) OutlinedButton(enabled = saving == null, onClick = {
                         saving = id
                         scope.launch {
