@@ -130,7 +130,8 @@ compile(adapter, str(packet / 'verify-full.py'), 'exec')
 (packet / 'full-contract.json').write_text(json.dumps(contract, indent=2) + '\n')
 
 profile = json.loads(read(parent_packet + 'source-profile-peer-close.json'))
-profile.update(productSource=source, signedProductSource=source,
+profile.pop('signedProductSource', None)
+profile.update(productSource=source,
     catalogBuilderSha256=sha(Path(__file__).read_bytes()), adapterSha256=sha(adapter.encode()),
     prerequisiteValidatorSha256=sha((packet / 'verify-prerequisites.py').read_bytes()),
     contractSha256=sha((packet / 'full-contract.json').read_bytes()),
