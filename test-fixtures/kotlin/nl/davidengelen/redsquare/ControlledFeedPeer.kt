@@ -78,8 +78,8 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         val type = Class.forName("okhttp3.internal.ws.RealWebSocket")
         check(type.isInstance(socket))
         synchronized(socket) {
-            check(!type.getDeclaredField("failed").apply { isAccessible = true }.getBoolean(socket))
-            check(!type.getDeclaredField("enqueuedClose").apply { isAccessible = true }.getBoolean(socket))
+            if (type.getDeclaredField("failed").apply { isAccessible = true }.getBoolean(socket) ||
+                type.getDeclaredField("enqueuedClose").apply { isAccessible = true }.getBoolean(socket)) return false
             val size = type.getDeclaredField("queueSize").apply { isAccessible = true }
             val queue = type.getDeclaredField("messageAndCloseQueue").apply { isAccessible = true }
             val message = Class.forName("okhttp3.internal.ws.RealWebSocket\$Message")
