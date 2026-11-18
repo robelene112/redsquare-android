@@ -374,6 +374,7 @@ class PostSubmissionPreviewTest {
             // Seed a previously validated completion, not a new node observation.
             check(separate.confirmAvailable(original.id))
             separate.markSubmitted(original.id)
+            org.junit.Assert.assertTrue(store.hasSubmission(original.id))
             peer.start().use { server ->
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)

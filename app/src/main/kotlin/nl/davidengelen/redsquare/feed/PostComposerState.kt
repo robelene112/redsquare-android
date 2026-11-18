@@ -90,20 +90,21 @@ internal class PostComposerState(
                 catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
                 reconciled = true
             }
-            val handedOff = (transaction?.id ?: memory.transactionId)?.let { id ->
+            val handedOff = (transaction?.id ?: memory.transactionId ?: store.recoveryId.takeIf { it.isNotEmpty() })?.let { id ->
                 withContext(Dispatchers.IO) { store.hasSubmission(id) }
             } == true
             if (reconciled || handedOff) saved = withContext(Dispatchers.IO) { store.load() }
+            check(!store.observesOnly || saved.transaction != null || handedOff) { "Saved post recovery is unavailable" }
             // A user operation can set its busy flag while this read is suspended.
             // Its write waits for this mutex, so discard the observation before it
             // can overwrite the new operation's state or consume its error.
             if (passive && (sending || saving)) return
             if (reconciled || handedOff) {
-                if (reconciled || (ready && transaction != null)) submitted = true
+                if (reconciled || (ready && transaction != null) || store.isRecoveryRecord) submitted = true
                 memory.clearSubmitted()
             }
             savedContent = saved
-            if (saved.transaction == null && memory.unfinished == null) {
+            if (saved.transaction == null && memory.unfinished == null && !store.observesOnly) {
                 memory.unfinished = withContext(Dispatchers.IO) {
                     store.unfinishedText().also { memory.addCloseable("unfinished-text", it) }
                 }
