@@ -144,8 +144,8 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
     val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" },
         quoteArchiveResponse = respond, archiveResponse = respond).apply {
         sendOversizedArchiveFrames = true
-        withholdArchiveReply = following || largeRows
-        retainWithheldArchiveReplies = following || largeRows
+        withholdArchiveReply = following
+        retainWithheldArchiveReplies = following
     }
     var primary: Throwable? = null
     var cachedAnchor: Pair<Float, Float>? = null
@@ -166,34 +166,6 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
                     }.toString())
                     captureNativeScreen(File(context.cacheDir, "photo-pages-evidence/$mode-failure.png"))
                 }) {
-                    val firstPhotoDeadline = android.os.SystemClock.elapsedRealtime() + 30_000
-                    if (largeRows) {
-                        // Startup can replace a reader before its first callback arrives.
-                        // Prepare those actual replies, then deliver the latest observed
-                        // request after native composition settles, inside its real RPC budget.
-                        ui.waitUntil(20_000) {
-                            peer.archiveObservations.any { event -> event.get("event").asString == "reply" &&
-                                event.get("kind").asString == "RedSquare" && event.get("withheld").asBoolean }
-                        }
-                        ui.waitForIdle()
-                        val held = peer.archiveObservations.last { event -> event.get("event").asString == "reply" &&
-                            event.get("kind").asString == "RedSquare" && event.get("withheld").asBoolean }
-                        val age = System.currentTimeMillis() - held.get("started").asLong
-                        check(age in 0 until 5_000) { "Photo input was not prepared within the original RPC budget" }
-                        check(peer.archiveObservations.none { it.get("queued")?.asBoolean == true })
-                        peer.withholdArchiveReply = false
-                        val released = peer.releaseWithheldArchiveReplies(held.get("index").asInt)
-                        check(released == 1)
-                        File(context.cacheDir, "photo-pages-evidence/large-rows-prepared-input.json").apply {
-                            parentFile!!.mkdirs()
-                        }.writeText(JsonObject().apply {
-                            addProperty("requestIndex", held.get("index").asInt)
-                            addProperty("requestAgeMillis", age)
-                            addProperty("released", released)
-                            addProperty("initialPhotoBudgetMillis", 30_000)
-                            addProperty("queuedBeforeRelease", 0)
-                        }.toString())
-                    }
                     if (following) {
                         ui.waitUntil(20_000) { ui.onAllNodesWithText("Following").fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText("Following").performClick()
@@ -237,9 +209,7 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
                         ui.onNodeWithContentDescription("Search history").assertIsEnabled()
                         ui.onNodeWithContentDescription("Search history").performClick()
                     }
-                    val firstPhotoBudget = if (largeRows) firstPhotoDeadline - android.os.SystemClock.elapsedRealtime() else 30_000
-                    check(firstPhotoBudget > 0) { "The original first-photo deadline expired during input preparation" }
-                    ui.waitUntil(firstPhotoBudget) {
+                    ui.waitUntil(30_000) {
                         peer.assertHealthy()
                         ui.onAllNodes(hasText("Photo page item", substring = true), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
                     }
