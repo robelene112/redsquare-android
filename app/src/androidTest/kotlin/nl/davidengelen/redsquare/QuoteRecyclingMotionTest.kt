@@ -131,7 +131,7 @@ class QuoteRecyclingMotionTest {
                 val initial = requireNotNull(nativePostGeometry(device, commentary).card)
                 moveTo(commentary, forward = false, budgetMillis = remainingPosition(),
                     requiredPostHeight = initial.height())
-                val beforeGeometry = nativePostGeometry(device, commentary, text)
+                val beforeGeometry = nativePostGeometry(device, commentary, text, refresh = true)
                 val before = requireNotNull(beforeGeometry.card)
                 assertTrue("The entire baseline card must be inside its native viewport",
                     requireNotNull(beforeGeometry.viewport).contains(before))
@@ -169,7 +169,7 @@ class QuoteRecyclingMotionTest {
                                 requiredPostHeight = before.height(), bodyOffset = bodyOffset)
                             assertTrue("The native original remains visible on re-entry", device.hasObject(By.text(text)))
                             assertFalse(device.hasObject(By.text("Loading original.")))
-                            val afterGeometry = nativePostGeometry(device, commentary, text)
+                            val afterGeometry = nativePostGeometry(device, commentary, text, refresh = true)
                             val after = requireNotNull(afterGeometry.card)
                             assertTrue("The entire returned card must be inside its native viewport",
                                 requireNotNull(afterGeometry.viewport).contains(after))
@@ -207,7 +207,8 @@ class QuoteRecyclingMotionTest {
 
     /** One native tree for coordinates; never mix UiObject2's clipped/cache-adjusted rectangles with it. */
     @Suppress("DEPRECATION")
-    private fun nativePostGeometry(device: UiDevice, label: String, original: String? = null): NativePostGeometry {
+    private fun nativePostGeometry(device: UiDevice, label: String, original: String? = null,
+        refresh: Boolean = false): NativePostGeometry {
         val root = InstrumentationRegistry.getInstrumentation().uiAutomation.rootInActiveWindow
             ?: return NativePostGeometry()
         val nodes = mutableListOf<android.view.accessibility.AccessibilityNodeInfo>()
@@ -217,17 +218,21 @@ class QuoteRecyclingMotionTest {
                 for (index in 0 until node.childCount) node.getChild(index)?.let(::collect)
             }
             collect(root)
-            fun bounds(node: android.view.accessibility.AccessibilityNodeInfo) = Rect().also(node::getBoundsInScreen)
+            // Native child infos are cached independently. Final measurements
+            // refresh their exact nodes through Android's cache-bypassing API.
+            fun bounds(node: android.view.accessibility.AccessibilityNodeInfo): Rect? =
+                if (!refresh || node.refresh()) Rect().also(node::getBoundsInScreen) else null
             val viewport = nodes.firstOrNull { it.isScrollable && it.isVisibleToUser }?.let(::bounds)
                 ?: return NativePostGeometry()
-            val bodyNode = nodes.firstOrNull { it.text?.toString() == label && it.isVisibleToUser &&
-                Rect.intersects(bounds(it), viewport) } ?: return NativePostGeometry(viewport)
-            val body = bounds(bodyNode)
-            val quoted = original?.let { text -> nodes.firstOrNull { it.text?.toString() == text && it.isVisibleToUser }
-                ?.let(::bounds) }
+            val bodyNode = nodes.firstOrNull { it.text?.toString() == label }
+                ?: return NativePostGeometry(viewport)
+            val body = bounds(bodyNode)?.takeIf { bodyNode.isVisibleToUser && Rect.intersects(it, viewport) }
+                ?: return NativePostGeometry(viewport)
+            val originalNode = original?.let { text -> nodes.firstOrNull { it.text?.toString() == text } }
+            val quoted = originalNode?.let { node -> bounds(node)?.takeIf { node.isVisibleToUser } }
             var parent = bodyNode
             repeat(8) {
-                val box = bounds(parent)
+                val box = bounds(parent) ?: return NativePostGeometry(viewport, body, original = quoted)
                 if (parent.isClickable && box.width() >= device.displayWidth * 0.8 && box.contains(body))
                     return NativePostGeometry(viewport, body, box, quoted)
                 parent = parent.parent?.also(nodes::add) ?: return NativePostGeometry(viewport, body, original = quoted)
