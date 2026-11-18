@@ -73,7 +73,8 @@ class QuotePreviewTest {
                     captureNativeScreen(java.io.File(folder, "recycled-original-before.png"))
                     val samples = com.google.gson.JsonArray()
                     repeat(3) { round ->
-                        list.performScrollToIndex(0)
+                        list.performScrollToNode(hasText("Reference post 01"))
+                        ui.onNodeWithText("Reference post 01").assertIsDisplayed()
                         ui.onNode(card).assertDoesNotExist()
                         val entered = java.util.concurrent.CountDownLatch(1)
                         val release = java.util.concurrent.CountDownLatch(1)
@@ -94,6 +95,9 @@ class QuotePreviewTest {
                                 addProperty("round", round); addProperty("originalVisibleWhileCacheHeld", true)
                                 addProperty("height", ui.onNode(card).fetchSemanticsNode().boundsInRoot.height)
                             })
+                        } catch (failure: Throwable) {
+                            captureNativeScreen(java.io.File(folder, "recycled-original-held-cache-failure.png"))
+                            throw failure
                         } finally {
                             release.countDown(); worker.join(2_000); check(!worker.isAlive)
                             java.io.File(folder, "recycled-original-observations.json").writeText(samples.toString())
