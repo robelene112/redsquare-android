@@ -1,6 +1,9 @@
 package nl.davidengelen.redsquare
 
 import android.graphics.Rect
+import android.os.SystemClock
+import android.view.InputDevice
+import android.view.MotionEvent
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
@@ -84,8 +87,7 @@ class QuoteRecyclingMotionTest {
                         val endY = if (correction != 0) (startY + correction).coerceIn(high, low)
                             else if (forward) high else low
                         val started = android.os.SystemClock.elapsedRealtime()
-                        assertTrue(device.swipe(bounds.centerX(), startY,
-                            bounds.centerX(), endY, if (correction == 0) 6 else 20))
+                        dragToRest(bounds.exactCenterX(), startY.toFloat(), endY.toFloat())
                         device.wait(Until.hasObject(By.text(label)), 75)
                         gestures.add(JsonObject().apply {
                             addProperty("target", label); addProperty("forward", forward)
@@ -191,5 +193,31 @@ class QuoteRecyclingMotionTest {
                 captureNativeScreen(File(folder, "scale-$scale-after.png"))
             }
         }
+    }
+
+    /** Fast native movement followed by stopping the finger, as when returning to read. */
+    private fun dragToRest(x: Float, from: Float, to: Float) {
+        val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
+        val down = SystemClock.uptimeMillis()
+        fun send(action: Int, y: Float) {
+            val event = MotionEvent.obtain(down, SystemClock.uptimeMillis(), action, x, y, 0)
+            try {
+                event.source = InputDevice.SOURCE_TOUCHSCREEN
+                assertTrue("The actual native gesture must be accepted", automation.injectInputEvent(event, true))
+            } finally { event.recycle() }
+        }
+        send(MotionEvent.ACTION_DOWN, from)
+        var y = from
+        var primary: Throwable? = null
+        try {
+            for (step in 1..16) {
+                SystemClock.sleep(8)
+                y = from + (to - from) * step / 16
+                send(MotionEvent.ACTION_MOVE, y)
+            }
+            SystemClock.sleep(120)
+            send(MotionEvent.ACTION_MOVE, y)
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally { cleanupAfterTest(primary, { send(MotionEvent.ACTION_UP, y) }) }
     }
 }
