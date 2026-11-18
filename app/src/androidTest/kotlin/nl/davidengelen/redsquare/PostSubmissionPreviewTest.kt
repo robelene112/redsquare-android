@@ -112,7 +112,7 @@ class PostSubmissionPreviewTest {
         finally {
             peer.withholdArchiveReply = false
             cleanupAfterTest(primary, {
-                androidx.work.WorkManager.getInstance(context).cancelUniqueWork("post:${original.id}").result.get()
+                androidx.work.WorkManager.getInstance(context).cancelUniqueWork("post:${original.id}").result.get(5, java.util.concurrent.TimeUnit.SECONDS)
             }, { retained.restoreFiles() }, { retained.restorePreferences() }, {
                 backends.save(originalBackend)
                 check(wallets.loadExisting().exportJson() == wallet.exportJson())
@@ -342,7 +342,7 @@ class PostSubmissionPreviewTest {
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally { cleanupAfterTest(primary, {
-            androidx.work.WorkManager.getInstance(context).cancelUniqueWork("post:${original.id}").result.get()
+            androidx.work.WorkManager.getInstance(context).cancelUniqueWork("post:${original.id}").result.get(5, java.util.concurrent.TimeUnit.SECONDS)
         }, { retained.restoreFiles() }, { retained.restorePreferences() }, {
             backends.save(originalBackend)
             check(wallets.loadExisting().exportJson() == wallet.exportJson())

@@ -272,7 +272,7 @@ class UnfinishedTextProcessTest {
         var walletRestored = false
         cleanupAfterTest(null, {
             if (row.has("originalSignature")) androidx.work.WorkManager.getInstance(context)
-                .cancelUniqueWork("post:${row.get("originalSignature").asString}").result.get()
+                .cancelUniqueWork("post:${row.get("originalSignature").asString}").result.get(5, java.util.concurrent.TimeUnit.SECONDS)
         }, {
             restoreProcessFixtureFiles(context, originals, names() + row.getAsJsonArray("savedFiles").map { it.asString }, row.getAsJsonArray("savedFiles"))
             filesRestored = true
