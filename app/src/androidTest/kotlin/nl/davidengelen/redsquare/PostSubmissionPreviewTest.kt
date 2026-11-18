@@ -78,6 +78,11 @@ class PostSubmissionPreviewTest {
                         assertEquals(original.encoded(), savedOriginal.load().transaction?.encoded())
                         org.junit.Assert.assertFalse(store.hasSubmission(original.id))
                         org.junit.Assert.assertFalse(savedOriginal.load().available)
+                        val manager = androidx.work.WorkManager.getInstance(context)
+                        ui.waitUntil(2_000) {
+                            manager.getWorkInfosForUniqueWork("post:${original.id}")
+                                .get(1, java.util.concurrent.TimeUnit.SECONDS).isNotEmpty()
+                        }
                         ui.onNode(hasSetTextAction()).performTextReplacement("Keep the independent next draft")
                         ui.attachSyntheticImage()
                         ui.onNode(hasSetTextAction()).performScrollTo().performClick().assertIsFocused()
@@ -106,7 +111,9 @@ class PostSubmissionPreviewTest {
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
             peer.withholdArchiveReply = false
-            cleanupAfterTest(primary, { retained.restoreFiles() }, { retained.restorePreferences() }, {
+            cleanupAfterTest(primary, {
+                androidx.work.WorkManager.getInstance(context).cancelUniqueWork("post:${original.id}").result.get()
+            }, { retained.restoreFiles() }, { retained.restorePreferences() }, {
                 backends.save(originalBackend)
                 check(wallets.loadExisting().exportJson() == wallet.exportJson())
             })
