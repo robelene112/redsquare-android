@@ -85,12 +85,13 @@ class ReadCancellationTest {
                         check(old.isCancelled && !cancelled.successfulRead)
                         response.set("[$row]")
                         val active = StackLibrary(context, wallet, SaitoBackend.OWNER, endpoint)
-                        current = async(Dispatchers.Main) { active.start() }
+                        val activeRead = async(Dispatchers.Main) { active.start() }
+                        current = activeRead
                         withTimeout(10_000) { while (reads.get() < initialReads + 2) delay(10) }
                         peer.withholdArchiveReply = false
                         val replayed = peer.releaseWithheldArchiveReplies()
                         check(replayed == 2) { "Replay the cancelled large callback before the current small callback" }
-                        withTimeout(15_000) { current.await() }
+                        withTimeout(15_000) { activeRead.await() }
                         File(context.cacheDir, "read-cancellation-evidence/late-oversized.json").apply {
                             parentFile!!.mkdirs()
                         }.writeText(JsonObject().apply {
