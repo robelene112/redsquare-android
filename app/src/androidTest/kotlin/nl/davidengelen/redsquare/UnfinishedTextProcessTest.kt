@@ -58,11 +58,12 @@ class UnfinishedTextProcessTest {
         if (!separated) return
         val id = row.get("originalSignature").asString
         val saved = PostDraftStore.recovered(context, wallet.publicKey, AndroidBackendStore(context).load(), id).load()
-        assertEquals(row.get("originalDigest").asString, digest(requireNotNull(saved.transaction).encoded()))
+        val transaction = requireNotNull(saved.transaction)
+        assertEquals(row.get("originalDigest").asString, digest(transaction.encoded()))
         assertFalse(saved.available)
         assertFalse(draft().hasSubmission(id))
         assertEquals(1, saved.images.size)
-        val post = RedSquareFeed.decode(saved.transaction.envelope())
+        val post = RedSquareFeed.decode(transaction.envelope())
         assertEquals(if (mode.startsWith("reply")) reference.id else "", post.parentId)
         assertEquals(if (mode.startsWith("quote")) reference.id else null, post.quoted?.id)
     }
