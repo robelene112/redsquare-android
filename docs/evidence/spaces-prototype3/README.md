@@ -1,6 +1,6 @@
 # Spaces prototype 3: five navigation alternatives
 
-The owner finds prototype 2 better but still not attractive enough, and requested five alternatives for opening communities/channels. The rest of the design remains the shared baseline. No alternative has been selected or approved.
+The owner finds prototype 2 better but still not attractive enough, and requested five alternatives for opening communities/channels. The rest of the design remains the shared baseline. At delivery, no alternative was selected. On 2026-11-18 the owner selected **B: Channel title**.
 
 [Download](https://davidengelen.nl/redsquare/spaces-prototype/) or [direct APK](https://davidengelen.nl/redsquare/spaces-prototype/releases/3/spaces-prototype.apk). Tap **Design A / 5** to compare:
 
@@ -26,4 +26,4 @@ Review corrected missing current-context/heading semantics before acceptance. Ac
 
 Raw APKs, screenshots, logs and hashes are under `/home/david/.cache/redsquare-android-artifacts/spaces-prototype3`. Small JSON receipts here preserve the accepted source, terminal identities and image hashes.
 
-This is a synthetic, in-memory native design study, not functional Spaces, real Chat E2E, live media/storage or physical/OEM acceptance. Owner choice among A–E remains pending. Bugs #132/#133/#135 remain open prerequisites for functional integration; #136 is separately ready for the next ordinary beta. No ordinary beta, node/provider or public financial/community write is published by this delivery. Specification #134 stays open.
+This is a synthetic, in-memory native design study, not functional Spaces, real Chat E2E, live media/storage or physical/OEM acceptance. The owner selected B on 2026-11-18; this approval is a design verdict, not functional acceptance. Bugs #132/#133/#135 remain open prerequisites for functional integration; #136 is separately ready for the next ordinary beta. No ordinary beta, node/provider or public financial/community write is published by this delivery. Specification #134 stays open.
