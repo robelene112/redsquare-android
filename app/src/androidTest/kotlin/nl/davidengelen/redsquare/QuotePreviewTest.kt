@@ -63,12 +63,19 @@ class QuotePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 val folder = java.io.File(context.cacheDir, "quote-evidence").apply { mkdirs() }
                 withFailureCapture({ captureNativeScreen(java.io.File(folder, "recycled-original-failure.png")) }) {
-                    waitFor("Reference post 20")
+                    val readyBy = android.os.SystemClock.uptimeMillis() + 20_000
+                    fun remainingReady() = (readyBy - android.os.SystemClock.uptimeMillis()).also { check(it > 0) }
+                    ui.waitUntil(remainingReady()) { ui.onNodeWithText("Reference post 20").isDisplayed() }
                     if (ui.onNodeWithText("Later").isDisplayed()) ui.onNodeWithText("Later").performClick()
                     val list = ui.onNodeWithTag("feed-post-list")
                     val card = hasTestTag("post-card-${current.get("sig").asString.take(12)}")
                     val quoted = hasText(originalText) and hasAnyAncestor(card) and
                         hasAnyAncestor(hasContentDescription("Quoted original"))
+                    // The retweet stream arrives after the ordinary page. Its
+                    // insertion preserves that page's reading anchor below it.
+                    ui.waitUntil(remainingReady()) { ui.refreshableContentReady() }
+                    list.performScrollToIndex(0)
+                    ui.waitUntil(remainingReady()) { ui.onNode(card).isDisplayed() }
                     list.performScrollToNode(card)
                     ui.waitUntil(20_000) { ui.onNode(quoted, useUnmergedTree = true).isDisplayed() }
                     assertTrue("The original was independently served before reuse", reads.get() > 0)
