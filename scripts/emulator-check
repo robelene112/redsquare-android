@@ -2352,6 +2352,7 @@ verify_quotes() {
         adb pull /data/local/tmp/quote-failure.xml "$evidence/quote-system-window.xml" >/dev/null 2>&1 || true
         return 1
     fi
+    verify_group_chat_native QuoteRecyclingMotionTest 180 quote-recycling-motion quote-motion-evidence
     python3 "$repo_dir/scripts/post-process-check" --quote --evidence "$evidence/quote-process"
 }
 if [[ "${TEST_SCOPE:-full}" == quotes* ]]; then

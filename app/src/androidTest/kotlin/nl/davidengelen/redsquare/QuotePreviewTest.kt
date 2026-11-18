@@ -59,87 +59,77 @@ class QuotePreviewTest {
             }
         })
         peer.start().use { server ->
-            for (scale in listOf(1, 0)) withNativeModuleMotionScale(scale) {
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
-                    val folder = java.io.File(context.cacheDir, "quote-evidence").apply { mkdirs() }
-                    withFailureCapture({ captureNativeScreen(java.io.File(folder, "recycled-original-failure.png")) }) {
-                        waitFor("Reference post 20")
-                        if (ui.onNodeWithText("Later").isDisplayed()) ui.onNodeWithText("Later").performClick()
-                        val list = ui.onNodeWithTag("feed-post-list")
-                        val card = hasTestTag("post-card-${current.get("sig").asString.take(12)}")
-                        val quoted = hasText(originalText) and hasAnyAncestor(card) and
-                            hasAnyAncestor(hasContentDescription("Quoted original"))
-                        list.performScrollToNode(card)
-                        ui.waitUntil(20_000) { ui.onNode(quoted, useUnmergedTree = true).isDisplayed() }
-                        assertTrue("The original was independently served before reuse", reads.get() > 0)
-                        if (legacyVisible.compareAndSet(false, true)) {
-                            list.performScrollToIndex(0); ui.pullToRefresh("feed-post-list")
-                            ui.waitUntil(15_000) {
-                                ui.onNodeWithText("Historical quote commentary").isDisplayed() && ui.refreshableContentReady()
-                            }
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                val folder = java.io.File(context.cacheDir, "quote-evidence").apply { mkdirs() }
+                withFailureCapture({ captureNativeScreen(java.io.File(folder, "recycled-original-failure.png")) }) {
+                    waitFor("Reference post 20")
+                    if (ui.onNodeWithText("Later").isDisplayed()) ui.onNodeWithText("Later").performClick()
+                    val list = ui.onNodeWithTag("feed-post-list")
+                    val card = hasTestTag("post-card-${current.get("sig").asString.take(12)}")
+                    val quoted = hasText(originalText) and hasAnyAncestor(card) and
+                        hasAnyAncestor(hasContentDescription("Quoted original"))
+                    list.performScrollToNode(card)
+                    ui.waitUntil(20_000) { ui.onNode(quoted, useUnmergedTree = true).isDisplayed() }
+                    assertTrue("The original was independently served before reuse", reads.get() > 0)
+                    if (legacyVisible.compareAndSet(false, true)) {
+                        list.performScrollToIndex(0); ui.pullToRefresh("feed-post-list")
+                        ui.waitUntil(15_000) {
+                            ui.onNodeWithText("Historical quote commentary").isDisplayed() && ui.refreshableContentReady()
                         }
-                        list.performScrollToNode(card)
-                        val height = ui.onNode(card).fetchSemanticsNode().boundsInRoot.height
-                        observeModuleWindowMotionScale(activity, scale, folder)
-                        captureNativeScreen(java.io.File(folder, "scale-$scale-recycled-original-before.png"))
-                        val samples = com.google.gson.JsonArray()
-                        repeat(3) { round ->
-                            list.performScrollToNode(hasText("Reference post 01"))
-                            ui.onNodeWithText("Reference post 01").assertIsDisplayed()
-                            ui.onNode(card).assertDoesNotExist()
-                            val entered = java.util.concurrent.CountDownLatch(1)
-                            val release = java.util.concurrent.CountDownLatch(1)
-                            val holding = java.util.concurrent.atomic.AtomicBoolean(false)
-                            val workerFailure = AtomicReference<Throwable?>()
-                            val worker = kotlin.concurrent.thread(name = "owned-quote-cache-$round", isDaemon = true) {
-                                try {
-                                    synchronized(nl.davidengelen.redsquare.feed.PublicStringStore.lock) {
-                                        holding.set(true); entered.countDown()
-                                        check(release.await(8, java.util.concurrent.TimeUnit.SECONDS))
-                                    }
-                                } catch (failure: Throwable) { workerFailure.set(failure); entered.countDown() }
-                                finally { holding.set(false) }
-                            }
-                            var primary: Throwable? = null
+                    }
+                    list.performScrollToNode(card)
+                    val height = ui.onNode(card).fetchSemanticsNode().boundsInRoot.height
+                    captureNativeScreen(java.io.File(folder, "recycled-original-before.png"))
+                    val samples = com.google.gson.JsonArray()
+                    repeat(3) { round ->
+                        list.performScrollToNode(hasText("Reference post 01"))
+                        ui.onNodeWithText("Reference post 01").assertIsDisplayed()
+                        ui.onNode(card).assertDoesNotExist()
+                        val entered = java.util.concurrent.CountDownLatch(1)
+                        val release = java.util.concurrent.CountDownLatch(1)
+                        val holding = java.util.concurrent.atomic.AtomicBoolean(false)
+                        val workerFailure = AtomicReference<Throwable?>()
+                        val worker = kotlin.concurrent.thread(name = "owned-quote-cache-$round", isDaemon = true) {
                             try {
-                                assertTrue(entered.await(2, java.util.concurrent.TimeUnit.SECONDS))
-                                workerFailure.get()?.let { throw it }
-                                val movie = java.io.File(folder, "scale-$scale-recycled-original-$round.mp4")
-                                var frames: JsonObject? = null
-                                withFailureCapture({
-                                    captureNativeScreen(java.io.File(folder, "scale-$scale-recycled-original-held-cache-failure.png"))
-                                }) {
-                                    frames = recordNativeCheckpointTransition(activity, movie) {
-                                        list.performScrollToNode(card)
-                                        ui.onNode(quoted, useUnmergedTree = true).assertIsDisplayed()
-                                        ui.onNodeWithText("Loading original.").assertDoesNotExist()
-                                        assertEquals("Recycled commentary retains its complete height", height,
-                                            ui.onNode(card).fetchSemanticsNode().boundsInRoot.height, 1f)
-                                        assertTrue("The actual cache monitor remains held at the UI observation",
-                                            holding.get() && worker.isAlive && release.count == 1L)
-                                        samples.add(JsonObject().apply {
-                                            addProperty("round", round); addProperty("originalVisibleWhileCacheHeld", true)
-                                            addProperty("height", ui.onNode(card).fetchSemanticsNode().boundsInRoot.height)
-                                        })
-                                        release.countDown()
-                                    }
+                                synchronized(nl.davidengelen.redsquare.feed.PublicStringStore.lock) {
+                                    holding.set(true); entered.countDown()
+                                    check(release.await(8, java.util.concurrent.TimeUnit.SECONDS))
                                 }
-                                requireNotNull(frames).addProperty("publicationCount", peer.transactions.size)
-                                java.io.File(folder, "scale-$scale-recycled-original-$round-frames.json").writeText(requireNotNull(frames).toString())
-                            } catch (failure: Throwable) { primary = failure; throw failure }
-                            finally {
-                                cleanupAfterTest(primary, { release.countDown() }, {
-                                    worker.join(2_000); check(!worker.isAlive)
-                                    workerFailure.get()?.let { throw it }
-                                }, {
-                                    java.io.File(folder, "scale-$scale-recycled-original-observations.json").writeText(samples.toString())
+                            } catch (failure: Throwable) { workerFailure.set(failure); entered.countDown() }
+                            finally { holding.set(false) }
+                        }
+                        var primary: Throwable? = null
+                        try {
+                            assertTrue(entered.await(2, java.util.concurrent.TimeUnit.SECONDS))
+                            workerFailure.get()?.let { throw it }
+                            withFailureCapture({
+                                captureNativeScreen(java.io.File(folder, "recycled-original-held-cache-failure.png"))
+                            }) {
+                                list.performScrollToNode(card)
+                                ui.onNode(quoted, useUnmergedTree = true).assertIsDisplayed()
+                                ui.onNodeWithText("Loading original.").assertDoesNotExist()
+                                assertEquals("Recycled commentary retains its complete height", height,
+                                    ui.onNode(card).fetchSemanticsNode().boundsInRoot.height, 1f)
+                                assertTrue("The actual cache monitor remains held at the UI observation",
+                                    holding.get() && worker.isAlive && release.count == 1L)
+                                samples.add(JsonObject().apply {
+                                    addProperty("round", round); addProperty("originalVisibleWhileCacheHeld", true)
+                                    addProperty("height", ui.onNode(card).fetchSemanticsNode().boundsInRoot.height)
                                 })
                             }
+                        } catch (failure: Throwable) { primary = failure; throw failure }
+                        finally {
+                            cleanupAfterTest(primary, { release.countDown() }, {
+                                worker.join(2_000); check(!worker.isAlive)
+                                workerFailure.get()?.let { throw it }
+                            }, {
+                                java.io.File(folder, "recycled-original-observations.json").writeText(samples.toString())
+                            })
                         }
-                        assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
-                        captureNativeScreen(java.io.File(folder, "scale-$scale-recycled-original-after.png"))
                     }
+                    assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                    captureNativeScreen(java.io.File(folder, "recycled-original-after.png"))
                 }
             }
         }
@@ -211,8 +201,13 @@ class QuotePreviewTest {
                         val legacyCard = hasTestTag("post-card-${legacy.get("sig").asString.take(12)}")
                         fun quoted(card: SemanticsMatcher, text: String) = hasText(text) and hasAnyAncestor(card) and
                             hasAnyAncestor(hasContentDescription("Quoted original"))
-                        waitFor("Current commentary retweet")
+                        val readyBy = android.os.SystemClock.uptimeMillis() + 20_000
+                        waitFor("Historical quote commentary")
                         if (ui.onNodeWithText("Later").isDisplayed()) ui.onNodeWithText("Later").performClick()
+                        fun remainingReady() = (readyBy - android.os.SystemClock.uptimeMillis()).also { check(it > 0) }
+                        ui.waitUntil(remainingReady()) { ui.refreshableContentReady() }
+                        list.performScrollToIndex(0)
+                        ui.waitUntil(remainingReady()) { ui.onNodeWithText("Current commentary retweet").isDisplayed() }
                         list.performScrollToNode(currentCard)
                         ui.waitUntil(20_000) { ui.onNode(quoted(currentCard, originalText), useUnmergedTree = true).isDisplayed() }
                         ui.waitUntil(15_000) { ui.refreshableContentReady() }
