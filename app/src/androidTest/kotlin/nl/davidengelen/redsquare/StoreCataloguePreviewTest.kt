@@ -47,7 +47,7 @@ class StoreCataloguePreviewTest {
                         }
                     }.toString()
                 }
-            }) {
+            }) { activity ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.onNodeWithContentDescription("Switch app: Red Square").performClick()
@@ -88,9 +88,44 @@ class StoreCataloguePreviewTest {
             ui.onNodeWithText("Back").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
             ui.onNodeWithText("Back").performClick()
-            ui.waitUntil(15_000) { ui.onNode(hasText("Access Keys") and hasClickAction() and !hasText("Field notes access key")).isDisplayed() }
-            ui.onNode(hasText("Access Keys") and hasClickAction() and !hasText("Field notes access key")).performClick()
-            ui.onNodeWithContentDescription("Filter by Other").performScrollTo().performClick()
+            val categoryAction = ui.onNode(hasText("Access Keys") and hasClickAction() and !hasText("Field notes access key"))
+            val returnStarted = android.os.SystemClock.elapsedRealtime()
+            var previous: androidx.compose.ui.geometry.Rect? = null
+            var stableSince = returnStarted
+            var focused = false
+            var observations = 0
+            var movements = 0
+            // Back may reveal the catalogue before its expanding app chrome has
+            // settled. Physical input needs the current complete target, rather
+            // than the first partially visible or still-moving position.
+            ui.waitUntil(15_000) {
+                activity.onActivity { focused = it.window.decorView.hasWindowFocus() }
+                val node = if (categoryAction.isDisplayed()) categoryAction.fetchSemanticsNode() else null
+                val bounds = node?.boundsInRoot
+                val complete = focused && bounds != null &&
+                    bounds.width == node.size.width.toFloat() && bounds.height == node.size.height.toFloat()
+                val now = android.os.SystemClock.elapsedRealtime()
+                if (!complete || bounds != previous) {
+                    if (previous != null && bounds != previous) movements++
+                    stableSince = now
+                }
+                observations++
+                previous = if (complete) bounds else null
+                complete && now - stableSince >= 200
+            }
+            categoryAction.assertIsDisplayed().assertIsEnabled().performClick()
+            val remaining = 15_000 - (android.os.SystemClock.elapsedRealtime() - returnStarted)
+            check(remaining > 0) { "Returning and opening the category sheet retain the original fifteen-second budget" }
+            ui.waitUntil(remaining) {
+                ui.onAllNodesWithContentDescription("Filter by Other").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+            }
+            File(context.cacheDir, "store-catalogue-evidence/return-category-input.json").writeText(JsonObject().apply {
+                addProperty("activityWindowFocused", focused); addProperty("completeStableBounds", requireNotNull(previous).toString())
+                addProperty("observations", observations); addProperty("positionChanges", movements)
+                addProperty("setupMillis", android.os.SystemClock.elapsedRealtime() - returnStarted)
+                addProperty("budgetMillis", 15_000); addProperty("physicalClicks", 1)
+            }.toString())
+            ui.onNodeWithContentDescription("Filter by Other").performScrollTo().assertIsDisplayed().performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText(context.getString(R.string.store_empty)).isDisplayed() }
         }
     }
