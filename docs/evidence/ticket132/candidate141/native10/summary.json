@@ -1,0 +1,195 @@
+{
+  "result": "INTEGRATED132_PASS_WITH_INHERITED115_126_AND131_CATALOG_QUALIFICATIONS",
+  "sdk": "10",
+  "source": "65a76859f5163d84c63bfe27aea7704166047db7",
+  "run": "44316474699",
+  "observedIdentities": 914,
+  "terminalCompletionOrAssumptionIdentities": 898,
+  "verifiedModuleInterruptedStarts": 5,
+  "verifiedUnfinishedTextInterruptedStarts": 11,
+  "verifiedIntentionalStarts": 16,
+  "assessorSha256": "547a3bf0c23168f429c5e849d953e21af2b259157f14b42622c5c4d836c038d5",
+  "erratumSha256": "1a3ecf9168b3e284365e2d35b584d2c248e20505fa32ce5b58d2bab3e5c32a4a",
+  "adapterSha256": "74ff3635c2be7a7b161fbfe801fd594ff1c139150a6944f1a741eb53835b8b4b",
+  "sourceProfileSha256": "5f73d4492e2ab4de8409da3ec99f741e47f3475c75d68db37892147136a38237",
+  "additiveContractSha256": "8845c49159480f860279984f40e5cf76cc620405fffaac041ad65b474113d72c",
+  "frozenVerifierSha256": "c39b618c1ef9dd695d4d620aa472827e3f71fe0ba49e0920c1791fa09ed32212",
+  "assessorCommit": "65a76859f5163d84c63bfe27aea7704166047db7",
+  "recoveryTotals": {
+    "normalCompletions": 391,
+    "deliberateInterruptions": 55,
+    "continuityRecords": 54
+  },
+  "classes": 344,
+  "assumptions": [
+    {
+      "path": "ProfilePublishingPreviewTest-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+      "test": "newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation"
+    }
+  ],
+  "inheritedMissingFailureCaptures": [
+    "wallet/live-official/wallet-first-failure.png",
+    "wallet/live-official/wallet-first-failure.xml",
+    "wallet/live-owner/wallet-first-failure.png",
+    "wallet/live-owner/wallet-first-failure.xml"
+  ],
+  "originalArchives": 277,
+  "rawDirectory": "/home/david/.cache/redsquare-android-artifacts/composer132/full141-10/raw",
+  "runtimePreflight": {
+    "chat": [
+      {
+        "result": "INVALID_HEAP",
+        "attempt": 1,
+        "maxAttempts": 3,
+        "observation": {
+          "package": "nl.davidengelen.redsquare.dev",
+          "sdk": 29,
+          "hardware": "ranchu",
+          "pid": 3435,
+          "parentPid": 1667,
+          "is64Bit": true,
+          "applicationFlags": 686308934,
+          "actualBytes": 16777216,
+          "declaredBytes": 536870912
+        },
+        "configurationSha256": {
+          "avd-config.ini": "79593541dcb6d294b3650b4e381a10d28d40e14caca9897ef5ae9cf05e9c51be",
+          "emulator-capacity.txt": "e3bc0f153844241b99bea4935b0140c43e5f46640d788cf46060ae2b20af4a97",
+          "system-image.txt": "8eaa79caa90322aec00875daaf69496d19a756b20360b71c1b0bd134cf62e30d",
+          "system-image.properties": "9db370b96467c9a94a68843aeb1a699bec44d4d05ef52a6774d8f6174418a847",
+          "system-build.txt": "6ae65e4e6a95d74db8a522b1941f25805a3cfd4c5828470d6f5ea1afd1c0a003",
+          "device-abi.txt": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62",
+          "page-size.txt": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91",
+          "requested-page-size.txt": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+        },
+        "emulatorStartupSha256": "1f04d236b60b3a22aefdd9d8f6176f787110b17595ccb2ee273e940a3b5334c3",
+        "probeSha256": "5fda0b4fd671a2c3cc02b3bc305df145936b67330e3a0d778169d7556d4b47bb",
+        "elapsedMillis": 1178,
+        "qualification": "One separate provisioning JUnit observation before acceptance tests, retained in.log outside their counts; unchanged heap settings, no service restart or application-assertion retry."
+      },
+      {
+        "result": "PASS",
+        "attempt": 2,
+        "maxAttempts": 3,
+        "observation": {
+          "package": "nl.davidengelen.redsquare.dev",
+          "sdk": 29,
+          "hardware": "ranchu",
+          "pid": 3154,
+          "parentPid": 1662,
+          "is64Bit": true,
+          "applicationFlags": 686308934,
+          "actualBytes": 536870912,
+          "declaredBytes": 536870912
+        },
+        "configurationSha256": {
+          "avd-config.ini": "79593541dcb6d294b3650b4e381a10d28d40e14caca9897ef5ae9cf05e9c51be",
+          "emulator-capacity.txt": "e3bc0f153844241b99bea4935b0140c43e5f46640d788cf46060ae2b20af4a97",
+          "system-image.txt": "8eaa79caa90322aec00875daaf69496d19a756b20360b71c1b0bd134cf62e30d",
+          "system-image.properties": "9db370b96467c9a94a68843aeb1a699bec44d4d05ef52a6774d8f6174418a847",
+          "system-build.txt": "6ae65e4e6a95d74db8a522b1941f25805a3cfd4c5828470d6f5ea1afd1c0a003",
+          "device-abi.txt": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62",
+          "page-size.txt": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91",
+          "requested-page-size.txt": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+        },
+        "emulatorStartupSha256": "b6ec9581473ab3b0e26f1b756f90cada6632e44ac67be78e1dad4300995797a2",
+        "probeSha256": "22bf087ab033d5302962abb078c6a13b5de267e77bf796184b66a6b066b27dfd",
+        "elapsedMillis": 1174,
+        "qualification": "One separate provisioning JUnit observation before acceptance tests, retained in.log outside their counts; unchanged heap settings, no service restart or application-assertion retry."
+      }
+    ],
+    "social": [
+      {
+        "result": "PASS",
+        "attempt": 1,
+        "maxAttempts": 3,
+        "observation": {
+          "package": "nl.davidengelen.redsquare.dev",
+          "sdk": 29,
+          "hardware": "ranchu",
+          "pid": 3469,
+          "parentPid": 1661,
+          "is64Bit": true,
+          "applicationFlags": 686308934,
+          "actualBytes": 536870912,
+          "declaredBytes": 536870912
+        },
+        "configurationSha256": {
+          "avd-config.ini": "79593541dcb6d294b3650b4e381a10d28d40e14caca9897ef5ae9cf05e9c51be",
+          "emulator-capacity.txt": "e3bc0f153844241b99bea4935b0140c43e5f46640d788cf46060ae2b20af4a97",
+          "system-image.txt": "8eaa79caa90322aec00875daaf69496d19a756b20360b71c1b0bd134cf62e30d",
+          "system-image.properties": "9db370b96467c9a94a68843aeb1a699bec44d4d05ef52a6774d8f6174418a847",
+          "system-build.txt": "6ae65e4e6a95d74db8a522b1941f25805a3cfd4c5828470d6f5ea1afd1c0a003",
+          "device-abi.txt": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62",
+          "page-size.txt": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91",
+          "requested-page-size.txt": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+        },
+        "emulatorStartupSha256": "efc4998e44121f7da38add39d35b80573d9b7f559d9273e1cace8fd299e71aa2",
+        "probeSha256": "b4d9f375b5a7637387f18ac45482a0e86976a03c6355ea3819f007b8095755f8",
+        "elapsedMillis": 1692,
+        "qualification": "One separate provisioning JUnit observation before acceptance tests, retained in.log outside their counts; unchanged heap settings, no service restart or application-assertion retry."
+      }
+    ],
+    "wallet": [
+      {
+        "result": "PASS",
+        "attempt": 1,
+        "maxAttempts": 3,
+        "observation": {
+          "package": "nl.davidengelen.redsquare.dev",
+          "sdk": 29,
+          "hardware": "ranchu",
+          "pid": 3440,
+          "parentPid": 1664,
+          "is64Bit": true,
+          "applicationFlags": 686308934,
+          "actualBytes": 536870912,
+          "declaredBytes": 536870912
+        },
+        "configurationSha256": {
+          "avd-config.ini": "79593541dcb6d294b3650b4e381a10d28d40e14caca9897ef5ae9cf05e9c51be",
+          "emulator-capacity.txt": "e3bc0f153844241b99bea4935b0140c43e5f46640d788cf46060ae2b20af4a97",
+          "system-image.txt": "8eaa79caa90322aec00875daaf69496d19a756b20360b71c1b0bd134cf62e30d",
+          "system-image.properties": "9db370b96467c9a94a68843aeb1a699bec44d4d05ef52a6774d8f6174418a847",
+          "system-build.txt": "6ae65e4e6a95d74db8a522b1941f25805a3cfd4c5828470d6f5ea1afd1c0a003",
+          "device-abi.txt": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62",
+          "page-size.txt": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91",
+          "requested-page-size.txt": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+        },
+        "emulatorStartupSha256": "cde6df45d8d53d47ee3803d4b0992c4b501e5a0e08a83fc732e6e9d3c0a889bf",
+        "probeSha256": "5eadab69bb7505bc81eff6d299b61b1721dbb92d07e3897101cd6d331a519175",
+        "elapsedMillis": 1145,
+        "qualification": "One separate provisioning JUnit observation before acceptance tests, retained in.log outside their counts; unchanged heap settings, no service restart or application-assertion retry."
+      }
+    ]
+  },
+  "separateProvisioningCompletions": 4,
+  "qualification": "Current132 additive-source assessment with inherited115 classification and126 queued-callback observation qualifications. The old frozen collector is not claimed to pass. One complete successful current-source primary, all3partitions. Five inherited module and eleven added unfinished-text intentional starts remain separate from terminal completions/assumptions. Every original goal and downstream validator remains. No prefix assembly or physical/provider/store acceptance. A separately admitted two-test-file broker-close correction preserves the unheld callback population and every receive goal, with three original passing core report witnesses. Signed141 app/runtime are unchanged and the original failed10 parent remains rejected. The inherited131 two identity path moves, one disjoint invocation count and ten original archive aliases remain explicit. Its frozen original collector did not pass. No native goal, deadline or physical archive is invented or waived.",
+  "peerCloseCoreWitnesses": {
+    "chat": {
+      "path": "android-native-proof-chat/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.ControlledNodeOutageTest.html",
+      "bytes": 2451,
+      "sha256": "81dedd2753250a59c06bb2ff1b9fc4e1b76506421f2232e7d25ba353c0196b6b",
+      "method": "anOversizedReplyPreparedBeforeAnOutageRemainsAnUnqueuedReplyAfterClose"
+    },
+    "social": {
+      "path": "android-native-proof-social/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.ControlledNodeOutageTest.html",
+      "bytes": 2451,
+      "sha256": "81e48b494acd179f1020867a09fdbd4a4c33a9de2046ba101e9639a069af30f4",
+      "method": "anOversizedReplyPreparedBeforeAnOutageRemainsAnUnqueuedReplyAfterClose"
+    },
+    "wallet": {
+      "path": "android-native-proof-wallet/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.ControlledNodeOutageTest.html",
+      "bytes": 2451,
+      "sha256": "3bab454163daac232270945f1df9426968a09a983b3e0b93f05965f9487163c4",
+      "method": "anOversizedReplyPreparedBeforeAnOutageRemainsAnUnqueuedReplyAfterClose"
+    }
+  },
+  "fixtureOnlySourceBridgeSha256": "d30479beaa6922d6c5612a454f95c97b0082f3296867a07c3b88cd036cf527bf",
+  "inheritedCatalogAssessorSha256": "aad2e4279a3cb4c1fca53a555fab7a914ec8baeb1fd5e95b2425433e8bb9ff22",
+  "inheritedFrozenAdapterPassed": false,
+  "inheritedFrozenFailureSha256": "977c28363fee750894e9882aca75e674d8a8fe27a5bbf7fb2ebe95fa690f5ebd",
+  "logicalArchiveRequirements": 286,
+  "physicalArchives": 277
+}

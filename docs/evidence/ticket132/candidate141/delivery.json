@@ -1,0 +1,269 @@
+{
+  "issue": "https://github.com/robelene112/redsquare-android/issues/132",
+  "result": "DELIVERED_141_WITH_EXPLICIT_INHERITED_QUALIFICATIONS",
+  "signedProductSource": "b929927aa84e0ed0850d60b520871d8d630d0f54",
+  "versionCode": 141,
+  "versionName": "0.1.141",
+  "applicationId": "nl.davidengelen.redsquare",
+  "sha256": "5257301f5d4a10a024555c62b20e29bd5bc8f557b476a6adc42e65a1a79a8b88",
+  "bytes": 94298656,
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/141/redsquare.apk",
+  "pageUrl": "https://davidengelen.nl/redsquare/",
+  "notes": "Saved posts stay recoverable while you write a new draft. Delayed network replies no longer interrupt other work. Also includes the refreshed beta update notice.",
+  "native": {
+    "10": {
+      "run": "44316474699",
+      "source": "65a76859f5163d84c63bfe27aea7704166047db7",
+      "summaryPath": "native10/summary.json",
+      "summarySha256": "caa721746fc4e4c718e4c81fa42f02a2e8d07e4ef9016abce6cc57655ca2deb2",
+      "identities": 914,
+      "classes": 344,
+      "recoveryTotals": {
+        "normalCompletions": 391,
+        "deliberateInterruptions": 55,
+        "continuityRecords": 54
+      },
+      "intentionalStarts": 16,
+      "assumptions": [
+        {
+          "path": "ProfilePublishingPreviewTest-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+          "test": "newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation"
+        }
+      ],
+      "physicalArchives": 277,
+      "logicalArchiveRequirements": 286,
+      "separateProvisioningCompletions": 4,
+      "originalZipIndex": [
+        {
+          "name": "android-native-proof-social",
+          "id": 14436854119,
+          "bytes": 123713056,
+          "sha256": "b177cabec6c453b3237c2910d29ff6f5e70cdd266e0c6724c1f674a2cddd926c",
+          "declaredDigest": "sha256:b177cabec6c453b3237c2910d29ff6f5e70cdd266e0c6724c1f674a2cddd926c",
+          "members": 642,
+          "uncompressedBytes": 181706935
+        },
+        {
+          "name": "android-native-proof-chat",
+          "id": 14438807233,
+          "bytes": 189606913,
+          "sha256": "9e55ababc80b52e5959a4cd858ab27ea097b0c8b8965abac5b6c8db41a6865e6",
+          "declaredDigest": "sha256:9e55ababc80b52e5959a4cd858ab27ea097b0c8b8965abac5b6c8db41a6865e6",
+          "members": 696,
+          "uncompressedBytes": 266272987
+        },
+        {
+          "name": "android-native-proof-wallet",
+          "id": 14435761922,
+          "bytes": 38447734,
+          "sha256": "90bdce74c742c81549b647e794184e21a39c4698364cbafb37e6efc6617c7b75",
+          "declaredDigest": "sha256:90bdce74c742c81549b647e794184e21a39c4698364cbafb37e6efc6617c7b75",
+          "members": 520,
+          "uncompressedBytes": 63082533
+        }
+      ]
+    },
+    "17": {
+      "run": "44310512236",
+      "source": "1147ded3834a8dd16b56dd1008aebb61ed694871",
+      "summaryPath": "native17/summary.json",
+      "summarySha256": "612c47b2569a52886a798117c025b2bc41e5110862f0e0cd6091d6fec4741e35",
+      "identities": 915,
+      "classes": 344,
+      "recoveryTotals": {
+        "normalCompletions": 392,
+        "deliberateInterruptions": 55,
+        "continuityRecords": 54
+      },
+      "intentionalStarts": 16,
+      "assumptions": [],
+      "physicalArchives": 277,
+      "logicalArchiveRequirements": 286,
+      "separateProvisioningCompletions": 0,
+      "originalZipIndex": [
+        {
+          "name": "android-native-proof-social",
+          "id": 14436431347,
+          "bytes": 140685993,
+          "sha256": "eef7a11c9bfd8036d14ab776771a1321479f6daaf404d74b7260196032999fb6",
+          "declaredDigest": "sha256:eef7a11c9bfd8036d14ab776771a1321479f6daaf404d74b7260196032999fb6",
+          "members": 632,
+          "uncompressedBytes": 206609987
+        },
+        {
+          "name": "android-native-proof-chat",
+          "id": 14438176861,
+          "bytes": 230676786,
+          "sha256": "840ae9d9c0330bdd4170b8dcacfc1e223635c21a3e4cf2518b10ff21eadbaae4",
+          "declaredDigest": "sha256:840ae9d9c0330bdd4170b8dcacfc1e223635c21a3e4cf2518b10ff21eadbaae4",
+          "members": 671,
+          "uncompressedBytes": 313044965
+        },
+        {
+          "name": "android-native-proof-wallet",
+          "id": 14433418134,
+          "bytes": 40376667,
+          "sha256": "f3773d55254e577cfed5f71f3b36b10ec169267f2896f34567547bbeb4e5dede",
+          "declaredDigest": "sha256:f3773d55254e577cfed5f71f3b36b10ec169267f2896f34567547bbeb4e5dede",
+          "members": 509,
+          "uncompressedBytes": 66535192
+        }
+      ]
+    }
+  },
+  "signed139To141Updates": {
+    "10": 44311251841,
+    "17": 44311247092,
+    "source": "1147ded3834a8dd16b56dd1008aebb61ed694871",
+    "observationsPerSdk": 12,
+    "observerSha256": "ab936b9b43c5338dea778fc0015f38115fd2beb788c47037fc6c5eca42359791",
+    "qualification": "Guarded emulator test APK, separate from ordinary signed release. Seeded module and legacy Fileshare records remain controlled fixtures."
+  },
+  "independentReviews": {
+    "productSource": "b929927aa84e0ed0850d60b520871d8d630d0f54",
+    "freezeSource": "1147ded3834a8dd16b56dd1008aebb61ed694871",
+    "sourceReview": {
+      "specFindings": 0,
+      "standardsFindings": 0
+    },
+    "prospectivePacketAndCommittedFreeze": {
+      "specFindings": 0,
+      "standardsFindings": 0,
+      "freezeTimestamp": "2026-11-18T13:00:40Z"
+    },
+    "actualSigned139To141UpdateAndStagedBytes": {
+      "specFindings": 0,
+      "standardsFindings": 0,
+      "runs": {
+        "17": 44311247092,
+        "10": 44311251841
+      },
+      "observationsPerSdk": 12,
+      "qualification": "Controlled seeded preservation and staged wholebytes only. Legacy Fileshare/module seeds remain explicit fixtures. Latest observed139, no full native or final public promotion/physical/OEM/provider/Play acceptance."
+    },
+    "actualFullNative": {
+      "17": {
+        "specFindings": 0,
+        "standardsFindings": 0,
+        "run": 44310512236,
+        "source": "1147ded3834a8dd16b56dd1008aebb61ed694871",
+        "reviewDirectories": [
+          "review17-spec",
+          "review17-standards"
+        ],
+        "qualification": "Qualified integrated132 PASS; inherited115/126/131 classifications and limits retained. Entire successful original parent, no rejected parent or passing prefix reused."
+      },
+      "10": {
+        "specFindings": 0,
+        "standardsFindings": 0,
+        "run": 44316474699,
+        "source": "65a76859f5163d84c63bfe27aea7704166047db7",
+        "reviewDirectories": [
+          "review10-spec",
+          "review10-standards"
+        ],
+        "qualification": "Qualified integrated132 PASS; inherited API29 Profile assumption, four missing failure-only captures,115/126/131 classifications and strict two-test-file fixture bridge retained. Four provisioning observations including rejected Chat heap remain separate. No application assertion retry, failed parent or passing prefix reused."
+      }
+    },
+    "actualFinalPublicDelivery": {
+      "specFindings": 0,
+      "standardsFindings": 0,
+      "versionCode": 141,
+      "reviewDirectories": [
+        "review-public141-spec",
+        "review-public141-standards"
+      ],
+      "wholeApkBytes": 94298656,
+      "sha256": "5257301f5d4a10a024555c62b20e29bd5bc8f557b476a6adc42e65a1a79a8b88",
+      "canonicalVersion": 141,
+      "androidNoCacheVersion": 141
+    },
+    "testOnlyPeerCloseAdmission": {
+      "source": "65a76859f5163d84c63bfe27aea7704166047db7",
+      "fixtureSource": "be2b3ea9118e1fd2857ba49a8b31a8a60422a297",
+      "specFindings": 0,
+      "standardsFindings": 0,
+      "freezeTimestamp": "2026-11-18T13:37:41Z",
+      "corePassingCases": 21,
+      "focused10": 44315069321,
+      "signedAppUnchanged": true
+    }
+  },
+  "publicDelivery": {
+    "verifiedAt": "2026-11-18T15:03:23.235920+00:00",
+    "pageSha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b",
+    "pageUsesFreshManifest": true,
+    "canonicalVersion": 141,
+    "androidNoCacheVersion": 141,
+    "qualification": "Actual public page template and its fresh metadata, Android-equivalent no-cache manifest, immutable manifest and entire APK body. Canonical cache observation recorded separately. Physical/OEM/provider/Play gates remain open."
+  },
+  "ownedQaCleanup": {
+    "removedAt": "2026-11-18T15:06:15.989674+00:00",
+    "files": [
+      {
+        "name": "a56f40272a7847a85c809e9fa806a8240be96f1ba50d0f4ff8c66722c1d92ac1.apk",
+        "sha256": "a56f40272a7847a85c809e9fa806a8240be96f1ba50d0f4ff8c66722c1d92ac1",
+        "bytes": 11303832,
+        "originRemoved": true
+      },
+      {
+        "name": "ab936b9b43c5338dea778fc0015f38115fd2beb788c47037fc6c5eca42359791.apk",
+        "sha256": "ab936b9b43c5338dea778fc0015f38115fd2beb788c47037fc6c5eca42359791",
+        "bytes": 11332504,
+        "originRemoved": true
+      }
+    ],
+    "qualification": "Only these two owned temporary QA observer origin files were removed after both accepted139-to140 and139-to141 upgrade observations. Retained local evidence and unrelated QA files are unchanged. Previously cached CDN copies may persist; no global cache purge is claimed."
+  },
+  "externalEvidenceRoot": "/home/david/.cache/redsquare-android-artifacts/composer132",
+  "reviewReceiptIndex": {
+    "review17-spec/summary.json": {
+      "bytes": 2636,
+      "sha256": "612c47b2569a52886a798117c025b2bc41e5110862f0e0cd6091d6fec4741e35"
+    },
+    "review17-standards/summary.json": {
+      "bytes": 2636,
+      "sha256": "612c47b2569a52886a798117c025b2bc41e5110862f0e0cd6091d6fec4741e35"
+    },
+    "review10-spec/summary.json": {
+      "bytes": 11228,
+      "sha256": "caa721746fc4e4c718e4c81fa42f02a2e8d07e4ef9016abce6cc57655ca2deb2"
+    },
+    "review10-standards/summary.json": {
+      "bytes": 11228,
+      "sha256": "caa721746fc4e4c718e4c81fa42f02a2e8d07e4ef9016abce6cc57655ca2deb2"
+    },
+    "review-public141-spec/observation.json": {
+      "bytes": 6352,
+      "sha256": "1081ef47b31dc6631ee6cab5e808a76e650a7928748165bf84e4ca735c46b354"
+    },
+    "review-public141-standards/summary.json": {
+      "bytes": 6370,
+      "sha256": "1f487aae6adba1262fcc50cfdbd31b853729cb906bac95bdc6a24efa46a3bd35"
+    },
+    "final-public141-signature.txt": {
+      "bytes": 295,
+      "sha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65"
+    },
+    "final-public141-package.txt": {
+      "bytes": 5772,
+      "sha256": "680c6e894b7e2664be9d654fc02864e96f2f5d78491b0960767bc2f26960a251"
+    }
+  },
+  "remainingPrerequisites": [
+    133,
+    135
+  ],
+  "broaderIssuesKeptOpen": [
+    1,
+    36,
+    55,
+    84,
+    86,
+    105
+  ],
+  "vaultRentalDeployment": "UNDEPLOYED",
+  "qualification": "One complete successful three-partition parent per SDK, original frozen qualification code and all remaining validators, independently reproduced on both axes. Android10 admits only the two reviewed test-only fixture paths relative to signed appb929. The inherited API29 Profile assumption, four failure-only capture omissions,115/126/131 collector/catalog/callback/archive classifications and separate provisioning observations remain explicit. No failed parent, successful sibling or passing prefix supplies acceptance. No owner phone QA, physical/OEM/provider/Play acceptance, public test post or live node/provider/financial mutation. Spaces prototype unchanged; functional Spaces and implementation tickets remain unrequested. Superseded140 stays unpromoted."
+}

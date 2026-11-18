@@ -159,3 +159,17 @@ discards their one unusable late response while retaining active/unknown bounds.
 All18 shared-connection core cases pass, with zero remaining source findings on
 both axes. The original six-callback cause remains unproved. Focused current
 native observations and exact qualifications are in the replacement packet.
+
+
+## Final delivery authority
+
+#132 is delivered in [ordinary signed beta141](https://davidengelen.nl/redsquare/),
+product `b929927aa84e0ed0850d60b520871d8d630d0f54`. The
+[replacement141 packet](candidate141/README.md) and
+[delivery receipt](candidate141/delivery.json) supersede pending status in the
+historical sections above. Complete current-source10/17 parents and actual
+signed139-to141 preservation checks pass both independent axes, retaining every
+original failed observation and inherited qualification. Public page, manifests
+and whole APK bytes/version/certificate are verified. No historical140 update,
+focused run, successful sibling or passing prefix substitutes for these results.
+#133/#135 and the broader device/provider/Play gates remain open.

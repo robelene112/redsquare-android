@@ -1,0 +1,41 @@
+{
+  "result": "INTEGRATED132_PASS_WITH_INHERITED115_126_AND131_CATALOG_QUALIFICATIONS",
+  "sdk": "17",
+  "source": "1147ded3834a8dd16b56dd1008aebb61ed694871",
+  "run": "44310512236",
+  "observedIdentities": 915,
+  "terminalCompletionOrAssumptionIdentities": 899,
+  "verifiedModuleInterruptedStarts": 5,
+  "verifiedUnfinishedTextInterruptedStarts": 11,
+  "verifiedIntentionalStarts": 16,
+  "assessorSha256": "547a3bf0c23168f429c5e849d953e21af2b259157f14b42622c5c4d836c038d5",
+  "erratumSha256": "1a3ecf9168b3e284365e2d35b584d2c248e20505fa32ce5b58d2bab3e5c32a4a",
+  "adapterSha256": "52cbebf8e63b1d783f57305bc286ee7374f108a23af2fc10cb1efcd4cebd5533",
+  "sourceProfileSha256": "bfbd33adfead96a8ea3536b4620410ac35f3a514d7ed0b5419750c5d6e469c42",
+  "additiveContractSha256": "8845c49159480f860279984f40e5cf76cc620405fffaac041ad65b474113d72c",
+  "frozenVerifierSha256": "c39b618c1ef9dd695d4d620aa472827e3f71fe0ba49e0920c1791fa09ed32212",
+  "assessorCommit": "65a76859f5163d84c63bfe27aea7704166047db7",
+  "recoveryTotals": {
+    "normalCompletions": 392,
+    "deliberateInterruptions": 55,
+    "continuityRecords": 54
+  },
+  "classes": 344,
+  "assumptions": [],
+  "inheritedMissingFailureCaptures": [
+    "wallet/live-official/wallet-first-failure.png",
+    "wallet/live-official/wallet-first-failure.xml",
+    "wallet/live-owner/wallet-first-failure.png",
+    "wallet/live-owner/wallet-first-failure.xml"
+  ],
+  "originalArchives": 277,
+  "rawDirectory": "/home/david/.cache/redsquare-android-artifacts/composer132/full141-17/raw",
+  "runtimePreflight": {},
+  "separateProvisioningCompletions": 0,
+  "qualification": "Current132 additive-source assessment with inherited115 classification and126 queued-callback observation qualifications. The old frozen collector is not claimed to pass. One complete successful current-source primary, all3partitions. Five inherited module and eleven added unfinished-text intentional starts remain separate from terminal completions/assumptions. Every original goal and downstream validator remains. No prefix assembly or physical/provider/store acceptance. The inherited131 two identity path moves, one disjoint invocation count and ten original archive aliases remain explicit. Its frozen original collector did not pass. No native goal, deadline or physical archive is invented or waived.",
+  "inheritedCatalogAssessorSha256": "aad2e4279a3cb4c1fca53a555fab7a914ec8baeb1fd5e95b2425433e8bb9ff22",
+  "inheritedFrozenAdapterPassed": false,
+  "inheritedFrozenFailureSha256": "90322fbf14900e65f1a57da85e73930a33416e31d7c61b6faa27bf039ef90d50",
+  "logicalArchiveRequirements": 286,
+  "physicalArchives": 277
+}
