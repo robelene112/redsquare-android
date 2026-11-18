@@ -30,6 +30,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
     }
     val isSubmittedRecord: Boolean get() = submissionId.isNotEmpty()
     val isRecoveryRecord: Boolean get() = recoveryId.isNotEmpty()
+    /** Background delivery must never rebroadcast either independently retained kind. */
     val observesOnly: Boolean get() = isSubmittedRecord || isRecoveryRecord
     private val filename = "postdraft.${backend.id}.$owner${if (authorKind != null) ".author.${authorKind.storageId}.$authorTarget" else if (quoteId.isNotEmpty()) ".quote.$quoteId" else parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}${submissionId.takeIf { it.isNotEmpty() }?.let { ".submitted.$it" }.orEmpty()}${recoveryId.takeIf { it.isNotEmpty() }?.let { ".recovery.$it" }.orEmpty()}.v1"
     private val file = EncryptedLocalFile(context, filename, "redsquare.postdraft.v1", "postdraft.")
@@ -194,7 +195,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
         catch (_: Exception) { false }
     }
 
-    /** Park an uncertain original without claiming it was submitted or permitting a resend. */
+    /** Park an uncertain original without claiming submission or scheduling an automatic resend. */
     fun retainAttempt(id: String): PostDraftStore = synchronized(lock) {
         check(authorKind == null && !observesOnly)
         val saved = load()

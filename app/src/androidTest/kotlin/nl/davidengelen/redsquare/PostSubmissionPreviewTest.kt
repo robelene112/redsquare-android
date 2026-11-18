@@ -102,7 +102,7 @@ class PostSubmissionPreviewTest {
                         ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
                         ui.onNode(hasSetTextAction()).assertEditableTextEquals("Keep the independent next draft while the old one finishes")
                         ui.assertSyntheticRedImage()
-                        assertEquals(original.encoded(), savedOriginal.load().transaction?.encoded())
+                        org.junit.Assert.assertTrue("The available original now has its genuine validated receipt", store.hasSubmission(original.id))
                         assertEquals(0, peer.transactions.size)
                         captureNativeScreen(File(folder, "fresh-independent-text-and-image.png"))
                     }
@@ -273,6 +273,80 @@ class PostSubmissionPreviewTest {
             peer.transactions.firstOrNull()?.let { androidx.work.WorkManager.getInstance(context)
                 .cancelUniqueWork("post:${postingTransaction(it).id}").result.get() }
         }, { retained.restoreFiles() }, { retained.restorePreferences() }, { backends.save(originalBackend) }) }
+    }
+
+    @Test fun separatelyRetainedOriginalCanBeReopenedAndRetriedWithoutReplacingTheNextDraft() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val wallets = AndroidWalletStore(context)
+        val wallet = wallets.loadOrCreate()
+        val backends = AndroidBackendStore(context)
+        val originalBackend = backends.load()
+        val retained = ChatFixtureState(context, listOf("postdraft.", "feed."), wallet.publicKey)
+        val store = nl.davidengelen.redsquare.feed.PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER)
+        val body = "This independently saved original is retried deliberately"
+        val original = nl.davidengelen.redsquare.saito.SaitoTransaction.create(wallet,
+            nl.davidengelen.redsquare.saito.RedSquarePosts.message(body), 1_700_000_000_000L)
+        val root = InstrumentationRegistry.getInstrumentation().context.assets
+            .open("native-following-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject.get("root") }
+        val exposed = java.util.concurrent.atomic.AtomicBoolean(false)
+        val peer = ControlledFeedPeer("[$root]", archiveResponse = { query ->
+            if (query.has("sig")) {
+                if (exposed.get() && query.get("sig").asString == original.id) "[${postingArchiveRow(original)}]" else "[]"
+            } else "[$root]"
+        }, onTransaction = { frame ->
+            assertEquals(original.encoded(), postingTransaction(frame).encoded())
+            exposed.set(true)
+        })
+        val folder = File(context.cacheDir, "post-submission-evidence").apply { mkdirs() }
+        var primary: Throwable? = null
+        try {
+            retained.prepare()
+            backends.save(SaitoBackend.OWNER)
+            store.save(nl.davidengelen.redsquare.feed.PostDraftStore.Saved(body, original))
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
+                    withFailureCapture({ captureNativeScreen(File(folder, "reopened-original-failure.png")) }) {
+                        ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
+                        ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                        ui.waitUntil(5_000) { ui.onAllNodes(hasText("Start another draft")).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNodeWithText("Start another draft").performScrollTo().performClick()
+                        ui.waitUntil(2_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+                        ui.onNode(hasSetTextAction()).performTextReplacement("Independent draft survives deliberate original retry")
+                        ui.onNodeWithText("Save draft").performClick()
+                        ui.waitUntil(10_000) { ui.onNodeWithText("More feed actions").isDisplayed() }
+                        ui.onNodeWithText("More feed actions").performClick()
+                        ui.onNodeWithText("Queued posts").performClick()
+                        ui.waitUntil(10_000) { ui.onNodeWithText("Open saved post").isDisplayed() }
+                        ui.onNodeWithText("Open saved post").performClick()
+                        ui.waitUntil(10_000) { ui.onNode(hasSetTextAction()).isDisplayed() }
+                        ui.onNode(hasSetTextAction()).assertEditableTextEquals(body).assertIsNotEnabled()
+                        assertEquals(0, peer.transactions.size)
+                        captureNativeScreen(File(folder, "reopened-exact-original.png"))
+                        ui.onNodeWithText("Send saved post").performScrollTo().performClick()
+                        ui.waitUntil(15_000) { store.hasSubmission(original.id) && ui.onNodeWithText("No queued posts").isDisplayed() }
+                        assertEquals(1, peer.transactions.size)
+                        activity.recreate()
+                        ui.waitUntil(15_000) { ui.onNodeWithText("No queued posts").isDisplayed() }
+                        ui.onNodeWithText("Back").performClick()
+                        ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
+                        ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                        ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+                        ui.onNode(hasSetTextAction()).assertEditableTextEquals("Independent draft survives deliberate original retry")
+                        assertEquals(1, peer.transactions.size)
+                        assertEquals("Independent draft survives deliberate original retry", store.load().text)
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally { cleanupAfterTest(primary, {
+            androidx.work.WorkManager.getInstance(context).cancelUniqueWork("post:${original.id}").result.get()
+        }, { retained.restoreFiles() }, { retained.restorePreferences() }, {
+            backends.save(originalBackend)
+            check(wallets.loadExisting().exportJson() == wallet.exportJson())
+        }) }
     }
 
     @Test fun failedSeparationRetainsTheOriginalAndStaleSavingCannotReplaceTheIndependentDraft() {

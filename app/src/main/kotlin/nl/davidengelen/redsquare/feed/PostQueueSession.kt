@@ -22,7 +22,7 @@ internal suspend fun resumeQueuedPosts(context: Context, wallet: SaitoWallet, ba
             var submitted: PostDraftStore? = null
             SaitoPeer(wallet, endpoint).use { peer ->
                 if (peer.hasPost(candidate, wallet.publicKey, saved.text)) {
-                    if (store.confirmAvailable(candidate.id) && !store.observesOnly)
+                    if (store.confirmAvailable(candidate.id) && !store.isSubmittedRecord)
                         store.markSubmitted(candidate.id)
                     return@use
                 }
