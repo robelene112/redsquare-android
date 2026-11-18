@@ -227,6 +227,9 @@ class SpacesPrototypeTest {
                 androidx.compose.ui.semantics.SemanticsProperties.Heading))
             shot("design-${index+1}-overview")
             val before=ui.onNodeWithTag("channels-menu").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+            if(index==3) check(before.top >= ui.onNodeWithTag("prototype-content").fetchSemanticsNode().boundsInRoot.bottom) {
+                "The floating menu must not cover message content or actions"
+            }
             ui.onNodeWithTag("prototype-content").performScrollToNode(hasText("Could we do a community call this evening? The lounge is ready."))
             val after=ui.onNodeWithTag("channels-menu").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
             assertEquals(before,after)

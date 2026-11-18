@@ -265,12 +265,12 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
         },floatingActionButtonPosition=FabPosition.Start) { padding ->
             val position=positions.getOrPut("$scoped:$page") { LazyListState() }
             LaunchedEffect(sendSequence) {if(sendSequence>0 && lastSendScope==draftKey) {withFrameNanos{};position.animateScrollToItem((position.layoutInfo.totalItemsCount-1).coerceAtLeast(0))}}
-            Row(Modifier.fillMaxSize().padding(padding)) {
+            Row(Modifier.fillMaxSize().padding(padding).padding(bottom=if(spaceNavigation && navigationDesign==NavigationDesign.FLOATING_BUTTON) 88.dp else 0.dp)) {
             if(spaceNavigation && navigationDesign==NavigationDesign.SPACE_RAIL) SpaceRailDesign(communityNames.filter{memberships[it]!=false},space,openChannels) { name ->
                 val place=lastPlaces[name]?: (Page.CHAT to "general")
                 go(place.first,newSpace=name,newChannel=place.second)
             }
-            LazyColumn(state=position,modifier=Modifier.weight(1f).fillMaxHeight().alpha(transitionAlpha.value).testTag("prototype-content"),contentPadding=PaddingValues(start=20.dp,end=20.dp,top=8.dp,bottom=if(spaceNavigation && navigationDesign==NavigationDesign.FLOATING_BUTTON) 100.dp else 24.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
+            LazyColumn(state=position,modifier=Modifier.weight(1f).fillMaxHeight().alpha(transitionAlpha.value).testTag("prototype-content"),contentPadding=PaddingValues(start=20.dp,end=20.dp,top=8.dp,bottom=24.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
                 if(!(channelRoot && navigationDesign==NavigationDesign.CHANNEL_TITLE)) item("heading") {
                     Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                         if(page !in listOf(Page.HOME,Page.DISCOVER,Page.ACTIVITY)) IconButton(onClick={back()}) { Glyph(R.drawable.ic_back,label="Back") }
