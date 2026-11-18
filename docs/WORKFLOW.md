@@ -9,7 +9,28 @@ requested, carry its code, verification, review, fixes and commit to completion.
 Work through tickets sequentially; a request to implement a sequence authorizes
 that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
-## Delivered lifecycle and recovery follow-up
+## Delivered composer recovery #132, next #133
+
+The requested single-ticket implementation is complete in
+[ordinary signed beta141](https://davidengelen.nl/redsquare/). Sourceb929 keeps
+original signed attempts independently recoverable while new writing stays
+usable, and isolates cancelled-read callbacks from current reads. Complete10/17
+parents, actual signed139-to141 updates, independent Spec/Standards reviews and
+whole public APK/page/metadata/notes/version/certificate checks are accepted.
+Use [the final packet](evidence/ticket132/candidate141/README.md) for exact source
+bridges, inherited qualifications, original failed runs and final receipt. The
+frozen original collectors remain failed; no application assertion or native
+deadline was relaxed, and no passing prefix supplies acceptance.
+
+Stop after this ticket until the next owner implementation request. #133 is next,
+then #135, one issue at a time. These remain prerequisites for functional Spaces;
+its approved navigation B and isolated prototype are unchanged. No functional
+Spaces tickets are created by this delivery. Keep #1/#36/#55/#84/#86/#105 and
+physical/OEM/live-provider/Play gates open; source-only Vault rental stays
+UNDEPLOYED. Ordinary QA remains agent-owned, with no public test post or live
+node/provider/financial write. The earlier beta139 completion below is history.
+
+## Earlier delivered lifecycle and recovery follow-up
 
 The owner-approved [specification #117](https://github.com/robelene112/redsquare-android/issues/117)
 and sequential children #118–#131 are delivered in

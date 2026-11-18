@@ -1,5 +1,28 @@
 # Red Square Android project context
 
+## Delivered independent composer recovery #132, beta141
+
+[Ordinary signed beta0.1.141](https://davidengelen.nl/redsquare/) fixes
+[composer #132](https://github.com/robelene112/redsquare-android/issues/132).
+New writing remains usable while exact old signed work is retained and observed
+independently. Delayed callbacks cannot replace the new draft. Explicit recovery
+observes the original before retrying; separating work creates no receipt or
+hidden resend. A bounded transport correction also prevents a cancelled read's
+late oversized callback from interrupting another reader.
+
+Signed product is `b929927aa84e0ed0850d60b520871d8d630d0f54`. Complete Android10/17,
+actual signed139-to141 updates, both independent review axes and actual public
+APK/page/manifest/notes/version/certificate verification are accepted. The
+[delivery packet](evidence/ticket132/candidate141/README.md) preserves exact
+source bridges, the inherited API29 assumption, collector/catalog/callback limits,
+provisioning observations and every rejected parent. It does not claim physical,
+OEM, live-provider or Play acceptance. Vault rental stays source-only UNDEPLOYED.
+
+This one-ticket implementation is complete. #133 is next; #135 also remains open.
+Both precede functional Spaces. Navigation B stays approved, its isolated native
+prototype is unchanged, and functional implementation tickets remain unrequested.
+Keep #1/#36/#55/#84/#86/#105 open; no node/provider/public financial write occurred.
+
 ## Beta update notice polish #136
 
 The owner requested a cleaner new-beta notice. Source `1267c2fbd` replaces the
@@ -7,17 +30,18 @@ loose heading/button with one compact native card, shared theme/spacing/motion,
 a decorative update icon, wrapping text and an explicit accessible button role.
 The complete card opens the existing beta page. See
 [issue136](https://github.com/robelene112/redsquare-android/issues/136) for validation
-and delivery status. This source change is queued for the next ordinary beta;
-the public beta139 and separate Spaces prototype are not replaced by this work.
+and original focused validation. This notice is now included in delivered
+ordinary beta141, whose complete checks and public receipt are linked above.
+The separate Spaces prototype is unchanged.
 
-## Delivered Spaces planning and native prototype, awaiting design feedback
+## Delivered Spaces planning and native prototype, navigation B approved
 
 The requested phases are delivered in order: [quality plan](quality/SPACES_QUALITY_PLAN.md),
 [unified specification #134](https://github.com/robelene112/redsquare-android/issues/134),
 then [downloadable native prototype](https://davidengelen.nl/redsquare/spaces-prototype/).
-The separate **Spaces Prototype** package installs alongside beta139 and uses
-synthetic in-memory content. Functional Spaces and encryption are not implemented
-by this prototype. Ordinary beta139 is unchanged.
+The separate **Spaces Prototype** package installs alongside the ordinary app
+and uses synthetic in-memory content. Functional Spaces and encryption are not implemented
+by this prototype. Ordinary beta141 is delivered independently.
 
 Current **prototype 3** compares five navigation alternatives: A Space switcher,
 B Channel title, C Bottom dock, D Floating button and E Space rail. Tap **Design
@@ -33,25 +57,27 @@ fixed menu bounds after scroll and D's separation from message content. See the
 [prototype 3 packet](https://github.com/robelene112/redsquare-android/blob/codex/spaces-native-prototype/docs/evidence/spaces-prototype3/README.md)
 for 138 screenshot hashes, exact source/reviews, original failed observations and
 actual public APK/page/manifest/certificate verification. It updates previous
-prototypes; ordinary beta 139 and immutable prototype 1/2 files are preserved.
+prototypes; immutable ordinary beta139 and prototype1/2 files are preserved.
 Prototype source stays isolated; only these pointers belong on the normal branch.
 
 Navigation choice B is approved. The other app design remains the agreed baseline.
 Do not publish implementation tickets or start functional
-Spaces without the later requested phase. Bugs #132, #133 and #135 remain open prerequisites
-for functional integration; the following reports are not resolved by prototype QA.
+Spaces without the later requested phase. Bugs #133 and #135 remain open
+prerequisites for functional integration. #132 is delivered separately above;
+prototype QA does not resolve these reports.
 
-## Current follow-up: three UI bugs before Spaces implementation
+## Remaining follow-up: two UI bugs before Spaces implementation
 
-Resolve and verify [composer #132](https://github.com/robelene112/redsquare-android/issues/132),
-[feed #133](https://github.com/robelene112/redsquare-android/issues/133),
+Composer #132 is delivered above. Resolve and verify
+[feed #133](https://github.com/robelene112/redsquare-android/issues/133)
 and [like counts #135](https://github.com/robelene112/redsquare-android/issues/135) before
 implementing Spaces. The owner permits the Spaces grill to continue meanwhile.
 Implementation stays sequential; the three reports are independent, not a proven
 technical dependency.
 
-The composer report shows uncertain-send recovery on New post and reported
-unresponsiveness. The feed recording visibly replaces a loaded embedded original
+The original composer intake showed uncertain-send recovery on New post and
+reported unresponsiveness; its controlled findings are in the delivered packet.
+The still-open feed recording visibly replaces a loaded embedded original
 with Loading original during scrolling, shrinking the card before it returns.
 Exact inspected transition: 1.482511s to 1.494622s. Native reproduction, internal
 causes and affected APK versions remain unestablished. Use owned emulators and

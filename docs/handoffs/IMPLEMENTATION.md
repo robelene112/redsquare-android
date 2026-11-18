@@ -1,14 +1,40 @@
 # Implementation handoff
 
-## Beta update notice #136, source ready for the next beta
+## Completed #132, signed beta141; next #133
+
+The single requested composer ticket is complete and delivered at
+[the ordinary beta page](https://davidengelen.nl/redsquare/). Exact signed work
+is independently retained while the user writes another draft; delayed results
+cannot replace that draft, and explicit recovery observes before exact retry.
+Cancelled RPC callbacks no longer interrupt unrelated active reads.
+
+Product `b929927aa84e0ed0850d60b520871d8d630d0f54`, complete Android10
+`44316474699` at65a76859 and Android17 `44310512236` at1147ded3, actual signed
+139-to141 updates and both independent review axes are accepted. Actual whole
+public APK, page, metadata, notes, ordinary package/version and unchanged
+certificate are verified. See [the packet](../evidence/ticket132/candidate141/README.md)
+and [receipt](../evidence/ticket132/candidate141/delivery.json) for precise counts,
+test-only bridges, inherited API29/catalog/callback/missing-capture qualifications,
+separate provisioning attempts and rejected parents. Original collectors remain
+failed; no passing prefix or application assertion retry supplies acceptance.
+
+Stop after #132 until the next implementation request. #133 is next, #135 also
+remains open. Both precede functional Spaces. Approved navigation B and the
+separate prototype are unchanged; no functional Spaces tickets are published.
+Keep #1/#36/#55/#84/#86/#105, physical/OEM/provider/Play gates and source-only
+Vault rental UNDEPLOYED explicit. No owner phone QA, public test post or live
+node/provider/financial mutation occurred. Canonical dirty user work is untouched.
+
+## Beta update notice #136, delivered in beta141
 
 Source `1267c2fbd` implements the owner's focused UI polish: one compact,
 full-card update action using shared geometry/colors/motion, readable wrapping
 and explicit Button semantics. Existing newer-build checks, keyboard hiding and
 trusted destination are retained. Exact validation is recorded in
 [issue136](https://github.com/robelene112/redsquare-android/issues/136).
-This request does not publish a replacement beta or change the Spaces prototype.
-Continue to keep #132/#133/#135 open until individually fixed and verified.
+The original focused source work did not publish an APK. It is now included in
+ordinary beta141, whose complete delivery is recorded above. The Spaces prototype
+is unchanged. #133/#135 remain open; #132 is separately completed.
 
 ## Delivered Spaces quality plan, specification and native prototype
 
@@ -47,21 +73,21 @@ real media, encryption or provider operation is delivered by the prototype. Thes
 results are native UI evidence, not backend, E2E or physical/OEM acceptance.
 
 Only delivery documentation is backported to `codex/unified-redesign`; prototype
-code must stay isolated. #132/#133/#135 still block functional integration, not the
-completed design prototype. Ordinary verification remains agent-owned.
+code must stay isolated. #133/#135 still block functional integration, not the
+completed design prototype. #132 is delivered separately above. Ordinary verification remains agent-owned.
 
-## Current implementation priorities: UI bugs #132, #133 and #135
+## Remaining implementation priorities: UI bugs #133 and #135
 
-Fix and verify [composer #132](https://github.com/robelene112/redsquare-android/issues/132),
-[feed #133](https://github.com/robelene112/redsquare-android/issues/133),
+Composer #132 is completed above. Fix and verify
+[feed #133](https://github.com/robelene112/redsquare-android/issues/133)
 and [like counts #135](https://github.com/robelene112/redsquare-android/issues/135) before
 implementing Spaces. Work one implementation issue at a time. The owner permits
 the planning/prototype phases to continue; functional Spaces implementation
 and implementation-ticket publication have not been approved yet. All three bugs are predecessors of later Spaces
 implementation work; do not invent a dependency between these independent fixes.
 
-#132: starting New post unexpectedly shows uncertain-send recovery; the owner
-reports unresponsiveness. The image does not establish ANR, root cause, affected
+#132 original intake, now delivered above: starting New post unexpectedly
+showed uncertain-send recovery; the owner reported unresponsiveness. The image does not establish ANR, root cause, affected
 version or failed publication. Retain #95's safe fresh-composer/original-attempt
 semantics and agent-owned native verification.
 
