@@ -1,5 +1,25 @@
 # Red Square Android project context
 
+## Delivered prerequisites133/135, functional Spaces next
+
+Signed [beta0.1.142](https://davidengelen.nl/redsquare/) retains loaded quoted
+originals during scrolling and immediately displays Like counts from zero or
+missing totals, with stale counts prevented from undoing the local result.
+Complete Android10/17 parents44394701943/44394697009 pass at source90b5aadb;
+independent actual evidence reviews inspect all570 full-run movie frames and
+forty numeric checkpoints. The inherited catalogue/collector/callback and API29
+assumption qualifications remain explicit. Actual signed139-to142 updates pass
+on both SDKs with reviewed observer-only source bridges. Exact public bytes,
+package, certificate, version, page, metadata and notes are verified. Final
+independent public review is recorded in the [delivery packet](evidence/ticket135/README.md).
+
+Continue directly with137, then138–147, one implementation ticket at a time,
+under134 and approved native navigationB. No functional Spaces code exists at
+this checkpoint. Do not stop after this prerequisite delivery. Older handoff
+claims that133/135 are pending and stop-after132 notes are historical. Keep
+1/36/55/84/86/105 open; physical/OEM/provider/Play and actual node activation
+remain separate. Vault rental restoration remains source-only UNDEPLOYED.
+
 ## Current authorization: implement functional Spaces
 
 On2026-11-18 the owner requested functional Spaces implementation using the

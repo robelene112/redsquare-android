@@ -1,0 +1,13 @@
+Spec review: PASS for actual Android17 signed139-to142 update evidence. No actionable findings.
+
+Run44401842080 succeeds with proof-sourcee2b6fbeb2eafb35d27abebf96eed94c84f16314a and workflow90b5aadb7f60d511feee776546f3bbbf35f9a407. Recomputed original ZIP SHA256d6ca80241fd3e282a8fd4e7b01365e65a8c8f09ae780f803014958b48afcca5a. Every extracted raw file matches its ZIP member; all retained UI captures match native-local-work.tar. The source bridge changes exactly ReviewUpdateUiObserver.kt; signed product142 remains90b5.
+
+Independently inspected all15 relevant PNGs:10 local-work checkpoints plus4 wallet observations and final wallet screenshot. They show selected Light preference, the same authored Escrow caption and exact public author/published identity, offline cached content after update, the exact saved/reopened unsent draft, and the same ordinary wallet address. Both post-update and subsequent cold-launch logs preserve exact cachedPost/draft/preference observations. The common verify capture filenames retain the final verification, not distinct images for both invocations.
+
+All12 native observer invocations have actual named success terminals and OK(1 test):2 debug-wallet,4 ordinary-wallet,3 local-work and3 module checks. Ordinary UID10236/debug UID10234 stay distinct and unchanged. Ordinary public addresspncS...defSU remains unchanged, debug addresseKWT...r6Lg3 remains unchanged and different. Restoration reports no failures and original Wi-Fi/mobile data1/1 restored.
+
+Actual download receipts show139:94,282,272bytes/SHAa436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3;142:94,298,656bytes/SHAf4d82bd79445a48e337a1aa63a87005869594fcc3c9fc7a9e6e399e1036c43a6. The unchanged successful host gate validates both APKs' established certificate6ca1209b...ee79a2 and package/version before install-r. This review checks those receipts and gate source, not separately retained139/142 APK bytes.
+
+Module APK hash independently matchesab936b9b43c5338dea778fc0015f38115fd2beb788c47037fc6c5eca42359791. All15 reuse source/input pins match compiled1147 and product90. Actual installed-module checks preserve ten encrypted records, Store/Vault originals, reconstructed plan, draft, exact offline/export bytes and Fileshare history without submission.
+
+Prepare trace has one52ms query, selectedtrue, and no scroll action; verify trace is empty. The new scrolling branch was not exercised. Neither this success nor the original failures establishes a unique root cause. Android10/full/public-delivery acceptance remains separate and pending.

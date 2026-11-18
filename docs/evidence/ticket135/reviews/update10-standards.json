@@ -1,0 +1,228 @@
+{
+  "axis": "Standards",
+  "result": "ACCEPT_SIGNED_UPDATE_ANDROID10_WITH_EXPLICIT_OBSERVER_BRIDGE",
+  "run": 44407006236,
+  "source": "9385c0bc2b888f7bf1280d5e8b75095f7b968bad",
+  "workflow": "90b5aadb7f60d511feee776546f3bbbf35f9a407",
+  "signedProductSource": "90b5aadb7f60d511feee776546f3bbbf35f9a407",
+  "signedVersions": [
+    139,
+    142
+  ],
+  "zipSha256": "0b2f768d987d3e793cad21d58999b33f8ecb6b33e93e011216c8e915e34aa2cf",
+  "hardFindings": [],
+  "optionalFindings": [],
+  "observerLogSha256": {
+    "debug-before.log": "c08cf5ab93471988ed40e19713e3f4316423948435380841b8f2b8e7190299e6",
+    "module-verify-2.log": "861ff5a6f9444bc3b8e2435f82414202a33eac455ee217f685fa586eabc5c4a3",
+    "debug-after.log": "05623070a3833c3ec2ae97481c78c5122ee71a8f67f89a380b23f67188c193ff",
+    "work-before.log": "11fc5e47d6f8e8fde832b32ed51de7e066a1d4f0bdc9d6b6e6ab83d5606a7e8b",
+    "work-after.log": "3b57b251d521a942fc30efae64ca27cc068468ad4e619618b80adc6396c2a1ef",
+    "module-verify-1.log": "3e9b84fd9930ab78b15993c3054a7debeba1b6bca97c6abde400aca0c1cd9cf3",
+    "work-after-cold.log": "47e7af1a3c029e2121c2bf3597bed625e88d7e2829c1a819536cd70458c6f090",
+    "module-prepare.log": "fdc9703165900d2401a6c01ae288b5d6b13c450e14412f99b82ec28db3269a59",
+    "wallet/observation-3.log": "e577d8e2f353c684568eb09d2a83c2eb4f52357d5e70636ab4241ebfd2ce97d8",
+    "wallet/observation-2.log": "7cdb7cc247ce294ce1f9aa7a448c8c913678d1d99d222f044fc7278711137870",
+    "wallet/observation-4.log": "8db07bb24d8ce61e7de06ef5fbebf21be9f4ab20568cc96f90a5998e41029a97",
+    "wallet/observation-1.log": "378e6869a2c51d4cbfc4010980751a371a5a08976292be2774edf7a43c90f1ab"
+  },
+  "receipts": {
+    "local-work-and-isolation.json": {
+      "ordinaryUid": 10118,
+      "debugUid": 10116,
+      "ordinaryPublicAddress": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "debugPublicAddress": "o2ShRdHKKpC3sVRETsSNM9wxfCmtvuKHwq9tUetcRuo4",
+      "debugIdentityUnchanged": true,
+      "differentPackageIdentities": true,
+      "sameDraftAfterUpdateAndColdLaunch": true,
+      "sameOfflinePost": true,
+      "sameLightPreference": true,
+      "prepared": {
+        "phase": "prepare",
+        "appearance": "LIGHT",
+        "cachedPost": {
+          "caption": "Got tens of questions on Escrow - saitoverse.com/escrow is fully operational, we had 2 market transactions today, so everything works. Currently Public Beta terms still apply with 190k Saito and 50 USDT max per transaction. Use several smaller orders if you want to make larger swaps.",
+          "author": "22jWAzPBoAqn9hUsec9UydbXvaj862qB6q4mBpa9Bex4P",
+          "published": "Published 11/18/26 9:12 PM"
+        },
+        "draft": "Redesign update check. This is an unsent local draft.",
+        "draftRemainsUnsent": true,
+        "offlineCacheRequired": false
+      }
+    },
+    "module-continuity.json": {
+      "observerSha256": "ab936b9b43c5338dea778fc0015f38115fd2beb788c47037fc6c5eca42359791",
+      "observations": [
+        {
+          "owner": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+          "sourceVersion": 139,
+          "fileshareLegacyFormatSeed": true,
+          "encryptedRecords": 10,
+          "noNetworkSubmission": true,
+          "expected": {
+            "orderId": "13d0f9b7cb502b72fddbef0834d0a6c9dfbc56c0c81eb98bdc37a8f9f8aabc3557ade9e294602cc2989634a3151499f65da5a2da2d14eabe9dc1cd98e5e0d24f",
+            "vaultOperationId": "2eded50225341fda746d112b20c3f772d82eda5e984ab6b97a9c22d1993419260354c65f563eae58a5cb6dad844af1363ca6cd03e7f1a14d966e5b035cb15a30",
+            "fileId": "bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19",
+            "fileContentsBase64": "RmllbGQgbm90ZXMKU2FpdG8gY2Fmw6kg8J+UtAo=",
+            "draftId": "ff60c99d356f17888f173f6df16235dc1bde5fb664a9480565c22072b26a676a1f63cacf9a82dcd4eaeab70a3888594e528580010543107a1086e208b5b842ee",
+            "draftName": "Upload notes.txt",
+            "draftContentsBase64": "QSBuYXRpdmUgVmF1bHQgdXBsb2FkClNhaXRvIGNhZsOpIPCflLQK"
+          }
+        },
+        {
+          "owner": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+          "version": 142,
+          "exactPendingStoreOriginal": true,
+          "exactPendingVaultOriginal": true,
+          "pendingVaultPlanReconstructed": true,
+          "exactVaultDraft": true,
+          "exactOfflineAndPendingExportBytes": true,
+          "exactRetainedFileshareAndInterruptedHistory": true,
+          "encryptedRecordsUnchanged": 10,
+          "noNetworkSubmission": true
+        },
+        {
+          "owner": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+          "version": 142,
+          "exactPendingStoreOriginal": true,
+          "exactPendingVaultOriginal": true,
+          "pendingVaultPlanReconstructed": true,
+          "exactVaultDraft": true,
+          "exactOfflineAndPendingExportBytes": true,
+          "exactRetainedFileshareAndInterruptedHistory": true,
+          "encryptedRecordsUnchanged": 10,
+          "noNetworkSubmission": true
+        }
+      ]
+    },
+    "restoration.json": {
+      "failures": [],
+      "originalWifi": "1",
+      "originalMobileData": "1"
+    },
+    "download-139.json": {
+      "version": 139,
+      "httpStatus": 200,
+      "url": "https://davidengelen.nl/redsquare/releases/139/redsquare.apk",
+      "headers": {
+        "Content-Length": "94282272",
+        "Content-Range": null,
+        "Content-Encoding": null,
+        "Content-Type": "application/octet-stream",
+        "ETag": "\"6afb9ba8-59ea220\""
+      },
+      "bytes": 94282272,
+      "sha256": "a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3",
+      "expectedSha256": "a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3"
+    },
+    "download-142.json": {
+      "version": 142,
+      "httpStatus": 200,
+      "url": "https://davidengelen.nl/redsquare/releases/142/redsquare.apk",
+      "headers": {
+        "Content-Length": "94298656",
+        "Content-Range": null,
+        "Content-Encoding": null,
+        "Content-Type": "application/octet-stream",
+        "ETag": "\"6afe1152-59ee220\""
+      },
+      "bytes": 94298656,
+      "sha256": "f4d82bd79445a48e337a1aa63a87005869594fcc3c9fc7a9e6e399e1036c43a6",
+      "expectedSha256": "f4d82bd79445a48e337a1aa63a87005869594fcc3c9fc7a9e6e399e1036c43a6"
+    }
+  },
+  "images": [
+    {
+      "path": "captures/review-update-observation/prepare-cached-identity.png",
+      "sha256": "1a8ba82d704675178a9f495d09971172648ef33fbb3a8160e589ebac431fbb1d",
+      "personallyViewed": true
+    },
+    {
+      "path": "captures/review-update-observation/prepare-draft-reopened.png",
+      "sha256": "820a85a7114c87f8f8501ca45a95e970346dcf64d1d30b2b3a749e5e3eec496c",
+      "personallyViewed": true
+    },
+    {
+      "path": "captures/review-update-observation/prepare-draft-saved.png",
+      "sha256": "907f8b52f2059667844d690a9b5e3ef2b8f9b7fe8a8c0b56a6187ef1230eedf7",
+      "personallyViewed": true
+    },
+    {
+      "path": "captures/review-update-observation/prepare-feed.png",
+      "sha256": "907f8b52f2059667844d690a9b5e3ef2b8f9b7fe8a8c0b56a6187ef1230eedf7",
+      "personallyViewed": true
+    },
+    {
+      "path": "captures/review-update-observation/prepare-preference.png",
+      "sha256": "d9e1e0138d2701f60816117b867766bc6f6f32dfff62dae0687dcf80d18d15aa",
+      "personallyViewed": true
+    },
+    {
+      "path": "captures/review-update-observation/verify-cached-identity.png",
+      "sha256": "5e49b3c438eaf76d3952cee707e4b3a69252a0c020398f4ced3a11c6cc6f4c7c",
+      "personallyViewed": true
+    },
+    {
+      "path": "captures/review-update-observation/verify-draft-reopened.png",
+      "sha256": "d3857d9db166061f4a0ba1b766d804cf9f8aab3fa41f43a0a565c83b51ea2c25",
+      "personallyViewed": true
+    },
+    {
+      "path": "captures/review-update-observation/verify-draft-saved.png",
+      "sha256": "58c17403f72c00b108fa0f2c1801e4adf7ade620fce7a17ee98737e931251463",
+      "personallyViewed": true
+    },
+    {
+      "path": "captures/review-update-observation/verify-feed.png",
+      "sha256": "58c17403f72c00b108fa0f2c1801e4adf7ade620fce7a17ee98737e931251463",
+      "personallyViewed": true
+    },
+    {
+      "path": "captures/review-update-observation/verify-preference.png",
+      "sha256": "583e5364d251af9e51d5ae04373961318ef16340b10e1745bca9c8cd30403644",
+      "personallyViewed": true
+    },
+    {
+      "path": "raw/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-1.png",
+      "sha256": "f4552a029fcc354cf57e584cccde66c742ce963b90f44eed6af2c2a8b6a5bd46",
+      "personallyViewed": true
+    },
+    {
+      "path": "raw/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-2.png",
+      "sha256": "f4552a029fcc354cf57e584cccde66c742ce963b90f44eed6af2c2a8b6a5bd46",
+      "personallyViewed": true
+    },
+    {
+      "path": "raw/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-3.png",
+      "sha256": "f440dd0e397714ec6eaf69c74598ffbaf5482c1ba22cfd8c3c918b2838ac6db9",
+      "personallyViewed": true
+    },
+    {
+      "path": "raw/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-4.png",
+      "sha256": "f440dd0e397714ec6eaf69c74598ffbaf5482c1ba22cfd8c3c918b2838ac6db9",
+      "personallyViewed": true
+    },
+    {
+      "path": "raw/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/wallet.png",
+      "sha256": "e48a486c20a1a90471afe56312f6ed4e1468ef5b97b09cf5d757c43d9eafe1ee",
+      "personallyViewed": true
+    }
+  ],
+  "observerBridge": {
+    "android17Run": 44401842080,
+    "android17Source": "e2b6fbeb2eafb35d27abebf96eed94c84f16314a",
+    "android17Acceptance": "Previously independently accepted by Spec; this review checks its whole-run/source binding only.",
+    "android10ChangedPaths": [
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletDeviceUiObserver.kt"
+    ],
+    "mainProductDifference": "none",
+    "workflowDifference": "none",
+    "qualification": "Only API29 known Quickstep interception differs from accepted17 source. No prefix assembly."
+  },
+  "coverageQualification": "Prepare selected a caption in one18ms query with no scrolling. No known-launcher dialog was observed or dismissed. Neither new helper branch is exercised; no causal resolution of original failed runs is established.",
+  "limits": [
+    "Only retained final verify images exist because cold verify overwrites the same names; both full verify invocations independently have native OK logs.",
+    "Full source90 SDK verification and public delivery remain pending.",
+    "Original failed runs, launcher interference, previous caption failure and truncated139 download remain failed and retained."
+  ]
+}

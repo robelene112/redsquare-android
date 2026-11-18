@@ -1,0 +1,75 @@
+{
+  "status": "DELIVERED_WITH_EXPLICIT_INHERITED_QUALIFICATIONS",
+  "source": "90b5aadb7f60d511feee776546f3bbbf35f9a407",
+  "nativeProductCheckpoint": "278d1a1a41f8a8eec5b0e0ff2b7d9ed133fce23a",
+  "metadata": {
+    "versionCode": 142,
+    "versionName": "0.1.142",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "f4d82bd79445a48e337a1aa63a87005869594fcc3c9fc7a9e6e399e1036c43a6",
+    "commit": "90b5aadb7f60d511feee776546f3bbbf35f9a407",
+    "variant": "release",
+    "apkUrl": "https://davidengelen.nl/redsquare/releases/142/redsquare.apk",
+    "notes": "Keeps loaded quoted originals visible while scrolling and makes Like counters respond immediately, including posts and replies without totals. Functional Spaces is not included in this beta."
+  },
+  "fullRuns": {
+    "10": 44394701943,
+    "17": 44394697009
+  },
+  "signedUpdateRuns": {
+    "10": 44407006236,
+    "17": 44401842080
+  },
+  "signedUpdateObserverSources": {
+    "10": "9385c0bc2b888f7bf1280d5e8b75095f7b968bad",
+    "17": "e2b6fbeb2eafb35d27abebf96eed94c84f16314a"
+  },
+  "updateWorkflowSource": "90b5aadb7f60d511feee776546f3bbbf35f9a407",
+  "reusedModuleObserver": {
+    "source": "1147ded3834a8dd16b56dd1008aebb61ed694871",
+    "sha256": "ab936b9b43c5338dea778fc0015f38115fd2beb788c47037fc6c5eca42359791",
+    "relevantSourceFilesUnchanged": 15
+  },
+  "fullVisualInspection": {
+    "10": {
+      "countPngs": 20,
+      "quoteMovieFrames": 207,
+      "movies": 6
+    },
+    "17": {
+      "countPngs": 20,
+      "quoteMovieFrames": 363,
+      "movies": 6
+    }
+  },
+  "qualifications": [
+    "Inherited115 classification and126 queued-callback observation qualifications remain; original frozen collector not claimed passing.",
+    "Android10 retains one original Profile assumption and four missing failure-only captures; Android17 has no assumptions.",
+    "Accepted signed updates executed neither new caption-scroll input branch nor API29 Quickstep-interference branch; no unique earlier failure-cause claim.",
+    "Actual module observer was compiled at1147, not rebuilt90; fifteen relevant source inputs are identical.",
+    "Initial canonical142 build compiled but signing failed on old ignored build-directory symlink; only that worktree symlink replaced by real directory and exact same reserved142 signing/package tail completed under shared lock.",
+    "Original failed/cancelled observations remain failed and externally retained; no successful prefixes assembled.",
+    "Physical/OEM/general-FPS, actual provider/node/funding and Play gates remain open under36; Vault rental restoration remains source-only UNDEPLOYED.",
+    "Spaces137\u2013147 remains authorized and unimplemented at this prerequisite checkpoint; continue sequentially."
+  ],
+  "unsuccessfulUpdateRuns": [
+    44397790487,
+    44397795846,
+    44401847598,
+    44404058183
+  ],
+  "externalOriginals": "/mnt/storage/redsquare-android-artifacts/spaces-prerequisites-142",
+  "reviewReceiptSha256": {
+    "full10-standards.json": "df95f70d95d375802fb618dff3135be1805303d129f1da83a92b6cfdf22ece2f",
+    "full10-visual-mapping.json": "10519d2ce2b054ff37cb75b954a1b1a0bcb33ea739670bd39cb917deabd4eb1a",
+    "full17-spec-receipt.json": "b4f7036e4733de440c8e9611783978cd7b38caffd7dd83ea50f1b518b8918787",
+    "full17-spec.txt": "dfb76e0f8b609004f33dfd14810278301ee9d64b978ccf4d52311b087bdb555f",
+    "update10-standards.json": "b616e0b771cb03b091790373babedc1d4e3637870f300fd7a244308240ab8c31",
+    "update17-spec.txt": "7f76f848d32a67178ae13d7cfb87143cfd213d8b1f976972c5014c3cd4a9f25a",
+    "final-package.txt": "407a05c108c499698cf9980855aea297ab8312b26a632d658e8cce593781921e",
+    "final-public142.json": "f4600951ca617c97f0b6e786f0bc0de3659e2f3b163260521c96e7b1f39096de",
+    "final-signature.txt": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65",
+    "independent-public-spec-review.json": "c93e1cf940eb12f1a43c8f2b5c98d8f46abd11475d02a55c7012cb932893ab9e"
+  }
+}

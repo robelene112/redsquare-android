@@ -1,8 +1,12 @@
 # Prerequisites133 and135, prospective combined delivery
 
-Status: source and focused verification in progress. This packet does not claim
-an integrated pass, a new APK delivery, physical/OEM evidence or completed Spaces.
-Beta141 remains the last delivered ordinary release.
+Status: prerequisites133/135 are delivered in ordinary signed
+[beta0.1.142](https://davidengelen.nl/redsquare/). Source, focused and both
+complete native SDK assessments, independent actual image reviews, actual signed
+updates and final public download checks pass with the explicit inherited
+qualifications. [Final receipt](candidate142/delivery.json),
+[independent public review](candidate142/independent-public-spec-review.json).
+Functional Spaces remains authorized and unimplemented at this checkpoint.
 
 The owner authorizes sequential prerequisites133/135, then functional Spaces
 137–147 using specification134 and native navigation B. The shared integration,
@@ -68,18 +72,45 @@ does not validate the subsequently added zero/reply cases.
 passes at exact product/native278d. It retains all three new native methods
 under180s, the original two repeated-like methods, two isolation methods and
 pending-control method. Twenty painted checkpoints and eleven distinct retained
-signed frames pass the additive focused validator. Actual image review and
-the same-source Android10 run44393216806 are pending at this revision.
+signed frames pass the additive focused validator. Independent actual image review passes for both expanded runs, including
+[Android10](https://github.com/robelene112/redsquare-android/actions/runs/44393216806).
+Each has twenty inspected count checkpoints and eleven distinct signed frames.
 
 Original ZIPs, metadata, source receipts and captures remain external under
 `/home/david/.cache/redsquare-android-artifacts/spaces-implementation/` in the
 named `ticket133-*` and `ticket135-*` directories. No private owner recording is
 published. No public development transaction or node/provider mutation occurs.
 
-## Remaining delivery gates
+## Accepted combined delivery and retained gates
 
-Complete both focused reviews, both fresh complete-source SDK parents, exact
-signed beta/update continuity and public page/APK/metadata/certificate checks.
-Keep133/135 open until those gates pass. Keep1/36/55/84/86/105, actual provider,
+Actual full-run image reviews and exact public promotion/delivery pass.
+Both fresh complete-source parents pass: Android10 run44394701943 and Android17
+run44394697009 at90b5aadb7f60d511feee776546f3bbbf35f9a407. The frozen assessor
+reports920/921 identities,346 classes,393/394 normal completions,55 deliberate
+interruptions,54 continuity records and279 physical archives. Android10 retains
+the original single Profile assumption; Android17 has none. The inherited115
+classification and126 queued-callback qualifications remain. The old frozen
+collector is not claimed to pass. See [Android10](full10/summary.json) and
+[Android17](full17/summary.json) for exact source and original artifact hashes.
+Actual signed139-to142 updates44401842080 and44407006236 independently pass.
+Their debug observers use explicit test-only bridges e2b6fbeb and9385c0bc; the
+signed product remains90b5. Newly added scroll and launcher-interference branches
+were not exercised by these accepted updates. The reused module observer was
+compiled at1147ded3, with all fifteen relevant source inputs unchanged to90b5.
+Original unsuccessful runs remain failed and retained externally.
+The133/135 development gates pass. Keep1/36/55/84/86/105, actual provider,
 physical/OEM and Play qualifications open. Vault rental stays source-only
 UNDEPLOYED. Functional Spaces remains authorized and unimplemented.
+
+
+Independent full evidence reviews inspect all570 actual full-run decoded movie
+frames,40 numeric checkpoints and22 distinct signed Like frames. No focused
+images substitute for full captures. Both source axes have zero current hard
+findings; optional local test-helper duplication observations remain nonblocking.
+Signed142 is94,298,656 bytes, SHA256
+`f4d82bd79445a48e337a1aa63a87005869594fcc3c9fc7a9e6e399e1036c43a6`,
+using the established package and certificate. Fresh public page, latest,
+immutable manifest, canonical/Android-no-cache metadata, exact notes and whole
+downloaded APK agree. Both accepted updates preserve wallet, cache, draft,
+preference, ordinary/debug isolation and retained module state. Continue137,
+then138–147, one implementation issue at a time.

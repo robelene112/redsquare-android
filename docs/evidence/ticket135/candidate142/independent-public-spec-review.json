@@ -1,0 +1,73 @@
+{
+  "axis": "Spec",
+  "result": "PASS",
+  "findings": [],
+  "evaluatedAt": "2026-11-18T22:27:38.769311+00:00",
+  "metadata": {
+    "versionCode": 142,
+    "versionName": "0.1.142",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "f4d82bd79445a48e337a1aa63a87005869594fcc3c9fc7a9e6e399e1036c43a6",
+    "commit": "90b5aadb7f60d511feee776546f3bbbf35f9a407",
+    "variant": "release",
+    "apkUrl": "https://davidengelen.nl/redsquare/releases/142/redsquare.apk",
+    "notes": "Keeps loaded quoted originals visible while scrolling and makes Like counters respond immediately, including posts and replies without totals. Functional Spaces is not included in this beta."
+  },
+  "retainedPublicApkBytes": 94298656,
+  "retainedPublicApkSha256": "f4d82bd79445a48e337a1aa63a87005869594fcc3c9fc7a9e6e399e1036c43a6",
+  "artifactByteEquality": [
+    "downloaded-final142.apk",
+    "public/redsquare.apk",
+    "signed-review-builds/142/redsquare.apk"
+  ],
+  "releaseNotesExact": true,
+  "freshPublicObservations": {
+    "page": {
+      "url": "https://davidengelen.nl/redsquare/?independent=1795040857626679179",
+      "sha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b",
+      "httpStatus": 200,
+      "date": "Wed, 18 Nov 2026 22:27:38 GMT",
+      "cacheStatus": "DYNAMIC"
+    },
+    "latest": {
+      "url": "https://davidengelen.nl/redsquare/latest.json?independent=1795040857626679179",
+      "sha256": "31f1c1ab4c16d15ea6d365e78ac75586a0f75857c39b854849198b3f24666e12",
+      "httpStatus": 200,
+      "date": "Wed, 18 Nov 2026 22:27:38 GMT",
+      "cacheStatus": "DYNAMIC"
+    },
+    "immutable": {
+      "url": "https://davidengelen.nl/redsquare/releases/142/manifest.json?independent=1795040857626679179",
+      "sha256": "31f1c1ab4c16d15ea6d365e78ac75586a0f75857c39b854849198b3f24666e12",
+      "httpStatus": 200,
+      "date": "Wed, 18 Nov 2026 22:27:38 GMT",
+      "cacheStatus": "DYNAMIC"
+    },
+    "canonical": {
+      "url": "https://davidengelen.nl/redsquare/latest.json",
+      "sha256": "31f1c1ab4c16d15ea6d365e78ac75586a0f75857c39b854849198b3f24666e12",
+      "httpStatus": 200,
+      "date": "Wed, 18 Nov 2026 22:27:38 GMT",
+      "cacheStatus": "DYNAMIC"
+    },
+    "androidNoCache": {
+      "url": "https://davidengelen.nl/redsquare/latest.json",
+      "sha256": "31f1c1ab4c16d15ea6d365e78ac75586a0f75857c39b854849198b3f24666e12",
+      "httpStatus": 200,
+      "date": "Wed, 18 Nov 2026 22:27:38 GMT",
+      "cacheStatus": "DYNAMIC"
+    }
+  },
+  "qualification": "Actual final public body retained and byte-verified; independent fresh page/latest/immutable/canonical/Android-no-cache fetches agree. Physical/OEM/live-provider/Play acceptance remains open; no repeated whole-APK download required.",
+  "independentBinaryVerification": {
+    "toolImage": "redsquare-android-build:agp8.10.1",
+    "apksignerVerifyExit": 0,
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "aaptPackage": "nl.davidengelen.redsquare",
+    "versionCode": 142,
+    "versionName": "0.1.142",
+    "minSdk": 29,
+    "targetSdk": 36
+  }
+}

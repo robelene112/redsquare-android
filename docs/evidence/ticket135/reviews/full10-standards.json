@@ -1,0 +1,223 @@
+{
+  "axis": "Standards",
+  "result": "ACCEPT_FULL_ANDROID10_WITH_INHERITED_QUALIFICATIONS",
+  "run": 44394701943,
+  "source": "90b5aadb7f60d511feee776546f3bbbf35f9a407",
+  "hardFindings": [],
+  "newOptionalFindings": [],
+  "existingOptionalFindings": [
+    "Nonblocking repeated-tap helper duplication in LikeCountPreviewTest remains."
+  ],
+  "independentAssessor": {
+    "method": "Executed exact frozen assessor with only output filesystem destinations redirected externally; no source or validator adaptation.",
+    "output": "independent-assessment",
+    "all9PacketOutputFilesByteIdentical": true,
+    "outputsSha256": {
+      "archive-alias-original-members.json": "54a7aa639606840556779fde9834b5547562172e771f7390a2ad8bde93cc5fa4",
+      "interrupted-start-identities.json": "c6cf9bddb14d3a3bf910f0186ddea1d0daf49fa99c0052b8b34c202da936c15d",
+      "summary.json": "453d73fb5c87351b7f532a78bcc9c77c7bbe039b59188c6544b1fd00a0cb5576",
+      "original-SHA256.json": "f6aac692a91d1c24eec379e1c0d7d48043ee7ff3493f4ebb93524ce426b8b4b6",
+      "run.json": "12c1fb4949f3ff098f12604a3f0a7fc020cfc57a6b8bca2a13f94a492f08e82c",
+      "terminal-identities.json": "5ffa2e5b2cd7f431df02f1589e76b17657667b6e632a3459956275028ba04369",
+      "identities.json": "16be4a6dd5545c9487e4e40af135259300ceb819ada36820d8a5c3434bb53a92",
+      "logical-archive-witnesses.json": "f8dd1e4382244d357f9f4ce439fcf9172050328eefdec87b139e7d416758c871",
+      "archives.json": "e20b0b398650fd9bfc4bd33b0711fa92b11537ea31dc28cb921ce74d181b64c2"
+    },
+    "indexedOriginals": 1693,
+    "originalZipMembersByteVerified": 1852,
+    "originalZipDigests": [
+      {
+        "name": "android-native-proof-social",
+        "id": 14474714302,
+        "bytes": 141377047,
+        "sha256": "91defce2fdec660a8641ff7ec7e04c489dcf243bde09a82ec5107bd8e94f11c1",
+        "declaredDigest": "sha256:91defce2fdec660a8641ff7ec7e04c489dcf243bde09a82ec5107bd8e94f11c1",
+        "members": 651,
+        "uncompressedBytes": 200449859
+      },
+      {
+        "name": "android-native-proof-chat",
+        "id": 14476787530,
+        "bytes": 196207372,
+        "sha256": "2a83a3933d406556ba0e818c9ff1262cc7360e97f23b24cb7f43b43cc4ddc602",
+        "declaredDigest": "sha256:2a83a3933d406556ba0e818c9ff1262cc7360e97f23b24cb7f43b43cc4ddc602",
+        "members": 680,
+        "uncompressedBytes": 272408203
+      },
+      {
+        "name": "android-native-proof-wallet",
+        "id": 14474507752,
+        "bytes": 40390608,
+        "sha256": "aeae2e6d096092cc7ddc1ddf0ac8b9ecde6c92e30f97a650740bbab7e07dc2d2",
+        "declaredDigest": "sha256:aeae2e6d096092cc7ddc1ddf0ac8b9ecde6c92e30f97a650740bbab7e07dc2d2",
+        "members": 521,
+        "uncompressedBytes": 65720520
+      }
+    ]
+  },
+  "counts": {
+    "identities": 920,
+    "classes": 346,
+    "terminalCompletionOrAssumptionIdentities": 904,
+    "verifiedIntentionalStarts": 16,
+    "recoveryTotals": {
+      "normalCompletions": 393,
+      "deliberateInterruptions": 55,
+      "continuityRecords": 54
+    },
+    "logicalArchiveRequirements": 288,
+    "physicalArchives": 279
+  },
+  "visualReview": {
+    "movies": 6,
+    "originalFrames": 207,
+    "readableSheets": 18,
+    "fullOriginalMapping": "standards-visual-preparation.json",
+    "mappingSha256": "10519d2ce2b054ff37cb75b954a1b1a0bcb33ea739670bd39cb917deabd4eb1a",
+    "counterPngs": [
+      {
+        "file": "captures/like-count-evidence/feed-0-before.png",
+        "sha256": "bb60f5431cc6ae70098abd0e159a010dbe80bda72fe54938a657d2abdb8a2d89",
+        "observedPaintedLikeCount": 0,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/feed-0-held-1.png",
+        "sha256": "be986e64bf2d21fcf18dd1831d5e6b132a3d241ffc2388d0ee478cc975722c9d",
+        "observedPaintedLikeCount": 1,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/feed-0-held-2.png",
+        "sha256": "0c39b5060643b8bfcb52022645102616fcd9aa0b6d343cef7ab20cc944a17b35",
+        "observedPaintedLikeCount": 2,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/feed-0-held-3.png",
+        "sha256": "1e6689cf6cd03b888eb4d48510381f9b39f45692a5257da71e1ea774b52c939f",
+        "observedPaintedLikeCount": 3,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/feed-0-received.png",
+        "sha256": "1e6689cf6cd03b888eb4d48510381f9b39f45692a5257da71e1ea774b52c939f",
+        "observedPaintedLikeCount": 3,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/feed-0-conversation.png",
+        "sha256": "fd3a5f2b827df0c05621474471a6b19f59e46fa9cdbf223f7b79b7ccec2b1a82",
+        "observedPaintedLikeCount": 3,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/feed-0-returned-feed.png",
+        "sha256": "1e6689cf6cd03b888eb4d48510381f9b39f45692a5257da71e1ea774b52c939f",
+        "observedPaintedLikeCount": 3,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/feed-missing-held-1.png",
+        "sha256": "be986e64bf2d21fcf18dd1831d5e6b132a3d241ffc2388d0ee478cc975722c9d",
+        "observedPaintedLikeCount": 1,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/feed-missing-held-2.png",
+        "sha256": "0c39b5060643b8bfcb52022645102616fcd9aa0b6d343cef7ab20cc944a17b35",
+        "observedPaintedLikeCount": 2,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/feed-missing-held-3.png",
+        "sha256": "1e6689cf6cd03b888eb4d48510381f9b39f45692a5257da71e1ea774b52c939f",
+        "observedPaintedLikeCount": 3,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/feed-missing-hydrated.png",
+        "sha256": "39cff32d128a372164262ca537a1a9d6d5ceb00d86254dd3d7501ba9ec830599",
+        "observedPaintedLikeCount": 7,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/feed-missing-stale-total.png",
+        "sha256": "28218631e684152b22fe74e35802d80928a4ad55049eb4f984b41bc74eea1c91",
+        "observedPaintedLikeCount": 7,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/feed-missing-next-tap.png",
+        "sha256": "fcb0d87ac06c5974a8039061eb06ccdad7edc8e54c3f81cbbc1ee8471c5da31f",
+        "observedPaintedLikeCount": 8,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/reply-missing-held-1.png",
+        "sha256": "7b0d566a3eb2f06cfc9416a93cd7a50c40531007e6794e71dd97a8268b155e25",
+        "observedPaintedLikeCount": 1,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/reply-missing-held-2.png",
+        "sha256": "21b3bf1fcb4e14388d4ce4097eac3c9aaeed753030943a8ed73400d1d412050e",
+        "observedPaintedLikeCount": 2,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/reply-missing-held-3.png",
+        "sha256": "065ee5e63e723d2c85888ad5c5e7112ab682520c38e59c9e0470450489858709",
+        "observedPaintedLikeCount": 3,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/reply-missing-hydrated.png",
+        "sha256": "04e4dafc021c1c64f8a2fcb74d60cf49b0f02b21fd638fc5381b9690e2044bdf",
+        "observedPaintedLikeCount": 7,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/reply-missing-stale-total.png",
+        "sha256": "8516aa20a4807a17f23e6714113d30bf60291019d7d9b74f3a4e5e0054da43ae",
+        "observedPaintedLikeCount": 7,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/reply-missing-reopened.png",
+        "sha256": "c4ad7e990a8177deab12b533a69ca4a5bcba6842d52fe9c9e29c639d2588dba9",
+        "observedPaintedLikeCount": 7,
+        "personallyViewed": true
+      },
+      {
+        "file": "captures/like-count-evidence/reply-missing-next-tap.png",
+        "sha256": "ffca00da81b26032cd2e3dda3e4a8afe748ed099916c6b50fcbe4528ec3bd8c2",
+        "observedPaintedLikeCount": 8,
+        "personallyViewed": true
+      }
+    ],
+    "observations": "Across six normal/zero-motion recordings the loaded quote returns with original text/border/geometry intact; no captured Loading original replacement or collapse. Every full-source numeric checkpoint visibly matches zero and each immediate tap,hydration7,stale7 with fresh repost9,next8,and navigation/reopening. All frames were actual full10 originals, with no focused substitution."
+  },
+  "sourceProfileSha256": "5e729f7b3d43cc8a361f72a542a2b0894adef476a0d1b51d63383c49d035bbdd",
+  "assumptions": [
+    {
+      "path": "ProfilePublishingPreviewTest-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+      "test": "newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation"
+    }
+  ],
+  "inheritedMissingFailureCaptures": [
+    "wallet/live-official/wallet-first-failure.png",
+    "wallet/live-official/wallet-first-failure.xml",
+    "wallet/live-owner/wallet-first-failure.png",
+    "wallet/live-owner/wallet-first-failure.xml"
+  ],
+  "qualification": "Current133/135 additive-source assessment with inherited115 classification and126 queued-callback observation qualifications. The old frozen collector is not claimed to pass. One complete successful current-source primary, all3partitions. Five inherited module and eleven added unfinished-text intentional starts remain separate from terminal completions/assumptions. Every original goal and downstream validator remains. No prefix assembly or physical/provider/store acceptance. The inherited131 two identity path moves, one disjoint invocation count and ten original archive aliases remain explicit. Its frozen original collector did not pass. No native goal, deadline or physical archive is invented or waived.",
+  "limits": [
+    "One complete successful original three-part parent, no prefix assembly.",
+    "API29 Profile assumption, four inherited unavailable failure-only captures, original failed collectors/catalog qualifications, callback and separate provisioning qualifications remain.",
+    "No physical/OEM/live-provider/Play acceptance.",
+    "Signed updates remain separate observations:Android17e2/Android10source938, signed product90.",
+    "Public APK/page/metadata promotion and final delivery acceptance remain separate."
+  ]
+}
