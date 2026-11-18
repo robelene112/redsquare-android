@@ -33,6 +33,79 @@ class QuotePreviewTest {
         }?.forEach { check(it.delete()) }
     }
 
+    @Test fun loadedOriginalRetainsItsGeometryWhileRecycledQuotesWaitForThePublicCache() {
+        val fixture = quoteFixture()
+        val current = fixture.getAsJsonObject("current").deepCopy().apply {
+            addProperty("field1", "RedSquareRetweet")
+            addProperty("field4", fixture.getAsJsonObject("original").get("sig").asString)
+        }
+        val original = fixture.getAsJsonObject("original")
+        val legacy = fixture.getAsJsonObject("legacy")
+        val rows = InstrumentationRegistry.getInstrumentation().context.assets
+            .open("native-feed-scroll-reference.json").reader().use {
+                JsonParser.parseReader(it).asJsonObject.getAsJsonArray("initialRows").deepCopy()
+            }.apply { add(legacy) }
+        val reads = java.util.concurrent.atomic.AtomicInteger()
+        val peer = ControlledFeedPeer("[]", quoteArchiveResponse = { "[$current]" }, archiveResponse = { criteria ->
+            when {
+                criteria.get("sig")?.asString == original.get("sig").asString -> {
+                    reads.incrementAndGet(); "[$original]"
+                }
+                criteria.get("field1")?.asString == "RedSquare" -> rows.toString()
+                else -> "[]"
+            }
+        })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                val folder = java.io.File(context.cacheDir, "quote-evidence").apply { mkdirs() }
+                withFailureCapture({ captureNativeScreen(java.io.File(folder, "recycled-original-failure.png")) }) {
+                    waitFor("Reference post 20")
+                    if (ui.onNodeWithText("Later").isDisplayed()) ui.onNodeWithText("Later").performClick()
+                    val list = ui.onNodeWithTag("feed-post-list")
+                    val card = hasTestTag("post-card-${current.get("sig").asString.take(12)}")
+                    val quoted = hasText(originalText) and hasAnyAncestor(card) and
+                        hasAnyAncestor(hasContentDescription("Quoted original"))
+                    list.performScrollToNode(card)
+                    ui.waitUntil(20_000) { ui.onNode(quoted, useUnmergedTree = true).isDisplayed() }
+                    assertTrue("The initial original came from the independent peer", reads.get() > 0)
+                    val height = ui.onNode(card).fetchSemanticsNode().boundsInRoot.height
+                    captureNativeScreen(java.io.File(folder, "recycled-original-before.png"))
+                    val samples = com.google.gson.JsonArray()
+                    repeat(3) { round ->
+                        list.performScrollToIndex(0)
+                        ui.onNode(card).assertDoesNotExist()
+                        val entered = java.util.concurrent.CountDownLatch(1)
+                        val release = java.util.concurrent.CountDownLatch(1)
+                        val worker = kotlin.concurrent.thread(name = "owned-quote-cache-$round", isDaemon = true) {
+                            synchronized(nl.davidengelen.redsquare.feed.PublicStringStore.lock) {
+                                entered.countDown()
+                                check(release.await(8, java.util.concurrent.TimeUnit.SECONDS))
+                            }
+                        }
+                        try {
+                            assertTrue(entered.await(2, java.util.concurrent.TimeUnit.SECONDS))
+                            list.performScrollToNode(card)
+                            ui.onNode(quoted, useUnmergedTree = true).assertIsDisplayed()
+                            ui.onNodeWithText("Loading original.").assertDoesNotExist()
+                            assertEquals("Recycled commentary retains its complete height", height,
+                                ui.onNode(card).fetchSemanticsNode().boundsInRoot.height, 1f)
+                            samples.add(JsonObject().apply {
+                                addProperty("round", round); addProperty("originalVisibleWhileCacheHeld", true)
+                                addProperty("height", ui.onNode(card).fetchSemanticsNode().boundsInRoot.height)
+                            })
+                        } finally {
+                            release.countDown(); worker.join(2_000); check(!worker.isAlive)
+                            java.io.File(folder, "recycled-original-observations.json").writeText(samples.toString())
+                        }
+                    }
+                    assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                    captureNativeScreen(java.io.File(folder, "recycled-original-after.png"))
+                }
+            }
+        }
+    }
+
     @Test fun currentCommentaryRetweetLoadsItsVerifiedOriginalFromTheSelectedArchive() {
         val fixture = InstrumentationRegistry.getInstrumentation().context.assets.open("native-quote-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
