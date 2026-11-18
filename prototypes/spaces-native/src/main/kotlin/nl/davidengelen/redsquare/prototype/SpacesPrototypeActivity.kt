@@ -84,6 +84,8 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable private fun SpacesPrototype(appearance: String, onAppearance: (String) -> Unit) {
     var page by rememberSaveable { mutableStateOf(Page.HOME) }
+    var navigationDesign by rememberSaveable { mutableStateOf(NavigationDesign.SPACE_SWITCHER) }
+    var designPicker by remember { mutableStateOf(false) }
     var space by rememberSaveable { mutableStateOf("Independent Voices") }
     var channel by rememberSaveable { mutableStateOf("general") }
     val communityNames=remember {mutableStateListOf("Independent Voices","Saito Builders","The Commons")}
@@ -142,7 +144,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     val drawer = rememberDrawerState(DrawerValue.Closed)
     val coroutine = rememberCoroutineScope()
     val transitionAlpha=remember { Animatable(1f) }
-    LaunchedEffect(page) { transitionAlpha.snapTo(0.5f); transitionAlpha.animateTo(1f,tween(150)) }
+    LaunchedEffect(page,navigationDesign) { transitionAlpha.snapTo(0.5f); transitionAlpha.animateTo(1f,tween(150)) }
     LaunchedEffect(role,scenario,memberships[callSpace],archives["$callSpace:$callChannel"]) {
         if(role=="Visitor" || memberships[callSpace]==false || scenario=="Access denied") {activeCall=false;mic=false;camera=false}
         if(scenario=="Timeout" || archives["$callSpace:$callChannel"]==true) {mic=false;camera=false}
@@ -178,6 +180,15 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
         }
     }
     val spaceNavigation = page !in listOf(Page.HOME,Page.DISCOVER,Page.ACTIVITY,Page.PREVIEW,Page.CREATE,Page.BACKUP)
+    val channelRoot = page in listOf(Page.CHAT,Page.ANNOUNCEMENTS,Page.ARTICLES,Page.FILES,Page.ROOM)
+    val openChannels = { coroutine.launch { drawer.open() }; Unit }
+    val openDesignPicker = { keyboard?.hide(); focus.clearFocus(); designPicker=true }
+    val designControl: @Composable () -> Unit = {
+        TextButton(onClick=openDesignPicker,modifier=Modifier.testTag("design-picker"),contentPadding=PaddingValues(horizontal=8.dp)) {
+            Text("Design ${navigationDesign.letter} / 5",style=MaterialTheme.typography.labelSmall)
+            Spacer(Modifier.width(4.dp));Glyph(R.drawable.ic_chevron_down,16)
+        }
+    }
     ModalNavigationDrawer(drawerState=drawer, drawerContent={
         ModalDrawerSheet(Modifier.widthIn(max=340.dp).testTag("channel-switcher")) {
             Column(Modifier.verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement=Arrangement.spacedBy(12.dp)) {
@@ -203,7 +214,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     }) {
         Scaffold(containerColor=MaterialTheme.colorScheme.background, topBar={
             Column(Modifier.statusBarsPadding().padding(horizontal=20.dp)) {
-                if(imeVisible) Row(Modifier.fillMaxWidth().heightIn(min=48.dp),verticalAlignment=Alignment.CenterVertically) {Text("Spaces",Modifier.weight(1f),style=MaterialTheme.typography.titleMedium);TextButton(onClick={go(Page.PREVIEW)}){Text("Scenarios")}}
+                if(imeVisible) Row(Modifier.fillMaxWidth().heightIn(min=48.dp),verticalAlignment=Alignment.CenterVertically) {designControl();Spacer(Modifier.weight(1f));TextButton(onClick={go(Page.PREVIEW)}){Text("Scenarios",style=MaterialTheme.typography.labelSmall)}}
                 else {
                 Row(Modifier.fillMaxWidth().heightIn(min=64.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(12.dp)) {
                     OutlinedButton(onClick={modal="Saito apps"},shape=RoundedCornerShape(14.dp),colors=ButtonDefaults.outlinedButtonColors(contentColor=MaterialTheme.colorScheme.onSurface,containerColor=MaterialTheme.colorScheme.surfaceContainerLow)) {
@@ -213,30 +224,20 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                     IconButton(onClick={go(Page.PREVIEW)}) { Avatar("AM",Color(0xffa35b43),36) }
                 }
                 Row(Modifier.fillMaxWidth().padding(bottom=8.dp),verticalAlignment=Alignment.CenterVertically) {
-                    Text(if(LocalDensity.current.fontScale>1.3f) "Prototype" else "Native design prototype",style=MaterialTheme.typography.labelSmall,color=MaterialTheme.colorScheme.primary,modifier=Modifier.weight(1f))
+                    designControl()
+                    Spacer(Modifier.weight(1f))
                     TextButton(onClick={go(Page.PREVIEW)},contentPadding=PaddingValues(horizontal=8.dp)) { Text("Scenarios",style=MaterialTheme.typography.labelSmall) }
                 }
                 }
-                if(spaceNavigation) {
-                    val largeText=LocalDensity.current.fontScale>1.3f
-                    Column(Modifier.fillMaxWidth().testTag("space-navigation").padding(bottom=8.dp),
-                        verticalArrangement=Arrangement.spacedBy(4.dp)) {
-                        Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,
-                            horizontalArrangement=Arrangement.spacedBy(12.dp)) {
-                            OutlinedButton(onClick={coroutine.launch{drawer.open()}},
-                                modifier=Modifier.heightIn(min=48.dp).testTag("channels-menu").semantics{contentDescription="Switch Space or channel"},
-                                shape=RoundedCornerShape(14.dp),contentPadding=PaddingValues(horizontal=12.dp,vertical=8.dp)) {
-                                Glyph(R.drawable.ic_spaces_channels,20)
-                                Spacer(Modifier.width(8.dp))
-                                Text("Channels",style=MaterialTheme.typography.labelLarge)
-                            }
-                            if(!largeText) Text(space,Modifier.weight(1f),maxLines=2,overflow=TextOverflow.Ellipsis,
-                                style=MaterialTheme.typography.labelLarge,color=MaterialTheme.colorScheme.onSurfaceVariant)
+                if(spaceNavigation && navigationDesign in listOf(NavigationDesign.SPACE_SWITCHER,NavigationDesign.CHANNEL_TITLE)) {
+                    Column(Modifier.fillMaxWidth().testTag("space-navigation").padding(bottom=8.dp)) {
+                        if(navigationDesign==NavigationDesign.SPACE_SWITCHER) SpaceSwitcherDesign(space,openChannels)
+                        else Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically) {
+                            if(channelRoot) IconButton(onClick={back()}) {Glyph(R.drawable.ic_back,label="Back")}
+                            Box(Modifier.weight(1f)) {ChannelTitleDesign(space,channel,openChannels)}
+                            if(page==Page.CHAT && LocalDensity.current.fontScale<=1.3f && !imeVisible) IconButton(onClick={go(Page.INFO)}) {Glyph(R.drawable.ic_info,label="Space information")}
                         }
-                        if(largeText) Text(space,Modifier.fillMaxWidth(),maxLines=2,overflow=TextOverflow.Ellipsis,
-                            style=MaterialTheme.typography.labelLarge,color=MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    HorizontalDivider()
                 }
             }
         }, bottomBar={
@@ -256,16 +257,25 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                         FilledIconButton(enabled=canWrite && input.isNotBlank(),onClick={ val message=PreviewMessage(nextMessage++,space,channel,if(page==Page.THREAD) selectedMessage.id else null,input); if(scenario=="Offline") queued.add(message) else sent.add(message); drafts[draftKey]="";lastSendScope=draftKey;sendSequence++ },modifier=Modifier.size(52.dp)) { Glyph(R.drawable.ic_send,label="Send preview message") }
                     }
                 }
+                if(spaceNavigation && navigationDesign==NavigationDesign.BOTTOM_DOCK) BottomDockDesign(space,openChannels)
                 if(!imeVisible) SpacesBottomBar(page) {go(it)}
             }
-        }) { padding ->
+        },floatingActionButton={
+            if(spaceNavigation && navigationDesign==NavigationDesign.FLOATING_BUTTON) FloatingButtonDesign(openChannels)
+        },floatingActionButtonPosition=FabPosition.Start) { padding ->
             val position=positions.getOrPut("$scoped:$page") { LazyListState() }
             LaunchedEffect(sendSequence) {if(sendSequence>0 && lastSendScope==draftKey) {withFrameNanos{};position.animateScrollToItem((position.layoutInfo.totalItemsCount-1).coerceAtLeast(0))}}
-            LazyColumn(state=position,modifier=Modifier.fillMaxSize().padding(padding).alpha(transitionAlpha.value).testTag("prototype-content"),contentPadding=PaddingValues(start=20.dp,end=20.dp,top=8.dp,bottom=24.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
-                item("heading") {
+            Row(Modifier.fillMaxSize().padding(padding)) {
+            if(spaceNavigation && navigationDesign==NavigationDesign.SPACE_RAIL) SpaceRailDesign(communityNames.filter{memberships[it]!=false},space,openChannels) { name ->
+                val place=lastPlaces[name]?: (Page.CHAT to "general")
+                go(place.first,newSpace=name,newChannel=place.second)
+            }
+            LazyColumn(state=position,modifier=Modifier.weight(1f).fillMaxHeight().alpha(transitionAlpha.value).testTag("prototype-content"),contentPadding=PaddingValues(start=20.dp,end=20.dp,top=8.dp,bottom=if(spaceNavigation && navigationDesign==NavigationDesign.FLOATING_BUTTON) 100.dp else 24.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
+                if(!(channelRoot && navigationDesign==NavigationDesign.CHANNEL_TITLE)) item("heading") {
                     Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                         if(page !in listOf(Page.HOME,Page.DISCOVER,Page.ACTIVITY)) IconButton(onClick={back()}) { Glyph(R.drawable.ic_back,label="Back") }
                         Column(Modifier.weight(1f)) {
+                            if(spaceNavigation && navigationDesign !in listOf(NavigationDesign.SPACE_SWITCHER,NavigationDesign.CHANNEL_TITLE)) Text(space,style=MaterialTheme.typography.labelMedium,color=MaterialTheme.colorScheme.onSurfaceVariant)
                             Text(when(page) { Page.HOME->"Your people. Your spaces."; Page.DISCOVER->"Discover"; Page.CHAT->channel; Page.THREAD->"Replies"; Page.ROOM->"the lounge"; else->page.name.lowercase().replaceFirstChar{it.uppercase()} },style=if(imeVisible) MaterialTheme.typography.titleMedium else MaterialTheme.typography.headlineSmall,modifier=Modifier.semantics{heading()})
                         }
                         if(page==Page.CHAT && LocalDensity.current.fontScale<=1.3f && !imeVisible) IconButton(onClick={go(Page.INFO)}) { Glyph(R.drawable.ic_info,label="Space information") }
@@ -438,8 +448,13 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                     }
                 }
             }
+            }
         }
     }
+    if(designPicker) NavigationDesignPicker(navigationDesign,onChoose={ selected ->
+        navigationDesign=selected;designPicker=false
+        if(!spaceNavigation) go(Page.CHAT,newChannel="general")
+    },onDismiss={designPicker=false})
     if(modal!=null) {
         val title=modal!!
         var detail by remember(title){mutableStateOf("")}
@@ -467,8 +482,8 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     }
     editMessage?.let { row -> AlertDialog(onDismissRequest={editMessage=null},title={Text("Edit message")},text={OutlinedTextField(editText,{editText=it})},confirmButton={TextButton(onClick={if(canWrite) edits["$scoped:${row.id}"]=editText;editMessage=null}){Text("Save edit")}},dismissButton={TextButton(onClick={editMessage=null}){Text("Cancel")}}) }
 }
-@Composable private fun Glyph(id:Int,size:Int=22,label:String?=null) { Icon(painterResource(id),label,Modifier.size(size.dp)) }
-@Composable private fun Avatar(initials:String,color:Color,size:Int=44) { Box(Modifier.size(size.dp).background(color,CircleShape),contentAlignment=Alignment.Center){Text(initials,color=Color.White,fontWeight=FontWeight.SemiBold,fontSize=(size*0.36f/LocalDensity.current.fontScale).sp,lineHeight=(size*0.4f/LocalDensity.current.fontScale).sp,maxLines=1,textAlign=TextAlign.Center)} }
+@Composable internal fun Glyph(id:Int,size:Int=22,label:String?=null) { Icon(painterResource(id),label,Modifier.size(size.dp)) }
+@Composable internal fun Avatar(initials:String,color:Color,size:Int=44) { Box(Modifier.size(size.dp).background(color,CircleShape),contentAlignment=Alignment.Center){Text(initials,color=Color.White,fontWeight=FontWeight.SemiBold,fontSize=(size*0.36f/LocalDensity.current.fontScale).sp,lineHeight=(size*0.4f/LocalDensity.current.fontScale).sp,maxLines=1,textAlign=TextAlign.Center)} }
 @Composable private fun Section(text:String) {Text(text,style=MaterialTheme.typography.labelMedium,color=MaterialTheme.colorScheme.onSurfaceVariant,modifier=Modifier.padding(bottom=8.dp))}
 @Composable private fun Notice(text:String) { Surface(color=MaterialTheme.colorScheme.surfaceContainerLow,shape=RoundedCornerShape(12.dp)) {Text(text,Modifier.fillMaxWidth().padding(14.dp),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)} }
 @Composable private fun Action(label:String,enabled:Boolean=true,click:()->Unit) {Button(onClick=click,enabled=enabled,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp),shape=RoundedCornerShape(16.dp),contentPadding=PaddingValues(horizontal=16.dp,vertical=12.dp)){Text(label)}}

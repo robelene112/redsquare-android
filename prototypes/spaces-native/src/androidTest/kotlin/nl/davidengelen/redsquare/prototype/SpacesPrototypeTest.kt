@@ -47,7 +47,7 @@ class SpacesPrototypeTest {
         ui.onNodeWithTag("prototype-content").performScrollToNode(hasText("Could we do a community call this evening? The lounge is ready."))
         val menuAfter=ui.onNodeWithTag("channels-menu").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
         assertEquals(menuBefore,menuAfter)
-        check(menuAfter.center.x < ui.onRoot().fetchSemanticsNode().boundsInRoot.center.x)
+        check(menuAfter.left < ui.onRoot().fetchSemanticsNode().boundsInRoot.center.x)
         shot("30-pinned-channels-after-scroll")
         ui.onNodeWithContentDescription("Switch Space or channel").performClick()
         drawerText("general").performScrollTo().performClick()
@@ -208,4 +208,30 @@ class SpacesPrototypeTest {
         ui.onNodeWithContentDescription("Send preview message").assertDoesNotExist()
         shot("29-announcement-restoration")
     }
+    @Test fun fiveNavigationDesignsPreserveDraftAndOpenTheDrawer() {
+        click("Independent Voices")
+        ui.onNode(hasSetTextAction()).performTextInput("A draft across all five designs")
+        val choices=listOf("A · Space switcher","B · Channel title","C · Bottom dock","D · Floating button","E · Space rail")
+        choices.forEachIndexed { index, label ->
+            ui.onNodeWithTag("design-picker").performClick()
+            ui.onNodeWithText(label).performScrollTo().performClick()
+            ui.waitUntil(5_000) {
+                androidx.core.view.ViewCompat.getRootWindowInsets(ui.activity.window.decorView)
+                    ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) != true
+            }
+            ui.onNode(hasSetTextAction()).assertTextContains("A draft across all five designs")
+            shot("design-${index+1}-overview")
+            val before=ui.onNodeWithTag("channels-menu").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+            ui.onNodeWithTag("prototype-content").performScrollToNode(hasText("Could we do a community call this evening? The lounge is ready."))
+            val after=ui.onNodeWithTag("channels-menu").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+            assertEquals(before,after)
+            shot("design-${index+1}-after-scroll")
+            ui.onNodeWithContentDescription("Switch Space or channel").performClick()
+            drawerText("general").performScrollTo().assertIsDisplayed()
+            shot("design-${index+1}-drawer")
+            drawerText("general").performClick()
+            ui.onNode(hasSetTextAction()).assertTextContains("A draft across all five designs")
+        }
+    }
+
 }

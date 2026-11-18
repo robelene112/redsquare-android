@@ -15,8 +15,8 @@ android {
         applicationId = "nl.davidengelen.redsquare.spaces.prototype"
         minSdk = 29
         targetSdk = 36
-        versionCode = 2
-        versionName = "Spaces prototype 2"
+        versionCode = 3
+        versionName = "Spaces prototype 3"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures { compose = true }
