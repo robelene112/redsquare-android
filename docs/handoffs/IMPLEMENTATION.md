@@ -1,5 +1,15 @@
 # Implementation handoff
 
+## Active request: complete functional Spaces, starting with #133
+
+The owner explicitly requests Spaces implementation on2026-11-18. Navigation B
+is approved. Existing prerequisites133 and135 come first, sequentially, then all
+agreed functional Spaces slices under134. The older stop-after132/planning-only
+notes below are historical. Beta141 remains the last accepted ordinary release.
+No functional Spaces work or completed133/135 fix is claimed by this handoff.
+Actual node/provider activation remains separately gated. Ordinary QA is owned
+by the agent; do not ask for repeated phone development tests.
+
 ## Completed #132, signed beta141; next #133
 
 The single requested composer ticket is complete and delivered at

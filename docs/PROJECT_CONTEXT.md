@@ -1,5 +1,16 @@
 # Red Square Android project context
 
+## Current authorization: implement functional Spaces
+
+On2026-11-18 the owner requested functional Spaces implementation using the
+approved specification134 and navigation B. This supersedes the previous
+planning-only stop boundary. Complete prerequisites133 and135 sequentially,
+then implement the complete agreed Spaces scope in vertical slices, one ticket
+at a time. Preserve the quality plan, Chat/private-content E2E, approved native
+UI and existing modules. No further design approval is needed for navigation B.
+Actual node/provider activation, public development posts and financial writes
+remain separate from app implementation authorization.
+
 ## Delivered independent composer recovery #132, beta141
 
 [Ordinary signed beta0.1.141](https://davidengelen.nl/redsquare/) fixes

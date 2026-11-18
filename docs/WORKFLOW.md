@@ -1,5 +1,15 @@
 # Development workflow
 
+## Current implementation sequence: Spaces
+
+The owner now authorizes functional Spaces (2026-11-18), including the necessary
+sequential implementation slices under specification134. Earlier planning-only
+and stop-after132 boundaries are superseded for this sequence. Finish133, then135,
+then Spaces, one issue at a time. Follow the prospective quality plan and native
+prototype B; run affected checks per slice and complete integrated verification
+at shared/final milestones. Preserve original failures and all existing gates.
+No production node/provider activation or public test/financial write is implied.
+
 This project uses Matt Pocock's upstream workflow:
 
 `grill-with-docs -> to-spec -> to-tickets -> implement -> code-review -> retro`

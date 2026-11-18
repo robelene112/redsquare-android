@@ -56,8 +56,9 @@ class QuotePreviewTest {
             }
         })
         peer.start().use { server ->
+            for (scale in listOf(1, 0)) withNativeModuleMotionScale(scale) {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                 val folder = java.io.File(context.cacheDir, "quote-evidence").apply { mkdirs() }
                 withFailureCapture({ captureNativeScreen(java.io.File(folder, "recycled-original-failure.png")) }) {
                     waitFor("Reference post 20")
@@ -70,9 +71,12 @@ class QuotePreviewTest {
                     ui.waitUntil(20_000) { ui.onNode(quoted, useUnmergedTree = true).isDisplayed() }
                     assertTrue("The initial original came from the independent peer", reads.get() > 0)
                     val height = ui.onNode(card).fetchSemanticsNode().boundsInRoot.height
-                    captureNativeScreen(java.io.File(folder, "recycled-original-before.png"))
+                    observeModuleWindowMotionScale(activity, scale, folder)
+                    captureNativeScreen(java.io.File(folder, "scale-$scale-recycled-original-before.png"))
                     val samples = com.google.gson.JsonArray()
-                    repeat(3) { round ->
+                    val movie = java.io.File(folder, "scale-$scale-recycled-original.mp4")
+                    val recording = recordNativeTransition(movie, recordingSeconds = 5) {
+                      repeat(3) { round ->
                         list.performScrollToNode(hasText("Reference post 01"))
                         ui.onNodeWithText("Reference post 01").assertIsDisplayed()
                         ui.onNode(card).assertDoesNotExist()
@@ -96,19 +100,27 @@ class QuotePreviewTest {
                                 addProperty("height", ui.onNode(card).fetchSemanticsNode().boundsInRoot.height)
                             })
                         } catch (failure: Throwable) {
-                            captureNativeScreen(java.io.File(folder, "recycled-original-held-cache-failure.png"))
+                            captureNativeScreen(java.io.File(folder, "scale-$scale-recycled-original-held-cache-failure.png"))
                             throw failure
                         } finally {
                             release.countDown(); worker.join(2_000); check(!worker.isAlive)
-                            java.io.File(folder, "recycled-original-observations.json").writeText(samples.toString())
+                            java.io.File(folder, "scale-$scale-recycled-original-observations.json").writeText(samples.toString())
                         }
                     }
+                    }
+                    val frames = retainNativeMotionFrames(movie)
+                    frames.add("recording", recording); frames.add("nativeSamples", samples)
+                    frames.addProperty("initialArchiveReads", reads.get())
+                    frames.addProperty("publicationCount", peer.transactions.size)
+                    java.io.File(folder, "scale-$scale-recycled-original-frames.json").writeText(frames.toString())
                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
-                    captureNativeScreen(java.io.File(folder, "recycled-original-after.png"))
+                    captureNativeScreen(java.io.File(folder, "scale-$scale-recycled-original-after.png"))
                 }
+            }
             }
         }
     }
+
 
     @Test fun currentCommentaryRetweetLoadsItsVerifiedOriginalFromTheSelectedArchive() {
         val fixture = InstrumentationRegistry.getInstrumentation().context.assets.open("native-quote-reference.json")

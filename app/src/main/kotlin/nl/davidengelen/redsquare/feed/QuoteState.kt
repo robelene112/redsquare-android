@@ -31,16 +31,24 @@ internal class QuoteState(context: Context, private val wallet: SaitoWallet?, ba
     suspend fun load(target: String, embedded: FeedPost? = null, refresh: Boolean = false) {
         if (target in originals && !refresh) return
         require(target.matches(Regex("[0-9a-f]{128}")))
-        if (originals.size >= 200) originals.keys.firstOrNull { originals[it]?.loading != true }?.let { originals.remove(it) }
-        originals[target] = QuoteOriginal(loading = true)
+        if (target !in originals && originals.size >= 200) originals.keys.firstOrNull { originals[it]?.loading != true }?.let { originals.remove(it) }
+        // Re-entering a lazy row re-observes its original. Keep verified content
+        // throughout that read, including cancellation when the row leaves again.
+        val previous = originals[target]
+        val pending = (previous ?: QuoteOriginal()).copy(loading = true, failed = false)
+        originals[target] = pending
         try {
             val cached = withContext(Dispatchers.IO) {
-                val saved = cache.load()
-                val posts = listOfNotNull(embedded) + saved.values.mapNotNull { envelope ->
+                // The session already owns these verified bytes. Recheck author
+                // revisions without decoding the entire public cache on every scroll.
+                val saved = if (previous?.post != null) PublicStringStore.Loaded(emptyList(), false) else cache.load()
+                val posts = listOfNotNull(embedded, previous?.post) + saved.values.mapNotNull { envelope ->
                     try { RedSquareFeed.decode(envelope).takeIf { it.id == target } } catch (_: Exception) { null }
                 }
-                revisions.apply(RedSquareFeed.newest(posts)).let { QuoteOriginal(it.posts.firstOrNull(),
-                    cacheWarning = saved.unreadable || it.unreadable, deleted = it.deleted) }
+                revisions.apply(RedSquareFeed.newest(posts)).let { applied ->
+                    QuoteOriginal(applied.posts.firstOrNull() ?: previous?.post?.takeUnless { applied.deleted },
+                        cacheWarning = saved.unreadable || applied.unreadable, deleted = applied.deleted)
+                }
             }
             if (cached.post != null || cached.deleted) { originals[target] = cached; return }
             val activeWallet = wallet ?: run { originals[target] = cached; return }
@@ -81,9 +89,17 @@ internal class QuoteState(context: Context, private val wallet: SaitoWallet?, ba
                 } } catch (cancelled: CancellationException) { throw cancelled }
                 catch (_: Exception) { originals[target] = result.copy(cacheWarning = true) }
             }
-        } catch (_: TimeoutCancellationException) { originals[target] = QuoteOriginal(failed = true) }
-        catch (cancelled: CancellationException) { originals.remove(target); throw cancelled }
-        catch (_: Exception) { originals[target] = QuoteOriginal(failed = true) }
+        } catch (_: TimeoutCancellationException) {
+            if (originals[target] === pending) originals[target] = pending.copy(loading = false, failed = true)
+        } catch (cancelled: CancellationException) {
+            if (originals[target] === pending) {
+                if (previous == null) originals.remove(target)
+                else originals[target] = previous.copy(loading = false)
+            }
+            throw cancelled
+        } catch (_: Exception) {
+            if (originals[target] === pending) originals[target] = pending.copy(loading = false, failed = true)
+        }
     }
 
     fun retry(target: String) {
