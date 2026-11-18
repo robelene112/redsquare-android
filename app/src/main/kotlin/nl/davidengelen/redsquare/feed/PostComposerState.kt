@@ -66,7 +66,12 @@ internal class PostComposerState(
         it.text == text && it.images == images && it.gifAttributions == gifAttributions
     } == true
     /** Initial entry or an explicit retry may resolve a previous loading failure. */
-    suspend fun load() = writes.withLock { readSavedWork(passive = false) }
+    suspend fun load() {
+        val firstEntry = !ready
+        writes.withLock { readSavedWork(passive = false) }
+        // Local recovery must be usable before an independent Archive deadline.
+        if (firstEntry && transaction != null && !queued && !available) checkStatus()
+    }
 
     /** A storage notification is not a successful retry of a failed operation. */
     suspend fun observeSavedWork() = writes.withLock {
@@ -77,23 +82,12 @@ internal class PostComposerState(
         try {
             var saved = withContext(Dispatchers.IO) { store.load() }
             var reconciled = false
-            // Reconcile a legacy attempt on entry, not after every local
-            // notification. Durable availability can still heal its receipt.
-            if (saved.transaction != null && !saved.queued && (!ready || saved.available)) {
-                val candidate = requireNotNull(saved.transaction)
-                reconciled = try {
-                    if (saved.available) {
-                        try { withContext(NonCancellable + Dispatchers.IO) { store.markSubmitted(candidate.id) } }
-                        catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
-                        true
-                    } else reconcile(candidate, saved.text)
-                } catch (timeout: TimeoutCancellationException) {
-                    currentCoroutineContext().ensureActive()
-                    checkError = true
-                    false
-                } catch (cancelled: CancellationException) { throw cancelled }
-                catch (failure: DraftPersistenceFailure) { throw failure }
-                catch (_: Exception) { checkError = true; false }
+            // A durable availability result can heal its receipt locally.
+            // Network observation starts only after the editor has been hydrated.
+            if (saved.transaction != null && saved.available) {
+                try { withContext(NonCancellable + Dispatchers.IO) { store.markSubmitted(requireNotNull(saved.transaction).id) } }
+                catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
+                reconciled = true
             }
             val handedOff = (transaction?.id ?: memory.transactionId)?.let { id ->
                 withContext(Dispatchers.IO) { store.hasSubmission(id) }
@@ -148,25 +142,26 @@ internal class PostComposerState(
 
     fun checkStatus() {
         val candidate = transaction ?: return
-        if (!ready || saving || sending) return
+        if (!ready || saving || sending || checking) return
+        val content = text
         checking = true
-        sending = true
         checkError = false
         scope.launch {
             try {
+                val reconciled = reconcile(candidate, content)
                 writes.withLock {
-                    if (reconcile(candidate, text)) {
+                    if (transaction?.id == candidate.id && reconciled) {
                         memory.clearSubmitted()
                         submitted = true
                     }
                 }
             } catch (timeout: TimeoutCancellationException) {
                 currentCoroutineContext().ensureActive()
-                checkError = true
+                if (transaction?.id == candidate.id) checkError = true
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: DraftPersistenceFailure) { error = true }
-            catch (_: Exception) { checkError = true }
-            finally { checking = false; sending = false }
+            catch (_: DraftPersistenceFailure) { if (transaction?.id == candidate.id) error = true }
+            catch (_: Exception) { if (transaction?.id == candidate.id) checkError = true }
+            finally { checking = false }
         }
     }
     suspend fun persist(): Boolean = writes.withLock {
