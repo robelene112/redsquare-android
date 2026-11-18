@@ -19,6 +19,52 @@ class SharedNodeConnectionTest {
     // Public, deterministic test identities only.
     private val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
 
+    @Test fun lateCancelledLargeCallbackCannotInterruptTheCurrentBoundedArchiveRead() = runBlocking {
+        val oversized = " ".repeat(SaitoPeer.MAX_RESPONSE_BYTES + 1)
+        val response = java.util.concurrent.atomic.AtomicReference(oversized)
+        val reads = java.util.concurrent.atomic.AtomicInteger()
+        val fixture = ControlledFeedPeer("[]", archiveResponse = { response.get() },
+            onArchiveResponse = { _, _, _ -> reads.incrementAndGet() }).apply {
+            sendOversizedArchiveFrames = true
+            withholdArchiveReply = true
+            retainWithheldArchiveReplies = true
+        }
+        fixture.start().use { server ->
+            val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
+            val query = """{"request":"archive","data":{"request":"load","field1":"RedSquare","field4":"","flagged_ne":1,"limit":20}}""".toByteArray()
+            SaitoPeer(wallet, endpoint).use { old ->
+                SaitoPeer(wallet, endpoint).use { current ->
+                    val cancelled = async { old.requestArchive(query) }
+                    var active: Deferred<Result<ByteArray>>? = null
+                    try {
+                        withTimeout(5_000) { while (reads.get() != 1) delay(10) }
+                        withTimeout(1_000) { cancelled.cancelAndJoin() }
+                        assertTrue(cancelled.isCancelled)
+                        response.set("[]")
+                        val next = async { runCatching { current.requestArchive(query) } }
+                        active = next
+                        withTimeout(5_000) { while (reads.get() != 2) delay(10) }
+                        fixture.withholdArchiveReply = false
+                        assertEquals(2, fixture.releaseWithheldArchiveReplies())
+                        val result = withTimeout(5_000) { next.await() }
+                        assertTrue("The cancelled owner's large callback must not interrupt the current reader: ${result.exceptionOrNull()}", result.isSuccess)
+                        assertEquals("[]", result.getOrThrow().decodeToString())
+                        assertEquals(1, fixture.connectionAttempts.get())
+                        response.set(oversized)
+                        assertTrue("An active oversized reply must still be rejected",
+                            runCatching { current.requestArchive(query) }.exceptionOrNull() is SaitoPeer.ResponseTooLarge)
+                        fixture.assertHealthy()
+                        assertTrue(fixture.transactions.isEmpty())
+                    } finally {
+                        withContext(NonCancellable) { withTimeout(5_000) {
+                            cancelled.cancelAndJoin(); active?.cancelAndJoin()
+                        } }
+                    }
+                }
+            }
+        }
+    }
+
     @Test fun heldIncomingRetentionDoesNotBlockSharedReadCallbacksOrAcknowledgeEarly() = runBlocking {
         val entered = java.util.concurrent.CountDownLatch(1)
         val release = java.util.concurrent.CountDownLatch(1)
