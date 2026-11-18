@@ -549,7 +549,7 @@ class PostPreviewTest {
         }
     }
 
-    @Test fun startingAnotherDraftRequiresConfirmationAndDoesNotClaimToRemoveTheUncertainPost() {
+    @Test fun removingTheLocalRecordRequiresConfirmationAndDoesNotClaimToRemoveTheUncertainPost() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
@@ -571,13 +571,13 @@ class PostPreviewTest {
                 ui.onNodeWithText("New post").performClick()
                 waitFor("Send requested. Availability on this node is not confirmed.")
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNodeWithText("Start another draft").performClick()
+                ui.onNodeWithText("Remove local record").performScrollTo().performClick()
                 waitFor("Clear this local posting record?")
                 ui.onNodeWithText("This post may already have reached the node. Clearing removes its saved text and retry record from this composer. It does not remove any published post or copies elsewhere.").assertIsDisplayed()
                 ui.onNodeWithText("Keep this post").performClick()
                 ui.onNodeWithText("A post whose availability remains uncertain").assertIsNotEnabled()
                 org.junit.Assert.assertEquals(1, peer.transactions.size)
-                ui.onNodeWithText("Start another draft").performClick()
+                ui.onNodeWithText("Remove local record").performScrollTo().performClick()
                 ui.onNodeWithText("Clear local record").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("New post").performClick()
