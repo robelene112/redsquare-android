@@ -114,8 +114,18 @@ class QuoteRecyclingMotionTest {
                     val root = requireNotNull(instrumentation.uiAutomation.rootInActiveWindow)
                     val nodes = mutableListOf(root)
                     try {
-                        val matches = root.findAccessibilityNodeInfosByText(commentary).also(nodes::addAll)
-                        var node = matches.single { it.text?.toString() == commentary }
+                        // Compose exposes virtual descendants through child
+                        // traversal; its provider need not implement text queries.
+                        fun findCommentary(node: android.view.accessibility.AccessibilityNodeInfo):
+                            android.view.accessibility.AccessibilityNodeInfo? {
+                            if (node.text?.toString() == commentary) return node
+                            for (index in 0 until node.childCount) {
+                                val child = node.getChild(index)?.also(nodes::add) ?: continue
+                                findCommentary(child)?.let { return it }
+                            }
+                            return null
+                        }
+                        var node = requireNotNull(findCommentary(root)) { "The actual native commentary must be present" }
                         repeat(8) {
                             val bounds = Rect().also(node::getBoundsInScreen)
                             if (node.isClickable && bounds.contains(quote.centerX(), quote.centerY()) &&
