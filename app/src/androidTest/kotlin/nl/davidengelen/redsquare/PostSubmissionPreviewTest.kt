@@ -32,8 +32,11 @@ class PostSubmissionPreviewTest {
         val root = InstrumentationRegistry.getInstrumentation().context.assets
             .open("native-following-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject.get("root") }
         val heldOriginal = java.util.concurrent.atomic.AtomicInteger()
+        val exposeOriginal = java.util.concurrent.atomic.AtomicBoolean(false)
         val peer = ControlledFeedPeer("[$root]", archiveResponse = { query ->
-            if (query.has("sig")) "[]" else "[$root]"
+            if (query.has("sig")) {
+                if (exposeOriginal.get() && query.get("sig").asString == original.id) "[${postingArchiveRow(original)}]" else "[]"
+            } else "[$root]"
         }, onArchiveResponse = { query, _, queued ->
             if (!queued && query.has("sig") && query.get("sig").asString == original.id) heldOriginal.incrementAndGet()
         })
@@ -45,7 +48,7 @@ class PostSubmissionPreviewTest {
             store.save(nl.davidengelen.redsquare.feed.PostDraftStore.Saved(body, original))
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                     withFailureCapture({ captureNativeScreen(File(folder, "fresh-held-original-failure.png")) }) {
                         ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
                         peer.withholdArchiveReply = true
@@ -66,6 +69,37 @@ class PostSubmissionPreviewTest {
                         assertEquals(original.encoded(), store.load().transaction?.encoded())
                         assertEquals(0, peer.transactions.size)
                         captureNativeScreen(File(folder, "fresh-held-original-ready.png"))
+                        ui.onNodeWithText("Start another draft").performClick()
+                        ui.waitUntil(2_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+                        ui.onNode(hasSetTextAction()).assertEditableTextEquals("")
+                        val savedOriginal = nl.davidengelen.redsquare.feed.PostDraftStore
+                            .pendingDelivery(context, wallet.publicKey, SaitoBackend.OWNER)
+                            .single { it.load().transaction?.id == original.id }
+                        assertEquals(original.encoded(), savedOriginal.load().transaction?.encoded())
+                        org.junit.Assert.assertFalse(store.hasSubmission(original.id))
+                        org.junit.Assert.assertFalse(savedOriginal.load().available)
+                        ui.onNode(hasSetTextAction()).performTextReplacement("Keep the independent next draft")
+                        ui.attachSyntheticImage()
+                        ui.onNode(hasSetTextAction()).performScrollTo().performClick().assertIsFocused()
+                        peer.withholdArchiveReply = false
+                        exposeOriginal.set(true)
+                        ui.waitForPostAvailability(wallet.publicKey, original.id)
+                        ui.onNode(hasSetTextAction()).assertEditableTextEquals("Keep the independent next draft").assertIsEnabled().assertIsFocused()
+                        ui.onNode(hasSetTextAction()).performTextInput(" while the old one finishes")
+                        ui.assertSyntheticRedImage()
+                        activity.recreate()
+                        ui.waitUntil(15_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+                        ui.onNode(hasSetTextAction()).assertEditableTextEquals("Keep the independent next draft while the old one finishes")
+                        ui.assertSyntheticRedImage()
+                        ui.onNodeWithText("Save draft").performClick()
+                        ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
+                        ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                        ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+                        ui.onNode(hasSetTextAction()).assertEditableTextEquals("Keep the independent next draft while the old one finishes")
+                        ui.assertSyntheticRedImage()
+                        assertEquals(original.encoded(), savedOriginal.load().transaction?.encoded())
+                        assertEquals(0, peer.transactions.size)
+                        captureNativeScreen(File(folder, "fresh-independent-text-and-image.png"))
                     }
                 }
             }
