@@ -120,6 +120,7 @@ class ReviewUpdateUiObserver {
                 var candidate: Pair<String, UiObject2>? = null
                 while (candidate == null && android.os.SystemClock.elapsedRealtime() < captionDeadline) {
                     val queryStarted = android.os.SystemClock.elapsedRealtime()
+                    var captionFound = false
                     candidate = try {
                         val authors = device.findObjects(By.pkg(application).descStartsWith("View profile for "))
                         authors.firstNotNullOfOrNull { author ->
@@ -139,14 +140,14 @@ class ReviewUpdateUiObserver {
                                     !it.matches(Regex("[0-9]+ (likes?|reposts?)"))
                             }
                             body?.let { it to post }
-                        }
+                        }.also { captionFound = it != null }
                     } catch (_: StaleObjectException) {
                         // A real feed update can replace native nodes mid-read.
                         // Re-query only that observation within the same deadline.
                         continue
                     } finally {
                         captionInputs.put(JSONObject().put("kind", "caption-query").put("started", queryStarted)
-                            .put("returned", android.os.SystemClock.elapsedRealtime()).put("selected", candidate != null))
+                            .put("returned", android.os.SystemClock.elapsedRealtime()).put("selected", captionFound))
                     }
                     if (candidate == null) {
                         // A URL-only first post is valid content. Look farther down
