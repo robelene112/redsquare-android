@@ -19,16 +19,19 @@ The separate **Spaces Prototype** package installs alongside beta139 and uses
 synthetic in-memory content. Functional Spaces and encryption are not implemented
 by this prototype. Ordinary beta139 is unchanged.
 
-Current **prototype 2** delivers the owner's requested left-hand **Channels**
-button in a fixed Space bar. The owner approved the broader design direction;
-feedback on this relocated control remains pending. Signed/tested source
-`1c070633c` on `codex/spaces-native-prototype` passes all 36 native cases across
-Android 10, Android 17 and 320dp / 200% text, including stationary menu geometry
-after scroll and drawer opening. Public APK bytes, package, version and certificate
-are verified. See the
-[prototype 2 packet](https://github.com/robelene112/redsquare-android/blob/codex/spaces-native-prototype/docs/evidence/spaces-prototype2/README.md)
-for exact identities, 93 screenshots, reviews and limits. It updates the previous
-prototype in place; ordinary beta 139 and immutable prototype 1 are preserved.
+Current **prototype 3** compares five navigation alternatives: A Space switcher,
+B Channel title, C Bottom dock, D Floating button and E Space rail. Tap **Design
+A / 5** in the header. The owner says the broader UI looks good, but prototype 2's
+menu entry is still not attractive enough. No navigation winner is approved.
+
+Signed/tested source `4dae92cdf` on `codex/spaces-native-prototype` passes all 39
+native cases across Android 10, Android 17 and 320dp / 200% text. The new journey
+compares all five, preserves the same draft, checks accessible current context,
+fixed menu bounds after scroll and D's separation from message content. See the
+[prototype 3 packet](https://github.com/robelene112/redsquare-android/blob/codex/spaces-native-prototype/docs/evidence/spaces-prototype3/README.md)
+for 138 screenshot hashes, exact source/reviews, original failed observations and
+actual public APK/page/manifest/certificate verification. It updates previous
+prototypes; ordinary beta 139 and immutable prototype 1/2 files are preserved.
 Prototype source stays isolated; only these pointers belong on the normal branch.
 
 Await owner UI feedback. Do not publish implementation tickets or start functional

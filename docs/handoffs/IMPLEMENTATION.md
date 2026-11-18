@@ -18,18 +18,22 @@ then the [native prototype download](https://davidengelen.nl/redsquare/spaces-pr
 Await owner design feedback. The specification remains open; functional Spaces,
 implementation-ticket publication and a replacement beta are not part of this phase.
 
-Current **prototype 2** addresses owner feedback: a left-hand **Channels** button
-in a fixed Space bar, next to the Space name or stacked for large text. The owner
-approved the broader direction and requested another look at this control.
-Prototype branch `codex/spaces-native-prototype` retains all isolated source and
-[delivery evidence](https://github.com/robelene112/redsquare-android/blob/codex/spaces-native-prototype/docs/evidence/spaces-prototype2/README.md).
-Signed/tested source `1c070633c507c8076109344d1f1cf5fc426124e5` passes all 12 native
-journeys on Android 10, Android 17 and compact 320dp / 200% text, with 93 images.
-The revised journey verifies exact fixed button bounds after scroll and opens the
-drawer. Debug/release lint and independent Standards/Spec reviews pass. Full public
-APK bytes, identity, version and signature are verified. It updates prototype 1;
-ordinary beta 139 and immutable prototype 1 files remain unchanged. See the packet
-for exact identities and prototype limits. Owner feedback on this revision is pending.
+Current **prototype 3** delivers the owner's request for five navigation alternatives:
+A Space switcher, B Channel title, C Bottom dock, D Floating button and E Space rail.
+Use **Design A / 5** in the header. The rest of the app remains the shared baseline.
+Prototype 2 was better but still not attractive enough; no winner is approved.
+
+Prototype branch `codex/spaces-native-prototype` retains isolated source and
+[delivery evidence](https://github.com/robelene112/redsquare-android/blob/codex/spaces-native-prototype/docs/evidence/spaces-prototype3/README.md).
+Signed/tested source `4dae92cdfacd24232902ab1024174e69b4be5a0a` passes all 13 native
+methods on Android 10, Android 17 and compact 320dp / 200% text: 39 terminal passes,
+138 screenshot hashes. New coverage compares every alternative, retains the same
+unsent draft, exposes accessible current context/heading and verifies fixed menu
+bounds and D's clearance from messages. Debug/release lint and independent reviews
+pass. Exact public APK bytes, manifest, certificate and page are verified. It
+updates earlier prototypes; ordinary beta 139 and immutable prototype 1/2 remain
+unchanged. Prior failed runs/candidates and observer-only corrections stay retained.
+Only fresh complete final profiles establish acceptance. Await owner choice A-E.
 
 **Spaces Prototype** is a separate synthetic in-memory package, installing alongside
 the ordinary beta139, whose page and metadata remain unchanged. No wallet, network,
