@@ -14,6 +14,60 @@ import java.io.FileInputStream
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
+/** A test-only margin mark proves recording continued past the final UI assertion. */
+internal fun recordNativeCheckpointTransition(
+    activity: androidx.test.core.app.ActivityScenario<MainActivity>, movie: File, action: () -> Unit,
+): JsonObject {
+    val marker = android.graphics.drawable.ColorDrawable(android.graphics.Color.MAGENTA)
+    var host: android.view.View? = null
+    var bounds: android.graphics.Rect? = null
+    var primary: Throwable? = null
+    try {
+        val recording = recordNativeTransition(movie, recordingSeconds = 5) {
+            action()
+            activity.onActivity { screen ->
+                val view = screen.window.decorView
+                // The feed's outer margin is empty; never cover post text or controls.
+                marker.setBounds(2, view.height / 2, 14, view.height / 2 + 12)
+                val location = IntArray(2).also(view::getLocationOnScreen)
+                bounds = android.graphics.Rect(marker.bounds).apply { offset(location[0], location[1]) }
+                host = view
+                view.overlay.add(marker)
+                view.invalidate()
+            }
+        }
+        val frames = retainNativeMotionFrames(movie)
+        val region = requireNotNull(bounds)
+        var marked = 0
+        val originals = frames.getAsJsonArray("decodedOriginalFrames")
+        for ((index, entry) in originals.withIndex()) {
+            val bitmap = requireNotNull(android.graphics.BitmapFactory.decodeFile(
+                File(movie.parentFile, entry.asJsonObject.get("file").asString).path))
+            val pixels = try {
+                var count = 0
+                for (y in region.top until region.bottom) for (x in region.left until region.right) {
+                    val color = bitmap.getPixel(x, y)
+                    if (android.graphics.Color.red(color) > 170 && android.graphics.Color.blue(color) > 170 &&
+                        android.graphics.Color.green(color) < 90) count++
+                }
+                count
+            } finally { bitmap.recycle() }
+            entry.asJsonObject.addProperty("finalCheckpointPixels", pixels)
+            if (index == 0) check(pixels < 16) { "Recording must include the pre-action state" }
+            if (pixels >= 16) marked++
+        }
+        check(marked > 0) { "Recording ended before the final UI observation was drawn" }
+        frames.add("recording", recording)
+        frames.addProperty("checkpointBounds", region.toShortString())
+        frames.addProperty("checkpointFrames", marked)
+        frames.addProperty("qualification", "Synthetic margin mark establishes capture coverage only; user-visible assertions precede it")
+        return frames
+    } catch (failure: Throwable) { primary = failure; throw failure }
+    finally {
+        cleanupAfterTest(primary, { activity.onActivity { host?.overlay?.remove(marker); host?.invalidate() } })
+    }
+}
+
 internal fun recordNativeTransition(file: File, recordingSeconds: Int = 3, dismiss: () -> Unit): JsonObject {
     require(recordingSeconds in 1..5)
     val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
