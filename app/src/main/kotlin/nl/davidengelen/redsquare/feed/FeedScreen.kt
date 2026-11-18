@@ -94,6 +94,14 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     val followingOwner = if (followingView) wallet?.publicKey else null
     val cache = remember(backend, followingOwner) { AndroidFeedCache(context, backend, followingOwner = followingOwner) }
     val archivePolicy = remember(wallet?.publicKey, endpoint) { ArchiveReadPolicy() }
+    val tracePhotoStartup = nl.davidengelen.redsquare.BuildConfig.DEBUG && endpoint.startsWith("ws://127.0.0.1:")
+    fun tracePhoto(event: String) {
+        if (tracePhotoStartup) android.util.Log.i("DEBUG132Photo", "$event policy=${System.identityHashCode(archivePolicy)} wallet=${System.identityHashCode(wallet)}")
+    }
+    DisposableEffect(archivePolicy) {
+        tracePhoto("mounted")
+        onDispose { tracePhoto("disposed") }
+    }
     val archiveContinuations = remember(wallet?.publicKey, endpoint, followingView) {
         mutableMapOf<String, Pair<com.google.gson.JsonObject, ArchiveReadCursor>>()
     }
@@ -313,12 +321,14 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     }
     LaunchedEffect(wallet, cacheReady, refresh, internet, followingView,
         following?.accounts.takeIf { followingView }, following?.ready.takeIf { followingView }) {
+        tracePhoto("effect ready=$cacheReady refresh=$refresh internet=$internet following=$followingView")
         if (!internet.available) { hadOutage = true; recovered = false }
         if (wallet == null || !cacheReady) return@LaunchedEffect
         if (followingView && following?.ready != true) { loading = false; pullRefreshing = false; manualPullPending = false; pulledTopPost = null; return@LaunchedEffect }
         if (followingView && following?.accounts?.isEmpty() == true) { loading = false; pullRefreshing = false; manualPullPending = false; pulledTopPost = null; return@LaunchedEffect }
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (currentCoroutineContext().isActive) {
+                tracePhoto("read-turn")
                 if (!internet.available) {
                     loading = false
                     pullRefreshing = false
@@ -455,8 +465,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     // The request's own deadline must not cancel the foreground polling loop.
                     currentCoroutineContext().ensureActive()
                     manualPullPending = false; pulledTopPost = null; failed = true; followingPartial = false; hadOutage = true; recovered = false
-                } catch (cancelled: CancellationException) { throw cancelled }
-                catch (_: Exception) { manualPullPending = false; pulledTopPost = null; failed = true; followingPartial = false; hadOutage = true; recovered = false }
+                } catch (cancelled: CancellationException) { tracePhoto("cancelled ${cancelled.javaClass.simpleName}"); throw cancelled }
+                catch (failure: Exception) { tracePhoto("failure ${failure.javaClass.simpleName}"); manualPullPending = false; pulledTopPost = null; failed = true; followingPartial = false; hadOutage = true; recovered = false }
                 finally { if (currentCoroutineContext().isActive) { loading = false; pullRefreshing = false } }
                 delay(if (failed) 5_000 else 30_000)
             }
