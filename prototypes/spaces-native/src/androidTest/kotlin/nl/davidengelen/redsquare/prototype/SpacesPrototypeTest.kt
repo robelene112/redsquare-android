@@ -197,6 +197,7 @@ class SpacesPrototypeTest {
         ui.onNodeWithContentDescription("Switch Space or channel").performClick()
         drawerText("announcements").performScrollTo().performClick()
         click("Community call this Friday")
+        ui.onNodeWithTag("prototype-content").performScrollToNode(hasText("Community call this Friday. Join us in the lounge at 19:00."))
         ui.onNodeWithText("Community call this Friday. Join us in the lounge at 19:00.").assertExists()
         ui.onNodeWithContentDescription("Send preview message").assertIsNotEnabled()
         ui.onNode(hasSetTextAction()).performTextInput("A member can reply here")
