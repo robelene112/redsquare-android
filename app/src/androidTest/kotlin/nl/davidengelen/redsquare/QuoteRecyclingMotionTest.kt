@@ -145,7 +145,7 @@ class QuoteRecyclingMotionTest {
                     // Leave the quote by multiple visible rows, then record its
                     // complete return within the existing three-second window.
                     // The semantic journey separately traverses all twenty rows.
-                    moveTo("Reference post 17", forward = true, budgetMillis = 10_000)
+                    moveTo("Reference post 18", forward = true, budgetMillis = 10_000)
                     assertFalse("The native viewport must leave the quoted post", device.hasObject(By.text(commentary)))
                     val entered = CountDownLatch(1)
                     val release = CountDownLatch(1)
