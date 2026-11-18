@@ -134,3 +134,28 @@ seeded exact records, isolated packages and restoration, actual candidate and
 observer bytes/certificates. The legacy Fileshare seed remains a fixture
 qualification. This is not full-native, physical/OEM/provider/Play or public
 promotion acceptance. Ordinary latest remains139.
+
+## Governing replacement141 qualification
+
+The additional native failure and clean cancellation reproduction required a
+production correction, so immutable candidate140 is superseded and unpromoted.
+Use the [replacement141 packet](candidate141/README.md) for the current signed
+product, complete catalog and required fresh10/17, signed-update and delivery
+qualification. The original132 inputs and historical prospective profiles above
+remain unchanged. Their failed/cancelled parents supply no acceptance.
+
+Full17 `44298865954` at0598 failed the original unheld large-photo callback
+count:6 oversized replies despite all8 posts becoming reachable. Its siblings
+were cancelled. Full10 `44298849324` was subsequently cancelled after Wallet
+passed because the new production source requires fresh whole SDKs. Neither
+parent's successful siblings or prefixes count. The proposed held-photo input
+change was rejected by Spec review, failed its own native run44303424423 and
+was completely reverted. No original unheld-photo allowance is relaxed.
+
+An independently corrected broker and real socket regression cleanly establish
+a cancelled owner's late oversized callback interrupting the next read with
+both replies actually queued. Sourceb929 bounds retired request identities and
+discards their one unusable late response while retaining active/unknown bounds.
+All18 shared-connection core cases pass, with zero remaining source findings on
+both axes. The original six-callback cause remains unproved. Focused current
+native observations and exact qualifications are in the replacement packet.
