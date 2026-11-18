@@ -84,7 +84,9 @@ class QuoteRecyclingMotionTest {
                             else -> 0
                         } else 0
                         val startY = if (correction != 0) bounds.centerY() else if (forward) low else high
-                        val endY = if (correction != 0) (startY + correction).coerceIn(high, low)
+                        val touchSlop = android.view.ViewConfiguration.get(context).scaledTouchSlop
+                        val fittedDrag = correction + if (correction > 0) touchSlop + 1 else -touchSlop - 1
+                        val endY = if (correction != 0) (startY + fittedDrag).coerceIn(high, low)
                             else if (forward) high else low
                         val started = android.os.SystemClock.elapsedRealtime()
                         dragToRest(bounds.exactCenterX(), startY.toFloat(), endY.toFloat())
