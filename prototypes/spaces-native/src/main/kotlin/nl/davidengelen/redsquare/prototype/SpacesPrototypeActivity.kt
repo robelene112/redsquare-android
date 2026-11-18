@@ -181,7 +181,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
     }
     val spaceNavigation = page !in listOf(Page.HOME,Page.DISCOVER,Page.ACTIVITY,Page.PREVIEW,Page.CREATE,Page.BACKUP)
     val channelRoot = page in listOf(Page.CHAT,Page.ANNOUNCEMENTS,Page.ARTICLES,Page.FILES,Page.ROOM)
-    val openChannels = { coroutine.launch { drawer.open() }; Unit }
+    val openChannels = { keyboard?.hide(); focus.clearFocus(); coroutine.launch { drawer.open() }; Unit }
     val openDesignPicker = { keyboard?.hide(); focus.clearFocus(); designPicker=true }
     val designControl: @Composable () -> Unit = {
         TextButton(onClick=openDesignPicker,modifier=Modifier.testTag("design-picker"),contentPadding=PaddingValues(horizontal=8.dp)) {
@@ -261,7 +261,7 @@ private fun channelIcon(page: Page) = when(page) { Page.ROOM,Page.CALL -> R.draw
                 if(!imeVisible) SpacesBottomBar(page) {go(it)}
             }
         },floatingActionButton={
-            if(spaceNavigation && navigationDesign==NavigationDesign.FLOATING_BUTTON) FloatingButtonDesign(openChannels)
+            if(spaceNavigation && navigationDesign==NavigationDesign.FLOATING_BUTTON) FloatingButtonDesign(space,openChannels)
         },floatingActionButtonPosition=FabPosition.Start) { padding ->
             val position=positions.getOrPut("$scoped:$page") { LazyListState() }
             LaunchedEffect(sendSequence) {if(sendSequence>0 && lastSendScope==draftKey) {withFrameNanos{};position.animateScrollToItem((position.layoutInfo.totalItemsCount-1).coerceAtLeast(0))}}

@@ -16,6 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
@@ -32,9 +34,10 @@ internal enum class NavigationDesign(val letter: String, val title: String, val 
     val choice get() = "$letter · $title"
 }
 
-private fun menuModifier() = Modifier.testTag("channels-menu").semantics {
+private fun menuModifier(context: String) = Modifier.testTag("channels-menu").semantics {
     contentDescription = "Switch Space or channel"
     role = Role.Button
+    stateDescription = context
 }
 
 @Composable
@@ -60,7 +63,7 @@ internal fun NavigationDesignPicker(selected: NavigationDesign, onChoose: (Navig
 
 @Composable
 internal fun SpaceSwitcherDesign(space: String, onOpen: () -> Unit) {
-    FilledTonalButton(onClick = onOpen, modifier = menuModifier().fillMaxWidth().heightIn(min = 52.dp),
+    FilledTonalButton(onClick = onOpen, modifier = menuModifier(space).fillMaxWidth().heightIn(min = 52.dp),
         shape = RoundedCornerShape(18.dp), contentPadding = PaddingValues(12.dp)) {
         Avatar(space.split(" ").take(2).map { it.firstOrNull() ?: 'S' }.joinToString(""), Color(0xffa35b43), 32)
         Spacer(Modifier.width(12.dp))
@@ -73,7 +76,7 @@ internal fun SpaceSwitcherDesign(space: String, onOpen: () -> Unit) {
 
 @Composable
 internal fun ChannelTitleDesign(space: String, channel: String, onOpen: () -> Unit) {
-    Surface(onClick = onOpen, modifier = menuModifier().fillMaxWidth(),
+    Surface(onClick = onOpen, modifier = menuModifier("$space · $channel").fillMaxWidth().semantics { heading() },
         shape = RoundedCornerShape(14.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
         Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(12.dp),
             verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -90,7 +93,7 @@ internal fun ChannelTitleDesign(space: String, channel: String, onOpen: () -> Un
 @Composable
 internal fun BottomDockDesign(space: String, onOpen: () -> Unit) {
     FilledTonalButton(onClick = onOpen,
-        modifier = menuModifier().fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp).heightIn(min = 52.dp),
+        modifier = menuModifier(space).fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp).heightIn(min = 52.dp),
         shape = RoundedCornerShape(16.dp), contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)) {
         Glyph(R.drawable.ic_spaces_channels)
         Spacer(Modifier.width(12.dp))
@@ -103,8 +106,8 @@ internal fun BottomDockDesign(space: String, onOpen: () -> Unit) {
 }
 
 @Composable
-internal fun FloatingButtonDesign(onOpen: () -> Unit) {
-    ExtendedFloatingActionButton(onClick = onOpen, modifier = menuModifier(),
+internal fun FloatingButtonDesign(space: String, onOpen: () -> Unit) {
+    ExtendedFloatingActionButton(onClick = onOpen, modifier = menuModifier(space),
         icon = { Glyph(R.drawable.ic_spaces_channels) }, text = { Text("Channels") },
         containerColor = MaterialTheme.colorScheme.primaryContainer,
         contentColor = MaterialTheme.colorScheme.onPrimaryContainer)
@@ -115,7 +118,7 @@ internal fun SpaceRailDesign(names: List<String>, selected: String, onOpen: () -
     Surface(color = MaterialTheme.colorScheme.surfaceContainerLow) {
         Column(Modifier.width(64.dp).fillMaxHeight().verticalScroll(rememberScrollState()).padding(vertical = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            IconButton(onClick = onOpen, modifier = menuModifier().size(48.dp)) { Glyph(R.drawable.ic_spaces_channels) }
+            IconButton(onClick = onOpen, modifier = menuModifier(selected).size(48.dp)) { Glyph(R.drawable.ic_spaces_channels) }
             HorizontalDivider(Modifier.width(32.dp))
             names.forEach { name ->
                 Surface(onClick = { onSpace(name) }, shape = CircleShape,

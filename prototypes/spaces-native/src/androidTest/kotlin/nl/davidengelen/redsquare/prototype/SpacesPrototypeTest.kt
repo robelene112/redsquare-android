@@ -220,6 +220,11 @@ class SpacesPrototypeTest {
                     ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) != true
             }
             ui.onNode(hasSetTextAction()).assertTextContains("A draft across all five designs")
+            ui.onNodeWithTag("channels-menu").assert(SemanticsMatcher.expectValue(
+                androidx.compose.ui.semantics.SemanticsProperties.StateDescription,
+                if(index==1) "Independent Voices · general" else "Independent Voices"))
+            if(index==1) ui.onNodeWithTag("channels-menu").assert(SemanticsMatcher.keyIsDefined(
+                androidx.compose.ui.semantics.SemanticsProperties.Heading))
             shot("design-${index+1}-overview")
             val before=ui.onNodeWithTag("channels-menu").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
             ui.onNodeWithTag("prototype-content").performScrollToNode(hasText("Could we do a community call this evening? The lounge is ready."))
