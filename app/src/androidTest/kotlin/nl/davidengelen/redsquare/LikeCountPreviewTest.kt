@@ -25,6 +25,31 @@ class LikeCountPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
 
+    @Test fun genuineZeroFeedTotalPaintsEveryTapAndSurvivesConversationNavigation() {
+        withLikeCounts(reply = false, initialCount = 0L) { node ->
+            ui.waitUntil(20_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
+            ui.onNode(hasVerticalScrollAction()).performScrollToNode(node.action)
+            assertPaintedCount(node, 0, "before", 2_000)
+            holdAuthentication(node) {
+                for (count in 1..3) {
+                    ui.onNode(node.action).performClick()
+                    assertPaintedCount(node, count.toLong(), "held-$count", 2_000)
+                }
+                node.total.set(3L)
+            }
+            assertReceivedLikes(node, 3)
+            assertPaintedCount(node, 3, "received", 20_000)
+            ui.clickVisiblePostBody("Native Red Square reference post")
+            ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
+            ui.onNode(hasVerticalScrollAction()).performScrollToNode(node.action)
+            assertPaintedCount(node, 3, "conversation", 2_000)
+            ui.onNodeWithText("Back").performClick()
+            ui.onNode(hasVerticalScrollAction()).performScrollToNode(node.action)
+            assertPaintedCount(node, 3, "returned-feed", 2_000)
+            assertReceivedLikes(node, 3)
+        }
+    }
+
     @Test fun missingFeedTotalAdvancesBeforeAuthenticationAndSurvivesLateAndStaleTotals() {
         withLikeCounts(reply = false, initialCount = null) { node ->
             ui.waitUntil(20_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
@@ -52,6 +77,41 @@ class LikeCountPreviewTest {
                 ui.onNode(hasText("9 reposts") and hasAnyAncestor(node.card), useUnmergedTree = true).isDisplayed()
             }
             assertPaintedCount(node, 7, "stale-total", 2_000)
+            ui.onNode(node.action).performClick()
+            assertPaintedCount(node, 8, "next-tap", 2_000)
+            assertReceivedLikes(node, 4)
+        }
+    }
+
+    @Test fun missingReplyTotalKeepsLocalTapsThroughHydrationRefreshAndReopening() {
+        withLikeCounts(reply = true, initialCount = null) { node ->
+            ui.clickVisiblePostBody("Native Red Square reference post")
+            ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
+            ui.waitForRefreshableContent(15_000)
+            ui.onNode(hasVerticalScrollAction()).performScrollToNode(node.action)
+            ui.onNode(node.action).assertIsDisplayed().assertIsEnabled()
+            holdAuthentication(node) {
+                for (count in 1..3) {
+                    ui.onNode(node.action).performClick()
+                    assertPaintedCount(node, count.toLong(), "held-$count", 2_000)
+                }
+                node.total.set(7L)
+            }
+            assertReceivedLikes(node, 3)
+            assertPaintedCount(node, 7, "hydrated", 20_000)
+            node.total.set(4L); node.reposts.set(9L)
+            ui.waitForRefreshableContent(15_000)
+            ui.refreshKeepingReadingPosition()
+            ui.waitUntil(20_000) {
+                ui.onNode(hasText("9 reposts") and hasAnyAncestor(node.card), useUnmergedTree = true).isDisplayed()
+            }
+            assertPaintedCount(node, 7, "stale-total", 2_000)
+            ui.onNodeWithText("Back").performClick()
+            ui.clickVisiblePostBody("Native Red Square reference post")
+            ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
+            ui.waitForRefreshableContent(15_000)
+            ui.onNode(hasVerticalScrollAction()).performScrollToNode(node.action)
+            assertPaintedCount(node, 7, "reopened", 2_000)
             ui.onNode(node.action).performClick()
             assertPaintedCount(node, 8, "next-tap", 2_000)
             assertReceivedLikes(node, 4)
