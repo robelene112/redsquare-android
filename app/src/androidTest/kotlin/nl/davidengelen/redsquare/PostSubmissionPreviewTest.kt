@@ -268,6 +268,57 @@ class PostSubmissionPreviewTest {
         }, { retained.restoreFiles() }, { retained.restorePreferences() }, { backends.save(originalBackend) }) }
     }
 
+    @Test fun failedSeparationRetainsTheOriginalAndStaleSavingCannotReplaceTheIndependentDraft() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val wallets = AndroidWalletStore(context)
+        val wallet = wallets.loadOrCreate()
+        val retained = ChatFixtureState(context, listOf("postdraft."), wallet.publicKey)
+        val store = nl.davidengelen.redsquare.feed.PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER)
+        val image = InstrumentationRegistry.getInstrumentation().context.assets.open("native-images-reference.json")
+            .reader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("images").get("red").asString }
+        val candidate = nl.davidengelen.redsquare.saito.SaitoTransaction.create(wallet,
+            nl.davidengelen.redsquare.saito.RedSquarePosts.message("Retain the original media", listOf(image)), 1_700_000_000_000L)
+        val original = nl.davidengelen.redsquare.feed.PostDraftStore.Saved("Retain the original media", candidate, images = listOf(image))
+        val obstacle = File(context.noBackupFilesDir, "postdraft.owner.${wallet.publicKey}.recovery.${candidate.id}.v1")
+        var primary: Throwable? = null
+        try {
+            retained.prepare()
+            store.save(original)
+            check(obstacle.mkdir())
+            File(obstacle, "owned-test-obstacle").writeText("Prevent separation replacement")
+            var failed = false
+            try { store.retainAttempt(candidate.id) } catch (_: Exception) { failed = true }
+            org.junit.Assert.assertTrue("An unreadable separate record must not release the only original", failed)
+            assertEquals(candidate.encoded(), store.load().transaction?.encoded())
+            assertEquals(listOf(image), store.load().images)
+            check(File(obstacle, "owned-test-obstacle").delete() && obstacle.delete())
+            val separate = store.retainAttempt(candidate.id)
+            assertEquals(candidate.encoded(), separate.load().transaction?.encoded())
+            org.junit.Assert.assertFalse(store.hasSubmission(candidate.id))
+            assertEquals("", store.load().text)
+            store.saveComposer(nl.davidengelen.redsquare.feed.PostDraftStore.Saved("Independent unsent draft"))
+            store.saveComposer(original)
+            val reopened = nl.davidengelen.redsquare.feed.PostDraftStore.recovered(context, wallet.publicKey, SaitoBackend.OWNER, candidate.id)
+            assertEquals(candidate.encoded(), reopened.load().transaction?.encoded())
+            assertEquals(listOf(image), reopened.load().images)
+            org.junit.Assert.assertTrue(reopened.confirmAvailable(candidate.id))
+            assertEquals("Independent unsent draft", store.load().text)
+            assertEquals(emptyList<String>(), store.load().images)
+            assertEquals(null, store.load().transaction)
+            assertEquals(null, nl.davidengelen.redsquare.feed.PostDraftStore.recovered(context,
+                wallet.publicKey, SaitoBackend.OFFICIAL, candidate.id).load().transaction)
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally { cleanupAfterTest(primary, {
+            if (obstacle.isDirectory) {
+                check(File(obstacle, "owned-test-obstacle").delete())
+                check(obstacle.delete())
+            }
+        }, { retained.restoreFiles() }, { retained.restorePreferences() }, {
+            check(wallets.loadExisting().exportJson() == wallet.exportJson())
+        }) }
+    }
+
     @Test fun failedReceiptKeepsTheOriginalAndStaleSavingCannotReplaceTheNextDraft() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
