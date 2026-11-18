@@ -112,7 +112,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         val response = CompletableDeferred<ByteArray>()
         val request = Connection.PendingRequest(this@SaitoPeer, response, awaitRegistryCallback, archiveRead)
         val tracePhoto = BuildConfig.DEBUG && archiveRead && endpoint.startsWith("ws://127.0.0.1:")
-        if (tracePhoto) Log.i("DEBUG132Photo", "rpc-start index=$index lease=$leaseId connection=${System.identityHashCode(connection)}")
+        if (tracePhoto) Log.w("DEBUG132Photo", "rpc-start index=$index lease=$leaseId connection=${System.identityHashCode(connection)}")
         try {
             val job = currentCoroutineContext().job
             // Authority mutations precede pool operations everywhere. Never call a feature
@@ -133,7 +133,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
             currentCoroutineContext().ensureActive()
             throw (request.oversized ?: failure)
         } finally {
-            if (tracePhoto) Log.i("DEBUG132Photo", "rpc-end index=$index lease=$leaseId oversized=${request.oversized != null} active=${currentCoroutineContext().job.isActive}")
+            if (tracePhoto) Log.w("DEBUG132Photo", "rpc-end index=$index lease=$leaseId oversized=${request.oversized != null} active=${currentCoroutineContext().job.isActive}")
             connection.pending.remove(index, request)
         }
     }
