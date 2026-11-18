@@ -426,8 +426,16 @@ class PostPreviewTest {
                 waitFor("Send requested. Availability on this node is not confirmed.")
                 ui.onNodeWithText("Retry the original signed post").assertEditableTextEquals("Retry the original signed post").assertIsNotEnabled()
                 org.junit.Assert.assertEquals(1, received.size)
-                ui.onNodeWithText("Send saved post").performClick()
-                waitFor("Post submitted")
+                val sendOriginal = ui.onNodeWithText("Send saved post")
+                java.io.File(context.cacheDir, "posting-evidence/legacy-retry-input.json").apply { parentFile!!.mkdirs() }.writeText(com.google.gson.JsonObject().apply {
+                    addProperty("displayedBeforeInput", sendOriginal.isDisplayed())
+                    addProperty("unclippedBoundsBeforeInput", sendOriginal.getUnclippedBoundsInRoot().toString())
+                    addProperty("receivedBeforeInput", received.size)
+                }.toString())
+                withFailureCapture({ captureFeedEvidence("posting-evidence/legacy-retry-visibility-failure.png") }) {
+                    sendOriginal.assertIsDisplayed().performClick()
+                    waitFor("Post submitted")
+                }
                 org.junit.Assert.assertEquals(2, received.size)
                 peer.assertHealthy()
                 captureFeedEvidence("posting-evidence/retried-original-pending-post.png")
