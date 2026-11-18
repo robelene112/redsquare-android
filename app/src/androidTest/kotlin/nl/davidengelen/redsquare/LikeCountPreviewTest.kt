@@ -135,7 +135,7 @@ class LikeCountPreviewTest {
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally { cleanupAfterTest(primary, { retained.restoreFiles() }, { retained.restorePreferences() },
             { backends.save(previous); check(backends.load() == previous) },
-            { assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson()) }) }
+            { assertTrue("Wallet state is preserved", wallet.exportJson() == wallets.loadExisting().exportJson()) }) }
     }
 }
 
