@@ -7,7 +7,7 @@ import java.util.Base64
 import java.util.Collections
 
 enum class SpaceRole { OWNER, ADMIN, MEMBER }
-data class SpaceInvitationRecord(val key: String, val expiresAt: Long)
+data class SpaceInvitationRecord(val key: String, val expiresAt: Long, val channelId: String, val rulesToken: String = "")
 data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>, val generation: String = "0".repeat(64), val epochStartedAt: Long = 0,
     val visibility: SpaceVisibility = SpaceVisibility.PRIVATE)
 data class SpaceJoinRequest(val envelope: String, val id: String, val actor: String,
@@ -75,8 +75,19 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
                 val key = event.body.text("invite_key").also { require(SaitoWallet.isPublicKey(it)) }
                 val expiry = event.body.number("expires_at").also { require(it > signedReceipt.createdAt) }
+                val format = event.body.get("preview_format")?.let { event.body.text("preview_format") }
+                require(format == null || format == "profile-v1")
+                val channelId = if (format == null) current.channels.keys.first() else event.body.text("channel_id")
+                val channel = requireNotNull(current.channels[channelId])
+                val token = if (channel.visibility == SpaceVisibility.PUBLIC) {
+                    val value = event.body.get("rules_token")?.let { event.body.text("rules_token") } ?: ""
+                    require(value == requireNotNull(current.publicProfile).publicRulesToken)
+                    value
+                } else if (format == "profile-v1") event.id else ""
+                // Private consent binds the signed invitation containing its
+                // encrypted preview, never a guessable digest of private text.
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
-                    invitations = Collections.unmodifiableMap(current.invitations + (event.id to SpaceInvitationRecord(key, expiry))))
+                    invitations = Collections.unmodifiableMap(current.invitations + (event.id to SpaceInvitationRecord(key, expiry, channelId, token))))
             }
             "set-listed" -> {
                 require(current.owner == event.author && event.body.text("control_id") == current.controlId)
@@ -87,9 +98,13 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     publicProfile = profile.copy(listed = listed))
             }
             "join-public" -> {
-                require(current.visibility == SpaceVisibility.PUBLIC && current.publicProfile != null)
+                require(current.visibility == SpaceVisibility.PUBLIC)
+                val profile = requireNotNull(current.publicProfile)
                 require(event.body.text("control_id") == current.controlId && event.author !in current.members)
                 require(current.channels[event.body.text("channel_id")]?.visibility == SpaceVisibility.PUBLIC)
+                require((event.body.get("rules_token")?.let { event.body.text("rules_token") } ?: "") == profile.publicRulesToken) {
+                    "Spaces house rules have not been accepted"
+                }
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     members = Collections.unmodifiableMap(current.members + (event.author to SpaceRole.MEMBER)))
             }
@@ -136,7 +151,11 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         require(operation.matches(ID) && operation !in operations)
         val invitationId = join.body.text("invite_id")
         val invitation = requireNotNull(current.invitations[invitationId])
+        require(channel == invitation.channelId)
         require(join.body.text("control_id") == invitationId && acceptedAt >= 0 && invitation.expiresAt > acceptedAt)
+        require((join.body.get("rules_token")?.let { join.body.text("rules_token") } ?: "") == invitation.rulesToken) {
+            "Spaces house rules have not been accepted"
+        }
         val data = join.body.getAsJsonObject("key_package")
         val scope = SpaceCrypto.Scope(serviceKey, spaceId, channel, requireNotNull(current.channels[channel]).generation)
         val keyPackage = SpaceCrypto.BoundPackage(scope, data.text("wallet"), data.text("device"),

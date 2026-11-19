@@ -9,15 +9,18 @@ owner-signed listing changes and a bounded200-profile discovery cache. Actual
 RED/GREEN coverage protects signed opt-out intent and cache limits;201-profile
 paging/reload retains private work. Schema3-layout backfill and schema4 re-entry
 preserve actual signed originals/receipts. The full JVM check passes244 core and
-33 service cases after the public-read/join increment, with both incremental
+37 service cases after the profile/rules increment, with both incremental
 source review axes reporting no remaining
 findings. See [the138 packet](evidence/ticket138/README.md).
 
 This is source-stage work, not native138 or complete public-community delivery.
 Public visitor reading and direct signed Join now pass with exact-original
 recovery, independent received replies and private-channel legacy checks.
-Continue profile images and starter channels, invitations/
-rules/revoke, actual members/unread/navigation and native/prototype verification.
+Invitation previews now include description, house rules and accepted expiry.
+Reviewed consent is bound to the actual invitation/public policy; private text
+never gets a clear fingerprint. Both review findings have actual RED/GREEN fixes.
+Continue profile images and starter channels, revocation, actual members/unread/
+navigation and native/prototype verification.
 The source adapter now requires schema4 and advertises spaces-directory-v1 in
 addition to spaces-v1. Repeat both pinned framework rehearsals before138 closure.
 No node/provider/public transaction or financial activation occurs; beta142 stays

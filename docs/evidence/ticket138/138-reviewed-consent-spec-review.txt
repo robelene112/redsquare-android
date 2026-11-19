@@ -1,0 +1,13 @@
+Reviewed-consent follow-up Spec review: zero remaining findings in the corrected profile/rules increment againste9d82907d.
+
+The private fingerprint defect is closed. New private invitations publish no rules digest; their consent token is the already public, unique signed invitation ID. That same owner/admin-signed event binds the randomized encrypted profile, channel and expiry. Private house-rule text remains in protected profile/preview data. publicRulesToken explicitly rejects private profiles, preventing accidental reuse of the public plaintext-derived token path.
+
+Boolean acceptance is replaced by the exact reviewed token. Private rule-bearing joining requires its own invitation token before preparing membership; the receiving journal requires that same token and channel. A token from another invitation cannot silently acknowledge this one. Empty-rule joins can carry the actual token automatically. Legacy no-format/name-only invitations retain empty-token compatibility; unknown explicit preview formats are rejected.
+
+Public invitation tokens must match canonical public rules at the receiving journal. Decrypted preview rules must match that accepted token, and direct/invited public Join submits the reviewed canonical token rather than silently accepting a different current profile. This closes the authentic displayed-B/canonical-A counterexample. Immediate public admission still needs no owner-online MLS step and grants only member authority.
+
+The test-only additions reject an earlier public rules token and another private invitation token. A legitimate independent private sender also omits its acknowledgment from an otherwise signed Join: the real service rejects it and local membership/Send stay inactive. These are meaningful boundary checks; their execution awaits the full244core/37service run.
+
+Both actual failing observations remain retained, with the fixture compiler failure separate. The preceding targeted log reports BUILD SUCCESSFUL in2m24s; its11-case XML has zero failures/errors/skips. That run predates these extra assertions. The adverse before-fix review remains unchanged.
+
+No new crypto primitive or plaintext fallback is introduced. Full affected execution, native reviewed-token/checkbox/reset/expiry behavior and whole138 acceptance remain pending.

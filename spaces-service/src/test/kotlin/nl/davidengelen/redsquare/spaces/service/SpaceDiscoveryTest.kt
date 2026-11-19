@@ -120,6 +120,206 @@ class SpaceDiscoveryTest {
         }
     }
 
+    @Test fun aPrivateInvitationShowsItsRealProfileAndRequiresDeliberateAcceptanceOfItsHouseRules() = runBlocking {
+        SpacesServiceStore(files.newFolder("private-rules-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("private-rules-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("private-rules-visitor.sqlite").absolutePath).use { visitorStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    val reader = SpaceClient(visitor, "fixture-node", service.publicKey, visitorStore, clock) { remote.exchange(it.envelope()) }
+                    val profile = SpaceProfile("A considerate community", "Private description visible to the bearer", houseRules = "Be kind. Do not share private discussions.")
+                    val space = creator.create(profile)
+                    creator.flush(space)
+                    val link = creator.invite(space)
+                    creator.flush(space)
+                    val preview = reader.preview(link)
+                    assertEquals(profile, preview.profile)
+                    assertEquals(clock.millis() + 604_800_000, preview.expiresAt)
+                    assertTrue(reader.communities().isEmpty())
+                    try { reader.join(link); fail("House rules require deliberate acceptance before preparing membership") }
+                    catch (_: IllegalArgumentException) { }
+                    assertTrue(reader.communities().isEmpty())
+                    assertEquals(space, reader.join(link, acceptedRulesToken = preview.rulesToken))
+                    reader.flush(space)
+                    creator.admitPending(space)
+                    creator.flush(space)
+                    reader.refresh(space)
+                    assertTrue(reader.community(space).joined)
+                    reader.send(space, "I accepted the rules and can contribute")
+                    reader.flush(space)
+                    creator.refresh(space)
+                    assertEquals(listOf("I accepted the rules and can contribute"), creator.messages(space))
+                    SqliteClientFixture(files.newFile("private-rules-omitted-token.sqlite").absolutePath).use { otherStore ->
+                        val otherWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+                        val omitting = SpaceClient(otherWallet, "fixture-node", service.publicKey, otherStore, clock) { request ->
+                            val original = SaitoEnvelope.decode(request.envelope())
+                            if (original.body.get("kind")?.asString == "join") {
+                                val body = original.body.deepCopy().apply { remove("rules_token") }
+                                val omitted = SaitoTransaction.create(otherWallet, body, clock.millis(), listOf(service.publicKey))
+                                assertEquals("rejection", SaitoEnvelope.decode(remote.exchange(omitted.envelope())).body.get("stream").asString)
+                                throw java.io.IOException("Controlled sender omitted its required acknowledgment")
+                            }
+                            remote.exchange(request.envelope())
+                        }
+                        val review = omitting.preview(link)
+                        omitting.join(link, acceptedRulesToken = review.rulesToken)
+                        try { omitting.flush(space); fail("The controlled sender must stop after the receiver rejects its omission") }
+                        catch (_: java.io.IOException) { }
+                        assertFalse(omitting.community(space).joined)
+                        assertFalse(omitting.community(space).canSend)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test fun publicHouseRulesAreRequiredByTheReceiverAndApplyToDirectAndInvitedJoining() = runBlocking {
+        SpacesServiceStore(files.newFolder("public-rules-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("public-rules-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("public-rules-visitor.sqlite").absolutePath).use { visitorStore ->
+                    SqliteClientFixture(files.newFile("public-rules-invited.sqlite").absolutePath).use { invitedStore ->
+                        var head = ""
+                        val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+                            remote.exchange(request.envelope()).also { if (SaitoEnvelope.decode(request.envelope()).body.get("kind")?.asString == "create") head = request.id }
+                        }
+                        val reader = SpaceClient(visitor, "fixture-node", service.publicKey, visitorStore, clock) { remote.exchange(it.envelope()) }
+                        val invitedWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+                        val invited = SpaceClient(invitedWallet, "fixture-node", service.publicKey, invitedStore, clock) { remote.exchange(it.envelope()) }
+                        val profile = SpaceProfile("Public rules", "An open conversation with shared expectations", SpaceVisibility.PUBLIC, houseRules = "Keep conversations constructive.")
+                        val space = creator.create(profile)
+                        creator.flush(space)
+                        assertEquals(profile, reader.discover().items.single().profile)
+                        val opened = reader.openPublic(space)
+                        try { reader.joinPublic(space); fail("Reading does not accept house rules") }
+                        catch (_: IllegalArgumentException) { }
+                        assertTrue(reader.communities().isEmpty())
+                        val missingAcceptance = SaitoTransaction.create(visitor, JsonObject().apply {
+                            addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                            addProperty("space_id", space); addProperty("channel_id", opened.channel)
+                            addProperty("kind", "join-public"); addProperty("operation_id", "f".repeat(64)); addProperty("control_id", head)
+                        }, clock.millis(), listOf(service.publicKey))
+                        assertEquals("rejection", SaitoEnvelope.decode(remote.exchange(missingAcceptance.envelope())).body.get("stream").asString)
+                        try { reader.joinPublic(space, acceptedRulesToken = profile.copy(houseRules = "Earlier expectations").publicRulesToken)
+                            fail("A previous review cannot accept different current rules") }
+                        catch (_: IllegalArgumentException) { }
+                        reader.joinPublic(space, acceptedRulesToken = profile.publicRulesToken)
+                        reader.flush(space)
+                        assertTrue(reader.community(space).joined)
+                        // No owner admission is called for either public path.
+                        creator.refresh(space)
+                        val link = creator.invite(space)
+                        creator.flush(space)
+                        val invitedPreview = invited.preview(link)
+                        assertEquals(profile, invitedPreview.profile)
+                        try { invited.join(link); fail("An invitation does not accept rules for its bearer") }
+                        catch (_: IllegalArgumentException) { }
+                        assertTrue(invited.communities().isEmpty())
+                        invited.join(link, acceptedRulesToken = invitedPreview.rulesToken)
+                        invited.flush(space)
+                        assertTrue(invited.community(space).joined)
+                        invited.send(space, "Public invitation joins immediately after acceptance")
+                        invited.flush(space)
+                        reader.refresh(space)
+                        assertEquals(listOf("Public invitation joins immediately after acceptance"), reader.messages(space))
+                        assertFalse(invited.community(space).canInvite)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test fun privateRulesUseInvitationSpecificConsentWithoutPublishingATextFingerprint() = runBlocking {
+        SpacesServiceStore(files.newFolder("private-rules-metadata").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("private-rules-metadata-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("private-rules-metadata-reader.sqlite").absolutePath).use { visitorStore ->
+                    val controls = mutableListOf<com.google.gson.JsonObject>()
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+                        val original = SaitoEnvelope.decode(request.envelope())
+                        if (original.body.get("request").asString == "event") controls += original.body
+                        remote.exchange(request.envelope())
+                    }
+                    val reader = SpaceClient(visitor, "fixture-node", service.publicKey, visitorStore, clock) { remote.exchange(it.envelope()) }
+                    val profile = SpaceProfile("Private expectations", houseRules = "A private set of house rules")
+                    val space = creator.create(profile)
+                    creator.flush(space)
+                    val first = creator.invite(space)
+                    creator.flush(space)
+                    val second = creator.invite(space)
+                    creator.flush(space)
+                    val fingerprint = java.security.MessageDigest.getInstance("SHA-256").digest(profile.houseRules.toByteArray(Charsets.UTF_8))
+                        .joinToString("") { "%02x".format(it.toInt() and 255) }
+                    for (control in controls) {
+                        assertFalse("Private text stays inside ciphertext", control.toString().contains(profile.houseRules))
+                        assertFalse("A plaintext-derived fingerprint also discloses private rules", control.toString().contains(fingerprint))
+                    }
+                    val firstPreview = reader.preview(first)
+                    val secondPreview = reader.preview(second)
+                    assertEquals(profile, firstPreview.profile)
+                    assertEquals(profile, secondPreview.profile)
+                    assertTrue(firstPreview.rulesToken.isNotBlank())
+                    assertNotEquals(firstPreview.rulesToken, secondPreview.rulesToken)
+                    try { reader.join(second, acceptedRulesToken = firstPreview.rulesToken)
+                        fail("Acceptance remains specific to the reviewed invitation") }
+                    catch (_: IllegalArgumentException) { }
+                    assertTrue(reader.communities().isEmpty())
+                }
+            }
+        }
+    }
+
+    @Test fun acceptingAnInvitationPreviewCannotAcknowledgeDifferentCanonicalPublicRules() = runBlocking {
+        SpacesServiceStore(files.newFolder("public-rules-mismatch").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("public-rules-mismatch-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("public-rules-mismatch-reader.sqlite").absolutePath).use { visitorStore ->
+                    var originalInvitation = ""
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+                        if (SaitoEnvelope.decode(request.envelope()).body.get("kind")?.asString == "invite") originalInvitation = request.envelope()
+                        remote.exchange(request.envelope())
+                    }
+                    val reader = SpaceClient(visitor, "fixture-node", service.publicKey, visitorStore, clock) { remote.exchange(it.envelope()) }
+                    val canonical = SpaceProfile("One community", visibility = SpaceVisibility.PUBLIC, houseRules = "Canonical public rules A")
+                    val different = canonical.copy(houseRules = "Different invitation rules B")
+                    val space = creator.create(canonical)
+                    creator.flush(space)
+                    val link = creator.invite(space)
+                    creator.flush(space)
+                    // An authentic owner command, with a genuinely decryptable
+                    // preview B, must never consent to canonical rules A.
+                    val fragment = java.util.Base64.getUrlDecoder().decode(java.net.URI(link).rawFragment)
+                    val linkData = com.google.gson.JsonParser.parseString(fragment.toString(Charsets.UTF_8)).asJsonObject
+                    val scopeData = linkData.getAsJsonObject("scope")
+                    val scope = SpaceCrypto.Scope(scopeData.get("service").asString, scopeData.get("space").asString,
+                        scopeData.get("channel").asString, scopeData.get("generation").asString)
+                    val operation = "a".repeat(64)
+                    val nonce = ByteArray(12).also(java.security.SecureRandom()::nextBytes)
+                    val cipher = javax.crypto.Cipher.getInstance("AES/GCM/NoPadding").apply {
+                        init(javax.crypto.Cipher.ENCRYPT_MODE, javax.crypto.spec.SecretKeySpec(
+                            java.util.Base64.getDecoder().decode(linkData.get("preview_key").asString), "AES"),
+                            javax.crypto.spec.GCMParameterSpec(128, nonce))
+                        updateAAD("SaitoSpacesPreview/v1:${scope.groupId}:$operation".toByteArray(Charsets.UTF_8))
+                    }
+                    val preview = java.util.Base64.getEncoder().encodeToString(nonce + cipher.doFinal(different.json().toString().toByteArray(Charsets.UTF_8)))
+                    val actual = SaitoEnvelope.decode(originalInvitation)
+                    val body = actual.body.deepCopy().apply {
+                        addProperty("operation_id", operation); addProperty("control_id", actual.id)
+                        addProperty("rules_token", different.publicRulesToken); addProperty("preview", preview)
+                    }
+                    val mismatched = SaitoTransaction.create(owner, body, clock.millis(), listOf(service.publicKey))
+                    val response = SaitoEnvelope.decode(remote.exchange(mismatched.envelope()))
+                    if (response.body.get("stream").asString == "control") {
+                        linkData.addProperty("invitation", mismatched.id)
+                        val mismatchedLink = "saito://spaces/join#" + java.util.Base64.getUrlEncoder().withoutPadding()
+                            .encodeToString(linkData.toString().toByteArray(Charsets.UTF_8))
+                        val shown = reader.preview(mismatchedLink)
+                        assertEquals(different, shown.profile)
+                        try { reader.join(mismatchedLink, acceptedRulesToken = shown.rulesToken); fail("Accepting displayed B cannot acknowledge canonical A") }
+                        catch (_: IllegalArgumentException) { }
+                    } else assertEquals("rejection", response.body.get("stream").asString)
+                    assertTrue(reader.communities().isEmpty())
+                }
+            }
+        }
+    }
+
     @Test fun anOwnerCanListUnlistAndRelistAPublicCommunityWithSignedDurableChanges() = runBlocking {
         SpacesServiceStore(files.newFolder("owner-listing-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("listing-owner.sqlite").absolutePath).use { ownerStore ->

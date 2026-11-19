@@ -1,0 +1,14 @@
+Standards review: current profile/rules increment againste9d82907d, including latest public rules routing
+Read-only source and retained-private-regression review.
+
+Documented behavior-boundary finding
+[P2] SpaceClient.join(link):258-263 substitutes canonical public rules after accepting an invitation preview without verifying they match. loadPreview authenticates the encrypted preview against the invite's signed rules_hash, but public routing then calls openPublic/joinPublic. joinPublic signs the root public profile's rulesHash. A valid authorized invitation with rulesB under a public root with rulesA can therefore show/accept B while signing acceptance of A. This contradicts CODING_STANDARDS.md's preservation of specified behavior: acceptance must refer to the rules shown. Require preview/root rule agreement before public admission, or show the canonical profile before accepting it. Add the actual mismatched signed-public-invitation boundary case.
+
+Private boundaries reviewed
+Private previews contain actual profile/description/house rules and accepted invitation expiry. Profile-v1 decoding retains legacy name-only fallback. Payload growth remains bounded24KiB using the existing AES-GCM, nonce and scope/operation AAD; private text does not become public metadata. Rules hashes use exact UTF8 bytes. Private join checks explicit acceptance before preparing device/outbox state, signs the corresponding hash, and receiver verification requires the invitation's exact hash. Empty-rule legacy invitations remain compatible.
+
+Public implementation reviewed
+Direct public join now checks explicit acceptance and signs canonical rules; receiver validation matches that exact public-profile hash. Routing a public invitation through direct admission avoids accidental private MLS preparation and owner-online admission. The finding concerns the missing link between that route and its displayed invitation rules, not the known earlier public stub.
+
+Judgment calls and evidence limits
+No actionable smell findings beyond the behavior defect. Actual private-profile RED then GREEN2m11s is retained. Public rules RED and latest combined GREEN remain separate observations; no full-suite/native/UI/whole138 or deployment acceptance is claimed.

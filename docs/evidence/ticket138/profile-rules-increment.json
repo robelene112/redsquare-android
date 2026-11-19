@@ -1,0 +1,95 @@
+{
+  "status": "Profile, expiry and reviewed consent at owned boundary only;138 UI/native and remaining scope pending.",
+  "base": "e9d82907d",
+  "checks": {
+    "core": {
+      "classes": 48,
+      "tests": 244,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "spaces-service": {
+      "classes": 5,
+      "tests": 37,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "logs": [
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-private-profile-rules-red.log",
+      "bytes": 1628,
+      "sha256": "50c78ac63f4edf7e27d05ee739ec445d0683dceebce173685370922ef0d81684"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-private-profile-rules-green.log",
+      "bytes": 1120,
+      "sha256": "d76355d436a8dc267b6fe50b7a96169354f39eca68a0cba4f327b411340d9011"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-public-rules-red.log",
+      "bytes": 1650,
+      "sha256": "605b609de20cd0ed267fb97eb2a41f0ffe7441c0ff4baa4a8bfb838d63c03882"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-profile-rules-green.log",
+      "bytes": 1464,
+      "sha256": "10c464cdacdccfd0ac157f018d404e3b63ebb6372632cbe45c6f08a177994e2a"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-profile-rules-green2.log",
+      "bytes": 1120,
+      "sha256": "a1ec3d855ba58ba9c6920d9535046467b76f847bd2b9890f23adabc9ac27868b"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-private-rules-metadata-red.log",
+      "bytes": 1618,
+      "sha256": "79f28d698220855596808ad7611fb2d58cd3eccdcc8df188887adeb8dfa94a40"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-rules-consent-mismatch-red.log",
+      "bytes": 1861,
+      "sha256": "019b4447bf189f27143e9c25414a8b6149324762c9a768480e1e37f4e50dd568"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-rules-consent-mismatch-red2.log",
+      "bytes": 1649,
+      "sha256": "f8f33830ae7338c767ff1e8b746bc60015ed136fa55ab9a09ed27871bfddb3ce"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-reviewed-consent-green.log",
+      "bytes": 1120,
+      "sha256": "c4a4cb4bbc28b48857ddb88ef58546a269e2a4b9d5d9792c2888441db6b1bfc5"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-reviewed-consent-core-service-all.log",
+      "bytes": 1322,
+      "sha256": "e8e053b80550c57f9342ff1855698991ab82e8a8c7832d2c782d7ba46f7aed69"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceProfile.kt",
+      "sha256": "60d4d03e29f3fcc5489e667282be481b8664da349da748219b556cf49a02b1a8"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceInvitation.kt",
+      "sha256": "b6550e4718dbe09c180b31c11ee5e9b190f155b038d4768bfab6f23ecfda1e1b"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt",
+      "sha256": "387aaedd6278d0070fdf2f1591f7ca3379722501a0155be995edcc97bb9cfe86"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt",
+      "sha256": "37b73cbe4de1c044c1d1af231d34dd35befa590a066738282d89f1e091779039"
+    },
+    {
+      "path": "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceDiscoveryTest.kt",
+      "sha256": "b90e0b7bba5e0746c1e7c2722d4370af7891188a12be34de1ce28e1d1c3ce627"
+    }
+  ],
+  "retained_originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-reviewed-consent-complete-originals"
+}

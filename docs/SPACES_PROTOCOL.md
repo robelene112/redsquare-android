@@ -47,6 +47,29 @@ real encrypted private content, rejects plaintext fallback and refuses public
 opening of its unmarked channel. Full244-core/33-service checks pass. This does
 not establish native138 or actual updated framework/deployed-node acceptance.
 
+## In-progress138 invitation profiles and reviewed consent
+
+New invite controls have preview_format=profile-v1 and a bound channel_id.
+The capability AES-GCM preview carries the bounded profile, including description
+and optional house rules; private profiles remain ciphertext. Parsed profile
+JSON is capped at24KiB. Legacy controls without preview_format retain their
+name-only presentation and original general-channel binding.
+
+A private invitation's rules token is its actual signed invitation ID. That
+identity binds its encrypted preview and channel without exposing a digest of
+private rules. Public tokens are derived only from intentionally public rules,
+and public invite acceptance must match the canonical profile. Join APIs require
+the explicitly reviewed token when rules are present, rather than a Boolean
+that could acknowledge different rules after a fresh read. Signed private join
+records carry their invitation token, checked by the receiver. Public invitation
+joining uses direct public admission and never waits for an MLS owner callback.
+Expiry is presented from accepted invitation authority, with the seven-day
+creation default retained. Revocation and full native presentation remain pending.
+
+The complete owned JVM check passes244 core and37 service cases. Actual RED/GREEN
+and original adverse/corrective review reports are in the138 packet. This does
+not claim completed UI, live node compatibility or release acceptance.
+
 ## Earlier client and service integration under137
 
 Source now includes the account-owned native coordinator and navigationB. It

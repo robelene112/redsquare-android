@@ -32,8 +32,24 @@ member reply. Missing channel visibility remains private, with real legacy
 ciphertext acceptance and plaintext rejection. Both incremental review axes
 report zero findings. Complete244 core and33 service cases pass.
 
-Continue138 with richer profile creation,
-invitations/rules/revoke, real members/unread/navigation and native/prototype
+The [profile/rules increment](profile-rules-increment.json) carries real
+name/description/house rules and actual expiry in invitation previews. Rules
+require explicit review before joining. Private acknowledgment refers to the
+signed invitation containing the encrypted preview, with no plaintext-derived
+private-text fingerprint. Public acknowledgment must match canonical public
+rules; public invitations join immediately without private MLS admission.
+Legacy name-only invitations remain readable.
+
+Both adverse review findings were reproduced: the private fingerprint and an
+authentic decryptable public preview B silently acknowledging canonical rules A.
+Their original reports and REDs remain, alongside compiler-fixture corrections,
+corrected source reviews and complete244-core/37-service results with zero
+failures/errors/skips. Additional checks reject prior public review tokens,
+other private invitation tokens and an actual signed private join omitting its
+acknowledgment at the receiver. This remains component evidence, not native138.
+
+Continue138 with profile images and starter channels, revocation, real
+members/unread/navigation and native/prototype
 checks. Actual0.3.2/0.3.15 framework rehearsals must be repeated for schema4 and
 the extra service advertisement before closing138. Do not edit137's frozen
 catalogues or reuse them as proof of this new protocol/UI scope.

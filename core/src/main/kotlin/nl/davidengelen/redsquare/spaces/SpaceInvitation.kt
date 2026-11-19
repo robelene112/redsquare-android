@@ -45,7 +45,7 @@ internal class SpaceInvitation(val node: String, val scope: SpaceCrypto.Scope, v
                 Base64.getDecoder().decode(value.get("preview_key").asString))
         }
         fun encryptPreview(scope: SpaceCrypto.Scope, key: ByteArray, operation: String, name: String): String {
-            require(key.size == 32 && name.isNotBlank() && name.toByteArray(Charsets.UTF_8).size <= 256)
+            require(key.size == 32 && name.isNotBlank() && name.toByteArray(Charsets.UTF_8).size <= SpaceProfile.MAX_BYTES)
             val nonce = ByteArray(12).also(SecureRandom()::nextBytes)
             return Base64.getEncoder().encodeToString(nonce + Cipher.getInstance("AES/GCM/NoPadding").run {
                 init(Cipher.ENCRYPT_MODE, SecretKeySpec(key, "AES"), GCMParameterSpec(128, nonce))
@@ -53,7 +53,7 @@ internal class SpaceInvitation(val node: String, val scope: SpaceCrypto.Scope, v
             })
         }
         private fun decryptPreview(scope: SpaceCrypto.Scope, key: ByteArray, operation: String, encoded: String): String {
-            val bytes = Base64.getDecoder().decode(encoded).also { require(it.size in 29..284) }
+            val bytes = Base64.getDecoder().decode(encoded).also { require(it.size in 29..(SpaceProfile.MAX_BYTES + 28)) }
             return Cipher.getInstance("AES/GCM/NoPadding").run {
                 init(Cipher.DECRYPT_MODE, SecretKeySpec(key, "AES"), GCMParameterSpec(128, bytes.copyOfRange(0, 12)))
                 updateAAD(aad(scope, operation)); doFinal(bytes.copyOfRange(12, bytes.size)).toString(Charsets.UTF_8)

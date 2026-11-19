@@ -1,0 +1,16 @@
+Standards follow-up: reviewed-consent fixes againste9d82907d
+Read-only source and retained-adverse review. Original pre-fix reports remain unchanged.
+
+Documented violations
+No remaining confirmed violation in the reviewed increment. Both prior boundary defects are addressed in source.
+
+Private privacy/consent
+Private profile-v1 invitations derive consent from the actual signed invitation ID containing the encrypted preview. No rules-text digest is emitted. SpaceProfile.publicRulesToken requires PUBLIC visibility, preventing accidental fingerprint generation for private profiles. Both client and receiver bind private Join to the invitation/channel/token, preserving exact signed intent and expiry. Rules-bearing private Join requires the token actually returned with the reviewed invitation; a Boolean cannot acknowledge an unrelated preview. Empty-rule and no-format legacy invitations retain compatibility.
+
+Public reviewed-rule binding
+Public invitations must name an existing channel and carry the canonical intentionally public rules token. SpaceJournal rejects a different token before acceptance. The client additionally compares the decrypted displayed profile's public token with the accepted invitation authority. Direct and invitation-based public Join both require the supplied reviewed token to equal canonical rules, and the receiver repeats that check. Displayed B therefore cannot silently become signed acceptance of A. The public path retains immediate signed admission without private MLS preparation.
+
+Bounds and tests
+Profile payloads remain bounded24KiB using existing AES-GCM/scope/operation binding. Invalid consent precedes new membership/outbox preparation. Real adverses are retained: private fingerprint RED and authentic decryptable mismatched-public-preview RED. Strengthened cases reject previous public/other-invitation tokens and a legitimate sender's re-signed omission at the receiver, without admission. The sender re-signs the altered body while retaining actor, capability proof and package binding. Diagnostics contain synthetic fixture data, not wallet signing material. No actionable smell findings identified.
+
+Retained11-case GREEN passes2m24. The additional token/omission assertions were added afterward; their full244-core/37-service run remains pending. Product source is unchanged. Android rendering/native journeys, remaining138 work and deployed-node acceptance remain separate.

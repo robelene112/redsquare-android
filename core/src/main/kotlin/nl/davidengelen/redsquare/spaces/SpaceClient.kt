@@ -64,7 +64,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val expiry = accepted?.expiresAt ?: state.get("invitation_expires_at")?.asLong ?: 0L
         Invitation(link, accepted != null, expiry, expiry > 0 && expiry <= clock.millis())
     }
-    data class InvitationPreview(val spaceId: String, val name: String)
+    data class InvitationPreview(val spaceId: String, val name: String, val profile: SpaceProfile = SpaceProfile(name), val expiresAt: Long = 0, val rulesToken: String = "")
     data class PublicCommunity(val id: String, val profile: SpaceProfile)
     data class PublicDirectoryPage(val items: List<PublicCommunity>, val nextCursor: Long, val hasMore: Boolean)
     /** Public browsing stores no MLS device and does not enter My Spaces. */
@@ -109,7 +109,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
 
     /** Direct public admission is a signed operation, never an owner-online MLS request. */
-    fun joinPublic(space: String) = store.transaction {
+    fun joinPublic(space: String, acceptedRulesToken: String? = null) = store.transaction {
         owned()
         val current = state(space)
         val journal = journal(space)
@@ -117,8 +117,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(journal.snapshot.visibility == SpaceVisibility.PUBLIC &&
             journal.snapshot.channels[scope.channelId]?.visibility == SpaceVisibility.PUBLIC)
         require(wallet.publicKey !in journal.snapshot.members && !current.get("joined").asBoolean)
+        val profile = requireNotNull(journal.snapshot.publicProfile)
+        require((acceptedRulesToken ?: "") == profile.publicRulesToken) { "Accept the community house rules before joining" }
         queue(space, current, event(space, "join-public") {
             addProperty("control_id", journal.snapshot.controlId); addProperty("channel_id", scope.channelId)
+            addProperty("rules_token", profile.publicRulesToken)
         })
     }
     fun setListed(space: String, listed: Boolean) = store.transaction {
@@ -217,7 +220,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             addProperty("sequence", sequence); addProperty("count", count)
         }))
     }
-    private data class Preview(val invitation: SpaceInvitation, val name: String, val controls: List<String>, val journal: SpaceJournal)
+    private data class Preview(val invitation: SpaceInvitation, val profile: SpaceProfile, val controls: List<String>, val journal: SpaceJournal)
 
     fun invite(space: String, expiresAfterMillis: Long = 604_800_000): String = store.transaction {
         owned()
@@ -234,7 +237,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val original = event(space, "invite", operation) {
             addProperty("control_id", journal.snapshot.controlId); addProperty("invite_key", bearer.publicKey)
             addProperty("expires_at", expiry)
-            addProperty("preview", SpaceInvitation.encryptPreview(scope, key, operation, state.text("name")))
+            val profile = state.getAsJsonObject("profile")?.let(SpaceProfile::fromJson) ?: SpaceProfile(state.text("name"))
+            addProperty("preview_format", "profile-v1"); addProperty("channel_id", scope.channelId)
+            if (journal.snapshot.channels[scope.channelId]?.visibility == SpaceVisibility.PUBLIC)
+                addProperty("rules_token", profile.publicRulesToken)
+            addProperty("preview", SpaceInvitation.encryptPreview(scope, key, operation, profile.json().toString()))
         }
         val link = SpaceInvitation(node, scope, original.id, bearer, key).link()
         queue(space, state, original)
@@ -244,12 +251,21 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
 
     /** Inspecting a valid invitation generates no MLS device or membership. */
-    suspend fun preview(link: String): InvitationPreview = loadPreview(link).let { InvitationPreview(it.invitation.scope.spaceId, it.name) }
+    suspend fun preview(link: String): InvitationPreview = loadPreview(link).let { preview ->
+        InvitationPreview(preview.invitation.scope.spaceId, preview.profile.name, preview.profile,
+            requireNotNull(preview.journal.snapshot.invitations[preview.invitation.invitationId]).expiresAt,
+            requireNotNull(preview.journal.snapshot.invitations[preview.invitation.invitationId]).rulesToken)
+    }
 
-    suspend fun join(link: String): String {
+    suspend fun join(link: String, acceptedRulesToken: String? = null): String {
         val preview = loadPreview(link)
         val invitation = preview.invitation
         val scope = invitation.scope
+        if (preview.journal.snapshot.channels[scope.channelId]?.visibility == SpaceVisibility.PUBLIC) {
+            val opened = openPublic(scope.spaceId)
+            if (!opened.joined) joinPublic(scope.spaceId, acceptedRulesToken)
+            return scope.spaceId
+        }
         val saved = store.transaction { owned(initialize = true); get(stateKey(scope.spaceId))?.let(::json) }
         if (saved != null) {
             require(SpaceCrypto.Scope.fromJson(saved.getAsJsonObject("scope")) == scope)
@@ -258,13 +274,15 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             store.transaction { preview.controls.forEach { accept(scope.spaceId, it) } }
             if (store.transaction { state(scope.spaceId).get("joined").asBoolean }) return scope.spaceId
         }
+        require(preview.profile.houseRules.isEmpty() || acceptedRulesToken ==
+            requireNotNull(preview.journal.snapshot.invitations[invitation.invitationId]).rulesToken) { "Accept the community house rules before joining" }
         require(wallet.publicKey !in preview.journal.snapshot.members) { "This identity is already a member; restore its community keys" }
         val device = saved?.let { SpaceCrypto.restore(decode(it.text("crypto"))) } ?: SpaceCrypto.device(wallet.publicKey, id())
         val keyPackage = device.keyPackage(scope, wallet)
         val operation = id()
         val original = event(scope.spaceId, "join", operation) {
             addProperty("channel_id", scope.channelId); addProperty("control_id", invitation.invitationId)
-            addProperty("invite_id", invitation.invitationId)
+            addProperty("invite_id", invitation.invitationId); addProperty("rules_token", requireNotNull(preview.journal.snapshot.invitations[invitation.invitationId]).rulesToken)
             add("key_package", JsonObject().apply {
                 addProperty("wallet", wallet.publicKey); addProperty("device", keyPackage.deviceId)
                 addProperty("package", keyPackage.packageBytes); addProperty("signer", keyPackage.signer)
@@ -279,7 +297,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 put("${scope.spaceId}/control/${positionKey(position)}", receipt.toByteArray(Charsets.UTF_8))
             }
             val state = (if (saved == null) JsonObject().apply {
-                add("scope", scope.json()); addProperty("name", preview.name); addProperty("crypto", encode(device.save()))
+                add("scope", scope.json()); addProperty("name", preview.profile.name); add("profile", preview.profile.json()); addProperty("crypto", encode(device.save()))
                 addProperty("joined", false); addProperty("next_outbox", 0); addProperty("content_cursor", 0)
             } else state(scope.spaceId)).apply { addProperty("joining_invitation", link) }
             queue(scope.spaceId, state, original)
@@ -362,8 +380,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(authorized.expiresAt > clock.millis() && invitation.scope.channelId in journal.snapshot.channels)
         val original = controls.asSequence().map { SaitoEnvelope.decode(SaitoEnvelope.decode(it).body.text("event")) }
             .first { it.id == invitation.invitationId }
-        val name = invitation.preview(original.body.text("preview"), original.body.text("operation_id"))
-        return Preview(invitation, name, controls, journal)
+        val text = invitation.preview(original.body.text("preview"), original.body.text("operation_id"))
+        val profile = if (original.body.get("preview_format")?.asString == "profile-v1")
+            SpaceProfile.fromJson(json(text.toByteArray(Charsets.UTF_8))) else SpaceProfile(text)
+        require(invitation.scope.channelId == authorized.channelId)
+        if (journal.snapshot.channels[invitation.scope.channelId]?.visibility == SpaceVisibility.PUBLIC)
+            require(profile.publicRulesToken == authorized.rulesToken) { "Invitation rules do not match its signed authority" }
+        return Preview(invitation, profile, controls, journal)
     }
 
     fun create(name: String): String = create(SpaceProfile(name))
