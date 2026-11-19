@@ -1,0 +1,13 @@
+Source Spec review: zero findings againste79e27ac9.
+
+SpacesJourneyTest.kt:178-179 replaces assertEquals with assertTrue over the identical originalWallet == reloaded exportJson predicate. Evaluation, identity requirement, checkpoint order and deadlines are unchanged. A failure now prints a constant explanation instead of both secret-bearing wallet exports. Native contractv7 goals are preserved. No current-run result is claimed.
+
+Prospective external checker: three separate findings, not product/source defects.
+
+1. Archive provenance is unverified (verify-137-native-journey.py:13-15,68-70). original.zip only undergoes integrity/path checks; all assertions read a separate raw tree. A valid unrelated/empty zip can receive PASS and its hash can be reported as the accepted archive. files.json also permits an empty/incomplete manifest. Bind checked raw bytes to actual original.zip members and require the expected evidence inventory. This matters because contractv7 requires “actual source/APK/device/runtime evidence from parent workflow.”
+
+2. Expected case identities are not checked (:16-19). Matching48/4 suite counts and244/22 totals can conceal missing/replaced/duplicated cases. No Rust community-contract receipt/result is examined despite the parent packet's retained four-case contract catalogue. Validate a frozen named testcase catalogue and required Rust results, rather than counts alone. Quality-plan70 requires the “expected/observed case catalogue.”
+
+3. Exact community receipt is weakened in the external assessment (:54-64). Flattening both communities can accept A reply after joining from Android under the wrong Space; final validation retains only the old-original text effect. Contractv7 explicitly requires that reply “actually received in that exact second community.” Match each observed message to the independent community ID/name and preserve those per-community received effects in final host-result, while permitting extra duplicate transport observations. Native source already checks exact B, so this is a checker completeness gap, not an identified app regression.
+
+Missing required direct files currently fail closed; process checkpoint/PID separation, deliberate interruption, terminal native pass and both movies are checked. Frozen validator/contract hashes match the external freeze JSON. Run44475514269 remains in progress; source/checker review and earlier prefixes establish no whole137/process acceptance.

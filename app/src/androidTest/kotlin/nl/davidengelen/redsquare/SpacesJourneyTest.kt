@@ -175,7 +175,8 @@ class SpacesJourneyTest {
             openSpaces("Red Square")
             ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and hasText(draft)).isDisplayed() }
             capture("08-uncertain-original-and-new-draft")
-            assertEquals(originalWallet, AndroidWalletStore(context).loadExisting().exportJson())
+            assertTrue("The original Android wallet must be preserved",
+                originalWallet == AndroidWalletStore(context).loadExisting().exportJson())
             assertEquals(backend, AndroidBackendStore(context).load())
             val savedCheckpoint = JsonObject().apply {
                 addProperty("phase", "ready-for-process-kill"); addProperty("pid", Process.myPid())

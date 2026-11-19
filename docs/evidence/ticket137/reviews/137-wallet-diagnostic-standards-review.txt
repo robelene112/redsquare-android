@@ -1,0 +1,11 @@
+Standards review: sole uncommitted SpacesJourneyTest.kt diff against e79e27ac9
+Read-only source review; no implementation or native acceptance claim.
+
+Hard documented violations
+None. SpacesJourneyTest.kt:178-179 replaces assertEquals on wallet export JSON with assertTrue and a constant diagnostic. The predicate remains originalWallet == AndroidWalletStore(context).loadExisting().exportJson(); no comparison value, owned state, restoration goal or deadline changes. On mismatch JUnit now reports the constant explanation rather than formatting the expected and actual wallet exports. This satisfies CODING_STANDARDS.md's requirement that logs/artifacts not expose wallet keys or signing material.
+
+Judgment calls
+No actionable smell findings. The small explicit equality is appropriate here because the diagnostics intentionally must not serialize either compared value.
+
+Evidence limits
+This is source review only. Run44475514269 was reported in progress; no v7 outcome or acceptance was inspected or inferred. The separate prospective checker review must be resolved before relying on its output.
