@@ -29,7 +29,7 @@ class SpaceDiscoveryTest {
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val visitor = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
 
-    @Test fun aPublicVisitorReadsWithoutJoiningAndContributesOnlyAfterAnExplicitDurableJoin() = runBlocking {
+    @Test fun aPublicVisitorReadsWithoutJoiningAndContributesOnlyAfterAnExplicitDurableJoin() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("public-read-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("public-read-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("public-read-visitor.sqlite").absolutePath).use { visitorStore ->
@@ -87,7 +87,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun anOlderPublicCommunityNeverTurnsItsUnmarkedPrivateChannelIntoPublicPlaintext() = runBlocking {
+    @Test fun anOlderPublicCommunityNeverTurnsItsUnmarkedPrivateChannelIntoPublicPlaintext() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("legacy-public-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("legacy-public-visitor.sqlite").absolutePath).use { visitorStore ->
                 val scope = SpaceCrypto.Scope(service.publicKey, "a".repeat(64), "b".repeat(64))
@@ -123,7 +123,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun aPrivateInvitationShowsItsRealProfileAndRequiresDeliberateAcceptanceOfItsHouseRules() = runBlocking {
+    @Test fun aPrivateInvitationShowsItsRealProfileAndRequiresDeliberateAcceptanceOfItsHouseRules() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("private-rules-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("private-rules-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("private-rules-visitor.sqlite").absolutePath).use { visitorStore ->
@@ -175,7 +175,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun publicHouseRulesAreRequiredByTheReceiverAndApplyToDirectAndInvitedJoining() = runBlocking {
+    @Test fun publicHouseRulesAreRequiredByTheReceiverAndApplyToDirectAndInvitedJoining() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("public-rules-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("public-rules-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("public-rules-visitor.sqlite").absolutePath).use { visitorStore ->
@@ -230,7 +230,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun privateRulesUseInvitationSpecificConsentWithoutPublishingATextFingerprint() = runBlocking {
+    @Test fun privateRulesUseInvitationSpecificConsentWithoutPublishingATextFingerprint() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("private-rules-metadata").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("private-rules-metadata-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("private-rules-metadata-reader.sqlite").absolutePath).use { visitorStore ->
@@ -269,7 +269,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun acceptingAnInvitationPreviewCannotAcknowledgeDifferentCanonicalPublicRules() = runBlocking {
+    @Test fun acceptingAnInvitationPreviewCannotAcknowledgeDifferentCanonicalPublicRules() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("public-rules-mismatch").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("public-rules-mismatch-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("public-rules-mismatch-reader.sqlite").absolutePath).use { visitorStore ->
@@ -323,7 +323,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun revokingAnInvitationStopsPendingAndFutureAdmissionsWithoutRemovingExistingMembersOrDrafts() = runBlocking {
+    @Test fun revokingAnInvitationStopsPendingAndFutureAdmissionsWithoutRemovingExistingMembersOrDrafts() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("revoke-invitation").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("revoke-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("revoke-member.sqlite").absolutePath).use { memberStore ->
@@ -364,8 +364,10 @@ class SpaceDiscoveryTest {
                         }, clock.millis(), listOf(service.publicKey))
                         assertEquals("rejection", SaitoEnvelope.decode(remote.exchange(memberAttempt.envelope())).body.get("stream").asString)
                         creator.revokeInvitation(space)
+                        assertTrue(requireNotNull(creator.invitation(space)).revocationPending)
                         creator.flush(space)
                         assertTrue(requireNotNull(creator.invitation(space)).revoked)
+                        assertFalse(requireNotNull(creator.invitation(space)).revocationPending)
                         try { applicant.preview(oldLink); fail("A revoked bearer link cannot be previewed") }
                         catch (_: IllegalArgumentException) { }
                         creator.admitPending(space)
@@ -400,7 +402,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun authenticatedReadResultsDistinguishExpiredInvitationsFromUnavailablePrivateAccess() = runBlocking {
+    @Test fun authenticatedReadResultsDistinguishExpiredInvitationsFromUnavailablePrivateAccess() = runBlocking<Unit> {
         var now = clock.millis()
         val advancing = object : Clock() {
             override fun getZone() = ZoneOffset.UTC
@@ -440,7 +442,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun anAdmittedGuestRecoversItsWelcomeAndExactPendingOriginalAfterItsInvitationWasRevoked() = runBlocking {
+    @Test fun anAdmittedGuestRecoversItsWelcomeAndExactPendingOriginalAfterItsInvitationWasRevoked() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("revoked-admission-recovery").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("revoked-admission-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("revoked-admission-guest.sqlite").absolutePath).use { guestStore ->
@@ -485,7 +487,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun realCommunityImagesSurviveBoundedPublicDiscoveryAndEncryptedPrivateInvitationPreviews() = runBlocking {
+    @Test fun realCommunityImagesSurviveBoundedPublicDiscoveryAndEncryptedPrivateInvitationPreviews() = runBlocking<Unit> {
         val raster = java.awt.image.BufferedImage(4, 4, java.awt.image.BufferedImage.TYPE_INT_RGB)
         for (x in 0..3) for (y in 0..3) raster.setRGB(x, y, if ((x + y) % 2 == 0) 0xa35b43 else 0x272b34)
         val encoded = java.io.ByteArrayOutputStream().also { check(javax.imageio.ImageIO.write(raster, "jpeg", it)) }.toByteArray()
@@ -543,7 +545,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun publicChannelsKeepDraftsContentAndLateAcknowledgmentsIsolatedAcrossSelectionAndReload() = runBlocking {
+    @Test fun publicChannelsKeepDraftsContentAndLateAcknowledgmentsIsolatedAcrossSelectionAndReload() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("public-channel-isolation").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("public-channel-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("public-channel-visitor.sqlite").absolutePath).use { visitorStore ->
@@ -609,7 +611,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun anotherChannelsLargePendingQueueCannotHideTheSelectedChannelsOwnQueuedMessage() = runBlocking {
+    @Test fun anotherChannelsLargePendingQueueCannotHideTheSelectedChannelsOwnQueuedMessage() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("channel-outbox-isolation").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("channel-outbox-owner.sqlite").absolutePath).use { ownerStore ->
                 val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
@@ -635,7 +637,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun announcementChannelsArePubliclyReadableButOnlyOwnersAndAdministratorsCanPublish() = runBlocking {
+    @Test fun announcementChannelsArePubliclyReadableButOnlyOwnersAndAdministratorsCanPublish() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("announcement-permissions").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("announcement-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("announcement-member.sqlite").absolutePath).use { memberStore ->
@@ -678,7 +680,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun rebuildingMessagePointersFromTheEarlierClientLayoutPreservesDraftsAndEverySignedOriginal() = runBlocking {
+    @Test fun rebuildingMessagePointersFromTheEarlierClientLayoutPreservesDraftsAndEverySignedOriginal() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("legacy-message-pointers").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("legacy-message-pointer-owner.sqlite").absolutePath).use { ownerStore ->
                 val received = mutableListOf<String>()
@@ -726,7 +728,7 @@ class SpaceDiscoveryTest {
 
     @Test fun aFreshChannelPageCannotRelabelAnAuthenticOriginalIntoAnotherChannel() = verifyChannelPageBinding(relabel = true)
 
-    private fun verifyChannelPageBinding(relabel: Boolean) = runBlocking {
+    private fun verifyChannelPageBinding(relabel: Boolean) = runBlocking<Unit> {
         val suffix = if (relabel) "original" else "request"
         SpacesServiceStore(files.newFolder("channel-page-$suffix").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("channel-page-owner-$suffix.sqlite").absolutePath).use { ownerStore ->
@@ -784,7 +786,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun privateChannelsUseIndependentMembershipKeysHistoryAndDraftsWithinTheSameSpace() = runBlocking {
+    @Test fun privateChannelsUseIndependentMembershipKeysHistoryAndDraftsWithinTheSameSpace() = runBlocking<Unit> {
         val directory = files.newFolder("private-channel-groups").toPath()
         SpacesServiceStore(directory, service, clock).use { remote ->
             SqliteClientFixture(files.newFile("private-channel-groups-owner.sqlite").absolutePath).use { ownerStore ->
@@ -854,7 +856,7 @@ class SpaceDiscoveryTest {
         } }
     }
 
-    @Test fun aColdMemberCanApplyOtherChannelAdmissionsBeforeHistoricalMetadataKeysArrive() = runBlocking {
+    @Test fun aColdMemberCanApplyOtherChannelAdmissionsBeforeHistoricalMetadataKeysArrive() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("private-cold-controls").toPath(), service, clock).use { remote ->
             val stores = (1..3).map { SqliteClientFixture(files.newFile("cold-controls-$it.sqlite").absolutePath) }
             try {
@@ -892,7 +894,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun aPrivateChannelAdmissionSurvivesRejectionRestartAndLostAcknowledgmentWithoutReplacingGeneralKeys() = runBlocking {
+    @Test fun aPrivateChannelAdmissionSurvivesRejectionRestartAndLostAcknowledgmentWithoutReplacingGeneralKeys() = runBlocking<Unit> {
         val directory = files.newFolder("private-channel-recovery").toPath()
         var remote = SpacesServiceStore(directory, service, clock)
         val ownerStore = SqliteClientFixture(files.newFile("private-channel-recovery-owner.sqlite").absolutePath)
@@ -964,7 +966,7 @@ class SpaceDiscoveryTest {
         } finally { remote.close(); ownerStore.close(); memberStore.close() }
     }
 
-    @Test fun privateAnnouncementPostingPermissionDoesNotRequireHydratingItsDisplayProfile() = runBlocking {
+    @Test fun privateAnnouncementPostingPermissionDoesNotRequireHydratingItsDisplayProfile() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("private-announcement-permission").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("private-announcement-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("private-announcement-member.sqlite").absolutePath).use { memberStore ->
@@ -993,7 +995,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun editableStarterChannelsAreCreatedOnceAcrossLostResponsesAndRemainUsableByIndependentMembers() = runBlocking {
+    @Test fun editableStarterChannelsAreCreatedOnceAcrossLostResponsesAndRemainUsableByIndependentMembers() = runBlocking<Unit> {
         for (visibility in SpaceVisibility.entries) {
             SpacesServiceStore(files.newFolder("starter-${visibility.name}").toPath(), service, clock).use { remote ->
                 SqliteClientFixture(files.newFile("starter-owner-${visibility.name}.sqlite").absolutePath).use { ownerStore ->
@@ -1050,7 +1052,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun rejectedStarterCreationStaysPendingAndRebasesWithoutReplacingThePrivateDevice() = runBlocking {
+    @Test fun rejectedStarterCreationStaysPendingAndRebasesWithoutReplacingThePrivateDevice() = runBlocking<Unit> {
         for (visibility in SpaceVisibility.entries) {
             SpacesServiceStore(files.newFolder("starter-rebase-${visibility.name}").toPath(), service, clock).use { remote ->
                 SqliteClientFixture(files.newFile("starter-rebase-owner-${visibility.name}.sqlite").absolutePath).use { ownerStore ->
@@ -1126,7 +1128,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun capturedChannelActionsPreserveTheOtherDraftAndMembersUseAcceptedIdentityAndRoles() = runBlocking {
+    @Test fun capturedChannelActionsPreserveTheOtherDraftAndMembersUseAcceptedIdentityAndRoles() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("captured-channel-actions").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("captured-channel-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("captured-channel-member.sqlite").absolutePath).use { memberStore ->
@@ -1161,7 +1163,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun unreadCountsTrackRealOtherAuthorsPerChannelAndIgnoreKeyGrantsAndStaleReadCallbacks() = runBlocking {
+    @Test fun unreadCountsTrackRealOtherAuthorsPerChannelAndIgnoreKeyGrantsAndStaleReadCallbacks() = runBlocking<Unit> {
         for (visibility in SpaceVisibility.entries) {
             SpacesServiceStore(files.newFolder("unread-${visibility.name}").toPath(), service, clock).use { remote ->
                 SqliteClientFixture(files.newFile("unread-owner-${visibility.name}.sqlite").absolutePath).use { ownerStore ->
@@ -1221,7 +1223,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun explicitEarlierHistoryRejectsForeignWalletNodeAndServiceBeforeAnyReadOrMutation() = runBlocking {
+    @Test fun explicitEarlierHistoryRejectsForeignWalletNodeAndServiceBeforeAnyReadOrMutation() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("foreign-explicit-history").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("foreign-explicit-owner.sqlite").absolutePath).use { storage ->
                 val creator = SpaceClient(owner, "fixture-node", service.publicKey, storage, clock) { remote.exchange(it.envelope()) }
@@ -1242,7 +1244,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun anOlderSummaryWithTheSameReadCursorCannotReplaceMoreRecentUnreadActivity() = runBlocking {
+    @Test fun anOlderSummaryWithTheSameReadCursorCannotReplaceMoreRecentUnreadActivity() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("ordered-unread-summaries").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("ordered-unread-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("ordered-unread-member.sqlite").absolutePath).use { memberStore ->
@@ -1274,7 +1276,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun readingAllMessagesClearsUnreadEvenWhenLaterRecordsOnlyDeliverAnotherMembersKeys() = runBlocking {
+    @Test fun readingAllMessagesClearsUnreadEvenWhenLaterRecordsOnlyDeliverAnotherMembersKeys() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("unread-after-key-grant").toPath(), service, clock).use { remote ->
             val stores = (1..3).map { SqliteClientFixture(files.newFile("unread-after-key-grant-$it.sqlite").absolutePath) }
             try {
@@ -1298,7 +1300,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun incompleteSummaryBatchesKeepTheCommunityTotalUnknownUntilEveryEligibleChannelIsKnown() = runBlocking {
+    @Test fun incompleteSummaryBatchesKeepTheCommunityTotalUnknownUntilEveryEligibleChannelIsKnown() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("partial-unread-batches").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("partial-unread-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("partial-unread-member.sqlite").absolutePath).use { memberStore ->
@@ -1335,7 +1337,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun partialReadingDoesNotPresentThePreviousExactUnreadTotalAsCurrent() = runBlocking {
+    @Test fun partialReadingDoesNotPresentThePreviousExactUnreadTotalAsCurrent() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("partial-read-count").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("partial-read-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("partial-read-member.sqlite").absolutePath).use { memberStore ->
@@ -1363,7 +1365,156 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun anOwnerCanListUnlistAndRelistAPublicCommunityWithSignedDurableChanges() = runBlocking {
+    @Test fun realMessageAndPixelAnchorsSurviveClientRestartPerChannelWithoutChangingDraftOrSelection() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("reading-anchors").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("reading-anchors-owner.sqlite").absolutePath).use { storage ->
+                fun client() = SpaceClient(owner, "fixture-node", service.publicKey, storage, clock) { remote.exchange(it.envelope()) }
+                var creator = client()
+                val space = creator.create(SpaceProfile("Persistent reading", visibility = SpaceVisibility.PUBLIC),
+                    listOf(SpaceChannelProfile("first"), SpaceChannelProfile("second"))); creator.flush(space)
+                val first = creator.channels(space).first().id; val second = creator.channels(space).last().id
+                repeat(3) { creator.send(space, "First message $it", channel = first); creator.send(space, "Second message $it", channel = second) }
+                creator.flush(space)
+                val a = creator.timeline(space, channel = first)[1]; val b = creator.timeline(space, channel = second)[2]
+                val anchorA = SpaceClient.ReadingAnchor(a.id, requireNotNull(a.position), 37, 0)
+                val anchorB = SpaceClient.ReadingAnchor(b.id, requireNotNull(b.position), -12, 0)
+                creator.saveDraft(space, "First preserved draft", channel = first)
+                creator.saveDraft(space, "Second preserved draft", channel = second)
+                creator.saveReadingAnchor(space, first, anchorA); creator.saveReadingAnchor(space, second, anchorB)
+                creator.selectChannel(space, second)
+                creator = client()
+                assertEquals(second, creator.community(space).channel)
+                assertEquals(anchorA, creator.readingAnchor(space, channel = first))
+                assertEquals(anchorB, creator.readingAnchor(space, channel = second))
+                assertEquals("First preserved draft", creator.draft(space, channel = first))
+                assertEquals("Second preserved draft", creator.draft(space))
+                assertThrows(IllegalArgumentException::class.java) { creator.saveReadingAnchor(space, first, anchorB) }
+                assertEquals(anchorA, creator.readingAnchor(space, channel = first))
+                creator.saveReadingAnchor(space, second, null)
+                assertNull(creator.readingAnchor(space, channel = second))
+                assertEquals(anchorA, creator.readingAnchor(space, channel = first))
+            }
+        }
+    }
+
+    @Test fun ownerListingIntentSurvivesAConcurrentPublicJoinRejectionAndClientRestart() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("listing-intent-rebase").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("listing-intent-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("listing-intent-member.sqlite").absolutePath).use { memberStore ->
+                    fun ownerClient() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    var creator = ownerClient()
+                    val member = SpaceClient(visitor, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create(SpaceProfile("Owner listing intent", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    creator.setListed(space, false)
+                    member.openPublic(space); member.joinPublic(space); member.flush(space)
+                    creator.flush(space)
+                    assertTrue("An unapplied owner choice stays pending after a real head conflict", creator.community(space).pending)
+                    creator = ownerClient(); creator.refresh(space); creator.flush(space)
+                    assertFalse(creator.community(space).pending)
+                    assertFalse(creator.profile(space).listed)
+                    assertTrue(member.discover().items.none { it.id == space })
+                    // Unlisted is still public and readable by a known reference.
+                    member.openPublic(space)
+                    assertTrue(member.community(space).joined)
+                }
+            }
+        }
+    }
+
+    @Test fun theLatestOwnerListingChoiceSurvivesALostEarlierAcknowledgmentAndExactOriginalRetry() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("listing-intent-latest").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("listing-intent-latest-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("listing-intent-latest-reader.sqlite").absolutePath).use { readerStore ->
+                    var lose = true
+                    val attempts = mutableListOf<String>()
+                    fun ownerClient() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+                        val response = remote.exchange(request.envelope())
+                        if (SaitoEnvelope.decode(request.envelope()).body.get("kind")?.asString == "set-listed") {
+                            attempts += request.envelope()
+                            if (lose) { lose = false; throw java.io.IOException("Accepted listing acknowledgment lost") }
+                        }
+                        response
+                    }
+                    var creator = ownerClient()
+                    val space = creator.create(SpaceProfile("Latest owner choice", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    creator.setListed(space, false)
+                    try { creator.flush(space); fail("Hold the actual accepted listing acknowledgment") } catch (_: java.io.IOException) { }
+                    creator.setListed(space, true)
+                    creator = ownerClient(); creator.flush(space)
+                    assertEquals(3, attempts.size)
+                    assertEquals(attempts[0], attempts[1])
+                    assertNotEquals(attempts[1], attempts[2])
+                    assertFalse(creator.community(space).pending)
+                    assertTrue(creator.profile(space).listed)
+                    val reader = SpaceClient(visitor, "fixture-node", service.publicKey, readerStore, clock) { remote.exchange(it.envelope()) }
+                    assertEquals(listOf(space), reader.discover().items.map { it.id })
+                }
+            }
+        }
+    }
+
+    @Test fun invitationRevocationDistinguishesPendingFromRealRejectionAndCanBeRetriedAtTheNewHead() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("revocation-control-state").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("revocation-control-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("revocation-control-member.sqlite").absolutePath).use { memberStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    val member = SpaceClient(visitor, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create(SpaceProfile("Revocation state", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    val link = creator.invite(space); creator.flush(space)
+                    creator.revokeInvitation(space)
+                    assertTrue(requireNotNull(creator.invitation(space)).revocationPending)
+                    member.openPublic(space); member.joinPublic(space); member.flush(space)
+                    creator.flush(space)
+                    val rejected = requireNotNull(creator.invitation(space))
+                    assertTrue(rejected.confirmed); assertFalse(rejected.revoked); assertFalse(rejected.revocationPending); assertTrue(rejected.revocationFailed)
+                    creator.refresh(space); creator.revokeInvitation(space)
+                    assertFalse(requireNotNull(creator.invitation(space)).revocationFailed)
+                    creator.flush(space)
+                    assertTrue(requireNotNull(creator.invitation(space)).revoked)
+                    try { member.preview(link); fail("The actually revoked capability must be unavailable") } catch (_: SpaceClient.ReadDenied) { }
+                    assertTrue(member.community(space).joined)
+                }
+            }
+        }
+    }
+
+    @Test fun aPermanentPublicReferenceOpensAnUnlistedCommunityAfterInvitationLifetimesWithoutJoiningOrChangingNodes() = runBlocking<Unit> {
+        var now = clock.millis()
+        val advancing = object : Clock() {
+            override fun getZone() = ZoneOffset.UTC
+            override fun withZone(zone: java.time.ZoneId): Clock = this
+            override fun instant() = Instant.ofEpochMilli(now)
+        }
+        SpacesServiceStore(files.newFolder("permanent-public-reference").toPath(), service, advancing).use { remote ->
+            SqliteClientFixture(files.newFile("permanent-reference-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("permanent-reference-reader.sqlite").absolutePath).use { readerStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, advancing) { remote.exchange(it.envelope()) }
+                    var mutations = 0
+                    val reader = SpaceClient(visitor, "fixture-node", service.publicKey, readerStore, advancing) {
+                        if (SaitoEnvelope.decode(it.envelope()).body.get("request")?.asString == "event") mutations++
+                        remote.exchange(it.envelope())
+                    }
+                    val space = creator.create(SpaceProfile("Public but unlisted", visibility = SpaceVisibility.PUBLIC, listed = false)); creator.flush(space)
+                    creator.send(space, "A real unlisted public conversation"); creator.flush(space)
+                    val reference = creator.publicLink(space)
+                    assertTrue(reader.discover().items.isEmpty())
+                    now += 9 * 86_400_000L
+                    val opened = reader.openPublicLink(reference); reader.refresh(space)
+                    assertFalse(opened.joined); assertFalse(reader.community(space).canSend)
+                    assertEquals(listOf("A real unlisted public conversation"), reader.messages(space))
+                    assertTrue(reader.communities().isEmpty()); assertEquals(0, mutations)
+                    var foreignRequests = 0
+                    val foreign = SpaceClient(visitor, "different-node", service.publicKey, readerStore, advancing) { foreignRequests++; error("Do not follow a foreign node") }
+                    try { foreign.openPublicLink(reference); fail("References cannot silently switch the selected node") } catch (_: IllegalArgumentException) { }
+                    assertEquals(0, foreignRequests)
+                    val privateSpace = creator.create("A private community needs its invitation"); creator.flush(privateSpace)
+                    assertThrows(IllegalArgumentException::class.java) { creator.publicLink(privateSpace) }
+                }
+            }
+        }
+    }
+
+    @Test fun anOwnerCanListUnlistAndRelistAPublicCommunityWithSignedDurableChanges() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("owner-listing-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("listing-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("listing-visitor.sqlite").absolutePath).use { visitorStore ->
@@ -1408,7 +1559,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun schemaThreeDirectoryBackfillAndReentryPreserveActualAcceptedPrivateAndPublicRecords() = runBlocking {
+    @Test fun schemaThreeDirectoryBackfillAndReentryPreserveActualAcceptedPrivateAndPublicRecords() = runBlocking<Unit> {
         val directory = files.newFolder("schema-three-directory").toPath()
         SqliteClientFixture(files.newFile("migration-owner.sqlite").absolutePath).use { ownerStore ->
             SqliteClientFixture(files.newFile("migration-reader.sqlite").absolutePath).use { visitorStore ->
@@ -1460,7 +1611,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun pagedDiscoveryKeepsOnlyTwoHundredRecentProfilesAndPreservesPrivateWorkAfterReload() = runBlocking {
+    @Test fun pagedDiscoveryKeepsOnlyTwoHundredRecentProfilesAndPreservesPrivateWorkAfterReload() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("bounded-directory-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("bounded-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("bounded-visitor.sqlite").absolutePath).use { visitorStore ->
@@ -1502,7 +1653,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun aDirectoryCallbackCannotTurnAnOwnerSignedUnlistedProfileIntoAListing() = runBlocking {
+    @Test fun aDirectoryCallbackCannotTurnAnOwnerSignedUnlistedProfileIntoAListing() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("unlisted-callback-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("unlisted-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("unlisted-visitor.sqlite").absolutePath).use { visitorStore ->
@@ -1532,7 +1683,7 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun publicDiscoveryShowsActualListedProfilesWithoutJoiningOrExposingPrivateNames() = runBlocking {
+    @Test fun publicDiscoveryShowsActualListedProfilesWithoutJoiningOrExposingPrivateNames() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("directory-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("visitor.sqlite").absolutePath).use { visitorStore ->

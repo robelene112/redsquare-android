@@ -10,7 +10,13 @@ import time
 import urllib.request
 
 repo = Path(__file__).resolve().parent.parent
-evidence = Path(sys.argv[1]).resolve() / 'spaces-journey'
+discovery_mode = len(sys.argv) == 3 and sys.argv[2] == 'discovery-v1'
+if len(sys.argv) not in (2, 3) or (len(sys.argv) == 3 and not discovery_mode):
+    raise ValueError('Expected evidence directory and optional discovery-v1')
+folder = 'spaces-discovery-evidence' if discovery_mode else 'spaces-journey-evidence'
+checkpoint_name = 'spaces-discovery-checkpoint.json' if discovery_mode else 'spaces-journey-checkpoint.json'
+classname = 'SpacesDiscoveryJourneyTest' if discovery_mode else 'SpacesJourneyTest'
+evidence = Path(sys.argv[1]).resolve() / ('spaces-discovery' if discovery_mode else 'spaces-journey')
 evidence.mkdir(parents=True, exist_ok=False)
 pkg = 'nl.davidengelen.redsquare.dev'
 runner = pkg + '.test/androidx.test.runner.AndroidJUnitRunner'
@@ -19,15 +25,15 @@ children = []
 def adb(*args, timeout=15, check=True):
     return subprocess.run(['adb', *args], capture_output=True, timeout=timeout, check=check)
 
-def command(port, action):
-    request = urllib.request.Request(f'http://127.0.0.1:{port}/{action}', b'{}', {'Content-Type': 'application/json'})
+def command(port, action, payload=None):
+    request = urllib.request.Request(f'http://127.0.0.1:{port}/{action}', json.dumps(payload or {}).encode(), {'Content-Type': 'application/json'})
     with urllib.request.urlopen(request, timeout=5) as response:
         return json.load(response)
 
 def instrument(method, filename, peer, control):
     log = (evidence / filename).open('wb')
     process = subprocess.Popen(['adb', 'shell', 'am', 'instrument', '-w', '-r',
-        '-e', 'class', f'nl.davidengelen.redsquare.SpacesJourneyTest#{method}',
+        '-e', 'class', f'nl.davidengelen.redsquare.{classname}#{method}',
         '-e', 'spacesPeerPort', str(peer), '-e', 'spacesControlPort', str(control), runner],
         stdout=log, stderr=subprocess.STDOUT)
     children.append((process, log))
@@ -41,11 +47,11 @@ try:
         raise RuntimeError('Only a disposable emulator may run this fixture')
     classpath = (repo / 'spaces-service/build/host-fixture-classpath.txt').read_text().strip()
     native = repo / 'core/build/generated/spaces-mls-host'
-    hostroot = repo / '.scratch' / ('spaces-native-host-' + os.environ['TEST_DEVICE_API'])
+    hostroot = repo / '.scratch' / (('spaces-discovery-host-' if discovery_mode else 'spaces-native-host-') + os.environ['TEST_DEVICE_API'])
     hostroot.mkdir(parents=True, exist_ok=False)
     hostlog = (hostroot / 'host.log').open('wb')
     host = subprocess.Popen(['java', '-Xmx512m', f'-Djava.library.path={native}', '-cp', classpath,
-        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)], stdout=hostlog, stderr=subprocess.STDOUT)
+        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + (['discovery-v1'] if discovery_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
     children.append((host, hostlog))
     deadline = time.monotonic() + 30
     while not (hostroot / 'ready.json').exists():
@@ -60,62 +66,128 @@ try:
         adb('reverse', f'tcp:{port}', f'tcp:{port}')
     # One unbroken movie per phase. Native goals stay bounded independently.
     def record(phase):
-        remote = f'/sdcard/spaces-journey-{phase}.mp4'
+        remote = f'/sdcard/spaces-{"discovery" if discovery_mode else "journey"}-{phase}.mp4'
         logfile = (evidence / f'movie-{phase}.log').open('wb')
         process = subprocess.Popen(['adb', 'shell', 'screenrecord', '--time-limit', '180',
             '--bit-rate', '2000000', remote], stdout=logfile, stderr=subprocess.STDOUT)
         children.append((process, logfile)); movies.append((process, remote, phase))
         return process
-    record(1)
-    first = instrument('createInviteJoinReadAndCheckpointAnUncertainOriginal', 'before-kill.txt', peer_port, control_port)
-    deadline = time.monotonic() + 180
-    while True:
-        observed = adb('exec-out', 'run-as', pkg, 'cat', 'cache/spaces-journey-checkpoint.json', check=False)
-        if time.monotonic() >= deadline:
-            raise RuntimeError('Native create/join/checkpoint exceeded its 180-second bound')
-        candidate = observed.returncode == 0 and observed.stdout.lstrip().startswith(b'{')
-        with (evidence / 'checkpoint-observations.jsonl').open('a') as observations:
-            observations.write(json.dumps({'remainingSeconds': round(deadline - time.monotonic(), 3),
-                'exit': observed.returncode, 'bytes': len(observed.stdout), 'candidateJson': candidate,
-                'nonJsonOutput': None if candidate else observed.stdout[:360].decode('utf-8', errors='replace')}) + '\n')
-        if candidate:
-            # Atomic device publication makes a malformed visible checkpoint
-            # an actual failure; retain its original bytes before parsing.
-            (evidence / 'observed-checkpoint.raw').write_bytes(observed.stdout)
-            checkpoint = json.loads(observed.stdout)
-            if checkpoint['phase'] == 'ready-for-process-kill':
-                break
-        if first.poll() is not None:
-            raise RuntimeError('Native test ended before its checkpoint; inspect before-kill.txt')
-        time.sleep(.25)
-    (evidence / 'checkpoint.json').write_text(json.dumps(checkpoint))
-    pid = adb('shell', 'pidof', pkg).stdout.decode().strip()
-    if pid != str(checkpoint['pid']):
-        raise RuntimeError('Checkpoint does not belong to the live Android process')
-    adb('shell', 'am', 'force-stop', pkg)
-    first.wait(timeout=15)
-    if adb('shell', 'pidof', pkg, check=False).stdout.strip():
-        raise RuntimeError('Original Android PID still exists')
-    (evidence / 'process-kill.json').write_text(json.dumps({'oldPid': checkpoint['pid'], 'forceStopped': True,
-        'firstInstrumentExit': first.returncode, 'expectedInterruptedTest': True}))
-    # End the first recording using the actual device screenrecord process.
-    adb('shell', 'pkill', '-INT', 'screenrecord', check=False)
-    movies[-1][0].wait(timeout=15)
-    record(2)
-    second = instrument('coldReturnReconcilesTheSameOriginalAndKeepsNewWriting', 'after-kill.txt', peer_port, control_port)
-    second.wait(timeout=90)
-    if second.returncode != 0 or 'OK (1 test)' not in (evidence / 'after-kill.txt').read_text():
-        raise RuntimeError('Native distinct-process recovery failed')
-    (evidence / 'host-status.json').write_text(json.dumps(command(control_port, 'status')))
-    command(control_port, 'stop'); host.wait(timeout=15)
-    if host.returncode != 0:
-        raise RuntimeError('Owned host could not verify/close actual received effects')
-    recovered = json.loads(adb('exec-out', 'run-as', pkg, 'cat', 'cache/spaces-journey-evidence/recovered.json').stdout)
-    if recovered['recoveredPid'] == checkpoint['pid']:
-        raise RuntimeError('Recovery reused the old Android PID')
-    (evidence / 'journey-outcome.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
-        'oldPid': checkpoint['pid'], 'newPid': recovered['recoveredPid'], 'nativeTerminalPasses': 1,
-        'deliberatelyInterruptedCases': 1, 'productionNodeActivated': False}))
+    if discovery_mode:
+        # Freeze all four whole parent phases before the first measurement.
+        phases = [
+            ('publicDiscoveryReadsWithoutJoiningAndCheckpointsTheActualVisitorPixel', 'visitor'),
+            ('coldPublicReferenceReviewsRulesAndKeepsPerChannelDraftsAndMemberReturns', 'member'),
+            ('coldMemberReturnCreatesAndReviewsInvitationsAndReadsUnlistedLinks', None),
+            ('compactLargeTypeKeepsRealCommunityAndCreationControlsReachable', None),
+        ]
+        (evidence / 'frozen-goals.json').write_text(json.dumps({'version': 1, 'phases': phases,
+            'phaseSeconds': 180, 'checkpointObservationSeconds': .25, 'pixelTolerance': 1,
+            'productionNodeActivated': False, 'ordinaryBetaChanged': False}, indent=2))
+        pids = []
+        for number, (method, expected_phase) in enumerate(phases, 1):
+            record(number)
+            native = instrument(method, f'phase-{number}.txt', peer_port, control_port)
+            if expected_phase:
+                deadline = time.monotonic() + 180
+                while True:
+                    if time.monotonic() >= deadline:
+                        raise RuntimeError(f'Native discovery phase {number} exceeded180s')
+                    observed = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{checkpoint_name}', check=False)
+                    if observed.returncode == 0 and observed.stdout.lstrip().startswith(b'{'):
+                        checkpoint = json.loads(observed.stdout)
+                        if checkpoint['phase'] == expected_phase:
+                            (evidence / f'checkpoint-{expected_phase}.raw').write_bytes(observed.stdout)
+                            break
+                    if native.poll() is not None:
+                        raise RuntimeError(f'Native discovery phase {number} ended before checkpoint')
+                    time.sleep(.25)
+                pid = adb('shell', 'pidof', pkg).stdout.decode().strip()
+                if pid != str(checkpoint['pid']) or checkpoint['pid'] in pids:
+                    raise RuntimeError('Checkpoint process identity mismatch')
+                pids.append(checkpoint['pid'])
+                adb('shell', 'am', 'force-stop', pkg); native.wait(timeout=15)
+                if adb('shell', 'pidof', pkg, check=False).stdout.strip():
+                    raise RuntimeError('Checkpoint PID remains alive')
+                (evidence / f'kill-{expected_phase}.json').write_text(json.dumps({'pid': checkpoint['pid'],
+                    'expectedInterruptedCase': True, 'instrumentExit': native.returncode}))
+            else:
+                native.wait(timeout=180)
+                if native.returncode or 'OK (1 test)' not in (evidence / f'phase-{number}.txt').read_text():
+                    raise RuntimeError('Native discovery final phase failed')
+                completed = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{"compact-completed.json" if number == 4 else "completed.json"}').stdout)
+                if number == 3 and completed['pid'] in pids:
+                    raise RuntimeError('Final phase reused a checkpoint PID')
+                pids.append(completed['pid'])
+            adb('shell', 'pkill', '-INT', 'screenrecord', check=False); movies[-1][0].wait(timeout=15)
+        fixtures = command(control_port, 'fixtures')
+        child = command(control_port, 'channel-received', {'space': fixtures['private']['space'], 'channel': 'design'})
+        (evidence / 'host-private-child-received.json').write_text(json.dumps(child, indent=2))
+        sender = json.loads((evidence / 'checkpoint-member.raw').read_bytes())['owner']
+        matched = [row for row in child['received'] if row['author'] == sender and row['text'] == 'Private child survives invitation revocation']
+        if len(matched) != 1:
+            raise RuntimeError('Independent host did not decrypt exactly one intended child original')
+        observed_child = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/private-child-received.json').stdout)
+        if observed_child != matched[0]:
+            raise RuntimeError('Native and independent host observed different child originals')
+        (evidence / 'host-status.json').write_text(json.dumps(command(control_port, 'status')))
+        command(control_port, 'stop'); host.wait(timeout=15)
+        if host.returncode:
+            raise RuntimeError('Owned discovery host failed its actual effects/cleanup')
+        (evidence / 'journey-outcome.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
+            'phasePids': pids, 'nativeTerminalPasses': 2, 'deliberatelyInterruptedCases': 2,
+            'productionNodeActivated': False, 'ordinaryBetaChanged': False}))
+    else:
+        record(1)
+        first = instrument('createInviteJoinReadAndCheckpointAnUncertainOriginal', 'before-kill.txt', peer_port, control_port)
+        deadline = time.monotonic() + 180
+        while True:
+            observed = adb('exec-out', 'run-as', pkg, 'cat', 'cache/spaces-journey-checkpoint.json', check=False)
+            if time.monotonic() >= deadline:
+                raise RuntimeError('Native create/join/checkpoint exceeded its 180-second bound')
+            candidate = observed.returncode == 0 and observed.stdout.lstrip().startswith(b'{')
+            with (evidence / 'checkpoint-observations.jsonl').open('a') as observations:
+                observations.write(json.dumps({'remainingSeconds': round(deadline - time.monotonic(), 3),
+                    'exit': observed.returncode, 'bytes': len(observed.stdout), 'candidateJson': candidate,
+                    'nonJsonOutput': None if candidate else observed.stdout[:360].decode('utf-8', errors='replace')}) + '\n')
+            if candidate:
+                # Atomic device publication makes a malformed visible checkpoint
+                # an actual failure; retain its original bytes before parsing.
+                (evidence / 'observed-checkpoint.raw').write_bytes(observed.stdout)
+                checkpoint = json.loads(observed.stdout)
+                if checkpoint['phase'] == 'ready-for-process-kill':
+                    break
+            if first.poll() is not None:
+                raise RuntimeError('Native test ended before its checkpoint; inspect before-kill.txt')
+            time.sleep(.25)
+        (evidence / 'checkpoint.json').write_text(json.dumps(checkpoint))
+        pid = adb('shell', 'pidof', pkg).stdout.decode().strip()
+        if pid != str(checkpoint['pid']):
+            raise RuntimeError('Checkpoint does not belong to the live Android process')
+        adb('shell', 'am', 'force-stop', pkg)
+        first.wait(timeout=15)
+        if adb('shell', 'pidof', pkg, check=False).stdout.strip():
+            raise RuntimeError('Original Android PID still exists')
+        (evidence / 'process-kill.json').write_text(json.dumps({'oldPid': checkpoint['pid'], 'forceStopped': True,
+            'firstInstrumentExit': first.returncode, 'expectedInterruptedTest': True}))
+        # End the first recording using the actual device screenrecord process.
+        adb('shell', 'pkill', '-INT', 'screenrecord', check=False)
+        movies[-1][0].wait(timeout=15)
+        record(2)
+        second = instrument('coldReturnReconcilesTheSameOriginalAndKeepsNewWriting', 'after-kill.txt', peer_port, control_port)
+        second.wait(timeout=90)
+        if second.returncode != 0 or 'OK (1 test)' not in (evidence / 'after-kill.txt').read_text():
+            raise RuntimeError('Native distinct-process recovery failed')
+        (evidence / 'host-status.json').write_text(json.dumps(command(control_port, 'status')))
+        command(control_port, 'stop'); host.wait(timeout=15)
+        if host.returncode != 0:
+            raise RuntimeError('Owned host could not verify/close actual received effects')
+        recovered = json.loads(adb('exec-out', 'run-as', pkg, 'cat', 'cache/spaces-journey-evidence/recovered.json').stdout)
+        if recovered['recoveredPid'] == checkpoint['pid']:
+            raise RuntimeError('Recovery reused the old Android PID')
+        (evidence / 'journey-outcome.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
+            'oldPid': checkpoint['pid'], 'newPid': recovered['recoveredPid'], 'nativeTerminalPasses': 1,
+            'deliberatelyInterruptedCases': 1, 'productionNodeActivated': False}))
+
 finally:
     # Each bounded cleanup is independent, and its exception must not replace
     # the original native/checkpoint failure or prevent remaining teardown.
@@ -148,7 +220,7 @@ finally:
             adb('pull', remote, str(evidence / f'phase-{phase}.mp4'), timeout=30))
     def archive():
         capture = adb('exec-out', 'run-as', pkg, 'tar', '-C', 'cache', '-cf', '-',
-                      'spaces-journey-evidence', timeout=30, check=False)
+                      folder, timeout=30, check=False)
         (evidence / 'native-evidence.tar').write_bytes(capture.stdout)
         (evidence / 'native-evidence-capture.json').write_text(json.dumps({'exit': capture.returncode}))
         if capture.returncode: raise RuntimeError('Native evidence archive failed')

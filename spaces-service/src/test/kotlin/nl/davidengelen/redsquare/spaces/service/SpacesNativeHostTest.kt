@@ -18,11 +18,14 @@ import java.util.concurrent.TimeUnit
  * emulator boot. A compiled Kotlin main alone does not prove a Java entrypoint. */
 class SpacesNativeHostTest {
     @get:Rule val files = TemporaryFolder()
-    @Test(timeout = 45_000) fun theActualFixtureProcessAdvertisesOwnedPortsAndStopsCleanly() {
-        val root = files.newFolder("host-start").toPath()
+    @Test(timeout = 45_000) fun theActualFixtureProcessAdvertisesOwnedPortsAndStopsCleanly() = runHost(false)
+    @Test(timeout = 45_000) fun theDiscoveryHostSeedsRealPublicPrivateAndUnlistedCommunitiesBeforeReadiness() = runHost(true)
+    private fun runHost(discovery: Boolean) {
+        val root = files.newFolder(if (discovery) "discovery-host" else "host-start").toPath()
         val process = ProcessBuilder(Path.of(System.getProperty("java.home"), "bin/java").toString(),
             "-Djava.library.path=" + System.getProperty("java.library.path"),
-            "-cp", System.getProperty("spaces.native.fixtureClasspath"), SpacesNativeHost::class.java.name, root.toString())
+            "-cp", System.getProperty("spaces.native.fixtureClasspath"), SpacesNativeHost::class.java.name, root.toString(),
+            *(if (discovery) arrayOf("discovery-v1") else emptyArray()))
             .redirectErrorStream(true).redirectOutput(root.resolve("host.log").toFile()).start()
         var primary: Throwable? = null
         try {
@@ -45,7 +48,15 @@ class SpacesNativeHostTest {
                 assertEquals(200, response.statusCode())
                 return response.body()
             }
-            assertEquals(0, JsonParser.parseString(command("status")).asJsonObject.getAsJsonArray("communities").size())
+            val status = JsonParser.parseString(command("status")).asJsonObject
+            assertEquals(if (discovery) 5 else 0, status.getAsJsonArray("communities").size())
+            if (discovery) {
+                val fixtures = JsonParser.parseString(command("fixtures")).asJsonObject
+                assertEquals(setOf("public", "unlisted", "nonchat", "private", "expiring"), fixtures.keySet())
+                assertTrue(fixtures.getAsJsonObject("unlisted").get("link").asString.startsWith("saito://spaces/community#"))
+                assertTrue(fixtures.getAsJsonObject("private").get("link").asString.startsWith("saito://spaces/join#"))
+                assertTrue(status.getAsJsonArray("communities").any { row -> row.asJsonObject.getAsJsonArray("received").any { it.asString == "Builders message 27" } })
+            }
             command("stop")
             check(process.waitFor(10, TimeUnit.SECONDS)) { "Owned fixture did not stop" }
             assertEquals(Files.readString(root.resolve("host.log")), 0, process.exitValue())

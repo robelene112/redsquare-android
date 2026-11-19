@@ -22,12 +22,23 @@ import java.time.Clock
 
 /** Account-owned work survives navigation. Local writes never wait for a held
  * read callback; only network work is serialized. Every snapshot keeps its scope. */
-internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend,
+internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, val backend: SaitoBackend,
     private val endpoint: String, parent: CoroutineScope) {
     enum class Availability { CHECKING, ONLINE, OFFLINE, UNSUPPORTED, CHANGED_IDENTITY, STORAGE_UNAVAILABLE }
     enum class Problem { CONNECTION, SAVE, INVITATION }
+    data class Target(val space: String, val channel: String)
     data class State(val loading: Boolean = true, val availability: Availability = Availability.CHECKING,
         val communities: List<SpaceClient.Community> = emptyList(), val selected: String? = null,
+        val selectedChannel: String? = null, val current: SpaceClient.Community? = null, val publicRulesToken: String? = null,
+        val anchor: SpaceClient.ReadingAnchor? = null, val created: String? = null,
+        val listingIntent: Boolean? = null, val previewIssue: SpaceClient.ReadProblem? = null, val publicLink: String? = null,
+        val joinedInvitation: String? = null, val openedPublicReference: String? = null, val contentLoaded: Boolean = false, val requiredNode: String? = null,
+        val profiles: Map<String, SpaceProfile> = emptyMap(), val channels: List<SpaceClient.Channel> = emptyList(),
+        val members: List<SpaceClient.Member> = emptyList(), val accessProblems: Map<String, SpaceClient.ReadProblem> = emptyMap(),
+        val discoverySupported: Boolean? = null, val unreadSupported: Boolean = false,
+        val directoryItems: List<SpaceClient.PublicCommunity> = emptyList(), val directoryQuery: String = "",
+        val directoryLoading: Boolean = false, val directoryCached: Boolean = false, val directoryFailed: Boolean = false,
+        val directoryCursor: Long = 0, val directoryHasMore: Boolean = false,
         val messages: List<SpaceClient.Message> = emptyList(), val draft: String = "",
         val invitation: SpaceClient.Invitation? = null, val preview: SpaceClient.InvitationPreview? = null,
         val problem: Problem? = null, val working: Boolean = false, val refreshing: Boolean = false,
@@ -41,11 +52,21 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val localAccess = Mutex()
     private val closed = AtomicBoolean()
     private val selection = AtomicLong()
+    private val navigationVersion = AtomicLong()
+    private val navigationChanges = Any()
+    private val wasVisible = AtomicBoolean()
     private val previews = AtomicLong()
-    private val historyWindows = ConcurrentHashMap<String, Long>()
+    private val directoryRequests = AtomicLong()
+    private fun State.target(): Target? = selected?.let { space -> selectedChannel?.let { Target(space, it) } }
+    private val historyWindows = ConcurrentHashMap<Target, Long>()
     val ownerKey: String get() = wallet.publicKey
-    private val draftVersions = ConcurrentHashMap<String, AtomicLong>()
-    private val dirtyDrafts = ConcurrentHashMap<String, String>()
+    private val draftVersions = ConcurrentHashMap<Target, AtomicLong>()
+    private val dirtyDrafts = ConcurrentHashMap<Target, String>()
+    private data class SavedViewport(val anchor: SpaceClient.ReadingAnchor?)
+    private val dirtyAnchors = ConcurrentHashMap<Target, SavedViewport>()
+    private val anchorVersions = ConcurrentHashMap<Target, AtomicLong>()
+    private val dirtyListings = ConcurrentHashMap<String, Boolean>()
+    private val listingVersions = ConcurrentHashMap<String, AtomicLong>()
     private val navigationSaving = AtomicBoolean()
     @Volatile private var peer: SaitoPeer? = null
     @Volatile private var client: SpaceClient? = null
@@ -88,26 +109,27 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         cachedService = service
                         installClient(service)
                     }
-                    mutable.update { it.copy(availability = Availability.ONLINE, ready = true) }
+                    val services = authenticatedPeer().services()
+                    mutable.update { it.copy(availability = Availability.ONLINE, ready = true,
+                        discoverySupported = "spaces-directory-v1" in services, unreadSupported = "spaces-unread-v1" in services) }
                     val current = requireNotNull(client)
-                    // Deliver authorized originals for all cached communities, even
-                    // when the user navigated to another one before the response.
                     for (community in current.communities()) {
-                        current.flush(community.id)
+                        try {
+                            current.flush(community.id)
+                            current.admitPending(community.id)
+                            current.flush(community.id)
+                            if ("spaces-unread-v1" in services) current.refreshUnread(community.id)
+                            mutable.update { it.copy(accessProblems = it.accessProblems - community.id) }
+                        } catch (denied: SpaceClient.ReadDenied) {
+                            mutable.update { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem)) }
+                        }
                     }
-                    val selected = mutable.value.selected
-                    if (selected != null) {
-                        val community = current.community(selected)
-                        if (community.joined) {
-                            current.refresh(selected)
-                            if (!current.community(selected).pending) {
-                                current.admitPending(selected)
-                                current.flush(selected)
-                            }
-                        } else {
-                            // A queued join is not membership. A private read can
-                            // remain denied until the inviter accepts its request.
-                            current.refresh(selected)
+                    mutable.value.target()?.let { target ->
+                        try {
+                            current.refresh(target.space, channel = target.channel)
+                            mutable.update { it.copy(accessProblems = it.accessProblems - target.space) }
+                        } catch (denied: SpaceClient.ReadDenied) {
+                            mutable.update { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem)) }
                         }
                     }
                     publish()
@@ -146,123 +168,207 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
 
     private suspend fun publish() = localAccess.withLock {
         val current = client ?: return@withLock
+        val before = mutable.value
+        val target = before.target()
         val communities = current.communities()
-        val selected = mutable.value.selected?.takeIf { id -> communities.any { it.id == id } }
-        val window = selected?.let { current.historyWindow(it, historyWindows[it]) }
-        val messages = selected?.let { current.timeline(it, from = window?.from) }.orEmpty()
-        val invitation = selected?.let(current::invitation)
+        val profiles = communities.associate { it.id to current.profile(it.id) }.toMutableMap()
+        val community = target?.let { current.community(it.space, channel = it.channel) }
+        target?.let { profiles[it.space] = current.profile(it.space) }
+        val channels = target?.let { current.channels(it.space) }.orEmpty()
+        val members = target?.let { current.members(it.space) }.orEmpty()
+        val window = target?.let { current.historyWindow(it.space, historyWindows[it], channel = it.channel) }
+        val messages = target?.let { current.timeline(it.space, from = window?.from, channel = it.channel) }.orEmpty()
+        val invitation = target?.let { current.invitation(it.space) }
+        val publicRulesToken = target?.let { profiles[it.space] }?.takeIf { it.visibility == SpaceVisibility.PUBLIC }?.publicRulesToken
+        val listingIntent = target?.let { current.listingIntent(it.space) }
+        val publicLink = target?.takeIf { profiles[it.space]?.visibility == SpaceVisibility.PUBLIC && members.isNotEmpty() }?.let { current.publicLink(it.space) }
         mutable.update { previous ->
-            if (previous.selected != selected) previous.copy(communities = communities)
-            else previous.copy(communities = communities, messages = messages, invitation = invitation,
-                hasEarlier = window?.hasEarlier == true, hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0, followingLatest = selected == null || historyWindows[selected] == null)
+            if (previous.target() != target || previous.loadingChannel) previous.copy(communities = communities, profiles = profiles)
+            else previous.copy(communities = communities, profiles = profiles, current = community, channels = channels, members = members,
+                messages = messages, invitation = invitation, publicRulesToken = publicRulesToken,
+                listingIntent = target?.let { dirtyListings[it.space] } ?: listingIntent, publicLink = publicLink,
+                contentLoaded = window?.loaded == true, hasEarlier = window?.hasEarlier == true,
+                hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0,
+                followingLatest = target == null || historyWindows[target] == null)
         }
     }
 
     fun visible(active: Boolean) {
+        if (wasVisible.getAndSet(active) && !active) synchronized(navigationChanges) { navigationVersion.incrementAndGet() }
         ticker?.cancel(); ticker = null
         if (active) ticker = scope.launch {
             while (isActive) { wake.trySend(Unit); delay(5_000) }
         }
     }
     fun refresh() { wake.trySend(Unit) }
-    fun select(space: String?) {
-        if (closed.get()) return
-        val token = selection.incrementAndGet()
-        val draftVersion = space?.let { draftVersions.getOrPut(it) { AtomicLong() }.get() }
-        mutable.update { it.copy(selected = space, messages = emptyList(), draft = "", invitation = null, problem = null, loadingChannel = space != null, scrollToMessage = null) }
-        scope.launch {
-            try {
-                val current = client ?: return@launch
-                val (draft, messages, window) = localAccess.withLock {
-                    val window = space?.let { current.historyWindow(it, historyWindows[it]) }
-                    Triple(space?.let { dirtyDrafts[it] ?: current.draft(it) }.orEmpty(),
-                        space?.let { current.timeline(it, from = window?.from) }.orEmpty(), window)
-                }
-                mutable.update { if (it.selected == space && selection.get() == token) it.copy(
-                    draft = if (space == null || draftVersions[space]?.get() == draftVersion) draft else it.draft,
-                    messages = messages, loadingChannel = false, hasEarlier = window?.hasEarlier == true,
-                    hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0,
-                    followingLatest = space == null || historyWindows[space] == null) else it }
-                publish(); wake.trySend(Unit)
-            } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { mutable.update { if (it.selected == space && selection.get() == token)
-                it.copy(problem = Problem.SAVE, loadingChannel = false) else it } }
+    fun select(space: String?, channel: String? = null) { selectRoute(space, channel) }
+    private fun selectRoute(space: String?, channel: String? = null, expected: Long? = null): Boolean {
+        if (closed.get()) return false
+        return synchronized(navigationChanges) {
+            if (expected != null && navigationVersion.get() != expected) return@synchronized false
+            navigationVersion.incrementAndGet()
+            val token = selection.incrementAndGet()
+            mutable.update { it.copy(selected = space, selectedChannel = channel, current = null,
+                messages = emptyList(), channels = emptyList(), members = emptyList(), draft = "", invitation = null, anchor = null,
+                problem = null, listingIntent = null, publicLink = null, contentLoaded = false, loadingChannel = space != null, scrollToMessage = null) }
+            scope.launch {
+                try {
+                    val current = client ?: return@launch
+                    localAccess.withLock {
+                        if (selection.get() != token) return@withLock
+                        persistLocal(current)
+                        if (space == null) {
+                            mutable.update { if (selection.get() == token) it.copy(loadingChannel = false) else it }
+                            return@withLock
+                        }
+                        if (channel != null) current.selectChannel(space, channel)
+                        val community = current.community(space)
+                        val target = Target(space, community.channel)
+                        val version = draftVersions.getOrPut(target) { AtomicLong() }.get()
+                        val anchor = current.readingAnchor(space, channel = target.channel)
+                        if (anchor != null) historyWindows.putIfAbsent(target, anchor.windowFrom)
+                        val window = current.historyWindow(space, historyWindows[target], channel = target.channel)
+                        val draft = dirtyDrafts[target] ?: current.draft(space, channel = target.channel)
+                        val messages = current.timeline(space, from = window.from, channel = target.channel)
+                        val channels = current.channels(space); val members = current.members(space); val profile = current.profile(space)
+                        val rulesToken = profile.takeIf { it.visibility == SpaceVisibility.PUBLIC }?.publicRulesToken
+                        val listingIntent = current.listingIntent(space)
+                        mutable.update { if (it.selected == space && selection.get() == token) it.copy(
+                            selectedChannel = target.channel, current = community, channels = channels, members = members, anchor = anchor,
+                            profiles = it.profiles + (space to profile), publicRulesToken = rulesToken, listingIntent = dirtyListings[space] ?: listingIntent,
+                            draft = if (draftVersions[target]?.get() == version) draft else it.draft,
+                            messages = messages, loadingChannel = false, contentLoaded = window.loaded, hasEarlier = window.hasEarlier,
+                            hasLater = window.hasLater, windowFrom = window.from, followingLatest = historyWindows[target] == null) else it }
+                    }
+                    publish(); wake.trySend(Unit)
+                } catch (cancelled: CancellationException) { throw cancelled }
+                catch (_: Exception) { mutable.update { if (it.selected == space && selection.get() == token)
+                    it.copy(problem = Problem.SAVE, loadingChannel = false) else it } }
+            }
+            true
         }
     }
-    fun editDraft(text: String) {
-        mutable.value.selected?.let { editDraft(it, text) }
-    }
+    fun editDraft(text: String) { mutable.value.target()?.let { editDraft(it.space, it.channel, text) } }
     fun editDraft(space: String, text: String) {
+        mutable.value.target()?.takeIf { it.space == space }?.let { editDraft(space, it.channel, text) }
+    }
+    fun editDraft(space: String, channel: String, text: String) {
         if (closed.get() || navigationSaving.get()) return
-        dirtyDrafts[space] = text
-        val version = draftVersions.getOrPut(space) { AtomicLong() }.incrementAndGet()
-        mutable.update { if (it.selected == space) it.copy(draft = text) else it }
+        val target = Target(space, channel)
+        dirtyDrafts[target] = text
+        val version = draftVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
+        mutable.update { if (it.target() == target) it.copy(draft = text) else it }
         scope.launch {
             try { localAccess.withLock {
-                if (draftVersions[space]?.get() == version) {
-                    requireNotNull(client).saveDraft(space, text)
-                    dirtyDrafts.remove(space, text)
+                if (draftVersions[target]?.get() == version) {
+                    requireNotNull(client).saveDraft(space, text, channel = channel)
+                    dirtyDrafts.remove(target, text)
                 }
             } }
             catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { mutable.update { if (it.selected == space) it.copy(problem = Problem.SAVE) else it } }
+            catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
         }
     }
     fun send() {
         val before = mutable.value
-        val space = before.selected ?: return
+        val target = before.target() ?: return
         localAction {
             localAccess.withLock {
                 val current = requireNotNull(client)
-                if (mutable.value.selected == space && mutable.value.draft == before.draft) current.saveDraft(space, before.draft)
-                val queued = current.send(space, before.draft)
-                historyWindows.remove(space)
-                mutable.update { if (it.selected == space && it.draft == before.draft) {
-                    draftVersions.getOrPut(space) { AtomicLong() }.incrementAndGet()
-                    dirtyDrafts.remove(space, before.draft)
-                    it.copy(draft = "", scrollToMessage = queued)
-                } else if (it.selected == space) it.copy(scrollToMessage = queued) else it }
+                if (mutable.value.target() == target && mutable.value.draft == before.draft)
+                    current.saveDraft(target.space, before.draft, channel = target.channel)
+                val queued = current.send(target.space, before.draft, channel = target.channel)
+                historyWindows.remove(target)
+                anchorVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
+                dirtyAnchors.remove(target)
+                current.saveReadingAnchor(target.space, target.channel, null)
+                mutable.update { if (it.target() == target && it.draft == before.draft) {
+                    draftVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
+                    dirtyDrafts.remove(target, before.draft)
+                    it.copy(draft = "", anchor = null, followingLatest = true, scrollToMessage = queued)
+                } else if (it.target() == target) it.copy(anchor = null, followingLatest = true, scrollToMessage = queued) else it }
             }
             publish(); wake.trySend(Unit)
         }
     }
     fun readingPosition(space: String, followLatest: Boolean) {
-        val before = mutable.value
-        if (before.selected != space || before.loadingChannel) return
-        if (followLatest) {
-            // The end of a historical page is still historical. Returning to
-            // current activity requires its explicit action, not reaching the
-            // bottom of whichever bounded page happens to be on screen.
-            if (!before.hasLater) {
-                historyWindows.remove(space)
-                mutable.update { if (it.selected == space) it.copy(followingLatest = true) else it }
-            }
-        } else {
-            historyWindows.putIfAbsent(space, before.windowFrom)
-            mutable.update { if (it.selected == space) it.copy(followingLatest = false) else it }
+        mutable.value.target()?.takeIf { it.space == space }?.let { readingPosition(space, it.channel, followLatest) }
+    }
+    fun readingPosition(space: String, channel: String, followLatest: Boolean, anchor: SpaceClient.ReadingAnchor? = null) {
+        val before = mutable.value; val target = Target(space, channel)
+        if (before.target() != target || before.loadingChannel) return
+        val latest = followLatest && !before.hasLater
+        if (latest) historyWindows.remove(target) else historyWindows.putIfAbsent(target, before.windowFrom)
+        mutable.update { if (it.target() == target) it.copy(followingLatest = latest, anchor = if (latest) null else anchor ?: it.anchor) else it }
+        if (!latest && anchor == null) return
+        val snapshot = SavedViewport(if (latest) null else anchor)
+        dirtyAnchors[target] = snapshot
+        val version = anchorVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
+        scope.launch {
+            delay(150)
+            try { localAccess.withLock {
+                if (anchorVersions[target]?.get() == version) {
+                    requireNotNull(client).saveReadingAnchor(space, channel, snapshot.anchor)
+                    dirtyAnchors.remove(target, snapshot)
+                }
+            } }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
+        }
+    }
+    private fun persistLocal(current: SpaceClient) {
+        for ((target, text) in dirtyDrafts.entries.toList()) {
+            current.saveDraft(target.space, text, channel = target.channel)
+            dirtyDrafts.remove(target, text)
+        }
+        for ((target, viewport) in dirtyAnchors.entries.toList()) {
+            current.saveReadingAnchor(target.space, target.channel, viewport.anchor)
+            dirtyAnchors.remove(target, viewport)
+        }
+        for ((space, listed) in dirtyListings.entries.toList()) {
+            current.setListed(space, listed); dirtyListings.remove(space, listed)
         }
     }
     fun consumeScrollTarget(message: String) {
         mutable.update { if (it.scrollToMessage == message) it.copy(scrollToMessage = null) else it }
     }
     fun olderMessages() {
-        val space = mutable.value.selected ?: return
+        val target = mutable.value.target() ?: return
         localAction(Problem.CONNECTION) { network.withLock {
             val current = requireNotNull(client)
-            val before = current.historyWindow(space, historyWindows[space])
+            val before = current.historyWindow(target.space, historyWindows[target], channel = target.channel)
             val start = (before.from - 50).coerceAtLeast(0)
-            while (current.historyWindow(space).loadedFrom > start) current.older(space)
-            historyWindows[space] = start
+            while (current.historyWindow(target.space, channel = target.channel).loadedFrom > start)
+                current.older(target.space, channel = target.channel)
+            historyWindows[target] = start
             publish()
-            mutable.update { if (it.selected == space) it.copy(scrollToMessage = it.messages.firstOrNull()?.id) else it }
+            mutable.update { if (it.target() == target) it.copy(scrollToMessage = it.messages.firstOrNull()?.id) else it }
         } }
     }
     fun latestMessages() {
-        val space = mutable.value.selected ?: return
-        historyWindows.remove(space)
-        scope.launch {
+        val target = mutable.value.target() ?: return
+        historyWindows.remove(target)
+        val snapshot = SavedViewport(null)
+        dirtyAnchors[target] = snapshot
+        val version = anchorVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
+        mutable.update { if (it.target() == target) it.copy(anchor = null, followingLatest = true) else it }
+        localAction {
+            localAccess.withLock {
+                if (anchorVersions[target]?.get() == version) {
+                    requireNotNull(client).saveReadingAnchor(target.space, target.channel, null)
+                    dirtyAnchors.remove(target, snapshot)
+                }
+            }
             publish()
-            mutable.update { if (it.selected == space) it.copy(scrollToMessage = it.messages.lastOrNull()?.id) else it }
+            mutable.update { if (it.target() == target) it.copy(scrollToMessage = it.messages.lastOrNull()?.id) else it }
+        }
+    }
+    fun markRead(space: String, channel: String, position: Long) {
+        val target = Target(space, channel)
+        scope.launch {
+            try { localAccess.withLock { requireNotNull(client).markRead(space, channel, position) }; publish() }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
         }
     }
     fun restoreRejectedDraft(messageId: String) {
@@ -274,17 +380,33 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         // blank save cannot overwrite this user action or newer typing.
         editDraft(space, text)
     }
-    fun create(name: String) = localAction {
-        val space = localAccess.withLock { requireNotNull(client).create(name) }
-        select(space); publish(); wake.trySend(Unit)
+    fun create(name: String) = create(SpaceProfile(name), listOf(SpaceChannelProfile("general")))
+    fun create(profile: SpaceProfile, channels: List<SpaceChannelProfile>) {
+        val route = navigationVersion.get()
+        localAction { createAndOpen(profile, channels, route) }
     }
-    fun invite(days: Int = 7) {
-        val space = mutable.value.selected ?: return
+    fun create(draft: SpaceCreation) {
+        val route = navigationVersion.get()
+        localAction {
+            val profile = SpaceProfile(draft.name, draft.description, draft.visibility, draft.listed, draft.houseRules, draft.image)
+            val channels = draft.channels.map { SpaceChannelProfile(it.name, it.kind, it.category) }
+            createAndOpen(profile, channels, route)
+        }
+    }
+    private suspend fun createAndOpen(profile: SpaceProfile, channels: List<SpaceChannelProfile>, route: Long) {
+        val space = localAccess.withLock { requireNotNull(client).create(profile, channels) }
+        mutable.update { it.copy(created = space) }
+        selectRoute(space, expected = route); publish(); wake.trySend(Unit)
+    }
+    fun dismissCreation() { synchronized(navigationChanges) { navigationVersion.incrementAndGet() } }
+    fun consumeCreated(space: String) { mutable.update { if (it.created == space) it.copy(created = null) else it } }
+    fun invite(days: Int = 7) { mutable.value.selected?.let { invite(it, days) } }
+    fun invite(space: String, days: Int = 7) {
         localAction { localAccess.withLock { requireNotNull(client).invite(space, days * 86_400_000L) }; publish(); wake.trySend(Unit) }
     }
     fun preview(link: String) {
         val token = previews.incrementAndGet()
-        mutable.update { it.copy(preview = null) }
+        mutable.update { it.copy(preview = null, previewIssue = null) }
         localAction(Problem.INVITATION) { network.withLock {
             val current = client ?: run {
                 val service = authenticatedPeer().servicePublicKey("spaces-v1")
@@ -294,15 +416,114 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             try {
                 val preview = current.preview(link)
                 if (previews.get() == token) mutable.update { it.copy(preview = preview) }
-            } catch (failure: Exception) { if (previews.get() == token) throw failure }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (failure: Exception) { if (previews.get() == token) throw failure }
         } }
     }
-    fun join(link: String) = localAction(Problem.INVITATION) { network.withLock {
-        val space = requireNotNull(client).join(link)
-        mutable.update { it.copy(preview = null) }
-        select(space); publish(); wake.trySend(Unit)
-    } }
-    fun dismissPreview() { previews.incrementAndGet(); mutable.update { it.copy(preview = null) } }
+    fun join(link: String, acceptedRulesToken: String? = null) {
+        val route = navigationVersion.get(); val review = previews.get()
+        localAction(Problem.INVITATION) { network.withLock {
+            val space = requireNotNull(client).join(link, acceptedRulesToken)
+            if (previews.get() == review) {
+                mutable.update { it.copy(preview = null, joinedInvitation = link) }
+                selectRoute(space, expected = route)
+            }
+            publish(); wake.trySend(Unit)
+        } }
+    }
+    fun consumeJoinedInvitation(link: String) {
+        mutable.update { if (it.joinedInvitation == link) it.copy(joinedInvitation = null) else it }
+    }
+    fun openPublic(space: String) {
+        val route = navigationVersion.get()
+        localAction(Problem.CONNECTION) { network.withLock {
+            try {
+                requireNotNull(client).openPublic(space)
+                selectRoute(space, expected = route)
+                publish(); wake.trySend(Unit)
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (failure: Exception) { if (navigationVersion.get() == route) throw failure }
+        } }
+    }
+    fun openPublicLink(link: String) {
+        val route = navigationVersion.get()
+        mutable.update { it.copy(previewIssue = null, requiredNode = null, problem = null) }
+        localAction(Problem.INVITATION) { network.withLock {
+            try {
+                val opened = requireNotNull(client).openPublicLink(link)
+                if (selectRoute(opened.id, expected = route)) mutable.update { it.copy(openedPublicReference = link) }
+                publish(); wake.trySend(Unit)
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (failure: Exception) { if (navigationVersion.get() == route) throw failure }
+        } }
+    }
+    fun dismissPublicReference() { synchronized(navigationChanges) { navigationVersion.incrementAndGet() } }
+    fun consumePublicReference(link: String) { mutable.update { if (it.openedPublicReference == link) it.copy(openedPublicReference = null) else it } }
+    fun joinPublic(acceptedRulesToken: String? = null) {
+        val space = mutable.value.selected ?: return
+        localAction { localAccess.withLock { requireNotNull(client).joinPublic(space, acceptedRulesToken) }; publish(); wake.trySend(Unit) }
+    }
+    fun revokeInvitation(space: String) {
+        localAction { localAccess.withLock { requireNotNull(client).revokeInvitation(space) }; publish(); wake.trySend(Unit) }
+    }
+    fun setListed(space: String, listed: Boolean) {
+        if (closed.get() || navigationSaving.get()) return
+        dirtyListings[space] = listed
+        val version = listingVersions.getOrPut(space) { AtomicLong() }.incrementAndGet()
+        mutable.update { if (it.selected == space) it.copy(listingIntent = listed) else it }
+        scope.launch {
+            try {
+                localAccess.withLock {
+                    if (listingVersions[space]?.get() == version) {
+                        requireNotNull(client).setListed(space, listed)
+                        dirtyListings.remove(space, listed)
+                    }
+                }
+                publish(); wake.trySend(Unit)
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: IllegalArgumentException) {
+                dirtyListings.remove(space, listed)
+                mutable.update { if (it.selected == space) it.copy(problem = Problem.SAVE) else it }
+            }
+            catch (_: Exception) { mutable.update { if (it.selected == space) it.copy(problem = Problem.SAVE) else it } }
+        }
+    }
+    fun discover(query: String = mutable.value.directoryQuery, more: Boolean = false) {
+        if (closed.get()) return
+        val token = directoryRequests.incrementAndGet()
+        val trimmed = query.trim()
+        val cursor = if (more && trimmed == mutable.value.directoryQuery) mutable.value.directoryCursor else 0L
+        mutable.update { it.copy(directoryQuery = trimmed, directoryLoading = true, directoryFailed = false) }
+        scope.launch {
+            try {
+                val current = client ?: return@launch
+                if (cursor == 0L) {
+                    val normalized = trimmed.lowercase(java.util.Locale.ROOT)
+                    val cached = localAccess.withLock { current.cachedDirectory().filter {
+                        (it.profile.name + " " + it.profile.description).lowercase(java.util.Locale.ROOT).contains(normalized)
+                    } }
+                    mutable.update { if (directoryRequests.get() == token) it.copy(directoryItems = cached, directoryCached = cached.isNotEmpty(), directoryHasMore = false) else it }
+                }
+                network.withLock {
+                    if (directoryRequests.get() != token) return@withLock
+                    val connection = authenticatedPeer()
+                    if ("spaces-directory-v1" !in connection.services()) {
+                        mutable.update { if (directoryRequests.get() == token) it.copy(discoverySupported = false) else it }
+                        return@withLock
+                    }
+                    val page = current.discover(trimmed, cursor)
+                    mutable.update { if (directoryRequests.get() == token && it.directoryQuery == trimmed) it.copy(
+                        directoryItems = (if (cursor == 0L) page.items else it.directoryItems + page.items).distinctBy { item -> item.id },
+                        directoryCached = false, directoryCursor = page.nextCursor, directoryHasMore = page.hasMore,
+                        discoverySupported = true, directoryFailed = false) else it }
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: ChangedIdentity) { mutable.update { it.copy(availability = Availability.CHANGED_IDENTITY) } }
+            catch (_: Exception) { mutable.update { if (directoryRequests.get() == token) it.copy(directoryFailed = true) else it } }
+            finally { mutable.update { if (directoryRequests.get() == token) it.copy(directoryLoading = false) else it } }
+        }
+    }
+    fun dismissPreview() { previews.incrementAndGet(); mutable.update { it.copy(preview = null, previewIssue = null) } }
     fun clearProblem() { mutable.update { it.copy(problem = null) } }
     private fun localAction(problem: Problem = Problem.SAVE, action: suspend () -> Unit) {
         if (closed.get() || navigationSaving.get() || mutable.value.working || mutable.value.loading) return
@@ -310,6 +531,13 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         scope.launch {
             try { action() }
             catch (cancelled: CancellationException) { throw cancelled }
+            catch (denied: SpaceClient.ReadDenied) {
+                mutable.update { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem),
+                    previewIssue = if (problem == Problem.INVITATION) denied.problem else it.previewIssue) }
+            }
+            catch (different: SpaceClient.DifferentNode) { mutable.update { it.copy(requiredNode = different.node) } }
+            catch (_: ChangedIdentity) { mutable.update { it.copy(availability = Availability.CHANGED_IDENTITY) } }
+            catch (_: MissingService) { mutable.update { it.copy(availability = Availability.UNSUPPORTED) } }
             catch (_: Exception) { mutable.update { it.copy(problem = problem) } }
             finally { mutable.update { it.copy(working = false) } }
         }
@@ -324,12 +552,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 localAccess.withLock {
                     try {
                         val current = client
-                        if (current == null) dirtyDrafts.isEmpty()
+                        if (current == null) dirtyDrafts.isEmpty() && dirtyAnchors.isEmpty() && dirtyListings.isEmpty()
                         else {
-                            for ((space, text) in dirtyDrafts.entries.toList()) {
-                                current.saveDraft(space, text)
-                                dirtyDrafts.remove(space, text)
-                            }
+                            persistLocal(current)
                             true
                         }
                     } catch (cancelled: CancellationException) { throw cancelled }
@@ -338,6 +563,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             }
             if (!saved) { mutable.update { it.copy(problem = Problem.SAVE) }; return false }
             currentCoroutineContext().ensureActive()
+            synchronized(navigationChanges) { navigationVersion.incrementAndGet() }
             return commit()
         } finally {
             navigationSaving.set(false)

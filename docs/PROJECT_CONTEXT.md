@@ -2,6 +2,14 @@
 
 ## Active138: discovery and community admission
 
+Native community entry is now implemented in source. See the [preflight packet](evidence/ticket138/native-entry-increment.json).
+The observed production/instrumentation build passes244 core and66 service
+cases; final notification-route and native observer corrections still need the
+source-pinned CI build. Four real Activity/OS phases are prepared, including two
+external process kills, channel drafts/pixels, independent received child content
+and compact200percent text. Run both Android scopes, retain whole failures and
+compare complete frames against B. Do not close138 or promote beta142 yet.
+
 Issue137 is closed;138 remains in progress. The first owned client/service
 increment adds explicit public/private profiles, authenticated paged discovery,
 owner-signed listing changes and a bounded200-profile discovery cache. Actual

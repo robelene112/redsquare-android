@@ -119,6 +119,12 @@ A link issued by a Space owner or administrator that allows its holder to join
 a private Space directly while the invitation remains valid. An invitation can
 expire or be revoked without removing people who have already joined.
 
+**Public Space link**:
+A permanent reference to a public Space at a specified node and service identity.
+It carries no invitation capability and grants no membership. An unlisted public
+Space remains readable through it. Opening a reference for another node requires
+an explicit node choice.
+
 ## Fileshare
 
 **Retained received file**:

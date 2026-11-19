@@ -4,6 +4,18 @@ In progress. The directory/owner-listing increment is implemented at the owned
 client/service boundary. It is not complete138 or native UI acceptance. Public
 beta142 and all separate production activation gates remain unchanged.
 
+The [native entry source increment](native-entry-increment.json) connects the
+approved B overview/drawer to real discovery, creation, reviewed admission,
+members, owner listing, invitations and permanent public links. Scoped drafts
+and exact message/pixel anchors have durable storage. Current source review
+corrections are clear. The observed build passes244 core and66 service checks
+and compiles native test sources; the packet qualifies the later source and
+observer changes still requiring final CI. No actual138 native run is claimed.
+The prospective four-phase journey includes two genuine process kills, an
+independent decrypted child original, and compact200percent text. Native
+geometry, complete frames, prototype comparison and pinned framework rehearsals
+remain required before closure. Ordinary beta142 stays unchanged.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.

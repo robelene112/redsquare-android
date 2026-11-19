@@ -48,11 +48,16 @@ class SpacesJourneyTest {
         val originalWallet = wallet.exportJson()
         launch().use { activity -> withFailureCapture({ capture("native-failure") }) {
             openSpaces("Red Square")
-            ui.waitUntil(15_000) { ui.onNode(hasText("Create a community") and hasClickAction() and isEnabled()).isDisplayed() }
+            ui.waitUntil(15_000) { ui.onNode(hasText("Create a Space") and hasClickAction() and isEnabled()).isDisplayed() }
             capture("01-communities")
-            ui.onNode(hasText("Create a community") and hasClickAction()).performClick()
-            ui.onNode(hasSetTextAction()).performTextInput(community)
-            ui.onNode(hasText("Create a community") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+            ui.onNode(hasText("Create a Space") and hasClickAction()).performClick()
+            ui.onNodeWithText("Space name").performTextInput(community)
+            closeKeyboard(activity)
+            // Retain the original137 single-channel goals and original deadlines.
+            listOf("announcements", "the lounge", "reading room", "resources").forEach { name ->
+                ui.onNodeWithContentDescription("Remove $name").performScrollTo().performClick()
+            }
+            ui.onNode(hasText("Create a Space") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Message general").isDisplayed() && ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
             ui.onNodeWithText("Message general").performTextInput("Hello from the native Android client")
             ui.waitUntil(10_000) { ui.onNode(hasContentDescription("Send message") and isEnabled()).isDisplayed() }
@@ -83,7 +88,7 @@ class SpacesJourneyTest {
                 row.asJsonObject.getAsJsonArray("received").any { it.asString == "Hello from the native Android client" }
             })
             capture("04-independent-received-reply")
-            ui.onNode(hasText("Community information") and hasClickAction()).assertIsDisplayed().performClick()
+            ui.onNode(hasContentDescription("Community information") and hasClickAction()).assertIsDisplayed().performClick()
             ui.waitUntil(5_000) { ui.onNodeWithText("You are a member of this community.").isDisplayed() }
             capture("04e-community-information", "You are a member of this community.")
             ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
@@ -121,22 +126,22 @@ class SpacesJourneyTest {
             // preview and explicit join path rather than only owner admission.
             val invitationDetails = command("invitation")
             val invitation = invitationDetails.get("link").asString
-            ui.onNode(hasText("Back to your communities") and hasClickAction() and
+            ui.onNode(hasContentDescription("Back to your communities") and hasClickAction() and
                 !hasAnyAncestor(hasScrollToNodeAction())).assertIsDisplayed().performClick()
             ui.waitUntil(5_000) { ui.onNode(hasText("Join with an invitation") and hasClickAction()).isDisplayed() }
             ui.onNode(hasText("Join with an invitation") and hasClickAction()).performClick()
             ui.onNode(hasSetTextAction()).performTextInput(invitation)
             ui.onNode(hasText("View invitation") and hasClickAction()).performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("You are invited to Builders on another device").isDisplayed() &&
+            ui.waitUntil(15_000) { ui.onNodeWithText("Builders on another device").isDisplayed() &&
                 ui.onNode(hasText("Join community") and hasClickAction() and isEnabled()).isDisplayed() }
-            ui.onNodeWithText("You are invited to Builders on another device").assertIsDisplayed()
+            ui.onNodeWithText("Builders on another device").assertIsDisplayed()
             ui.onNode(hasText("Join community") and hasClickAction()).assertIsDisplayed()
             capture("05-preview-without-joining", "Join community")
             ui.onNode(hasText("Use another invitation") and hasClickAction()).performClick()
             ui.waitUntil(5_000) { ui.onNode(hasSetTextAction() and hasAnyAncestor(isDialog())).isDisplayed() }
             ui.onNode(hasSetTextAction() and hasAnyAncestor(isDialog())).performTextReplacement(invitation)
             ui.onNode(hasText("View invitation") and hasClickAction()).performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("You are invited to Builders on another device").isDisplayed() &&
+            ui.waitUntil(15_000) { ui.onNodeWithText("Builders on another device").isDisplayed() &&
                 ui.onNode(hasText("Join community") and hasClickAction() and isEnabled()).isDisplayed() }
             ui.onNode(hasText("Join community") and hasClickAction()).performClick()
             ui.waitUntil(20_000) { ui.onNodeWithText("Reply from independent member").isDisplayed() &&

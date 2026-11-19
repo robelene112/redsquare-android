@@ -78,6 +78,7 @@ private enum class FeedOverlay { QUEUE, AUTHOR_CHANGES, COMPOSER }
 internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend,
     lifecycle: Lifecycle, modifier: Modifier, canReportDrawn: Boolean,
     notificationRoutes: NotificationRoutes? = null, allowPushRoute: Boolean = true,
+    externalReturnDepth: Int? = null, onExternalBack: () -> Unit = {}, onExternalNavigate: () -> Unit = {},
     chrome: @Composable (Boolean) -> Unit = {},
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit,
     onDrawn: () -> Unit) {
@@ -167,7 +168,15 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             navigation.add(BrowseDestination.Profile(author))
         }
     }
-    fun back() { if (navigation.isNotEmpty()) navigation.removeAt(navigation.lastIndex) }
+    fun back() {
+        if (navigation.isNotEmpty()) navigation.removeAt(navigation.lastIndex)
+        if (externalReturnDepth != null && navigation.size <= externalReturnDepth) onExternalBack()
+    }
+    fun abandonSpaceReturn() {
+        val depth = externalReturnDepth ?: return
+        while (navigation.size > depth) navigation.removeAt(navigation.lastIndex)
+        onExternalNavigate()
+    }
     val authorActions = remember(wallet?.publicKey, navigation) {
         wallet?.let { current -> PostAuthorActions(current.publicKey) { post, kind ->
             if (post.author == current.publicKey) navigation.add(BrowseDestination.Author(post, kind))
@@ -220,6 +229,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     val permitted = withContext(Dispatchers.IO) { fileReference.canOpen(context) }
                     if (!permitted || !routes.current(delivery) || !allowPushRoute || personal.saving) false
                     else {
+                        abandonSpaceReturn()
                         composing = false; reviewingQueue = false; reviewingChanges = false
                         chatAlertUri = null; fileAlertUri = fileReference.uri().toString()
                         chatAlertGeneration = delivery.getLong("generation")
@@ -255,6 +265,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                             else if (!routes.current(delivery)) "delivery superseded" else "presentation busy")
                         false
                     } else {
+                        abandonSpaceReturn()
                         composing = false; reviewingQueue = false; reviewingChanges = false
                         chatAlertUri = chatReference.uri().toString()
                         fileAlertUri = null
@@ -294,6 +305,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     currentCoroutineContext().ensureActive()
                     if (!permitted || !routes.current(delivery) || personal.saving || personal.hidesPosts(target.author)) false
                     else {
+                        abandonSpaceReturn()
                         composing = false; reviewingChat = false; chatAlertUri = null; reviewingQueue = false; reviewingChanges = false
                         navigation.add(BrowseDestination.Conversation(target))
                         routes.consume(delivery)
@@ -464,12 +476,14 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     }
     LaunchedEffect(recovered) { if (recovered) { delay(3_000); recovered = false } }
     LaunchedEffect(pullRefreshSucceeded) { if (pullRefreshSucceeded) { delay(2_500); pullRefreshSucceeded = false } }
-    val home = !reviewingChat && !reviewingQueue && !reviewingChanges && !composing && navigation.isEmpty()
+    val externalRoute = externalReturnDepth != null && navigation.size > externalReturnDepth
+    val visibleNavigation = if (externalRoute) navigation.drop(requireNotNull(externalReturnDepth)) else navigation
+    val home = !externalRoute && !reviewingChat && !reviewingQueue && !reviewingChanges && !composing && navigation.isEmpty()
     val primary = when {
-        reviewingChat || navigation.lastOrNull() is BrowseDestination.PrivateConversation -> PrimaryDestination.CHAT
-        navigation.firstOrNull() is BrowseDestination.Search -> PrimaryDestination.SEARCH
-        navigation.firstOrNull() is BrowseDestination.Notifications -> PrimaryDestination.NOTIFICATIONS
-        (navigation.firstOrNull() as? BrowseDestination.Profile)?.author == wallet?.publicKey && wallet != null -> PrimaryDestination.PROFILE
+        (!externalRoute && reviewingChat) || visibleNavigation.lastOrNull() is BrowseDestination.PrivateConversation -> PrimaryDestination.CHAT
+        visibleNavigation.firstOrNull() is BrowseDestination.Search -> PrimaryDestination.SEARCH
+        visibleNavigation.firstOrNull() is BrowseDestination.Notifications -> PrimaryDestination.NOTIFICATIONS
+        (visibleNavigation.firstOrNull() as? BrowseDestination.Profile)?.author == wallet?.publicKey && wallet != null -> PrimaryDestination.PROFILE
         else -> PrimaryDestination.HOME
     }
     val currentWalletKey by rememberUpdatedState(wallet?.publicKey)
@@ -479,7 +493,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     }
     val content: @Composable () -> Unit = content@{
         val childModifier = Modifier.fillMaxSize()
-        if (reviewingChat && wallet != null) {
+        if (!externalRoute && reviewingChat && wallet != null) {
             CompositionLocalProvider(nl.davidengelen.redsquare.media.LocalGiphyConfiguration provides
                 nl.davidengelen.redsquare.media.LocalChatGiphyConfiguration.current) {
                 key(chatAlertGeneration) {
@@ -492,15 +506,15 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             }
             return@content
         }
-        if (reviewingQueue && wallet != null) {
+        if (!externalRoute && reviewingQueue && wallet != null) {
             QueuedPostsScreen(wallet, endpoint, backend, childModifier) { reviewingQueue = false }
             return@content
         }
-        if (reviewingChanges && wallet != null) {
+        if (!externalRoute && reviewingChanges && wallet != null) {
             SavedAuthorActionsScreen(wallet, endpoint, backend, childModifier) { reviewingChanges = false; refresh++ }
             return@content
         }
-        if (composing && wallet != null) {
+        if (!externalRoute && composing && wallet != null) {
             PostComposerScreen(wallet, endpoint, backend, childModifier) { composing = false; refresh++ }
             return@content
         }
@@ -684,6 +698,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             }
         }
         val revealTarget: Any = when {
+            externalRoute -> requireNotNull(navigation.lastOrNull())
             reviewingChat -> PrimaryDestination.CHAT to chatAlertGeneration
             reviewingQueue -> FeedOverlay.QUEUE
             reviewingChanges -> FeedOverlay.AUTHOR_CHANGES
@@ -702,17 +717,17 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
 
         val destination = navigation.lastOrNull()
         val writingReply = destination is BrowseDestination.Conversation && formNavigation.saveCurrent != null
-        if (!keyboardVisible && !composing && !reviewingQueue && !reviewingChanges && !writingReply &&
+        if (!keyboardVisible && (externalRoute || (!composing && !reviewingQueue && !reviewingChanges)) && !writingReply &&
             destination !is BrowseDestination.Quote && destination !is BrowseDestination.Author) {
             SnackbarHost(navigationNotice, Modifier.padding(horizontal = AppSpacing.screen))
             HorizontalDivider()
             ModuleNavigation(PrimaryDestination.entries, primary, wallet != null && !formNavigation.transitioning,
                 trailingAction = if (dockCompose) { { ComposePostButton(Modifier.size(48.dp)) { composing = true } } } else null,
                 onSelect = select@{ destination ->
-                val rootDestination = navigation.singleOrNull()
+                val rootDestination = visibleNavigation.singleOrNull()
                 val atPrimaryRoot = when (destination) {
                     PrimaryDestination.HOME -> home
-                    PrimaryDestination.CHAT -> reviewingChat
+                    PrimaryDestination.CHAT -> !externalRoute && reviewingChat
                     PrimaryDestination.SEARCH -> rootDestination is BrowseDestination.Search
                     PrimaryDestination.NOTIFICATIONS -> rootDestination is BrowseDestination.Notifications
                     PrimaryDestination.PROFILE -> (rootDestination as? BrowseDestination.Profile)?.author == wallet?.publicKey
@@ -722,6 +737,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 scope.launch {
                     val moved = formNavigation.navigate {
                         if (owner != currentWalletKey) return@navigate false
+                        onExternalNavigate()
                         reviewingChat = false; reviewingQueue = false; reviewingChanges = false
                         chatAlertUri = null
                         navigation.clear()

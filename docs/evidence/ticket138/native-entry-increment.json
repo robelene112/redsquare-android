@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "baseline": "8605300ad",
+  "status": "native source preflight; issue remains open",
+  "implemented": [
+    "Approved B overview, contextual drawer, actual community metadata and ordinary unread projections",
+    "Public discovery, nonmember reading and explicit reviewed Join; typed editable public/private creation",
+    "Real member/role/profile/private-Chat entry and bounded per-channel drafts/message-pixel anchors",
+    "Owner listing intent recovery; revocable/expiring invitations; permanent public references with deliberate known-node choice"
+  ],
+  "ownedBuild": {
+    "command": "./scripts/android-build :app:compileDebugAndroidTestKotlin :spaces-service:test :spaces-service:writeHostFixtureClasspath",
+    "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-native-reviewed-fixture-check.log",
+    "sha256": "7f6eaa52522eb55fb274e90a80cccf04fb32ce650e02f6472d930162ba8352d3",
+    "outcome": "passed",
+    "junit": {
+      "core": {
+        "tests": 244,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "spaces-service": {
+        "tests": 66,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "buildQualification": "Observed build predates final accepted-notification return handling and the final native observer/cleanup corrections. Final source compilation and actual Android runtime acceptance are pending CI. Unchanged core test outputs were reused.",
+  "sourceReviews": {
+    "spec": {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-native-preflight-spec-review.txt",
+      "findings": 0
+    },
+    "standardsCorrections": {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-native-corrected-preflight-standards-review.txt",
+      "findings": 0
+    },
+    "priorAdverseReportsRetained": true
+  },
+  "prospectiveNative": {
+    "driver": "scripts/spaces-native-journey EVIDENCE discovery-v1",
+    "class": "SpacesDiscoveryJourneyTest",
+    "wholePhases": 4,
+    "phaseDeadlineSeconds": 180,
+    "expectedTerminalPasses": 2,
+    "expectedDeliberatelyInterruptedCases": 2,
+    "requiredDistinctCheckpointProcesses": 3,
+    "pixelTolerancePx": 1,
+    "compactWidthDp": 360,
+    "compactFontScale": 2.0,
+    "independentChildEffect": "Separate owner client decrypts exactly one confirmed child original after invitation revocation; outside-Android driver compares the same ID/author/text."
+  },
+  "notEstablished": [
+    "Final source CI and actual native10/17 results",
+    "Complete frame and approved prototype B comparison",
+    "Both pinned framework rehearsals for schema4 and optional unread advertisement",
+    "Full issue138 acceptance or full integrated Spaces acceptance"
+  ],
+  "ordinaryBeta": 142,
+  "productionNodeActivated": false,
+  "publicDevelopmentTransaction": false,
+  "financialWrite": false,
+  "automaticFileHosting": false
+}

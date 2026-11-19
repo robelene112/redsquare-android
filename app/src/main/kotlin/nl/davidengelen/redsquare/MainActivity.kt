@@ -205,6 +205,10 @@ class MainActivity : ComponentActivity() {
             val settingsStates = rememberSaveableStateHolder()
             val settingsOverviewScroll = rememberScrollState()
             var module by rememberSaveable { mutableStateOf(AppModule.RED_SQUARE) }
+            var spacesReturnDepth by rememberSaveable { mutableStateOf<Int?>(null) }
+            var spacesReturnOwner by rememberSaveable { mutableStateOf<String?>(null) }
+            var spacesReturnBackend by rememberSaveable { mutableStateOf<String?>(null) }
+            fun clearSpacesReturn() { spacesReturnDepth = null; spacesReturnOwner = null; spacesReturnBackend = null }
             var talkDraft by rememberSaveable { mutableStateOf<TalkDraft?>(null) }
             var talkReturnExpired by remember { mutableStateOf(false) }
             var stackLinkEntry by rememberSaveable { mutableStateOf<nl.davidengelen.redsquare.ui.StackLinkEntry?>(null) }
@@ -230,9 +234,9 @@ class MainActivity : ComponentActivity() {
             }
             val postNavigation = remember { PostNavigation() }
             fun selectModule(selected: AppModule, onSelected: () -> Unit = {}) {
-                if (selected == module && stackLinkEntry == null && storeLinkEntry == null) onSelected()
+                if (selected == module && stackLinkEntry == null && storeLinkEntry == null) { clearSpacesReturn(); onSelected() }
                 else scope.launch {
-                    val moved = postNavigation.navigate { stackLinkEntry = null; storeLinkEntry = null; vaultRentalEntry = null; module = selected; onSelected(); true }
+                    val moved = postNavigation.navigate { clearSpacesReturn(); stackLinkEntry = null; storeLinkEntry = null; vaultRentalEntry = null; module = selected; onSelected(); true }
                     moduleSwitchFailed = !moved
                 }
             }
@@ -716,6 +720,50 @@ class MainActivity : ComponentActivity() {
                                                 check(result.second) { "Could not save wallet metadata" }
                                             }
                                         }
+                                        fun openSpaceMember(member: String, message: Boolean) {
+                                            val owner = wallet?.publicKey ?: return
+                                            scope.launch {
+                                                val moved = postNavigation.navigate {
+                                                    val current = wallet ?: return@navigate false
+                                                    if (current.publicKey != owner || backend != selected) return@navigate false
+                                                    if (message) nl.davidengelen.redsquare.chat.retainChatContact(current, member, updateWalletMetadata)
+                                                    if (wallet?.publicKey != owner || backend != selected) return@navigate false
+                                                    val memory = androidx.lifecycle.ViewModelProvider(this@MainActivity)[
+                                                        "browse:$owner:${selected.id}", nl.davidengelen.redsquare.feed.FeedNavigationMemory::class.java]
+                                                    val depth = memory.destinations.size
+                                                    memory.destinations.add(if (message) nl.davidengelen.redsquare.feed.BrowseDestination.PrivateConversation(member)
+                                                        else nl.davidengelen.redsquare.feed.BrowseDestination.Profile(member))
+                                                    spacesReturnDepth = depth; spacesReturnOwner = owner; spacesReturnBackend = selected.id
+                                                    module = AppModule.RED_SQUARE
+                                                    true
+                                                }
+                                                moduleSwitchFailed = !moved
+                                            }
+                                        }
+                                        fun openSpaceNode(node: String, link: String) {
+                                            val choice = SaitoBackend.entries.firstOrNull { it.webUrl == node } ?: return
+                                            val owner = wallet?.publicKey ?: return
+                                            if (savingBackend) return
+                                            savingBackend = true; backendSaveError = false
+                                            scope.launch {
+                                                try {
+                                                    val moved = postNavigation.navigate {
+                                                        if (wallet?.publicKey != owner || backend != selected) return@navigate false
+                                                        withContext(NonCancellable) {
+                                                            val result = withContext(Dispatchers.IO) { runCatching { backendStore.save(choice) } }
+                                                            if (result.isFailure) {
+                                                                if (result.exceptionOrNull() is AndroidBackendStore.UncertainCommit) backend = null
+                                                                backendSaveError = true; false
+                                                            } else {
+                                                                clearSpacesReturn(); backend = choice; spacesActivated = true
+                                                                pendingSpaceInvitation = link; module = AppModule.SPACES; true
+                                                            }
+                                                        }
+                                                    }
+                                                    moduleSwitchFailed = !moved
+                                                } finally { savingBackend = false }
+                                            }
+                                        }
                                         val renderModule: @Composable () -> Unit = {
                                             if (module == AppModule.SPACES) {
                                                 val currentWallet = wallet
@@ -729,7 +777,8 @@ class MainActivity : ComponentActivity() {
                                                                 RegistryAuthority.directoryPeer(intent, endpoint).takeIf { nameDirectoryEnabled == true }) {
                                                                 spacesScreenStates.SaveableStateProvider("${currentWallet.publicKey}:${selected.id}") {
                                                                     nl.davidengelen.redsquare.spaces.SpacesScreen(account, Modifier.fillMaxSize(), chrome,
-                                                                        initialInvitation = pendingSpaceInvitation,
+                                                                        onProfile = { openSpaceMember(it, false) }, onMessage = { openSpaceMember(it, true) },
+                                                                        onOpenNode = ::openSpaceNode, initialInvitation = pendingSpaceInvitation,
                                                                         onInvitationConsumed = { pendingSpaceInvitation = null })
                                                                 }
                                                             }
@@ -854,6 +903,9 @@ class MainActivity : ComponentActivity() {
                                                         FeedScreen(wallet, failed, feedEndpoint, selected,
                                                             lifecycle, Modifier.fillMaxSize(), notificationRoutes = notificationRoutes,
                                                             allowPushRoute = featureUnobstructed,
+                                                            externalReturnDepth = spacesReturnDepth.takeIf { spacesReturnOwner == wallet?.publicKey && spacesReturnBackend == selected.id },
+                                                            onExternalBack = { clearSpacesReturn(); module = AppModule.SPACES },
+                                                            onExternalNavigate = ::clearSpacesReturn,
                                                             chrome = chrome,
                                                             canReportDrawn = featureUnobstructed && !postNavigation.transitioning,
                                                             onWalletMetadata = updateWalletMetadata

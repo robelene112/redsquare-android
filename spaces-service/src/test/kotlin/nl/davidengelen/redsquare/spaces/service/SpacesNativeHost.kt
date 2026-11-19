@@ -22,12 +22,13 @@ import java.util.concurrent.atomic.AtomicBoolean
  * real service/SQLite/MLS and independent received effects; no public network. */
 object SpacesNativeHost {
     @JvmStatic fun main(args: Array<String>): Unit = runBlocking {
-        require(args.size == 1)
-        val root = Path.of(args.single())
+        require(args.size in 1..2 && (args.size == 1 || args[1] == "discovery-v1"))
+        val discoveryMode = args.size == 2
+        val root = Path.of(args[0])
         require(Files.isDirectory(root) && !Files.exists(root.resolve("ready.json")))
         val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
         val guest = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
-        val clock = Clock.systemUTC()
+        val clock = if (discoveryMode) SpacesDiscoveryFixture.AdvancingClock() else Clock.systemUTC()
         val stopping = AtomicBoolean()
         val lock = Mutex()
         val workers = Executors.newFixedThreadPool(2)
@@ -35,10 +36,16 @@ object SpacesNativeHost {
         try { SpacesServiceStore(root.resolve("service"), service, clock).use { remote ->
             SqliteClientFixture(root.resolve("independent-client.sqlite").toString()).use { local ->
                 val client = SpaceClient(guest, "https://saito.davidengelen.nl", service.publicKey, local, clock) { remote.exchange(it.envelope()) }
+                val discovery = if (discoveryMode) SpacesDiscoveryFixture(client, clock as SpacesDiscoveryFixture.AdvancingClock).also { it.seed() } else null
                 val sent = mutableSetOf<String>()
-                val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;spaces-v1||", peer = service,
-                    archiveResponse = { "[]" })
-                peer.spacesResponse = { remote.exchange(it.envelope()) }
+                val peer = ControlledFeedPeer("[]", advertisedServices = if (discoveryMode) "archive||;spaces-v1||;spaces-directory-v1||;spaces-unread-v1||" else "archive||;spaces-v1||", peer = service,
+                    archiveResponse = { "[]" }, registryResponse = if (discoveryMode) ({ criteria ->
+                        JsonObject().apply {
+                            if (criteria.get("request")?.asString == "registry query" &&
+                                criteria.getAsJsonArray("keys").any { it.asString == guest.publicKey }) addProperty(guest.publicKey, "BuildersHost@saito")
+                        }.toString()
+                    }) else null)
+                peer.spacesResponse = { remote.exchange(it.envelope()).also { _ -> discovery?.afterExchange(it) } }
                 peer.start().use { socket ->
                     val control = HttpServer.create(InetSocketAddress("127.0.0.1", 0), 8)
                     control.executor = workers
@@ -78,7 +85,7 @@ object SpacesNativeHost {
                                     "/release" -> { peer.withholdSpacesReply = false; JsonObject() }
                                     "/stop" -> { stopping.set(true); JsonObject() }
                                     "/status" -> status(client, peer)
-                                    else -> error("Unknown owned fixture command")
+                                    else -> requireNotNull(discovery?.command(request.requestURI.path, body)) { "Unknown owned fixture command" }
                                 }
                             } }
                             val bytes = result.toString().toByteArray(Charsets.UTF_8)

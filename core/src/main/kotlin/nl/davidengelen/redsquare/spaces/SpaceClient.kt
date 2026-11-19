@@ -20,6 +20,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     enum class ReadProblem { EXPIRED, UNAVAILABLE }
     class ReadDenied(val spaceId: String, val problem: ReadProblem) : IllegalArgumentException("Community access is not available")
+    class DifferentNode(val node: String) : IllegalArgumentException("This community belongs to a different node")
 
     data class Channel(val id: String, val profile: SpaceChannelProfile, val visibility: SpaceVisibility, val ready: Boolean, val unread: Long? = null, val hasUnread: Boolean? = null)
     fun channels(space: String): List<Channel> = store.transaction {
@@ -115,7 +116,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val pending: Boolean, val attempted: Boolean, val missingKeys: Boolean, val rejected: Boolean = false, val position: Long? = null) {
         override fun toString() = "Private community message"
     }
-    data class Invitation(val link: String, val confirmed: Boolean, val expiresAt: Long = 0, val expired: Boolean = false, val revoked: Boolean = false) {
+    data class Invitation(val link: String, val confirmed: Boolean, val expiresAt: Long = 0, val expired: Boolean = false, val revoked: Boolean = false, val revocationPending: Boolean = false, val revocationFailed: Boolean = false) {
         override fun toString() = "Private community invitation"
     }
     fun communities(): List<Community> = store.transaction {
@@ -154,7 +155,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
         return Community(space, state.text("name"), scope.channelId, state.get("joined").asBoolean,
             role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name),
-            state.has("starter_channels") || page("$space/pending/", limit = 1).isNotEmpty(), state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
+            state.has("starter_channels") || state.has("desired_listed") || page("$space/pending/", limit = 1).isNotEmpty(), state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
                 (data.get("joined")?.asBoolean == true || channel?.visibility == SpaceVisibility.PUBLIC) &&
                 (!adminPostsOnly || role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name)),
             !state.get("joined").asBoolean && state.has("joining_invitation"), unread, hasUnread)
@@ -186,11 +187,25 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val accepted = journal(space).snapshot.invitations[invitation.invitationId]
         val expiry = accepted?.expiresAt ?: state.get("invitation_expires_at")?.asLong ?: 0L
         Invitation(link, accepted != null, expiry, expiry > 0 && expiry <= clock.millis(),
-            state.get("revoked_invitation")?.asString == invitation.invitationId)
+            state.get("revoked_invitation")?.asString == invitation.invitationId,
+            state.get("revoking_invitation")?.asString == invitation.invitationId,
+            state.get("revocation_failed")?.asString == invitation.invitationId)
     }
     data class InvitationPreview(val spaceId: String, val name: String, val profile: SpaceProfile = SpaceProfile(name), val expiresAt: Long = 0, val rulesToken: String = "")
     data class PublicCommunity(val id: String, val profile: SpaceProfile)
     data class PublicDirectoryPage(val items: List<PublicCommunity>, val nextCursor: Long, val hasMore: Boolean)
+    fun publicLink(space: String): String = store.transaction {
+        owned(); state(space); val snapshot = journal(space).snapshot
+        require(snapshot.visibility == SpaceVisibility.PUBLIC && snapshot.owner != null &&
+            snapshot.channels.values.any { it.visibility == SpaceVisibility.PUBLIC })
+        SpacePublicReference(node, service, space).link()
+    }
+    suspend fun openPublicLink(link: String): Community {
+        val reference = SpacePublicReference.parse(link)
+        if (reference.node != node) throw DifferentNode(reference.node)
+        require(reference.serviceKey == service) { "This reference does not match the selected service" }
+        return openPublic(reference.spaceId)
+    }
     /** Public browsing stores no MLS device and does not enter My Spaces. */
     suspend fun openPublic(space: String): Community {
         require(space.matches(ID))
@@ -249,13 +264,24 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         })
     }
     fun setListed(space: String, listed: Boolean) = store.transaction {
-        owned()
-        val state = state(space)
-        val journal = journal(space)
-        require(journal.snapshot.owner == wallet.publicKey && journal.snapshot.visibility == SpaceVisibility.PUBLIC)
-        requireNotNull(journal.snapshot.publicProfile)
+        owned(); val state = state(space); val snapshot = journal(space).snapshot
+        require(snapshot.owner == wallet.publicKey && snapshot.visibility == SpaceVisibility.PUBLIC)
+        state.addProperty("desired_listed", listed); put(stateKey(space), bytes(state))
+        enqueueListing(space, state)
+    }
+    fun listingIntent(space: String): Boolean? = store.transaction { owned(); state(space).get("desired_listed")?.asBoolean }
+    /** Keep the latest owner choice separate from an immutable in-flight original.
+     * Only a definitive rejection permits a fresh proposal at the recovered head. */
+    private fun SpaceClientStore.Transaction.enqueueListing(space: String, state: JsonObject) {
+        val desired = state.get("desired_listed")?.asBoolean ?: return
+        if (state.has("control_pending") || state.has("required_control")) return
+        val snapshot = journal(space).snapshot
+        require(snapshot.owner == wallet.publicKey && snapshot.visibility == SpaceVisibility.PUBLIC)
+        if (requireNotNull(snapshot.publicProfile).listed == desired) {
+            state.remove("desired_listed"); put(stateKey(space), bytes(state)); return
+        }
         val original = event(space, "set-listed") {
-            addProperty("control_id", journal.snapshot.controlId); addProperty("listed", listed)
+            addProperty("control_id", snapshot.controlId); addProperty("listed", desired)
         }
         queue(space, state, original)
     }
@@ -353,6 +379,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val journal = journal(space)
         require(journal.snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         require(invitation.invitationId in journal.snapshot.invitations)
+        state.addProperty("revoking_invitation", invitation.invitationId); state.remove("revocation_failed")
         queue(space, state, event(space, "revoke-invite") {
             addProperty("control_id", journal.snapshot.controlId); addProperty("invite_id", invitation.invitationId)
         })
@@ -608,7 +635,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         repeat(50) {
             val item = store.transaction {
                 owned()
-                if (page(prefix, limit = 1).isEmpty()) enqueueStarter(space, state(space))
+                if (page(prefix, limit = 1).isEmpty()) {
+                    enqueueListing(space, state(space))
+                    if (page(prefix, limit = 1).isEmpty()) enqueueStarter(space, state(space))
+                }
                 val row = page(prefix, limit = 1).firstOrNull() ?: return@transaction null
                 val prepared = json(row.value).apply { addProperty("attempted", true) }
                 val value = bytes(prepared)
@@ -777,7 +807,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
     }
 
-    data class HistoryWindow(val from: Long, val loadedFrom: Long, val hasEarlier: Boolean, val hasLater: Boolean)
+    data class HistoryWindow(val from: Long, val loadedFrom: Long, val hasEarlier: Boolean, val hasLater: Boolean, val loaded: Boolean = false)
     fun historyWindow(space: String, from: Long? = null, channel: String? = null): HistoryWindow = store.transaction {
         owned()
         val state = state(space)
@@ -785,7 +815,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val last = current.get("last_content")?.asLong ?: 0
         val start = from ?: (last - 49).coerceAtLeast(0)
         require(start >= 0)
-        HistoryWindow(start, current.get("history_from")?.asLong ?: start, start > 0, last >= start + 50)
+        HistoryWindow(start, current.get("history_from")?.asLong ?: start, start > 0, last >= start + 50, current.get("content_loaded")?.asBoolean == true)
     }
 
     /** Bounded local page, including explicit unavailable keys and durable
@@ -826,6 +856,36 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         (confirmed + pending + rejected).distinctBy { it.id }
     }
     fun messages(space: String, channel: String? = null): List<String> = timeline(space, channel = channel).filter { !it.pending && !it.rejected }.mapNotNull { it.text }
+
+    data class ReadingAnchor(val messageId: String, val position: Long, val offset: Int, val windowFrom: Long) {
+        init {
+            require(messageId.matches(Regex("[0-9a-f]{128}")) && position >= 0 && windowFrom >= 0 &&
+                windowFrom <= position)
+        }
+    }
+    fun readingAnchor(space: String, channel: String? = null): ReadingAnchor? = store.transaction {
+        owned(); val parent = state(space); val target = channel ?: selectedChannel(parent)
+        channelState(space, target, parent)
+        val saved = get("$space/channels/$target/reading")?.let(::json) ?: return@transaction null
+        require(saved.number("version") == 1L)
+        val offset = saved.get("offset").also { require(it.isJsonPrimitive && it.asJsonPrimitive.isNumber) }.asString.toInt()
+        ReadingAnchor(saved.text("message"), saved.number("position"), offset, saved.number("window_from"))
+    }
+    fun saveReadingAnchor(space: String, channel: String, anchor: ReadingAnchor?) = store.transaction {
+        owned(); channelState(space, channel)
+        val key = "$space/channels/$channel/reading"
+        if (anchor == null) remove(key) else {
+            val record = json(requireNotNull(get(contentPrefix(space, channel) + positionKey(anchor.position))))
+            val original = SaitoEnvelope.decode(record.text("event"))
+            require(record.number("position") == anchor.position && original.id == anchor.messageId &&
+                original.body.text("space_id") == space && original.body.text("channel_id") == channel &&
+                original.body.text("content_kind") == "message")
+            put(key, bytes(JsonObject().apply {
+                addProperty("version", 1); addProperty("message", anchor.messageId); addProperty("position", anchor.position)
+                addProperty("offset", anchor.offset); addProperty("window_from", anchor.windowFrom)
+            }))
+        }
+    }
 
     /** A known remaining message keeps ordinary activity visible even while
      * its exact count is unknown after a partial read. */
@@ -964,6 +1024,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                         }
                         "invite" -> Unit
                         "revoke-invite" -> {
+                            if (state.get("revoking_invitation")?.asString == original.body.text("invite_id")) state.remove("revoking_invitation")
                             val link = state.get("invitation")?.asString
                             if (link != null && SpaceInvitation.parse(link).invitationId == original.body.text("invite_id"))
                                 state.addProperty("revoked_invitation", original.body.text("invite_id"))
@@ -1022,6 +1083,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val pointer = requireNotNull(get("$space/operation/${original.id}")).toString(Charsets.UTF_8)
                 val pending = json(requireNotNull(get(pointer)))
                 require(SaitoTransaction.restore(pending.text("original")).envelope() == body.text("event"))
+                if (original.body.text("kind") == "revoke-invite") {
+                    state.remove("revoking_invitation"); state.addProperty("revocation_failed", original.body.text("invite_id"))
+                }
                 if (pending.has("rejected")) {
                     val channel = original.body.text("channel_id")
                     val target = channelState(space, channel, state)
