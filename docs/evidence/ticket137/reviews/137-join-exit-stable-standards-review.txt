@@ -1,0 +1,20 @@
+Standards review: current SpacesScreen.kt and additive SpacesJourneyTest.kt diff against bccc6cecffe3c3732513026373a87ba516aed410
+Read-only source review; no implementation or corrected-native acceptance.
+
+Hard documented violations
+None confirmed against CODING_STANDARDS.md and the global UI requirements for stable transitions, accessible actions and preserved recoverable work.
+
+Scoping and lifecycle
+SpacesScreen.kt:82-87 retains only the latest verified InvitationPreview as transient presentation state keyed to the actual SpacesAccount. It cannot carry the cached card into another account instance or process. Live preview takes precedence; retained presentation is not membership or current authorization.
+
+Lines103,171,319,333 clear retained presentation together with account.dismissPreview on an incoming invitation, fresh session, text edit or Use another invitation. The existing token invalidates outstanding old preview callbacks. Successful Join and dismissal keep verified presentation during the existing sheet exit animation rather than replacing it with input. No timer, synthetic success or backend completion change is added.
+
+Lines297-307 keep content key, label and focus attachment stable. Join requires an open/idle sheet and a live preview whenever review is displayed; retained-only content cannot authorize another Join. Use another invitation has the corresponding guard. Explicit input restoration reinstates its original focus modifier. Existing IME hiding, preview-only Done and shared keyboard/Escape handling remain unchanged.
+
+Additive native observation
+SpacesJourneyTest.kt:135-140 exercises the actual Use another invitation action, requires the real dialog editor within5 seconds, replaces its text with the same independent-community capability, previews again and requires that exact community plus enabled Join within15 seconds. It then continues the original Join/read/send/recovery path. This tests retained-card reset and editable input without substituting another community or bypassing verification. Original assertions and action waits remain; the added step stays within the unchanged180/90-second outer bounds.
+
+Judgment calls and limits
+No actionable smell findings. The small presentation cache addresses the observed transition defect without changing drafts, durable attempts or account storage.
+
+Contractv8 explicitly preserves earlier goals and qualifies the actual10 functional/process success separately from its visual finding. Intentional raw-input appearance after Use another invitation occurs before Join and is valid. Fresh all-frame review must distinguish that requested edit from forbidden reappearance during successful Join exit. Prior10 flash evidence remains retained; source review does not establish that it is fixed. Fresh complete v8 execution and temporal review remain required.

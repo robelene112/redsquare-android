@@ -78,6 +78,14 @@ stop of PID3180. The new process fails before opening the community because
 its selector matches both the visible row and closed offscreen drawer. The
 corrected observer selects physical on-screen rows, retaining the original
 15s entry and20s reconciliation bounds. The whole parent remains failed.
+Whole17 parent44475514269 ate79 and whole10 parent44477328523 atbccc
+pass their functional/process contracts. Both archive review axes verify the
+actual received effects and distinct PIDs. Every716/412 respective movie frame
+is inspected. Android10 nevertheless reveals a brief raw-invitation-input
+flash during successful Join dismissal at35.306267s. The correction retains
+the verified presentation through exit while disabling its actions; new
+sessions and explicit input changes clear it. Nativev8 adds the all-frame
+no-reappearance observation, retaining all earlier goals and deadlines.
 Functional native verification is still pending; beta142 stays public and137
 stays open. No passing prefix, physical/OEM or deployed-node acceptance is claimed.
 

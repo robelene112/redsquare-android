@@ -79,6 +79,12 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     var informationOpen by remember { mutableStateOf(false) }
     var communityName by remember { mutableStateOf("") }
     var invitationText by remember { mutableStateOf("") }
+    // The account clears its preview when Join completes. Keep the verified
+    // presentation until this dialog finishes exiting, without re-enabling it.
+    var reviewedInvitation by remember(account) { mutableStateOf<SpaceClient.InvitationPreview?>(null) }
+    val invitationReview = state.preview ?: reviewedInvitation
+    SideEffect { state.preview?.let { reviewedInvitation = it } }
+    fun clearInvitationReview() { reviewedInvitation = null; account.dismissPreview() }
     var savedSelection by rememberSaveable { mutableStateOf<String?>(null) }
     val selected = state.communities.firstOrNull { it.id == state.selected }
     fun select(id: String?) {
@@ -94,7 +100,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     LaunchedEffect(initialInvitation, state.ready, state.loading, state.working) {
         val link = initialInvitation ?: return@LaunchedEffect
         if (state.loading || !state.ready || state.working) return@LaunchedEffect
-        invitationText = link; joinOpen = true; account.preview(link); onInvitationConsumed()
+        clearInvitationReview(); invitationText = link; joinOpen = true; account.preview(link); onInvitationConsumed()
     }
     LaunchedEffect(state.working, state.selected) {
         if (!state.working && state.selected != null && state.problem == null) createOpen = false
@@ -162,7 +168,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), shape = RoundedCornerShape(14.dp)) {
                                 Text(stringResource(R.string.spaces_create))
                             }
-                            OutlinedButton(onClick = { joinOpen = true; account.dismissPreview() }, enabled = state.ready && !state.working,
+                            OutlinedButton(onClick = { clearInvitationReview(); joinOpen = true }, enabled = state.ready && !state.working,
                                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), shape = RoundedCornerShape(14.dp)) {
                                 Text(stringResource(R.string.spaces_join_invitation))
                             }
@@ -288,16 +294,17 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         if (state.working) LinearProgressIndicator(Modifier.fillMaxWidth())
     }
     DesignSheet(joinOpen, stringResource(R.string.spaces_join_invitation), { joinOpen = false; account.dismissPreview() },
-        contentKey = state.preview?.spaceId,
+        contentKey = invitationReview?.spaceId,
         footer = { first ->
             val focus = LocalFocusManager.current
             val keyboard = LocalSoftwareKeyboardController.current
             Button(onClick = {
                 focus.clearFocus(); keyboard?.hide()
-                if (state.preview == null) account.preview(invitationText.trim()) else account.join(invitationText.trim())
-            }, enabled = invitationText.isNotBlank() && !state.working,
-                modifier = (if (state.preview != null) first else Modifier).fillMaxWidth().heightIn(min = 48.dp)) {
-                Text(stringResource(if (state.preview == null) R.string.spaces_preview else R.string.spaces_join))
+                if (invitationReview == null) account.preview(invitationText.trim()) else account.join(invitationText.trim())
+            }, enabled = joinOpen && invitationText.isNotBlank() && !state.working &&
+                (invitationReview == null || state.preview != null),
+                modifier = (if (invitationReview != null) first else Modifier).fillMaxWidth().heightIn(min = 48.dp)) {
+                Text(stringResource(if (invitationReview == null) R.string.spaces_preview else R.string.spaces_join))
             }
             if (state.working) LinearProgressIndicator(Modifier.fillMaxWidth())
         }) { first ->
@@ -306,11 +313,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         Text(stringResource(R.string.spaces_join_detail), color = MaterialTheme.colorScheme.onSurfaceVariant)
         Text(stringResource(R.string.spaces_join_as, registeredIdentity(account.ownerKey).name),
             style = MaterialTheme.typography.labelLarge)
-        AnimatedContent(state.preview, label = "spaces-invitation-review", transitionSpec = {
+        AnimatedContent(invitationReview, label = "spaces-invitation-review", transitionSpec = {
             fadeIn(tween(AppSpacing.transitionMillis)) togetherWith fadeOut(tween(AppSpacing.transitionMillis))
         }) { preview ->
-            if (preview == null) OutlinedTextField(invitationText, { invitationText = it.take(8192); account.dismissPreview() },
-                (if (state.preview == null) first else Modifier).fillMaxWidth(),
+            if (preview == null) OutlinedTextField(invitationText, { invitationText = it.take(8192); clearInvitationReview() },
+                (if (invitationReview == null) first else Modifier).fillMaxWidth(),
                 label = { Text(stringResource(R.string.spaces_invitation_link)) }, maxLines = 4, shape = RoundedCornerShape(14.dp),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri, autoCorrectEnabled = false, imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(onDone = {
@@ -323,7 +330,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     Icon(painterResource(R.drawable.ic_spaces), null, tint = MaterialTheme.colorScheme.primary)
                     Text(stringResource(R.string.spaces_join_preview, preview.name), style = MaterialTheme.typography.titleLarge)
                     Text(stringResource(R.string.spaces_admission_detail), color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    TextButton(onClick = account::dismissPreview, enabled = !state.working) {
+                    TextButton(onClick = ::clearInvitationReview, enabled = joinOpen && !state.working && state.preview != null) {
                         Text(stringResource(R.string.spaces_change_invitation))
                     }
                 }

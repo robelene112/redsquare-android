@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "ticket": 137,
   "scope": "focused actual Activity and distinct-process journey, not complete app regression or deployed-node acceptance",
   "source": "exact checked-out Git SHA recorded by parent workflow and acceptance.json",
@@ -37,7 +37,9 @@
     "Reaching the end of a historical bounded page does not jump to current activity; explicit Back to latest reaches the latest received message.",
     "Clipboard invitation retains its exact link while marked sensitive; drawer screenshot is preceded by an actual visible native title.",
     "Invitation review and explicit Join remain visible above the keyboard; the newly admitted Android identity sends a message actually received in that exact second community.",
-    "The approved B channel header retains separate Back and community information actions. Actual information opens with confirmed membership; native Back returns to communities."
+    "The approved B channel header retains separate Back and community information actions. Actual information opens with confirmed membership; native Back returns to communities.",
+    "Verified invitation review remains stable throughout successful Join/dismissal: no reappearance of raw invitation input or the keyboard during exit. Inspect every original movie frame.",
+    "Use another invitation returns to the actual editable URL, then verifies the same invitation again before explicit Join."
   ],
   "native_terminal_passes": 1,
   "deliberate_interruptions": 1,
@@ -79,6 +81,11 @@
       "run": 44474173162,
       "source": "1cd42f256ad85f44d4075027764c840af404bc9b",
       "result": "Whole failure in distinct-process phase after actual checkpoint and force-stop3180. Cold lookup matches visible community plus closed offscreen drawer. On-screen row selector correction preserves15s entry and20s recovery goals; no passing prefix accepted."
+    },
+    {
+      "run": 44477328523,
+      "source": "bccc6cecffe3c3732513026373a87ba516aed410",
+      "result": "Whole functional/process parent SUCCESS. All412 movieframes reviewed. Minor visualfinding: phase1frame231 at35.306267s brieflyshowsrawinvitationinputduringjoinexit, goneby35.372844s. Not full137visualacceptance; correction preservesverifiedreviewthroughdismissal."
     }
   ]
 }
