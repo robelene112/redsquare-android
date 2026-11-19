@@ -1,0 +1,13 @@
+Standards: PASS. Zero documented-standard violations, evidence failures or new baseline-smell findings in this bounded runtime checkpoint.
+
+Scope: exact product/native tests 467ce2c5a59adf63c135067081a591dfbbd99ae3; workflow f7993d042563be29fda15aed6f3928763ca902e6. The intervening diff changes only two SDK conditions and the prospective-v2 README. Dirty Journal/service/settings/protocol changes are excluded.
+
+CODING_STANDARDS.md requires observable behavior at agreed boundaries, coherent independently demonstrable changes, secret-free evidence and honest emulator limits. docs/quality/SPACES_QUALITY_PLAN.md, “Evidence, review and release stop rules,” requires original unsuccessful observations, source/APK identity and fresh complete affected parents after observer corrections. The v2 contract retains every original goal and the 180s native/30s capture bounds.
+
+Independently inspected originals under /mnt/storage/redsquare-android-artifacts/spaces137-runtime/{focused10,focused17,focused17-16kb}: whole parents 44430860880/44430865020/44430869595 and required source-build/runtime steps succeed. Each selects exactly its declared SDK. ZIP SHA256 matches original API digest and index; CRC passes; every one of 86/75/75 ZIP members equals its raw counterpart, with no extra raw files. TAR paths/types/sizes are safe and contain only a directory plus runtime.json, without snapshot, key or message payloads.
+
+All three complete instrumentation transcripts contain only SpaceMlsRuntimeTest#actualJniAndKeystoreRecoverAdmittedHistoryWithoutWritingAnUnprotectedKeyring, one start and normal terminal success, OK (1 test), exit0, no failure/assumption/skip. Capture exits0. SDK/page pairs are 29/4096,37/4096,37/16384, all x86_64. Runtime hashes of both actually installed APKs equal corresponding original build hashes. Source independently computes these from installed sourceDir files. Positive encrypted-file/snapshot lengths, real Keystore round trip and unavailable-before/exact-after history agree with the test assertions.
+
+Each original HTML set passes exactly the six required affected JVM cases; each whole log passes all three named Rust contracts. Frozen validator SHA256 matches its receipt; all assertions pass when executed with only assessment-file persistence omitted, preserving originals. Incorrect original-both* parents remain retained and unaccepted.
+
+No baseline smell warrants a finding. Repository standards override those heuristics; tooling-enforced matters are excluded. This establishes the library/JNI/Keystore checkpoint only. Rendered UI, distinct-process recovery, physical/OEM performance, deployed service and whole137 acceptance remain unproved. No build, node access, repository edit or publication occurred.

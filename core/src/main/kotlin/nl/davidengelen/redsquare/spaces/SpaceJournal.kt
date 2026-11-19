@@ -4,18 +4,28 @@ import com.google.gson.JsonObject
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.util.Base64
+import java.util.Collections
 
 enum class SpaceRole { OWNER, ADMIN, MEMBER }
+data class SpaceInvitationRecord(val key: String, val expiresAt: Long)
+data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>)
+data class SpaceJoinRequest(val envelope: String, val id: String, val actor: String,
+    val operationId: String, val channelId: String, val keyPackage: SpaceCrypto.BoundPackage)
 
 data class SpaceSnapshot(val owner: String? = null, val members: Map<String, SpaceRole> = emptyMap(),
-    val controlId: String? = null, val nextPosition: Long = 0)
+    val controlId: String? = null, val nextPosition: Long = 0,
+    val invitations: Map<String, SpaceInvitationRecord> = emptyMap(),
+    val channels: Map<String, SpaceChannelRecord> = emptyMap())
 
 /** Authenticated control history. Content pages have their own channel cursors. */
 class SpaceJournal(private val spaceId: String, private val serviceKey: String) {
     private var current = SpaceSnapshot()
     private val applied = mutableMapOf<Long, String>()
+    private val operations = mutableMapOf<String, String>()
 
     init { require(spaceId.matches(ID) && SaitoWallet.isPublicKey(serviceKey)) }
+
+    val snapshot: SpaceSnapshot get() = current
 
     fun receive(receipt: String): SpaceSnapshot {
         val signedReceipt = SaitoEnvelope.decode(receipt)
@@ -33,15 +43,99 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             return current
         }
         require(position == current.nextPosition) { "Spaces history has a missing predecessor" }
-        require(current.owner == null && position == 0L && event.body.text("kind") == "create")
-        require(event.body.text("visibility") in setOf("public", "private"))
-        require(event.body.text("channel_id").matches(ID) && event.body.number("epoch") == 0L)
-        val metadata = Base64.getDecoder().decode(event.body.text("metadata"))
-        require(metadata.size in 29..65_536) { "Invalid Spaces metadata length" }
-        val next = SpaceSnapshot(event.author, mapOf(event.author to SpaceRole.OWNER), event.id, 1)
+        val operation = event.body.text("operation_id")
+        require(operation !in operations) { "Spaces operation already has an accepted result" }
+        var admittedJoin: SpaceJoinRequest? = null
+        val next = when (event.body.text("kind")) {
+            "create" -> {
+                require(current.owner == null && position == 0L && !event.body.has("control_id"))
+                require(event.body.text("visibility") in setOf("public", "private"))
+                require(event.body.text("channel_id").matches(ID) && event.body.number("epoch") == 0L)
+                val metadata = Base64.getDecoder().decode(event.body.text("metadata"))
+                require(metadata.size in 29..65_536) { "Invalid Spaces metadata length" }
+                val devices = devices(event.body)
+                require(devices.size == 1 && credentialWallet(devices.keys.single()) == event.author)
+                SpaceSnapshot(event.author, mapOf(event.author to SpaceRole.OWNER), event.id, 1,
+                    channels = mapOf(event.body.text("channel_id") to SpaceChannelRecord(0, devices)))
+            }
+            "invite" -> {
+                require(current.owner != null && event.body.text("control_id") == current.controlId)
+                require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+                val key = event.body.text("invite_key").also { require(SaitoWallet.isPublicKey(it)) }
+                val expiry = event.body.number("expires_at").also { require(it > signedReceipt.createdAt) }
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    invitations = Collections.unmodifiableMap(current.invitations + (event.id to SpaceInvitationRecord(key, expiry))))
+            }
+            "admit" -> {
+                require(current.owner != null && event.body.text("control_id") == current.controlId)
+                require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+                val channel = event.body.text("channel_id")
+                val oldChannel = requireNotNull(current.channels[channel])
+                val join = verifyJoin(event.body.text("join"), signedReceipt.createdAt)
+                require(join.channelId == channel && join.operationId != operation)
+                val keyPackage = join.keyPackage
+                val epoch = event.body.number("epoch")
+                val devices = devices(event.body)
+                require(epoch == Math.addExact(oldChannel.epoch, 1) &&
+                    devices == oldChannel.devices + (keyPackage.credential to keyPackage.signer))
+                for (field in listOf("welcome", "commit")) {
+                    require(Base64.getDecoder().decode(event.body.text(field)).size in 1..1_048_576)
+                }
+                admittedJoin = join
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    members = Collections.unmodifiableMap(current.members + (join.actor to SpaceRole.MEMBER)),
+                    channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(epoch, devices))))
+            }
+            else -> throw IllegalArgumentException("Unsupported Spaces control version or kind")
+        }
         applied[position] = event.id
+        operations[operation] = event.id
+        admittedJoin?.let { operations[it.operationId] = it.id }
         current = next
         return next
+    }
+
+    /** A valid request alone does not activate membership or advance control. */
+    fun verifyJoin(envelope: String, acceptedAt: Long): SpaceJoinRequest {
+        val join = SaitoEnvelope.decode(envelope)
+        header(join.body, "event")
+        require(join.body.text("kind") == "join" && join.body.text("space_id") == spaceId &&
+            join.recipients == listOf(join.author, serviceKey).distinct())
+        val channel = join.body.text("channel_id")
+        require(channel in current.channels)
+        val operation = join.body.text("operation_id")
+        require(operation.matches(ID) && operation !in operations)
+        val invitationId = join.body.text("invite_id")
+        val invitation = requireNotNull(current.invitations[invitationId])
+        require(join.body.text("control_id") == invitationId && acceptedAt >= 0 && invitation.expiresAt > acceptedAt)
+        val data = join.body.getAsJsonObject("key_package")
+        val scope = SpaceCrypto.Scope(serviceKey, spaceId, channel)
+        val keyPackage = SpaceCrypto.BoundPackage(scope, data.text("wallet"), data.text("device"),
+            data.text("package"), data.text("signer"), data.text("signature"))
+        keyPackage.verify()
+        require(keyPackage.walletKey == join.author && join.author !in current.members)
+        val proof = "SaitoSpacesJoin/v1:${scope.groupId}:$invitationId:${join.author}:$operation:${keyPackage.walletSignature}"
+        require(SaitoWallet.verify(proof.toByteArray(Charsets.UTF_8), join.body.text("invite_proof"), invitation.key)) {
+            "Spaces invitation does not authorize this join"
+        }
+        return SpaceJoinRequest(envelope, join.id, join.author, operation, channel, keyPackage)
+    }
+
+    private fun devices(body: JsonObject): Map<String, String> {
+        val value = body.getAsJsonObject("devices")
+        require(value.size() in 1..16_384)
+        return Collections.unmodifiableMap(value.entrySet().associate { (credential, signer) ->
+            credentialWallet(credential)
+            require(signer.isJsonPrimitive && signer.asJsonPrimitive.isString &&
+                Base64.getDecoder().decode(signer.asString).size == 32)
+            credential to signer.asString
+        })
+    }
+
+    private fun credentialWallet(credential: String): String {
+        val parts = credential.split(':')
+        require(parts.size == 3 && parts[0] == "SaitoSpaces/v1" && SaitoWallet.isPublicKey(parts[1]) && parts[2].matches(ID))
+        return parts[1]
     }
 
     private fun header(body: JsonObject, request: String) {

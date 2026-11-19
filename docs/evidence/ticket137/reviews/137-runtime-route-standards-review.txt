@@ -1,0 +1,9 @@
+Standards review: PASS, zero hard violations and zero new smell findings.
+
+Reviewed git diff 467ce2c5a59adf63c135067081a591dfbbd99ae3...f7993d042563be29fda15aed6f3928763ca902e6, one commit: Route focused Spaces runtime proofs to their declared Android SDK (#137). Only .github/workflows/android-proof.yml and docs/evidence/ticket137/README.md are in scope. Existing dirty journal/service/settings/protocol work was excluded.
+
+The two workflow conditions satisfy CODING_STANDARDS.md's requirement to keep each change coherent and prefer the smallest design satisfying accepted behavior. Each adds exactly one named exclusion; all existing expression text remains unchanged. Evaluating both conditions for all 438 declared scopes plus the empty input, across workflow_dispatch and push, changes only the intended dispatch choices: spaces-crypto selects Android10 alone; spaces-crypto-android17 selects Android17 alone. All other results remain unchanged. The 16KB flag does not change this routing.
+
+The README preserves the failed/incorrectly routed parents as unsuccessful observations, requires separate product/test and workflow identities, and retains fresh complete-parent acceptance. This follows docs/quality/SPACES_QUALITY_PLAN.md, Evidence, review and release stop rules: classify observer failures separately, preserve unsuccessful observations, review observer corrections and require fresh complete affected runs without weakening frozen assertions or goals. It claims no completed native acceptance.
+
+No baseline smell warrants a new finding in these hunks. The long exclusion lists predate this commit; unrelated refactoring would expand this focused correction. No builds, native runs, node access or implementation changes were performed. This source review does not establish runtime acceptance.

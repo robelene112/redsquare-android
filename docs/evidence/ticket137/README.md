@@ -99,3 +99,21 @@ workflow revision. Record both checkout and workflow identities independently.
 The required profiles, original complete-parent rule, exact one native case per
 parent, six affected JVM cases and three Rust contracts are unchanged. No failed
 prefix or extra selected SDK supplies acceptance of a fresh parent.
+
+## Accepted limited runtime checkpoint
+
+Whole fresh parents44430860880/44430865020/44430869595 meet the unchanged
+library contract for Android10, Android17 and actual16KiB Android17. The actual
+installed product and test APK hashes match their respective original build
+hashes. Both independent actual-evidence reviews report zero findings after
+checking all original ZIP/TAR bytes and outcomes. See runtime-foundation for
+assessments and original artifact receipts. Whole original ZIPs and build logs,
+including the incorrectly routed earlier parents, remain under the retained
+`spaces137-runtime` evidence root. No UI, Android process-loss, deployed-service,
+OEM or whole137 acceptance follows from this limited checkpoint.
+
+The subsequent source adds the signed invitation/admission chain and a new,
+unactivated standalone service. Three affected journal cases and four service
+cases pass locally, including real HTTP, exact receipt replay and an actual
+hard-killed service followed by a different process. These are service/component
+observations, not the still-required complete Android community journey.

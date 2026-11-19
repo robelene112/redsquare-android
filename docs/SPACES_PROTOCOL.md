@@ -53,6 +53,41 @@ article, file and reaction contents are never public transaction plaintext.
 Private channel names and descriptions are encrypted metadata; an unauthorized
 client cannot get their plaintext from the channel list.
 
+### Initial creation and invitation control fields
+
+Creation has `kind=create`, `visibility`, `channel_id`, `epoch=0`, encrypted
+`metadata` and `devices`, the credential-to-public-MLS-signer map containing
+exactly one device belonging to the creating wallet. It has no `control_id`.
+Subsequent controls reference the accepted predecessor in `control_id`.
+
+An authorized owner/admin's `kind=invite` stores `invite_key` (a public Saito
+capability key) and `expires_at`. The invitation ID is its original transaction
+signature. A bearer keeps the corresponding private capability locally in the
+invitation fragment. It is not an MLS identity or an archive/history key.
+Invitation expiry is evaluated against the service's signed acceptance time,
+not the applicant's transaction timestamp; timestamps never order controls.
+
+Explicit Join creates a guest-signed `kind=join` event with `channel_id`,
+`control_id=invite_id`, `invite_id`, `key_package` and `invite_proof`. The package
+object contains `wallet`, `device`, `package`, `signer` and `signature`, the
+existing wallet-signed package binding. The capability signs these exact UTF8
+bytes, without a final newline:
+
+`SaitoSpacesJoin/v1:<groupId>:<inviteId>:<guestWallet>:<joinOperationId>:<packageWalletSignature>`
+
+An existing authorized member prepares the actual MLS admission automatically
+after observing that valid explicit request. Its `kind=admit` control includes
+the original `join` envelope, `channel_id`, next `epoch`, `commit`, `welcome`
+and exact resulting `devices`. The service and clients verify the original
+guest signature, wallet/package binding, bearer proof, still-valid invitation,
+preceding role and epoch, and original operation uniqueness. Admission adds a
+member role, never a second owner. The crypto adapter additionally verifies the
+actual MLS leaf/signers before committing or transmitting candidate state.
+Until this accepted control and usable keys arrive, the app must show the real
+pending join/key state. Opening or reading the invitation cannot enroll anyone.
+Initial admission of a new wallet is distinct from replacing an existing
+member's device; recovery needs its explicit device update contract.
+
 ## Maintained group encryption
 
 Use [OpenMLS0.9.0](https://github.com/openmls/openmls/releases/tag/openmls-v0.9.0),
@@ -71,6 +106,8 @@ never accept an arbitrary credential label as a wallet identity. Key packages
 are validated by the library and consumed once. Each channel has its own group
 and epochs, including private channels inside a public Space. Owner/admin access
 is represented by admitted cryptographic membership, not a UI-only exception.
+The application additionally rejects package lifetimes outside OpenMLS's public
+acceptable range; a currently valid, unbounded package is not admissible.
 
 The actual MLS signer for every leaf is compared with its wallet-signed binding.
 A valid wallet signature over a falsely labelled package is not sufficient.

@@ -1,0 +1,29 @@
+{
+  "productAndNativeTestSource": "467ce2c5a59adf63c135067081a591dfbbd99ae3",
+  "workflowSource": "f7993d042563be29fda15aed6f3928763ca902e6",
+  "validatorSha256": "0937595d0d3ce720ce75ef3717e9e4fbc245201a3abc4db5b1297912594c5478",
+  "contract": "docs/evidence/ticket137/README.md prospectivev2",
+  "nativeClasses": 1,
+  "nativeDeadline": 180,
+  "captureDeadline": 30,
+  "jvmCases": 6,
+  "rustCases": 3,
+  "profiles": [
+    [
+      29,
+      4096
+    ],
+    [
+      37,
+      4096
+    ],
+    [
+      37,
+      16384
+    ]
+  ],
+  "sourceReviews": [
+    "137-runtime-route-spec-review.txt",
+    "137-runtime-route-standards-review.txt"
+  ]
+}

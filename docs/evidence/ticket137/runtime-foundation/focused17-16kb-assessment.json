@@ -1,0 +1,28 @@
+{
+  "contract": "ticket137 library runtime v2 unchanged goals, workflow-only source bridge",
+  "run": 44430869595,
+  "source": "467ce2c5a59adf63c135067081a591dfbbd99ae3",
+  "sdk": 37,
+  "pageSize": 16384,
+  "runtime": {
+    "sdk": 37,
+    "abi": "x86_64",
+    "pageSize": 16384,
+    "pid": 3134,
+    "installedApkSha256": "e59efd84e0777dbbb949d9966f525cfd0abc5ba4e74f227a95d531a55974620f",
+    "installedTestApkSha256": "497e3dac659ff506a8801ba351ac96bf681f60db0f0cfb11c0e6657b286c2776",
+    "encryptedFileBytes": 29721,
+    "snapshotBytes": 29692,
+    "keystoreRoundTrip": true,
+    "historyBeforeGrant": "unavailable",
+    "historyAfterGrant": "exact original content",
+    "qualification": "Library/JNI/Keystore only; not UI, remote acceptance or distinct-process recovery"
+  },
+  "sha256": {
+    "raw/android-native-proof/.scratch/device-evidence/api-37.0/spaces-mls-evidence.tar": "5b0d1130424a36bf77a86c549311683d726315b1dfe6941f04830443251fd04b",
+    "raw/android-native-proof/.scratch/device-evidence/api-37.0/spaces-mls-ui.txt": "5ec9f047265ac06c2918d00e6b058d06170faafa49397c425e25e1f7cbd5673d",
+    "whole-run.log": "31278c9dbe7fe001fe6b8c28c4310a112cd31df9cdfbadb7133b9a44b491465f"
+  },
+  "outcome": "PASS",
+  "qualification": "Library/JNI/Keystore only. No functional UI, distinct process, deployed service, OEM or whole137 acceptance."
+}

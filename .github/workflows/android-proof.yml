@@ -233,12 +233,16 @@ jobs:
         env:
           VERIFICATION_SCOPE: ${{ inputs.scope || 'source' }}
         run: |
+          SPACE_SERVICE_CHECKS=()
+          if [[ -f spaces-service/build.gradle.kts ]]; then
+            SPACE_SERVICE_CHECKS=(:spaces-service:test)
+          fi
           if [[ "$VERIFICATION_SCOPE" == scroll-profile* ]]; then
             ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" -PscrollCompositionTracing=true :app:assemblePerformance
           elif [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source || "$VERIFICATION_SCOPE" == release-tail* ]]; then
-            ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug :app:assemblePerformance :app:lintPerformance
+            ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :core:test :push-gateway:test "${SPACE_SERVICE_CHECKS[@]}" :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug :app:assemblePerformance :app:lintPerformance
           else
-            ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest
+            ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :core:test :push-gateway:test "${SPACE_SERVICE_CHECKS[@]}" :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest
           fi
       - name: Lint debug sources without running a device
         if: inputs.scope == 'source-debug'
@@ -313,6 +317,12 @@ jobs:
             .scratch/proof-runner.txt
             .scratch/device-evidence/
             core/build/reports/tests/
+            core/build/test-results/test/
+            core/build/generated/spaces-mls-host/build-receipt.json
+            core/build/generated/spaces-mls-host/community-contracts.txt
+            app/build/generated/spaces-mls-jni/build-receipt.json
+            spaces-service/build/reports/tests/
+            spaces-service/build/test-results/test/
             app/build/reports/lint-results-debug.html
           include-hidden-files: true
           retention-days: 14
