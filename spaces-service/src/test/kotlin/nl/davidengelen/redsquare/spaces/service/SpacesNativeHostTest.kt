@@ -18,14 +18,17 @@ import java.util.concurrent.TimeUnit
  * emulator boot. A compiled Kotlin main alone does not prove a Java entrypoint. */
 class SpacesNativeHostTest {
     @get:Rule val files = TemporaryFolder()
-    @Test(timeout = 45_000) fun theActualFixtureProcessAdvertisesOwnedPortsAndStopsCleanly() = runHost(false)
-    @Test(timeout = 45_000) fun theDiscoveryHostSeedsRealPublicPrivateAndUnlistedCommunitiesBeforeReadiness() = runHost(true)
-    private fun runHost(discovery: Boolean) {
-        val root = files.newFolder(if (discovery) "discovery-host" else "host-start").toPath()
+    @Test(timeout = 45_000) fun theActualFixtureProcessAdvertisesOwnedPortsAndStopsCleanly() = runHost(null)
+    @Test(timeout = 45_000) fun theDiscoveryHostSeedsRealPublicPrivateAndUnlistedCommunitiesBeforeReadiness() = runHost("discovery-v1")
+    @Test(timeout = 45_000) fun theManagementHostSeedsIndependentRolesAndNonemptyChannelHistoryBeforeReadiness() = runHost("management-v1")
+    private fun runHost(mode: String?) {
+        val discovery = mode == "discovery-v1"
+        val management = mode == "management-v1"
+        val root = files.newFolder(mode ?: "host-start").toPath()
         val process = ProcessBuilder(Path.of(System.getProperty("java.home"), "bin/java").toString(),
             "-Djava.library.path=" + System.getProperty("java.library.path"),
             "-cp", System.getProperty("spaces.native.fixtureClasspath"), SpacesNativeHost::class.java.name, root.toString(),
-            *(if (discovery) arrayOf("discovery-v1") else emptyArray()))
+            *(mode?.let { arrayOf(it) } ?: emptyArray()))
             .redirectErrorStream(true).redirectOutput(root.resolve("host.log").toFile()).start()
         var primary: Throwable? = null
         try {
@@ -49,13 +52,26 @@ class SpacesNativeHostTest {
                 return response.body()
             }
             val status = JsonParser.parseString(command("status")).asJsonObject
-            assertEquals(if (discovery) 5 else 0, status.getAsJsonArray("communities").size())
+            assertEquals(if (discovery) 5 else if (management) 1 else 0, status.getAsJsonArray("communities").size())
             if (discovery) {
                 val fixtures = JsonParser.parseString(command("fixtures")).asJsonObject
                 assertEquals(setOf("public", "unlisted", "nonchat", "private", "expiring"), fixtures.keySet())
                 assertTrue(fixtures.getAsJsonObject("unlisted").get("link").asString.startsWith("saito://spaces/community#"))
                 assertTrue(fixtures.getAsJsonObject("private").get("link").asString.startsWith("saito://spaces/join#"))
                 assertTrue(status.getAsJsonArray("communities").any { row -> row.asJsonObject.getAsJsonArray("received").any { it.asString == "Builders message 27" } })
+            }
+            if (management) {
+                val fixtures = JsonParser.parseString(command("management-fixtures")).asJsonObject
+                val received = JsonParser.parseString(command("management-status")).asJsonObject
+                assertEquals(fixtures.get("space").asString, received.get("space").asString)
+                assertEquals("OWNER", received.getAsJsonObject("members").get(fixtures.get("owner").asString).asString)
+                assertEquals("MEMBER", received.getAsJsonObject("members").get(fixtures.get("member").asString).asString)
+                assertEquals(2, received.getAsJsonObject("members").size())
+                assertEquals(setOf("general", "workshop", "announcements"), received.getAsJsonObject("channels").entrySet()
+                    .map { it.value.asJsonObject.get("name").asString }.toSet())
+                assertTrue(received.getAsJsonObject("channels").entrySet().all { !it.value.asJsonObject.get("archived").asBoolean })
+                assertEquals(0, received.getAsJsonArray("originals").size())
+                assertEquals(0, received.getAsJsonArray("dropped").size())
             }
             command("stop")
             check(process.waitFor(10, TimeUnit.SECONDS)) { "Owned fixture did not stop" }

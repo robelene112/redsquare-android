@@ -126,6 +126,10 @@ fi
 
 sha256sum "$artifact" "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk" \
     > "$evidence/built-apk-sha256.txt"
+if [[ "${TEST_SCOPE:-full}" == spaces-journey-management* ]]; then
+    mkdir -p "$evidence/built-apks"
+    cp -- "$artifact" "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk" "$evidence/built-apks/"
+fi
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
 if [[ "$TEST_DEVICE_API" == 29 ]]; then
@@ -263,7 +267,8 @@ verify_group_chat_native() {
 }
 if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
     journey_options=()
-    if [[ "${TEST_SCOPE:-full}" == spaces-journey-discovery* ]]; then journey_options=(discovery-v1); fi
+    if [[ "${TEST_SCOPE:-full}" == spaces-journey-management* ]]; then journey_options=(management-v1)
+    elif [[ "${TEST_SCOPE:-full}" == spaces-journey-discovery* ]]; then journey_options=(discovery-v1); fi
     python3 "$repo_dir/scripts/spaces-native-journey" "$evidence" "${journey_options[@]}"
     printf '%s\n' 'Focused Spaces Activity and distinct-process journey; no full regression or deployed-node acceptance.' > "$evidence/scope.txt"
     exit 0

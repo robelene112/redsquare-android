@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "ticket": 139,
+  "status": "Prospective first archive/role native contract; actual Android acceptance pending",
+  "base": "3d165296c5aa2015ab209a543a1260f03d0af1bb",
+  "mode": "management-v1",
+  "sourceFiles": {
+    ".github/workflows/android-proof.yml": "2b52c31e8269ce68a443729100d5f59376dbbd1991fad4b4759a5b70e8fe2c0c",
+    "scripts/emulator-check": "b2c55ec004884327a3cd2c85da9e26cd9f111c8cbb8651f96e62ed80da370ca2",
+    "scripts/spaces-native-journey": "b1176f7794b2c45a655fed2471ca6a046d494864f69f17fbe97ced3e4e3ac7db",
+    "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt": "2f4f0be07260ced22a0c30dfee8f9336156b298d2db4664ca5f83dada81dd816",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesScreen.kt": "beac6337985ac99dca21cb1e54582a1399d3ed458b93a8c00b89fe1e6a8d2062",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "55b6095081af60b03c422337534c80bd7ed0c8060d2a881bc37855b33a0c6f60",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesViewportConfigurationTest.kt": "7e3f531a1e5901a00bf408e56ad170c7799c78585b0e52e388f79ac91bcaa29f",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost.kt": "ebee0ee7ebf5ef5eaf89440b9a85f9fd0f6d757e0bc7d0fc4a97b14993c56fe8",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesManagementFixture.kt": "1e73ff613626ba960d2f05849eb1fcc562f4046d68a880e32f2e2f6d8c6ca85f",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHostTest.kt": "c563e01ae9cac34efb7092886b9b926ed780fb87c09724e23746e0d7df4e02d6"
+  },
+  "nativeGoals": {
+    "phases": 4,
+    "actualInterruptedPids": 2,
+    "terminalCases": 2,
+    "distinctPids": 4,
+    "phaseSeconds": 180,
+    "actionSeconds": 5,
+    "contentSeconds": 15,
+    "pixelTolerance": 1,
+    "minimumControlDp": 48,
+    "lostAcceptedReplies": [
+      "set-role",
+      "archive-channel"
+    ],
+    "exactOriginalAttempts": 2,
+    "localWriteFailures": [
+      "role",
+      "archive",
+      "compact-role"
+    ],
+    "viewport": {
+      "widthDp": 320,
+      "fontScale": 2,
+      "densityDpi": 320,
+      "resourceProbes": 3
+    }
+  },
+  "prospectiveCaseCatalogue": {
+    "core": 244,
+    "service": 79,
+    "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-expected-cases.json",
+    "sha256": "991ce1b4d5cc71f6a0a658b6b5533ab5918efdae359bc26e48a7c7b5ec6808ad"
+  },
+  "assessor": {
+    "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/verify-139-native-management.py",
+    "sha256": "12f562553509806f218a09aefb28fe5b6b48961690b6db053954d386f8070371",
+    "sourceFreeze": "Written externally against exact committed source before dispatch; no native result currently accepted"
+  },
+  "checks": {
+    "hostCompile": {
+      "exit": 0,
+      "seconds": 70,
+      "log": "139-management-native-host-compile.log"
+    },
+    "hostProcessRed": {
+      "tests": 3,
+      "failures": 1,
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-native-host-process-red-originals",
+      "cause": "Fixture initially read only General; new independent Workshop history assertion correctly failed. Not an application failure."
+    },
+    "hostProcessGreen": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 79,
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-native-host-process-green-originals",
+      "correction": "Explicit public reader.refresh(space,workshop) before literal history assertion."
+    },
+    "androidCompile": {
+      "initial": "Compile-onlyfailure at DpRect height/width API, original139-management-native-app-compile.log retained. Correctedbottom-top/right-leftsamegoals.",
+      "green": {
+        "exit": 0,
+        "mainWarmupSeconds": 22,
+        "instrumentationSeconds": 194,
+        "log": "139-management-native-app-compile-green.log",
+        "sha256": "454d28ed199cfc735b448f923f59b3516981daf2cda08b4b189772f3f0f0cb34"
+      }
+    }
+  },
+  "qualification": "Partial139 only. Real public owner/member/service identities use isolated owned storage. No production wallet or public write. Both actual built APKs retained for independent byte/hash/ZIP checks. Native original archive, all movie frames, approved B comparison and geometry remain pending. Whole139 private ACL, future key exclusion, ownership, visibility and dissolution still incomplete. Beta142 unchanged; production/provider/financial/file-hosting gates unchanged.",
+  "sourceReviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-management-native-final-spec-review.txt",
+      "sha256": "8ea22297dcac9176914bd9c601a01721420255a846da2ba82ea8580cb7da0197"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-management-native-final-standards-review.txt",
+      "sha256": "fc4d2e2c639ad4e45aa51a11725ba4430ed7a08b112480fbd05a190312c505fd"
+    },
+    "assessorSpec": {
+      "findings": 0,
+      "report": "139-management-assessor-spec-review.txt",
+      "sha256": "ce7072aa2d912125fa55a97d1a1b03c37225fd2f2ba1a7d2c5dcef3f867d25c4"
+    },
+    "assessorStandards": {
+      "findings": 0,
+      "report": "139-management-assessor-final-standards-review.txt",
+      "sha256": "f113611d91f272de0eb26541203897ea7b7c3badba6c04297d7d867a59aef366"
+    }
+  }
+}

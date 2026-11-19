@@ -51,3 +51,14 @@ for hidden local errors is corrected and both final source axes are clear.
 Dialogs retain their body during exit and expose measured local-error feedback.
 Actual native error/rendering, complete frames, geometry and current pinned
 framework rehearsals remain required. This source stage is not139 acceptance.
+
+The [prospective archive/role native contract](management-native-contract.json)
+adds a separate management journey without changing existing discovery goals.
+It drives actual role/archive controls, two lost accepted responses and two
+external process kills, real local-write errors, nonempty archived history,
+per-channel drafts/pixels and compact320dp/font200 controls. The real host process
+contract first exposed a missing child read in the fixture; its correction passes
+all three host modes. The initial Android test compilation error and its correction
+remain recorded; corrected main/instrumentation compilation passes. Actual native execution and complete visual acceptance are pending.
+Both APK files will be retained for actual-byte verification. This is not complete139
+acceptance or a beta update.

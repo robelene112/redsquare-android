@@ -238,7 +238,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 style = MaterialTheme.typography.bodySmall)
                         }
                     }
-                    if (selected?.joined == true && channel?.profile?.kind == SpaceChannelKind.ANNOUNCEMENT && !selected.canSend)
+                    if (selected?.joined == true && channel?.profile?.kind == SpaceChannelKind.ANNOUNCEMENT && !channel.archived &&
+                        state.members.firstOrNull { it.publicKey == account.ownerKey }?.role !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
                         Text(stringResource(R.string.spaces_announcements_read_only), color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.bodySmall)
                 }

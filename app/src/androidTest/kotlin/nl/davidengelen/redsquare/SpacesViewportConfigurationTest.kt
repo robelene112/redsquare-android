@@ -38,7 +38,9 @@ class SpacesViewportConfigurationTest {
             addProperty("densityDpi", configuration.densityDpi)
             addProperty("fontSetting", device.executeShellCommand("settings get system font_scale").trim())
         }
-        val folder = File(context.cacheDir, "spaces-discovery-evidence").apply { mkdirs() }
+        val name = arguments.getString("spacesViewportFolder") ?: "spaces-discovery-evidence"
+        require(name in setOf("spaces-discovery-evidence", "spaces-management-evidence"))
+        val folder = File(context.cacheDir, name).apply { mkdirs() }
         File(folder, "viewport-$stage.json").writeText(value.toString())
         assertTrue("Actual resource configuration must match the owned viewport", matches())
     }

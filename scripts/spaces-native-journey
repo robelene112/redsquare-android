@@ -12,13 +12,17 @@ import time
 import urllib.request
 
 repo = Path(__file__).resolve().parent.parent
-discovery_mode = len(sys.argv) == 3 and sys.argv[2] == 'discovery-v1'
-if len(sys.argv) not in (2, 3) or (len(sys.argv) == 3 and not discovery_mode):
-    raise ValueError('Expected evidence directory and optional discovery-v1')
-folder = 'spaces-discovery-evidence' if discovery_mode else 'spaces-journey-evidence'
-checkpoint_name = 'spaces-discovery-checkpoint.json' if discovery_mode else 'spaces-journey-checkpoint.json'
-classname = 'SpacesDiscoveryJourneyTest' if discovery_mode else 'SpacesJourneyTest'
-evidence = Path(sys.argv[1]).resolve() / ('spaces-discovery' if discovery_mode else 'spaces-journey')
+mode = sys.argv[2] if len(sys.argv) == 3 else 'journey-v1'
+if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'discovery-v1', 'management-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
+    raise ValueError('Expected evidence directory and optional discovery-v1 or management-v1')
+discovery_mode = mode == 'discovery-v1'
+management_mode = mode == 'management-v1'
+community_mode = discovery_mode or management_mode
+label = 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
+folder = f'spaces-{label}-evidence'
+checkpoint_name = f'spaces-{label}-checkpoint.json'
+classname = 'SpacesManagementJourneyTest' if management_mode else 'SpacesDiscoveryJourneyTest' if discovery_mode else 'SpacesJourneyTest'
+evidence = Path(sys.argv[1]).resolve() / f'spaces-{label}'
 evidence.mkdir(parents=True, exist_ok=False)
 pkg = 'nl.davidengelen.redsquare.dev'
 runner = pkg + '.test/androidx.test.runner.AndroidJUnitRunner'
@@ -36,7 +40,8 @@ def instrument(method, filename, peer, control):
     log = (evidence / filename).open('wb')
     process = subprocess.Popen(['adb', 'shell', 'am', 'instrument', '-w', '-r',
         '-e', 'class', f'nl.davidengelen.redsquare.{classname}#{method}',
-        '-e', 'spacesPeerPort', str(peer), '-e', 'spacesControlPort', str(control), runner],
+        '-e', 'spacesPeerPort', str(peer), '-e', 'spacesControlPort', str(control)] +
+        (['-e', 'spacesDisposableBaseline', 'true'] if management_mode else []) + [runner],
         stdout=log, stderr=subprocess.STDOUT)
     children.append((process, log))
     return process
@@ -52,6 +57,8 @@ def viewport_observation(stage, expected=None):
         '-e', 'spacesViewportStage', stage]
     for name, value in (expected or {}).items():
         args += ['-e', name, str(value)]
+    if management_mode:
+        args += ['-e', 'spacesViewportFolder', folder]
     observed = adb(*args, runner, timeout=30, check=False)
     text = observed.stdout.decode(errors='replace')
     (evidence / f'viewport-{stage}-probe.txt').write_bytes(observed.stdout + observed.stderr)
@@ -115,11 +122,11 @@ try:
         raise RuntimeError('Only a disposable emulator may run this fixture')
     classpath = (repo / 'spaces-service/build/host-fixture-classpath.txt').read_text().strip()
     native = repo / 'core/build/generated/spaces-mls-host'
-    hostroot = repo / '.scratch' / (('spaces-discovery-host-' if discovery_mode else 'spaces-native-host-') + os.environ['TEST_DEVICE_API'])
+    hostroot = repo / '.scratch' / ((f'spaces-{label}-host-' if community_mode else 'spaces-native-host-') + os.environ['TEST_DEVICE_API'])
     hostroot.mkdir(parents=True, exist_ok=False)
     hostlog = (hostroot / 'host.log').open('wb')
     host = subprocess.Popen(['java', '-Xmx512m', f'-Djava.library.path={native}', '-cp', classpath,
-        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + (['discovery-v1'] if discovery_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
+        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + ([mode] if community_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
     children.append((host, hostlog))
     deadline = time.monotonic() + 30
     while not (hostroot / 'ready.json').exists():
@@ -134,7 +141,7 @@ try:
         adb('reverse', f'tcp:{port}', f'tcp:{port}')
     # One unbroken movie per phase. Native goals stay bounded independently.
     def record(phase):
-        remote = f'/sdcard/spaces-{"discovery" if discovery_mode else "journey"}-{phase}.mp4'
+        remote = f'/sdcard/spaces-{label}-{phase}.mp4'
         logfile = (evidence / f'movie-{phase}.log').open('wb')
         process = subprocess.Popen(['adb', 'shell', '-n', 'screenrecord', '--time-limit', '180',
             '--bit-rate', '2000000', remote], stdin=subprocess.DEVNULL, stdout=logfile, stderr=subprocess.STDOUT)
@@ -205,20 +212,42 @@ try:
             raise RuntimeError('Recorder transport did not complete successfully within15s')
         owner['stopped'] = True
         (evidence / f'recorder-{phase}.json').write_text(json.dumps(owner))
-    if discovery_mode:
-        # Freeze all four whole parent phases before the first measurement.
-        phases = [
-            ('publicDiscoveryReadsWithoutJoiningAndCheckpointsTheActualVisitorPixel', 'visitor'),
-            ('coldPublicReferenceReviewsRulesAndKeepsPerChannelDraftsAndMemberReturns', 'member'),
-            ('coldMemberReturnCreatesAndReviewsInvitationsAndReadsUnlistedLinks', None),
-            ('compactLargeTypeKeepsRealCommunityAndCreationControlsReachable', None),
-        ]
-        (evidence / 'frozen-goals.json').write_text(json.dumps({'version': 4, 'phases': phases,
-            'phaseSeconds': 180, 'checkpointObservationSeconds': .25, 'pixelTolerance': 1,
-            'peerReadRecovery': {'droppedReplies': 1, 'peerDeadlineSeconds': 12, 'freshReadSeconds': 15, 'sameProcess': True},
-            'cachedPublicReference': {'publicReadBarrierArmed': True, 'pixelTolerance': 1, 'contentSeconds': 15},
-            'viewport': {'widthDp': 320, 'fontScale': 2.0, 'densityDpi': 320, 'resourceProbes': 3},
-            'productionNodeActivated': False, 'ordinaryBetaChanged': False}, indent=2))
+    if community_mode:
+        # Freeze the whole selected journey before the first measurement.
+        if management_mode:
+            phases = [
+                ('ownerSeesLocalRoleErrorsAndCheckpointsAnActuallyAcceptedUnconfirmedPromotion', 'role-pending'),
+                ('coldRoleRecoveryKeepsTheOriginalThenCheckpointsAnUnconfirmedChildArchive', 'archive-pending'),
+                ('coldArchiveRecoveryAndRealReopeningKeepHistoryAndLocalErrorsReachable', None),
+                ('compactLargeTypeShowsActualRoleErrorsAndArchiveControlsWithoutClipping', None),
+            ]
+            goals = {'version': 1, 'mode': 'management-v1', 'phases': phases,
+                'phaseSeconds': 180, 'checkpointObservationSeconds': .25, 'pixelTolerance': 1,
+                'actionSeconds': 5, 'contentSeconds': 15, 'minimumControlDp': 48,
+                'lostAcceptedReplies': ['set-role', 'archive-channel'], 'exactOriginalAttempts': 2,
+                'localWriteFailureCases': ['role', 'archive', 'compact-role'],
+                'viewport': {'widthDp': 320, 'fontScale': 2.0, 'densityDpi': 320, 'resourceProbes': 3},
+                'productionNodeActivated': False, 'ordinaryBetaChanged': False}
+            # This mode owns the freshly provisioned dev-package baseline. Never
+            # clear the ordinary signed package or reuse a user's device here.
+            reset = adb('shell', 'pm', 'clear', pkg)
+            if reset.stdout.strip() != b'Success': raise RuntimeError('Disposable dev baseline was not cleared')
+            (evidence / 'disposable-baseline.json').write_text(json.dumps({'package': pkg, 'serial': serial,
+                'clearExit': reset.returncode, 'ordinaryPackageTouched': False}))
+        else:
+            phases = [
+                ('publicDiscoveryReadsWithoutJoiningAndCheckpointsTheActualVisitorPixel', 'visitor'),
+                ('coldPublicReferenceReviewsRulesAndKeepsPerChannelDraftsAndMemberReturns', 'member'),
+                ('coldMemberReturnCreatesAndReviewsInvitationsAndReadsUnlistedLinks', None),
+                ('compactLargeTypeKeepsRealCommunityAndCreationControlsReachable', None),
+            ]
+            goals = {'version': 4, 'phases': phases,
+                'phaseSeconds': 180, 'checkpointObservationSeconds': .25, 'pixelTolerance': 1,
+                'peerReadRecovery': {'droppedReplies': 1, 'peerDeadlineSeconds': 12, 'freshReadSeconds': 15, 'sameProcess': True},
+                'cachedPublicReference': {'publicReadBarrierArmed': True, 'pixelTolerance': 1, 'contentSeconds': 15},
+                'viewport': {'widthDp': 320, 'fontScale': 2.0, 'densityDpi': 320, 'resourceProbes': 3},
+                'productionNodeActivated': False, 'ordinaryBetaChanged': False}
+        (evidence / 'frozen-goals.json').write_text(json.dumps(goals, indent=2))
         pids = []
         for number, (method, expected_phase) in enumerate(phases, 1):
             if number == 4: prepare_viewport()
@@ -228,7 +257,7 @@ try:
                 deadline = time.monotonic() + 180
                 while True:
                     if time.monotonic() >= deadline:
-                        raise RuntimeError(f'Native discovery phase {number} exceeded180s')
+                        raise RuntimeError(f'Native {label} phase {number} exceeded180s')
                     observed = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{checkpoint_name}', check=False)
                     if observed.returncode == 0 and observed.stdout.lstrip().startswith(b'{'):
                         checkpoint = json.loads(observed.stdout)
@@ -236,12 +265,26 @@ try:
                             (evidence / f'checkpoint-{expected_phase}.raw').write_bytes(observed.stdout)
                             break
                     if native.poll() is not None:
-                        raise RuntimeError(f'Native discovery phase {number} ended before checkpoint')
+                        raise RuntimeError(f'Native {label} phase {number} ended before checkpoint')
                     time.sleep(.25)
                 pid = adb('shell', 'pidof', pkg).stdout.decode().strip()
                 if pid != str(checkpoint['pid']) or checkpoint['pid'] in pids:
                     raise RuntimeError('Checkpoint process identity mismatch')
                 pids.append(checkpoint['pid'])
+                if management_mode:
+                    snapshot = command(control_port, 'management-status')
+                    (evidence / f'host-{expected_phase}.json').write_text(json.dumps(snapshot, indent=2))
+                    native_snapshot = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{expected_phase}-host.json').stdout)
+                    if native_snapshot != snapshot or snapshot['dropped'][-1] != checkpoint['original']:
+                        raise RuntimeError('Pending native and independent host effects differ')
+                    fixtures = checkpoint['fixtures']
+                    if snapshot['space'] != fixtures['space'] or checkpoint['owner'] != fixtures['owner']:
+                        raise RuntimeError('Pending management context belongs to another actor or Space')
+                    role = 'ADMIN' if expected_phase == 'role-pending' else 'MEMBER'
+                    if snapshot['members'][fixtures['member']] != role:
+                        raise RuntimeError('Independent member did not receive the expected role')
+                    if snapshot['channels'][fixtures['workshop']]['archived'] != (expected_phase == 'archive-pending'):
+                        raise RuntimeError('Independent channel did not receive the expected archive')
                 adb('shell', 'am', 'force-stop', pkg); native.wait(timeout=15)
                 if adb('shell', 'pidof', pkg, check=False).stdout.strip():
                     raise RuntimeError('Checkpoint PID remains alive')
@@ -250,38 +293,72 @@ try:
             else:
                 native.wait(timeout=180)
                 if native.returncode or 'OK (1 test)' not in (evidence / f'phase-{number}.txt').read_text():
-                    raise RuntimeError('Native discovery final phase failed')
+                    raise RuntimeError(f'Native {label} final phase failed')
                 completed = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{"compact-completed.json" if number == 4 else "completed.json"}').stdout)
                 if number == 3 and completed['pid'] in pids:
                     raise RuntimeError('Final phase reused a checkpoint PID')
                 pids.append(completed['pid'])
             finish_record(*movies[-1])
-        fixtures = command(control_port, 'fixtures')
-        cold_public = command(control_port, 'cached-public-observation')
-        (evidence / 'host-cold-public-cache.json').write_text(json.dumps(cold_public, indent=2))
-        observed_cold = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/cold-public-cache.json').stdout)
-        if observed_cold != cold_public or cold_public.get('pid') != pids[1] or cold_public.get('publicReadBarrierArmed') is not True:
-            raise RuntimeError('Native and host did not confirm cached public reading before releasing the barrier')
-        if cold_public.get('space') != fixtures['public']['space'] or cold_public.get('owner') != json.loads((evidence / 'checkpoint-visitor.raw').read_bytes())['owner']:
-            raise RuntimeError('Cached public reading belongs to another identity or community')
-        child = command(control_port, 'channel-received', {'space': fixtures['private']['space'], 'channel': 'design'})
-        (evidence / 'host-private-child-received.json').write_text(json.dumps(child, indent=2))
-        sender = json.loads((evidence / 'checkpoint-member.raw').read_bytes())['owner']
-        matched = [row for row in child['received'] if row['author'] == sender and row['text'] == 'Private child survives invitation revocation']
-        if len(matched) != 1:
-            raise RuntimeError('Independent host did not decrypt exactly one intended child original')
-        observed_child = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/private-child-received.json').stdout)
-        if observed_child != matched[0]:
-            raise RuntimeError('Native and independent host observed different child originals')
-        peer_recovery = command(control_port, 'read-recovery')
-        (evidence / 'host-peer-read-recovery.json').write_text(json.dumps(peer_recovery, indent=2))
-        observed_recovery = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/peer-read-recovery.json').stdout)
-        if observed_recovery.pop('pid') != pids[2] or observed_recovery != peer_recovery or peer_recovery.get('author') != sender:
-            raise RuntimeError('Native and independent host did not confirm the same peer-read recovery')
+        if management_mode:
+            if len(set(pids)) != 4: raise RuntimeError('Management phases require four distinct PIDs')
+            fixtures = command(control_port, 'management-fixtures')
+            final = command(control_port, 'management-status')
+            (evidence / 'host-management-final.json').write_text(json.dumps(final, indent=2))
+            expected_members = {fixtures['owner']: 'OWNER', fixtures['member']: 'MEMBER'}
+            expected_channels = {fixtures[name] for name in ('general', 'workshop', 'announcements')}
+            if final['members'] != expected_members or set(final['channels']) != expected_channels:
+                raise RuntimeError('Final independent management membership/channel scope differs')
+            if any(value['archived'] for value in final['channels'].values()):
+                raise RuntimeError('The actual managed channels were not reopened')
+            checkpoints = [json.loads((evidence / f'checkpoint-{phase}.raw').read_bytes()) for phase in ('role-pending', 'archive-pending')]
+            if final['dropped'] != [item['original'] for item in checkpoints]:
+                raise RuntimeError('Actual dropped reply identities differ from checkpoints')
+            for checkpoint, kind in zip(checkpoints, ('set-role', 'archive-channel')):
+                rows = [row for row in final['originals'] if row['id'] == checkpoint['original']]
+                if len(rows) != 2 or len({row['sha256'] for row in rows}) != 1 or any(
+                        row['kind'] != kind or row['actor'] != fixtures['owner'] or row['space'] != fixtures['space'] for row in rows):
+                    raise RuntimeError('Recovery did not deliver the exact accepted original twice')
+            for name in ('normal-host', 'compact-host'):
+                observed = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{name}.json').stdout)
+                (evidence / f'native-{name}.json').write_text(json.dumps(observed, indent=2))
+                if observed['space'] != final['space'] or observed['members'] != final['members'] or observed['channels'] != final['channels']:
+                    raise RuntimeError('Native and independent final management state differ')
+                if name == 'compact-host' and observed != final:
+                    raise RuntimeError('Native compact and final host observations differ')
+                if name == 'normal-host' and observed['originals'] != final['originals'][:len(observed['originals'])]:
+                    raise RuntimeError('Native normal observation is not the actual received prefix')
+            for name, pid in (('role', pids[0]), ('archive', pids[2]), ('compact-role', pids[3])):
+                cleanup = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/cleanup-{name}.json').stdout)
+                (evidence / f'local-fault-cleanup-{name}.json').write_text(json.dumps(cleanup, indent=2))
+                if cleanup != {'removed': True, 'pid': pid, 'space': fixtures['space'], 'owner': fixtures['owner']}:
+                    raise RuntimeError('An owned local write fault was not independently removed')
+        else:
+            fixtures = command(control_port, 'fixtures')
+            cold_public = command(control_port, 'cached-public-observation')
+            (evidence / 'host-cold-public-cache.json').write_text(json.dumps(cold_public, indent=2))
+            observed_cold = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/cold-public-cache.json').stdout)
+            if observed_cold != cold_public or cold_public.get('pid') != pids[1] or cold_public.get('publicReadBarrierArmed') is not True:
+                raise RuntimeError('Native and host did not confirm cached public reading before releasing the barrier')
+            if cold_public.get('space') != fixtures['public']['space'] or cold_public.get('owner') != json.loads((evidence / 'checkpoint-visitor.raw').read_bytes())['owner']:
+                raise RuntimeError('Cached public reading belongs to another identity or community')
+            child = command(control_port, 'channel-received', {'space': fixtures['private']['space'], 'channel': 'design'})
+            (evidence / 'host-private-child-received.json').write_text(json.dumps(child, indent=2))
+            sender = json.loads((evidence / 'checkpoint-member.raw').read_bytes())['owner']
+            matched = [row for row in child['received'] if row['author'] == sender and row['text'] == 'Private child survives invitation revocation']
+            if len(matched) != 1:
+                raise RuntimeError('Independent host did not decrypt exactly one intended child original')
+            observed_child = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/private-child-received.json').stdout)
+            if observed_child != matched[0]:
+                raise RuntimeError('Native and independent host observed different child originals')
+            peer_recovery = command(control_port, 'read-recovery')
+            (evidence / 'host-peer-read-recovery.json').write_text(json.dumps(peer_recovery, indent=2))
+            observed_recovery = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/peer-read-recovery.json').stdout)
+            if observed_recovery.pop('pid') != pids[2] or observed_recovery != peer_recovery or peer_recovery.get('author') != sender:
+                raise RuntimeError('Native and independent host did not confirm the same peer-read recovery')
         (evidence / 'host-status.json').write_text(json.dumps(command(control_port, 'status')))
         command(control_port, 'stop'); host.wait(timeout=15)
         if host.returncode:
-            raise RuntimeError('Owned discovery host failed its actual effects/cleanup')
+            raise RuntimeError(f'Owned {label} host failed its actual effects/cleanup')
         (evidence / 'journey-outcome.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
             'phasePids': pids, 'nativeTerminalPasses': 2, 'deliberatelyInterruptedCases': 2,
             'productionNodeActivated': False, 'ordinaryBetaChanged': False}))
