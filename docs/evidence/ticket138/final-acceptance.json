@@ -1,0 +1,131 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "scope": "Accepted focused community discovery, creation, reading and admission slice. Full integrated Spaces and public delivery remain147.",
+  "outcome": "PASS",
+  "runs": [
+    {
+      "contract": "ticket138 discovery-v4",
+      "run": 44617057656,
+      "source": "91011c8611437f428592eb849332a9b66cd24f2f",
+      "sdk": 29,
+      "outcome": "PASS",
+      "core": 244,
+      "service": 70,
+      "nativeTerminalPasses": 2,
+      "deliberatelyInterruptedCases": 2,
+      "phasePids": [
+        3512,
+        11422,
+        24030,
+        21644
+      ],
+      "archiveSha256": "374775c84f7c1487f7e14b03201ff9a22172f38a2429a3fcb2072e78df3b4ff8",
+      "qualification": "Focused owned native/process proof only. Complete-frame and prototype comparison, final integrated regression, physical/OEM and deployed-node acceptance remain separate.",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt17-44617057656",
+      "assessmentSha256": "07281a24953da82fbe05e68a323598e7d5ce4974e641a647cd0e8aea0363559c",
+      "movieFrames": [
+        173,
+        208,
+        339,
+        113
+      ],
+      "sheets": 54,
+      "visualReview": {
+        "findings": 0,
+        "report": "138-accepted-native10-final-standards-review.txt",
+        "sha256": "e121599f786ec2559675951cd5b32f51d00b2b6eefdc63897512bf95740eb813"
+      },
+      "coldPublicObservation": {
+        "pid": 11422,
+        "owner": "sd272FCufsdpcBkgizbDQ6ybHPUyMgqkfCx6nFqNtxMf",
+        "space": "667bd0b2e7832a51f8cb0698b6da2bef478c360d531151411568dd3bdaec4f88",
+        "publicReadBarrierArmed": true,
+        "publicReadObserved": false
+      },
+      "builtApks": [
+        "048bb3aa613cab85dd7a10a020ec4f9db122b40c1f51505a8f9e6a2ef789d049  /home/runner/work/redsquare-android/redsquare-android/app/build/outputs/apk/debug/app-debug.apk",
+        "2c9d5d199c1c0ae846387edf223cec49d2523a7f6ed40be8a49829eef26a39a9  /home/runner/work/redsquare-android/redsquare-android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+      ]
+    },
+    {
+      "contract": "ticket138 discovery-v4",
+      "run": 44612699802,
+      "source": "51dac3c6d1fd21092c26a55b3921caf144adb15c",
+      "sdk": 37,
+      "outcome": "PASS",
+      "core": 244,
+      "service": 70,
+      "nativeTerminalPasses": 2,
+      "deliberatelyInterruptedCases": 2,
+      "phasePids": [
+        3149,
+        5435,
+        6057,
+        6571
+      ],
+      "archiveSha256": "be5cb4804a7258d4788c571ba81f03532dca696eb455e130365ca6eebdb50358",
+      "qualification": "Focused owned native/process proof only. Complete-frame and prototype comparison, final integrated regression, physical/OEM and deployed-node acceptance remain separate.",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt16-44612699802",
+      "assessmentSha256": "499bb344bb27c9db3a8f9238d74ae4e18c2e78e61dcbbbedfbf1dd5574b67a80",
+      "movieFrames": [
+        291,
+        312,
+        432,
+        172
+      ],
+      "sheets": 77,
+      "visualReview": {
+        "findings": 0,
+        "report": "138-accepted-native17-spec-review.txt",
+        "sha256": "56426bfd2989d69f6ec7f6ddd84f600abffbd2d745530bc23e753751f87ae78c"
+      },
+      "coldPublicObservation": {
+        "pid": 5435,
+        "owner": "wg1UUq5GuU6dPMDTzAtsPST1fXC39LLHAcor13WwWUX7",
+        "space": "a820721e3f2b0f2afaa0f1bd7522f9ca09f3d78db535e98c33efa55b0420ff72",
+        "publicReadBarrierArmed": true,
+        "publicReadObserved": false
+      },
+      "builtApks": [
+        "40c1156a77e3e221a261379af4e8477ef620d44d572d06820e77b42b9b7f947d  /home/runner/work/redsquare-android/redsquare-android/app/build/outputs/apk/debug/app-debug.apk",
+        "1a840648221f9b0d7cea3dac64fcc4149cb2c61bcf796bc16099305e15c69b53  /home/runner/work/redsquare-android/redsquare-android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+      ]
+    }
+  ],
+  "sourceBridge": {
+    "fromSource": "51dac3c6d1fd21092c26a55b3921caf144adb15c",
+    "toSource": "91011c8611437f428592eb849332a9b66cd24f2f",
+    "changedPaths": [
+      "docs/evidence/ticket138/native-recovery-v3.json",
+      "scripts/spaces-native-journey"
+    ],
+    "exactUnchangedFiles": 230879,
+    "qualification": "All other tracked objects identical, including production/core/service/MLS/native tests/toolchain/workflow. Only final observer hash implementation and historical evidence change. Retain actual whole17source/provenance; fresh whole10 required.",
+    "observerDiffSha256": "0e0479ecebad7a7dab8ffc09344b93e27bc11507723b22a551c6917c720943eb"
+  },
+  "frozenAssessment": {
+    "verifierSha256": "9e3106f0fd6bd2402ccb98661bf4df7450d1af1314fef2dbc350f789528c84a8",
+    "caseCatalogueSha256": "bd2a92e2a15efe4a60658ef727b847960495d2e40d18f34656ff182debfb035b",
+    "android17FreezeSha256": "f09c4996d4e49b96396b49943089508677ff5388bd17260a81193fb672f6160f",
+    "android10FreezeSha256": "997af3d97b0782f1f0ea8039f50b78e377bbe3d4f9ce0b9c4421581509a34296",
+    "goals": "discovery-v4,244core/70service/4Rust, four180second phases, two actual process kills, two native terminal cases, pixel1, public hold10s, dropped callback12s/freshread15s/samePID, action5s, three independent viewport probes and restoration."
+  },
+  "reviews": {
+    "source": "Full delta and subsequent actual corrections have independent Spec/Standards0. Earlier findings and their real adverse originals remain in the historical packet.",
+    "native": "Fresh Spec inspects all1207 Android17 frames/77sheets; fresh Standards all833 Android10/54sheets. Both actual archives and approved B compare0. Root separately inspects native PNGs and compact XML; this is not an exhaustive touch-area or physical performance claim."
+  },
+  "prototype": {
+    "source": "4dae92cdfacd24232902ab1024174e69b4be5a0a",
+    "choice": "B, contextual community/channel title and chevron, separate Back/Info, shared module/account header.",
+    "qualification": "Native actual received data and light320dp/font200 versus synthetic dark360dp references, not pixel equality."
+  },
+  "qualifications": [
+    "The cold public barrier was armed and not yet entered on both runs. Cached content/pixel was readable before a fresh public read reached the barrier; no entered-callback claim.",
+    "Earlier failed parents remain failed, including16Android10 badheap and16reprovision Python3.10 inventory failure. No union of passing prefixes.",
+    "Pinned schema4 framework rehearsals0.3.2/0.3.15 are owned real serializer/dispatcher/callback checks, not bootstrapped or deployed nodes; see node-interop-index.json. Later local cache/hash corrections do not alter that wire/schema.",
+    "The service/native packet is focused138, not final complete-app regression, E2E protection of legacy Chat, physical/OEM, performance, live provider/node or Play acceptance.",
+    "Private children, public nonmembership/admission, independent received originals and same-process read recovery are separately bound by the assessor, not inferred from UI copy.",
+    "Public beta142 remains unchanged. Production node/provider/public development transactions/financial writes/automatic file hosting are not activated."
+  ]
+}

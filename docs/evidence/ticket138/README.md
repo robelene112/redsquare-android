@@ -1,20 +1,43 @@
 # Ticket138: directory, creation and admission
 
-In progress. The directory/owner-listing increment is implemented at the owned
-client/service boundary. It is not complete138 or native UI acceptance. Public
-beta142 and all separate production activation gates remain unchanged.
+Accepted focused slice. Complete [Android10 run44617057656](https://github.com/robelene112/redsquare-android/actions/runs/44617057656)
+and [Android17 run44612699802](https://github.com/robelene112/redsquare-android/actions/runs/44612699802)
+pass the prospective discovery-v4 contract:244 core,70 service and four Rust
+cases each, two actual process kills and two native terminal cases per SDK.
+The [final receipt](final-acceptance.json) binds sources, APKs, original ZIPs,
+frozen catalogue/checker, PIDs, reviews, prototype and qualifications.
 
-The [native entry source increment](native-entry-increment.json) connects the
-approved B overview/drawer to real discovery, creation, reviewed admission,
-members, owner listing, invitations and permanent public links. Scoped drafts
-and exact message/pixel anchors have durable storage. Current source review
-corrections are clear. The observed build passes244 core and66 service checks
-and compiles native test sources; the packet qualifies the later source and
-observer changes still requiring final CI. No actual138 native run is claimed.
-The prospective four-phase journey includes two genuine process kills, an
-independent decrypted child original, and compact200percent text. Native
-geometry, complete frames, prototype comparison and pinned framework rehearsals
-remain required before closure. Ordinary beta142 stays unchanged.
+Fresh independent reviews inspect all2040 frames/131sheets and actual archives
+against approved native B, with zero remaining findings. Actual compact320dp,
+font200 and independent viewport restoration pass. The former avatar fallback
+flash, false creation-access notice, drawer Back and cold public-link delays have
+verified corrections. Known authenticated public cache renders before a fresh
+public control read reaches its armed barrier; this is not a fresh network or
+membership confirmation. Ordinary beta142 remains unchanged.
+
+Android17 remains at product/source51dac; Android10 uses91011. The exact committed
+bridge changes only the final observer's streaming SHA256 implementation and
+historical evidence. All other230879 tracked objects, including production,
+native tests, workflow and toolchain, match. The Python3.10 failed whole parent
+remains failed, despite completing its native prefix. No combined prefixes supply
+acceptance. Separate immutable APK hashes are retained for each actual build.
+
+Real creation/discovery/public reading, reviewed public/private admission,
+invitations and expiry/revocation, channel drafts/anchors, names/member routes
+and received private-child effects meet138. Activity is an entry here; channel
+administration, later article/file/call functionality and existing Chat E2E stay
+in their subsequent tickets. Whole-app/final integrated, performance, physical/OEM,
+provider/node and Play acceptance are not claimed. Production activation and
+public/financial writes remain separately gated. Continue139–147 sequentially.
+
+The [pinned schema4 framework rehearsals](node-interop-index.json) exercise actual
+0.3.2/0.3.15 serializer/dispatcher/callback against owned data, not a bootstrapped
+or deployed node. Later cache/hash changes leave their wire/schema unchanged.
+The [recovery history](native-recovery-v3.json) and records below preserve earlier
+failures, intermediate findings and then-pending checks as chronological history.
+Only the final receipt establishes the current accepted scope.
+
+## Historical increments and failed observations
 
 The [first actual native parents](native-observer-correction-1.json) both fail
 before the first checkpoint. Their complete original archives, matching GitHub

@@ -1,59 +1,36 @@
 # Implementation handoff
 
 
-## Active138: discovery and community admission
+## Accepted138, continue139
 
-Native community entry is now implemented in source. See the [preflight packet](../evidence/ticket138/native-entry-increment.json).
-The observed production/instrumentation build passes244 core and66 service
-cases; final notification-route and native observer corrections still need the
-source-pinned CI build. Four real Activity/OS phases are prepared, including two
-external process kills, channel drafts/pixels, independent received child content
-and compact200percent text. Run both Android scopes, retain whole failures and
-compare complete frames against B. Do not close138 or promote beta142 yet.
+Community discovery, creation and reviewed admission138 are accepted at product
+source `51dac3c6d1fd21092c26a55b3921caf144adb15c`, with the observer-only
+Python3.10 correction at `91011c8611437f428592eb849332a9b66cd24f2f`.
+Complete Android10 run44617057656 and Android17 run44612699802 each pass244 core,
+70 service and four Rust cases plus two actual process kills and two native
+terminal journeys. Independent actual-archive reviews inspect all2040 original
+movie frames against approved B, with zero remaining findings. The exact source
+bridge retains Android17's original provenance; failed parents remain failed.
+See [the final138 receipt](../evidence/ticket138/final-acceptance.json) for exact hashes,
+scopes, recovery evidence and limits.
 
-Issue137 is closed;138 remains in progress. The first owned client/service
-increment adds explicit public/private profiles, authenticated paged discovery,
-owner-signed listing changes and a bounded200-profile discovery cache. Actual
-RED/GREEN coverage protects signed opt-out intent and cache limits;201-profile
-paging/reload retains private work. Schema3-layout backfill and schema4 re-entry
-preserve actual signed originals/receipts. The full JVM check passes244 core and
-60 service cases after the context/unread increment, with both incremental
-source review axes reporting no remaining
-findings. See [the138 packet](../evidence/ticket138/README.md).
+Real My Spaces, public discovery/reading without membership, explicit rules/Join,
+private invitations/expiry/revocation, editable public/private starters, images,
+member names/Profile/Chat and per-channel draft/pixel recovery are verified.
+Loaded avatars survive remount; known public links restore authenticated cached
+reading before background network work. The public barrier is armed but not yet
+entered at that observation, not a fresh membership/network confirmation.
+The320dp/font200 checks and three independent configuration probes pass.
+Pinned schema4 framework rehearsals retain their owned-adapter qualification.
 
-This is source-stage work, not native138 or complete public-community delivery.
-Public visitor reading and direct signed Join now pass with exact-original
-recovery, independent received replies and private-channel legacy checks.
-Invitation previews now include description, house rules and accepted expiry.
-Reviewed consent is bound to the actual invitation/public policy; private text
-never gets a clear fingerprint. Both review findings have actual RED/GREEN fixes.
-Revocation now blocks pending/future capabilities while preserving existing
-members, including admitted guests recovering a lost Welcome and original ack.
-Read refusals are authenticated access states, not implied network failures.
-Both recovery failures are reproduced/fixed; full244/40 checks and corrected
-source reviews pass. Real bounded images now survive seventeen-profile
-byte paging, cache and private preview, with full244/41 checks. The image
-source reviews also report zero findings. Public multi-channel selection,
-drafts/content, late acknowledgments, outbox indexes and announcement authority
-now pass. Review-found request/receipt/original channel mismatches have two
-authentic REDs and a verified fix. Full244/47 and corrected source reviews pass.
-Private extra channels now retain independent MLS, history and drafts. Actual
-cold-Welcome and private-announcement permission REDs have fixes; rejection,
-restart and exact-original lost-ack recovery pass. Complete244/51 checks and
-both corrected source review axes pass. Editable public/private starter sets
-now retain root/child identities through lost acknowledgments and genuine
-rejection/rebase, preserving private devices and received content. Pending setup
-truth is reproduced/fixed; complete244/53 and corrected source reviews pass.
-Explicit captured channel actions, accepted member/profile projections and
-bounded authenticated unread summaries now pass. Four actual recovery/counter
-REDs have fixes; known ordinary activity stays separate from uncertain exact
-counts. Complete244/60, Node capability contract and final source reviews pass.
-Continue actual native138 flows and prototype verification.
-The source adapter now requires schema4 and advertises spaces-directory-v1 in
-addition to spaces-v1, plus spaces-unread-v1 only with explicit readiness support.
-Repeat both pinned framework rehearsals before138 closure.
-No node/provider/public transaction or financial activation occurs; beta142 stays
-unchanged. Continue one issue at a time through147 without a checkpoint stop.
+Continue139–147 sequentially, one implementation issue at a time, without a
+checkpoint stop. Channel administration/roles/private access are139; complete
+integrated regression and release are147. Ordinary beta142 stays unchanged.
+Production node/provider activation, public development or financial writes,
+automatic community file hosting, physical/OEM and Play acceptance remain separate.
+Legacy Chat is not yet claimed end-to-end encrypted. Keep1/36/55/84/86/105 open;
+Vault rental restoration remains source-only UNDEPLOYED. Older entries below
+are chronological history and do not override this current boundary.
 
 ## Accepted137, continue138
 
