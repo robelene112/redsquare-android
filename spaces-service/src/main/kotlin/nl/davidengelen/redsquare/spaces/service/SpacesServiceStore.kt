@@ -41,6 +41,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         return JsonObject().apply {
             addProperty("capability", "spaces-v1"); addProperty("service_key", wallet.publicKey)
             addProperty("schema", version); addProperty("state", "ready"); addProperty("file_hosting", false)
+            add("features", JsonArray().apply { add("unread-v1") })
         }.toString()
     }
 
@@ -54,15 +55,21 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val requestId = body.text("request_id").also { require(it.matches(ID)) }
         val scope = body.get("scope").also { require(it != null && it.isJsonObject) }.asJsonObject.deepCopy()
         val space = scope.text("space_id").also { require(it.matches(ID)) }
-        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation", "directory")) }
+        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation", "directory", "heads")) }
         require(scope.keySet() == setOf("space_id", "stream", "cursor") + when (stream) {
             "content" -> setOf("channel_id"); "keys" -> setOf("channel_id", "recipient_credential")
-            "invitation" -> setOf("invite_id"); "directory" -> setOf("query"); else -> emptySet()
+            "invitation" -> setOf("invite_id"); "directory" -> setOf("query"); "heads" -> setOf("positions"); else -> emptySet()
         })
         if (stream == "directory") require(space == "0".repeat(64) && scope.text("query").let { it.codePointCount(0, it.length) <= 128 })
         val channel = if (stream in setOf("content", "keys")) scope.text("channel_id").also { require(it.matches(ID)) } else null
         val recipient = if (stream == "keys") scope.text("recipient_credential") else null
         val cursor = scope.number("cursor")
+        if (stream == "heads") {
+            require(cursor == 0L)
+            val positions = scope.getAsJsonObject("positions")
+            require(positions.size() in 1..50)
+            positions.keySet().forEach { require(it.matches(ID)); positions.number(it) }
+        }
         val now = clock.millis().also { require(it >= 0) }
         challenges.entries.removeIf { it.value.expiresAt <= now }
         val reply = JsonObject().apply {
@@ -116,6 +123,15 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         if (recipient != null && (recipient !in target.devices || recipient.split(':')[1] != request.author)) {
                             denied("unavailable"); return@atomic
                         }
+                    }
+                    if (stream == "heads") {
+                        val positions = scope.getAsJsonObject("positions")
+                        val allowed = positions.keySet().all { id -> journal.snapshot.channels[id]?.let { record ->
+                            record.visibility == SpaceVisibility.PUBLIC || record.devices.keys.any { it.split(':')[1] == request.author }
+                        } == true }
+                        if (!allowed) { denied("unavailable"); return@atomic }
+                        headPage(reply, space, request.author, positions)
+                        return@atomic
                     }
                     val items = JsonArray()
                     var bytes = 0
@@ -333,6 +349,27 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
 
     /** Original accepted results survive lost responses and service restart.
      * IMMEDIATE transactions reserve the write lock before reading the head. */
+    private fun headPage(reply: JsonObject, space: String, caller: String, positions: JsonObject) {
+        val items = JsonArray()
+        for (channel in positions.keySet()) {
+            val cursor = positions.number(channel)
+            val end = nextPosition("records", space, channel)
+            require(cursor <= end) { "Read position is ahead of this node's history" }
+            val (count, messageEnd) = database.prepareStatement("SELECT COUNT(*),MAX(position) FROM records WHERE space_id=? AND channel_id=? AND position>=? AND kind='message' AND actor<>?").use { sql ->
+                sql.setString(1, space); sql.setString(2, channel); sql.setLong(3, cursor); sql.setString(4, caller)
+                sql.executeQuery().use { rows ->
+                    check(rows.next()); val count = rows.getLong(1)
+                    count to if (count == 0L) 0L else Math.addExact(rows.getLong(2), 1)
+                }
+            }
+            items.add(JsonObject().apply {
+                addProperty("channel_id", channel); addProperty("end_cursor", end); addProperty("unread_count", count)
+                addProperty("message_end", messageEnd)
+            })
+        }
+        reply.addProperty("request", "page"); reply.add("items", items); reply.addProperty("next_cursor", 0)
+    }
+
     @Synchronized fun submit(envelope: String): String {
         val event = SaitoEnvelope.decode(envelope)
         val body = event.body

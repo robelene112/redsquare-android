@@ -9,7 +9,7 @@ owner-signed listing changes and a bounded200-profile discovery cache. Actual
 RED/GREEN coverage protects signed opt-out intent and cache limits;201-profile
 paging/reload retains private work. Schema3-layout backfill and schema4 re-entry
 preserve actual signed originals/receipts. The full JVM check passes244 core and
-53 service cases after the starter-creation increment, with both incremental
+60 service cases after the context/unread increment, with both incremental
 source review axes reporting no remaining
 findings. See [the138 packet](evidence/ticket138/README.md).
 
@@ -36,9 +36,14 @@ both corrected source review axes pass. Editable public/private starter sets
 now retain root/child identities through lost acknowledgments and genuine
 rejection/rebase, preserving private devices and received content. Pending setup
 truth is reproduced/fixed; complete244/53 and corrected source reviews pass.
-Continue actual members/unread/navigation and native/prototype verification.
+Explicit captured channel actions, accepted member/profile projections and
+bounded authenticated unread summaries now pass. Four actual recovery/counter
+REDs have fixes; known ordinary activity stays separate from uncertain exact
+counts. Complete244/60, Node capability contract and final source reviews pass.
+Continue actual native138 flows and prototype verification.
 The source adapter now requires schema4 and advertises spaces-directory-v1 in
-addition to spaces-v1. Repeat both pinned framework rehearsals before138 closure.
+addition to spaces-v1, plus spaces-unread-v1 only with explicit readiness support.
+Repeat both pinned framework rehearsals before138 closure.
 No node/provider/public transaction or financial activation occurs; beta142 stays
 unchanged. Continue one issue at a time through147 without a checkpoint stop.
 

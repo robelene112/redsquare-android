@@ -1,0 +1,11 @@
+Channel-context/unread correction Spec review againstf12c052db, all eight changed files inspected: no remaining concrete findings in this slice.
+
+Both earlier counter findings are closed. refreshUnread rejects a same-cursor response whose authenticated record end predates the stored end, preventing an older held summary from erasing newer activity. The receiver separately returns message_end from other-author message records; markRead compares against that boundary rather than trailing key/history records. Its SQL count and message boundary use the same predicates, so own publications and key grants remain excluded.
+
+Explicit refresh/older targets now perform unconditional owned/state validation before transport or mutation. The real foreign wallet/node/service test checks zero requests and byte-identical retained state. Community unread is unknown whenever any eligible channel lacks a count, avoiding a misleading partial total when a later50-channel batch fails. Each response still binds service identity, caller/recipient, requested positions/scope, request ID and nonce, and private heads authorization requires actual channel membership.
+
+Inspected original RED XML: same-cursor regression, trailing-grant badge and foreign explicit-history ownership each fail with the expected assertion. Current targeted log/XML records six passes, zero failures/errors/skips, BUILD SUCCESSFUL2m46, including both audiences, captured actions, independent received messages, held signed callbacks, and the actual51-channel failed-second-batch/recovery case.
+
+Readiness adds unread-v1 explicitly. The bridge resets optional support before checking matching service/schema/state and advertises spaces-unread-v1 only when that matching readiness includes the feature; old readiness retains base/directory services. Node bridge RED/GREEN verifies the new property contract, including mismatch and feature withdrawal. The interop fixture now expects three descriptors, but actual framework reruns remain pending, as does affected full core/service verification.
+
+Original adverse reports/evidence remain retained. No native/UI, activated node or whole138 acceptance is claimed.

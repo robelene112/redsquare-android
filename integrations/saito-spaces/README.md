@@ -5,9 +5,19 @@ or activates a production node. The ordinary public app remains beta142.
 
 Schema4 adds a public profile index and authenticated discovery, including
 owner-signed listing changes. It advertises `spaces-directory-v1` alongside the
-existing `spaces-v1` capability. This increment is not complete138: public
-reading/joining, rules and native directory flows remain implementation work.
-Do not activate it as a completed public-community service on that basis.
+existing `spaces-v1` capability. Public reading/joining, richer invitation rules,
+independent channels and durable starter creation have owned source checks;
+native138 remains unfinished. Do not activate it as a completed public-community
+service on that basis.
+
+A matching service explicitly reporting readiness feature `unread-v1` additionally
+advertises `spaces-unread-v1`. An older schema4 service without that feature keeps
+its base/directory capabilities. The client coordinator must check the optional
+capability before requesting summaries. Fresh caller/scope-bound reads summarize
+up to fifty authorized channels, counting actual other-author message records.
+They exclude key/history grants and expose no private text. Complete numeric
+totals remain unknown while an eligible channel summary is missing. These are
+cached observations, separate from personal mention/answer notifications.
 
 ## Compatibility and data contract
 

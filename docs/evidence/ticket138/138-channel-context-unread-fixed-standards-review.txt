@@ -1,0 +1,12 @@
+Corrective Standards review against f12c052db
+Read-only review of eight changed files. Original adverse report and behavioral RED originals remain separate.
+
+Remaining documented correctness finding
+[P2] SpaceClient.kt:832-836 advances read_cursor for any confirmed message but changes unread only when the marker reaches unread_message_end. With three unread other-author posts, marking only the first read retains the exact count of three, although two remain. A held summary is correctly skipped after that advancement, so it cannot repair the retained count. Invalidate the cached count for an intermediate advancement or recompute it from sufficient authenticated data; preserve the zero-clear optimization when all summarized unread messages were read. This conflicts with CODING_STANDARDS.md's specified-behavior preservation and the development preference for truthful current state. This is source-supported, not an observed behavioral RED.
+
+Verified corrections and scope
+older now checks account/node/service ownership before explicit-target resolution or network/local work. Stored target scopes are validated. Monotonic end_cursor prevents an authenticated earlier summary from overwriting a newer head at the same read cursor. Separate message_end excludes trailing history-key grants from read completion. Community totals remain unknown if any eligible channel lacks a counter, while known channel counts survive a failed later batch.
+
+Fresh heads retain service/caller/scope/request/nonce binding, current membership and private-channel authority, bounded fifty-channel requests and actual other-author message counting. Optional targets preserve selection and independent drafts/content. No new secret-bearing diagnostics or separate actionable smell findings.
+
+Observed evidence: the six targeted JUnit cases report zero failures/errors/skips; findings-green.log completes successfully in 2m46s, including the real 51-channel failed-second-batch scenario. The Node bridge requires explicitly advertised unread-v1 before exposing spaces-unread-v1, clears stale feature state, and remains compatible with schema-four readiness lacking that feature. The Node contract RED/GREEN is separate from pending real SDK rehearsals. Full core/service, native and whole-138 acceptance remain pending.

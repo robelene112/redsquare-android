@@ -1,0 +1,18 @@
+Original Standards review: channel-context/unread increment againstf12c052db
+Read-only pre-correction source review. Compilation failures remain compilation observations.
+
+Documented boundary findings
+[P2] SpaceClient.older:731-742 skips owned() when an explicit channel is supplied. Subsequent local reads/final history write lack ownership checks. A foreign wallet/node/service client over that store can complete and alter history_from when the window starts at0, or issue network reads before rejection. Validate ownership unconditionally before resolving targets or accessing local/network state. This regresses the documented account/node ownership boundary.
+
+[P2] refreshUnread:863-867 guards only read_cursor. Two authenticated summaries requested at the same read cursor can finish out of order; the held older end/count then replaces the newer accepted summary. Preserve summary ordering independently of local read advancement. The existing stale test covers an advanced read cursor only.
+
+[P2] communityFromStore:144-147 drops unknown channel summaries with mapNotNull, then presents the known subset as an exact aggregate. After a partial50-channel refresh or new eligible channel, the badge can falsely report0 while some channels are unknown. Keep the aggregate unknown until every eligible channel has a usable summary, or explicitly expose a lower bound.
+
+The read-clear condition also compares a message marker with unread_end covering all records, including trailing key grants. Thus reading the final real message can leave a stale positive unread count. The planned independent trailing-grant counterexample should verify the intended correction.
+
+These findings concern CODING_STANDARDS.md's preservation of specified boundaries/recoverable work and the UI preference for truthful current state.
+
+Other reviewed behavior and evidence
+Optional captured targets preserve existing defaults while isolating drafts/content/history. Profile/member projections read accepted local state. Fresh heads responses bind caller/service/scope/request/nonce, restrict private channel authority, batch50 targets and count actual other-author message records. markRead requires a confirmed local message instead of a timer or optimistic row.
+
+No separate actionable smell findings. Initial two owned PUBLIC/PRIVATE context/unread tests pass2m36s, but do not cover these adverse boundaries. Independent counterexamples and corrections, full-suite/native verification and remaining138 acceptance remain pending.

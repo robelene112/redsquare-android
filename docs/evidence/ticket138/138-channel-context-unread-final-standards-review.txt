@@ -1,0 +1,14 @@
+Final incremental Standards review against f12c052db
+Read-only review; previous adverse and corrective reports remain preserved.
+
+Documented standards: no remaining actionable finding in the reviewed increment.
+
+SpaceClient.kt:836-847 now invalidates the exact count whenever a confirmed read marker advances short of the last summarized unread message. It preserves that authenticated remaining-message boundary, allowing unreadActivity at832 to retain a truthful ordinary activity indication. Reading through the boundary clears the count immediately. No timer, pending row or optimistic receipt supplies a read marker.
+
+The community projection at144-153 keeps exact totals unknown whenever any eligible channel count is unknown. Its independent nullable activity projection is true if any eligible channel has known remaining activity, false only when every eligible channel is known clear, otherwise unknown. This addresses the partial-read finding without losing the ordinary activity dot. Existing monotonic summary-head and read-cursor checks still prevent stale callbacks from restoring superseded observations.
+
+Earlier reviewed corrections remain intact: ownership precedes explicit history access, captured targets preserve other drafts/selection, summaries use fresh authenticated scope-bound reads and fifty-channel batches, private authority is checked, and actual other-author messages are counted separately from key grants. Explicit unread readiness preserves older schema-four capability behavior. The README accurately calls counters cached observations and leaves native138 unfinished.
+
+Evidence: the retained original partial-read XML records the actual expected-null/actual-three assertion failure. The new seven-case JUnit suite reports zero failures/errors/skips; partial-read-count-green.log succeeds in2m37s. The new case verifies unknown partial count with activity true, refreshed exact two, then immediate final count/dot clearance. No secret-bearing diagnostics or additional actionable smell findings were identified; smells were treated as heuristics.
+
+The earlier full244core/59service result predates this final correction. Fresh full244/60, actual SDK rehearsals, native UI and whole138 acceptance remain pending.

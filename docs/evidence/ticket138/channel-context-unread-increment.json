@@ -1,0 +1,126 @@
+{
+  "status": "Owned channel context, member/profile and unread component only. Native and remaining138 pending.",
+  "base": "f12c052db",
+  "checks": {
+    "core": {
+      "classes": 48,
+      "tests": 244,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "spaces-service": {
+      "classes": 5,
+      "tests": 60,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "node_bridge": {
+    "tests": 1,
+    "passed": 1,
+    "failed": 0,
+    "runtime": "Node24.13.0"
+  },
+  "retained_originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-channel-context-unread-final-complete-originals",
+  "logs": [
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-channel-context-unread-api-red.log",
+      "bytes": 8060,
+      "sha256": "e58b1e9846d2c9c5f26e85b95ac319ca15b5aa2ae7682aa1fa89c2c4d7cd86a0"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-channel-context-unread-first-check.log",
+      "bytes": 1414,
+      "sha256": "d8af276df55832d84f63d05e07425e2059146b44a2e23f2e94213fe7f93c426e"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-channel-context-unread-check2.log",
+      "bytes": 1109,
+      "sha256": "abd4a791c5771848cae79756d7ead6c0a8092667ddcb8f0dfef7424c9597cc92"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-channel-context-unread-findings-red.log",
+      "bytes": 1988,
+      "sha256": "ffe7502c2c4d459f78a6c80288116a3eb3337923f45fce35b26d56e6ac3a4cd9"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-channel-context-unread-findings-green.log",
+      "bytes": 1109,
+      "sha256": "177f65454c92e567b3b55bd67e1dad19fd15d373342dc07c2b46db1461cd6c09"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-unread-capability-node-red.log",
+      "bytes": 1063,
+      "sha256": "f0ee13a0e6e99812ec792e05b5376e626fdc9014587b98a6356089b9148b12ec"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-unread-capability-node-green.log",
+      "bytes": 224,
+      "sha256": "d4e5eb2bff2dc4a0317827653e2dfb2874f56372dcef66b621e71a32648fe6f6"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-channel-context-unread-full-check.log",
+      "bytes": 1278,
+      "sha256": "756a986974f2912d308a15994ea67210339530800be983f67e29fc3ded40ac6a"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-partial-read-count-red.log",
+      "bytes": 1643,
+      "sha256": "b0602d43c2eba1737ce32b1d4ae347a5d5989369f605278a7399253588eeba67"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-partial-read-count-green.log",
+      "bytes": 1120,
+      "sha256": "1134de625f91f24f483e74203a22915c699e12c17bc5359a981955c7bfdf7cc9"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-channel-context-unread-final-check.log",
+      "bytes": 1334,
+      "sha256": "8007cd15901c9639eadf23a5f4574af813c03574d6f11836852dff1cdfeea3b1"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt",
+      "sha256": "f5b11fdd4c0dd1713ed51568e0955c94ff1ecc825a778eb48d40b3eebf0e9b28"
+    },
+    {
+      "path": "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt",
+      "sha256": "2ec01f08d574af001ecc6ced336c77ba4a6d2f0087ed21bb70f82ebaca3959ff"
+    },
+    {
+      "path": "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceDiscoveryTest.kt",
+      "sha256": "d95e28fdddaf20484de29bb9595b6425eda6f62df18fa1917061dfb6ec84373e"
+    },
+    {
+      "path": "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStoreTest.kt",
+      "sha256": "b15d4c84fffdf87be7c7fc2baa0981e2f4db3c7602dfe10d975223a39b0c58de"
+    },
+    {
+      "path": "integrations/saito-spaces/bridge.cjs",
+      "sha256": "a9b686624dc4c8d13c812ad9d20a34afdfc8514967522c81c3665d943461063a"
+    },
+    {
+      "path": "integrations/saito-spaces/spaces.js",
+      "sha256": "1a45a3991be2dac00041e01f8ae358587722d799aa934b7ccf3f5838f7f9fcf5"
+    },
+    {
+      "path": "integrations/saito-spaces/test/bridge.test.cjs",
+      "sha256": "37cd01a32944c0b0387b23ffaf767ba2d2ff9595c400c182d350dd161ad65b0b"
+    },
+    {
+      "path": "integrations/saito-spaces/test/interop.cjs",
+      "sha256": "7beb06c44eefdf2c1241a057a3ac39e2b1eb0e920652702d0d22f2851634f497"
+    }
+  ],
+  "qualifications": [
+    "Initial API-contract and subsequent nullable-argument correction are compilation observations, not behavioral bug reproductions.",
+    "Three original behavioral REDs cover foreign explicit history, same-cursor older summary and trailing key grants; a later actual partial-reading RED is retained with original JUnit XML.",
+    "The incomplete51-channel second-batch boundary was source-supported and then passes its corrective test; no separate observed RED is claimed.",
+    "Counts are cached observations. Partial read advancement invalidates exact count while known remaining activity keeps the ordinary activity dot true; the next authenticated summary restores exact count.",
+    "Fresh readiness explicitly advertises unread-v1; adapter exposes spaces-unread-v1 only for matching actual support. Older schema4 without feature remains base/directory compatible. Node contract passes; actual pinned framework rehearsals expecting3 descriptors are pending before138 closure.",
+    "No native UI, personal mention notifications, deployed service or whole138 acceptance."
+  ]
+}

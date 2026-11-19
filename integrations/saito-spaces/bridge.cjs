@@ -15,13 +15,17 @@ module.exports = class SpacesBridge {
     if (typeof serviceKey !== 'string' || !serviceKey) throw Error('Spaces service identity is required');
     this.endpoint = url.origin;
     this.serviceKey = serviceKey;
+    this.supportsUnread = false;
   }
 
   async ready() {
+    this.supportsUnread = false;
     try {
       const body = await this.request('/v1/readiness', {method: 'GET'}, 4096, 2000);
-      return body.capability === 'spaces-v1' && body.service_key === this.serviceKey &&
+      const ready = body.capability === 'spaces-v1' && body.service_key === this.serviceKey &&
         body.schema === 4 && body.state === 'ready' && body.file_hosting === false;
+      this.supportsUnread = ready && Array.isArray(body.features) && body.features.includes('unread-v1');
+      return ready;
     } catch (_) { return false; }
   }
 

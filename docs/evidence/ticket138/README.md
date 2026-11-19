@@ -156,3 +156,27 @@ setup in pending status. Both public/private recovery traces and complete244 cor
 and53 service checks pass; corrected Spec/Standards source reviews report zero
 remaining findings. Native creation, directory, members/unread and complete138
 remain pending. Public beta142 and activation gates remain unchanged.
+
+The [channel-context/unread increment](channel-context-unread-increment.json)
+binds local writing, sends, history and refresh to an explicitly captured channel.
+Accepted profiles/member identities and roles have owned projections. Actual
+other-author message summaries are bounded to fifty authorized channels per
+fresh caller/scope/nonce-bound read. Private text is never fetched for counting.
+
+Four actual behavioral REDs reproduce explicit-history ownership bypass, older
+same-cursor summaries erasing newer activity, trailing history-key records keeping
+a fully read badge positive, and partial reading retaining a stale exact count.
+Corrections preserve ownership before IO, monotonic record heads, a separate
+message boundary and unknown exact counts after intermediate read advancement.
+Known remaining activity independently retains the ordinary dot. A51-channel
+failed second batch leaves the total unknown; individual known observations stay
+usable. Original failed logs/XML and adverse reviews remain, with the compile
+observations and source-supported incomplete-batch finding explicitly separated.
+
+All seven owned cases pass, followed by complete244 core and60 service cases
+with zero failures/errors/skips. Final Spec/Standards source reviews report no
+remaining findings. Actual readiness feature unread-v1 gates the optional
+spaces-unread-v1 descriptor; older schema4 keeps base/directory compatibility.
+The bounded Node contract passes. Updated actual-framework descriptor checks
+still require both pinned SDK rehearsals before138 closes. Native UI, personal
+mentions/replies, deployed-node support and whole138 acceptance are not claimed.

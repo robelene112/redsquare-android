@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare.spaces.service
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.async
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
@@ -1120,6 +1121,243 @@ class SpaceDiscoveryTest {
                         creator.send(space, "The rebased private device remains usable"); creator.flush(space); member.refresh(space)
                         assertEquals(listOf("The rebased private device remains usable"), member.messages(space))
                     }
+                }
+            }
+        }
+    }
+
+    @Test fun capturedChannelActionsPreserveTheOtherDraftAndMembersUseAcceptedIdentityAndRoles() = runBlocking {
+        SpacesServiceStore(files.newFolder("captured-channel-actions").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("captured-channel-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("captured-channel-member.sqlite").absolutePath).use { memberStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    val member = SpaceClient(visitor, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                    val profile = SpaceProfile("Captured channel context", "Real description", SpaceVisibility.PUBLIC)
+                    val space = creator.create(profile, listOf(SpaceChannelProfile("first"), SpaceChannelProfile("second")))
+                    creator.flush(space)
+                    val channels = creator.channels(space)
+                    val first = channels.first().id; val second = channels.last().id
+                    creator.saveDraft(space, "The first channel's writing")
+                    creator.selectChannel(space, second); creator.saveDraft(space, "New writing in the second channel")
+                    creator.saveDraft(space, "A late save still belongs to first", channel = first)
+                    creator.send(space, "A send captured in first", channel = first); creator.flush(space)
+                    assertEquals(second, creator.community(space).channel)
+                    assertEquals("New writing in the second channel", creator.draft(space))
+                    assertEquals("A late save still belongs to first", creator.draft(space, channel = first))
+                    assertTrue(creator.messages(space).isEmpty())
+                    assertEquals(listOf("A send captured in first"), creator.messages(space, channel = first))
+                    member.openPublic(space); member.joinPublic(space); member.flush(space)
+                    member.selectChannel(space, second)
+                    member.refresh(space, channel = first)
+                    assertEquals(second, member.community(space).channel)
+                    assertEquals(listOf("A send captured in first"), member.messages(space, channel = first))
+                    assertTrue(member.messages(space).isEmpty())
+                    creator.refresh(space)
+                    assertEquals(profile, creator.profile(space))
+                    assertEquals(listOf(owner.publicKey, visitor.publicKey), creator.members(space).map { it.publicKey })
+                    assertEquals(listOf("OWNER", "MEMBER"), creator.members(space).map { it.role.name })
+                }
+            }
+        }
+    }
+
+    @Test fun unreadCountsTrackRealOtherAuthorsPerChannelAndIgnoreKeyGrantsAndStaleReadCallbacks() = runBlocking {
+        for (visibility in SpaceVisibility.entries) {
+            SpacesServiceStore(files.newFolder("unread-${visibility.name}").toPath(), service, clock).use { remote ->
+                SqliteClientFixture(files.newFile("unread-owner-${visibility.name}.sqlite").absolutePath).use { ownerStore ->
+                    SqliteClientFixture(files.newFile("unread-member-${visibility.name}.sqlite").absolutePath).use { memberStore ->
+                        val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                        var held: kotlinx.coroutines.CompletableDeferred<Unit>? = null
+                        var entered: kotlinx.coroutines.CompletableDeferred<Unit>? = null
+                        val member = SpaceClient(visitor, "fixture-node", service.publicKey, memberStore, clock) { request ->
+                            val response = remote.exchange(request.envelope())
+                            val body = SaitoEnvelope.decode(request.envelope()).body
+                            if (body.get("request")?.asString == "read" && body.getAsJsonObject("scope")?.get("stream")?.asString == "heads") {
+                                entered?.complete(Unit); held?.await()
+                            }
+                            response
+                        }
+                        val space = creator.create(SpaceProfile("Unread activity", visibility = visibility),
+                            listOf(SpaceChannelProfile("first"), SpaceChannelProfile("second")))
+                        creator.flush(space)
+                        val channels = creator.channels(space); val first = channels.first().id; val second = channels.last().id
+                        if (visibility == SpaceVisibility.PUBLIC) {
+                            member.openPublic(space); member.joinPublic(space); member.flush(space)
+                        } else {
+                            val link = creator.invite(space); creator.flush(space)
+                            member.join(link); member.flush(space); creator.admitPending(space); creator.flush(space); member.refresh(space)
+                            member.selectChannel(space, second); member.flush(space)
+                            creator.admitPending(space); creator.flush(space); member.refresh(space)
+                        }
+                        creator.send(space, "One first-channel message", channel = first)
+                        creator.send(space, "One second-channel message", channel = second)
+                        creator.send(space, "Another second-channel message", channel = second); creator.flush(space)
+                        member.refreshUnread(space); creator.refreshUnread(space)
+                        assertEquals(listOf(1L, 2L), member.channels(space).map { it.unread })
+                        assertEquals(3L, member.community(space).unread)
+                        assertEquals(0L, creator.community(space).unread)
+                        member.refresh(space, channel = first)
+                        member.markRead(space, first, requireNotNull(member.timeline(space, channel = first).last().position))
+                        assertEquals(2L, member.community(space).unread)
+                        // A real signed response can become stale while held.
+                        // Reading the visible latest post must win over it.
+                        val readEntered = kotlinx.coroutines.CompletableDeferred<Unit>()
+                        val releaseRead = kotlinx.coroutines.CompletableDeferred<Unit>()
+                        entered = readEntered; held = releaseRead
+                        val pending = async { member.refreshUnread(space) }
+                        kotlinx.coroutines.withTimeout(10_000) { readEntered.await() }
+                        member.refresh(space, channel = second)
+                        member.markRead(space, second, requireNotNull(member.timeline(space, channel = second).last().position))
+                        releaseRead.complete(Unit); pending.await(); held = null; entered = null
+                        assertEquals(0L, member.community(space).unread)
+                        member.send(space, "My own reply is not unread", channel = second); member.flush(space)
+                        member.refreshUnread(space)
+                        assertEquals(0L, member.community(space).unread)
+                        creator.refreshUnread(space)
+                        assertEquals(1L, creator.community(space).unread)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test fun explicitEarlierHistoryRejectsForeignWalletNodeAndServiceBeforeAnyReadOrMutation() = runBlocking {
+        SpacesServiceStore(files.newFolder("foreign-explicit-history").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("foreign-explicit-owner.sqlite").absolutePath).use { storage ->
+                val creator = SpaceClient(owner, "fixture-node", service.publicKey, storage, clock) { remote.exchange(it.envelope()) }
+                val space = creator.create(SpaceProfile("Owned earlier history", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                val channel = creator.community(space).channel
+                val before = storage.transaction { requireNotNull(get("$space/state")) }
+                val contexts = listOf(Triple(visitor, "fixture-node", service.publicKey), Triple(owner, "different-node", service.publicKey),
+                    Triple(owner, "fixture-node", SaitoWallet.fromPrivateKey("0".repeat(63) + "4").publicKey))
+                for ((wallet, node, serviceKey) in contexts) {
+                    var requests = 0
+                    val foreign = SpaceClient(wallet, node, serviceKey, storage, clock) { requests++; error("Foreign store cannot issue a read") }
+                    try { foreign.older(space, channel = channel); fail("An explicit target cannot bypass account/node ownership") }
+                    catch (_: IllegalArgumentException) { }
+                    assertEquals(0, requests)
+                    assertArrayEquals(before, storage.transaction { get("$space/state") })
+                }
+            }
+        }
+    }
+
+    @Test fun anOlderSummaryWithTheSameReadCursorCannotReplaceMoreRecentUnreadActivity() = runBlocking {
+        SpacesServiceStore(files.newFolder("ordered-unread-summaries").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("ordered-unread-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("ordered-unread-member.sqlite").absolutePath).use { memberStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    val entered = kotlinx.coroutines.CompletableDeferred<Unit>(); val release = kotlinx.coroutines.CompletableDeferred<Unit>()
+                    var holdNext = false
+                    val member = SpaceClient(visitor, "fixture-node", service.publicKey, memberStore, clock) { request ->
+                        val response = remote.exchange(request.envelope())
+                        val body = SaitoEnvelope.decode(request.envelope()).body
+                        if (holdNext && body.get("request")?.asString == "read" && body.getAsJsonObject("scope")?.get("stream")?.asString == "heads") {
+                            holdNext = false; entered.complete(Unit); release.await()
+                        }
+                        response
+                    }
+                    val space = creator.create(SpaceProfile("Ordered unread", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    member.openPublic(space); member.joinPublic(space); member.flush(space)
+                    creator.send(space, "The earlier message"); creator.flush(space); member.refreshUnread(space)
+                    assertEquals(1L, member.community(space).unread)
+                    holdNext = true
+                    val old = async { member.refreshUnread(space) }
+                    kotlinx.coroutines.withTimeout(10_000) { entered.await() }
+                    creator.send(space, "New activity while an old summary is held"); creator.flush(space)
+                    member.refreshUnread(space)
+                    assertEquals(2L, member.community(space).unread)
+                    release.complete(Unit); old.await()
+                    assertEquals("A signed older head cannot erase known newer activity", 2L, member.community(space).unread)
+                }
+            }
+        }
+    }
+
+    @Test fun readingAllMessagesClearsUnreadEvenWhenLaterRecordsOnlyDeliverAnotherMembersKeys() = runBlocking {
+        SpacesServiceStore(files.newFolder("unread-after-key-grant").toPath(), service, clock).use { remote ->
+            val stores = (1..3).map { SqliteClientFixture(files.newFile("unread-after-key-grant-$it.sqlite").absolutePath) }
+            try {
+                fun client(wallet: SaitoWallet, index: Int) = SpaceClient(wallet, "fixture-node", service.publicKey, stores[index], clock) {
+                    remote.exchange(it.envelope())
+                }
+                val creator = client(owner, 0); val member = client(visitor, 1)
+                val third = client(SaitoWallet.fromPrivateKey("0".repeat(63) + "4"), 2)
+                val space = creator.create("Read messages before later key grants"); creator.flush(space)
+                val link = creator.invite(space); creator.flush(space)
+                member.join(link); member.flush(space); creator.admitPending(space); creator.flush(space); member.refresh(space)
+                creator.send(space, "The only unread message"); creator.flush(space); member.refresh(space)
+                third.join(link); third.flush(space); creator.admitPending(space); creator.flush(space)
+                member.refresh(space); member.refreshUnread(space)
+                assertEquals(listOf("The only unread message"), member.messages(space))
+                assertEquals(1L, member.community(space).unread)
+                val message = member.timeline(space).single()
+                member.markRead(space, member.community(space).channel, requireNotNull(message.position))
+                assertEquals("Later history-key records cannot keep a fully read badge positive", 0L, member.community(space).unread)
+            } finally { stores.forEach { it.close() } }
+        }
+    }
+
+    @Test fun incompleteSummaryBatchesKeepTheCommunityTotalUnknownUntilEveryEligibleChannelIsKnown() = runBlocking {
+        SpacesServiceStore(files.newFolder("partial-unread-batches").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("partial-unread-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("partial-unread-member.sqlite").absolutePath).use { memberStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create(SpaceProfile("Partial summaries", visibility = SpaceVisibility.PUBLIC),
+                        (1..32).map { SpaceChannelProfile("Channel $it") }); creator.flush(space)
+                    repeat(19) { creator.createChannel(space, SpaceChannelProfile("Additional channel $it")); creator.flush(space) }
+                    val channels = creator.channels(space); val last = channels.last().id
+                    assertEquals(51, channels.size)
+                    creator.send(space, "Unread only in the last batch", channel = last); creator.flush(space)
+                    var failLast = true
+                    val batchSizes = mutableListOf<Int>()
+                    val member = SpaceClient(visitor, "fixture-node", service.publicKey, memberStore, clock) { request ->
+                        val response = remote.exchange(request.envelope())
+                        val body = SaitoEnvelope.decode(request.envelope()).body
+                        if (body.get("request")?.asString == "read" && body.getAsJsonObject("scope")?.get("stream")?.asString == "heads") {
+                            val positions = body.getAsJsonObject("scope").getAsJsonObject("positions")
+                            batchSizes += positions.size()
+                            if (failLast && positions.has(last)) throw java.io.IOException("Last genuine summary response unavailable")
+                        }
+                        response
+                    }
+                    member.openPublic(space); member.joinPublic(space); member.flush(space)
+                    try { member.refreshUnread(space); fail("The final summary remains unavailable") } catch (_: java.io.IOException) { }
+                    assertEquals(listOf(50, 1), batchSizes)
+                    assertEquals(50, member.channels(space).count { it.unread == 0L })
+                    assertNull(member.channels(space).last().unread)
+                    assertNull("A known subset is not a complete total", member.community(space).unread)
+                    failLast = false; member.refreshUnread(space)
+                    assertEquals(1L, member.community(space).unread)
+                    assertEquals(1L, member.channels(space).last().unread)
+                }
+            }
+        }
+    }
+
+    @Test fun partialReadingDoesNotPresentThePreviousExactUnreadTotalAsCurrent() = runBlocking {
+        SpacesServiceStore(files.newFolder("partial-read-count").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("partial-read-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("partial-read-member.sqlite").absolutePath).use { memberStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    val member = SpaceClient(visitor, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create(SpaceProfile("Partial reading", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    member.openPublic(space); member.joinPublic(space); member.flush(space)
+                    repeat(3) { creator.send(space, "Unread message $it") }; creator.flush(space)
+                    member.refresh(space); member.refreshUnread(space)
+                    val channel = member.community(space).channel; val messages = member.timeline(space)
+                    assertEquals(3L, member.community(space).unread)
+                    member.markRead(space, channel, requireNotNull(messages.first().position))
+                    assertNull("The previous exact count no longer describes this read cursor", member.community(space).unread)
+                    assertEquals(true, member.community(space).hasUnread)
+                    assertEquals(true, member.channels(space).single().hasUnread)
+                    member.refreshUnread(space)
+                    assertEquals(2L, member.community(space).unread)
+                    member.markRead(space, channel, requireNotNull(messages[1].position))
+                    assertNull(member.community(space).unread)
+                    member.markRead(space, channel, requireNotNull(messages.last().position))
+                    assertEquals(0L, member.community(space).unread)
+                    assertEquals(false, member.community(space).hasUnread)
                 }
             }
         }
