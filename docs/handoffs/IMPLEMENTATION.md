@@ -1,6 +1,16 @@
 # Implementation handoff
 
 
+## Active139: community governance
+
+Issue138 is closed. The first139 backend increment implements authenticated
+archive/reopen, stale queued-writing rejection, retained history/drafts and durable
+invalid-input rejection. Three owned SQLite cases pass after genuine REDs; both
+incremental source review axes are clear. Native UI and the remaining139 scope
+are pending. See [the current139 packet](../evidence/ticket139/README.md).
+Keep the sequential139–147 authorization and separate release/production gates
+below. Ordinary beta142 remains unchanged.
+
 ## Accepted138, continue139
 
 Community discovery, creation and reviewed admission138 are accepted at product

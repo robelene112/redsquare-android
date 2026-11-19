@@ -10,7 +10,8 @@ enum class SpaceRole { OWNER, ADMIN, MEMBER }
 data class SpaceInvitationRecord(val key: String, val expiresAt: Long, val channelId: String, val rulesToken: String = "")
 data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>, val generation: String = "0".repeat(64), val epochStartedAt: Long = 0,
     val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val profile: SpaceChannelProfile? = null,
-    val metadata: String? = null, val adminPostsOnly: Boolean = false)
+    val metadata: String? = null, val adminPostsOnly: Boolean = false, val archived: Boolean = false,
+    val contributionStartedAt: Long = 0)
 data class SpaceJoinRequest(val envelope: String, val id: String, val actor: String,
     val operationId: String, val channelId: String, val keyPackage: SpaceCrypto.BoundPackage)
 
@@ -109,6 +110,16 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(0, bindings,
                         generation, position, visibility, profile, metadata, adminPostsOnly))))
+            }
+            "archive-channel" -> {
+                require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+                require(event.body.text("control_id") == current.controlId)
+                val channel = event.body.text("channel_id")
+                val old = requireNotNull(current.channels[channel])
+                val value = event.body.get("archived").also { require(it != null && it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) }.asBoolean
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    channels = Collections.unmodifiableMap(current.channels + (channel to old.copy(archived = value,
+                        contributionStartedAt = if (old.archived != value) position else old.contributionStartedAt))))
             }
             "invite" -> {
                 require(current.owner != null && event.body.text("control_id") == current.controlId)
@@ -235,10 +246,16 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         require(body.text("operation_id").matches(ID) && body.text("operation_id") !in operations)
         require(event.author in current.members)
         val channel = requireNotNull(current.channels[body.text("channel_id")])
+        val keyDelivery = body.text("kind") == "history" ||
+            body.text("kind") == "content" && body.text("content_kind") == "history-keys"
+        require(!channel.archived || keyDelivery) { "This channel is archived" }
         if (channel.adminPostsOnly || channel.profile?.kind == SpaceChannelKind.ANNOUNCEMENT)
             require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         val reference = requireNotNull(controlPositions[body.text("control_id")])
         require(reference >= channel.epochStartedAt) { "Content belongs to a previous channel epoch" }
+        // Reopening permits newly reviewed writing, not old queued originals.
+        // History-key delivery remains independent of the contribution window.
+        require(keyDelivery || reference >= channel.contributionStartedAt) { "Channel writing permissions changed" }
         require(body.number("epoch") == channel.epoch && body.text("key_generation") == channel.generation)
         if (channel.visibility == SpaceVisibility.PUBLIC) {
             require(body.text("kind") == "public-content" && body.text("content_kind") == "message")

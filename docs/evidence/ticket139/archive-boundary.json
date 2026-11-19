@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "ticket": 139,
+  "status": "First archive backend increment only,139 open",
+  "base": "7d30061eaf9d90bff40df3a4331080ca129efbbb",
+  "behavior": [
+    "Owner/admin signed archive/reopen, member denied at receiving journal.",
+    "Archive blocks contributions, retaining readable history and independent drafts.",
+    "Actual archive/reopen advances a contribution fence separately from the MLS epoch; stale originals need deliberate new writing. Same-state controls do not advance that fence.",
+    "Authenticated history-key delivery can continue in an archived channel; original epoch/scope/membership checks remain.",
+    "Malformed missing archive flag receives a durable rejection; repeated rejected/accepted originals retain their exact disposition."
+  ],
+  "red": [
+    {
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": "1.294",
+      "observation": "org.junit.ComparisonFailure: An owner can archive the actual channel expected:<[control]> but was:<[rejection]>",
+      "sourceBase": "7d30061eaf9d90bff40df3a4331080ca129efbbb",
+      "qualification": "Actual realSQLite/signers receiving-boundary RED, no production mutation or fake receipt.",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-archive-red-originals",
+      "assessmentSha256": "70739c0844eae89a4de7be2cb74e66c4234b2cbe7e4634beca2fe24b08480dd1"
+    },
+    {
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": "1.324",
+      "commandExit": 1,
+      "observation": "java.lang.AssertionError: A pending original from before the archive needs a deliberate retry",
+      "qualification": "Actual retained public signed outbox original is wrongly accepted when first delivered after archive/reopen; no synthetic callback or producer mutation.",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-stale-archive-red-originals",
+      "assessmentSha256": "c0810fbe1251a561766d266adb922fcaee50dbaf76bcb5cb805747efed7767cd"
+    },
+    {
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": "1.104",
+      "commandExit": 1,
+      "observation": "java.lang.NullPointerException: Cannot invoke \"com.google.gson.JsonElement.isJsonPrimitive()\" because \"it\" is null",
+      "sourceSnapshot": "139-invalid-archive-red-source",
+      "qualification": "Actual incomplete signed archive input causes NPE rather than a durable signed rejection. Ordinary receiving-boundary validation.",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-invalid-archive-red-originals",
+      "assessmentSha256": "7b4fc61e07dabd419673c19f52f637abf37eae8646149379ef5c16b4f4953f9e"
+    }
+  ],
+  "green": [
+    {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": "2.51",
+      "commandExit": 0,
+      "qualification": "Actual public archive/reopen receiving authority, queued duringarchive rejection, readableacceptedhistory, preservednewdraft, cachedconstructorrestoration, unauthorizedmemberreject andduplicateoldarchive convergence. Not actualOS/process or whole139 acceptance.",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-archive-green-originals",
+      "assessmentSha256": "e125d35734d7a34325be0a1b3fca6f237ad57e5b635c1bace1d751a919d4b995"
+    },
+    {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": "2.365",
+      "commandExit": 0,
+      "buildSeconds": 142,
+      "sourceSnapshot": "139-archive-boundary-green-source",
+      "qualification": "Real SQLite/signed receiving boundary and independent public reader; contribution barrier after actual archive/reopen; available history and newdraft preserved. No OS/process/native139 acceptance.",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-archive-boundary-green-originals",
+      "assessmentSha256": "7911fd04d78f5099de30c52b096a0b3b8396bb4126209ce4f12d4ebde97dfdc0"
+    },
+    {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": "2.652",
+      "commandExit": 0,
+      "buildSeconds": 77,
+      "qualification": "Actual incompletearchive signed rejection is durable/idempotent and validwriting unaffected; both earlierarchive/reopen queued/history/draftcases alsoPASS. No native or whole139 acceptance.",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-archive-validation-green-originals",
+      "assessmentSha256": "626401987d4ca07793ce002354c79d22edeeb9ce746dd9d6d86932d1024fb023"
+    }
+  ],
+  "sourceFiles": {
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt": "1aa986919f41f3318d8ff280fb96e679862cb2ce0efcad855658e9518b1c8e3b",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "44ec2ebf88fc0afca7a7244cb747ad9750cae3cf57102ec643f0e0ee5e6a64eb",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceGovernanceTest.kt": "4866f3e2d5e362572cb1240ab08b47621f2cb975a33bdc74f59b370c2838240f"
+  },
+  "sourceReviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-archive-boundary-spec-review.txt",
+      "sha256": "045a475d352e2e611c8ac00ddaa26ebfebe9d258c78aaf2c6631cfe0e0cda52e"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-archive-boundary-standards-review.txt",
+      "sha256": "75373ac890ed5d9891ce25bc12c1817b58dcc3a4c62ea8b82b02742581be3bd8"
+    }
+  },
+  "relatedContracts": {
+    "outcome": "PASS",
+    "commandExit": 0,
+    "buildSeconds": 68,
+    "tests": 9,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "classes": [
+      {
+        "module": "core",
+        "class": "nl.davidengelen.redsquare.spaces.SpaceJournalTest",
+        "tests": 3,
+        "seconds": "0.785",
+        "methods": [
+          "anExplicitSignedJoinWithTheBearerProofAdmitsOneMemberAndAdvancesTheChannelEpoch",
+          "anInvitationAdvancesOnlyTheAuthorizedControlChainAndDoesNotEnrollItsHolder",
+          "anAuthenticatedCreationEstablishesExactlyOneOwnerAndDuplicateReceiptDoesNotCreateAnother"
+        ],
+        "sha256": "d30afdfd77c1258817efc6306e3ecfae95ff6ed0b6d9641da887e43850f507a2"
+      },
+      {
+        "module": "spaces-service",
+        "class": "nl.davidengelen.redsquare.spaces.service.SpaceContentTest",
+        "tests": 3,
+        "seconds": "2.03",
+        "methods": [
+          "versionOneStorageRejectsForeignIdentityBeforeMigrationAndPreservesLegacyTables",
+          "twoIndependentMembersRecoverEarlierTextAndExchangeAfterReopeningTheService",
+          "aPrivateChannelReturnsAuthenticatedCiphertextToItsMemberWithoutStoringPlaintextOrServingAnOutsider"
+        ],
+        "sha256": "20150b693d05074cb376b53cc3c39ee160414e8f02aefb83efec107ae7938e3b"
+      },
+      {
+        "module": "spaces-service",
+        "class": "nl.davidengelen.redsquare.spaces.service.SpaceGovernanceTest",
+        "tests": 3,
+        "seconds": "3.222",
+        "methods": [
+          "reopeningDoesNotPublishWritingPreparedBeforeTheArchive",
+          "archivingRejectsQueuedAndNewContributionsButKeepsReadableHistory",
+          "anIncompleteArchiveChangeHasADurableRejectionAndDoesNotInterruptWriting"
+        ],
+        "sha256": "ba828852abc3ff0b1745a845b5a24b6bfaab47852d3a5a528918e6f2de1c675a"
+      }
+    ],
+    "logSha256": "f5fa737873a73806bcd3f055b3dba6a3152a14eab1eccf3a1058d03731436e1c",
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-archive-related-contracts-originals",
+    "qualification": "Affected journal/private-content/newgovernance contracts only, not complete core/service or native139."
+  },
+  "qualification": "Actual behavioral RED JUnit/log/test originals retained. First two REDs lack complete pre-fix production snapshots, so no exact-source counterfactual claim. Latest incomplete-input RED and later GREEN have exact source snapshots. Not native/OS/whole139 acceptance. Archive intent API/UI, roles/private-channel membership, E2E removal/ban/leave, ownership, visibility and dissolution remain. No production node/provider operation, beta change or public transaction."
+}

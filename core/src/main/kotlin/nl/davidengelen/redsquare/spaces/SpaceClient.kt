@@ -158,7 +158,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name),
             state.has("starter_channels") || state.has("desired_listed") || page("$space/pending/", limit = 1).isNotEmpty(), state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
                 (data.get("joined")?.asBoolean == true || channel?.visibility == SpaceVisibility.PUBLIC) &&
-                (!adminPostsOnly || role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name)),
+                channel?.archived != true && (!adminPostsOnly || role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name)),
             !state.get("joined").asBoolean && state.has("joining_invitation"), unread, hasUnread)
     }
     fun profile(space: String): SpaceProfile = store.transaction {
@@ -626,6 +626,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val data = channelState(space, channel ?: selectedChannel(state), state)
         val scope = SpaceCrypto.Scope.fromJson(data.getAsJsonObject("scope"))
         val record = requireNotNull(journal.snapshot.channels[scope.channelId])
+        require(!record.archived) { "This channel is archived" }
         if (record.adminPostsOnly || record.profile?.kind == SpaceChannelKind.ANNOUNCEMENT)
             require(journal.snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         val control = requireNotNull(journal.snapshot.controlId)
@@ -1057,7 +1058,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                                 addProperty("content_cursor", 0)
                             }))
                         }
-                        "invite" -> Unit
+                        "archive-channel", "invite" -> Unit
                         "revoke-invite" -> {
                             if (state.get("revoking_invitation")?.asString == original.body.text("invite_id")) state.remove("revoking_invitation")
                             val link = state.get("invitation")?.asString
