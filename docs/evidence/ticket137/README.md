@@ -83,3 +83,19 @@ methods. Original failed lifetime admission, initial compile/setup failures and
 successful logs remain outside Git under the task's retained evidence root.
 These observations precede, and cannot replace, the three required native
 runtime parents. No functional137 acceptance is claimed.
+
+## Runtime routing correction, prospective v2
+
+Original parents44428040942/44428044844/44428048521 use source/workflow467ce2c5a.
+The newly added focus choices were missing from the workflow's explicit SDK
+exclusion lists, so those parents select both SDK steps. Preserve them as
+incorrectly routed observations, not acceptance of the declared one-profile
+parents. A two-condition workflow-only correction excludes the17 choice from
+the10 step and the10 choice from the17 step. Existing scopes and all native
+goals,180/30s bounds, evidence and tests remain unchanged.
+
+Fresh parents use the exact same product/test source467ce2c5a with that corrected
+workflow revision. Record both checkout and workflow identities independently.
+The required profiles, original complete-parent rule, exact one native case per
+parent, six affected JVM cases and three Rust contracts are unchanged. No failed
+prefix or extra selected SDK supplies acceptance of a fresh parent.
