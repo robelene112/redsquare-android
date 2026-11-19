@@ -1,0 +1,15 @@
+Original Standards review: starter creation increment against7b6ded266, before pending-projection correction
+Read-only source and retained-regression review. Preserve this adverse report separately from subsequent fixes.
+
+Documented finding
+[P2] communityFromStore.pending considered only queued outbox rows, ignoring the durable starter_channels plan. A genuinely rejected child creation removes its queued row and fences on the newer control head, while the unfinished plan remains. The API therefore reported pending=false for incomplete setup, hiding recoverable authorized work. This breaches CODING_STANDARDS.md's preservation of specified behavior/recoverable work. Include the unfinished plan in pending/progress projection. The authentic competing-control tracer reaches this exact assertion; retained original XML says “Unfinished channel setup remains visible after a genuine rejection.” It fails before either rebase mode is established.
+
+Other reviewed source
+The1–32-channel plan has case-insensitive category/name uniqueness, persisted child scopes and separate private devices. Genesis carries authenticated public root metadata or encrypted private root metadata and canonical announcement policy. Defaults preserve legacy General behavior.
+
+Planned child enqueueing waits for accepted root membership and absence of pending/required controls. An accepted matching child advances the plan atomically with its receipt; lost acknowledgments retain exact queued originals. Rebase reuses saved private scope/profile/device while generating a new control against authenticated current history. General keys are not cloned into child sender state. Current-head, visibility, identity and owner/admin validation remain at the receiver.
+
+Judgment calls and evidence limits
+No additional actionable smell findings. Shared enqueueChannel appropriately serves normal and planned creation without a generalized framework. The initial API compile RED is correctly classified as compilation evidence, not behavioral reproduction. The both-visibility lost-root/child-ACK target passes2m16s and verifies three originals, private/public independent messages, drafts and announcement permissions.
+
+The subsequent pending-projection source correction and its running GREEN belong to a separate follow-up. Full affected-suite, UI/native rendering, remaining138 and deployment acceptance remain pending.

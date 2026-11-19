@@ -1,0 +1,17 @@
+Standards follow-up: corrected starter creation against7b6ded266
+Read-only source and retained-regression review. Original pending-status finding and RED remain preserved separately.
+
+Documented violations
+No remaining confirmed violation or actionable smell finding in the reviewed increment.
+
+Durable progress and recovery
+communityFromStore.pending now includes the persisted starter_channels plan as well as queued originals. A rejected child therefore remains visibly unfinished while its newer accepted control head is recovered. The plan advances atomically with authenticated accepted creation; rejected attempts retain their plan entry and saved private child scope/profile/device. Lost acknowledgments continue to replay the exact signed original, while a definitively rejected candidate is replaced only against a newly authenticated head.
+
+General remains the original key/sender state. Public root title/kind/category are signed metadata; private root metadata stays encrypted. Subsequent private channels reuse their saved independent group rather than recreate it during rebase. Bounded starter count, case-insensitive category/name uniqueness, scoped rows and canonical announcement policy remain intact. No payload/identity/deployment boundary is expanded by the pending projection.
+
+Observable corrective evidence
+Retained138-starter-rebase-green.log reports BUILD SUCCESSFUL in1m32s for both owned creation tests. The PUBLIC/PRIVATE rebase case uses an independently signed owner control that is actually accepted first, then verifies pending state, authenticated recovery, a replacement operation, the same channel ID and unchanged private device bindings. Independent membership/admission and message decryption subsequently prove usability. The lost-root/child-acknowledgment test separately requires three distinct creation originals, byte-identical retries, reconstructed clients, real member messages, per-channel drafts and announcement permission.
+
+The initial API compilation failure remains classified as compile evidence, and the actual pending-status RED remains a behavioral failure. Neither is promoted into passing recovery evidence.
+
+Affected complete core/service verification is starting and remains separate. This review does not establish UI/native behavior, remaining138 completion or deployed-node acceptance.

@@ -67,11 +67,21 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 require(metadata.size in 29..65_536) { "Invalid Spaces metadata length" }
                 val devices = devices(event.body)
                 require(devices.size == 1 && credentialWallet(devices.keys.single()) == event.author)
+                val channelProfile = if (channelVisibility == SpaceVisibility.PUBLIC)
+                    event.body.getAsJsonObject("channel_profile")?.let(SpaceChannelProfile::fromJson) ?: SpaceChannelProfile("general") else null
+                val channelMetadata = event.body.get("channel_metadata")?.let { event.body.text("channel_metadata").also { encoded ->
+                    require(channelVisibility == SpaceVisibility.PRIVATE && Base64.getDecoder().decode(encoded).size in 29..65_536)
+                } }
+                require(channelVisibility != SpaceVisibility.PRIVATE || !event.body.has("channel_profile"))
+                val adminPostsOnly = event.body.get("admin_posts_only")?.let {
+                    require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean); it.asBoolean
+                } ?: (channelProfile?.kind == SpaceChannelKind.ANNOUNCEMENT)
+                require(channelProfile == null || adminPostsOnly == (channelProfile.kind == SpaceChannelKind.ANNOUNCEMENT))
                 SpaceSnapshot(event.author, mapOf(event.author to SpaceRole.OWNER), event.id, 1,
                     channels = mapOf(event.body.text("channel_id") to SpaceChannelRecord(0, devices,
                         event.body.takeIf { it.has("key_generation") }?.text("key_generation")?.also { require(it.matches(ID)) }
                             ?: "0".repeat(64), visibility = channelVisibility,
-                        profile = if (channelVisibility == SpaceVisibility.PUBLIC) SpaceChannelProfile("general") else null)), visibility = visibility, publicProfile = profile)
+                        profile = channelProfile, metadata = channelMetadata, adminPostsOnly = adminPostsOnly)), visibility = visibility, publicProfile = profile)
             }
             "create-channel" -> {
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))

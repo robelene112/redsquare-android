@@ -1,0 +1,11 @@
+Editable starter-channel Spec review against7b6ded266: no concrete source findings in this increment.
+
+Parent134 story8 requests “editable example channels”; root title/kind/category and the bounded1..32-channel creation plan are now explicit typed inputs. Duplicate names are rejected within the same case-insensitive category. Public roots carry signed profiles; private roots carry bounded encrypted channel metadata and a separately authenticated announcement-policy flag. Legacy roots retain the general/default-chat interpretation when the new fields are absent, preserving earlier private metadata and existing channel keys.
+
+SpaceClient.kt:80-84 waits for actual root membership, no pending control and no required predecessor before preparing the next saved scope/profile. flush invokes this only after the durable outbox drains. accept(create-channel):866-873 advances the first plan entry only after an authenticated, journal-accepted own control for that channel, within the receipt transaction. Lost acknowledgments therefore retain the exact original; replay of an already stored control cannot remove another plan entry.
+
+A terminal rejection leaves the plan intact and requires the authenticated competing head before rebasing. enqueueChannel validates the saved scope/profile and reuses the existing private MLS group/device instead of replacing it. No private crypto rollback or General-key replacement defect was found in that source path.
+
+The new owned-client/service test covers both audiences, root and child lost acknowledgments with client reconstruction, exactly three distinct originals, independent member reads across all channels, per-channel drafts and announcement permission. Its current targeted run is still compiling (138-starter-creation-first-check.log). The initial API compile RED is not behavioral execution evidence. This new test does not directly force starter-creation rejection/rebase, so that execution boundary remains unestablished even though the source path appears consistent.
+
+No native creation UI or whole138 acceptance is claimed.

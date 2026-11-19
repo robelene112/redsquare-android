@@ -1,0 +1,68 @@
+{
+  "status": "Editable starter creation component only. Native and remaining138 pending.",
+  "base": "7b6ded266",
+  "checks": {
+    "core": {
+      "classes": 48,
+      "tests": 244,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "spaces-service": {
+      "classes": 5,
+      "tests": 53,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "retained_originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-starter-creation-complete-originals",
+  "logs": [
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-starter-creation-api-red.log",
+      "bytes": 1835,
+      "sha256": "ed03031da85ee238df27796d3e7338def099b39514eb215c5fc383db6244d392"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-starter-creation-first-check.log",
+      "bytes": 1120,
+      "sha256": "52d31a71e0683f5d7998c918fc96dc3c389f2539828d027e387ad0299016c02e"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-starter-rebase-red.log",
+      "bytes": 1656,
+      "sha256": "490f8b9380dfca64f3f46097222b5f7e6074d36a9f7949089d3c8cfd07566047"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-starter-rebase-green.log",
+      "bytes": 1142,
+      "sha256": "b31142a72e9f74c7600a3f9c73bdca9bfc975f73264079b6124b76a1feca3170"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-starter-creation-full-check.log",
+      "bytes": 1334,
+      "sha256": "657d17230a67a12006dff75c0b5370264bbf9f084ec17eb1ec6e35ef27a520ac"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt",
+      "sha256": "adeca70c4ff3d2f00b67b49fd705437b609ee21f8ceb713da7911fc3a880c4fa"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt",
+      "sha256": "1f3961cbd2d1f9ac9cf72665918a9737435bc2f5464b8a94cc94606562f71b67"
+    },
+    {
+      "path": "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceDiscoveryTest.kt",
+      "sha256": "e7431c9e363b12640d483ca7978c1cfd8dc799ac7ee4319b149248756f02551e"
+    }
+  ],
+  "qualifications": [
+    "The first RED is an API-contract compilation failure, not an observed behavioral bug.",
+    "The genuine-rejection RED reproduces an unfinished durable plan incorrectly reported as no longer pending. Original JUnit XML retained separately; failure occurred on the first PUBLIC variant.",
+    "Corrected owned tests pass both PUBLIC and PRIVATE variants, actual concurrent owner invitations, rejected/rebased channel creation, preserved private device bindings and independent member decryption. Lost root/child acknowledgments resend exact originals after client restart.",
+    "Initial starter set supports1..32 channels. Existing one-General callers and unmarked-private legacy roots remain supported. Mixed public/private channel audiences and native completion are not claimed."
+  ]
+}

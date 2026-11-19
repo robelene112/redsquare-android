@@ -138,3 +138,21 @@ original after restart, with independent decrypted history/reply and preserved
 draft. Complete244 core and51 service checks pass. This is owned JVM evidence,
 not native UI, restricted-channel administration, mixed public/private channel
 creation or whole138 acceptance. Continue starter creation and native delivery.
+
+The [editable starter-creation increment](starter-creation-increment.json) accepts
+one to thirty-two channels, including the initial channel's name, category and
+kind. Its private profile stays encrypted; public profile fields are intentional.
+A durable plan retains preallocated channel identities, queues creation in order
+and advances only after the actual accepted original. Lost root/child responses
+retain exact signed originals across client restart. Genuine competing owner
+invitations cause a durable rejection; after authenticated control recovery the
+plan creates a new original for the same channel/device. Independent members can
+read every created channel with its intended announcement authority and drafts.
+
+The initial API-contract compile RED is classified separately. A real rejection
+then exposed unfinished setup incorrectly clearing the pending indicator; its
+original failed invocation and JUnit XML remain. The correction includes durable
+setup in pending status. Both public/private recovery traces and complete244 core
+and53 service checks pass; corrected Spec/Standards source reviews report zero
+remaining findings. Native creation, directory, members/unread and complete138
+remain pending. Public beta142 and activation gates remain unchanged.

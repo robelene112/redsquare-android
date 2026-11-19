@@ -992,6 +992,139 @@ class SpaceDiscoveryTest {
         }
     }
 
+    @Test fun editableStarterChannelsAreCreatedOnceAcrossLostResponsesAndRemainUsableByIndependentMembers() = runBlocking {
+        for (visibility in SpaceVisibility.entries) {
+            SpacesServiceStore(files.newFolder("starter-${visibility.name}").toPath(), service, clock).use { remote ->
+                SqliteClientFixture(files.newFile("starter-owner-${visibility.name}.sqlite").absolutePath).use { ownerStore ->
+                    SqliteClientFixture(files.newFile("starter-member-${visibility.name}.sqlite").absolutePath).use { memberStore ->
+                        val lost = mutableSetOf("create", "create-channel")
+                        val attempts = mutableMapOf<String, MutableList<String>>()
+                        fun ownerClient() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+                            val original = SaitoEnvelope.decode(request.envelope())
+                            val kind = original.body.get("kind")?.asString
+                            if (kind in setOf("create", "create-channel")) attempts.getOrPut(original.id) { mutableListOf() } += request.envelope()
+                            val response = remote.exchange(request.envelope())
+                            if (lost.remove(kind)) throw java.io.IOException("Accepted starter operation acknowledgment lost")
+                            response
+                        }
+                        var creator = ownerClient()
+                        val profile = SpaceProfile("A real starter community", "Description reviewed before joining", visibility, houseRules = "Be constructive")
+                        val starters = listOf(SpaceChannelProfile("introductions", category = "Community"),
+                            SpaceChannelProfile("updates", SpaceChannelKind.ANNOUNCEMENT, "Community"),
+                            SpaceChannelProfile("build together", category = "Workshops"))
+                        val space = creator.create(profile, starters)
+                        repeat(3) {
+                            try { creator.flush(space) } catch (_: java.io.IOException) { creator = ownerClient() }
+                        }
+                        creator.flush(space)
+                        val channels = creator.channels(space)
+                        assertEquals(starters, channels.map { it.profile })
+                        assertEquals("One root and exactly two children", 3, attempts.size)
+                        assertEquals(listOf(1, 2, 2), attempts.values.map { it.size }.sorted())
+                        attempts.values.forEach { assertEquals("Lost response keeps the exact original", 1, it.distinct().size) }
+                        val member = SpaceClient(visitor, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                        if (visibility == SpaceVisibility.PUBLIC) {
+                            member.openPublic(space); member.joinPublic(space, profile.publicRulesToken); member.flush(space)
+                        } else {
+                            val link = creator.invite(space); creator.flush(space)
+                            member.join(link, member.preview(link).rulesToken); member.flush(space)
+                            creator.admitPending(space); creator.flush(space); member.refresh(space)
+                        }
+                        assertEquals(starters, member.channels(space).map { it.profile })
+                        for ((index, channel) in channels.withIndex()) {
+                            creator.selectChannel(space, channel.id)
+                            creator.saveDraft(space, "Separate writing $index")
+                            member.selectChannel(space, channel.id)
+                            if (visibility == SpaceVisibility.PRIVATE && index > 0) {
+                                member.flush(space); creator.admitPending(space); creator.flush(space); member.refresh(space)
+                            }
+                            creator.send(space, "Real starter message $index"); creator.flush(space); member.refresh(space)
+                            assertEquals(listOf("Real starter message $index"), member.messages(space))
+                            assertEquals(index != 1, member.community(space).canSend)
+                            assertEquals("Separate writing $index", creator.draft(space))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test fun rejectedStarterCreationStaysPendingAndRebasesWithoutReplacingThePrivateDevice() = runBlocking {
+        for (visibility in SpaceVisibility.entries) {
+            SpacesServiceStore(files.newFolder("starter-rebase-${visibility.name}").toPath(), service, clock).use { remote ->
+                SqliteClientFixture(files.newFile("starter-rebase-owner-${visibility.name}.sqlite").absolutePath).use { ownerStore ->
+                    SqliteClientFixture(files.newFile("starter-rebase-member-${visibility.name}.sqlite").absolutePath).use { memberStore ->
+                        val attempts = mutableListOf<String>()
+                        var concurrent = true
+                        var initialChannel: String? = null
+                        fun ownerClient() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+                            val original = SaitoEnvelope.decode(request.envelope())
+                            val body = original.body
+                            if (body.get("kind")?.asString == "create") initialChannel = body.get("channel_id").asString
+                            if (body.get("kind")?.asString == "create-channel") {
+                                attempts += request.envelope()
+                                if (concurrent) {
+                                    concurrent = false
+                                    // An independently signed, genuinely accepted
+                                    // owner invitation wins this control head.
+                                    val operation = "9".repeat(64)
+                                    val scope = SpaceCrypto.Scope(service.publicKey, body.get("space_id").asString, requireNotNull(initialChannel))
+                                    val previewKey = ByteArray(32) { 7 }
+                                    val nonce = ByteArray(12) { 8 }
+                                    val cipher = javax.crypto.Cipher.getInstance("AES/GCM/NoPadding").apply {
+                                        init(javax.crypto.Cipher.ENCRYPT_MODE, javax.crypto.spec.SecretKeySpec(previewKey, "AES"), javax.crypto.spec.GCMParameterSpec(128, nonce))
+                                        updateAAD("SaitoSpacesPreview/v1:${scope.groupId}:$operation".toByteArray())
+                                    }
+                                    val invitation = SaitoTransaction.create(owner, JsonObject().apply {
+                                        addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                                        addProperty("kind", "invite"); addProperty("space_id", scope.spaceId)
+                                        addProperty("operation_id", operation); addProperty("control_id", body.get("control_id").asString)
+                                        addProperty("channel_id", scope.channelId); addProperty("preview_format", "profile-v1")
+                                        addProperty("invite_key", SaitoWallet.fromPrivateKey("0".repeat(63) + "5").publicKey)
+                                        addProperty("expires_at", clock.millis() + 7 * 86_400_000L)
+                                        if (visibility == SpaceVisibility.PUBLIC) addProperty("rules_token", "")
+                                        addProperty("preview", java.util.Base64.getEncoder().encodeToString(nonce + cipher.doFinal(
+                                            SpaceProfile("Rebased creation", visibility = visibility).json().toString().toByteArray())))
+                                    }, clock.millis(), listOf(service.publicKey))
+                                    assertEquals("control", SaitoEnvelope.decode(remote.submit(invitation.envelope())).body.get("stream").asString)
+                                }
+                            }
+                            remote.exchange(request.envelope())
+                        }
+                        var creator = ownerClient()
+                        val space = creator.create(SpaceProfile("Rebased creation", visibility = visibility),
+                            listOf(SpaceChannelProfile("welcome"), SpaceChannelProfile("workshop")))
+                        creator.flush(space)
+                        assertTrue("Unfinished channel setup remains visible after a genuine rejection", creator.community(space).pending)
+                        assertEquals(listOf("welcome"), creator.channels(space).map { it.profile.name })
+                        creator = ownerClient(); creator.refresh(space); creator.flush(space)
+                        assertEquals(listOf("welcome", "workshop"), creator.channels(space).map { it.profile.name })
+                        assertFalse(creator.community(space).pending)
+                        assertEquals(2, attempts.size)
+                        val first = SaitoEnvelope.decode(attempts[0]); val rebased = SaitoEnvelope.decode(attempts[1])
+                        assertNotEquals(first.id, rebased.id)
+                        assertEquals(first.body.get("channel_id"), rebased.body.get("channel_id"))
+                        if (visibility == SpaceVisibility.PRIVATE) assertEquals(first.body.get("devices"), rebased.body.get("devices"))
+                        val member = SpaceClient(visitor, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                        if (visibility == SpaceVisibility.PUBLIC) {
+                            member.openPublic(space); member.joinPublic(space); member.flush(space)
+                        } else {
+                            val link = creator.invite(space); creator.flush(space)
+                            member.join(link); member.flush(space); creator.admitPending(space); creator.flush(space); member.refresh(space)
+                        }
+                        val workshop = creator.channels(space).last().id
+                        creator.selectChannel(space, workshop); member.selectChannel(space, workshop)
+                        if (visibility == SpaceVisibility.PRIVATE) {
+                            member.flush(space); creator.admitPending(space); creator.flush(space); member.refresh(space)
+                        }
+                        creator.send(space, "The rebased private device remains usable"); creator.flush(space); member.refresh(space)
+                        assertEquals(listOf("The rebased private device remains usable"), member.messages(space))
+                    }
+                }
+            }
+        }
+    }
+
     @Test fun anOwnerCanListUnlistAndRelistAPublicCommunityWithSignedDurableChanges() = runBlocking {
         SpacesServiceStore(files.newFolder("owner-listing-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("listing-owner.sqlite").absolutePath).use { ownerStore ->
