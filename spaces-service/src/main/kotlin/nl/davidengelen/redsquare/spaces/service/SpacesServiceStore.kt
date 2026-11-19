@@ -7,6 +7,8 @@ import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceJournal
 import nl.davidengelen.redsquare.spaces.SpaceRole
+import nl.davidengelen.redsquare.spaces.SpaceProfile
+import nl.davidengelen.redsquare.spaces.SpaceVisibility
 import java.nio.file.Files
 import java.nio.file.Path
 import java.sql.Connection
@@ -14,6 +16,7 @@ import java.sql.DriverManager
 import java.time.Clock
 import java.util.Properties
 import java.security.SecureRandom
+import java.util.Locale
 
 /** Server-owned signed ordering. No private community keys are accepted. */
 class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, private val clock: Clock) : AutoCloseable {
@@ -27,13 +30,14 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val version = database.createStatement().use { sql ->
             sql.executeQuery("PRAGMA user_version").use { rows -> check(rows.next()); rows.getInt(1) }
         }
-        check(version == 3)
+        check(version == 4)
         database.createStatement().use { sql ->
             sql.executeQuery("SELECT service_key FROM service_metadata WHERE id=1").use { rows ->
                 check(rows.next() && rows.getString(1) == wallet.publicKey)
             }
         }
         database.createStatement().use { it.executeQuery("SELECT kind,recipient_credential FROM records LIMIT 0").close() }
+        database.createStatement().use { it.executeQuery("SELECT space_id,listed,listing_receipt FROM public_spaces LIMIT 0").close() }
         return JsonObject().apply {
             addProperty("capability", "spaces-v1"); addProperty("service_key", wallet.publicKey)
             addProperty("schema", version); addProperty("state", "ready"); addProperty("file_hosting", false)
@@ -50,10 +54,12 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val requestId = body.text("request_id").also { require(it.matches(ID)) }
         val scope = body.get("scope").also { require(it != null && it.isJsonObject) }.asJsonObject.deepCopy()
         val space = scope.text("space_id").also { require(it.matches(ID)) }
-        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation")) }
+        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation", "directory")) }
         require(scope.keySet() == setOf("space_id", "stream", "cursor") + when (stream) {
-            "content" -> setOf("channel_id"); "keys" -> setOf("channel_id", "recipient_credential"); "invitation" -> setOf("invite_id"); else -> emptySet()
+            "content" -> setOf("channel_id"); "keys" -> setOf("channel_id", "recipient_credential")
+            "invitation" -> setOf("invite_id"); "directory" -> setOf("query"); else -> emptySet()
         })
+        if (stream == "directory") require(space == "0".repeat(64) && scope.text("query").let { it.codePointCount(0, it.length) <= 128 })
         val channel = if (stream in setOf("content", "keys")) scope.text("channel_id").also { require(it.matches(ID)) } else null
         val recipient = if (stream == "keys") scope.text("recipient_credential") else null
         val cursor = scope.number("cursor")
@@ -78,6 +84,8 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 require(challenge.caller == request.author && challenge.scope == scope)
                 challenges.remove(nonce)
                 atomic {
+                    if (stream == "directory") directoryPage(reply, scope.text("query"), cursor)
+                    else {
                     val journal = journal(space)
                     if (stream == "invitation") {
                         val invitationId = scope.text("invite_id")
@@ -127,7 +135,9 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     reply.addProperty("request", "page"); reply.addProperty("nonce", nonce)
                     reply.add("items", items); reply.addProperty("next_cursor", next)
                     if (stream == "keys") reply.addProperty("content_end", nextPosition("records", space, requireNotNull(channel)))
+                    }
                 }
+                reply.addProperty("request", "page"); reply.addProperty("nonce", nonce)
             }
             else -> throw IllegalArgumentException("Unsupported Spaces read request")
         }
@@ -135,6 +145,43 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
     }
 
     private fun originalEnvelope(receipt: String): String = SaitoEnvelope.decode(receipt).body.text("event")
+
+    private fun directoryPage(reply: JsonObject, query: String, cursor: Long) {
+        val items = JsonArray()
+        var next = cursor
+        var bytes = 0
+        var more = false
+        database.prepareStatement("SELECT id,creation_receipt,listing_receipt FROM public_spaces WHERE listed=1 AND id>? AND instr(search_text,?)>0 ORDER BY id LIMIT 51").use { sql ->
+            sql.setLong(1, cursor); sql.setString(2, query.trim().lowercase(Locale.ROOT))
+            sql.executeQuery().use { rows ->
+                while (rows.next()) {
+                    val receipt = rows.getString(2)
+                    val listing = rows.getString(3)
+                    val size = receipt.toByteArray(Charsets.UTF_8).size + listing.toByteArray(Charsets.UTF_8).size
+                    check(size <= PAGE_BYTES)
+                    if (items.size() >= 50 || bytes + size > PAGE_BYTES) { more = true; break }
+                    items.add(JsonObject().apply { addProperty("creation", receipt); addProperty("listing", listing) })
+                    bytes += size; next = rows.getLong(1)
+                }
+            }
+        }
+        reply.add("items", items); reply.addProperty("next_cursor", next); reply.addProperty("has_more", more)
+    }
+
+    private fun indexPublicCreation(space: String, receipt: String) {
+        val signed = SaitoEnvelope.decode(receipt)
+        require(signed.author == wallet.publicKey && signed.body.text("space_id") == space)
+        val original = SaitoEnvelope.decode(signed.body.text("event"))
+        if (original.body.text("visibility") != "public" || !original.body.has("public_profile")) return
+        val profile = SpaceProfile.fromJson(original.body.getAsJsonObject("public_profile"))
+        require(profile.visibility == SpaceVisibility.PUBLIC)
+        database.prepareStatement("INSERT INTO public_spaces(space_id,profile,search_text,listed,creation_receipt,listing_receipt) VALUES(?,?,?,?,?,?) ON CONFLICT(space_id) DO NOTHING").use { sql ->
+            sql.setString(1, space); sql.setString(2, profile.json().toString())
+            sql.setString(3, (profile.name + "\n" + profile.description).lowercase(Locale.ROOT))
+            sql.setInt(4, if (profile.listed) 1 else 0); sql.setString(5, receipt); sql.setString(6, receipt)
+            check(sql.executeUpdate() in 0..1)
+        }
+    }
 
     init {
         Files.createDirectories(directory)
@@ -147,7 +194,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val existingVersion = sql.executeQuery("PRAGMA user_version").use { rows ->
                     check(rows.next()); rows.getInt(1)
                 }
-                check(existingVersion in 0..3) { "Spaces storage version needs a compatible service" }
+                check(existingVersion in 0..4) { "Spaces storage version needs a compatible service" }
                 if (existingVersion == 0) sql.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").use { rows ->
                     check(!rows.next()) { "Existing unversioned Spaces storage needs recovery" }
                 }
@@ -165,7 +212,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val version = database.createStatement().use { sql ->
                     sql.executeQuery("PRAGMA user_version").use { rows -> check(rows.next()); rows.getInt(1) }
                 }
-                check(version in 0..3) { "Spaces storage version needs a compatible service" }
+                check(version in 0..4) { "Spaces storage version needs a compatible service" }
                 if (version == 0) {
                     database.createStatement().use { sql ->
                         sql.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").use {
@@ -232,6 +279,24 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     }
                     sql.execute("CREATE INDEX records_recipient ON records(space_id,channel_id,recipient_credential,position)")
                     sql.execute("PRAGMA user_version=3")
+                }
+                if (version < 4) {
+                    database.createStatement().use { sql ->
+                        sql.execute("CREATE TABLE public_spaces(id INTEGER PRIMARY KEY AUTOINCREMENT,space_id TEXT NOT NULL UNIQUE,profile TEXT NOT NULL,search_text TEXT NOT NULL,listed INTEGER NOT NULL CHECK(listed IN (0,1)),creation_receipt TEXT NOT NULL,listing_receipt TEXT NOT NULL)")
+                        sql.execute("CREATE INDEX public_spaces_listed ON public_spaces(listed,id)")
+                    }
+                    var after = 0L
+                    while (true) {
+                        val rows = database.prepareStatement("SELECT rowid,space_id,receipt FROM controls WHERE position=0 AND rowid>? ORDER BY rowid LIMIT 100").use { sql ->
+                            sql.setLong(1, after)
+                            sql.executeQuery().use { records -> buildList {
+                                while (records.next()) add(Triple(records.getLong(1), records.getString(2), records.getString(3)))
+                            } }
+                        }
+                        rows.forEach { (row, space, receipt) -> indexPublicCreation(space, receipt); after = row }
+                        if (rows.size < 100) break
+                    }
+                    database.createStatement().use { it.execute("PRAGMA user_version=4") }
                 }
             }
         } catch (failure: Throwable) {
@@ -305,6 +370,14 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         check(sql.executeUpdate() == 1)
                     }
                 } else insertSimple(table, space, position, event.id, operation, event.author, envelope, receipt, acceptedAt)
+                if (body.text("kind") == "create") indexPublicCreation(space, receipt)
+                if (body.text("kind") == "set-listed") {
+                    val profile = requireNotNull(journal.snapshot.publicProfile)
+                    database.prepareStatement("UPDATE public_spaces SET listed=?,profile=?,listing_receipt=? WHERE space_id=?").use { sql ->
+                        sql.setInt(1, if (profile.listed) 1 else 0); sql.setString(2, profile.json().toString())
+                        sql.setString(3, receipt); sql.setString(4, space); check(sql.executeUpdate() == 1)
+                    }
+                }
                 receipt
             }
         }

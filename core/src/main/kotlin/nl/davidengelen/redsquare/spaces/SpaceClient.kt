@@ -65,6 +65,104 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         Invitation(link, accepted != null, expiry, expiry > 0 && expiry <= clock.millis())
     }
     data class InvitationPreview(val spaceId: String, val name: String)
+    data class PublicCommunity(val id: String, val profile: SpaceProfile)
+    data class PublicDirectoryPage(val items: List<PublicCommunity>, val nextCursor: Long, val hasMore: Boolean)
+    fun setListed(space: String, listed: Boolean) = store.transaction {
+        owned()
+        val state = state(space)
+        val journal = journal(space)
+        require(journal.snapshot.owner == wallet.publicKey && journal.snapshot.visibility == SpaceVisibility.PUBLIC)
+        requireNotNull(journal.snapshot.publicProfile)
+        val original = event(space, "set-listed") {
+            addProperty("control_id", journal.snapshot.controlId); addProperty("listed", listed)
+        }
+        queue(space, state, original)
+    }
+    fun cachedDirectory(): List<PublicCommunity> = store.transaction {
+        if (get("identity") == null) return@transaction emptyList()
+        owned()
+        val prefix = "directory/"
+        var cursor = prefix
+        buildList {
+            while (true) {
+                val rows = page(prefix, cursor)
+                rows.forEach { add(PublicCommunity(it.key.removePrefix(prefix), SpaceProfile.fromJson(json(it.value)))) }
+                if (rows.size < 50) break
+                cursor = rows.last().key + '\u0000'
+            }
+        }
+    }
+    suspend fun discover(query: String = "", cursor: Long = 0): PublicDirectoryPage {
+        require(query.codePointCount(0, query.length) <= 128 && cursor >= 0)
+        val result = readPage(JsonObject().apply {
+            addProperty("space_id", "0".repeat(64)); addProperty("stream", "directory")
+            addProperty("cursor", cursor); addProperty("query", query.trim())
+        })
+        val communities = result.getAsJsonArray("items").map { item ->
+            val value = item.asJsonObject
+            val receipt = SaitoEnvelope.decode(value.text("creation"))
+            val space = receipt.body.text("space_id")
+            val journal = SpaceJournal(space, service)
+            journal.receive(value.text("creation"))
+            val profile = requireNotNull(journal.snapshot.publicProfile)
+            require(profile.visibility == SpaceVisibility.PUBLIC)
+            val listingEnvelope = value.get("listing")?.asString ?: value.text("creation")
+            val listed = if (listingEnvelope == value.text("creation")) profile.listed else {
+                val listing = SaitoEnvelope.decode(listingEnvelope)
+                require(listing.author == service && listing.body.text("module") == "Spaces" && listing.body.number("version") == 1L &&
+                    listing.body.text("request") == "receipt" && listing.body.text("stream") == "control" &&
+                    listing.body.text("space_id") == space && listing.body.number("position") > 0)
+                val command = SaitoEnvelope.decode(listing.body.text("event"))
+                require(command.author == journal.snapshot.owner && command.recipients == listOf(command.author, service).distinct())
+                require(command.body.text("module") == "Spaces" && command.body.number("version") == 1L &&
+                    command.body.text("request") == "event" && command.body.text("kind") == "set-listed" &&
+                    command.body.text("space_id") == space && command.body.text("operation_id").matches(ID) &&
+                    command.body.text("control_id").matches(Regex("[0-9a-f]{128}")))
+                command.body.get("listed").also { require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) }.asBoolean
+            }
+            require(listed)
+            PublicCommunity(space, profile.copy(listed = listed))
+        }
+        val next = result.number("next_cursor")
+        val more = result.get("has_more").also { require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) }.asBoolean
+        require(next >= cursor && (!more || next > cursor))
+        store.transaction {
+            owned(initialize = true)
+            cacheDirectory(communities)
+        }
+        return PublicDirectoryPage(communities, next, more)
+    }
+
+    /** Only disposable discovery metadata is evicted, never joined-community
+     * state, private content, keys, originals or unsent writing. */
+    private fun SpaceClientStore.Transaction.cacheDirectory(communities: List<PublicCommunity>) {
+        val metadata = get("directory-cache/state")?.let(::json)
+        var sequence = metadata?.number("sequence") ?: 0
+        var count = metadata?.number("count") ?: 0
+        require(count in 0..DIRECTORY_CACHE_LIMIT.toLong())
+        for (community in communities) {
+            val pointer = "directory-last/${community.id}"
+            val previous = get(pointer)?.toString(Charsets.UTF_8)
+            if (previous == null) count++ else {
+                require(previous.startsWith("directory-order/") && previous.endsWith("/${community.id}"))
+                remove(previous)
+            }
+            sequence = Math.addExact(sequence, 1)
+            val order = "directory-order/${positionKey(sequence)}/${community.id}"
+            put("directory/${community.id}", bytes(community.profile.json()))
+            put(order, community.id.toByteArray(Charsets.UTF_8))
+            put(pointer, order.toByteArray(Charsets.UTF_8))
+        }
+        while (count > DIRECTORY_CACHE_LIMIT) {
+            val oldest = requireNotNull(page("directory-order/", limit = 1).firstOrNull())
+            val space = oldest.value.toString(Charsets.UTF_8).also { require(it.matches(ID)) }
+            remove("directory/$space"); remove("directory-last/$space"); remove(oldest.key)
+            count--
+        }
+        put("directory-cache/state", bytes(JsonObject().apply {
+            addProperty("sequence", sequence); addProperty("count", count)
+        }))
+    }
     private data class Preview(val invitation: SpaceInvitation, val name: String, val controls: List<String>, val journal: SpaceJournal)
 
     fun invite(space: String, expiresAfterMillis: Long = 604_800_000): String = store.transaction {
@@ -214,15 +312,17 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         return Preview(invitation, name, controls, journal)
     }
 
-    fun create(name: String): String {
-        require(name.isNotBlank() && name.toByteArray(Charsets.UTF_8).size <= 256)
+    fun create(name: String): String = create(SpaceProfile(name))
+    fun create(profile: SpaceProfile): String {
         val scope = SpaceCrypto.Scope(service, id(), id())
         val crypto = SpaceCrypto.device(wallet.publicKey, id()).create(scope)
         // Metadata uses the same authenticated archive envelope, with a separate
         // kind and fixed genesis predecessor. It is never sent as plaintext.
-        val metadata = crypto.publish(wallet, "metadata", id(), "0".repeat(128), name, clock.millis())
+        val metadata = crypto.publish(wallet, "metadata", id(), "0".repeat(128), profile.json().toString(), clock.millis())
         val original = event(scope.spaceId, "create") {
-            addProperty("visibility", "private"); addProperty("channel_id", scope.channelId)
+            addProperty("visibility", if (profile.visibility == SpaceVisibility.PUBLIC) "public" else "private")
+            if (profile.visibility == SpaceVisibility.PUBLIC) add("public_profile", profile.json())
+            addProperty("channel_id", scope.channelId)
             addProperty("key_generation", scope.generation); addProperty("epoch", 0)
             addProperty("metadata", encode(metadata.envelope().toByteArray(Charsets.UTF_8)))
             add("devices", devices(crypto.bindings))
@@ -230,7 +330,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         store.transaction {
             owned(initialize = true)
             val state = JsonObject().apply {
-                add("scope", scope.json()); addProperty("name", name); addProperty("crypto", encode(crypto.save()))
+                add("scope", scope.json()); addProperty("name", profile.name); add("profile", profile.json())
+                addProperty("crypto", encode(crypto.save()))
                 addProperty("joined", false); addProperty("next_outbox", 0); addProperty("content_cursor", 0)
             }
             require(get(stateKey(scope.spaceId)) == null)
@@ -501,6 +602,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                             }
                         }
                         "invite" -> Unit
+                        "set-listed" -> state.add("profile", requireNotNull(journal.snapshot.publicProfile).json())
                         "admit" -> {
                             val scope = SpaceCrypto.Scope.fromJson(state.getAsJsonObject("scope"))
                             val channel = requireNotNull(journal.snapshot.channels[scope.channelId])
@@ -615,7 +717,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private fun SpaceClientStore.Transaction.queue(space: String, state: JsonObject, original: SaitoTransaction,
         candidate: SpaceCrypto? = null, rejected: SpaceCrypto? = null, afterJoinCursor: Long? = null) {
         val kind = SaitoEnvelope.decode(original.envelope()).body.text("kind")
-        if (kind in setOf("create", "invite", "admit")) {
+        if (kind in setOf("create", "invite", "admit", "set-listed")) {
             require(!state.has("control_pending")) { "A community control is still awaiting confirmation" }
             state.addProperty("control_pending", original.id)
         }
@@ -667,6 +769,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(it != null && it.isJsonPrimitive && it.asJsonPrimitive.isNumber && it.asString.matches(Regex("0|[1-9][0-9]{0,18}")))
     }.asLong.also { require(it >= 0) }
     private companion object {
+        const val DIRECTORY_CACHE_LIMIT = 200
         val ID = Regex("[0-9a-f]{64}")
         val GSON = GsonBuilder().setStrictness(Strictness.STRICT).create()
     }

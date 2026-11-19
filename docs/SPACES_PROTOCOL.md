@@ -1,6 +1,26 @@
 # Spaces protocol and persistence, version1
 
-## Client and service integration under137
+## In-progress138 public directory contract
+
+Envelope version1 remains distinct from persistent schema4. Public creation may
+include a bounded typed public_profile; private profile text remains encrypted.
+Only explicit public profiles enter the new public_spaces index. Fresh signed
+caller/query/cursor-bound directory requests return bounded actual creator and
+listing receipts. A set-listed control requires the owner, a public Space and
+the current control predecessor; it updates accepted control and index atomically.
+A node-supplied flag cannot replace the creator's signed opt-out. A subsequent
+accepted owner-signed listing receipt can deliberately change that initial choice.
+Discovery cache retention is independently bounded at200 profiles and never
+removes joined-community data, keys, originals or drafts.
+
+Migration to4 adds a bounded100-row public-genesis index backfill without
+rewriting accepted originals/receipts. New source readiness reports4; the adapter
+also advertises spaces-directory-v1. These incremental contracts do not yet
+establish public reading/joining, richer invitation/rule flows, native138,
+updated deployed-runtime compatibility or permission to activate a node/provider.
+See [the138 packet](evidence/ticket138/README.md).
+
+## Earlier client and service integration under137
 
 Source now includes the account-owned native coordinator and navigationB. It
 retains exact signed originals, verifies terminal rejection receipts, saves the

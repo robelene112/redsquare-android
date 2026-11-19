@@ -61,7 +61,7 @@ rehearsals at91aa. Each has three identical original deliveries, one durable
 creation, a byte-exact original and a verified actual service receipt, plus a
 refused wrong authenticated peer. Runtime wallet/filesystem/browser adapters are
 explicit; neither is a bootstrapped production node. The optional component's
-[operations contract](../../../integrations/saito-spaces/README.md) covers opt-in
+[operations contract at the accepted137 source](https://github.com/robelene112/redsquare-android/blob/49a6e04e9d263569a44646e70390ab577ca89437/integrations/saito-spaces/README.md) covers opt-in
 readiness, schema3 migration and write-preserving rollback. Nothing is deployed.
 
 The [prospective native journey](native-journey/contract.json) requires actual

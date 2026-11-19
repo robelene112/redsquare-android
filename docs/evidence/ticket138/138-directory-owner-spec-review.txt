@@ -1,0 +1,13 @@
+Directory/owner-listing increment Spec review: zero findings within this checkpoint's stated scope.
+
+Issue138 requires deliberate owner-controlled unlisting and authenticated discovery. set-listed is a signed control with exact predecessor, operation and Space identity; both client and receiving journal restrict it to the fixed creator-owner of a public community. Private Spaces cannot become public through listing. The service persists the accepted control, profile/index flag and latest listing receipt in one transaction.
+
+Directory parsing verifies the original signed creation through SpaceJournal. A root opted-in profile is sufficient; otherwise an accepted same-service control must contain a correctly scoped, creator-owner-signed set-listed=true event. A wrapper flag alone cannot opt in. This is sound for the current fixed-owner model; future ownership transfer requires extending that authority proof. Private profile text remains confined to encrypted metadata, and listing does not grant membership or channel keys.
+
+The real false/true/false/true tracer observes actual discovery changes, rejects nonowner and private-Space backend commands and leaves the discovering identity unjoined. Existing signed-unlisted callback rejection and201-profile paging/cache/reopen/refresh/eviction cases remain passing, preserving private confirmed work and draft. Cache retention stays bounded at200.
+
+Migration verification independently establishes the schema3 layout around actual accepted public/private records, then executes schema4 backfill and a second reopen. It checks stable cursor/results, exclusion of private/unlisted communities, exact original receipts and retained private ciphertext access. This is accurately labelled a prior-layout fixture, not an old-binary rehearsal; backfill processes at most100 rows per batch.
+
+Independently checked current XML:244core/48classes and31service/5classes, zero failures/errors/skips, including all five named discovery cases. The complete build log succeeds, and owner-listing's genuine RED/GREEN logs remain retained.
+
+Public reading/direct Join, images/rules/member/native138 flows, fresh schema4 primary-framework rehearsals and corresponding operational documentation remain later138 work. This report does not accept whole138, production activation, or private plaintext fallback.

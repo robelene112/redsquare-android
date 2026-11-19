@@ -1,0 +1,9 @@
+Directory-fix Spec review: zero remaining findings in the two corrected areas.
+
+The signed-listing fix closes the owner-intent defect. SpaceClient.discover now requires the authenticated creation profile to be PUBLIC and listed, then returns that profile unchanged. The service wrapper cannot turn a signed opt-out into an opt-in. The regression sends an actual unlisted creation inside a correctly signed service directory page through the public client exchange seam, requires rejection and verifies discovery creates no membership.
+
+The cache fix closes unbounded accumulation. Indexed sequence/order/pointer metadata and count share the same owned storage transaction; insertion/refresh updates recency and evicts only directory metadata until at most200 profiles remain. cachedDirectory exposes persisted results through the public API. The real201-community tracer traverses all directory pages, observes every expected ID, recreates the reader with exactly200 cached profiles, refreshes the evicted first result and observes the next-oldest eviction. Its private community, confirmed message and independent unsent draft remain intact. Page retrieval and eviction use bounded queries; no private-state cleanup is introduced.
+
+Independently inspected both genuine failing logs followed by successful logs. Current SpaceDiscoveryTest XML contains all three named cases with zero failures/errors/skips, matching the successful targeted run. The original rejected reviews remain applicable history, not current failures.
+
+Scope remains the directory increment. Fresh populated schema3 migration/backfill/re-entry evidence and the full affected core/service follow-up are still pending. The earlier244core/27service run does not certify these later changes. No public-read/direct-Join/rules/native138, whole138, deployment or private plaintext-fallback acceptance is claimed.

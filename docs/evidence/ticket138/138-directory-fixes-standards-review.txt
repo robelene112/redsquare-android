@@ -1,0 +1,15 @@
+Standards follow-up: current early138 listing/cache fixes against49a6e04e9
+Read-only source and retained-regression review.
+
+Documented violations
+None remaining in this reviewed increment. SpaceClient.kt:96-100 now requires the creator-authenticated PUBLIC profile itself to be listed and returns that profile unchanged. A wrapper cannot override signed opt-out. The original negative review remains retained; actual signed-listing RED then GREEN logs confirm the corrective boundary case.
+
+Cache bounds and preservation
+Lines105-137 commit profile rows, access-order index, per-profile pointers, count and sequence in one owned storage transaction. Reobserving an existing profile removes its former order row without increasing count. Eviction reads one oldest row at a time and removes only directory metadata keys; community state, content, keys, originals and drafts occupy separate namespaces. Sequence overflow or malformed metadata fails within that transaction instead of partially committing eviction. A50-item response bounds per-update work, and final metadata/profile count stays at200.
+
+cachedDirectory uses the existing account/node/service ownership guard and paged local reads. It does not initialize membership or join a discovered community.
+
+Evidence and limits
+The real201-profile regression exercises paged collection, reconstructed-client cache reads, oldest-profile eviction, refresh recency and preservation of an actual private message/community/draft. Retained cache-bound RED fails; subsequent GREEN passes all three Discovery cases. These are meaningful observable component oracles, not implementation mirrors. No actionable smell findings or private diagnostics identified.
+
+The earlier full244-core/27-service pass predates the two added cases. Updated full-suite and actual SDK adapter rehearsals remain required before broader138 acceptance. No native, deployed-node or complete138 claim follows from this review.

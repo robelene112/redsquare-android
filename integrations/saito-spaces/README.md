@@ -1,7 +1,13 @@
 # Spaces service adapter
 
-Source-stage, opt-in integration for issue137. Nothing in this directory installs
+Source-stage, opt-in integration for137 and the in-progress138. Nothing here installs
 or activates a production node. The ordinary public app remains beta142.
+
+Schema4 adds a public profile index and authenticated discovery, including
+owner-signed listing changes. It advertises `spaces-directory-v1` alongside the
+existing `spaces-v1` capability. This increment is not complete138: public
+reading/joining, rules and native directory flows remain implementation work.
+Do not activate it as a completed public-community service on that basis.
 
 ## Compatibility and data contract
 
@@ -13,7 +19,7 @@ the actual wallet signature, recipients, scope, role, control order, epoch and
 operation identity. Only its signed durable receipt confirms acceptance.
 
 The existing node peer key is the service identity. The adapter advertises
-`spaces-v1` only after its local service reports that same key and schema3.
+its capabilities only after its local service reports that same key and schema4.
 Provisioning that signing identity is a separate operator-authorized secret
 handoff. Do not copy node options, keys or private backups into this repository,
 command arguments, CI artifacts or logs. No fallback/new wallet is generated.
@@ -24,9 +30,11 @@ origin, refuses redirects and bounds responses. Signed private reads use a
 60-second, caller/scope-bound, single-use challenge. Opening an invitation only
 permits its limited preview; explicit joining queues a request, not membership.
 
-SQLite stores signed controls, pending join requests, encrypted content and
+SQLite stores signed controls, pending join requests, encrypted private content and
 terminal rejection receipts. Private names, text and archive-key grants are
-ciphertext. Public routing metadata still includes identities, community/channel
+ciphertext. Explicit public profiles provide public name/description metadata;
+their listing state comes from the owner's accepted signed control. The service
+does not turn a private profile into a public directory entry. Public routing metadata includes identities, community/channel
 IDs, membership, timing, epochs, positions and payload sizes. This service does
 not receive device MLS state or private archive secrets. It does not store
 community files or implement a storage provider. Existing public/social payload
@@ -89,9 +97,11 @@ family consistently; retain the original and a streaming hash manifest. Never
 copy a live main database alone while WAL writes continue. Rehearse against that
 copy with the intended service identity. Schema1 adds content storage in2;
 schema2 adds rejection receipts and indexed recipient/kind metadata in3, in one
-atomic transaction. Metadata backfill is batched, preserving original/receipt
+atomic transaction. Upgrading3 to4 adds the public profile index, with bounded
+100-row genesis backfill and unchanged accepted original/receipt bytes.
+Metadata backfill is batched, preserving original/receipt
 bytes. Unsupported versions, unversioned data and a different service identity
-fail before a destructive schema or journal-mode change. Reopening3 is idempotent.
+fail before a destructive schema or journal-mode change. Reopening4 is idempotent.
 
 Only after readiness, migration preservation and isolated signed write/read pass,
 configure `SAITO_SPACES_SERVICE_URL=http://127.0.0.1:<chosen-port>` for the node,
@@ -110,8 +120,8 @@ leave the current database and signing identity intact. An unavailable service
 keeps device conversations/drafts and original queues recoverable.
 
 A prior service may restart only when it supports the current schema and all
-accepted receipt/content formats. Schema2 binaries cannot reopen3. Prefer the
-previous compatible3 build or keep Spaces disabled while repairing it. Restoring
+accepted receipt/content formats. Schema3 binaries cannot reopen4. Prefer a
+previous compatible4 build or keep Spaces disabled while repairing it. Restoring
 a pre-migration database is a distinct recovery decision requiring reconciliation
 of every write accepted since that copy. The migration fixture verifies original
 bytes and receipts across migration and re-entry; it is not permission to replace

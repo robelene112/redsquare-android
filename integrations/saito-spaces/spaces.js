@@ -31,7 +31,7 @@ class Spaces extends ModTemplate {
   }
 
   returnServices() {
-    return !this.app.BROWSER && this.available ? [new PeerService(null, 'spaces-v1')] : [];
+    return !this.app.BROWSER && this.available ? [new PeerService(null, 'spaces-v1'), new PeerService(null, 'spaces-directory-v1')] : [];
   }
 
   async handlePeerTransaction(app, tx = null, peer, callback) {

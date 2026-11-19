@@ -15,7 +15,8 @@ data class SpaceJoinRequest(val envelope: String, val id: String, val actor: Str
 data class SpaceSnapshot(val owner: String? = null, val members: Map<String, SpaceRole> = emptyMap(),
     val controlId: String? = null, val nextPosition: Long = 0,
     val invitations: Map<String, SpaceInvitationRecord> = emptyMap(),
-    val channels: Map<String, SpaceChannelRecord> = emptyMap())
+    val channels: Map<String, SpaceChannelRecord> = emptyMap(),
+    val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val publicProfile: SpaceProfile? = null)
 
 /** Authenticated control history. Content pages have their own channel cursors. */
 class SpaceJournal(private val spaceId: String, private val serviceKey: String) {
@@ -51,6 +52,9 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             "create" -> {
                 require(current.owner == null && position == 0L && !event.body.has("control_id"))
                 require(event.body.text("visibility") in setOf("public", "private"))
+                val visibility = if (event.body.text("visibility") == "public") SpaceVisibility.PUBLIC else SpaceVisibility.PRIVATE
+                val profile = event.body.getAsJsonObject("public_profile")?.let(SpaceProfile::fromJson)
+                require(profile == null || visibility == SpaceVisibility.PUBLIC && profile.visibility == visibility)
                 require(event.body.text("channel_id").matches(ID) && event.body.number("epoch") == 0L)
                 val metadata = Base64.getDecoder().decode(event.body.text("metadata"))
                 require(metadata.size in 29..65_536) { "Invalid Spaces metadata length" }
@@ -59,7 +63,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 SpaceSnapshot(event.author, mapOf(event.author to SpaceRole.OWNER), event.id, 1,
                     channels = mapOf(event.body.text("channel_id") to SpaceChannelRecord(0, devices,
                         event.body.takeIf { it.has("key_generation") }?.text("key_generation")?.also { require(it.matches(ID)) }
-                            ?: "0".repeat(64))))
+                            ?: "0".repeat(64))), visibility = visibility, publicProfile = profile)
             }
             "invite" -> {
                 require(current.owner != null && event.body.text("control_id") == current.controlId)
@@ -68,6 +72,14 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 val expiry = event.body.number("expires_at").also { require(it > signedReceipt.createdAt) }
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     invitations = Collections.unmodifiableMap(current.invitations + (event.id to SpaceInvitationRecord(key, expiry))))
+            }
+            "set-listed" -> {
+                require(current.owner == event.author && event.body.text("control_id") == current.controlId)
+                val profile = requireNotNull(current.publicProfile)
+                require(current.visibility == SpaceVisibility.PUBLIC)
+                val listed = event.body.get("listed").also { require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) }.asBoolean
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    publicProfile = profile.copy(listed = listed))
             }
             "admit" -> {
                 require(current.owner != null && event.body.text("control_id") == current.controlId)

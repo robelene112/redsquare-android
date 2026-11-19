@@ -1,0 +1,13 @@
+Standards review: early138 directory increment against49a6e04e9
+Read-only source review; this is not complete138 or native/deployed acceptance.
+
+Documented boundary finding
+[P2] SpaceClient.kt:82-86 discards the creator's authenticated listing choice. A valid signed PUBLIC creation with publicProfile.listed=false passes visibility validation; a directory wrapper containing listed=true then produces profile.copy(listed=true). The client can therefore display/cache a community whose signed profile explicitly requests exclusion from discovery. GLOSSARY.md:77-79 distinguishes unlisted public access by link from directory listing; CODING_STANDARDS.md requires preserving specified behavior/boundaries. Require the authenticated profile itself to be listed and preserve that profile rather than replacing its listing flag from the wrapper. Add the malformed-directory callback boundary case.
+
+Other reviewed boundaries
+The service query filters listed rows, uses bound query/cursor parameters, Locale.ROOT normalization, stable monotonic IDs and bounded51-row lookahead with50-item/byte output bounds. Migration backfills100-control batches inside the existing atomic schema transaction and does not rewrite signed control/content records; index insertion shares creation's transaction. Foreign service identity/version checks remain before storage mutation.
+
+Client directory reads retain existing signed service/caller/scope/request/nonce binding and validate creation through the shared SpaceJournal before local caching. Directory keys remain separate from memberships, so discovery does not join. SpaceProfile explicitly separates public listing from visibility; private profile fields stay inside encrypted metadata. Schema4 readiness gates both new/old capability advertisements under the configured service identity.
+
+Judgment calls and evidence limits
+No actionable smell findings beyond the boundary defect. The shared journal avoids duplicated protocol validation. The retained fullcore/service log reports244/27 passing before the latest validation change; updated targeted checks and actual SDK adapter rehearsals remain pending. Current tests cover genuine public/private/unlisted filtering and case-insensitive discovery, but not hostile/misbound directory listing metadata or multi-page/migration coverage yet. Those limits remain scoped to this early increment.

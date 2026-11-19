@@ -1,0 +1,17 @@
+Standards review: early138 directory/owner-listing increment against49a6e04e9
+Read-only source and retained-component review before checkpoint commit.
+
+Documented violations
+None confirmed. The earlier signed-opt-out finding remains resolved: discovery derives listing from the creator-signed profile or a service-accepted owner-signed set-listed control, never a replacement wrapper boolean. Service/caller/scope/request/nonce binding remains on the enclosing directory read.
+
+Authorization and atomicity
+SpaceClient.kt:70-79 queues listing changes only for the public community's owner and uses the existing control-pending/original retry fence. SpaceJournal.kt:76-82 independently checks owner, public visibility and exact accepted predecessor. SpacesServiceStore.kt:372-379 persists the accepted control and index profile/listing receipt in the same SQLite transaction; a failed update cannot leave a committed control with stale index state. Directory proofs bind service, space, owner, event kind and typed listing value.
+
+Bounded storage and migration
+The200-profile cache retains transactional profile/order/pointer/count updates and directory-only eviction. Schema3 backfill uses100-row batches inside schema migration, preserving originals rather than reconstructing accepted receipts. The re-entry test honestly creates the prior SQL layout around actual signed records; it does not claim an old-binary rehearsal.
+
+Oracles and provenance
+Owner false/true/false/true behavior, nonowner/private backend rejection, signed-opt-out rejection,201-profile paging/recency/reconstructed-client reads and private message/draft preservation exercise real client/SQLite/crypto/service behavior. Assertions use synthetic text/public envelopes, not private wallet diagnostics. The retained fullcore/service log reports BUILD SUCCESSFUL; parent-reported totals are244 core and31 service cases across48/five classes, zero failures/errors/skips. Original RED/GREEN observations remain retained.
+
+Judgment calls and limits
+No actionable smell findings. Listing-proof checks remain localized at the untrusted directory-response boundary; no speculative framework is added. Actual SDK adapter rehearsals and the public-read/join/rules/images/native UI remainder are still pending. This checkpoint is not complete138, deployment or native acceptance.

@@ -21,7 +21,7 @@ module.exports = class SpacesBridge {
     try {
       const body = await this.request('/v1/readiness', {method: 'GET'}, 4096, 2000);
       return body.capability === 'spaces-v1' && body.service_key === this.serviceKey &&
-        body.schema === 3 && body.state === 'ready' && body.file_hosting === false;
+        body.schema === 4 && body.state === 'ready' && body.file_hosting === false;
     } catch (_) { return false; }
   }
 
