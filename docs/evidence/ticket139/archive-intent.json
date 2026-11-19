@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "ticket": 139,
+  "status": "Archive intent/status backend increment only;139 staysopen",
+  "base": "d35848465",
+  "sourceFiles": {
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "3f8e66889565d41871f8e4dc63575b407d75cc8964b437504216c06532a4b06f",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceGovernanceTest.kt": "16cffcc0f6ddedaf3c09a3b122dd08543c6796d8de24b0d4dd4db86f908b128d"
+  },
+  "apiRed": {
+    "outcome": "Compilation RED",
+    "commandExit": 1,
+    "buildSeconds": 42,
+    "observation": "New public archive intent/status interface and Channel.archived are absent; unresolved references.",
+    "runtimeCases": 0,
+    "qualification": "A prospective public API test, not an executed runtime assertion or application bug reproduction. Earlier archive behavior REDs remain separate."
+  },
+  "apiGreen": {
+    "tests": 4,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": "2.903",
+    "commandExit": 0,
+    "sourceSnapshot": "139-archive-api-green-source",
+    "qualification": "Owned actual archive intent, exact original after accepted-ack-loss, coldconstructor reload, independentlyobservedarchive/reopen and truthfulconfirmed/rejectedstate after realcontrol race. EarlierAPIRED was compilation only. No actualOS/native139 acceptance."
+  },
+  "privateHistoryGreen": {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": "3.707",
+    "commandExit": 0,
+    "buildSeconds": 67,
+    "sourceSnapshot": "139-archive-private-history-source",
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-archive-private-history-originals",
+    "methods": [
+      "reopeningDoesNotPublishWritingPreparedBeforeTheArchive",
+      "anArchiveChangePreservesItsOriginalAndHonestStatusAfterALostAcknowledgment",
+      "archivingRejectsQueuedAndNewContributionsButKeepsReadableHistory",
+      "anAuthorizedNewMemberReadsEarlierPrivateHistoryWhileTheChannelIsArchived",
+      "anIncompleteArchiveChangeHasADurableRejectionAndDoesNotInterruptWriting"
+    ],
+    "qualification": "Actual independent MLSadmission andhistoricalkeydelivery toanewmember whilearchived; reopened private reply independentlydecrypted. Fifthcase iscorroboration, no inventedfailing-before assertion. No native/OS/whole139 acceptance."
+  },
+  "reviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-archive-intent-spec-review.txt",
+      "sha256": "7b9ff244c284a7e4cfa0fff803957dcd20bc1d85f88700f0f6e9679920242bf8"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-archive-intent-standards-review.txt",
+      "sha256": "e919b46e2b77eff8a5003e334a71e6c91782b5f3e3e490bfad0205828ba53f3c"
+    }
+  },
+  "behavior": "Per-channel durable archive intent. Existing actual outboxattempt projects awaitingconfirmation; only exact signed control/rejection updatesreceiptstatus. Accepted Channel.archived remainsdistinctfromdesired state. Queuedcontrolguard andall account/node/channel boundaries remain. Actual accepted-ack-loss retries the sameoriginal; a genuine staleheadreject is distinct fromsuccess; explicitfreshactionafterrefresh canreopen. Newprivateadmission canreceive availablehistorykeys duringarchive.",
+  "qualification": "APIRED is compilation-only, not runtimebug reproduction. Five current API/governance casespass; earlier9relatedcontracts usedd358 backend andretainthat scope. UI/OS/native, broader139 channel/role/ACL/E2Edeparture/ownership/visibility/dissolve and finalintegrated gates remain. Ordinary beta142, productionnodes/providers andpublicfinancialwrites unchanged."
+}

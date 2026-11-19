@@ -4,8 +4,10 @@
 
 Issue138 is closed. The first139 backend increment implements authenticated
 archive/reopen, stale queued-writing rejection, retained history/drafts and durable
-invalid-input rejection. Three owned SQLite cases pass after genuine REDs; both
-incremental source review axes are clear. Native UI and the remaining139 scope
+invalid-input rejection. The archive intent API retains exact originals and
+honest receipt status through lost responses; five current SQLite cases pass,
+including available private history during archive. Both incremental source
+review axes are clear. Native UI and the remaining139 scope
 are pending. See [the current139 packet](evidence/ticket139/README.md).
 Keep the sequential139–147 authorization and separate release/production gates
 below. Ordinary beta142 remains unchanged.

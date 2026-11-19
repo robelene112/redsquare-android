@@ -23,6 +23,98 @@ class SpaceGovernanceTest {
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
 
+    @Test fun anAuthorizedNewMemberReadsEarlierPrivateHistoryWhileTheChannelIsArchived() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("archived-history-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("archived-history-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("archived-history-member.sqlite").absolutePath).use { memberStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    val reader = SpaceClient(member, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create("Private archived history"); creator.flush(space)
+                    val original = creator.send(space, "Available earlier private text"); creator.flush(space)
+                    val invitation = creator.invite(space); creator.flush(space)
+                    val channel = creator.community(space).channel
+                    creator.archiveChannel(space, channel, true); creator.flush(space)
+                    reader.join(invitation); reader.flush(space)
+                    creator.admitPending(space); creator.flush(space); reader.refresh(space)
+                    assertTrue(reader.community(space).joined)
+                    assertTrue(reader.channels(space).single().archived)
+                    assertFalse(reader.community(space).canSend)
+                    assertEquals(original, reader.timeline(space).single { it.text == "Available earlier private text" }.id)
+                    assertNull("Another member has no local administration attempt", reader.archiveChange(space, channel))
+                    reader.saveDraft(space, "Saved while reading an archive")
+                    creator.archiveChannel(space, channel, false); creator.flush(space); reader.refresh(space)
+                    assertTrue(reader.community(space).canSend)
+                    assertEquals("Saved while reading an archive", reader.draft(space))
+                    val reply = reader.send(space, "A new private reply after reopening"); reader.flush(space); creator.refresh(space)
+                    assertEquals(listOf(original, reply), creator.timeline(space).map { it.id })
+                    assertEquals(listOf("Available earlier private text", "A new private reply after reopening"), creator.messages(space))
+                }
+            }
+        }
+    }
+
+    @Test fun anArchiveChangePreservesItsOriginalAndHonestStatusAfterALostAcknowledgment() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("archive-intent-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("archive-intent-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("archive-intent-reader.sqlite").absolutePath).use { readerStore ->
+                    var loseArchiveReply = true
+                    val delivered = mutableListOf<String>()
+                    fun creator() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                        val received = remote.exchange(original.envelope())
+                        if (SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "archive-channel") {
+                            delivered.add(original.envelope())
+                            if (loseArchiveReply) { loseArchiveReply = false; throw java.io.IOException("Owned accepted archive reply lost") }
+                        }
+                        received
+                    }
+                    val first = creator()
+                    val space = first.create(SpaceProfile("Archive receipt truth", visibility = SpaceVisibility.PUBLIC)); first.flush(space)
+                    val channel = first.community(space).channel
+                    val id = first.archiveChannel(space, channel, true)
+                    assertEquals(id, requireNotNull(first.archiveChange(space, channel)).id)
+                    assertEquals(SpaceClient.ChangeStatus.QUEUED, first.archiveChange(space, channel)?.status)
+                    assertFalse(first.channels(space).single().archived)
+                    assertFalse(first.community(space).canSend)
+                    try { first.flush(space); fail("The accepted archive acknowledgment is deliberately lost") }
+                    catch (_: java.io.IOException) { }
+                    assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, first.archiveChange(space, channel)?.status)
+                    assertFalse("An uncertain send is not a local accepted archive", first.channels(space).single().archived)
+                    first.saveDraft(space, "New writing survives uncertain administration")
+                    val restored = creator()
+                    assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, restored.archiveChange(space, channel)?.status)
+                    restored.flush(space)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, restored.archiveChange(space, channel)?.status)
+                    assertTrue(restored.channels(space).single().archived)
+                    assertEquals(2, delivered.size); assertEquals(delivered[0], delivered[1])
+                    assertEquals(id, SaitoEnvelope.decode(delivered[1]).id)
+                    assertEquals("New writing survives uncertain administration", restored.draft(space))
+                    val reader = SpaceClient(member, "fixture-node", service.publicKey, readerStore, clock) { remote.exchange(it.envelope()) }
+                    reader.openPublic(space); reader.refresh(space)
+                    assertTrue(reader.channels(space).single().archived)
+                    val reopening = restored.archiveChannel(space, channel, false)
+                    val concurrentListing = SaitoTransaction.create(owner, JsonObject().apply {
+                        addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                        addProperty("kind", "set-listed"); addProperty("space_id", space)
+                        addProperty("control_id", id); addProperty("operation_id", "f".repeat(64)); addProperty("listed", false)
+                    }, clock.millis(), listOf(service.publicKey))
+                    assertEquals("control", SaitoEnvelope.decode(remote.exchange(concurrentListing.envelope())).body.get("stream").asString)
+                    restored.flush(space)
+                    assertEquals(reopening, restored.archiveChange(space, channel)?.id)
+                    assertEquals(SpaceClient.ChangeStatus.REJECTED, restored.archiveChange(space, channel)?.status)
+                    assertTrue(restored.channels(space).single().archived)
+                    assertEquals("New writing survives uncertain administration", restored.draft(space))
+                    restored.refresh(space)
+                    val deliberate = restored.archiveChannel(space, channel, false)
+                    assertNotEquals(reopening, deliberate)
+                    restored.flush(space); reader.refresh(space)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, restored.archiveChange(space, channel)?.status)
+                    assertFalse(reader.channels(space).single().archived)
+                    assertEquals("New writing survives uncertain administration", restored.draft(space))
+                }
+            }
+        }
+    }
+
     @Test fun anIncompleteArchiveChangeHasADurableRejectionAndDoesNotInterruptWriting() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("invalid-archive-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("invalid-archive-owner.sqlite").absolutePath).use { ownerStore ->

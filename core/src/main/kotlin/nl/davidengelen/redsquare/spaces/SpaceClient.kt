@@ -7,6 +7,7 @@ import com.google.gson.Strictness
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.saito.SignedSaitoMessage
 import java.security.SecureRandom
 import java.time.Clock
 import java.util.Base64
@@ -23,7 +24,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     class ReadDenied(val spaceId: String, val problem: ReadProblem) : IllegalArgumentException("Community access is not available")
     class DifferentNode(val node: String) : IllegalArgumentException("This community belongs to a different node")
 
-    data class Channel(val id: String, val profile: SpaceChannelProfile, val visibility: SpaceVisibility, val ready: Boolean, val unread: Long? = null, val hasUnread: Boolean? = null)
+    data class Channel(val id: String, val profile: SpaceChannelProfile, val visibility: SpaceVisibility, val ready: Boolean, val unread: Long? = null, val hasUnread: Boolean? = null,
+        val archived: Boolean = false)
     fun channels(space: String): List<Channel> = store.transaction {
         owned()
         val state = state(space)
@@ -32,9 +34,46 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val data = channelState(space, id, state)
             val profile = channelProfile(space, id, state, data, record)
                 ?: if (id == general) SpaceChannelProfile("general") else null
-            profile?.let { Channel(id, it, record.visibility, record.visibility == SpaceVisibility.PUBLIC || data.get("joined")?.asBoolean == true, data.get("unread")?.asLong, unreadActivity(data)) }
+            profile?.let { Channel(id, it, record.visibility, record.visibility == SpaceVisibility.PUBLIC || data.get("joined")?.asBoolean == true, data.get("unread")?.asLong, unreadActivity(data), record.archived) }
         }
     }
+    enum class ChangeStatus { QUEUED, AWAITING_CONFIRMATION, ACCEPTED, REJECTED }
+    data class ArchiveChange(val id: String, val channelId: String, val archived: Boolean, val status: ChangeStatus)
+
+    fun archiveChannel(space: String, channel: String, archived: Boolean): String = store.transaction {
+        owned()
+        val state = state(space)
+        val snapshot = journal(space).snapshot
+        require(state.get("joined").asBoolean && !state.has("required_control"))
+        require(snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+        require(channel in snapshot.channels)
+        val original = event(space, "archive-channel") {
+            addProperty("control_id", requireNotNull(snapshot.controlId)); addProperty("channel_id", channel)
+            addProperty("archived", archived)
+        }
+        val target = channelState(space, channel, state)
+        target.add("archive_change", JsonObject().apply {
+            addProperty("id", original.id); addProperty("archived", archived); addProperty("status", ChangeStatus.QUEUED.name)
+        })
+        putChannelState(space, channel, target)
+        queue(space, state, original)
+        original.id
+    }
+
+    /** Absence of an outbox entry is never treated as an accepted change. */
+    fun archiveChange(space: String, channel: String): ArchiveChange? = store.transaction {
+        owned()
+        val change = channelState(space, channel).getAsJsonObject("archive_change") ?: return@transaction null
+        val id = change.text("id")
+        val recorded = ChangeStatus.valueOf(change.text("status"))
+        val status = if (recorded == ChangeStatus.QUEUED) {
+            val pointer = requireNotNull(get("$space/operation/$id")).toString(Charsets.UTF_8)
+            val pending = json(requireNotNull(get(pointer)))
+            if (pending.get("attempted").asBoolean) ChangeStatus.AWAITING_CONFIRMATION else ChangeStatus.QUEUED
+        } else recorded
+        ArchiveChange(id, channel, change.get("archived").asBoolean, status)
+    }
+
     fun createChannel(space: String, profile: SpaceChannelProfile): String = store.transaction {
         owned()
         val scope = SpaceCrypto.Scope(service, space, id())
@@ -1058,7 +1097,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                                 addProperty("content_cursor", 0)
                             }))
                         }
-                        "archive-channel", "invite" -> Unit
+                        "archive-channel" -> recordArchiveResult(space, state, original, ChangeStatus.ACCEPTED)
+                        "invite" -> Unit
                         "revoke-invite" -> {
                             if (state.get("revoking_invitation")?.asString == original.body.text("invite_id")) state.remove("revoking_invitation")
                             val link = state.get("invitation")?.asString
@@ -1119,6 +1159,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val pointer = requireNotNull(get("$space/operation/${original.id}")).toString(Charsets.UTF_8)
                 val pending = json(requireNotNull(get(pointer)))
                 require(SaitoTransaction.restore(pending.text("original")).envelope() == body.text("event"))
+                if (original.body.text("kind") == "archive-channel") recordArchiveResult(space, state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "revoke-invite") {
                     state.remove("revoking_invitation"); state.addProperty("revocation_failed", original.body.text("invite_id"))
                 }
@@ -1183,6 +1224,17 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
     }
 
+    private fun SpaceClientStore.Transaction.recordArchiveResult(space: String, state: JsonObject,
+        original: SignedSaitoMessage, status: ChangeStatus) {
+        val channel = original.body.text("channel_id")
+        val target = channelState(space, channel, state)
+        val change = target.getAsJsonObject("archive_change") ?: return
+        if (change.text("id") != original.id) return
+        require(change.get("archived").asBoolean == original.body.get("archived").asBoolean)
+        change.addProperty("status", status.name)
+        putChannelState(space, channel, target)
+    }
+
     private fun SpaceClientStore.Transaction.journal(space: String, through: String? = null): SpaceJournal {
         val journal = SpaceJournal(space, service)
         val prefix = "$space/control/"
@@ -1203,7 +1255,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val outbound = SaitoEnvelope.decode(original.envelope())
         val kind = outbound.body.text("kind")
         ensureMessageIndexes(space, state)
-        if (kind in setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite", "create-channel")) {
+        if (kind in setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite", "create-channel", "archive-channel")) {
             require(!state.has("control_pending")) { "A community control is still awaiting confirmation" }
             state.addProperty("control_pending", original.id)
         }
