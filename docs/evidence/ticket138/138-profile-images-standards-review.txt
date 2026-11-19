@@ -1,0 +1,18 @@
+Standards review: three-file profile-image increment sinceb71c21895
+Read-only source and retained-adverse review.
+
+Documented violations
+None confirmed against CODING_STANDARDS.md's privacy, bounded behavior, observable-test and compatibility requirements. No actionable smell findings.
+
+Payload and authority boundaries
+SpaceProfile.image is optional, preserving earlier JSON without an image. It accepts only the explicit inline JPEG prefix, bounded canonical base64 and16KiB JPEG framing. There is no remote URL/fetch behavior. The complete serialized profile remains bounded32KiB; the shared preview encryption/decryption limit follows that constant while the signed genesis metadata's decoded65536-byte guard remains unchanged. This intentionally accommodates the image alongside descriptions/rules without opening an unbounded payload path.
+
+Private creation and invitation code still encrypt the complete profile, including its image. Public profiles intentionally expose that field under their signed public authority. Reviewed-consent tokens, invitation/channel binding and private defaults are unchanged.
+
+Directory paging
+Omitting listing when its bytes exactly equal creation removes redundant proof only. The existing client fallback validates that same creation through SpaceJournal; a later listing control remains transmitted and authenticated. Per-item and cumulative byte bounds,50-item limit, cursor progression and directory-only cache storage remain intact. No accepted receipt is rewritten.
+
+Observable evidence and limits
+The regression builds an actual ImageIO-decodable JPEG at exactly16KiB using a valid comment segment, rather than a header-only stand-in. It exercises17 large real public profiles, actual byte-driven pagination, ordered completeness, cached images and a maximal-text private encrypted preview without membership. Final tests also reject an independently decodable oversized JPEG and remote URL, and exercise actual unlisted public opening/refresh without membership. Product source is unchanged. Original missing-image RED is retained; targeted GREEN passes2m11s and the fullcore/service log passes2m51s, with parent-reported244/41 cases.
+
+This is transport/profile component evidence. Core framing checks do not establish Android image decoding, picker UX, rendered geometry, full138, native or deployed-node acceptance; those remain separate.

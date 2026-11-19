@@ -1,0 +1,52 @@
+{
+  "status": "Owned image/paging source increment only; native picker/rendering and remaining138 pending.",
+  "base": "b71c21895",
+  "checks": {
+    "core": {
+      "classes": 48,
+      "tests": 244,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "spaces-service": {
+      "classes": 5,
+      "tests": 41,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "logs": [
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-profile-images-red.log",
+      "bytes": 1629,
+      "sha256": "3cf134831d4629cc5db8bf0b86fb004d4ff6ebee07da528f74eb6bfea2f00965"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-profile-images-green.log",
+      "bytes": 1109,
+      "sha256": "7aeef22a31a9f441efe58792fdbb2679c53dc5019490e86080bd81b9d053785e"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-profile-images-core-service-all.log",
+      "bytes": 1323,
+      "sha256": "6feb47cb1a08f91b3428cc24c72c0d0d10bbd468cefc82c7c72b58829e75c5ef"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceProfile.kt",
+      "sha256": "e8f767dcf41fee628bbc65779a4adecc127e91ff0c01e2649b5e5dcd80c9bb14"
+    },
+    {
+      "path": "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt",
+      "sha256": "389dab940b090bdb7f3a5628c49c2a8739fc9f5760d94802e950c91bf3e7ad78"
+    },
+    {
+      "path": "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceDiscoveryTest.kt",
+      "sha256": "8a25e31543bae88f83b027e06f181e8200da4aaac8fa50b39e69db08b1488800"
+    }
+  ],
+  "retained_originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-profile-images-complete-originals"
+}

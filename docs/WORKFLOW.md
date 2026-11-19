@@ -9,7 +9,7 @@ owner-signed listing changes and a bounded200-profile discovery cache. Actual
 RED/GREEN coverage protects signed opt-out intent and cache limits;201-profile
 paging/reload retains private work. Schema3-layout backfill and schema4 re-entry
 preserve actual signed originals/receipts. The full JVM check passes244 core and
-40 service cases after the revocation/access increment, with both incremental
+41 service cases after the image increment, with both incremental
 source review axes reporting no remaining
 findings. See [the138 packet](evidence/ticket138/README.md).
 
@@ -23,7 +23,9 @@ Revocation now blocks pending/future capabilities while preserving existing
 members, including admitted guests recovering a lost Welcome and original ack.
 Read refusals are authenticated access states, not implied network failures.
 Both recovery failures are reproduced/fixed; full244/40 checks and corrected
-source reviews pass. Continue profile images and starter channels, actual
+source reviews pass. Real bounded images now survive seventeen-profile
+byte paging, cache and private preview, with full244/41 checks. The image
+source reviews also report zero findings. Continue starter channels, actual
 members/unread/navigation and native/prototype verification.
 The source adapter now requires schema4 and advertises spaces-directory-v1 in
 addition to spaces-v1. Repeat both pinned framework rehearsals before138 closure.

@@ -482,6 +482,64 @@ class SpaceDiscoveryTest {
         }
     }
 
+    @Test fun realCommunityImagesSurviveBoundedPublicDiscoveryAndEncryptedPrivateInvitationPreviews() = runBlocking {
+        val raster = java.awt.image.BufferedImage(4, 4, java.awt.image.BufferedImage.TYPE_INT_RGB)
+        for (x in 0..3) for (y in 0..3) raster.setRGB(x, y, if ((x + y) % 2 == 0) 0xa35b43 else 0x272b34)
+        val encoded = java.io.ByteArrayOutputStream().also { check(javax.imageio.ImageIO.write(raster, "jpeg", it)) }.toByteArray()
+        // A real decodable JPEG at the declared avatar byte boundary. The
+        // standards-defined comment segment changes no image pixels.
+        val padding = 16384 - encoded.size - 4
+        assertTrue(padding > 0)
+        val jpeg = java.io.ByteArrayOutputStream().apply {
+            write(encoded, 0, 2); write(0xff); write(0xfe)
+            write((padding + 2) ushr 8); write((padding + 2) and 255)
+            write(ByteArray(padding)); write(encoded, 2, encoded.size - 2)
+        }.toByteArray()
+        assertEquals(16384, jpeg.size)
+        assertNotNull(javax.imageio.ImageIO.read(java.io.ByteArrayInputStream(jpeg)))
+        val image = "data:image/jpeg;base64," + java.util.Base64.getEncoder().encodeToString(jpeg)
+        val oversized = java.io.ByteArrayOutputStream().apply {
+            write(jpeg, 0, 2); write(byteArrayOf(0xff.toByte(), 0xfe.toByte(), 0, 3, 0))
+            write(jpeg, 2, jpeg.size - 2)
+        }.toByteArray()
+        assertNotNull(javax.imageio.ImageIO.read(java.io.ByteArrayInputStream(oversized)))
+        assertThrows(IllegalArgumentException::class.java) {
+            SpaceProfile("An oversized real image", image = "data:image/jpeg;base64," + java.util.Base64.getEncoder().encodeToString(oversized))
+        }
+        assertThrows(IllegalArgumentException::class.java) { SpaceProfile("No implicit remote image request", image = "https://example.invalid/avatar.jpg") }
+        SpacesServiceStore(files.newFolder("profile-images").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("profile-image-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("profile-image-reader.sqlite").absolutePath).use { visitorStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    val reader = SpaceClient(visitor, "fixture-node", service.publicKey, visitorStore, clock) { remote.exchange(it.envelope()) }
+                    val privateProfile = SpaceProfile("Actual community image", "d".repeat(4096), houseRules = "r".repeat(4096), image = image)
+                    val publicProfile = privateProfile.copy(visibility = SpaceVisibility.PUBLIC, listed = true)
+                    val expected = (0..16).map { index ->
+                        creator.create(publicProfile.copy(name = "Actual public image $index")).also { creator.flush(it) }
+                    }
+                    val discovered = mutableListOf<String>()
+                    var cursor = 0L
+                    do {
+                        val result = reader.discover(cursor = cursor)
+                        result.items.forEach { assertTrue("Actual community image survives discovery", it.profile.image == image) }
+                        if (cursor == 0L) assertTrue("Large real profiles still respect the response byte bound", result.hasMore)
+                        discovered += result.items.map { it.id }
+                        cursor = result.nextCursor
+                    } while (result.hasMore)
+                    assertEquals(expected, discovered)
+                    assertEquals(17, reader.cachedDirectory().size)
+                    assertTrue(reader.cachedDirectory().all { it.profile.image == image })
+                    val privateSpace = creator.create(privateProfile)
+                    creator.flush(privateSpace)
+                    val link = creator.invite(privateSpace)
+                    creator.flush(privateSpace)
+                    assertTrue("The private profile image is available to its bearer", reader.preview(link).profile == privateProfile)
+                    assertTrue(reader.communities().isEmpty())
+                }
+            }
+        }
+    }
+
     @Test fun anOwnerCanListUnlistAndRelistAPublicCommunityWithSignedDurableChanges() = runBlocking {
         SpacesServiceStore(files.newFolder("owner-listing-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("listing-owner.sqlite").absolutePath).use { ownerStore ->
@@ -500,6 +558,11 @@ class SpaceDiscoveryTest {
                     creator.setListed(space, false)
                     creator.flush(space)
                     assertTrue(reader.discover().items.isEmpty())
+                    val unlisted = reader.openPublic(space)
+                    assertEquals("Listed deliberately", unlisted.name)
+                    assertFalse(unlisted.joined)
+                    reader.refresh(space)
+                    assertTrue("Unlisting does not make public access private", reader.communities().isEmpty())
                     creator.setListed(space, true)
                     creator.flush(space)
                     assertEquals(listOf(space), reader.discover().items.map { it.id })

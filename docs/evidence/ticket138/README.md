@@ -70,7 +70,22 @@ text, reply, retained draft and cleared original pass. Corrected review axes rep
 zero findings. The complete final command passes244 core and40 service cases;
 unchanged core output reuse and the failed prior whole invocation are explicit.
 
-Continue138 with profile images and starter channels, real
+The [image increment](profile-images-increment.json) transports real inline JPEG
+community images, bounded at16KiB, inside a32KiB total profile. The total profile
+bound deliberately grows from24KiB to accommodate image plus description/rules;
+the65536-byte decoded genesis metadata limit stays unchanged. Public discovery
+omits the redundant listing receipt when it is identical to creation, retaining
+the already verified root fallback and independent owner listing intent.
+
+Actual RED/GREEN uses an independently decodable boundary-sized JPEG, seventeen
+large authenticated public profiles through byte-driven paging/cache, and full
+private encrypted invitation round-trip without membership. An independently
+decodable oversized JPEG and remote image URL are rejected. Unlisted public
+opening remains readable and outside My Spaces. Complete244 core and41 service
+cases pass; both source review axes report zero findings. Android picking,
+rendering and the rest of138 are not established by this component check.
+
+Continue138 with starter channels, real
 members/unread/navigation and native/prototype
 checks. Actual0.3.2/0.3.15 framework rehearsals must be repeated for schema4 and
 the extra service advertisement before closing138. Do not edit137's frozen

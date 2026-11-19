@@ -174,10 +174,14 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 while (rows.next()) {
                     val receipt = rows.getString(2)
                     val listing = rows.getString(3)
-                    val size = receipt.toByteArray(Charsets.UTF_8).size + listing.toByteArray(Charsets.UTF_8).size
+                    val size = receipt.toByteArray(Charsets.UTF_8).size +
+                        if (listing == receipt) 0 else listing.toByteArray(Charsets.UTF_8).size
                     check(size <= PAGE_BYTES)
                     if (items.size() >= 50 || bytes + size > PAGE_BYTES) { more = true; break }
-                    items.add(JsonObject().apply { addProperty("creation", receipt); addProperty("listing", listing) })
+                    items.add(JsonObject().apply {
+                        addProperty("creation", receipt)
+                        if (listing != receipt) addProperty("listing", listing)
+                    })
                     bytes += size; next = rows.getLong(1)
                 }
             }

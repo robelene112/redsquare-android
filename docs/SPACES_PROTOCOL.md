@@ -92,6 +92,22 @@ for malformed/foreign/network responses. Actual REDs, receipt/crypto/draft recov
 and complete244-core/40-service results are retained in the138 packet. UI/native
 and updated framework/runtime acceptance remain pending.
 
+## In-progress138 bounded inline images
+
+Profiles now allow an optional canonical inline JPEG with a16KiB byte bound.
+Only the declared data URI format, JPEG framing and canonical base64 are admitted;
+Android rendering remains responsible for decoding/fallback. No remote URL is
+fetched merely to display a private community image. Full serialized profile
+capacity grows from24KiB to32KiB to fit image plus maximum description/rules;
+existing smaller profiles remain valid. The genesis metadata limit is unchanged.
+Private preview encryption uses the same bounded profile and existing AES-GCM.
+
+Directory pages omit listing when identical to creation, using the client's
+existing authenticated-root fallback. Byte budgets count the actually included
+receipt values. Actual large-image paging, cached profiles and private preview
+round-trip pass, with complete244-core/41-service checks and corrected source
+reviews. Native image picking/rendering and full138 acceptance remain pending.
+
 ## Earlier client and service integration under137
 
 Source now includes the account-owned native coordinator and navigationB. It
