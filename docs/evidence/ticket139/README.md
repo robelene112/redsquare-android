@@ -33,3 +33,11 @@ SQLite cases pass; both incremental source review axes are clear. A distinct new
 administrator term blocks old announcements while preserving ordinary queued
 writing, drafts and same-role updates. Role intent APIs/UI and private channel
 governance remain pending; this is not complete139 or native acceptance.
+
+The [role intent/status increment](role-intent.json) adds owner-only administrator
+commands with durable exact-original state. Accepted membership remains separate
+from queued or uncertain work. A genuine concurrent control produces a rejected
+change; refresh and an explicit new action can succeed. Eight current SQLite
+cases pass, including a fresh rerun after sharing archive/role status lookup.
+Both incremental source review axes are clear. The API RED is compilation-only.
+UI/native, private access and the remaining139 requirements remain pending.

@@ -27,6 +27,66 @@ class SpaceRolesTest {
     private val administrator = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
     private val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
 
+    @Test(timeout = 45_000) fun roleIntentRetainsItsOriginalAndDoesNotMistakeAnUncertainOrRejectedChangeForSuccess() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("role-intent-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("role-intent-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("role-intent-admin.sqlite").absolutePath).use { adminStore ->
+                    var loseRoleReply = true
+                    val originals = mutableListOf<String>()
+                    fun ownerClient() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                        val response = remote.exchange(original.envelope())
+                        if (SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "set-role") {
+                            originals.add(original.envelope())
+                            if (loseRoleReply) { loseRoleReply = false; throw java.io.IOException("Owned accepted role reply lost") }
+                        }
+                        response
+                    }
+                    val creator = ownerClient()
+                    val admin = SpaceClient(administrator, "fixture-node", service.publicKey, adminStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create(SpaceProfile("Deliberate delegated roles", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    admin.openPublic(space); admin.joinPublic(space); admin.flush(space); creator.refresh(space)
+                    val promotion = creator.setAdministrator(space, administrator.publicKey, true)
+                    assertEquals(promotion, creator.roleChange(space)?.id)
+                    assertEquals(administrator.publicKey, creator.roleChange(space)?.memberKey)
+                    assertEquals(SpaceClient.ChangeStatus.QUEUED, creator.roleChange(space)?.status)
+                    assertEquals(SpaceRole.MEMBER, creator.members(space).single { it.publicKey == administrator.publicKey }.role)
+                    try { creator.flush(space); fail("The accepted reply is deliberately lost") } catch (_: java.io.IOException) { }
+                    assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, creator.roleChange(space)?.status)
+                    creator.saveDraft(space, "A separate new conversation draft")
+                    val restored = ownerClient()
+                    assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, restored.roleChange(space)?.status)
+                    restored.flush(space); admin.refresh(space)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, restored.roleChange(space)?.status)
+                    assertEquals(2, originals.size); assertEquals(originals[0], originals[1])
+                    assertEquals(promotion, SaitoEnvelope.decode(originals[1]).id)
+                    assertEquals(SpaceRole.ADMIN, admin.members(space).single { it.publicKey == administrator.publicKey }.role)
+                    try { admin.setAdministrator(space, owner.publicKey, false); fail("An administrator cannot change owner roles") }
+                    catch (_: IllegalArgumentException) { }
+                    assertNull(admin.roleChange(space))
+                    val demotion = restored.setAdministrator(space, administrator.publicKey, false)
+                    val concurrent = SaitoTransaction.create(owner, JsonObject().apply {
+                        addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                        addProperty("kind", "set-listed"); addProperty("space_id", space); addProperty("control_id", promotion)
+                        addProperty("listed", false); addProperty("operation_id", "e".repeat(64))
+                    }, clock.millis(), listOf(service.publicKey))
+                    assertEquals("control", SaitoEnvelope.decode(remote.exchange(concurrent.envelope())).body.get("stream").asString)
+                    restored.flush(space); admin.refresh(space)
+                    assertEquals(demotion, restored.roleChange(space)?.id)
+                    assertEquals(SpaceClient.ChangeStatus.REJECTED, restored.roleChange(space)?.status)
+                    assertEquals(SpaceRole.ADMIN, admin.members(space).single { it.publicKey == administrator.publicKey }.role)
+                    assertEquals("A separate new conversation draft", restored.draft(space))
+                    restored.refresh(space)
+                    val deliberate = restored.setAdministrator(space, administrator.publicKey, false)
+                    assertNotEquals(demotion, deliberate)
+                    restored.flush(space); admin.refresh(space)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, restored.roleChange(space)?.status)
+                    assertEquals(SpaceRole.MEMBER, admin.members(space).single { it.publicKey == administrator.publicKey }.role)
+                    assertEquals("A separate new conversation draft", restored.draft(space))
+                }
+            }
+        }
+    }
+
     @Test(timeout = 45_000) fun restoredAdministratorAuthorityDoesNotReviveOldPrivilegedWriting() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("role-cycle-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("role-cycle-owner.sqlite").absolutePath).use { ownerStore ->

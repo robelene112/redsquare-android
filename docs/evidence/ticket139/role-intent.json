@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "ticket": 139,
+  "status": "Role intent/status source increment only;139 remainsopen",
+  "base": "f75f31e01568e61f91ac53d5d4fa3f0233f1b301",
+  "sourceFiles": {
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "b572c808554f8dca35edbba9be259959c7be83bb31efbc5e42cdfc56cbeb70c0",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceRolesTest.kt": "ab91325d110a13d5248c4768915bf967fc8d4b1fa5249e33c7503618dbb95b54"
+  },
+  "apiRed": {
+    "outcome": "Compilation RED",
+    "commandExit": 1,
+    "runtimeCases": 0,
+    "observation": "New public setAdministrator/roleChange interfaces do not yet exist.",
+    "qualification": "Prospective interface test, not an executed runtime assertion or backend reproduction. The two actual rolebehaviorREDs remain independent."
+  },
+  "initialGreen": {
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "commandExit": 0,
+    "classes": [
+      {
+        "class": "nl.davidengelen.redsquare.spaces.service.SpaceRolesTest",
+        "tests": 3,
+        "seconds": "2.416",
+        "methods": [
+          "roleIntentRetainsItsOriginalAndDoesNotMistakeAnUncertainOrRejectedChangeForSuccess",
+          "restoredAdministratorAuthorityDoesNotReviveOldPrivilegedWriting",
+          "onlyTheOwnerAppointsAdminsAndDemotionStopsQueuedAnnouncementWriting"
+        ]
+      },
+      {
+        "class": "nl.davidengelen.redsquare.spaces.service.SpaceGovernanceTest",
+        "tests": 5,
+        "seconds": "3.768",
+        "methods": [
+          "reopeningDoesNotPublishWritingPreparedBeforeTheArchive",
+          "anArchiveChangePreservesItsOriginalAndHonestStatusAfterALostAcknowledgment",
+          "archivingRejectsQueuedAndNewContributionsButKeepsReadableHistory",
+          "anAuthorizedNewMemberReadsEarlierPrivateHistoryWhileTheChannelIsArchived",
+          "anIncompleteArchiveChangeHasADurableRejectionAndDoesNotInterruptWriting"
+        ]
+      }
+    ],
+    "sourceSnapshot": "139-role-intent-green-source",
+    "qualification": "Actual public roleintent, exactoriginal afterlostacceptedreply, coldconstructor, independentactualroles, forbiddenadminintent, genuineconcurrentcontrolreject, deliberatefreshdemote and preservednewdraft. PriorAPIRED iscompilationonly. NoUI/native/whole139 acceptance."
+  },
+  "sharedStatusGreen": {
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "commandExit": 0,
+    "classes": [
+      {
+        "class": "nl.davidengelen.redsquare.spaces.service.SpaceRolesTest",
+        "tests": 3,
+        "seconds": "2.407",
+        "methods": [
+          "roleIntentRetainsItsOriginalAndDoesNotMistakeAnUncertainOrRejectedChangeForSuccess",
+          "restoredAdministratorAuthorityDoesNotReviveOldPrivilegedWriting",
+          "onlyTheOwnerAppointsAdminsAndDemotionStopsQueuedAnnouncementWriting"
+        ]
+      },
+      {
+        "class": "nl.davidengelen.redsquare.spaces.service.SpaceGovernanceTest",
+        "tests": 5,
+        "seconds": "3.757",
+        "methods": [
+          "reopeningDoesNotPublishWritingPreparedBeforeTheArchive",
+          "anArchiveChangePreservesItsOriginalAndHonestStatusAfterALostAcknowledgment",
+          "archivingRejectsQueuedAndNewContributionsButKeepsReadableHistory",
+          "anAuthorizedNewMemberReadsEarlierPrivateHistoryWhileTheChannelIsArchived",
+          "anIncompleteArchiveChangeHasADurableRejectionAndDoesNotInterruptWriting"
+        ]
+      }
+    ],
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-role-intent-shared-status-green-originals",
+    "qualification": "Actual same8cases afterreview-stage sharedstatus extraction. Currentexactsource/log/JUnit retained. No native/UI/privateACL orwhole139 acceptance."
+  },
+  "reviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-role-intent-spec-review.txt",
+      "sha256": "59a81277741f5f8ac2fc0cf7cee280f8eb4a0927e0c6fcc454ede9ef5841106f"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-role-intent-standards-review.txt",
+      "sha256": "c7a568dadc50632d618e0dcb707e85313fd69615e68813ab4ae87149e8637067"
+    }
+  },
+  "behavior": "Owner-only existingnonowner administrator intent has durableexactoriginal status. Currentactualrolesremain fromacceptedjournal, notdesiredstate. Actualoutboxattempt projectsawaiting; matching signedcontrol/rejection bindsid/member/role. A secondpendingintent rollsback atomically. Archive/role statusgetters sharethe sameprivate statuslookup afterreviewstageextraction.",
+  "qualification": "ProspectiveAPIRED iscompilationonly, notruntimeassertion. The two receiving-roleREDs remain inpublic-roles.json. Current8cases proveactualownedsignedreceipttruth, originalretry/coldconstructor, independentroles, rejection/newexplicitaction anddraftpreservation; notnativeOS/processdeath. UI/privateACL/MLSdeparture/transfer/visibility/dissolve/fullregression andbeta deliveryremain. No publicfinancial/node/provider/filehosting activation."
+}

@@ -39,6 +39,32 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
     enum class ChangeStatus { QUEUED, AWAITING_CONFIRMATION, ACCEPTED, REJECTED }
     data class ArchiveChange(val id: String, val channelId: String, val archived: Boolean, val status: ChangeStatus)
+    data class RoleChange(val id: String, val memberKey: String, val administrator: Boolean, val status: ChangeStatus)
+
+    fun setAdministrator(space: String, memberKey: String, administrator: Boolean): String = store.transaction {
+        owned()
+        val state = state(space)
+        val snapshot = journal(space).snapshot
+        require(state.get("joined").asBoolean && !state.has("required_control"))
+        require(snapshot.owner == wallet.publicKey && memberKey in snapshot.members && memberKey != snapshot.owner)
+        val original = event(space, "set-role") {
+            addProperty("control_id", requireNotNull(snapshot.controlId)); addProperty("member", memberKey)
+            addProperty("role", if (administrator) "admin" else "member")
+        }
+        state.add("role_change", JsonObject().apply {
+            addProperty("id", original.id); addProperty("member", memberKey); addProperty("administrator", administrator)
+            addProperty("status", ChangeStatus.QUEUED.name)
+        })
+        queue(space, state, original)
+        original.id
+    }
+
+    fun roleChange(space: String): RoleChange? = store.transaction {
+        owned()
+        val change = state(space).getAsJsonObject("role_change") ?: return@transaction null
+        val id = change.text("id")
+        RoleChange(id, change.text("member"), change.get("administrator").asBoolean, changeStatus(space, change))
+    }
 
     fun archiveChannel(space: String, channel: String, archived: Boolean): String = store.transaction {
         owned()
@@ -65,13 +91,16 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         owned()
         val change = channelState(space, channel).getAsJsonObject("archive_change") ?: return@transaction null
         val id = change.text("id")
+        ArchiveChange(id, channel, change.get("archived").asBoolean, changeStatus(space, change))
+    }
+
+    private fun SpaceClientStore.Transaction.changeStatus(space: String, change: JsonObject): ChangeStatus {
         val recorded = ChangeStatus.valueOf(change.text("status"))
-        val status = if (recorded == ChangeStatus.QUEUED) {
-            val pointer = requireNotNull(get("$space/operation/$id")).toString(Charsets.UTF_8)
+        return if (recorded == ChangeStatus.QUEUED) {
+            val pointer = requireNotNull(get("$space/operation/${change.text("id")}")).toString(Charsets.UTF_8)
             val pending = json(requireNotNull(get(pointer)))
             if (pending.get("attempted").asBoolean) ChangeStatus.AWAITING_CONFIRMATION else ChangeStatus.QUEUED
         } else recorded
-        ArchiveChange(id, channel, change.get("archived").asBoolean, status)
     }
 
     fun createChannel(space: String, profile: SpaceChannelProfile): String = store.transaction {
@@ -1098,7 +1127,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                             }))
                         }
                         "archive-channel" -> recordArchiveResult(space, state, original, ChangeStatus.ACCEPTED)
-                        "invite", "set-role" -> Unit
+                        "set-role" -> recordRoleResult(state, original, ChangeStatus.ACCEPTED)
+                        "invite" -> Unit
                         "revoke-invite" -> {
                             if (state.get("revoking_invitation")?.asString == original.body.text("invite_id")) state.remove("revoking_invitation")
                             val link = state.get("invitation")?.asString
@@ -1160,6 +1190,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val pending = json(requireNotNull(get(pointer)))
                 require(SaitoTransaction.restore(pending.text("original")).envelope() == body.text("event"))
                 if (original.body.text("kind") == "archive-channel") recordArchiveResult(space, state, original, ChangeStatus.REJECTED)
+                if (original.body.text("kind") == "set-role") recordRoleResult(state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "revoke-invite") {
                     state.remove("revoking_invitation"); state.addProperty("revocation_failed", original.body.text("invite_id"))
                 }
@@ -1224,6 +1255,14 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
     }
 
+    private fun recordRoleResult(state: JsonObject, original: SignedSaitoMessage, status: ChangeStatus) {
+        val change = state.getAsJsonObject("role_change") ?: return
+        if (change.text("id") != original.id) return
+        require(change.text("member") == original.body.text("member") &&
+            change.get("administrator").asBoolean == (original.body.text("role") == "admin"))
+        change.addProperty("status", status.name)
+    }
+
     private fun SpaceClientStore.Transaction.recordArchiveResult(space: String, state: JsonObject,
         original: SignedSaitoMessage, status: ChangeStatus) {
         val channel = original.body.text("channel_id")
@@ -1255,7 +1294,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val outbound = SaitoEnvelope.decode(original.envelope())
         val kind = outbound.body.text("kind")
         ensureMessageIndexes(space, state)
-        if (kind in setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite", "create-channel", "archive-channel")) {
+        if (kind in setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite", "create-channel", "archive-channel", "set-role")) {
             require(!state.has("control_pending")) { "A community control is still awaiting confirmation" }
             state.addProperty("control_pending", original.id)
         }
