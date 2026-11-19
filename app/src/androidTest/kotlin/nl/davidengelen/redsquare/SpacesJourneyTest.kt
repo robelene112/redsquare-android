@@ -88,7 +88,7 @@ class SpacesJourneyTest {
                 row.asJsonObject.getAsJsonArray("received").any { it.asString == "Hello from the native Android client" }
             })
             capture("04-independent-received-reply")
-            ui.onNode(hasContentDescription("Community information") and hasClickAction()).assertIsDisplayed().performClick()
+            ui.onNode(hasText("Community information") and hasClickAction()).assertIsDisplayed().performClick()
             ui.waitUntil(5_000) { ui.onNodeWithText("You are a member of this community.").isDisplayed() }
             capture("04e-community-information", "You are a member of this community.")
             ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
@@ -126,7 +126,7 @@ class SpacesJourneyTest {
             // preview and explicit join path rather than only owner admission.
             val invitationDetails = command("invitation")
             val invitation = invitationDetails.get("link").asString
-            ui.onNode(hasContentDescription("Back to your communities") and hasClickAction() and
+            ui.onNode(hasText("Back to your communities") and hasClickAction() and
                 !hasAnyAncestor(hasScrollToNodeAction())).assertIsDisplayed().performClick()
             ui.waitUntil(5_000) { ui.onNode(hasText("Join with an invitation") and hasClickAction()).isDisplayed() }
             ui.onNode(hasText("Join with an invitation") and hasClickAction()).performClick()

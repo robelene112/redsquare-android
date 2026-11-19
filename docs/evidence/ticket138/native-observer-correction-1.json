@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "classification": "observer defect, not a missing product control",
+  "originals": [
+    {
+      "run": 44550810436,
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/44550810436",
+      "source": "146cbe9373cdf9f545e7700e5dabde5261027910",
+      "outcome": "failure",
+      "wholeOriginal": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt1-44550810436",
+      "zip": {
+        "bytes": 668455,
+        "sha256": "5840a97f29ced6c5df0599358b14e3f206cd48c2b18dcafd6e9a4adb1d2de2ca",
+        "crc": "PASS"
+      },
+      "phase": "1, before first checkpoint",
+      "reason": "Observer searched ContentDescription for a FrameIconButton that deliberately exposes its accessible label as semantics.text. Actual Back is visible, enabled and clickable in both original XMLs/screenshots.",
+      "acceptedCheckpoints": 0,
+      "nativeTerminalPasses": 0
+    },
+    {
+      "run": 44550877711,
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/44550877711",
+      "source": "146cbe9373cdf9f545e7700e5dabde5261027910",
+      "outcome": "failure",
+      "wholeOriginal": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt1-44550877711",
+      "zip": {
+        "bytes": 779642,
+        "sha256": "34247f5521c5fc077c56b83c51b7611feb1233e78131e00bcb691cef0ca98b59",
+        "crc": "PASS"
+      },
+      "phase": "1, before first checkpoint",
+      "reason": "Observer searched ContentDescription for a FrameIconButton that deliberately exposes its accessible label as semantics.text. Actual Back is visible, enabled and clickable in both original XMLs/screenshots.",
+      "acceptedCheckpoints": 0,
+      "nativeTerminalPasses": 0
+    }
+  ],
+  "correction": "Only Back/Info selectors use their actual text+click seam; new138 matches remain scoped to on-screen controls. Prior137 selectors retain original text semantics. No product, case goal, pixel tolerance or deadline changed.",
+  "reviews": {
+    "spec": "138-observer-text-seam-spec-review.txt, 0 findings",
+    "standards": "138-observer-text-seam-standards-review.txt, 0 findings"
+  },
+  "requiredNext": "Fresh complete Android10 and17 parents. No passing prefixes from the failed parents count."
+}

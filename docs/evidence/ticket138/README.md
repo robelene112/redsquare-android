@@ -16,6 +16,15 @@ independent decrypted child original, and compact200percent text. Native
 geometry, complete frames, prototype comparison and pinned framework rehearsals
 remain required before closure. Ordinary beta142 stays unchanged.
 
+The [first actual native parents](native-observer-correction-1.json) both fail
+before the first checkpoint. Their complete original archives, matching GitHub
+digests, screenshots, XML and movies remain. The observer searched the wrong
+accessibility field: these existing icon buttons deliberately publish text
+labels. Both axes review the selector-only correction with zero findings.
+Product behavior, goals and deadlines remain unchanged. Final source CI at146cbe937
+passed both builds and244/66 checks, but no successful138 native journey is
+established. Fresh complete parents are required.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.
