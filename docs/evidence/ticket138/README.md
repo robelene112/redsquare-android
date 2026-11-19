@@ -134,6 +134,20 @@ The later helper change is explicitly qualified against the still-pending
 before parent; only its unchanged dropped-read observation and fault harness may
 be compared, not whole-class byte identity with the new observer.
 
+The [eleventh whole parents](native-drawer-back.json) reach all confirmed starter
+channels but fail after the physical drawer Back action: Android10 leaves Spaces;
+Android17 still has the drawer and opens no information dialog. Explicit drawer
+Back ownership now lasts through the complete closing animation. The observer
+checks actual dismissal and retained module before opening the actual dialog.
+Targeted creation frames also show a false unavailable-access notice before the
+new creation is flushed; selected reads now defer that unconfirmed local case
+without deferring private Welcome recovery. Both corrective source axes are clear.
+
+The isolated timeout before parent has now actually failed the intended fresh-read
+goal, while the corrected301d parents observe recovery. Original source bindings,
+archives and component reviews are retained and qualified separately from whole
+acceptance. No whole138 native pass is established yet.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.

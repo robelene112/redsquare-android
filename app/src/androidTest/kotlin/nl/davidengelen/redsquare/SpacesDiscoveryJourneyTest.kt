@@ -250,6 +250,7 @@ class SpacesDiscoveryJourneyTest {
             ui.onNode(hasText("Create a Space") and hasClickAction() and hasAnyAncestor(isDialog())).clickReady()
             waitText("Native Created Space")
             waitUntil { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+            ui.onAllNodesWithText("Access to this community is unavailable. Your saved writing is preserved.").assertCountEquals(0)
             ui.onNodeWithContentDescription("Switch Space or channel").clickReady()
             waitForDrawerItem("resources")
             drawerList().performScrollToNode(hasText("resources"))
@@ -258,7 +259,11 @@ class SpacesDiscoveryJourneyTest {
             ui.onNodeWithText("reading room").assertIsDisplayed()
             capture("20-created-starters-drawer-b")
             device.pressBack()
+            waitUntil(5_000) { !ui.onNode(SemanticsMatcher.expectValue(
+                androidx.compose.ui.semantics.SemanticsProperties.PaneTitle, "Space and channel navigation")).isDisplayed() }
+            ui.onNodeWithContentDescription("Switch app: Spaces").assertIsDisplayed()
             ui.onNode(hasText("Community information") and hasClickAction() and onScreen).clickReady()
+            waitUntil(5_000) { ui.onNode(hasText("Community information") and hasAnyAncestor(isDialog())).isDisplayed() }
             ui.onNode(isToggleable() and hasAnyAncestor(isDialog())).performScrollTo().assertIsOn().clickReady()
             waitUntil(20_000) { command("directory").getAsJsonArray("names").none { it.asString == "Native Created Space" } }
             capture("20a-owner-unlisted-community")

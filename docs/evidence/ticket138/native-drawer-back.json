@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "source": "725416b90be264957bc6cf57680d30313e3a556a",
+  "originals": [
+    {
+      "run": 44587786779,
+      "sdk": 29,
+      "root": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt11-44587786779",
+      "zip": {
+        "bytes": 4730199,
+        "sha256": "27010fb46ae2fe0d73c57ead6386a51ea426873bde5ad68b265155e31a993298",
+        "crc": "PASS"
+      },
+      "wholeOutcome": "FAIL",
+      "failure": "Physical Back from the full created-channel drawer leaves the entire Spaces module; the next Information action cannot become ready5s."
+    },
+    {
+      "run": 44587791571,
+      "sdk": 37,
+      "root": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt11-44587791571",
+      "zip": {
+        "bytes": 4559381,
+        "sha256": "6e7d38b5df63bb3ecab966a2457b4d93d135b06d514717b3790bcb3d735e3e16",
+        "crc": "PASS"
+      },
+      "wholeOutcome": "FAIL",
+      "failure": "The drawer is still visible; the physical Information action opens no actual dialog, so its toggle is absent."
+    }
+  ],
+  "corrections": {
+    "drawerBack": "Explicit child Back ownership while current/target drawer is open or animation is running, closing the drawer while retaining Space/channel context. Native waits actual pane dismissal5s, asserts Spaces header, then requires actual Information dialog5s before its existing toggle action.",
+    "pendingCreation": "Actual Android10 phase3frames264\u2013266(68.846989\u201371.9628s) show a false access-unavailable notice during local creation before its original enters the next outbox cycle. Defer selected read only when !joined && pending && !membershipRequested. Real pending private invitations still read Welcome; ordinary visitors and members retain their reads. Native checks absence once the creator composer is visible, with complete-frame review still required."
+  },
+  "sourceReviews": {
+    "drawerInitialSpec": 1,
+    "drawerInitialStandards": 1,
+    "drawerCorrectedSpec": 0,
+    "drawerCorrectedStandards": 0,
+    "creationSpec": 0,
+    "creationStandards": 0
+  },
+  "peerTimeoutBefore": {
+    "run": 44584165010,
+    "source": "68859db49647a4afa19625df85972cd0ae15a86c",
+    "root": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/peer-timeout-before-44584165010",
+    "archiveSha256": "c2153926796fe183f21628dbb67c92b23399a77cfd529ec18f789c60295849c2",
+    "observation": "Actual expected failure at fresh-read15s goal line181 after the dropped-read observation succeeds, with old worker ending at12s. Both corrected301d parents contain actual same-process recovery and received private-child observations but remain whole failures later.",
+    "evidenceReviews": {
+      "spec": 0,
+      "standards": 0
+    },
+    "qualification": "Exact shared harness for BEFORE68859db versus corrected301d. Subsequent later observer helpers change the whole class; the fault block, fixture and outside driver are unchanged. No whole or combined-prefix acceptance."
+  },
+  "acceptance": "Fresh whole corrected native and complete-frame/prototype/compact evidence required; no whole138 acceptance. Existingbeta142 and separate activation gates unchanged."
+}

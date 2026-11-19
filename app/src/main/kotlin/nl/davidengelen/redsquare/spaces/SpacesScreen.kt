@@ -152,6 +152,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     LaunchedEffect(selected?.joined) { if (selected?.joined == true) publicRulesOpen = false }
     BackHandler(membersOpen) { membersOpen = false; informationOpen = true }
     BackHandler(!membersOpen && state.selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen && !publicRulesOpen) { choose(null) }
+    BackHandler(drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed || drawer.isAnimationRunning) {
+        scope.launch { drawer.close() }
+    }
     ModalNavigationDrawer(drawerState = drawer, gesturesEnabled = state.selected != null, modifier = modifier,
         drawerContent = {
             val menuState = closingDrawerContent ?: state

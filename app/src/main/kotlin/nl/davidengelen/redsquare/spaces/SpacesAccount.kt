@@ -149,6 +149,12 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     }
                     mutable.value.target()?.let { target ->
                         try {
+                            val selected = current.community(target.space, channel = target.channel)
+                            // A new local creation or public join can enter
+                            // after this cycle's outbox inventory was taken.
+                            // Flush it before asking the node for access. A
+                            // private invitation still needs reads for Welcome.
+                            if (!selected.joined && selected.pending && !selected.membershipRequested) return@let
                             trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} start")
                             current.refresh(target.space, channel = target.channel)
                             trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} complete")
