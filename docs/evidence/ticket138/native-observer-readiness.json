@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "run": 44563256568,
+  "source": "43d1970cf5e798e8cde8fe6a8cb6520965a0cb23",
+  "outcome": "failure",
+  "originalRoot": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt4-44563256568",
+  "zip": {
+    "bytes": 1593206,
+    "sha256": "c01cee8a95a959da57f5fea5eaf8463703f9b53d42954b5b248ac52f8cd410c7",
+    "crc": "PASS"
+  },
+  "observed": "Phase1 checkpoint/process termination and both recorder starts/stops complete with verified owned PID, signal0, devicegone and transport0. Phase2 cold public reference retains its actual pixel.",
+  "failure": "Phase2line108 house-rules modal5-second assertion. The preceding physical tap targeted Join while disabled: original06XML shows button parentenabled=false and PNG isgray, accountworking=true. Later failurePNG isred, afterread completion. No actual eligible Join tap occurred.",
+  "correction": "Observer checks visible enabled readiness and asserts enabled before each physical button tap. Local action readiness5s; public Join/Create network readiness15s. Post-tap modal5s, held-read10s, pixels1px, phase180s, negative unchecked-consent and independent effect assertions preserved. Information return matcher targets the actual dialog.",
+  "productChanged": false,
+  "sourceReviews": {
+    "spec": 0,
+    "standards": 0
+  },
+  "acceptance": "No accepted prefix or fullnative result. Fresh wholeparent required."
+}

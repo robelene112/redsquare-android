@@ -50,6 +50,15 @@ exercise the real0.3.2/0.3.15 serializer, dispatcher and callback with unchanged
 original bytes and one accepted control. They remain owned adapter rehearsals,
 not a bootstrapped or deployed production node.
 
+The [fourth whole parent](native-observer-readiness.json) completes the first
+checkpoint and both verified recorder stops. Its second process restores the
+public message pixel, then the observer taps Join while the actual button is
+still disabled by the read. Original XML, gray-button PNG and state timing
+establish this; no eligible Join action occurred. The observer now checks enabled
+readiness before a physical tap. Negative rule checks and every post-tap modal,
+held-read, pixel, phase and remote-effect goal remain unchanged. Both review axes
+are clear. The whole parent remains failed and must be rerun in full.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.
