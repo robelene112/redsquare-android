@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "run": 44569230116,
+  "source": "3a6f4c12492bf9295569fe8e0b6120586668c535",
+  "outcome": "failure",
+  "originalRoot": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt6-44569230116",
+  "zip": {
+    "bytes": 932988,
+    "sha256": "a40c6fb80b9683abfd9b5f0dda3904b106cd5d7e800bb4055bd051ce15b3b85b",
+    "crc": "PASS"
+  },
+  "failure": "Phase1 line83: Builders message27 is not rendered within the unchanged15-second content-read bound. Actual failure screenshot shows intended Saito Builders general/public Join with a content spinner. No checkpoint.",
+  "observed": "Held-A/new-B draft/Send assertions pass first. Account projects public target at16:51:24.400; signed requests continue through16:51:32.230. Existing metadata does not identify refresh stage or local processing, so no root cause is established.",
+  "diagnostic": "Existing debug-loopback-emulator trace adds current contentLoaded/message count/refreshing flags and background flush/admission/unread vs captured selected-channel refresh stage markers. No text, capability, key or exception message is logged; original15-second assertion and product network flow unchanged.",
+  "acceptance": "Whole parent failed. Source/fresh whole run required; transition corrections are independently reviewed product changes in the next source."
+}

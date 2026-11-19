@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "adverseRun": 44567215526,
+  "source": "f08c04eb046990c5771272e52d4b74d8cb007df5",
+  "originalRoot": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt5-44567215526",
+  "originalZipSha256": "688ebaf22f165487ba4f6aa24c886af108446f3d92a4f1471579cfa526b551a0",
+  "visualInspection": {
+    "phase1": {
+      "frames": 181,
+      "sheets": 12,
+      "observer": "root"
+    },
+    "phase2": {
+      "frames": 207,
+      "sheets": 13,
+      "observer": "read-only Spec reviewer"
+    },
+    "timestamps": "Original variable-rate PTS in motion-review/all-frames-review/phase-N/frame-times.json"
+  },
+  "observed": [
+    {
+      "phase": 1,
+      "frames": [
+        85,
+        86,
+        87
+      ],
+      "seconds": [
+        10.518478,
+        10.550533,
+        10.632544
+      ],
+      "problem": "Discover renders no public results before its initial delayed authenticated search begins."
+    },
+    {
+      "phase": 2,
+      "frames": [
+        70,
+        71,
+        91,
+        92
+      ],
+      "seconds": [
+        14.745556,
+        14.762111,
+        16.0288,
+        16.045978
+      ],
+      "problem": "Selecting a channel clears received channel rows while the still-visible drawer is closing, briefly collapsing its contents."
+    }
+  ],
+  "correction": [
+    "Directory success is tracked separately from capability and pending work. Empty results require a completed current query; pending debounce has loading feedback.",
+    "Selection remains immediate. Drawer presentation retains its received state until exit completes, or is reset on reopening."
+  ],
+  "reviews": {
+    "initialSpec": 0,
+    "initialStandards": 1,
+    "remaining": "No source findings; final guard compilation and fresh complete native/frame evidence pending.",
+    "correctedSpec": 0,
+    "correctedStandards": 0
+  },
+  "acceptance": "Actual adverse motion observations; no whole native acceptance. Fresh source/native/frame results required.",
+  "localBuild": "Production Kotlin compile PASS3m38s before the two-line fully-closed/idle guard correction. Fresh final-source CI required."
+}

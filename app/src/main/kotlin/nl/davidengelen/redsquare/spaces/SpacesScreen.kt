@@ -76,6 +76,12 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         }
     }
     val drawer = rememberDrawerState(DrawerValue.Closed)
+    var closingDrawerContent by remember(account) { mutableStateOf<SpacesAccount.State?>(null) }
+    LaunchedEffect(drawer.currentValue, drawer.targetValue, drawer.isAnimationRunning) {
+        if (drawer.targetValue == DrawerValue.Open || (drawer.currentValue == DrawerValue.Closed &&
+                drawer.targetValue == DrawerValue.Closed && !drawer.isAnimationRunning))
+            closingDrawerContent = null
+    }
     val navigationTitle = stringResource(R.string.spaces_navigation_panel)
     var tab by rememberSaveable { mutableStateOf(SpacesTab.MY_SPACES) }
     var createOpen by remember { mutableStateOf(false) }
@@ -109,6 +115,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     val imeVisible = WindowInsets.ime.getBottom(androidx.compose.ui.platform.LocalDensity.current) > 0
     fun choose(space: String?, channel: String? = null) {
+        // Selection is immediate; the panel keeps its rows until its exit ends.
+        if (drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed)
+            closingDrawerContent = closingDrawerContent ?: state
         savedSelection = space; account.select(space, channel); tab = SpacesTab.MY_SPACES
         scope.launch { drawer.close() }
     }
@@ -145,33 +154,35 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     BackHandler(!membersOpen && state.selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen && !publicRulesOpen) { choose(null) }
     ModalNavigationDrawer(drawerState = drawer, gesturesEnabled = state.selected != null, modifier = modifier,
         drawerContent = {
+            val menuState = closingDrawerContent ?: state
+            val menuCommunity = menuState.current
             ModalDrawerSheet(Modifier.widthIn(max = 360.dp).fillMaxHeight().semantics { paneTitle = navigationTitle }) {
                 LazyColumn(contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     item { Text(stringResource(R.string.spaces_your_communities), style = MaterialTheme.typography.headlineSmall,
                         modifier = Modifier.semantics { heading() }) }
-                    items(state.communities, key = { "space:${it.id}" }) { community ->
-                        SpaceCommunityRow(state.profiles[community.id] ?: SpaceProfile(community.name), community.id, account.ownerKey, account.backend,
-                            summary = stringResource(if (community.id == state.selected) R.string.spaces_current_community else R.string.spaces_open_saved_channel),
-                            selected = community.id == state.selected, hasUnread = community.hasUnread) { choose(community.id) }
+                    items(menuState.communities, key = { "space:${it.id}" }) { community ->
+                        SpaceCommunityRow(menuState.profiles[community.id] ?: SpaceProfile(community.name), community.id, account.ownerKey, account.backend,
+                            summary = stringResource(if (community.id == menuState.selected) R.string.spaces_current_community else R.string.spaces_open_saved_channel),
+                            selected = community.id == menuState.selected, hasUnread = community.hasUnread) { choose(community.id) }
                     }
-                    if (selected != null) {
-                        item { HorizontalDivider(Modifier.padding(vertical = 12.dp)); Text(selected.name, style = MaterialTheme.typography.titleLarge) }
-                        val groups = state.channels.groupBy { it.profile.category }
+                    if (menuCommunity != null) {
+                        item { HorizontalDivider(Modifier.padding(vertical = 12.dp)); Text(menuCommunity.name, style = MaterialTheme.typography.titleLarge) }
+                        val groups = menuState.channels.groupBy { it.profile.category }
                         groups.forEach { (category, channels) ->
                             item(key = "category:$category") { Text(category.ifBlank { stringResource(R.string.spaces_channels) },
                                 style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.semantics { heading() }) }
                             items(channels, key = { it.id }) { entry ->
                                 NavigationDrawerItem(label = { Text(entry.profile.name, maxLines = 2, overflow = TextOverflow.Ellipsis) },
-                                    selected = entry.id == state.selectedChannel, onClick = { choose(selected.id, entry.id) },
+                                    selected = entry.id == menuState.selectedChannel, onClick = { choose(menuCommunity.id, entry.id) },
                                     icon = { Icon(painterResource(channelKindIcon(entry.profile.kind)), null, Modifier.size(22.dp)) },
                                     badge = if (entry.hasUnread == true) ({ Box(Modifier.size(8.dp).background(MaterialTheme.colorScheme.primary, CircleShape)) }) else null)
                             }
                         }
-                        if (selected.canInvite) item { OutlinedButton(onClick = {
+                        if (menuCommunity.canInvite) item { OutlinedButton(onClick = {
                             scope.launch { drawer.close() }; inviteOpen = true
-                            if (state.invitation == null) account.invite(selected.id)
-                        }, enabled = !state.working && !selected.pending, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                            if (state.invitation == null) account.invite(menuCommunity.id)
+                        }, enabled = !state.working && !menuCommunity.pending, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                             Text(stringResource(R.string.spaces_invite))
                         } }
                     }

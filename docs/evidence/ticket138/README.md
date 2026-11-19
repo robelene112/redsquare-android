@@ -68,6 +68,22 @@ exercised the route's Back action. The observer now explicitly chooses Not now
 and verifies dismissal before the original route assertion. Product behavior
 and return deadlines are unchanged; the whole parent remains failed.
 
+Inspection of all388 decoded frames in that parent also identifies two actual
+[transition defects](native-transition-corrections.json): an empty-result notice
+before the first discovery query starts, and channel rows disappearing before
+the drawer closes. Directory completion now has an explicit current-query state;
+drawer presentation retains its received rows through exit while applying the
+selection immediately. These are product changes requiring fresh native and
+complete-frame verification. The original adverse frames and review remain.
+
+The [sixth whole parent](native-content-diagnostic.json), on the earlier
+chat-observer source, fails the original15-second public-content load. Its target
+and public Join state are correct, but the actual message page remains a spinner.
+No checkpoint is reached. Existing trace timings do not identify the responsible
+refresh stage. Debug-loopback-emulator metadata now distinguishes background
+admission/unread work, selected refresh and content projection. The original
+failure and deadline remain; no root-cause fix or native pass is claimed.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.

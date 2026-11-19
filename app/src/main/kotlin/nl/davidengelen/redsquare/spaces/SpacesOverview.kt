@@ -97,7 +97,9 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
                         leadingIcon = { Icon(painterResource(R.drawable.ic_search), null, Modifier.size(20.dp)) },
                         shape = RoundedCornerShape(16.dp))
                 }
-                if (state.directoryLoading) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
+                val pendingQuery = query.trim() != state.directoryQuery || !state.directoryLoaded
+                if (state.directoryLoading || (pendingQuery && !state.directoryFailed && state.discoverySupported != false))
+                    item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
                 if (state.directoryCached) item { Text(stringResource(R.string.spaces_cached_directory),
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                 if (state.discoverySupported == false) item { OverviewNotice(R.string.spaces_discovery_unavailable, R.drawable.ic_globe) }
@@ -110,7 +112,7 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
                         summary = community.profile.description.ifBlank { stringResource(R.string.spaces_public_readable) },
                         enabled = !state.working, onClick = { account.openPublic(community.id) })
                 }
-                if (state.directoryItems.isEmpty() && !state.directoryLoading && !state.directoryFailed && state.discoverySupported == true)
+                if (state.directoryItems.isEmpty() && !pendingQuery && !state.directoryLoading && !state.directoryFailed && state.discoverySupported == true)
                     item { OverviewNotice(R.string.spaces_no_public_results, R.drawable.ic_search) }
                 if (state.directoryHasMore) item {
                     OutlinedButton(onClick = { account.discover(query, more = true) }, enabled = !state.directoryLoading,

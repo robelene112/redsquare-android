@@ -41,6 +41,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val discoverySupported: Boolean? = null, val unreadSupported: Boolean = false,
         val directoryItems: List<SpaceClient.PublicCommunity> = emptyList(), val directoryQuery: String = "",
         val directoryLoading: Boolean = false, val directoryCached: Boolean = false, val directoryFailed: Boolean = false,
+        val directoryLoaded: Boolean = false,
         val directoryCursor: Long = 0, val directoryHasMore: Boolean = false,
         val messages: List<SpaceClient.Message> = emptyList(), val draft: String = "",
         val invitation: SpaceClient.Invitation? = null, val preview: SpaceClient.InvitationPreview? = null,
@@ -97,6 +98,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     "working=${value.working} ready=${value.ready} loading=${value.loadingChannel} saving=${value.savingNavigation} " +
                     "joined=${current?.joined} canSend=${current?.canSend} pending=${current?.pending} " +
                     "kind=${channel?.profile?.kind} channelReady=${channel?.ready} availability=${value.availability} " +
+                    "contentLoaded=${value.contentLoaded} messages=${value.messages.size} refreshing=${value.refreshing} " +
                     "problem=${value.problem} access=${value.selected?.let { value.accessProblems[it] }}"
             }.distinctUntilChanged().collect { trace(it) }
         }
@@ -132,10 +134,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     val current = requireNotNull(client)
                     for (community in current.communities()) {
                         try {
+                            trace("refresh background=${community.id.take(10)} flush-start")
                             current.flush(community.id)
+                            trace("refresh background=${community.id.take(10)} admit-start")
                             current.admitPending(community.id)
                             current.flush(community.id)
+                            trace("refresh background=${community.id.take(10)} unread-start")
                             if ("spaces-unread-v1" in services) current.refreshUnread(community.id)
+                            trace("refresh background=${community.id.take(10)} complete")
                             mutable.update { it.copy(accessProblems = it.accessProblems - community.id) }
                         } catch (denied: SpaceClient.ReadDenied) {
                             mutable.update { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem)) }
@@ -143,13 +149,16 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     }
                     mutable.value.target()?.let { target ->
                         try {
+                            trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} start")
                             current.refresh(target.space, channel = target.channel)
+                            trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} complete")
                             mutable.update { it.copy(accessProblems = it.accessProblems - target.space) }
                         } catch (denied: SpaceClient.ReadDenied) {
                             mutable.update { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem)) }
                         }
                     }
                     publish()
+                    trace("refresh projected")
                 } } catch (cancelled: CancellationException) { throw cancelled }
                 catch (_: MissingService) { mutable.update { it.copy(availability = Availability.UNSUPPORTED) } }
                 catch (_: ChangedIdentity) { mutable.update { it.copy(availability = Availability.CHANGED_IDENTITY) } }
@@ -520,7 +529,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val token = directoryRequests.incrementAndGet()
         val trimmed = query.trim()
         val cursor = if (more && trimmed == mutable.value.directoryQuery) mutable.value.directoryCursor else 0L
-        mutable.update { it.copy(directoryQuery = trimmed, directoryLoading = true, directoryFailed = false) }
+        mutable.update { it.copy(directoryQuery = trimmed, directoryLoading = true, directoryFailed = false,
+            directoryLoaded = it.directoryLoaded && trimmed == it.directoryQuery) }
         scope.launch {
             try {
                 val current = client ?: return@launch
@@ -542,7 +552,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     mutable.update { if (directoryRequests.get() == token && it.directoryQuery == trimmed) it.copy(
                         directoryItems = (if (cursor == 0L) page.items else it.directoryItems + page.items).distinctBy { item -> item.id },
                         directoryCached = false, directoryCursor = page.nextCursor, directoryHasMore = page.hasMore,
-                        discoverySupported = true, directoryFailed = false) else it }
+                        discoverySupported = true, directoryFailed = false, directoryLoaded = true) else it }
                 }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: ChangedIdentity) { mutable.update { it.copy(availability = Availability.CHANGED_IDENTITY) } }
