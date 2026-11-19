@@ -1302,7 +1302,7 @@
     <string name="spaces_join_invitation">Join with an invitation</string>
     <string name="spaces_create_detail">Start with a private community and a general conversation. You will be its owner.</string>
     <string name="spaces_name">Community name</string>
-    <string name="spaces_name_limit">Use up to 256 UTF-8 bytes.</string>
+    <string name="spaces_name_limit">Choose a name of up to 64 characters.</string>
     <string name="spaces_general" translatable="false">general</string>
     <string name="spaces_switch_channel">Switch Space or channel</string>
     <string name="spaces_conversations">Conversations</string>
@@ -1335,7 +1335,7 @@
     <string name="spaces_invitation_failed">Could not verify this invitation. Check the link, selected node and connection.</string>
     <string name="spaces_control_pending">A community change is awaiting confirmation. Your draft remains editable.</string>
     <string name="spaces_invitation_preparing">The invitation is saved and awaiting confirmation from this node.</string>
-    <string name="spaces_invitation_share_detail">Anyone with this invitation can request to join. Share it with people you want in the community. It expires after seven days.</string>
+    <string name="spaces_invitation_share_detail">Anyone with this invitation can request to join. Share it with people you want in the community.</string>
     <string name="spaces_copy_invitation">Copy invitation</string>
     <string name="spaces_share_invitation">Share invitation</string>
     <string name="spaces_copied">Invitation copied</string>
@@ -1344,4 +1344,13 @@
     <string name="spaces_loading">Loading communities…</string>
     <string name="spaces_close">Close</string>
     <string name="spaces_back">Back to your communities</string>
+    <string name="spaces_invitation_expired">This invitation has expired. Create a new one to invite people.</string>
+    <string name="spaces_invitation_expiry">Expires %1$s</string>
+    <string name="spaces_invitation_days">%1$d days</string>
+    <string name="spaces_new_invitation">Create a new invitation</string>
+    <string name="spaces_new_invitation_detail">Choose when the new invitation expires. Earlier links remain valid until their own expiry.</string>
+    <string name="spaces_not_sent">Not sent. Community access changed before delivery.</string>
+    <string name="spaces_restore_draft">Edit as a new message</string>
+    <string name="spaces_earlier_messages">Earlier messages</string>
+    <string name="spaces_latest_messages">Back to latest messages</string>
 </resources>

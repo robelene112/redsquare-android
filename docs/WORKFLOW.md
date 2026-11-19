@@ -1,6 +1,20 @@
 # Development workflow
 
 
+## Current137 source follow-up
+
+Client review regressions now cover unrelated controls during queued sends,
+inactive join-page starvation,51 communities, expired invitations, cold bounded
+history and a late history grant after another admission. Actual rejected
+admissions reopen on the persisted cancelled branch and later admit the same
+request. The optional node adapter has an isolated actual Saito serializer/
+dispatcher/callback rehearsal. The source-stage Android journey now drives
+create/invite/join/read/return and a host-observed distinct-PID interruption;
+it has not executed yet. Current full core/service checks and native compilation
+are running. Do not treat those pending gates as passed or close137. Continue
+sequentially;138–147 remain untouched and beta142 stays public.
+
+
 ## Active137: source-stage client and native routes
 
 The durable application coordinator now creates a private community, preserves

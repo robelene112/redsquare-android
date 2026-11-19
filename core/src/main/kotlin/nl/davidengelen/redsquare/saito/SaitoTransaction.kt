@@ -141,7 +141,8 @@ class SaitoTransaction private constructor(private val bytes: ByteArray, private
          * Preserve the ordinary social/event limit and wire/signature format. */
         fun createSpaceReply(wallet: SaitoWallet, body: JsonObject, timestamp: Long, caller: String): SaitoTransaction {
             require(body.get("module")?.asString == "Spaces" && body.get("version")?.toString() == "1" &&
-                body.get("request")?.asString in setOf("challenge", "page"))
+                body.get("request")?.asString in setOf("challenge", "page", "receipt"))
+            if (body.get("request").asString == "receipt") require(body.get("stream")?.asString in setOf("control", "join", "content", "rejection"))
             return createWithOutputs(wallet, body, timestamp, listOf(wallet.publicKey, caller).distinct(), 4 * 1024 * 1024)
         }
 

@@ -1,0 +1,138 @@
+#!/usr/bin/env python3
+"""Owned emulator only: real host peer plus distinct Android PID recovery."""
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+import time
+import urllib.request
+
+repo = Path(__file__).resolve().parent.parent
+evidence = Path(sys.argv[1]).resolve() / 'spaces-journey'
+evidence.mkdir(parents=True, exist_ok=False)
+pkg = 'nl.davidengelen.redsquare.dev'
+runner = pkg + '.test/androidx.test.runner.AndroidJUnitRunner'
+children = []
+
+def adb(*args, timeout=15, check=True):
+    return subprocess.run(['adb', *args], capture_output=True, timeout=timeout, check=check)
+
+def command(port, action):
+    request = urllib.request.Request(f'http://127.0.0.1:{port}/{action}', b'{}', {'Content-Type': 'application/json'})
+    with urllib.request.urlopen(request, timeout=5) as response:
+        return json.load(response)
+
+def instrument(method, filename, peer, control):
+    log = (evidence / filename).open('wb')
+    process = subprocess.Popen(['adb', 'shell', 'am', 'instrument', '-w', '-r',
+        '-e', 'class', f'nl.davidengelen.redsquare.SpacesJourneyTest#{method}',
+        '-e', 'spacesPeerPort', str(peer), '-e', 'spacesControlPort', str(control), runner],
+        stdout=log, stderr=subprocess.STDOUT)
+    children.append((process, log))
+    return process
+
+control_port = None
+movies = []
+try:
+    serial = adb('get-serialno').stdout.decode().strip()
+    if not serial.startswith('emulator-'):
+        raise RuntimeError('Only a disposable emulator may run this fixture')
+    classpath = (repo / 'spaces-service/build/host-fixture-classpath.txt').read_text().strip()
+    native = repo / 'core/build/generated/spaces-mls-host'
+    hostroot = repo / '.scratch' / ('spaces-native-host-' + os.environ['TEST_DEVICE_API'])
+    hostroot.mkdir(parents=True, exist_ok=False)
+    hostlog = (hostroot / 'host.log').open('wb')
+    host = subprocess.Popen(['java', '-Xmx512m', f'-Djava.library.path={native}', '-cp', classpath,
+        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)], stdout=hostlog, stderr=subprocess.STDOUT)
+    children.append((host, hostlog))
+    deadline = time.monotonic() + 30
+    while not (hostroot / 'ready.json').exists():
+        if host.poll() is not None or time.monotonic() >= deadline:
+            raise RuntimeError('Owned Spaces host did not become ready within 30 seconds')
+        time.sleep(.1)
+    ready = json.loads((hostroot / 'ready.json').read_text())
+    peer_port, control_port = ready['peerPort'], ready['controlPort']
+    for port in (peer_port, control_port):
+        adb('reverse', f'tcp:{port}', f'tcp:{port}')
+    # One unbroken movie per phase. Native goals stay bounded independently.
+    def record(phase):
+        remote = f'/sdcard/spaces-journey-{phase}.mp4'
+        logfile = (evidence / f'movie-{phase}.log').open('wb')
+        process = subprocess.Popen(['adb', 'shell', 'screenrecord', '--time-limit', '180',
+            '--bit-rate', '2000000', remote], stdout=logfile, stderr=subprocess.STDOUT)
+        children.append((process, logfile)); movies.append((process, remote, phase))
+        return process
+    record(1)
+    first = instrument('createInviteJoinReadAndCheckpointAnUncertainOriginal', 'before-kill.txt', peer_port, control_port)
+    deadline = time.monotonic() + 180
+    while True:
+        observed = adb('exec-out', 'run-as', pkg, 'cat', 'cache/spaces-journey-checkpoint.json', check=False)
+        if observed.returncode == 0:
+            checkpoint = json.loads(observed.stdout)
+            if checkpoint['phase'] == 'ready-for-process-kill':
+                break
+        if first.poll() is not None or time.monotonic() >= deadline:
+            raise RuntimeError('Native create/join/checkpoint did not complete within 180 seconds')
+        time.sleep(.25)
+    (evidence / 'checkpoint.json').write_text(json.dumps(checkpoint))
+    pid = adb('shell', 'pidof', pkg).stdout.decode().strip()
+    if pid != str(checkpoint['pid']):
+        raise RuntimeError('Checkpoint does not belong to the live Android process')
+    adb('shell', 'am', 'force-stop', pkg)
+    first.wait(timeout=15)
+    if adb('shell', 'pidof', pkg, check=False).stdout.strip():
+        raise RuntimeError('Original Android PID still exists')
+    (evidence / 'process-kill.json').write_text(json.dumps({'oldPid': checkpoint['pid'], 'forceStopped': True,
+        'firstInstrumentExit': first.returncode, 'expectedInterruptedTest': True}))
+    # End the first recording using the actual device screenrecord process.
+    adb('shell', 'pkill', '-INT', 'screenrecord', check=False)
+    movies[-1][0].wait(timeout=15)
+    record(2)
+    second = instrument('coldReturnReconcilesTheSameOriginalAndKeepsNewWriting', 'after-kill.txt', peer_port, control_port)
+    second.wait(timeout=90)
+    if second.returncode != 0 or 'OK (1 test)' not in (evidence / 'after-kill.txt').read_text():
+        raise RuntimeError('Native distinct-process recovery failed')
+    (evidence / 'host-status.json').write_text(json.dumps(command(control_port, 'status')))
+    command(control_port, 'stop'); host.wait(timeout=15)
+    if host.returncode != 0:
+        raise RuntimeError('Owned host could not verify/close actual received effects')
+    recovered = json.loads(adb('exec-out', 'run-as', pkg, 'cat', 'cache/spaces-journey-evidence/recovered.json').stdout)
+    if recovered['recoveredPid'] == checkpoint['pid']:
+        raise RuntimeError('Recovery reused the old Android PID')
+    (evidence / 'acceptance.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
+        'oldPid': checkpoint['pid'], 'newPid': recovered['recoveredPid'], 'nativeTerminalPasses': 1,
+        'deliberatelyInterruptedCases': 1, 'productionNodeActivated': False}))
+finally:
+    for process, remote, phase in movies:
+        if process.poll() is None:
+            adb('shell', 'pkill', '-INT', 'screenrecord', check=False)
+            try: process.wait(timeout=15)
+            except subprocess.TimeoutExpired: process.kill(); process.wait(timeout=5)
+        adb('pull', remote, str(evidence / f'phase-{phase}.mp4'), timeout=30, check=False)
+    capture = adb('exec-out', 'run-as', pkg, 'tar', '-C', 'cache', '-cf', '-', 'spaces-journey-evidence', timeout=30, check=False)
+    (evidence / 'native-evidence.tar').write_bytes(capture.stdout)
+    (evidence / 'native-evidence-capture.json').write_text(json.dumps({'exit': capture.returncode}))
+    (evidence / 'crash.log').write_bytes(adb('logcat', '-d', '-b', 'crash', timeout=10, check=False).stdout)
+    for process, log in reversed(children):
+        if process.poll() is None:
+            process.terminate()
+            try: process.wait(timeout=5)
+            except subprocess.TimeoutExpired: process.kill(); process.wait(timeout=5)
+        log.close()
+    if control_port:
+        for port in (peer_port, control_port):
+            adb('reverse', '--remove', f'tcp:{port}', check=False)
+    if 'hostroot' in globals():
+        for name in ('ready.json', 'result.json', 'host.log'):
+            path = hostroot / name
+            if path.exists(): (evidence / ('host-' + name)).write_bytes(path.read_bytes())
+    # Keep test-host databases and encrypted Android state out of uploadable
+    # evidence. No production/user bytes were read. Retain public observations.
+    files = []
+    for path in sorted(evidence.rglob('*')):
+        if path.is_file() and not path.name.endswith(('.sqlite', '.sqlite-wal', '.sqlite-shm')):
+            files.append({'path': str(path.relative_to(evidence)), 'bytes': path.stat().st_size,
+                          'sha256': hashlib.file_digest(path.open('rb'), 'sha256').hexdigest()})
+    (evidence / 'files.json').write_text(json.dumps(files, indent=2))

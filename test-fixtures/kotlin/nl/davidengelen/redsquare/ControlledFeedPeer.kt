@@ -28,6 +28,9 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val relayResponseExecutor: java.util.concurrent.Executor? = null,
     private val peer: SaitoWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1"),
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
+    @Volatile var spacesResponse: ((SaitoTransaction) -> String)? = null
+    val spacesRequests = java.util.concurrent.CopyOnWriteArrayList<SaitoTransaction>()
+    @Volatile var withholdSpacesReply = false
     @Volatile var vaultUploadResponseExecutor: java.util.concurrent.Executor? = null
     @Volatile var vaultUploadResponse: ((nl.davidengelen.redsquare.saito.SignedSaitoMessage) -> String)? = null
     val vaultUploads = java.util.concurrent.CopyOnWriteArrayList<nl.davidengelen.redsquare.saito.SignedSaitoMessage>()
@@ -346,6 +349,14 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         val outputs = ByteBuffer.wrap(frame, 9, 4).int
                         val offset = 5 + 93 + 59 * (inputs + outputs)
                         val body = JsonParser.parseString(String(frame, offset, bodyLength, Charsets.UTF_8)).asJsonObject
+                        if (body.get("module")?.asString == "Spaces") {
+                            val original = SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(frame.copyOfRange(5, frame.size)))
+                            require(SaitoEnvelope.decode(original.envelope()).author == authenticatedKey)
+                            spacesRequests.add(original)
+                            val response = requireNotNull(spacesResponse)(original)
+                            if (!withholdSpacesReply) check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
+                            return
+                        }
                         if (body.get("request").asString == "vault add file") {
                             val signed = verifyVaultUpload(frame, requireNotNull(authenticatedKey))
                             vaultUploads.add(signed)

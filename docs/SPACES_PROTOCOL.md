@@ -1,3 +1,23 @@
+## Client and service integration under137
+
+Source now includes the account-owned native coordinator and navigationB. It
+retains exact signed originals, verifies terminal rejection receipts, saves the
+cancelled MLS branch for rejected proposals, and keeps newly typed writing
+independent of held network responses. Same-epoch queued content accepts later
+unrelated controls; the receipt records its actual authorizing head. Invitation
+expiry and replacement are explicit. Join and community lists traverse bounded
+pages without dropping eligible rows. New members obtain targeted archive-key
+grants before opening a bounded recent conversation page; older pages are lazy.
+Archive grants use the existing epoch exporter/AES format and remain readable
+when another admission advances the operational MLS epoch. An independent MLS
+reference decrypts the actual grant and earlier archive ciphertext.
+
+The optional [node adapter](../integrations/saito-spaces/README.md) defines the
+source-stage transport, schema3 migration, readiness and write-preserving
+rollback contract. The exploratory actual Saito0db/JS-WASM0.3.15 rehearsal passes;
+fixed-source native/OS/process and deployed-runtime compatibility acceptance
+remain pending. This section does not close137 or activate a node/provider.
+
 # Spaces protocol and persistence, version1
 
 Implementation contract for137 under134. Native integration must wait for the

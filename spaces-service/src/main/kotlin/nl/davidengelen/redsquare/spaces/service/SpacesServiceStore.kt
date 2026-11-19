@@ -27,12 +27,13 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val version = database.createStatement().use { sql ->
             sql.executeQuery("PRAGMA user_version").use { rows -> check(rows.next()); rows.getInt(1) }
         }
-        check(version == 2)
+        check(version == 3)
         database.createStatement().use { sql ->
             sql.executeQuery("SELECT service_key FROM service_metadata WHERE id=1").use { rows ->
                 check(rows.next() && rows.getString(1) == wallet.publicKey)
             }
         }
+        database.createStatement().use { it.executeQuery("SELECT kind,recipient_credential FROM records LIMIT 0").close() }
         return JsonObject().apply {
             addProperty("capability", "spaces-v1"); addProperty("service_key", wallet.publicKey)
             addProperty("schema", version); addProperty("state", "ready"); addProperty("file_hosting", false)
@@ -49,11 +50,12 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val requestId = body.text("request_id").also { require(it.matches(ID)) }
         val scope = body.get("scope").also { require(it != null && it.isJsonObject) }.asJsonObject.deepCopy()
         val space = scope.text("space_id").also { require(it.matches(ID)) }
-        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "invitation")) }
+        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation")) }
         require(scope.keySet() == setOf("space_id", "stream", "cursor") + when (stream) {
-            "content" -> setOf("channel_id"); "invitation" -> setOf("invite_id"); else -> emptySet()
+            "content" -> setOf("channel_id"); "keys" -> setOf("channel_id", "recipient_credential"); "invitation" -> setOf("invite_id"); else -> emptySet()
         })
-        val channel = if (stream == "content") scope.text("channel_id").also { require(it.matches(ID)) } else null
+        val channel = if (stream in setOf("content", "keys")) scope.text("channel_id").also { require(it.matches(ID)) } else null
+        val recipient = if (stream == "keys") scope.text("recipient_credential") else null
         val cursor = scope.number("cursor")
         val now = clock.millis().also { require(it >= 0) }
         challenges.entries.removeIf { it.value.expiresAt <= now }
@@ -89,14 +91,19 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     if (channel != null) require(requireNotNull(journal.snapshot.channels[channel]).devices.keys.any {
                         it.split(':')[1] == request.author
                     }) { "Spaces channel is not available to this identity" }
+                    if (recipient != null) require(recipient in requireNotNull(journal.snapshot.channels[channel]).devices &&
+                        recipient.split(':')[1] == request.author) { "Spaces key grants belong to a different device" }
                     val items = JsonArray()
                     var bytes = 0
                     var next = cursor
-                    val table = when (stream) { "join" -> "joins"; "content" -> "records"; else -> "controls" }
+                    val table = when (stream) { "join" -> "joins"; "content", "keys" -> "records"; else -> "controls" }
                     database.prepareStatement("SELECT position,receipt FROM $table WHERE space_id=? AND position>=?" +
-                        (if (channel != null) " AND channel_id=?" else "") + " ORDER BY position LIMIT 50").use { sql ->
+                        (if (channel != null) " AND channel_id=?" else "") +
+                        (if (recipient != null) " AND recipient_credential=? AND kind IN ('history','history-keys')" else "") +
+                        " ORDER BY position LIMIT 50").use { sql ->
                         sql.setString(1, space); sql.setLong(2, cursor)
                         if (channel != null) sql.setString(3, channel)
+                        if (recipient != null) sql.setString(4, recipient)
                         sql.executeQuery().use { rows ->
                             while (rows.next()) {
                                 val value = rows.getString(2)
@@ -119,6 +126,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     }
                     reply.addProperty("request", "page"); reply.addProperty("nonce", nonce)
                     reply.add("items", items); reply.addProperty("next_cursor", next)
+                    if (stream == "keys") reply.addProperty("content_end", nextPosition("records", space, requireNotNull(channel)))
                 }
             }
             else -> throw IllegalArgumentException("Unsupported Spaces read request")
@@ -139,7 +147,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val existingVersion = sql.executeQuery("PRAGMA user_version").use { rows ->
                     check(rows.next()); rows.getInt(1)
                 }
-                check(existingVersion in 0..2) { "Spaces storage version needs a compatible service" }
+                check(existingVersion in 0..3) { "Spaces storage version needs a compatible service" }
                 if (existingVersion == 0) sql.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").use { rows ->
                     check(!rows.next()) { "Existing unversioned Spaces storage needs recovery" }
                 }
@@ -157,7 +165,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val version = database.createStatement().use { sql ->
                     sql.executeQuery("PRAGMA user_version").use { rows -> check(rows.next()); rows.getInt(1) }
                 }
-                check(version in 0..2) { "Spaces storage version needs a compatible service" }
+                check(version in 0..3) { "Spaces storage version needs a compatible service" }
                 if (version == 0) {
                     database.createStatement().use { sql ->
                         sql.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").use {
@@ -195,6 +203,36 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         FOREIGN KEY(space_id,control_id) REFERENCES controls(space_id,event_id))""")
                     sql.execute("PRAGMA user_version=2")
                 }
+                if (version < 3) database.createStatement().use { sql ->
+                    sql.execute("""CREATE TABLE rejections (
+                        space_id TEXT NOT NULL, position INTEGER NOT NULL CHECK(position>=0),
+                        event_id TEXT NOT NULL, operation_id TEXT NOT NULL, actor TEXT NOT NULL,
+                        original TEXT NOT NULL, receipt TEXT NOT NULL, accepted_at INTEGER NOT NULL,
+                        PRIMARY KEY(space_id,position), UNIQUE(space_id,event_id), UNIQUE(space_id,operation_id))""")
+                    sql.execute("ALTER TABLE records ADD COLUMN kind TEXT NOT NULL DEFAULT 'unclassified'")
+                    sql.execute("ALTER TABLE records ADD COLUMN recipient_credential TEXT")
+                    // Upgrade public routing metadata in bounded batches. The
+                    // accepted original and its signed receipt stay byte-exact.
+                    var after = 0L
+                    while (true) {
+                        val batch = database.prepareStatement("SELECT rowid,original FROM records WHERE rowid>? ORDER BY rowid LIMIT 100").use { select ->
+                            select.setLong(1, after)
+                            select.executeQuery().use { rows -> buildList { while (rows.next()) add(rows.getLong(1) to rows.getString(2)) } }
+                        }
+                        for ((row, original) in batch) {
+                            val message = SaitoEnvelope.decode(original).body
+                            database.prepareStatement("UPDATE records SET kind=?,recipient_credential=? WHERE rowid=?").use { update ->
+                                update.setString(1, if (message.text("kind") == "content") message.text("content_kind") else message.text("kind"))
+                                update.setString(2, message.get("recipient_credential")?.asString); update.setLong(3, row)
+                                check(update.executeUpdate() == 1)
+                            }
+                            after = row
+                        }
+                        if (batch.size < 100) break
+                    }
+                    sql.execute("CREATE INDEX records_recipient ON records(space_id,channel_id,recipient_credential,position)")
+                    sql.execute("PRAGMA user_version=3")
+                }
             }
         } catch (failure: Throwable) {
             try { database.close() } catch (cleanup: Throwable) { failure.addSuppressed(cleanup) }
@@ -212,10 +250,10 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val space = body.text("space_id").also { require(it.matches(ID)) }
         val operation = body.text("operation_id").also { require(it.matches(ID)) }
         return atomic {
-            val prior = database.prepareStatement(listOf("controls", "joins", "records").joinToString(" UNION ALL ") {
+            val prior = database.prepareStatement(listOf("controls", "joins", "records", "rejections").joinToString(" UNION ALL ") {
                 "SELECT event_id,receipt FROM $it WHERE space_id=? AND operation_id=?"
             }).use { sql ->
-                for (index in 0..2) { sql.setString(index * 2 + 1, space); sql.setString(index * 2 + 2, operation) }
+                for (index in 0..3) { sql.setString(index * 2 + 1, space); sql.setString(index * 2 + 2, operation) }
                 sql.executeQuery().use { rows ->
                     if (rows.next()) {
                         require(rows.getString(1) == event.id) { "Spaces operation already has a different original" }
@@ -229,46 +267,62 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val acceptedAt = clock.millis().also { require(it >= 0) }
                 val joining = body.text("kind") == "join"
                 val content = body.text("kind") in setOf("content", "history")
-                val position = if (joining) {
-                    journal.verifyJoin(envelope, acceptedAt)
-                    database.prepareStatement("SELECT COALESCE(MAX(position)+1,0) FROM joins WHERE space_id=?").use { sql ->
-                        sql.setString(1, space)
-                        sql.executeQuery().use { rows -> check(rows.next()); rows.getLong(1) }
-                    }
-                } else if (content) {
-                    journal.verifyContent(envelope)
-                    database.prepareStatement("SELECT COALESCE(MAX(position)+1,0) FROM records WHERE space_id=? AND channel_id=?").use { sql ->
-                        sql.setString(1, space); sql.setString(2, body.text("channel_id"))
-                        sql.executeQuery().use { rows -> check(rows.next()); rows.getLong(1) }
-                    }
-                } else state.nextPosition
-                val receipt = SaitoTransaction.create(wallet, JsonObject().apply {
+                val table = if (joining) "joins" else if (content) "records" else "controls"
+                val position = if (joining || content) nextPosition(table, space, if (content) body.text("channel_id") else null)
+                    else state.nextPosition
+                fun receipt(stream: String, at: Long) = SaitoTransaction.createSpaceReply(wallet, JsonObject().apply {
                     addProperty("module", "Spaces"); addProperty("request", "receipt"); addProperty("version", 1)
-                    addProperty("space_id", space); addProperty("stream", if (joining) "join" else if (content) "content" else "control")
-                    if (content) addProperty("channel_id", body.text("channel_id"))
-                    addProperty("position", position); addProperty("event", envelope)
-                }, acceptedAt, listOf(event.author)).envelope()
-                if (!joining && !content) journal.receive(receipt)
+                    addProperty("space_id", space); addProperty("stream", stream)
+                    addProperty("position", at); addProperty("event", envelope)
+                    if (stream == "content") addProperty("channel_id", body.text("channel_id"))
+                    if (stream in setOf("content", "rejection")) state.controlId?.let { addProperty("authorized_control", it) }
+                    if (stream == "rejection") addProperty("reason", "not-accepted")
+                }, acceptedAt, event.author).envelope()
+                val receipt = receipt(if (joining) "join" else if (content) "content" else "control", position)
+                try {
+                    when {
+                        joining -> journal.verifyJoin(envelope, acceptedAt)
+                        content -> journal.verifyContent(envelope)
+                        else -> journal.receive(receipt)
+                    }
+                } catch (_: IllegalArgumentException) {
+                    // Persist a terminal disposition before answering. An old
+                    // rejected original can never become accepted on retry.
+                    val rejectedPosition = nextPosition("rejections", space)
+                    val rejected = receipt("rejection", rejectedPosition)
+                    insertSimple("rejections", space, rejectedPosition, event.id, operation, event.author, envelope, rejected, acceptedAt)
+                    return@atomic rejected
+                }
                 if (content) {
-                    database.prepareStatement("INSERT INTO records(space_id,channel_id,position,event_id,operation_id,actor,control_id,epoch,generation,original,receipt,accepted_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)").use { sql ->
+                    database.prepareStatement("INSERT INTO records(space_id,channel_id,position,event_id,operation_id,actor,control_id,epoch,generation,original,receipt,accepted_at,kind,recipient_credential) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)").use { sql ->
                         sql.setString(1, space); sql.setString(2, body.text("channel_id")); sql.setLong(3, position)
                         sql.setString(4, event.id); sql.setString(5, operation); sql.setString(6, event.author)
-                        sql.setString(7, body.text("control_id")); sql.setLong(8, body.number("epoch"))
+                        sql.setString(7, requireNotNull(state.controlId)); sql.setLong(8, body.number("epoch"))
                         sql.setString(9, body.text("key_generation")); sql.setString(10, envelope)
                         sql.setString(11, receipt); sql.setLong(12, acceptedAt)
+                        sql.setString(13, if (body.text("kind") == "content") body.text("content_kind") else body.text("kind"))
+                        sql.setString(14, body.get("recipient_credential")?.asString)
                         check(sql.executeUpdate() == 1)
                     }
-                } else {
-                val table = if (joining) "joins" else "controls" // Internal constants only, never client SQL.
-                database.prepareStatement("INSERT INTO $table(space_id,position,event_id,operation_id,actor,original,receipt,accepted_at) VALUES(?,?,?,?,?,?,?,?)").use { sql ->
-                    sql.setString(1, space); sql.setLong(2, position); sql.setString(3, event.id)
-                    sql.setString(4, operation); sql.setString(5, event.author); sql.setString(6, envelope)
-                    sql.setString(7, receipt); sql.setLong(8, acceptedAt)
-                    check(sql.executeUpdate() == 1)
-                }
-                }
+                } else insertSimple(table, space, position, event.id, operation, event.author, envelope, receipt, acceptedAt)
                 receipt
             }
+        }
+    }
+
+    private fun nextPosition(table: String, space: String, channel: String? = null): Long =
+        database.prepareStatement("SELECT COALESCE(MAX(position)+1,0) FROM $table WHERE space_id=?" +
+            if (channel == null) "" else " AND channel_id=?").use { sql ->
+            sql.setString(1, space); if (channel != null) sql.setString(2, channel)
+            sql.executeQuery().use { rows -> check(rows.next()); rows.getLong(1) }
+        }
+
+    private fun insertSimple(table: String, space: String, position: Long, event: String, operation: String,
+        actor: String, original: String, receipt: String, time: Long) {
+        database.prepareStatement("INSERT INTO $table(space_id,position,event_id,operation_id,actor,original,receipt,accepted_at) VALUES(?,?,?,?,?,?,?,?)").use { sql ->
+            sql.setString(1, space); sql.setLong(2, position); sql.setString(3, event); sql.setString(4, operation)
+            sql.setString(5, actor); sql.setString(6, original); sql.setString(7, receipt); sql.setLong(8, time)
+            check(sql.executeUpdate() == 1)
         }
     }
 

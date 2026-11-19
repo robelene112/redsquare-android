@@ -8,7 +8,7 @@ import java.util.Collections
 
 enum class SpaceRole { OWNER, ADMIN, MEMBER }
 data class SpaceInvitationRecord(val key: String, val expiresAt: Long)
-data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>, val generation: String = "0".repeat(64))
+data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>, val generation: String = "0".repeat(64), val epochStartedAt: Long = 0)
 data class SpaceJoinRequest(val envelope: String, val id: String, val actor: String,
     val operationId: String, val channelId: String, val keyPackage: SpaceCrypto.BoundPackage)
 
@@ -22,6 +22,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
     private var current = SpaceSnapshot()
     private val applied = mutableMapOf<Long, String>()
     private val operations = mutableMapOf<String, String>()
+    private val controlPositions = mutableMapOf<String, Long>()
 
     init { require(spaceId.matches(ID) && SaitoWallet.isPublicKey(serviceKey)) }
 
@@ -86,10 +87,11 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 admittedJoin = join
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     members = Collections.unmodifiableMap(current.members + (join.actor to SpaceRole.MEMBER)),
-                    channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(epoch, devices, oldChannel.generation))))
+                    channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(epoch, devices, oldChannel.generation, position))))
             }
             else -> throw IllegalArgumentException("Unsupported Spaces control version or kind")
         }
+        controlPositions[event.id] = position
         applied[position] = event.id
         operations[operation] = event.id
         admittedJoin?.let { operations[it.operationId] = it.id }
@@ -130,13 +132,16 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         header(body, "event")
         require(body.text("space_id") == spaceId && event.recipients == listOf(event.author, serviceKey).distinct())
         require(body.text("operation_id").matches(ID) && body.text("operation_id") !in operations)
-        require(body.text("control_id") == current.controlId && event.author in current.members)
+        require(event.author in current.members)
         val channel = requireNotNull(current.channels[body.text("channel_id")])
+        val reference = requireNotNull(controlPositions[body.text("control_id")])
+        require(reference >= channel.epochStartedAt) { "Content belongs to a previous channel epoch" }
         require(body.number("epoch") == channel.epoch && body.text("key_generation") == channel.generation)
         require(channel.devices.keys.any { credentialWallet(it) == event.author })
         when (body.text("kind")) {
             "content" -> {
                 require(body.text("content_kind").matches(Regex("[a-z][a-z-]{0,31}")))
+                if (body.text("content_kind") == "history-keys") require(body.text("recipient_credential") in channel.devices)
                 require(Base64.getDecoder().decode(body.text("ciphertext")).size in 29..(64 * 1024 + 28))
             }
             "history" -> {

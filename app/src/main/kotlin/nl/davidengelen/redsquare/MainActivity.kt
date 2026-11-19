@@ -223,6 +223,7 @@ class MainActivity : ComponentActivity() {
             var savingBackend by remember { mutableStateOf(false) }
             var backendSaveError by remember { mutableStateOf(false) }
             val backendStates = rememberSaveableStateHolder()
+            val spacesScreenStates = rememberSaveableStateHolder()
             val scope = rememberCoroutineScope()
             androidx.activity.compose.BackHandler(settingsOpen && settingsCategory != null) {
                 settingsCategory = null
@@ -722,12 +723,15 @@ class MainActivity : ComponentActivity() {
                                                 if (currentWallet != null && account != null) key(currentWallet.publicKey, selected) {
                                                     val endpoint = FeedEndpoints.fromIntent(intent, selected)
                                                     nl.davidengelen.redsquare.feed.ProfileAvatarScope(currentWallet, selected, endpoint) {
-                                                        CompositionLocalProvider(LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, endpoint)) {
+                                                        CompositionLocalProvider(LocalPostNavigation provides postNavigation,
+                                                            LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, endpoint)) {
                                                             RegisteredIdentityScope(currentWallet, endpoint, selected,
                                                                 RegistryAuthority.directoryPeer(intent, endpoint).takeIf { nameDirectoryEnabled == true }) {
-                                                                nl.davidengelen.redsquare.spaces.SpacesScreen(account, Modifier.fillMaxSize(), chrome,
-                                                                    initialInvitation = pendingSpaceInvitation,
-                                                                    onInvitationConsumed = { pendingSpaceInvitation = null })
+                                                                spacesScreenStates.SaveableStateProvider("${currentWallet.publicKey}:${selected.id}") {
+                                                                    nl.davidengelen.redsquare.spaces.SpacesScreen(account, Modifier.fillMaxSize(), chrome,
+                                                                        initialInvitation = pendingSpaceInvitation,
+                                                                        onInvitationConsumed = { pendingSpaceInvitation = null })
+                                                                }
                                                             }
                                                         }
                                                     }

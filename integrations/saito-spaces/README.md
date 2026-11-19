@@ -1,0 +1,116 @@
+# Spaces service adapter
+
+Source-stage, opt-in integration for issue137. Nothing in this directory installs
+or activates a production node. The ordinary public app remains beta142.
+
+## Compatibility and data contract
+
+The Android client signs version1 `Spaces` events and fresh challenge/read RPCs.
+The authenticated Saito binary peer transports each exact original. This adapter
+uses the maintained `Transaction.serialize_to_web(app)` and callback object path;
+it does not construct a replacement user transaction. The JVM service verifies
+the actual wallet signature, recipients, scope, role, control order, epoch and
+operation identity. Only its signed durable receipt confirms acceptance.
+
+The existing node peer key is the service identity. The adapter advertises
+`spaces-v1` only after its local service reports that same key and schema3.
+Provisioning that signing identity is a separate operator-authorized secret
+handoff. Do not copy node options, keys or private backups into this repository,
+command arguments, CI artifacts or logs. No fallback/new wallet is generated.
+
+The service listens only on IPv4 loopback, with bounded HTTP workers, request
+sizes and read pages. The adapter accepts only the configured loopback HTTP
+origin, refuses redirects and bounds responses. Signed private reads use a
+60-second, caller/scope-bound, single-use challenge. Opening an invitation only
+permits its limited preview; explicit joining queues a request, not membership.
+
+SQLite stores signed controls, pending join requests, encrypted content and
+terminal rejection receipts. Private names, text and archive-key grants are
+ciphertext. Public routing metadata still includes identities, community/channel
+IDs, membership, timing, epochs, positions and payload sizes. This service does
+not receive device MLS state or private archive secrets. It does not store
+community files or implement a storage provider. Existing public/social payload
+limits are unchanged; only explicit Spaces service receipts/pages have their
+separate bounded allowance.
+
+A receipt is immutable and byte-exact on repeat delivery. A terminal rejection
+fences its original permanently, including after a later state change. Clients
+keep attempted originals until a verified acceptance or rejection. A rejected
+MLS proposal restores its persisted cancelled branch before a fresh proposal.
+An uncertain callback never authorizes an automatic new signed operation.
+
+## Executable rehearsal
+
+Primary source is Saito commit `0db0062d873369dc013046ed77c97410b5683b64`.
+`test/interop.cjs` verifies named source hashes and exact JS/WASM0.3.15 inputs
+before executing the actual transaction serializer, module template/dispatcher and
+server callback against the loopback JVM service. Its wallet getter, unavailable
+filesystem and unused browser boundaries are explicit adapters. This is not a
+complete node bootstrap. No compatibility with a different deployed runtime is
+claimed until its actual source/package observation and rehearsal are recorded.
+
+Run the bounded HTTP adapter contracts with Node24.13.0:
+
+```sh
+node --test integrations/saito-spaces/test/bridge.test.cjs
+./gradlew :core:test :spaces-service:test :spaces-service:writeHostFixtureClasspath
+```
+
+The test-only `SpacesInteropHost` takes a new owned fixture directory and uses
+only published unsafe test identities. It writes the actual original, loopback
+port and source-stage observations there. `interop.cjs` takes the verified
+primary-source directory, exact installed reference-runtime directory and that
+fixture directory. The JVM then verifies one durable creation, original bytes
+and the actual returned receipt. The separate `SpacesNativeHost` and
+`scripts/spaces-native-journey` exercise real Android Activity and distinct-PID
+recovery through an owned binary peer. No fixture enters the service or APK.
+
+## Deployment and migration, separate authorization required
+
+Before activation, verify the current Saito operations entry point and observed
+node runtime. Build this exact reviewed source using Java17. Prepare the generated
+`spaces-service` application distribution, these adapter files and a prior source
+release. Record source/artifact hashes and permissions. Do not infer node paths
+from an old transcript or restart unrelated modules.
+
+The service requires `SPACES_STATE_DIR`, `SPACES_IDENTITY_FILE` and
+`SPACES_LISTEN_PORT`. The identity file is owner-only flat JSON with version1,
+`publicKey` and `privateKey`, validated against its actual key pair. The state
+path must be on the operator-selected persistent disk, writable only by the
+service user, outside the node's web root. Verify the mount, free space, ownership,
+backup destination and service account before any live write.
+
+An isolated fresh start and a copy of existing state must pass before changing
+node module configuration. With writers stopped, copy the complete SQLite
+family consistently; retain the original and a streaming hash manifest. Never
+copy a live main database alone while WAL writes continue. Rehearse against that
+copy with the intended service identity. Schema1 adds content storage in2;
+schema2 adds rejection receipts and indexed recipient/kind metadata in3, in one
+atomic transaction. Metadata backfill is batched, preserving original/receipt
+bytes. Unsupported versions, unversioned data and a different service identity
+fail before a destructive schema or journal-mode change. Reopening3 is idempotent.
+
+Only after readiness, migration preservation and isolated signed write/read pass,
+configure `SAITO_SPACES_SERVICE_URL=http://127.0.0.1:<chosen-port>` for the node,
+install `spaces.js` plus `bridge.cjs` in its `mods/spaces/` directory and explicitly
+include the module through that runtime's maintained configuration procedure.
+Restarting/configuring the actual node requires the owner's separate approval.
+Use the canonical node readiness checks for HTTP, wallet and fresh chain state;
+a running PID or service readiness alone does not prove all three. Confirm actual
+peer advertisement and an authorized fresh write independently of readiness.
+
+## Write-preserving rollback
+
+Do not erase or replace accepted state to roll back source. Disable the optional
+Spaces advertisement/adapter using the maintained node deployment procedure;
+leave the current database and signing identity intact. An unavailable service
+keeps device conversations/drafts and original queues recoverable.
+
+A prior service may restart only when it supports the current schema and all
+accepted receipt/content formats. Schema2 binaries cannot reopen3. Prefer the
+previous compatible3 build or keep Spaces disabled while repairing it. Restoring
+a pre-migration database is a distinct recovery decision requiring reconciliation
+of every write accepted since that copy. The migration fixture verifies original
+bytes and receipts across migration and re-entry; it is not permission to replace
+live state. No database down-migration, automatic node activation, provider billing
+or community file hosting is performed by these sources.

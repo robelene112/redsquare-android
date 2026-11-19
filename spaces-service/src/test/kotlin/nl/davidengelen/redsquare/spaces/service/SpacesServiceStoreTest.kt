@@ -40,7 +40,7 @@ class SpacesServiceStoreTest {
             val body = com.google.gson.JsonParser.parseString(response.body()).asJsonObject
             assertEquals("spaces-v1", body.get("capability").asString)
             assertEquals(service.publicKey, body.get("service_key").asString)
-            assertEquals(2, body.get("schema").asInt)
+            assertEquals(3, body.get("schema").asInt)
             assertEquals("ready", body.get("state").asString)
             assertFalse(body.get("file_hosting").asBoolean)
         }

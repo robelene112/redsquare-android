@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "ticket": 137,
+  "scope": "focused actual Activity and distinct-process journey, not complete app regression or deployed-node acceptance",
+  "source": "exact checked-out Git SHA recorded by parent workflow and acceptance.json",
+  "sdks": [
+    29,
+    37
+  ],
+  "page_size": "actual image recorded by emulator-check",
+  "cases": [
+    {
+      "method": "SpacesJourneyTest#createInviteJoinReadAndCheckpointAnUncertainOriginal",
+      "outcome": "deliberately interrupted at observed durable checkpoint",
+      "timeout_seconds": 180
+    },
+    {
+      "method": "SpacesJourneyTest#coldReturnReconcilesTheSameOriginalAndKeepsNewWriting",
+      "outcome": "exactly one terminal native pass",
+      "timeout_seconds": 90
+    }
+  ],
+  "host_ready_seconds": 30,
+  "host_shutdown_seconds": 15,
+  "archive_seconds": 30,
+  "required": [
+    "actual native create, title drawer B, confirmed clipboard invitation",
+    "independent preview does not join, then actual admission and two-way encrypted messages",
+    "independently created community preview and explicit native join",
+    "pixel reading anchor after module return",
+    "draft saved through module return while original response is held",
+    "observed old PID, actual force-stop and disappearance, distinct cold PID",
+    "same original signature repeated, one received plaintext effect, new draft preserved",
+    "whole phase movies, all numeric checkpoint screenshots, raw interrupted and terminal logs",
+    "actual source/APK/device/runtime evidence from parent workflow"
+  ],
+  "native_terminal_passes": 1,
+  "deliberate_interruptions": 1,
+  "node_activation": false,
+  "public_transactions": false
+}

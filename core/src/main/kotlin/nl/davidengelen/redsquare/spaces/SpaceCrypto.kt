@@ -111,9 +111,15 @@ class SpaceCrypto private constructor(private val native: JsonObject, private va
         return next
     }
     fun publish(wallet: SaitoWallet, kind: String, operationId: String, controlId: String,
-        text: String, timestamp: Long): SaitoTransaction {
+        text: String, timestamp: Long): SaitoTransaction = publishRecord(wallet, kind, operationId, controlId, text, timestamp)
+
+    private fun publishRecord(wallet: SaitoWallet, kind: String, operationId: String, controlId: String,
+        text: String, timestamp: Long, recipient: String? = null): SaitoTransaction {
         require(text.isNotEmpty() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024 && kind.matches(Regex("[a-z][a-z-]{0,31}")))
-        val header = header(wallet, "content", operationId, controlId).apply { addProperty("content_kind", kind) }
+        val header = header(wallet, "content", operationId, controlId).apply {
+            addProperty("content_kind", kind)
+            recipient?.let { addProperty("recipient_credential", it) }
+        }
         val nonce = ByteArray(12).also(SecureRandom()::nextBytes)
         val cipher = Cipher.getInstance("AES/GCM/NoPadding").apply {
             init(Cipher.ENCRYPT_MODE, SecretKeySpec(requireNotNull(archiveKeys[epoch]), "AES"), GCMParameterSpec(128, nonce))
@@ -141,6 +147,30 @@ class SpaceCrypto private constructor(private val native: JsonObject, private va
         val transaction = SaitoTransaction.create(wallet, header, timestamp, listOf(requireNotNull(scope).serviceKey))
         return History(advance(response, scope), transaction, selected.getOrNull(128))
     }
+    /** Historical grants use the already established archive AEAD. Their
+     * wrapping key is retained independently of live MLS application ratchets,
+     * so another admission cannot make a durable grant unreadable. Exclude the
+     * wrapping epoch itself: the recipient already obtained that exporter. */
+    fun archiveHistory(wallet: SaitoWallet, target: String, operationId: String, controlId: String,
+        timestamp: Long, fromEpoch: Long = 0): History {
+        require(target in bindings && target != credential && fromEpoch >= 0)
+        val selected = archiveKeys.keys.filter { it >= fromEpoch && it < epoch }.sorted().take(129)
+        val payload = JsonObject().apply {
+            addProperty("version", 1); addProperty("kind", "history-keys")
+            addProperty("group", requireNotNull(scope).groupId); addProperty("target", target)
+            add("keys", JsonObject().apply { selected.take(128).forEach { addProperty(it.toString(), encode(requireNotNull(archiveKeys[it]))) } })
+        }
+        val original = publishRecord(wallet, "history-keys", operationId, controlId, payload.toString(), timestamp, target)
+        return History(this, original, selected.getOrNull(128))
+    }
+    fun acceptArchiveHistory(envelope: String): SpaceCrypto {
+        val signed = authenticated(envelope, "content")
+        require(signed.body.text("content_kind") == "history-keys" && signed.body.text("recipient_credential") == credential)
+        val grantEpoch = signed.body.number("epoch").also { require(it in 1..epoch) }
+        val payload = parse(read(envelope).text)
+        return SpaceCrypto(native, scope, Collections.unmodifiableMap(importHistory(payload, grantEpoch - 1)))
+    }
+
     fun acceptHistory(envelope: String): SpaceCrypto {
         val signed = authenticated(envelope, "history")
         require(signed.body.text("recipient_credential") == credential)
@@ -148,6 +178,11 @@ class SpaceCrypto private constructor(private val native: JsonObject, private va
         val sender = response.text("sender")
         require(sender in bindings && walletKey(sender) == signed.author)
         val payload = parse(response.text("text"))
+        val next = advance(response, scope, importHistory(payload, epoch))
+        require(next.bindings == bindings) { "A history grant cannot change membership" }
+        return next
+    }
+    private fun importHistory(payload: JsonObject, maximumEpoch: Long): MutableMap<Long, ByteArray> {
         require(payload.number("version") == 1L && payload.text("kind") == "history-keys" &&
             payload.text("group") == requireNotNull(scope).groupId && payload.text("target") == credential)
         val keys = payload.getAsJsonObject("keys")
@@ -156,14 +191,12 @@ class SpaceCrypto private constructor(private val native: JsonObject, private va
         for ((epochText, value) in keys.entrySet()) {
             require(epochText.matches(Regex("0|[1-9][0-9]{0,18}")) && value.isJsonPrimitive && value.asJsonPrimitive.isString)
             val oldEpoch = epochText.toLong()
-            require(oldEpoch in 0..epoch)
+            require(oldEpoch in 0..maximumEpoch)
             val key = decode(value.asString).also { require(it.size == 32) }
             restored[oldEpoch]?.let { known -> require(MessageDigest.isEqual(known, key)) { "Conflicting history key" } }
             restored[oldEpoch] = key
         }
-        val next = advance(response, scope, restored)
-        require(next.bindings == bindings) { "A history grant cannot change membership" }
-        return next
+        return restored
     }
     /** Secret bytes for the repository's authenticated at-rest transaction. */
     fun historyBackup(): ByteArray = SpaceHistoryKeys(walletKey(credential), requireNotNull(scope), archiveKeys).save()
@@ -236,9 +269,13 @@ class SpaceCrypto private constructor(private val native: JsonObject, private va
             body.number("epoch")
             return signed
         }
-        private fun archiveAad(scope: Scope, body: JsonObject, actor: String): ByteArray = listOf("SaitoSpacesRecord/v1", scope.groupId,
-            actor, body.text("operation_id"), body.text("control_id"), body.number("epoch").toString(), body.text("content_kind"))
-            .joinToString(":").toByteArray(Charsets.UTF_8)
+        private fun archiveAad(scope: Scope, body: JsonObject, actor: String): ByteArray {
+            val fields = listOf("SaitoSpacesRecord/v1", scope.groupId, actor, body.text("operation_id"),
+                body.text("control_id"), body.number("epoch").toString(), body.text("content_kind"))
+            // Ordinary archive ciphertext keeps its original AAD unchanged.
+            val target = if (body.text("content_kind") == "history-keys") listOf(body.text("recipient_credential")) else emptyList()
+            return (fields + target).joinToString(":").toByteArray(Charsets.UTF_8)
+        }
 
         private val ID = Regex("[0-9a-f]{64}")
         private val SIGNATURE = Regex("[0-9a-f]{128}")

@@ -31,7 +31,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val messages: List<SpaceClient.Message> = emptyList(), val draft: String = "",
         val invitation: SpaceClient.Invitation? = null, val preview: SpaceClient.InvitationPreview? = null,
         val problem: Problem? = null, val working: Boolean = false, val refreshing: Boolean = false,
-        val ready: Boolean = false)
+        val ready: Boolean = false, val savingNavigation: Boolean = false, val loadingChannel: Boolean = false, val hasEarlier: Boolean = false, val hasLater: Boolean = false, val scrollToMessage: String? = null)
     private val appContext = context.applicationContext
     private val scope = CoroutineScope(parent.coroutineContext + SupervisorJob(parent.coroutineContext[Job]) + Dispatchers.IO)
     private val mutable = MutableStateFlow(State())
@@ -42,8 +42,11 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val closed = AtomicBoolean()
     private val selection = AtomicLong()
     private val previews = AtomicLong()
+    private val historyWindows = ConcurrentHashMap<String, Long>()
     val ownerKey: String get() = wallet.publicKey
     private val draftVersions = ConcurrentHashMap<String, AtomicLong>()
+    private val dirtyDrafts = ConcurrentHashMap<String, String>()
+    private val navigationSaving = AtomicBoolean()
     @Volatile private var peer: SaitoPeer? = null
     @Volatile private var client: SpaceClient? = null
     private var local: AndroidSpaceClientStore? = null
@@ -142,11 +145,13 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val current = client ?: return@withLock
         val communities = current.communities()
         val selected = mutable.value.selected?.takeIf { id -> communities.any { it.id == id } }
-        val messages = selected?.let(current::timeline).orEmpty()
+        val window = selected?.let { current.historyWindow(it, historyWindows[it]) }
+        val messages = selected?.let { current.timeline(it, from = window?.from) }.orEmpty()
         val invitation = selected?.let(current::invitation)
         mutable.update { previous ->
             if (previous.selected != selected) previous.copy(communities = communities)
-            else previous.copy(communities = communities, messages = messages, invitation = invitation)
+            else previous.copy(communities = communities, messages = messages, invitation = invitation,
+                hasEarlier = window?.hasEarlier == true, hasLater = window?.hasLater == true)
         }
     }
 
@@ -161,29 +166,34 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         if (closed.get()) return
         val token = selection.incrementAndGet()
         val draftVersion = space?.let { draftVersions.getOrPut(it) { AtomicLong() }.get() }
-        mutable.update { it.copy(selected = space, messages = emptyList(), draft = "", invitation = null, problem = null) }
+        mutable.update { it.copy(selected = space, messages = emptyList(), draft = "", invitation = null, problem = null, loadingChannel = space != null, scrollToMessage = null) }
         scope.launch {
             try {
                 val current = client ?: return@launch
                 val (draft, messages) = localAccess.withLock {
-                    space?.let(current::draft).orEmpty() to space?.let(current::timeline).orEmpty()
+                    space?.let { dirtyDrafts[it] ?: current.draft(it) }.orEmpty() to space?.let { current.timeline(it, from = historyWindows[it]) }.orEmpty()
                 }
                 mutable.update { if (it.selected == space && selection.get() == token) it.copy(
                     draft = if (space == null || draftVersions[space]?.get() == draftVersion) draft else it.draft,
-                    messages = messages) else it }
+                    messages = messages, loadingChannel = false) else it }
                 publish(); wake.trySend(Unit)
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { mutable.update { it.copy(problem = Problem.SAVE) } }
+            catch (_: Exception) { mutable.update { if (it.selected == space && selection.get() == token)
+                it.copy(problem = Problem.SAVE, loadingChannel = false) else it } }
         }
     }
     fun editDraft(text: String) {
         val space = mutable.value.selected ?: return
-        if (closed.get()) return
+        if (closed.get() || navigationSaving.get()) return
+        dirtyDrafts[space] = text
         val version = draftVersions.getOrPut(space) { AtomicLong() }.incrementAndGet()
         mutable.update { it.copy(draft = text) }
         scope.launch {
             try { localAccess.withLock {
-                if (draftVersions[space]?.get() == version) client?.saveDraft(space, text)
+                if (draftVersions[space]?.get() == version) {
+                    requireNotNull(client).saveDraft(space, text)
+                    dirtyDrafts.remove(space, text)
+                }
             } }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutable.update { if (it.selected == space) it.copy(problem = Problem.SAVE) else it } }
@@ -194,22 +204,58 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val space = before.selected ?: return
         localAction {
             localAccess.withLock {
-                requireNotNull(client).send(space, before.draft)
+                val current = requireNotNull(client)
+                if (mutable.value.selected == space && mutable.value.draft == before.draft) current.saveDraft(space, before.draft)
+                val queued = current.send(space, before.draft)
+                historyWindows.remove(space)
                 mutable.update { if (it.selected == space && it.draft == before.draft) {
                     draftVersions.getOrPut(space) { AtomicLong() }.incrementAndGet()
-                    it.copy(draft = "")
-                } else it }
+                    dirtyDrafts.remove(space, before.draft)
+                    it.copy(draft = "", scrollToMessage = queued)
+                } else if (it.selected == space) it.copy(scrollToMessage = queued) else it }
             }
             publish(); wake.trySend(Unit)
+        }
+    }
+    fun consumeScrollTarget(message: String) {
+        mutable.update { if (it.scrollToMessage == message) it.copy(scrollToMessage = null) else it }
+    }
+    fun olderMessages() {
+        val space = mutable.value.selected ?: return
+        localAction(Problem.CONNECTION) { network.withLock {
+            val current = requireNotNull(client)
+            val before = current.historyWindow(space, historyWindows[space])
+            val start = (before.from - 50).coerceAtLeast(0)
+            while (current.historyWindow(space).loadedFrom > start) current.older(space)
+            historyWindows[space] = start
+            publish()
+        } }
+    }
+    fun latestMessages() {
+        val space = mutable.value.selected ?: return
+        historyWindows.remove(space)
+        scope.launch { publish() }
+    }
+    fun restoreRejectedDraft(messageId: String) {
+        val space = mutable.value.selected ?: return
+        localAction {
+            localAccess.withLock {
+                val current = requireNotNull(client)
+                check(current.draft(space).isEmpty() && mutable.value.draft.isEmpty() && dirtyDrafts[space].isNullOrEmpty())
+                val message = current.timeline(space).single { it.id == messageId && it.rejected }
+                val text = requireNotNull(message.text)
+                current.saveDraft(space, text)
+                if (mutable.value.selected == space) mutable.update { it.copy(draft = text) }
+            }
         }
     }
     fun create(name: String) = localAction {
         val space = localAccess.withLock { requireNotNull(client).create(name) }
         select(space); publish(); wake.trySend(Unit)
     }
-    fun invite() {
+    fun invite(days: Int = 7) {
         val space = mutable.value.selected ?: return
-        localAction { localAccess.withLock { requireNotNull(client).invite(space) }; publish(); wake.trySend(Unit) }
+        localAction { localAccess.withLock { requireNotNull(client).invite(space, days * 86_400_000L) }; publish(); wake.trySend(Unit) }
     }
     fun preview(link: String) {
         val token = previews.incrementAndGet()
@@ -234,7 +280,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     fun dismissPreview() { previews.incrementAndGet(); mutable.update { it.copy(preview = null) } }
     fun clearProblem() { mutable.update { it.copy(problem = null) } }
     private fun localAction(problem: Problem = Problem.SAVE, action: suspend () -> Unit) {
-        if (closed.get() || mutable.value.working || mutable.value.loading) return
+        if (closed.get() || navigationSaving.get() || mutable.value.working || mutable.value.loading) return
         mutable.update { it.copy(working = true, problem = null) }
         scope.launch {
             try { action() }
@@ -243,6 +289,37 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             finally { mutable.update { it.copy(working = false) } }
         }
     }
+    /** Match the existing application's guard: save and commit under one
+     * editing gate, before a wallet/node switch can retire this account. */
+    suspend fun guardNavigation(commit: suspend () -> Boolean): Boolean {
+        if (closed.get() || !navigationSaving.compareAndSet(false, true)) return false
+        mutable.update { it.copy(savingNavigation = true) }
+        try {
+            val saved = withContext(Dispatchers.IO) {
+                localAccess.withLock {
+                    try {
+                        val current = client
+                        if (current == null) dirtyDrafts.isEmpty()
+                        else {
+                            for ((space, text) in dirtyDrafts.entries.toList()) {
+                                current.saveDraft(space, text)
+                                dirtyDrafts.remove(space, text)
+                            }
+                            true
+                        }
+                    } catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { false }
+                }
+            }
+            if (!saved) { mutable.update { it.copy(problem = Problem.SAVE) }; return false }
+            currentCoroutineContext().ensureActive()
+            return commit()
+        } finally {
+            navigationSaving.set(false)
+            mutable.update { it.copy(savingNavigation = false) }
+        }
+    }
+
     fun close() {
         if (!closed.compareAndSet(false, true)) return
         scope.cancel(); wake.close(); peer?.close()
