@@ -71,7 +71,7 @@ internal data class StarterChannel(val id: Int, val name: String, val kind: Spac
             val fallbackName = stringResource(R.string.spaces_community)
             val previewName = name.trim().takeIf { it.isNotBlank() && it.toByteArray().size <= 256 } ?: fallbackName
             val preview = remember(previewName, image) { SpaceProfile(previewName, image = image) }
-            SpaceAvatar(preview, "new-community", account.ownerKey, account.backend, Modifier.size(64.dp))
+            SpaceAvatar(preview, "new-community", account.avatarImages, Modifier.size(64.dp))
             Column {
                 OutlinedButton(onClick = { picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) },
                     enabled = !preparing && !state.working, modifier = first.heightIn(min = 48.dp)) {

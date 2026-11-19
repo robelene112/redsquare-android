@@ -178,6 +178,16 @@ without scrolling its information sheet. The one-line correction scrolls to that
 existing action before the unchanged5s enabled tap; both review axes are clear.
 Original archives and failures remain. Fresh complete parents are still required.
 
+Both completec9dbc9f8 parents now succeed and pass the prospectivev3 archive
+assessor. Actual2199 movie frames are inspected: Android10 has no new finding;
+Android17 reveals one loaded-avatar placeholder flash during drawer remounts.
+That temporal observation keeps138 open despite the successful CLI outcomes.
+An account-owned bounded memory cache now supplies an already loaded image on
+the first remount frame, without main-thread decode/hash/IO or private image
+files. Scope retirement evicts it and rejects late writes. Source reviews are
+clear and actual production Kotlin compilation passes. Fresh whole native/frame
+regression remains pending.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.

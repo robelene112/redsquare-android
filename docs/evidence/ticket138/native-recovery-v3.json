@@ -98,5 +98,74 @@
     "wholeOutcome": "BothFAIL. Both actual2kill checkpoints/phase3terminal completed,3configprobesPASS/cleanup0, fullwidthcompact Resources/Members captured. Phase4line302 unchanged5s Close readiness fails because Info reopens at its scroll top with Close belowviewport.",
     "correction": "Physical performScrollTo on the actual existing Close action before its unchanged enabled5s tap. No application/goal/deadline change. Both source review axes0; fresh complete parents required.",
     "qualification": "Neither parent is accepted; no union of prefixes. V3 restores actual resource/raw state successfully, but complete frames/geometry/prototype/fresh whole acceptance remain."
+  },
+  "native14": {
+    "source": "c9dbc9f86fbc5c89b6aa46afe2f44b1b9b241775",
+    "wholeCli": "BothSUCCESS; prospectivev3actualarchiveassessorPASS on each complete original. Overall138UI notaccepted because of the observed avatar flash.",
+    "android10": {
+      "run": 44600275720,
+      "archiveSha256": "11da27a38a68f994116f45e3ce0b334479c14cee445a2223df7f94844589a274",
+      "pids": [
+        3287,
+        11519,
+        24812,
+        27718
+      ],
+      "movieFrames": [
+        222,
+        248,
+        405,
+        112
+      ],
+      "review": "Standards all987frames/63sheets +actualarchive/prototype,0newfindings."
+    },
+    "android17": {
+      "run": 44600280347,
+      "archiveSha256": "4b2d50a6e718e26121c24ffb96281a21287041ba16b1daa94d4c600306efc598",
+      "pids": [
+        3441,
+        5432,
+        5999,
+        6471
+      ],
+      "movieFrames": [
+        300,
+        316,
+        429,
+        167
+      ],
+      "review": "Spec all1212frames/77sheets +actualarchive/prototype; oneP2 imageflash. No furthernewfunctional/compactfinding."
+    },
+    "geometryQualification": "RootactualfullyvisibleexposedXMLdiagnostics231controls10/224controls17. Clippedscrollchildren do not establish undersized controls. Compact newSpaceschips48dp/resources56dp/invite53.5dp/memberrow95dp. ExistingChatnotificationoffer exports40dp visualbounds on10; expandedtouchareaunmeasured, notnewSpacescode, no universal48dp/wholeChat acceptance. Prototype comparison qualifieslight320 vsdark360/actualdata."
+  },
+  "avatarRetention": {
+    "adverse": {
+      "run": 44600280347,
+      "phase": 3,
+      "frames": [
+        324,
+        325,
+        329,
+        330
+      ],
+      "actualSeconds": [
+        54.594844,
+        54.627222,
+        55.263656
+      ],
+      "observation": "Previously displayed OpenReadingRoom andPrivateBuilders rasters revert to OR/PB initials on Lazy-row remount, then redraw. Same-row positions distinguish this from deliberate observer scrolling."
+    },
+    "correction": "Account-owned memory-only16MiB LRU, minimum256KiBcharge<=64entries, keys Space+exactimage source within fixed owner/backend scope. Lazy remount initializes from the already loaded raster synchronously; only missing images load/decode offmain. Retiringaccount evicts and rejects lateputs. No privateimage diskcache, generic feedloader, protocol or storage changes.",
+    "sourceReviews": {
+      "spec": 0,
+      "standards": 0
+    },
+    "verification": "Actual app Kotlin compilePASS; fresh whole native/frame regression pending.",
+    "compile": {
+      "exit": 0,
+      "task": ":app:compileDebugKotlin",
+      "logSha256": "b520ff9bc82947b8aed383db1750ce36cc4684d1db4dd126a414a30d01b3d033",
+      "qualification": "Actual production app Kotlin compile, not a native/frame pass. Core/service sources unchanged from exact313casefullPASS."
+    }
   }
 }

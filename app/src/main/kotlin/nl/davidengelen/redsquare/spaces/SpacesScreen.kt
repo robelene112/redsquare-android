@@ -164,7 +164,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     item { Text(stringResource(R.string.spaces_your_communities), style = MaterialTheme.typography.headlineSmall,
                         modifier = Modifier.semantics { heading() }) }
                     items(menuState.communities, key = { "space:${it.id}" }) { community ->
-                        SpaceCommunityRow(menuState.profiles[community.id] ?: SpaceProfile(community.name), community.id, account.ownerKey, account.backend,
+                        SpaceCommunityRow(menuState.profiles[community.id] ?: SpaceProfile(community.name), community.id, account.avatarImages,
                             summary = stringResource(if (community.id == menuState.selected) R.string.spaces_current_community else R.string.spaces_open_saved_channel),
                             selected = community.id == menuState.selected, hasUnread = community.hasUnread) { choose(community.id) }
                     }
@@ -376,7 +376,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 keyboardActions = KeyboardActions(onDone = { if (invitationText.isNotBlank() && !state.working) account.preview(invitationText.trim()) }))
             else Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-                    SpaceAvatar(preview.profile, preview.spaceId, account.ownerKey, account.backend, Modifier.size(56.dp))
+                    SpaceAvatar(preview.profile, preview.spaceId, account.avatarImages, Modifier.size(56.dp))
                     Text(preview.name, style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
                 }
                 if (preview.profile.description.isNotBlank()) Text(preview.profile.description)
@@ -413,7 +413,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     DesignSheet(informationOpen && selected != null, stringResource(R.string.spaces_information), { informationOpen = false }) { first ->
         if (selected != null && profile != null) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                SpaceAvatar(profile, selected.id, account.ownerKey, account.backend, Modifier.size(64.dp))
+                SpaceAvatar(profile, selected.id, account.avatarImages, Modifier.size(64.dp))
                 Text(profile.name, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
             }
             if (profile.description.isNotBlank()) Text(profile.description)

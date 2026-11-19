@@ -67,6 +67,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private fun State.target(): Target? = selected?.let { space -> selectedChannel?.let { Target(space, it) } }
     private val historyWindows = ConcurrentHashMap<Target, Long>()
     val ownerKey: String get() = wallet.publicKey
+    val avatarImages = SpaceAvatarImages(wallet.publicKey, backend)
     private val draftVersions = ConcurrentHashMap<Target, AtomicLong>()
     private val dirtyDrafts = ConcurrentHashMap<Target, String>()
     private data class SavedViewport(val anchor: SpaceClient.ReadingAnchor?)
@@ -638,6 +639,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
 
     fun close() {
         if (!closed.compareAndSet(false, true)) return
+        avatarImages.close()
         scope.cancel(); wake.close(); peer?.close()
         CoroutineScope(Dispatchers.IO).launch {
             scope.coroutineContext[Job]?.join()

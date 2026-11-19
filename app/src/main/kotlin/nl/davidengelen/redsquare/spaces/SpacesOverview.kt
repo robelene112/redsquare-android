@@ -16,8 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -29,8 +27,6 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import nl.davidengelen.redsquare.R
-import nl.davidengelen.redsquare.feed.PostImageLoader
-import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.ui.AppSpacing
 
 internal enum class SpacesTab { MY_SPACES, DISCOVER, ACTIVITY }
@@ -60,7 +56,7 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
                 if (state.communities.isNotEmpty()) item { SectionLabel(stringResource(R.string.spaces_your_communities)) }
                 items(state.communities, key = { it.id }) { community ->
                     val profile = state.profiles[community.id] ?: SpaceProfile(community.name)
-                    SpaceCommunityRow(profile, community.id, account.ownerKey, account.backend,
+                    SpaceCommunityRow(profile, community.id, account.avatarImages,
                         summary = stringResource(if (!community.joined) R.string.spaces_confirming_access else R.string.spaces_open_saved_channel),
                         hasUnread = community.hasUnread, enabled = !state.savingNavigation, onClick = { onOpen(community.id) })
                 }
@@ -108,7 +104,7 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
                     TextButton(onClick = { account.discover(query) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_retry)) }
                 }
                 items(state.directoryItems, key = { it.id }) { community ->
-                    SpaceCommunityRow(community.profile, community.id, account.ownerKey, account.backend,
+                    SpaceCommunityRow(community.profile, community.id, account.avatarImages,
                         summary = community.profile.description.ifBlank { stringResource(R.string.spaces_public_readable) },
                         enabled = !state.working, onClick = { account.openPublic(community.id) })
                 }
@@ -126,7 +122,7 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
     }
 }
 
-@Composable internal fun SpaceCommunityRow(profile: SpaceProfile, id: String, owner: String, backend: SaitoBackend,
+@Composable internal fun SpaceCommunityRow(profile: SpaceProfile, id: String, images: SpaceAvatarImages,
     summary: String, hasUnread: Boolean? = null, selected: Boolean = false, enabled: Boolean = true, onClick: () -> Unit) {
     val unreadLabel = stringResource(R.string.spaces_unread_activity)
     val openLabel = stringResource(R.string.spaces_open_community, profile.name)
@@ -134,7 +130,7 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
         color = if (selected) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceContainerLow,
         modifier = Modifier.fillMaxWidth().semantics { contentDescription = openLabel }) {
         Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-            SpaceAvatar(profile, id, owner, backend, Modifier.size(48.dp))
+            SpaceAvatar(profile, id, images, Modifier.size(48.dp))
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(profile.name, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
                 Text(summary, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -147,11 +143,11 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
     }
 }
 
-@Composable internal fun SpaceAvatar(profile: SpaceProfile, id: String, owner: String, backend: SaitoBackend, modifier: Modifier = Modifier) {
+@Composable internal fun SpaceAvatar(profile: SpaceProfile, id: String, images: SpaceAvatarImages, modifier: Modifier = Modifier) {
     val source = profile.image
-    var image by remember(source, id, owner, backend) { mutableStateOf<ImageBitmap?>(null) }
-    LaunchedEffect(source, id, owner, backend) {
-        if (source != null) try { image = PostImageLoader.load(source, backend, "$owner:space:$id").asImageBitmap() }
+    var image by remember(source, id, images) { mutableStateOf(source?.let { images.loaded(id, it) }) }
+    LaunchedEffect(source, id, images) {
+        if (source != null && image == null) try { image = images.load(id, source) }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { image = null }
     }
