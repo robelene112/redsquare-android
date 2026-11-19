@@ -112,6 +112,18 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(0, bindings,
                         generation, position, visibility, profile, metadata, adminPostsOnly))))
             }
+            "edit-channel" -> {
+                require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+                require(event.body.text("control_id") == current.controlId)
+                val channel = event.body.text("channel_id")
+                val old = requireNotNull(current.channels[channel])
+                require(old.visibility == SpaceVisibility.PUBLIC)
+                val value = event.body.get("channel_profile").also { require(it != null && it.isJsonObject) }
+                val profile = SpaceChannelProfile.fromJson(value.asJsonObject)
+                require(profile.kind == requireNotNull(old.profile).kind) { "Metadata editing cannot change the channel kind" }
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    channels = Collections.unmodifiableMap(current.channels + (channel to old.copy(profile = profile))))
+            }
             "set-role" -> {
                 require(event.author == current.owner && event.body.text("control_id") == current.controlId)
                 val member = event.body.text("member")

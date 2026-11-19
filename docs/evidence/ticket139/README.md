@@ -62,3 +62,12 @@ all three host modes. The initial Android test compilation error and its correct
 remain recorded; corrected main/instrumentation compilation passes. Actual native execution and complete visual acceptance are pending.
 Both APK files will be retained for actual-byte verification. This is not complete139
 acceptance or a beta update.
+
+The [public-channel metadata boundary](public-channel-edit.json) adds authenticated
+owner/admin changes to an existing public channel's name/category, keeping its kind
+and identity. Two independent clients retain history and drafts; accepted metadata
+replaces cached labels and stale/duplicate deliveries converge. Missing/nonobject
+profiles receive stable rejections without blocking valid writing. Three original
+runtime failures and their subsequent checks are retained; the latest two SQLite
+cases and both source review axes pass. The edit API/UI, category management and
+remaining139 scope are pending. No beta or production node/provider changes occurred.

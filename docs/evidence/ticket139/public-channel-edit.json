@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "ticket": 139,
+  "status": "Partial public-channel metadata receiving boundary; API/UI and remaining139 requirements pending",
+  "base": "04dbabbdb88c6f42881fa4d8e4ceb23c60ff750a",
+  "sourceFiles": {
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt": "e59064bd4b71d91114b9d036fb7c0d4e3e0c50029e5d03e00f4ae54d1feaf8a3",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "41f8c609c54b737c193a2d4f6e9a6b15a56ddee775710e4a77f6b06ffc12d2f6",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceChannelsTest.kt": "d97704358faad6f7e618bc7df10f255125c85e9932c681ef31fe635aeb53613d"
+  },
+  "runtimeObservations": [
+    {
+      "originals": "139-channel-edit-red-originals",
+      "tests": 1,
+      "failures": 1,
+      "seconds": 72,
+      "result": "Owner publicedit rejected as unsupportedcontrol."
+    },
+    {
+      "originals": "139-channel-edit-cache-red-originals",
+      "tests": 1,
+      "failures": 1,
+      "seconds": 139,
+      "result": "Service accepted edit but client rejected unsupportedcommunitycontrol. This is NOT an observed cache-label failure."
+    },
+    {
+      "originals": "139-channel-edit-green-originals",
+      "tests": 1,
+      "failures": 0,
+      "seconds": 138,
+      "result": "Actualtwo-clientpublicedit includingcachedlabel/id/history/draft/permissions/duplicate/staleconvergence passes."
+    },
+    {
+      "originals": "139-channel-edit-invalid-red-originals",
+      "tests": 2,
+      "failures": 1,
+      "seconds": 72,
+      "result": "Missingprofile caused realNPE; existingeditcasepassed. Guard mustproduce durable rejection."
+    },
+    {
+      "originals": "139-channel-edit-invalid-green-originals",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 142,
+      "result": "Missing/nonobjectprofiledurablyrejected, validqueuedwritingretained; independenteditcasealso passes."
+    }
+  ],
+  "externalRoot": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation",
+  "behavior": "Signedcurrent-headpublicedit accepted onlyfromowner/admin; existingchannelkind fixed. Currentpublicjournalmetadata wins overolderpresentationcache. Role/conflict/duplicate handling andchannelid/history/draft isolation remain.",
+  "qualification": "No editAPI/UI, independentcategorymanagement, privateACL/visibility/keys/ownership/dissolve orwhole139acceptance. Lastwhole244/79 CI at04dbabbpasseddevelopmentchecks butfailednativeInfoobserver; newpublicedit2cases aretargetedcurrent-sourcechecks. Freshwhole parents required. Beta142unchanged, no production/node/provider/public/financial/filehostingactivation.",
+  "sourceReviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-channel-edit-spec-review.txt",
+      "sha256": "1b46b34f675af8d2691dfa4683d230aabda65a046502ad8873d841d34bbc2576"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-channel-edit-standards-review.txt",
+      "sha256": "9288cf5f6ca9ee84d497d71b42d45354a0eb7fb2f0c198d71b28d6d357daaf8a"
+    }
+  }
+}

@@ -1131,7 +1131,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                         }
                         "archive-channel" -> recordArchiveResult(space, state, original, ChangeStatus.ACCEPTED)
                         "set-role" -> recordRoleResult(state, original, ChangeStatus.ACCEPTED)
-                        "invite" -> Unit
+                        "invite", "edit-channel" -> Unit
                         "revoke-invite" -> {
                             if (state.get("revoking_invitation")?.asString == original.body.text("invite_id")) state.remove("revoking_invitation")
                             val link = state.get("invitation")?.asString
@@ -1365,6 +1365,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
      * General archive keys may arrive only after the control page is committed. */
     private fun SpaceClientStore.Transaction.channelProfile(space: String, channel: String, parent: JsonObject,
         data: JsonObject, record: SpaceChannelRecord): SpaceChannelProfile? {
+        record.profile?.let { return it }
         data.getAsJsonObject("channel_profile")?.let { return SpaceChannelProfile.fromJson(it) }
         val profile = record.profile ?: record.metadata?.takeIf { parent.get("joined").asBoolean }?.let { encoded ->
             val envelope = decode(encoded).toString(Charsets.UTF_8)

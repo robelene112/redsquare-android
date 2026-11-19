@@ -17,6 +17,10 @@ reviews are clear after a hidden-local-error P2 fix. Actual native/error/geometr
 verification is now implemented as a separate prospective management journey.
 Its three actual host process cases pass after correcting a missing fixture child
 read; Android execution and the remaining139 scope are pending. See [the current139 packet](evidence/ticket139/README.md).
+Public-channel name/category receiving changes also pass two independent SQLite
+cases and both source review axes; the edit API/UI and remaining governance are
+pending. First native management parents failed on an Info-button observer selector,
+with complete originals retained and an unchanged-goal correction under review.
 Keep the sequential139–147 authorization and separate release/production gates
 below. Ordinary beta142 remains unchanged.
 
