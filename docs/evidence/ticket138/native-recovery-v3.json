@@ -227,5 +227,34 @@
       "seconds": 68,
       "logSha256": "f27d98fac2bfce710ff954ba1becacf7ac9138c159d015ecf644213061c48da1"
     }
+  },
+  "native16": {
+    "source": "51dac3c6d1fd21092c26a55b3921caf144adb15c",
+    "android17": {
+      "run": 44612699802,
+      "outcome": "SUCCESS plus frozen discovery-v4 assessment PASS",
+      "archiveSha256": "be5cb4804a7258d4788c571ba81f03532dca696eb455e130365ca6eebdb50358",
+      "frames": [
+        291,
+        312,
+        432,
+        172
+      ],
+      "review": "Fresh Spec inspected all1207 frames/77sheets, originals and prototype B; zero findings. Cold public snapshot armed=true/observed=false proves cached reading before a fresh public read reached the barrier, not entered-callback completion."
+    },
+    "android10": {
+      "run": 44612693838,
+      "outcome": "Environment FAIL before any acceptance case",
+      "archiveSha256": "1c9d4b848ac34e4c651de989016e193312bd1ee12e1c9997c48b1c3611cab9cf",
+      "reason": "Actual16MiB versus declared512MiB on three cold boots; no threshold relaxed."
+    },
+    "android10FreshPool": {
+      "run": 44615048225,
+      "runner": "ubuntu-22.04",
+      "outcome": "Whole FAIL during final evidence inventory after all four native phases and cleanup0",
+      "archiveSha256": "57be681e2f0a3c5bf8338d12a82ceb97090f542fc58057340f937da94ad1c1c1",
+      "reason": "Python3.10 lacks hashlib.file_digest. No passing prefix substitutes for a fresh whole run."
+    },
+    "correction": "Only stream the existing SHA256 inventory in1MiB chunks using the long-supported hashlib interface. Exact new source matches independent sha256sum for all199 actual original files. Product, tests, goals, assertions and deadlines unchanged. Fresh whole Android10 remains required; reviewed Android17 can be retained only by exact committed source bridge."
   }
 }
