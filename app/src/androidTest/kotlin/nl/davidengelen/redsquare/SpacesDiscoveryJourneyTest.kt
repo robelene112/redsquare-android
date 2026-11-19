@@ -281,62 +281,38 @@ class SpacesDiscoveryJourneyTest {
     }
 
     @Test fun compactLargeTypeKeepsRealCommunityAndCreationControlsReachable() {
-        fun override(command: String) = device.executeShellCommand("wm $command").lineSequence()
-            .firstOrNull { it.startsWith("Override ") }?.substringAfter(": ")?.trim()
-        val size = override("size"); val density = override("density")
-        val font = device.executeShellCommand("settings get system font_scale").trim()
-        var primary: Throwable? = null
-        try {
-            device.executeShellCommand("wm size 720x1280")
-            device.executeShellCommand("wm density 320")
-            device.executeShellCommand("settings put system font_scale 2.0")
-            launch().use { withFailureCapture({ capture("compact-failure") }) {
-                switchModule("Red Square", "Spaces")
-                assertEquals(2f, context.resources.configuration.fontScale, .01f)
-                assertTrue(context.resources.configuration.screenWidthDp in 320..360)
-                waitText("YOUR COMMUNITIES")
-                capture("22-compact-large-type-overview")
-                openRow("Native Created Space")
-                ui.onNodeWithContentDescription("Switch Space or channel").clickReady()
-                drawerList().performScrollToNode(hasText("resources"))
-                ui.onNodeWithText("resources").assertIsDisplayed()
-                capture("23-compact-large-type-drawer-b")
-                device.pressBack()
-                ui.onNode(hasText("Community information") and hasClickAction() and onScreen).clickReady()
-                ui.onNode(hasText("Members") and hasClickAction()).performScrollTo().clickReady()
-                waitText("Owner", 5_000)
-                capture("24-compact-large-type-members")
-                device.pressBack()
-                ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).clickReady()
-                ui.onNode(hasText("Back to your communities") and hasClickAction() and onScreen).clickReady()
-                overview().performScrollToNode(hasText("Create a Space") and hasClickAction())
-                ui.onNode(hasText("Create a Space") and hasClickAction()).clickReady(15_000)
-                ui.onNodeWithText("Space name").performScrollTo().assertIsDisplayed()
-                capture("25-compact-large-type-creation")
-                ui.onNode(hasText("Public Space") and hasClickAction()).performScrollTo().assertIsDisplayed()
-                capture("26-compact-large-type-privacy")
-                device.pressBack()
-                evidence.resolve("compact-completed.json").writeText(JsonObject().apply {
-                    addProperty("pid", Process.myPid()); addProperty("fontScale", context.resources.configuration.fontScale)
-                    addProperty("screenWidthDp", context.resources.configuration.screenWidthDp)
-                }.toString())
-            } }
-        } catch (failure: Throwable) { primary = failure; throw failure }
-        finally {
-            cleanupAfterTest(primary,
-                {
-                    device.executeShellCommand(if (font == "null") "settings delete system font_scale" else "settings put system font_scale $font")
-                    assertEquals("Original system font setting restored", font, device.executeShellCommand("settings get system font_scale").trim())
-                },
-                {
-                    device.executeShellCommand("wm size ${size ?: "reset"}")
-                    assertEquals("Original display size override restored", size, override("size"))
-                },
-                {
-                    device.executeShellCommand("wm density ${density ?: "reset"}")
-                    assertEquals("Original display density override restored", density, override("density"))
-                })
-        }
+        launch().use { withFailureCapture({ capture("compact-failure") }) {
+            switchModule("Red Square", "Spaces")
+            assertEquals(2f, context.resources.configuration.fontScale, .01f)
+            assertTrue(context.resources.configuration.screenWidthDp in 320..360)
+            waitText("YOUR COMMUNITIES")
+            capture("22-compact-large-type-overview")
+            openRow("Native Created Space")
+            ui.onNodeWithContentDescription("Switch Space or channel").clickReady()
+            waitForDrawerItem("resources")
+            drawerList().performScrollToNode(hasText("resources"))
+            ui.onNodeWithText("resources").assertIsDisplayed()
+            capture("23-compact-large-type-drawer-b")
+            device.pressBack()
+            ui.onNode(hasText("Community information") and hasClickAction() and onScreen).clickReady()
+            ui.onNode(hasText("Members") and hasClickAction()).performScrollTo().clickReady()
+            waitText("Owner", 5_000)
+            capture("24-compact-large-type-members")
+            device.pressBack()
+            ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).clickReady()
+            ui.onNode(hasText("Back to your communities") and hasClickAction() and onScreen).clickReady()
+            overview().performScrollToNode(hasText("Create a Space") and hasClickAction())
+            ui.onNode(hasText("Create a Space") and hasClickAction()).clickReady(15_000)
+            ui.onNodeWithText("Space name").performScrollTo().assertIsDisplayed()
+            capture("25-compact-large-type-creation")
+            ui.onNode(hasText("Public Space") and hasClickAction()).performScrollTo().assertIsDisplayed()
+            capture("26-compact-large-type-privacy")
+            device.pressBack()
+            evidence.resolve("compact-completed.json").writeText(JsonObject().apply {
+                addProperty("pid", Process.myPid()); addProperty("fontScale", context.resources.configuration.fontScale)
+                addProperty("screenWidthDp", context.resources.configuration.screenWidthDp)
+            }.toString())
+        } }
     }
 
     private fun drawerList() = ui.onNode(hasScrollToNodeAction() and hasAnyAncestor(

@@ -148,6 +148,28 @@ goal, while the corrected301d parents observe recovery. Original source bindings
 archives and component reviews are retained and qualified separately from whole
 acceptance. No whole138 native pass is established yet.
 
+The [next recovery increment](native-recovery-v3.json) retains both failed whole
+parents at0b3328. Android10 completes phase3, then searches the compact drawer
+before its received inventory; Android17 exceeds the unchanged public-read goal.
+The latter spends almost ten seconds processing an already received29-item page.
+Page-local reuse now avoids repeatedly decrypting/verifying the same immutable
+control history while retaining each content receipt's complete verification.
+
+Full source review also finds a reachable private-history defect. Fifty actual
+admissions leave a cold member's recent page containing only key grants, hiding
+Earlier despite an available message. An actual81.521s RED and80.273s JUnit GREEN
+verify reachability, cold restoration, exact original/author/decryption and draft
+preservation. The GREEN command exits143; only its completed JUnit case is claimed.
+Both corrective source axes are clear; complete affected checks remain pending.
+
+All90 compact-phase movie frames are inspected and show a cropped projection
+after display resizing inside the running recorder. Discovery-v3 moves setup
+before recording and checks baseline/prepared/restored actual Android resources.
+It retains every native goal, uses the required320dp/200percent worst case, and
+restores each setting independently after recordings/native archives are kept.
+The restored probe is separate post-archive evidence. Source reviews are clear;
+fresh whole native, geometry, complete-frame and prototype checks remain required.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.

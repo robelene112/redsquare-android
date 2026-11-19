@@ -3,6 +3,8 @@
 import hashlib
 import json
 import os
+import re
+import struct
 from pathlib import Path
 import subprocess
 import sys
@@ -42,6 +44,71 @@ def instrument(method, filename, peer, control):
 control_port = None
 movies = []
 movie_owners = {}
+viewport_original = None
+
+def viewport_observation(stage, expected=None):
+    args = ['shell', 'am', 'instrument', '-w', '-r', '-e', 'class',
+        'nl.davidengelen.redsquare.SpacesViewportConfigurationTest#observeOwnedConfiguration',
+        '-e', 'spacesViewportStage', stage]
+    for name, value in (expected or {}).items():
+        args += ['-e', name, str(value)]
+    observed = adb(*args, runner, timeout=30, check=False)
+    text = observed.stdout.decode(errors='replace')
+    (evidence / f'viewport-{stage}-probe.txt').write_bytes(observed.stdout + observed.stderr)
+    if observed.returncode or len(re.findall(r'^OK \(1 test\)\s*$', text, re.M)) != 1:
+        raise RuntimeError(f'Actual viewport {stage} resource probe failed')
+    value = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/viewport-{stage}.json').stdout)
+    (evidence / f'viewport-{stage}-resources.json').write_text(json.dumps(value, indent=2))
+    return value
+
+def viewport_override(kind):
+    text = adb('shell', 'wm', kind).stdout.decode().strip()
+    pattern = r'[0-9]+x[0-9]+' if kind == 'size' else r'[0-9]+'
+    physical = re.findall(r'Physical ' + kind + ': (' + pattern + ')', text)
+    override = re.findall(r'Override ' + kind + ': (' + pattern + ')', text)
+    if len(physical) != 1 or len(override) > 1:
+        raise RuntimeError('Unrecognized actual viewport setting')
+    return {'physical': physical[0], 'override': override[0] if override else None}
+
+def prepare_viewport():
+    global viewport_original
+    # Capture every original before the first mutation. Separate resource probes
+    # observe the actual Android configuration, not a shell command's intent.
+    viewport_original = {'size': viewport_override('size'), 'density': viewport_override('density'),
+        'fontSetting': adb('shell', 'settings', 'get', 'system', 'font_scale').stdout.decode().strip()}
+    if not re.fullmatch(r'null|[0-9]+(?:\.[0-9]+)?', viewport_original['fontSetting']):
+        raise RuntimeError('Unrecognized original font setting')
+    (evidence / 'viewport-original.json').write_text(json.dumps(viewport_original, indent=2))
+    viewport_original['resources'] = viewport_observation('baseline')
+    (evidence / 'viewport-original.json').write_text(json.dumps(viewport_original, indent=2))
+    adb('shell', 'am', 'force-stop', pkg)
+    adb('shell', 'wm', 'size', '640x1280')
+    adb('shell', 'wm', 'density', '320')
+    adb('shell', 'settings', 'put', 'system', 'font_scale', '2.0')
+    viewport_observation('prepared', {'spacesExpectedFont': 2.0, 'spacesExpectedWidth': 320, 'spacesExpectedDensity': 320})
+    if viewport_override('size')['override'] != '640x1280' or viewport_override('density')['override'] != '320':
+        raise RuntimeError('Owned compact viewport did not apply')
+    deadline = time.monotonic() + 10
+    while True:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0: raise RuntimeError('Compact compositor dimensions did not settle within10s')
+        png = adb('exec-out', 'screencap', '-p', timeout=min(5, remaining)).stdout
+        (evidence / 'viewport-prepared.png').write_bytes(png)
+        if png.startswith(b'\x89PNG\r\n\x1a\n') and struct.unpack('>II', png[16:24]) == (640, 1280): break
+        time.sleep(.05)
+
+def verify_restored_viewport():
+    original = viewport_original
+    resources = original['resources']
+    observed = viewport_observation('restored', {'spacesExpectedFont': resources['fontScale'],
+        'spacesExpectedWidth': resources['screenWidthDp'], 'spacesExpectedDensity': resources['densityDpi']})
+    size, density = viewport_override('size'), viewport_override('density')
+    implicit = (resources['sdk'] == 29 and original['fontSetting'] == 'null' and resources['fontScale'] == 1.0 and observed['fontSetting'] == '1.0')
+    result = {'size': size, 'density': density, 'fontSetting': observed['fontSetting'], 'implicitAndroid10Default': implicit}
+    (evidence / 'viewport-restoration.json').write_text(json.dumps(result, indent=2))
+    if size != original['size'] or density != original['density'] or not (observed['fontSetting'] == original['fontSetting'] or implicit):
+        raise RuntimeError('Original viewport configuration was not restored')
+
 try:
     serial = adb('get-serialno').stdout.decode().strip()
     if not serial.startswith('emulator-'):
@@ -146,12 +213,14 @@ try:
             ('coldMemberReturnCreatesAndReviewsInvitationsAndReadsUnlistedLinks', None),
             ('compactLargeTypeKeepsRealCommunityAndCreationControlsReachable', None),
         ]
-        (evidence / 'frozen-goals.json').write_text(json.dumps({'version': 2, 'phases': phases,
+        (evidence / 'frozen-goals.json').write_text(json.dumps({'version': 3, 'phases': phases,
             'phaseSeconds': 180, 'checkpointObservationSeconds': .25, 'pixelTolerance': 1,
             'peerReadRecovery': {'droppedReplies': 1, 'peerDeadlineSeconds': 12, 'freshReadSeconds': 15, 'sameProcess': True},
+            'viewport': {'widthDp': 320, 'fontScale': 2.0, 'densityDpi': 320, 'resourceProbes': 3},
             'productionNodeActivated': False, 'ordinaryBetaChanged': False}, indent=2))
         pids = []
         for number, (method, expected_phase) in enumerate(phases, 1):
+            if number == 4: prepare_viewport()
             record(number)
             native = instrument(method, f'phase-{number}.txt', peer_port, control_port)
             if expected_phase:
@@ -299,6 +368,17 @@ finally:
         (evidence / 'native-evidence-capture.json').write_text(json.dumps({'exit': capture.returncode}))
         if capture.returncode: raise RuntimeError('Native evidence archive failed')
     cleanup('native-archive', archive)
+    # Resizing a running recorder crops its projection. Restore only after all
+    # recordings and native originals have been stopped, pulled and retained.
+    if viewport_original is not None:
+        cleanup('restore-viewport-size', lambda: adb('shell', 'wm', 'size', viewport_original['size']['override'] or 'reset'))
+        cleanup('restore-viewport-density', lambda: adb('shell', 'wm', 'density', viewport_original['density']['override'] or 'reset'))
+        def restore_font():
+            font = viewport_original['fontSetting']
+            adb('shell', 'settings', 'delete', 'system', 'font_scale') if font == 'null' else adb('shell', 'settings', 'put', 'system', 'font_scale', font)
+        cleanup('restore-viewport-font', restore_font)
+        cleanup('verify-restored-viewport', verify_restored_viewport)
+        cleanup('stop-viewport-probe', lambda: adb('shell', 'am', 'force-stop', pkg))
     if control_port and host.poll() is None:
         cleanup('stop-owned-host', lambda: command(control_port, 'stop'))
     for process, log in reversed(children):

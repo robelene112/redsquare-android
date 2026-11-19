@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "failedParents": {
+    "source": "0b3328bf021475cce3553cc081c4e58af4d1bf50",
+    "android10": {
+      "run": 44592204063,
+      "archiveSha256": "f7f669ac3f1438fc48cb2c498ab054a45f7b80fa9dcc2e6a40c59e7013c1a5ae",
+      "outcome": "FAIL",
+      "observed": "Two actual process-kill checkpoints and terminal phase3 PASS67.941s. Phase4 immediate Resources lookup precedes inventory readiness. Suppressed cleanup rawfontnull becomes1.0 on Android10."
+    },
+    "android17": {
+      "run": 44592208136,
+      "archiveSha256": "970aa882921980798491c3121ce4675ac6deb358a3ad6c3952600892d44a6f84",
+      "outcome": "FAIL",
+      "observed": "Phase1 unchanged15s public content goal fails; last signed page response19:02:25.900, projection29messages19:02:35.801 justafterdeadline. No accepted prefix."
+    }
+  },
+  "history": {
+    "source": "ce4e16544",
+    "boundary": "Actual SQLite service and50 independently signed private MLS admissions; cold last member, no fabricated content rows.",
+    "red": {
+      "tests": 1,
+      "failures": 1,
+      "seconds": 81.521,
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-key-only-history-red-originals"
+    },
+    "green": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 80.273,
+      "commandExit": 143,
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-key-only-history-green-originals",
+      "qualification": "Actual complete JUnit case, not a successful whole Gradle invocation. No build container remains."
+    },
+    "behavior": "Default view starts at the actual loaded boundary even when recent positions contain only grants. Earlier action remains reachable through cold restoration; original ID/author/plaintext decrypt and independent draft are preserved. Explicit windows/anchors unchanged. Empty copy invites checking history without promising older messages.",
+    "reviews": {
+      "initialFullSpec": 1,
+      "initialFullStandards": 0,
+      "historyCorrectedStandards": 0,
+      "historyInitialCopySpec": 1,
+      "historyFinalSpec": 0
+    }
+  },
+  "pageAuthority": {
+    "change": "Reuse authenticated immutable control authority only inside a bounded content page. Every receipt/original/signature/Space/channel/permission/epoch check and atomic cursor mutation remains. No persistent cache, protocol or store change.",
+    "reviews": {
+      "spec": 0,
+      "standards": 0
+    },
+    "verification": "Complete affected contracts and fresh native15s goal pending."
+  },
+  "viewport": {
+    "adverseFrames": {
+      "parent": 44592204063,
+      "phase": 4,
+      "frames": 90,
+      "sheets": 6,
+      "allInspectedBy": "root",
+      "result": "Changing display dimensions after recorder start crops the recording projection; PNG also has partial rendering. No geometry acceptance."
+    },
+    "change": "Discovery-v3 prepares640x1280/density320/font2 before recorder4. Separate baseline/prepared/restored real resource probes record actual config. Native4 preserves actualfont2 and width checks plus received Resources readiness. Snapshot every original before mutation; stop/pull movies and archive native originals before three independent restores. Post-archive restored probe is separate root evidence. Narrow API29 implicitnull->1 only when original effectivefont1. Cleanup errors fail acceptance.",
+    "reviews": {
+      "spec": 0,
+      "standards": 0
+    },
+    "unchangedGoals": "Four native phases180s, held read10s, fresh read15s, action/modal5s, pixel1, actual2kills/independentchild and peer recovery. Fixed320dp is the existing mandatory worst case.",
+    "verification": "Fresh complete v3 native/frame/prototype evidence pending."
+  },
+  "acceptance": "Whole138 remains open. No combined prefixes, public beta142 changes or production node/provider activation."
+}

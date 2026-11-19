@@ -736,7 +736,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
     }
 
-    private suspend fun ensureAuthorization(space: String, envelope: String, expectedChannel: String) {
+    private suspend fun ensureAuthorization(space: String, envelope: String, expectedChannel: String,
+        pageControls: MutableMap<String, SpaceJournal>? = null) {
         val signed = SaitoEnvelope.decode(envelope)
         require(signed.author == service && signed.body.text("module") == "Spaces" && signed.body.number("version") == 1L &&
             signed.body.text("request") == "receipt" && signed.body.text("space_id") == space && signed.body.text("stream") == "content")
@@ -745,7 +746,14 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(original.body.text("space_id") == space && original.body.text("channel_id") == channel &&
             channel == expectedChannel) { "Community content belongs to a different channel" }
         val control = signed.body.get("authorized_control")?.asString ?: original.body.text("control_id")
-        if (store.transaction { journal(space, through = control).snapshot.controlId != control }) syncControls(space)
+        if (pageControls?.containsKey(control) == true) return
+        var authority = store.transaction { journal(space, through = control) }
+        if (authority.snapshot.controlId != control) {
+            syncControls(space)
+            authority = store.transaction { journal(space, through = control) }
+        }
+        require(authority.snapshot.controlId == control)
+        pageControls?.put(control, authority)
     }
 
     private suspend fun contentPage(space: String, cursor: Long, until: Long? = null, channel: String): Long {
@@ -756,13 +764,17 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val selected = result.getAsJsonArray("items").map { it.asString }.takeWhile {
             until == null || SaitoEnvelope.decode(it).body.number("position") < until
         }
-        for (item in selected) ensureAuthorization(space, item, channel)
+        // Accepted control history is immutable. Reuse its verified authority
+        // only within this bounded page; each receipt and original still has
+        // its own signature, Space/channel and content permission checks.
+        val pageControls = mutableMapOf<String, SpaceJournal>()
+        for (item in selected) ensureAuthorization(space, item, channel, pageControls)
         return store.transaction {
             owned()
             var next = cursor
             for (item in selected) {
                 require(SaitoEnvelope.decode(item).body.number("position") == next)
-                accept(space, item); next = Math.addExact(next, 1)
+                accept(space, item, pageControls); next = Math.addExact(next, 1)
             }
             require(next == minOf(result.number("next_cursor"), until ?: Long.MAX_VALUE))
             next
@@ -986,7 +998,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         return result
     }
 
-    private fun SpaceClientStore.Transaction.accept(space: String, envelope: String) {
+    private fun SpaceClientStore.Transaction.accept(space: String, envelope: String,
+        pageControls: Map<String, SpaceJournal> = emptyMap()) {
         val receipt = SaitoEnvelope.decode(envelope)
         val body = receipt.body
         require(receipt.author == service && body.text("module") == "Spaces" && body.number("version") == 1L &&
@@ -1120,7 +1133,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val scope = SpaceCrypto.Scope.fromJson(contentState.getAsJsonObject("scope"))
                 require(body.text("channel_id") == scope.channelId)
                 val control = body.get("authorized_control")?.asString ?: original.body.text("control_id")
-                val historic = journal(space, through = control)
+                val historic = pageControls[control] ?: journal(space, through = control)
                 require(historic.snapshot.controlId == control)
                 historic.verifyContent(body.text("event"))
                 val key = contentPrefix(space, channel) + positionKey(body.number("position"))
