@@ -251,6 +251,7 @@ class SpacesDiscoveryJourneyTest {
             waitText("Native Created Space")
             waitUntil { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
             ui.onNodeWithContentDescription("Switch Space or channel").clickReady()
+            waitForDrawerItem("resources")
             drawerList().performScrollToNode(hasText("resources"))
             ui.onNodeWithText("resources").assertIsDisplayed()
             drawerList().performScrollToNode(hasText("reading room"))
@@ -362,15 +363,18 @@ class SpacesDiscoveryJourneyTest {
     }
     private fun chooseChannel(name: String, waitForInventory: Boolean = false) {
         ui.onNodeWithContentDescription("Switch Space or channel").clickReady()
-        if (waitForInventory) {
-            // Admission and historical encrypted names arrive separately.
-            // Keep the channel-list ending in view while its real rows arrive.
-            drawerList().performScrollToNode(hasText("Back to your communities") and hasClickAction())
-            waitUntil { ui.onNode(hasText(name) and hasClickAction()).isDisplayed() }
-        }
+        if (waitForInventory) waitForDrawerItem(name)
         drawerList().performScrollToNode(hasText(name) and hasClickAction())
         ui.onNode(hasText(name) and hasClickAction()).clickReady()
         waitUntil { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+    }
+    private fun waitForDrawerItem(name: String) {
+        // Keep the real list ending visible as confirmed rows arrive. The
+        // existing Back row is always present; no failed assertion is retried.
+        waitUntil {
+            drawerList().performScrollToNode(hasText("Back to your communities") and hasClickAction())
+            ui.onNode(hasText(name) and hasClickAction()).isDisplayed()
+        }
     }
     private fun history() = ui.onNode(hasScrollToNodeAction() and SemanticsMatcher("on-screen message history") {
         it.boundsInRoot.left >= 0f && it.boundsInRoot.top >= 0f && it.boundsInRoot.bottom > 0f

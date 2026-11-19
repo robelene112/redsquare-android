@@ -122,6 +122,18 @@ same observer, fixture and driver bytes with the original account implementation
 Its actual outcome and corrected whole parents are pending. Source reviews are
 clear; no successful recovery or whole acceptance is claimed yet.
 
+Both [tenth whole parents](native-created-channel-readiness.json) now observe a
+fresh same-process read after the deliberate callback loss and an independently
+decrypted private child after revocation. Source244/68 checks also pass. Both
+whole parents still fail: creation enables General before every requested starter
+channel is confirmed, and the observer searches Resources immediately. It now
+keeps the existing drawer ending in view while actual rows arrive within the
+same15-second bound, then performs the original target checks. Both source
+review axes are clear. There is no accepted prefix or whole native acceptance.
+The later helper change is explicitly qualified against the still-pending
+before parent; only its unchanged dropped-read observation and fault harness may
+be compared, not whole-class byte identity with the new observer.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.

@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "source": "301d8819814e07ac1552080fb30b674263467763",
+  "originals": [
+    {
+      "run": 44584478445,
+      "sdk": 29,
+      "originalRoot": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt10-44584478445",
+      "zip": {
+        "bytes": 4442359,
+        "sha256": "a62027986794f14656357fd38528f3e9f419efece031ac64a5358b94ef0598fd",
+        "crc": "PASS"
+      },
+      "sourceChecks": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 68,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "recoveryObservation": {
+        "dropped": "88bd9b7c3652d6fb39870bb0b1f32d11452677df8d17f9c11840747c0f466d597e28e20e694f7f7c93799b114750a048c8b128c450ca080b6f7a2976084f6337",
+        "resumed": "9d2890003a0a7f297086f08bffab20c34cf2e39529c6cb22a3967e0f87a86b3a5f14eb6021f39df4f459bc81ae80b6ddea0b0a76265d268859423282c481dda8",
+        "author": "jtMkRL5GbGwnjuDPGrnRfec9g5tGx2qJtoWxRJzHUaAy",
+        "pid": 24495
+      },
+      "receivedPrivateChild": {
+        "id": "47c2474dfb2d41d42fcc9f4d4ab9f71a58fff2d6a0b8241eca39a09e5bf2ef5b5a8ba59336bd3dc23bb0c43354656f6fd21ed5d57d5803deaeb88101dc177468",
+        "author": "jtMkRL5GbGwnjuDPGrnRfec9g5tGx2qJtoWxRJzHUaAy",
+        "text": "Private child survives invitation revocation"
+      },
+      "wholeOutcome": "FAIL at immediate Resources lookup while new starter channels are still being confirmed."
+    },
+    {
+      "run": 44584483056,
+      "sdk": 37,
+      "originalRoot": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt10-44584483056",
+      "zip": {
+        "bytes": 4504321,
+        "sha256": "b674dd0eb38a63c05579e9dbaaa145a41ff443ef8824467daf50519c443f4d99",
+        "crc": "PASS"
+      },
+      "sourceChecks": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 68,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "recoveryObservation": {
+        "dropped": "3a7dae52577ee65cc24703819d6e204b30848f3b9b5bf4a026c9a4a5a6178dd46a3b450b2f9736e7f25b8b186c8b2d4cf46b4d604bd03ee618167ffeb200d9d7",
+        "resumed": "93e8b0fc4d022c35087807cf4cbf501a1c19de049bb825a83ebd07749f696db14517dd9e47067528d7854f1fc29e2bb1143eea3131103fbb02adeaa7bf66663e",
+        "author": "iASQ31QLSQs3Ks55JrcpjFLbTqyHeavkwczzHkhi69Ug",
+        "pid": 5529
+      },
+      "receivedPrivateChild": {
+        "id": "09ccb96b0700ce3617e926c0606a2dd674f8a79e0c05c57876898ed2560cfc635abcd1ffadcaccc2da1f4fecc4dec626e5288ef511f723a28ccf5c82f5108430",
+        "author": "iASQ31QLSQs3Ks55JrcpjFLbTqyHeavkwczzHkhi69Ug",
+        "text": "Private child survives invitation revocation"
+      },
+      "wholeOutcome": "FAIL at immediate Resources lookup while new starter channels are still being confirmed."
+    }
+  ],
+  "correction": "Observe actual confirmed Resources while scrolling the existing drawer ending into view as rows append, within the unchanged15-second readiness bound; then retain original target scroll/assert/tap. Reuse the same wait for the prior private Design readiness. No app or receiver state is injected, and no failed assertion is caught.",
+  "sourceReviews": {
+    "spec": 0,
+    "standards": 0
+  },
+  "beforeQualification": {
+    "run": 44584165010,
+    "source": "68859db49647a4afa19625df85972cd0ae15a86c",
+    "status": "still building, no RED claimed",
+    "sameFaultObservationSha256": "79e0c81edcea89dd78a47a262b4088047279368aa84a2e4718f72b2f36b04bed",
+    "qualification": "Later Resources/Design helper changes make the whole test class different from the earlier before parent. The exact dropped-read/recovery block, fixture and outside driver remain unchanged. Do not claim whole-class byte equivalence for the new observer."
+  },
+  "acceptance": "Both complete parents remain failed despite actual deterministic recovery and private received child observations. No accepted prefix, whole native or complete138 claim. Fresh full corrected parents required."
+}
