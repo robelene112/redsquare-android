@@ -320,6 +320,168 @@ class SpaceDiscoveryTest {
         }
     }
 
+    @Test fun revokingAnInvitationStopsPendingAndFutureAdmissionsWithoutRemovingExistingMembersOrDrafts() = runBlocking {
+        SpacesServiceStore(files.newFolder("revoke-invitation").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("revoke-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("revoke-member.sqlite").absolutePath).use { memberStore ->
+                    SqliteClientFixture(files.newFile("revoke-pending.sqlite").absolutePath).use { pendingStore ->
+                        var currentControl = ""
+                        var invitationId = ""
+                        val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+                            val result = remote.exchange(request.envelope())
+                            if (SaitoEnvelope.decode(result).body.get("stream")?.asString == "control") {
+                                val original = SaitoEnvelope.decode(request.envelope())
+                                currentControl = original.id
+                                if (original.body.get("kind").asString == "invite") invitationId = original.id
+                            }
+                            result
+                        }
+                        val member = SpaceClient(visitor, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                        val pendingWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+                        val applicant = SpaceClient(pendingWallet, "fixture-node", service.publicKey, pendingStore, clock) { remote.exchange(it.envelope()) }
+                        val space = creator.create("Revocable invitation")
+                        creator.flush(space)
+                        val oldLink = creator.invite(space)
+                        creator.flush(space)
+                        member.join(oldLink)
+                        member.flush(space)
+                        creator.admitPending(space)
+                        creator.flush(space)
+                        member.refresh(space)
+                        assertTrue(member.community(space).joined)
+                        applicant.join(oldLink)
+                        applicant.saveDraft(space, "Preserve my writing while I wait")
+                        applicant.flush(space)
+                        assertFalse(applicant.community(space).joined)
+                        val memberAttempt = SaitoTransaction.create(visitor, JsonObject().apply {
+                            addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                            addProperty("space_id", space); addProperty("operation_id", "e".repeat(64))
+                            addProperty("kind", "revoke-invite"); addProperty("control_id", currentControl)
+                            addProperty("invite_id", invitationId)
+                        }, clock.millis(), listOf(service.publicKey))
+                        assertEquals("rejection", SaitoEnvelope.decode(remote.exchange(memberAttempt.envelope())).body.get("stream").asString)
+                        creator.revokeInvitation(space)
+                        creator.flush(space)
+                        assertTrue(requireNotNull(creator.invitation(space)).revoked)
+                        try { applicant.preview(oldLink); fail("A revoked bearer link cannot be previewed") }
+                        catch (_: IllegalArgumentException) { }
+                        creator.admitPending(space)
+                        creator.flush(space)
+                        try { applicant.refresh(space); fail("A revoked pending request cannot become a member") }
+                        catch (_: IllegalArgumentException) { }
+                        assertFalse(applicant.community(space).canSend)
+                        assertEquals("Preserve my writing while I wait", applicant.draft(space))
+                        member.send(space, "An existing member remains admitted")
+                        member.flush(space)
+                        creator.refresh(space)
+                        assertEquals(listOf("An existing member remains admitted"), creator.messages(space))
+                        val replacement = creator.invite(space)
+                        creator.flush(space)
+                        assertFalse(requireNotNull(creator.invitation(space)).revoked)
+                        assertNotEquals(oldLink, replacement)
+                        assertEquals(space, applicant.preview(replacement).spaceId)
+                        applicant.join(replacement)
+                        applicant.flush(space)
+                        creator.admitPending(space)
+                        creator.flush(space)
+                        applicant.refresh(space)
+                        assertTrue(applicant.community(space).joined)
+                        assertEquals("Preserve my writing while I wait", applicant.draft(space))
+                        applicant.send(space, "A deliberate new invitation authorizes me")
+                        applicant.flush(space)
+                        member.refresh(space)
+                        assertEquals(listOf("An existing member remains admitted", "A deliberate new invitation authorizes me"), member.messages(space))
+                    }
+                }
+            }
+        }
+    }
+
+    @Test fun authenticatedReadResultsDistinguishExpiredInvitationsFromUnavailablePrivateAccess() = runBlocking {
+        var now = clock.millis()
+        val advancing = object : Clock() {
+            override fun getZone() = ZoneOffset.UTC
+            override fun withZone(zone: java.time.ZoneId): Clock = this
+            override fun instant(): Instant = Instant.ofEpochMilli(now)
+        }
+        SpacesServiceStore(files.newFolder("read-dispositions").toPath(), service, advancing).use { remote ->
+            SqliteClientFixture(files.newFile("read-disposition-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("read-disposition-reader.sqlite").absolutePath).use { visitorStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, advancing) { remote.exchange(it.envelope()) }
+                    val reader = SpaceClient(visitor, "fixture-node", service.publicKey, visitorStore, advancing) { remote.exchange(it.envelope()) }
+                    val space = creator.create("Unavailable is not offline")
+                    creator.flush(space)
+                    val invitation = creator.invite(space, expiresAfterMillis = 60_000)
+                    creator.flush(space)
+                    now += 60_001
+                    try { reader.preview(invitation); fail("A genuinely expired invitation must be reported") }
+                    catch (denied: SpaceClient.ReadDenied) {
+                        assertEquals(space, denied.spaceId)
+                        assertEquals(SpaceClient.ReadProblem.EXPIRED, denied.problem)
+                    }
+                    try { reader.openPublic(space); fail("Private access remains unavailable to visitors") }
+                    catch (denied: SpaceClient.ReadDenied) {
+                        assertEquals(space, denied.spaceId)
+                        assertEquals(SpaceClient.ReadProblem.UNAVAILABLE, denied.problem)
+                    }
+                    creator.revokeInvitation(space)
+                    creator.flush(space)
+                    try { reader.preview(invitation); fail("A revoked invitation is unavailable") }
+                    catch (denied: SpaceClient.ReadDenied) { assertEquals(SpaceClient.ReadProblem.UNAVAILABLE, denied.problem) }
+                    assertTrue(reader.communities().isEmpty())
+                    val replacement = creator.invite(space)
+                    creator.flush(space)
+                    assertEquals(space, reader.preview(replacement).spaceId)
+                }
+            }
+        }
+    }
+
+    @Test fun anAdmittedGuestRecoversItsWelcomeAndExactPendingOriginalAfterItsInvitationWasRevoked() = runBlocking {
+        SpacesServiceStore(files.newFolder("revoked-admission-recovery").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("revoked-admission-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("revoked-admission-guest.sqlite").absolutePath).use { guestStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    var originalJoin: String? = null
+                    var loseAcknowledgment = true
+                    val guest = SpaceClient(visitor, "fixture-node", service.publicKey, guestStore, clock) { request ->
+                        val result = remote.exchange(request.envelope())
+                        if (SaitoEnvelope.decode(request.envelope()).body.get("kind")?.asString == "join") {
+                            if (originalJoin == null) originalJoin = request.envelope() else assertEquals(originalJoin, request.envelope())
+                            if (loseAcknowledgment) { loseAcknowledgment = false; throw java.io.IOException("Actual join acknowledgment was lost") }
+                        }
+                        result
+                    }
+                    val space = creator.create("Membership survives invitation revocation")
+                    creator.flush(space)
+                    val invitation = creator.invite(space)
+                    creator.flush(space)
+                    guest.join(invitation)
+                    guest.saveDraft(space, "My writing survives membership recovery")
+                    try { guest.flush(space); fail("The controlled accepted join response must be lost") }
+                    catch (_: java.io.IOException) { }
+                    creator.admitPending(space)
+                    creator.flush(space)
+                    assertFalse("The guest has not received its Welcome", guest.community(space).joined)
+                    creator.revokeInvitation(space)
+                    creator.flush(space)
+                    creator.send(space, "Only actual admitted members can read this")
+                    creator.flush(space)
+                    guest.refresh(space)
+                    assertTrue(guest.community(space).joined)
+                    assertEquals(listOf("Only actual admitted members can read this"), guest.messages(space))
+                    assertEquals("My writing survives membership recovery", guest.draft(space))
+                    guest.flush(space)
+                    assertFalse("The exact original is reconciled after membership recovery", guest.community(space).pending)
+                    guest.send(space, "My admitted identity can still answer")
+                    guest.flush(space)
+                    creator.refresh(space)
+                    assertEquals(listOf("Only actual admitted members can read this", "My admitted identity can still answer"), creator.messages(space))
+                }
+            }
+        }
+    }
+
     @Test fun anOwnerCanListUnlistAndRelistAPublicCommunityWithSignedDurableChanges() = runBlocking {
         SpacesServiceStore(files.newFolder("owner-listing-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("listing-owner.sqlite").absolutePath).use { ownerStore ->

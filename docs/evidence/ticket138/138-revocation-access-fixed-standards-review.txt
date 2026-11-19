@@ -1,0 +1,18 @@
+Standards follow-up: final revocation/access correction against84f0b9d78
+Read-only source and retained-failure review. Earlier observations/reviews remain retained.
+
+Documented violations
+No remaining confirmed violation in the reviewed source. No actionable smell findings.
+
+Membership recovery
+SpaceClient.syncControls retries through fresh wallet-member authorization only after a fully verified invitation ReadDenied for this exact Space. The retry obtains its own challenge/request/nonce under control scope. Service membership still decides access; a merely pending or revoked bearer gains no authority. Foreign signatures, malformed responses, caller/scope/nonce mismatches and network failures remain outside this typed catch.
+
+The removed accept(join) !joined guard was inconsistent with actual already-accepted admission. That receipt only acknowledges the exact queued join request; it does not grant or remove membership. Existing service-signature, own-author/kind and flush exact-original/pending-row checks remain. A delayed old acknowledgment can now reconcile after authentic Welcome recovery without replacing drafts or cryptographic state.
+
+Signed denial and tests
+createSpaceReply adds only the denied tag to its existing Spaces-only signature/wire/size boundary. Updated real HTTP/store/content tests require200 signed UNAVAILABLE for authenticated permission denial, validate signer/recipients/request/caller/scope/nonce and absence of private rows, and retain409 checks for wrong caller/nonces and replay. This is the disclosed semantic change with stronger oracles, not removal of authorization checks.
+
+The MEMBER revocation attempt carries an authentic member signature, actual invitation and current accepted head, isolating role rejection. The recovery tracer genuinely loses an accepted join acknowledgment, admits via the owner, revokes before guest observation, then requires old-original reconciliation, private content, draft preservation and an independent reply.
+
+Evidence limits
+First complete original XMLs show244 core passing and39/40 service passing, including recovery and late acknowledgment. The failed obsolete throw assertion is retained. Its SpaceContentTest replacement requires signed UNAVAILABLE, bound recipient/request/nonce and no items/cursor/plaintext; product source is unchanged. Complete all2 remains running. No whole corrected/native/138/deployment acceptance is claimed.

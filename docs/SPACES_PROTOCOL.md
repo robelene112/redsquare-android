@@ -64,11 +64,33 @@ that could acknowledge different rules after a fresh read. Signed private join
 records carry their invitation token, checked by the receiver. Public invitation
 joining uses direct public admission and never waits for an MLS owner callback.
 Expiry is presented from accepted invitation authority, with the seven-day
-creation default retained. Revocation and full native presentation remain pending.
+creation default retained. Full native presentation remains pending.
 
 The complete owned JVM check passes244 core and37 service cases. Actual RED/GREEN
 and original adverse/corrective review reports are in the138 packet. This does
 not claim completed UI, live node compatibility or release acceptance.
+
+## In-progress138 revocation and authenticated read dispositions
+
+An owner/admin revoke-invite control references the current predecessor and an
+active invitation ID. Acceptance removes that capability, never admitted members
+or their keys. Pending request pages advance past revoked/expired capabilities.
+Replacement uses a deliberate fresh invitation while preserving applicant writing.
+
+An authenticated read refusal returns request=denied with reason=unavailable or
+expired, bound to the fresh request/caller/scope/nonce and signed by the selected
+service. It carries no items or content cursor. Only a valid capability proof can
+learn that its invitation expired. Invalid caller/nonces remain protocol errors.
+The client verifies all bindings before exposing typed access state.
+
+A locally unexpired invitation can be revoked after its bearer has already been
+admitted but before the Welcome arrives. After a trusted invitation denial only,
+the client makes a fresh wallet-member control read. Actual accepted membership,
+not the revoked link, authorizes recovery. A late exact join-request receipt can
+then clear its original outbox row without changing membership. No fallback runs
+for malformed/foreign/network responses. Actual REDs, receipt/crypto/draft recovery
+and complete244-core/40-service results are retained in the138 packet. UI/native
+and updated framework/runtime acceptance remain pending.
 
 ## Earlier client and service integration under137
 

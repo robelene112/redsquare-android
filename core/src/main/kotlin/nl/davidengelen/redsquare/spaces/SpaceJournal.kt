@@ -89,6 +89,14 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     invitations = Collections.unmodifiableMap(current.invitations + (event.id to SpaceInvitationRecord(key, expiry, channelId, token))))
             }
+            "revoke-invite" -> {
+                require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+                require(event.body.text("control_id") == current.controlId)
+                val invitation = event.body.text("invite_id")
+                require(invitation in current.invitations)
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    invitations = Collections.unmodifiableMap(current.invitations - invitation))
+            }
             "set-listed" -> {
                 require(current.owner == event.author && event.body.text("control_id") == current.controlId)
                 val profile = requireNotNull(current.publicProfile)

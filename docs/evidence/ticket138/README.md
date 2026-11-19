@@ -48,7 +48,29 @@ failures/errors/skips. Additional checks reject prior public review tokens,
 other private invitation tokens and an actual signed private join omitting its
 acknowledgment at the receiver. This remains component evidence, not native138.
 
-Continue138 with profile images and starter channels, revocation, real
+The [revocation/access increment](revocation-access-increment.json) adds an
+owner/admin-signed revoke-invite control. Actual three-identity delivery blocks
+pending/future bearer admissions, preserves admitted members and unsent writing,
+and permits deliberate replacement. A correctly scoped member revoke is rejected.
+
+Normal read refusal now has a signed caller/scope/request/nonce-bound disposition,
+with no content page. Expiry is disclosed only after a valid bearer proof;
+unavailable access remains distinct from network failure. Three prior raw service
+expectations deliberately change from transport errors to authenticated denial,
+retaining or strengthening no-data, signature, recipient, nonce and replay checks.
+The original unsuccessful whole run remains retained.
+
+Review found an already admitted guest could be stranded before receiving its
+Welcome after revocation. Actual accepted-but-lost join delivery reproduces it.
+A trusted invitation denial now permits a fresh wallet-member read, whose service
+membership check still controls recovery. The subsequent late acknowledgment of
+the exact queued original can reconcile after membership is active; it never
+activates membership itself. Both original failures remain. Independent decrypted
+text, reply, retained draft and cleared original pass. Corrected review axes report
+zero findings. The complete final command passes244 core and40 service cases;
+unchanged core output reuse and the failed prior whole invocation are explicit.
+
+Continue138 with profile images and starter channels, real
 members/unread/navigation and native/prototype
 checks. Actual0.3.2/0.3.15 framework rehearsals must be repeated for schema4 and
 the extra service advertisement before closing138. Do not edit137's frozen

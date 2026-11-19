@@ -49,7 +49,12 @@ class SpaceContentTest {
             assertEquals(listOf(receipt), page.getAsJsonArray("items").map { it.asString })
             val received = SaitoEnvelope.decode(page.getAsJsonArray("items")[0].asString).body.get("event").asString
             assertEquals(text, creator.read(received).text)
-            assertThrows(IllegalArgumentException::class.java) { read(store, outsider) }
+            val denied = read(store, outsider)
+            assertEquals("denied", denied.get("request").asString)
+            assertEquals("unavailable", denied.get("reason").asString)
+            assertFalse(denied.has("items"))
+            assertFalse(denied.has("next_cursor"))
+            assertFalse(denied.toString().contains(text))
         }
         Files.list(directory).use { paths -> paths.filter(Files::isRegularFile).forEach { path ->
             assertFalse("Service storage contains only ciphertext and routing metadata",
@@ -173,8 +178,12 @@ class SpaceContentTest {
         }, clock.millis(), listOf(service.publicKey)).envelope()
         val challenge = SaitoEnvelope.decode(store.exchange(request("challenge")))
         assertEquals(service.publicKey, challenge.author)
-        val page = SaitoEnvelope.decode(store.exchange(request("read", challenge.body.get("nonce").asString)))
+        val nonce = challenge.body.get("nonce").asString
+        val page = SaitoEnvelope.decode(store.exchange(request("read", nonce)))
         assertEquals(service.publicKey, page.author)
+        assertEquals(listOf(service.publicKey, actor.publicKey).distinct(), page.recipients)
+        assertEquals("f".repeat(64), page.body.get("request_id").asString)
+        assertEquals(nonce, page.body.get("nonce").asString)
         assertEquals(actor.publicKey, page.body.get("caller").asString)
         assertEquals(target, page.body.getAsJsonObject("scope"))
         return page.body

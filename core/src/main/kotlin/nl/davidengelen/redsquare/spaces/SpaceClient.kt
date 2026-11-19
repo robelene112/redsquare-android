@@ -17,13 +17,16 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private val exchange: suspend (SaitoTransaction) -> String) {
     init { require(node.isNotBlank() && node.length <= 2048 && SaitoWallet.isPublicKey(service)) }
 
+    enum class ReadProblem { EXPIRED, UNAVAILABLE }
+    class ReadDenied(val spaceId: String, val problem: ReadProblem) : IllegalArgumentException("Community access is not available")
+
     data class Community(val id: String, val name: String, val channel: String, val joined: Boolean,
         val canInvite: Boolean, val pending: Boolean, val canSend: Boolean, val membershipRequested: Boolean = false)
     data class Message(val id: String, val author: String, val createdAt: Long, val text: String?,
         val pending: Boolean, val attempted: Boolean, val missingKeys: Boolean, val rejected: Boolean = false) {
         override fun toString() = "Private community message"
     }
-    data class Invitation(val link: String, val confirmed: Boolean, val expiresAt: Long = 0, val expired: Boolean = false) {
+    data class Invitation(val link: String, val confirmed: Boolean, val expiresAt: Long = 0, val expired: Boolean = false, val revoked: Boolean = false) {
         override fun toString() = "Private community invitation"
     }
     fun communities(): List<Community> = store.transaction {
@@ -62,7 +65,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val invitation = SpaceInvitation.parse(link)
         val accepted = journal(space).snapshot.invitations[invitation.invitationId]
         val expiry = accepted?.expiresAt ?: state.get("invitation_expires_at")?.asLong ?: 0L
-        Invitation(link, accepted != null, expiry, expiry > 0 && expiry <= clock.millis())
+        Invitation(link, accepted != null, expiry, expiry > 0 && expiry <= clock.millis(),
+            state.get("revoked_invitation")?.asString == invitation.invitationId)
     }
     data class InvitationPreview(val spaceId: String, val name: String, val profile: SpaceProfile = SpaceProfile(name), val expiresAt: Long = 0, val rulesToken: String = "")
     data class PublicCommunity(val id: String, val profile: SpaceProfile)
@@ -221,6 +225,18 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }))
     }
     private data class Preview(val invitation: SpaceInvitation, val profile: SpaceProfile, val controls: List<String>, val journal: SpaceJournal)
+
+    fun revokeInvitation(space: String) = store.transaction {
+        owned()
+        val state = state(space)
+        val invitation = SpaceInvitation.parse(state.text("invitation"))
+        val journal = journal(space)
+        require(journal.snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+        require(invitation.invitationId in journal.snapshot.invitations)
+        queue(space, state, event(space, "revoke-invite") {
+            addProperty("control_id", journal.snapshot.controlId); addProperty("invite_id", invitation.invitationId)
+        })
+    }
 
     fun invite(space: String, expiresAfterMillis: Long = 604_800_000): String = store.transaction {
         owned()
@@ -485,11 +501,17 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 store.transaction { journal(space).snapshot.invitations[link.invitationId]?.expiresAt ?: 0 } > clock.millis()
             }
             val controlCursor = store.transaction { journal(space).snapshot.nextPosition }
-            val controls = readPage(JsonObject().apply {
-                addProperty("space_id", space); addProperty("stream", if (invitation == null) "control" else "invitation")
+            suspend fun readControls(capability: SpaceInvitation?) = readPage(JsonObject().apply {
+                addProperty("space_id", space); addProperty("stream", if (capability == null) "control" else "invitation")
                 addProperty("cursor", controlCursor)
-                invitation?.let { addProperty("invite_id", it.invitationId) }
-            }, invitation)
+                capability?.let { addProperty("invite_id", it.invitationId) }
+            }, capability)
+            val controls = try { readControls(invitation) } catch (denied: ReadDenied) {
+                if (invitation == null || denied.spaceId != space) throw denied
+                // A revoked capability cannot undo an already accepted
+                // admission. Only a fresh wallet-member read can recover it.
+                readControls(null)
+            }
             store.transaction {
                 owned(); controls.getAsJsonArray("items").forEach { accept(space, it.asString) }
                 require(journal(space).snapshot.nextPosition == controls.number("next_cursor"))
@@ -660,19 +682,28 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 invitation?.let { invite -> addProperty("invite_proof", invite.proof(wallet.publicKey, nonce)) }
             }
         }, clock.millis(), listOf(service))
-        fun verified(envelope: String, kind: String): JsonObject {
+        fun verified(envelope: String, kind: String?): JsonObject {
             val signed = SaitoEnvelope.decode(envelope)
             val body = signed.body
             require(signed.author == service && signed.recipients == listOf(service, wallet.publicKey).distinct())
-            require(body.text("module") == "Spaces" && body.number("version") == 1L && body.text("request") == kind)
+            require(body.text("module") == "Spaces" && body.number("version") == 1L && (kind == null || body.text("request") == kind))
             require(body.text("request_id") == requestId && body.text("caller") == wallet.publicKey && body.getAsJsonObject("scope") == scope)
             return body
         }
         val challenge = verified(exchange(request("challenge")), "challenge")
         require(challenge.number("expires_at") > clock.millis()) { "Community read challenge expired" }
         val nonce = challenge.text("nonce").also { require(it.matches(ID)) }
-        val result = verified(exchange(request("read", nonce)), "page")
-        require(result.text("nonce") == nonce && result.getAsJsonArray("items").size() <= 50)
+        val result = verified(exchange(request("read", nonce)), null)
+        require(result.text("nonce") == nonce)
+        if (result.text("request") == "denied") {
+            val problem = when (result.text("reason")) {
+                "expired" -> ReadProblem.EXPIRED
+                "unavailable" -> ReadProblem.UNAVAILABLE
+                else -> throw IllegalArgumentException("Unknown community read disposition")
+            }
+            throw ReadDenied(scope.text("space_id"), problem)
+        }
+        require(result.text("request") == "page" && result.getAsJsonArray("items").size() <= 50)
         return result
     }
 
@@ -703,6 +734,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                             }
                         }
                         "invite" -> Unit
+                        "revoke-invite" -> {
+                            val link = state.get("invitation")?.asString
+                            if (link != null && SpaceInvitation.parse(link).invitationId == original.body.text("invite_id"))
+                                state.addProperty("revoked_invitation", original.body.text("invite_id"))
+                        }
                         "set-listed" -> state.add("profile", requireNotNull(journal.snapshot.publicProfile).json())
                         "join-public" -> if (original.author == wallet.publicKey) state.addProperty("joined", true)
                         "admit" -> {
@@ -764,7 +800,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             }
             "join" -> {
                 require(original.author == wallet.publicKey && original.body.text("kind") == "join")
-                require(!state.get("joined").asBoolean)
+                // This acknowledges the queued request, not membership. The
+                // exact old acknowledgment can arrive after actual admission.
             }
             "content" -> {
                 val scope = SpaceCrypto.Scope.fromJson(state.getAsJsonObject("scope"))
@@ -819,7 +856,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private fun SpaceClientStore.Transaction.queue(space: String, state: JsonObject, original: SaitoTransaction,
         candidate: SpaceCrypto? = null, rejected: SpaceCrypto? = null, afterJoinCursor: Long? = null) {
         val kind = SaitoEnvelope.decode(original.envelope()).body.text("kind")
-        if (kind in setOf("create", "invite", "admit", "set-listed", "join-public")) {
+        if (kind in setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite")) {
             require(!state.has("control_pending")) { "A community control is still awaiting confirmation" }
             state.addProperty("control_pending", original.id)
         }

@@ -87,22 +87,36 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     if (stream == "directory") directoryPage(reply, scope.text("query"), cursor)
                     else {
                     val journal = journal(space)
+                    fun denied(reason: String) {
+                        reply.addProperty("request", "denied"); reply.addProperty("reason", reason)
+                    }
                     if (stream == "invitation") {
                         val invitationId = scope.text("invite_id")
-                        val invitation = requireNotNull(journal.snapshot.invitations[invitationId])
-                        require(invitation.expiresAt > now)
+                        val invitation = journal.snapshot.invitations[invitationId]
+                        if (invitation == null) { denied("unavailable"); return@atomic }
                         val proof = "SaitoSpacesPreview/v1:${wallet.publicKey}:$space:$invitationId:${request.author}:$nonce"
-                        require(SaitoWallet.verify(proof.toByteArray(Charsets.UTF_8), body.text("invite_proof"), invitation.key))
+                        val validProof = runCatching {
+                            SaitoWallet.verify(proof.toByteArray(Charsets.UTF_8), body.text("invite_proof"), invitation.key)
+                        }.getOrDefault(false)
+                        if (!validProof) { denied("unavailable"); return@atomic }
+                        if (invitation.expiresAt <= now) { denied("expired"); return@atomic }
                     } else if (stream == "join") {
-                        require(journal.snapshot.members[request.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+                        if (journal.snapshot.members[request.author] !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)) {
+                            denied("unavailable"); return@atomic
+                        }
                     } else if (!(journal.snapshot.visibility == SpaceVisibility.PUBLIC && stream == "control") &&
-                        !(stream == "content" && journal.snapshot.channels[channel]?.visibility == SpaceVisibility.PUBLIC))
-                        require(request.author in journal.snapshot.members) { "Spaces private history is not available to this identity" }
-                    if (channel != null && journal.snapshot.channels[channel]?.visibility != SpaceVisibility.PUBLIC) require(requireNotNull(journal.snapshot.channels[channel]).devices.keys.any {
-                        it.split(':')[1] == request.author
-                    }) { "Spaces channel is not available to this identity" }
-                    if (recipient != null) require(recipient in requireNotNull(journal.snapshot.channels[channel]).devices &&
-                        recipient.split(':')[1] == request.author) { "Spaces key grants belong to a different device" }
+                        !(stream == "content" && journal.snapshot.channels[channel]?.visibility == SpaceVisibility.PUBLIC) &&
+                        request.author !in journal.snapshot.members) { denied("unavailable"); return@atomic }
+                    if (channel != null) {
+                        val target = journal.snapshot.channels[channel]
+                        if (target == null || target.visibility != SpaceVisibility.PUBLIC &&
+                            target.devices.keys.none { it.split(':')[1] == request.author }) {
+                            denied("unavailable"); return@atomic
+                        }
+                        if (recipient != null && (recipient !in target.devices || recipient.split(':')[1] != request.author)) {
+                            denied("unavailable"); return@atomic
+                        }
+                    }
                     val items = JsonArray()
                     var bytes = 0
                     var next = cursor
@@ -119,8 +133,8 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                                 val value = rows.getString(2)
                                 if (stream == "join") {
                                     val original = SaitoEnvelope.decode(SaitoEnvelope.decode(value).body.text("event"))
-                                    val invitation = requireNotNull(journal.snapshot.invitations[original.body.text("invite_id")])
-                                    if (original.author in journal.snapshot.members || invitation.expiresAt <= now) {
+                                    val invitation = journal.snapshot.invitations[original.body.text("invite_id")]
+                                    if (invitation == null || original.author in journal.snapshot.members || invitation.expiresAt <= now) {
                                         next = Math.addExact(rows.getLong(1), 1)
                                         continue
                                     }
@@ -139,7 +153,8 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     if (stream in setOf("keys", "content")) reply.addProperty("content_end", nextPosition("records", space, requireNotNull(channel)))
                     }
                 }
-                reply.addProperty("request", "page"); reply.addProperty("nonce", nonce)
+                if (!reply.has("request")) reply.addProperty("request", "page")
+                reply.addProperty("nonce", nonce)
             }
             else -> throw IllegalArgumentException("Unsupported Spaces read request")
         }

@@ -1,0 +1,11 @@
+Revocation/access fix Spec review against84f0b9d78: no remaining findings in the reviewed API slice.
+
+The previous P1 against parent134 story18, revocation “without ejecting existing members”, is closed. SpaceClient.kt:504-513 retries a fresh wallet-control read only after ReadDenied from the invitation route for this space. readPage verifies service signature, recipients, caller, request ID, exact scope and nonce before producing that type. Malformed, foreign and transport callbacks do not enter the fallback. SpacesServiceStore.kt:110-113 independently requires wallet membership for private control reads, so the fallback cannot admit a revoked pending applicant.
+
+SpaceClient.kt:800-805 removes the obsolete local-unjoined acknowledgment guard. flush still verifies the signed service receipt contains the exact queued original and checks the durable row before removing it (lines473-489). The join acknowledgment does not install keys or activate membership; accepted control/Welcome processing remains responsible for that.
+
+SpaceDiscoveryTest.kt:440-484 uses actual SQLite clients, service and MLS: lose the accepted join response, admit, revoke before the guest receives Welcome, recover private content/keys/membership and draft, reconcile the identical original, then independently receive its reply. Retained RED and first-GREEN XML prove both failures. The unadmitted applicant remains denied; MEMBER-signed revocation is rejected.
+
+The three raw service assertions correctly adopt signed HTTP200 denial while retaining invalid-caller/nonce and replay failures. The final SpaceContentTest.kt:52-59 update asserts denied/unavailable with no items, cursor or plaintext. Its read helper verifies service signature, recipients, caller, request ID, scope and nonce. This matches the authenticated denial contract and preserves the outsider privacy oracle.
+
+Independently inspected first-full original XML: all244 core and39/40 service cases passed, including all14 discovery cases and the complete recovery/late-acknowledgment tracer. Its sole failure was the obsolete SpaceContentTest exception expectation above. Product source is unchanged; all2 verification remains pending. No native UI or whole138 acceptance is claimed. Both original adverse report and unsuccessful run evidence are retained.

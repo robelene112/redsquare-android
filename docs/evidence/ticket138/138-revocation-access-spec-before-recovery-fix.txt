@@ -1,0 +1,11 @@
+Revocation/access increment Spec review: one recovery finding against84f0b9d78.
+
+P1: revoking a link can strand an identity whose membership was already accepted but whose Welcome was not yet received. Parent134 story18 requires revocation “without ejecting existing members”; the durability contract preserves accepted membership despite lost responses. SpaceClient.kt:497-508 still chooses invitation reads whenever the locally cached invitation is unexpired and joining_invitation remains. If the owner accepts admission, then revokes before that client reads its accepted control/Welcome, SpacesServiceStore.kt:95-96 returns signed UNAVAILABLE because the invitation was removed. syncControls never falls back to the wallet's authenticated member-control route. The legitimate member remains locally unjoined/unable to recover until expiry or a replacement invitation, despite service membership already being durable. Recover through current authenticated membership after capability denial, without admitting an unaccepted applicant or replacing its device/original.
+
+The current revocation tracer fully refreshes its existing member before revoking; its other applicant was never admitted. It therefore misses this accepted-but-not-yet-observed boundary. Add an actual owner admission followed by revocation before the guest's first recovery read, preserving draft/device/original identity and denying a separate unadmitted applicant.
+
+Otherwise revocation is an authorized predecessor-linked control; accepted members are retained in the journal, and revoked pending requests are skipped with cursor progress. Replacement invitations preserve pending writing/device state.
+
+Typed denied responses appear sound: the service returns no content, discloses expiry only after a valid bearer proof, and the client checks service signature, caller/recipient/request/scope/nonce before exposing EXPIRED or UNAVAILABLE. Wrong nonce/caller failures remain protocol errors. These are source/API states, not completed native UI presentation.
+
+Actual revocation RED/GREEN and read-disposition RED logs were inspected. The current13-case targeted disposition run and broader affected verification remain pending. No native/whole138 acceptance is claimed.

@@ -65,6 +65,21 @@ class SpacesServiceStoreTest {
             val nonce = challenge.body.get("nonce").asString
             assertEquals(409, http(server.port, request(outsider, "read", nonce)).statusCode())
             val otherNonce = SaitoEnvelope.decode(post(server.port, request(outsider, "challenge"))).body.get("nonce").asString
+            // An authenticated denied read is a signed disposition, not an
+            // unsigned transport failure. Invalid caller/nonces stay409.
+            val deniedResponse = http(server.port, request(outsider, "read", otherNonce))
+            assertEquals(200, deniedResponse.statusCode())
+            val denied = SaitoEnvelope.decode(deniedResponse.body())
+            assertEquals(service.publicKey, denied.author)
+            assertEquals(listOf(service.publicKey, outsider.publicKey), denied.recipients)
+            assertEquals("denied", denied.body.get("request").asString)
+            assertEquals("unavailable", denied.body.get("reason").asString)
+            assertEquals(outsider.publicKey, denied.body.get("caller").asString)
+            assertEquals("f".repeat(64), denied.body.get("request_id").asString)
+            assertEquals(scope, denied.body.getAsJsonObject("scope"))
+            assertEquals(otherNonce, denied.body.get("nonce").asString)
+            assertFalse(denied.body.has("items"))
+            assertFalse(denied.body.has("next_cursor"))
             assertEquals(409, http(server.port, request(outsider, "read", otherNonce)).statusCode())
             val read = request(owner, "read", nonce)
             val page = SaitoEnvelope.decode(post(server.port, read))
@@ -188,7 +203,11 @@ class SpacesServiceStoreTest {
             val page = readAs(store, owner, scope)
             assertEquals(listOf(receipt), page.body.getAsJsonArray("items").map { it.asString })
             assertEquals(1L, page.body.get("next_cursor").asLong)
-            assertThrows(IllegalArgumentException::class.java) { readAs(store, guest, scope) }
+            val denied = readAs(store, guest, scope)
+            assertEquals("denied", denied.body.get("request").asString)
+            assertEquals("unavailable", denied.body.get("reason").asString)
+            assertFalse(denied.body.has("items"))
+            assertFalse(denied.body.has("next_cursor"))
         }
     }
 
@@ -200,8 +219,12 @@ class SpacesServiceStoreTest {
         }, clock.millis(), listOf(service.publicKey)).envelope()
         val challenge = SaitoEnvelope.decode(store.exchange(request("challenge")))
         assertEquals(service.publicKey, challenge.author)
-        val page = SaitoEnvelope.decode(store.exchange(request("read", challenge.body.get("nonce").asString)))
+        val nonce = challenge.body.get("nonce").asString
+        val page = SaitoEnvelope.decode(store.exchange(request("read", nonce)))
         assertEquals(service.publicKey, page.author)
+        assertEquals(listOf(service.publicKey, actor.publicKey).distinct(), page.recipients)
+        assertEquals("f".repeat(64), page.body.get("request_id").asString)
+        assertEquals(nonce, page.body.get("nonce").asString)
         assertEquals(actor.publicKey, page.body.get("caller").asString)
         assertEquals(scope, page.body.getAsJsonObject("scope"))
         return page

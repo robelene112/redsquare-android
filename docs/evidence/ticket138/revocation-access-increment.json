@@ -1,0 +1,99 @@
+{
+  "status": "Owned revocation/read disposition/recovery source increment only; full138 UI/native pending.",
+  "base": "84f0b9d78",
+  "checks": {
+    "core": {
+      "classes": 48,
+      "tests": 244,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "spaces-service": {
+      "classes": 5,
+      "tests": 40,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "logs": [
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-revoke-invitation-red.log",
+      "bytes": 1634,
+      "sha256": "61f57fb00b944bb6be9dae356c093f51a225070a0a8cdbd2a2dfdbc92956c7bf"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-revoke-invitation-green.log",
+      "bytes": 1109,
+      "sha256": "6b976ae9cbf2985ff9788f5d660f87aa6cad01f7acf539e72e68e39852faa2ad"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-read-dispositions-red.log",
+      "bytes": 1636,
+      "sha256": "9e5d3f28b832633f193d83d9eadbe8cb57bc72b4c0231f51bfa67910a689f0b2"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-read-dispositions-green.log",
+      "bytes": 1626,
+      "sha256": "0137ebb2f9eb405611232faac28168d9efad2a8a32265d15ad20e26775284f6c"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-read-dispositions-green2.log",
+      "bytes": 1142,
+      "sha256": "872500ca35a53ed56dced7146361b1672258652555c8146bf17d2fdf0bfbf672"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-revoked-admission-recovery-red.log",
+      "bytes": 1668,
+      "sha256": "809403f91bdf05579f4201ead099306d34182d05a057dddd2c2e879742a66531"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-revoked-admission-recovery-green.log",
+      "bytes": 1639,
+      "sha256": "a5dc20fbd621473966543290bba6478b42bf5870505bf49ef51311840bba1fad"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-revocation-access-core-service-all.log",
+      "bytes": 1810,
+      "sha256": "76b6478bf22db3c473d081e525e0f6102190c9c0482829eba32901d63ba7efec"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-revocation-access-core-service-all2.log",
+      "bytes": 1346,
+      "sha256": "4753c75fc562d5eb2ca3be9d26c18d0f187353c582f000ea2303e5091eeb27a9"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt",
+      "sha256": "cdc4387449cae590d901df88e3b55ca7b1ab52ee434f11520422ce3b5c856a83"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt",
+      "sha256": "11363de90a68b8ac1e64b8e27be9de51883df7f5b0163112f273d29f9887dce0"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoTransaction.kt",
+      "sha256": "792ada806b08fccec1586f203dfccbad923cf3aa14bf0f32bf7bd35ad3e7d2ea"
+    },
+    {
+      "path": "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt",
+      "sha256": "dfeac9ed207acc18583cf3167d059c3f3814adc327eb4b164b9e050b3fbf99c3"
+    },
+    {
+      "path": "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceDiscoveryTest.kt",
+      "sha256": "43c609d6ed76c74a763d2b7c88fe001f2e43d3894e4fd92272b20a6ee5df3829"
+    },
+    {
+      "path": "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStoreTest.kt",
+      "sha256": "3a7bf6b415d74576a0313e6207d59482a4d07ce2689625004bf63bd3158aef3c"
+    },
+    {
+      "path": "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceContentTest.kt",
+      "sha256": "19a53af68e05634522c60b5e843502d7049261de3ee30b57735cea856c79a379"
+    }
+  ],
+  "retained_originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-revocation-access-complete-originals",
+  "reuse": "Final complete command succeeds. Core244 outputs reused under identical core inputs from the preceding whole invocation; only the raw service test contract changed between them. First whole invocation remains failed and retained."
+}
