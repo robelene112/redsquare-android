@@ -30,9 +30,10 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         if (body.text("request") == "event") return submit(envelope)
         val requestId = body.text("request_id").also { require(it.matches(ID)) }
         val scope = body.get("scope").also { require(it != null && it.isJsonObject) }.asJsonObject.deepCopy()
-        require(scope.keySet() == setOf("space_id", "stream", "cursor"))
         val space = scope.text("space_id").also { require(it.matches(ID)) }
-        val stream = scope.text("stream").also { require(it in setOf("control", "join")) }
+        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content")) }
+        require(scope.keySet() == setOf("space_id", "stream", "cursor") + if (stream == "content") setOf("channel_id") else emptySet())
+        val channel = if (stream == "content") scope.text("channel_id").also { require(it.matches(ID)) } else null
         val cursor = scope.number("cursor")
         val now = clock.millis().also { require(it >= 0) }
         challenges.entries.removeIf { it.value.expiresAt <= now }
@@ -59,12 +60,17 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     if (stream == "join") {
                         require(journal.snapshot.members[request.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
                     } else require(request.author in journal.snapshot.members) { "Spaces private history is not available to this identity" }
+                    if (channel != null) require(requireNotNull(journal.snapshot.channels[channel]).devices.keys.any {
+                        it.split(':')[1] == request.author
+                    }) { "Spaces channel is not available to this identity" }
                     val items = JsonArray()
                     var bytes = 0
                     var next = cursor
-                    val table = if (stream == "join") "joins" else "controls"
-                    database.prepareStatement("SELECT position,receipt FROM $table WHERE space_id=? AND position>=? ORDER BY position LIMIT 50").use { sql ->
+                    val table = when (stream) { "join" -> "joins"; "content" -> "records"; else -> "controls" }
+                    database.prepareStatement("SELECT position,receipt FROM $table WHERE space_id=? AND position>=?" +
+                        (if (channel != null) " AND channel_id=?" else "") + " ORDER BY position LIMIT 50").use { sql ->
                         sql.setString(1, space); sql.setLong(2, cursor)
+                        if (channel != null) sql.setString(3, channel)
                         sql.executeQuery().use { rows ->
                             while (rows.next()) {
                                 val value = rows.getString(2)
@@ -101,6 +107,20 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         database = DriverManager.getConnection("jdbc:sqlite:${directory.resolve("spaces.sqlite").toAbsolutePath()}",
             Properties().apply { setProperty("transaction_mode", "IMMEDIATE") })
         try {
+            // Reject incompatible/foreign state before journal_mode can change
+            // an existing database header. Migration must preserve that state.
+            database.createStatement().use { sql ->
+                val existingVersion = sql.executeQuery("PRAGMA user_version").use { rows ->
+                    check(rows.next()); rows.getInt(1)
+                }
+                check(existingVersion in 0..2) { "Spaces storage version needs a compatible service" }
+                if (existingVersion == 0) sql.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").use { rows ->
+                    check(!rows.next()) { "Existing unversioned Spaces storage needs recovery" }
+                }
+                if (existingVersion != 0) sql.executeQuery("SELECT service_key FROM service_metadata WHERE id=1").use { rows ->
+                    check(rows.next() && rows.getString(1) == wallet.publicKey) { "Spaces storage belongs to a different service identity" }
+                }
+            }
             database.createStatement().use { sql ->
                 sql.execute("PRAGMA journal_mode=WAL")
                 sql.execute("PRAGMA synchronous=FULL")
@@ -111,7 +131,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val version = database.createStatement().use { sql ->
                     sql.executeQuery("PRAGMA user_version").use { rows -> check(rows.next()); rows.getInt(1) }
                 }
-                check(version in 0..1) { "Spaces storage version needs a compatible service" }
+                check(version in 0..2) { "Spaces storage version needs a compatible service" }
                 if (version == 0) {
                     database.createStatement().use { sql ->
                         sql.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").use {
@@ -139,6 +159,16 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         check(rows.next() && rows.getString(1) == wallet.publicKey) { "Spaces storage belongs to a different service identity" }
                     }
                 }
+                if (version < 2) database.createStatement().use { sql ->
+                    sql.execute("""CREATE TABLE records (
+                        space_id TEXT NOT NULL, channel_id TEXT NOT NULL, position INTEGER NOT NULL CHECK(position>=0),
+                        event_id TEXT NOT NULL, operation_id TEXT NOT NULL, actor TEXT NOT NULL,
+                        control_id TEXT NOT NULL, epoch INTEGER NOT NULL CHECK(epoch>=0), generation TEXT NOT NULL,
+                        original TEXT NOT NULL, receipt TEXT NOT NULL, accepted_at INTEGER NOT NULL,
+                        PRIMARY KEY(space_id,channel_id,position), UNIQUE(space_id,event_id), UNIQUE(space_id,operation_id),
+                        FOREIGN KEY(space_id,control_id) REFERENCES controls(space_id,event_id))""")
+                    sql.execute("PRAGMA user_version=2")
+                }
             }
         } catch (failure: Throwable) {
             try { database.close() } catch (cleanup: Throwable) { failure.addSuppressed(cleanup) }
@@ -156,9 +186,10 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val space = body.text("space_id").also { require(it.matches(ID)) }
         val operation = body.text("operation_id").also { require(it.matches(ID)) }
         return atomic {
-            val prior = database.prepareStatement("SELECT event_id,receipt FROM controls WHERE space_id=? AND operation_id=? UNION ALL SELECT event_id,receipt FROM joins WHERE space_id=? AND operation_id=?").use { sql ->
-                sql.setString(1, space); sql.setString(2, operation)
-                sql.setString(3, space); sql.setString(4, operation)
+            val prior = database.prepareStatement(listOf("controls", "joins", "records").joinToString(" UNION ALL ") {
+                "SELECT event_id,receipt FROM $it WHERE space_id=? AND operation_id=?"
+            }).use { sql ->
+                for (index in 0..2) { sql.setString(index * 2 + 1, space); sql.setString(index * 2 + 2, operation) }
                 sql.executeQuery().use { rows ->
                     if (rows.next()) {
                         require(rows.getString(1) == event.id) { "Spaces operation already has a different original" }
@@ -171,25 +202,44 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val state = journal.snapshot
                 val acceptedAt = clock.millis().also { require(it >= 0) }
                 val joining = body.text("kind") == "join"
+                val content = body.text("kind") in setOf("content", "history")
                 val position = if (joining) {
                     journal.verifyJoin(envelope, acceptedAt)
                     database.prepareStatement("SELECT COALESCE(MAX(position)+1,0) FROM joins WHERE space_id=?").use { sql ->
                         sql.setString(1, space)
                         sql.executeQuery().use { rows -> check(rows.next()); rows.getLong(1) }
                     }
+                } else if (content) {
+                    journal.verifyContent(envelope)
+                    database.prepareStatement("SELECT COALESCE(MAX(position)+1,0) FROM records WHERE space_id=? AND channel_id=?").use { sql ->
+                        sql.setString(1, space); sql.setString(2, body.text("channel_id"))
+                        sql.executeQuery().use { rows -> check(rows.next()); rows.getLong(1) }
+                    }
                 } else state.nextPosition
                 val receipt = SaitoTransaction.create(wallet, JsonObject().apply {
                     addProperty("module", "Spaces"); addProperty("request", "receipt"); addProperty("version", 1)
-                    addProperty("space_id", space); addProperty("stream", if (joining) "join" else "control")
+                    addProperty("space_id", space); addProperty("stream", if (joining) "join" else if (content) "content" else "control")
+                    if (content) addProperty("channel_id", body.text("channel_id"))
                     addProperty("position", position); addProperty("event", envelope)
                 }, acceptedAt, listOf(event.author)).envelope()
-                if (!joining) journal.receive(receipt)
+                if (!joining && !content) journal.receive(receipt)
+                if (content) {
+                    database.prepareStatement("INSERT INTO records(space_id,channel_id,position,event_id,operation_id,actor,control_id,epoch,generation,original,receipt,accepted_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)").use { sql ->
+                        sql.setString(1, space); sql.setString(2, body.text("channel_id")); sql.setLong(3, position)
+                        sql.setString(4, event.id); sql.setString(5, operation); sql.setString(6, event.author)
+                        sql.setString(7, body.text("control_id")); sql.setLong(8, body.number("epoch"))
+                        sql.setString(9, body.text("key_generation")); sql.setString(10, envelope)
+                        sql.setString(11, receipt); sql.setLong(12, acceptedAt)
+                        check(sql.executeUpdate() == 1)
+                    }
+                } else {
                 val table = if (joining) "joins" else "controls" // Internal constants only, never client SQL.
                 database.prepareStatement("INSERT INTO $table(space_id,position,event_id,operation_id,actor,original,receipt,accepted_at) VALUES(?,?,?,?,?,?,?,?)").use { sql ->
                     sql.setString(1, space); sql.setLong(2, position); sql.setString(3, event.id)
                     sql.setString(4, operation); sql.setString(5, event.author); sql.setString(6, envelope)
                     sql.setString(7, receipt); sql.setLong(8, acceptedAt)
                     check(sql.executeUpdate() == 1)
+                }
                 }
                 receipt
             }

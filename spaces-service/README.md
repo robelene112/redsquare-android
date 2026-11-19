@@ -3,9 +3,12 @@
 Source-only implementation for137. It is not installed on a Saito node.
 Current executable paths cover signed creation, invitation and admission
 controls, a separate join-request queue, durable original receipt replay,
-nonce-bound private control/owner queue reads and loopback HTTP transport.
-Content paging, node integration
-and operational readiness/rollback are still required before activation.
+nonce-bound private control/owner queue and channel-content reads, encrypted
+content/history-grant storage and loopback HTTP transport. Two actual MLS members
+recover earlier encrypted text and exchange a reply after their separate state
+is reloaded and the service is reopened. This component fixture is not the app
+coordinator or an Android process test. Node integration and operational
+readiness/rollback are still required before activation.
 
 The service owns ordering and public membership metadata. Clients retain all
 community MLS state and archive keys. This service does not accept community
@@ -34,9 +37,14 @@ This line reports the local listener, not an activated Saito capability.
 
 SQLite JDBC is pinned to the official stable
 [3.54.1.0 release](https://github.com/xerial/sqlite-jdbc/releases/tag/3.54.1.0).
-Schema1 uses immediate transactions, WAL and full synchronous commits. Initial
-schema creation is atomic. Re-entry checks the stored service identity and
-rejects unknown versions or unversioned existing data instead of resetting it.
+Schema2 uses immediate transactions, WAL and full synchronous commits. Initial
+schema creation and the additive schema1-to2 content-table migration are atomic.
+Controls and join requests retain their original bytes and positions. Re-entry
+checks the stored service identity and rejects unknown versions or unversioned
+existing data before changing the existing database journal mode. The isolated
+v1 migration fixture checks this preservation boundary. The pre-migration
+service rejects schema2; rolling back executable code requires a schema2-compatible
+service, never restoring an old database over later accepted writes.
 Do not copy an older database over subsequent accepted writes. Keep the entire
 database/WAL family together during offline recovery. A proper operational
 migration/readiness/write-preserving rollback rehearsal remains an activation

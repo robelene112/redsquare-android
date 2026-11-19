@@ -8,7 +8,7 @@ import java.util.Collections
 
 enum class SpaceRole { OWNER, ADMIN, MEMBER }
 data class SpaceInvitationRecord(val key: String, val expiresAt: Long)
-data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>)
+data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>, val generation: String = "0".repeat(64))
 data class SpaceJoinRequest(val envelope: String, val id: String, val actor: String,
     val operationId: String, val channelId: String, val keyPackage: SpaceCrypto.BoundPackage)
 
@@ -56,7 +56,9 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 val devices = devices(event.body)
                 require(devices.size == 1 && credentialWallet(devices.keys.single()) == event.author)
                 SpaceSnapshot(event.author, mapOf(event.author to SpaceRole.OWNER), event.id, 1,
-                    channels = mapOf(event.body.text("channel_id") to SpaceChannelRecord(0, devices)))
+                    channels = mapOf(event.body.text("channel_id") to SpaceChannelRecord(0, devices,
+                        event.body.takeIf { it.has("key_generation") }?.text("key_generation")?.also { require(it.matches(ID)) }
+                            ?: "0".repeat(64))))
             }
             "invite" -> {
                 require(current.owner != null && event.body.text("control_id") == current.controlId)
@@ -84,7 +86,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 admittedJoin = join
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     members = Collections.unmodifiableMap(current.members + (join.actor to SpaceRole.MEMBER)),
-                    channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(epoch, devices))))
+                    channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(epoch, devices, oldChannel.generation))))
             }
             else -> throw IllegalArgumentException("Unsupported Spaces control version or kind")
         }
@@ -109,7 +111,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         val invitation = requireNotNull(current.invitations[invitationId])
         require(join.body.text("control_id") == invitationId && acceptedAt >= 0 && invitation.expiresAt > acceptedAt)
         val data = join.body.getAsJsonObject("key_package")
-        val scope = SpaceCrypto.Scope(serviceKey, spaceId, channel)
+        val scope = SpaceCrypto.Scope(serviceKey, spaceId, channel, requireNotNull(current.channels[channel]).generation)
         val keyPackage = SpaceCrypto.BoundPackage(scope, data.text("wallet"), data.text("device"),
             data.text("package"), data.text("signer"), data.text("signature"))
         keyPackage.verify()
@@ -119,6 +121,30 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             "Spaces invitation does not authorize this join"
         }
         return SpaceJoinRequest(envelope, join.id, join.author, operation, channel, keyPackage)
+    }
+
+    /** The service checks accepted membership and routing, never community plaintext. */
+    fun verifyContent(envelope: String) {
+        val event = SaitoEnvelope.decode(envelope)
+        val body = event.body
+        header(body, "event")
+        require(body.text("space_id") == spaceId && event.recipients == listOf(event.author, serviceKey).distinct())
+        require(body.text("operation_id").matches(ID) && body.text("operation_id") !in operations)
+        require(body.text("control_id") == current.controlId && event.author in current.members)
+        val channel = requireNotNull(current.channels[body.text("channel_id")])
+        require(body.number("epoch") == channel.epoch && body.text("key_generation") == channel.generation)
+        require(channel.devices.keys.any { credentialWallet(it) == event.author })
+        when (body.text("kind")) {
+            "content" -> {
+                require(body.text("content_kind").matches(Regex("[a-z][a-z-]{0,31}")))
+                require(Base64.getDecoder().decode(body.text("ciphertext")).size in 29..(64 * 1024 + 28))
+            }
+            "history" -> {
+                require(body.text("recipient_credential") in channel.devices)
+                require(Base64.getDecoder().decode(body.text("wire")).size in 1..1_048_576)
+            }
+            else -> throw IllegalArgumentException("Unsupported Spaces content kind")
+        }
     }
 
     private fun devices(body: JsonObject): Map<String, String> {
