@@ -35,6 +35,7 @@ import nl.davidengelen.redsquare.feed.ProfileAvatar
 
 internal enum class AppModule(val title: Int, val icon: Int, val summary: Int) {
     RED_SQUARE(R.string.app_name, R.drawable.ic_home, R.string.app_redsquare_summary),
+    SPACES(R.string.spaces_title, R.drawable.ic_spaces, R.string.app_spaces_summary),
     STACK(R.string.stack_title, R.drawable.ic_article, R.string.app_stack_summary),
     TALK(R.string.talk_title, R.drawable.ic_video, R.string.app_talk_summary),
     VAULT(R.string.vault_title, R.drawable.ic_vault, R.string.app_vault_summary),

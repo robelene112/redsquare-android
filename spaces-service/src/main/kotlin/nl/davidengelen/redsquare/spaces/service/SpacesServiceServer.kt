@@ -32,6 +32,7 @@ class SpacesServiceServer(directory: Path, wallet: SaitoWallet, clock: Clock, re
             val response = try {
                 require(exchange.requestURI.rawQuery == null)
                 when {
+                    exchange.requestMethod == "GET" && exchange.requestURI.rawPath == "/v1/readiness" -> store.readiness()
                     exchange.requestMethod == "POST" && exchange.requestURI.rawPath == "/v1/exchange" -> {
                         val bytes = exchange.requestBody.use { it.readNBytes(MAX_INPUT + 1) }
                         require(bytes.size in 1..MAX_INPUT)

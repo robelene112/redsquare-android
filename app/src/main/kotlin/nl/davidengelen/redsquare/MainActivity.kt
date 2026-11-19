@@ -124,13 +124,15 @@ class MainActivity : ComponentActivity() {
     private val incomingVaultFiles by lazy {
         androidx.lifecycle.ViewModelProvider(this)[nl.davidengelen.redsquare.vault.VaultIncomingFiles::class.java]
     }
+    private val spaceUris = kotlinx.coroutines.flow.MutableStateFlow<Uri?>(null)
     private val storeUris = kotlinx.coroutines.flow.MutableStateFlow<Uri?>(null)
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         // Preserve the original launch configuration, including controlled peer endpoints.
         if (incomingVaultFiles.receive(this, intent)) return
-        if (nl.davidengelen.redsquare.saito.StoreLink.parse(intent.data?.toString().orEmpty()) != null) storeUris.value = intent.data
+        if (nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.accepts(intent.data)) spaceUris.value = intent.data
+        else if (nl.davidengelen.redsquare.saito.StoreLink.parse(intent.data?.toString().orEmpty()) != null) storeUris.value = intent.data
         else if (nl.davidengelen.redsquare.talk.TalkLaunchRoutes.accepts(intent.data)) talkRoutes.enqueue(intent.data) else notificationRoutes.enqueue(intent.data)
     }
 
@@ -159,7 +161,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) incomingVaultFiles.receive(this, intent)
         talkRoutes.initialize(intent.data)
-        if (nl.davidengelen.redsquare.saito.StoreLink.parse(intent.data?.toString().orEmpty()) != null) {
+        if (nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.accepts(intent.data)) {
+            if (savedInstanceState == null) spaceUris.value = intent.data
+        } else if (nl.davidengelen.redsquare.saito.StoreLink.parse(intent.data?.toString().orEmpty()) != null) {
             if (savedInstanceState == null) storeUris.value = intent.data
         } else if (!nl.davidengelen.redsquare.talk.TalkLaunchRoutes.accepts(intent.data)) notificationRoutes.initialize(intent.data)
         videoDiagnostics = VideoDiagnostics.fromIntent(this, intent)
@@ -241,6 +245,42 @@ class MainActivity : ComponentActivity() {
                 backendReady = true
             }
             val address = wallet?.publicKey
+            var spacesActivated by rememberSaveable { mutableStateOf(false) }
+            var pendingSpaceInvitation by remember { mutableStateOf<String?>(null) }
+            val incomingSpaceUri by spaceUris.collectAsState()
+            LaunchedEffect(module) { if (module == AppModule.SPACES) spacesActivated = true }
+            val spacesAccount = remember(address, backend, spacesActivated) {
+                val current = wallet
+                val node = backend
+                if (!spacesActivated || current == null || node == null) null
+                else nl.davidengelen.redsquare.spaces.SpacesAccount(applicationContext, current, node,
+                    FeedEndpoints.fromIntent(intent, node), scope)
+            }
+            DisposableEffect(spacesAccount, module) {
+                val account = spacesAccount
+                val observer = LifecycleEventObserver { _, event ->
+                    if (event == Lifecycle.Event.ON_START) account?.visible(module == AppModule.SPACES)
+                    if (event == Lifecycle.Event.ON_STOP) account?.visible(false)
+                }
+                lifecycle.addObserver(observer)
+                account?.visible(module == AppModule.SPACES && lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
+                onDispose { lifecycle.removeObserver(observer); account?.visible(false) }
+            }
+            DisposableEffect(spacesAccount) { onDispose { spacesAccount?.close() } }
+            LaunchedEffect(incomingSpaceUri, address, backend) {
+                val incoming = incomingSpaceUri ?: return@LaunchedEffect
+                val owner = address ?: return@LaunchedEffect
+                val node = backend ?: return@LaunchedEffect
+                val moved = postNavigation.navigate {
+                    if (wallet?.publicKey != owner || backend != node || spaceUris.value != incoming) false
+                    else {
+                        spacesActivated = true; pendingSpaceInvitation = incoming.toString()
+                        stackLinkEntry = null; storeLinkEntry = null; vaultRentalEntry = null
+                        module = AppModule.SPACES; spaceUris.value = null; true
+                    }
+                }
+                moduleSwitchFailed = !moved
+            }
             LaunchedEffect(address, backend) {
                 receivedFilesScope?.let { saved ->
                     if (address != null && backend != null && (saved.owner != address || saved.backend != backend)) receivedFilesScope = null
@@ -676,7 +716,23 @@ class MainActivity : ComponentActivity() {
                                             }
                                         }
                                         val renderModule: @Composable () -> Unit = {
-                                            if (module == AppModule.STORE) {
+                                            if (module == AppModule.SPACES) {
+                                                val currentWallet = wallet
+                                                val account = spacesAccount
+                                                if (currentWallet != null && account != null) key(currentWallet.publicKey, selected) {
+                                                    val endpoint = FeedEndpoints.fromIntent(intent, selected)
+                                                    nl.davidengelen.redsquare.feed.ProfileAvatarScope(currentWallet, selected, endpoint) {
+                                                        CompositionLocalProvider(LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, endpoint)) {
+                                                            RegisteredIdentityScope(currentWallet, endpoint, selected,
+                                                                RegistryAuthority.directoryPeer(intent, endpoint).takeIf { nameDirectoryEnabled == true }) {
+                                                                nl.davidengelen.redsquare.spaces.SpacesScreen(account, Modifier.fillMaxSize(), chrome,
+                                                                    initialInvitation = pendingSpaceInvitation,
+                                                                    onInvitationConsumed = { pendingSpaceInvitation = null })
+                                                            }
+                                                        }
+                                                    }
+                                                } else chrome(false)
+                                            } else if (module == AppModule.STORE) {
                                                 val currentWallet = wallet
                                                 if (currentWallet != null) key(currentWallet.publicKey, selected) {
                                                     val storeNode = linkedStore?.target?.backend ?: selected

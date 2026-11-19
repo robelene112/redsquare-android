@@ -21,6 +21,24 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
     private data class Challenge(val caller: String, val scope: JsonObject, val expiresAt: Long)
     private val challenges = mutableMapOf<String, Challenge>()
 
+    /** Loopback operational metadata, not a signed write acknowledgment or a
+     * promise of available disk space. The node also checks its own identity. */
+    @Synchronized fun readiness(): String {
+        val version = database.createStatement().use { sql ->
+            sql.executeQuery("PRAGMA user_version").use { rows -> check(rows.next()); rows.getInt(1) }
+        }
+        check(version == 2)
+        database.createStatement().use { sql ->
+            sql.executeQuery("SELECT service_key FROM service_metadata WHERE id=1").use { rows ->
+                check(rows.next() && rows.getString(1) == wallet.publicKey)
+            }
+        }
+        return JsonObject().apply {
+            addProperty("capability", "spaces-v1"); addProperty("service_key", wallet.publicKey)
+            addProperty("schema", version); addProperty("state", "ready"); addProperty("file_hosting", false)
+        }.toString()
+    }
+
     /** Read authority comes from the actual signer and a fresh bound challenge. */
     @Synchronized fun exchange(envelope: String): String {
         val request = SaitoEnvelope.decode(envelope)
@@ -31,8 +49,10 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val requestId = body.text("request_id").also { require(it.matches(ID)) }
         val scope = body.get("scope").also { require(it != null && it.isJsonObject) }.asJsonObject.deepCopy()
         val space = scope.text("space_id").also { require(it.matches(ID)) }
-        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content")) }
-        require(scope.keySet() == setOf("space_id", "stream", "cursor") + if (stream == "content") setOf("channel_id") else emptySet())
+        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "invitation")) }
+        require(scope.keySet() == setOf("space_id", "stream", "cursor") + when (stream) {
+            "content" -> setOf("channel_id"); "invitation" -> setOf("invite_id"); else -> emptySet()
+        })
         val channel = if (stream == "content") scope.text("channel_id").also { require(it.matches(ID)) } else null
         val cursor = scope.number("cursor")
         val now = clock.millis().also { require(it >= 0) }
@@ -57,7 +77,13 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 challenges.remove(nonce)
                 atomic {
                     val journal = journal(space)
-                    if (stream == "join") {
+                    if (stream == "invitation") {
+                        val invitationId = scope.text("invite_id")
+                        val invitation = requireNotNull(journal.snapshot.invitations[invitationId])
+                        require(invitation.expiresAt > now)
+                        val proof = "SaitoSpacesPreview/v1:${wallet.publicKey}:$space:$invitationId:${request.author}:$nonce"
+                        require(SaitoWallet.verify(proof.toByteArray(Charsets.UTF_8), body.text("invite_proof"), invitation.key))
+                    } else if (stream == "join") {
                         require(journal.snapshot.members[request.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
                     } else require(request.author in journal.snapshot.members) { "Spaces private history is not available to this identity" }
                     if (channel != null) require(requireNotNull(journal.snapshot.channels[channel]).devices.keys.any {

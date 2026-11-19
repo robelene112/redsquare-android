@@ -6,6 +6,7 @@ dependencies {
     // Server-only durable ordering, official stable release3.54.1.0.
     implementation("org.xerial:sqlite-jdbc:3.54.1.0")
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
 }
 application { mainClass.set("nl.davidengelen.redsquare.spaces.service.SpacesServiceMain") }
 tasks.test {

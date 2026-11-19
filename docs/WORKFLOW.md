@@ -1,5 +1,24 @@
 # Development workflow
 
+
+## Active137: source-stage client and native routes
+
+The durable application coordinator now creates a private community, preserves
+signed originals across lost responses, verifies invitation previews without
+joining, explicitly requests admission, admits through the existing owner and
+shares actual historical keys. Two independent client identities exchange real
+ciphertext through the SQLite service. Source includes native navigationB,
+account/node-scoped encrypted local rows, channel drafts and invitation routes.
+The Android main code compiles, but rendered/OS/process journeys and the actual
+Saito node adapter rehearsal are still pending. Do not close137 or publish this
+as an accepted Spaces release. Beta142 remains the ordinary public release.
+
+The narrower fixed-fbe recovery/JNI checkpoint has three complete accepted
+Android10/17/17-16KiB parents and both independent actual-archive reviews; see
+`docs/evidence/ticket137/runtime-recovery-v3/`. It proves no functional UI or
+Android process boundary. Continue137, then138–147 sequentially. Production
+node/provider activation and automatic community file hosting remain separate.
+
 ## Delivered prerequisites133/135, functional Spaces next
 
 Signed [beta0.1.142](https://davidengelen.nl/redsquare/) retains loaded quoted

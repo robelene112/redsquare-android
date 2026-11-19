@@ -30,6 +30,22 @@ class SpacesServiceStoreTest {
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val clock = Clock.fixed(Instant.ofEpochMilli(1_700_000_000_000), ZoneOffset.UTC)
 
+    @Test fun readinessReportsOnlyTheActualLocalServiceIdentityAndStorageVersion() {
+        SpacesServiceServer(files.newFolder("readiness").toPath(), service, clock).use { server ->
+            server.start()
+            val request = HttpRequest.newBuilder(URI("http://127.0.0.1:${server.port}/v1/readiness"))
+                .timeout(java.time.Duration.ofSeconds(5)).GET().build()
+            val response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString())
+            assertEquals(200, response.statusCode())
+            val body = com.google.gson.JsonParser.parseString(response.body()).asJsonObject
+            assertEquals("spaces-v1", body.get("capability").asString)
+            assertEquals(service.publicKey, body.get("service_key").asString)
+            assertEquals(2, body.get("schema").asInt)
+            assertEquals("ready", body.get("state").asString)
+            assertFalse(body.get("file_hosting").asBoolean)
+        }
+    }
+
     @Test(timeout = 45_000) fun authenticatedPrivateReadingBindsTheNonceToItsCallerAndConsumesItOnce() {
         val outsider = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
         val scope = JsonObject().apply {
