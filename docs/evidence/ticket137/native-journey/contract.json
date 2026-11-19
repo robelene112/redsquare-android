@@ -68,6 +68,11 @@
       "run": 44467805653,
       "source": "95c3b70256199b4d59eea4cd25c98efdda5d340b",
       "result": "native failure after71.401s at second-community join/read wait20s; capture shows IME covering review and no Join action in native visible hierarchy. No process acceptance. Original deadlines retained."
+    },
+    {
+      "run": 44471884241,
+      "source": "0b357b68b932d9e1f4a6b37068f0b5bffed53958",
+      "result": "Whole native case failed at82.206s: second-community native join and independent receipt passed, then module switch could not find the header while the IME remained visible. Original15s header and5s IME deadlines unchanged. No process acceptance."
     }
   ]
 }

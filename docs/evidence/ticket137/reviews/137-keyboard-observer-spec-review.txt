@@ -1,0 +1,9 @@
+Spec review: zero findings in the working-tree diff since0b357b68b.
+
+Scope is only SpacesJourneyTest.kt. Reviewed the changed helpers, all journey callers, the existing AccountMenuFixture.revealAppNavigation implementation, issue137 and the frozen native contractv6.
+
+Issue137 requires native “create/invitation/join/read/return” flows and genuine durable restart with actual independent received effects. SpacesJourneyTest.kt:225-244 now synchronizes before requesting normal Espresso keyboard dismissal, always verifies IME disappearance within the existing5s assertion, and uses the application's existing accessible Show app navigation action before selecting a module. These are actual Android/UI operations. They do not mutate product state directly, replace received effects, or bypass module navigation.
+
+The original15s header wait,10s destination wait, other action/read/receipt deadlines,180s/90s case budgets, actual reading-pixel assertions, invitation/Join assertions, exact second-community independent receipt, held-original checkpoint and distinct-process goals remain intact. The reveal helper only invokes an existing accessibility action when present and performs no conversation scrolling. No contractv6 goal or validator was removed or weakened.
+
+Quality-plan70 requires observer fixes to retain original failures and receive “a fresh complete affected run.” Run44471884241 remains failed at the module-draft header wait despite earlier actual native B admission and independently received B send. Those partial observations establish neither a passing native journey nor process acceptance. The corrected helper still needs fresh complete affected execution and source-bound evidence; this review provides source acceptance only. Whole137, complete-app regression and deployed-node acceptance remain unestablished.

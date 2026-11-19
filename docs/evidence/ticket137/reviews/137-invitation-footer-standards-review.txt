@@ -1,0 +1,19 @@
+Standards review: 95c3b70256199b4d59eea4cd25c98efdda5d340b...0b357b68b932d9e1f4a6b37068f0b5bffed53958
+Read-only source and retained-failure review; no implementation or native execution.
+
+Hard documented violations
+None confirmed against CODING_STANDARDS.md, AGENTS.md, docs/WORKFLOW.md and the applicable global development/workspace/communication rules.
+
+Reviewed boundaries
+DesignSheet.kt:21-55 adds a footer for the actual invitation workflow. Its null-footer branch preserves the original scrolling, spacing, focus group and first-action modifier. The optional hook has a concrete caller, so it is not speculative generality.
+
+SpacesScreen.kt:283-325 clears focus and hides the IME before preview or explicit Join; IME Done only previews. Verified review replaces the input with an animated card and retains an explicit Join action in the footer. Focus-request attachment follows the current input/review state. Native visibility assertions require both the invitation title and enabled Join before proceeding.
+
+SpacesScreen.kt:260 preserves local editing before confirmation while Send remains gated by canSend. Existing account-owned, community-scoped draft storage and navigation fences remain. SpacesAccount.kt:134 publishes the durably recorded attempted state before transport can hold its response; flush invokes transport after releasing its storage transaction, and no changed caller holds localAccess across that exchange.
+
+SpaceClient.kt:54 distinguishes an unjoined admission request by persisted joining_invitation. Creator and invitee receive truthful separate status text. The retained actual RED XML fails the invitee assertion; the subsequent GREEN log passes the focused component case.
+
+SpacesJourneyTest.kt:118-142 preserves the original preview/join/read waits and adds native-visible Join plus an independent receipt in the exact invited community. scripts/spaces-native-journey:134-140 captures bounded host failure status before cleanup without replacing the original failure or relaxing existing native/process goals.
+
+Judgment calls and evidence limits
+No actionable smell findings. I inspected parent44467805653 native-failure.png: the IME obscures review and Join. That original parent remains failed. The corrected source has no fresh native acceptance yet; this review establishes neither successful rendering nor complete137, process, physical-device or deployed-node acceptance.

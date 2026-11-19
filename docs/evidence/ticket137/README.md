@@ -59,6 +59,13 @@ The ordinary sheet path remains unchanged when no footer is supplied.
 A separately observed creator-status mismatch also has a real failing then
 passing client regression: creation confirmation and requested admission are
 now distinct; local drafts remain editable before either confirmation.
+Parent44471884241 at0b confirms the corrected native review/join path and an
+actual reply received in the second community. The whole case then fails at
+82.206s because a one-time IME observation skipped dismissal before a module
+switch. The keyboard observer now uses the existing synchronized Espresso
+action and verifies hidden insets within the original5s bound. Module switching
+uses the shared navigation-reveal action. Both source reviews find no issue.
+These are retained partial observations, not acceptance.
 Functional native verification is still pending; beta142 stays public and137
 stays open. No passing prefix, physical/OEM or deployed-node acceptance is claimed.
 

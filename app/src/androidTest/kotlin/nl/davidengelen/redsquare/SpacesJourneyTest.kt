@@ -223,22 +223,25 @@ class SpacesJourneyTest {
     })
     private fun openSpaces(current: String) = switchModule(current, "Spaces")
     private fun switchModule(current: String, next: String) {
+        ui.revealAppNavigation()
         ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: $current").isDisplayed() }
         ui.onNodeWithContentDescription("Switch app: $current").performClick()
         ui.onNode(hasText(next) and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())).performScrollTo().performClick()
         ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Switch app: $next").isDisplayed() }
     }
     private fun closeKeyboard(activity: ActivityScenario<MainActivity>) {
+        // Text replacement can return before the pending input connection shows
+        // the IME. Use Espresso's synchronized keyboard action, rather than
+        // sampling insets once and potentially skipping the dismissal entirely.
+        ui.waitForIdle()
+        androidx.test.espresso.Espresso.closeSoftKeyboard()
         fun visible(): Boolean {
             var shown = false
             activity.onActivity { shown = androidx.core.view.ViewCompat.getRootWindowInsets(it.window.decorView)
                 ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) == true }
             return shown
         }
-        if (visible()) {
-            UiDevice.getInstance(instrumentation).pressBack()
-            ui.waitUntil(5_000) { !visible() }
-        }
+        ui.waitUntil(5_000) { !visible() }
     }
     private fun capture(name: String, expected: String? = null) = captureNativeScreen(File(evidence, "$name.png"), expected)
     private fun command(action: String, body: JsonObject = JsonObject()): JsonObject {

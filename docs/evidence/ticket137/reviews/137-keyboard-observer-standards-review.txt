@@ -1,0 +1,15 @@
+Standards review: working-tree SpacesJourneyTest.kt diff since0b357b68b
+Read-only source and retained-failure review; no implementation or native execution.
+
+Hard documented violations
+None confirmed against CODING_STANDARDS.md and docs/WORKFLOW.md native-evidence rules.
+
+SpacesJourneyTest.kt:225-230 uses the existing revealAppNavigation helper before the original visible-header assertion. That helper invokes the application's real Show app navigation accessibility action; it does not inject state, fabricate visibility or bypass the native module menu. The original15-second header and10-second destination waits remain unchanged.
+
+SpacesJourneyTest.kt:232-246 replaces conditional Back with Compose idle synchronization and Espresso.closeSoftKeyboard. The existing5-second actual root-window IME-inset assertion now executes unconditionally. This strengthens the observer's postcondition: a premature false inset sample no longer skips dismissal and verification. No application assertion is removed, retried after failure, or assigned a longer deadline. Native180-second checkpoint and90-second return goals, failure capture, ownership restoration and process checks remain untouched.
+
+Judgment calls
+No actionable findings under the supplied smell baseline. Reusing the existing navigation helper avoids duplicating its actual accessibility-action logic; the keyboard helper remains focused on keyboard dismissal and its observable postcondition.
+
+Evidence limits
+The retained attempt5 before-kill.txt fails the15-second switchModule header wait at82.206 seconds. Its native-failure.png shows the preserved module-switch draft and visible IME. This supports an observer correction but does not prove this change resolves the race. Original run44471884241 remains failed. Fresh complete affected execution and acceptance remain pending; no whole journey, process, physical-device or deployed-node acceptance is claimed.
