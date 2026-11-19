@@ -1,7 +1,7 @@
 {
   "version": 1,
   "ticket": 139,
-  "status": "Prospective first archive/role native contract; actual Android acceptance pending",
+  "status": "First prospective management contract; both complete native parents failed before management actions on the Info observer selector. Fresh parents required.",
   "base": "3d165296c5aa2015ab209a543a1260f03d0af1bb",
   "mode": "management-v1",
   "sourceFiles": {
@@ -46,13 +46,13 @@
   "prospectiveCaseCatalogue": {
     "core": 244,
     "service": 79,
-    "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-expected-cases.json",
+    "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-validator-revision1/139-management-expected-cases.json",
     "sha256": "991ce1b4d5cc71f6a0a658b6b5533ab5918efdae359bc26e48a7c7b5ec6808ad"
   },
   "assessor": {
-    "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/verify-139-native-management.py",
+    "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-validator-revision1/verify-139-native-management.py",
     "sha256": "12f562553509806f218a09aefb28fe5b6b48961690b6db053954d386f8070371",
-    "sourceFreeze": "Written externally against exact committed source before dispatch; no native result currently accepted"
+    "sourceFreeze": "Original04dbabb source and exact assessor/catalogue preserved in external139-management-validator-revision1 before replacement; failed parents remain failed."
   },
   "checks": {
     "hostCompile": {

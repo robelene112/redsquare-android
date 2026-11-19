@@ -71,3 +71,12 @@ profiles receive stable rejections without blocking valid writing. Three origina
 runtime failures and their subsequent checks are retained; the latest two SQLite
 cases and both source review axes pass. The edit API/UI, category management and
 remaining139 scope are pending. No beta or production node/provider changes occurred.
+
+Both first management native parents failed before any management action because
+Info was queried by content description while its actual48dp button exposes text.
+Their whole originals, exact APK bytes, failure screenshots and cleanup results are
+retained. The [observer correction and prospective retry](management-native-observer-recovery.json)
+select the real semantic text/click action, retaining all goals/deadlines. Both
+source review axes are clear; a fresh complete run on each SDK is required.
+The new244/81 catalogue preserves every earlier case and adds the two public-channel
+metadata cases. No failed parent or passing prefix is accepted.

@@ -178,7 +178,7 @@ class SpacesManagementJourneyTest {
         assertEquals(2f, context.resources.configuration.fontScale, .01f)
         assertEquals(320, context.resources.configuration.screenWidthDp)
         launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("compact-management-failure") }) {
-            waitUntil { ui.onNodeWithContentDescription(context.getString(R.string.spaces_information)).isDisplayed() }
+            waitUntil { ui.onNode(hasText(context.getString(R.string.spaces_information)) and hasClickAction()).isDisplayed() }
             openMembers(); openRole()
             ui.onNode(hasText("Make administrator") and hasClickAction()).assertIsDisplayed()
             capture("14-compact-role-review")
@@ -189,7 +189,7 @@ class SpacesManagementJourneyTest {
             }
         } }
         launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("compact-confirmation-failure") }) {
-            waitUntil { ui.onNodeWithContentDescription(context.getString(R.string.spaces_information)).isDisplayed() }
+            waitUntil { ui.onNode(hasText(context.getString(R.string.spaces_information)) and hasClickAction()).isDisplayed() }
             openMembers(); openRole(); clickDialog("Make administrator")
             waitUntil { ui.onNode(hasText("Remove administrator role") and hasClickAction() and isEnabled()).isDisplayed() }
             capture("16-compact-confirmed-administrator")
@@ -234,7 +234,7 @@ class SpacesManagementJourneyTest {
 
     private fun openInformation() {
         waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
-        ui.onNodeWithContentDescription(context.getString(R.string.spaces_information)).clickReady()
+        ui.onNode(hasText(context.getString(R.string.spaces_information)) and hasClickAction()).clickReady()
     }
     private fun openMembers() { openInformation(); clickDialog("Members"); waitText("MemberOfTheLab@saito") }
     private fun openRole() { ui.onNode(hasText("Manage role") and hasClickAction()).clickReady() }

@@ -21,7 +21,8 @@ read; Android execution and the remaining139 scope are pending. See [the current
 Public-channel name/category receiving changes also pass two independent SQLite
 cases and both source review axes; the edit API/UI and remaining governance are
 pending. First native management parents failed on an Info-button observer selector,
-with complete originals retained and an unchanged-goal correction under review.
+with complete originals retained and an unchanged-goal correction source-reviewed.
+Fresh complete Android10/17 parents are required.
 Keep the sequential139–147 authorization and separate release/production gates
 below. Ordinary beta142 remains unchanged.
 

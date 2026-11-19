@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "ticket": 139,
+  "status": "Prospective complete retry; no fresh native result yet",
+  "previousContract": "management-native-contract.json",
+  "publicChannelBoundarySource": "84690147fe9a553d10a3eb488dfcfa75a94c96c0",
+  "failedParents": [
+    {
+      "run": 44638748406,
+      "source": "04dbabbdb88c6f42881fa4d8e4ceb23c60ff750a",
+      "whole": "FAILURE",
+      "root": "/mnt/storage/redsquare-android-artifacts/spaces139-runtime/attempt1-44638748406",
+      "archiveSha256": "8cca19d826b5a1bf9739ec528de99eeab3e45edbd9e0228357f23934b0779843",
+      "apiDigestAndCrc": "PASS",
+      "developmentModules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 79,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Phase1 Info-button observer searched contentDescription although actual FrameIconButton supplies semanticText; native does not establish management acceptance.",
+      "cleanupErrors": []
+    },
+    {
+      "run": 44638751950,
+      "source": "04dbabbdb88c6f42881fa4d8e4ceb23c60ff750a",
+      "whole": "FAILURE",
+      "root": "/mnt/storage/redsquare-android-artifacts/spaces139-runtime/attempt1-44638751950",
+      "archiveSha256": "ed237eddb4e53087b0ad5a62bcd2cb8d36772be7f59304b595257bb419449c39",
+      "apiDigestAndCrc": "PASS",
+      "developmentModules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 79,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Phase1 Info-button observer searched contentDescription although actual FrameIconButton supplies semanticText; native does not establish management acceptance.",
+      "cleanupErrors": []
+    }
+  ],
+  "observerCorrection": {
+    "file": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt",
+    "sha256": "19954419cede977d7c6a9b9ee85efd3233b0c2cba0d24f81ef231ce9b51922cf",
+    "change": "Three Info queries select existing semanticText plus clickaction. Source AppFrame.kt59 and actualfailurePNG/XML confirm48dp visibleenabledcontrol. No application, deadline, action, viewport, recovery or screenshotgoal changed."
+  },
+  "reviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-management-info-observer-spec-review.txt",
+      "sha256": "0dfaa17e2dfea447aa16590db94f736b986a0c28ed592d830780018e79769a0d"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-management-info-observer-standards-review.txt",
+      "sha256": "031c90367128ebece34d0ca4e51c3d378353172ffe351dc4be2a4c8d2338ab1b"
+    }
+  },
+  "prospectiveDevelopmentCatalogue": {
+    "core": 244,
+    "service": 81,
+    "serviceClasses": 8,
+    "reason": "Preserves all79 named previous service cases and adds two independently tested public-channel metadata cases. No omission or skip.",
+    "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-expected-cases.json",
+    "sha256": "6a38eff41c0a7c2ecdcbd12cf05c24de7beeca6c5e04e566e0014b0b9b8f9332"
+  },
+  "prospectiveAssessor": {
+    "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/verify-139-native-management.py",
+    "sha256": "a2a8ddd8449aa25f503c7a4320f2b4e411806707f751bcdf7eb85ccbc5007e35",
+    "goals": "Management-v1 fourphases/twoactualkills/twoterminal/distinct4PIDs/180sphase/5saction/15scontent/1pixel/320font2/3viewportprobes remain unchanged. Separate exactsource freeze before dispatch."
+  },
+  "qualification": "Lastlocalinstrumentationcompilewasat04dbabb before this observer-only selection correction. Freshcomplete CI must compileactualsource and passwhole affectedcollector; no prefixunion. Remaining139functional requirements stillincomplete. No release, production node/provider, public/financial or filehostingactivation."
+}
