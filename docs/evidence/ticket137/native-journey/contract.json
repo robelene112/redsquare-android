@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "ticket": 137,
   "scope": "focused actual Activity and distinct-process journey, not complete app regression or deployed-node acceptance",
   "source": "exact checked-out Git SHA recorded by parent workflow and acceptance.json",
@@ -40,5 +40,22 @@
   "deliberate_interruptions": 1,
   "node_activation": false,
   "public_transactions": false,
-  "previous": "Version1 at ae938ff2d99565c82f03e522b6a6919cda21355b failed before any native case because the test host main did not return void. Original run44461360093 retained."
+  "previous": "Version1 at ae938ff2d99565c82f03e522b6a6919cda21355b failed before any native case because the test host main did not return void. Original run44461360093 retained.",
+  "observerHistory": [
+    {
+      "run": 44461360093,
+      "source": "ae938ff2d99565c82f03e522b6a6919cda21355b",
+      "result": "host entrypoint failed before native cases"
+    },
+    {
+      "run": 44463252284,
+      "source": "8166e3ec3b99c67097139305e2917d4288dacce1",
+      "result": "JSON observer failed before functional native result; raw first instrumentation says Process crashed, crash buffer empty, no causal app diagnosis established"
+    },
+    {
+      "run": 44464342665,
+      "source": "f451acfecdc40936c489c4834bac13cea9540f49",
+      "result": "cancelled after known shared observer failure, no Android10 native acceptance claimed"
+    }
+  ]
 }

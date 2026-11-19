@@ -1,0 +1,11 @@
+Spec source review: 8166e3ec3b99c67097139305e2917d4288dacce1...91aa9b6067c0ba939bc25573aa0c7d71774d7e86
+
+One residual finding:
+
+Medium: immediate module return can still discard a newly pinned reading anchor.
+Requirement: docs/quality/SPACES_QUALITY_PLAN.md:52 requires "list reading anchor retained through refresh and return"; :60 requires "no reading-anchor jump from unrelated arrivals".
+SpacesAccount.kt:226-234 updates historyWindows when the viewport moves, but does not update State.followingLatest. That field remains true until a later publish() or select() copies the map into state. Scroll upward from the latest conversation, switch modules, and return before that publish completes, especially with a held/offline refresh. The recreated SpacesScreen's LaunchedEffect at:197-216 runs again even with unchanged message IDs. Its restored initialPage is false, but stale followingLatest is true, so it animates to the bottom and overrides the restored reading position. Ordinary module return retains the selected account/community, so select()'s atomic window snapshot does not repair this path. Update followingLatest atomically with the captured Space's viewport pin change, or derive the restored follow decision from the actual pin before scrolling. The native test receives additional messages before returning, ensuring a publish occurs and leaving this immediate-return case uncovered.
+
+The previous historical-page-bottom finding is addressed: hasLater now prevents scrolling to a historical page's end from removing its pin. Explicit Back to latest still clears the pin and requests the newest message. Batch-arrival following uses account window state, and local selection publishes messages and window metadata together. The existing accepted-admission-after-expiry and fresh-invitation recovery changes remain intact.
+
+No scope creep found. Native execution and temporal acceptance remain pending; the strengthened assertions are prospective coverage. This source review does not claim complete137, deployed-node or device acceptance.

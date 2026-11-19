@@ -1,0 +1,15 @@
+Standards review: 179dd69ebbd37dd3396f528e7775f9c9f65d5aad...ae938ff2d99565c82f03e522b6a6919cda21355b
+Scope: source inspection only. Native execution, complete #137 delivery and deployed-node acceptance are not established.
+
+Hard documented violations
+
+[P2] Fence restored drafts against queued saves and subsequent editing.
+app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesAccount.kt:244
+restoreRejectedDraft saves and publishes restored text without advancing draftVersions or reconciling dirtyDrafts. Trigger: clear the composer and immediately restore a rejected message while the empty editDraft save has not acquired localAccess. The empty dirty value passes isNullOrEmpty(); if restoration runs first, the queued same-version save overwrites its durable text with an empty draft. The UI still shows the restored text, so a process restart loses it. Typing while the restore operation is running can similarly be overwritten by its unconditional UI update. Advance/fence the draft revision and conditionally publish only for the captured revision. Violates CODING_STANDARDS.md: preserve recoverable work through updates and connection failures.
+
+[P2] Preserve the original native failure and complete independent cleanup attempts.
+scripts/spaces-native-journey:103
+The finally block performs movie pulls, native archive and crash collection before terminating children and removing reverse mappings. check=False does not suppress subprocess timeouts. Trigger: a failed checkpoint/assertion followed by an adb pull or archive timeout. That cleanup exception replaces the original failure and skips the remaining cleanup, leaving the owned host/processes or mappings active. Capture failure buffers first, retain the primary exception, and independently attempt each bounded cleanup. Violates docs/WORKFLOW.md requirements to preserve original failures and capture failure buffers before potentially blocked archives.
+
+Judgment calls
+None raised. No tooling-enforced style findings. The optional adapter, schema migration, receipt rejection recovery and bounded key/history paths were inspected without additional confirmed standards findings.

@@ -1,0 +1,447 @@
+{
+  "runtime": "0.3.2",
+  "primarySource": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+  "actualService": {
+    "acceptedControls": 1,
+    "originalId": "0519d7c2c870041b6382639ba2dd6da4ee0e85f699d6424ec6a6af2207b7303e4c3a9b1557459db43b5026dca8ac66946901faccafab4d844bc25284235b94e4",
+    "receiptId": "53f75bd590fa4b540005a78117712d944439a849db03e3103153f8cc801bbef25d3acad07cedd7c224f9aadb99e07741bacdf93e4e6b2b1c185317387aa73087",
+    "service": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+    "originalBytesPreserved": true,
+    "actualReceiptVerified": true
+  },
+  "actualFramework": {
+    "source": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoJs": "0.3.2",
+    "saitoWasm": "0.3.2",
+    "actualDispatcher": true,
+    "actualTemplateInitialize": true,
+    "actualServerCallback": true,
+    "actualTransactionRoundTrip": true,
+    "repeatedReceiptStable": true,
+    "wrongAuthenticatedPeerDenied": true,
+    "callbacks": 4,
+    "qualification": "Owned loopback service and public unsafe identities; runtime wallet/filesystem adapters, unused browser boundaries excluded. Not a bootstrapped production node."
+  },
+  "originals": [
+    {
+      "path": "code/core/build/libs/core.jar",
+      "bytes": 819437,
+      "sha256": "45a294cc94d59ae33bb65f00cccea0a5981faf07134171a5a147db25295d720e"
+    },
+    {
+      "path": "code/spaces-service/build/classes/java/test/nl/davidengelen/redsquare/spaces/service/SpacesInteropHost.class",
+      "bytes": 9823,
+      "sha256": "3ecccb082cf445b6d3121a0879392d587253a8a6c5166ee9639a71e2339e4956"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/main/META-INF/spaces-service.kotlin_module",
+      "bytes": 24,
+      "sha256": "656b3d35db5641e3cf9477532a1c7e3e49f1ad706fac99640966922bc55061b6"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/main/nl/davidengelen/redsquare/spaces/service/SpacesServiceMain.class",
+      "bytes": 11081,
+      "sha256": "8e95c839479767818b8acf228dd00499edc735836f90576dbc09ac7c5f7e01fd"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/main/nl/davidengelen/redsquare/spaces/service/SpacesServiceServer$Companion.class",
+      "bytes": 944,
+      "sha256": "8bc2a2259d9f46a104cc88591f6907d7c4805041dcdb1c4f45e8ffa5a11a3075"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/main/nl/davidengelen/redsquare/spaces/service/SpacesServiceServer.class",
+      "bytes": 11016,
+      "sha256": "3722b0786357499f19411bcf99a111744e316ba3259e1f6bfe4945be38eeb1d5"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/main/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore$Challenge.class",
+      "bytes": 3689,
+      "sha256": "9e6b84ac5d3c343a6729de53fc87dd2c12429c2542e5d625f2c81fef65736f03"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/main/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore$Companion.class",
+      "bytes": 1209,
+      "sha256": "27bccb41db48c98aaae7f1f597c09a584376ca053f86abbc7de1364345e8848b"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/main/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.class",
+      "bytes": 47850,
+      "sha256": "4f458042cc3f6c07e62644f26c2f3b06d9ae27574e778760ccd29e8226886461"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/META-INF/spaces-service_test.kotlin_module",
+      "bytes": 100,
+      "sha256": "4e6d5fa9dd54846689dbd8e4764364c89396665455030c0d124e13da26f6cc3a"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/ControlledFeedPeer$AuthenticatedRegistryQuery.class",
+      "bytes": 3370,
+      "sha256": "1db25849408efb917998198ed4204727d1ee90e33dba92a1464bec226421294e"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/ControlledFeedPeer$response$1.class",
+      "bytes": 36481,
+      "sha256": "67f96a0554d073cf3f8bc27d1a68427b13e6224705c2a5202530607ab023c373"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/ControlledFeedPeer$start$1.class",
+      "bytes": 2146,
+      "sha256": "e0b6b9c4614cc726be2f2529823b630591c220b84b5f40015f008df467e11a93"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/ControlledFeedPeer.class",
+      "bytes": 51735,
+      "sha256": "616c27f63e2ccda9caa629a9ec3a22ee6f95d4bbd9ecae1e67e5e2fdfddb2769"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/OwnedVaultMintFixture.class",
+      "bytes": 19538,
+      "sha256": "9680a8b09af491e5bc6d93becfd33b3dd0602f8b2a9af8dc78a3b5535d3cb24f"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/VaultCustomReferenceKt.class",
+      "bytes": 1776,
+      "sha256": "f9bab3b8dafe0936da89d4ef418e6a247a4edc2df1484c557bb35fe76a7cecda"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/VaultLargeReferenceKt.class",
+      "bytes": 3789,
+      "sha256": "bfaae362c51d93c674aab7056dc3f4d1ef78320060a3cef9e4cbb7e4c79a7533"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$aColdJoinOpensRecentMessagesWithTheirKeysAndCanLoadAnEarlierPage$1$1$guestClient$1.class",
+      "bytes": 3817,
+      "sha256": "5bdf65887769379ed524583f6a283b7321a1d96cb149d52dfd17dfe7d2725bc2"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$aColdJoinOpensRecentMessagesWithTheirKeysAndCanLoadAnEarlierPage$1$1$ownerClient$1.class",
+      "bytes": 3817,
+      "sha256": "79206a7f6dca073c4ce41ce122aff2213a4f16defeff9f69976626e8494acc87"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$aColdJoinOpensRecentMessagesWithTheirKeysAndCanLoadAnEarlierPage$1.class",
+      "bytes": 13339,
+      "sha256": "2316bff0db9c41948324a46a4949dd3c2649547d720fa9f8fdf0cd7ad377988c"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$aMemberWhoReturnsAfterAnotherAdmissionCanStillRecoverItsEarlierHistoryGrant$1$1$guestClient$1.class",
+      "bytes": 3872,
+      "sha256": "2b435f262122fa3fac57c817999da078dde62aeafb829e6d98a4ee19a0ec9036"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$aMemberWhoReturnsAfterAnotherAdmissionCanStillRecoverItsEarlierHistoryGrant$1$1$nextClient$1.class",
+      "bytes": 3868,
+      "sha256": "81aebbd3055c2fc85d18450b3cb27daca60beb9700efb1316cffd0eda2340252"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$aMemberWhoReturnsAfterAnotherAdmissionCanStillRecoverItsEarlierHistoryGrant$1$1$ownerClient$1.class",
+      "bytes": 3872,
+      "sha256": "12d3491d6836f9f619215a0d922ea01061be9c2f732b1cc03ba4281926d22d42"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$aMemberWhoReturnsAfterAnotherAdmissionCanStillRecoverItsEarlierHistoryGrant$1.class",
+      "bytes": 12759,
+      "sha256": "5edfc2f953b33580d48b0c1e5c21cdb19b804de846dbb173c92f569af81831db"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$aRejectedAdmissionReopensOnItsCancelledBranchAndCanAdmitTheSameRequest$1$guestClient$1.class",
+      "bytes": 4047,
+      "sha256": "12a1e5823460b4073cfa171674dec867a1bb921020bc3339fb952eb91a9e2064"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$aRejectedAdmissionReopensOnItsCancelledBranchAndCanAdmitTheSameRequest$1$ownerClient$1.class",
+      "bytes": 5590,
+      "sha256": "1740382b2d50772d2f9b2c41166be91716ce97d1d7b3e416f91e61f119a7b3a5"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$aRejectedAdmissionReopensOnItsCancelledBranchAndCanAdmitTheSameRequest$1.class",
+      "bytes": 16124,
+      "sha256": "464da14ffd93d6290cc2d7d9e32afa65105ab848661e076f42722b642a82fd80"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$acceptedMembershipRecoversWhenItsInvitationHasExpiredBeforeTheDeviceReturns$1$1$guestClient$1.class",
+      "bytes": 4493,
+      "sha256": "c85960d7eba52cfa696a655f13d8b753d0ca2e5a156354322e304b671a9da0d8"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$acceptedMembershipRecoversWhenItsInvitationHasExpiredBeforeTheDeviceReturns$1$1$inviter$1.class",
+      "bytes": 3856,
+      "sha256": "07042912019ea4c24725a135b7a41f25e1ccf1dae6c57b0371ea86ad38eb0ebe"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$acceptedMembershipRecoversWhenItsInvitationHasExpiredBeforeTheDeviceReturns$1$moving$1.class",
+      "bytes": 2158,
+      "sha256": "c1869200a71215e445dd422c1fb1035fd18832a55fb65591515ca5c59a00fbad"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$acceptedMembershipRecoversWhenItsInvitationHasExpiredBeforeTheDeviceReturns$1.class",
+      "bytes": 13766,
+      "sha256": "a6f9eed21d9f9084395afb49d283e5abe18c872074345e5cad798e7a2d0c7f19"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$anAcceptedCreationWithALostResponseRecoversItsOriginalBeforeSendingAndReadingRealText$1$1$3$1.class",
+      "bytes": 3882,
+      "sha256": "6361a4666fca1c195ebd9d1890360bb514fb77b7064b60781a853b8d07a0120f"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$anAcceptedCreationWithALostResponseRecoversItsOriginalBeforeSendingAndReadingRealText$1$1$client$1.class",
+      "bytes": 4949,
+      "sha256": "457f5bfa40bcc3c826495e60a07468f2fdb103a771118b63499ea1dca878d515"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$anAcceptedCreationWithALostResponseRecoversItsOriginalBeforeSendingAndReadingRealText$1.class",
+      "bytes": 14039,
+      "sha256": "47253e4e244856d96919deb51f5d1969124fa2fa61e1a60a6e4c53b19977d0d0"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$anEligibleJoinAfterFiftyInactiveRequestsIsStillAdmitted$1$1$guestClient$1.class",
+      "bytes": 4899,
+      "sha256": "196a7785aef8448bb3e38ad808830e2e8e2d97d565ac1156cdf4f679dc870532"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$anEligibleJoinAfterFiftyInactiveRequestsIsStillAdmitted$1$1$nextClient$1.class",
+      "bytes": 3768,
+      "sha256": "d40af4584313b93acefda0a5f83d47f94f907dcf803683dfd0c96f9aff2ff313"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$anEligibleJoinAfterFiftyInactiveRequestsIsStillAdmitted$1$1$ownerClient$1.class",
+      "bytes": 3772,
+      "sha256": "0ebe6778ed12ec96040da90801f321b00b0c2b1c77b603b466937a860e1c2ba0"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$anEligibleJoinAfterFiftyInactiveRequestsIsStillAdmitted$1.class",
+      "bytes": 16320,
+      "sha256": "b3a6402de319df377a1a0f90d1f18392329235309afbfb194aaac1fa269e3344"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$anExpiredInvitationIsReportedAndCanBeReplacedWithANewChosenLifetime$1$1$client$1.class",
+      "bytes": 3812,
+      "sha256": "785635fd5ebaa870132e68383088bc2508f75eceb71f39875eb708d0939bac5f"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$anExpiredInvitationIsReportedAndCanBeReplacedWithANewChosenLifetime$1$movingClock$1.class",
+      "bytes": 2144,
+      "sha256": "2fd7bbd4bfa5e867e56b84d81e30222cc4e89626bc671d4b1ecce1095694d6ae"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$anExpiredInvitationIsReportedAndCanBeReplacedWithANewChosenLifetime$1.class",
+      "bytes": 9088,
+      "sha256": "4c9fd2f5ae378818ac8399d24c6b172afbfb37ec01f0eabfddd2e742e6c2b55c"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$anUnadmittedExpiredRequestCanUseANewInvitationWithoutLosingItsDraft$1$1$guestClient$1.class",
+      "bytes": 3832,
+      "sha256": "0a89acd7c4eb95d99627fb1be641cfb163f05cfd84c7a7788172676cbdeb013c"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$anUnadmittedExpiredRequestCanUseANewInvitationWithoutLosingItsDraft$1$1$inviter$1.class",
+      "bytes": 3816,
+      "sha256": "7b86be87bd35f05c987cfcde26afe479eda1ba8e518efd5d962d68fa3633bc19"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$anUnadmittedExpiredRequestCanUseANewInvitationWithoutLosingItsDraft$1$moving$1.class",
+      "bytes": 2134,
+      "sha256": "b6688870994b63156d58b5e35b11d2048836833505310b938390cdbbe1f779c1"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$anUnadmittedExpiredRequestCanUseANewInvitationWithoutLosingItsDraft$1.class",
+      "bytes": 12419,
+      "sha256": "4d6dd33274d52a8297a116486edff009df5b77c9d03860189fd828ae2f286653"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$everyCommunityRemainsReachableAndDeliversItsOriginalBeyondTheFirstLocalPage$1$1$client$1.class",
+      "bytes": 3852,
+      "sha256": "02843ef810927579bc52451ac769b9126784828f20a111c3784d5ea51a0b1ef8"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$everyCommunityRemainsReachableAndDeliversItsOriginalBeyondTheFirstLocalPage$1$1$reopened$1.class",
+      "bytes": 3860,
+      "sha256": "629d4adf5774e3f7f0824d9b94f0608bfa48bb74bd01d9584e7bf15530107f53"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$everyCommunityRemainsReachableAndDeliversItsOriginalBeyondTheFirstLocalPage$1.class",
+      "bytes": 11584,
+      "sha256": "ea3c2ef3eab72a593de075f79141065f45fb23289ff74a5df812111be8c0fe8d"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$openingAnInvitationDoesNotJoinAndExplicitAdmissionRecoversHistoryBeforeBothClientsCanConverse$1$1$guestClient$1.class",
+      "bytes": 3962,
+      "sha256": "47bf3e4b3b540b68369dcfffebd3e81be807aa36091689f182fb0e32bfea0fbd"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$openingAnInvitationDoesNotJoinAndExplicitAdmissionRecoversHistoryBeforeBothClientsCanConverse$1$1$ownerClient$1.class",
+      "bytes": 3962,
+      "sha256": "312bf302c040845bbd7339f3ea69fa0bca6d297073bb7a6968a5323826342422"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$openingAnInvitationDoesNotJoinAndExplicitAdmissionRecoversHistoryBeforeBothClientsCanConverse$1.class",
+      "bytes": 13305,
+      "sha256": "460d14248ae4d4f1f0a55f33b9b2111ba3d1c21f89a6c9f24a7f956275caba64"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$queuedContentSurvivesAnUnrelatedControlAndAFencedKeyChangeDoesNotBlockLaterMessages$1$1$guestClient$1.class",
+      "bytes": 3912,
+      "sha256": "0951ed5bbc8e168736bbed8f71c33dc1fea6153660bf6794d8be29a0e227679d"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$queuedContentSurvivesAnUnrelatedControlAndAFencedKeyChangeDoesNotBlockLaterMessages$1$1$nextClient$1.class",
+      "bytes": 3908,
+      "sha256": "b014fb4f90506e2fee91624c43a116af310c9c2594ed466af37c39f635057570"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$queuedContentSurvivesAnUnrelatedControlAndAFencedKeyChangeDoesNotBlockLaterMessages$1$1$ownerClient$1.class",
+      "bytes": 3912,
+      "sha256": "44a4f99e5d2e5172ed72f90fcb035929f30bb4a552b54c0ede07958fe2260bd2"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$queuedContentSurvivesAnUnrelatedControlAndAFencedKeyChangeDoesNotBlockLaterMessages$1.class",
+      "bytes": 17277,
+      "sha256": "99b7b4131af8b5d905aa96537ab2b7b8697cee9999d34f2c933964d85de53699"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$versionTwoAcceptedContentMigratesInBatchesWithoutChangingOriginalsOrReceipts$1$1$client$1.class",
+      "bytes": 5206,
+      "sha256": "b5ba3c3fb27bb0cea1a50ffdb449a61ed97a01dba85fa1027523c5586c3fa331"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$versionTwoAcceptedContentMigratesInBatchesWithoutChangingOriginalsOrReceipts$1$3$1$reopened$1.class",
+      "bytes": 3873,
+      "sha256": "a5d26c7ad4a880c91d1a0faf015a3d718c35e2ce01130f7746ba9d58d9ffee42"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest$versionTwoAcceptedContentMigratesInBatchesWithoutChangingOriginalsOrReceipts$1.class",
+      "bytes": 17607,
+      "sha256": "abd6e80ee7b0b682254625e9ed3a0502c283f944fcaf66ec2e22909c0602ba57"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceClientTest.class",
+      "bytes": 10120,
+      "sha256": "a2094b5eb3d83b90857864b7abf7fac264c80e166a824c74a65a1f5f8ebf5a42"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceContentTest$aPrivateChannelReturnsAuthenticatedCiphertextToItsMemberWithoutStoringPlaintextOrServingAnOutsider$2$1.class",
+      "bytes": 1871,
+      "sha256": "e1788c7c084f602d1660e2cb33e4f3bd7ad78cd45ddaf4a013b3ad3fccb46fbb"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpaceContentTest.class",
+      "bytes": 35852,
+      "sha256": "cd83126f98a66ee8b3a05e3c464312face491abb3ce74b999a834df1bcbafa25"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost$main$1$1$1$2$1$result$1.class",
+      "bytes": 13259,
+      "sha256": "67855e3693e554d72fb1a4e11345f5a176ee14438225a657dba3383416ca24d4"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost$main$1$1$1$client$1.class",
+      "bytes": 3511,
+      "sha256": "20ad2d4c7c24d321641b540eebafd44002d0582298c7211acac6288fa87225fa"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost$main$1.class",
+      "bytes": 26255,
+      "sha256": "19526902a123a3b7879a4be2be4086abfa7a4bb3c50d78beca3753a3e1dbdd21"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost.class",
+      "bytes": 7882,
+      "sha256": "f1f78b05965aecf92a28306833659eedb30d5159a8da7a261f2e2b5838967575"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpacesNativeHostTest.class",
+      "bytes": 8610,
+      "sha256": "d313555597150cf0566504477db58dcf8bd05bb3c6c18ad725a88ad8381ace69"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SpacesServiceStoreTest.class",
+      "bytes": 36750,
+      "sha256": "55ead562fd48ed00423b3ab696730d66fda538184bcdb67140284c661bca1fb6"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SqliteClientFixture$transaction$value$1.class",
+      "bytes": 7028,
+      "sha256": "8419e2cd71aa90386b12cf50e76798738e6a1f1640b0f67d49180cdf8056bdec"
+    },
+    {
+      "path": "code/spaces-service/build/classes/kotlin/test/nl/davidengelen/redsquare/spaces/service/SqliteClientFixture.class",
+      "bytes": 4596,
+      "sha256": "f622d8c3f5595033fb2dbdfa46df48ef4c2a0fd3b4bb58d40ef81ca6c35c9242"
+    },
+    {
+      "path": "compiled-inputs.json",
+      "bytes": 16496,
+      "sha256": "7719d5c1edb9ea0ce5d33287c915257169b9edcfcf2571d2c58ccb4f735e2990"
+    },
+    {
+      "path": "host.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native/build-receipt.json",
+      "bytes": 1103,
+      "sha256": "3878dc7ad596c9f8d6caa034ecbc4b180eb7fb4f1b03625b354708c9480f7346"
+    },
+    {
+      "path": "native/community-contracts.txt",
+      "bytes": 747,
+      "sha256": "d8cb097435eeb09055b398e7d7c227043917eb5bddf4f4218e63611af60de5a9"
+    },
+    {
+      "path": "native/libsaito_spaces_mls.so",
+      "bytes": 3596800,
+      "sha256": "fb037ae519296b8ce5a0e6bc96fd85ec190bd53b5de3d52ada14858c41d9ffa5"
+    },
+    {
+      "path": "node-receipt.json",
+      "bytes": 5292,
+      "sha256": "cbc2a95fc90369f181e03b86b62cbf4b5a72d11151b805d548c1b841bbe4a918"
+    },
+    {
+      "path": "node-result.json",
+      "bytes": 513,
+      "sha256": "b08e36aa6dcc990d1a80d19d2d61cec76b82a22f07d42715c20c1bbc75b5de7f"
+    },
+    {
+      "path": "node.log",
+      "bytes": 652,
+      "sha256": "b202a7425775e4cbd491c3647d77d9d1f55a3b9abe9c86a3ab1415f788bf0df2"
+    },
+    {
+      "path": "original-envelope.json",
+      "bytes": 3492,
+      "sha256": "1e87a64ae4ca72b85c932d7771cdfe22f0312c569f5b1cc284f0583ab73fef7b"
+    },
+    {
+      "path": "original.txt",
+      "bytes": 3464,
+      "sha256": "efc505fe43a1ffbe4c9924b61fe4f0b71879ccad0c59cc997b02b9755242721d"
+    },
+    {
+      "path": "ready.json",
+      "bytes": 268,
+      "sha256": "0fc34dd40753d59c95e35088f473b1308852144ef17ba0131adb92f15b01c87e"
+    },
+    {
+      "path": "result.json",
+      "bytes": 425,
+      "sha256": "6a56106f8015957378db57dd3775d67aa8f8b681f9a08a30666bd24762d5797f"
+    },
+    {
+      "path": "source.json",
+      "bytes": 175,
+      "sha256": "99c28cb4ffb1d43c839e949e3723f2e822d208124f7c1c37df0f43bf8bf018af"
+    },
+    {
+      "path": "state/spaces.sqlite",
+      "bytes": 86016,
+      "sha256": "97968ad562daf863b2adc7c684a0faf8588474ac29458251ea13cf7fbeb4199d"
+    },
+    {
+      "path": "stop",
+      "bytes": 4,
+      "sha256": "6c45cb72a36e63d522aa54ed8adbd7a29a989474f2f77e0458af8800564ef3cb"
+    }
+  ]
+}

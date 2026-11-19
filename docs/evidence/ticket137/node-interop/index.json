@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "implementationSource": "91aa9b6067c0ba939bc25573aa0c7d71774d7e86",
+  "scope": "actual pinned framework serializer/dispatcher/callback with loopback JVM receipt; not a bootstrapped or deployed node",
+  "runs": [
+    {
+      "runtime": "0.3.2",
+      "originalRoot": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-91aa9b606-0.3.2",
+      "index": "runtime-0.3.2.json"
+    },
+    {
+      "runtime": "0.3.15",
+      "originalRoot": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-91aa9b606-0.3.15",
+      "index": "runtime-0.3.15.json"
+    }
+  ]
+}

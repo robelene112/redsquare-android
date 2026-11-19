@@ -151,11 +151,20 @@ class SpacesJourneyTest {
             capture("08-uncertain-original-and-new-draft")
             assertEquals(originalWallet, AndroidWalletStore(context).loadExisting().exportJson())
             assertEquals(backend, AndroidBackendStore(context).load())
-            checkpoint.writeText(JsonObject().apply {
+            val savedCheckpoint = JsonObject().apply {
                 addProperty("phase", "ready-for-process-kill"); addProperty("pid", Process.myPid())
                 addProperty("owner", wallet.publicKey); addProperty("backend", backend.id)
                 addProperty("original", acceptedOriginal); addProperty("community", community)
-            }.toString())
+            }.toString().toByteArray(Charsets.UTF_8)
+            val atomicCheckpoint = android.util.AtomicFile(checkpoint)
+            val checkpointOutput = atomicCheckpoint.startWrite()
+            try {
+                checkpointOutput.write(savedCheckpoint)
+                atomicCheckpoint.finishWrite(checkpointOutput)
+            } catch (failure: Throwable) {
+                atomicCheckpoint.failWrite(checkpointOutput)
+                throw failure
+            }
             // The host, outside this PID, observes the durable checkpoint and
             // force-stops this actual process. No Activity.recreate substitute.
             while (true) SystemClock.sleep(250)

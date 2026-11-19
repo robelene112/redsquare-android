@@ -71,7 +71,15 @@ try:
     deadline = time.monotonic() + 180
     while True:
         observed = adb('exec-out', 'run-as', pkg, 'cat', 'cache/spaces-journey-checkpoint.json', check=False)
-        if observed.returncode == 0:
+        candidate = observed.returncode == 0 and observed.stdout.lstrip().startswith(b'{')
+        with (evidence / 'checkpoint-observations.jsonl').open('a') as observations:
+            observations.write(json.dumps({'remainingSeconds': round(deadline - time.monotonic(), 3),
+                'exit': observed.returncode, 'bytes': len(observed.stdout), 'candidateJson': candidate,
+                'nonJsonOutput': None if candidate else observed.stdout[:360].decode('utf-8', errors='replace')}) + '\n')
+        if candidate:
+            # Atomic device publication makes a malformed visible checkpoint
+            # an actual failure; retain its original bytes before parsing.
+            (evidence / 'observed-checkpoint.raw').write_bytes(observed.stdout)
             checkpoint = json.loads(observed.stdout)
             if checkpoint['phase'] == 'ready-for-process-kill':
                 break

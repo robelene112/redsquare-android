@@ -1,0 +1,14 @@
+Spec fix review: ae938ff2d99565c82f03e522b6a6919cda21355b...8166e3ec3b99c67097139305e2917d4288dacce1
+
+One residual finding:
+
+Medium: reaching the bottom of a historical page silently jumps to the latest page.
+Requirement: docs/quality/SPACES_QUALITY_PLAN.md:52 requires "list reading anchor retained through refresh and return"; :60 requires "no reading-anchor jump from unrelated arrivals".
+SpacesScreen.kt:187-193 reports followLatest solely from !list.canScrollForward. That establishes only the bottom of the displayed bounded page, not the end of the conversation. SpacesAccount.kt:225-227 removes the pinned window and republishes immediately when hasLater is true. With several history pages available, select Earlier messages and scroll to that page's bottom: this silently replaces the current page with the latest50 records, skipping intervening history and dropping the current anchor without pressing Back to latest messages. Retain a historical window while hasLater is true; distinguish reaching the current conversation end from reaching the displayed page end. The added native incoming-message assertion does not exercise this transition.
+
+Earlier findings:
+- Accepted-admission recovery after expiry is addressed in source: syncControls switches to authenticated member reads after the saved invitation expires, preserving original device/Welcome state. The added regression checks recovery, historical text and an actual subsequent exchange.
+- An unadmitted expired request can now use a fresh invitation while retaining its device and draft. The new test exercises saved work through actual admission and received content.
+- Incoming arrivals now preserve a bounded window while the viewport is away from the bottom. Capturing the Space ID prevents an outgoing viewport callback from selecting another community's window. The historical-page edge above remains.
+
+No scope creep found. This is source review; native execution, complete137 acceptance and production node activation remain pending. The strengthened60-message incoming-page and exact-pixel native assertions are prospective coverage, not executed evidence.

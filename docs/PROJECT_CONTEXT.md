@@ -1,5 +1,17 @@
 # Red Square Android project context
 
+## Current137: functional source, native acceptance pending
+
+The first Spaces slice now has a durable encrypted coordinator, native
+navigationB and an opt-in source service/adapter. All22 service cases pass;
+prior fullcore244 cases pass. Actual pinned0.3.2/0.3.15 node framework rehearsals
+pass without activating a node. Source review fixes include expired invitation
+recovery, draft restoration and bounded reading intent. Functional Android
+Activity/process acceptance is pending after a retained pre-test host-entrypoint
+failure. See [the packet](evidence/ticket137/README.md). Continue137, then138–147,
+one issue at a time. Public beta142 remains unchanged.
+
+
 ## Delivered prerequisites133/135, functional Spaces next
 
 Signed [beta0.1.142](https://davidengelen.nl/redsquare/) retains loaded quoted

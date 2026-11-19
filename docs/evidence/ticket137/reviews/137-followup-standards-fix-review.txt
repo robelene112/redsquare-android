@@ -1,0 +1,16 @@
+Standards fix review: ae938ff2d99565c82f03e522b6a6919cda21355b...8166e3ec3b99c67097139305e2917d4288dacce1
+Read-only source review. No implementation or native execution performed.
+
+Hard documented violations
+None confirmed in the follow-up diff.
+
+Previous findings
+Resolved: SpacesAccount.restoreRejectedDraft now reads the displayed scoped snapshot and invokes the ordinary immediate editDraft(space,text) path. That advances draftVersions before scheduling persistence, records dirty work for navigation, and conditionally updates only the matching selected community. A queued blank save no longer overwrites a restored draft, and there is no delayed restore callback that can replace later typing.
+
+Resolved: scripts/spaces-native-journey captures failure buffers before archive work, preserves the primary exception, independently guards bounded archive/movie/child/reverse cleanup stages, records cleanup errors, and withholds acceptance when cleanup fails. Native failure remains the original propagated exception rather than a later adb timeout.
+
+Judgment calls
+None raised. No additional confirmed standards findings in the scoped editing, reading-window, expired-invitation recovery, pinned optional-adapter rehearsal, or host-entrypoint changes. SpacesNativeHost has an explicit Unit Java entrypoint, and the new process test exercises actual child readiness, HTTP status/stop and process termination through the external seam.
+
+Evidence limits
+The original native parent44461360093 failed before native cases because the host entrypoint did not return void. That failure remains recorded; compilation and the host process test do not establish rendered Android behavior. Prospective contract version2 retains the180/90-second native goals and adds the incoming-page reading-anchor assertion. Native execution, complete137 delivery, physical-device performance and deployed-node acceptance remain pending. The reported22 service checks were not rerun by this reviewer.

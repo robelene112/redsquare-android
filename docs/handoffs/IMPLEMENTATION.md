@@ -3,17 +3,20 @@
 
 ## Current137 source follow-up
 
-Client review regressions now cover unrelated controls during queued sends,
-inactive join-page starvation,51 communities, expired invitations, cold bounded
-history and a late history grant after another admission. Actual rejected
-admissions reopen on the persisted cancelled branch and later admit the same
-request. The optional node adapter has an isolated actual Saito serializer/
-dispatcher/callback rehearsal. The source-stage Android journey now drives
-create/invite/join/read/return and a host-observed distinct-PID interruption;
-it has not executed yet. Current full core/service checks and native compilation
-are running. Do not treat those pending gates as passed or close137. Continue
-sequentially;138–147 remain untouched and beta142 stays public.
+The durable client/native routes, schema3 service and optional node adapter are
+source-stage work. All22 service cases pass, including actual child readiness;
+prior fullcore244 cases pass. Two expiry regressions retain real failing and
+passing observations. Independent source reviews accept the subsequent fixes,
+including f451's immediate scoped reader intent. Actual pinned node serializer/
+dispatcher/callback rehearsals pass on0.3.2 and0.3.15. See
+[the current packet](../evidence/ticket137/README.md) for exact scope and originals.
 
+The native driver has real create/invite/join/read/return and distinct-PID goals.
+The first17 parent44461360093 failed before any native case because the test host
+returned nonvoid; actual child-process regression now passes. Functional native
+runs remain pending, so do not close137 or publish a Spaces acceptance claim.
+Continue137, then138–147 sequentially. Public beta142, production node/provider
+activation and automatic community file hosting are unchanged separate gates.
 
 ## Active137: source-stage client and native routes
 

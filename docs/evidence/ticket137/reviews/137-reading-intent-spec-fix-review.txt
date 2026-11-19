@@ -1,0 +1,7 @@
+Spec fix review: 91aa9b6067c0ba939bc25573aa0c7d71774d7e86...f451acfecdc40936c489c4834bac13cea9540f49
+
+No remaining finding within the requested residual scope.
+
+SpacesAccount.readingPosition now updates the selected Space's immutable followingLatest state immediately when pinning or unpinning its history window. An immediate module return therefore sees the actual reading intent without waiting for a network refresh or publication. The selected-Space check prevents the state update from changing a different community's follow intent. Reaching a historical page's bottom still retains its pin while hasLater is true; the explicit Back to latest action remains the way to leave that historical window.
+
+This addresses the prior finding against docs/quality/SPACES_QUALITY_PLAN.md:52, "list reading anchor retained through refresh and return". Source inspection only: native execution and temporal acceptance remain pending. No complete137, deployed-node or device acceptance is claimed.

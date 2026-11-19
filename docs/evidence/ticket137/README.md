@@ -4,6 +4,46 @@ Status: implementation in progress. Parent134 and native navigationB are
 approved. Prerequisites133/135 are delivered in beta142. This packet records
 incremental contracts, not completion of137 or permission to activate a node.
 
+## Current application and compatibility checkpoint
+
+The source-stage coordinator and native navigationB are implemented. Core244
+cases/48 classes and service19 cases pass at the ae938 checkpoint. Subsequent
+actual expiry regressions first fail, then pass: accepted membership survives
+invitation expiry; an unadmitted expired request can use a new invitation without
+replacing its device or draft. All22 service cases/four classes then pass,
+including the actual test-host child process readiness and shutdown.
+
+Both independent source axes accepted their original fixes. Further Spec review
+identified historical-page-end and immediate-return reader intent problems;
+source91aa/f451 resolves them and the final scoped review has no remaining
+finding. These source reports in `reviews/` retain the unsuccessful reviews.
+They do not establish functional native acceptance.
+
+The [compatibility originals index](node-interop/index.json) records actual pinned
+Saito9a/JS-WASM0.3.2 and0db/JS-WASM0.3.15 serializer, dispatcher and callback
+rehearsals at91aa. Each has three identical original deliveries, one durable
+creation, a byte-exact original and a verified actual service receipt, plus a
+refused wrong authenticated peer. Runtime wallet/filesystem/browser adapters are
+explicit; neither is a bootstrapped production node. The optional component's
+[operations contract](../../../integrations/saito-spaces/README.md) covers opt-in
+readiness, schema3 migration and write-preserving rollback. Nothing is deployed.
+
+The [prospective native journey](native-journey/contract.json) requires actual
+Activity create/invite/join/read/return, pixel anchors through unrelated incoming
+pages, explicit latest return, and a host-observed distinct-PID interruption.
+Original Android17 parent44461360093 atae938 fails before any native case because
+the test host Java entrypoint returns nonvoid. Its complete originals remain
+retained. The explicit Unit correction has an actual child-process regression.
+Parent44463252284 at8166 then fails in the host checkpoint JSON observer,
+before a functional native result. Its first instrumentation transcript says
+Process crashed; the crash buffer is empty and no app cause is established.
+The Android10 f451 attempt44464342665 was cancelled after discovering this shared
+observer defect. All original logs remain retained. The correction waits for an
+actual JSON checkpoint and publishes that checkpoint atomically. The original
+180/90s bounds and all app assertions stay unchanged.
+Functional native verification is still pending; beta142 stays public and137
+stays open. No passing prefix, physical/OEM or deployed-node acceptance is claimed.
+
 ## Library checkpoint, prospective runtime contract v1
 
 Before functional native integration, run the owned MLS interface on these
