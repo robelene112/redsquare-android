@@ -80,6 +80,7 @@ android {
         }
     }
     sourceSets.getByName("androidTest").java.srcDir(rootProject.file("test-fixtures/kotlin"))
+    sourceSets.getByName("main").jniLibs.srcDir(layout.buildDirectory.dir("generated/spaces-mls-jni"))
     packaging.resources.excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -87,6 +88,15 @@ android {
     }
     kotlinOptions { jvmTarget = "17" }
 }
+
+val prepareSpaceMlsAndroid by tasks.registering(Exec::class) {
+    inputs.files(rootProject.fileTree("spaces-mls") { include("Cargo.toml", "Cargo.lock", "src/**/*.rs") })
+    inputs.files(rootProject.files("build-support/spaces-mls.py", "build-support/spaces-toolchain.json"))
+    val output = layout.buildDirectory.dir("generated/spaces-mls-jni")
+    outputs.dir(output)
+    commandLine("python3", rootProject.file("build-support/spaces-mls.py"), "--target", "android", "--output", output.get().asFile)
+}
+tasks.named("preBuild") { dependsOn(prepareSpaceMlsAndroid) }
 
 // Compatibility specimens enter the instrumentation APK only, never the application.
 abstract class PrepareFileshareReference : DefaultTask() {

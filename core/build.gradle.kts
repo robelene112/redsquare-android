@@ -10,8 +10,23 @@ dependencies {
     // Android and JVM17; their platform Double.toString implementations differ.
     implementation("com.fasterxml.jackson.core:jackson-core:2.23.0")
     testImplementation("junit:junit:4.13.2")
+    // Independent RFC9420 reference only; never an application dependency.
+    testImplementation("org.bouncycastle:bcmls-jdk18on:1.86")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     testImplementation("com.squareup.okhttp3:mockwebserver3:5.4.0")
+}
+
+val prepareSpaceMlsHost by tasks.registering(Exec::class) {
+    inputs.files(rootProject.fileTree("spaces-mls") { include("Cargo.toml", "Cargo.lock", "src/**/*.rs", "tests/**/*.rs") })
+    inputs.files(rootProject.files("build-support/spaces-mls.py", "build-support/spaces-toolchain.json"))
+    val output = layout.buildDirectory.dir("generated/spaces-mls-host")
+    outputs.dir(output)
+    commandLine("python3", rootProject.file("build-support/spaces-mls.py"), "--target", "host", "--output", output.get().asFile)
+}
+
+tasks.test {
+    dependsOn(prepareSpaceMlsHost)
+    systemProperty("java.library.path", layout.buildDirectory.dir("generated/spaces-mls-host").get().asFile.absolutePath)
 }
 
 // Host fixture only. No peer fixture or test dependency enters core.main/the APK.

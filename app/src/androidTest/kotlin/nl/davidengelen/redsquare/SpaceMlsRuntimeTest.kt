@@ -1,0 +1,92 @@
+package nl.davidengelen.redsquare
+
+import android.os.Build
+import android.os.Looper
+import android.system.Os
+import android.system.OsConstants
+import androidx.test.platform.app.InstrumentationRegistry
+import com.google.gson.JsonObject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import nl.davidengelen.redsquare.saito.EncryptedLocalFile
+import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.spaces.SpaceCrypto
+import org.junit.Assert.*
+import org.junit.Test
+import java.io.File
+import java.security.KeyStore
+import java.util.UUID
+
+/** Library/runtime contract only. No Activity/UI or distinct-process claim. */
+class SpaceMlsRuntimeTest {
+    @Test fun actualJniAndKeystoreRecoverAdmittedHistoryWithoutWritingAnUnprotectedKeyring() = runBlocking(Dispatchers.IO) {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(BuildConfig.DEBUG && context.packageName == "nl.davidengelen.redsquare.dev")
+        check(Build.HARDWARE in setOf("ranchu", "goldfish") && Looper.myLooper() != Looper.getMainLooper())
+        val family = "spaces-contract-${UUID.randomUUID()}"
+        val alias = context.packageName + "." + family
+        val filename = "$family.keys"
+        val files = listOf("", ".bak", ".new").map { File(context.noBackupFilesDir, filename + it) }
+        val keystore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+        check(files.none(File::exists) && !keystore.containsAlias(alias))
+        var originalFailure: Throwable? = null
+        try {
+            val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixtures only.
+            val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+            val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+            val scope = SpaceCrypto.Scope(service.publicKey, "a".repeat(64), "b".repeat(64))
+            val creator = SpaceCrypto.device(owner.publicKey, "c".repeat(64)).create(scope)
+            val original = creator.publish(owner, "message", "d".repeat(64), "e".repeat(128),
+                "Available native private history", 1_700_000_000_000)
+            val newDevice = SpaceCrypto.device(member.publicKey, "f".repeat(64))
+            val admission = creator.admit(newDevice.keyPackage(scope, member))
+            val joined = newDevice.join(scope, admission.welcome, admission.bindings)
+            assertThrows(SpaceCrypto.MissingKeys::class.java) { joined.read(original.envelope()) }
+            val snapshot = joined.save()
+            assertTrue(snapshot.toString(Charsets.UTF_8).contains("archive_keys"))
+            val storage = EncryptedLocalFile(context, filename, alias, family)
+            storage.save(EncryptedLocalFile.Contents(1, snapshot.toString(Charsets.UTF_8)))
+            val encrypted = files[0].readBytes()
+            assertFalse(encrypted.toString(Charsets.ISO_8859_1).contains("archive_keys"))
+            val loaded = requireNotNull(EncryptedLocalFile(context, filename, alias, family).load())
+            assertTrue("Exact original snapshot is recovered", java.security.MessageDigest.isEqual(snapshot, loaded.text.toByteArray(Charsets.UTF_8)))
+            val grant = admission.session.history(owner, joined.credential, "1".repeat(64), "2".repeat(128), 1_700_000_000_001)
+            val recovered = SpaceCrypto.restore(loaded.text.toByteArray(Charsets.UTF_8)).acceptHistory(grant.transaction.envelope())
+            assertEquals("Available native private history", recovered.read(original.envelope()).text)
+            assertEquals(owner.publicKey, recovered.read(original.envelope()).author)
+            val evidence = File(context.cacheDir, "spaces-mls-evidence").apply { mkdirs() }
+            File(evidence, "runtime.json").writeText(JsonObject().apply {
+                addProperty("sdk", Build.VERSION.SDK_INT); addProperty("abi", Build.SUPPORTED_ABIS.first())
+                addProperty("pageSize", Os.sysconf(OsConstants._SC_PAGESIZE)); addProperty("pid", android.os.Process.myPid())
+                addProperty("installedApkSha256", apkHash(File(context.applicationInfo.sourceDir)))
+                addProperty("installedTestApkSha256", apkHash(File(InstrumentationRegistry.getInstrumentation().context.applicationInfo.sourceDir)))
+                addProperty("encryptedFileBytes", encrypted.size); addProperty("snapshotBytes", snapshot.size)
+                addProperty("keystoreRoundTrip", true); addProperty("historyBeforeGrant", "unavailable")
+                addProperty("historyAfterGrant", "exact original content")
+                addProperty("qualification", "Library/JNI/Keystore only; not UI, remote acceptance or distinct-process recovery")
+            }.toString())
+        } catch (failure: Throwable) { originalFailure = failure; throw failure }
+        finally {
+            var cleanupFailure: Throwable? = null
+            val cleanup = files.map { file -> { if (file.exists()) check(file.delete()) } } +
+                { if (keystore.containsAlias(alias)) keystore.deleteEntry(alias) }
+            for (action in cleanup) try { action() } catch (failure: Throwable) {
+                if (cleanupFailure == null) cleanupFailure = failure else cleanupFailure.addSuppressed(failure)
+            }
+            cleanupFailure?.let { if (originalFailure == null) throw it else originalFailure.addSuppressed(it) }
+        }
+    }
+
+    private fun apkHash(file: File): String {
+        val digest = java.security.MessageDigest.getInstance("SHA-256")
+        file.inputStream().use { input ->
+            val buffer = ByteArray(64 * 1024)
+            while (true) {
+                val count = input.read(buffer)
+                if (count < 0) break
+                digest.update(buffer, 0, count)
+            }
+        }
+        return digest.digest().joinToString("") { "%02x".format(it) }
+    }
+}

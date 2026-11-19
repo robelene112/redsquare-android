@@ -261,6 +261,14 @@ verify_group_chat_native() {
     [[ "$native_passed" == true ]] && return 0
     return 1
 }
+verify_spaces_crypto() {
+    verify_group_chat_native SpaceMlsRuntimeTest 180 spaces-mls spaces-mls-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == spaces-crypto* ]]; then
+    verify_spaces_crypto
+    printf '%s\n' 'Focused MLS/JNI/Keystore library contract only; no UI, process-loss or full acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 # Native Vault foreground proofs own only notification permission. Restore it after
 # instrumentation has returned, because revoking a runtime grant kills that process.
 verify_vault_notification_native() {
@@ -1549,6 +1557,7 @@ if [[ "${TEST_SCOPE:-full}" == module-shell* ]]; then
     exit 0
 fi
 if [[ "$full_chat" == true ]]; then
+    verify_spaces_crypto
     verify_fileshare
     verify_talk
     verify_group_chat_native ChatGroupingPreviewTest 180 chat-grouping chat-grouping-evidence

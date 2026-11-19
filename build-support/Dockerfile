@@ -12,4 +12,6 @@ RUN curl --fail --location --retry 3 https://dl.google.com/android/repository/co
 RUN yes | sdkmanager --licenses >/dev/null
 RUN sdkmanager 'platform-tools' 'platforms;android-36' 'build-tools;35.0.0'
 WORKDIR /workspace
+# Host JNI contract checks link the same maintained MLS engine used on Android.
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential python3 && rm -rf /var/lib/apt/lists/*
 USER gradle

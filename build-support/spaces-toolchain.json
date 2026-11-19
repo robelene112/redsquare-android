@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "rust": "1.100.0",
+  "rustManifestSha256": "3051e859570f64a8c5acb9d09e87425db52c7d97287c67e8f6d57d7d34ef9258",
+  "host": [
+    {
+      "component": "rustc",
+      "url": "https://static.rust-lang.org/dist/2026-11-12/rustc-1.100.0-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "f1d0b1dec81dab6f523cd098507763487b0d4bd7fd2c87582f154128719be03b",
+      "bytes": 84955936
+    },
+    {
+      "component": "cargo",
+      "url": "https://static.rust-lang.org/dist/2026-11-12/cargo-1.100.0-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "7e29ce07d7c6e92d1826870575ba27d57fff6cb3e754aa57d99099cb88fab35d",
+      "bytes": 10946408
+    },
+    {
+      "component": "rust-std",
+      "url": "https://static.rust-lang.org/dist/2026-11-12/rust-std-1.100.0-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "4591b6486594ded52ecd6135db95bf9355bbd3ca7a380888b141528bbcf9a5d4",
+      "bytes": 31283108
+    }
+  ],
+  "androidStd": [
+    {
+      "target": "aarch64-linux-android",
+      "url": "https://static.rust-lang.org/dist/2026-11-12/rust-std-1.100.0-aarch64-linux-android.tar.xz",
+      "sha256": "5e7503cc0cb87b710457d13ec97b2e7729a1210a2fdce9ad99bd0c86e0f69186",
+      "bytes": 30242188
+    },
+    {
+      "target": "armv7-linux-androideabi",
+      "url": "https://static.rust-lang.org/dist/2026-11-12/rust-std-1.100.0-armv7-linux-androideabi.tar.xz",
+      "sha256": "927541ad641a3714fc54f04f93bd1e9b7db52b851458f33e572736d6dc71cc95",
+      "bytes": 27987036
+    },
+    {
+      "target": "i686-linux-android",
+      "url": "https://static.rust-lang.org/dist/2026-11-12/rust-std-1.100.0-i686-linux-android.tar.xz",
+      "sha256": "628b1cc2a8d3c8f2e588d7445bfc655bc66b3a7f237590db55a5ac41470f2125",
+      "bytes": 29597768
+    },
+    {
+      "target": "x86_64-linux-android",
+      "url": "https://static.rust-lang.org/dist/2026-11-12/rust-std-1.100.0-x86_64-linux-android.tar.xz",
+      "sha256": "75c5b031ac03b3a4f78170ef76be544f1a4a281b8151c83d1d6ca6dbf41543e5",
+      "bytes": 29930256
+    }
+  ],
+  "ndk": {
+    "url": "https://dl.google.com/android/repository/android-ndk-r30-linux.zip",
+    "revision": "30.0.16248370",
+    "bytes": 738633529,
+    "sha1": "5107f898313790e449e87eee2183d9a20602dee9",
+    "sha256": "753611f410d002cfcd3f3dc2ef49aad532089d3180b436c060a90bf0fcb64df2",
+    "officialSources": [
+      "https://developer.android.com/ndk/downloads",
+      "https://dl.google.com/android/repository/repository2-3.xml"
+    ]
+  }
+}
