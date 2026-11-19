@@ -170,6 +170,14 @@ restores each setting independently after recordings/native archives are kept.
 The restored probe is separate post-archive evidence. Source reviews are clear;
 fresh whole native, geometry, complete-frame and prototype checks remain required.
 
+The complete local check now passes exact244/69 cases with no failures, errors
+or skips. Both whole31c0 parents reach terminal phase3 and the compact Members
+screen, with three actual viewport probes and clean independent restoration.
+Both still fail because the compact observer tries the off-screen Close action
+without scrolling its information sheet. The one-line correction scrolls to that
+existing action before the unchanged5s enabled tap; both review axes are clear.
+Original archives and failures remain. Fresh complete parents are still required.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.

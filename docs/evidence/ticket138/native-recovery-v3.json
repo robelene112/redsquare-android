@@ -69,5 +69,34 @@
     "unchangedGoals": "Four native phases180s, held read10s, fresh read15s, action/modal5s, pixel1, actual2kills/independentchild and peer recovery. Fixed320dp is the existing mandatory worst case.",
     "verification": "Fresh complete v3 native/frame/prototype evidence pending."
   },
-  "acceptance": "Whole138 remains open. No combined prefixes, public beta142 changes or production node/provider activation."
+  "acceptance": "Whole138 remains open. No combined prefixes, public beta142 changes or production node/provider activation.",
+  "localFull": {
+    "source": "31c0ec62be16c9aa09489d2894d650c486b13029",
+    "exit": 0,
+    "core": 244,
+    "service": 69,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 392,
+    "catalogue": "Exact48/244 +5/69 case names match prospective catalogue.",
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-page-recovery-full-originals",
+    "logSha256": "32e4392ce6e722cf76d24aff678b9405b736e129fc094d92f4ddf62f01fa07be"
+  },
+  "thirteenthParents": {
+    "source": "31c0ec62be16c9aa09489d2894d650c486b13029",
+    "android10": {
+      "run": 44597142046,
+      "archiveSha256": "5927b321830f3006ae517093d6db5e9f0922264b770e997eeabd2b79a9fa4160",
+      "phase3Seconds": 58.596
+    },
+    "android17": {
+      "run": 44597148351,
+      "archiveSha256": "926348ee0ce1cdfd9989be57da94ee22fed601f0eee3c80038c0de3126619e3e",
+      "phase3Seconds": 63.312
+    },
+    "wholeOutcome": "BothFAIL. Both actual2kill checkpoints/phase3terminal completed,3configprobesPASS/cleanup0, fullwidthcompact Resources/Members captured. Phase4line302 unchanged5s Close readiness fails because Info reopens at its scroll top with Close belowviewport.",
+    "correction": "Physical performScrollTo on the actual existing Close action before its unchanged enabled5s tap. No application/goal/deadline change. Both source review axes0; fresh complete parents required.",
+    "qualification": "Neither parent is accepted; no union of prefixes. V3 restores actual resource/raw state successfully, but complete frames/geometry/prototype/fresh whole acceptance remain."
+  }
 }

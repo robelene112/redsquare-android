@@ -299,7 +299,7 @@ class SpacesDiscoveryJourneyTest {
             waitText("Owner", 5_000)
             capture("24-compact-large-type-members")
             device.pressBack()
-            ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).clickReady()
+            ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).performScrollTo().clickReady()
             ui.onNode(hasText("Back to your communities") and hasClickAction() and onScreen).clickReady()
             overview().performScrollToNode(hasText("Create a Space") and hasClickAction())
             ui.onNode(hasText("Create a Space") and hasClickAction()).clickReady(15_000)
