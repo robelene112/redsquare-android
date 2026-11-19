@@ -75,6 +75,7 @@ class SpaceGovernanceTest {
                     assertEquals(SpaceClient.ChangeStatus.QUEUED, first.archiveChange(space, channel)?.status)
                     assertFalse(first.channels(space).single().archived)
                     assertFalse(first.community(space).canSend)
+                    assertFalse(first.community(space).canManage)
                     try { first.flush(space); fail("The accepted archive acknowledgment is deliberately lost") }
                     catch (_: java.io.IOException) { }
                     assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, first.archiveChange(space, channel)?.status)
@@ -85,6 +86,7 @@ class SpaceGovernanceTest {
                     restored.flush(space)
                     assertEquals(SpaceClient.ChangeStatus.ACCEPTED, restored.archiveChange(space, channel)?.status)
                     assertTrue(restored.channels(space).single().archived)
+                    assertTrue("The owner can reopen an accepted archive", restored.community(space).canManage)
                     assertEquals(2, delivered.size); assertEquals(delivered[0], delivered[1])
                     assertEquals(id, SaitoEnvelope.decode(delivered[1]).id)
                     assertEquals("New writing survives uncertain administration", restored.draft(space))

@@ -6,13 +6,13 @@ const SpacesBridge = require('../bridge.cjs');
 
 test('the local bridge advertises only the matching service and preserves the received envelope', async t => {
   const originals = [];
-  let unreadAvailable = false;
+  let features = [];
   const original = JSON.stringify({t: 'fixture-request-header', m: 'fixture-ciphertext', opt: 'e30='});
   const receipt = {t: 'fixture-receipt-header', m: 'fixture-signed-receipt', opt: 'e30='};
   const server = http.createServer(async (request, response) => {
     response.setHeader('Content-Type', 'application/json');
     if (request.method === 'GET' && request.url === '/v1/readiness') {
-      response.end(JSON.stringify({capability: 'spaces-v1', service_key: 'service-key', schema: 4, state: 'ready', file_hosting: false, features: unreadAvailable ? ['unread-v1'] : []}));
+      response.end(JSON.stringify({capability: 'spaces-v1', service_key: 'service-key', schema: 4, state: 'ready', file_hosting: false, features}));
     } else if (request.method === 'POST' && request.url === '/v1/exchange') {
       const chunks = [];
       for await (const chunk of request) chunks.push(chunk);
@@ -26,15 +26,27 @@ test('the local bridge advertises only the matching service and preserves the re
   const bridge = new SpacesBridge(endpoint, 'service-key');
   assert.equal(await bridge.ready(), true);
   assert.equal(bridge.supportsUnread, false);
-  unreadAvailable = true;
+  assert.equal(bridge.supportsArchive, false);
+  assert.equal(bridge.supportsRoles, false);
+  features = ['unread-v1', 'channel-archive-v1', 'role-management-v1'];
   assert.equal(await bridge.ready(), true);
   assert.equal(bridge.supportsUnread, true);
+  assert.equal(bridge.supportsArchive, true);
+  assert.equal(bridge.supportsRoles, true);
   const mismatched = new SpacesBridge(endpoint, 'another-key');
   assert.equal(await mismatched.ready(), false);
   assert.equal(mismatched.supportsUnread, false);
-  unreadAvailable = false;
+  assert.equal(mismatched.supportsArchive, false);
+  assert.equal(mismatched.supportsRoles, false);
+  features = ['channel-archive-v1'];
+  assert.equal(await bridge.ready(), true);
+  assert.equal(bridge.supportsArchive, true);
+  assert.equal(bridge.supportsRoles, false);
+  features = [];
   assert.equal(await bridge.ready(), true);
   assert.equal(bridge.supportsUnread, false);
+  assert.equal(bridge.supportsArchive, false);
+  assert.equal(bridge.supportsRoles, false);
   assert.equal(await new SpacesBridge(endpoint, 'another-key').ready(), false);
   assert.deepEqual(await bridge.exchange(original), receipt);
   assert.deepEqual(originals, [original]);

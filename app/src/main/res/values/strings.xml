@@ -1455,4 +1455,22 @@
     <string name="spaces_share_public_link">Share public link</string>
     <string name="spaces_message_channel_hint">Message %1$s</string>
     <string name="spaces_navigation_panel">Space and channel navigation</string>
+    <string name="spaces_channel_settings">Channel settings</string>
+    <string name="spaces_archive_detail">Archiving keeps history readable and pauses new contributions. You can reopen the channel later.</string>
+    <string name="spaces_channel_archived">Archived channel. History remains readable, but new contributions are paused.</string>
+    <string name="spaces_archive_channel">Archive channel</string>
+    <string name="spaces_reopen_channel">Reopen channel</string>
+    <string name="spaces_archiving_channel">Archiving...</string>
+    <string name="spaces_reopening_channel">Reopening...</string>
+    <string name="spaces_manage_role">Manage role</string>
+    <string name="spaces_make_administrator">Make administrator</string>
+    <string name="spaces_remove_administrator">Remove administrator role</string>
+    <string name="spaces_updating_role">Updating role...</string>
+    <string name="spaces_administrator_detail">Administrators can manage channels and publish announcements. They have access to every channel. Only the owner can appoint administrators.</string>
+    <string name="spaces_owner_controls_roles">Only the Space owner can change administrator roles.</string>
+    <string name="spaces_management_queued">Update queued.</string>
+    <string name="spaces_management_awaiting">Waiting for confirmation.</string>
+    <string name="spaces_management_offline">Waiting for a connection to update this setting.</string>
+    <string name="spaces_management_rejected">This change was not accepted. Refresh the settings, then review and try again.</string>
+    <string name="spaces_refresh_settings">Refresh settings</string>
 </resources>

@@ -41,3 +41,13 @@ change; refresh and an explicit new action can succeed. Eight current SQLite
 cases pass, including a fresh rerun after sharing archive/role status lookup.
 Both incremental source review axes are clear. The API RED is compilation-only.
 UI/native, private access and the remaining139 requirements remain pending.
+
+The [first archive/role UI source](management-ui-source.json) connects real
+commands to capability-gated native controls. Accepted roles and channel state
+remain separate from queued/uncertain/rejected work. Full development JVM checks
+pass244 core and78 service cases, with no failures/errors/skips; both native-app
+Kotlin compilations and the Node capability contract pass. A source-review P2
+for hidden local errors is corrected and both final source axes are clear.
+Dialogs retain their body during exit and expose measured local-error feedback.
+Actual native error/rendering, complete frames, geometry and current pinned
+framework rehearsals remain required. This source stage is not139 acceptance.

@@ -34,6 +34,8 @@ class Spaces extends ModTemplate {
     if (this.app.BROWSER || !this.available) return [];
     const services = [new PeerService(null, 'spaces-v1'), new PeerService(null, 'spaces-directory-v1')];
     if (this.bridge?.supportsUnread) services.push(new PeerService(null, 'spaces-unread-v1'));
+    if (this.bridge?.supportsArchive) services.push(new PeerService(null, 'spaces-channel-archive-v1'));
+    if (this.bridge?.supportsRoles) services.push(new PeerService(null, 'spaces-role-management-v1'));
     return services;
   }
 

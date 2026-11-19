@@ -49,6 +49,7 @@ class SpaceRolesTest {
                     assertEquals(promotion, creator.roleChange(space)?.id)
                     assertEquals(administrator.publicKey, creator.roleChange(space)?.memberKey)
                     assertEquals(SpaceClient.ChangeStatus.QUEUED, creator.roleChange(space)?.status)
+                    assertFalse(creator.community(space).canManage)
                     assertEquals(SpaceRole.MEMBER, creator.members(space).single { it.publicKey == administrator.publicKey }.role)
                     try { creator.flush(space); fail("The accepted reply is deliberately lost") } catch (_: java.io.IOException) { }
                     assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, creator.roleChange(space)?.status)
@@ -60,6 +61,7 @@ class SpaceRolesTest {
                     assertEquals(2, originals.size); assertEquals(originals[0], originals[1])
                     assertEquals(promotion, SaitoEnvelope.decode(originals[1]).id)
                     assertEquals(SpaceRole.ADMIN, admin.members(space).single { it.publicKey == administrator.publicKey }.role)
+                    assertTrue(admin.community(space).canManage)
                     try { admin.setAdministrator(space, owner.publicKey, false); fail("An administrator cannot change owner roles") }
                     catch (_: IllegalArgumentException) { }
                     assertNull(admin.roleChange(space))

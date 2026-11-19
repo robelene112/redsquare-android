@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "ticket": 139,
+  "status": "Archive/role native UI source stage only, not native139 acceptance",
+  "base": "de4e9c5d74289fee5af1b97c9bb07247cd592ac7",
+  "sourceFiles": {
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceMembersPage.kt": "fc1930795c56e44b9c4e722993b3dc498c3188bee6facdc6ed781b61c23725e9",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesAccount.kt": "df16e2aaac852cc797e1575f8dcf80ffa120f04eb82669be07aeda2a081b5857",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesScreen.kt": "ee0a59fb6cc5d24dca005eaad1e3fa23036c583361221c3a3396135339a77f2b",
+    "app/src/main/res/values/strings.xml": "919589f8b647adb2952b412b540f4f1ebf600a4a44daf1a18a1801e8619c5df2",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "485db1d4aceece400f681455fee6d9a70ae4e4cbb61d5f93cd96c70f9161f596",
+    "integrations/saito-spaces/bridge.cjs": "6089d74a8939c38d0e0b9cd553d837d82f50d3e379e4ea4a2838d16e6f52eac7",
+    "integrations/saito-spaces/spaces.js": "b8186204f105cb59392ab3caf9004e0a11ee5c8e1b39e1da5a225d8d3f8ff4de",
+    "integrations/saito-spaces/test/bridge.test.cjs": "7a984da6d9baa0db939bdc4950d432ec780820865813a0ca5301024f32aa3fba",
+    "integrations/saito-spaces/test/interop.cjs": "9f3547750277d6aea17027da8b8e0639af8a48ddc7635c951470a5b665579e6d",
+    "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt": "b819e7853f59c6953e7102069458636244b066e44c282e678e7a4483173c42ac",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceGovernanceTest.kt": "f471ec18b612551e22579477e05a9a5fdcfeec1e156059cc46cc2459aa2a1adf",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceRolesTest.kt": "94edd22aeb648358405aee2f6866acc4dd4b3f9a7f733fb6e7b882d59dd8ac44",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost.kt": "c50f54c82fafe1d85f9765341cb4391cc615c289ff45ffbd3f67bd77d0b1f2ac",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStoreTest.kt": "d72dfa2fb42ec80434dd33299b5caf6c4dd0d4c325933c80d95ce7e20403c95f",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceManagement.kt": "ac791ec382dc5593a788edea844af2f0ba1b8429f4cee924e4dc9d1f956d5158"
+  },
+  "fullJvm": {
+    "tests": 322,
+    "core": 244,
+    "service": 78,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "commandExit": 0,
+    "buildSeconds": 335,
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-ui-full-jvm-originals",
+    "assessmentSha256": "f80ea606db0c21d72654bb802a4d87a356c6d1fc14c6710854d38dbdb5f54083",
+    "qualification": "All actualcore/service development JUnit identities match baseline138plus8newrole/archive methods. This is not afrozen139release/nativecollector; backend inputsunchangedbylaterapp-only errorcorrection."
+  },
+  "appCompile": [
+    {
+      "log": "139-management-ui-app-compile.log",
+      "sha256": "f5f7a7dd50e0d3316de1564ab8310d78cec93f5b23ed158eca4edcc2fb86b479",
+      "exit": 0
+    },
+    {
+      "log": "139-management-ui-error-compile.log",
+      "sha256": "5a4879b050970dd70e9f7661076988352666d832b7854bb0b18ce471a0a40bad",
+      "exit": 0
+    }
+  ],
+  "nodeCapability": {
+    "red": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-capability-red-originals",
+    "green": {
+      "log": "139-management-capability-green.log",
+      "sha256": "b15c68d854fafa0e55825bb99a04ac609e28f5fc937f5367bf5212ae42edc13a",
+      "tests": 1,
+      "pass": 1,
+      "fail": 0
+    },
+    "behavior": "Archive/rolefeaturesonlyadvertisedifmatchingactualreadyservice supportsnamedfeature. Constructor/ready resetfalse; unsupported/mismatched/removedfeaturesdonotretainpreviousauthority."
+  },
+  "sourceReviews": {
+    "initialSpec": {
+      "findings": 1,
+      "priority": "P2",
+      "report": "139-management-ui-spec-review.txt",
+      "sha256": "9f88cd3452392f5011dceea69b481005698cd163c34575168fcde7f3a09d91de",
+      "observation": "Local prequeue persistence/validation errors were only behindthemodal."
+    },
+    "correctedSpec": {
+      "findings": 0,
+      "report": "139-management-ui-final-spec-review.txt",
+      "sha256": "928324fde0af15ae3850bf69aa2982c960febb88417ca573709b63c212fbe19c"
+    },
+    "correctedStandards": {
+      "findings": 0,
+      "report": "139-management-ui-final-standards-review.txt",
+      "sha256": "687d8284e9c567f934ad28c3c173a8678d65f706cb9d8f28bd6727826d4e484c"
+    }
+  },
+  "corrections": "RoleMenu storesopenstate separatelyfrommemberidentity, retainsbodyduringDesignSheetexit anddisablesoutgoingaction. LocalerrorsrenderinInfooutsidepermissioncontrols andintheRolefooter; measuredSAVEerrorbringIntoView iscancelledonclear/outgoing. Shared dismiss48dp; archivecaption shortscopedmotion. No nativefailing-beforeassertion isclaimedforthesesourcefindings.",
+  "qualification": "Currentmenus/actions use actualsignedauthority/change DTOs withaccepted-statecanManage, explicitSpace/channeltargets, clearedonselection andlateerrornavigationguard. No actualnative screenshots/movies/geometry/storage-error journey yet. Pinnedframework0.3.2/0.3.15 rehearse newfeaturesbeforewhole139closure. PrivateACL/keyremoval/ownership/visibility/dissolve/remainingchannelmanagement remain. Beta142andactualnode/provider/publicfinancial/filehosting gates unchanged."
+}

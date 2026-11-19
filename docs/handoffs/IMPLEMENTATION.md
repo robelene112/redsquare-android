@@ -12,8 +12,10 @@ review axes are clear. Public owner-only admin appointment/demotion and queued
 privilege-term checks also pass; seven current SQLite cases and both source
 review axes are clear. Role intent/status now retains exact originals through
 lost acknowledgments and real rejections; eight current SQLite cases and both
-source review axes pass. Native UI and the remaining139 scope
-are pending. See [the current139 packet](../evidence/ticket139/README.md).
+source review axes pass. Archive/role native controls and capability gates now
+compile in source. Full244core/78service development checks pass; corrected source
+reviews are clear after a hidden-local-error P2 fix. Actual native/error/geometry
+verification and the remaining139 scope are pending. See [the current139 packet](../evidence/ticket139/README.md).
 Keep the sequential139–147 authorization and separate release/production gates
 below. Ordinary beta142 remains unchanged.
 

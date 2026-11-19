@@ -6,6 +6,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -24,6 +28,9 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
 
 @Composable internal fun SpaceMembersPage(account: SpacesAccount, state: SpacesAccount.State,
     modifier: Modifier = Modifier, onBack: () -> Unit, onProfile: (String) -> Unit, onMessage: (String) -> Unit) {
+    var managing by rememberSaveable(state.selected) { mutableStateOf<String?>(null) }
+    var roleSheetOpen by rememberSaveable(state.selected) { mutableStateOf(false) }
+    val owner = state.members.firstOrNull { it.publicKey == account.ownerKey }?.role == SpaceRole.OWNER
     Column(modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             FrameIconButton(R.drawable.ic_back, stringResource(R.string.spaces_back)) { onBack() }
@@ -40,23 +47,30 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
                 val identity = registeredIdentity(member.publicKey).name
                 Surface(onClick = { onProfile(member.publicKey) }, shape = RoundedCornerShape(18.dp),
                     color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = Modifier.fillMaxWidth().semantics { role = Role.Button }) {
-                    Row(Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        ProfileAvatar(member.publicKey, Modifier.size(40.dp))
-                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text(identity, style = MaterialTheme.typography.titleSmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                            Text(stringResource(when (member.role) {
-                                SpaceRole.OWNER -> R.string.spaces_role_owner
-                                SpaceRole.ADMIN -> R.string.spaces_role_admin
-                                SpaceRole.MEMBER -> R.string.spaces_role_member
-                            }), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Column {
+                        Row(Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                            ProfileAvatar(member.publicKey, Modifier.size(40.dp))
+                            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                Text(identity, style = MaterialTheme.typography.titleSmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                                Text(stringResource(when (member.role) {
+                                    SpaceRole.OWNER -> R.string.spaces_role_owner
+                                    SpaceRole.ADMIN -> R.string.spaces_role_admin
+                                    SpaceRole.MEMBER -> R.string.spaces_role_member
+                                }), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
+                            if (member.publicKey != account.ownerKey) IconButton(onClick = { onMessage(member.publicKey) }, modifier = Modifier.size(48.dp)) {
+                                Icon(painterResource(R.drawable.ic_chat), stringResource(R.string.spaces_message_member, identity), Modifier.size(22.dp))
+                            } else Icon(painterResource(R.drawable.ic_forward), null, Modifier.size(18.dp))
                         }
-                        if (member.publicKey != account.ownerKey) IconButton(onClick = { onMessage(member.publicKey) }, modifier = Modifier.size(48.dp)) {
-                            Icon(painterResource(R.drawable.ic_chat), stringResource(R.string.spaces_message_member, identity), Modifier.size(22.dp))
-                        } else Icon(painterResource(R.drawable.ic_forward), null, Modifier.size(18.dp))
+                        if (owner && state.rolesSupported && member.role != SpaceRole.OWNER) TextButton(
+                            onClick = { managing = member.publicKey; roleSheetOpen = true }, modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp).heightIn(min = 48.dp)) {
+                            Text(stringResource(R.string.spaces_manage_role))
+                        }
                     }
                 }
             }
         }
     }
+    SpaceMemberRoleSheet(roleSheetOpen, account, state, state.members.firstOrNull { it.publicKey == managing }) { roleSheetOpen = false }
 }

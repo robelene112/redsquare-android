@@ -9,6 +9,7 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.togetherWith
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.expandVertically
@@ -227,6 +228,16 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
                     if (selected?.joined == true && channel?.ready == false) Text(stringResource(R.string.spaces_waiting_channel_keys),
                         color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
+                    key(state.selected, state.selectedChannel) {
+                        val archived = remember { MutableTransitionState(false) }
+                        archived.targetState = channel?.archived == true
+                        AnimatedVisibility(archived,
+                            enter = fadeIn(tween(AppSpacing.transitionMillis)) + expandVertically(tween(AppSpacing.transitionMillis)),
+                            exit = fadeOut(tween(AppSpacing.transitionMillis)) + shrinkVertically(tween(AppSpacing.transitionMillis))) {
+                            Text(stringResource(R.string.spaces_channel_archived), color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                style = MaterialTheme.typography.bodySmall)
+                        }
+                    }
                     if (selected?.joined == true && channel?.profile?.kind == SpaceChannelKind.ANNOUNCEMENT && !selected.canSend)
                         Text(stringResource(R.string.spaces_announcements_read_only), color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.bodySmall)
@@ -454,6 +465,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     navigation?.navigate(commit) ?: account.guardNavigation(commit)
                 }
             }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_members)) }
+            channel?.let { SpaceChannelManagement(account, state, it) }
+            SpaceManagementProblem(state.problem, account::clearProblem, scrollIntoView = true)
             TextButton(onClick = { informationOpen = false }, modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_close)) }
         }
     }
@@ -514,7 +527,7 @@ private data class ChannelViewport(val anchor: SpaceClient.ReadingAnchor?, val f
         }
     }
 }
-@Composable private fun ProblemNotice(problem: SpacesAccount.Problem, dismiss: () -> Unit) {
+@Composable internal fun ProblemNotice(problem: SpacesAccount.Problem, dismiss: () -> Unit) {
     val message = when (problem) {
         SpacesAccount.Problem.INVITATION -> R.string.spaces_invitation_failed
         SpacesAccount.Problem.SAVE -> R.string.spaces_save_failed
@@ -522,7 +535,7 @@ private data class ChannelViewport(val anchor: SpaceClient.ReadingAnchor?, val f
     }
     Column {
         Text(stringResource(message), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
-        TextButton(onClick = dismiss) { Text(stringResource(R.string.spaces_close)) }
+        TextButton(onClick = dismiss, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_close)) }
     }
 }
 

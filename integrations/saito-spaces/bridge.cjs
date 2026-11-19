@@ -16,15 +16,21 @@ module.exports = class SpacesBridge {
     this.endpoint = url.origin;
     this.serviceKey = serviceKey;
     this.supportsUnread = false;
+    this.supportsArchive = false;
+    this.supportsRoles = false;
   }
 
   async ready() {
     this.supportsUnread = false;
+    this.supportsArchive = false;
+    this.supportsRoles = false;
     try {
       const body = await this.request('/v1/readiness', {method: 'GET'}, 4096, 2000);
       const ready = body.capability === 'spaces-v1' && body.service_key === this.serviceKey &&
         body.schema === 4 && body.state === 'ready' && body.file_hosting === false;
       this.supportsUnread = ready && Array.isArray(body.features) && body.features.includes('unread-v1');
+      this.supportsArchive = ready && Array.isArray(body.features) && body.features.includes('channel-archive-v1');
+      this.supportsRoles = ready && Array.isArray(body.features) && body.features.includes('role-management-v1');
       return ready;
     } catch (_) { return false; }
   }

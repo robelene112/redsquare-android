@@ -180,7 +180,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
 
     data class Community(val id: String, val name: String, val channel: String, val joined: Boolean,
-        val canInvite: Boolean, val pending: Boolean, val canSend: Boolean, val membershipRequested: Boolean = false, val unread: Long? = null, val hasUnread: Boolean? = null)
+        val canInvite: Boolean, val pending: Boolean, val canSend: Boolean, val membershipRequested: Boolean = false, val unread: Long? = null, val hasUnread: Boolean? = null,
+        val canManage: Boolean = false)
     data class Message(val id: String, val author: String, val createdAt: Long, val text: String?,
         val pending: Boolean, val attempted: Boolean, val missingKeys: Boolean, val rejected: Boolean = false, val position: Long? = null) {
         override fun toString() = "Private community message"
@@ -227,7 +228,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             state.has("starter_channels") || state.has("desired_listed") || page("$space/pending/", limit = 1).isNotEmpty(), state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
                 (data.get("joined")?.asBoolean == true || channel?.visibility == SpaceVisibility.PUBLIC) &&
                 channel?.archived != true && (!adminPostsOnly || role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name)),
-            !state.get("joined").asBoolean && state.has("joining_invitation"), unread, hasUnread)
+            !state.get("joined").asBoolean && state.has("joining_invitation"), unread, hasUnread,
+            canManage = state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
+                snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
     }
     fun profile(space: String): SpaceProfile = store.transaction {
         owned(); val state = state(space)
