@@ -59,7 +59,8 @@ internal class SpacesDiscoveryFixture(private val client: SpaceClient, private v
     }
     fun afterExchange(original: SaitoTransaction) {
         val body = SaitoEnvelope.decode(original.envelope()).body
-        if (held && body.get("request")?.asString == "read" && body.getAsJsonObject("scope")?.get("stream")?.asString == "control") {
+        if (held && body.get("request")?.asString == "read" && body.getAsJsonObject("scope")?.get("stream")?.asString == "control" &&
+            body.getAsJsonObject("scope")?.get("space_id")?.asString == fixtures.getAsJsonObject("public").get("space").asString) {
             entered = true
             check(released.await(10, TimeUnit.SECONDS)) { "Owned held public read exceeded 10 seconds" }
         }

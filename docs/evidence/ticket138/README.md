@@ -25,6 +25,15 @@ Product behavior, goals and deadlines remain unchanged. Final source CI at146cbe
 passed both builds and244/66 checks, but no successful138 native journey is
 established. Fresh complete parents are required.
 
+The [second native parents](native-send-diagnostic.json) reach the held-read
+counterexample but both exceed the original10-second Send completion bound.
+Their original archives/digests remain. The target channel/draft stays visible;
+the cause is not established. A new actual mixed public/private client contract
+passes independently. The next diagnostic restricts the hold to public A rather
+than any background control read and records metadata-only state/request timings
+only on a debug loopback emulator. Both source axes report zero findings; goals
+and deadlines remain unchanged. No product fix or native pass is claimed.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.

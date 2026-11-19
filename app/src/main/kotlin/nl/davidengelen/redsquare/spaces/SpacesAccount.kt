@@ -6,6 +6,9 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.ConcurrentHashMap
@@ -44,6 +47,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val problem: Problem? = null, val working: Boolean = false, val refreshing: Boolean = false,
         val ready: Boolean = false, val savingNavigation: Boolean = false, val loadingChannel: Boolean = false, val hasEarlier: Boolean = false, val hasLater: Boolean = false, val scrollToMessage: String? = null, val windowFrom: Long = 0, val followingLatest: Boolean = true)
     private val appContext = context.applicationContext
+    private val fixtureTrace = nl.davidengelen.redsquare.BuildConfig.DEBUG && endpoint.startsWith("ws://127.0.0.1:") &&
+        android.os.Build.HARDWARE in listOf("ranchu", "goldfish")
+    private fun trace(message: String) { if (fixtureTrace) android.util.Log.d("SpacesAccount138", message) }
     private val scope = CoroutineScope(parent.coroutineContext + SupervisorJob(parent.coroutineContext[Job]) + Dispatchers.IO)
     private val mutable = MutableStateFlow(State())
     val state = mutable.asStateFlow()
@@ -83,6 +89,17 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private class ChangedIdentity : IOException()
 
     init {
+        if (fixtureTrace) scope.launch {
+            state.map { value ->
+                val current = value.current
+                val channel = value.channels.firstOrNull { it.id == value.selectedChannel }
+                "state space=${value.selected?.take(10)} channel=${value.selectedChannel?.take(10)} " +
+                    "working=${value.working} ready=${value.ready} loading=${value.loadingChannel} saving=${value.savingNavigation} " +
+                    "joined=${current?.joined} canSend=${current?.canSend} pending=${current?.pending} " +
+                    "kind=${channel?.profile?.kind} channelReady=${channel?.ready} availability=${value.availability} " +
+                    "problem=${value.problem} access=${value.selected?.let { value.accessProblems[it] }}"
+            }.distinctUntilChanged().collect { trace(it) }
+        }
         scope.launch {
             try {
                 val saved = directory.load()
@@ -152,10 +169,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         client = SpaceClient(wallet, backend.webUrl, service, storage, Clock.systemUTC()) { original ->
             // The client durably records attempted delivery before entering
             // transport. Publish that progress before a response can be held.
+            val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
             publish()
+            if (fixtureTrace) trace("request=${original.id.take(10)} projectedMs=${android.os.SystemClock.elapsedRealtime() - started}")
             val connection = authenticatedPeer()
             if (connection.servicePublicKey("spaces-v1") != service) throw ChangedIdentity()
-            connection.request(original) { check(!closed.get()) }.toString(Charsets.UTF_8)
+            val received = connection.request(original) { check(!closed.get()) }.toString(Charsets.UTF_8)
+            if (fixtureTrace) trace("request=${original.id.take(10)} returnedMs=${android.os.SystemClock.elapsedRealtime() - started}")
+            received
         }
         mutable.update { it.copy(ready = true) }
     }
@@ -442,7 +463,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 selectRoute(space, expected = route)
                 publish(); wake.trySend(Unit)
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (failure: Exception) { if (navigationVersion.get() == route) throw failure }
+            catch (failure: Exception) {
+                trace("public-read failed=${failure.javaClass.simpleName} frames=${failure.stackTrace.take(4).joinToString { "${it.className}.${it.methodName}:${it.lineNumber}" }}")
+                if (navigationVersion.get() == route) throw failure
+            }
         } }
     }
     fun openPublicLink(link: String) {
@@ -454,7 +478,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 if (selectRoute(opened.id, expected = route)) mutable.update { it.copy(openedPublicReference = link) }
                 publish(); wake.trySend(Unit)
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (failure: Exception) { if (navigationVersion.get() == route) throw failure }
+            catch (failure: Exception) {
+                trace("public-read failed=${failure.javaClass.simpleName} frames=${failure.stackTrace.take(4).joinToString { "${it.className}.${it.methodName}:${it.lineNumber}" }}")
+                if (navigationVersion.get() == route) throw failure
+            }
         } }
     }
     fun dismissPublicReference() { synchronized(navigationChanges) { navigationVersion.incrementAndGet() } }

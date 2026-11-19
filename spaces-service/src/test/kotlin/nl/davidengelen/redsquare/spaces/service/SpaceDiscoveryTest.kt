@@ -29,6 +29,45 @@ class SpaceDiscoveryTest {
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val visitor = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
 
+    @Test(timeout = 45_000) fun anIndependentPublicReadLeavesAnOwnedPrivateChannelsAuthorityAndDraftUnchanged() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("mixed-read-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("mixed-public-owner.sqlite").absolutePath).use { publicStore ->
+                SqliteClientFixture(files.newFile("mixed-private-owner.sqlite").absolutePath).use { mixedStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, publicStore, clock) { remote.exchange(it.envelope()) }
+                    val entered = kotlinx.coroutines.CompletableDeferred<Unit>()
+                    val released = kotlinx.coroutines.CompletableDeferred<Unit>()
+                    var held = true
+                    val reader = SpaceClient(visitor, "fixture-node", service.publicKey, mixedStore, clock) { original ->
+                        val body = SaitoEnvelope.decode(original.envelope()).body
+                        val result = remote.exchange(original.envelope())
+                        if (held && body.get("request")?.asString == "read" && body.getAsJsonObject("scope")?.get("stream")?.asString == "control") {
+                            held = false; entered.complete(Unit); released.await()
+                        }
+                        result
+                    }
+                    val public = creator.create(SpaceProfile("Public lookup", visibility = SpaceVisibility.PUBLIC),
+                        listOf(SpaceChannelProfile("general"), SpaceChannelProfile("workshop"), SpaceChannelProfile("announcements", SpaceChannelKind.ANNOUNCEMENT)))
+                    creator.flush(public)
+                    val private = reader.create(SpaceProfile("Private origin"), listOf(SpaceChannelProfile("general"),
+                        SpaceChannelProfile("announcements", SpaceChannelKind.ANNOUNCEMENT), SpaceChannelProfile("lounge", SpaceChannelKind.VOICE),
+                        SpaceChannelProfile("articles", SpaceChannelKind.ARTICLE), SpaceChannelProfile("resources", SpaceChannelKind.FILE)))
+                    reader.flush(private)
+                    reader.saveDraft(private, "Original channel draft")
+                    val before = reader.community(private)
+                    assertTrue(before.joined && before.canSend)
+                    val read = async { reader.openPublic(public) }
+                    entered.await()
+                    assertEquals(before.channel, reader.community(private).channel)
+                    assertTrue(reader.community(private).canSend)
+                    released.complete(Unit); assertFalse(read.await().joined)
+                    assertTrue(reader.community(private).canSend)
+                    assertEquals(before.channel, reader.community(private).channel)
+                    assertEquals("Original channel draft", reader.draft(private))
+                }
+            }
+        }
+    }
+
     @Test fun aPublicVisitorReadsWithoutJoiningAndContributesOnlyAfterAnExplicitDurableJoin() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("public-read-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("public-read-owner.sqlite").absolutePath).use { ownerStore ->

@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "originals": [
+    {
+      "run": 44554122291,
+      "source": "42758b241985a995770ca66b1f0c42dc956f93c7",
+      "outcome": "failure",
+      "originalRoot": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt2-44554122291",
+      "zip": {
+        "bytes": 894110,
+        "sha256": "5d6e0cd37e6ab0e6c1ea79bae46b110f5fcb777d57c75d9ced726467f355145f",
+        "crc": "PASS"
+      },
+      "failure": "Phase1line75, Send not re-enabled within original10-second completion bound. B/draft still visible; cause not established.",
+      "acceptedCheckpoints": 0
+    },
+    {
+      "run": 44554177530,
+      "source": "42758b241985a995770ca66b1f0c42dc956f93c7",
+      "outcome": "failure",
+      "originalRoot": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt2-44554177530",
+      "zip": {
+        "bytes": 1001097,
+        "sha256": "be02b0bb6b70020c3e9f4c554b919d1730c138a2bde50b229a3b9579b59853e1",
+        "crc": "PASS"
+      },
+      "failure": "Phase1line75, Send not re-enabled within original10-second completion bound. B/draft still visible; cause not established.",
+      "acceptedCheckpoints": 0
+    }
+  ],
+  "ownedDiagnostic": "Actual separate public owner/private five-channel owner; held public read preserves private canSend, channel and draft. Focused1-test invocation passes; not coordinator/native acceptance.",
+  "changes": [
+    "Restrict the observer hold to actual public fixture scope.space_id; another private control read cannot satisfy entered.",
+    "Debug/emulator/loopback-gated metadata-only state/request timings, independently retained filtered logs. No texts, capabilities, keys or exception messages."
+  ],
+  "reviews": {
+    "spec": 0,
+    "standards": 0
+  },
+  "runtime": "Fresh complete Android10 diagnostic parent next; no product fix, cause or native pass claimed.",
+  "originalGoalsAndDeadlinesUnchanged": true
+}
