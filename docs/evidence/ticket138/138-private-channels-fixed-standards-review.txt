@@ -1,0 +1,18 @@
+Standards follow-up: corrected private-channel WIP against0e3106cf4
+Read-only source and retained-regression review; original adverse report remains unchanged.
+
+Documented violations
+The cold-control recovery defect is closed in source. No remaining confirmed hard violation identified.
+
+Recovery and key isolation
+channelState no longer decrypts presentation metadata. Only channels() calls channelProfile, where absent historical keys return absent presentation; signature, scope, schema and permission failures still propagate. General Welcome/control recovery can therefore commit before importing historical General keys. Subsequent profile loading can retry naturally.
+
+Child admission, cancellation/rejection state, Welcome and historical grants remain tied to child scope/state. General sender state and existing global roles are retained. The cold three-identity tracer actually delays General Welcome/history while another child admission occurs, then requires recovered names, independent child keys and an independently received message. Its original MissingKeys RED and corrected two-case GREEN2m22s are retained.
+
+Judgment call
+SpaceClient.kt:1040 unconditionally writes every existing child state during reads. AndroidSpaceClientStore.put encrypts through Keystore, deletes and inserts the row, so channels() rewrites every child's MLS snapshot on each listing. This is avoidable write amplification, not a measured performance failure. Persist only newly created state or actual changes. It is a small local adjustment, with no protocol redesign required.
+
+Lifecycle oracle and limits
+The new lifecycle case uses an actually accepted concurrent owner control to reject a prepared child admission, reopens the actual service database/client, loses the later accepted acknowledgment, and requires byte-identical original retry, preserved child history/draft, independent replies and still-working General keys. No fabricated receipt or replacement key baseline supplies recovery. Assertions expose fixture text/public envelopes rather than private wallet material.
+
+The complete core/service run including that lifecycle case remains pending. This review establishes neither its successful execution nor native UI, public-community private channels, complete138 or deployed-node acceptance.

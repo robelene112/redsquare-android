@@ -9,7 +9,8 @@ import java.util.Collections
 enum class SpaceRole { OWNER, ADMIN, MEMBER }
 data class SpaceInvitationRecord(val key: String, val expiresAt: Long, val channelId: String, val rulesToken: String = "")
 data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>, val generation: String = "0".repeat(64), val epochStartedAt: Long = 0,
-    val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val profile: SpaceChannelProfile? = null)
+    val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val profile: SpaceChannelProfile? = null,
+    val metadata: String? = null, val adminPostsOnly: Boolean = false)
 data class SpaceJoinRequest(val envelope: String, val id: String, val actor: String,
     val operationId: String, val channelId: String, val keyPackage: SpaceCrypto.BoundPackage)
 
@@ -75,14 +76,29 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             "create-channel" -> {
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
                 require(event.body.text("control_id") == current.controlId)
-                require(current.visibility == SpaceVisibility.PUBLIC && event.body.text("visibility") == "public")
+                val visibility = when (event.body.text("visibility")) {
+                    "public" -> SpaceVisibility.PUBLIC.also { require(current.visibility == it) }
+                    "private" -> SpaceVisibility.PRIVATE.also { require(current.visibility == it) }
+                    else -> throw IllegalArgumentException("Unknown channel visibility")
+                }
                 val channel = event.body.text("channel_id").also { require(it.matches(ID) && it !in current.channels) }
                 val generation = event.body.text("key_generation").also { require(it.matches(ID)) }
                 require(event.body.number("epoch") == 0L)
-                val profile = SpaceChannelProfile.fromJson(event.body.getAsJsonObject("channel_profile"))
+                val profile = if (visibility == SpaceVisibility.PUBLIC)
+                    SpaceChannelProfile.fromJson(event.body.getAsJsonObject("channel_profile")) else null
+                val metadata = if (visibility == SpaceVisibility.PRIVATE) event.body.text("metadata").also {
+                    require(!event.body.has("channel_profile") && Base64.getDecoder().decode(it).size in 29..65_536)
+                } else null
+                val bindings = if (visibility == SpaceVisibility.PRIVATE) devices(event.body).also {
+                    require(it.size == 1 && credentialWallet(it.keys.single()) == event.author)
+                } else emptyMap()
+                val adminPostsOnly = event.body.get("admin_posts_only")?.let {
+                    require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean); it.asBoolean
+                } ?: (profile?.kind == SpaceChannelKind.ANNOUNCEMENT)
+                require(profile == null || adminPostsOnly == (profile.kind == SpaceChannelKind.ANNOUNCEMENT))
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
-                    channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(0, emptyMap(),
-                        generation, position, SpaceVisibility.PUBLIC, profile))))
+                    channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(0, bindings,
+                        generation, position, visibility, profile, metadata, adminPostsOnly))))
             }
             "invite" -> {
                 require(current.owner != null && event.body.text("control_id") == current.controlId)
@@ -148,8 +164,8 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 }
                 admittedJoin = join
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
-                    members = Collections.unmodifiableMap(current.members + (join.actor to SpaceRole.MEMBER)),
-                    channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(epoch, devices, oldChannel.generation, position))))
+                    members = Collections.unmodifiableMap(current.members + (join.actor to (current.members[join.actor] ?: SpaceRole.MEMBER))),
+                    channels = Collections.unmodifiableMap(current.channels + (channel to oldChannel.copy(epoch = epoch, devices = devices, epochStartedAt = position))))
             }
             else -> throw IllegalArgumentException("Unsupported Spaces control version or kind")
         }
@@ -165,28 +181,37 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
     fun verifyJoin(envelope: String, acceptedAt: Long): SpaceJoinRequest {
         val join = SaitoEnvelope.decode(envelope)
         header(join.body, "event")
-        require(join.body.text("kind") == "join" && join.body.text("space_id") == spaceId &&
+        val channelOnly = join.body.text("kind") == "join-channel"
+        require(join.body.text("kind") in setOf("join", "join-channel") && join.body.text("space_id") == spaceId &&
             join.recipients == listOf(join.author, serviceKey).distinct())
         val channel = join.body.text("channel_id")
         require(current.channels[channel]?.visibility == SpaceVisibility.PRIVATE)
         val operation = join.body.text("operation_id")
         require(operation.matches(ID) && operation !in operations)
-        val invitationId = join.body.text("invite_id")
-        val invitation = requireNotNull(current.invitations[invitationId])
-        require(channel == invitation.channelId)
-        require(join.body.text("control_id") == invitationId && acceptedAt >= 0 && invitation.expiresAt > acceptedAt)
-        require((join.body.get("rules_token")?.let { join.body.text("rules_token") } ?: "") == invitation.rulesToken) {
-            "Spaces house rules have not been accepted"
+        val invitationId = if (channelOnly) null else join.body.text("invite_id")
+        val invitation = invitationId?.let { requireNotNull(current.invitations[it]) }
+        if (channelOnly) {
+            require(join.author in current.members && join.body.text("control_id") in controlPositions)
+            require(current.channels.getValue(channel).devices.keys.none { credentialWallet(it) == join.author })
+        } else {
+            require(channel == requireNotNull(invitation).channelId)
+            require(join.body.text("control_id") == invitationId && acceptedAt >= 0 && invitation.expiresAt > acceptedAt)
+            require((join.body.get("rules_token")?.let { join.body.text("rules_token") } ?: "") == invitation.rulesToken) {
+                "Spaces house rules have not been accepted"
+            }
         }
         val data = join.body.getAsJsonObject("key_package")
         val scope = SpaceCrypto.Scope(serviceKey, spaceId, channel, requireNotNull(current.channels[channel]).generation)
         val keyPackage = SpaceCrypto.BoundPackage(scope, data.text("wallet"), data.text("device"),
             data.text("package"), data.text("signer"), data.text("signature"))
         keyPackage.verify()
-        require(keyPackage.walletKey == join.author && join.author !in current.members)
-        val proof = "SaitoSpacesJoin/v1:${scope.groupId}:$invitationId:${join.author}:$operation:${keyPackage.walletSignature}"
-        require(SaitoWallet.verify(proof.toByteArray(Charsets.UTF_8), join.body.text("invite_proof"), invitation.key)) {
-            "Spaces invitation does not authorize this join"
+        require(keyPackage.walletKey == join.author)
+        if (!channelOnly) {
+            require(join.author !in current.members)
+            val proof = "SaitoSpacesJoin/v1:${scope.groupId}:$invitationId:${join.author}:$operation:${keyPackage.walletSignature}"
+            require(SaitoWallet.verify(proof.toByteArray(Charsets.UTF_8), join.body.text("invite_proof"), requireNotNull(invitation).key)) {
+                "Spaces invitation does not authorize this join"
+            }
         }
         return SpaceJoinRequest(envelope, join.id, join.author, operation, channel, keyPackage)
     }
@@ -200,7 +225,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         require(body.text("operation_id").matches(ID) && body.text("operation_id") !in operations)
         require(event.author in current.members)
         val channel = requireNotNull(current.channels[body.text("channel_id")])
-        if (channel.profile?.kind == SpaceChannelKind.ANNOUNCEMENT)
+        if (channel.adminPostsOnly || channel.profile?.kind == SpaceChannelKind.ANNOUNCEMENT)
             require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         val reference = requireNotNull(controlPositions[body.text("control_id")])
         require(reference >= channel.epochStartedAt) { "Content belongs to a previous channel epoch" }

@@ -1,0 +1,85 @@
+{
+  "status": "Private extra-channel component only. Remaining138 and native acceptance pending.",
+  "base": "0e3106cf4",
+  "checks": {
+    "core": {
+      "classes": 48,
+      "tests": 244,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "spaces-service": {
+      "classes": 5,
+      "tests": 51,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "retained_originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-private-channels-final-complete-originals",
+  "logs": [
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-private-channels-red.log",
+      "bytes": 1664,
+      "sha256": "14ce41076cace4cd7496bdd571932e01b48f0354d54f7b5e4306066eb0cd8912"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-private-channels-green-attempt1.log",
+      "bytes": 1087,
+      "sha256": "a6d79ef345233bca4a94a3ce968d31ff17bed111a9834ca4d09c6e1b4c2c3a84"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-private-cold-controls-red.log",
+      "bytes": 1684,
+      "sha256": "7eb97132f530a622986865da192bbc111cca2291c04629610279427b696ba18e"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-private-cold-controls-green.log",
+      "bytes": 1120,
+      "sha256": "89dc18989ddad45ef5c80d6a0b8380df1ad289517b6a8b821a8fb2e68ac91ca7"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-private-channels-full-check.log",
+      "bytes": 1323,
+      "sha256": "47ba6efc772630499784065b56d328ccabaeffe4c40b56e5340bc8ce94dd09a4"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-private-announcement-permission-red.log",
+      "bytes": 1654,
+      "sha256": "89d937069664d4035fee20bd79e5fa9f4be3ef4dec46bb708d111028a9ceae91"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-private-channels-final-check.log",
+      "bytes": 1290,
+      "sha256": "3228f54e1555f25aea0594c29508dd2b36a1a9d33e86792407dcb91df2d233bd"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt",
+      "sha256": "cb6e5c1bbbc4c9ba6fe788f95224df3aa5f428b2907fbfeaa98e3ca986b451c4"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceCrypto.kt",
+      "sha256": "ffcc6906126f5866dd2a82d36ec4ded0c3cfffade49b42c67547ebeafff18aec"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt",
+      "sha256": "a6100670be4bc27bea108bc03d56aa5b2e85b9146430361ccff9c1d3bc586ceb"
+    },
+    {
+      "path": "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt",
+      "sha256": "0a3b41fcfae1cf5d366a5260c9026621e37a1249971685cde15a6ea4ddb683ce"
+    },
+    {
+      "path": "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceDiscoveryTest.kt",
+      "sha256": "072eea905e5de728bfe47bfd564e88de20995de2626897d3675842ff6a913060"
+    }
+  ],
+  "qualifications": [
+    "Original RED invocation logs retained. Initial private and cold RED JUnit XML was not separately copied before targeted reruns. The announcement RED XML and both full successful XML sets are retained separately.",
+    "First full244/50 includes rejection, service/client restart and actual accepted-but-lost admission acknowledgment. Final244/51 also includes canonical announcement permission after direct selection.",
+    "These private channels initially allow existing community members to request channel keys. Restricted audiences, private channels inside public communities and complete administration belong to remaining138/139 work; no claim of completion."
+  ]
+}

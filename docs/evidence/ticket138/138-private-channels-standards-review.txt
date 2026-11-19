@@ -1,0 +1,13 @@
+Standards review: private extra-channel WIP against0e3106cf4
+Read-only source review and initial retained-regression inspection.
+
+Documented recovery finding
+[P2] SpaceClient.kt:849 calls channelState while applying any child admission. channelState:1042-1047 eagerly decrypts its profile with historical General archive keys. A delayed guest can receive its General Welcome and an unrelated child admission in one control page before General historical keys have been imported. Metadata read then throws MissingKeys and rolls back the page. refresh imports General keys only after syncControls returns, creating a recovery dependency cycle and stranding an actually admitted guest. This breaches CODING_STANDARDS.md's requirement to preserve identity/recoverable work through connection failures. Defer optional profile decryption until keys exist; unrelated control/admission recovery must not require that profile. The newly added cold-control regression is an appropriate authentic oracle and remains pending.
+
+Other reviewed boundaries
+Private child creation generates a separate MLS device/group and encrypts display metadata under General's authenticated archive scope. Root sender state is retained; child send/Welcome/history/rejection handling checks child scope and writes child state. Existing community membership alone does not supply a channel key. Channel admission preserves existing global roles and unrelated channel records rather than replacing them.
+
+Signed join-channel requires existing community membership, a valid accepted control reference, no existing channel wallet membership and a verified channel-scoped package. Service paging skips completed requests. Owner/admin and current-head requirements remain for channel creation/admission, with announcement posting checked independently at the receiver.
+
+Judgment calls and scope
+No separate actionable smell findings. Per-channel accessors appropriately centralize storage isolation, but their optional metadata work causes the concrete recovery defect above. Initial real private-channel RED and GREEN attempt1 are retained; that one-case pass does not cover cold replay. Full affected suite, public-community private channels, native UI, remaining138 and deployed-node acceptance remain pending.

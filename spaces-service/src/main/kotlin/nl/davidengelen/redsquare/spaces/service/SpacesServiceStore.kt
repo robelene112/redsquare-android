@@ -133,8 +133,13 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                                 val value = rows.getString(2)
                                 if (stream == "join") {
                                     val original = SaitoEnvelope.decode(SaitoEnvelope.decode(value).body.text("event"))
-                                    val invitation = journal.snapshot.invitations[original.body.text("invite_id")]
-                                    if (invitation == null || original.author in journal.snapshot.members || invitation.expiresAt <= now) {
+                                    val channelOnly = original.body.text("kind") == "join-channel"
+                                    val invitation = if (channelOnly) null else journal.snapshot.invitations[original.body.text("invite_id")]
+                                    val completed = if (channelOnly) original.author !in journal.snapshot.members ||
+                                        journal.snapshot.channels[original.body.text("channel_id")]?.devices?.keys?.any {
+                                            it.split(':')[1] == original.author
+                                        } != false else invitation == null || original.author in journal.snapshot.members || invitation.expiresAt <= now
+                                    if (completed) {
                                         next = Math.addExact(rows.getLong(1), 1)
                                         continue
                                     }
@@ -351,7 +356,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val journal = journal(space)
                 val state = journal.snapshot
                 val acceptedAt = clock.millis().also { require(it >= 0) }
-                val joining = body.text("kind") == "join"
+                val joining = body.text("kind") in setOf("join", "join-channel")
                 val content = body.text("kind") in setOf("content", "history", "public-content")
                 val table = if (joining) "joins" else if (content) "records" else "controls"
                 val position = if (joining || content) nextPosition(table, space, if (content) body.text("channel_id") else null)

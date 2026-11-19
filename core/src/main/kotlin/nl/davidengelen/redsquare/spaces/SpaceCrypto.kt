@@ -19,7 +19,7 @@ import javax.crypto.spec.SecretKeySpec
 
 /** Immutable keys. Commit returned state together with the original outbound
  * transaction before permitting transmission. Crypto and IO belong off main. */
-class SpaceCrypto private constructor(private val native: JsonObject, private val scope: Scope?,
+class SpaceCrypto private constructor(private val native: JsonObject, val scope: Scope?,
     private val archiveKeys: Map<Long, ByteArray>) {
     data class Scope(val serviceKey: String, val spaceId: String, val channelId: String,
         val generation: String = "0".repeat(64)) {

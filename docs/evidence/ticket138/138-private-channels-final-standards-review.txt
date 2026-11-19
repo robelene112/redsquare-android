@@ -1,0 +1,17 @@
+Standards final source follow-up: private-channel WIP against0e3106cf4
+Read-only review; prior adverse and corrected reports remain preserved.
+
+Documented violations and judgment calls
+No remaining confirmed violation or actionable smell finding in the reviewed source. The cold-control recovery defect, unhydrated-announcement readiness defect and unnecessary existing-row writes are addressed.
+
+Recovery and read behavior
+channelState writes only a lazily created child row; existing row reads leave storage unchanged. channelProfile returns cached metadata immediately and persists only newly available decoded metadata. It remains reachable only from channels(), with MissingKeys represented as absent optional presentation. Authentication/schema/permission failures still propagate. Welcome/control replay and General historical-key import therefore remain independent of child display hydration.
+
+Canonical permission
+communityFromStore reuses one journal snapshot and derives admin-only posting from accepted channel policy, independent of cached display kind. Private channels additionally require actual channel admission; absence of a crypto field no longer implies posting readiness. The new direct-selection announcement oracle avoids channels() hydration, requires member canSend=false and local send rejection, then verifies an authorized owner's actual encrypted post reaches that member. Its retained original XML fails the readiness assertion, demonstrating the prior defect.
+
+Isolation and lifecycle
+Child group creation, per-channel Welcome/commit/cancellation/archive keys, scope checks and drafts remain separate from General. Existing community roles are preserved on child admission. The lifecycle test genuinely introduces a concurrent accepted control, rejects the first candidate, reopens the service/client, loses an accepted acknowledgment and requires exact-original retry, independent child effects and still-working General keys. No synthetic replacement key state supplies that recovery.
+
+Evidence limits
+The prior complete log passes244 core/50 service cases, including cold recovery and the lifecycle scenario. Final244/51 execution containing the new announcement case and source refinements is still running. This review does not promote the earlier run into acceptance of changed source, native UI, public-community private channels, complete138 or deployed-node behavior.

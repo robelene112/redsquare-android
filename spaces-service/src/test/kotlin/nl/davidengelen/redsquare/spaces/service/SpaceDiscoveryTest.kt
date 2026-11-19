@@ -783,6 +783,215 @@ class SpaceDiscoveryTest {
         }
     }
 
+    @Test fun privateChannelsUseIndependentMembershipKeysHistoryAndDraftsWithinTheSameSpace() = runBlocking {
+        val directory = files.newFolder("private-channel-groups").toPath()
+        SpacesServiceStore(directory, service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("private-channel-groups-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("private-channel-groups-member.sqlite").absolutePath).use { memberStore ->
+                    val controlBodies = mutableListOf<JsonObject>()
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+                        val body = SaitoEnvelope.decode(request.envelope()).body
+                        if (body.get("kind")?.asString == "create-channel") controlBodies += body.deepCopy()
+                        remote.exchange(request.envelope())
+                    }
+                    val member = SpaceClient(visitor, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create("Independent private channel groups")
+                    creator.flush(space)
+                    val general = creator.community(space).channel
+                    creator.saveDraft(space, "General private writing")
+                    creator.send(space, "General sealed message")
+                    creator.flush(space)
+                    val workshop = creator.createChannel(space, SpaceChannelProfile("a private workshop for members"))
+                    creator.flush(space)
+                    assertFalse(controlBodies.single().has("channel_profile"))
+                    assertFalse(controlBodies.single().toString().contains("a private workshop for members"))
+                    creator.selectChannel(space, workshop)
+                    creator.send(space, "Workshop sealed message")
+                    creator.flush(space)
+                    creator.selectChannel(space, general)
+                    val link = creator.invite(space)
+                    creator.flush(space)
+                    member.join(link)
+                    member.flush(space)
+                    creator.admitPending(space)
+                    creator.flush(space)
+                    member.refresh(space)
+                    assertEquals(listOf("General sealed message"), member.messages(space))
+                    assertEquals(listOf("general", "a private workshop for members"), member.channels(space).map { it.profile.name })
+                    member.selectChannel(space, workshop)
+                    assertFalse("Space membership alone is not a channel key", member.community(space).canSend)
+                    assertTrue(member.messages(space).isEmpty())
+                    member.saveDraft(space, "Workshop private writing")
+                    member.flush(space)
+                    creator.admitPending(space)
+                    creator.flush(space)
+                    member.refresh(space)
+                    assertTrue(member.community(space).canSend)
+                    assertEquals(listOf("Workshop sealed message"), member.messages(space))
+                    assertEquals("Workshop private writing", member.draft(space))
+                    member.send(space, "A member answers inside the workshop")
+                    member.flush(space)
+                    creator.refresh(space)
+                    assertEquals(listOf("General sealed message"), creator.messages(space))
+                    assertEquals("General private writing", creator.draft(space))
+                    creator.selectChannel(space, workshop)
+                    creator.refresh(space)
+                    assertEquals(listOf("Workshop sealed message", "A member answers inside the workshop"), creator.messages(space))
+                    creator.selectChannel(space, general)
+                    creator.send(space, "General keys still work independently")
+                    creator.flush(space)
+                    member.selectChannel(space, general)
+                    member.refresh(space)
+                    assertEquals(listOf("General sealed message", "General keys still work independently"), member.messages(space))
+                }
+            }
+        }
+        java.nio.file.Files.list(directory).use { paths -> paths.filter(java.nio.file.Files::isRegularFile).forEach { path ->
+            val bytes = java.nio.file.Files.readAllBytes(path).toString(Charsets.ISO_8859_1)
+            for (privateText in listOf("a private workshop for members", "Workshop sealed message", "A member answers inside the workshop"))
+                assertFalse("The routing service never stores private channel names or content in plaintext", bytes.contains(privateText))
+        } }
+    }
+
+    @Test fun aColdMemberCanApplyOtherChannelAdmissionsBeforeHistoricalMetadataKeysArrive() = runBlocking {
+        SpacesServiceStore(files.newFolder("private-cold-controls").toPath(), service, clock).use { remote ->
+            val stores = (1..3).map { SqliteClientFixture(files.newFile("cold-controls-$it.sqlite").absolutePath) }
+            try {
+                fun client(wallet: SaitoWallet, index: Int) = SpaceClient(wallet, "fixture-node", service.publicKey, stores[index], clock) {
+                    remote.exchange(it.envelope())
+                }
+                val creator = client(owner, 0)
+                val first = client(visitor, 1)
+                val cold = client(SaitoWallet.fromPrivateKey("0".repeat(63) + "4"), 2)
+                val space = creator.create("Cold channel control recovery")
+                creator.flush(space)
+                val workshop = creator.createChannel(space, SpaceChannelProfile("Workshop metadata from the first epoch"))
+                creator.flush(space)
+                val link = creator.invite(space)
+                creator.flush(space)
+                first.join(link); first.flush(space)
+                creator.admitPending(space); creator.flush(space); first.refresh(space)
+                cold.join(link); cold.flush(space)
+                creator.admitPending(space); creator.flush(space)
+                first.refresh(space); first.selectChannel(space, workshop); first.flush(space)
+                creator.admitPending(space); creator.flush(space)
+                // Cold has neither its Welcome nor General's earlier archive
+                // key yet. Another channel's control must not block either.
+                cold.refresh(space)
+                assertTrue(cold.community(space).joined)
+                assertEquals(listOf("general", "Workshop metadata from the first epoch"), cold.channels(space).map { it.profile.name })
+                cold.selectChannel(space, workshop); cold.flush(space)
+                creator.admitPending(space); creator.flush(space); cold.refresh(space)
+                assertTrue(cold.community(space).canSend)
+                cold.send(space, "Independent cold channel access recovered")
+                cold.flush(space)
+                first.refresh(space)
+                assertEquals(listOf("Independent cold channel access recovered"), first.messages(space))
+            } finally { stores.forEach { it.close() } }
+        }
+    }
+
+    @Test fun aPrivateChannelAdmissionSurvivesRejectionRestartAndLostAcknowledgmentWithoutReplacingGeneralKeys() = runBlocking {
+        val directory = files.newFolder("private-channel-recovery").toPath()
+        var remote = SpacesServiceStore(directory, service, clock)
+        val ownerStore = SqliteClientFixture(files.newFile("private-channel-recovery-owner.sqlite").absolutePath)
+        val memberStore = SqliteClientFixture(files.newFile("private-channel-recovery-member.sqlite").absolutePath)
+        var lastControl: SaitoTransaction? = null
+        var invitation: SaitoTransaction? = null
+        var loseAdmission = false
+        val acceptedAttempts = mutableListOf<String>()
+        fun ownerClient() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+            val body = SaitoEnvelope.decode(request.envelope()).body
+            val result = remote.exchange(request.envelope())
+            val reply = SaitoEnvelope.decode(result).body
+            if (body.get("kind")?.asString == "invite") invitation = request
+            if (reply.get("stream")?.asString == "control") {
+                lastControl = request
+                if (body.get("kind")?.asString == "admit" && loseAdmission) {
+                    acceptedAttempts += request.envelope()
+                    if (acceptedAttempts.size == 1) throw java.io.IOException("Accepted channel admission response lost")
+                }
+            }
+            result
+        }
+        try {
+            var creator = ownerClient()
+            val member = SpaceClient(visitor, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+            val space = creator.create("Independent recovery branches")
+            creator.flush(space)
+            val general = creator.community(space).channel
+            creator.send(space, "General before rejected child admission"); creator.flush(space)
+            val workshop = creator.createChannel(space, SpaceChannelProfile("Recovery workshop"))
+            creator.flush(space)
+            creator.selectChannel(space, workshop)
+            creator.send(space, "Workshop before rejected child admission"); creator.flush(space)
+            creator.selectChannel(space, general)
+            val link = creator.invite(space); creator.flush(space)
+            member.join(link); member.flush(space)
+            creator.admitPending(space); creator.flush(space); member.refresh(space)
+            member.selectChannel(space, workshop); member.saveDraft(space, "Private recovery writing"); member.flush(space)
+            creator.admitPending(space)
+            // A genuine concurrently accepted owner control rejects the first
+            // candidate. The child's cancellation branch must stay in the child.
+            val concurrentBody = SaitoEnvelope.decode(requireNotNull(invitation).envelope()).body.deepCopy().apply {
+                addProperty("operation_id", "9".repeat(64)); addProperty("control_id", requireNotNull(lastControl).id)
+            }
+            remote.submit(SaitoTransaction.create(owner, concurrentBody, clock.millis() + 1, listOf(service.publicKey)).envelope())
+            creator.flush(space)
+            remote.close(); remote = SpacesServiceStore(directory, service, clock)
+            creator = ownerClient()
+            creator.refresh(space)
+            assertEquals(listOf("General before rejected child admission"), creator.messages(space))
+            creator.admitPending(space)
+            loseAdmission = true
+            try { creator.flush(space); fail("Hold the actual accepted child acknowledgment") } catch (_: java.io.IOException) { }
+            creator = ownerClient()
+            creator.flush(space)
+            assertEquals(2, acceptedAttempts.size)
+            assertEquals("Restart resends the exact accepted original", acceptedAttempts[0], acceptedAttempts[1])
+            member.refresh(space)
+            assertEquals(listOf("Workshop before rejected child admission"), member.messages(space))
+            assertEquals("Private recovery writing", member.draft(space))
+            assertTrue(member.community(space).canSend)
+            member.send(space, "Workshop after lost accepted acknowledgment"); member.flush(space)
+            creator.selectChannel(space, workshop); creator.refresh(space)
+            assertEquals(listOf("Workshop before rejected child admission", "Workshop after lost accepted acknowledgment"), creator.messages(space))
+            creator.selectChannel(space, general)
+            creator.send(space, "General after child recovery"); creator.flush(space)
+            member.selectChannel(space, general); member.refresh(space)
+            assertEquals(listOf("General before rejected child admission", "General after child recovery"), member.messages(space))
+        } finally { remote.close(); ownerStore.close(); memberStore.close() }
+    }
+
+    @Test fun privateAnnouncementPostingPermissionDoesNotRequireHydratingItsDisplayProfile() = runBlocking {
+        SpacesServiceStore(files.newFolder("private-announcement-permission").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("private-announcement-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("private-announcement-member.sqlite").absolutePath).use { memberStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    val member = SpaceClient(visitor, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create("Announcements without display hydration")
+                    creator.flush(space)
+                    val announcement = creator.createChannel(space, SpaceChannelProfile("Notices", SpaceChannelKind.ANNOUNCEMENT))
+                    creator.flush(space)
+                    val link = creator.invite(space); creator.flush(space)
+                    member.join(link); member.flush(space)
+                    creator.admitPending(space); creator.flush(space); member.refresh(space)
+                    // A restored/directly selected channel need not have had
+                    // its optional presentation profile decoded via channels().
+                    member.selectChannel(space, announcement); member.flush(space)
+                    creator.admitPending(space); creator.flush(space); member.refresh(space)
+                    assertFalse("Canonical posting policy must drive the send control", member.community(space).canSend)
+                    assertThrows(IllegalArgumentException::class.java) { member.send(space, "A member cannot publish an announcement") }
+                    creator.selectChannel(space, announcement)
+                    creator.send(space, "An authorized announcement"); creator.flush(space); member.refresh(space)
+                    assertEquals(listOf("An authorized announcement"), member.messages(space))
+                    member.channels(space)
+                    assertFalse("Decoding display metadata does not change posting authority", member.community(space).canSend)
+                }
+            }
+        }
+    }
+
     @Test fun anOwnerCanListUnlistAndRelistAPublicCommunityWithSignedDurableChanges() = runBlocking {
         SpacesServiceStore(files.newFolder("owner-listing-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("listing-owner.sqlite").absolutePath).use { ownerStore ->

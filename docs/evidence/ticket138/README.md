@@ -114,3 +114,27 @@ members/unread/navigation and native/prototype
 checks. Actual0.3.2/0.3.15 framework rehearsals must be repeated for schema4 and
 the extra service advertisement before closing138. Do not edit137's frozen
 catalogues or reuse them as proof of this new protocol/UI scope.
+
+The [private extra-channel increment](private-channels-increment.json) adds
+independent channel MLS groups, device admission, Welcome/history recovery and
+scoped drafts/content. General retains its original key state and storage.
+Private channel names remain encrypted at the service. Existing community
+members can request the additional channel's keys; membership alone does not
+supply them or enable Send. New channel admission preserves global roles.
+
+A real three-client cold-replay failure exposed a dependency between displaying
+an old channel name and receiving the new member's Welcome. Presentation decoding
+now runs after control recovery and cannot block missing-key recovery. A separate
+actual RED shows private announcement Send authority must come from the signed
+policy even when the display profile has never been hydrated. Both fixes pass,
+and both final source review axes report no remaining findings. Original adverse
+reports and failed invocation logs remain; the packet explicitly identifies which
+RED XML was retained. Existing child-state reads no longer rewrite key snapshots.
+
+A genuine concurrently accepted owner control rejects a child admission; service
+and client restart recover its cancellation branch without replacing General's
+keys. A later accepted admission loses its acknowledgment and resends the exact
+original after restart, with independent decrypted history/reply and preserved
+draft. Complete244 core and51 service checks pass. This is owned JVM evidence,
+not native UI, restricted-channel administration, mixed public/private channel
+creation or whole138 acceptance. Continue starter creation and native delivery.

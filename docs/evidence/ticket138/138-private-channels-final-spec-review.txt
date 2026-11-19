@@ -1,0 +1,11 @@
+Final private-channel source review against0e3106cf4: no remaining concrete findings in this increment.
+
+The previous P2 is closed. SpaceClient.kt:122-130 takes one authenticated journal snapshot and projects posting authority from canonical adminPostsOnly/public announcement kind, independently of display-profile availability. It still requires actual channel keys/membership. This now agrees with send and receiver enforcement of parent134 story60's owner/admin-only publication rule.
+
+The direct-selection regression deliberately never calls channels() before private announcement admission. It checks MEMBER canSend=false, local publication rejection, an owner's actual announcement received by that member, and unchanged authority after profile hydration. Retained original XML has the expected genuine RED at “Canonical posting policy must drive the send control”. Final GREEN for this51st service case is not yet established.
+
+The earlier cold-Welcome finding remains closed: channelState performs only scope/state lookup, and optional metadata decryption occurs only in channels() via channelProfile. Only the specific MissingKeys condition yields absent presentation; malformed or unauthenticated metadata is not silently accepted. Existing child state is no longer rewritten on read, while a missing child state is persisted lazily before subsequent mutation.
+
+Independently inspected previous full-run originals/log:244 core plus50 service cases,53 classes total, zero failures/errors/skips, BUILD SUCCESSFUL3m19. The actual child rejection/restart/lost-accepted-acknowledgment lifecycle passes, including exact original retry, independent historical child recovery, draft retention and working General keys. Cold-control and initial private-channel end-to-end cases also pass.
+
+The final full rerun including the permission correction is ongoing (138-private-channels-final-check.log). Both adverse review files remain unchanged. No native UI, private-channel restriction workflow or whole138 acceptance is claimed.
