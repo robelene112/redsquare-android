@@ -230,8 +230,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             // The end of a historical page is still historical. Returning to
             // current activity requires its explicit action, not reaching the
             // bottom of whichever bounded page happens to be on screen.
-            if (!before.hasLater) historyWindows.remove(space)
-        } else historyWindows.putIfAbsent(space, before.windowFrom)
+            if (!before.hasLater) {
+                historyWindows.remove(space)
+                mutable.update { if (it.selected == space) it.copy(followingLatest = true) else it }
+            }
+        } else {
+            historyWindows.putIfAbsent(space, before.windowFrom)
+            mutable.update { if (it.selected == space) it.copy(followingLatest = false) else it }
+        }
     }
     fun consumeScrollTarget(message: String) {
         mutable.update { if (it.scrollToMessage == message) it.copy(scrollToMessage = null) else it }
