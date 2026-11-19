@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "ticket": 137,
   "scope": "focused actual Activity and distinct-process journey, not complete app regression or deployed-node acceptance",
   "source": "exact checked-out Git SHA recorded by parent workflow and acceptance.json",
@@ -33,7 +33,8 @@
     "observed old PID, actual force-stop and disappearance, distinct cold PID",
     "same original signature repeated, one received plaintext effect, new draft preserved",
     "whole phase movies, all numeric checkpoint screenshots, raw interrupted and terminal logs",
-    "actual source/APK/device/runtime evidence from parent workflow"
+    "actual source/APK/device/runtime evidence from parent workflow",
+    "Reaching the end of a historical bounded page does not jump to current activity; explicit Back to latest reaches the latest received message."
   ],
   "native_terminal_passes": 1,
   "deliberate_interruptions": 1,

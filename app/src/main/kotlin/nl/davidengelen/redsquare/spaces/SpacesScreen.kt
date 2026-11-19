@@ -181,19 +181,20 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 if (state.loadingChannel) Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator(Modifier.size(28.dp))
                 } else {
-                val list = rememberLazyListState()
+                val list = rememberLazyListState(initialFirstVisibleItemIndex =
+                    (state.messages.lastIndex + 1 + if (state.hasEarlier) 1 else 0).coerceAtLeast(0))
                 var initialPage by rememberSaveable { mutableStateOf(true) }
                 var autoScrolling by remember { mutableStateOf(false) }
                 LaunchedEffect(list, account) {
                     snapshotFlow {
-                        if (list.layoutInfo.visibleItemsInfo.isEmpty()) null else list.canScrollForward to autoScrolling
+                        if (list.layoutInfo.visibleItemsInfo.isEmpty()) null else (list.canScrollForward || list.isScrollInProgress) to autoScrolling
                     }.collect { position ->
                         position?.let { (forward, automatic) ->
                             if (!automatic) account.readingPosition(selected.id, followLatest = !forward)
                         }
                     }
                 }
-                LaunchedEffect(state.messages.lastOrNull()?.id, state.scrollToMessage) {
+                LaunchedEffect(state.messages.map { it.id }, state.scrollToMessage) {
                     val requested = state.scrollToMessage
                     val requestedIndex = state.messages.indexOfFirst { it.id == requested }
                     if (requested != null && requestedIndex >= 0) {
@@ -204,8 +205,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         account.consumeScrollTarget(requested)
                         return@LaunchedEffect
                     }
-                    if (state.messages.isNotEmpty() && (initialPage ||
-                        list.layoutInfo.visibleItemsInfo.lastOrNull()?.key == state.messages.dropLast(1).lastOrNull()?.id)) {
+                    if (state.messages.isNotEmpty() && (initialPage || state.followingLatest)) {
                         autoScrolling = true
                         try { list.animateScrollToItem(state.messages.lastIndex + 1 + if (state.hasEarlier) 1 else 0) }
                         finally { autoScrolling = false }

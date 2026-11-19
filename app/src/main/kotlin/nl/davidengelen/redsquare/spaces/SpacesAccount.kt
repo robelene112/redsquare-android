@@ -31,7 +31,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val messages: List<SpaceClient.Message> = emptyList(), val draft: String = "",
         val invitation: SpaceClient.Invitation? = null, val preview: SpaceClient.InvitationPreview? = null,
         val problem: Problem? = null, val working: Boolean = false, val refreshing: Boolean = false,
-        val ready: Boolean = false, val savingNavigation: Boolean = false, val loadingChannel: Boolean = false, val hasEarlier: Boolean = false, val hasLater: Boolean = false, val scrollToMessage: String? = null, val windowFrom: Long = 0)
+        val ready: Boolean = false, val savingNavigation: Boolean = false, val loadingChannel: Boolean = false, val hasEarlier: Boolean = false, val hasLater: Boolean = false, val scrollToMessage: String? = null, val windowFrom: Long = 0, val followingLatest: Boolean = true)
     private val appContext = context.applicationContext
     private val scope = CoroutineScope(parent.coroutineContext + SupervisorJob(parent.coroutineContext[Job]) + Dispatchers.IO)
     private val mutable = MutableStateFlow(State())
@@ -151,7 +151,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         mutable.update { previous ->
             if (previous.selected != selected) previous.copy(communities = communities)
             else previous.copy(communities = communities, messages = messages, invitation = invitation,
-                hasEarlier = window?.hasEarlier == true, hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0)
+                hasEarlier = window?.hasEarlier == true, hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0, followingLatest = selected == null || historyWindows[selected] == null)
         }
     }
 
@@ -170,12 +170,16 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         scope.launch {
             try {
                 val current = client ?: return@launch
-                val (draft, messages) = localAccess.withLock {
-                    space?.let { dirtyDrafts[it] ?: current.draft(it) }.orEmpty() to space?.let { current.timeline(it, from = historyWindows[it]) }.orEmpty()
+                val (draft, messages, window) = localAccess.withLock {
+                    val window = space?.let { current.historyWindow(it, historyWindows[it]) }
+                    Triple(space?.let { dirtyDrafts[it] ?: current.draft(it) }.orEmpty(),
+                        space?.let { current.timeline(it, from = window?.from) }.orEmpty(), window)
                 }
                 mutable.update { if (it.selected == space && selection.get() == token) it.copy(
                     draft = if (space == null || draftVersions[space]?.get() == draftVersion) draft else it.draft,
-                    messages = messages, loadingChannel = false) else it }
+                    messages = messages, loadingChannel = false, hasEarlier = window?.hasEarlier == true,
+                    hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0,
+                    followingLatest = space == null || historyWindows[space] == null) else it }
                 publish(); wake.trySend(Unit)
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutable.update { if (it.selected == space && selection.get() == token)
@@ -223,8 +227,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val before = mutable.value
         if (before.selected != space || before.loadingChannel) return
         if (followLatest) {
-            val changed = historyWindows.remove(space) != null
-            if (changed && before.hasLater) scope.launch { publish() }
+            // The end of a historical page is still historical. Returning to
+            // current activity requires its explicit action, not reaching the
+            // bottom of whichever bounded page happens to be on screen.
+            if (!before.hasLater) historyWindows.remove(space)
         } else historyWindows.putIfAbsent(space, before.windowFrom)
     }
     fun consumeScrollTarget(message: String) {

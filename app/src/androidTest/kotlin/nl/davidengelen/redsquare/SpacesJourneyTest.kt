@@ -98,6 +98,18 @@ class SpacesJourneyTest {
             assertEquals("Module return keeps the actual reading pixel", anchor,
                 ui.onNodeWithText("Fixture line 5").fetchSemanticsNode().boundsInRoot.top, 1f)
             capture("04b-scrolled-after-module-switch")
+            val history = ui.onNode(hasScrollToNodeAction())
+            history.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.ScrollBy) { scroll -> scroll(0f, 100_000f) }
+            val reachedEnd = SystemClock.elapsedRealtime()
+            ui.waitUntil(5_000) {
+                SystemClock.elapsedRealtime() - reachedEnd >= 500 &&
+                    ui.onNodeWithText("Fixture line 46").isDisplayed() &&
+                    ui.onNodeWithText("Back to latest messages").isDisplayed()
+            }
+            capture("04c-historical-page-end")
+            ui.onNodeWithText("Back to latest messages").performClick()
+            ui.waitUntil(10_000) { ui.onNodeWithText("Fixture line 79").isDisplayed() }
+            capture("04d-explicit-latest-return")
             // A second, independently created community exercises the native
             // preview and explicit join path rather than only owner admission.
             val invitation = command("invitation").get("link").asString
