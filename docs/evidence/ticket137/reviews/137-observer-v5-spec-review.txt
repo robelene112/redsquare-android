@@ -1,0 +1,13 @@
+Spec observer-v5 review: c5b95d77448cb71e72f9bc9420b3992c239255aa...95c3b70256199b4d59eea4cd25c98efdda5d340b
+
+No finding within the requested focused scope.
+
+I inspected the retained Android17 parent44465021390 transcript. Its scroll assertion fails because exactly two scrollable nodes match: the visible conversation at x0..320 and the closed drawer at x-320..0. The new messageHistory matcher excludes that offscreen drawer while preserving the real conversation scroll actions, exact content targets and pixel assertions. It does not substitute a synthetic history or remove a required assertion.
+
+The drawer screenshot now follows actual native title/action visibility; failure capture executes inside the Activity lifetime. The checkpoint observer checks the original180-second deadline before accepting a visible candidate; the90-second recovery bound remains unchanged. Existing raw failures and cancelled runs remain explicitly unaccepted. Contractv5 records limited observed effects without promoting the earlier passing prefix into a whole journey or process acceptance.
+
+The controlled peer still submits the actual signed message to the real service before withholding its acknowledgment. The hold now targets message-content acknowledgments, preserving unrelated authenticated reads needed by the independent recipient. The pre-kill oracle additionally requires originalText to have been received independently while Android still shows its uncertain status. Distinct-PID recovery and exact original/one-effect assertions remain intact.
+
+Marking the invitation clipboard description sensitive follows the existing private-Chat pattern, preserves the exact link and is asserted against the actual clipboard description. No unrelated scope expansion found.
+
+This is a source/observer review, not acceptance of the corrected native execution. Fresh complete affected runs, temporal review, complete137 acceptance and deployed-node/device qualifications remain pending.

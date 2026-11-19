@@ -18,7 +18,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     init { require(node.isNotBlank() && node.length <= 2048 && SaitoWallet.isPublicKey(service)) }
 
     data class Community(val id: String, val name: String, val channel: String, val joined: Boolean,
-        val canInvite: Boolean, val pending: Boolean, val canSend: Boolean)
+        val canInvite: Boolean, val pending: Boolean, val canSend: Boolean, val membershipRequested: Boolean = false)
     data class Message(val id: String, val author: String, val createdAt: Long, val text: String?,
         val pending: Boolean, val attempted: Boolean, val missingKeys: Boolean, val rejected: Boolean = false) {
         override fun toString() = "Private community message"
@@ -47,7 +47,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val role = state.get("role")?.asString ?: journal(space).snapshot.members[wallet.publicKey]?.name
         return Community(space, state.text("name"), scope.channelId, state.get("joined").asBoolean,
             role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name),
-            page("$space/pending/", limit = 1).isNotEmpty(), state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control"))
+            page("$space/pending/", limit = 1).isNotEmpty(), state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control"),
+            !state.get("joined").asBoolean && state.has("joining_invitation"))
     }
     fun draft(space: String): String = store.transaction { owned(); state(space); get("$space/draft")?.toString(Charsets.UTF_8).orEmpty() }
     fun saveDraft(space: String, text: String) = store.transaction {

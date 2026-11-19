@@ -115,18 +115,31 @@ class SpacesJourneyTest {
             capture("04d-explicit-latest-return")
             // A second, independently created community exercises the native
             // preview and explicit join path rather than only owner admission.
-            val invitation = command("invitation").get("link").asString
+            val invitationDetails = command("invitation")
+            val invitation = invitationDetails.get("link").asString
             UiDevice.getInstance(instrumentation).pressBack()
             ui.waitUntil(5_000) { ui.onNode(hasText("Join with an invitation") and hasClickAction()).isDisplayed() }
             ui.onNode(hasText("Join with an invitation") and hasClickAction()).performClick()
             ui.onNode(hasSetTextAction()).performTextInput(invitation)
             ui.onNode(hasText("View invitation") and hasClickAction()).performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("You are invited to Builders on another device").isDisplayed() }
-            capture("05-preview-without-joining")
+            ui.waitUntil(15_000) { ui.onNodeWithText("You are invited to Builders on another device").isDisplayed() &&
+                ui.onNode(hasText("Join community") and hasClickAction() and isEnabled()).isDisplayed() }
+            ui.onNodeWithText("You are invited to Builders on another device").assertIsDisplayed()
+            ui.onNode(hasText("Join community") and hasClickAction()).assertIsDisplayed()
+            capture("05-preview-without-joining", "Join community")
             ui.onNode(hasText("Join community") and hasClickAction()).performClick()
             ui.waitUntil(20_000) { ui.onNodeWithText("Reply from independent member").isDisplayed() &&
                 ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
             capture("06-joined-independent-community")
+            ui.onNode(hasSetTextAction()).performTextInput("A reply after joining from Android")
+            ui.onNodeWithContentDescription("Send message").assertIsEnabled().performClick()
+            closeKeyboard(activity)
+            ui.waitUntil(10_000) {
+                command("status").getAsJsonArray("communities").any { row ->
+                    row.asJsonObject.get("id").asString == invitationDetails.get("space").asString &&
+                        row.asJsonObject.getAsJsonArray("received").any { it.asString == "A reply after joining from Android" }
+                }
+            }
             ui.onNodeWithContentDescription("Switch Space or channel").performClick()
             ui.onNodeWithContentDescription("Open $community").performClick()
             ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }

@@ -49,6 +49,16 @@ transcript and failure remain retained. The revised observer selects the actual
 on-screen history and captures failures before Activity cleanup. The drawer PNG
 also requires its visible native title. Both earlier observer review axes and
 both actual compatibility-index reviews report no findings.
+Parent44467805653 at95c3 then passes the recorded reader/incoming-page and
+explicit-latest assertions before failing the second-community join/read wait
+at71.401s. Its native failure image shows the keyboard covering review content;
+Join is absent from the visible native hierarchy. No process acceptance is
+claimed. The corrective UI separates input from verified review, hides the
+keyboard after explicit preview, and pins the action outside scrollable content.
+The ordinary sheet path remains unchanged when no footer is supplied.
+A separately observed creator-status mismatch also has a real failing then
+passing client regression: creation confirmation and requested admission are
+now distinct; local drafts remain editable before either confirmation.
 Functional native verification is still pending; beta142 stays public and137
 stays open. No passing prefix, physical/OEM or deployed-node acceptance is claimed.
 

@@ -128,6 +128,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val storage = AndroidSpaceClientStore(appContext, wallet.publicKey, "$backend:$endpoint", service)
         local = storage
         client = SpaceClient(wallet, backend.webUrl, service, storage, Clock.systemUTC()) { original ->
+            // The client durably records attempted delivery before entering
+            // transport. Publish that progress before a response can be held.
+            publish()
             val connection = authenticatedPeer()
             if (connection.servicePublicKey("spaces-v1") != service) throw ChangedIdentity()
             connection.request(original) { check(!closed.get()) }.toString(Charsets.UTF_8)

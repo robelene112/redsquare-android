@@ -131,6 +131,10 @@ finally:
         (evidence / 'crash.log').write_bytes(adb('logcat', '-d', '-b', 'crash', timeout=10).stdout)
         (evidence / 'last-window.png').write_bytes(adb('exec-out', 'screencap', '-p', timeout=10).stdout)
     cleanup('failure-buffers', capture_crash)
+    if primary is not None and control_port and host.poll() is None:
+        def observe_host_failure():
+            (evidence / 'failure-host-status.json').write_text(json.dumps(command(control_port, 'status'), indent=2))
+        cleanup('independent-failure-observation', observe_host_failure)
     cleanup('stop-owned-android-process', lambda: adb('shell', 'am', 'force-stop', pkg))
     for process, remote, phase in movies:
         def stop_movie(process=process):

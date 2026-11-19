@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "ticket": 137,
   "scope": "focused actual Activity and distinct-process journey, not complete app regression or deployed-node acceptance",
   "source": "exact checked-out Git SHA recorded by parent workflow and acceptance.json",
@@ -35,7 +35,8 @@
     "whole phase movies, all numeric checkpoint screenshots, raw interrupted and terminal logs",
     "actual source/APK/device/runtime evidence from parent workflow",
     "Reaching the end of a historical bounded page does not jump to current activity; explicit Back to latest reaches the latest received message.",
-    "Clipboard invitation retains its exact link while marked sensitive; drawer screenshot is preceded by an actual visible native title."
+    "Clipboard invitation retains its exact link while marked sensitive; drawer screenshot is preceded by an actual visible native title.",
+    "Invitation review and explicit Join remain visible above the keyboard; the newly admitted Android identity sends a message actually received in that exact second community."
   ],
   "native_terminal_passes": 1,
   "deliberate_interruptions": 1,
@@ -62,6 +63,11 @@
       "run": 44465021390,
       "source": "c5b95d77448cb71e72f9bc9420b3992c239255aa",
       "result": "native case failed because scroll selector matched visible conversation and offscreen drawer; no whole journey or process acceptance. Source-stage create/copy/admit/received reply observed, not a passing prefix."
+    },
+    {
+      "run": 44467805653,
+      "source": "95c3b70256199b4d59eea4cd25c98efdda5d340b",
+      "result": "native failure after71.401s at second-community join/read wait20s; capture shows IME covering review and no Join action in native visible hierarchy. No process acceptance. Original deadlines retained."
     }
   ]
 }

@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit, contentKey: Any? = null,
+    footer: (@Composable ColumnScope.(Modifier) -> Unit)? = null,
     content: @Composable ColumnScope.(Modifier) -> Unit) {
     val firstAction = remember { FocusRequester() }
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -33,11 +34,25 @@ internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit
         containerColor = MaterialTheme.colorScheme.surfaceContainerLow) {
         SheetKeyboardWindow(onDismiss) { firstAction.requestFocus(FocusDirection.Enter) }
         val scroll = key(contentKey) { rememberScrollState() }
-        Column(Modifier.fillMaxWidth().verticalScroll(scroll).focusGroup()
-            .padding(horizontal = AppSpacing.screen).padding(bottom = 28.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        val body: @Composable ColumnScope.() -> Unit = {
             Text(title, Modifier.semantics { heading() }, style = MaterialTheme.typography.headlineSmall)
             content(Modifier.focusRequester(firstAction))
+        }
+        if (footer == null) {
+            Column(Modifier.fillMaxWidth().verticalScroll(scroll).focusGroup()
+                .padding(horizontal = AppSpacing.screen).padding(bottom = 28.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp), content = body)
+        } else {
+            Column(Modifier.fillMaxWidth().focusGroup()) {
+                Column(Modifier.weight(1f, fill = false).fillMaxWidth().verticalScroll(scroll)
+                    .padding(horizontal = AppSpacing.screen).padding(bottom = 12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp), content = body)
+                HorizontalDivider()
+                Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).padding(top = 12.dp, bottom = 28.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    footer(Modifier.focusRequester(firstAction))
+                }
+            }
         }
     }
 }

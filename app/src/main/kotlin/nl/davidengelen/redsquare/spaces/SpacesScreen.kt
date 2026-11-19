@@ -5,6 +5,8 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.togetherWith
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -15,6 +17,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -26,6 +30,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -35,6 +41,8 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import nl.davidengelen.redsquare.R
@@ -218,8 +226,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     item(key = "status") {
                         AvailabilityNotice(state.availability, state.refreshing, account::refresh)
                         if (!selected.joined) {
-                            Text(stringResource(R.string.spaces_waiting_admission), style = MaterialTheme.typography.titleMedium)
-                            Text(stringResource(R.string.spaces_waiting_detail), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(stringResource(if (selected.membershipRequested) R.string.spaces_waiting_admission else R.string.spaces_creating),
+                                style = MaterialTheme.typography.titleMedium)
+                            Text(stringResource(if (selected.membershipRequested) R.string.spaces_waiting_detail else R.string.spaces_creating_detail),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant)
                         } else if (!selected.canSend) Text(stringResource(R.string.spaces_control_pending), color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     if (state.hasEarlier) item(key = "earlier") {
@@ -247,7 +257,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 HorizontalDivider()
                 Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp),
                     verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedTextField(state.draft, { account.editDraft(selected.id, it) }, Modifier.weight(1f), enabled = selected.joined && !state.savingNavigation && !state.loadingChannel,
+                    OutlinedTextField(state.draft, { account.editDraft(selected.id, it) }, Modifier.weight(1f), enabled = !state.savingNavigation && !state.loadingChannel,
                         placeholder = { Text(stringResource(R.string.spaces_message_hint)) }, shape = RoundedCornerShape(18.dp),
                         minLines = 1, maxLines = 4)
                     FilledIconButton(onClick = account::send, enabled = selected.canSend && state.draft.isNotBlank() && !state.working && !state.loadingChannel,
@@ -270,22 +280,49 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_create)) }
         if (state.working) LinearProgressIndicator(Modifier.fillMaxWidth())
     }
-    DesignSheet(joinOpen, stringResource(R.string.spaces_join_invitation), { joinOpen = false; account.dismissPreview() }) { first ->
+    DesignSheet(joinOpen, stringResource(R.string.spaces_join_invitation), { joinOpen = false; account.dismissPreview() },
+        contentKey = state.preview?.spaceId,
+        footer = { first ->
+            val focus = LocalFocusManager.current
+            val keyboard = LocalSoftwareKeyboardController.current
+            Button(onClick = {
+                focus.clearFocus(); keyboard?.hide()
+                if (state.preview == null) account.preview(invitationText.trim()) else account.join(invitationText.trim())
+            }, enabled = invitationText.isNotBlank() && !state.working,
+                modifier = (if (state.preview != null) first else Modifier).fillMaxWidth().heightIn(min = 48.dp)) {
+                Text(stringResource(if (state.preview == null) R.string.spaces_preview else R.string.spaces_join))
+            }
+            if (state.working) LinearProgressIndicator(Modifier.fillMaxWidth())
+        }) { first ->
+        val focus = LocalFocusManager.current
+        val keyboard = LocalSoftwareKeyboardController.current
         Text(stringResource(R.string.spaces_join_detail), color = MaterialTheme.colorScheme.onSurfaceVariant)
         Text(stringResource(R.string.spaces_join_as, registeredIdentity(account.ownerKey).name),
             style = MaterialTheme.typography.labelLarge)
-        OutlinedTextField(invitationText, { invitationText = it.take(8192); account.dismissPreview() }, first.fillMaxWidth(),
-            label = { Text(stringResource(R.string.spaces_invitation_link)) }, maxLines = 4, shape = RoundedCornerShape(14.dp))
-        state.preview?.let { preview ->
-            Text(stringResource(R.string.spaces_join_preview, preview.name), style = MaterialTheme.typography.titleLarge)
-            Text(stringResource(R.string.spaces_admission_detail), color = MaterialTheme.colorScheme.onSurfaceVariant)
+        AnimatedContent(state.preview, label = "spaces-invitation-review", transitionSpec = {
+            fadeIn(tween(AppSpacing.transitionMillis)) togetherWith fadeOut(tween(AppSpacing.transitionMillis))
+        }) { preview ->
+            if (preview == null) OutlinedTextField(invitationText, { invitationText = it.take(8192); account.dismissPreview() },
+                (if (state.preview == null) first else Modifier).fillMaxWidth(),
+                label = { Text(stringResource(R.string.spaces_invitation_link)) }, maxLines = 4, shape = RoundedCornerShape(14.dp),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri, autoCorrectEnabled = false, imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(onDone = {
+                    if (invitationText.isNotBlank() && !state.working) {
+                        focus.clearFocus(); keyboard?.hide(); account.preview(invitationText.trim())
+                    }
+                }))
+            else Surface(shape = RoundedCornerShape(18.dp), color = MaterialTheme.colorScheme.surfaceContainer) {
+                Column(Modifier.fillMaxWidth().padding(18.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Icon(painterResource(R.drawable.ic_spaces), null, tint = MaterialTheme.colorScheme.primary)
+                    Text(stringResource(R.string.spaces_join_preview, preview.name), style = MaterialTheme.typography.titleLarge)
+                    Text(stringResource(R.string.spaces_admission_detail), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    TextButton(onClick = account::dismissPreview, enabled = !state.working) {
+                        Text(stringResource(R.string.spaces_change_invitation))
+                    }
+                }
+            }
         }
         state.problem?.let { ProblemNotice(it, account::clearProblem) }
-        Button(onClick = { if (state.preview == null) account.preview(invitationText.trim()) else account.join(invitationText.trim()) },
-            enabled = invitationText.isNotBlank() && !state.working, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
-            Text(stringResource(if (state.preview == null) R.string.spaces_preview else R.string.spaces_join))
-        }
-        if (state.working) LinearProgressIndicator(Modifier.fillMaxWidth())
     }
     InvitationSheet(inviteOpen, state.invitation, state.working, selected?.canSend == true,
         { inviteOpen = false }, account::refresh, account::invite)

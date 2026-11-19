@@ -374,6 +374,7 @@ class SpaceClientTest {
             val ownerClient = SpaceClient(owner, "fixture-node", service.publicKey, ownerLocal, clock) { remote.exchange(it.envelope()) }
             val guestClient = SpaceClient(guest, "fixture-node", service.publicKey, guestLocal, clock) { remote.exchange(it.envelope()) }
             val space = ownerClient.create("Independent voices")
+            assertFalse("A creator waits for its own creation receipt, not another member's admission", ownerClient.community(space).membershipRequested)
             ownerClient.flush(space)
             ownerClient.send(space, "Welcome, future community members")
             ownerClient.flush(space)
@@ -384,6 +385,7 @@ class SpaceClientTest {
             assertEquals(space, preview.spaceId)
             assertThrows(IllegalArgumentException::class.java) { guestClient.messages(space) }
             assertEquals(space, guestClient.join(invitation))
+            assertTrue("An invitee is waiting for membership, unlike the community creator", guestClient.community(space).membershipRequested)
             guestClient.flush(space)
             guestClient.refresh(space)
             assertFalse(guestClient.community(space).joined)

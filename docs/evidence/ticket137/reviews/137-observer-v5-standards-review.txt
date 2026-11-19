@@ -1,0 +1,18 @@
+Standards review: c5b95d77448cb71e72f9bc9420b3992c239255aa..95c3b70256199b4d59eea4cd25c98efdda5d340b
+Read-only source and retained-failure review. No implementation or native execution.
+
+Hard documented violations
+None confirmed.
+
+Observer and fixture corrections
+Verified the retained original before-kill transcript in journey17-attempt3/original-artifact.zip: the native case failed because the generic scroll selector found two nodes. The replacement selector restricts the same scroll action to on-screen physical bounds, excluding the closed negative-coordinate drawer. Existing history pixel, explicit-latest, draft, identity and process assertions remain. Drawer capture now additionally requires its actual native title through the existing native-screen helper.
+
+Failure capture now runs inside the Activity lifetime and preserves the original throwable through the established withFailureCapture helper. The host checks the180-second bound before accepting a checkpoint and distinguishes an early instrumentation exit from that timeout. The90-second cold-return goal and independently guarded cleanup remain unchanged.
+
+ControlledFeedPeer applies the hold only to message-content event acknowledgments after service processing. Authenticated reads remain available to the independent receiver; the new pre-kill literal receipt oracle requires actual received text while Android still shows uncertain delivery. This preserves the intended accepted-original/lost-ack scenario.
+
+Product change
+Invitation clipboard metadata uses the same compatible sensitive-marker literal as existing PrivateMessageCopy. ClipData still receives invitation.link unchanged; the native journey reads that clipboard link, checks its marker, and uses the actual capability for independent admission.
+
+Evidence limits and judgment calls
+No judgment-call findings raised. Contract version5 retains parent44465021390 as a failed whole case, with observed create/copy/admit/reply behavior explicitly limited to an unsuccessful prefix. This review does not establish a successful full journey, distinct-process recovery, complete137 acceptance or deployed-node behavior. Fresh native execution remains required.
