@@ -26,6 +26,7 @@ val prepareSpaceMlsHost by tasks.registering(Exec::class) {
 
 tasks.test {
     dependsOn(prepareSpaceMlsHost)
+    inputs.dir(layout.buildDirectory.dir("generated/spaces-mls-host")).withPropertyName("spacesMlsHost")
     systemProperty("java.library.path", layout.buildDirectory.dir("generated/spaces-mls-host").get().asFile.absolutePath)
 }
 

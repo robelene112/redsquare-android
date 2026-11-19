@@ -1,0 +1,9 @@
+STANDARDS follow-up: current unstaged build-support/spaces-mls.py and core/build.gradle.kts only.
+
+No remaining finding in this follow-up. The P2 incomplete-host-installation defect is resolved: every required Rust component is checked independently; its hash-bound completion receipt is cleared before installation and published only after successful installer return and required output existence. An incomplete NDK extraction likewise cannot be admitted solely because source.properties was extracted early.
+
+Five isolated fixture checks passed: rustc-only cache installs all host components; matching completed components are reused; missing Cargo output repairs only Cargo; a failed reinstall clears its receipt and a later retry succeeds; early NDK source.properties without a receipt causes full extraction. These executed the helper using tiny local fixture archives and temporary directories. No real compiler, network download, project build or shared tool cache was used.
+
+core/build.gradle.kts correctly declares generated/spaces-mls-host as an input to tasks.test, so changed JNI outputs invalidate previous JVM results rather than merely executing their dependency.
+
+Actual pinned tool installation/build and Android runtime acceptance remain separate verification. The earlier optional duplicate-JSON-reader heuristic concerns unchanged source and is unaffected.

@@ -44,6 +44,15 @@ def download(cache, record):
 
 
 def rust_component(cache, record):
+    marker = cache / ".components" / (Path(record["url"]).name + ".complete")
+    component = record.get("component", "rust-std")
+    target = record.get("target", "x86_64-unknown-linux-gnu")
+    installed = cache / "rust/bin" / component if component != "rust-std" else cache / "rust/lib/rustlib" / target / "lib"
+    if marker.exists() and marker.read_text() == record["sha256"] and installed.exists():
+        return
+    # A compiler binary alone does not mean cargo and its standard libraries
+    # finished installing. Record each component only after its installer exits.
+    marker.unlink(missing_ok=True)
     archive = download(cache, record)
     with tempfile.TemporaryDirectory(dir=cache, prefix="rust-install-") as temporary:
         with tarfile.open(archive) as contents:
@@ -52,21 +61,26 @@ def rust_component(cache, record):
         assert len(folders) == 1 and (folders[0] / "install.sh").is_file()
         subprocess.run(["bash", str(folders[0] / "install.sh"),
                         "--prefix=" + str(cache / "rust"), "--disable-ldconfig"], check=True)
+    if not installed.exists():
+        raise RuntimeError("Rust component installer omitted its required output")
+    marker.parent.mkdir(parents=True, exist_ok=True)
+    marker.write_text(record["sha256"])
     archive.unlink()  # Receipt pins permit a download again; installed tools remain cached.
 
 
 def prepare_tools(cache, targets):
     rustc = cache / "rust/bin/rustc"
-    if not rustc.exists():
-        for record in PINS["host"]:
-            rust_component(cache, record)
+    for record in PINS["host"]:
+        rust_component(cache, record)
     version = subprocess.check_output([str(rustc), "--version"], text=True).strip()
     if not version.startswith("rustc " + PINS["rust"] + " "):
         raise RuntimeError("MLS compiler version differs from its pin")
     for target in targets:
-        if not (cache / "rust/lib/rustlib" / target / "lib").is_dir():
-            rust_component(cache, next(r for r in PINS["androidStd"] if r["target"] == target))
-    if targets and not (cache / "android-ndk-r30/source.properties").exists():
+        rust_component(cache, next(r for r in PINS["androidStd"] if r["target"] == target))
+    ndk_marker = cache / ".components/android-ndk-r30.complete"
+    ndk_ready = ndk_marker.exists() and ndk_marker.read_text() == PINS["ndk"]["sha256"]
+    if targets and (not ndk_ready or not (cache / "android-ndk-r30/source.properties").exists()):
+        ndk_marker.unlink(missing_ok=True)
         archive = download(cache, PINS["ndk"])
         with zipfile.ZipFile(archive) as contents:
             assert contents.testzip() is None
@@ -91,6 +105,8 @@ def prepare_tools(cache, targets):
                         shutil.copyfileobj(source, target)
                     if mode:
                         path.chmod(mode & 0o777)
+        ndk_marker.parent.mkdir(parents=True, exist_ok=True)
+        ndk_marker.write_text(PINS["ndk"]["sha256"])
         archive.unlink()
     if targets:
         properties = (cache / "android-ndk-r30/source.properties").read_text()

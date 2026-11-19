@@ -64,3 +64,22 @@ The [protocol](../../SPACES_PROTOCOL.md) and
 contracts. Existing Chat compatibility and replacement-device recovery must be
 resolved explicitly. No live service, community file storage or release is
 established by this checkpoint.
+
+## Local foundation observations
+
+Checkpoint20ff337a8 has independent source Spec review with zero hard findings.
+Standards identified an interrupted toolchain installation recovery defect; the
+follow-up uses per-component, archive-hash-bound completion receipts and adds
+native-library outputs to JVM test inputs. Independent follow-up review has
+zero remaining findings and five isolated installation/re-entry checks. The
+strict JSON extraction duplication is a nonblocking locality tradeoff while the
+journal is still growing. Upstream license files retain original bytes and
+whitespace, as verified by their source manifests.
+
+The complete local core suite passes47 classes/238 tests, zero failures or
+skips, after declaring the native binary as a test input. The following actual
+pinned-tool re-entry build passes the three Rust contracts and six affected JVM
+methods. Original failed lifetime admission, initial compile/setup failures and
+successful logs remain outside Git under the task's retained evidence root.
+These observations precede, and cannot replace, the three required native
+runtime parents. No functional137 acceptance is claimed.

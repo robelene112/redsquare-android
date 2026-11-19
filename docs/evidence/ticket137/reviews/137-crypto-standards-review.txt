@@ -1,0 +1,15 @@
+STANDARDS review: 5154947570c5825163e204524afb8352b51189b6...20ff337a8
+One commit: Build pinned Spaces MLS foundation and independent runtime contracts (#137).
+
+Documented-standard findings
+
+[P2] Resume incomplete compiler installation instead of trusting rustc alone.
+build-support/spaces-mls.py:60-62 treats the presence of rust/bin/rustc as completion of all three host components. The loop installs rustc first. An interrupted Cargo download/install or rust-std install therefore leaves a cache that every later build skips repairing; cargo build subsequently fails, requiring manual cache removal. This undermines CODING_STANDARDS.md:8-9, requiring an independently demonstrable change, and the source-build requirement in docs/evidence/ticket137/README.md:22-23. Check/install each host component, or publish and verify an all-components completion receipt only after the entire install succeeds. A temporary isolated fixture with rustc present and Cargo/std absent reproduced prepare_tools returning successfully with zero installation calls. No actual compiler/build cache was used.
+
+Judgment calls
+
+Possible Duplicated Code: SpaceCrypto.kt:230-238 and SpaceJournal.kt:51-61 repeat the same strict JSON string/nonnegative-integer extraction. Consider a small internal versioned-envelope reader when expanding the journal, to keep input rules consistent. This is a heuristic, not a documented-standard breach.
+
+Limits
+
+The intentionally incomplete genesis journal, absent application coordinator/service/UI, and unexecuted Android runtime are not reported as checkpoint defects. No crypto correctness or secret-exposure defect was established in the reviewed foundation. Upstream license whitespace remains intact. The separate unstaged core/build.gradle.kts JNI test-input declaration was inspected and correctly makes native outputs inputs to JVM-test reuse; it is outside the pinned diff. No build or live node access was performed.

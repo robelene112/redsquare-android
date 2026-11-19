@@ -1,0 +1,13 @@
+SPEC review: 5154947570c5825163e204524afb8352b51189b6..20ff337a85d698114507aac4ec04168cebb64642
+
+No hard foundation correctness defect found. This is an incomplete pre-integration checkpoint, not issue137 acceptance. No scope creep found.
+
+Implemented foundation: pinned OpenMLS0.9.0 uses public storage/group-loading APIs and separate MLS signing keys. Wallet signatures bind package digest, signer and channel scope; admission/join/commit processing compare actual leaf signers with accepted bindings (SpaceCrypto.kt:28-90). Channel/group-scoped exporter keys protect retained records; authenticated MLS grants deliver available historical keys; removal advances the epoch. The Bouncy Castle1.86 fixture independently joins native Welcome, derives the exporter, decrypts a retained record and opens a private history grant. The library checks bounded package lifetime using the pinned public lifetime contract.
+
+Expected remaining requirements, not newly introduced foundation defects:
+
+- Issue137 requires “record and execute” runtime/persistence contracts before functional integration. Six JVM cases pass in 137-independent-reference-green.log and 137-reference-green-TEST*.xml, with zero failures/skips. Android JNI/Keystore execution on API29, API37/4KiB and API37/16KiB is still UNEXECUTED. The prospective contract correctly requires exact source/APK identity, complete workflow success and intact runtime evidence (docs/evidence/ticket137/README.md:9-41). Host success cannot close this gate. The separate Rust-host receipt build is pending, not counted here.
+- Issue137 requires “durable account/node/Space-scoped state,” independent clients that “survive process loss,” and duplicate/reversed/wrong-scope coverage. SpaceJournal.kt:35-43 implements genesis only; no functional coordinator, repository/outbox, full authorization replay, service rehearsal or native navigation path exists. README.md:54-60 explicitly retains these requirements. Serialized reload in SpaceMlsRuntimeTest.kt:45-55 proves one-process library persistence only.
+- Issue137 requires resolving “recovery and legacy Chat compatibility.” ADR0004 requires guided backup of identity and history keys. docs/SPACES_PROTOCOL.md:132-146 records a future fresh-device admission/backup design and ticket141 compatibility work, not an executed migration/recovery contract. These must remain open before claiming the prerequisite resolved.
+
+The prospective runtime contract and packet truthfully distinguish library evidence, Android execution and full issue acceptance. Continue issue137 without closing it or beginning functional integration before its prerequisite contracts pass.
