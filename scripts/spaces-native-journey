@@ -213,9 +213,10 @@ try:
             ('coldMemberReturnCreatesAndReviewsInvitationsAndReadsUnlistedLinks', None),
             ('compactLargeTypeKeepsRealCommunityAndCreationControlsReachable', None),
         ]
-        (evidence / 'frozen-goals.json').write_text(json.dumps({'version': 3, 'phases': phases,
+        (evidence / 'frozen-goals.json').write_text(json.dumps({'version': 4, 'phases': phases,
             'phaseSeconds': 180, 'checkpointObservationSeconds': .25, 'pixelTolerance': 1,
             'peerReadRecovery': {'droppedReplies': 1, 'peerDeadlineSeconds': 12, 'freshReadSeconds': 15, 'sameProcess': True},
+            'cachedPublicReference': {'publicReadBarrierArmed': True, 'pixelTolerance': 1, 'contentSeconds': 15},
             'viewport': {'widthDp': 320, 'fontScale': 2.0, 'densityDpi': 320, 'resourceProbes': 3},
             'productionNodeActivated': False, 'ordinaryBetaChanged': False}, indent=2))
         pids = []
@@ -256,6 +257,13 @@ try:
                 pids.append(completed['pid'])
             finish_record(*movies[-1])
         fixtures = command(control_port, 'fixtures')
+        cold_public = command(control_port, 'cached-public-observation')
+        (evidence / 'host-cold-public-cache.json').write_text(json.dumps(cold_public, indent=2))
+        observed_cold = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/cold-public-cache.json').stdout)
+        if observed_cold != cold_public or cold_public.get('pid') != pids[1] or cold_public.get('publicReadBarrierArmed') is not True:
+            raise RuntimeError('Native and host did not confirm cached public reading before releasing the barrier')
+        if cold_public.get('space') != fixtures['public']['space'] or cold_public.get('owner') != json.loads((evidence / 'checkpoint-visitor.raw').read_bytes())['owner']:
+            raise RuntimeError('Cached public reading belongs to another identity or community')
         child = command(control_port, 'channel-received', {'space': fixtures['private']['space'], 'channel': 'design'})
         (evidence / 'host-private-child-received.json').write_text(json.dumps(child, indent=2))
         sender = json.loads((evidence / 'checkpoint-member.raw').read_bytes())['owner']

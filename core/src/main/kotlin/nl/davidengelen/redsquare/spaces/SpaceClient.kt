@@ -201,11 +201,29 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             snapshot.channels.values.any { it.visibility == SpaceVisibility.PUBLIC })
         SpacePublicReference(node, service, space).link()
     }
-    suspend fun openPublicLink(link: String): Community {
+    private fun publicReference(link: String): SpacePublicReference {
         val reference = SpacePublicReference.parse(link)
         if (reference.node != node) throw DifferentNode(reference.node)
         require(reference.serviceKey == service) { "This reference does not match the selected service" }
-        return openPublic(reference.spaceId)
+        return reference
+    }
+    /** Previously verified public context is readable without a new network
+     * round trip. This never creates a community, joins or grants channel access. */
+    fun cachedPublicLink(link: String): Community? {
+        val reference = publicReference(link)
+        return store.transaction {
+            if (get("identity") == null) return@transaction null
+            owned()
+            if (get(stateKey(reference.spaceId)) == null) return@transaction null
+            val snapshot = journal(reference.spaceId).snapshot
+            if (snapshot.visibility != SpaceVisibility.PUBLIC || snapshot.publicProfile?.visibility != SpaceVisibility.PUBLIC)
+                return@transaction null
+            val community = communityFromStore(reference.spaceId)
+            community.takeIf { snapshot.channels[it.channel]?.visibility == SpaceVisibility.PUBLIC }
+        }
+    }
+    suspend fun openPublicLink(link: String): Community {
+        return openPublic(publicReference(link).spaceId)
     }
     /** Public browsing stores no MLS device and does not enter My Spaces. */
     suspend fun openPublic(space: String): Community {

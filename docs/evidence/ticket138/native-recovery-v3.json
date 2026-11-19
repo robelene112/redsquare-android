@@ -167,5 +167,65 @@
       "logSha256": "b520ff9bc82947b8aed383db1750ce36cc4684d1db4dd126a414a30d01b3d033",
       "qualification": "Actual production app Kotlin compile, not a native/frame pass. Core/service sources unchanged from exact313casefullPASS."
     }
+  },
+  "native15": {
+    "source": "de26437a94ecb3c27680e605fc13de39a49440af",
+    "android10": {
+      "run": 44604996644,
+      "outcome": "SUCCESS+frozenv3actualarchivePASS",
+      "archiveSha256": "7e3552c8537b658247de61ff8b36add7b876a2ac33217e15ea01e3b6f79bd8ef",
+      "frames": [
+        171,
+        212,
+        330,
+        101
+      ],
+      "review": "Fresh Standards inspects all814frames/53sheets and source/provenance.0 findings, no avatar reversal."
+    },
+    "android17": {
+      "run": 44605001556,
+      "outcome": "FAIL phase2line105 cached message10 original15s",
+      "archiveSha256": "dcfb02f0ae9f75584f42b1ebd39e768fd48f430e6a75e98698c7da0fb692496c",
+      "observed": "Cold PID5364ready20:17:32.854, publiclinkaction37.058, privatebackgroundnetworkworkends45.210, cached29publicmessages46.106. FailurePNG still Opening community overlay. Originalfailure andmetadata retained."
+    },
+    "acceptance": "Neither prefix nor earlier parent substitutes for fresh complete corrected acceptance."
+  },
+  "cachedPublicReference": {
+    "change": "Validate existing owned signed public context locally before acquiring the network mutex. Known links use ordinary local selection and background refresh; unknown links retain actual signed network opening. No admission/community creation; existing helpers may materialize derived cache rows. Wrong-wallet/node/service and nonpublic selected-channel context are not reused. Exact cached draft/anchor/message remain.",
+    "ownedTest": {
+      "name": "aKnownPublicReferenceRestoresVerifiedLocalReadingWithoutNetworkOrAdmission",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.811,
+      "commandExit": 0,
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-cached-public-reference-target-originals",
+      "qualification": "Actual SQLite/signers/offline transport/public message id/plaintext/anchor/draft/nonmembership/foreignscope assertions. Original native17 failure is separate behavioral RED; no prior JVM assertion RED is invented."
+    },
+    "sourceReviews": {
+      "initialSpec": 1,
+      "correctedSpec": 0,
+      "standards": 0
+    },
+    "routeCorrection": "Late cached validation errors and overlay acknowledgement are revision guarded atomically under navigationChanges. Public actions update accepted revision; other localAction defaults/cancellation/globalworking cleanup remain.",
+    "compile": {
+      "task": ":app:compileDebugKotlin",
+      "exit": 0,
+      "seconds": 256,
+      "logSha256": "eb6471b9ea37433c994540483cb95d378f8b9d43b01c9660eb8d0803fe867f1d"
+    },
+    "prospectiveNative": "Discovery-v4 arms the existing10s public-control-response barrier before cold phase2. Same15s content and1px anchor assertions pass before host snapshots armed state and before release. Snapshot binds actual phase2PID/wallet/publicSpace and is compared with outside host copy. publicReadObserved mayfalse, meaning no public read reached it yet; no claim of an entered callback is fabricated. Error cleanup independently releases. Other4phase180s/held10/fresh15/action5/pixel1/3viewport goals unchanged.",
+    "prospectiveReviews": {
+      "spec": 0,
+      "standards": 0
+    },
+    "verification": "Actual app and host-test Kotlin compilation pass. Fresh complete244/70 checks and v4 native/frame/prototype acceptance pending.",
+    "hostCompile": {
+      "task": ":spaces-service:compileTestKotlin",
+      "exit": 0,
+      "seconds": 68,
+      "logSha256": "f27d98fac2bfce710ff954ba1becacf7ac9138c159d015ecf644213061c48da1"
+    }
   }
 }

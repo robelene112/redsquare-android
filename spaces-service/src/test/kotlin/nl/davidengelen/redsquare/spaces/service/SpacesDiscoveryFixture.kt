@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare.spaces.service
 import com.google.gson.JsonObject
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoTransaction
+import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.*
 import java.time.Instant
 import java.time.ZoneId
@@ -22,6 +23,7 @@ internal class SpacesDiscoveryFixture(private val client: SpaceClient, private v
     private var released = CountDownLatch(0)
     @Volatile private var held = false
     @Volatile private var entered = false
+    @Volatile private var coldPublicObservation: JsonObject? = null
     private val fixtures = JsonObject()
     suspend fun seed() {
         val image = java.awt.image.BufferedImage(24, 24, java.awt.image.BufferedImage.TYPE_INT_RGB).apply {
@@ -67,7 +69,18 @@ internal class SpacesDiscoveryFixture(private val client: SpaceClient, private v
     }
     suspend fun command(path: String, body: JsonObject): JsonObject? = when (path) {
         "/fixtures" -> fixtures.deepCopy()
-        "/held-public" -> JsonObject().apply { addProperty("entered", entered) }
+        "/held-public" -> JsonObject().apply { addProperty("entered", entered); addProperty("armed", held) }
+        "/observe-cached-public" -> {
+            check(held && released.count == 1L)
+            require(body.keySet() == setOf("pid", "owner", "space"))
+            require(body.get("pid").asInt > 0 && SaitoWallet.isPublicKey(body.get("owner").asString))
+            require(body.get("space").asString == fixtures.getAsJsonObject("public").get("space").asString)
+            body.deepCopy().apply {
+                addProperty("publicReadBarrierArmed", true)
+                addProperty("publicReadObserved", entered)
+            }.also { coldPublicObservation = it.deepCopy() }
+        }
+        "/cached-public-observation" -> requireNotNull(coldPublicObservation).deepCopy()
         "/directory" -> JsonObject().apply {
             add("names", com.google.gson.JsonArray().apply { client.discover().items.forEach { add(it.profile.name) } })
         }
@@ -81,7 +94,7 @@ internal class SpacesDiscoveryFixture(private val client: SpaceClient, private v
                 }
             }) }
         }
-        "/hold-public" -> { released = CountDownLatch(1); entered = false; held = true; JsonObject() }
+        "/hold-public" -> { released = CountDownLatch(1); entered = false; coldPublicObservation = null; held = true; JsonObject() }
         "/release-public" -> { held = false; released.countDown(); JsonObject() }
         "/expire" -> { clock.offset = 120_000; JsonObject() }
         "/reset-clock" -> { clock.offset = 0; JsonObject() }

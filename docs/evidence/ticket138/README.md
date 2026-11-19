@@ -188,6 +188,24 @@ files. Scope retirement evicts it and rejects late writes. Source reviews are
 clear and actual production Kotlin compilation passes. Fresh whole native/frame
 regression remains pending.
 
+The avatar-corrected Android10 parent passes all functional checks and all814
+reviewed frames, without the image regression. Its Android17 counterpart fails
+the original cold-link15s goal: usable public messages are saved locally, while
+opening waits behind unrelated network work. A scoped local query now restores
+verified public context before acquiring that mutex, using ordinary selection
+and background refresh. Actual SQLite/signers/offline tests pass for original
+message, draft, anchor, nonmembership and wrong-account/node/service rejection.
+The initially reviewed late-error gap is fixed with an atomic route-error fence.
+Both corrected source axes are clear; production Kotlin compilation passes.
+
+Discovery-v4 adds a prospective armed-public-response barrier to cold reading,
+without changing the existing content/pixel deadlines. It records actual host
+barrier state before release and binds native/outside snapshots to the correct
+PID, identity and Space. An optional observed-read flag is not misreported as an
+entered callback. Harness/assessor reviews are clear; full244/70 and fresh whole
+native/frame acceptance remain pending. Earlier successful and failed parents
+retain their individual source and scope qualifications.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.

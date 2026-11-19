@@ -13,6 +13,7 @@ import nl.davidengelen.redsquare.spaces.SpaceChannelKind
 import nl.davidengelen.redsquare.spaces.SpaceChannelProfile
 import nl.davidengelen.redsquare.spaces.SpaceProfile
 import nl.davidengelen.redsquare.spaces.SpaceVisibility
+import nl.davidengelen.redsquare.spaces.SpacePublicReference
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -28,6 +29,50 @@ class SpaceDiscoveryTest {
     private val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val visitor = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+
+    @Test fun aKnownPublicReferenceRestoresVerifiedLocalReadingWithoutNetworkOrAdmission() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("cached-public-link").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("cached-link-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("cached-link-reader.sqlite").absolutePath).use { readerStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create(SpaceProfile("Known public conversation", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    val original = creator.send(space, "The actual saved public message"); creator.flush(space)
+                    val private = creator.create("Private history is not a public reference"); creator.flush(private)
+                    val link = creator.publicLink(space)
+                    var online = true
+                    var requests = 0
+                    fun reader(wallet: SaitoWallet = visitor, node: String = "fixture-node", signer: String = service.publicKey) =
+                        SpaceClient(wallet, node, signer, readerStore, clock) {
+                            requests++; check(online) { "The owned transport is offline" }; remote.exchange(it.envelope())
+                        }
+                    val first = reader(); first.openPublicLink(link); first.refresh(space)
+                    val message = first.timeline(space).single()
+                    val anchor = SpaceClient.ReadingAnchor(message.id, requireNotNull(message.position), 7, first.historyWindow(space).from)
+                    first.saveReadingAnchor(space, first.community(space).channel, anchor)
+                    first.saveDraft(space, "Writing stays local")
+                    online = false
+                    val before = requests
+                    val restored = reader()
+                    val cached = requireNotNull(restored.cachedPublicLink(link))
+                    assertEquals(space, cached.id); assertFalse(cached.joined); assertFalse(cached.canSend)
+                    assertEquals(anchor, restored.readingAnchor(space))
+                    assertEquals("Writing stays local", restored.draft(space))
+                    assertEquals(original, restored.timeline(space).single().id)
+                    assertEquals("The actual saved public message", restored.messages(space).single())
+                    assertTrue(restored.communities().isEmpty())
+                    assertNull(restored.cachedPublicLink(SpacePublicReference("fixture-node", service.publicKey, "f".repeat(64)).link()))
+                    val ownerOffline = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { error("No transport is permitted") }
+                    assertNull(ownerOffline.cachedPublicLink(SpacePublicReference("fixture-node", service.publicKey, private).link()))
+                    for (foreign in listOf(reader(owner), reader(node = "other-node"), reader(signer = visitor.publicKey))) {
+                        try { foreign.cachedPublicLink(link); fail("A different account, node or service cannot use this cached reference") }
+                        catch (_: IllegalArgumentException) { }
+                    }
+                    assertEquals("Cache selection does not perform network reads or admission", before, requests)
+                    assertEquals(anchor, restored.readingAnchor(space)); assertTrue(restored.communities().isEmpty())
+                }
+            }
+        }
+    }
 
     @Test fun onlyDurableOutboxAttemptsProjectBeforeTransportAndReadRequestsDoNot() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("delivery-observation-service").toPath(), service, clock).use { remote ->

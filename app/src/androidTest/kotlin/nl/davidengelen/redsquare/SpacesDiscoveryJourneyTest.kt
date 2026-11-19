@@ -101,64 +101,76 @@ class SpacesDiscoveryJourneyTest {
         val saved = readCheckpoint("visitor")
         val fixtures = command("fixtures")
         val link = fixtures.getAsJsonObject("public").get("link").asString
-        launch(link).use { activity -> withFailureCapture({ capture("member-failure") }) {
-            waitText("Builders message 10"); assertPixel("Builders message 10", saved.get("pixel").asFloat)
-            capture("06-cold-public-reference-pixel")
-            ui.onNode(hasText("Join this Space") and hasClickAction()).clickReady(15_000)
-            waitText("Be kind. Share ideas, never private keys.", 5_000)
-            val join = hasText("Join this Space") and hasClickAction() and hasAnyAncestor(isDialog())
-            ui.onNode(join).assertIsNotEnabled()
-            ui.onNodeWithText("I have read and accept these community rules").clickReady()
-            ui.onNode(join).clickReady()
-            waitUntil { members(fixtures, "public").contains(saved.get("owner").asString) }
-            waitUntil { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
-            capture("07-reviewed-real-public-join")
-            ui.onNode(hasSetTextAction()).performTextReplacement("General draft kept in its own channel")
-            closeKeyboard()
-            chooseChannel("workshop")
-            ui.onNode(hasSetTextAction()).performTextReplacement("Workshop draft kept in its own channel")
-            closeKeyboard()
-            chooseChannel("general")
-            waitUntil { ui.onNode(hasSetTextAction() and hasText("General draft kept in its own channel")).isDisplayed() }
-            history().performScrollToNode(hasText("Builders message 10"))
-            val pixel = ui.onNodeWithText("Builders message 10").fetchSemanticsNode().boundsInRoot.top
-            // Preserve a real pre-existing Chat overlay before the external member route.
-            switchModule("Spaces", "Red Square")
-            ui.onNode(hasText("Chat") and hasClickAction()).clickReady()
-            waitUntil(5_000) { ui.onNode(hasText("Chat") and !hasClickAction()).isDisplayed() }
-            switchModule("Red Square", "Spaces")
-            ui.onNode(hasText("Community information") and hasClickAction() and onScreen).clickReady()
-            ui.onNode(hasText("Members") and hasClickAction()).performScrollTo().clickReady()
-            waitText("Owner"); waitText("BuildersHost@saito")
-            capture("08-real-members")
-            ui.onNode(hasText("Owner") and hasClickAction()).clickReady()
-            waitText("Profile")
-            capture("09-member-profile")
-            device.pressBack(); waitText("Members", 5_000)
-            val memberChat = SemanticsMatcher("member private chat action") { node ->
-                node.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.ContentDescription)?.any { it.startsWith("Message ") } == true
-            } and hasClickAction()
-            ui.onNode(memberChat).clickReady()
-            waitUntil { ui.onNodeWithContentDescription("Switch app: Red Square").isDisplayed() && ui.onNode(hasSetTextAction() and hasText("Message")).isDisplayed() }
-            // First private-chat entry offers notification setup. Dismiss that
-            // actual modal explicitly before exercising the route's Back action.
-            waitText("Android notification alerts", 5_000)
-            capture("10a-member-chat-notification-offer")
-            ui.onNode(hasText("Not now") and hasClickAction() and hasAnyAncestor(isDialog())).clickReady()
-            waitUntil(5_000) { ui.onAllNodesWithText("Android notification alerts").fetchSemanticsNodes().isEmpty() }
-            capture("10-member-private-chat")
-            device.pressBack(); waitText("Members", 5_000)
-            device.pressBack()
-            waitUntil(5_000) { ui.onNode(hasText("Community information") and hasAnyAncestor(isDialog())).isDisplayed() }
-            ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).clickReady()
-            waitText("Builders message 10"); assertPixel("Builders message 10", pixel)
-            chooseChannel("workshop")
-            waitUntil { ui.onNode(hasSetTextAction() and hasText("Workshop draft kept in its own channel")).isDisplayed() }
-            chooseChannel("general")
-            waitText("Builders message 10"); assertPixel("Builders message 10", pixel)
-            capture("11-channel-drafts-and-pixel")
-            publishCheckpoint("member", fixtures, pixel)
-        } }
+        command("hold-public")
+        var primary: Throwable? = null
+        try {
+            launch(link).use { activity -> withFailureCapture({ capture("member-failure") }) {
+                waitText("Builders message 10"); assertPixel("Builders message 10", saved.get("pixel").asFloat)
+                val cached = command("observe-cached-public", JsonObject().apply {
+                    addProperty("pid", Process.myPid()); addProperty("owner", saved.get("owner").asString)
+                    addProperty("space", fixtures.getAsJsonObject("public").get("space").asString)
+                })
+                assertTrue(cached.get("publicReadBarrierArmed").asBoolean)
+                evidence.resolve("cold-public-cache.json").writeText(cached.toString())
+                capture("06-cold-public-reference-pixel")
+                command("release-public")
+                ui.onNode(hasText("Join this Space") and hasClickAction()).clickReady(15_000)
+                waitText("Be kind. Share ideas, never private keys.", 5_000)
+                val join = hasText("Join this Space") and hasClickAction() and hasAnyAncestor(isDialog())
+                ui.onNode(join).assertIsNotEnabled()
+                ui.onNodeWithText("I have read and accept these community rules").clickReady()
+                ui.onNode(join).clickReady()
+                waitUntil { members(fixtures, "public").contains(saved.get("owner").asString) }
+                waitUntil { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+                capture("07-reviewed-real-public-join")
+                ui.onNode(hasSetTextAction()).performTextReplacement("General draft kept in its own channel")
+                closeKeyboard()
+                chooseChannel("workshop")
+                ui.onNode(hasSetTextAction()).performTextReplacement("Workshop draft kept in its own channel")
+                closeKeyboard()
+                chooseChannel("general")
+                waitUntil { ui.onNode(hasSetTextAction() and hasText("General draft kept in its own channel")).isDisplayed() }
+                history().performScrollToNode(hasText("Builders message 10"))
+                val pixel = ui.onNodeWithText("Builders message 10").fetchSemanticsNode().boundsInRoot.top
+                // Preserve a real pre-existing Chat overlay before the external member route.
+                switchModule("Spaces", "Red Square")
+                ui.onNode(hasText("Chat") and hasClickAction()).clickReady()
+                waitUntil(5_000) { ui.onNode(hasText("Chat") and !hasClickAction()).isDisplayed() }
+                switchModule("Red Square", "Spaces")
+                ui.onNode(hasText("Community information") and hasClickAction() and onScreen).clickReady()
+                ui.onNode(hasText("Members") and hasClickAction()).performScrollTo().clickReady()
+                waitText("Owner"); waitText("BuildersHost@saito")
+                capture("08-real-members")
+                ui.onNode(hasText("Owner") and hasClickAction()).clickReady()
+                waitText("Profile")
+                capture("09-member-profile")
+                device.pressBack(); waitText("Members", 5_000)
+                val memberChat = SemanticsMatcher("member private chat action") { node ->
+                    node.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.ContentDescription)?.any { it.startsWith("Message ") } == true
+                } and hasClickAction()
+                ui.onNode(memberChat).clickReady()
+                waitUntil { ui.onNodeWithContentDescription("Switch app: Red Square").isDisplayed() && ui.onNode(hasSetTextAction() and hasText("Message")).isDisplayed() }
+                // First private-chat entry offers notification setup. Dismiss that
+                // actual modal explicitly before exercising the route's Back action.
+                waitText("Android notification alerts", 5_000)
+                capture("10a-member-chat-notification-offer")
+                ui.onNode(hasText("Not now") and hasClickAction() and hasAnyAncestor(isDialog())).clickReady()
+                waitUntil(5_000) { ui.onAllNodesWithText("Android notification alerts").fetchSemanticsNodes().isEmpty() }
+                capture("10-member-private-chat")
+                device.pressBack(); waitText("Members", 5_000)
+                device.pressBack()
+                waitUntil(5_000) { ui.onNode(hasText("Community information") and hasAnyAncestor(isDialog())).isDisplayed() }
+                ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).clickReady()
+                waitText("Builders message 10"); assertPixel("Builders message 10", pixel)
+                chooseChannel("workshop")
+                waitUntil { ui.onNode(hasSetTextAction() and hasText("Workshop draft kept in its own channel")).isDisplayed() }
+                chooseChannel("general")
+                waitText("Builders message 10"); assertPixel("Builders message 10", pixel)
+                capture("11-channel-drafts-and-pixel")
+                publishCheckpoint("member", fixtures, pixel)
+            } }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally { cleanupAfterTest(primary, { command("release-public") }) }
     }
 
     @Test fun coldMemberReturnCreatesAndReviewsInvitationsAndReadsUnlistedLinks() {

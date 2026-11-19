@@ -481,8 +481,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     fun openPublic(space: String) {
         val route = navigationVersion.get()
-        localAction(Problem.CONNECTION) { network.withLock {
-            var activeRoute = route
+        var activeRoute = route
+        localAction(Problem.CONNECTION, isCurrent = { navigationVersion.get() == activeRoute }) { network.withLock {
             try {
                 val current = requireNotNull(client)
                 val opened = current.openPublic(space)
@@ -503,24 +503,41 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     fun openPublicLink(link: String) {
         val route = navigationVersion.get()
+        var activeRoute = route
         mutable.update { it.copy(previewIssue = null, requiredNode = null, problem = null) }
-        localAction(Problem.INVITATION) { network.withLock {
-            var activeRoute = route
-            try {
-                val opened = requireNotNull(client).openPublicLink(link)
-                val accepted = selectRoute(opened.id, expected = route)
+        localAction(Problem.INVITATION, isCurrent = { navigationVersion.get() == activeRoute }) {
+            val current = requireNotNull(client)
+            val cached = localAccess.withLock { current.cachedPublicLink(link) }
+            if (cached != null) {
+                // A saved, verified public conversation follows the same local
+                // selection and background refresh as a My Spaces entry.
+                val accepted = selectRoute(cached.id, expected = route)
                 if (accepted != null) {
                     activeRoute = accepted
-                    mutable.update { it.copy(openedPublicReference = link) }
-                    requireNotNull(client).refresh(opened.id, channel = opened.channel)
+                    markPublicReferenceOpened(link, accepted)
                 }
-                publish(); wake.trySend(Unit)
-            } catch (cancelled: CancellationException) { throw cancelled }
-            catch (failure: Exception) {
-                trace("public-read failed=${failure.javaClass.simpleName} frames=${failure.stackTrace.take(4).joinToString { "${it.className}.${it.methodName}:${it.lineNumber}" }}")
-                if (navigationVersion.get() == activeRoute) throw failure
+                return@localAction
             }
-        } }
+            network.withLock {
+                try {
+                    val opened = current.openPublicLink(link)
+                    val accepted = selectRoute(opened.id, expected = route)
+                    if (accepted != null) {
+                        activeRoute = accepted
+                        markPublicReferenceOpened(link, accepted)
+                        current.refresh(opened.id, channel = opened.channel)
+                    }
+                    publish(); wake.trySend(Unit)
+                } catch (cancelled: CancellationException) { throw cancelled }
+                catch (failure: Exception) {
+                    trace("public-read failed=${failure.javaClass.simpleName} frames=${failure.stackTrace.take(4).joinToString { "${it.className}.${it.methodName}:${it.lineNumber}" }}")
+                    if (navigationVersion.get() == activeRoute) throw failure
+                }
+            }
+        }
+    }
+    private fun markPublicReferenceOpened(link: String, route: Long) = synchronized(navigationChanges) {
+        if (navigationVersion.get() == route) mutable.update { it.copy(openedPublicReference = link) }
     }
     fun dismissPublicReference() { synchronized(navigationChanges) { navigationVersion.incrementAndGet() } }
     fun consumePublicReference(link: String) { mutable.update { if (it.openedPublicReference == link) it.copy(openedPublicReference = null) else it } }
@@ -591,20 +608,23 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     fun dismissPreview() { previews.incrementAndGet(); mutable.update { it.copy(preview = null, previewIssue = null) } }
     fun clearProblem() { mutable.update { it.copy(problem = null) } }
-    private fun localAction(problem: Problem = Problem.SAVE, action: suspend () -> Unit) {
+    private fun localAction(problem: Problem = Problem.SAVE, isCurrent: () -> Boolean = { true }, action: suspend () -> Unit) {
         if (closed.get() || navigationSaving.get() || mutable.value.working || mutable.value.loading) return
         mutable.update { it.copy(working = true, problem = null) }
+        fun report(update: (State) -> State) = synchronized(navigationChanges) {
+            if (isCurrent()) mutable.update(update)
+        }
         scope.launch {
             try { action() }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (denied: SpaceClient.ReadDenied) {
-                mutable.update { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem),
+                report { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem),
                     previewIssue = if (problem == Problem.INVITATION) denied.problem else it.previewIssue) }
             }
-            catch (different: SpaceClient.DifferentNode) { mutable.update { it.copy(requiredNode = different.node) } }
-            catch (_: ChangedIdentity) { mutable.update { it.copy(availability = Availability.CHANGED_IDENTITY) } }
-            catch (_: MissingService) { mutable.update { it.copy(availability = Availability.UNSUPPORTED) } }
-            catch (_: Exception) { mutable.update { it.copy(problem = problem) } }
+            catch (different: SpaceClient.DifferentNode) { report { it.copy(requiredNode = different.node) } }
+            catch (_: ChangedIdentity) { report { it.copy(availability = Availability.CHANGED_IDENTITY) } }
+            catch (_: MissingService) { report { it.copy(availability = Availability.UNSUPPORTED) } }
+            catch (_: Exception) { report { it.copy(problem = problem) } }
             finally { mutable.update { it.copy(working = false) } }
         }
     }
