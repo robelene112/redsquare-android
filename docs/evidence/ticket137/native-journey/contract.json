@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "ticket": 137,
   "scope": "focused actual Activity and distinct-process journey, not complete app regression or deployed-node acceptance",
   "source": "exact checked-out Git SHA recorded by parent workflow and acceptance.json",
@@ -36,7 +36,8 @@
     "actual source/APK/device/runtime evidence from parent workflow",
     "Reaching the end of a historical bounded page does not jump to current activity; explicit Back to latest reaches the latest received message.",
     "Clipboard invitation retains its exact link while marked sensitive; drawer screenshot is preceded by an actual visible native title.",
-    "Invitation review and explicit Join remain visible above the keyboard; the newly admitted Android identity sends a message actually received in that exact second community."
+    "Invitation review and explicit Join remain visible above the keyboard; the newly admitted Android identity sends a message actually received in that exact second community.",
+    "The approved B channel header retains separate Back and community information actions. Actual information opens with confirmed membership; native Back returns to communities."
   ],
   "native_terminal_passes": 1,
   "deliberate_interruptions": 1,
@@ -73,6 +74,11 @@
       "run": 44471884241,
       "source": "0b357b68b932d9e1f4a6b37068f0b5bffed53958",
       "result": "Whole native case failed at82.206s: second-community native join and independent receipt passed, then module switch could not find the header while the IME remained visible. Original15s header and5s IME deadlines unchanged. No process acceptance."
+    },
+    {
+      "run": 44474173162,
+      "source": "1cd42f256ad85f44d4075027764c840af404bc9b",
+      "result": "Whole failure in distinct-process phase after actual checkpoint and force-stop3180. Cold lookup matches visible community plus closed offscreen drawer. On-screen row selector correction preserves15s entry and20s recovery goals; no passing prefix accepted."
     }
   ]
 }

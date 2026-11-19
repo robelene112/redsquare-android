@@ -83,6 +83,10 @@ class SpacesJourneyTest {
                 row.asJsonObject.getAsJsonArray("received").any { it.asString == "Hello from the native Android client" }
             })
             capture("04-independent-received-reply")
+            ui.onNode(hasText("Community information") and hasClickAction()).assertIsDisplayed().performClick()
+            ui.waitUntil(5_000) { ui.onNodeWithText("You are a member of this community.").isDisplayed() }
+            capture("04e-community-information", "You are a member of this community.")
+            ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
             command("populate", JsonObject().apply { addProperty("space", joined.get("space").asString) })
             ui.waitUntil(15_000) { ui.onNodeWithText("Fixture line 19").isDisplayed() }
             messageHistory().performScrollToNode(hasText("Fixture line 5"))
@@ -117,7 +121,8 @@ class SpacesJourneyTest {
             // preview and explicit join path rather than only owner admission.
             val invitationDetails = command("invitation")
             val invitation = invitationDetails.get("link").asString
-            UiDevice.getInstance(instrumentation).pressBack()
+            ui.onNode(hasText("Back to your communities") and hasClickAction() and
+                !hasAnyAncestor(hasScrollToNodeAction())).assertIsDisplayed().performClick()
             ui.waitUntil(5_000) { ui.onNode(hasText("Join with an invitation") and hasClickAction()).isDisplayed() }
             ui.onNode(hasText("Join with an invitation") and hasClickAction()).performClick()
             ui.onNode(hasSetTextAction()).performTextInput(invitation)
@@ -141,7 +146,7 @@ class SpacesJourneyTest {
                 }
             }
             ui.onNodeWithContentDescription("Switch Space or channel").performClick()
-            ui.onNodeWithContentDescription("Open $community").performClick()
+            communityRow(community).assertIsDisplayed().performClick()
             ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
             ui.onNode(hasSetTextAction()).performTextReplacement("Draft survives a module switch")
             closeKeyboard(activity)
@@ -201,8 +206,8 @@ class SpacesJourneyTest {
         command("release")
         launch().use { withFailureCapture({ capture("recovery-native-failure") }) {
             openSpaces("Red Square")
-            ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Open $community").isDisplayed() }
-            ui.onNodeWithContentDescription("Open $community").performClick()
+            ui.waitUntil(15_000) { communityRow(community).isDisplayed() }
+            communityRow(community).performClick()
             ui.waitUntil(20_000) { ui.onNodeWithText(originalText).isDisplayed() &&
                 ui.onNode(hasSetTextAction() and hasText(draft)).isDisplayed() &&
                 ui.onAllNodesWithText("Waiting for confirmation").fetchSemanticsNodes().isEmpty() }
@@ -221,6 +226,10 @@ class SpacesJourneyTest {
     private fun messageHistory() = ui.onNode(hasScrollToNodeAction() and SemanticsMatcher("on-screen message history") {
         it.boundsInRoot.right > 0f && it.boundsInRoot.left >= 0f && it.boundsInRoot.bottom > 0f
     })
+    private fun communityRow(name: String) = ui.onNode(hasContentDescription("Open $name") and
+        SemanticsMatcher("on-screen community") {
+            it.boundsInRoot.right > 0f && it.boundsInRoot.left >= 0f && it.boundsInRoot.bottom > 0f
+        })
     private fun openSpaces(current: String) = switchModule(current, "Spaces")
     private fun switchModule(current: String, next: String) {
         ui.revealAppNavigation()

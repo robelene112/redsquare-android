@@ -1,0 +1,20 @@
+Standards review: current uncommitted combined diff against1cd42f256
+Read-only source and retained-failure review; no implementation or native execution.
+
+Hard documented violations
+None confirmed against CODING_STANDARDS.md, AGENTS.md, docs/WORKFLOW.md, docs/quality/SPACES_QUALITY_PLAN.md and applicable global UI preferences.
+
+Product boundaries
+SpacesScreen.kt:176-195 restores separate Back and information actions around the weighted channel menu. FrameIconButton preserves the established Material touch target, focus behavior, button role and single semantic text label, with decorative vector icons. The center retains its community/channel context, heading and actual drawer action.
+
+SpacesScreen.kt:103 prevents conversation-level Back from dismissing selection beneath information. Lines336-355 use the shared animated, scrollable DesignSheet and actual-window keyboard/Escape handling. Close always receives the first-action focus modifier, including for invitees without invitation privileges. Membership uses actual selected state. The invitation action retains canInvite/canSend/working gates and invokes the existing account operation. Draft, identity, account/node and keyboard-observer boundaries are unchanged.
+
+Observer correction
+SpacesJourneyTest.kt:86-89 adds actual information, membership-text and Close observations. Lines124-125 exercise visible header Back while excluding the scrollable drawer duplicate.
+
+Lines149,209-210 now select communityRow(community). Its matcher at229-233 retains the exact community label and requires positive visible-side bounds, excluding the closed drawer at negative X. It retains unique-node matching, not an index or arbitrary first row. The drawer-open route still selects the actual drawer row; cold return selects the actual overview row. Original15-second community lookup and20-second reconciliation waits, draft/original assertions, independently received effects, process identity and all later goals remain intact.
+
+Judgment calls and evidence limits
+No actionable smell findings. The short physical-bounds predicate follows the existing message-history observer; current duplication does not justify a new abstraction.
+
+I inspected attempt6 after-kill.txt: parent44474173162 fails because Open Independent voices matches two nodes. process-kill.json records the real force-stop of PID3180; this interrupted prefix is not a terminal pass. Contractv7 remains prospective and the packet requires new rendered verification. The original parent remains failed. Fresh complete affected execution, large-text geometry and focus/IME checks remain required; no whole137, process, physical/OEM or deployed-node acceptance is claimed.

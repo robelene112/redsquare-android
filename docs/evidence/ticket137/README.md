@@ -66,6 +66,18 @@ switch. The keyboard observer now uses the existing synchronized Espresso
 action and verifies hidden insets within the original5s bound. Module switching
 uses the shared navigation-reveal action. Both source reviews find no issue.
 These are retained partial observations, not acceptance.
+Direct comparison with the approved B frame identified missing separate Back
+and community information actions beside the channel menu. The source now
+restores both shared controls. Information uses the actual selected name and
+membership state, explains channel privacy and exposes the existing authorized
+invitation action. Native v7 adds information and visible Back observations
+without changing the earlier goals or bounds. Both source review axes pass;
+new rendered verification remains required.
+Parent44474173162 at1cd reaches the actual durable checkpoint and host force-
+stop of PID3180. The new process fails before opening the community because
+its selector matches both the visible row and closed offscreen drawer. The
+corrected observer selects physical on-screen rows, retaining the original
+15s entry and20s reconciliation bounds. The whole parent remains failed.
 Functional native verification is still pending; beta142 stays public and137
 stays open. No passing prefix, physical/OEM or deployed-node acceptance is claimed.
 

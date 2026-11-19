@@ -50,6 +50,7 @@ import nl.davidengelen.redsquare.feed.ProfileAvatar
 import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.DesignSheet
+import nl.davidengelen.redsquare.ui.FrameIconButton
 import java.text.DateFormat
 import java.util.Date
 
@@ -75,6 +76,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     var createOpen by remember { mutableStateOf(false) }
     var joinOpen by remember { mutableStateOf(false) }
     var inviteOpen by remember { mutableStateOf(false) }
+    var informationOpen by remember { mutableStateOf(false) }
     var communityName by remember { mutableStateOf("") }
     var invitationText by remember { mutableStateOf("") }
     var savedSelection by rememberSaveable { mutableStateOf<String?>(null) }
@@ -98,7 +100,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         if (!state.working && state.selected != null && state.problem == null) createOpen = false
         if (!state.working && state.selected != null && state.preview == null && state.problem == null && joinOpen) joinOpen = false
     }
-    BackHandler(selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen) { select(null) }
+    BackHandler(selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen) { select(null) }
 
     ModalNavigationDrawer(drawerState = drawer, gesturesEnabled = selected != null, modifier = modifier,
         drawerContent = {
@@ -171,20 +173,25 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 }
             } else channelStates.SaveableStateProvider(selected.id) { key(selected.id) {
                 val menu = stringResource(R.string.spaces_switch_channel)
-                Surface(onClick = { scope.launch { drawer.open() } }, shape = RoundedCornerShape(14.dp),
-                    color = MaterialTheme.colorScheme.surfaceContainerLow,
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp)
-                        .semantics { contentDescription = menu; role = Role.Button; heading(); stateDescription = selected.name }) {
-                    Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(12.dp), verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Column(Modifier.weight(1f)) {
-                            Text(selected.name, style = MaterialTheme.typography.labelSmall, maxLines = 2,
-                                overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            Text(stringResource(R.string.spaces_general), style = MaterialTheme.typography.titleMedium,
-                                maxLines = 2, overflow = TextOverflow.Ellipsis)
+                Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically) {
+                    FrameIconButton(R.drawable.ic_back, stringResource(R.string.spaces_back)) { select(null) }
+                    Surface(onClick = { scope.launch { drawer.open() } }, shape = RoundedCornerShape(14.dp),
+                        color = MaterialTheme.colorScheme.surfaceContainerLow,
+                        modifier = Modifier.weight(1f)
+                            .semantics { contentDescription = menu; role = Role.Button; heading(); stateDescription = selected.name }) {
+                        Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(12.dp), verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                            Column(Modifier.weight(1f)) {
+                                Text(selected.name, style = MaterialTheme.typography.labelSmall, maxLines = 2,
+                                    overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(stringResource(R.string.spaces_general), style = MaterialTheme.typography.titleMedium,
+                                    maxLines = 2, overflow = TextOverflow.Ellipsis)
+                            }
+                            Icon(painterResource(R.drawable.ic_chevron_down), null, Modifier.size(20.dp))
                         }
-                        Icon(painterResource(R.drawable.ic_chevron_down), null, Modifier.size(20.dp))
                     }
+                    FrameIconButton(R.drawable.ic_info, stringResource(R.string.spaces_information)) { informationOpen = true }
                 }
                 if (state.loadingChannel) Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator(Modifier.size(28.dp))
@@ -326,6 +333,28 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     InvitationSheet(inviteOpen, state.invitation, state.working, selected?.canSend == true,
         { inviteOpen = false }, account::refresh, account::invite)
+    DesignSheet(informationOpen && selected != null, stringResource(R.string.spaces_information), { informationOpen = false }) { first ->
+        selected?.let { community ->
+            Text(community.name, style = MaterialTheme.typography.headlineSmall)
+            Text(stringResource(R.string.spaces_general), style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(stringResource(if (community.joined) R.string.spaces_member_confirmed
+                else if (community.membershipRequested) R.string.spaces_waiting_admission else R.string.spaces_creating))
+            Surface(shape = RoundedCornerShape(18.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                Text(stringResource(R.string.spaces_channel_privacy), Modifier.padding(18.dp),
+                    style = MaterialTheme.typography.bodyMedium)
+            }
+            if (community.canInvite) OutlinedButton(onClick = {
+                informationOpen = false; inviteOpen = true
+                if (state.invitation == null) account.invite()
+            }, enabled = !state.working && community.canSend,
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                Text(stringResource(R.string.spaces_invite))
+            }
+            TextButton(onClick = { informationOpen = false },
+                modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_close)) }
+        }
+    }
 }
 
 @Composable private fun CommunityRow(community: SpaceClient.Community, selected: Boolean, onClick: () -> Unit) {
