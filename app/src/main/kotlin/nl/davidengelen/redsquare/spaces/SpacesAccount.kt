@@ -121,14 +121,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 if (cacheFailed) continue
                 mutable.update { it.copy(refreshing = true) }
                 try { network.withLock {
-                    val service = authenticatedPeer().servicePublicKey("spaces-v1")
+                    val service = peerCall { authenticatedPeer().servicePublicKey("spaces-v1") }
                     if (cachedService != null && cachedService != service) throw ChangedIdentity()
                     if (client == null) {
                         directory.save(EncryptedLocalFile.Contents(1, service))
                         cachedService = service
                         installClient(service)
                     }
-                    val services = authenticatedPeer().services()
+                    val services = peerCall { authenticatedPeer().services() }
                     mutable.update { it.copy(availability = Availability.ONLINE, ready = true,
                         discoverySupported = "spaces-directory-v1" in services, unreadSupported = "spaces-unread-v1" in services) }
                     val current = requireNotNull(client)
@@ -179,21 +179,29 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
             publish()
             if (fixtureTrace) trace("delivery projectionMs=${android.os.SystemClock.elapsedRealtime() - started}")
-        }) { original ->
+        }) { original -> peerCall {
             val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
             val connection = authenticatedPeer()
             if (connection.servicePublicKey("spaces-v1") != service) throw ChangedIdentity()
             val received = connection.request(original) { check(!closed.get()) }.toString(Charsets.UTF_8)
             if (fixtureTrace) trace("request=${original.id.take(10)} returnedMs=${android.os.SystemClock.elapsedRealtime() - started}")
             received
-        }
+        } }
         mutable.update { it.copy(ready = true) }
     }
 
-    private suspend fun authenticatedPeer(): SaitoPeer {
+    private suspend fun <T> peerCall(action: suspend () -> T): T = try { action() }
+    catch (timeout: TimeoutCancellationException) {
+        // A peer's own deadline must not terminate the long-lived account
+        // worker. Cancellation of this account still propagates unchanged.
+        currentCoroutineContext().ensureActive()
+        throw IOException("Community peer request timed out", timeout)
+    }
+
+    private suspend fun authenticatedPeer(): SaitoPeer = peerCall {
         val connection = peer ?: SaitoPeer(wallet, endpoint).also { peer = it }
         if ("spaces-v1" !in connection.services()) throw MissingService()
-        return connection
+        connection
     }
 
     private suspend fun publish() = localAccess.withLock {
@@ -439,7 +447,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         mutable.update { it.copy(preview = null, previewIssue = null) }
         localAction(Problem.INVITATION) { network.withLock {
             val current = client ?: run {
-                val service = authenticatedPeer().servicePublicKey("spaces-v1")
+                val service = peerCall { authenticatedPeer().servicePublicKey("spaces-v1") }
                 directory.save(EncryptedLocalFile.Contents(1, service)); cachedService = service; installClient(service)
                 requireNotNull(client)
             }
@@ -558,7 +566,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 network.withLock {
                     if (directoryRequests.get() != token) return@withLock
                     val connection = authenticatedPeer()
-                    if ("spaces-directory-v1" !in connection.services()) {
+                    if ("spaces-directory-v1" !in peerCall { connection.services() }) {
                         mutable.update { if (directoryRequests.get() == token) it.copy(discoverySupported = false) else it }
                         return@withLock
                     }

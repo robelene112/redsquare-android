@@ -146,8 +146,9 @@ try:
             ('coldMemberReturnCreatesAndReviewsInvitationsAndReadsUnlistedLinks', None),
             ('compactLargeTypeKeepsRealCommunityAndCreationControlsReachable', None),
         ]
-        (evidence / 'frozen-goals.json').write_text(json.dumps({'version': 1, 'phases': phases,
+        (evidence / 'frozen-goals.json').write_text(json.dumps({'version': 2, 'phases': phases,
             'phaseSeconds': 180, 'checkpointObservationSeconds': .25, 'pixelTolerance': 1,
+            'peerReadRecovery': {'droppedReplies': 1, 'peerDeadlineSeconds': 12, 'freshReadSeconds': 15, 'sameProcess': True},
             'productionNodeActivated': False, 'ordinaryBetaChanged': False}, indent=2))
         pids = []
         for number, (method, expected_phase) in enumerate(phases, 1):
@@ -195,6 +196,11 @@ try:
         observed_child = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/private-child-received.json').stdout)
         if observed_child != matched[0]:
             raise RuntimeError('Native and independent host observed different child originals')
+        peer_recovery = command(control_port, 'read-recovery')
+        (evidence / 'host-peer-read-recovery.json').write_text(json.dumps(peer_recovery, indent=2))
+        observed_recovery = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/peer-read-recovery.json').stdout)
+        if observed_recovery.pop('pid') != pids[2] or observed_recovery != peer_recovery or peer_recovery.get('author') != sender:
+            raise RuntimeError('Native and independent host did not confirm the same peer-read recovery')
         (evidence / 'host-status.json').write_text(json.dumps(command(control_port, 'status')))
         command(control_port, 'stop'); host.wait(timeout=15)
         if host.returncode:

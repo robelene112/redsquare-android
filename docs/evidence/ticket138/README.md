@@ -108,6 +108,20 @@ also covers requested membership still awaiting Welcome, with refusal taking
 precedence. Goals and deadlines remain; fresh whole native and motion checks are
 required. Local full244/68 checks at9744 also pass without failures or skips.
 
+The [ninth whole parents](native-timeout-recovery.json) remain failed. Android17
+reaches an independently decrypted private child after revocation, nonchat public
+membership and unlisted reading, then searches the wrong creation-chip label.
+Android10 exposes a peer-local12-second timeout ending the account's long-lived
+worker as cancellation, leaving a later private join queued. Peer-local deadlines
+now become ordinary IO failures while actual account cancellation still propagates.
+
+The next discovery-v2 contract deliberately drops one actual read callback and
+requires a fresh authenticated read from the same process within15seconds, before
+all the original later effects. An isolated before-source parent uses the exact
+same observer, fixture and driver bytes with the original account implementation.
+Its actual outcome and corrected whole parents are pending. Source reviews are
+clear; no successful recovery or whole acceptance is claimed yet.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.

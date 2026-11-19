@@ -173,6 +173,20 @@ class SpacesDiscoveryJourneyTest {
             chooseChannel("workshop")
             waitUntil { ui.onNode(hasSetTextAction() and hasText("Workshop draft kept in its own channel")).isDisplayed() }
             capture("12-cold-member-drafts")
+            // Drop one real callback. This same account worker must resume
+            // after its unchanged12-second peer deadline, without a restart.
+            command("drop-next-read")
+            waitUntil(15_000) { command("read-recovery").has("dropped") }
+            var recovery = JsonObject()
+            waitUntil(15_000) {
+                recovery = command("read-recovery")
+                recovery.has("resumed")
+            }
+            assertNotEquals(recovery.get("dropped").asString, recovery.get("resumed").asString)
+            assertEquals(saved.get("owner").asString, recovery.get("author").asString)
+            recovery.addProperty("pid", Process.myPid())
+            evidence.resolve("peer-read-recovery.json").writeText(recovery.toString())
+            capture("12a-peer-read-deadline-recovered")
             // A current public selection must not dismiss another invitation's review/error.
             openLink(activity, fixtures.getAsJsonObject("private").get("link").asString)
             waitText("Private Builders")
@@ -231,7 +245,7 @@ class SpacesDiscoveryJourneyTest {
             ui.onNode(hasText("Create a Space") and hasClickAction()).clickReady(15_000)
             ui.onNodeWithText("Space name").performTextInput("Native Created Space")
             closeKeyboard()
-            ui.onNode(hasText("Public") and hasClickAction()).performScrollTo().clickReady()
+            ui.onNode(hasText("Public Space") and hasClickAction()).performScrollTo().clickReady()
             capture("19-real-editable-creation")
             ui.onNode(hasText("Create a Space") and hasClickAction() and hasAnyAncestor(isDialog())).clickReady()
             waitText("Native Created Space")
@@ -293,7 +307,7 @@ class SpacesDiscoveryJourneyTest {
                 ui.onNode(hasText("Create a Space") and hasClickAction()).clickReady(15_000)
                 ui.onNodeWithText("Space name").performScrollTo().assertIsDisplayed()
                 capture("25-compact-large-type-creation")
-                ui.onNode(hasText("Public") and hasClickAction()).performScrollTo().assertIsDisplayed()
+                ui.onNode(hasText("Public Space") and hasClickAction()).performScrollTo().assertIsDisplayed()
                 capture("26-compact-large-type-privacy")
                 device.pressBack()
                 evidence.resolve("compact-completed.json").writeText(JsonObject().apply {

@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "source": "b4d7620169b2238c4c5515fa96debc506f0b626a",
+  "originals": [
+    {
+      "run": 44579563644,
+      "sdk": 29,
+      "originalRoot": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt9-44579563644",
+      "zip": {
+        "bytes": 3832740,
+        "sha256": "530ae259db542f21f5d0f456b57258dd2e5b34d65537c8219a437ae11c450091",
+        "crc": "PASS"
+      },
+      "sourceChecks": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 68,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "outcome": "wholeFAIL"
+    },
+    {
+      "run": 44579570205,
+      "sdk": 37,
+      "originalRoot": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt9-44579570205",
+      "zip": {
+        "bytes": 4277482,
+        "sha256": "e438d5a5a3580f176d15cdac6268356afeb6599a5dd35a9054a8d63566046795",
+        "crc": "PASS"
+      },
+      "sourceChecks": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 68,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "outcome": "wholeFAIL"
+    }
+  ],
+  "observed": {
+    "android10": "Private admission15s fails after a12s gap in the refresh worker. Peer request/services/authenticate deadlines throw TimeoutCancellationException, propagated by the account cancellation handler, ending its long-lived worker. Actual trace stays ONLINE but refreshing=false and later private original remains queued.",
+    "android17": "Actual private Design message is independently decrypted after revocation; nonchat public membership and unlisted reading also complete. Parent then fails an observer selector Public while original PNG/XML shows Public Space."
+  },
+  "changes": [
+    "Convert only peer-local TimeoutCancellationException into IOException after current coroutine ensureActive. Actual account cancellation still propagates. All feature peer key/services/exchange boundaries, including invitation bootstrap, are wrapped. Normal offline/reconnect handling can continue the account worker.",
+    "Correct both actual Public Space selectors without changing UI.",
+    "Add deterministic controlled dropped-read callback: real service computes its response, exactly one callback is withheld, and the same untouched account must issue a fresh authenticated read within15s after its existing12s peer deadline. All following actual membership/private child/compact goals remain. Driver independently compares observed IDs, author and same phase3 PID."
+  ],
+  "beforeSource": {
+    "branch": "proof/spaces138-peer-timeout-before-v1",
+    "beforeSource": "68859db49647a4afa19625df85972cd0ae15a86c",
+    "base": "b4d7620169b2238c4c5515fa96debc506f0b626a",
+    "beforeAccountSha256": "59583f19e1c242962ea70963e31124bc7a0061e0b4d409d4989dd052385f8d79",
+    "sharedHarness": {
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesDiscoveryJourneyTest.kt": "695f6e2c39b0e2a19a78580bfe6163b26cf591e6f66b5cc6b620653b7ab37676",
+      "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt": "ee3f114060fd46ca8835ada3e176411b65382e4f5970d414a2b581de2e271476",
+      "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost.kt": "c79d0e0c1c9ec662fb4fec234ff46ff12db55fc2e1212ca9d848339dea182329",
+      "scripts/spaces-native-journey": "0633f21060d0e48279a2e71507a330db7f3b625f37efd8c6883459f46d64e678"
+    },
+    "nativeContract": "discovery-v2 four180s phases, pixel1, actualdroppedread12s/freshread15s withoutrestart, all later independentchild/compact goals retained",
+    "expected": "Before account code must fail the new actual fresh-read-after-deadline observation; not yet executed."
+  },
+  "beforeRun": 44584165010,
+  "sourceReviews": {
+    "spec": 0,
+    "standards": 0,
+    "qualification": "Prospective source/preflight only; actual before/after parents pending."
+  },
+  "acceptance": "No whole native or corrected timeout pass yet. Native discovery-v2 retains4 phases180s, pixel1,2 planned process kills and2 terminal cases, strengthens actual timeout recovery, and requires fresh entire parents. Original failed parents remain failed."
+}
