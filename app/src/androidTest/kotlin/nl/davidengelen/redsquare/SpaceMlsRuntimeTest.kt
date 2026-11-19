@@ -11,6 +11,7 @@ import kotlinx.coroutines.runBlocking
 import nl.davidengelen.redsquare.saito.EncryptedLocalFile
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceCrypto
+import nl.davidengelen.redsquare.spaces.SpaceHistoryKeys
 import org.junit.Assert.*
 import org.junit.Test
 import java.io.File
@@ -38,11 +39,23 @@ class SpaceMlsRuntimeTest {
             val creator = SpaceCrypto.device(owner.publicKey, "c".repeat(64)).create(scope)
             val original = creator.publish(owner, "message", "d".repeat(64), "e".repeat(128),
                 "Available native private history", 1_700_000_000_000)
-            val newDevice = SpaceCrypto.device(member.publicKey, "f".repeat(64))
-            val admission = creator.admit(newDevice.keyPackage(scope, member))
+            val rejectedDevice = SpaceCrypto.device(member.publicKey, "f".repeat(64))
+            val tentative = creator.admit(rejectedDevice.keyPackage(scope, member))
+            val provisional = rejectedDevice.join(scope, tentative.welcome, tentative.bindings)
+            val afterRejection = SpaceCrypto.restore(tentative.afterRejection.save())
+            assertEquals(0L, afterRejection.epoch)
+            assertEquals(creator.bindings, afterRejection.bindings)
+            val newDevice = SpaceCrypto.device(member.publicKey, "6".repeat(64))
+            val admission = afterRejection.admit(newDevice.keyPackage(scope, member))
             val joined = newDevice.join(scope, admission.welcome, admission.bindings)
+            val future = admission.session.publish(owner, "message", "7".repeat(64), "8".repeat(128),
+                "Accepted native membership", 1_700_000_000_002)
+            assertEquals("Accepted native membership", joined.read(future.envelope()).text)
+            assertThrows(java.security.GeneralSecurityException::class.java) { provisional.read(future.envelope()) }
             assertThrows(SpaceCrypto.MissingKeys::class.java) { joined.read(original.envelope()) }
             val snapshot = joined.save()
+            val snapshotVersion = com.google.gson.JsonParser.parseString(snapshot.toString(Charsets.UTF_8)).asJsonObject.get("version").asInt
+            assertEquals(2, snapshotVersion)
             assertTrue(snapshot.toString(Charsets.UTF_8).contains("archive_keys"))
             val storage = EncryptedLocalFile(context, filename, alias, family)
             storage.save(EncryptedLocalFile.Contents(1, snapshot.toString(Charsets.UTF_8)))
@@ -54,6 +67,14 @@ class SpaceMlsRuntimeTest {
             val recovered = SpaceCrypto.restore(loaded.text.toByteArray(Charsets.UTF_8)).acceptHistory(grant.transaction.envelope())
             assertEquals("Available native private history", recovered.read(original.envelope()).text)
             assertEquals(owner.publicKey, recovered.read(original.envelope()).author)
+            val archiveOnly = SpaceHistoryKeys.restore(recovered.historyBackup(), member.publicKey)
+            assertEquals("Available native private history", archiveOnly.read(original.envelope()).text)
+            val freshScope = scope.copy(generation = "9".repeat(64))
+            val fresh = SpaceCrypto.device(member.publicKey, "a".repeat(64)).create(freshScope)
+            val renewed = fresh.publish(member, "message", "b".repeat(64), "c".repeat(128),
+                "Fresh native key generation", 1_700_000_000_003)
+            assertEquals("Fresh native key generation", fresh.read(renewed.envelope()).text)
+            assertThrows(IllegalArgumentException::class.java) { archiveOnly.read(renewed.envelope()) }
             val evidence = File(context.cacheDir, "spaces-mls-evidence").apply { mkdirs() }
             File(evidence, "runtime.json").writeText(JsonObject().apply {
                 addProperty("sdk", Build.VERSION.SDK_INT); addProperty("abi", Build.SUPPORTED_ABIS.first())
@@ -63,6 +84,12 @@ class SpaceMlsRuntimeTest {
                 addProperty("encryptedFileBytes", encrypted.size); addProperty("snapshotBytes", snapshot.size)
                 addProperty("keystoreRoundTrip", true); addProperty("historyBeforeGrant", "unavailable")
                 addProperty("historyAfterGrant", "exact original content")
+                addProperty("confirmedRejectionBranchReloaded", true)
+                addProperty("rejectedMembershipEpoch", afterRejection.epoch)
+                addProperty("rejectedCandidateFutureDenied", true)
+                addProperty("archiveOnlyHistoryRecovered", true)
+                addProperty("freshGenerationSeparated", true)
+                addProperty("operationalSnapshotVersion", snapshotVersion)
                 addProperty("qualification", "Library/JNI/Keystore only; not UI, remote acceptance or distinct-process recovery")
             }.toString())
         } catch (failure: Throwable) { originalFailure = failure; throw failure }

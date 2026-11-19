@@ -6,6 +6,54 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class SpaceCryptoTest {
+    @Test fun portableHistoryKeysRecoverOldContentWithoutCloningAnActiveSenderIntoTheFreshGeneration() {
+        val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixtures only.
+        val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val scope = SpaceCrypto.Scope(service.publicKey, "a".repeat(64), "b".repeat(64))
+        val old = SpaceCrypto.device(owner.publicKey, "c".repeat(64)).create(scope)
+        val earlier = old.publish(owner, "message", "d".repeat(64), "e".repeat(128), "Available archive after device loss", 1_700_000_000_000)
+        val backup = old.historyBackup()
+        val fields = com.google.gson.JsonParser.parseString(backup.toString(Charsets.UTF_8)).asJsonObject.keySet()
+        assertEquals(setOf("version", "owner", "scope", "archive_keys"), fields)
+        val recovered = SpaceHistoryKeys.restore(backup, owner.publicKey)
+        assertEquals("Available archive after device loss", recovered.read(earlier.envelope()).text)
+        assertThrows(IllegalArgumentException::class.java) { SpaceHistoryKeys.restore(backup, service.publicKey) }
+        val freshScope = scope.copy(generation = "f".repeat(64))
+        assertNotEquals(scope.groupId, freshScope.groupId)
+        val fresh = SpaceCrypto.device(owner.publicKey, "1".repeat(64)).create(freshScope)
+        val later = fresh.publish(owner, "message", "2".repeat(64), "3".repeat(128), "A fresh operational generation", 1_700_000_000_001)
+        assertEquals("A fresh operational generation", fresh.read(later.envelope()).text)
+        assertThrows(IllegalArgumentException::class.java) { recovered.read(later.envelope()) }
+        assertThrows(IllegalArgumentException::class.java) { fresh.read(earlier.envelope()) }
+    }
+
+    @Test fun confirmedRejectionStatesSurviveReloadAndDoNotActivateAnUnacceptedMembership() {
+        val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixtures only.
+        val rejectedWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val joiningWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+        val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        val scope = SpaceCrypto.Scope(service.publicKey, "a".repeat(64), "b".repeat(64))
+        val original = SpaceCrypto.device(owner.publicKey, "c".repeat(64)).create(scope)
+        val rejected = SpaceCrypto.device(rejectedWallet.publicKey, "d".repeat(64))
+        val attempt = original.admit(rejected.keyPackage(scope, rejectedWallet))
+        val notAdmitted = rejected.join(scope, attempt.welcome, attempt.bindings)
+        val afterRejection = SpaceCrypto.restore(attempt.afterRejection.save())
+        assertEquals(0L, afterRejection.epoch)
+        assertEquals(original.bindings, afterRejection.bindings)
+        val later = SpaceCrypto.device(joiningWallet.publicKey, "e".repeat(64))
+        val accepted = afterRejection.admit(later.keyPackage(scope, joiningWallet))
+        val member = later.join(scope, accepted.welcome, accepted.bindings)
+        val message = accepted.session.publish(owner, "message", "f".repeat(64), "1".repeat(128), "Only the accepted membership", 1_700_000_000_000)
+        assertEquals("Only the accepted membership", member.read(message.envelope()).text)
+        assertThrows(javax.crypto.AEADBadTagException::class.java) { notAdmitted.read(message.envelope()) }
+        val removal = accepted.session.remove(member.credential)
+        val retained = SpaceCrypto.restore(removal.afterRejection.save())
+        assertEquals(1L, retained.epoch)
+        assertEquals(accepted.bindings, retained.bindings)
+        val afterFailedRemoval = retained.publish(owner, "message", "2".repeat(64), "3".repeat(128), "Removal was not accepted", 1_700_000_000_001)
+        assertEquals("Removal was not accepted", member.read(afterFailedRemoval.envelope()).text)
+    }
+
     @Test fun removingAMemberAdvancesPrivateContentKeysWhileRemainingMembersCanStillRead() {
         val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixtures only.
         val removedWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")

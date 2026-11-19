@@ -21,9 +21,23 @@ import javax.crypto.spec.SecretKeySpec
  * transaction before permitting transmission. Crypto and IO belong off main. */
 class SpaceCrypto private constructor(private val native: JsonObject, private val scope: Scope?,
     private val archiveKeys: Map<Long, ByteArray>) {
-    data class Scope(val serviceKey: String, val spaceId: String, val channelId: String) {
-        init { require(SaitoWallet.isPublicKey(serviceKey) && spaceId.matches(ID) && channelId.matches(ID)) }
-        val groupId get() = "SaitoSpaces/v1/$serviceKey/$spaceId/$channelId"
+    data class Scope(val serviceKey: String, val spaceId: String, val channelId: String,
+        val generation: String = "0".repeat(64)) {
+        init { require(SaitoWallet.isPublicKey(serviceKey) && spaceId.matches(ID) && channelId.matches(ID) && generation.matches(ID)) }
+        val groupId get() = "SaitoSpaces/v1/$serviceKey/$spaceId/$channelId/$generation"
+        internal fun json() = JsonObject().apply {
+            addProperty("service", serviceKey); addProperty("space", spaceId)
+            addProperty("channel", channelId); addProperty("generation", generation)
+        }
+        companion object {
+            internal fun fromJson(value: JsonObject): Scope {
+                require(value.keySet() == setOf("service", "space", "channel", "generation"))
+                fun field(name: String): String = value.get(name).also {
+                    require(it != null && it.isJsonPrimitive && it.asJsonPrimitive.isString)
+                }.asString
+                return Scope(field("service"), field("space"), field("channel"), field("generation"))
+            }
+        }
     }
     data class BoundPackage(val scope: Scope, val walletKey: String, val deviceId: String,
         val packageBytes: String, val signer: String, val walletSignature: String) {
@@ -35,8 +49,14 @@ class SpaceCrypto private constructor(private val native: JsonObject, private va
             require(SaitoWallet.verify(signedBytes(), walletSignature, walletKey)) { "Space device binding is not authenticated" }
         }
     }
-    data class Admission(val session: SpaceCrypto, val welcome: String, val bindings: Map<String, String>, val commit: String)
-    data class KeyChange(val session: SpaceCrypto, val commit: String, val bindings: Map<String, String>)
+    /** Persist both branches with the original control. Select afterRejection
+     * only after the original operation is definitively rejected. */
+    data class Admission(val session: SpaceCrypto, val welcome: String, val bindings: Map<String, String>,
+        val commit: String, val afterRejection: SpaceCrypto)
+    data class KeyChange(val session: SpaceCrypto, val commit: String, val bindings: Map<String, String>,
+        val afterRejection: SpaceCrypto)
+    /** Persist the advanced sender before transmission, including when a later
+     * service rejection means this message is not admitted to history. */
     data class History(val session: SpaceCrypto, val transaction: SaitoTransaction, val nextEpoch: Long?)
     data class PlainRecord(val author: String, val text: String) {
         override fun toString() = "Private Space record"
@@ -66,7 +86,7 @@ class SpaceCrypto private constructor(private val native: JsonObject, private va
         require(next.epoch == Math.addExact(epoch, 1) && next.bindings == bindings + (member.credential to member.signer)) {
             "MLS admission does not match its wallet binding"
         }
-        return Admission(next, response.text("welcome"), next.bindings, response.text("wire"))
+        return Admission(next, response.text("welcome"), next.bindings, response.text("wire"), cancelled(response))
     }
     fun join(scope: Scope, welcome: String, bindings: Map<String, String>): SpaceCrypto {
         require(this.scope == null && bindings[credential] == native.text("signer"))
@@ -79,7 +99,7 @@ class SpaceCrypto private constructor(private val native: JsonObject, private va
         val response = step("remove") { addProperty("identity", memberCredential) }
         val next = advance(response, requireNotNull(scope))
         require(next.epoch == Math.addExact(epoch, 1) && next.bindings == bindings - memberCredential)
-        return KeyChange(next, response.text("wire"), next.bindings)
+        return KeyChange(next, response.text("wire"), next.bindings, cancelled(response))
     }
     /** The application first admits the signed control and its actor/role. */
     fun receiveCommit(wire: String, actorCredential: String, expectedBindings: Map<String, String>): SpaceCrypto {
@@ -97,25 +117,14 @@ class SpaceCrypto private constructor(private val native: JsonObject, private va
         val nonce = ByteArray(12).also(SecureRandom()::nextBytes)
         val cipher = Cipher.getInstance("AES/GCM/NoPadding").apply {
             init(Cipher.ENCRYPT_MODE, SecretKeySpec(requireNotNull(archiveKeys[epoch]), "AES"), GCMParameterSpec(128, nonce))
-            updateAAD(aad(header, wallet.publicKey))
+            updateAAD(archiveAad(requireNotNull(scope), header, wallet.publicKey))
         }
         header.addProperty("ciphertext", encode(nonce + cipher.doFinal(text.toByteArray(Charsets.UTF_8))))
         return SaitoTransaction.create(wallet, header, timestamp, listOf(requireNotNull(scope).serviceKey))
     }
     /** Authenticate before decryption. Historical permission is independently
      * evaluated at the application journal before it admits this record. */
-    fun read(envelope: String): PlainRecord {
-        val signed = authenticated(envelope, "content")
-        val key = archiveKeys[signed.body.number("epoch")] ?: throw MissingKeys()
-        val bytes = decode(signed.body.text("ciphertext"))
-        require(bytes.size in 29..(64 * 1024 + 28))
-        val cipher = Cipher.getInstance("AES/GCM/NoPadding").apply {
-            init(Cipher.DECRYPT_MODE, SecretKeySpec(key, "AES"), GCMParameterSpec(128, bytes.copyOfRange(0, 12)))
-            updateAAD(aad(signed.body, signed.author))
-        }
-        val plaintext = cipher.doFinal(bytes.copyOfRange(12, bytes.size))
-        return try { PlainRecord(signed.author, utf8(plaintext)) } finally { plaintext.fill(0) }
-    }
+    fun read(envelope: String): PlainRecord = readArchived(requireNotNull(scope), archiveKeys, envelope)
     /** Bounded grants contain archive keys, never another device's MLS state. */
     fun history(wallet: SaitoWallet, target: String, operationId: String, controlId: String,
         timestamp: Long, fromEpoch: Long = 0): History {
@@ -157,17 +166,22 @@ class SpaceCrypto private constructor(private val native: JsonObject, private va
         return next
     }
     /** Secret bytes for the repository's authenticated at-rest transaction. */
+    fun historyBackup(): ByteArray = SpaceHistoryKeys(walletKey(credential), requireNotNull(scope), archiveKeys).save()
     fun save(): ByteArray = JsonObject().apply {
-        addProperty("version", 1); add("native", native.deepCopy())
-        scope?.let { add("scope", JsonObject().apply {
-            addProperty("service", it.serviceKey); addProperty("space", it.spaceId); addProperty("channel", it.channelId)
-        }) }
+        addProperty("version", 2); add("native", native.deepCopy())
+        scope?.let { add("scope", it.json()) }
         add("archive_keys", JsonObject().apply { archiveKeys.toSortedMap().forEach { (epoch, key) -> addProperty(epoch.toString(), encode(key)) } })
     }.toString().toByteArray(Charsets.UTF_8).also { require(it.size <= MAX_SNAPSHOT) }
     override fun toString(): String = "SpaceCrypto(retained keys)"
 
     private fun step(op: String, body: JsonObject.() -> Unit = {}): JsonObject = parse(NativeSpaceMls.exchange(
         JsonObject().apply { addProperty("op", op); addProperty("state", native.text("state")); body() }.toString()))
+    private fun cancelled(response: JsonObject): SpaceCrypto {
+        val result = parse(NativeSpaceMls.exchange(JsonObject().apply {
+            addProperty("op", "cancel"); addProperty("state", response.text("pending_state"))
+        }.toString()))
+        return advance(result, requireNotNull(scope)).also { require(it.epoch == epoch && it.bindings == bindings) }
+    }
     private fun advance(response: JsonObject, targetScope: Scope?, keys: Map<Long, ByteArray> = archiveKeys): SpaceCrypto {
         require(response.number("version") == 1L && response.text("identity") == credential && response.text("signer") == native.text("signer"))
         val nextKeys = keys.toMutableMap()
@@ -179,7 +193,7 @@ class SpaceCrypto private constructor(private val native: JsonObject, private va
             nextKeys[epoch] = key
         }
         require(nextKeys.size <= 16_384) { "Channel key storage capacity reached" }
-        val retained = response.deepCopy().apply { listOf("archive_key", "text", "wire", "welcome").forEach { remove(it) } }
+        val retained = response.deepCopy().apply { listOf("archive_key", "text", "wire", "welcome", "pending_state").forEach { remove(it) } }
         if (targetScope == null && !retained.has("key_package") && native.has("key_package")) {
             retained.addProperty("key_package", native.text("key_package"))
         }
@@ -190,27 +204,42 @@ class SpaceCrypto private constructor(private val native: JsonObject, private va
         val scope = requireNotNull(scope)
         return JsonObject().apply {
             addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
-            addProperty("space_id", scope.spaceId); addProperty("channel_id", scope.channelId)
+            addProperty("space_id", scope.spaceId); addProperty("channel_id", scope.channelId); addProperty("key_generation", scope.generation)
             addProperty("operation_id", operationId); addProperty("control_id", controlId)
             addProperty("kind", kind); addProperty("epoch", epoch)
         }
     }
-    private fun authenticated(envelope: String, kind: String): SignedSaitoMessage {
-        val signed = SaitoEnvelope.decode(envelope)
-        val body = signed.body
-        val scope = requireNotNull(scope)
-        require(body.text("module") == "Spaces" && body.text("request") == "event" && body.number("version") == 1L)
-        require(body.text("space_id") == scope.spaceId && body.text("channel_id") == scope.channelId && body.text("kind") == kind)
-        require(body.text("operation_id").matches(ID) && body.text("control_id").matches(SIGNATURE))
-        require(signed.recipients == listOf(signed.author, scope.serviceKey).distinct())
-        body.number("epoch")
-        return signed
-    }
-    private fun aad(body: JsonObject, actor: String): ByteArray = listOf("SaitoSpacesRecord/v1", requireNotNull(scope).groupId,
-        actor, body.text("operation_id"), body.text("control_id"), body.number("epoch").toString(), body.text("content_kind"))
-        .joinToString(":").toByteArray(Charsets.UTF_8)
+    private fun authenticated(envelope: String, kind: String): SignedSaitoMessage =
+        authenticate(requireNotNull(scope), envelope, kind)
 
     companion object {
+        internal fun readArchived(scope: Scope, archiveKeys: Map<Long, ByteArray>, envelope: String): PlainRecord {
+            val signed = authenticate(scope, envelope, "content")
+            val key = archiveKeys[signed.body.number("epoch")] ?: throw MissingKeys()
+            val bytes = decode(signed.body.text("ciphertext"))
+            require(bytes.size in 29..(64 * 1024 + 28))
+            val cipher = Cipher.getInstance("AES/GCM/NoPadding").apply {
+                init(Cipher.DECRYPT_MODE, SecretKeySpec(key, "AES"), GCMParameterSpec(128, bytes.copyOfRange(0, 12)))
+                updateAAD(archiveAad(scope, signed.body, signed.author))
+            }
+            val plaintext = cipher.doFinal(bytes.copyOfRange(12, bytes.size))
+            return try { PlainRecord(signed.author, utf8(plaintext)) } finally { plaintext.fill(0) }
+        }
+        private fun authenticate(scope: Scope, envelope: String, kind: String): SignedSaitoMessage {
+            val signed = SaitoEnvelope.decode(envelope)
+            val body = signed.body
+            require(body.text("module") == "Spaces" && body.text("request") == "event" && body.number("version") == 1L)
+            require(body.text("space_id") == scope.spaceId && body.text("channel_id") == scope.channelId && body.text("kind") == kind)
+            require(body.text("key_generation") == scope.generation)
+            require(body.text("operation_id").matches(ID) && body.text("control_id").matches(SIGNATURE))
+            require(signed.recipients == listOf(signed.author, scope.serviceKey).distinct())
+            body.number("epoch")
+            return signed
+        }
+        private fun archiveAad(scope: Scope, body: JsonObject, actor: String): ByteArray = listOf("SaitoSpacesRecord/v1", scope.groupId,
+            actor, body.text("operation_id"), body.text("control_id"), body.number("epoch").toString(), body.text("content_kind"))
+            .joinToString(":").toByteArray(Charsets.UTF_8)
+
         private val ID = Regex("[0-9a-f]{64}")
         private val SIGNATURE = Regex("[0-9a-f]{128}")
         private const val MAX_SNAPSHOT = 5 * 1024 * 1024
@@ -248,10 +277,10 @@ class SpaceCrypto private constructor(private val native: JsonObject, private va
         fun restore(snapshot: ByteArray): SpaceCrypto {
             require(snapshot.size in 1..MAX_SNAPSHOT)
             val stored = parse(utf8(snapshot))
-            require(stored.number("version") == 1L)
+            require(stored.number("version") == 2L) { "Unsupported Space key snapshot version" }
             val native = stored.getAsJsonObject("native")
             walletKey(native.text("identity"))
-            val scope = stored.getAsJsonObject("scope")?.let { Scope(it.text("service"), it.text("space"), it.text("channel")) }
+            val scope = stored.getAsJsonObject("scope")?.let(Scope::fromJson)
             val keys = stored.getAsJsonObject("archive_keys").entrySet().associate { (epoch, value) ->
                 require(epoch.matches(Regex("0|[1-9][0-9]{0,18}")) && value.isJsonPrimitive && value.asJsonPrimitive.isString)
                 epoch.toLong() to decode(value.asString).also { require(it.size == 32) }

@@ -30,6 +30,38 @@ class SpacesServiceStoreTest {
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val clock = Clock.fixed(Instant.ofEpochMilli(1_700_000_000_000), ZoneOffset.UTC)
 
+    @Test(timeout = 45_000) fun authenticatedPrivateReadingBindsTheNonceToItsCallerAndConsumesItOnce() {
+        val outsider = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+        val scope = JsonObject().apply {
+            addProperty("space_id", "a".repeat(64)); addProperty("stream", "control"); addProperty("cursor", 0)
+        }
+        fun request(actor: SaitoWallet, kind: String, nonce: String? = null) = SaitoTransaction.create(actor, JsonObject().apply {
+            addProperty("module", "Spaces"); addProperty("request", kind); addProperty("version", 1)
+            addProperty("request_id", "f".repeat(64)); add("scope", scope.deepCopy())
+            nonce?.let { addProperty("nonce", it) }
+        }, clock.millis(), listOf(service.publicKey)).envelope()
+        SpacesServiceServer(files.newFolder("private-reading").toPath(), service, clock).use { server ->
+            server.start()
+            val original = creation()
+            val accepted = post(server.port, original.envelope())
+            val challenge = SaitoEnvelope.decode(post(server.port, request(owner, "challenge")))
+            assertEquals(service.publicKey, challenge.author)
+            val nonce = challenge.body.get("nonce").asString
+            assertEquals(409, http(server.port, request(outsider, "read", nonce)).statusCode())
+            val otherNonce = SaitoEnvelope.decode(post(server.port, request(outsider, "challenge"))).body.get("nonce").asString
+            assertEquals(409, http(server.port, request(outsider, "read", otherNonce)).statusCode())
+            val read = request(owner, "read", nonce)
+            val page = SaitoEnvelope.decode(post(server.port, read))
+            assertEquals(service.publicKey, page.author)
+            assertEquals("page", page.body.get("request").asString)
+            assertEquals(owner.publicKey, page.body.get("caller").asString)
+            assertEquals(scope, page.body.getAsJsonObject("scope"))
+            assertEquals(listOf(accepted), page.body.getAsJsonArray("items").map { it.asString })
+            assertEquals(1L, page.body.get("next_cursor").asLong)
+            assertEquals(409, http(server.port, read).statusCode())
+        }
+    }
+
     @Test(timeout = 30_000) fun anActualServiceProcessTerminationRetainsTheOriginalAcceptedOperation() {
         val root = files.newFolder("process-community").toPath()
         val identity = Files.createFile(root.resolve("identity.json"), PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rw-------")))
@@ -82,13 +114,17 @@ class SpacesServiceStoreTest {
     }
 
     private fun post(port: Int, original: String): String {
+        val received = http(port, original)
+        assertEquals(200, received.statusCode())
+        return received.body()
+    }
+
+    private fun http(port: Int, original: String): HttpResponse<String> {
         val client = HttpClient.newBuilder().connectTimeout(java.time.Duration.ofSeconds(5)).build()
         val request = HttpRequest.newBuilder(URI("http://127.0.0.1:$port/v1/exchange"))
             .timeout(java.time.Duration.ofSeconds(10)).header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(original)).build()
-        val received = client.send(request, HttpResponse.BodyHandlers.ofString())
-        assertEquals(200, received.statusCode())
-        return received.body()
+        return client.send(request, HttpResponse.BodyHandlers.ofString())
     }
 
     @Test fun aSignedJoinIsStoredAsARequestWithoutPretendingMembershipOrKeysAreReady() {
@@ -128,7 +164,31 @@ class SpacesServiceStoreTest {
         assertEquals(join.envelope(), verified.body.get("event").asString)
         assertFalse(verified.body.has("welcome"))
         assertThrows(IllegalArgumentException::class.java) { SpaceJournal(scope.spaceId, service.publicKey).receive(receipt) }
-        SpacesServiceStore(directory, service, clock).use { store -> assertEquals(receipt, store.submit(join.envelope())) }
+        SpacesServiceStore(directory, service, clock).use { store ->
+            assertEquals(receipt, store.submit(join.envelope()))
+            val scope = JsonObject().apply {
+                addProperty("space_id", "a".repeat(64)); addProperty("stream", "join"); addProperty("cursor", 0)
+            }
+            val page = readAs(store, owner, scope)
+            assertEquals(listOf(receipt), page.body.getAsJsonArray("items").map { it.asString })
+            assertEquals(1L, page.body.get("next_cursor").asLong)
+            assertThrows(IllegalArgumentException::class.java) { readAs(store, guest, scope) }
+        }
+    }
+
+    private fun readAs(store: SpacesServiceStore, actor: SaitoWallet, scope: JsonObject): nl.davidengelen.redsquare.saito.SignedSaitoMessage {
+        fun request(kind: String, nonce: String? = null) = SaitoTransaction.create(actor, JsonObject().apply {
+            addProperty("module", "Spaces"); addProperty("request", kind); addProperty("version", 1)
+            addProperty("request_id", "f".repeat(64)); add("scope", scope.deepCopy())
+            nonce?.let { addProperty("nonce", it) }
+        }, clock.millis(), listOf(service.publicKey)).envelope()
+        val challenge = SaitoEnvelope.decode(store.exchange(request("challenge")))
+        assertEquals(service.publicKey, challenge.author)
+        val page = SaitoEnvelope.decode(store.exchange(request("read", challenge.body.get("nonce").asString)))
+        assertEquals(service.publicKey, page.author)
+        assertEquals(actor.publicKey, page.body.get("caller").asString)
+        assertEquals(scope, page.body.getAsJsonObject("scope"))
+        return page
     }
 
     @Test fun anIndependentHttpClientReceivesTheActualSignedDurableResult() {

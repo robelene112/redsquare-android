@@ -2,6 +2,32 @@ use saito_spaces_mls::exchange;
 use serde_json::{json, Value};
 use base64::{engine::general_purpose::STANDARD, Engine};
 
+#[test]
+fn confirmed_rejection_recovers_the_pending_group_before_a_different_admission() {
+    let owner = call(None, json!({"op":"new", "identity":"owner"}));
+    let member = call(None, json!({"op":"new", "identity":"existing"}));
+    let rejected = call(None, json!({"op":"new", "identity":"not-admitted"}));
+    let later = call(None, json!({"op":"new", "identity":"admitted-later"}));
+    let owner = call(Some(&owner), json!({"op":"create", "group":"rejection/channel"}));
+    let owner = call(Some(&owner), json!({"op":"add", "key_package":member["key_package"]}));
+    let member = call(Some(&member), json!({"op":"join", "wire":owner["welcome"]}));
+    let attempt = call(Some(&owner), json!({"op":"add", "key_package":rejected["key_package"]}));
+    let rejected = call(Some(&rejected), json!({"op":"join", "wire":attempt["welcome"]}));
+    // Only a known rejection permits cancellation. The serialized pending
+    // state keeps library-owned state instead of rewinding an emitted sender.
+    let pending = json!({"state":attempt["pending_state"]});
+    let retry = call(Some(&pending), json!({"op":"cancel"}));
+    assert_eq!(retry["epoch"], 1);
+    assert_eq!(retry["members"], json!(["owner", "existing"]));
+    let accepted = call(Some(&retry), json!({"op":"add", "key_package":later["key_package"]}));
+    let member = call(Some(&member), json!({"op":"receive", "wire":accepted["wire"]}));
+    let later = call(Some(&later), json!({"op":"join", "wire":accepted["welcome"]}));
+    let sent = call(Some(&accepted), json!({"op":"send", "text":"Only the accepted membership"}));
+    assert_eq!(call(Some(&member), json!({"op":"receive", "wire":sent["wire"]}))["text"], "Only the accepted membership");
+    assert_eq!(call(Some(&later), json!({"op":"receive", "wire":sent["wire"]}))["text"], "Only the accepted membership");
+    assert!(exchange(&json!({"op":"receive", "state":rejected["state"], "wire":sent["wire"]}).to_string()).is_err());
+}
+
 /// A fresh serialized state crosses the public interface on every operation.
 /// No provider, signer, group or storage implementation is mocked.
 fn call(state: Option<&Value>, mut request: Value) -> Value {

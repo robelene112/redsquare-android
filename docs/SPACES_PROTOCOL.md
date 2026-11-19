@@ -46,6 +46,19 @@ its own explicitly public route. A private link alone neither enrolls a member
 nor delivers keys. Private preview information is deliberately shared by its
 bearer invitation, followed by explicit Join and any required rules acceptance.
 
+Private RPC reads use wallet-signed `request=challenge` and `request=read`, with
+`request_id`, a matching `scope`, and the returned one-use `nonce` on Read. Scope
+currently contains `space_id`, `stream=control|join` and a nonnegative `cursor`.
+The service binds nonce, caller and exact scope for60s; a different caller cannot
+consume another caller's nonce. Control reading requires membership; pending
+join requests are visible only to owner/admin. Expired/already admitted requests
+are not presented as active join work, while originals remain durably stored.
+Signed pages include caller, scope, nonce, items and next_cursor. Pages bound
+receipts to2MiB/50 scanned positions; the Spaces-only reply serializer has a4MiB
+limit because it nests original signed envelopes. Ordinary event/social limits
+and wire signatures stay unchanged. These replies are application RPC, not
+blockchain broadcasts or publication acceptance.
+
 The service may observe opaque Space/channel/operation IDs, public identity and
 membership/routing metadata, event kinds, epochs, lengths and timing. Encryption
 does not promise anonymity or conceal these relationships. Private message,
@@ -99,7 +112,11 @@ transitive feature selections remain recorded by Cargo.
 This MLS signing identity is separate from the existing Saito wallet key.
 
 The credential is `SaitoSpaces/v1:<Saito public key>:<random256-bit device ID>`.
-The group ID is `SaitoSpaces/v1/<service key>/<Space ID>/<channel ID>`.
+The group ID is
+`SaitoSpaces/v1/<service key>/<Space ID>/<channel ID>/<key generation>`.
+The generation is a256-bit hexadecimal identifier, initially all zeroes. A
+replacement operational group uses a fresh generation, keeping channel identity
+and reading anchors stable while separating its epoch0 from older epoch0 keys.
 The wallet signs its device key-package binding, including channel/group scope
 and package digest. Check that binding and the MLS credential against admission;
 never accept an arbitrary credential label as a wallet identity. Key packages
@@ -158,6 +175,30 @@ missing signer/group state require recovery. They cannot create a replacement
 identity silently. Persist each account/node/channel separately and atomically
 with its original outbox operation before transmission. Unaccepted candidate
 state remains distinct from the last accepted state.
+
+Membership changes retain both the prospective merged group and the serialized
+pending group before merge, together with the original control. Only a
+definitive rejection permits OpenMLS's public `clear_pending_commit` operation
+on that pending state. This preserves library-owned state rather than rewinding
+an emitted sender to an old snapshot. Admission/removal expose an explicit
+`afterRejection` branch for the coordinator to persist before transmission;
+uncertainty never selects it. A history message advances its sender state even
+when a later service rejection prevents archival admission: persist that
+advanced state before transmission and keep it, independently of send status.
+
+The Kotlin key snapshot is version2 and explicitly records this generation;
+the inner OpenMLS provider snapshot remains version1. Earlier source-only
+Kotlin snapshots are not silently reinterpreted as a different group context.
+No functional Spaces state exists in the ordinary beta142 predecessor.
+
+`SpaceHistoryKeys` is a separate archive-only format: version1, account owner,
+exact group scope and available epoch keys. It can decrypt retained signed
+records but has no operational sender or membership-mutation interface. Its
+raw bytes are secret component data, not an encrypted export. The later guided
+backup must encrypt the artifact before document-provider export. Starting a
+fresh-generation group does not itself activate it: an authenticated membership/
+device update or owner-authorized recovery control, and key delivery to other
+authorized members, remain required application/service integration work.
 
 Android owns authenticated encryption at rest with its existing device Keystore
 and durable file/database conventions. Never put snapshots, keys or plaintext

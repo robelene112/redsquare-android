@@ -1,21 +1,100 @@
 package nl.davidengelen.redsquare.spaces.service
 
 import com.google.gson.JsonObject
+import com.google.gson.JsonArray
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceJournal
-import nl.davidengelen.redsquare.spaces.SpaceSnapshot
+import nl.davidengelen.redsquare.spaces.SpaceRole
 import java.nio.file.Files
 import java.nio.file.Path
 import java.sql.Connection
 import java.sql.DriverManager
 import java.time.Clock
 import java.util.Properties
+import java.security.SecureRandom
 
 /** Server-owned signed ordering. No private community keys are accepted. */
 class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, private val clock: Clock) : AutoCloseable {
     private val database: Connection
+    private data class Challenge(val caller: String, val scope: JsonObject, val expiresAt: Long)
+    private val challenges = mutableMapOf<String, Challenge>()
+
+    /** Read authority comes from the actual signer and a fresh bound challenge. */
+    @Synchronized fun exchange(envelope: String): String {
+        val request = SaitoEnvelope.decode(envelope)
+        val body = request.body
+        require(body.text("module") == "Spaces" && body.get("version").toString() == "1" &&
+            request.recipients == listOf(request.author, wallet.publicKey).distinct())
+        if (body.text("request") == "event") return submit(envelope)
+        val requestId = body.text("request_id").also { require(it.matches(ID)) }
+        val scope = body.get("scope").also { require(it != null && it.isJsonObject) }.asJsonObject.deepCopy()
+        require(scope.keySet() == setOf("space_id", "stream", "cursor"))
+        val space = scope.text("space_id").also { require(it.matches(ID)) }
+        val stream = scope.text("stream").also { require(it in setOf("control", "join")) }
+        val cursor = scope.number("cursor")
+        val now = clock.millis().also { require(it >= 0) }
+        challenges.entries.removeIf { it.value.expiresAt <= now }
+        val reply = JsonObject().apply {
+            addProperty("module", "Spaces"); addProperty("version", 1); addProperty("request_id", requestId)
+            addProperty("caller", request.author); add("scope", scope.deepCopy())
+        }
+        when (body.text("request")) {
+            "challenge" -> {
+                check(challenges.size < 2048) { "Spaces challenge capacity reached" }
+                val nonce = ByteArray(32).also(SecureRandom()::nextBytes).joinToString("") { "%02x".format(it.toInt() and 255) }
+                val expiry = Math.addExact(now, 60_000)
+                challenges[nonce] = Challenge(request.author, scope, expiry)
+                reply.addProperty("request", "challenge"); reply.addProperty("nonce", nonce)
+                reply.addProperty("expires_at", expiry)
+            }
+            "read" -> {
+                val nonce = body.text("nonce")
+                val challenge = requireNotNull(challenges[nonce]) { "Spaces read needs a fresh challenge" }
+                require(challenge.caller == request.author && challenge.scope == scope)
+                challenges.remove(nonce)
+                atomic {
+                    val journal = journal(space)
+                    if (stream == "join") {
+                        require(journal.snapshot.members[request.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+                    } else require(request.author in journal.snapshot.members) { "Spaces private history is not available to this identity" }
+                    val items = JsonArray()
+                    var bytes = 0
+                    var next = cursor
+                    val table = if (stream == "join") "joins" else "controls"
+                    database.prepareStatement("SELECT position,receipt FROM $table WHERE space_id=? AND position>=? ORDER BY position LIMIT 50").use { sql ->
+                        sql.setString(1, space); sql.setLong(2, cursor)
+                        sql.executeQuery().use { rows ->
+                            while (rows.next()) {
+                                val value = rows.getString(2)
+                                if (stream == "join") {
+                                    val original = SaitoEnvelope.decode(SaitoEnvelope.decode(value).body.text("event"))
+                                    val invitation = requireNotNull(journal.snapshot.invitations[original.body.text("invite_id")])
+                                    if (original.author in journal.snapshot.members || invitation.expiresAt <= now) {
+                                        next = Math.addExact(rows.getLong(1), 1)
+                                        continue
+                                    }
+                                    journal.verifyJoin(originalEnvelope(value), now)
+                                }
+                                val size = value.toByteArray(Charsets.UTF_8).size
+                                check(size <= PAGE_BYTES) { "Spaces receipt exceeds the page capacity" }
+                                if (bytes + size > PAGE_BYTES) break
+                                items.add(value); bytes += size
+                                next = Math.addExact(rows.getLong(1), 1)
+                            }
+                        }
+                    }
+                    reply.addProperty("request", "page"); reply.addProperty("nonce", nonce)
+                    reply.add("items", items); reply.addProperty("next_cursor", next)
+                }
+            }
+            else -> throw IllegalArgumentException("Unsupported Spaces read request")
+        }
+        return SaitoTransaction.createSpaceReply(wallet, reply, now, request.author).envelope()
+    }
+
+    private fun originalEnvelope(receipt: String): String = SaitoEnvelope.decode(receipt).body.text("event")
 
     init {
         Files.createDirectories(directory)
@@ -88,12 +167,8 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 }
             }
             if (prior != null) prior else {
-                val journal = SpaceJournal(space, wallet.publicKey)
-                var state = SpaceSnapshot()
-                database.prepareStatement("SELECT receipt FROM controls WHERE space_id=? ORDER BY position").use { sql ->
-                    sql.setString(1, space)
-                    sql.executeQuery().use { rows -> while (rows.next()) state = journal.receive(rows.getString(1)) }
-                }
+                val journal = journal(space)
+                val state = journal.snapshot
                 val acceptedAt = clock.millis().also { require(it >= 0) }
                 val joining = body.text("kind") == "join"
                 val position = if (joining) {
@@ -119,6 +194,15 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 receipt
             }
         }
+    }
+
+    private fun journal(space: String): SpaceJournal {
+        val journal = SpaceJournal(space, wallet.publicKey)
+        database.prepareStatement("SELECT receipt FROM controls WHERE space_id=? ORDER BY position").use { sql ->
+            sql.setString(1, space)
+            sql.executeQuery().use { rows -> while (rows.next()) journal.receive(rows.getString(1)) }
+        }
+        return journal
     }
 
     private fun <T> atomic(action: () -> T): T {
@@ -147,5 +231,15 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         return value.asString
     }
 
-    private companion object { val ID = Regex("[0-9a-f]{64}") }
+    private fun JsonObject.number(name: String): Long {
+        val value = get(name)
+        require(value != null && value.isJsonPrimitive && value.asJsonPrimitive.isNumber &&
+            value.asString.matches(Regex("0|[1-9][0-9]{0,18}")))
+        return value.asString.toLong().also { require(it >= 0) }
+    }
+
+    private companion object {
+        val ID = Regex("[0-9a-f]{64}")
+        const val PAGE_BYTES = 2 * 1024 * 1024
+    }
 }

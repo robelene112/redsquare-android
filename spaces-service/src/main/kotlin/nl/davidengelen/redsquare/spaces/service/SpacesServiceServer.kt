@@ -37,7 +37,7 @@ class SpacesServiceServer(directory: Path, wallet: SaitoWallet, clock: Clock, re
                         require(bytes.size in 1..MAX_INPUT)
                         val text = Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
                             .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString()
-                        store.submit(text)
+                        store.exchange(text)
                     }
                     else -> { status = 404; "{}" }
                 }

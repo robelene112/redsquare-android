@@ -2,8 +2,9 @@
 
 Source-only implementation for137. It is not installed on a Saito node.
 Current executable paths cover signed creation, invitation and admission
-controls, a separate join-request queue, durable original receipt replay and
-loopback HTTP transport. Content paging, authenticated reads, node integration
+controls, a separate join-request queue, durable original receipt replay,
+nonce-bound private control/owner queue reads and loopback HTTP transport.
+Content paging, node integration
 and operational readiness/rollback are still required before activation.
 
 The service owns ordering and public membership metadata. Clients retain all

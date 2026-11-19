@@ -117,3 +117,31 @@ unactivated standalone service. Three affected journal cases and four service
 cases pass locally, including real HTTP, exact receipt replay and an actual
 hard-killed service followed by a different process. These are service/component
 observations, not the still-required complete Android community journey.
+
+## Recovery-aware library checkpoint, prospective v3
+
+Before native functional integration, re-execute the same three isolated
+profiles with the expanded library/runtime case. It now requires actual
+confirmed-rejection branch reload, denial of future content to a provisional
+unaccepted group, archive-only old-content recovery, independent fresh group
+generation, and operational key-snapshot version2. The original JNI/Keystore/
+missing-history/grant/exact old-content and installed-APK hash checks remain.
+The single native identity and180/30-second bounds are unchanged. Require all
+five added runtime booleans/values, actual snapshot version2, and the existing
+SDK/page-size/file/hash observations in each original artifact.
+
+The host catalogue now includes four public Rust contracts; the extra case
+recovers a pending group using the maintained public cancellation operation and
+proves real subsequent ciphertext access for accepted members only. Core has
+48 classes/243 passing tests locally, including eleven named Spaces methods;
+the standalone service has five passing methods. The additional large signed
+reply test is a supplementary regression, not a claimed new failing-before fix.
+It confirms exact above-social-limit reply payloads while ordinary publication,
+wrong-module and oversized-reply admission stay bounded.
+
+Keep prior accepted runtime observations pinned to467ce2c5a/f7993d042. They do
+not exercise the later cancellation, generation or archive-only additions.
+Fresh v3 parents must pin the exact new source/workflow and pass whole, with
+original failures retained. This remains a library/runtime gate: native create/
+join/content/restart UI, complete backend transport, operational recovery and
+legacy Chat compatibility remain separate required137 integration work.

@@ -137,6 +137,14 @@ class SaitoTransaction private constructor(private val bytes: ByteArray, private
         internal fun createVaultMessage(wallet: SaitoWallet, body: JsonObject, timestamp: Long): SaitoTransaction =
             createWithOutputs(wallet, body, timestamp, listOf(wallet.publicKey), 8 * 1024 * 1024)
 
+        /** Bounded off-chain Spaces replies can contain original signed receipts.
+         * Preserve the ordinary social/event limit and wire/signature format. */
+        fun createSpaceReply(wallet: SaitoWallet, body: JsonObject, timestamp: Long, caller: String): SaitoTransaction {
+            require(body.get("module")?.asString == "Spaces" && body.get("version")?.toString() == "1" &&
+                body.get("request")?.asString in setOf("challenge", "page"))
+            return createWithOutputs(wallet, body, timestamp, listOf(wallet.publicKey, caller).distinct(), 4 * 1024 * 1024)
+        }
+
         internal fun createVaultMint(wallet: SaitoWallet, body: JsonObject, timestamp: Long,
             inputs: List<SaitoBalanceSnapshot.Slip>, id: String, deposit: BigInteger, quantity: BigInteger = BigInteger.ONE): SaitoTransaction {
             val zero = SaitoBalanceSnapshot.Slip(BigInteger.ZERO, BigInteger.ZERO, 0, BigInteger.ZERO, 0)

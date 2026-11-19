@@ -145,7 +145,9 @@ pub fn exchange(request: &str) -> Result<String, &'static str> {
                 .map_err(|_| "MLS admission failed")?;
             response["wire"] = STANDARD.encode(commit.tls_serialize_detached().map_err(|_| "MLS encoding failed")?).into();
             response["welcome"] = STANDARD.encode(welcome.tls_serialize_detached().map_err(|_| "MLS encoding failed")?).into();
-            group.merge_pending_commit(&client.provider).map_err(|_| "MLS admission failed")?;
+            response["pending_state"] = client.snapshot()?.into();
+            client.group.as_mut().ok_or("MLS group unavailable")?.merge_pending_commit(&client.provider)
+                .map_err(|_| "MLS admission failed")?;
         }
         "remove" => {
             let identity = field(&request, "identity")?;
@@ -156,7 +158,16 @@ pub fn exchange(request: &str) -> Result<String, &'static str> {
             let (commit, _, _) = group.remove_members(&client.provider, &client.signer, &targets)
                 .map_err(|_| "MLS removal failed")?;
             response["wire"] = STANDARD.encode(commit.tls_serialize_detached().map_err(|_| "MLS encoding failed")?).into();
-            group.merge_pending_commit(&client.provider).map_err(|_| "MLS removal failed")?;
+            response["pending_state"] = client.snapshot()?.into();
+            client.group.as_mut().ok_or("MLS group unavailable")?.merge_pending_commit(&client.provider)
+                .map_err(|_| "MLS removal failed")?;
+        }
+        "cancel" => {
+            let group = client.group.as_mut().ok_or("MLS group unavailable")?;
+            if group.pending_commit().is_none() { return Err("MLS change is not pending"); }
+            // The application may select this only after a definitive rejection.
+            // Keep the library's evolved epoch state rather than rewind a sender.
+            group.clear_pending_commit(client.provider.storage()).map_err(|_| "MLS cancellation unavailable")?;
         }
         "join" => {
             if client.group.is_some() { return Err("MLS group already exists"); }
