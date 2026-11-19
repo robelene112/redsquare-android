@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "ticket": 139,
+  "status": "Public role receiving-boundary increment only;139 open",
+  "base": "47edf58381a51e48256be6a812b237a26aa2b8dd",
+  "sourceFiles": {
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt": "3c3e56297603b132c193f49da42d6443bc25ae9aafbb5f2ed62cf1d5d801bda3",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "6eded04548bc57d810fd053c2d53d515476e1cbad65439b05c0b1f6fca65ba92",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceRolesTest.kt": "3a19b60540437299d3e7a174cf86008f6828fcf4810fb334dea9f3dbff79a032"
+  },
+  "red": [
+    {
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": "2.286",
+      "commandExit": 1,
+      "buildSeconds": 73,
+      "sourceSnapshot": "139-roles-red-source",
+      "observation": "org.junit.ComparisonFailure: The owner can delegate administration to an existing member expected:<[control]> but was:<[rejection]>",
+      "qualification": "Actual signed owner promotion of an existing public member is rejected by the genuine service; no fabricated role state.",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-roles-red-originals",
+      "assessmentSha256": "4a4a9398fc5ac9e68abd4c150c45bbdbf771b57b569a7abe4f2b7248a3d9bf6e"
+    },
+    {
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": "1.755",
+      "commandExit": 1,
+      "buildSeconds": 66,
+      "sourceSnapshot": "139-role-cycle-red-source",
+      "observation": "java.lang.AssertionError: A new administrator term cannot publish an original from its previous term",
+      "qualification": "Actual queued privileged original firstdeliveredafter demotion/repromotion iswronglyaccepted; exactprefixedproduction/testsource captured. Genuine ordinarywriting isseparately expected toremainvalid.",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-role-cycle-red-originals",
+      "assessmentSha256": "7fb582cc8b5558330bf1c2abd48537299fe327ad211127f903f45e95e543f158"
+    }
+  ],
+  "green": [
+    {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "commandExit": 0,
+      "buildSeconds": 144,
+      "classes": [
+        {
+          "class": "nl.davidengelen.redsquare.spaces.service.SpaceGovernanceTest",
+          "tests": 5,
+          "seconds": "2.654"
+        },
+        {
+          "class": "nl.davidengelen.redsquare.spaces.service.SpaceRolesTest",
+          "tests": 1,
+          "seconds": "3.019"
+        }
+      ],
+      "qualification": "Actual existingmember owner-only promotion, independentrolesconvergence, adminannouncement/structure, forbiddenowner/peerroleactions and queuedannouncement rejection duringdemotion; five archivecases retained. No roleintentAPI/UI/privateACL/native139 claim.",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-roles-green-originals",
+      "assessmentSha256": "6bdfa3f301c3dc98f5e01b77c06cd403f21b63efe57bc01a7b5974952b84c35c"
+    },
+    {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "commandExit": 0,
+      "classes": [
+        {
+          "class": "nl.davidengelen.redsquare.spaces.service.SpaceRolesTest",
+          "tests": 2,
+          "seconds": "3.602",
+          "methods": [
+            "restoredAdministratorAuthorityDoesNotReviveOldPrivilegedWriting",
+            "onlyTheOwnerAppointsAdminsAndDemotionStopsQueuedAnnouncementWriting"
+          ]
+        },
+        {
+          "class": "nl.davidengelen.redsquare.spaces.service.SpaceGovernanceTest",
+          "tests": 5,
+          "seconds": "2.128",
+          "methods": [
+            "reopeningDoesNotPublishWritingPreparedBeforeTheArchive",
+            "anArchiveChangePreservesItsOriginalAndHonestStatusAfterALostAcknowledgment",
+            "archivingRejectsQueuedAndNewContributionsButKeepsReadableHistory",
+            "anAuthorizedNewMemberReadsEarlierPrivateHistoryWhileTheChannelIsArchived",
+            "anIncompleteArchiveChangeHasADurableRejectionAndDoesNotInterruptWriting"
+          ]
+        }
+      ],
+      "sourceSnapshot": "139-role-cycle-green-source",
+      "qualification": "Actual owner-only roles, three independently signed memberprojections, adminANN/structure, oldqueuedANN rejectionduringdemotion andafterrepromotion; ordinarywriting/drafts andsame-role no-op remainvalid. Fivearchivecases retained. No roleintentAPI/UI/privateACL/actualOS/process orwhole139acceptance.",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-role-cycle-green-originals",
+      "assessmentSha256": "6e83113a56e5233e38e96ec7e22f6f295d85ca4662074cf1854f2da31cc16425"
+    }
+  ],
+  "behavior": "Only currentowner appoints/demotes anexistingnonowner member; roleassignment cannotcreateanotherowner. Acceptedroles converge throughrealclientreads. Admins publishANN/createchannels; demotion blocksqueuedprivilegedwriting. A distinctpromotion beginsanewacceptedcontrolterm foradministrator-onlycontributions; normalwriting, keydelivery andsame-role updates remainindependent.",
+  "reviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-roles-boundary-spec-review.txt",
+      "sha256": "4a8075e55a8f1e5a74d77aa2e8dae0c387c3415accd50dfc550204602575d3af"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-roles-boundary-standards-review.txt",
+      "sha256": "b68d63340136d5efcbb766c54d64e41ebdfd4ffb6b352ef62503bb1f49168173"
+    }
+  },
+  "qualification": "Both REDs are actual receiving/application assertion failures with exactbefore sources andoriginalJUnit/logs retained. Latestseven cases aretwo public-role plusfivearchive cases. No roleintentAPI/UI/privateACL/MLSdeparture/ownership/visibility/dissolve/native139/finalintegration claim. Ordinarybeta142 andproduction/publicfinancial/filehosting gates unchanged."
+}

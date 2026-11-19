@@ -8,7 +8,9 @@ archive/reopen, stale queued-writing rejection, retained history/drafts and dura
 invalid-input rejection. The archive intent API retains exact originals and
 honest receipt status through lost responses; five current SQLite cases pass,
 including available private history during archive. Both incremental source
-review axes are clear. Native UI and the remaining139 scope
+review axes are clear. Public owner-only admin appointment/demotion and queued
+privilege-term checks also pass; seven current SQLite cases and both source
+review axes are clear. Role intent APIs, native UI and the remaining139 scope
 are pending. See [the current139 packet](../evidence/ticket139/README.md).
 Keep the sequential139–147 authorization and separate release/production gates
 below. Ordinary beta142 remains unchanged.

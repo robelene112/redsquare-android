@@ -7,9 +7,10 @@ and historical-key delivery. Missing archive input gets a durable rejection.
 See [the archive boundary record](archive-boundary.json) for three actual REDs,
 subsequent GREENs, exact source hashes, evidence qualifications and source reviews.
 
-Both incremental Spec and Standards reviews report zero findings. The nine affected
-journal/private-content/archive cases also pass without failures or skips. This is backend source work,
-not native or complete139 acceptance. The archive intent API/UI and the remaining
+The initial incremental Spec and Standards reviews report zero findings. Nine
+affected journal/private-content/archive cases passed on that earlier source.
+This is backend source work, not native or complete139 acceptance. The archive UI
+and the remaining
 channel/role/private-access, future E2E exclusion, ownership, visibility and
 Space dissolution requirements remain. Beta142 and all production node/provider,
 public-write, financial and community-file-hosting gates stay unchanged.
@@ -23,3 +24,12 @@ private history while archived. Both incremental source review axes are clear.
 The preceding nine related checks retain their earlier source qualification.
 The new API's RED was compilation-only; no runtime RED is fabricated. UI/native
 and the remaining139 requirements are still pending.
+
+The [public role boundary](public-roles.json) now enforces owner-only appointment
+and demotion of existing members, with no owner assignment through that action.
+Independent clients converge on real roles. Two actual REDs protect owner
+promotion and stale privileged writing after demotion/reappointment. Seven current
+SQLite cases pass; both incremental source review axes are clear. A distinct new
+administrator term blocks old announcements while preserving ordinary queued
+writing, drafts and same-role updates. Role intent APIs/UI and private channel
+governance remain pending; this is not complete139 or native acceptance.

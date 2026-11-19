@@ -19,7 +19,8 @@ data class SpaceSnapshot(val owner: String? = null, val members: Map<String, Spa
     val controlId: String? = null, val nextPosition: Long = 0,
     val invitations: Map<String, SpaceInvitationRecord> = emptyMap(),
     val channels: Map<String, SpaceChannelRecord> = emptyMap(),
-    val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val publicProfile: SpaceProfile? = null)
+    val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val publicProfile: SpaceProfile? = null,
+    val administratorStartedAt: Map<String, Long> = emptyMap())
 
 /** Authenticated control history. Content pages have their own channel cursors. */
 class SpaceJournal(private val spaceId: String, private val serviceKey: String) {
@@ -110,6 +111,20 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(0, bindings,
                         generation, position, visibility, profile, metadata, adminPostsOnly))))
+            }
+            "set-role" -> {
+                require(event.author == current.owner && event.body.text("control_id") == current.controlId)
+                val member = event.body.text("member")
+                require(member in current.members && member != current.owner)
+                val role = when (event.body.text("role")) {
+                    "admin" -> SpaceRole.ADMIN
+                    "member" -> SpaceRole.MEMBER
+                    else -> throw IllegalArgumentException("Only administrator or member roles can be assigned")
+                }
+                val administratorStartedAt = if (role == SpaceRole.ADMIN && current.members[member] != role)
+                    Collections.unmodifiableMap(current.administratorStartedAt + (member to position)) else current.administratorStartedAt
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    members = Collections.unmodifiableMap(current.members + (member to role)), administratorStartedAt = administratorStartedAt)
             }
             "archive-channel" -> {
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
@@ -249,9 +264,13 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         val keyDelivery = body.text("kind") == "history" ||
             body.text("kind") == "content" && body.text("content_kind") == "history-keys"
         require(!channel.archived || keyDelivery) { "This channel is archived" }
-        if (channel.adminPostsOnly || channel.profile?.kind == SpaceChannelKind.ANNOUNCEMENT)
+        val administratorOnly = channel.adminPostsOnly || channel.profile?.kind == SpaceChannelKind.ANNOUNCEMENT
+        if (administratorOnly)
             require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         val reference = requireNotNull(controlPositions[body.text("control_id")])
+        require(keyDelivery || !administratorOnly || reference >= (current.administratorStartedAt[event.author] ?: 0)) {
+            "Administrator writing belongs to a previous role term"
+        }
         require(reference >= channel.epochStartedAt) { "Content belongs to a previous channel epoch" }
         // Reopening permits newly reviewed writing, not old queued originals.
         // History-key delivery remains independent of the contribution window.

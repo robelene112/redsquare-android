@@ -1098,7 +1098,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                             }))
                         }
                         "archive-channel" -> recordArchiveResult(space, state, original, ChangeStatus.ACCEPTED)
-                        "invite" -> Unit
+                        "invite", "set-role" -> Unit
                         "revoke-invite" -> {
                             if (state.get("revoking_invitation")?.asString == original.body.text("invite_id")) state.remove("revoking_invitation")
                             val link = state.get("invitation")?.asString
