@@ -16,13 +16,16 @@ reference decrypts the actual grant and earlier archive ciphertext.
 
 The optional [node adapter](../integrations/saito-spaces/README.md) defines the
 source-stage transport, schema3 migration, readiness and write-preserving
-rollback contract. The exploratory actual Saito0db/JS-WASM0.3.15 and9a/JS-WASM0.3.2 rehearsals pass;
-fixed-source native/OS/process and deployed-runtime compatibility acceptance
-remain pending. This section does not close137 or activate a node/provider.
+rollback contract. Actual pinned Saito0db/JS-WASM0.3.15 and9a/JS-WASM0.3.2
+framework rehearsals pass with explicit runtime adapters. Complete native10/17
+v8 parents at7bebfc716 verify private-community UI and distinct-process recovery;
+see the [evidence packet](evidence/ticket137/README.md) for exact scopes, originals
+and subsequent client-boundary verification. Deployed-runtime observation and
+actual node/provider activation remain separate gates.
 
-Implementation contract for137 under134. Native integration must wait for the
-executable contracts below. This document does not establish deployed service
-availability, functional UI acceptance or completed Chat migration.
+Implementation contract for137 under134. The executable contracts below
+preceded functional integration. This document alone does not establish deployed
+service availability, broader Spaces feature acceptance or completed Chat migration.
 
 ## Transport and authority
 

@@ -1,0 +1,22 @@
+Standards review: callback-boundary tests and historical-documentation corrections against7bebfc716
+Read-only source and retained component-evidence review; no implementation or new native acceptance.
+
+Hard documented violations
+None confirmed against CODING_STANDARDS.md's observable-boundary, isolated-network, identity/recoverable-work and private-diagnostic requirements. No actionable smell findings.
+
+Test oracles
+SpaceClientTest.kt:30-58 submits the real signed creation to SQLite service, then substitutes a foreign-service signed reply. Rejection leaves creation unjoined/pending and draft intact. A reconstructed client retries byte-identical original envelopes and recovers one community, testing durable behavior rather than an exception alone.
+
+Lines61-105 alter authenticated read callback caller, scope and request identity. Each mutation is observed, rejected and followed by assertions that accepted messages, membership, pending status and draft remain unchanged. A healthy read recovers without extra publication.
+
+Lines108-168 supply a valid first control before reversing the remaining authenticated three-control page. Failure occurs after a potential partial prefix. The healthy request restarting at cursor1, confirmed subsequent invitation and successful message delivery establish rollback/recovery rather than merely rejecting a wholly invalid first item. Draft and accepted membership survive.
+
+Lines171-201 let the service accept a second publication while returning the earlier operation's real receipt. The second remains pending while the first stays confirmed. Healthy recovery preserves newer writing, yields each message once and retries exactly the same signed second envelope. No fabricated acknowledgment substitutes for a service effect.
+
+Isolation and diagnostics
+All cases use owned temporary SQLite stores, real crypto/signatures, fixed synthetic identities and in-process service exchanges; no live node or public write occurs. Assertions contain fixture text, public envelopes/operation IDs and booleans, not wallet exports or private signing material. Repeated setup keeps each distinct malformed-callback scenario local and readable; extraction is not warranted by the small shared shape.
+
+Scope and remaining checks
+No product/main/native/workflow code changes relative to the accepted7beb source. The historical remaining-acceptance heading and protocol wording now identify earlier pending requirements without erasing their observations. Later test/doc commits must preserve native acceptance at its exact7beb source, with this additional component verification separately bound.
+
+The strengthened complete rerun passes244 core cases/48 classes and26 service cases/four classes, zero failures/errors/skips. I verified all58 original XML/binary hashes, whole-log hash and current test SHA256aa324fb9ef95aef4ffb69a3bb02ed2841489315898c7e40c506358f0d55ccdb0. Case identities preserve the old244/22 plus exactly four new client cases. Native7beb parents retain their actual22-service catalogue; the26-case follow-up is separately source-bound component evidence, not extended native/OEM/deployed-node acceptance.

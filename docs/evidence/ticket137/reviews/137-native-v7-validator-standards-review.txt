@@ -1,0 +1,13 @@
+Prospective verifier review, before any v7 outcome
+Reviewed verify-137-native-journey.py and137-native-v7-validator-frozen.json. No implementation or actual-run assessment performed.
+
+Checker finding: whole-parent/archive provenance
+[P1] verify-137-native-journey.py:13-15 CRC-checks original.zip but never binds its contents to raw/, which supplies every source, native and process assertion. At72 the emitted PASS instead attaches the hash of original.zip. A valid empty or unrelated ZIP alongside an older passing raw/ tree would pass all archive checks and produce a receipt claiming that unrelated archive. The claimed raw source markers do not repair this missing binding. Validate directly from the preserved ZIP or require exact member/content equality with the extracted tree before issuing PASS. Independently bind the downloaded artifact to the recorded parent run.
+
+Related integrity gap
+Lines68-70 validate only whatever entries files.json lists, so an empty inventory passes. Line71 accepts an empty whole-run.log merely because it exists. Neither supplies the missing complete-source/whole-parent association. Require the complete expected inventory and retain a source-bound successful parent log rather than accepting mere file presence.
+
+Checks present and limits
+The checker does require completed successful parent/job metadata, matching source markers, exact core/service totals, actual native method names and terminal OK, checkpoints, force-stop records, distinct PIDs, recovered identity/original linkage and one received original effect. It rejects absent required native/process files. Those checks are useful once archive/parent provenance is established.
+
+Frozen hashes match the current script and contract. Freezing does not resolve the provenance finding. No v7 result was inspected; frame/prototype review, integrated regression and physical/OEM/deployed-node acceptance remain separate.

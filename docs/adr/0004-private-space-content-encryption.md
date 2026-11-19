@@ -32,6 +32,15 @@ device. Restoring wallet identity alone must not be presented as proof that
 history keys or archived content have been recovered. This is a recovery
 requirement, not a claim that the current backup implementation covers these keys.
 
-The protocol, key management, metadata visibility and hosting
-design are still open during the grill. This records the privacy requirement,
-not an implemented capability or authorization to activate a node or provider.
+The private-community foundation in137 uses pinned OpenMLS0.9.0 for operational
+group membership and exporter-derived archive encryption. This separates keys
+needed to read available history from the operational sender state. Signed
+receipts establish accepted membership; merely opening an invitation does not.
+See the [implementation evidence](../evidence/ticket137/README.md) for the
+executable library, persistence, Android and transport contracts and their limits.
+
+The broader agreed work still includes private-channel governance, existing Chat
+E2E compatibility and guided key backup/recovery in the subsequent Spaces tickets.
+This foundation does not make legacy plaintext Chat private. Actual node/provider
+activation remains separately authorized; storage of community files is not
+enabled by this decision.

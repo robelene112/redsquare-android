@@ -1,24 +1,27 @@
 # Implementation handoff
 
 
-## Current137 source follow-up
+## Accepted137, continue138
 
-The durable client/native routes, schema3 service and optional node adapter are
-source-stage work. All22 service cases pass, including actual child readiness;
-prior fullcore244 cases pass. Two expiry regressions retain real failing and
-passing observations. Independent source reviews accept the subsequent fixes,
-including f451's immediate scoped reader intent. Actual pinned node serializer/
-dispatcher/callback rehearsals pass on0.3.2 and0.3.15. See
-[the current packet](../evidence/ticket137/README.md) for exact scope and originals.
+The first private-community slice137 is accepted at product/workflow
+`7bebfc7166ea156609c7252919489c06dcc4cde6`. Complete Android10/17 parents
+44479447119/44479449567 each pass244 core,22 service and four Rust cases plus
+actual distinct-PID recovery. Both actual-archive review axes accept the native
+flows and all1129 original movie frames. The approvedB header, explicit invite/
+join, independent encrypted effects, pixel/draft preservation and exact-original
+recovery are verified. The final Join-exit flash correction is included. A test-only
+follow-up also verifies foreign/misrouted/stale callbacks and partial reordered
+page rollback; its complete JVM check passes244 core and26 service cases.
 
-The native driver has real create/invite/join/read/return and distinct-PID goals.
-The first17 parent44461360093 failed before any native case because the test host
-returned nonvoid; actual child-process regression now passes. Functional native
-runs remain pending, so do not close137 or publish a Spaces acceptance claim.
-Continue137, then138–147 sequentially. Public beta142, production node/provider
-activation and automatic community file hosting are unchanged separate gates.
+The library/JNI/Keystore10/17/16KiB foundation and pinned0.3.2/0.3.15 framework
+rehearsals retain their narrower recorded scopes. Full integrated regression and
+the remaining Spaces features are not claimed by this slice. Continue138–147
+sequentially without a checkpoint stop. Public beta142 stays unchanged; actual
+node/provider activation, public development/financial writes and automatic
+community file hosting remain separately gated. See [the packet](../evidence/ticket137/README.md) for exact originals,
+rejected observations, provenance corrections and review limits.
 
-## Active137: source-stage client and native routes
+## Earlier137 source-stage client and native routes
 
 The durable application coordinator now creates a private community, preserves
 signed originals across lost responses, verifies invitation previews without

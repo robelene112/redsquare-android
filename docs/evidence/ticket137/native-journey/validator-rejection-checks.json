@@ -1,0 +1,32 @@
+[
+  {
+    "case": "unrelated-archive",
+    "exit": 1,
+    "outcome": "REJECTED",
+    "error": "AssertionError"
+  },
+  {
+    "case": "changed-native-log",
+    "exit": 1,
+    "outcome": "REJECTED",
+    "error": "AssertionError: .scratch/device-evidence/api-37.0/spaces-journey/after-kill.txt"
+  },
+  {
+    "case": "missing-junit-file",
+    "exit": 1,
+    "outcome": "REJECTED",
+    "error": "AssertionError: core/build/test-results/test/TEST-nl.davidengelen.redsquare.spaces.SpaceCryptoTest.xml"
+  },
+  {
+    "case": "stale-extra-input",
+    "exit": 1,
+    "outcome": "REJECTED",
+    "error": "AssertionError: ({'.scratch/stale-input.txt'}, set())"
+  },
+  {
+    "case": "failed-parent",
+    "exit": 1,
+    "outcome": "REJECTED",
+    "error": "AssertionError"
+  }
+]

@@ -1,8 +1,11 @@
 package nl.davidengelen.redsquare.spaces.service
 
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import kotlinx.coroutines.runBlocking
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.spaces.SpaceClient
 import nl.davidengelen.redsquare.spaces.SpaceClientStore
 import org.junit.Assert.*
@@ -23,6 +26,181 @@ class SpaceClientTest {
     private val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val clock = Clock.fixed(Instant.ofEpochMilli(1_700_000_000_000), ZoneOffset.UTC)
+
+    @Test fun aForeignServiceCallbackCannotConfirmOrReplaceTheQueuedCreation() = runBlocking {
+        val foreignService = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        val local = local("foreign-service-client.sqlite")
+        val originals = mutableListOf<String>()
+        var foreign = true
+        SpacesServiceStore(files.newFolder("foreign-service-callback").toPath(), service, clock).use { remote ->
+            fun client() = SpaceClient(owner, "fixture-node", service.publicKey, local, clock) { original ->
+                originals += original.envelope()
+                val actual = remote.exchange(original.envelope())
+                if (foreign) SaitoTransaction.createSpaceReply(foreignService,
+                    SaitoEnvelope.decode(actual).body, clock.millis(), owner.publicKey).envelope() else actual
+            }
+            val first = client()
+            val space = first.create("Original community")
+            first.saveDraft(space, "Writing stays separate from the callback")
+            try { first.flush(space); fail("A foreign service cannot confirm creation") }
+            catch (_: IllegalArgumentException) { }
+            assertFalse(first.community(space).joined)
+            assertTrue(first.community(space).pending)
+            assertEquals("Writing stays separate from the callback", first.draft(space))
+            foreign = false
+            val reopened = client()
+            reopened.flush(space)
+            assertTrue(reopened.community(space).joined)
+            assertFalse(reopened.community(space).pending)
+            assertEquals(listOf(space), reopened.communities().map { it.id })
+            assertEquals(2, originals.size)
+            assertEquals(originals[0], originals[1])
+            assertEquals("Writing stays separate from the callback", reopened.draft(space))
+        }
+    }
+
+    @Test fun foreignCallerScopeOrRequestCallbacksCannotChangeAnAcceptedConversation() = runBlocking {
+        val other = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+        val local = local("foreign-read-client.sqlite")
+        var altered: String? = null
+        var observed = 0
+        val published = mutableListOf<String>()
+        SpacesServiceStore(files.newFolder("foreign-read-callback").toPath(), service, clock).use { remote ->
+            val client = SpaceClient(owner, "fixture-node", service.publicKey, local, clock) { original ->
+                if (SaitoEnvelope.decode(original.envelope()).body.get("request").asString == "event") published += original.id
+                val actual = remote.exchange(original.envelope())
+                val reply = SaitoEnvelope.decode(actual)
+                if (altered != null && reply.body.get("request").asString == "challenge") {
+                    observed++
+                    val body = reply.body.deepCopy()
+                    when (altered) {
+                        "caller" -> body.addProperty("caller", other.publicKey)
+                        "scope" -> body.getAsJsonObject("scope").addProperty("space_id", "0".repeat(64))
+                        "request" -> body.addProperty("request_id", "f".repeat(64))
+                    }
+                    SaitoTransaction.createSpaceReply(service, body, clock.millis(),
+                        if (altered == "caller") other.publicKey else owner.publicKey).envelope()
+                } else actual
+            }
+            val space = client.create("Correctly scoped community")
+            client.flush(space)
+            client.send(space, "An actually accepted message")
+            client.flush(space)
+            client.saveDraft(space, "A newer unsent draft")
+            for (mode in listOf("caller", "scope", "request")) {
+                altered = mode
+                try { client.refresh(space); fail("A callback for another $mode must be rejected") }
+                catch (_: IllegalArgumentException) { }
+                assertEquals(listOf("An actually accepted message"), client.messages(space))
+                assertEquals("A newer unsent draft", client.draft(space))
+                assertTrue(client.community(space).joined)
+                assertFalse(client.community(space).pending)
+            }
+            assertEquals(3, observed)
+            altered = null
+            client.refresh(space)
+            assertEquals(listOf("An actually accepted message"), client.messages(space))
+            assertEquals("A newer unsent draft", client.draft(space))
+            assertEquals(2, published.size)
+        }
+    }
+
+    @Test fun reversedAuthenticatedControlPagesRollBackBeforeAHealthyReadCanRecover() = runBlocking {
+        val local = local("reversed-control-client.sqlite")
+        var reverse = false
+        var reversedPages = 0
+        val controlCursors = mutableListOf<Long>()
+        var creation: SaitoTransaction? = null
+        SpacesServiceStore(files.newFolder("reversed-control-callback").toPath(), service, clock).use { remote ->
+            val client = SpaceClient(owner, "fixture-node", service.publicKey, local, clock) { original ->
+                val request = SaitoEnvelope.decode(original.envelope()).body
+                if (request.get("kind")?.asString == "create") creation = original
+                if (request.get("request").asString == "read" && request.getAsJsonObject("scope").get("stream").asString == "control")
+                    controlCursors += request.getAsJsonObject("scope").get("cursor").asLong
+                val actual = remote.exchange(original.envelope())
+                val reply = SaitoEnvelope.decode(actual)
+                if (reverse && reply.body.get("request").asString == "page" &&
+                    reply.body.getAsJsonObject("scope").get("stream").asString == "control") {
+                    reversedPages++
+                    val items = reply.body.getAsJsonArray("items").map { it.asString }
+                    assertEquals(3, items.size)
+                    val body = reply.body.deepCopy().apply {
+                        // A valid first control is applied before the missing
+                        // predecessor forces the entire client page to roll back.
+                        add("items", JsonArray().apply { listOf(items[0], items[2], items[1]).forEach(::add) })
+                    }
+                    SaitoTransaction.createSpaceReply(service, body, clock.millis(), owner.publicKey).envelope()
+                } else actual
+            }
+            val space = client.create("Controls retain their accepted order")
+            client.flush(space)
+            client.saveDraft(space, "Keep this draft during reversed delivery")
+            var head = requireNotNull(creation).id
+            repeat(3) { index ->
+                val invitation = SaitoTransaction.create(owner, JsonObject().apply {
+                    addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                    addProperty("space_id", space); addProperty("operation_id", listOf("a", "b", "c")[index].repeat(64))
+                    addProperty("kind", "invite"); addProperty("control_id", head)
+                    addProperty("invite_key", SaitoWallet.fromPrivateKey("0".repeat(63) + (index + 3)).publicKey)
+                    addProperty("expires_at", clock.millis() + 86_400_000)
+                }, clock.millis(), listOf(service.publicKey))
+                remote.exchange(invitation.envelope())
+                head = invitation.id
+            }
+            reverse = true
+            try { client.refresh(space); fail("A reversed page cannot advance accepted controls") }
+            catch (_: IllegalArgumentException) { }
+            assertEquals(1, reversedPages)
+            assertTrue(client.community(space).joined)
+            assertFalse(client.community(space).pending)
+            assertEquals("Keep this draft during reversed delivery", client.draft(space))
+            reverse = false
+            client.refresh(space)
+            assertEquals(listOf(1L, 1L), controlCursors.take(2))
+            client.invite(space)
+            client.flush(space)
+            assertTrue(requireNotNull(client.invitation(space)).confirmed)
+            client.send(space, "Delivery works after ordered recovery")
+            client.flush(space)
+            client.refresh(space)
+            assertEquals(listOf("Delivery works after ordered recovery"), client.messages(space))
+            assertEquals("Keep this draft during reversed delivery", client.draft(space))
+        }
+    }
+
+    @Test fun anEarlierReceiptCannotConfirmAnotherOriginalOrReplaceNewWriting() = runBlocking {
+        val local = local("old-receipt-client.sqlite")
+        var previous: String? = null
+        var substitute = false
+        val originals = mutableListOf<SaitoTransaction>()
+        SpacesServiceStore(files.newFolder("old-receipt-callback").toPath(), service, clock).use { remote ->
+            val client = SpaceClient(owner, "fixture-node", service.publicKey, local, clock) { original ->
+                originals += original
+                val actual = remote.exchange(original.envelope())
+                if (substitute) requireNotNull(previous) else actual.also { previous = it }
+            }
+            val space = client.create("Distinct original operations")
+            client.flush(space)
+            val first = client.send(space, "First accepted publication")
+            client.flush(space)
+            val second = client.send(space, "Second publication awaiting its own receipt")
+            client.saveDraft(space, "Writing after the second publication")
+            substitute = true
+            try { client.flush(space); fail("An old receipt cannot confirm another original") }
+            catch (_: IllegalArgumentException) { }
+            assertTrue(client.timeline(space).single { it.id == second }.pending)
+            assertFalse(client.timeline(space).single { it.id == first }.pending)
+            assertEquals(listOf("First accepted publication"), client.messages(space))
+            assertEquals("Writing after the second publication", client.draft(space))
+            substitute = false
+            client.flush(space)
+            client.refresh(space)
+            assertEquals(listOf("First accepted publication", "Second publication awaiting its own receipt"), client.messages(space))
+            assertEquals("Writing after the second publication", client.draft(space))
+            assertEquals(2, originals.count { it.id == second })
+            assertEquals(1, originals.filter { it.id == second }.map { it.envelope() }.distinct().size)
+        }
+    }
 
     @Test fun anUnadmittedExpiredRequestCanUseANewInvitationWithoutLosingItsDraft() = runBlocking {
         val milliseconds = java.util.concurrent.atomic.AtomicLong(clock.millis())

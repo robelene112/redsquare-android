@@ -1,0 +1,7 @@
+{
+  "validatorSha256": "591814796b4eef792c64351113c5b0ba66fa503a33c5d3ebf9b00c476fcd8bc7",
+  "expectedCasesSha256": "a211415dab47c13ff110a478ad8b44e40710dd72bc1820fd3135f53f3248a227",
+  "contractSha256": "5b06275c4544ee51e509bc81efcb04bbfae4176c465e10b4742f8f1f7f4b52c2",
+  "frozenAtUtc": "2026-11-19T07:24:06.049362+00:00",
+  "scope": "Prospective native v8, frozen before its first run. Every v7 app assertion and deadline stays unchanged. Adds actual reset/edit/repreview and all-frame inspection of successful Join dismissal without raw-input reappearance. Verifier revision2 had zero provenance findings, and all five negative input probes were rejected. Original draft checker and its findings are retained. No v8 outcome had been observed when these hashes were frozen."
+}

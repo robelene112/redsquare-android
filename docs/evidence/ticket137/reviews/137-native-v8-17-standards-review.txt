@@ -1,0 +1,20 @@
+Standards review: actual v8 Android17 parent44479449567, source7bebfc7166ea156609c7252919489c06dcc4cde6
+Read-only original-archive, metadata, source and key-PNG review.
+
+Hard documented violations
+None confirmed for this focused native/process observation. No actionable smell findings.
+
+Source, freeze and provenance
+This parent and final Android10 parent44479447119 use the identical product/test/workflow source, independently confirmed by run metadata and both archived source/workflow markers. The v8 validator, native contract and exact-case catalogue match the prospectively frozen hashes; its original timestamp predates this run. Native goals, action waits and180/90-second outer bounds remain unchanged.
+
+The complete parent/job and build/runtime/archive steps succeed. GitHub artifact metadata binds the preserved original ZIP to this parent/source and SHA256a00467b01900edac32ef16145a2739157adcb2c2e5a4006b9540432b62279ea3. I independently verified all164 archive files against raw bytes, two-way input membership and the complete21-entry journey inventory. Extracted inspection captures match the original native TAR. Whole-run log confirms exact source/build/Rust success.
+
+Exact48 core suites/244 cases and four service suites/22 cases pass without failures/errors/skips, matching the frozen case catalogue. Four Rust contracts pass with their matching receipt hash. Device records API37 x86_64 and4096-byte pages.
+
+Native/process results
+The real durable checkpoint is observed with88.585 seconds remaining. PID3297 is actually force-stopped; Process crashed/exit0 in that first transcript is correctly classified as deliberate interruption. Distinct PID5694 completes the cold native case with exactly OK(1 test) in7.734 seconds. Owner/backend/original/community linkage and the new draft persist. Both host observations retain two original submissions, one received original effect in communityA and one Android post-join effect in communityB. Cleanup records no original failure/errors; crash capture is empty and native archive exit0.
+
+Geometry and limits
+Actual04reply preserves approved B's separate Back/info actions around the contextual channel menu. XML records enabled/focusable/clickable48x48 controls. Information, preview and cold-return PNGs show readable content, reachable Close/Join and preserved draft with no IME occlusion. The source-bound successful journey includes actual reset/edit/repreview before Join.
+
+Checker PASS and these key PNGs do not establish the no-flash temporal requirement. Full original-frame review remains with the separate Spec reviewer. This supports focused same-source Android17 evidence; integrated regression, physical/OEM and deployed-node acceptance remain separate. Original failures and the v7 visual finding remain retained.

@@ -1,10 +1,46 @@
 # Ticket137: functional Spaces
 
-Status: implementation in progress. Parent134 and native navigationB are
-approved. Prerequisites133/135 are delivered in beta142. This packet records
-incremental contracts, not completion of137 or permission to activate a node.
+Status: the first durable encrypted-community slice is accepted in source and
+owned application/runtime rehearsals at product/workflow7bebfc716. Parent134 and
+native navigationB remain the approved wider scope. Continue with138–147,
+one implementation issue at a time. Public beta142 and separate node/provider
+activation gates are unchanged.
 
-## Current application and compatibility checkpoint
+## Accepted private-community foundation
+
+The [complete native v8 packet](native-journey/README.md) records successful
+Android10/17 parents44479447119/44479449567 at the same fixed source. Each passes
+244 core,22 service and four Rust cases plus actual distinct-Android-process
+recovery. Both independent review axes accept the original archives and all1129
+movie frames. Native create/invitation/join/read/return, exact scoped received
+effects, draft/pixel preservation and approvedB controls are verified. Retained
+v7 visual observations led to the corrected Join dismissal; only complete v8
+parents supply this acceptance.
+
+The earlier [runtime-v3 packet](runtime-recovery-v3/README.md) independently
+accepts the unchanged library/JNI/Keystore foundation on10/17/17-16KiB. Actual
+[0.3.2/0.3.15 framework rehearsals](node-interop/index.json) establish the signed
+serializer/dispatcher/callback contract, with explicit adapters rather than a
+bootstrapped production node. Schema3 migration/re-entry preserves actual signed
+records; durable rejection fences, key paging and archive-only history grants
+are covered by real service/client/reference contracts.
+
+An additional [owned-client callback check](client-callbacks.json) closes the
+final verification gap without changing product or native test inputs. Authentic
+foreign-service, foreign-caller/scope/request and stale-original responses pass
+through the real client/SQLite/service boundary. They cannot confirm new work
+or replace a draft. A partially reversed authenticated control page rolls back
+its valid prefix, then retries from the same cursor and recovers normally. The
+whole follow-up JVM build passes244 core and26 service cases, zero failures or
+skips. Its exact test source and original results are indexed separately; the
+native parents' original22-service catalogues remain unchanged.
+
+This does not deliver all134, legacy Chat E2E migration, guided backup, physical/
+OEM evidence, a new beta or activated services. Those remain explicit later
+scope. The source adapter has migration/readiness/write-preserving rollback
+instructions, but nothing is deployed or automatically hosting community files.
+
+## Earlier application and compatibility checkpoints
 
 The source-stage coordinator and native navigationB are implemented. Core244
 cases/48 classes and service19 cases pass at the ae938 checkpoint. Subsequent
@@ -86,8 +122,9 @@ flash during successful Join dismissal at35.306267s. The correction retains
 the verified presentation through exit while disabling its actions; new
 sessions and explicit input changes clear it. Nativev8 adds the all-frame
 no-reappearance observation, retaining all earlier goals and deadlines.
-Functional native verification is still pending; beta142 stays public and137
-stays open. No passing prefix, physical/OEM or deployed-node acceptance is claimed.
+At that earlier checkpoint, functional native verification remained pending.
+The complete v8 observations above supersede those pending notes; no passing
+prefix, physical/OEM or deployed-node acceptance is claimed.
 
 ## Library checkpoint, prospective runtime contract v1
 
@@ -134,10 +171,10 @@ and opens the native private history message. An unbounded foreign package
 must be rejected even if its wallet binding is valid. These contracts do not
 substitute for Android runtime execution.
 
-## Remaining issue acceptance
+## Earlier remaining-acceptance checklist
 
-The genesis journal and crypto source are an incomplete foundation. Still
-required before137 can close: complete signed control/content ordering and
+At the initial genesis/library checkpoint the foundation was incomplete. The
+then-prospective137 checklist required: complete signed control/content ordering and
 permission replay, durable application repository/outbox and migration,
 explicit invitation/create/join native flows, two independent processes with
 encrypted content and original operation recovery, denial/lost acknowledgment/
@@ -145,10 +182,10 @@ duplicate/reversed/wrong-scope cases, source service with isolated rehearsal
 and readiness/rollback, and direct comparison with approved nativeB.
 
 The [protocol](../../SPACES_PROTOCOL.md) and
-[quality plan](../../quality/SPACES_QUALITY_PLAN.md) define the remaining
-contracts. Existing Chat compatibility and replacement-device recovery must be
-resolved explicitly. No live service, community file storage or release is
-established by this checkpoint.
+[quality plan](../../quality/SPACES_QUALITY_PLAN.md) supplied those contracts.
+The accepted scopes above supersede this historical checklist. Existing Chat
+E2E migration and guided replacement-device recovery remain explicit later
+tickets; no live service, community file storage or release follows from137.
 
 ## Local foundation observations
 

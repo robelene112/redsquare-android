@@ -1,16 +1,24 @@
 # Red Square Android project context
 
-## Current137: functional source, native acceptance pending
+## Accepted137, continue138
 
-The first Spaces slice now has a durable encrypted coordinator, native
-navigationB and an opt-in source service/adapter. All22 service cases pass;
-prior fullcore244 cases pass. Actual pinned0.3.2/0.3.15 node framework rehearsals
-pass without activating a node. Source review fixes include expired invitation
-recovery, draft restoration and bounded reading intent. Functional Android
-Activity/process acceptance is pending after a retained pre-test host-entrypoint
-failure. See [the packet](evidence/ticket137/README.md). Continue137, then138–147,
-one issue at a time. Public beta142 remains unchanged.
+The first private-community slice137 is accepted at product/workflow
+`7bebfc7166ea156609c7252919489c06dcc4cde6`. Complete Android10/17 parents
+44479447119/44479449567 each pass244 core,22 service and four Rust cases plus
+actual distinct-PID recovery. Both actual-archive review axes accept the native
+flows and all1129 original movie frames. The approvedB header, explicit invite/
+join, independent encrypted effects, pixel/draft preservation and exact-original
+recovery are verified. The final Join-exit flash correction is included. A test-only
+follow-up also verifies foreign/misrouted/stale callbacks and partial reordered
+page rollback; its complete JVM check passes244 core and26 service cases.
 
+The library/JNI/Keystore10/17/16KiB foundation and pinned0.3.2/0.3.15 framework
+rehearsals retain their narrower recorded scopes. Full integrated regression and
+the remaining Spaces features are not claimed by this slice. Continue138–147
+sequentially without a checkpoint stop. Public beta142 stays unchanged; actual
+node/provider activation, public development/financial writes and automatic
+community file hosting remain separately gated. See [the packet](evidence/ticket137/README.md) for exact originals,
+rejected observations, provenance corrections and review limits.
 
 ## Delivered prerequisites133/135, functional Spaces next
 

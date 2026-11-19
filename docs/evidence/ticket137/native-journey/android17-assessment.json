@@ -1,0 +1,16 @@
+{
+  "contract": "ticket137 native v8",
+  "source": "7bebfc7166ea156609c7252919489c06dcc4cde6",
+  "run": 44479449567,
+  "sdk": 37,
+  "pageSize": 4096,
+  "outcome": "PASS",
+  "oldPid": 3297,
+  "newPid": 5694,
+  "core": 244,
+  "service": 22,
+  "nativeTerminalPasses": 1,
+  "deliberatelyInterruptedCases": 1,
+  "archiveSha256": "a00467b01900edac32ef16145a2739157adcb2c2e5a4006b9540432b62279ea3",
+  "qualification": "Focused owned native/process journey only. Frame/prototype inspection, final integrated regression, physical/OEM and deployed-node acceptance remain separate."
+}

@@ -1,0 +1,693 @@
+{
+  "core": {
+    "classes": 48,
+    "tests": 244,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "cases": {
+      "nl.davidengelen.redsquare.spaces.SpaceCryptoTest": [
+        "restoringAnUnjoinedDeviceRetainsItsOriginalPublicPackageAndWalletBinding",
+        "portableHistoryKeysRecoverOldContentWithoutCloningAnActiveSenderIntoTheFreshGeneration",
+        "removingAMemberAdvancesPrivateContentKeysWhileRemainingMembersCanStillRead",
+        "confirmedRejectionStatesSurviveReloadAndDoNotActivateAnUnacceptedMembership",
+        "explicitAdmissionAndAuthenticatedHistoryGrantRecoverAnEarlierPrivateRecordAfterReload"
+      ],
+      "nl.davidengelen.redsquare.saito.StackLinkTest": [
+        "foreign malformed and explicit website action URLs remain external",
+        "approved public article author and module URLs identify native destinations",
+        "article lookup keeps the exact signed revision rather than substituting a newer story"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoStackTest": [
+        "archive revisions stay with their signer and restricted rows do not become public content",
+        "signed article exposes the original title author content cover and revision identity"
+      ],
+      "nl.davidengelen.redsquare.saito.SharedNodeConnectionTest": [
+        "registeredFeatureRejectionIsTerminalButOrdinaryObserverFailureIsIsolated",
+        "solePublisherReportsCloseFailureWithinItsDrainBound",
+        "anIncomingBacklogRetiresWithoutAcknowledgingDiscardedWork",
+        "aHeldRelayReplyDoesNotBlockAnIncomingAcknowledgementOnTheSharedSocket",
+        "finishingPublisherDoesNotWaitForAnotherFeaturesLaterBlockedWrites",
+        "sharedDeliveryNotifiesBothFeaturesOnceAndRetiringOneKeepsTheOtherAlive",
+        "closingAFeatureCancelsOnlyItsPendingRequestAndLateReplyCannotStealAnotherReply",
+        "disconnectedOwnersCannotDisposeTheReplacementConnection",
+        "concurrentFeatureRequestsReceiveTheirOwnRepliesThroughSaitosPublicKeyRoute",
+        "lateCancelledLargeCallbackCannotInterruptTheCurrentBoundedArchiveRead",
+        "aSecondValidLargeIncomingFrameCannotExceedTheRetainedByteBudget",
+        "walletsAndExactEndpointsKeepIndependentAuthenticatedRoutes",
+        "exactPendingOriginalsShareRetentionWhileDistinctWireRequestsRemainIndependent",
+        "sharedPublisherReportsWriteFailureWithinItsDrainBound",
+        "retiringTheLastOwnerDiscardsQueuedDeliveryBeforeAReplacementConnects",
+        "queuedIncomingMessagesStayInOrderWhileAnotherFeatureReads",
+        "heldIncomingRetentionDoesNotBlockSharedReadCallbacksOrAcknowledgeEarly",
+        "aLateCallbackFromBeforeReconnectCannotAnswerANewRequest"
+      ],
+      "nl.davidengelen.redsquare.spaces.SpaceJournalTest": [
+        "anExplicitSignedJoinWithTheBearerProofAdmitsOneMemberAndAdvancesTheChannelEpoch",
+        "anInvitationAdvancesOnlyTheAuthorizedControlChainAndDoesNotEnrollItsHolder",
+        "anAuthenticatedCreationEstablishesExactlyOneOwnerAndDuplicateReceiptDoesNotCreateAnother"
+      ],
+      "nl.davidengelen.redsquare.saito.VaultUploadTransportTest": [
+        "aLargeUploadWaitsForItsOwnCallbackWithoutHoldingOtherFeatureReplies"
+      ],
+      "nl.davidengelen.redsquare.saito.RedSquareQuotesTest": [
+        "embedded presentation alone is not original author authentication",
+        "authenticated commentary survives an original with an invalid signature",
+        "historical and dual quotes preserve separately authenticated originals",
+        "current signed commentary retweet preserves its own identity and author"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoIdenticonTest": [
+        "generated avatars match the pinned web library including a leading zero hash"
+      ],
+      "nl.davidengelen.redsquare.saito.StoreLinkTest": [
+        "publicStoreTargetsMatchTheActualPinnedAndDeployedRouter"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest": [
+        "providerPaymentAndStoreDeliveryRemainBoundToTheOriginalBuyerAndExactAsset",
+        "paymentMethodsComeFromTheActualServiceResponseRatherThanAnInventedList",
+        "aTreasuryIssuedPaymentCanBeRecoveredFromBoundedHistoryWithoutTheProvidersTransactionCopy",
+        "anExternalPaymentCarrierMatchesTheOfficialUnfundedPurchaseAndNeverSpendsSaito",
+        "aProviderInvoiceMustBindTheOriginalOrderExactAmountAndNetworkBeforeItIsPayable",
+        "aLateProviderFailureCannotEraseAnAuthenticOriginalPaymentOrTurnARefundIntoForeignCurrency",
+        "anotherBuyerCanOpenAndPurchaseThePublicRemainderWithoutThePreviousBuyersPrivateInvoice",
+        "everyOfferedMethodUsesTheOfficialCarrierAndTheProvidersExactSixDecimalQuoteRounding"
+      ],
+      "nl.davidengelen.redsquare.saito.GroupInvitationTest": [
+        "malformedLinksReturnARecoverableErrorWithoutExposingTheirContents",
+        "knownGroupRejoinsUseRetainedAdminAndNameInsteadOfConflictingUnsignedClaims",
+        "existingCreatorAndMemberLinksPreserveUnicodeClaimsAndLiteralBase64Plus"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoPaymentChainTest": [
+        "exactPaymentIsIncludedOnlyThroughVerifiedAncestryFromTheSelectedSnapshot",
+        "anUnrelatedValidPaymentBlockDoesNotProveSelectedChainInclusion",
+        "anUnchangedHashWithAlteredOriginalInputCoordinatesIsNotFreshInclusionEvidence",
+        "aVerifiedReplacementAtThePreviouslyIncludedHeightEstablishesReorganization",
+        "missingAncestorDataCannotDisplaceTheLastVerifiedInclusion"
+      ],
+      "nl.davidengelen.redsquare.saito.RedSquareImagesTest": [
+        "signed native image order matches the independent web reference",
+        "a quote cannot attribute conflicting image order to the original author",
+        "unsafe media does not discard authenticated text or safe images",
+        "outgoing quote images match independent wire bytes and preserve original media"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoWireTest": [
+        "unsigned archive request matches the independently serialized WASM transaction"
+      ],
+      "nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest": [
+        "unrelated wrong target and damaged edits preserve the authenticated original",
+        "archived delete commands do not become unreadable posts or prove target removal",
+        "unsigned edit timestamp cannot change signed edit ordering",
+        "restored authorized deletion prevents stale history from resurrecting the original",
+        "deletion requires the verified original author and exact target",
+        "restored verified edit updates stale views without adding unrelated history",
+        "independently signed authorized edit changes display without replacing original identity",
+        "native edit and delete signatures match independently signed vectors",
+        "stale and unauthenticated updates cannot replace the newest verified edit",
+        "explicitly rebased edit can proceed past the same conflicting server version"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoTransactionTest": [
+        "malformedUnicodeIsRejectedBeforeSigningInsteadOfChangingThePublishedText",
+        "jsonEscapingCountsTowardTheCompleteEncodedMessageLimit",
+        "replyRecipientAndOutputIndicesMatchIndependentWasmBytes",
+        "rootTransactionAndPeerHopMatchIndependentWasmAndEllipticBytes"
+      ],
+      "nl.davidengelen.redsquare.saito.GroupAdminTest": [
+        "removalRequiresCurrentAdminAndAnOrdinaryActiveMember",
+        "adminRemovalMatchesBothPinnedWebConstructorsAndSurvivesReplay",
+        "promotionRequiresCurrentAdminAndAnOrdinaryActiveMember",
+        "adminPromotionMatchesBothPinnedWebConstructors"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoPaymentTest": [
+        "fundedPaymentAndPeerHopMatchIndependentPinnedWasmBytes",
+        "fundedPaymentCanBeRestoredWithoutWeakeningZeroPaymentRestoration"
+      ],
+      "nl.davidengelen.redsquare.saito.TalkTest": [
+        "aPeerTranscriptionStatusDoesNotFallThroughToChat",
+        "signallingForAnotherRoomParticipantDoesNotGetRejectedByTheFirstPeer",
+        "aSignedRoomRosterAddressesTheJoinerAndPreservesTheOtherParticipants",
+        "aLegacyUnsignedInvitationRemainsAClaimUntilTheActualPeerIsAuthenticated",
+        "anActualUpstreamInvitationOpensTheSameRoomAndSharesACompatibleLink",
+        "aStandaloneStunDepartureStaysOwnedByTheSharedTransport",
+        "largeEncryptedChatAndFileshareFramesRemainOwnedByTheirOriginalFeatures"
+      ],
+      "nl.davidengelen.redsquare.feed.PostLikeInputPolicyTest": [
+        "twoNewIntentsFitARollingSecondAndTheOldestExpiresAtTheBoundary"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoVaultMintTest": [
+        "aFourMiBUploadMatchesTheIndependentSignaturesWithoutWideningGenericEnvelopeAdmission",
+        "customAndRentalKeysBindTheirOriginalRulesToIndependentWalletMints",
+        "aStandardUploadBindsItsExactFileToTheIndependentWasmWalletMint",
+        "aRetainedCandidateRecoversTheExactMintAndItsReservedInputs"
+      ],
+      "nl.davidengelen.redsquare.saito.GroupChatTest": [
+        "groupMessageDisplayUsesTheAuthenticatedTransactionTimeWhenBodyTimeDiffers",
+        "savedOriginalsReconstructMembershipAndRejectUnauthorizedControlClaims",
+        "directRoutedAndUnsignedRelayMessagesRetainTheAuthenticatedGroupOriginal",
+        "verifiedCreationBuildsMembershipAndRejectsAnAdminClaimFromAnotherSigner",
+        "namedGroupMessagesStayPlaintextWithBothPinnedWebSignaturesAndRejectRemovedSenders",
+        "aGroupWithMoreThan255MembersCanReceiveAKnownAdminSnapshot",
+        "joiningAndSelfLeavingRetainOriginalControlsWithoutReplayRejoining",
+        "onlyKnownAdminsCanPublishGroupSnapshotsAndRemovalCannotBeUndoneByAnOldSnapshot",
+        "joiningAddressesTheGroupAndDerivedAdminWithCompatibleSignedFields",
+        "fetchingAnUnseenHistoricalJoinCannotUndoARetainedDeparture",
+        "leavingSignsOnlyTheCurrentMemberWithCompatibleGroupRecipients",
+        "olderMessagesDoNotReactivateAnObservedDepartureButAnExplicitJoinCan",
+        "namedGroupReactionsMatchBothWebClientsAndToggleOncePerAuthenticatedOriginal",
+        "confirmedUnsignedInvitationRetainsItsTrustOriginWithoutInventingSignedCreation",
+        "availableHistorySkipsRemovedAuthorsWhileRetainingAdmittedMessagesAndControls",
+        "observedHistoryRetainsEarlierMessagesThroughRemovalWithoutGrantingAdminOrReacceptingBannedAuthors",
+        "anInvitationMemberCanAuthenticateAvailableCreationBeforeJoining",
+        "anAuthenticatedCreationCannotPublishAnInvalidPublicKeyAsAMember",
+        "aRemovedMemberCannotClearTheBanWithASelfLeaveAndNewJoin",
+        "creationMatchesBothPinnedExistingWebConstructorsAndTheirSignedBytes"
+      ],
+      "nl.davidengelen.redsquare.saito.RedSquareActionsTest": [
+        "altered social messages and duplicate rows cannot invent verified actions",
+        "native social actions match independent WASM signed bytes and targets"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoStoreRentalTest": [
+        "theLaterBrowserGrantUsesTheExactOfficialActivationBodyAndOriginalFile",
+        "everyAdvertisedMethodRetainsTheActualRentalCarrierAndAuthenticatesProviderFundedAccess",
+        "theCreatorRecoversTheActualRentalFromPublicTransactionsWithoutTheBuyersInvoice",
+        "theCreatorExplicitlyRequestsRestorationOfTheBoundLoanWithoutMovingAKey",
+        "theOfficialStoreDeliveryOpensOnlyTheReviewedFileForTheActualRenter",
+        "anOfficialRentalMintRetainsItsExactFileRightsAndRecoverableOriginal",
+        "anActualPartialRentalFulfillmentLeavesAssignedInventoryUnavailableForAnotherPayment",
+        "rentalListingRestoresTheOfficialDelegationWithoutMovingTheVaultMaster",
+        "aBrowserPurchasedHoldingRecoversItsSignedRentalWithoutAnyLocalAndroidOrder"
+      ],
+      "nl.davidengelen.redsquare.saito.RedSquareFeedTest": [
+        "independent multi-post refresh includes the signed newer post",
+        "altered and malformed archive rows do not conceal authentic posts",
+        "web posts with signed null fields retain compatible empty defaults",
+        "independent WASM archive transaction yields verified original post and author"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoFullBlockTest": [
+        "aSignedHeaderCannotAuthenticateAnAlteredOpaqueBlockEntry",
+        "exactFundedPaymentCanBeRecognizedInAnIndependentSignedFullBlock",
+        "matchingSignaturesDoNotAuthenticateChangedOriginalFundingCoordinates",
+        "allThreeLeavesIncludingOpaqueAndEmptySystemEntriesBindTheExactPayment"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoNftTransferTest": [
+        "transferRequiresTheActualCurrentOwnerAndAnotherValidRecipient",
+        "permanentTransferMovesTheEntireIndependentNftTupleAndLockedDeposit",
+        "onlyTheExactTransferWithItsOriginalInputsCanBeObservedOnTheSelectedChain"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoVaultRentalTest": [
+        "rentalCheckoutAndReadUseTheOfficialBodiesAndAuthenticateTheOriginalMasterLockedFile",
+        "creatorCustodianAndRenterAppendTheSameSignedHopsAsTheOfficialStoreHook",
+        "aVerifiedDelegatedPathKeepsTheFirstRenterAndActualCreatorRightsAcrossExpiry"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest": [
+        "selectedChainSeparatesPaymentSettlementAndTheExactPresentAsset",
+        "olderHistoryContinuesAcrossChecksAndRetainedDeliveryRechecksExactCurrentOwnership",
+        "completeQuantityUsesTheActualOfficialWasmPurchaseAndFulfillment",
+        "aFundedPurchaseMatchesTheActualOfficialBuilderAndWasmWallet",
+        "aLateSettlementKeepsItsContinuationUntilTheOriginalPaymentIsFound",
+        "exactStoreFulfillmentAndRefundAreBoundToTheOriginalEscrowAndAsset",
+        "aContinuedRefundIsHistoricalUntilItsExactOutputIsCurrentlyObserved",
+        "storeAmountsStayInsideTheOfficialExactNumberRange"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoStoreTest": [
+        "exactProductLookupAndArchiveNeverSubstituteAnotherOffer",
+        "productMediaComesFromTheActualSignedListingAndNeverAnUnsignedSummaryHint",
+        "boundedCatalogueRequestsMatchTheOfficialBrowserBuilderAndEveryCategory",
+        "exactOriginalOfferRemainsReadableAfterTheNodeReportsItUnavailable",
+        "actualStoreSummariesKeepTheirExactOfferIdentityPriceAndCurrentReportedStock",
+        "productDetailsBindTheOriginalSignedSellerAssetAndTerms"
+      ],
+      "nl.davidengelen.redsquare.saito.ControlledNodeOutageTest": [
+        "outageAlsoStopsAnAdmittedUpgradeWhoseHandshakeHasNotFinished",
+        "anOversizedReplyPreparedBeforeAnOutageRemainsAnUnqueuedReplyAfterClose",
+        "outageRetiresSharedConnectionsWhileUpgradeRejectionAloneKeepsThemUsable"
+      ],
+      "nl.davidengelen.redsquare.saito.RedSquareVideoTest": [
+        "independent signed web video posts and dual quotes retain exact provider identities",
+        "signed text posts select the same last recognized URL as both pinned clients",
+        "a compatible YouTube link yields a canonical tap target",
+        "a verified explicit video link survives archive decoding",
+        "real provider paths work but misleading hosts and executable links stay text"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoRegistryTest": [
+        "excessively nested unsigned metadata is rejected within the response byte limit",
+        "a saved registrar directed request restores the exact original signed bytes",
+        "registration addresses the published registrar with the exact independent zero payment bytes",
+        "only an exact registrar proof can resolve a name and only an empty array means available",
+        "an independent synthetic registrar proof resolves the exact registered name and public identity"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoStoreListingTest": [
+        "delistedCustodyRequiresTheOriginalOnTheSelectedChainAndExactCurrentReturn",
+        "officialMarketplaceTransitionsRetainPendingAndModeratorRejectedStates",
+        "archivedRoutingAndAssignedOutputPositionsPreserveAuthenticatedInventory",
+        "existingInventoryProducesTheOfficialSignedListingAndRecoversExactTerms",
+        "purchasedInventoryRetainsTheAuthenticatedStoreReceiptWhenResold",
+        "aMultiLotPurchaseBindsTheRemainingLotRatherThanTheFullySoldPrimary",
+        "remainingStockHydratesItsOfficialLineageAndCanBeDelisted",
+        "sellerInventoryKeepsApprovalSeparateFromAvailabilityAndRealSales",
+        "delistingMatchesTheOfficialSellerWitnessAndReturnsTheExactOriginalStock",
+        "partialSalePreservesTheOfficialRemainingQuantityAndSplitDeposit",
+        "stackInventoryRetainsTheOfficialCreatorDurationAndDelegationHop",
+        "atrCustodyAtLaterTupleOffsetsUsesTheOfficialNormalizedDelistOutputs",
+        "aMarketplaceSubmissionDistinguishesPendingReviewFromRejection",
+        "anAlternatePricedOfferCanReturnItsExactEscrowTupleToTheSeller",
+        "aNewPublicImageUsesTheOfficialImageObjectAndWasmMint",
+        "alternatePricedInventoryRecoversAndProducesTheOfficialSignedOfferWithoutChangingDenomination"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoNodeBlockTest": [
+        "absentZeroFutureAndImprecisePublishedFieldsDoNotBecomeInventedHeights",
+        "oldPublishedBlockRemainsReadableWithoutQualifyingAsFreshPaymentFunds"
+      ],
+      "nl.davidengelen.redsquare.ControlledLikeArchiveContractTest": [
+        "malformedReceiptOrUnboundedOrUnscopedHistoryIsStillRejected",
+        "exactReceiptAndIncomingAndAuthorHistoryReturnTheirSignedRows"
+      ],
+      "nl.davidengelen.redsquare.saito.RedSquareNotificationsTest": [
+        "an exact public key text mention counts while ordinary addressing does not",
+        "a signed mention list qualifies without a public key token in the text",
+        "valid self likes are excluded without an unverified activity warning",
+        "an ordinary signed repost retains its original while commentary remains a quote",
+        "a username mention qualifies only with a registrar proof for the active owner",
+        "null optional commentary remains a valid ordinary repost for both activity readers",
+        "a signed commentary quote with a parent field is not classified as a reply",
+        "current and legacy commentary quotes retain their authenticated original"
+      ],
+      "nl.davidengelen.redsquare.spaces.SpaceReplyTest": [
+        "aLargeSignedReadReplyPreservesItsExactPayloadWithoutRelaxingOrdinaryPublicationLimits"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoNameDirectoryTest": [
+        "a directory error is a failed read rather than a missing name",
+        "public directory labels keep their public keys and isolate unusable entries"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoVaultCustomAccessTest": [
+        "aCustomKeyUsesTheOfficialWitnessRequestAndReturnsItsAuthenticBoundFile"
+      ],
+      "nl.davidengelen.redsquare.saito.PrivateChatTest": [
+        "existingClientMentionsDoNotChangeTheEncryptedPrivateConversation",
+        "correctlySignedMalformedCipherFieldsDoNotBecomeReadablePrivateMessages",
+        "recipientReadsAnAuthenticatedEncryptedMessageFromThePinnedSaitoClient",
+        "nativePrivateSendMatchesIndependentClientEncryptionAndSignedBytes",
+        "importedExchangedKeysRestorePrivateHistoryAndRemainPreferredForSending",
+        "importedExchangedPassphrasesKeepTheExistingClientsExactLetterCase",
+        "aLegacyWalletKeyFieldRestoresTheExistingClientsExchangedKeyMessage",
+        "importedConversationIdsRecoverAuthenticatedCounterpartiesWithoutSavedContactKeys",
+        "anUnsignedRelayCannotChangeTheOriginalAuthenticatedPrivateMessage",
+        "nativeAndExistingClientsExchangeTheOriginalSignedCiphertextThroughRelayJson"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoVaultTest": [
+        "officialNamedDataUrisExportWithTheirMimeEssenceAndExactContents",
+        "aStandardKeyBuildsTheOfficialWitnessRequestAndReturnsOnlyItsSignedFile",
+        "anNftOnlyWalletStillUsesTheNonemptyAssetBackupGuard",
+        "aWalletWithAnOfficialNftTupleDoesNotCountItsQuantityOrDepositAsSpendableSaito",
+        "theBoundedFourMiBFileMatchesTheIndependentWasmSignatureAndDigest",
+        "anOtherwiseSignedFileMustCarryTheAccessCommitmentForThisVaultKey"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoAccessScriptTest": [
+        "numericEditorInputRetainsTheSameCommitmentAsTheRustJsonParser",
+        "officialCustomAndRentalContractsKeepTheirIndependentWasmAccessCommitments",
+        "suppliedWitnessInputsMergeThroughTheOfficialLogicalPathsWithoutChangingAccessRules",
+        "rentalPresetsBindTheRealCreatorRenterAndExpiryToTheOfficialConstitutions"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoWalletTest": [
+        "invalid or mismatched backup keys fail before restoring an identity",
+        "independently signed Saito messages verify and altered messages fail",
+        "a maximum length Saito username remains an outgoing wallet replacement risk after backup import",
+        "a new private contact survives compatible wallet export without replacing identity or module data",
+        "fresh local identities are independently created and survive compatible backup restoration",
+        "an imported null keychain accepts a first private contact without changing original options",
+        "web backup round trip retains identity and unknown Chat and module options",
+        "noncanonical and malformed signatures are refused as in the Saito runtime",
+        "an existing Saito private key restores its independently verified public identity",
+        "namedGroupHintsSurviveFullBackupWithoutBecomingPrivateContactsOrChangingIdentity",
+        "UTF8 and published binary messages reproduce independent compact signatures",
+        "null-valued wallet and module backup fields survive re-export",
+        "cached Bound slips remain unknown assets even without separate NFT module metadata",
+        "an empty message signs exactly as the independently checked Saito runtime"
+      ],
+      "nl.davidengelen.redsquare.spaces.SpaceMlsReferenceTest": [
+        "independentBouncyCastleMemberReadsTheNativeWelcomeExporterAndHistoryMessage",
+        "anUnboundedForeignKeyPackageIsNotAdmittedEvenWithAValidWalletBinding",
+        "independentMemberOpensAnArchiveKeyGrantAndUsesItToReadPreAdmissionContent"
+      ],
+      "nl.davidengelen.redsquare.saito.FileshareTest": [
+        "anOfferAndChunkRetainTheExistingFileshareMessageShapeAndSigner",
+        "receiveFileOnlyCompletesAfterTheExactOrderedBytesAreWritten",
+        "unsignedWebControlsAreOnlyUsableOnTheAlreadyAuthenticatedDataChannel",
+        "failedStorageDoesNotAdvanceOrAcknowledgeTheReceivedFile"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoProfilesTest": [
+        "stale reads cannot replace a newer verified snapshot or remove its preserved fields",
+        "the newest signed snapshot overrides later legacy fields and rejects another signer",
+        "editing a bio and removing the avatar signs a complete snapshot preserving other fields",
+        "numeric one is authoritative regardless of JSON decimal scale"
+      ],
+      "nl.davidengelen.redsquare.saito.SaitoStoreWithdrawalTest": [
+        "sellerReviewsEligibleProceedsAndRecoversTheExactOfficialSignedWithdrawal",
+        "anActuallyFreeOfficialWithdrawalNeedsNoSyntheticSpendableBalance",
+        "allEligibleClaimsInALegitimateQuoteCanBeWithdrawnBeyondFiveHundredSales",
+        "aDifferentDestinationUnsignedAmountOrExpiredQuoteCannotBecomeANewWithdrawal"
+      ]
+    }
+  },
+  "spaces-service": {
+    "classes": 4,
+    "tests": 26,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "cases": {
+      "nl.davidengelen.redsquare.spaces.service.SpacesNativeHostTest": [
+        "theActualFixtureProcessAdvertisesOwnedPortsAndStopsCleanly"
+      ],
+      "nl.davidengelen.redsquare.spaces.service.SpacesServiceStoreTest": [
+        "readinessReportsOnlyTheActualLocalServiceIdentityAndStorageVersion",
+        "anIndependentHttpClientReceivesTheActualSignedDurableResult",
+        "authenticatedPrivateReadingBindsTheNonceToItsCallerAndConsumesItOnce",
+        "aSignedJoinIsStoredAsARequestWithoutPretendingMembershipOrKeysAreReady",
+        "aLostCreationAcknowledgmentReopensWithTheOriginalReceiptAndOneOwner",
+        "anActualServiceProcessTerminationRetainsTheOriginalAcceptedOperation"
+      ],
+      "nl.davidengelen.redsquare.spaces.service.SpaceClientTest": [
+        "anUnadmittedExpiredRequestCanUseANewInvitationWithoutLosingItsDraft",
+        "everyCommunityRemainsReachableAndDeliversItsOriginalBeyondTheFirstLocalPage",
+        "anEligibleJoinAfterFiftyInactiveRequestsIsStillAdmitted",
+        "queuedContentSurvivesAnUnrelatedControlAndAFencedKeyChangeDoesNotBlockLaterMessages",
+        "aMemberWhoReturnsAfterAnotherAdmissionCanStillRecoverItsEarlierHistoryGrant",
+        "aColdJoinOpensRecentMessagesWithTheirKeysAndCanLoadAnEarlierPage",
+        "versionTwoAcceptedContentMigratesInBatchesWithoutChangingOriginalsOrReceipts",
+        "anEarlierReceiptCannotConfirmAnotherOriginalOrReplaceNewWriting",
+        "foreignCallerScopeOrRequestCallbacksCannotChangeAnAcceptedConversation",
+        "anAcceptedCreationWithALostResponseRecoversItsOriginalBeforeSendingAndReadingRealText",
+        "aForeignServiceCallbackCannotConfirmOrReplaceTheQueuedCreation",
+        "aRejectedAdmissionReopensOnItsCancelledBranchAndCanAdmitTheSameRequest",
+        "openingAnInvitationDoesNotJoinAndExplicitAdmissionRecoversHistoryBeforeBothClientsCanConverse",
+        "acceptedMembershipRecoversWhenItsInvitationHasExpiredBeforeTheDeviceReturns",
+        "anExpiredInvitationIsReportedAndCanBeReplacedWithANewChosenLifetime",
+        "reversedAuthenticatedControlPagesRollBackBeforeAHealthyReadCanRecover"
+      ],
+      "nl.davidengelen.redsquare.spaces.service.SpaceContentTest": [
+        "versionOneStorageRejectsForeignIdentityBeforeMigrationAndPreservesLegacyTables",
+        "twoIndependentMembersRecoverEarlierTextAndExchangeAfterReopeningTheService",
+        "aPrivateChannelReturnsAuthenticatedCiphertextToItsMemberWithoutStoringPlaintextOrServingAnOutsider"
+      ]
+    }
+  },
+  "source": {
+    "baseProductAndNative": "7bebfc7166ea156609c7252919489c06dcc4cde6",
+    "changedTest": "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceClientTest.kt",
+    "testSha256": "aa324fb9ef95aef4ffb69a3bb02ed2841489315898c7e40c506358f0d55ccdb0",
+    "qualification": "Only this service test source and maintained docs/evidence changed after the accepted native product. No app/main/native/workflow/crypto/service implementation delta."
+  },
+  "files": [
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.ControlledLikeArchiveContractTest.xml",
+      "bytes": 675,
+      "sha256": "b29e3063650daa7423d7b977a8b5dc979737c7ba09393a6157e555eb3df78e3c"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.feed.PostLikeInputPolicyTest.xml",
+      "bytes": 501,
+      "sha256": "5c67d1b1384c77a4edfd49849963f33ca94c091a26288f22588d2f930d68047b"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.ControlledNodeOutageTest.xml",
+      "bytes": 850,
+      "sha256": "b5e1d7d5a0ed7ff648be907ca2f4ba0d2c216665b37ed286dcf17e29468b3b10"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.FileshareTest.xml",
+      "bytes": 944,
+      "sha256": "05414d461605eb029c43daf6a32219c3e70ad74cb1b361a3acdbfcbe43dd53bd"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.GroupAdminTest.xml",
+      "bytes": 918,
+      "sha256": "04b68a307ff7bbbea1d99bd8d5c1fefe98129b08d032544d8dba8ec21e2d35cc"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.GroupChatTest.xml",
+      "bytes": 3579,
+      "sha256": "87ee138c0cd0732d33243ed16d8e869e3ae6f3007dd32ccd5a220417eaa75332"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.GroupInvitationTest.xml",
+      "bytes": 840,
+      "sha256": "f9cf34b056a21858dc8e389f8a35c1bc73512695ce29b9c8c84e3abd8333614b"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.PrivateChatTest.xml",
+      "bytes": 1969,
+      "sha256": "ff6f41f996eec7bfed9fb6c05c57380faad9583cec94fdc94e46b42f449964ec"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.RedSquareActionsTest.xml",
+      "bytes": 677,
+      "sha256": "e2d50cd8c4780f3173dd564a40a032f2b9f6b5f9347547c726850cbe3567a303"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest.xml",
+      "bytes": 2138,
+      "sha256": "207d8bb9791c5c717c8cb53a33a9f388010af6d01576d8c97fbff8253414cf0f"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.RedSquareFeedTest.xml",
+      "bytes": 989,
+      "sha256": "53a0c6ce568162aa363bdb0f84e2d19c8cbdaf2e08439abe3b7b0e02ec328e97"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.RedSquareImagesTest.xml",
+      "bytes": 1005,
+      "sha256": "36a44b23ee06651211a734cd953f6fc00904513cf2d2fc974e7f02eb406416b2"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.RedSquareNotificationsTest.xml",
+      "bytes": 1785,
+      "sha256": "8789b2cc0fe341eea8d59b1612c2ec5915095bc2c810119d90cd8e39419a8cfc"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.RedSquareQuotesTest.xml",
+      "bytes": 1007,
+      "sha256": "305afa66d61f5d7cd7c3b9d1a29a86fdb0de8cb5959730b1004e5a7b3b229df3"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.RedSquareVideoTest.xml",
+      "bytes": 1167,
+      "sha256": "f287bcd2c21354ca9828deee5d544f7191319738bd6d64e7524a17b433d7ed84"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoAccessScriptTest.xml",
+      "bytes": 1027,
+      "sha256": "535c236af2fe73e5b2e49af3a83b51cdd4ac2211322113190e01e73cc552a604"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoFullBlockTest.xml",
+      "bytes": 981,
+      "sha256": "5eeb610aedd4308dc3e51fb84e70614777cb32365714a478400ade7f48f3f247"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoIdenticonTest.xml",
+      "bytes": 507,
+      "sha256": "55a6c084e8bfe7c4567b91c4be5c95c78047006dadc29cf9fb01bb5c05b875b8"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoNameDirectoryTest.xml",
+      "bytes": 677,
+      "sha256": "9e9a6aaa8c33df5ed776289e177622d2c8279bb572bbb2f813acecc939417dd3"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoNftTransferTest.xml",
+      "bytes": 832,
+      "sha256": "fea5c627113ef4a32b4a7664139a7dd95c1f13e18e691144befe592a04046111"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoNodeBlockTest.xml",
+      "bytes": 666,
+      "sha256": "1e8ea5ae01f3bbf5718ff3b3863c3731f4e044d3e211cfdac2a897dd0305f964"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoPaymentChainTest.xml",
+      "bytes": 1183,
+      "sha256": "0bb46f9afd36664045c1add1b6da158891ea22009916954f8e8b500c6733604d"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoPaymentTest.xml",
+      "bytes": 641,
+      "sha256": "d9a2346a8136aed32dc35e6756cb7a203a990fc5279d1674c2ddbde34561cbe3"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoProfilesTest.xml",
+      "bytes": 1034,
+      "sha256": "00bef54c14035223502ddf4ecdad45a2526c5f065d736a1bd18672e822911d2c"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoRegistryTest.xml",
+      "bytes": 1246,
+      "sha256": "3492ca6003211670863b9fd3ebee983b59c565fec6ae31fcaa60c0891da201f8"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoStackTest.xml",
+      "bytes": 689,
+      "sha256": "62bc2b0f22bec9b1ad63811a64171c9b36cf4fccb1021e2f07a12ee27b8a883b"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest.xml",
+      "bytes": 1779,
+      "sha256": "d1d9e22670c89489182b2b46de10a7fd1cd92e8b9f90517632ee24c947618154"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreListingTest.xml",
+      "bytes": 3014,
+      "sha256": "c2b84d2d54f183558c4266bbff1480f03464ad04e97490179ab13ffc2049e09c"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest.xml",
+      "bytes": 1662,
+      "sha256": "b36b4df29f25ca8841e7a589f1d26d58139cd9fdca8e0a1d8b04787695d50521"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreRentalTest.xml",
+      "bytes": 1896,
+      "sha256": "7f2960188039e222cacaf45df76e3a1ef02d12ac8d5f3eb49d7b698e4aece5bd"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreTest.xml",
+      "bytes": 1282,
+      "sha256": "1d0480a0e4a6fe819686a770fccdb98417730bada9c9b85f598871a8073f5e60"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreWithdrawalTest.xml",
+      "bytes": 1037,
+      "sha256": "d33535d129077bdb9be073e7e442c2b907d0feb796a3cc34bda403eaf893f3ae"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoTransactionTest.xml",
+      "bytes": 977,
+      "sha256": "06fbc87b175fe6344f631a6c2b334b7772223dfc32c78af757f3168fbca5333b"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoVaultCustomAccessTest.xml",
+      "bytes": 517,
+      "sha256": "94988d7cf49a70be2ef86798968e37c4828cbae7a0bce33aa7e8676d8efa0de7"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoVaultMintTest.xml",
+      "bytes": 993,
+      "sha256": "b58d6390e02c5d2f826c9bfdde2430a5c9829f4654f5de97b0ab17eed8014ee3"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoVaultRentalTest.xml",
+      "bytes": 863,
+      "sha256": "490965d72b2e2c3a4d79bd20b630c2725d7a6ae171342b4a8f5527fd1a1279f5"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoVaultTest.xml",
+      "bytes": 1282,
+      "sha256": "9389ce8a137283fa032958e855aefbc559cf2957245ab454329f35514244259f"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoWalletTest.xml",
+      "bytes": 2766,
+      "sha256": "532a75176f3fca8264f1584f58204621c9e8e3404b61719912fceb2437e1425d"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SaitoWireTest.xml",
+      "bytes": 499,
+      "sha256": "a2bebf8816761eaad1e0a24517fc49ac03a6445de30420cdc624e96160cbb530"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.SharedNodeConnectionTest.xml",
+      "bytes": 3370,
+      "sha256": "217d78ed2fc664e83f14de0e994f31a94b9c5c7d6ef403fa328511855f34fbf9"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.StackLinkTest.xml",
+      "bytes": 833,
+      "sha256": "aa0ba3ad65b84d9cb4c43842ab6c231251921c9a47a1ba6c8a9436d8ee884756"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.StoreLinkTest.xml",
+      "bytes": 476,
+      "sha256": "df65e1afb3c6baea14eef99ecf8f45df20e8eff04ff0ec9def75ac148e1b4a09"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.TalkTest.xml",
+      "bytes": 1382,
+      "sha256": "859580419be3e315ffe59b241b74d95dfd37ebcf866152682753c8b4db03f66d"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.saito.VaultUploadTransportTest.xml",
+      "bytes": 512,
+      "sha256": "fae9e911cdd101b58f0ce26be14d1c92ec8e469419728081b02b7a34ab9e28bc"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.spaces.SpaceCryptoTest.xml",
+      "bytes": 1203,
+      "sha256": "4cd98596f9ca6b9e182b83b8a79b2ec371afa642a86aa84f0021f5635ba2eb3d"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.spaces.SpaceJournalTest.xml",
+      "bytes": 864,
+      "sha256": "62741c5672033037877d3316c6ee78b1288cc3d1106154d27e8734ebd5c8c798"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.spaces.SpaceMlsReferenceTest.xml",
+      "bytes": 859,
+      "sha256": "344c25af3f7cd689f14987383b22a833f6c39b2954876fc38038f2684436088d"
+    },
+    {
+      "path": "core/TEST-nl.davidengelen.redsquare.spaces.SpaceReplyTest.xml",
+      "bytes": 510,
+      "sha256": "d94fca4f3f7c989ee995b63c75142b2faa0cedd873aacaad9ecbd73c6c57d343"
+    },
+    {
+      "path": "core/binary/output.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "core/binary/output.bin.idx",
+      "bytes": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "path": "core/binary/results.bin",
+      "bytes": 43537,
+      "sha256": "83430ba75d6cb405c6cf4e06990cc55a9356a8946777a6eb5455fb0b79e37e3e"
+    },
+    {
+      "path": "spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceClientTest.xml",
+      "bytes": 3152,
+      "sha256": "c40054d904cb18f7a022f00a10263e3fc07f2964b0cc0ea13faf656d59bee787"
+    },
+    {
+      "path": "spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceContentTest.xml",
+      "bytes": 905,
+      "sha256": "d5e6741fc760ff57fea850c185f06a38dca51d1f41e4ea75827a354f19544a8c"
+    },
+    {
+      "path": "spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpacesNativeHostTest.xml",
+      "bytes": 511,
+      "sha256": "84c749e1b3e6337d0e2ff969db68ad8aadd0e08a530c7fcc5ab9e0307d52e64f"
+    },
+    {
+      "path": "spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpacesServiceStoreTest.xml",
+      "bytes": 1410,
+      "sha256": "d4e71c8fdaa06b939615f7ff4298c69b8858a90ac7980b614a588d26c2d2201e"
+    },
+    {
+      "path": "spaces-service/binary/output.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "spaces-service/binary/output.bin.idx",
+      "bytes": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "path": "spaces-service/binary/results.bin",
+      "bytes": 4659,
+      "sha256": "67f2e5eb646f35afc2b48032b9ee13159be1a737c03feeb775d67a0264fd97fa"
+    }
+  ],
+  "logSha256": "17cb44124aac160de13723915693c07aa3d2fde37dde2b549b57d9e595d7d12f"
+}
