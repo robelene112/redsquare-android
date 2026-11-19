@@ -41,6 +41,14 @@ The Android10 f451 attempt44464342665 was cancelled after discovering this share
 observer defect. All original logs remain retained. The correction waits for an
 actual JSON checkpoint and publishes that checkpoint atomically. The original
 180/90s bounds and all app assertions stay unchanged.
+Corrected parent44465021390 atc5 reaches actual creation, a copied invitation,
+admission and the independent received reply. The case then fails because its
+scroll selector also matches the closed offscreen drawer. Those observations are
+not a passing prefix or process acceptance. Its original movie, four screenshots,
+transcript and failure remain retained. The revised observer selects the actual
+on-screen history and captures failures before Activity cleanup. The drawer PNG
+also requires its visible native title. Both earlier observer review axes and
+both actual compatibility-index reviews report no findings.
 Functional native verification is still pending; beta142 stays public and137
 stays open. No passing prefix, physical/OEM or deployed-node acceptance is claimed.
 

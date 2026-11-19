@@ -46,7 +46,7 @@ class SpacesJourneyTest {
         val wallet = AndroidWalletStore(context).loadOrCreate()
         val backend = AndroidBackendStore(context).load()
         val originalWallet = wallet.exportJson()
-        launch().use { activity ->
+        launch().use { activity -> withFailureCapture({ capture("native-failure") }) {
             openSpaces("Red Square")
             ui.waitUntil(15_000) { ui.onNode(hasText("Create a community") and hasClickAction() and isEnabled()).isDisplayed() }
             capture("01-communities")
@@ -60,14 +60,17 @@ class SpacesJourneyTest {
             closeKeyboard(activity)
             ui.waitUntil(15_000) { ui.onNodeWithText("Hello from the native Android client").isDisplayed() }
             ui.onNodeWithContentDescription("Switch Space or channel").performClick()
-            capture("02-drawer-b")
+            ui.waitUntil(5_000) { ui.onNodeWithText("Your communities").isDisplayed() && ui.onNodeWithText("Invite people").isDisplayed() }
+            capture("02-drawer-b", "Your communities")
             ui.onNodeWithText("Invite people").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Copy invitation").isDisplayed() }
             ui.onNodeWithText("Copy invitation").performClick()
             ui.onNodeWithText("Invitation copied").assertIsDisplayed()
             var link = ""
             activity.onActivity {
-                link = (it.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip?.getItemAt(0)?.text.toString()
+                val clipboard = it.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                link = clipboard.primaryClip?.getItemAt(0)?.text.toString()
+                assertTrue(clipboard.primaryClipDescription?.extras?.getBoolean("android.content.extra.IS_SENSITIVE") == true)
             }
             assertTrue(link.startsWith("saito://spaces/join#"))
             capture("03-confirmed-invitation")
@@ -82,7 +85,7 @@ class SpacesJourneyTest {
             capture("04-independent-received-reply")
             command("populate", JsonObject().apply { addProperty("space", joined.get("space").asString) })
             ui.waitUntil(15_000) { ui.onNodeWithText("Fixture line 19").isDisplayed() }
-            ui.onNode(hasScrollToNodeAction()).performScrollToNode(hasText("Fixture line 5"))
+            messageHistory().performScrollToNode(hasText("Fixture line 5"))
             val anchor = ui.onNodeWithText("Fixture line 5").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
             capture("04a-scrolled-before-module-switch")
             command("populate", JsonObject().apply {
@@ -98,7 +101,7 @@ class SpacesJourneyTest {
             assertEquals("Module return keeps the actual reading pixel", anchor,
                 ui.onNodeWithText("Fixture line 5").fetchSemanticsNode().boundsInRoot.top, 1f)
             capture("04b-scrolled-after-module-switch")
-            val history = ui.onNode(hasScrollToNodeAction())
+            val history = messageHistory()
             history.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.ScrollBy) { scroll -> scroll(0f, 100_000f) }
             val reachedEnd = SystemClock.elapsedRealtime()
             ui.waitUntil(5_000) {
@@ -126,6 +129,7 @@ class SpacesJourneyTest {
             capture("06-joined-independent-community")
             ui.onNodeWithContentDescription("Switch Space or channel").performClick()
             ui.onNodeWithContentDescription("Open $community").performClick()
+            ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
             ui.onNode(hasSetTextAction()).performTextReplacement("Draft survives a module switch")
             closeKeyboard(activity)
             switchModule("Spaces", "Red Square")
@@ -139,9 +143,13 @@ class SpacesJourneyTest {
             closeKeyboard(activity)
             var acceptedOriginal: String? = null
             ui.waitUntil(15_000) {
-                val originals = command("status").getAsJsonArray("originals").map { it.asJsonObject }
+                val observed = command("status")
+                val originals = observed.getAsJsonArray("originals").map { it.asJsonObject }
                 acceptedOriginal = originals.lastOrNull { it.get("kind").asString == "content" }?.get("id")?.asString
-                acceptedOriginal != null && ui.onNodeWithText("Waiting for confirmation").isDisplayed()
+                val received = observed.getAsJsonArray("communities").any { row ->
+                    row.asJsonObject.getAsJsonArray("received").any { it.asString == originalText }
+                }
+                acceptedOriginal != null && received && ui.onNodeWithText("Waiting for confirmation").isDisplayed()
             }
             ui.onNode(hasSetTextAction()).performTextReplacement(draft)
             closeKeyboard(activity)
@@ -168,7 +176,7 @@ class SpacesJourneyTest {
             // The host, outside this PID, observes the durable checkpoint and
             // force-stops this actual process. No Activity.recreate substitute.
             while (true) SystemClock.sleep(250)
-        }
+        } }
     }
 
     @Test fun coldReturnReconcilesTheSameOriginalAndKeepsNewWriting() {
@@ -178,7 +186,7 @@ class SpacesJourneyTest {
         assertEquals(saved.get("owner").asString, AndroidWalletStore(context).loadExisting().publicKey)
         assertEquals(saved.get("backend").asString, AndroidBackendStore(context).load().id)
         command("release")
-        launch().use {
+        launch().use { withFailureCapture({ capture("recovery-native-failure") }) {
             openSpaces("Red Square")
             ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Open $community").isDisplayed() }
             ui.onNodeWithContentDescription("Open $community").performClick()
@@ -194,9 +202,12 @@ class SpacesJourneyTest {
             evidence.resolve("recovered.json").writeText(saved.deepCopy().apply {
                 addProperty("phase", "recovered"); addProperty("recoveredPid", Process.myPid()); add("observed", status)
             }.toString())
-        }
+        } }
     }
 
+    private fun messageHistory() = ui.onNode(hasScrollToNodeAction() and SemanticsMatcher("on-screen message history") {
+        it.boundsInRoot.right > 0f && it.boundsInRoot.left >= 0f && it.boundsInRoot.bottom > 0f
+    })
     private fun openSpaces(current: String) = switchModule(current, "Spaces")
     private fun switchModule(current: String, next: String) {
         ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: $current").isDisplayed() }
@@ -216,7 +227,7 @@ class SpacesJourneyTest {
             ui.waitUntil(5_000) { !visible() }
         }
     }
-    private fun capture(name: String) = captureNativeScreen(File(evidence, "$name.png"))
+    private fun capture(name: String, expected: String? = null) = captureNativeScreen(File(evidence, "$name.png"), expected)
     private fun command(action: String, body: JsonObject = JsonObject()): JsonObject {
         val connection = URL("http://127.0.0.1:$controlPort/$action").openConnection() as HttpURLConnection
         try {

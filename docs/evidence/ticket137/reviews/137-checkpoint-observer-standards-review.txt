@@ -1,0 +1,17 @@
+Standards review: f451acfecdc40936c489c4834bac13cea9540f49...c5b95d77448cb71e72f9bc9420b3992c239255aa
+Read-only source and indexed-artifact review. No native execution or implementation.
+
+Hard documented violations
+None confirmed.
+
+Observer correction
+scripts/spaces-native-journey now distinguishes a zero adb exit from an actual JSON checkpoint, records non-JSON polling observations, saves candidate JSON bytes before parsing, and still fails on malformed visible JSON. The existing180-second checkpoint goal and90-second cold-return goal remain unchanged. SpacesJourneyTest publishes its checkpoint through AtomicFile only after the existing assertions and identity/backend checks complete; a failed write rolls back publication. Existing independently guarded cleanup remains unchanged.
+
+Contract and failure accounting
+Prospective contract version4 retains the original entrypoint failure, records parent44463252284 as an observer failure before a functional native result, and separately records the raw Process crashed observation without assigning an application cause. The cancelled Android10 attempt is not claimed as acceptance. No application assertion or native goal was relaxed. Functional native, complete137 and deployed-node acceptance remain pending.
+
+Node compatibility evidence
+Verified all84 indexed original files for each pinned runtime0.3.2 and0.3.15 against actual retained artifacts: every file exists and its size and SHA-256 match. The indexed actualService and actualFramework summaries exactly match the retained result.json and node-result.json. Both source.json records identify clean implementation91aa9b6067c0ba939bc25573aa0c7d71774d7e86 and explicitly limit the scope to serializer/dispatcher/callback and service receipt, without claiming a bootstrapped node. Documentation preserves those limits.
+
+Judgment calls
+None raised. This review does not diagnose the original process termination or establish rendered Android behavior.

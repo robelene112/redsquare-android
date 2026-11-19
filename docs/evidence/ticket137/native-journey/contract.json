@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "ticket": 137,
   "scope": "focused actual Activity and distinct-process journey, not complete app regression or deployed-node acceptance",
   "source": "exact checked-out Git SHA recorded by parent workflow and acceptance.json",
@@ -34,7 +34,8 @@
     "same original signature repeated, one received plaintext effect, new draft preserved",
     "whole phase movies, all numeric checkpoint screenshots, raw interrupted and terminal logs",
     "actual source/APK/device/runtime evidence from parent workflow",
-    "Reaching the end of a historical bounded page does not jump to current activity; explicit Back to latest reaches the latest received message."
+    "Reaching the end of a historical bounded page does not jump to current activity; explicit Back to latest reaches the latest received message.",
+    "Clipboard invitation retains its exact link while marked sensitive; drawer screenshot is preceded by an actual visible native title."
   ],
   "native_terminal_passes": 1,
   "deliberate_interruptions": 1,
@@ -56,6 +57,11 @@
       "run": 44464342665,
       "source": "f451acfecdc40936c489c4834bac13cea9540f49",
       "result": "cancelled after known shared observer failure, no Android10 native acceptance claimed"
+    },
+    {
+      "run": 44465021390,
+      "source": "c5b95d77448cb71e72f9bc9420b3992c239255aa",
+      "result": "native case failed because scroll selector matched visible conversation and offscreen drawer; no whole journey or process acceptance. Source-stage create/copy/admit/received reply observed, not a passing prefix."
     }
   ]
 }

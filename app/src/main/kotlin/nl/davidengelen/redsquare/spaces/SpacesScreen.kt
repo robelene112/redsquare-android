@@ -398,7 +398,12 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             Button(onClick = {
                 try {
                     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                    clipboard.setPrimaryClip(ClipData.newPlainText(copyLabel, invitation.link))
+                    val clip = ClipData.newPlainText(copyLabel, invitation.link).apply {
+                        description.extras = android.os.PersistableBundle().apply {
+                            putBoolean("android.content.extra.IS_SENSITIVE", true)
+                        }
+                    }
+                    clipboard.setPrimaryClip(clip)
                     copied = true; failed = false
                 } catch (_: Exception) { failed = true }
             }, modifier = first.fillMaxWidth().heightIn(min = 48.dp)) {

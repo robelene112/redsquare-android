@@ -354,7 +354,9 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             require(SaitoEnvelope.decode(original.envelope()).author == authenticatedKey)
                             spacesRequests.add(original)
                             val response = requireNotNull(spacesResponse)(original)
-                            if (!withholdSpacesReply) check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
+                            val holdContent = withholdSpacesReply && body.get("request")?.asString == "event" &&
+                                body.get("kind")?.asString == "content" && body.get("content_kind")?.asString == "message"
+                            if (!holdContent) check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
                             return
                         }
                         if (body.get("request").asString == "vault add file") {

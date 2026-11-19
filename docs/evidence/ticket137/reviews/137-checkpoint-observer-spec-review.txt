@@ -1,0 +1,11 @@
+Spec observer review: f451acfecdc40936c489c4834bac13cea9540f49...c5b95d77448cb71e72f9bc9420b3992c239255aa
+
+No finding within the requested observer scope.
+
+The host now distinguishes adb exec-out's successful transport status from an actual published JSON checkpoint. Missing-file/non-JSON output remains an observation while the original180-second checkpoint deadline and instrumentation-process exit guard remain active. Candidate JSON bytes are preserved before parsing, and malformed candidate JSON still fails. Android AtomicFile publishes the checkpoint after writing and syncing it; failure rolls back rather than exposing a partial final file. The live-PID comparison, actual force-stop/disappearance, distinct recovery PID, original operation and independent received-effect assertions remain intact. The recovery bound remains90seconds.
+
+Contractv4 preserves the prospective native cases and records unsuccessful parents separately. I inspected the retained Android17 originals: before-kill.txt says "Process crashed.", cleanup.json records JSONDecodeError, and crash.log has zero bytes. These observations establish an observer failure and unresolved instrumentation failure, not an app-cause diagnosis or functional acceptance. The cancelled Android10 attempt is explicitly unaccepted. No successful prefix is substituted for a complete native result.
+
+The compatibility indexes accurately retain source91aa9b606 and explicit loopback/framework limits for both pinned0.3.2 and0.3.15 runtimes. I verified all84 indexed originals per runtime against their recorded sizes and SHA256 values, with zero mismatches; each original source.json names91aa and a clean checkout. The subsequent f451 diff changes only SpacesAccount.kt. The evidence does not claim a bootstrapped/deployed node, native journey acceptance or complete137.
+
+Native execution of the corrected observer and temporal/device acceptance remain pending. This review preserves the quality plan's requirement that observer changes retain original failures, receive separate review and undergo a fresh complete affected run.
