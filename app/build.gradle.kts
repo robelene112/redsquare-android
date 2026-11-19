@@ -92,8 +92,11 @@ android {
 val prepareSpaceMlsAndroid by tasks.registering(Exec::class) {
     inputs.files(rootProject.fileTree("spaces-mls") { include("Cargo.toml", "Cargo.lock", "src/**/*.rs") })
     inputs.files(rootProject.files("build-support/spaces-mls.py", "build-support/spaces-toolchain.json"))
+    inputs.file(rootProject.file("app/src/main/assets/licenses/spaces-mls.txt"))
+    inputs.property("nativeBuildHost", System.getProperty("os.name") + ":" + System.getProperty("os.arch"))
     val output = layout.buildDirectory.dir("generated/spaces-mls-jni")
     outputs.dir(output)
+    outputs.cacheIf("Pinned cross compiler, source and notices") { true }
     commandLine("python3", rootProject.file("build-support/spaces-mls.py"), "--target", "android", "--output", output.get().asFile)
 }
 tasks.named("preBuild") { dependsOn(prepareSpaceMlsAndroid) }

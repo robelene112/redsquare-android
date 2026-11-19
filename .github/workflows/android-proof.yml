@@ -128,13 +128,14 @@ jobs:
             core/build.gradle.kts
             app/build.gradle.kts
             push-gateway/build.gradle.kts
+            spaces-service/build.gradle.kts
             gradle/wrapper/gradle-wrapper.properties
       - name: Locate dependency cache
         id: cache-path
         env:
           TASK_PROOF_SCOPE: ${{ inputs.scope || 'source' }}
-          TASK_BUILD_KEY: ${{ hashFiles('gradle.properties', 'settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'gradle/**') }}
-          TASK_PRODUCTION_KEY: ${{ hashFiles('app/src/main/**', 'app/src/debug/**', 'app/src/release/**', 'app/src/performance/**', 'core/src/main/**', 'push-gateway/src/main/**', 'build-support/**', 'app/*.pro') }}
+          TASK_BUILD_KEY: ${{ hashFiles('gradle.properties', 'settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'spaces-service/build.gradle.kts', 'gradle/**') }}
+          TASK_PRODUCTION_KEY: ${{ hashFiles('app/src/main/**', 'app/src/debug/**', 'app/src/release/**', 'app/src/performance/**', 'core/src/main/**', 'push-gateway/src/main/**', 'spaces-service/src/main/**', 'spaces-mls/Cargo.toml', 'spaces-mls/Cargo.lock', 'spaces-mls/src/**', 'build-support/**', 'app/*.pro') }}
         run: |
           echo "home=$HOME" >> "$GITHUB_OUTPUT"
           printf 'task-version-key=%s-%s\n' "$RUNNER_OS" "$TASK_BUILD_KEY" >> "$GITHUB_OUTPUT"
@@ -149,16 +150,25 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: redsquare-gradle-v1-${{ hashFiles('settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}
+          key: redsquare-gradle-v1-${{ hashFiles('settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'spaces-service/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}
       - name: Restore verified build dependencies
         id: dependencies
         uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: ${{ steps.cache-path.outputs.home }}/.gradle/caches
-          key: redsquare-gradle-v2-${{ hashFiles('settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}
+          key: redsquare-gradle-v2-${{ hashFiles('settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'spaces-service/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}
           restore-keys: |
             redsquare-gradle-v2-
             setup-java-Linux-x64-gradle-
+      - name: Restore pinned Spaces compilers and Cargo outputs
+        if: hashFiles('spaces-mls/Cargo.lock') != ''
+        id: spaces-native-cache
+        uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: ${{ steps.cache-path.outputs.home }}/.gradle/spaces-tools
+          key: spaces-native-v1-${{ inputs.runner_os || 'ubuntu-24.04' }}-${{ hashFiles('build-support/spaces-toolchain.json', 'spaces-mls/Cargo.lock') }}-${{ hashFiles('spaces-mls/src/**', 'spaces-mls/tests/**', 'build-support/spaces-mls.py') }}
+          restore-keys: |
+            spaces-native-v1-${{ inputs.runner_os || 'ubuntu-24.04' }}-${{ hashFiles('build-support/spaces-toolchain.json', 'spaces-mls/Cargo.lock') }}-
       - name: Restore Gradle task outputs
         id: task-cache
         uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5
@@ -263,6 +273,12 @@ jobs:
         with:
           path: .scratch/talkback-tool/artifacts
           key: ${{ steps.talkback-tool.outputs.cache-primary-key }}
+      - name: Retain pinned Spaces compilers and Cargo outputs
+        if: steps.build.outcome == 'success' && hashFiles('spaces-mls/Cargo.lock') != '' && steps.spaces-native-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: ${{ steps.cache-path.outputs.home }}/.gradle/spaces-tools
+          key: ${{ steps.spaces-native-cache.outputs.cache-primary-key }}
       - name: Retain Gradle task outputs before device tests
         if: steps.build.outcome == 'success' && steps.task-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25 # v5
