@@ -34,6 +34,22 @@ than any background control read and records metadata-only state/request timings
 only on a debug loopback emulator. Both source axes report zero findings; goals
 and deadlines remain unchanged. No product fix or native pass is claimed.
 
+The [third whole parent](native-recorder-correction.json) reaches its actual
+visitor checkpoint with the intended public A hold. Selected B/draft/Send,
+nonmember reading and module/recreation pixels meet their original assertions.
+The planned Android PID termination succeeds, but recorder transport shutdown
+exceeds15seconds before phase2 starts. This parent remains failed, with no
+accepted prefix. The observer now binds the real recorder PID to the exact phase
+path, closes stdin, verifies device exit and enforces the same shutdown budget.
+Both corrected review axes report zero findings. A complete fresh parent and
+actual video validation remain necessary.
+
+Both [pinned framework rehearsals](node-interop-index.json) have now been repeated
+successfully against schema4 and actual optional unread advertisement. They
+exercise the real0.3.2/0.3.15 serializer, dispatcher and callback with unchanged
+original bytes and one accepted control. They remain owned adapter rehearsals,
+not a bootstrapped or deployed production node.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.

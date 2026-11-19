@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "source": "146cbe9373cdf9f545e7700e5dabde5261027910",
+  "scope": "Pinned actual framework serializer/dispatcher/callback against owned schema4 service and actual optional unread advertisement, not a bootstrapped/deployed node.",
+  "runs": [
+    {
+      "runtime": "0.3.2",
+      "result": {
+        "acceptedControls": 1,
+        "originalId": "02f06b615be7e1c717e7b97171cefb636de8bc5dcc21c07c25d046cecb9e065e03ea3bd4ad435722abb6f9bb29e50ca1015d72d99ee9d76e22b60ec45cb54346",
+        "receiptId": "ccc99cc0b573b15460606467f7232f044c220cade4b8b4bb5e21f92239dffccc5597aeed5eea6261414a6f2fcacd364333707b1ff93daf6a2d6e0b3c64808b93",
+        "service": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+        "originalBytesPreserved": true,
+        "actualReceiptVerified": true
+      },
+      "framework": {
+        "source": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+        "saitoJs": "0.3.2",
+        "saitoWasm": "0.3.2",
+        "actualDispatcher": true,
+        "actualTemplateInitialize": true,
+        "actualServerCallback": true,
+        "actualTransactionRoundTrip": true,
+        "repeatedReceiptStable": true,
+        "wrongAuthenticatedPeerDenied": true,
+        "callbacks": 4,
+        "qualification": "Owned loopback service and public unsafe identities; runtime wallet/filesystem adapters, unused browser boundaries excluded. Not a bootstrapped production node."
+      },
+      "files": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-138-schema4-0.3.2/compiled-inputs.json",
+          "bytes": 53849,
+          "sha256": "1d374da8f3b07a1071c1efb715a9ba11a085803965885eea4a11735bdc394f9c"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-138-schema4-0.3.2/ready.json",
+          "bytes": 268,
+          "sha256": "d28a3bf219b356bfb4518b35f30b697cb35a627b8aa857155e3fe7c9712f68eb"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-138-schema4-0.3.2/result.json",
+          "bytes": 425,
+          "sha256": "b4bedddc45626af93c92eaec44f6d9e8b1b8a748e3353ab874d8443b98e059ee"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-138-schema4-0.3.2/node-result.json",
+          "bytes": 513,
+          "sha256": "b08e36aa6dcc990d1a80d19d2d61cec76b82a22f07d42715c20c1bbc75b5de7f"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-138-schema4-0.3.2/node-receipt.json",
+          "bytes": 5292,
+          "sha256": "1152f9bebc7598ebd27d3fa13d7508e25b7c174401d1f0dde302bf5229fc8524"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-138-schema4-0.3.2/host.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-138-schema4-0.3.2/node.log",
+          "bytes": 652,
+          "sha256": "959c4d1a74b09d29640889757c707670801e9342984fd0584a0aeb20262f198c"
+        }
+      ]
+    },
+    {
+      "runtime": "0.3.15",
+      "result": {
+        "acceptedControls": 1,
+        "originalId": "53f8b2443987c62b4ca676fc46cbf4c29e9ca8b5678e62cd661bf778b3a0124c5037b954259be1a0f661f3a4fe25999e9301590ca75c657eac2db3857bb68dbd",
+        "receiptId": "1c280221f0efc803a2437f3ea9028441d093f5712e551d135e82229e118dd9ce54555fc2aea1e60c1382b12194db3e6bfc159489e665bb1a534ad07dc5ac0e7a",
+        "service": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+        "originalBytesPreserved": true,
+        "actualReceiptVerified": true
+      },
+      "framework": {
+        "source": "0db0062d873369dc013046ed77c97410b5683b64",
+        "saitoJs": "0.3.15",
+        "saitoWasm": "0.3.15",
+        "actualDispatcher": true,
+        "actualTemplateInitialize": true,
+        "actualServerCallback": true,
+        "actualTransactionRoundTrip": true,
+        "repeatedReceiptStable": true,
+        "wrongAuthenticatedPeerDenied": true,
+        "callbacks": 4,
+        "qualification": "Owned loopback service and public unsafe identities; runtime wallet/filesystem adapters, unused browser boundaries excluded. Not a bootstrapped production node."
+      },
+      "files": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-138-schema4-0.3.15/compiled-inputs.json",
+          "bytes": 53849,
+          "sha256": "1d374da8f3b07a1071c1efb715a9ba11a085803965885eea4a11735bdc394f9c"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-138-schema4-0.3.15/ready.json",
+          "bytes": 268,
+          "sha256": "32836434f397b40f3850ba706cdb47edd1aa9d7bd22d7827042558ac9207e7c4"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-138-schema4-0.3.15/result.json",
+          "bytes": 425,
+          "sha256": "67c5b816d04203a000a0f4533b0f1657fe272fbf471fa3fa584ab30017f95dfe"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-138-schema4-0.3.15/node-result.json",
+          "bytes": 515,
+          "sha256": "ceab2ac9d47c0a89c664cc312cef45f781bbd552ba94260f7a88cb92d592c2d6"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-138-schema4-0.3.15/node-receipt.json",
+          "bytes": 5292,
+          "sha256": "0160d78c4eeb4c874a59a18c51b969a874176242d6306ed78d096e69e78f2080"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-138-schema4-0.3.15/host.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces137-runtime/node-interop-138-schema4-0.3.15/node.log",
+          "bytes": 654,
+          "sha256": "3ef7e53f637f01c059cccf7a9ce8e90aff0064c703f55f19153ee90cec4c40bb"
+        }
+      ]
+    }
+  ]
+}

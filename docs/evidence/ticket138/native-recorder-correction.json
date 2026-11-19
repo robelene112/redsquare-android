@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "run": 44558391393,
+  "source": "296501b798c904a6d75f330fa14a35fbbcb2d26d",
+  "outcome": "failure",
+  "originalRoot": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt3-44558391393",
+  "zip": {
+    "bytes": 1184802,
+    "sha256": "7b368f680f24e8b75a4028006eb02945c7e567717d7b5ba08806b48ddd6434ab",
+    "crc": "PASS"
+  },
+  "observation": "The correctly scoped hold and all phase1 user assertions reached the actual visitor checkpoint, including public nonmembership, A-to-B selected draft/Send and module/recreation pixel restoration. The driver deliberately force-stopped PID3219. Instrumentation Process crashed is that expected interruption; crash buffer is empty.",
+  "failure": "Recorder adb transport did not end within the unchanged15-second wait at driverline121, so phase2 never started. Original failure type TimeoutExpired retained.",
+  "qualification": "One observed checkpoint, not a completed native parent or accepted prefix. Earlier Send-completion failure not reproduced under the correctly scoped hold; no application cause or fix inferred.",
+  "correction": [
+    "Noninteractive adb shell -n with stdinDEVNULL.",
+    "Recorder start bound5s enforced across every probe.",
+    "Verified device PID and exact phase MP4 argv; only that process receives numeric SIGINT.",
+    "Verify device process disappearance independently of transport state, require zero transport exit within shared15s before stopped flag.",
+    "Failed cleanup remains recorded; cases, pixel tolerances and deadlines unchanged."
+  ],
+  "sourceReviews": {
+    "spec": 0,
+    "standards": 0
+  },
+  "next": "Fresh complete parent and actual movie validation required."
+}

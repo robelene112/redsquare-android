@@ -41,6 +41,7 @@ def instrument(method, filename, peer, control):
 
 control_port = None
 movies = []
+movie_owners = {}
 try:
     serial = adb('get-serialno').stdout.decode().strip()
     if not serial.startswith('emulator-'):
@@ -68,10 +69,75 @@ try:
     def record(phase):
         remote = f'/sdcard/spaces-{"discovery" if discovery_mode else "journey"}-{phase}.mp4'
         logfile = (evidence / f'movie-{phase}.log').open('wb')
-        process = subprocess.Popen(['adb', 'shell', 'screenrecord', '--time-limit', '180',
-            '--bit-rate', '2000000', remote], stdout=logfile, stderr=subprocess.STDOUT)
+        process = subprocess.Popen(['adb', 'shell', '-n', 'screenrecord', '--time-limit', '180',
+            '--bit-rate', '2000000', remote], stdin=subprocess.DEVNULL, stdout=logfile, stderr=subprocess.STDOUT)
         children.append((process, logfile)); movies.append((process, remote, phase))
-        return process
+        deadline = time.monotonic() + 5
+        def provision_probe(*args):
+            remaining = deadline - time.monotonic()
+            if remaining <= 0: raise RuntimeError('Owned recorder did not start within5s')
+            return adb(*args, timeout=min(2, remaining), check=False)
+        while True:
+            observed = provision_probe('shell', 'pidof', 'screenrecord')
+            matches = []
+            for raw in observed.stdout.split():
+                if not raw.isdigit(): raise RuntimeError('Recorder PID observation was not numeric')
+                pid = int(raw)
+                commandline = provision_probe('shell', 'cat', f'/proc/{pid}/cmdline')
+                args = commandline.stdout.split(b'\0')
+                if commandline.returncode == 0 and remote.encode() in args and args[0].endswith(b'screenrecord'):
+                    matches.append(pid)
+            if len(matches) > 1: raise RuntimeError('More than one owned recorder has this phase path')
+            if matches:
+                if process.poll() is not None or time.monotonic() >= deadline:
+                    raise RuntimeError('Owned recorder ended or exceeded5s before readiness')
+                movie_owners[phase] = {'pid': matches[0], 'remote': remote, 'started': True}
+                (evidence / f'recorder-{phase}.json').write_text(json.dumps(movie_owners[phase]))
+                return process
+            if process.poll() is not None or time.monotonic() >= deadline:
+                raise RuntimeError('Owned recorder did not start within5s')
+            time.sleep(.05)
+
+    def finish_record(process, remote, phase):
+        deadline = time.monotonic() + 15
+        owner = movie_owners.get(phase)
+        if owner is None: raise RuntimeError('Recorder has no verified owned PID')
+        def probe(*args):
+            remaining = deadline - time.monotonic()
+            if remaining <= 0: raise subprocess.TimeoutExpired(process.args, 15)
+            return adb(*args, timeout=min(5, remaining), check=False)
+        def device_state():
+            observed = probe('shell', 'cat', f'/proc/{owner["pid"]}/cmdline')
+            if observed.returncode == 0:
+                args = observed.stdout.split(b'\0')
+                return 'owned' if remote.encode() in args and args[0].endswith(b'screenrecord') else 'reused'
+            exists = probe('shell', 'test', '-d', f'/proc/{owner["pid"]}')
+            if exists.returncode == 1 and not exists.stdout and not exists.stderr: return 'gone'
+            raise RuntimeError('Could not verify the owned device recorder identity')
+        before = device_state()
+        owner['deviceBeforeStop'] = before
+        if before == 'owned':
+            signal = probe('shell', 'kill', '-2', str(owner['pid']))
+            owner['signalExit'] = signal.returncode
+            owner['signalStdout'] = signal.stdout.decode(errors='replace')
+            owner['signalStderr'] = signal.stderr.decode(errors='replace')
+            (evidence / f'recorder-{phase}.json').write_text(json.dumps(owner))
+            if signal.returncode != 0 and device_state() == 'owned':
+                raise RuntimeError('Owned recorder refused SIGINT')
+        after = device_state()
+        while after == 'owned':
+            if time.monotonic() >= deadline: raise subprocess.TimeoutExpired(process.args, 15)
+            time.sleep(.05); after = device_state()
+        owner['deviceAfterStop'] = after
+        remaining = deadline - time.monotonic()
+        if remaining <= 0: raise subprocess.TimeoutExpired(process.args, 15)
+        process.wait(timeout=remaining)
+        owner['transportExit'] = process.returncode
+        (evidence / f'recorder-{phase}.json').write_text(json.dumps(owner))
+        if process.returncode != 0 or time.monotonic() >= deadline:
+            raise RuntimeError('Recorder transport did not complete successfully within15s')
+        owner['stopped'] = True
+        (evidence / f'recorder-{phase}.json').write_text(json.dumps(owner))
     if discovery_mode:
         # Freeze all four whole parent phases before the first measurement.
         phases = [
@@ -118,7 +184,7 @@ try:
                 if number == 3 and completed['pid'] in pids:
                     raise RuntimeError('Final phase reused a checkpoint PID')
                 pids.append(completed['pid'])
-            adb('shell', 'pkill', '-INT', 'screenrecord', check=False); movies[-1][0].wait(timeout=15)
+            finish_record(*movies[-1])
         fixtures = command(control_port, 'fixtures')
         child = command(control_port, 'channel-received', {'space': fixtures['private']['space'], 'channel': 'design'})
         (evidence / 'host-private-child-received.json').write_text(json.dumps(child, indent=2))
@@ -170,8 +236,7 @@ try:
         (evidence / 'process-kill.json').write_text(json.dumps({'oldPid': checkpoint['pid'], 'forceStopped': True,
             'firstInstrumentExit': first.returncode, 'expectedInterruptedTest': True}))
         # End the first recording using the actual device screenrecord process.
-        adb('shell', 'pkill', '-INT', 'screenrecord', check=False)
-        movies[-1][0].wait(timeout=15)
+        finish_record(*movies[-1])
         record(2)
         second = instrument('coldReturnReconcilesTheSameOriginalAndKeepsNewWriting', 'after-kill.txt', peer_port, control_port)
         second.wait(timeout=90)
@@ -211,12 +276,13 @@ finally:
         cleanup('independent-failure-observation', observe_host_failure)
     cleanup('stop-owned-android-process', lambda: adb('shell', 'am', 'force-stop', pkg))
     for process, remote, phase in movies:
-        def stop_movie(process=process):
-            if process.poll() is None:
-                adb('shell', 'pkill', '-INT', 'screenrecord', check=False)
-                try: process.wait(timeout=15)
-                except subprocess.TimeoutExpired:
+        def stop_movie(process=process, remote=remote, phase=phase):
+            try:
+                if not movie_owners.get(phase, {}).get('stopped'): finish_record(process, remote, phase)
+            except Exception:
+                if process.poll() is None:
                     process.kill(); process.wait(timeout=5)
+                raise
         cleanup(f'stop-movie-{phase}', stop_movie)
         cleanup(f'pull-movie-{phase}', lambda remote=remote, phase=phase:
             adb('pull', remote, str(evidence / f'phase-{phase}.mp4'), timeout=30))
