@@ -24,6 +24,71 @@ class SpaceClientTest {
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val clock = Clock.fixed(Instant.ofEpochMilli(1_700_000_000_000), ZoneOffset.UTC)
 
+    @Test fun anUnadmittedExpiredRequestCanUseANewInvitationWithoutLosingItsDraft() = runBlocking {
+        val milliseconds = java.util.concurrent.atomic.AtomicLong(clock.millis())
+        val moving = object : Clock() {
+            override fun getZone() = ZoneOffset.UTC
+            override fun withZone(zone: java.time.ZoneId): Clock = this
+            override fun instant(): Instant = Instant.ofEpochMilli(milliseconds.get())
+        }
+        val guest = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+        SpacesServiceStore(files.newFolder("expired-unadmitted").toPath(), service, moving).use { remote ->
+            val inviter = SpaceClient(owner, "fixture-node", service.publicKey, local("retry-inviter.sqlite"), moving) { remote.exchange(it.envelope()) }
+            val guestClient = SpaceClient(guest, "fixture-node", service.publicKey, local("retry-invitee.sqlite"), moving) { remote.exchange(it.envelope()) }
+            val space = inviter.create("A renewed invitation")
+            inviter.flush(space)
+            val first = inviter.invite(space)
+            inviter.flush(space)
+            guestClient.join(first); guestClient.flush(space)
+            guestClient.saveDraft(space, "Writing while waiting for admission")
+            milliseconds.addAndGet(8 * 86_400_000L)
+            val replacement = inviter.invite(space)
+            inviter.flush(space)
+            assertEquals(space, guestClient.join(replacement))
+            guestClient.flush(space); inviter.admitPending(space); inviter.flush(space)
+            guestClient.refresh(space)
+            assertTrue(guestClient.community(space).joined)
+            assertEquals("Writing while waiting for admission", guestClient.draft(space))
+            guestClient.send(space, guestClient.draft(space))
+            guestClient.flush(space); inviter.refresh(space)
+            assertEquals(listOf("Writing while waiting for admission"), inviter.messages(space))
+        }
+    }
+
+    @Test fun acceptedMembershipRecoversWhenItsInvitationHasExpiredBeforeTheDeviceReturns() = runBlocking {
+        val milliseconds = java.util.concurrent.atomic.AtomicLong(clock.millis())
+        val moving = object : Clock() {
+            override fun getZone() = ZoneOffset.UTC
+            override fun withZone(zone: java.time.ZoneId): Clock = this
+            override fun instant(): Instant = Instant.ofEpochMilli(milliseconds.get())
+        }
+        val guest = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+        val ownerStore = local("expiry-owner.sqlite")
+        val guestStore = local("expiry-guest.sqlite")
+        SpacesServiceStore(files.newFolder("expiry-before-return").toPath(), service, moving).use { remote ->
+            val inviter = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, moving) { remote.exchange(it.envelope()) }
+            fun guestClient() = SpaceClient(guest, "fixture-node", service.publicKey, guestStore, moving) { remote.exchange(it.envelope()) }
+            val space = inviter.create("An accepted invitation")
+            inviter.flush(space)
+            inviter.send(space, "Earlier history remains available")
+            inviter.flush(space)
+            val link = inviter.invite(space)
+            inviter.flush(space)
+            guestClient().join(link); guestClient().flush(space)
+            inviter.admitPending(space); inviter.flush(space)
+            // The member was accepted while the link was valid. It did not
+            // download its Welcome before going offline for eight days.
+            milliseconds.addAndGet(8 * 86_400_000L)
+            val reopened = guestClient()
+            reopened.refresh(space)
+            assertTrue(reopened.community(space).joined)
+            assertEquals(listOf("Earlier history remains available"), reopened.messages(space))
+            reopened.send(space, "Returned with the original admitted identity")
+            reopened.flush(space); inviter.refresh(space)
+            assertTrue(inviter.messages(space).contains("Returned with the original admitted identity"))
+        }
+    }
+
     @Test fun versionTwoAcceptedContentMigratesInBatchesWithoutChangingOriginalsOrReceipts() = runBlocking {
         val originalDirectory = files.newFolder("migration-original").toPath()
         val migratedDirectory = files.newFolder("migration-version-two").toPath()

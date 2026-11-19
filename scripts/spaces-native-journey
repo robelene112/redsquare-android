@@ -49,7 +49,9 @@ try:
     children.append((host, hostlog))
     deadline = time.monotonic() + 30
     while not (hostroot / 'ready.json').exists():
-        if host.poll() is not None or time.monotonic() >= deadline:
+        if host.poll() is not None:
+            raise RuntimeError('Owned Spaces host stopped before readiness; inspect host-host.log')
+        if time.monotonic() >= deadline:
             raise RuntimeError('Owned Spaces host did not become ready within 30 seconds')
         time.sleep(.1)
     ready = json.loads((hostroot / 'ready.json').read_text())
@@ -101,38 +103,73 @@ try:
     recovered = json.loads(adb('exec-out', 'run-as', pkg, 'cat', 'cache/spaces-journey-evidence/recovered.json').stdout)
     if recovered['recoveredPid'] == checkpoint['pid']:
         raise RuntimeError('Recovery reused the old Android PID')
-    (evidence / 'acceptance.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
+    (evidence / 'journey-outcome.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
         'oldPid': checkpoint['pid'], 'newPid': recovered['recoveredPid'], 'nativeTerminalPasses': 1,
         'deliberatelyInterruptedCases': 1, 'productionNodeActivated': False}))
 finally:
+    # Each bounded cleanup is independent, and its exception must not replace
+    # the original native/checkpoint failure or prevent remaining teardown.
+    primary = sys.exc_info()[1]
+    cleanup_errors = []
+    def cleanup(label, action):
+        try:
+            return action()
+        except Exception as failure:
+            cleanup_errors.append({'stage': label, 'error': type(failure).__name__})
+            return None
+    def capture_crash():
+        (evidence / 'crash.log').write_bytes(adb('logcat', '-d', '-b', 'crash', timeout=10).stdout)
+        (evidence / 'last-window.png').write_bytes(adb('exec-out', 'screencap', '-p', timeout=10).stdout)
+    cleanup('failure-buffers', capture_crash)
+    cleanup('stop-owned-android-process', lambda: adb('shell', 'am', 'force-stop', pkg))
     for process, remote, phase in movies:
-        if process.poll() is None:
-            adb('shell', 'pkill', '-INT', 'screenrecord', check=False)
-            try: process.wait(timeout=15)
-            except subprocess.TimeoutExpired: process.kill(); process.wait(timeout=5)
-        adb('pull', remote, str(evidence / f'phase-{phase}.mp4'), timeout=30, check=False)
-    capture = adb('exec-out', 'run-as', pkg, 'tar', '-C', 'cache', '-cf', '-', 'spaces-journey-evidence', timeout=30, check=False)
-    (evidence / 'native-evidence.tar').write_bytes(capture.stdout)
-    (evidence / 'native-evidence-capture.json').write_text(json.dumps({'exit': capture.returncode}))
-    (evidence / 'crash.log').write_bytes(adb('logcat', '-d', '-b', 'crash', timeout=10, check=False).stdout)
+        def stop_movie(process=process):
+            if process.poll() is None:
+                adb('shell', 'pkill', '-INT', 'screenrecord', check=False)
+                try: process.wait(timeout=15)
+                except subprocess.TimeoutExpired:
+                    process.kill(); process.wait(timeout=5)
+        cleanup(f'stop-movie-{phase}', stop_movie)
+        cleanup(f'pull-movie-{phase}', lambda remote=remote, phase=phase:
+            adb('pull', remote, str(evidence / f'phase-{phase}.mp4'), timeout=30))
+    def archive():
+        capture = adb('exec-out', 'run-as', pkg, 'tar', '-C', 'cache', '-cf', '-',
+                      'spaces-journey-evidence', timeout=30, check=False)
+        (evidence / 'native-evidence.tar').write_bytes(capture.stdout)
+        (evidence / 'native-evidence-capture.json').write_text(json.dumps({'exit': capture.returncode}))
+        if capture.returncode: raise RuntimeError('Native evidence archive failed')
+    cleanup('native-archive', archive)
+    if control_port and host.poll() is None:
+        cleanup('stop-owned-host', lambda: command(control_port, 'stop'))
     for process, log in reversed(children):
-        if process.poll() is None:
-            process.terminate()
-            try: process.wait(timeout=5)
-            except subprocess.TimeoutExpired: process.kill(); process.wait(timeout=5)
-        log.close()
+        def stop_child(process=process, log=log):
+            try:
+                if process.poll() is None:
+                    process.terminate()
+                    try: process.wait(timeout=5)
+                    except subprocess.TimeoutExpired:
+                        process.kill(); process.wait(timeout=5)
+            finally: log.close()
+        cleanup('owned-child', stop_child)
     if control_port:
         for port in (peer_port, control_port):
-            adb('reverse', '--remove', f'tcp:{port}', check=False)
+            cleanup(f'reverse-{port}', lambda port=port: adb('reverse', '--remove', f'tcp:{port}'))
     if 'hostroot' in globals():
         for name in ('ready.json', 'result.json', 'host.log'):
-            path = hostroot / name
-            if path.exists(): (evidence / ('host-' + name)).write_bytes(path.read_bytes())
-    # Keep test-host databases and encrypted Android state out of uploadable
-    # evidence. No production/user bytes were read. Retain public observations.
+            def copy_host(name=name):
+                path = hostroot / name
+                if path.exists(): (evidence / ('host-' + name)).write_bytes(path.read_bytes())
+            cleanup('host-observation-' + name, copy_host)
+    (evidence / 'cleanup.json').write_text(json.dumps({'originalFailure': type(primary).__name__ if primary else None,
+                                                     'errors': cleanup_errors}, indent=2))
+    if primary is None and not cleanup_errors:
+        (evidence / 'acceptance.json').write_bytes((evidence / 'journey-outcome.json').read_bytes())
     files = []
     for path in sorted(evidence.rglob('*')):
-        if path.is_file() and not path.name.endswith(('.sqlite', '.sqlite-wal', '.sqlite-shm')):
-            files.append({'path': str(path.relative_to(evidence)), 'bytes': path.stat().st_size,
-                          'sha256': hashlib.file_digest(path.open('rb'), 'sha256').hexdigest()})
+        if path.is_file():
+            with path.open('rb') as content:
+                digest = hashlib.file_digest(content, 'sha256').hexdigest()
+            files.append({'path': str(path.relative_to(evidence)), 'bytes': path.stat().st_size, 'sha256': digest})
     (evidence / 'files.json').write_text(json.dumps(files, indent=2))
+    if primary is None and cleanup_errors:
+        raise RuntimeError('Native journey cleanup failed; inspect cleanup.json')

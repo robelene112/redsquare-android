@@ -85,6 +85,13 @@ class SpacesJourneyTest {
             ui.onNode(hasScrollToNodeAction()).performScrollToNode(hasText("Fixture line 5"))
             val anchor = ui.onNodeWithText("Fixture line 5").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
             capture("04a-scrolled-before-module-switch")
+            command("populate", JsonObject().apply {
+                addProperty("space", joined.get("space").asString); addProperty("from", 20); addProperty("count", 60)
+            })
+            ui.waitUntil(20_000) { ui.onNodeWithText("Back to latest messages").isDisplayed() }
+            assertEquals("Unrelated incoming pages keep the actual reading pixel", anchor,
+                ui.onNodeWithText("Fixture line 5").fetchSemanticsNode().boundsInRoot.top, 1f)
+            capture("04a-incoming-messages-preserve-anchor")
             switchModule("Spaces", "Red Square")
             openSpaces("Red Square")
             ui.waitUntil(10_000) { ui.onNodeWithText("Fixture line 5").isDisplayed() }

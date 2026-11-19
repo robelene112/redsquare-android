@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "ticket": 137,
   "scope": "focused actual Activity and distinct-process journey, not complete app regression or deployed-node acceptance",
   "source": "exact checked-out Git SHA recorded by parent workflow and acceptance.json",
@@ -28,6 +28,7 @@
     "independent preview does not join, then actual admission and two-way encrypted messages",
     "independently created community preview and explicit native join",
     "pixel reading anchor after module return",
+    "Unrelated incoming messages spanning more than50 rows preserve the visible reading pixel; module return retains it",
     "draft saved through module return while original response is held",
     "observed old PID, actual force-stop and disappearance, distinct cold PID",
     "same original signature repeated, one received plaintext effect, new draft preserved",
@@ -37,5 +38,6 @@
   "native_terminal_passes": 1,
   "deliberate_interruptions": 1,
   "node_activation": false,
-  "public_transactions": false
+  "public_transactions": false,
+  "previous": "Version1 at ae938ff2d99565c82f03e522b6a6919cda21355b failed before any native case because the test host main did not return void. Original run44461360093 retained."
 }

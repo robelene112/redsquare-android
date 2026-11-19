@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 /** Disposable host peer survives an Android process kill. Public unsafe keys,
  * real service/SQLite/MLS and independent received effects; no public network. */
 object SpacesNativeHost {
-    @JvmStatic fun main(args: Array<String>) = runBlocking {
+    @JvmStatic fun main(args: Array<String>): Unit = runBlocking {
         require(args.size == 1)
         val root = Path.of(args.single())
         require(Files.isDirectory(root) && !Files.exists(root.resolve("ready.json")))
@@ -67,8 +67,11 @@ object SpacesNativeHost {
                                     "/populate" -> {
                                         val space = body.get("space").asString
                                         check(client.community(space).joined)
-                                        repeat(20) { client.send(space, "Fixture line $it") }
-                                        client.flush(space)
+                                        val from = body.get("from")?.asInt ?: 0
+                                        val count = body.get("count")?.asInt ?: 20
+                                        require(from in 0..100 && count in 1..60)
+                                        repeat(count) { client.send(space, "Fixture line ${from + it}") }
+                                        client.flush(space); client.flush(space)
                                         JsonObject()
                                     }
                                     "/hold" -> { peer.withholdSpacesReply = true; JsonObject() }

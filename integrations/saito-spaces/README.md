@@ -41,8 +41,11 @@ An uncertain callback never authorizes an automatic new signed operation.
 
 ## Executable rehearsal
 
-Primary source is Saito commit `0db0062d873369dc013046ed77c97410b5683b64`.
-`test/interop.cjs` verifies named source hashes and exact JS/WASM0.3.15 inputs
+Pinned source/runtime pairs are Saito commit
+`0db0062d873369dc013046ed77c97410b5683b64` with JS/WASM0.3.15 and commit
+`9a4ca7e9442eb5e872168ced361ce741d7d139d7` with JS/WASM0.3.2. The latter is the
+maintained owner-runtime pin, not a fresh production package observation.
+`test/interop.cjs` verifies named source hashes and each exact source and JS/WASM input
 before executing the actual transaction serializer, module template/dispatcher and
 server callback against the loopback JVM service. Its wallet getter, unavailable
 filesystem and unused browser boundaries are explicit adapters. This is not a

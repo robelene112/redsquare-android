@@ -31,7 +31,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val messages: List<SpaceClient.Message> = emptyList(), val draft: String = "",
         val invitation: SpaceClient.Invitation? = null, val preview: SpaceClient.InvitationPreview? = null,
         val problem: Problem? = null, val working: Boolean = false, val refreshing: Boolean = false,
-        val ready: Boolean = false, val savingNavigation: Boolean = false, val loadingChannel: Boolean = false, val hasEarlier: Boolean = false, val hasLater: Boolean = false, val scrollToMessage: String? = null)
+        val ready: Boolean = false, val savingNavigation: Boolean = false, val loadingChannel: Boolean = false, val hasEarlier: Boolean = false, val hasLater: Boolean = false, val scrollToMessage: String? = null, val windowFrom: Long = 0)
     private val appContext = context.applicationContext
     private val scope = CoroutineScope(parent.coroutineContext + SupervisorJob(parent.coroutineContext[Job]) + Dispatchers.IO)
     private val mutable = MutableStateFlow(State())
@@ -151,7 +151,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         mutable.update { previous ->
             if (previous.selected != selected) previous.copy(communities = communities)
             else previous.copy(communities = communities, messages = messages, invitation = invitation,
-                hasEarlier = window?.hasEarlier == true, hasLater = window?.hasLater == true)
+                hasEarlier = window?.hasEarlier == true, hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0)
         }
     }
 
@@ -183,11 +183,13 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         }
     }
     fun editDraft(text: String) {
-        val space = mutable.value.selected ?: return
+        mutable.value.selected?.let { editDraft(it, text) }
+    }
+    fun editDraft(space: String, text: String) {
         if (closed.get() || navigationSaving.get()) return
         dirtyDrafts[space] = text
         val version = draftVersions.getOrPut(space) { AtomicLong() }.incrementAndGet()
-        mutable.update { it.copy(draft = text) }
+        mutable.update { if (it.selected == space) it.copy(draft = text) else it }
         scope.launch {
             try { localAccess.withLock {
                 if (draftVersions[space]?.get() == version) {
@@ -217,6 +219,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             publish(); wake.trySend(Unit)
         }
     }
+    fun readingPosition(space: String, followLatest: Boolean) {
+        val before = mutable.value
+        if (before.selected != space || before.loadingChannel) return
+        if (followLatest) {
+            val changed = historyWindows.remove(space) != null
+            if (changed && before.hasLater) scope.launch { publish() }
+        } else historyWindows.putIfAbsent(space, before.windowFrom)
+    }
     fun consumeScrollTarget(message: String) {
         mutable.update { if (it.scrollToMessage == message) it.copy(scrollToMessage = null) else it }
     }
@@ -229,25 +239,25 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             while (current.historyWindow(space).loadedFrom > start) current.older(space)
             historyWindows[space] = start
             publish()
+            mutable.update { if (it.selected == space) it.copy(scrollToMessage = it.messages.firstOrNull()?.id) else it }
         } }
     }
     fun latestMessages() {
         val space = mutable.value.selected ?: return
         historyWindows.remove(space)
-        scope.launch { publish() }
+        scope.launch {
+            publish()
+            mutable.update { if (it.selected == space) it.copy(scrollToMessage = it.messages.lastOrNull()?.id) else it }
+        }
     }
     fun restoreRejectedDraft(messageId: String) {
-        val space = mutable.value.selected ?: return
-        localAction {
-            localAccess.withLock {
-                val current = requireNotNull(client)
-                check(current.draft(space).isEmpty() && mutable.value.draft.isEmpty() && dirtyDrafts[space].isNullOrEmpty())
-                val message = current.timeline(space).single { it.id == messageId && it.rejected }
-                val text = requireNotNull(message.text)
-                current.saveDraft(space, text)
-                if (mutable.value.selected == space) mutable.update { it.copy(draft = text) }
-            }
-        }
+        val before = mutable.value
+        val space = before.selected ?: return
+        if (before.draft.isNotEmpty() || before.working) return
+        val text = before.messages.singleOrNull { it.id == messageId && it.rejected }?.text ?: return
+        // Reuse the ordinary immediate, revision-fenced editing path. A queued
+        // blank save cannot overwrite this user action or newer typing.
+        editDraft(space, text)
     }
     fun create(name: String) = localAction {
         val space = localAccess.withLock { requireNotNull(client).create(name) }

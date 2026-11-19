@@ -17,6 +17,7 @@ tasks.test {
     inputs.dir(native).withPropertyName("spacesMlsHost")
     systemProperty("java.library.path", native.get().asFile.absolutePath)
     systemProperty("spaces.service.runtimeClasspath", sourceSets.main.get().runtimeClasspath.asPath)
+    systemProperty("spaces.native.fixtureClasspath", sourceSets.test.get().runtimeClasspath.asPath)
 }
 
 // Only isolated rehearsal/host fixtures use this classpath. No fixture classes

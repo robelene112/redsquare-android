@@ -183,18 +183,32 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 } else {
                 val list = rememberLazyListState()
                 var initialPage by rememberSaveable { mutableStateOf(true) }
+                var autoScrolling by remember { mutableStateOf(false) }
+                LaunchedEffect(list, account) {
+                    snapshotFlow {
+                        if (list.layoutInfo.visibleItemsInfo.isEmpty()) null else list.canScrollForward to autoScrolling
+                    }.collect { position ->
+                        position?.let { (forward, automatic) ->
+                            if (!automatic) account.readingPosition(selected.id, followLatest = !forward)
+                        }
+                    }
+                }
                 LaunchedEffect(state.messages.lastOrNull()?.id, state.scrollToMessage) {
                     val requested = state.scrollToMessage
                     val requestedIndex = state.messages.indexOfFirst { it.id == requested }
                     if (requested != null && requestedIndex >= 0) {
-                        list.animateScrollToItem(requestedIndex + 1 + if (state.hasEarlier) 1 else 0)
+                        autoScrolling = true
+                        try { list.animateScrollToItem(requestedIndex + 1 + if (state.hasEarlier) 1 else 0) }
+                        finally { autoScrolling = false }
                         initialPage = false
                         account.consumeScrollTarget(requested)
                         return@LaunchedEffect
                     }
                     if (state.messages.isNotEmpty() && (initialPage ||
                         list.layoutInfo.visibleItemsInfo.lastOrNull()?.key == state.messages.dropLast(1).lastOrNull()?.id)) {
-                        list.animateScrollToItem(state.messages.lastIndex + 1 + if (state.hasEarlier) 1 else 0)
+                        autoScrolling = true
+                        try { list.animateScrollToItem(state.messages.lastIndex + 1 + if (state.hasEarlier) 1 else 0) }
+                        finally { autoScrolling = false }
                         initialPage = false
                     }
                 }
@@ -219,17 +233,21 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     items(state.messages, key = { it.id }) { message ->
                         MessageRow(message, state.draft.isEmpty() && !state.working) { account.restoreRejectedDraft(message.id) }
                     }
-                    if (state.hasLater) item(key = "latest") {
-                        OutlinedButton(onClick = account::latestMessages,
-                            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_latest_messages)) }
-                    }
                     state.problem?.let { problem -> item(key = "problem") { ProblemNotice(problem, account::clearProblem) } }
                 }
+                }
+                AnimatedVisibility(state.hasLater,
+                    enter = fadeIn(tween(AppSpacing.transitionMillis)) + expandVertically(tween(AppSpacing.transitionMillis)),
+                    exit = fadeOut(tween(AppSpacing.transitionMillis)) + shrinkVertically(tween(AppSpacing.transitionMillis))) {
+                    OutlinedButton(onClick = account::latestMessages,
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).heightIn(min = 48.dp)) {
+                        Text(stringResource(R.string.spaces_latest_messages))
+                    }
                 }
                 HorizontalDivider()
                 Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp),
                     verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedTextField(state.draft, account::editDraft, Modifier.weight(1f), enabled = selected.joined && !state.savingNavigation && !state.loadingChannel,
+                    OutlinedTextField(state.draft, { account.editDraft(selected.id, it) }, Modifier.weight(1f), enabled = selected.joined && !state.savingNavigation && !state.loadingChannel,
                         placeholder = { Text(stringResource(R.string.spaces_message_hint)) }, shape = RoundedCornerShape(18.dp),
                         minLines = 1, maxLines = 4)
                     FilledIconButton(onClick = account::send, enabled = selected.canSend && state.draft.isNotBlank() && !state.working && !state.loadingChannel,

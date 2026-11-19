@@ -1,3 +1,5 @@
+# Spaces protocol and persistence, version1
+
 ## Client and service integration under137
 
 Source now includes the account-owned native coordinator and navigationB. It
@@ -14,11 +16,9 @@ reference decrypts the actual grant and earlier archive ciphertext.
 
 The optional [node adapter](../integrations/saito-spaces/README.md) defines the
 source-stage transport, schema3 migration, readiness and write-preserving
-rollback contract. The exploratory actual Saito0db/JS-WASM0.3.15 rehearsal passes;
+rollback contract. The exploratory actual Saito0db/JS-WASM0.3.15 and9a/JS-WASM0.3.2 rehearsals pass;
 fixed-source native/OS/process and deployed-runtime compatibility acceptance
 remain pending. This section does not close137 or activate a node/provider.
-
-# Spaces protocol and persistence, version1
 
 Implementation contract for137 under134. Native integration must wait for the
 executable contracts below. This document does not establish deployed service

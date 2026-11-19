@@ -14,15 +14,31 @@ const runtime = path.resolve(process.argv[3]);
 const fixture = path.resolve(process.argv[4]);
 const pkg = name => require(path.join(runtime, 'node_modules', name));
 const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
+const version = pkg('saito-js/package.json').version;
+const profiles = {
+  '0.3.15': {
+    source: '0db0062d873369dc013046ed77c97410b5683b64',
+    template: '00c20e1a0fb8b3b12d16fdf275710205d3899029b2bc6a953b10e51c0789ad50',
+    modules: '6c70d022fc125654f075a798557673605c9101f2c7cdbcd583e08a264d10a7c8',
+    wasm: '6b0c1be0fbdd2152805d232cef07883d992e3d2d0daeece86a3e9c20dd22a586'
+  },
+  '0.3.2': {
+    source: '9a4ca7e9442eb5e872168ced361ce741d7d139d7',
+    template: 'c35f8577d8226e0d756dd006c5146939ca3f79b09725f440c2d927e82c497147',
+    modules: '3b05a96be3b5840e0c864db9ea3d4387c393469512a4256ff832af1c58c6fa09',
+    wasm: 'f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e'
+  }
+};
+assert.ok(Object.hasOwn(profiles, version), 'only an explicitly pinned runtime is supported');
+const profile = profiles[version];
 const pins = {
   'transaction.ts': 'b200fe3d42a332035dd88be173eb59c52abd066f2e5161c09e8e7d4ce37ac633',
-  'modtemplate.js': '00c20e1a0fb8b3b12d16fdf275710205d3899029b2bc6a953b10e51c0789ad50',
-  'modules.ts': '6c70d022fc125654f075a798557673605c9101f2c7cdbcd583e08a264d10a7c8'
+  'modtemplate.js': profile.template,
+  'modules.ts': profile.modules
 };
 for (const [name, expected] of Object.entries(pins)) assert.equal(sha(fs.readFileSync(path.join(primary, name))), expected, name);
-assert.equal(pkg('saito-js/package.json').version, '0.3.15');
-assert.equal(pkg('saito-wasm/package.json').version, '0.3.15');
-assert.equal(sha(fs.readFileSync(path.join(runtime, 'node_modules/saito-wasm/pkg/node/index_bg.wasm'))), '6b0c1be0fbdd2152805d232cef07883d992e3d2d0daeece86a3e9c20dd22a586');
+assert.equal(pkg('saito-wasm/package.json').version, version);
+assert.equal(sha(fs.readFileSync(path.join(runtime, 'node_modules/saito-wasm/pkg/node/index_bg.wasm'))), profile.wasm);
 assert.equal(sha(fs.readFileSync(path.join(runtime, 'node_modules/saito-js/shared_methods.server.js'))), '797f83574013652f22d2f05dca002860031d735be4a2ffd01d03ec81d4ef8edb');
 
 function load(code, filename, requireAtBoundary, globals = {}) {
@@ -116,7 +132,7 @@ const PeerService = pkg('saito-js/lib/peer_service').default;
     await shared.processApiCall(original, 4, otherIdentity);
     assert.equal(callbackBytes.length, 4);
     assert.equal(JSON.parse(callbackBytes[3].bytes.toString('utf8')).spaces_error, 'unavailable');
-    const result = {source: '0db0062d873369dc013046ed77c97410b5683b64', saitoJs: '0.3.15', saitoWasm: '0.3.15',
+    const result = {source: profile.source, saitoJs: version, saitoWasm: version,
       actualDispatcher: true, actualTemplateInitialize: true, actualServerCallback: true, actualTransactionRoundTrip: true,
       repeatedReceiptStable: true, wrongAuthenticatedPeerDenied: true, callbacks: 4,
       qualification: 'Owned loopback service and public unsafe identities; runtime wallet/filesystem adapters, unused browser boundaries excluded. Not a bootstrapped production node.'};

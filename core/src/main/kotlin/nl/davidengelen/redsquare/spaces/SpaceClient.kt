@@ -97,8 +97,16 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val preview = loadPreview(link)
         val invitation = preview.invitation
         val scope = invitation.scope
+        val saved = store.transaction { owned(initialize = true); get(stateKey(scope.spaceId))?.let(::json) }
+        if (saved != null) {
+            require(SpaceCrypto.Scope.fromJson(saved.getAsJsonObject("scope")) == scope)
+            // Preserve the original device and its Welcome material. A fresh
+            // invitation must never replace pending keys or unsent writing.
+            store.transaction { preview.controls.forEach { accept(scope.spaceId, it) } }
+            if (store.transaction { state(scope.spaceId).get("joined").asBoolean }) return scope.spaceId
+        }
         require(wallet.publicKey !in preview.journal.snapshot.members) { "This identity is already a member; restore its community keys" }
-        val device = SpaceCrypto.device(wallet.publicKey, id())
+        val device = saved?.let { SpaceCrypto.restore(decode(it.text("crypto"))) } ?: SpaceCrypto.device(wallet.publicKey, id())
         val keyPackage = device.keyPackage(scope, wallet)
         val operation = id()
         val original = event(scope.spaceId, "join", operation) {
@@ -113,16 +121,14 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
         store.transaction {
             owned(initialize = true)
-            require(get(stateKey(scope.spaceId)) == null) { "This community already has saved work" }
-            for (receipt in preview.controls) {
+            if (saved == null) for (receipt in preview.controls) {
                 val position = SaitoEnvelope.decode(receipt).body.number("position")
                 put("${scope.spaceId}/control/${positionKey(position)}", receipt.toByteArray(Charsets.UTF_8))
             }
-            val state = JsonObject().apply {
+            val state = (if (saved == null) JsonObject().apply {
                 add("scope", scope.json()); addProperty("name", preview.name); addProperty("crypto", encode(device.save()))
                 addProperty("joined", false); addProperty("next_outbox", 0); addProperty("content_cursor", 0)
-                addProperty("joining_invitation", link)
-            }
+            } else state(scope.spaceId)).apply { addProperty("joining_invitation", link) }
             queue(scope.spaceId, state, original)
         }
         return scope.spaceId
@@ -283,7 +289,12 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private suspend fun syncControls(space: String) {
         while (true) {
             val before = store.transaction { owned(); state(space) }
-            val invitation = before.get("joining_invitation")?.asString?.let(SpaceInvitation::parse)
+            val invitation = before.get("joining_invitation")?.asString?.let(SpaceInvitation::parse)?.takeIf { link ->
+                // Accepted membership outlives the capability that requested it.
+                // Once that capability expires, use the actual wallet's member
+                // read authority to recover its already accepted Welcome.
+                store.transaction { journal(space).snapshot.invitations[link.invitationId]?.expiresAt ?: 0 } > clock.millis()
+            }
             val controlCursor = store.transaction { journal(space).snapshot.nextPosition }
             val controls = readPage(JsonObject().apply {
                 addProperty("space_id", space); addProperty("stream", if (invitation == null) "control" else "invitation")
