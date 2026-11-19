@@ -140,6 +140,12 @@ class SpacesDiscoveryJourneyTest {
             } and hasClickAction()
             ui.onNode(memberChat).clickReady()
             waitUntil { ui.onNodeWithContentDescription("Switch app: Red Square").isDisplayed() && ui.onNode(hasSetTextAction() and hasText("Message")).isDisplayed() }
+            // First private-chat entry offers notification setup. Dismiss that
+            // actual modal explicitly before exercising the route's Back action.
+            waitText("Android notification alerts", 5_000)
+            capture("10a-member-chat-notification-offer")
+            ui.onNode(hasText("Not now") and hasClickAction() and hasAnyAncestor(isDialog())).clickReady()
+            waitUntil(5_000) { ui.onAllNodesWithText("Android notification alerts").fetchSemanticsNodes().isEmpty() }
             capture("10-member-private-chat")
             device.pressBack(); waitText("Members", 5_000)
             device.pressBack()

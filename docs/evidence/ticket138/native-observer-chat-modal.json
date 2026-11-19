@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "run": 44567215526,
+  "source": "f08c04eb046990c5771272e52d4b74d8cb007df5",
+  "outcome": "failure",
+  "originalRoot": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt5-44567215526",
+  "zip": {
+    "bytes": 2505626,
+    "sha256": "688ebaf22f165487ba4f6aa24c886af108446f3d92a4f1471579cfa526b551a0",
+    "crc": "PASS"
+  },
+  "sourceBuild": {
+    "core": 244,
+    "service": 67,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "observed": "Phase1 reaches visitor checkpoint and real process termination. Phase2 restores exact pixel, reviews public rules, joins, preserves both channel drafts, opens the real member profile and returns to members. Whole parent fails at the first private-chat return assertion.",
+  "failure": "Actual original 10-member-private-chat.png shows the existing Android notification alerts onboarding dialog. The test Back action dismisses this modal, leaving the actual Chat route visible in member-failure.png. No Chat-route Back has occurred; no product route defect is established.",
+  "correction": "Observer explicitly waits for the real notification offer, captures it, chooses Not now through the visible enabled dialog action and verifies dismissal before capturing Chat and performing the original Back-to-Members assertion. Existing five-second return bound and all other goals remain unchanged.",
+  "productChanged": false,
+  "sourceReviews": {
+    "spec": 0,
+    "standards": 0
+  },
+  "acceptance": "No accepted prefix or full-native result. Fresh whole parent required."
+}

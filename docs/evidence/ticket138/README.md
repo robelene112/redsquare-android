@@ -59,6 +59,15 @@ readiness before a physical tap. Negative rule checks and every post-tap modal,
 held-read, pixel, phase and remote-effect goal remain unchanged. Both review axes
 are clear. The whole parent remains failed and must be rerun in full.
 
+The [fifth whole parent](native-observer-chat-modal.json) passes its source build
+with244 core and67 service checks. The actual journey reaches reviewed public
+membership, both channel drafts, member profile entry and return. Its private
+Chat capture still contains the existing notification onboarding dialog. Back
+dismisses that modal, so the subsequent Members assertion fails without having
+exercised the route's Back action. The observer now explicitly chooses Not now
+and verifies dismissal before the original route assertion. Product behavior
+and return deadlines are unchanged; the whole parent remains failed.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.
