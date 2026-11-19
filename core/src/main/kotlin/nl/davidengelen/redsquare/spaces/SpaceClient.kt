@@ -817,7 +817,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val state = state(space)
         val current = channelState(space, channel ?: selectedChannel(state), state)
         val last = current.get("last_content")?.asLong ?: 0
-        val start = from ?: (last - 49).coerceAtLeast(0)
+        val start = from ?: maxOf((last - 49).coerceAtLeast(0), current.get("history_from")?.asLong ?: 0)
         require(start >= 0)
         HistoryWindow(start, current.get("history_from")?.asLong ?: start, start > 0, last >= start + 50, current.get("content_loaded")?.asBoolean == true)
     }
@@ -833,7 +833,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val crypto by lazy { SpaceCrypto.restore(decode(data.text("crypto"))) }
         val prefix = contentPrefix(space, targetChannel)
         val last = data.get("last_content")?.asLong ?: 0
-        val start = from ?: (last - limit + 1).coerceAtLeast(0)
+        val start = from ?: maxOf((last - limit + 1).coerceAtLeast(0), data.get("history_from")?.asLong ?: 0)
         fun message(envelope: String, pending: Boolean, attempted: Boolean, rejected: Boolean = false, position: Long? = null): Message? {
             val original = SaitoEnvelope.decode(envelope)
             if (original.body.get("channel_id")?.asString != targetChannel) return null

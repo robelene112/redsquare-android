@@ -389,6 +389,47 @@ class SpaceClientTest {
         }
     }
 
+    @Test fun aColdMemberCanReachEarlierMessagesWhenItsRecentPageContainsOnlyKeyGrants() = runBlocking {
+        SpacesServiceStore(files.newFolder("only-recent-key-grants").toPath(), service, clock).use { remote ->
+            val creator = SpaceClient(owner, "fixture-node", service.publicKey, local("only-grants-owner.sqlite"), clock) {
+                remote.exchange(it.envelope())
+            }
+            val space = creator.create("Earlier messages remain reachable"); creator.flush(space)
+            val original = creator.send(space, "The conversation already has a message"); creator.flush(space)
+            val link = creator.invite(space); creator.flush(space)
+            var finalWallet: SaitoWallet? = null
+            var finalStorage: SqliteClientFixture? = null
+            repeat(50) { index ->
+                val wallet = SaitoWallet.fromPrivateKey((index + 3).toString(16).padStart(64, '0'))
+                val storage = local("only-grants-member-$index.sqlite")
+                val member = SpaceClient(wallet, "fixture-node", service.publicKey, storage, clock) { remote.exchange(it.envelope()) }
+                member.join(link); member.flush(space); creator.admitPending(space); creator.flush(space)
+                finalWallet = wallet; finalStorage = storage
+            }
+            fun returningMember() = SpaceClient(requireNotNull(finalWallet), "fixture-node", service.publicKey,
+                requireNotNull(finalStorage), clock) { remote.exchange(it.envelope()) }
+            val member = returningMember()
+            member.refresh(space)
+            member.saveDraft(space, "Independent writing survives earlier-history loading")
+            val recent = member.historyWindow(space)
+            assertTrue("The first page really starts after the original message", recent.loadedFrom > 0)
+            assertTrue(member.timeline(space, from = recent.from).isEmpty())
+            assertTrue("Available earlier messages must retain an Earlier action", recent.hasEarlier)
+            assertTrue("The visible window cannot start before its loaded boundary", recent.from >= recent.loadedFrom)
+            val restored = returningMember()
+            assertTrue("Cold restoration must keep earlier history reachable", restored.historyWindow(space).hasEarlier)
+            val from = restored.older(space)
+            assertEquals(0L, from)
+            val received = restored.timeline(space, from = from).single()
+            assertEquals(original, received.id)
+            assertEquals(owner.publicKey, received.author)
+            assertEquals("The conversation already has a message", received.text)
+            assertFalse(received.missingKeys)
+            assertFalse(restored.historyWindow(space, from = from).hasEarlier)
+            assertEquals("Independent writing survives earlier-history loading", restored.draft(space))
+        }
+    }
+
     @Test fun aMemberWhoReturnsAfterAnotherAdmissionCanStillRecoverItsEarlierHistoryGrant() = runBlocking {
         val guest = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
         val newcomer = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")

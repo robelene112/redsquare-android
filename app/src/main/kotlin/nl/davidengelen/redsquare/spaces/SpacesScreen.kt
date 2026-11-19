@@ -293,7 +293,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             if (state.refreshing) CircularProgressIndicator(Modifier.size(28.dp))
                             else Text(stringResource(R.string.spaces_history_not_loaded), color = MaterialTheme.colorScheme.onSurfaceVariant)
                         } else if (state.messages.isEmpty()) Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
-                            Text(stringResource(R.string.spaces_no_messages), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(stringResource(if (state.hasEarlier) R.string.spaces_no_recent_messages else R.string.spaces_no_messages),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant)
                         } else LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = list,
                             contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = 8.dp),
                             verticalArrangement = Arrangement.spacedBy(16.dp)) {
