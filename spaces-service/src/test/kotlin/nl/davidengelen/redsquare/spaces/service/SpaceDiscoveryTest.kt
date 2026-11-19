@@ -6,6 +6,7 @@ import kotlinx.coroutines.runBlocking
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.spaces.SpaceCrypto
 import nl.davidengelen.redsquare.spaces.SpaceClient
 import nl.davidengelen.redsquare.spaces.SpaceProfile
 import nl.davidengelen.redsquare.spaces.SpaceVisibility
@@ -24,6 +25,100 @@ class SpaceDiscoveryTest {
     private val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val visitor = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+
+    @Test fun aPublicVisitorReadsWithoutJoiningAndContributesOnlyAfterAnExplicitDurableJoin() = runBlocking {
+        SpacesServiceStore(files.newFolder("public-read-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("public-read-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("public-read-visitor.sqlite").absolutePath).use { visitorStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    var loseJoinResponse = true
+                    var originalJoin: String? = null
+                    val reader = SpaceClient(visitor, "fixture-node", service.publicKey, visitorStore, clock) { request ->
+                        val original = SaitoEnvelope.decode(request.envelope())
+                        val result = remote.exchange(request.envelope())
+                        if (original.body.get("kind")?.asString == "join-public") {
+                            if (originalJoin == null) originalJoin = request.envelope() else assertEquals(originalJoin, request.envelope())
+                            if (loseJoinResponse) { loseJoinResponse = false; throw java.io.IOException("Accepted join response was lost") }
+                        }
+                        result
+                    }
+                    val space = creator.create(SpaceProfile("Open reading room", "Read before joining", SpaceVisibility.PUBLIC))
+                    creator.flush(space)
+                    creator.send(space, "A genuinely public conversation")
+                    creator.flush(space)
+                    assertFalse(reader.openPublic(space).joined)
+                    reader.refresh(space)
+                    assertEquals(listOf("A genuinely public conversation"), reader.messages(space))
+                    assertTrue("Viewing is not joining", reader.communities().isEmpty())
+                    reader.saveDraft(space, "My independent draft")
+                    try { reader.send(space, "Not a member yet"); fail("Viewing cannot authorize publication") }
+                    catch (_: IllegalArgumentException) { }
+                    reader.joinPublic(space)
+                    assertFalse(reader.community(space).joined)
+                    try { reader.flush(space); fail("The controlled original join callback must be lost") }
+                    catch (_: java.io.IOException) { }
+                    assertFalse(reader.community(space).joined)
+                    assertEquals("My independent draft", reader.draft(space))
+                    val restored = SpaceClient(visitor, "fixture-node", service.publicKey, visitorStore, clock) { request ->
+                        if (SaitoEnvelope.decode(request.envelope()).body.get("kind")?.asString == "join-public")
+                            assertEquals(originalJoin, request.envelope())
+                        remote.exchange(request.envelope())
+                    }
+                    restored.flush(space)
+                    assertTrue(restored.community(space).joined)
+                    assertTrue(restored.community(space).canSend)
+                    assertFalse("Direct public join grants no administrator role", restored.community(space).canInvite)
+                    restored.send(space, "An explicitly joined member can answer")
+                    restored.flush(space)
+                    creator.refresh(space)
+                    assertEquals(listOf("A genuinely public conversation", "An explicitly joined member can answer"), creator.messages(space))
+                    assertEquals(listOf(space), restored.communities().map { it.id })
+                    val privateSpace = creator.create("Private room stays private")
+                    creator.flush(privateSpace)
+                    try { restored.openPublic(privateSpace); fail("Public browsing cannot open private history") }
+                    catch (_: IllegalArgumentException) { }
+                    assertEquals(listOf(space), restored.communities().map { it.id })
+                    assertEquals("My independent draft", restored.draft(space))
+                }
+            }
+        }
+    }
+
+    @Test fun anOlderPublicCommunityNeverTurnsItsUnmarkedPrivateChannelIntoPublicPlaintext() = runBlocking {
+        SpacesServiceStore(files.newFolder("legacy-public-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("legacy-public-visitor.sqlite").absolutePath).use { visitorStore ->
+                val scope = SpaceCrypto.Scope(service.publicKey, "a".repeat(64), "b".repeat(64))
+                val crypto = SpaceCrypto.device(owner.publicKey, "c".repeat(64)).create(scope)
+                val metadata = crypto.publish(owner, "metadata", "d".repeat(64), "0".repeat(128), "Still private", clock.millis())
+                val genesis = SaitoTransaction.create(owner, JsonObject().apply {
+                    addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                    addProperty("space_id", scope.spaceId); addProperty("kind", "create"); addProperty("operation_id", "e".repeat(64))
+                    addProperty("visibility", "public"); add("public_profile", SpaceProfile("Legacy public shell", visibility = SpaceVisibility.PUBLIC).json())
+                    // Older roots have no channel_visibility. Public discovery
+                    // must not imply disclosure of their encrypted conversation.
+                    addProperty("channel_id", scope.channelId); addProperty("epoch", 0)
+                    addProperty("metadata", java.util.Base64.getEncoder().encodeToString(metadata.envelope().toByteArray()))
+                    add("devices", JsonObject().apply { crypto.bindings.forEach { (credential, signer) -> addProperty(credential, signer) } })
+                }, clock.millis(), listOf(service.publicKey))
+                assertEquals("control", SaitoEnvelope.decode(remote.exchange(genesis.envelope())).body.get("stream").asString)
+                val encrypted = crypto.publish(owner, "message", "1".repeat(64), genesis.id, "A private historical message", clock.millis())
+                assertEquals("content", SaitoEnvelope.decode(remote.exchange(encrypted.envelope())).body.get("stream").asString)
+                val plaintext = SaitoTransaction.create(owner, JsonObject().apply {
+                    addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                    addProperty("space_id", scope.spaceId); addProperty("channel_id", scope.channelId)
+                    addProperty("operation_id", "2".repeat(64)); addProperty("kind", "public-content")
+                    addProperty("control_id", genesis.id); addProperty("epoch", 0); addProperty("key_generation", scope.generation)
+                    addProperty("content_kind", "message"); addProperty("text", "Do not accept a plaintext fallback")
+                }, clock.millis(), listOf(service.publicKey))
+                assertEquals("rejection", SaitoEnvelope.decode(remote.exchange(plaintext.envelope())).body.get("stream").asString)
+                val reader = SpaceClient(visitor, "fixture-node", service.publicKey, visitorStore, clock) { remote.exchange(it.envelope()) }
+                assertEquals(listOf(scope.spaceId), reader.discover().items.map { it.id })
+                try { reader.openPublic(scope.spaceId); fail("A public profile is not public channel authority") }
+                catch (_: IllegalArgumentException) { }
+                assertTrue(reader.communities().isEmpty())
+            }
+        }
+    }
 
     @Test fun anOwnerCanListUnlistAndRelistAPublicCommunityWithSignedDurableChanges() = runBlocking {
         SpacesServiceStore(files.newFolder("owner-listing-service").toPath(), service, clock).use { remote ->

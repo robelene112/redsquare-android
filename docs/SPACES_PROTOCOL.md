@@ -15,10 +15,37 @@ removes joined-community data, keys, originals or drafts.
 
 Migration to4 adds a bounded100-row public-genesis index backfill without
 rewriting accepted originals/receipts. New source readiness reports4; the adapter
-also advertises spaces-directory-v1. These incremental contracts do not yet
-establish public reading/joining, richer invitation/rule flows, native138,
-updated deployed-runtime compatibility or permission to activate a node/provider.
+also advertises spaces-directory-v1. Richer invitation/rule flows, native138,
+updated deployed-runtime compatibility and node/provider activation remain separate.
 See [the138 packet](evidence/ticket138/README.md).
+
+## In-progress138 public reading and direct admission
+
+Channel audience is explicit in channel_visibility at creation. Missing fields
+remain PRIVATE, including older public Space roots; discovery never changes
+channel confidentiality. A PUBLIC channel requires a PUBLIC containing Space.
+Public visitors may read signed control history and explicitly public channel
+content through the existing fresh authenticated read protocol. Opening creates
+no MLS device and no My Spaces entry. Local visitor metadata remains separate
+from accepted membership.
+
+A direct join-public control references the current predecessor and public
+channel. The receiver grants only MEMBER, without waiting for an owner or
+pretending a private MLS admission occurred. The client retains the exact signed
+original across lost responses and activates membership only after an accepted
+control. Intentional public-content messages carry signed bounded plaintext;
+only accepted members can contribute. Channel epoch/generation and authorizing
+control remain checked. PRIVATE channels retain MLS/archive/device checks and
+reject public-content, even inside a public Space. Per-channel private admission
+and later visibility changes remain part of the following governance work.
+
+The owned SQLite/client regression covers independent visitor reading, no
+implicit join, refused pre-join sending, exact-original recovery after a lost
+accepted join response, retained draft, independent received public reply and
+no administrator grant. An independently constructed older public root accepts
+real encrypted private content, rejects plaintext fallback and refuses public
+opening of its unmarked channel. Full244-core/33-service checks pass. This does
+not establish native138 or actual updated framework/deployed-node acceptance.
 
 ## Earlier client and service integration under137
 

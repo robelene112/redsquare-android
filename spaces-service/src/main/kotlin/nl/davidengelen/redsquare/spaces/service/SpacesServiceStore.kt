@@ -95,8 +95,10 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         require(SaitoWallet.verify(proof.toByteArray(Charsets.UTF_8), body.text("invite_proof"), invitation.key))
                     } else if (stream == "join") {
                         require(journal.snapshot.members[request.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
-                    } else require(request.author in journal.snapshot.members) { "Spaces private history is not available to this identity" }
-                    if (channel != null) require(requireNotNull(journal.snapshot.channels[channel]).devices.keys.any {
+                    } else if (!(journal.snapshot.visibility == SpaceVisibility.PUBLIC && stream == "control") &&
+                        !(stream == "content" && journal.snapshot.channels[channel]?.visibility == SpaceVisibility.PUBLIC))
+                        require(request.author in journal.snapshot.members) { "Spaces private history is not available to this identity" }
+                    if (channel != null && journal.snapshot.channels[channel]?.visibility != SpaceVisibility.PUBLIC) require(requireNotNull(journal.snapshot.channels[channel]).devices.keys.any {
                         it.split(':')[1] == request.author
                     }) { "Spaces channel is not available to this identity" }
                     if (recipient != null) require(recipient in requireNotNull(journal.snapshot.channels[channel]).devices &&
@@ -134,7 +136,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     }
                     reply.addProperty("request", "page"); reply.addProperty("nonce", nonce)
                     reply.add("items", items); reply.addProperty("next_cursor", next)
-                    if (stream == "keys") reply.addProperty("content_end", nextPosition("records", space, requireNotNull(channel)))
+                    if (stream in setOf("keys", "content")) reply.addProperty("content_end", nextPosition("records", space, requireNotNull(channel)))
                     }
                 }
                 reply.addProperty("request", "page"); reply.addProperty("nonce", nonce)
@@ -331,7 +333,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val state = journal.snapshot
                 val acceptedAt = clock.millis().also { require(it >= 0) }
                 val joining = body.text("kind") == "join"
-                val content = body.text("kind") in setOf("content", "history")
+                val content = body.text("kind") in setOf("content", "history", "public-content")
                 val table = if (joining) "joins" else if (content) "records" else "controls"
                 val position = if (joining || content) nextPosition(table, space, if (content) body.text("channel_id") else null)
                     else state.nextPosition
@@ -365,7 +367,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         sql.setString(7, requireNotNull(state.controlId)); sql.setLong(8, body.number("epoch"))
                         sql.setString(9, body.text("key_generation")); sql.setString(10, envelope)
                         sql.setString(11, receipt); sql.setLong(12, acceptedAt)
-                        sql.setString(13, if (body.text("kind") == "content") body.text("content_kind") else body.text("kind"))
+                        sql.setString(13, if (body.text("kind") in setOf("content", "public-content")) body.text("content_kind") else body.text("kind"))
                         sql.setString(14, body.get("recipient_credential")?.asString)
                         check(sql.executeUpdate() == 1)
                     }

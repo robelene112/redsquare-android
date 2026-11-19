@@ -1,0 +1,55 @@
+{
+  "status": "Public read/join component increment only; full138/native remain pending.",
+  "base": "60f6d4512",
+  "checks": {
+    "core": {
+      "tests": 244,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "classes": 48
+    },
+    "spaces-service": {
+      "tests": 33,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "classes": 5
+    }
+  },
+  "logs": [
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-public-read-join-red.log",
+      "bytes": 1631,
+      "sha256": "a7980f9971304ab35a8e7d5ded6ca04d8b57f25dde3bb9302054c48546569834"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-public-read-join-green.log",
+      "bytes": 1109,
+      "sha256": "22c2427f344496463a858940a411624dd9e18fbe010f66d2a2a68687ff587317"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-public-read-join-core-service-all.log",
+      "bytes": 1322,
+      "sha256": "aeb8fc343dc8ccc74f5ffa89e34a5e532992872dad74b4e5c5cf2b81dcd9e9ef"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt",
+      "sha256": "fc93c366f9b2ccb6acba00f513ebe58894d115c3084d3f9177685545b5c043d2"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt",
+      "sha256": "57ec4c7d88ec951918c933da3d847c269f7c8ea3e73dcad469e6b043f8f240e3"
+    },
+    {
+      "path": "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt",
+      "sha256": "a5ee74b3aef35c9179306e01e3580b2714fd0c7dc9f141fcf0ddeac8b9a32a23"
+    },
+    {
+      "path": "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceDiscoveryTest.kt",
+      "sha256": "2eaa78d982e03851c7d925604f805c43ed4c6523cf2e0fab6ea2b27ab227d442"
+    }
+  ]
+}

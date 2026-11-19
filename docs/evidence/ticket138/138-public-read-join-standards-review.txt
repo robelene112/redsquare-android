@@ -1,0 +1,17 @@
+Standards review: four-file public-read/join increment against60f6d4512
+Read-only review.
+
+Documented violations
+None confirmed against CODING_STANDARDS.md's behavior-boundary, recoverable-work, signature-compatibility and isolated-test rules. No actionable smell findings.
+
+Reviewed boundaries
+SpaceClient.kt:71-108 authenticates paged public controls with the existing service/caller/scope/request/nonce checks and SpaceJournal, enforces cursor progress and a16MiB retained-preview limit, and installs a complete validated snapshot atomically. A first-time visitor gets no MLS device or My Spaces membership entry. Existing local state is replayed rather than replaced.
+
+joinPublic requires explicit invocation, a public community/channel and an identity not already admitted. The signed operation uses the existing durable original queue/control-pending fence; membership becomes active from an accepted control. Sending still requires confirmed membership and no unresolved control. Public-content carries intentional signed plaintext only for explicitly PUBLIC channels; private channels retain the existing encryption/device checks.
+
+SpaceJournal defaults missing channel visibility to PRIVATE, rejects public channels under private communities, and separates direct public admission from private MLS invitation/admission. The service exposes public control/content reads while retaining private membership, channel-device and recipient restrictions. Accepted content retains channel/epoch/generation/control validation and bounded text. Storage changes share existing transactions.
+
+Observable evidence and limits
+The new test uses real clients, SQLite, signatures and service processing: visitor read without membership, refused publication, explicitly queued join, accepted-but-lost response, byte-identical recovery, independently received reply and preserved draft. It separately rejects private-room browsing. Original RED XML is retained; the current targeted GREEN log reports BUILD SUCCESSFUL in2m16s. Full affected-suite and Android UI/native checks remain separate.
+
+The added legacy regression builds real MLS metadata/ciphertext under a public genesis lacking channel_visibility. It requires encrypted content acceptance, plaintext rejection, directory visibility without private-channel authority and refused visitor opening. The joined visitor additionally has canInvite=false. These are meaningful compatibility/role oracles; product source is unchanged. Their fullcore/service run remains pending. Rules/images/UI, remaining138 work, adapter rehearsals and broader acceptance stay separate.

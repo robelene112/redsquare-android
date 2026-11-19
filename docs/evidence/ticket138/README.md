@@ -25,7 +25,14 @@ Node24 bounded-HTTP bridge contract also passes. Original adverse reviews remain
 beside their corrective source reviews. This is owned JVM/SQLite/crypto evidence,
 not Android, a bootstrapped node or public service evidence.
 
-Continue138 with public reading and explicit joining, richer profile creation,
+The [public-read/join increment](public-read-join.json) adds deliberate visitor
+reading and immediate signed membership. Actual lost-response recovery retains
+the exact original and the newer draft; an independent owner receives the
+member reply. Missing channel visibility remains private, with real legacy
+ciphertext acceptance and plaintext rejection. Both incremental review axes
+report zero findings. Complete244 core and33 service cases pass.
+
+Continue138 with richer profile creation,
 invitations/rules/revoke, real members/unread/navigation and native/prototype
 checks. Actual0.3.2/0.3.15 framework rehearsals must be repeated for schema4 and
 the extra service advertisement before closing138. Do not edit137's frozen

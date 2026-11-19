@@ -1,0 +1,11 @@
+Public-read/direct-join increment Spec review: zero confirmed findings against60f6d4512, including the additive prior-root/role assertions.
+
+Issue138 and parent134 stories11/14/21 require reading before joining, direct public admission and contribution only with active membership. openPublic replays authenticated controls, selects an explicitly PUBLIC channel and stores visitor scope without an MLS device or My Spaces entry. joinPublic queues a signed original; authenticated acceptance enables membership without an owner-online key-delivery step. The receiving service still requires membership before publication.
+
+Public plaintext requires authenticated per-channel PUBLIC visibility. Missing channel_visibility defaults PRIVATE; a public channel cannot be created inside a private Space. Private publication/MLS checks, encrypted history and outsider denial remain. The public timeline reads validated public-content receipts, not a missing-key plaintext fallback.
+
+The observed tracer reads actual independent public content while unjoined, rejects prejoin client publication, loses an accepted Join response, recreates the client and retries its exact original, then delivers a reply actually received by the creator. Drafts survive and private opening is denied. The additive canInvite=false assertion checks that admission grants no administrator role.
+
+The new prior-root case constructs actual MLS metadata and accepted private ciphertext under a public genesis without channel_visibility. A signed plaintext publication must receive service rejection. Discovery still returns its public profile, while openPublic refuses its unmarked channel and creates no membership. This tests actual receiving effects and compatibility, rather than only asserting a default constant. No defect found in the added source.
+
+Retained RED and targeted GREEN logs were inspected; the original public visitor XML reports normal success. That run predates the additive prior-root/role checks. Full current core/service execution remains pending. Client recreation is not Android process proof. Native/public-invitation integration and other unfinished138 work, whole138 and operational activation are not accepted here.
