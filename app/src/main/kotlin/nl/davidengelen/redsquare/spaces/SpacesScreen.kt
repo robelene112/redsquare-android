@@ -219,7 +219,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     AvailabilityNotice(state.availability, state.refreshing, account::refresh)
                     state.selected?.let { state.accessProblems[it] }?.let { AccessNotice(it) }
-                    if (selected != null && !selected.joined && selected.pending) Text(stringResource(R.string.spaces_confirming_access),
+                    if (selected != null && !selected.joined && (selected.pending || selected.membershipRequested) &&
+                        state.accessProblems[selected.id] == null) Text(stringResource(R.string.spaces_confirming_access),
                         color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
                     if (selected?.joined == true && channel?.ready == false) Text(stringResource(R.string.spaces_waiting_channel_keys),
                         color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)

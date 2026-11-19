@@ -96,6 +96,18 @@ delivery; ordinary read RPCs no longer rebuild all state. The owned regression
 preserves genuine RED evidence, exact-original lost-ack retry, independent receipt
 and the newer draft. Final source/native results remain required.
 
+The [eighth whole parents](native-data-readiness.json) both pass244 core and68
+service checks and reach two actual checkpoint/process-kill boundaries, including
+public admission, draft isolation and member Profile/Chat returns. They remain
+whole failures in phase3: Android10 searches its cold inventory before loading;
+Android17 searches a private channel before its historical encrypted name arrives.
+The observer now waits for actual data at those destinations. An initial shared
+helper correction was rejected because Discover has no My Spaces heading; its
+original review remains and the helper is restored. Access-preparation feedback
+also covers requested membership still awaiting Welcome, with refusal taking
+precedence. Goals and deadlines remain; fresh whole native and motion checks are
+required. Local full244/68 checks at9744 also pass without failures or skips.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.

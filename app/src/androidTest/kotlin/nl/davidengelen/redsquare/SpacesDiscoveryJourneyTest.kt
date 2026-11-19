@@ -165,7 +165,9 @@ class SpacesDiscoveryJourneyTest {
         val saved = readCheckpoint("member")
         val fixtures = command("fixtures")
         launch().use { activity -> withFailureCapture({ capture("final-failure") }) {
-            switchModule("Red Square", "Spaces"); openRow("Saito Builders")
+            switchModule("Red Square", "Spaces")
+            waitText("YOUR COMMUNITIES")
+            openRow("Saito Builders")
             waitUntil { ui.onNode(hasSetTextAction() and hasText("General draft kept in its own channel")).isDisplayed() }
             waitText("Builders message 10"); assertPixel("Builders message 10", saved.get("pixel").asFloat)
             chooseChannel("workshop")
@@ -195,7 +197,7 @@ class SpacesDiscoveryJourneyTest {
             waitUntil { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
             capture("15-private-real-join")
             command("revoke-private")
-            chooseChannel("design")
+            chooseChannel("design", waitForInventory = true)
             ui.onNode(hasSetTextAction()).performTextReplacement("Private child survives invitation revocation")
             closeKeyboard()
             waitUntil { ui.onNode(hasContentDescription("Send message") and isEnabled()).isDisplayed() }
@@ -272,6 +274,7 @@ class SpacesDiscoveryJourneyTest {
                 switchModule("Red Square", "Spaces")
                 assertEquals(2f, context.resources.configuration.fontScale, .01f)
                 assertTrue(context.resources.configuration.screenWidthDp in 320..360)
+                waitText("YOUR COMMUNITIES")
                 capture("22-compact-large-type-overview")
                 openRow("Native Created Space")
                 ui.onNodeWithContentDescription("Switch Space or channel").clickReady()
@@ -343,8 +346,14 @@ class SpacesDiscoveryJourneyTest {
     private fun openLink(activity: ActivityScenario<MainActivity>, link: String) = activity.onActivity {
         it.startActivity(intent(link).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP))
     }
-    private fun chooseChannel(name: String) {
+    private fun chooseChannel(name: String, waitForInventory: Boolean = false) {
         ui.onNodeWithContentDescription("Switch Space or channel").clickReady()
+        if (waitForInventory) {
+            // Admission and historical encrypted names arrive separately.
+            // Keep the channel-list ending in view while its real rows arrive.
+            drawerList().performScrollToNode(hasText("Back to your communities") and hasClickAction())
+            waitUntil { ui.onNode(hasText(name) and hasClickAction()).isDisplayed() }
+        }
         drawerList().performScrollToNode(hasText(name) and hasClickAction())
         ui.onNode(hasText(name) and hasClickAction()).clickReady()
         waitUntil { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }

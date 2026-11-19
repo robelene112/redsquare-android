@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "source": "9744d85e2e2da85141bde462494c174378238b20",
+  "originals": [
+    {
+      "run": 44576009522,
+      "sdk": 29,
+      "root": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt8-44576009522",
+      "zip": {
+        "bytes": 2935374,
+        "sha256": "d61a34b5cd03a80d38247ccb607ce55ddd1fbf23ea682e782307bd11156893c9",
+        "crc": "PASS"
+      },
+      "sourceChecks": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 68,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "checkpointPids": [
+        3485,
+        11721
+      ],
+      "wholeOutcome": "FAIL",
+      "failure": "Cold phase3 immediately searches its unloaded My Spaces inventory."
+    },
+    {
+      "run": 44576016184,
+      "sdk": 37,
+      "root": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt8-44576016184",
+      "zip": {
+        "bytes": 3856719,
+        "sha256": "6e137c5c84ca8b8817c90639146051021ac80322cc8ebec2ca70d572c61d9dee",
+        "crc": "PASS"
+      },
+      "sourceChecks": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 68,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "checkpointPids": [
+        3249,
+        5564
+      ],
+      "wholeOutcome": "FAIL",
+      "failure": "Phase3 searches design before the real historical private channel name arrives."
+    }
+  ],
+  "observed": "Both entire parents reach actual visitor and member checkpoints, verified separate process kills, public rules/join, independent channel drafts and member Profile/Chat return pixels. Both whole parents still fail phase3; there is no accepted prefix. Native17 also completes expired/replaced invitation review and requests private membership before its missing-name failure.",
+  "correction": [
+    "Wait for the actual loaded My Spaces inventory only at cold phase3 and compact phase4 entry, before searching its lazy rows. Shared openRow remains unchanged for Discover.",
+    "Private admission and historical encrypted channel names arrive separately. For design only, keep the actual drawer ending visible and wait for its real received row before the original scroll, enabled physical tap and post-selection goals. The original15s data/180s phase deadlines remain.",
+    "Show existing access-preparation notice while either the original is pending or membershipRequested still awaits Welcome, unless an authenticated access problem already explains refusal. Draft editing remains available."
+  ],
+  "reviews": {
+    "initialObserverSpec": 1,
+    "initialObserverStandards": 1,
+    "correction": "Shared helper restored. Corrected cold-destination/private-name waits and scoped preparation notice have no remaining source findings.",
+    "correctedSpec": 0,
+    "correctedStandards": 0
+  },
+  "acceptance": "All original archives/digests/screens/XML/movies retained. No whole native138 or complete transition acceptance yet. Fresh whole parents on the corrected source remain necessary."
+}
