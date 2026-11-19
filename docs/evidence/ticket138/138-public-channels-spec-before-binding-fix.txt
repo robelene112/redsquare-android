@@ -1,0 +1,11 @@
+Public multi-channel increment Spec review againsta352f1c7c, including untracked SpaceChannelProfile.kt: no concrete findings in the reviewed slice.
+
+Parent134 stories4/58 require retained channel position and drafts; story40 reserves structural changes to owner/admin. SpaceJournal.kt:77-87 enforces owner/admin authority, current predecessor, unique channel identity, PUBLIC community/channel, initial epoch and strict typed profile. The shared receiver applies these checks to actual submitted controls. Private extra-channel creation is deliberately unavailable, preserving existing private MLS channels.
+
+SpaceClient snapshots the selected channel before suspended refresh/older work and routes accepted content by its signed channel identity. Child scope, cursor/history, content and draft records are separate; General keeps its original storage keys. Selection persists per community. The late-ACK tracer switches back to General before reconciling the identical child original and independently verifies both conversations, reload selection/draft and unrelated private writing.
+
+Per-channel pending/rejected pointers address global durable originals instead of copying or changing them. Migration reads the prior layout in50-row pages, checks ownership/scope, and atomically marks completion. The faithful earlier-record-layout fixture checks52 original IDs, original order, actual received effects and retained draft; it correctly disclaims old-binary execution. The51-other-message counterexample proves selected-channel work is not hidden by global queue pagination.
+
+Announcement publication is checked by both client and receiver using current owner/admin membership. Its genuine RED accepted member publication; GREEN demonstrates signed receiver rejection and actual owner publication independently received by the member. Attached threads and other later behavior are not implied.
+
+Inspected retained queue/announcement RED XML and targeted GREEN log (2m23). Current service XML has45 passing cases, including all four additions, with zero failures/errors/skips. The full run has not yet emitted BUILD SUCCESSFUL, so final core/service completion remains pending. No UI/native or whole138 acceptance is claimed.

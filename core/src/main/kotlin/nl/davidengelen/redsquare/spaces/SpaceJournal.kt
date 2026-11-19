@@ -9,7 +9,7 @@ import java.util.Collections
 enum class SpaceRole { OWNER, ADMIN, MEMBER }
 data class SpaceInvitationRecord(val key: String, val expiresAt: Long, val channelId: String, val rulesToken: String = "")
 data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>, val generation: String = "0".repeat(64), val epochStartedAt: Long = 0,
-    val visibility: SpaceVisibility = SpaceVisibility.PRIVATE)
+    val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val profile: SpaceChannelProfile? = null)
 data class SpaceJoinRequest(val envelope: String, val id: String, val actor: String,
     val operationId: String, val channelId: String, val keyPackage: SpaceCrypto.BoundPackage)
 
@@ -57,6 +57,11 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 val profile = event.body.getAsJsonObject("public_profile")?.let(SpaceProfile::fromJson)
                 require(profile == null || visibility == SpaceVisibility.PUBLIC && profile.visibility == visibility)
                 require(event.body.text("channel_id").matches(ID) && event.body.number("epoch") == 0L)
+                val channelVisibility = when (event.body.get("channel_visibility")?.asString) {
+                    null, "private" -> SpaceVisibility.PRIVATE
+                    "public" -> SpaceVisibility.PUBLIC.also { require(visibility == it) }
+                    else -> throw IllegalArgumentException("Unknown channel visibility")
+                }
                 val metadata = Base64.getDecoder().decode(event.body.text("metadata"))
                 require(metadata.size in 29..65_536) { "Invalid Spaces metadata length" }
                 val devices = devices(event.body)
@@ -64,11 +69,20 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 SpaceSnapshot(event.author, mapOf(event.author to SpaceRole.OWNER), event.id, 1,
                     channels = mapOf(event.body.text("channel_id") to SpaceChannelRecord(0, devices,
                         event.body.takeIf { it.has("key_generation") }?.text("key_generation")?.also { require(it.matches(ID)) }
-                            ?: "0".repeat(64), visibility = when (event.body.get("channel_visibility")?.asString) {
-                            null, "private" -> SpaceVisibility.PRIVATE
-                            "public" -> SpaceVisibility.PUBLIC.also { require(visibility == it) }
-                            else -> throw IllegalArgumentException("Unknown channel visibility")
-                        })), visibility = visibility, publicProfile = profile)
+                            ?: "0".repeat(64), visibility = channelVisibility,
+                        profile = if (channelVisibility == SpaceVisibility.PUBLIC) SpaceChannelProfile("general") else null)), visibility = visibility, publicProfile = profile)
+            }
+            "create-channel" -> {
+                require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+                require(event.body.text("control_id") == current.controlId)
+                require(current.visibility == SpaceVisibility.PUBLIC && event.body.text("visibility") == "public")
+                val channel = event.body.text("channel_id").also { require(it.matches(ID) && it !in current.channels) }
+                val generation = event.body.text("key_generation").also { require(it.matches(ID)) }
+                require(event.body.number("epoch") == 0L)
+                val profile = SpaceChannelProfile.fromJson(event.body.getAsJsonObject("channel_profile"))
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(0, emptyMap(),
+                        generation, position, SpaceVisibility.PUBLIC, profile))))
             }
             "invite" -> {
                 require(current.owner != null && event.body.text("control_id") == current.controlId)
@@ -186,6 +200,8 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         require(body.text("operation_id").matches(ID) && body.text("operation_id") !in operations)
         require(event.author in current.members)
         val channel = requireNotNull(current.channels[body.text("channel_id")])
+        if (channel.profile?.kind == SpaceChannelKind.ANNOUNCEMENT)
+            require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         val reference = requireNotNull(controlPositions[body.text("control_id")])
         require(reference >= channel.epochStartedAt) { "Content belongs to a previous channel epoch" }
         require(body.number("epoch") == channel.epoch && body.text("key_generation") == channel.generation)

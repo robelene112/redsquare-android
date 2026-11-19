@@ -108,6 +108,30 @@ receipt values. Actual large-image paging, cached profiles and private preview
 round-trip pass, with complete244-core/41-service checks and corrected source
 reviews. Native image picking/rendering and full138 acceptance remain pending.
 
+## In-progress138 public channel state
+
+A PUBLIC Space owner/admin may create-channel at the current control predecessor,
+with a new ID/generation, epoch0 and bounded versioned channel_profile (name,
+kind, category). Public records need no secret/device membership to read, while
+publication still requires actual Space membership and channel policy. An
+announcement channel additionally requires OWNER/ADMIN on the receiving boundary
+and in the owned client. Role assignment and private extra channels follow later.
+
+General's existing scope/key/content/draft storage remains in place. Parent
+selected_channel defaults to General; extra public scopes keep separate local
+state/content/drafts. Refresh/history capture channel identity before awaiting.
+A late acknowledgment routes by its authenticated original, never the currently
+selected channel. Fresh content/key pages must match request, receipt and original
+channel before any cache/cursor mutation; accept independently checks the signed
+original's channel. Malformed/misbound pages leave usable content and writing.
+
+Per-channel pending/rejected indexes point at exact global originals, avoiding
+another channel's queue hiding immediate feedback. A versioned, bounded-page
+backfill reconstructs disposable pointers without rewriting signed work. Actual
+prior-layout recovery retains all52 delivered originals and the independent draft.
+Complete244-core/47-service checks and corrected source reviews pass; private
+extra channels, starter creation and native138 remain pending.
+
 ## Earlier client and service integration under137
 
 Source now includes the account-owned native coordinator and navigationB. It

@@ -85,6 +85,30 @@ opening remains readable and outside My Spaces. Complete244 core and41 service
 cases pass; both source review axes report zero findings. Android picking,
 rendering and the rest of138 are not established by this component check.
 
+The [public-channel increment](public-channels-increment.json) adds signed
+owner/admin channel creation in PUBLIC Spaces, typed names/kinds/categories,
+independent durable selection/drafts/content/history and per-channel pending/
+rejected pointers to unchanged originals. General's prior storage/key layout is
+retained. Actual late child acknowledgments remain in their original channel
+after selecting General. Reload and an independent public reader preserve this
+isolation; existing private General data remains usable.
+
+Actual RED/GREEN also catches a selected channel's pending message hidden behind
+51 other-channel originals, and member publication in an announcement channel.
+Owner publication remains readable. A prior-record-layout fixture, explicitly
+not an old-binary run, rebuilds indexes while retaining a draft and all52 exact
+independently delivered originals.
+
+Standards review caught a further request/receipt/original channel mismatch.
+Two authentic fresh callback regressions reproduce it, including a relabeled
+receipt over an unchanged signed original. All three channel identities must now
+agree before any content/cursor mutation, with an independent check on accepted
+receipts. Key pages also carry the expected channel. Correct late acknowledgments
+still work. Original adverse reports/REDs remain beside corrected zero-finding
+reviews. The complete affected command passes244 core and47 service cases.
+Private extra channels, configurable starter creation, actual module UI and
+native138 acceptance remain pending.
+
 Continue138 with starter channels, real
 members/unread/navigation and native/prototype
 checks. Actual0.3.2/0.3.15 framework rehearsals must be repeated for schema4 and

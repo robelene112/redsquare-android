@@ -1,0 +1,15 @@
+Standards review: public multi-channel increment againsta352f1c7c, including SpaceChannelProfile.kt
+Read-only source review before full-suite completion.
+
+Documented boundary finding
+[P2] SpaceClient.contentPage:610-624 validates item positions but never requires each content receipt's channel to match the requested channel. accept(content):865-874 chooses storage from receipt.channel_id and never compares it with original.body.channel_id. An authenticated page scoped to B can therefore contain a genuine A receipt, cache A and advance B's cursor, skipping B's actual position0 across subsequent refresh/reload. Relabeling a receipt can also misroute its signed original. This violates CODING_STANDARDS.md's preservation of specified boundaries/recoverable work and the established wrong-scope callback contract. Require request/receipt/original channel agreement before cache/cursor mutation. Late acknowledgments should continue targeting their original channel independently of current selection. Add authentic cross-channel page/receipt cases.
+
+Other reviewed boundaries
+Signed create-channel independently requires owner/admin, current control head, new channel identity and explicit PUBLIC visibility. Announcement publication is checked in client readiness/send and receiver verification. Private extra-channel creation remains deliberately unavailable.
+
+General retains its original state, crypto, content and draft keys. Public child state adds no MLS sender clone. Selected-channel reads capture channel before network work; drafts, history windows and confirmed content use channel-specific storage. Pending/rejected pointers reference global durable originals, and backfill pages50 rows without rewriting those originals. Pointer insertion/removal and version markers share the existing owned transactions.
+
+Evidence and scope
+Tests exercise actual public browsing, late acknowledged originals, reconstructed-client state, private-work preservation,51-other-channel pending rows, role rejection and52-original prior-layout index rebuilding. That layout fixture explicitly does not claim an old-binary rehearsal. Three initial target cases have retained RED/GREEN evidence; the new migration fixture/full244-core/45-service run remains pending.
+
+No additional actionable smell findings. Source review grants no native UI, private extra-channel, complete138 or deployment acceptance.

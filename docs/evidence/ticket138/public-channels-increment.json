@@ -1,0 +1,91 @@
+{
+  "status": "PUBLIC multi-channel component only; private extra channels and native/remaining138 pending.",
+  "base": "a352f1c7c",
+  "checks": {
+    "core": {
+      "classes": 48,
+      "tests": 244,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "spaces-service": {
+      "classes": 5,
+      "tests": 47,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "logs": [
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-public-channels-red.log",
+      "bytes": 1630,
+      "sha256": "c03f181ca65e12b450d1ef933948203a73238e02a81cd4314b0451e923e6eabe"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-public-channels-green.log",
+      "bytes": 1120,
+      "sha256": "5c0de5cd5a5c334be705ffbf8fab8a5a8bf4da9cc00350854fe497478b5be451"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-channel-outbox-page-red.log",
+      "bytes": 1652,
+      "sha256": "8f7342aeb7f140bd7025733a087eacd17c6fdab7f36013fe163d2b03c8a1344b"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-channel-outbox-page-green.log",
+      "bytes": 1120,
+      "sha256": "20662ef920ba10af0501214fd96d1c4060b3ca5298c6ef543d548793055a00e5"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-announcement-authority-red.log",
+      "bytes": 1657,
+      "sha256": "e7522243e88c0640e1be240f26b6b439b828196eae410a83ea0015f40fabf056"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-public-channel-authority-green.log",
+      "bytes": 1120,
+      "sha256": "fd4553ea7a65f6a6a76fe93d82e1735374db3c225eadcc3fcd0aa4e073e44259"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-public-channels-core-service-all.log",
+      "bytes": 1323,
+      "sha256": "a176f3bbc7d6eeb6cc9544913e157d9db826dc14b7ae70363fbd78f8b626ee01"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-channel-page-binding-red.log",
+      "bytes": 1808,
+      "sha256": "be2cbd1ed937fcb998d1d708179742a99cb58f713a3911d2cae519a17e0591cd"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-channel-page-binding-green.log",
+      "bytes": 1120,
+      "sha256": "f15dd4b9902bd71a725c153d4474ac81dfc422b8d1cb961867fc94d2ac0fb706"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-public-channels-binding-full.log",
+      "bytes": 1290,
+      "sha256": "bceb2664e50992ab9d62285f02479a9a29d48ab31b6d4f67701d48da484a08e0"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceChannelProfile.kt",
+      "sha256": "46509b6ea77a4edc9f9f8e39fe5518e919c8288f2d3586cc9f9cf18a4ce1f3e0"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt",
+      "sha256": "88be600add3caf7bb430e28ce124bb07bf3289c2d8f27b5380b771828d50513d"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt",
+      "sha256": "ae033f4eef791b32af79082d137c21bfd94ae2dc0f5a504ab45dec683f92b573"
+    },
+    {
+      "path": "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceDiscoveryTest.kt",
+      "sha256": "a260055a124260310b3f8ebaf1f94f23461dd58118e1114fbccc7d3b7ebcdd70"
+    }
+  ],
+  "retained_originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-public-channels-binding-complete-originals"
+}

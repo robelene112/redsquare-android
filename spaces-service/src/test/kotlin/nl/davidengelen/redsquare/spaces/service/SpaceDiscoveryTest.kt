@@ -8,6 +8,8 @@ import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceCrypto
 import nl.davidengelen.redsquare.spaces.SpaceClient
+import nl.davidengelen.redsquare.spaces.SpaceChannelKind
+import nl.davidengelen.redsquare.spaces.SpaceChannelProfile
 import nl.davidengelen.redsquare.spaces.SpaceProfile
 import nl.davidengelen.redsquare.spaces.SpaceVisibility
 import org.junit.Assert.*
@@ -534,6 +536,247 @@ class SpaceDiscoveryTest {
                     val link = creator.invite(privateSpace)
                     creator.flush(privateSpace)
                     assertTrue("The private profile image is available to its bearer", reader.preview(link).profile == privateProfile)
+                    assertTrue(reader.communities().isEmpty())
+                }
+            }
+        }
+    }
+
+    @Test fun publicChannelsKeepDraftsContentAndLateAcknowledgmentsIsolatedAcrossSelectionAndReload() = runBlocking {
+        SpacesServiceStore(files.newFolder("public-channel-isolation").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("public-channel-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("public-channel-visitor.sqlite").absolutePath).use { visitorStore ->
+                    var secondary = ""
+                    var loseSecondaryAcknowledgment = true
+                    var heldOriginal: String? = null
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+                        val result = remote.exchange(request.envelope())
+                        val body = SaitoEnvelope.decode(request.envelope()).body
+                        if (body.get("kind")?.asString == "public-content" && body.get("channel_id")?.asString == secondary) {
+                            if (heldOriginal == null) heldOriginal = request.envelope() else assertEquals(heldOriginal, request.envelope())
+                            if (loseSecondaryAcknowledgment) { loseSecondaryAcknowledgment = false; throw java.io.IOException("Secondary channel acknowledgment was lost") }
+                        }
+                        result
+                    }
+                    val privateSpace = creator.create("Keep independent private work")
+                    creator.flush(privateSpace)
+                    creator.send(privateSpace, "A private message stays private")
+                    creator.flush(privateSpace)
+                    creator.saveDraft(privateSpace, "A private draft remains independent")
+                    val space = creator.create(SpaceProfile("Two public conversations", visibility = SpaceVisibility.PUBLIC))
+                    creator.flush(space)
+                    val general = creator.community(space).channel
+                    creator.saveDraft(space, "General writing")
+                    creator.send(space, "General conversation")
+                    creator.flush(space)
+                    secondary = creator.createChannel(space, SpaceChannelProfile("workshop"))
+                    creator.flush(space)
+                    assertEquals(listOf("general", "workshop"), creator.channels(space).map { it.profile.name })
+                    creator.selectChannel(space, secondary)
+                    assertEquals(secondary, creator.community(space).channel)
+                    assertEquals("", creator.draft(space))
+                    creator.saveDraft(space, "Workshop writing")
+                    creator.send(space, "Workshop conversation")
+                    try { creator.flush(space); fail("The controlled second-channel acknowledgment must be lost") }
+                    catch (_: java.io.IOException) { }
+                    creator.selectChannel(space, general)
+                    assertEquals("General writing", creator.draft(space))
+                    assertEquals(listOf("General conversation"), creator.messages(space))
+                    assertFalse(creator.timeline(space).any { it.text == "Workshop conversation" })
+                    creator.flush(space)
+                    assertEquals(general, creator.community(space).channel)
+                    assertEquals(listOf("General conversation"), creator.messages(space))
+                    creator.selectChannel(space, secondary)
+                    assertEquals(listOf("Workshop conversation"), creator.messages(space))
+                    val restored = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    assertEquals(secondary, restored.community(space).channel)
+                    assertEquals("Workshop writing", restored.draft(space))
+                    assertEquals(listOf("Workshop conversation"), restored.messages(space))
+                    assertEquals(listOf("A private message stays private"), restored.messages(privateSpace))
+                    assertEquals("A private draft remains independent", restored.draft(privateSpace))
+                    val reader = SpaceClient(visitor, "fixture-node", service.publicKey, visitorStore, clock) { remote.exchange(it.envelope()) }
+                    reader.openPublic(space)
+                    assertEquals(listOf("general", "workshop"), reader.channels(space).map { it.profile.name })
+                    reader.refresh(space)
+                    assertEquals(listOf("General conversation"), reader.messages(space))
+                    reader.selectChannel(space, secondary)
+                    reader.refresh(space)
+                    assertEquals(listOf("Workshop conversation"), reader.messages(space))
+                    assertTrue(reader.communities().isEmpty())
+                }
+            }
+        }
+    }
+
+    @Test fun anotherChannelsLargePendingQueueCannotHideTheSelectedChannelsOwnQueuedMessage() = runBlocking {
+        SpacesServiceStore(files.newFolder("channel-outbox-isolation").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("channel-outbox-owner.sqlite").absolutePath).use { ownerStore ->
+                val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                val space = creator.create(SpaceProfile("Independent queued conversations", visibility = SpaceVisibility.PUBLIC))
+                creator.flush(space)
+                val general = creator.community(space).channel
+                val workshop = creator.createChannel(space, SpaceChannelProfile("workshop"))
+                creator.flush(space)
+                repeat(51) { creator.send(space, "General queued message $it") }
+                creator.selectChannel(space, workshop)
+                val queued = creator.send(space, "The selected channel must show its own work immediately")
+                val visible = creator.timeline(space)
+                assertEquals(listOf(queued), visible.map { it.id })
+                assertTrue(visible.single().pending)
+                assertFalse(visible.single().attempted)
+                creator.selectChannel(space, general)
+                assertEquals(50, creator.timeline(space).size)
+                assertTrue(creator.timeline(space).all { it.pending && it.text?.startsWith("General queued message") == true })
+                creator.selectChannel(space, workshop)
+                val restored = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                assertEquals(listOf(queued), restored.timeline(space).map { it.id })
+            }
+        }
+    }
+
+    @Test fun announcementChannelsArePubliclyReadableButOnlyOwnersAndAdministratorsCanPublish() = runBlocking {
+        SpacesServiceStore(files.newFolder("announcement-permissions").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("announcement-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("announcement-member.sqlite").absolutePath).use { memberStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    var memberHead = ""
+                    val member = SpaceClient(visitor, "fixture-node", service.publicKey, memberStore, clock) { request ->
+                        remote.exchange(request.envelope()).also { result ->
+                            if (SaitoEnvelope.decode(result).body.get("stream")?.asString == "control") memberHead = request.id
+                        }
+                    }
+                    val space = creator.create(SpaceProfile("Announcements", visibility = SpaceVisibility.PUBLIC))
+                    creator.flush(space)
+                    val announcements = creator.createChannel(space, SpaceChannelProfile("announcements", SpaceChannelKind.ANNOUNCEMENT))
+                    creator.flush(space)
+                    member.openPublic(space)
+                    member.joinPublic(space)
+                    member.flush(space)
+                    member.selectChannel(space, announcements)
+                    val invalid = SaitoTransaction.create(visitor, JsonObject().apply {
+                        addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                        addProperty("space_id", space); addProperty("channel_id", announcements)
+                        addProperty("operation_id", "f".repeat(64)); addProperty("control_id", memberHead)
+                        addProperty("epoch", 0); addProperty("key_generation", "0".repeat(64))
+                        addProperty("kind", "public-content"); addProperty("content_kind", "message")
+                        addProperty("text", "A member must not publish this announcement")
+                    }, clock.millis(), listOf(service.publicKey))
+                    assertEquals("rejection", SaitoEnvelope.decode(remote.exchange(invalid.envelope())).body.get("stream").asString)
+                    assertFalse(member.community(space).canSend)
+                    try { member.send(space, "Do not queue an unauthorized announcement"); fail("The local workflow also respects announcement authority") }
+                    catch (_: IllegalArgumentException) { }
+                    creator.refresh(space)
+                    creator.selectChannel(space, announcements)
+                    assertTrue(creator.community(space).canSend)
+                    creator.send(space, "A real owner announcement")
+                    creator.flush(space)
+                    member.refresh(space)
+                    assertEquals(listOf("A real owner announcement"), member.messages(space))
+                }
+            }
+        }
+    }
+
+    @Test fun rebuildingMessagePointersFromTheEarlierClientLayoutPreservesDraftsAndEverySignedOriginal() = runBlocking {
+        SpacesServiceStore(files.newFolder("legacy-message-pointers").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("legacy-message-pointer-owner.sqlite").absolutePath).use { ownerStore ->
+                val received = mutableListOf<String>()
+                fun client() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+                    val result = remote.exchange(request.envelope())
+                    if (SaitoEnvelope.decode(request.envelope()).body.get("kind")?.asString == "public-content") received += request.id
+                    result
+                }
+                val creator = client()
+                val space = creator.create(SpaceProfile("Keep older pending work", visibility = SpaceVisibility.PUBLIC))
+                creator.flush(space)
+                creator.saveDraft(space, "Independent text must survive index rebuilding")
+                val originals = (0..51).map { creator.send(space, "Existing queued message $it") }
+                val channel = creator.community(space).channel
+                // Independently establish the earlier record layout around
+                // genuine signed outbox rows. This is not an old-binary run.
+                ownerStore.transaction {
+                    val prefix = "$space/channels/$channel/pending/"
+                    while (true) {
+                        val rows = page(prefix)
+                        rows.forEach { remove(it.key) }
+                        if (rows.isEmpty()) break
+                    }
+                    val key = "$space/state"
+                    val state = com.google.gson.JsonParser.parseString(requireNotNull(get(key)).toString(Charsets.UTF_8)).asJsonObject
+                    state.remove("message_index_version")
+                    put(key, state.toString().toByteArray(Charsets.UTF_8))
+                }
+                val restored = client()
+                assertEquals(originals.take(50), restored.timeline(space).map { it.id })
+                assertTrue(restored.timeline(space).all { it.pending && !it.attempted })
+                assertEquals("Independent text must survive index rebuilding", restored.draft(space))
+                restored.flush(space)
+                restored.flush(space)
+                assertEquals(originals, received)
+                assertFalse(restored.community(space).pending)
+                assertTrue(restored.timeline(space).none { it.pending })
+                assertEquals((2..51).map { "Existing queued message $it" }, restored.messages(space))
+                assertEquals("Independent text must survive index rebuilding", restored.draft(space))
+            }
+        }
+    }
+
+    @Test fun aFreshChannelPageCannotAdvanceItsCursorWithAnotherChannelsAuthenticReceipt() = verifyChannelPageBinding(relabel = false)
+
+    @Test fun aFreshChannelPageCannotRelabelAnAuthenticOriginalIntoAnotherChannel() = verifyChannelPageBinding(relabel = true)
+
+    private fun verifyChannelPageBinding(relabel: Boolean) = runBlocking {
+        val suffix = if (relabel) "original" else "request"
+        SpacesServiceStore(files.newFolder("channel-page-$suffix").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("channel-page-owner-$suffix.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("channel-page-reader-$suffix.sqlite").absolutePath).use { visitorStore ->
+                    var general = ""
+                    var generalReceipt = ""
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+                        remote.exchange(request.envelope()).also { result ->
+                            val body = SaitoEnvelope.decode(request.envelope()).body
+                            if (body.get("kind")?.asString == "public-content" && body.get("channel_id")?.asString == general) generalReceipt = result
+                        }
+                    }
+                    val space = creator.create(SpaceProfile("Bound channel pages", visibility = SpaceVisibility.PUBLIC))
+                    creator.flush(space)
+                    general = creator.community(space).channel
+                    creator.send(space, "General only")
+                    creator.flush(space)
+                    val workshop = creator.createChannel(space, SpaceChannelProfile("workshop"))
+                    creator.flush(space)
+                    creator.selectChannel(space, workshop)
+                    creator.send(space, "Workshop only")
+                    creator.flush(space)
+                    var altered = true
+                    val reader = SpaceClient(visitor, "fixture-node", service.publicKey, visitorStore, clock) { request ->
+                        val result = remote.exchange(request.envelope())
+                        val body = SaitoEnvelope.decode(result).body
+                        if (altered && body.get("request").asString == "page" &&
+                            body.getAsJsonObject("scope").get("stream").asString == "content" &&
+                            body.getAsJsonObject("scope").get("channel_id").asString == workshop) {
+                            val item = if (!relabel) generalReceipt else {
+                                val originalReceipt = SaitoEnvelope.decode(generalReceipt).body.deepCopy().apply { addProperty("channel_id", workshop) }
+                                SaitoTransaction.createSpaceReply(service, originalReceipt, clock.millis(), owner.publicKey).envelope()
+                            }
+                            val changed = body.deepCopy().apply { add("items", JsonArray().apply { add(item) }) }
+                            SaitoTransaction.createSpaceReply(service, changed, clock.millis(), visitor.publicKey).envelope()
+                        } else result
+                    }
+                    reader.openPublic(space)
+                    reader.selectChannel(space, workshop)
+                    reader.saveDraft(space, "Keep this channel's independent writing")
+                    try { reader.refresh(space); fail("Requested channel, receipt channel and signed original must agree") }
+                    catch (_: IllegalArgumentException) { }
+                    assertTrue(reader.messages(space).isEmpty())
+                    assertEquals("Keep this channel's independent writing", reader.draft(space))
+                    reader.selectChannel(space, general)
+                    assertTrue("A rejected page cannot populate another channel", reader.messages(space).isEmpty())
+                    reader.selectChannel(space, workshop)
+                    altered = false
+                    reader.refresh(space)
+                    assertEquals(listOf("Workshop only"), reader.messages(space))
+                    assertEquals("Keep this channel's independent writing", reader.draft(space))
                     assertTrue(reader.communities().isEmpty())
                 }
             }

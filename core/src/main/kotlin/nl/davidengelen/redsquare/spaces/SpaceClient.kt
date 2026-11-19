@@ -20,6 +20,41 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     enum class ReadProblem { EXPIRED, UNAVAILABLE }
     class ReadDenied(val spaceId: String, val problem: ReadProblem) : IllegalArgumentException("Community access is not available")
 
+    data class Channel(val id: String, val profile: SpaceChannelProfile, val visibility: SpaceVisibility, val ready: Boolean)
+    fun channels(space: String): List<Channel> = store.transaction {
+        owned()
+        val state = state(space)
+        val general = generalChannel(state)
+        journal(space).snapshot.channels.mapNotNull { (id, record) ->
+            val profile = record.profile ?: if (id == general) SpaceChannelProfile("general") else null
+            profile?.let { Channel(id, it, record.visibility, record.visibility == SpaceVisibility.PUBLIC || state.get("joined").asBoolean) }
+        }
+    }
+    fun createChannel(space: String, profile: SpaceChannelProfile): String = store.transaction {
+        owned()
+        val state = state(space)
+        val snapshot = journal(space).snapshot
+        require(snapshot.visibility == SpaceVisibility.PUBLIC && snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+        val scope = SpaceCrypto.Scope(service, space, id())
+        val original = event(space, "create-channel") {
+            addProperty("control_id", snapshot.controlId); addProperty("channel_id", scope.channelId)
+            addProperty("visibility", "public"); addProperty("epoch", 0); addProperty("key_generation", scope.generation)
+            add("channel_profile", profile.json())
+        }
+        put(channelStateKey(space, scope.channelId), bytes(JsonObject().apply {
+            add("scope", scope.json()); add("channel_profile", profile.json()); addProperty("content_cursor", 0)
+        }))
+        queue(space, state, original)
+        scope.channelId
+    }
+    fun selectChannel(space: String, channel: String) = store.transaction {
+        owned()
+        val state = state(space)
+        require(channel in journal(space).snapshot.channels)
+        channelState(space, channel, state)
+        state.addProperty("selected_channel", channel); put(stateKey(space), bytes(state))
+    }
+
     data class Community(val id: String, val name: String, val channel: String, val joined: Boolean,
         val canInvite: Boolean, val pending: Boolean, val canSend: Boolean, val membershipRequested: Boolean = false)
     data class Message(val id: String, val author: String, val createdAt: Long, val text: String?,
@@ -46,17 +81,20 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     fun community(space: String): Community = store.transaction { owned(); communityFromStore(space) }
     private fun SpaceClientStore.Transaction.communityFromStore(space: String): Community {
         val state = state(space)
-        val scope = SpaceCrypto.Scope.fromJson(state.getAsJsonObject("scope"))
+        val data = channelState(space, selectedChannel(state), state)
+        val scope = SpaceCrypto.Scope.fromJson(data.getAsJsonObject("scope"))
+        val kind = data.getAsJsonObject("channel_profile")?.let(SpaceChannelProfile::fromJson)?.kind ?: SpaceChannelKind.CHAT
         val role = state.get("role")?.asString ?: journal(space).snapshot.members[wallet.publicKey]?.name
         return Community(space, state.text("name"), scope.channelId, state.get("joined").asBoolean,
             role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name),
-            page("$space/pending/", limit = 1).isNotEmpty(), state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control"),
+            page("$space/pending/", limit = 1).isNotEmpty(), state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
+                (kind != SpaceChannelKind.ANNOUNCEMENT || role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name)),
             !state.get("joined").asBoolean && state.has("joining_invitation"))
     }
-    fun draft(space: String): String = store.transaction { owned(); state(space); get("$space/draft")?.toString(Charsets.UTF_8).orEmpty() }
+    fun draft(space: String): String = store.transaction { owned(); state(space); get(draftKey(space, selectedChannel(state(space))))?.toString(Charsets.UTF_8).orEmpty() }
     fun saveDraft(space: String, text: String) = store.transaction {
         owned(); state(space); require(text.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
-        put("$space/draft", text.toByteArray(Charsets.UTF_8))
+        put(draftKey(space, selectedChannel(state(space))), text.toByteArray(Charsets.UTF_8))
     }
     fun invitation(space: String): Invitation? = store.transaction {
         owned()
@@ -440,8 +478,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val state = state(space)
         require(state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control")) { "Community admission or key change is not confirmed" }
         val journal = journal(space)
-        val scope = SpaceCrypto.Scope.fromJson(state.getAsJsonObject("scope"))
+        val data = channelState(space, selectedChannel(state), state)
+        val scope = SpaceCrypto.Scope.fromJson(data.getAsJsonObject("scope"))
         val channel = requireNotNull(journal.snapshot.channels[scope.channelId])
+        if (channel.profile?.kind == SpaceChannelKind.ANNOUNCEMENT)
+            require(journal.snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         val control = requireNotNull(journal.snapshot.controlId)
         val original = if (channel.visibility == SpaceVisibility.PUBLIC) {
             require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
@@ -450,9 +491,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 addProperty("epoch", channel.epoch); addProperty("key_generation", channel.generation)
                 addProperty("content_kind", "message"); addProperty("text", text)
             }
-        } else SpaceCrypto.restore(decode(state.text("crypto"))).publish(wallet, "message", id(), control, text, clock.millis())
+        } else SpaceCrypto.restore(decode(data.text("crypto"))).publish(wallet, "message", id(), control, text, clock.millis())
         queue(space, state, original)
-        if (get("$space/draft")?.toString(Charsets.UTF_8) == text) remove("$space/draft")
+        val draft = draftKey(space, scope.channelId)
+        if (get(draft)?.toString(Charsets.UTF_8) == text) remove(draft)
         original.id
     }
 
@@ -469,7 +511,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 SpaceClientStore.Entry(row.key, value)
             } ?: return
             val transaction = SaitoTransaction.restore(json(item.value).text("original"))
-            require(SaitoEnvelope.decode(transaction.envelope()).author == wallet.publicKey)
+            val outbound = SaitoEnvelope.decode(transaction.envelope())
+            require(outbound.author == wallet.publicKey)
             val result = exchange(transaction)
             val received = SaitoEnvelope.decode(result)
             require(received.author == service && received.body.text("module") == "Spaces" && received.body.number("version") == 1L &&
@@ -486,6 +529,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 require(received.body.text("event") == transaction.envelope()) { "Community service returned a different original" }
                 accept(space, result)
                 remove(item.key)
+                messageChannel(outbound.body)?.let { channel -> remove(messageIndex(space, channel, "pending") + item.key.substringAfterLast('/')) }
                 remove("$space/operation/${transaction.id}")
             }
         }
@@ -532,7 +576,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 addProperty("channel_id", before.getAsJsonObject("scope").text("channel"))
                 addProperty("recipient_credential", keys.credential)
             })
-            for (item in page.getAsJsonArray("items")) ensureAuthorization(space, item.asString)
+            for (item in page.getAsJsonArray("items")) ensureAuthorization(space, item.asString, before.getAsJsonObject("scope").text("channel"))
             store.transaction {
                 owned()
                 require((state(space).get("key_cursor")?.asLong ?: 0) == cursor)
@@ -553,16 +597,19 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
     }
 
-    private suspend fun ensureAuthorization(space: String, envelope: String) {
+    private suspend fun ensureAuthorization(space: String, envelope: String, expectedChannel: String) {
         val signed = SaitoEnvelope.decode(envelope)
-        require(signed.author == service && signed.body.text("space_id") == space && signed.body.text("stream") == "content")
+        require(signed.author == service && signed.body.text("module") == "Spaces" && signed.body.number("version") == 1L &&
+            signed.body.text("request") == "receipt" && signed.body.text("space_id") == space && signed.body.text("stream") == "content")
         val original = SaitoEnvelope.decode(signed.body.text("event"))
+        val channel = signed.body.text("channel_id")
+        require(original.body.text("space_id") == space && original.body.text("channel_id") == channel &&
+            channel == expectedChannel) { "Community content belongs to a different channel" }
         val control = signed.body.get("authorized_control")?.asString ?: original.body.text("control_id")
         if (store.transaction { journal(space, through = control).snapshot.controlId != control }) syncControls(space)
     }
 
-    private suspend fun contentPage(space: String, cursor: Long, until: Long? = null): Long {
-        val channel = store.transaction { state(space).getAsJsonObject("scope").text("channel") }
+    private suspend fun contentPage(space: String, cursor: Long, until: Long? = null, channel: String): Long {
         val result = readPage(JsonObject().apply {
             addProperty("space_id", space); addProperty("stream", "content")
             addProperty("channel_id", channel); addProperty("cursor", cursor)
@@ -570,7 +617,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val selected = result.getAsJsonArray("items").map { it.asString }.takeWhile {
             until == null || SaitoEnvelope.decode(it).body.number("position") < until
         }
-        for (item in selected) ensureAuthorization(space, item)
+        for (item in selected) ensureAuthorization(space, item, channel)
         return store.transaction {
             owned()
             var next = cursor
@@ -584,53 +631,52 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
 
     suspend fun older(space: String): Long {
-        val upper = store.transaction { owned(); state(space).get("history_from")?.asLong ?: 0 }
+        val channel = store.transaction { owned(); selectedChannel(state(space)) }
+        val upper = store.transaction { channelState(space, channel).get("history_from")?.asLong ?: 0 }
         val start = (upper - 50).coerceAtLeast(0)
         var cursor = start
         while (cursor < upper) {
-            val next = contentPage(space, cursor, upper)
+            val next = contentPage(space, cursor, upper, channel)
             require(next > cursor) { "Earlier conversation history is unavailable" }
             cursor = next
         }
         store.transaction {
-            val current = state(space)
+            val current = channelState(space, channel)
             require((current.get("history_from")?.asLong ?: 0) == upper)
-            current.addProperty("history_from", start); put(stateKey(space), bytes(current))
+            current.addProperty("history_from", start); putChannelState(space, channel, current)
         }
         return start
     }
 
     suspend fun refresh(space: String) {
+        val channel = store.transaction { owned(); selectedChannel(state(space)) }
         syncControls(space)
-        val currentChannel = store.transaction {
-            val scope = SpaceCrypto.Scope.fromJson(state(space).getAsJsonObject("scope"))
-            requireNotNull(journal(space).snapshot.channels[scope.channelId])
-        }
+        val currentChannel = store.transaction { requireNotNull(journal(space).snapshot.channels[channel]) }
         if (currentChannel.visibility != SpaceVisibility.PUBLIC && !store.transaction { state(space).get("joined").asBoolean }) return
         val end = if (currentChannel.visibility == SpaceVisibility.PUBLIC) {
-            val channel = store.transaction { state(space).getAsJsonObject("scope").text("channel") }
             readPage(JsonObject().apply {
                 addProperty("space_id", space); addProperty("stream", "content")
                 addProperty("channel_id", channel); addProperty("cursor", 0)
             }).number("content_end")
         } else refreshKeys(space)
-        val before = store.transaction { state(space) }
+        val before = store.transaction { channelState(space, channel) }
         val first = !before.has("content_loaded")
         val cursor = if (first) (end - 50).coerceAtLeast(0) else before.number("content_cursor")
-        val next = contentPage(space, cursor)
+        val next = contentPage(space, cursor, channel = channel)
         store.transaction {
-            val current = state(space)
+            val current = channelState(space, channel)
             require(current.number("content_cursor") == before.number("content_cursor"))
             current.addProperty("content_cursor", next); current.addProperty("content_loaded", true)
             if (first) current.addProperty("history_from", cursor)
-            put(stateKey(space), bytes(current))
+            putChannelState(space, channel, current)
         }
     }
 
     data class HistoryWindow(val from: Long, val loadedFrom: Long, val hasEarlier: Boolean, val hasLater: Boolean)
     fun historyWindow(space: String, from: Long? = null): HistoryWindow = store.transaction {
         owned()
-        val current = state(space)
+        val state = state(space)
+        val current = channelState(space, selectedChannel(state), state)
         val last = current.get("last_content")?.asLong ?: 0
         val start = from ?: (last - 49).coerceAtLeast(0)
         require(start >= 0)
@@ -642,12 +688,16 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     fun timeline(space: String, from: Long? = null, limit: Int = 50): List<Message> = store.transaction {
         owned(); require(limit in 1..50)
         val state = state(space)
-        val crypto by lazy { SpaceCrypto.restore(decode(state.text("crypto"))) }
-        val prefix = "$space/content/"
-        val last = state.get("last_content")?.asLong ?: 0
+        ensureMessageIndexes(space, state)
+        val channel = selectedChannel(state)
+        val data = channelState(space, channel, state)
+        val crypto by lazy { SpaceCrypto.restore(decode(data.text("crypto"))) }
+        val prefix = contentPrefix(space, channel)
+        val last = data.get("last_content")?.asLong ?: 0
         val start = from ?: (last - limit + 1).coerceAtLeast(0)
         fun message(envelope: String, pending: Boolean, attempted: Boolean, rejected: Boolean = false): Message? {
             val original = SaitoEnvelope.decode(envelope)
+            if (original.body.get("channel_id")?.asString != channel) return null
             if (original.body.text("kind") !in setOf("content", "public-content") || original.body.text("content_kind") != "message") return null
             if (original.body.text("kind") == "public-content") return Message(original.id, original.author, original.createdAt,
                 original.body.text("text"), pending, attempted, missingKeys = false, rejected = rejected)
@@ -660,12 +710,12 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val confirmed = page(prefix, prefix + positionKey(start), limit).mapNotNull { row ->
             message(originalEnvelope(row.value), pending = false, attempted = true)
         }
-        val pending = page("$space/pending/", limit = limit).mapNotNull { row ->
-            val saved = json(row.value)
+        val pending = page(messageIndex(space, channel, "pending"), limit = limit).mapNotNull { row ->
+            val saved = json(requireNotNull(get(row.value.toString(Charsets.UTF_8))))
             message(SaitoTransaction.restore(saved.text("original")).envelope(), pending = true, attempted = saved.get("attempted").asBoolean)
         }
-        val rejected = page("$space/rejected/", limit = limit).mapNotNull { row ->
-            val saved = json(row.value)
+        val rejected = page(messageIndex(space, channel, "rejected"), limit = limit).mapNotNull { row ->
+            val saved = json(requireNotNull(get(row.value.toString(Charsets.UTF_8))))
             message(SaitoTransaction.restore(saved.text("original")).envelope(), pending = false, attempted = true, rejected = true)
         }
         (confirmed + pending + rejected).distinctBy { it.id }
@@ -733,6 +783,15 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                                 state.addProperty("joined", true)
                             }
                         }
+                        "create-channel" -> {
+                            val channel = original.body.text("channel_id")
+                            val record = requireNotNull(journal.snapshot.channels[channel])
+                            if (get(channelStateKey(space, channel)) == null) put(channelStateKey(space, channel), bytes(JsonObject().apply {
+                                add("scope", SpaceCrypto.Scope(service, space, channel, record.generation).json())
+                                record.profile?.let { add("channel_profile", it.json()) }
+                                addProperty("content_cursor", 0)
+                            }))
+                        }
                         "invite" -> Unit
                         "revoke-invite" -> {
                             val link = state.get("invitation")?.asString
@@ -795,7 +854,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                     if (journal(space).snapshot.controlId != head) state.addProperty("required_control", head)
                 }
                 pending.addProperty("disposition", envelope)
-                put("$space/rejected/${original.id}", bytes(pending))
+                val rejectedKey = "$space/rejected/${original.id}"
+                put(rejectedKey, bytes(pending))
+                messageChannel(original.body)?.let { channel ->
+                    put(messageIndex(space, channel, "rejected") + original.id, rejectedKey.toByteArray(Charsets.UTF_8))
+                }
                 put(stateKey(space), bytes(state))
             }
             "join" -> {
@@ -804,34 +867,37 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 // exact old acknowledgment can arrive after actual admission.
             }
             "content" -> {
-                val scope = SpaceCrypto.Scope.fromJson(state.getAsJsonObject("scope"))
+                val channel = body.text("channel_id")
+                require(original.body.text("channel_id") == channel && original.body.text("space_id") == space)
+                val contentState = channelState(space, channel, state)
+                val scope = SpaceCrypto.Scope.fromJson(contentState.getAsJsonObject("scope"))
                 require(body.text("channel_id") == scope.channelId)
                 val control = body.get("authorized_control")?.asString ?: original.body.text("control_id")
                 val historic = journal(space, through = control)
                 require(historic.snapshot.controlId == control)
                 historic.verifyContent(body.text("event"))
-                val key = "$space/content/${positionKey(body.number("position"))}"
+                val key = contentPrefix(space, channel) + positionKey(body.number("position"))
                 val existing = get(key)
                 if (existing != null) require(json(existing).text("event") == body.text("event"))
                 else {
                     if (original.body.text("kind") == "content" && original.body.text("content_kind") == "history-keys") {
-                        val keys = SpaceCrypto.restore(decode(state.text("crypto")))
+                        val keys = SpaceCrypto.restore(decode(contentState.text("crypto")))
                         if (original.body.text("recipient_credential") == keys.credential) {
-                            state.addProperty("crypto", encode(keys.acceptArchiveHistory(body.text("event")).save()))
-                            put(stateKey(space), bytes(state))
+                            contentState.addProperty("crypto", encode(keys.acceptArchiveHistory(body.text("event")).save()))
+                            putChannelState(space, channel, contentState)
                         }
                     }
                     if (original.body.text("kind") == "history") {
-                        val keys = SpaceCrypto.restore(decode(state.text("crypto")))
+                        val keys = SpaceCrypto.restore(decode(contentState.text("crypto")))
                         if (original.body.text("recipient_credential") == keys.credential) {
-                            state.addProperty("crypto", encode(keys.acceptHistory(body.text("event")).save()))
-                            put(stateKey(space), bytes(state))
+                            contentState.addProperty("crypto", encode(keys.acceptHistory(body.text("event")).save()))
+                            putChannelState(space, channel, contentState)
                         }
                     }
                     put(key, bytes(body))
                     if (original.body.text("kind") in setOf("content", "public-content") && original.body.text("content_kind") == "message")
-                        state.addProperty("last_content", maxOf(state.get("last_content")?.asLong ?: 0, body.number("position")))
-                    put(stateKey(space), bytes(state))
+                        contentState.addProperty("last_content", maxOf(contentState.get("last_content")?.asLong ?: 0, body.number("position")))
+                    putChannelState(space, channel, contentState)
                 }
             }
             else -> throw IllegalArgumentException("Unexpected community receipt stream")
@@ -855,8 +921,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     private fun SpaceClientStore.Transaction.queue(space: String, state: JsonObject, original: SaitoTransaction,
         candidate: SpaceCrypto? = null, rejected: SpaceCrypto? = null, afterJoinCursor: Long? = null) {
-        val kind = SaitoEnvelope.decode(original.envelope()).body.text("kind")
-        if (kind in setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite")) {
+        val outbound = SaitoEnvelope.decode(original.envelope())
+        val kind = outbound.body.text("kind")
+        ensureMessageIndexes(space, state)
+        if (kind in setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite", "create-channel")) {
             require(!state.has("control_pending")) { "A community control is still awaiting confirmation" }
             state.addProperty("control_pending", original.id)
         }
@@ -868,11 +936,66 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             rejected?.let { addProperty("rejected", encode(it.save())) }
             afterJoinCursor?.let { addProperty("after_join_cursor", it) }
         }))
+        messageChannel(outbound.body)?.let { channel ->
+            put(messageIndex(space, channel, "pending") + positionKey(sequence), key.toByteArray(Charsets.UTF_8))
+        }
         put("$space/operation/${original.id}", key.toByteArray(Charsets.UTF_8))
         state.addProperty("next_outbox", Math.addExact(sequence, 1))
         put(stateKey(space), bytes(state))
         put("communities/$space", space.toByteArray(Charsets.UTF_8))
     }
+    private fun messageChannel(body: JsonObject): String? {
+        if (body.text("kind") !in setOf("content", "public-content") || body.text("content_kind") != "message") return null
+        return body.text("channel_id").also { require(it.matches(ID)) }
+    }
+    private fun messageIndex(space: String, channel: String, disposition: String) = "$space/channels/$channel/$disposition/"
+    /** Rebuild disposable pointers from pre-index records, retaining every original. */
+    private fun SpaceClientStore.Transaction.ensureMessageIndexes(space: String, state: JsonObject) {
+        state.get("message_index_version")?.let { require(it.toString() == "1"); return }
+        for (disposition in listOf("pending", "rejected")) {
+            val prefix = "$space/$disposition/"
+            var cursor = prefix
+            while (true) {
+                val rows = page(prefix, cursor)
+                for (row in rows) {
+                    val original = SaitoEnvelope.decode(SaitoTransaction.restore(json(row.value).text("original")).envelope())
+                    require(original.author == wallet.publicKey && original.recipients == listOf(wallet.publicKey, service).distinct() &&
+                        original.body.text("module") == "Spaces" && original.body.text("request") == "event" &&
+                        original.body.number("version") == 1L && original.body.text("space_id") == space)
+                    messageChannel(original.body)?.let { channel ->
+                        put(messageIndex(space, channel, disposition) + row.key.substringAfterLast('/'), row.key.toByteArray(Charsets.UTF_8))
+                    }
+                }
+                if (rows.size < 50) break
+                cursor = rows.last().key + '\u0000'
+            }
+        }
+        state.addProperty("message_index_version", 1); put(stateKey(space), bytes(state))
+    }
+
+    private fun generalChannel(state: JsonObject) = SpaceCrypto.Scope.fromJson(state.getAsJsonObject("scope")).channelId
+    private fun selectedChannel(state: JsonObject) = (state.get("selected_channel")?.asString ?: generalChannel(state)).also { require(it.matches(ID)) }
+    private fun channelStateKey(space: String, channel: String) = "$space/channels/$channel/state"
+    private fun SpaceClientStore.Transaction.channelState(space: String, channel: String, parent: JsonObject = state(space)): JsonObject {
+        require(channel.matches(ID))
+        val data = if (channel == generalChannel(parent)) parent else json(requireNotNull(get(channelStateKey(space, channel))))
+        if (channel != generalChannel(parent) && !data.has("channel_profile")) {
+            journal(space).snapshot.channels[channel]?.profile?.let {
+                data.add("channel_profile", it.json()); put(channelStateKey(space, channel), bytes(data))
+            }
+        }
+        val scope = SpaceCrypto.Scope.fromJson(data.getAsJsonObject("scope"))
+        require(scope.serviceKey == service && scope.spaceId == space && scope.channelId == channel)
+        return data
+    }
+    private fun SpaceClientStore.Transaction.putChannelState(space: String, channel: String, data: JsonObject) {
+        put(if (channel == generalChannel(state(space))) stateKey(space) else channelStateKey(space, channel), bytes(data))
+    }
+    private fun SpaceClientStore.Transaction.contentPrefix(space: String, channel: String) =
+        if (channel == generalChannel(state(space))) "$space/content/" else "$space/channels/$channel/content/"
+    private fun SpaceClientStore.Transaction.draftKey(space: String, channel: String) =
+        if (channel == generalChannel(state(space))) "$space/draft" else "$space/channels/$channel/draft"
+
     private fun SpaceClientStore.Transaction.state(space: String): JsonObject {
         require(space.matches(ID))
         return json(requireNotNull(get(stateKey(space))) { "Community is not stored for this account and node" })

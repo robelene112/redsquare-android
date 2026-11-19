@@ -1,0 +1,18 @@
+Standards follow-up: public channel binding correction againsta352f1c7c
+Read-only source and retained-adverse review. Original finding remains preserved separately.
+
+Documented violations
+No remaining confirmed violation in the corrected source. The request/receipt/original channel gap is closed; no actionable smell findings identified.
+
+Binding and mutation ordering
+SpaceClient.ensureAuthorization now authenticates the receipt's complete Spaces/content header and verifies original Space/channel against the receipt and expected request channel. expectedChannel is now mandatory; content-page callers supply their captured channel and key-page callers their existing key scope. These checks precede content insertion, key-page commit and history/content cursor advancement. All selected page items are checked before the content transaction writes any of them.
+
+accept(content) independently requires receipt/original Space/channel agreement before choosing channel storage. Flush still verifies the exact queued signed original and removes it/index pointers only after successful acceptance. Late acknowledgment routing follows that original channel, preserving independently selected channels and drafts. It is not rebound to current selection.
+
+Observable regression quality
+Two distinct adverse cases retain valid outer service signatures, fresh request/caller/scope/nonce and real accepted original A: one places A's authentic receipt in B's page; the other re-signs a B label around A's authentic original. Both original RED methods reach the literal channel-agreement oracle. Corrected cases require rejection, empty A/B caches, preserved B draft and healthy recovery of B position0. Existing late-acknowledgment isolation is included in the targeted GREEN run.
+
+Evidence and scope
+Corrected three-case GREEN passes2m19, covering both adverses and late ACK. Mandatory-channel and final backfill guards were added subsequently; full244-core/47-service validation remains pending. Backfill now verifies author, service recipients, module/event/version and Space before indexing. Failure rolls back pointer/version writes while preserving originals. General key/crypto layout, original durability and owner/admin announcement checks remain unchanged.
+
+This source review does not establish private extra-channel creation, native UI, complete138 or deployment acceptance.
