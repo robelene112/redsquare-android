@@ -31,6 +31,8 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var spacesResponse: ((SaitoTransaction) -> String)? = null
     val spacesRequests = java.util.concurrent.CopyOnWriteArrayList<SaitoTransaction>()
     @Volatile var withholdSpacesReply = false
+    val withholdNextSpacesReadReply = java.util.concurrent.atomic.AtomicBoolean(false)
+    val withheldSpacesReads = java.util.concurrent.CopyOnWriteArrayList<String>()
     @Volatile var vaultUploadResponseExecutor: java.util.concurrent.Executor? = null
     @Volatile var vaultUploadResponse: ((nl.davidengelen.redsquare.saito.SignedSaitoMessage) -> String)? = null
     val vaultUploads = java.util.concurrent.CopyOnWriteArrayList<nl.davidengelen.redsquare.saito.SignedSaitoMessage>()
@@ -354,9 +356,11 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             require(SaitoEnvelope.decode(original.envelope()).author == authenticatedKey)
                             spacesRequests.add(original)
                             val response = requireNotNull(spacesResponse)(original)
+                            val dropRead = body.get("request")?.asString == "read" && withholdNextSpacesReadReply.compareAndSet(true, false)
+                            if (dropRead) withheldSpacesReads.add(original.id)
                             val holdContent = withholdSpacesReply && body.get("request")?.asString == "event" &&
                                 body.get("kind")?.asString == "content" && body.get("content_kind")?.asString == "message"
-                            if (!holdContent) check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
+                            if (!holdContent && !dropRead) check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
                             return
                         }
                         if (body.get("request").asString == "vault add file") {

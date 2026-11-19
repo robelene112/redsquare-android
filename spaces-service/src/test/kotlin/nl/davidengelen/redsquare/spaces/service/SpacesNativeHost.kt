@@ -83,6 +83,26 @@ object SpacesNativeHost {
                                     }
                                     "/hold" -> { peer.withholdSpacesReply = true; JsonObject() }
                                     "/release" -> { peer.withholdSpacesReply = false; JsonObject() }
+                                    "/drop-next-read" -> {
+                                        check(discoveryMode && peer.withheldSpacesReads.isEmpty())
+                                        peer.withholdNextSpacesReadReply.set(true); JsonObject()
+                                    }
+                                    "/read-recovery" -> {
+                                        check(discoveryMode)
+                                        val dropped = peer.withheldSpacesReads.singleOrNull()
+                                        val requests = peer.spacesRequests.toList()
+                                        val position = requests.indexOfFirst { it.id == dropped }
+                                        val resumed = if (position < 0) null else requests.drop(position + 1).firstOrNull {
+                                            SaitoEnvelope.decode(it.envelope()).body.get("request")?.asString == "read"
+                                        }
+                                        JsonObject().apply {
+                                            dropped?.let { addProperty("dropped", it) }
+                                            resumed?.let {
+                                                addProperty("resumed", it.id)
+                                                addProperty("author", SaitoEnvelope.decode(it.envelope()).author)
+                                            }
+                                        }
+                                    }
                                     "/stop" -> { stopping.set(true); JsonObject() }
                                     "/status" -> status(client, peer)
                                     else -> requireNotNull(discovery?.command(request.requestURI.path, body)) { "Unknown owned fixture command" }
