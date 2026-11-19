@@ -175,12 +175,12 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         check(client == null)
         val storage = AndroidSpaceClientStore(appContext, wallet.publicKey, "$backend:$endpoint", service)
         local = storage
-        client = SpaceClient(wallet, backend.webUrl, service, storage, Clock.systemUTC()) { original ->
-            // The client durably records attempted delivery before entering
-            // transport. Publish that progress before a response can be held.
+        client = SpaceClient(wallet, backend.webUrl, service, storage, Clock.systemUTC(), onDeliveryAttempt = {
             val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
             publish()
-            if (fixtureTrace) trace("request=${original.id.take(10)} projectedMs=${android.os.SystemClock.elapsedRealtime() - started}")
+            if (fixtureTrace) trace("delivery projectionMs=${android.os.SystemClock.elapsedRealtime() - started}")
+        }) { original ->
+            val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
             val connection = authenticatedPeer()
             if (connection.servicePublicKey("spaces-v1") != service) throw ChangedIdentity()
             val received = connection.request(original) { check(!closed.get()) }.toString(Charsets.UTF_8)
@@ -232,11 +232,11 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     fun refresh() { wake.trySend(Unit) }
     fun select(space: String?, channel: String? = null) { selectRoute(space, channel) }
-    private fun selectRoute(space: String?, channel: String? = null, expected: Long? = null): Boolean {
-        if (closed.get()) return false
+    private fun selectRoute(space: String?, channel: String? = null, expected: Long? = null): Long? {
+        if (closed.get()) return null
         return synchronized(navigationChanges) {
-            if (expected != null && navigationVersion.get() != expected) return@synchronized false
-            navigationVersion.incrementAndGet()
+            if (expected != null && navigationVersion.get() != expected) return@synchronized null
+            val route = navigationVersion.incrementAndGet()
             val token = selection.incrementAndGet()
             mutable.update { it.copy(selected = space, selectedChannel = channel, current = null,
                 messages = emptyList(), channels = emptyList(), members = emptyList(), draft = "", invitation = null, anchor = null,
@@ -275,7 +275,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 catch (_: Exception) { mutable.update { if (it.selected == space && selection.get() == token)
                     it.copy(problem = Problem.SAVE, loadingChannel = false) else it } }
             }
-            true
+            route
         }
     }
     fun editDraft(text: String) { mutable.value.target()?.let { editDraft(it.space, it.channel, text) } }
@@ -467,14 +467,22 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     fun openPublic(space: String) {
         val route = navigationVersion.get()
         localAction(Problem.CONNECTION) { network.withLock {
+            var activeRoute = route
             try {
-                requireNotNull(client).openPublic(space)
-                selectRoute(space, expected = route)
+                val current = requireNotNull(client)
+                val opened = current.openPublic(space)
+                val accepted = selectRoute(space, expected = route)
+                if (accepted != null) {
+                    activeRoute = accepted
+                    // Complete this explicit reading action before queued
+                    // background admissions and unread summaries can take over.
+                    current.refresh(space, channel = opened.channel)
+                }
                 publish(); wake.trySend(Unit)
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (failure: Exception) {
                 trace("public-read failed=${failure.javaClass.simpleName} frames=${failure.stackTrace.take(4).joinToString { "${it.className}.${it.methodName}:${it.lineNumber}" }}")
-                if (navigationVersion.get() == route) throw failure
+                if (navigationVersion.get() == activeRoute) throw failure
             }
         } }
     }
@@ -482,14 +490,20 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val route = navigationVersion.get()
         mutable.update { it.copy(previewIssue = null, requiredNode = null, problem = null) }
         localAction(Problem.INVITATION) { network.withLock {
+            var activeRoute = route
             try {
                 val opened = requireNotNull(client).openPublicLink(link)
-                if (selectRoute(opened.id, expected = route)) mutable.update { it.copy(openedPublicReference = link) }
+                val accepted = selectRoute(opened.id, expected = route)
+                if (accepted != null) {
+                    activeRoute = accepted
+                    mutable.update { it.copy(openedPublicReference = link) }
+                    requireNotNull(client).refresh(opened.id, channel = opened.channel)
+                }
                 publish(); wake.trySend(Unit)
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (failure: Exception) {
                 trace("public-read failed=${failure.javaClass.simpleName} frames=${failure.stackTrace.take(4).joinToString { "${it.className}.${it.methodName}:${it.lineNumber}" }}")
-                if (navigationVersion.get() == route) throw failure
+                if (navigationVersion.get() == activeRoute) throw failure
             }
         } }
     }

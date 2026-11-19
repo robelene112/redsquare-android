@@ -84,6 +84,18 @@ refresh stage. Debug-loopback-emulator metadata now distinguishes background
 admission/unread work, selected refresh and content projection. The original
 failure and deadline remain; no root-cause fix or native pass is claimed.
 
+The [seventh actual parents](native-active-read-correction.json) retain complete
+244/67 source results but fail native public content(Android17) or public
+membership(Android10) within the unchanged15-second bounds. Stage timings expose
+unrelated background admission/unread work preceding the chosen public read,
+and repeated full projections before signed read RPCs costing substantially
+more than their actual network delivery. Explicit public opening now completes
+its captured-channel read before background work can reacquire the worker.
+The durable-attempt projection moves to a client callback before actual outbox
+delivery; ordinary read RPCs no longer rebuild all state. The owned regression
+preserves genuine RED evidence, exact-original lost-ack retry, independent receipt
+and the newer draft. Final source/native results remain required.
+
 Typed profiles carry explicit public/private visibility and independent listing.
 Only explicit public profiles enter the bounded schema4 directory index. A
 fresh caller/query/cursor-bound signed challenge precedes every public page.

@@ -15,6 +15,7 @@ import java.util.Base64
  * Signed originals and replacement key state commit before transport is called. */
 class SpaceClient(private val wallet: SaitoWallet, private val node: String, private val service: String,
     private val store: SpaceClientStore, private val clock: Clock,
+    private val onDeliveryAttempt: suspend () -> Unit = {},
     private val exchange: suspend (SaitoTransaction) -> String) {
     init { require(node.isNotBlank() && node.length <= 2048 && SaitoWallet.isPublicKey(service)) }
 
@@ -648,6 +649,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val transaction = SaitoTransaction.restore(json(item.value).text("original"))
             val outbound = SaitoEnvelope.decode(transaction.envelope())
             require(outbound.author == wallet.publicKey)
+            // Presentation observes the durable attempt before transport can
+            // suspend. Signed read RPCs have no outbox change to project.
+            onDeliveryAttempt()
             val result = exchange(transaction)
             val received = SaitoEnvelope.decode(result)
             require(received.author == service && received.body.text("module") == "Spaces" && received.body.number("version") == 1L &&

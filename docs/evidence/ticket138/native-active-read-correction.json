@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "ticket": 138,
+  "source": "8bca10e635c469173fe5eaf6369339d59f4b2fae",
+  "originals": [
+    {
+      "run": 44571846403,
+      "sdk": 29,
+      "root": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt7-44571846403",
+      "zip": {
+        "bytes": 1618229,
+        "sha256": "0be16b24c3f44547f9822a123ee72882b4664ea94296e0bc76bcab4966136f9a",
+        "crc": "PASS"
+      },
+      "sourceChecks": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 67,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Whole FAIL. Android10 phase2 line113 public membership15s; Android17 phase1 line83 public content15s."
+    },
+    {
+      "run": 44571887843,
+      "sdk": 37,
+      "root": "/mnt/storage/redsquare-android-artifacts/spaces138-runtime/attempt7-44571887843",
+      "zip": {
+        "bytes": 1087683,
+        "sha256": "dd50c341fb9f9e1719a407a62ee65a73408a018e99ca9cb46f815e2588fc5e18",
+        "crc": "PASS"
+      },
+      "sourceChecks": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 67,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Whole FAIL. Android10 phase2 line113 public membership15s; Android17 phase1 line83 public content15s."
+    }
+  ],
+  "measured": "Android17 select public17:06:51.646, unrelated private background admission/unread until17:06:56.554, then selected refresh. Each signed RPC unnecessarily projects full state, costing0.3\u20130.9s in this sequence vs network10\u201330ms. Android10 cold membership case repeatedly costs0.5\u20131.7s in projections before every read while its explicit join remains queued.",
+  "changes": [
+    "Explicit public opening completes the captured-channel content refresh under the same network operation before background work can reacquire it. Navigation-origin fence remains; late A cannot replace chosen B.",
+    "A client onDeliveryAttempt observation occurs after a queued original is durably marked attempted and before transport. Android projects then, preserving uncertain-send feedback, without rebuilding all received state before pure signed read RPCs."
+  ],
+  "ownedRegression": "Actual one-test RED retained in external138-delivery-projection-red-originals: first outbox transport expected observation1 actual0. Original command shell interrupted143 while its actual container completed with that JUnit failure; attempted second build was stopped, not counted. Test additionally requires no read projection, exact original retry after accepted ack loss, retained new draft and one independently received ID. GREEN pending.",
+  "sourceReviews": {
+    "initialSpec": 1,
+    "initialStandards": 1,
+    "correctedSpec": 0,
+    "correctedStandards": 0
+  },
+  "acceptance": "Whole native failures retained; no prefix, corrected latency, final native or whole138 acceptance yet. All native goals/deadlines unchanged.",
+  "ownedRegressionGreen": {
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "build": "SUCCESS2m39s",
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/138-delivery-projection-green-originals",
+    "qualification": "New focused actual client/service callback and independently received original contract only; full244/68 and actualnativegoals pending."
+  },
+  "reviewCorrection": "Initial review caught post-selection refresh error suppressed by the old origin revision. selectRoute now returns its accepted revision atomically; active refresh errors surface only while that revision remains current. Original adverse reports retained."
+}

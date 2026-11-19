@@ -29,6 +29,60 @@ class SpaceDiscoveryTest {
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val visitor = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
 
+    @Test fun onlyDurableOutboxAttemptsProjectBeforeTransportAndReadRequestsDoNot() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("delivery-observation-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("delivery-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("delivery-reader.sqlite").absolutePath).use { readerStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create(SpaceProfile("Observed public room", visibility = SpaceVisibility.PUBLIC))
+                    creator.flush(space)
+                    var observations = 0
+                    var deliveries = 0
+                    var loseMessageAck = true
+                    var messageOriginal: String? = null
+                    lateinit var reader: SpaceClient
+                    reader = SpaceClient(visitor, "fixture-node", service.publicKey, readerStore, clock,
+                        onDeliveryAttempt = {
+                            observations++
+                            assertTrue(reader.community(space).pending)
+                            reader.timeline(space).filter { it.pending }.forEach { assertTrue(it.attempted) }
+                        }) { request ->
+                        val body = SaitoEnvelope.decode(request.envelope()).body
+                        if (body.get("request").asString == "event") {
+                            deliveries++
+                            assertEquals("Durable attempted state is projected before any outbox transport", deliveries, observations)
+                        }
+                        val received = remote.exchange(request.envelope())
+                        if (body.get("kind")?.asString == "public-content") {
+                            if (messageOriginal == null) messageOriginal = request.envelope()
+                            else assertEquals(messageOriginal, request.envelope())
+                            if (loseMessageAck) { loseMessageAck = false; throw java.io.IOException("Owned accepted acknowledgment lost") }
+                        }
+                        received
+                    }
+                    reader.openPublic(space); reader.refresh(space); reader.discover()
+                    assertEquals("Pure signed reads never project outbox delivery", 0, observations)
+                    reader.joinPublic(space); reader.flush(space)
+                    assertEquals(1, observations)
+                    reader.refresh(space); reader.discover()
+                    assertEquals(1, observations)
+                    val original = reader.send(space, "One independently received message")
+                    try { reader.flush(space); fail("The owned response must be lost") } catch (_: java.io.IOException) { }
+                    val pending = reader.timeline(space).single { it.pending }
+                    assertEquals(original, pending.id); assertTrue(pending.attempted)
+                    reader.saveDraft(space, "New writing remains independent")
+                    reader.flush(space)
+                    assertEquals(3, observations)
+                    assertFalse(reader.community(space).pending)
+                    assertEquals("New writing remains independent", reader.draft(space))
+                    creator.refresh(space)
+                    val received = creator.timeline(space).filter { it.text == "One independently received message" }
+                    assertEquals(1, received.size); assertEquals(original, received.single().id)
+                }
+            }
+        }
+    }
+
     @Test(timeout = 45_000) fun anIndependentPublicReadLeavesAnOwnedPrivateChannelsAuthorityAndDraftUnchanged() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("mixed-read-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("mixed-public-owner.sqlite").absolutePath).use { publicStore ->
