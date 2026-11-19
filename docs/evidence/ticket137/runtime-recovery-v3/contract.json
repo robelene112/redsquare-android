@@ -1,0 +1,38 @@
+{
+  "source": "fbe105980a53da6e5ed620ccc08c882062ab503a",
+  "workflow": "fbe105980a53da6e5ed620ccc08c882062ab503a",
+  "verifierSha256": "00461277685525037458f4756284f44dc8561fc52fdfbda6e072f3f3d7ce98c3",
+  "nativeClass": "SpaceMlsRuntimeTest",
+  "method": "actualJniAndKeystoreRecoverAdmittedHistoryWithoutWritingAnUnprotectedKeyring",
+  "nativeCases": 1,
+  "nativeSeconds": 180,
+  "captureSeconds": 30,
+  "profiles": [
+    [
+      29,
+      4096
+    ],
+    [
+      37,
+      4096
+    ],
+    [
+      37,
+      16384
+    ]
+  ],
+  "coreClasses": 48,
+  "coreTests": 243,
+  "spacesMethods": 11,
+  "serviceMethods": 5,
+  "rustContracts": 4,
+  "nativeInputs": {
+    "spaces-mls/Cargo.toml": "9d81c148917324b3b1b59aa1f09b2ee5260c68a3ec8c8f0040eeced8ac7510b7",
+    "spaces-mls/Cargo.lock": "3929649c69d8065fb2f41f21930050257f86ad366e1a76cbeb06bb907486d21d",
+    "spaces-mls/src/lib.rs": "e65ba486d553dc5dbaae3d640432babb9bac42ee48a23952f5112c7b693176ee",
+    "build-support/spaces-mls.py": "41a31115d6da88239b64ed308a6e2d2fdc9241812432d654c9345870e57cd067",
+    "build-support/spaces-toolchain.json": "84c3817c11b5e35ebf64a58e2470c54f8a021426e17b022024acabe77304dba1",
+    "spaces-mls/tests/community.rs": "6e915bd6308ebdf495895fe167291d3ca99229b7d392020b1065554937ff9762"
+  },
+  "claim": "Library/JNI/Keystore/same-process only, no UI or whole137 acceptance"
+}

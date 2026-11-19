@@ -1,0 +1,16 @@
+Independent Standards evidence review: PASS, zero findings within the limited v3 library checkpoint.
+
+Reviewed original whole parents 44442937365 (SDK29/4096), 44442941869 (SDK37/4096) and 44442946424 (SDK37/16384), all completed successfully at source/workflow fbe105980a53da6e5ed620ccc08c882062ab503a. The prospective contract and verifier SHA256 00461277685525037458f4756284f44dc8561fc52fdfbda6e072f3f3d7ce98c3 match. I independently inspected original bytes rather than accepting assessment.json as proof.
+
+For each ZIP I recomputed SHA256, checked the declared GitHub artifact digest/size/ID/run binding, passed CRC, checked unique safe member paths and compared every archived file with the extracted raw copy. Original ZIP SHA256:
+- Android10: 6bb4e24798084a3ef568f0a2b7ab9267c15f47d38b69bcd4aa0b05725d473ddb
+- Android17: 92dc8ce76e9b626d3cba6c5ce219a6c91e42a81db9be045741188f5a5efa864c
+- Android17/16KiB: dd051ed97943cac4840794a2c7c549feca54f44864b16c9dfd34591b5143b3a2
+
+All three archives contain 48 core classes/243 tests and five service tests with zero failures/errors/skips. I derived the complete test-name catalogue independently from fixed-source annotations, including backtick names, and matched every XML terminal case exactly. The eleven Spaces methods and four named Rust contracts pass. Native receipts match the fixed Git objects and pinned Rust1.100.0/NDK30.0.16248370 inputs; Rust transcript hashes match their receipts.
+
+Each original native transcript has exactly one start and one normal completion, exit0, OK(1 test), no assumption/skip/failure and successful30-second capture. Observed native times are0.462s/3.196s/5.475s under the unchanged180-second bound. TAR runtime.json confirms actual SDK/page size, installed product/test hashes matching original build-hash records, encrypted Keystore round trip, missing then exact granted history, serialized confirmed-rejection recovery, future-content denial, archive-only recovery, fresh-generation isolation and operational snapshot2. The source assertions precede those emitted observations.
+
+Qualification: Android10 retains an INVALID_HEAP preflight boot, shutdown and accepted second boot. This is separate provisioning evidence; the MLS case runs once. Earlier incorrectly routed parents and their original ZIPs remain retained and unused for v3 acceptance. No passing-prefix assembly occurred.
+
+This satisfies the source-bound evidence and preserved-observation rules in docs/WORKFLOW.md and docs/quality/SPACES_QUALITY_PLAN.md, with CODING_STANDARDS.md:26-27 limits intact. Acceptance covers library/JNI/Keystore and same-process serialized recovery only. It proves no rendered UI, distinct Android process recovery, whole137 integration, deployed node, physical/OEM or release acceptance. Current dirty implementation was excluded.

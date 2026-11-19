@@ -1,0 +1,14 @@
+SPEC EVIDENCE REVIEW: recovery-aware runtime v3
+PASS, zero findings within the declared library/JNI/Keystore/same-process claim.
+Fixed source and workflow: fbe105980a53da6e5ed620ccc08c882062ab503a.
+Reviewed all original whole ZIPs, extracted files, run metadata and whole-run logs for parents 44442937365 (SDK29/4096), 44442941869 (SDK37/4096), and 44442946424 (SDK37/16384). All complete successfully at the fixed revision. The verifier SHA256 is exactly 00461277685525037458f4756284f44dc8561fc52fdfbda6e072f3f3d7ce98c3, matching the frozen contract.
+
+Independent archive checks, rather than assessment.json alone: ZIP integrity and complete SHA256 match the declared artifact digests (6bb4e247…473ddb, 92dc8ce7…fa864c, dd051ed9…3b3a2). Every archived file equals its extracted raw file, 168/140/140 files respectively. All six frozen native-source input hashes independently match git show at fbe105980. Host/JNI receipts bind pinned Rust1.100.0/NDK30.0.16248370 and all four Android ABI outputs. Host contract-log hashes match their receipts.
+
+Each parent independently contains 48 core classes/243 tests and one service class/five tests, zero failures/errors/skips, including all eleven Spaces methods. All four Rust contracts pass, including confirmed rejection before a different admission. Each native transcript records the exact prospective method, one start and normal terminal0, OK(1 test), exit0, with successful bounded30second capture. The fixed harness retains180seconds for native execution.
+
+Actual runtime receipts and device records agree on x86_64, SDK and actual page size, including Android17 google_apis_ps16k at16384bytes. Installed application/test APK hashes match that parent's built-apk-sha256 records. These are recorded hash comparisons; APK binaries are not present in these focused ZIPs for independent binary inspection.
+
+Fixed-source assertions precede runtime receipts: rejection branch reload at epoch0, rejected candidate denied future content, exact Keystore snapshot round trip, missing history before authenticated grant, exact original history afterward, archive-only recovery, fresh-generation isolation, and operational snapshot2. All receipts confirm those outcomes.
+
+Qualification: Android10 retains its separate INVALID_HEAP provisioning observation (16MiB versus512MiB), complete emulator reap/cold boot, and accepted second preflight with512MiB. It does not retry the required native assertion. No UI, Android distinct-process recovery, deployed-node/provider, physical/OEM, encrypted portable export or whole137 acceptance follows. The separate service process test remains isolated service evidence. No current dirty implementation was reviewed or executed.
