@@ -116,8 +116,8 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         request.author !in journal.snapshot.members) { denied("unavailable"); return@atomic }
                     if (channel != null) {
                         val target = journal.snapshot.channels[channel]
-                        if (target == null || target.visibility != SpaceVisibility.PUBLIC &&
-                            target.devices.keys.none { it.split(':')[1] == request.author }) {
+                        if (target == null || target.visibility != SpaceVisibility.PUBLIC && (!journal.canAccessChannel(request.author, channel) ||
+                            target.devices.keys.none { it.split(':')[1] == request.author })) {
                             denied("unavailable"); return@atomic
                         }
                         if (recipient != null && (recipient !in target.devices || recipient.split(':')[1] != request.author)) {
@@ -127,7 +127,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     if (stream == "heads") {
                         val positions = scope.getAsJsonObject("positions")
                         val allowed = positions.keySet().all { id -> journal.snapshot.channels[id]?.let { record ->
-                            record.visibility == SpaceVisibility.PUBLIC || record.devices.keys.any { it.split(':')[1] == request.author }
+                            record.visibility == SpaceVisibility.PUBLIC || journal.canAccessChannel(request.author, id) && record.devices.keys.any { it.split(':')[1] == request.author }
                         } == true }
                         if (!allowed) { denied("unavailable"); return@atomic }
                         headPage(reply, space, request.author, positions)

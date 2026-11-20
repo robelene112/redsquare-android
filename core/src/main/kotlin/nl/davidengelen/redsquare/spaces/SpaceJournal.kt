@@ -133,6 +133,31 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(0, bindings,
                         generation, position, visibility, profile, metadata, adminPostsOnly, allowedMembers = allowed))))
             }
+            "revoke-channel-access" -> {
+                require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+                require(event.body.text("control_id") == current.controlId)
+                val channel = event.body.text("channel_id")
+                val old = requireNotNull(current.channels[channel])
+                require(old.visibility == SpaceVisibility.PRIVATE && old.allowedMembers != null)
+                val member = event.body.text("member")
+                require(current.members[member] == SpaceRole.MEMBER && member in old.allowedMembers)
+                require(old.devices.keys.any { credentialWallet(it) == event.author })
+                val removed = old.devices.keys.filter { credentialWallet(it) == member }
+                require(removed.size <= 1)
+                val epoch = Math.addExact(old.epoch, if (removed.isEmpty()) 0 else 1)
+                require(event.body.number("epoch") == epoch)
+                val bindings = devices(event.body)
+                require(bindings == old.devices - removed.toSet())
+                if (removed.isEmpty()) require(!event.body.has("commit"))
+                else require(Base64.getDecoder().decode(event.body.text("commit")).size in 1..1_048_576)
+                val metadata = event.body.text("channel_metadata")
+                require(Base64.getDecoder().decode(metadata).size in 29..65_536)
+                verifyChannelMetadata(metadata, event, SpaceCrypto.Scope(serviceKey, spaceId, channel, old.generation), epoch)
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    channels = Collections.unmodifiableMap(current.channels + (channel to old.copy(epoch = epoch, devices = bindings,
+                        epochStartedAt = if (removed.isEmpty()) old.epochStartedAt else position, metadata = metadata,
+                        allowedMembers = Collections.unmodifiableSet(old.allowedMembers - member)))))
+            }
             "edit-channel" -> {
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
                 require(event.body.text("control_id") == current.controlId)
@@ -310,6 +335,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         require(body.text("operation_id").matches(ID) && body.text("operation_id") !in operations)
         require(event.author in current.members)
         val channel = requireNotNull(current.channels[body.text("channel_id")])
+        require(canAccessChannel(event.author, body.text("channel_id")))
         val keyDelivery = body.text("kind") == "history" ||
             body.text("kind") == "content" && body.text("content_kind") == "history-keys"
         require(!channel.archived || keyDelivery) { "This channel is archived" }
@@ -347,7 +373,9 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
     }
 
     private fun devices(body: JsonObject): Map<String, String> {
-        val value = body.getAsJsonObject("devices")
+        val element = body.get("devices")
+        require(element != null && element.isJsonObject)
+        val value = element.asJsonObject
         require(value.size() in 1..16_384)
         return Collections.unmodifiableMap(value.entrySet().associate { (credential, signer) ->
             credentialWallet(credential)

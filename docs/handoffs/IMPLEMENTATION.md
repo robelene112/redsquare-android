@@ -59,6 +59,16 @@ No private UI/capability or future-exclusion acceptance is claimed. Continue
 revocation/key rotation and remaining139; public management-v3 native verification
 atb879 remains separate. Beta142 and all activation gates stay unchanged.
 
+Restricted private-child revocation now passes244core/92service cases and both
+incremental source review axes. Actual MLS removal excludes copied future
+ciphertext from an independent old-key reader; accepted-response loss and stale
+control rejection preserve exact originals and working keys. See the
+[revocation packet](../evidence/ticket139/restricted-channel-revocation.json).
+This is source-level child-channel acceptance only. Private UI, root membership
+removal/demotion, ownership/visibility/dissolution and remaining139 are pending.
+Public management native attempt10 at e62ecbd333 runs separately. Beta142 remains
+unchanged. Continue139 then140–147 without a checkpoint stop.
+
 ## Accepted138, continue139
 
 Community discovery, creation and reviewed admission138 are accepted at product
