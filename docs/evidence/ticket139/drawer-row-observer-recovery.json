@@ -1,0 +1,82 @@
+{
+  "ticket": 139,
+  "scope": "Drawer-row observer scoping only",
+  "base": "fda126da975c705c54d8cfd32f3b8cec1bd044d0",
+  "sourceFile": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt",
+  "sourceSha256": "f9d01237101bac8fd7dea505b98d966a5e5005f1f2c29529c797a92904afcfd3",
+  "failedParents": [
+    {
+      "whole": "FAILURE",
+      "run": 44662439802,
+      "source": "fda126da975c705c54d8cfd32f3b8cec1bd044d0",
+      "archiveSha256": "195d286e93be30e894f6c545c32698f0459ca362f847304f8d7a2a959803470f",
+      "apiDigestAndCrc": "PASS",
+      "modules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 84,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Phase3editorrecreation/discard/pendingreentry/confirmedmetadata andcategorydrawer progressed. GlobalCommonsclick predicate found2nodes: header+drawerrow. OriginalfailurePNG/XML/logs retained. Scope rowto actualnavigationPanelPaneTitle; no product/action/geometry/timinggoalchange.",
+      "actualKills": 2,
+      "nativeTerminalPasses": 0,
+      "observedEditorRecoveryMs": 15081,
+      "qualification": "Observedpartialeditor timing isnotwholePASS orprefixacceptance. All16priorwholeFAILretained. Freshwhole10/17/allframesrequired.",
+      "cleanup": {
+        "originalFailure": "RuntimeError",
+        "errors": []
+      }
+    },
+    {
+      "whole": "FAILURE",
+      "run": 44662444750,
+      "source": "fda126da975c705c54d8cfd32f3b8cec1bd044d0",
+      "archiveSha256": "3c23e89de04768756c7adc8ae6204dc4710c0ce2bee0dfa8302e6ce886c97e3f",
+      "apiDigestAndCrc": "PASS",
+      "modules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 84,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Phase3editorrecreation/discard/pendingreentry/confirmedmetadata andcategorydrawer progressed. GlobalCommonsclick predicate found2nodes: header+drawerrow. OriginalfailurePNG/XML/logs retained. Scope rowto actualnavigationPanelPaneTitle; no product/action/geometry/timinggoalchange.",
+      "actualKills": 2,
+      "nativeTerminalPasses": 0,
+      "observedEditorRecoveryMs": 20158,
+      "qualification": "Observedpartialeditor timing isnotwholePASS orprefixacceptance. All16priorwholeFAILretained. Freshwhole10/17/allframesrequired.",
+      "cleanup": {
+        "originalFailure": "RuntimeError",
+        "errors": []
+      }
+    }
+  ],
+  "reviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-drawer-row-observer-spec-review.txt",
+      "sha256": "1da97875445298951045075be0dec3d74cb3e00982a0ab109d6400a0ddddec62"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-drawer-row-observer-standards-review.txt",
+      "sha256": "5de7f187370c5a5f083193b629f76041bdfc00ab30ce45a809c79689295c18dd"
+    }
+  },
+  "qualification": "Allmanagement-v3/244core84service/36captures/5faults/goals retained. ExactsourceCIcompileprecedesemulator. Uncommittedprivatebackend excluded. No whole139/nativevisual/release acceptance; beta142 unchanged."
+}

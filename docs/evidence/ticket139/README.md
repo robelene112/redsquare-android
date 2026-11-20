@@ -164,3 +164,10 @@ name was below the information viewport. The [effect/caption observer correction
 scopes the static caption to its information dialog and scrolls it into view
 within the unchanged absolute deadline. Both axes are clear; fresh complete
 parents and full visual review remain required. Private backend work is excluded.
+
+Eighth whole parents remain failed after confirmed editor recovery and category
+drawer display. A global Commons click selector matched both the current header
+and drawer row. The [drawer-row observer correction](drawer-row-observer-recovery.json)
+scopes the target to the navigation panel while retaining every original click,
+geometry and timing goal. Both source axes are clear; fresh complete10/17 and
+all-frame/prototype/geometry acceptance remain required. No prefix is accepted.

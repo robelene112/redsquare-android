@@ -415,7 +415,7 @@ class SpacesManagementJourneyTest {
         ui.onNode(hasText("Projects", ignoreCase = true)).assertIsDisplayed()
         capture("24-editor-category-drawer")
         list.performScrollToNode(hasText("commons") and hasClickAction())
-        ui.onNode(hasText("commons") and hasClickAction()).clickReady()
+        drawerChannel("commons").clickReady()
         waitUntil { ui.onNode(hasSetTextAction() and hasText("New general draft while archive awaits")).isDisplayed() }
         openInformation(); restoreGeneralName(fixtures)
         capture("25-editor-restored-channel")
@@ -468,9 +468,11 @@ class SpacesManagementJourneyTest {
         val list = ui.onNode(hasScrollToNodeAction() and hasAnyAncestor(SemanticsMatcher.expectValue(
             androidx.compose.ui.semantics.SemanticsProperties.PaneTitle, context.getString(R.string.spaces_navigation_panel))))
         list.performScrollToNode(hasText(name) and hasClickAction())
-        ui.onNode(hasText(name) and hasClickAction()).clickReady()
+        drawerChannel(name).clickReady()
         waitUntil { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
     }
+    private fun drawerChannel(name: String) = ui.onNode(hasText(name) and hasClickAction() and hasAnyAncestor(
+        SemanticsMatcher.expectValue(androidx.compose.ui.semantics.SemanticsProperties.PaneTitle, context.getString(R.string.spaces_navigation_panel))))
     private fun clickDialog(text: String) {
         val deadline = SystemClock.elapsedRealtime() + 5_000
         val match = hasText(text) and hasClickAction() and hasAnyAncestor(isDialog())
