@@ -1487,4 +1487,17 @@
     <string name="spaces_create_channel">Create channel</string>
     <string name="spaces_create_channel_detail">Choose a name, a channel type and an optional category. The channel follows this community’s visibility. It appears after the node confirms it.</string>
     <string name="spaces_open_created_channel">Open channel</string>
+    <string name="spaces_channel_access">Channel access</string>
+    <string name="spaces_channel_access_detail">Choose who can read and contribute here. Owners and administrators always have access. New members receive keys when a current key holder is available.</string>
+    <string name="spaces_channel_access_always">Always has access</string>
+    <string name="spaces_channel_access_granted">Access granted</string>
+    <string name="spaces_channel_access_not_granted">No access</string>
+    <string name="spaces_remove_channel_access">Remove channel access</string>
+    <string name="spaces_remove_channel_access_detail">Remove %1$s from this channel? They remain in the Space. Previously received copies stay readable. Their access to new private messages ends.</string>
+    <string name="spaces_channel_restricted">Restrict channel access</string>
+    <string name="spaces_channel_restricted_detail">Only selected members, owners and administrators.</string>
+    <string name="spaces_channel_usual_visibility">Use the Space\'s usual visibility.</string>
+    <string name="spaces_choose_channel_members">Choose members</string>
+    <string name="spaces_remove_unavailable_members">Remove members who have left the Space</string>
+    <string name="spaces_create_private_channel_detail">Choose a name, a channel type and an optional category. This channel is private to the selected members, owners and administrators. It appears after the node confirms it.</string>
 </resources>

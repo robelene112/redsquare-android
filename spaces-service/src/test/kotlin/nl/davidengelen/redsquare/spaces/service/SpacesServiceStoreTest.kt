@@ -43,7 +43,7 @@ class SpacesServiceStoreTest {
             assertEquals(4, body.get("schema").asInt)
             assertEquals("ready", body.get("state").asString)
             assertFalse(body.get("file_hosting").asBoolean)
-            assertEquals(listOf("unread-v1", "channel-archive-v1", "role-management-v1", "public-channel-edit-v1"), body.getAsJsonArray("features").map { it.asString })
+            assertEquals(listOf("unread-v1", "channel-archive-v1", "role-management-v1", "public-channel-edit-v1", "private-channel-access-v1"), body.getAsJsonArray("features").map { it.asString })
         }
     }
 

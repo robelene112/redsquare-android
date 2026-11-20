@@ -1,0 +1,72 @@
+{
+  "ticket": 139,
+  "scope": "Restricted-channel creation/access native UI and negotiated capability, source stage only. Actual native execution pending.",
+  "base": "0db49773a",
+  "sources": {
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceChannelCreator.kt": "9efc03b4491ef267ebdb7ccaea39fef4037a64e36de3b017e7629cb166697c21",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceManagement.kt": "e5abdfe02d8b23d80c23081bf4c1141d1291c7cc218148bf940c1ef0c9a06fd5",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesAccount.kt": "37fa75011391d9524d302db5ab659b5e062198b894f8c60b0bed5699afffba62",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesScreen.kt": "225732bcafb8faada5c3869ce877bc6b7bae5ef9141a9ad09030b9cb27e73acd",
+    "app/src/main/res/values/strings.xml": "23cbe2b7470c0bb5179999ac98df33daac5280270bc3167efffc78b99e5423dc",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "879a8a2f7337995ebabc460ffdf4f9817d9ca1587260954dc09a07e46114015a",
+    "integrations/saito-spaces/bridge.cjs": "04e4897b28bb1ead077444ec625954344fef428c3a3fc1ccf1b057fb17d451c8",
+    "integrations/saito-spaces/spaces.js": "1d6dfbd83b9d16fe4cf369cad89e8f941efe7d7a673ee6b96deb463a1b7ca618",
+    "integrations/saito-spaces/test/bridge.test.cjs": "c1620b77c9816d8e56968e2316dfa2a500ca48c5312181b16c40d499a6fb67e6",
+    "integrations/saito-spaces/test/interop.cjs": "c28538c406c31bc8fa21ff8adae04aef713ae89e22ae0238a30d73ded8ef7b2c",
+    "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt": "faf2c6852b919f8a14845aaf5cf6bb45ea69ce45aff1038f4e6bba72eb376aa7",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStoreTest.kt": "18182cff9570be46765fc2204dbe2d04cac26891872d71fea65b7a892e53f753",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceChannelAccessPage.kt": "27307807d38c0da9d556d5ba5c43540d5e084a422b432987b56257a2e689b911"
+  },
+  "behaviour": [
+    "Channel creation supports restricted membership and explicit current-member selection. Scoped saved fields and durable privateMembers intent preserve the choice during recreation and uncertain receipt recovery. Missing members require explicit removal.",
+    "Private audience copy is distinct from inherited Space visibility. Navigation requires the exact accepted profile/channel/private-member intent.",
+    "Access roster shows fixed owner/admin access and actual ordinary-member permission; grants/revokes remain account-owned. Revoke confirms copied-history limitations and requires this device to have keys.",
+    "Access route saves its bound Space/channel independently of transient account restoration; account/node or explicit route changes retire it.",
+    "A bounded scrollable footer keeps local SAVE failures and receipt status visible after acting on a long roster.",
+    "Feature negotiation gates private-channel controls on the actual ready service feature. A missing feature or different service identity clears support."
+  ],
+  "checks": {
+    "correctedMainCompile": "PASS181s",
+    "serviceContracts": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-private-capability-service-health-originals"
+    },
+    "bridgeContracts": {
+      "tests": 1,
+      "passed": 1
+    },
+    "pinnedAdapterRehearsals": {
+      "0.3.2": "PASS one actual creation/receipt",
+      "0.3.15": "PASS one actual creation/receipt"
+    }
+  },
+  "logs": {
+    "139-private-channel-ui-compile.log": "56f6105c5770ea80392013a2baf0fb59661167d3873229d40762593e738c2532",
+    "139-private-channel-ui-corrected-compile.log": "e8fe4d92aa3e49268d81b5cb21414bff70b6879fb0ef20bdd781884820e8f306",
+    "139-private-capability-service-health.log": "d227c1aeb7a40bb3478ca9d0ac7b7f0f0c0295f0a11334ca8802027af3a20b44",
+    "139-private-capability-bridge-red.log": "8b6a8a544344b1a5929a0fdb12a6b831b51b81d507f2c4a99967cbb8ffa35802",
+    "139-private-capability-bridge-green.log": "c9a1ec3df912a564337d03a9756f02d7e438e5a9ef81eb0457a22152166c1909",
+    "139-node-interop-0.3.2.log": "72d6e53533a891452abd15ac5beb941c00b7e7919f81fcdd28b6a9975831a31a",
+    "139-node-interop-0.3.15.log": "e95b5848b46673af5197a8d14a7964d3c1e663b5bfbfe611adcdb4e1a89c8796"
+  },
+  "reviews": {
+    "139-private-channel-ui-final-spec-review.txt": {
+      "sha256": "45b859169ea78fb42212f184c662f71292366cf71dacc01042d1171eb8958954",
+      "findings": 0
+    },
+    "139-private-channel-ui-final-standards-review.txt": {
+      "sha256": "d55211d6368c6c8e85bac899ceaf16b1bc5fddc0ae3c98eb060740db8e2d41b7",
+      "findings": 0
+    }
+  },
+  "qualifications": [
+    "Initial source reports with four P2s remain retained separately; corrections are source-reviewed and compile, not native accepted.",
+    "Adapter rehearsals use the exact pinned serializer/module/dispatcher/JS-WASM and owned loopback JVM boundary. They do not prove full node bootstrap or a different deployed runtime.",
+    "Earlier full244core/94service belongs to the preceding grant increment; this source adds DTO/intent projection and health feature, covered by the above affected checks.",
+    "Both latest public management native parents remain failed:17firstread15s,10ambiguous created-route observer. Preserve whole originals and original deadlines.",
+    "Private native OS/process/geometry/prototype checks and the rest of139 remain pending. No deployment or beta142 change."
+  ]
+}

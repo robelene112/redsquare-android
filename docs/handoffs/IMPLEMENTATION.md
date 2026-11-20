@@ -77,6 +77,15 @@ in the [grant packet](../evidence/ticket139/restricted-channel-grants.json).
 Private native UI/capabilities and remaining139 are pending. Public management
 attempt11 atff6a05985 runs separately; beta142 is unchanged. Continue139–147.
 
+Restricted-channel creation/member selection and the channel access page now
+compile, with both corrected source review axes clear. Six service contracts,
+one bridge contract and both pinned adapter rehearsals pass. See the
+[private UI source packet](../evidence/ticket139/private-channel-ui-source.json).
+Actual private native/OS/process/geometry verification remains pending. Public
+management attempt11 remains failed on initial reading time and an ambiguous
+created-route observer; preserve both originals and all timing goals while
+correcting them. Whole139 and140–147 remain unfinished; beta142 is unchanged.
+
 ## Accepted138, continue139
 
 Community discovery, creation and reviewed admission138 are accepted at product

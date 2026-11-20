@@ -25,7 +25,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     class DifferentNode(val node: String) : IllegalArgumentException("This community belongs to a different node")
 
     data class Channel(val id: String, val profile: SpaceChannelProfile, val visibility: SpaceVisibility, val ready: Boolean, val unread: Long? = null, val hasUnread: Boolean? = null,
-        val archived: Boolean = false)
+        val archived: Boolean = false, val allowedMembers: Set<String>? = null)
     fun channels(space: String): List<Channel> = store.transaction {
         owned()
         val state = state(space)
@@ -36,14 +36,14 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val data = channelState(space, id, state)
             val profile = channelProfile(space, id, state, data, record)
                 ?: if (id == general) SpaceChannelProfile("general") else null
-            profile?.let { Channel(id, it, record.visibility, record.visibility == SpaceVisibility.PUBLIC || data.get("joined")?.asBoolean == true, data.get("unread")?.asLong, unreadActivity(data), record.archived) }
+            profile?.let { Channel(id, it, record.visibility, record.visibility == SpaceVisibility.PUBLIC || data.get("joined")?.asBoolean == true, data.get("unread")?.asLong, unreadActivity(data), record.archived, record.allowedMembers) }
         }
     }
     enum class ChangeStatus { QUEUED, AWAITING_CONFIRMATION, ACCEPTED, REJECTED }
     data class ArchiveChange(val id: String, val channelId: String, val archived: Boolean, val status: ChangeStatus)
     data class RoleChange(val id: String, val memberKey: String, val administrator: Boolean, val status: ChangeStatus)
     data class ChannelAccessChange(val id: String, val channelId: String, val memberKey: String, val status: ChangeStatus, val granted: Boolean = false)
-    data class ChannelCreation(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus)
+    data class ChannelCreation(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus, val privateMembers: Set<String>? = null)
     data class ChannelEdit(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus)
 
     fun grantChannelAccess(space: String, channel: String, member: String): String = store.transaction {
@@ -201,7 +201,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         owned()
         val change = state(space).getAsJsonObject("channel_creation") ?: return@transaction null
         ChannelCreation(change.text("id"), change.text("channel"), SpaceChannelProfile.fromJson(change.getAsJsonObject("profile")),
-            changeStatus(space, change))
+            changeStatus(space, change), change.getAsJsonArray("private_members")?.map { it.asString }?.toSet())
     }
 
     fun createChannel(space: String, profile: SpaceChannelProfile): String = store.transaction {
@@ -259,6 +259,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }))
         state.add("channel_creation", JsonObject().apply {
             addProperty("id", original.id); addProperty("channel", scope.channelId); add("profile", profile.json())
+            members?.let { add("private_members", JsonArray().apply { it.sorted().forEach(::add) }) }
             addProperty("status", ChangeStatus.QUEUED.name)
         })
         queue(space, state, original)

@@ -92,6 +92,12 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     val channelEditor = rememberSaveable(saver = SpaceChannelEditorState.Saver) { SpaceChannelEditorState() }
     val channelCreator = rememberSaveable(saver = SpaceChannelCreatorState.Saver) { SpaceChannelCreatorState() }
     var membersOpen by rememberSaveable { mutableStateOf(false) }
+    var channelAccessRoute by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf<String?>(null) }
+    val channelAccessOpen = channelAccessRoute == "${state.selected}:${state.selectedChannel}"
+    LaunchedEffect(state.selected, state.selectedChannel, state.loadingChannel) {
+        if (channelAccessRoute != null && state.selected != null && state.selectedChannel != null && !state.loadingChannel && !channelAccessOpen)
+            channelAccessRoute = null
+    }
     var overlaySpace by remember { mutableStateOf(state.selected) }
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -121,11 +127,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         // Selection is immediate; the panel keeps its rows until its exit ends.
         if (drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed)
             closingDrawerContent = closingDrawerContent ?: state
-        channelEditor.open = false; channelCreator.open = false
+        channelEditor.open = false; channelCreator.open = false; channelAccessRoute = null
         savedSelection = space; account.select(space, channel); tab = SpacesTab.MY_SPACES
         scope.launch { drawer.close() }
     }
-    fun selectTab(target: SpacesTab) { channelEditor.open = false; channelCreator.open = false; account.select(null); savedSelection = null; tab = target }
+    fun selectTab(target: SpacesTab) { channelEditor.open = false; channelCreator.open = false; channelAccessRoute = null; account.select(null); savedSelection = null; tab = target }
     LaunchedEffect(account, state.ready, state.loading) {
         // A verified public visitor has local context without My Spaces membership.
         if (state.ready && !state.loading && state.selected == null && savedSelection != null) account.select(savedSelection)
@@ -142,7 +148,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         if (state.loading || !state.ready || state.working) return@LaunchedEffect
         clearInvitationReview()
         if (SpacesLaunchRoutes.isPublic(android.net.Uri.parse(link))) {
-            joinOpen = false; informationOpen = false; inviteOpen = false; membersOpen = false
+            joinOpen = false; informationOpen = false; inviteOpen = false; membersOpen = false; channelAccessRoute = null
             publicReference = link; account.openPublicLink(link)
         } else { invitationText = link; joinOpen = true; account.preview(link) }
         onInvitationConsumed()
@@ -154,8 +160,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         }
     }
     LaunchedEffect(selected?.joined) { if (selected?.joined == true) publicRulesOpen = false }
+    BackHandler(channelAccessRoute != null) { channelAccessRoute = null; informationOpen = selected != null }
     BackHandler(membersOpen) { membersOpen = false; informationOpen = true }
-    BackHandler(!membersOpen && state.selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !channelCreator.open && !publicRulesOpen) { choose(null) }
+    BackHandler(!membersOpen && !channelAccessOpen && state.selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !channelCreator.open && !publicRulesOpen) { choose(null) }
     BackHandler(drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed || drawer.isAnimationRunning) {
         scope.launch { drawer.close() }
     }
@@ -199,7 +206,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         }) {
         Column(Modifier.fillMaxSize()) {
             chrome(imeVisible)
-            if (membersOpen && selected != null) SpaceMembersPage(account, state, Modifier.weight(1f),
+            if (channelAccessOpen && selected != null) Box(Modifier.weight(1f)) {
+                SpaceChannelAccessPage(account, state) { channelAccessRoute = null; informationOpen = true }
+            }
+            else if (membersOpen && selected != null) SpaceMembersPage(account, state, Modifier.weight(1f),
                 onBack = { membersOpen = false; informationOpen = true }, onProfile = onProfile, onMessage = onMessage)
             else if (state.selected == null) SpacesOverview(account, state, tab, { choose(it) }, { createOpen = true },
                 { clearInvitationReview(); joinOpen = true }, Modifier.weight(1f)) { AvailabilityNotice(state.availability, state.refreshing, account::refresh) }
@@ -475,7 +485,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     focusManager.clearFocus(); keyboardController?.hide()
                     channelCreator.show(account, selected.id, state.channelCreation); informationOpen = false
                 }, enabled = !state.working, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_add_channel)) }
-            channel?.let { chosen -> SpaceChannelManagement(account, state, chosen) {
+            channel?.let { chosen -> SpaceChannelManagement(account, state, chosen, onAccess = {
+                focusManager.clearFocus(); keyboardController?.hide()
+                informationOpen = false; channelAccessRoute = "${selected.id}:${chosen.id}"
+            }) {
                 focusManager.clearFocus(); keyboardController?.hide()
                 channelEditor.show(account, selected.id, chosen, state.channelEdit)
                 informationOpen = false

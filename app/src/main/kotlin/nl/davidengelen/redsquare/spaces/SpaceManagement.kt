@@ -28,11 +28,12 @@ import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.DesignSheet
 
 @Composable internal fun SpaceChannelManagement(account: SpacesAccount, state: SpacesAccount.State,
-    channel: SpaceClient.Channel, onEdit: () -> Unit) {
+    channel: SpaceClient.Channel, onAccess: () -> Unit, onEdit: () -> Unit) {
     val current = state.current ?: return
     val role = state.members.firstOrNull { it.publicKey == account.ownerKey }?.role
     if (role !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) ||
-        !state.archiveSupported && !(state.publicChannelEditSupported && channel.visibility == SpaceVisibility.PUBLIC)) return
+        !state.archiveSupported && !(state.publicChannelEditSupported && channel.visibility == SpaceVisibility.PUBLIC) &&
+        !(state.privateChannelAccessSupported && channel.allowedMembers != null)) return
     val change = state.archiveChange?.takeIf { it.channelId == channel.id }
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         HorizontalDivider()
@@ -43,6 +44,10 @@ import nl.davidengelen.redsquare.ui.DesignSheet
         if (state.publicChannelEditSupported && channel.visibility == SpaceVisibility.PUBLIC) {
             OutlinedButton(onClick = onEdit, enabled = !state.working,
                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_edit_channel)) }
+        }
+        if (state.privateChannelAccessSupported && channel.allowedMembers != null) {
+            OutlinedButton(onClick = onAccess, enabled = !state.working,
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_channel_access)) }
         }
         if (state.archiveSupported) {
             ManagementChangeNotice(change?.status, state.availability, account::refresh)
