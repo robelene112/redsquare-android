@@ -46,7 +46,7 @@ object SpacesNativeHost {
                     val sent = mutableSetOf<String>()
                     var privateManagement: SpacesPrivateManagementFixture? = null
                     var privateReadiness: SpacesPrivateReadinessFixture? = null
-                    val peer = ControlledFeedPeer("[]", advertisedServices = if (discoveryMode || managementMode || privateManagementMode || privateReadinessMode) "archive||;spaces-v1||;spaces-directory-v1||;spaces-unread-v1||;spaces-channel-archive-v1||;spaces-role-management-v1||;spaces-public-channel-edit-v1||" + (if (privateManagementMode || privateReadinessMode) ";spaces-private-channel-access-v1||" else "") else "archive||;spaces-v1||", peer = service,
+                    val peer = ControlledFeedPeer("[]", advertisedServices = if (discoveryMode || managementMode || privateManagementMode || privateReadinessMode) "archive||;spaces-v1||;spaces-directory-v1||;spaces-unread-v1||;spaces-channel-archive-v1||;spaces-role-management-v1||;spaces-public-channel-edit-v1||" + (if (privateManagementMode || privateReadinessMode) ";spaces-private-channel-access-v1||;spaces-private-channel-edit-v1||" else "") else "archive||;spaces-v1||", peer = service,
                         archiveResponse = { "[]" }, registryResponse = if (discoveryMode || managementMode || privateManagementMode || privateReadinessMode) ({ criteria ->
                             JsonObject().apply {
                                 if (criteria.get("request")?.asString == "registry query" &&

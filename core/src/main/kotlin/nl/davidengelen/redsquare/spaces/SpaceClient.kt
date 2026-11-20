@@ -26,7 +26,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     class DifferentNode(val node: String) : IllegalArgumentException("This community belongs to a different node")
 
     data class Channel(val id: String, val profile: SpaceChannelProfile, val visibility: SpaceVisibility, val ready: Boolean, val unread: Long? = null, val hasUnread: Boolean? = null,
-        val archived: Boolean = false, val allowedMembers: Set<String>? = null)
+        val archived: Boolean = false, val allowedMembers: Set<String>? = null, val metadataReady: Boolean = false)
     fun channels(space: String): List<Channel> = store.transaction {
         owned()
         val state = state(space)
@@ -35,9 +35,12 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         journal.snapshot.channels.mapNotNull { (id, record) ->
             if (!journal.canAccessChannel(wallet.publicKey, id)) return@mapNotNull null
             val data = channelState(space, id, state)
-            val profile = channelProfile(space, id, state, data, record)
-                ?: if (id == general) SpaceChannelProfile("general") else null
-            profile?.let { Channel(id, it, record.visibility, record.visibility == SpaceVisibility.PUBLIC || data.get("joined")?.asBoolean == true, data.get("unread")?.asLong, unreadActivity(data), record.archived, record.allowedMembers) }
+            val readableProfile = channelProfile(space, id, state, data, record)
+            val profile = readableProfile ?: if (id == general) SpaceChannelProfile("general") else null
+            val metadataReady = record.visibility == SpaceVisibility.PUBLIC || readableProfile != null &&
+                (if (record.allowedMembers != null) data else state).get("joined")?.asBoolean == true
+            profile?.let { Channel(id, it, record.visibility, record.visibility == SpaceVisibility.PUBLIC || data.get("joined")?.asBoolean == true,
+                data.get("unread")?.asLong, unreadActivity(data), record.archived, record.allowedMembers, metadataReady) }
         }
     }
     enum class ChangeStatus { QUEUED, AWAITING_CONFIRMATION, ACCEPTED, REJECTED }
@@ -119,7 +122,6 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val previous = requireNotNull(channelProfile(space, channel, state, target, record))
         require(profile.kind == previous.kind)
         val metadata = if (record.visibility == SpaceVisibility.PRIVATE) {
-            require(record.kind != null)
             val metadataChannel = if (record.allowedMembers != null) channel else requireNotNull(snapshot.generalChannelId)
             val metadataGroup = requireNotNull(snapshot.channels[metadataChannel])
             val metadataState = channelState(space, metadataChannel, state)
@@ -1660,9 +1662,30 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private fun SpaceClientStore.Transaction.channelProfile(space: String, channel: String, parent: JsonObject,
         data: JsonObject, record: SpaceChannelRecord): SpaceChannelProfile? {
         record.profile?.let { return it }
-        data.getAsJsonObject("channel_profile")?.let {
-            return SpaceChannelProfile.fromJson(it).also { cached -> require(record.kind == null || cached.kind == record.kind) }
+        val kind = record.kind ?: run {
+            // Earlier private histories carry their immutable kind only in the
+            // signed creation ciphertext. Never infer it from an editable label.
+            if (record.initialMetadata == null) {
+                require(channel == generalChannel(parent))
+                SpaceChannelKind.CHAT // The original General-only protocol.
+            } else {
+                val keyState = if (record.allowedMembers != null) data else parent
+                // Retained history can describe an authorized channel while
+                // readmission is pending. It does not authorize new editing.
+                if (!keyState.has("crypto")) return null
+                val keys = SpaceCrypto.restore(decode(keyState.text("crypto")))
+                val initial = decode(record.initialMetadata).toString(Charsets.UTF_8)
+                require(SaitoEnvelope.decode(initial).body.text("content_kind") == "channel-profile")
+                val contents = try { json(keys.read(initial).text.toByteArray(Charsets.UTF_8)) }
+                    catch (_: SpaceCrypto.MissingKeys) { return null }
+                require(contents.number("version") == 1L && contents.text("channel_id") == channel)
+                SpaceChannelProfile.fromJson(contents.getAsJsonObject("profile")).kind
+            }
         }
+        data.getAsJsonObject("channel_profile")?.let {
+            return SpaceChannelProfile.fromJson(it).also { cached -> require(cached.kind == kind) }
+        }
+        if (record.metadata == null && channel == generalChannel(parent)) return SpaceChannelProfile("general", kind)
         val profile = record.profile ?: record.metadata?.takeIf { parent.get("joined").asBoolean }?.let { encoded ->
             val envelope = decode(encoded).toString(Charsets.UTF_8)
             val original = SaitoEnvelope.decode(envelope)
@@ -1677,13 +1700,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             require(contents.text("channel_id") == channel)
             val decoded = if (contentKind == "channel-profile-edit") {
                 require(contents.keySet() == setOf("version", "channel_id", "name", "category") && contents.get("version").toString() == "2")
-                SpaceChannelProfile(contents.text("name"), requireNotNull(record.kind), contents.text("category"))
+                SpaceChannelProfile(contents.text("name"), kind, contents.text("category"))
             } else {
                 require(contents.number("version") == 1L)
                 SpaceChannelProfile.fromJson(contents.getAsJsonObject("profile"))
             }
             decoded.also {
-                require(record.kind == null || it.kind == record.kind)
+                require(it.kind == kind)
                 require(record.adminPostsOnly == (it.kind == SpaceChannelKind.ANNOUNCEMENT))
             }
         }

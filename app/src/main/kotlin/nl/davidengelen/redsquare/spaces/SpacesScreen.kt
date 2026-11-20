@@ -230,7 +230,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             Column(Modifier.weight(1f)) {
                                 Text(selected?.name ?: profile?.name.orEmpty(), style = MaterialTheme.typography.labelSmall, maxLines = if (compactReading) 1 else 2,
                                     overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                Text(title, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                                Text(title, style = MaterialTheme.typography.titleMedium, maxLines = if (compactReading) 1 else 2, overflow = TextOverflow.Ellipsis)
                             }
                             Icon(painterResource(R.drawable.ic_chevron_down), null, Modifier.size(20.dp))
                         }
@@ -290,13 +290,15 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 val first = visible.firstOrNull()?.let { item -> latestMessages.firstOrNull { it.id == item.key && it.position != null } }
                                 val read = visible.mapNotNull { item -> latestMessages.firstOrNull { it.id == item.key }?.position }.maxOrNull()
                                 val anchor = first?.let { SpaceClient.ReadingAnchor(it.id, requireNotNull(it.position), list.firstVisibleItemScrollOffset, latestWindow) }
-                                ChannelViewport(anchor, !(list.canScrollForward || list.isScrollInProgress), autoScrolling, read)
+                                ChannelViewport(anchor, !(list.canScrollForward || list.isScrollInProgress), autoScrolling || initialPage, read)
                             }.collect { viewport ->
-                                if (!viewport.automatic && viewport.anchor != null) account.readingPosition(selected.id, selected.channel,
-                                    viewport.followLatest && !latestHasLater, viewport.anchor)
-                                viewport.read?.let { position -> if (lastRead == null || position > requireNotNull(lastRead)) {
-                                    lastRead = position; account.markRead(selected.id, selected.channel, position)
-                                } }
+                                if (!viewport.automatic) {
+                                    if (viewport.anchor != null) account.readingPosition(selected.id, selected.channel,
+                                        viewport.followLatest && !latestHasLater, viewport.anchor)
+                                    viewport.read?.let { position -> if (lastRead == null || position > requireNotNull(lastRead)) {
+                                        lastRead = position; account.markRead(selected.id, selected.channel, position)
+                                    } }
+                                }
                             }
                         }
                         LaunchedEffect(state.messages.map { it.id }, state.scrollToMessage) {
@@ -337,7 +339,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp), verticalAlignment = Alignment.Bottom,
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 OutlinedTextField(state.draft, { account.editDraft(selected.id, selected.channel, it) }, Modifier.weight(1f),
-                                    enabled = !state.savingNavigation && !state.loadingChannel, placeholder = { Text(stringResource(R.string.spaces_message_channel_hint, channel?.profile?.name ?: "general")) },
+                                    enabled = !state.savingNavigation && !state.loadingChannel, placeholder = { Text(stringResource(R.string.spaces_message_channel_hint, channel?.profile?.name ?: "general"),
+                                        maxLines = if (compactReading) 1 else Int.MAX_VALUE, overflow = TextOverflow.Ellipsis) },
                                     shape = RoundedCornerShape(18.dp), minLines = 1, maxLines = if (compactReading) 1 else 4)
                                 FilledIconButton(onClick = account::send, enabled = selected.canSend && state.draft.isNotBlank() && !state.working &&
                                     state.accessProblems[selected.id] == null, modifier = Modifier.size(48.dp)) {

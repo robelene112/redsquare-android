@@ -27,6 +27,101 @@ class SpaceChannelsTest {
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
 
+    @Test(timeout = 45_000) fun earlierPrivateKindsSurviveRealAdmissionEditingAndColdRestore() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("legacy-kind-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("legacy-kind-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("legacy-kind-admin.sqlite").absolutePath).use { adminStore ->
+                    var head = ""
+                    var join: String? = null
+                    fun exchange(original: SaitoTransaction): String = remote.exchange(original.envelope()).also { receipt ->
+                        val received = SaitoEnvelope.decode(receipt)
+                        if (received.body.get("stream")?.asString == "control") head = original.id
+                        if (SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "join-channel")
+                            join = original.envelope()
+                    }
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { exchange(it) }
+                    fun restoredAdmin() = SpaceClient(member, "fixture-node", service.publicKey, adminStore, clock) { exchange(it) }
+                    var admin = restoredAdmin()
+                    val space = creator.create(SpaceProfile("Legacy private metadata", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    admin.openPublic(space); admin.joinPublic(space); admin.flush(space); creator.refresh(space)
+                    creator.setAdministrator(space, member.publicKey, true); creator.flush(space); admin.refresh(space)
+                    val scope = SpaceCrypto.Scope(service.publicKey, space, "a".repeat(64))
+                    var keys = SpaceCrypto.device(owner.publicKey, "b".repeat(64)).create(scope)
+                    val profile = SpaceChannelProfile("earlier-reading-room", SpaceChannelKind.ARTICLE, "Earlier")
+                    var operation = 100
+                    fun event(kind: String, extra: JsonObject.() -> Unit) = SaitoTransaction.create(owner, JsonObject().apply {
+                        addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                        addProperty("space_id", space); addProperty("kind", kind); addProperty("operation_id", (++operation).toString(16).padStart(64, '0'))
+                        addProperty("control_id", head); addProperty("channel_id", scope.channelId); extra()
+                    }, clock.millis(), listOf(service.publicKey))
+                    fun metadata() = keys.publish(owner, "channel-profile", (++operation).toString(16).padStart(64, '0'), head,
+                        JsonObject().apply { addProperty("version", 1); addProperty("channel_id", scope.channelId); add("profile", profile.json()) }.toString(), clock.millis())
+                    fun encoded(original: SaitoTransaction) = java.util.Base64.getEncoder().encodeToString(original.envelope().toByteArray(Charsets.UTF_8))
+                    val initial = metadata()
+                    val creation = event("create-channel") {
+                        addProperty("visibility", "private"); addProperty("epoch", 0); addProperty("key_generation", scope.generation)
+                        addProperty("admin_posts_only", false); add("allowed_members", com.google.gson.JsonArray().apply { add(member.publicKey) })
+                        add("devices", JsonObject().apply { keys.bindings.forEach { (id, signer) -> addProperty(id, signer) } })
+                        addProperty("metadata", encoded(initial)) // Earlier signed creation has no visible channel_kind.
+                    }
+                    assertEquals("control", SaitoEnvelope.decode(exchange(creation)).body.get("stream").asString)
+                    admin.refresh(space); admin.selectChannel(space, scope.channelId); admin.flush(space)
+                    val requested = SaitoEnvelope.decode(requireNotNull(join))
+                    val bound = requested.body.getAsJsonObject("key_package")
+                    val admission = keys.admit(SpaceCrypto.BoundPackage(scope, bound.get("wallet").asString,
+                        bound.get("device").asString, bound.get("package").asString, bound.get("signer").asString, bound.get("signature").asString))
+                    keys = admission.session
+                    val admittedMetadata = metadata()
+                    val admitted = event("admit") {
+                        addProperty("join", requireNotNull(join)); addProperty("epoch", keys.epoch)
+                        addProperty("welcome", admission.welcome); addProperty("commit", admission.commit)
+                        add("devices", JsonObject().apply { keys.bindings.forEach { (id, signer) -> addProperty(id, signer) } })
+                        addProperty("channel_metadata", encoded(admittedMetadata))
+                    }
+                    assertEquals("control", SaitoEnvelope.decode(exchange(admitted)).body.get("stream").asString)
+                    val history = keys.archiveHistory(owner, admission.bindings.keys.single { it != keys.credential },
+                        (++operation).toString(16).padStart(64, '0'), head, clock.millis())
+                    exchange(history.transaction)
+                    admin.refresh(space, scope.channelId)
+                    assertEquals(profile, admin.channels(space).single { it.id == scope.channelId }.profile)
+                    admin.saveDraft(space, "Keep the legacy article draft", scope.channelId)
+                    val renamed = profile.copy(name = "renamed-earlier-reading", category = "Reading together")
+                    admin.editChannel(space, scope.channelId, renamed); admin.flush(space)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, admin.channelEdit(space, scope.channelId)?.status)
+                    admin = restoredAdmin(); admin.refresh(space, scope.channelId)
+                    assertEquals(renamed, admin.channels(space).single { it.id == scope.channelId }.profile)
+                    assertTrue(admin.channels(space).single { it.id == scope.channelId }.metadataReady)
+                    assertEquals("Keep the legacy article draft", admin.draft(space, scope.channelId))
+                    try { admin.editChannel(space, scope.channelId, renamed.copy(kind = SpaceChannelKind.CHAT)); fail("Legacy editing preserves its authenticated original kind") }
+                    catch (_: IllegalArgumentException) { }
+                    creator.refresh(space); creator.setAdministrator(space, member.publicKey, false); creator.flush(space)
+                    val removed = keys.remove(admission.bindings.keys.single { it != keys.credential })
+                    keys = removed.session
+                    val replacementMetadata = keys.publish(owner, "channel-profile", (++operation).toString(16).padStart(64, '0'), head,
+                        JsonObject().apply { addProperty("version", 1); addProperty("channel_id", scope.channelId); add("profile", renamed.json()) }.toString(), clock.millis())
+                    val revoked = event("revoke-channel-access") {
+                        addProperty("member", member.publicKey); addProperty("epoch", keys.epoch); addProperty("commit", removed.commit)
+                        add("devices", JsonObject().apply { keys.bindings.forEach { (id, signer) -> addProperty(id, signer) } })
+                        addProperty("channel_metadata", encoded(replacementMetadata))
+                    }
+                    assertEquals("control", SaitoEnvelope.decode(exchange(revoked)).body.get("stream").asString)
+                    val general = creator.community(space).channel
+                    admin.refresh(space, general)
+                    assertFalse(admin.channels(space).any { it.id == scope.channelId })
+                    creator.refresh(space); creator.setAdministrator(space, member.publicKey, true); creator.flush(space)
+                    admin = restoredAdmin(); admin.refresh(space, general)
+                    val available = admin.channels(space).firstOrNull { it.id == scope.channelId }
+                    assertNotNull("The authorized legacy channel remains visible while current readmission is held", available)
+                    val visible = requireNotNull(available)
+                    assertEquals("Retained authenticated metadata remains available to the newly authorized Admin", renamed, visible.profile)
+                    assertFalse(visible.ready); assertFalse(visible.metadataReady)
+                    try { admin.editChannel(space, scope.channelId, renamed.copy(name = "Cannot edit with retired keys")); fail("Editing waits for current keys") }
+                    catch (_: IllegalArgumentException) { }
+                }
+            }
+        }
+    }
+
     @Test(timeout = 45_000) fun earlierRestrictedMetadataEditsRemainBoundToTheirOwnSignedGroup() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("earlier-private-edit-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("earlier-private-edit-owner.sqlite").absolutePath).use { ownerStore ->
@@ -204,6 +299,7 @@ class SpaceChannelsTest {
                     creator.refresh(space, channel)
                     assertEquals(originalProfile, creator.channels(space).single { it.id == channel }.profile)
                     assertEquals(originalProfile, participant.channels(space).single { it.id == channel }.profile)
+                    assertTrue(creator.channels(space).single { it.id == channel }.metadataReady)
                     val renamed = originalProfile.copy(name = "confidential-roadmap", category = "Planning together")
                     loseReply = true
                     val edit = creator.editChannel(space, channel, renamed)

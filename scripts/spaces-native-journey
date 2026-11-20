@@ -258,13 +258,15 @@ try:
                 ('coldPrivateGrantRestoresActualEncryptedReadingAndKeepsTheGeneralDraft', None),
                 ('compactPrivateRosterKeepsTheActualLocalErrorAndRemovalControlsReachable', None),
             ]
-            goals = {'version': 1, 'mode': 'private-management-v1', 'phases': phases,
+            goals = {'version': 2, 'mode': 'private-management-v1', 'phases': phases,
                 'executionScope': 'restricted-creation-and-grant-revoke-process-recovery',
                 'remaining139NativeCoverage': ['key-unavailable-administration', 'genuine-rejection-visible-and-recovered'],
                 'phaseSeconds': 180, 'checkpointObservationSeconds': .25, 'pixelTolerance': 1,
                 'actionSeconds': 5, 'contentSeconds': 15, 'minimumControlDp': 48,
-                'lostAcceptedReplies': ['create-channel', 'revoke-channel-access', 'grant-channel-access'],
+                'lostAcceptedReplies': ['create-channel', 'revoke-channel-access', 'grant-channel-access', 'edit-channel'],
                 'exactOriginalAttempts': 2, 'localWriteFailureCases': ['private-access', 'compact-private-access'],
+                'editing': {'activityRecreation': True, 'pendingReentry': True, 'combinedRecoverySeconds': 27,
+                    'name': 'native-private-reading', 'category': 'Shared plans', 'exactEncryptedAttempts': 2, 'restoreOriginals': 1, 'focusedFieldsFullyVisible': 2, 'imeVisible': True},
                 'creation': {'activityRecreation': True, 'pendingReentry': True, 'combinedRecoverySeconds': 27,
                     'name': 'native-private-lounge', 'kind': 'chat', 'category': 'Team', 'selectedMembers': 1},
                 'access': {'activityRecreation': True, 'fixedOwnerAdminAccess': True, 'rosterMembers': 26,
@@ -279,11 +281,12 @@ try:
                 ('coldArchiveRecoveryAndRealReopeningKeepHistoryAndLocalErrorsReachable', None),
                 ('compactLargeTypeShowsActualRoleErrorsAndArchiveControlsWithoutClipping', None),
             ]
-            goals = {'version': 3, 'mode': 'management-v1', 'phases': phases,
+            goals = {'version': 4, 'mode': 'management-v1', 'phases': phases,
                 'phaseSeconds': 180, 'checkpointObservationSeconds': .25, 'pixelTolerance': 1,
                 'actionSeconds': 5, 'contentSeconds': 15, 'minimumControlDp': 48,
                 'lostAcceptedReplies': ['set-role', 'archive-channel', 'edit-channel', 'create-channel'], 'exactOriginalAttempts': 2,
                 'localWriteFailureCases': ['role', 'archive', 'compact-role', 'compact-editor', 'compact-creation'],
+                'focusedFieldsFullyVisible': 6, 'focusedFieldsRequireIme': True,
                 'editor': {'activityRecreation': True, 'discardReview': True, 'pendingReentry': True,
                     'peerDeadlineSeconds': 12, 'freshReadSeconds': 15, 'combinedRecoverySeconds': 27, 'sameProcess': True, 'category': 'Projects'},
                 'creation': {'activityRecreation': True, 'pendingReentry': True, 'combinedRecoverySeconds': 27,
@@ -422,10 +425,28 @@ try:
             if not (0 < creation['recoveryStartedAtMs'] <= creation['recoveryCompletedAtMs'] <= creation['recoveryStartedAtMs'] + 27_000):
                 raise RuntimeError('Private creation exceeded its complete27second deadline')
             checkpoints = [json.loads((evidence / f'checkpoint-{phase}.raw').read_bytes()) for phase in ('private-revoke-pending', 'private-grant-pending')]
-            if final['dropped'] != [creation['original']] + [item['original'] for item in checkpoints]:
+            editing = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/private-edit-recovery.json').stdout)
+            (evidence / 'native-private-edit-recovery.json').write_text(json.dumps(editing, indent=2))
+            if any(editing[key] != value for key, value in {'pid': pids[2], 'owner': fixtures['owner'], 'space': fixtures['space'],
+                    'channel': channel, 'name': 'native-private-reading', 'category': 'Shared plans'}.items()):
+                raise RuntimeError('Private encrypted edit recovery scope differs')
+            if not (0 < editing['recoveryStartedAtMs'] <= editing['recoveryCompletedAtMs'] <= editing['recoveryStartedAtMs'] + 27_000):
+                raise RuntimeError('Private metadata exceeded the original27second recovery goal')
+            if final['dropped'] != [creation['original']] + [item['original'] for item in checkpoints] + [editing['original']]:
                 raise RuntimeError('Private lost-reply identities differ')
-            if len(final['originals']) != 6: raise RuntimeError('Unexpected private management original count')
-            for original, kind in zip(final['dropped'], ('create-channel', 'revoke-channel-access', 'grant-channel-access')):
+            if len(final['originals']) != 9: raise RuntimeError('Unexpected private management original count')
+            edits = [row for row in final['originals'] if row['kind'] == 'edit-channel']
+            retried = [row for row in edits if row['id'] == editing['original']]
+            restored = [row for row in edits if row['id'] != editing['original']]
+            if len(edits) != 3 or len(retried) != 2 or len(restored) != 1 or len({row['sha256'] for row in retried}) != 1 or any(
+                    row['actor'] != fixtures['owner'] or row['space'] != fixtures['space'] or row['channel'] != channel or row['privateMetadata'] is not True for row in edits):
+                raise RuntimeError('Private encrypted edit did not preserve exact original recovery and a separate restoration')
+            edited_host = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/private-edit-host.json').stdout)
+            (evidence / 'native-private-edit-host.json').write_text(json.dumps(edited_host, indent=2))
+            if edited_host['channels'][channel] != {'name': 'native-private-reading', 'category': 'Shared plans', 'ready': True, 'visibility': 'PRIVATE'} or any(
+                    edited_host[key] != final[key] for key in ('space', 'members', 'outsiderChannels', 'privateMessages', 'dropped')) or edited_host['originals'] != final['originals'][:8]:
+                raise RuntimeError('Independent private renamed state did not preserve roles, privacy and message history')
+            for original, kind in zip(final['dropped'][:3], ('create-channel', 'revoke-channel-access', 'grant-channel-access')):
                 rows = [row for row in final['originals'] if row['id'] == original]
                 if len(rows) != 2 or len({row['sha256'] for row in rows}) != 1 or any(
                         row['kind'] != kind or row['actor'] != fixtures['owner'] or row['space'] != fixtures['space'] or row['channel'] != channel for row in rows):
@@ -537,6 +558,29 @@ try:
             observed_recovery = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/peer-read-recovery.json').stdout)
             if observed_recovery.pop('pid') != pids[2] or observed_recovery != peer_recovery or peer_recovery.get('author') != sender:
                 raise RuntimeError('Native and independent host did not confirm the same peer-read recovery')
+        if management_mode and not private_readiness_mode:
+            focused_raw = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/focused-field-geometry.jsonl').stdout
+            (evidence / 'native-focused-field-geometry.jsonl').write_bytes(focused_raw)
+            focused = [json.loads(line) for line in focused_raw.splitlines() if line]
+            expected_fields = [('Channel name', 'native-private-reading'), ('Category (optional)', 'Shared plans')] if private_management_mode else [
+                ('Channel name', 'compact-commons'), ('Category (optional)', 'Projects'),
+                ('Channel name', 'compact-commons'), ('Category (optional)', 'Projects'),
+                ('Channel name', 'compact-new-room'), ('Channel name', 'compact-editable-after-error')]
+            if [(row['label'], row['value']) for row in focused] != expected_fields:
+                raise RuntimeError('Focused editing cases are missing or reordered')
+            for row in focused:
+                bounds, window = row['bounds'], row['root']
+                if row['pid'] != pids[2 if private_management_mode else 3] or row['focused'] is not True or row['fontScale'] <= 0 or (
+                        not private_management_mode and row['fontScale'] != 2.0) or min(row['width'], row['height']) <= 0 or (
+                        row['width'] > row['clippedWidth'] + 1 or row['height'] > row['clippedHeight'] + 1) or any(
+                        not isinstance(value, (int, float)) for value in bounds + window) or (
+                        bounds[0] < window[0] - 1 or bounds[1] < window[1] - 1 or bounds[2] > window[2] + 1 or bounds[3] > window[3] + 1):
+                    raise RuntimeError('The actual focused field is clipped or belongs to another native phase')
+                physical = row['physicalBounds']
+                if len(physical) != 4 or any(type(value) is not int for value in physical) or not (0 < row['imeBottom'] < row['displayHeight']) or row['displayWidth'] <= 0 or (
+                        physical[0] < 0 or physical[1] < 0 or physical[2] > row['displayWidth'] or physical[3] > row['displayHeight'] - row['imeBottom']) or (
+                        physical[2] - physical[0] < row['width'] - 1 or physical[3] - physical[1] < row['height'] - 1):
+                    raise RuntimeError('Focused field was not independently visible above the actual focused-window IME')
         (evidence / 'host-status.json').write_text(json.dumps(command(control_port, 'status')))
         command(control_port, 'stop'); host.wait(timeout=15)
         if host.returncode:

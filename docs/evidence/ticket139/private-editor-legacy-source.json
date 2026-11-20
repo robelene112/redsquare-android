@@ -1,0 +1,72 @@
+{
+  "issue": 139,
+  "base": "739b04b9d02f12508c45ae57abb100bc2f200a8f",
+  "scope": "Private metadata editing UI/capability and older-kind compatibility; shared focused-field and reading-restoration corrections. Full139 remains incomplete.",
+  "files": {
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "90b6f5f9bc63f7b3353261f936bf928151331345e7657dd73e07478644db592e",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceChannelEditor.kt": "65ebe77708b1a3d678ba5635acca46db394ec965a4ec9005f5d72e089eba8ffc",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceManagement.kt": "6ed0510f2f3eaa7438168345c3fa60882d5451e2f88b2f1dfb8db45840ae33b2",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesAccount.kt": "4381a4cca1aaeab98a07c5818b04e27dcd8ee8b43644df666d5a07757637421c",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesScreen.kt": "b69a5e5e12bd49948137ef5fd71e9e28191dff904f62c724a96f659a13a495e3",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/ui/DesignSheet.kt": "b1a24f5d4eab5d57471f868738323c3ed3b16f81181ac20a0f33a34e5e37bb6c",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "2728d1d6ce30bc04c987dd455acbca92384d11b52e578cacf6d05619f217407e",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt": "ca3baf4e8b9d3202f97ee33bcc48284ea05de465ff12f6a93a5694a960044670",
+    "integrations/saito-spaces/bridge.cjs": "796aae1873c3b5803de6fe84af686726d8dc85c3742073d1b7cfac432e4e3a3c",
+    "integrations/saito-spaces/spaces.js": "ecfc7446fb8c7ebe330f83ab1ff635b3e42dcde09e7e3c54ca03039242d6bfe8",
+    "integrations/saito-spaces/test/bridge.test.cjs": "ff85cab99dabf011788c94d280cc2d1b4066889355978eb780c81c887ada1090",
+    "integrations/saito-spaces/test/interop.cjs": "66eb654921da8e28de186d00713486a7e3130099ce47811f828acfa9e88fdac3",
+    "scripts/spaces-native-journey": "e783b10e4cfcb814254c3cb15092185587c70510c182bf804d672ce2efc6141c",
+    "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt": "09b9d0454749c3381c729fe70dec29b2da1f60a6a5d01b27ef7214e6296974ef",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceChannelsTest.kt": "4c8503207602a2bb119d9dd8862b02a4875380b39ad8784892c17c002a1a3aaf",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost.kt": "2d457d057b096bbebc297cbd83b35d98e7096b7f827e8dfca2204571c79959a5",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesPrivateManagementFixture.kt": "bdb1eea9b3fcdf119187940c198eb64cda6e20fade4921ccdfce886bae19aaaf",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStoreTest.kt": "7b7f972dd03e3624c3d37ffdcf4df0d7bead846064948deb5e63518b6842a128"
+  },
+  "legacy": {
+    "type": "Retain signed creation metadata independently of edits/rotations. Resolve earlier private kinds from authenticated original ciphertext and historical keys. Original General-only records without channel metadata retain CHAT. Editable v2 contains no editable kind.",
+    "retiredKeys": "Retained history identifies a newly authorized Admin channel while readmission waits. Current joined keys still gate metadataReady and actual editing.",
+    "actualRegression": "Independent older signed restricted creation without channel_kind, real join/MLS Welcome/history delivery, normal client edit/cold restore with ARTICLE/draft preservation. Added revoke/demote/promote with held readmission reproduces hidden-channel P2, then fixes it."
+  },
+  "nativeEditor": {
+    "capability": "Independent private-channel-edit-v1 from real service readiness through bridge/node advertisement and Android negotiation. No deployment implied.",
+    "scope": "Existing editor preserves account/node/channel binding, current role/key checks, durable pending status and read-only pending reentry.",
+    "proof": "Private phase3 now adds actual field focus/IME geometry, activity recreation, accepted-but-lost edit reply, exact-original retry, read-only reentry, independent encrypted rename and a separate restoration. Existing history/draft/pixel and unauthorized-preview goals remain."
+  },
+  "viewportAndSheet": {
+    "compact": "Keep channel title and empty composer hint on one compact line; raw drafts and complete accessible context remain. Actual739movie shows placeholder starvation.",
+    "reading": "Suppress reading-anchor/read-marker writes until initial restoration finishes. This is the proposed correction for the actual General position failure; fresh native causal verification remains pending.",
+    "focusedField": "Actual739public movies and PNG prove pinned-footer starvation with IME. Adapt constrained sheet scrolling while movable content preserves focused subtree identity. New5s oracle requires actual focused-window IME, focused exact value, full Compose bounds and independent physical bounds above keyboard."
+  },
+  "checks": {
+    "focused": "Legacy first5 actual casesPASS2m29. Keyless-admin extension actualRED then6XMLcasesPASS2m26; tool60521reported143 despite GradleSUCCESS, so retain that wrapper qualification.",
+    "firstFull": "FAIL4m47:247core pass,103service with one old exact readiness feature-list expectation. Original feature list was expanded by the new real capability; expected set corrected additively.",
+    "finalJvm": "PASS3m31,247core/48classes and103service/9classes. Core task UP-TO-DATE from actual247 pass in prior invocation with unchanged inputs;103 service freshly execute. No failures/errors/skips.",
+    "android": "PASS exact final-source separate main and instrumentation compilation, final instrumentation2m53; earlier stopped compilation preserved as interrupted. No fresh native acceptance yet.",
+    "nodeBridge": "ActualNode1RED undefined private editing flag, then1GREEN.",
+    "framework": "Both pinned0.3.2 and0.3.15 actual dispatcher/template/JS-WASM callback rehearsals pass with preserved original bytes and verified receipt. Owned adapter/service rehearsal only, not full node bootstrap.",
+    "logHashes": {
+      "139-private-edit-capability-red.log": "c990dfd6fa9bb073109f4bc90122fac4ee3b2c0c711a3765f3d48bcbec451d80",
+      "139-private-edit-capability-green.log": "32dc2dabe19e3130dea8c2fb4a4c340f317dfca7acd72a81a5b6ecdaf51a0a9f",
+      "139-legacy-kind-edit-first-compilation-failure.log": "7d462e84aae72b53aafeb25a7914f75c86749d696c6e70369de1c1c534467547",
+      "139-legacy-kind-edit-red.log": "9384dc7f14b9d98db5f396bacfab913a48bf05ee08576d471c77c62e54302c0e",
+      "139-legacy-kind-edit-green.log": "c105206667a0a90da5a088ba35204bd9b4778b9e8dfcf1c55c08640bcc4ffca5",
+      "139-legacy-kind-keyless-admin-red.log": "445e03d3bbf6e763ad819327ea228e520b47c4e7c4ca5f0cad20956f21530796",
+      "139-legacy-kind-keyless-admin-green.log": "e181053e81821bc8eff4b2049a3f4d46dc6db3cd3433e821b71170fc4c965c78",
+      "139-private-editor-legacy-full-jvm.log": "eed9c0e1a8ded5f012b071b58071b7d7bc794a1cc0acb0307a65ffbcf6a4a165",
+      "139-private-editor-legacy-final-jvm.log": "4afe590fb04111480f890332de833776437fceffd1aa120ea846e6f42e1417f8",
+      "139-private-edit-interop-0.3.15.log": "e14646cebe6324875bba660f9d61fff8fd068b6743131a7b8b66279903bad4ab",
+      "139-private-edit-interop-0.3.2.log": "b6efbe46be0bc6043ffe8b0d93ce81bfb9c93f5033161c9cf1034db6a22bbdc7",
+      "139-private-editor-legacy-final-android-compile.log": "3967856a65206c8e0f02e4a832dbcd51697d91dcb64fdfabde6ab1e0ff3d1a06"
+    }
+  },
+  "reviews": "Initial P2 pending-editor reentry fixed. Legacy retained-key P2 reproduced and fixed. Adaptive focus-composition and pre-IME oracle P2s corrected; both final source axes report0 remaining concrete findings. Fresh exact native outcomes and actual frame reviews remain mandatory.",
+  "remaining139": [
+    "Explicit category identities and management",
+    "All affected future-key exclusion on role and membership changes",
+    "Two-party ownership transfer",
+    "Deliberate visibility transitions without publishing prior private history",
+    "Owner-only dissolution",
+    "Complete final native coverage and acceptance"
+  ],
+  "qualification": "Current139 incomplete. Continue140\u2013147 only after139. Beta142 unchanged, no production activation, public development or financial writes."
+}

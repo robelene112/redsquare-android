@@ -12,6 +12,7 @@ import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.By
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -315,6 +316,7 @@ class SpacesManagementJourneyTest {
             ui.onNodeWithContentDescription(context.getString(R.string.spaces_send)).clickReady()
             waitUntil { status().getAsJsonArray("privateMessages").any { it.asString == "A native encrypted message after fresh admission" } }
             capture("10-private-reader-after-fresh-admission")
+            verifyPrivateEditorRecovery(activity, fixtures)
             openPrivateAccess(); privateMember(fixtures).assertIsOn()
             withWriteFailure(activity, fixtures, "private-access") {
                 val before = status().getAsJsonArray("originals").size()
@@ -374,6 +376,72 @@ class SpacesManagementJourneyTest {
             waitText("A native encrypted message after fresh admission")
             saveCompletion("compact-completed.json", fixtures)
         }
+    }
+
+    private fun verifyPrivateEditorRecovery(activity: ActivityScenario<MainActivity>, fixtures: JsonObject) {
+        val channel = fixtures.get("private").asString
+        val renamed = "native-private-reading"
+        openInformation(); openChannelEditor()
+        editorField("Channel name").performTextReplacement(renamed)
+        assertFocusedFieldVisible("Channel name", renamed)
+        editorField("Category (optional)").performTextReplacement("Shared plans")
+        assertFocusedFieldVisible("Category (optional)", "Shared plans")
+        closeKeyboard(); activity.recreate()
+        waitUntil { editorField("Channel name").isDisplayed() }
+        editorField("Channel name").assertTextContains(renamed)
+        editorField("Category (optional)").assertTextContains("Shared plans")
+        waitDialogButton("Save changes")
+        capture("18-private-editor-restored")
+        command("private-management-drop-next", JsonObject().apply { addProperty("kind", "edit-channel") })
+        val started = SystemClock.elapsedRealtime(); val deadline = started + 27_000
+        clickDialog("Save changes"); waitText("Waiting for confirmation.", 5_000)
+        var received = JsonObject()
+        waitUntil(5_000) {
+            received = status()
+            val remote = received.getAsJsonObject("channels").getAsJsonObject(channel)
+            received.getAsJsonArray("dropped").size() == 4 && remote.get("name").asString == renamed && remote.get("category").asString == "Shared plans"
+        }
+        val original = received.getAsJsonArray("dropped").last().asString
+        clickDialog("Close"); openChannelEditor()
+        editorField("Channel name").assertTextContains(renamed).assertIsNotEnabled()
+        ui.onNode(hasText("Save changes") and hasClickAction() and hasAnyAncestor(isDialog())).assertIsNotEnabled()
+        capture("19-private-editor-pending-reentry")
+        val remaining = deadline - SystemClock.elapsedRealtime()
+        assertTrue("Private metadata recovery keeps its original27second budget", remaining > 0)
+        waitUntil(remaining) {
+            received = status()
+            editRows(received).count { it.get("id").asString == original } == 2 &&
+                ui.onAllNodes(hasText("Waiting for confirmation.") and onScreen).fetchSemanticsNodes().isEmpty()
+        }
+        val attempts = editRows(received).filter { it.get("id").asString == original }
+        assertEquals(1, attempts.map { it.get("sha256").asString }.distinct().size)
+        assertTrue(attempts.all { it.get("privateMetadata").asBoolean })
+        if (editorField("Channel name").isDisplayed()) clickDialog("Close")
+        val confirmationRemaining = deadline - SystemClock.elapsedRealtime()
+        assertTrue(confirmationRemaining > 0)
+        waitInformationName(renamed, confirmationRemaining)
+        val completed = SystemClock.elapsedRealtime()
+        assertTrue(completed <= deadline)
+        saveJson("private-edit-host.json", received)
+        saveJson("private-edit-recovery.json", JsonObject().apply {
+            addProperty("pid", Process.myPid()); addProperty("owner", fixtures.get("owner").asString)
+            addProperty("space", fixtures.get("space").asString); addProperty("channel", channel)
+            addProperty("original", original); addProperty("name", renamed); addProperty("category", "Shared plans")
+            addProperty("recoveryStartedAtMs", started); addProperty("recoveryCompletedAtMs", completed)
+        })
+        capture("20-private-editor-confirmed")
+        openChannelEditor()
+        editorField("Channel name").performTextReplacement("native-private-lounge")
+        editorField("Category (optional)").performTextReplacement("Team")
+        closeKeyboard(); clickDialog("Save changes")
+        waitInformationName("native-private-lounge")
+        waitUntil {
+            val restored = status().getAsJsonObject("channels").getAsJsonObject(channel)
+            restored.get("name").asString == "native-private-lounge" && restored.get("category").asString == "Team"
+        }
+        capture("21-private-editor-name-restored")
+        clickDialog("Close")
+        waitText("A native encrypted message after fresh admission")
     }
 
     private fun privateRestriction() = ui.onNode(hasText(context.getString(R.string.spaces_channel_restricted)) and
@@ -572,7 +640,9 @@ class SpacesManagementJourneyTest {
             capture("18-compact-reopened-channel")
             openChannelEditor()
             editorField("Channel name").performScrollTo().performTextReplacement("compact-commons")
+            assertFocusedFieldVisible("Channel name", "compact-commons")
             editorField("Category (optional)").performScrollTo().performTextReplacement("Projects")
+            assertFocusedFieldVisible("Category (optional)", "Projects")
             closeKeyboard()
             capture("26-compact-channel-editor")
             val before = editRows(status()).size
@@ -586,7 +656,9 @@ class SpacesManagementJourneyTest {
         launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("compact-editor-confirmation-failure") }) {
             openInformation(); openChannelEditor()
             editorField("Channel name").performScrollTo().performTextReplacement("compact-commons")
+            assertFocusedFieldVisible("Channel name", "compact-commons")
             editorField("Category (optional)").performScrollTo().performTextReplacement("Projects")
+            assertFocusedFieldVisible("Category (optional)", "Projects")
             closeKeyboard(); clickDialog("Save changes")
             waitInformationName("compact-commons")
             capture("28-compact-editor-confirmed")
@@ -662,6 +734,7 @@ class SpacesManagementJourneyTest {
     private fun verifyCompactCreationError(activity: ActivityScenario<MainActivity>, fixtures: JsonObject) {
         clickDialog(context.getString(R.string.spaces_add_channel))
         editorField("Channel name").performScrollTo().performTextReplacement("compact-new-room")
+        assertFocusedFieldVisible("Channel name", "compact-new-room")
         closeKeyboard()
         val before = creationRows(status()).size
         withWriteFailure(activity, fixtures, "compact-creation") {
@@ -672,11 +745,44 @@ class SpacesManagementJourneyTest {
             ui.onAllNodes(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).onFirst().clickReady()
             waitUntil(5_000) { ui.onAllNodes(hasText(context.getString(R.string.spaces_save_failed)) and hasAnyAncestor(isDialog())).fetchSemanticsNodes().isEmpty() }
             editorField("Channel name").assertIsEnabled().performScrollTo().performTextReplacement("compact-editable-after-error")
+            assertFocusedFieldVisible("Channel name", "compact-editable-after-error")
             ui.onNode(hasText("Create channel") and hasClickAction() and hasAnyAncestor(isDialog())).assertIsEnabled()
             capture("36-compact-creation-error-dismissed-editable")
             clickDialog("Close"); clickDialog("Discard changes")
             waitInformationName("general")
         }
+    }
+
+    private fun assertFocusedFieldVisible(label: String, value: String) {
+        val field = editorField(label)
+        var proof = JsonObject()
+        waitUntil(5_000) {
+            val imeBottom = focusedWindowImeBottom()
+            val physical = if (imeBottom > 0) device.findObjects(By.text(value)).singleOrNull { it.isFocused }?.visibleBounds else null
+            if (physical == null || !field.isDisplayed()) false else field.fetchSemanticsNode().let { node ->
+                val bounds = node.boundsInRoot
+                val root = generateSequence(node) { it.parent }.last().boundsInRoot
+                val visible = node.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.Focused) == true &&
+                    node.config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text == value &&
+                    node.size.height <= bounds.height + 1f && node.size.width <= bounds.width + 1f &&
+                    bounds.left >= root.left - 1f && bounds.top >= root.top - 1f && bounds.right <= root.right + 1f && bounds.bottom <= root.bottom + 1f &&
+                    physical.height() >= node.size.height - 1 && physical.width() >= node.size.width - 1 &&
+                    physical.left >= 0 && physical.top >= 0 && physical.right <= device.displayWidth && physical.bottom <= device.displayHeight - imeBottom
+                if (visible) proof = JsonObject().apply {
+                    addProperty("pid", Process.myPid()); addProperty("label", label); addProperty("value", value)
+                    addProperty("focused", true); addProperty("fontScale", context.resources.configuration.fontScale)
+                    addProperty("width", node.size.width); addProperty("height", node.size.height)
+                    addProperty("clippedWidth", bounds.width); addProperty("clippedHeight", bounds.height)
+                    add("bounds", JsonArray().apply { add(bounds.left); add(bounds.top); add(bounds.right); add(bounds.bottom) })
+                    add("root", JsonArray().apply { add(root.left); add(root.top); add(root.right); add(root.bottom) })
+                    addProperty("imeBottom", imeBottom); addProperty("displayWidth", device.displayWidth); addProperty("displayHeight", device.displayHeight)
+                    add("physicalBounds", JsonArray().apply { add(physical.left); add(physical.top); add(physical.right); add(physical.bottom) })
+                    addProperty("timeMs", SystemClock.elapsedRealtime())
+                }
+                visible
+            }
+        }
+        File(evidence, "focused-field-geometry.jsonl").appendText(proof.toString() + "\n")
     }
 
     private fun editorField(label: String) = ui.onNode(

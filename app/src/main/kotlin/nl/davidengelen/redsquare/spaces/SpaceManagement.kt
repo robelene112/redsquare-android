@@ -31,20 +31,25 @@ import nl.davidengelen.redsquare.ui.DesignSheet
     channel: SpaceClient.Channel, onAccess: () -> Unit, onEdit: () -> Unit) {
     val current = state.current ?: return
     val role = state.members.firstOrNull { it.publicKey == account.ownerKey }?.role
+    val editingSupported = if (channel.visibility == SpaceVisibility.PUBLIC) state.publicChannelEditSupported else state.privateChannelEditSupported
     if (role !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) ||
-        !state.archiveSupported && !(state.publicChannelEditSupported && channel.visibility == SpaceVisibility.PUBLIC) &&
+        !state.archiveSupported && !editingSupported &&
         !(state.privateChannelAccessSupported && channel.allowedMembers != null)) return
     val change = state.archiveChange?.takeIf { it.channelId == channel.id }
+    val pendingEdit = state.channelEdit?.let { it.channelId == channel.id && it.status in setOf(
+        SpaceClient.ChangeStatus.QUEUED, SpaceClient.ChangeStatus.AWAITING_CONFIRMATION) } == true
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         HorizontalDivider()
         Text(stringResource(R.string.spaces_channel_settings), style = MaterialTheme.typography.titleMedium)
         Text(channel.profile.name, style = MaterialTheme.typography.titleSmall)
         Text(stringResource(R.string.spaces_archive_detail), style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant)
-        if (state.publicChannelEditSupported && channel.visibility == SpaceVisibility.PUBLIC) {
-            OutlinedButton(onClick = onEdit, enabled = !state.working,
+        if (editingSupported) {
+            OutlinedButton(onClick = onEdit, enabled = !state.working && (pendingEdit || current.canManage && channel.metadataReady),
                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_edit_channel)) }
         }
+        if (editingSupported && !channel.metadataReady) Text(stringResource(R.string.spaces_waiting_channel_keys),
+            color = MaterialTheme.colorScheme.onSurfaceVariant)
         if (state.privateChannelAccessSupported && channel.allowedMembers != null) {
             OutlinedButton(onClick = onAccess, enabled = !state.working,
                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_channel_access)) }

@@ -1,0 +1,114 @@
+{
+  "issue": 139,
+  "source": "739b04b9d02f12508c45ae57abb100bc2f200a8f",
+  "scope": "Complete scoped management/readiness executions, not complete139. Failed public visual and private process observations remain blocking.",
+  "runs": [
+    {
+      "run": 44692866173,
+      "mode": "public",
+      "sdk": 37,
+      "ci": "success",
+      "originalZipSha256": "3820fd969a5eb6a74e8658e3245755f1b2fe65ceab62a9577b83ce56c7bb81cf",
+      "reviewedMovieFrames": 1779,
+      "originalPngXmlPairs": 36,
+      "controlGeometryRecords": 76,
+      "verdict": "P2 focused creation field hidden by pinned footer above IME; both axes withhold visual acceptance.",
+      "numeric": "PASS",
+      "core": 247,
+      "service": 102,
+      "phasePids": [
+        3950,
+        4793,
+        5378,
+        5895
+      ],
+      "nativeTerminalPasses": 2,
+      "deliberatelyInterruptedCases": 2
+    },
+    {
+      "run": 44692879609,
+      "mode": "public",
+      "sdk": 29,
+      "ci": "success",
+      "originalZipSha256": "310f615316ac040258532d37b36f9a9f034c0a18500b91996f5550fa829f1d9a",
+      "reviewedMovieFrames": 1302,
+      "originalPngXmlPairs": 36,
+      "controlGeometryRecords": 76,
+      "verdict": "Spec reports0; Standards finds the same focused-field IME problem at phase4 frame378/64.722011s. Preserve both reports; public visual acceptance remains withheld.",
+      "numeric": "PASS",
+      "core": 247,
+      "service": 102,
+      "phasePids": [
+        3644,
+        10227,
+        19728,
+        30502
+      ],
+      "nativeTerminalPasses": 2,
+      "deliberatelyInterruptedCases": 2
+    },
+    {
+      "run": 44692893185,
+      "mode": "process",
+      "sdk": 37,
+      "ci": "failure",
+      "originalZipSha256": "2ea5454bd534d4791f40792ad7e211b3c5ee9abf8443cfdf0778f8c4180c72e9",
+      "reviewedMovieFrames": 0,
+      "originalPngXmlPairs": 0,
+      "controlGeometryRecords": 0,
+      "verdict": "WholeFAIL compactphase4 latest private message not visible after relaunch. Actual movie shows three-line empty composer placeholder and two-line channel title starving the timeline."
+    },
+    {
+      "run": 44692906203,
+      "mode": "process",
+      "sdk": 29,
+      "ci": "failure",
+      "originalZipSha256": "b3cf5fa773f86a5c3fcd2c6557015884e36e3278aee30720146ced69fc4786e1",
+      "reviewedMovieFrames": 0,
+      "originalPngXmlPairs": 0,
+      "controlGeometryRecords": 0,
+      "verdict": "WholeFAIL phase3 General reading position restores15..17 instead of required5. Existing pixel/draft goal remains unchanged; actual movie reviewed for diagnosis."
+    },
+    {
+      "run": 44692919970,
+      "mode": "readiness",
+      "sdk": 37,
+      "ci": "success",
+      "originalZipSha256": "015b2d1b256ce5dba9fcbc97489a77a4e9f19cc16ca82d993ec5a7c0df9fed88",
+      "reviewedMovieFrames": 319,
+      "originalPngXmlPairs": 8,
+      "controlGeometryRecords": 14,
+      "verdict": "Both axes0. Accept this narrow readiness recovery execution only.",
+      "numeric": "PASS",
+      "core": 247,
+      "service": 102,
+      "phasePids": [
+        3651,
+        4787
+      ],
+      "nativeTerminalPasses": 2,
+      "deliberatelyInterruptedCases": 0
+    },
+    {
+      "run": 44692933043,
+      "mode": "readiness",
+      "sdk": 29,
+      "ci": "success",
+      "originalZipSha256": "60e2e2072df4177a1fbd01dd0be0b33c66bf2529ad21d795234316b99acae340",
+      "reviewedMovieFrames": 235,
+      "originalPngXmlPairs": 8,
+      "controlGeometryRecords": 14,
+      "verdict": "Both axes0. Accept this narrow readiness recovery execution only.",
+      "numeric": "PASS",
+      "core": 247,
+      "service": 102,
+      "phasePids": [
+        3616,
+        22736
+      ],
+      "nativeTerminalPasses": 2,
+      "deliberatelyInterruptedCases": 0
+    }
+  ],
+  "qualification": "Prior30 public/6private-process/4readiness whole failures remain failed. These new private failures raise private-process failed parents to8. No passing-prefix assembly. Ordinary beta142 and production node/provider state unchanged."
+}

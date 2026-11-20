@@ -13,7 +13,8 @@ data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>,
     val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val profile: SpaceChannelProfile? = null,
     val metadata: String? = null, val adminPostsOnly: Boolean = false, val archived: Boolean = false,
     val contributionStartedAt: Long = 0, val allowedMembers: Set<String>? = null,
-    val accessStartedAt: Map<String, Long> = emptyMap(), val kind: SpaceChannelKind? = null)
+    val accessStartedAt: Map<String, Long> = emptyMap(), val kind: SpaceChannelKind? = null,
+    val initialMetadata: String? = metadata)
 data class SpaceJoinRequest(val envelope: String, val id: String, val actor: String,
     val operationId: String, val channelId: String, val keyPackage: SpaceCrypto.BoundPackage)
 
@@ -202,7 +203,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     require(profile.kind == requireNotNull(old.profile).kind) { "Metadata editing cannot change the channel kind" }
                     old.copy(profile = profile)
                 } else {
-                    require(old.kind != null && !event.body.has("channel_profile") && !event.body.has("channel_kind"))
+                    require(!event.body.has("channel_profile") && !event.body.has("channel_kind"))
                     val metadataChannel = if (old.allowedMembers != null) channel else requireNotNull(current.generalChannelId)
                     val metadataGroup = requireNotNull(current.channels[metadataChannel])
                     require(metadataGroup.visibility == SpaceVisibility.PRIVATE && metadataGroup.devices.keys.any { credentialWallet(it) == event.author }) {

@@ -43,7 +43,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val members: List<SpaceClient.Member> = emptyList(), val accessProblems: Map<String, SpaceClient.ReadProblem> = emptyMap(),
         val discoverySupported: Boolean? = null, val unreadSupported: Boolean = false,
         val archiveSupported: Boolean = false, val rolesSupported: Boolean = false, val publicChannelEditSupported: Boolean = false,
-        val privateChannelAccessSupported: Boolean = false,
+        val privateChannelAccessSupported: Boolean = false, val privateChannelEditSupported: Boolean = false,
         val directoryItems: List<SpaceClient.PublicCommunity> = emptyList(), val directoryQuery: String = "",
         val directoryLoading: Boolean = false, val directoryCached: Boolean = false, val directoryFailed: Boolean = false,
         val directoryLoaded: Boolean = false,
@@ -141,7 +141,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         discoverySupported = "spaces-directory-v1" in services, unreadSupported = "spaces-unread-v1" in services,
                         archiveSupported = "spaces-channel-archive-v1" in services, rolesSupported = "spaces-role-management-v1" in services,
                         publicChannelEditSupported = "spaces-public-channel-edit-v1" in services,
-                        privateChannelAccessSupported = "spaces-private-channel-access-v1" in services) }
+                        privateChannelAccessSupported = "spaces-private-channel-access-v1" in services,
+                        privateChannelEditSupported = "spaces-private-channel-edit-v1" in services) }
                     val current = requireNotNull(client)
                     flushUrgent(current)
                     for (community in current.communities()) {
@@ -666,10 +667,15 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val route = navigationVersion.get()
         localAction(Problem.SAVE, isCurrent = { navigationVersion.get() == route }) {
             localAccess.withLock {
-                require(mutable.value.publicChannelEditSupported)
-                requireNotNull(client).editChannel(space, channel, profile)
+                require(navigationVersion.get() == route && mutable.value.target() == Target(space, channel))
+                val current = requireNotNull(client)
+                val selected = current.channels(space).single { it.id == channel }
+                require(selected.metadataReady && if (selected.visibility == SpaceVisibility.PUBLIC)
+                    mutable.value.publicChannelEditSupported else mutable.value.privateChannelEditSupported)
+                current.editChannel(space, channel, profile)
             }
-            publish(); wake.trySend(Unit)
+            publishManagement()
+            urgentOutbox.add(space); wake.trySend(Unit)
         }
     }
     fun setAdministrator(space: String, memberKey: String, administrator: Boolean) {

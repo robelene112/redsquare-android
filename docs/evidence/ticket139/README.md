@@ -221,3 +221,5 @@ final Android compilation qualification remain explicit. All six c1f native
 parents remain failed. This does not complete private editing,139 or a release.
 
 Current General/unrestricted private metadata and native recovery source: [packet](private-general-recovery-source.json). All30 public/6 private-process/4 readiness whole parents remain failed; no complete139 acceptance.
+
+Latest source and current limits: [private editor/legacy packet](private-editor-legacy-source.json). Source739 complete native outcomes and actual independent reviews: [originals](native-recovery-739.json). Readiness10/17 is accepted narrowly; public IME fields and private process restoration remain blocking. Issue139 remains incomplete.

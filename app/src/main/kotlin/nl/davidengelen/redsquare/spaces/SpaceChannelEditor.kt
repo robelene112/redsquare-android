@@ -61,7 +61,8 @@ import nl.davidengelen.redsquare.ui.DesignSheet
     val channel = state.channels.firstOrNull { it.id == editor.channel }?.takeIf { bound }
     val change = state.channelEdit?.takeIf { bound && it.channelId == editor.channel }
     val pending = change?.status in setOf(SpaceClient.ChangeStatus.QUEUED, SpaceClient.ChangeStatus.AWAITING_CONFIRMATION)
-    val authorized = bound && state.publicChannelEditSupported && channel?.visibility == SpaceVisibility.PUBLIC &&
+    val supported = if (channel?.visibility == SpaceVisibility.PUBLIC) state.publicChannelEditSupported else state.privateChannelEditSupported
+    val authorized = bound && supported && channel?.metadataReady == true &&
         state.members.any { it.publicKey == account.ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) }
     val nameEmpty = editor.name.isBlank()
     val nameLong = editor.name.trim().toByteArray(Charsets.UTF_8).size > 128

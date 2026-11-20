@@ -20,6 +20,7 @@ module.exports = class SpacesBridge {
     this.supportsRoles = false;
     this.supportsPublicChannelEditing = false;
     this.supportsPrivateChannelAccess = false;
+    this.supportsPrivateChannelEditing = false;
   }
 
   async ready() {
@@ -28,6 +29,7 @@ module.exports = class SpacesBridge {
     this.supportsRoles = false;
     this.supportsPublicChannelEditing = false;
     this.supportsPrivateChannelAccess = false;
+    this.supportsPrivateChannelEditing = false;
     try {
       const body = await this.request('/v1/readiness', {method: 'GET'}, 4096, 2000);
       const ready = body.capability === 'spaces-v1' && body.service_key === this.serviceKey &&
@@ -37,6 +39,7 @@ module.exports = class SpacesBridge {
       this.supportsRoles = ready && Array.isArray(body.features) && body.features.includes('role-management-v1');
       this.supportsPublicChannelEditing = ready && Array.isArray(body.features) && body.features.includes('public-channel-edit-v1');
       this.supportsPrivateChannelAccess = ready && Array.isArray(body.features) && body.features.includes('private-channel-access-v1');
+      this.supportsPrivateChannelEditing = ready && Array.isArray(body.features) && body.features.includes('private-channel-edit-v1');
       return ready;
     } catch (_) { return false; }
   }

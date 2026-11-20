@@ -8,39 +8,42 @@ and138 are accepted and closed. Issue139 remains current and incomplete;
 140–147 have not started. Continue without a checkpoint stop. Public beta142
 is unchanged.
 
-Source supports public channel creation/editing, archive/reopen, owner-only
-administrator changes and restricted private creation/grants/MLS revocation.
-Private metadata editing now covers General, unrestricted children and restricted
-children while preserving channel identity, own history and drafts. The intended
-target is signed and bound into authenticated encryption. Earlier restricted
-own-group edits retain a narrow compatibility path. Older missing-kind histories,
-private-edit UI/capability and native acceptance remain pending.
+Source supports public/private creation and metadata editing, archive/reopen,
+owner-only administrator changes, restricted grants and actual MLS revocation.
+Older private kinds are recovered from their immutable encrypted creation
+metadata. Retained history can identify a newly authorized Admin channel while
+current admission still gates editing. Private editing has an independently
+negotiated capability and the existing native editor preserves pending review.
+Current JVM verification passes247core/103service with the explicit cache and
+wrapper qualifications in the [current source packet](evidence/ticket139/private-editor-legacy-source.json).
+Both pinned framework rehearsals pass within their owned-adapter scope.
 
-All30 public,6 private-process and4 readiness native parents remain failed.
-The latest originals diagnose late public-link layout insertion, compact viewport
-starvation, overlapping database instances and a retained rejection footer.
-Corrections project initial links atomically, keep compact drafts internally
-scrollable, coordinate encrypted-store transaction/close per canonical file and
-acknowledge an old rejection only after actual settings refresh succeeds.
-Original5/15/27second deadlines and full48dp geometry remain. No prefix supplies
-acceptance. Both current source review axes have zero remaining concrete findings;
-complete exact-source Android10/17 runs and actual frame/prototype review remain
-mandatory. See the [current source packet](evidence/ticket139/private-general-recovery-source.json)
-for actual REDs, scope and current verification. The previous source packet retains
-its exact246core/98service and combined-build qualifications.
+Complete source739 Android10/17 readiness executions pass numeric checks and
+both actual frame/prototype review axes. The public-management jobs also pass
+numeric checks, but focused fields can be hidden above the IME; visual
+acceptance remains withheld. Spec/Standards differ on the Android10 observation,
+and both reports are retained. Private-process jobs remain failed: Android10
+loses the General reading position, and Android17's multiline empty composer
+hint starves the compact timeline. All prior30public/8private-process/4readiness
+failed parents stay failed. See the [exact originals and reviews](evidence/ticket139/native-recovery-739.json).
 
-Keep JVM regression separate from Android instrumentation compilation under the
-existing2.5GiB build budget. The earlier combined daemon failure remains failed.
-The new real Android multi-instance store contract is an additive OS prerequisite,
-not an extra Activity terminal or process-kill count.
+Current corrections keep compact context/hints on one line, suppress viewport
+writes until initial restoration completes, and adapt constrained sheet scrolling
+without recreating focused fields. New native proofs require actual IME presence,
+complete focused-field geometry and independent physical visibility above the
+keyboard, plus encrypted private edit recovery. Original5/15/27second deadlines,
+48dp targets, process boundaries and provenance gates remain. Both corrected
+source review axes have zero remaining concrete findings. Exact-source Android
+compilation and fresh whole native/frame acceptance remain mandatory. Keep JVM
+regression separate from Android instrumentation under the2.5GiB build budget.
 
-Remaining139 includes explicit categories, private/legacy editing and access,
-future-key exclusion on demotion and Space leave/remove/ban, two-party ownership
-transfer, deliberate visibility transitions without publishing prior private
-history and owner-only dissolution. Then continue140–147. No production
-node/provider activation, public development/financial writes or automatic file
-hosting is implied. Keep1/36/55/84/86/105 open. Legacy Chat E2E, Vault rental and
-physical/OEM/Play limits remain separately recorded.
+Remaining139 includes explicit category identities and management, all affected
+future-key exclusion on role/membership changes, two-party ownership transfer,
+deliberate visibility changes without publishing prior private history and
+owner-only dissolution. Then continue140–147. No production node/provider
+activation, public development/financial writes or automatic file hosting is
+implied. Keep1/36/55/84/86/105 open. Legacy Chat E2E, Vault rental and physical/OEM/
+Play limits remain separately recorded.
 
 ## Accepted138, continue139
 

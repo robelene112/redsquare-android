@@ -53,7 +53,7 @@ internal class SpacesPrivateManagementFixture(private val owner: SpaceClient, pr
         "/private-management-fixtures" -> fixtures.deepCopy()
         "/private-management-drop-next" -> {
             require(body.keySet() == setOf("kind"))
-            val kind = body.get("kind").asString.also { require(it in setOf("create-channel", "grant-channel-access", "revoke-channel-access")) }
+            val kind = body.get("kind").asString.also { require(it in setOf("create-channel", "grant-channel-access", "revoke-channel-access", "edit-channel")) }
             check(peer.withholdNextSpacesControlReply.compareAndSet(null, kind))
             JsonObject().apply { addProperty("armed", kind) }
         }
@@ -66,7 +66,7 @@ internal class SpacesPrivateManagementFixture(private val owner: SpaceClient, pr
         val originals = peer.spacesRequests.toList().filter {
             val body = SaitoEnvelope.decode(it.envelope()).body
             body.get("request")?.asString == "event" && body.get("kind")?.asString in
-                setOf("create-channel", "grant-channel-access", "revoke-channel-access")
+                setOf("create-channel", "grant-channel-access", "revoke-channel-access", "edit-channel")
         }
         val created = originals.lastOrNull { SaitoEnvelope.decode(it.envelope()).body.get("kind").asString == "create-channel" }
         val channel = created?.let { SaitoEnvelope.decode(it.envelope()).body.get("channel_id").asString }
@@ -93,6 +93,7 @@ internal class SpacesPrivateManagementFixture(private val owner: SpaceClient, pr
                 add(JsonObject().apply {
                     addProperty("id", original.id); addProperty("actor", signed.author); addProperty("space", body.get("space_id").asString)
                     addProperty("kind", body.get("kind").asString); addProperty("channel", body.get("channel_id").asString)
+                    if (body.get("kind").asString == "edit-channel") addProperty("privateMetadata", body.has("channel_metadata") && !body.has("channel_profile") && !body.has("channel_kind"))
                     if (body.has("member")) addProperty("member", body.get("member").asString)
                     if (body.has("visibility")) addProperty("visibility", body.get("visibility").asString)
                     if (body.has("allowed_members")) add("allowedMembers", body.getAsJsonArray("allowed_members").deepCopy())
