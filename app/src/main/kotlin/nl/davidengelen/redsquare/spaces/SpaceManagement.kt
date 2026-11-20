@@ -120,7 +120,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
 }
 
 @Composable internal fun ManagementChangeNotice(status: SpaceClient.ChangeStatus?, availability: SpacesAccount.Availability,
-    retry: () -> Unit) {
+    retry: () -> Unit, refreshing: Boolean = false) {
     AnimatedContent(status?.takeIf { it != SpaceClient.ChangeStatus.ACCEPTED }, label = "space-management-result",
         transitionSpec = { fadeIn(tween(AppSpacing.transitionMillis)) togetherWith fadeOut(tween(AppSpacing.transitionMillis)) }) { current ->
         if (current != null) Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = MaterialTheme.shapes.medium) {
@@ -136,7 +136,11 @@ import nl.davidengelen.redsquare.ui.DesignSheet
                     }), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
                 }
                 if (current == SpaceClient.ChangeStatus.REJECTED || current == SpaceClient.ChangeStatus.AWAITING_CONFIRMATION &&
-                    availability == SpacesAccount.Availability.OFFLINE) TextButton(onClick = retry, modifier = Modifier.heightIn(min = 48.dp)) {
+                    availability == SpacesAccount.Availability.OFFLINE) TextButton(onClick = retry, enabled = !refreshing, modifier = Modifier.heightIn(min = 48.dp)) {
+                    if (refreshing) {
+                        CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp)
+                        Spacer(Modifier.width(8.dp))
+                    }
                     Text(stringResource(R.string.spaces_refresh_settings))
                 }
             }

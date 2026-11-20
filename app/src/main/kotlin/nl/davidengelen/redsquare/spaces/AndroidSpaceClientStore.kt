@@ -8,6 +8,9 @@ import android.os.Looper
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import java.io.File
+import java.lang.ref.WeakReference
+import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
 import java.security.KeyStore
 import java.security.MessageDigest
 import javax.crypto.Cipher
@@ -22,6 +25,8 @@ internal class AndroidSpaceClientStore(context: Context, owner: String, node: St
     private val namespace = MessageDigest.getInstance("SHA-256")
         .digest("SpacesLocal/v1:$owner:$node:$service".toByteArray(Charsets.UTF_8))
         .joinToString("") { "%02x".format(it.toInt() and 255) }
+    private val databaseGate = databaseGate(File(context.noBackupFilesDir, "spaces-$namespace.sqlite").canonicalPath)
+    private var closed = false
     private val alias = "${context.packageName}.spaces.store.v1.$namespace"
     private val aadPrefix = "${context.packageName}:SpacesLocal/v1:$namespace:"
     private val helper = object : SQLiteOpenHelper(context.applicationContext,
@@ -39,42 +44,45 @@ internal class AndroidSpaceClientStore(context: Context, owner: String, node: St
             throw IllegalStateException("Community storage cannot be downgraded")
     }
 
-    @Synchronized override fun <T> transaction(action: SpaceClientStore.Transaction.() -> T): T {
+    override fun <T> transaction(action: SpaceClientStore.Transaction.() -> T): T {
         check(Looper.myLooper() != Looper.getMainLooper()) { "Community storage belongs off main" }
-        val db = helper.writableDatabase
-        db.beginTransactionNonExclusive()
-        try {
-            val value = action(object : SpaceClientStore.Transaction {
-                override fun get(key: String): ByteArray? {
-                    validateKey(key)
-                    return db.rawQuery("SELECT value FROM entries WHERE key=?", arrayOf(key)).use {
-                        if (it.moveToFirst()) decrypt(key, it.getBlob(0)) else null
+        return databaseGate.withLock {
+            check(!closed) { "Community storage is closed" }
+            val db = helper.writableDatabase
+            db.beginTransactionNonExclusive()
+            try {
+                val value = action(object : SpaceClientStore.Transaction {
+                    override fun get(key: String): ByteArray? {
+                        validateKey(key)
+                        return db.rawQuery("SELECT value FROM entries WHERE key=?", arrayOf(key)).use {
+                            if (it.moveToFirst()) decrypt(key, it.getBlob(0)) else null
+                        }
                     }
-                }
-                override fun put(key: String, value: ByteArray) {
-                    validateKey(key); require(value.size <= MAX_ROW_BYTES)
-                    db.insertOrThrow("entries", null, ContentValues().apply {
-                        put("key", key); put("value", encrypt(db, key, value))
-                    }.also {
-                        // Replace one authenticated row inside the enclosing transaction.
-                        db.delete("entries", "key=?", arrayOf(key))
-                    })
-                }
-                override fun remove(key: String) { validateKey(key); db.delete("entries", "key=?", arrayOf(key)) }
-                override fun page(prefix: String, cursor: String, limit: Int): List<SpaceClientStore.Entry> {
-                    validateKey(prefix); require(cursor.length <= 512 && limit in 1..100)
-                    return db.rawQuery("SELECT key,value FROM entries WHERE key>=? AND key<? AND key>=? ORDER BY key LIMIT ?",
-                        arrayOf(prefix, prefix + '\uffff', cursor, limit.toString())).use { rows ->
-                        buildList { while (rows.moveToNext()) {
-                            val key = rows.getString(0)
-                            add(SpaceClientStore.Entry(key, decrypt(key, rows.getBlob(1))))
-                        } }
+                    override fun put(key: String, value: ByteArray) {
+                        validateKey(key); require(value.size <= MAX_ROW_BYTES)
+                        db.insertOrThrow("entries", null, ContentValues().apply {
+                            put("key", key); put("value", encrypt(db, key, value))
+                        }.also {
+                            // Replace one authenticated row inside the enclosing transaction.
+                            db.delete("entries", "key=?", arrayOf(key))
+                        })
                     }
-                }
-            })
-            db.setTransactionSuccessful()
-            return value
-        } finally { db.endTransaction() }
+                    override fun remove(key: String) { validateKey(key); db.delete("entries", "key=?", arrayOf(key)) }
+                    override fun page(prefix: String, cursor: String, limit: Int): List<SpaceClientStore.Entry> {
+                        validateKey(prefix); require(cursor.length <= 512 && limit in 1..100)
+                        return db.rawQuery("SELECT key,value FROM entries WHERE key>=? AND key<? AND key>=? ORDER BY key LIMIT ?",
+                            arrayOf(prefix, prefix + '\uffff', cursor, limit.toString())).use { rows ->
+                            buildList { while (rows.moveToNext()) {
+                                val key = rows.getString(0)
+                                add(SpaceClientStore.Entry(key, decrypt(key, rows.getBlob(1))))
+                            } }
+                        }
+                    }
+                })
+                db.setTransactionSuccessful()
+                value
+            } finally { db.endTransaction() }
+        }
     }
 
     private fun existingKey(): SecretKey? = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
@@ -107,6 +115,15 @@ internal class AndroidSpaceClientStore(context: Context, owner: String, node: St
         }
     }
     private fun validateKey(key: String) { require(key.isNotEmpty() && key.length <= 512 && key.all { it.code in 33..126 }) }
-    @Synchronized override fun close() = helper.close()
-    private companion object { const val MAX_ROW_BYTES = 8 * 1024 * 1024 }
+    override fun close() = databaseGate.withLock {
+        if (!closed) { closed = true; helper.close() }
+    }
+    private companion object {
+        const val MAX_ROW_BYTES = 8 * 1024 * 1024
+        private val databaseGates = mutableMapOf<String, WeakReference<ReentrantLock>>()
+        private fun databaseGate(path: String): ReentrantLock = synchronized(databaseGates) {
+            databaseGates.entries.removeAll { it.value.get() == null }
+            databaseGates[path]?.get() ?: ReentrantLock(true).also { databaseGates[path] = WeakReference(it) }
+        }
+    }
 }

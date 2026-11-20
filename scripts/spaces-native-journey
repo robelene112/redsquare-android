@@ -222,6 +222,18 @@ try:
             raise RuntimeError('Recorder transport did not complete successfully within15s')
         owner['stopped'] = True
         (evidence / f'recorder-{phase}.json').write_text(json.dumps(owner))
+    if management_mode:
+        contract = adb('shell', 'am', 'instrument', '-w', '-r', '-e', 'class',
+            'nl.davidengelen.redsquare.SpaceMlsRuntimeTest#concurrentAccountStoresWaitForTheSameEncryptedTransactionAndKeepCommittedRows',
+            runner, timeout=30, check=False)
+        (evidence / 'store-concurrency-contract.txt').write_bytes(contract.stdout + contract.stderr)
+        contract_text = contract.stdout.decode(errors='replace')
+        if contract.returncode or len(re.findall(r'^OK \(1 test\)\s*$', contract_text, re.M)) != 1:
+            raise RuntimeError('Actual encrypted-store concurrency contract failed')
+        storage = json.loads(adb('exec-out', 'run-as', pkg, 'cat', 'cache/spaces-store-concurrency.json').stdout)
+        (evidence / 'store-concurrency-contract.json').write_text(json.dumps(storage, indent=2))
+        if storage['package'] != pkg or storage['readerBlockedUntilCommit'] is not True or storage['ownedCleanupComplete'] is not True:
+            raise RuntimeError('Encrypted-store contract scope or cleanup differs')
     if community_mode:
         # Freeze the whole selected journey before the first measurement.
         if private_readiness_mode:

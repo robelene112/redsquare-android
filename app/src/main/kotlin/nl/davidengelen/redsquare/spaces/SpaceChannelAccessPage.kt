@@ -1,6 +1,12 @@
 package nl.davidengelen.redsquare.spaces
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
@@ -28,11 +34,14 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
     val channel = state.channels.firstOrNull { it.id == state.selectedChannel }
     val scope = "${account.ownerKey}:${account.backend.webUrl}:${state.selected}:${state.selectedChannel}"
     var removing by rememberSaveable(scope) { mutableStateOf<String?>(null) }
+    var reviewedChange by rememberSaveable(scope) { mutableStateOf<String?>(null) }
     val administrator = state.members.any { it.publicKey == account.ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) }
     val change = state.channelAccessChange?.takeIf { it.channelId == channel?.id }
     val pending = change?.status in setOf(SpaceClient.ChangeStatus.QUEUED, SpaceClient.ChangeStatus.AWAITING_CONFIRMATION)
-    val available = !state.loadingChannel && !state.savingNavigation && administrator && state.privateChannelAccessSupported && channel?.allowedMembers != null && state.current?.canManage == true
-    val enabled = available && !state.working && !pending
+    val restoring = state.loading || state.loadingChannel || state.current == null || state.availability == SpacesAccount.Availability.CHECKING
+    val available = !restoring && administrator && state.privateChannelAccessSupported && channel?.allowedMembers != null && state.current?.joined == true
+    val enabled = available && !state.savingNavigation && state.current?.canManage == true && !state.working && !pending
+    val noticeStatus = change?.status?.takeUnless { it == SpaceClient.ChangeStatus.REJECTED && change?.id == reviewedChange }
     LaunchedEffect(available) { if (!available) removing = null }
     Column(Modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -50,7 +59,9 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     Text(stringResource(R.string.spaces_channel_access_detail), color = MaterialTheme.colorScheme.onSurfaceVariant)
                     if (available && channel?.ready != true) Text(stringResource(R.string.spaces_waiting_channel_keys), color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    if (!available) Text(stringResource(R.string.spaces_edit_access_changed), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    if (restoring) Text(stringResource(R.string.spaces_loading_channel_settings), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    else if (!available) Text(stringResource(if (!administrator || state.current?.joined != true)
+                        R.string.spaces_edit_access_changed else R.string.spaces_channel_settings_unavailable), color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
             items(state.members, key = { it.publicKey }) { member ->
@@ -77,14 +88,25 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
             }
         }
         // Keep the result reachable even after acting near the end of a long roster.
-        if (state.problem != null || change?.status in setOf(SpaceClient.ChangeStatus.QUEUED,
-                SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, SpaceClient.ChangeStatus.REJECTED)) {
+        AnimatedVisibility(state.problem != null || noticeStatus in setOf(SpaceClient.ChangeStatus.QUEUED,
+                SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, SpaceClient.ChangeStatus.REJECTED),
+            enter = fadeIn(tween(AppSpacing.transitionMillis)) + expandVertically(tween(AppSpacing.transitionMillis)),
+            exit = fadeOut(tween(AppSpacing.transitionMillis)) + shrinkVertically(tween(AppSpacing.transitionMillis))) {
+          Column {
             HorizontalDivider()
             Column(Modifier.fillMaxWidth().heightIn(max = 220.dp).verticalScroll(rememberScrollState())
                 .padding(horizontal = AppSpacing.screen, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 SpaceManagementProblem(state.problem, account::clearProblem)
-                ManagementChangeNotice(change?.status, state.availability, account::refresh)
+                ManagementChangeNotice(noticeStatus, state.availability, retry = {
+                    val selected = state.selected
+                    val selectedChannel = channel?.id
+                    val rejected = change?.id
+                    if (selected != null && selectedChannel != null) account.refreshChannelSettings(selected, selectedChannel) {
+                        reviewedChange = rejected
+                    }
+                }, refreshing = state.working)
             }
+          }
         }
     }
     val member = state.members.firstOrNull { it.publicKey == removing && it.role == SpaceRole.MEMBER }

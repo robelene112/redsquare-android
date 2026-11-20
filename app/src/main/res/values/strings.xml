@@ -1487,6 +1487,8 @@
     <string name="spaces_create_channel">Create channel</string>
     <string name="spaces_create_channel_detail">Choose a name, a channel type and an optional category. The channel follows this community’s visibility. It appears after the node confirms it.</string>
     <string name="spaces_open_created_channel">Open channel</string>
+    <string name="spaces_loading_channel_settings">Loading channel settings…</string>
+    <string name="spaces_channel_settings_unavailable">These channel settings are unavailable on this node.</string>
     <string name="spaces_channel_access">Channel access</string>
     <string name="spaces_channel_access_detail">Choose who can read and contribute here. Owners and administrators always have access. New members receive keys when a current key holder is available.</string>
     <string name="spaces_channel_access_always">Always has access</string>

@@ -8,34 +8,36 @@ and138 are accepted and closed. Issue139 remains current and incomplete;
 140–147 have not started. Continue without a checkpoint stop. Public beta142
 is unchanged.
 
-Source supports public channel creation/editing, archive/reopen and owner-only
-administrator changes, plus restricted private creation, grants and actual MLS
-revocation. Readmission preserves available past history and rejects obsolete
-access requests. The restricted private-edit API now encrypts name/category
-changes, pins immutable kind on creation and requires a current bound key holder.
-General/unrestricted and older private histories, its UI and capability remain
-pending. Current JVM verification passes246core/98service with the explicit
-cache/combined-build qualifications in the [source packet](evidence/ticket139/private-edit-priority-source.json).
+Source supports public channel creation/editing, archive/reopen, owner-only
+administrator changes and restricted private creation/grants/MLS revocation.
+Private metadata editing now covers General, unrestricted children and restricted
+children while preserving channel identity, own history and drafts. The intended
+target is signed and bound into authenticated encryption. Earlier restricted
+own-group edits retain a narrow compatibility path. Older missing-kind histories,
+private-edit UI/capability and native acceptance remain pending.
 
-All28 public,4 private-process and2 readiness native parents remain failed. Latest
-failures expose one-shot scrolling during layout settlement, premature editor/
-receipt observations and actual local creation latency. Source corrections retain
-all original5/15/27second goals. Control attempts project actual persisted status
-without rebuilding the timeline; queued work is prioritized within the sole
-network worker. Actual queued/uncertain controls conservatively disable writing
-and management. The current trace does not prove the dominant local CPU cost.
-No passing prefix or whole native acceptance is claimed. Exact final-source
-compilation, fresh whole10/17 execution and all-frame/prototype/geometry reviews
-are still required.
+All30 public,6 private-process and4 readiness native parents remain failed.
+The latest originals diagnose late public-link layout insertion, compact viewport
+starvation, overlapping database instances and a retained rejection footer.
+Corrections project initial links atomically, keep compact drafts internally
+scrollable, coordinate encrypted-store transaction/close per canonical file and
+acknowledge an old rejection only after actual settings refresh succeeds.
+Original5/15/27second deadlines and full48dp geometry remain. No prefix supplies
+acceptance. Both current source review axes have zero remaining concrete findings;
+complete exact-source Android10/17 runs and actual frame/prototype review remain
+mandatory. See the [current source packet](evidence/ticket139/private-general-recovery-source.json)
+for actual REDs, scope and current verification. The previous source packet retains
+its exact246core/98service and combined-build qualifications.
 
-Keep heavy local JVM regression separate from Android instrumentation compilation
-under the existing2.5GiB build budget: the combined invocation lost its Gradle
-daemon. Its originals remain failed; the separate JVM invocation succeeds.
+Keep JVM regression separate from Android instrumentation compilation under the
+existing2.5GiB build budget. The earlier combined daemon failure remains failed.
+The new real Android multi-instance store contract is an additive OS prerequisite,
+not an extra Activity terminal or process-kill count.
 
-Remaining139 includes explicit categories, complete private/legacy editing and
-access, future-key exclusion on demotion and Space leave/remove/ban, two-party
-ownership transfer, deliberate visibility transitions without publishing prior
-private history and owner-only dissolution. Then continue140–147. No production
+Remaining139 includes explicit categories, private/legacy editing and access,
+future-key exclusion on demotion and Space leave/remove/ban, two-party ownership
+transfer, deliberate visibility transitions without publishing prior private
+history and owner-only dissolution. Then continue140–147. No production
 node/provider activation, public development/financial writes or automatic file
 hosting is implied. Keep1/36/55/84/86/105 open. Legacy Chat E2E, Vault rental and
 physical/OEM/Play limits remain separately recorded.

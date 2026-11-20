@@ -22,7 +22,7 @@ data class SpaceSnapshot(val owner: String? = null, val members: Map<String, Spa
     val invitations: Map<String, SpaceInvitationRecord> = emptyMap(),
     val channels: Map<String, SpaceChannelRecord> = emptyMap(),
     val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val publicProfile: SpaceProfile? = null,
-    val administratorStartedAt: Map<String, Long> = emptyMap())
+    val administratorStartedAt: Map<String, Long> = emptyMap(), val generalChannelId: String? = null)
 
 /** Authenticated control history. Content pages have their own channel cursors. */
 class SpaceJournal(private val spaceId: String, private val serviceKey: String) {
@@ -106,7 +106,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     channels = mapOf(event.body.text("channel_id") to SpaceChannelRecord(0, devices,
                         event.body.takeIf { it.has("key_generation") }?.text("key_generation")?.also { require(it.matches(ID)) }
                             ?: "0".repeat(64), visibility = channelVisibility,
-                        profile = channelProfile, metadata = channelMetadata, adminPostsOnly = adminPostsOnly, kind = channelKind)), visibility = visibility, publicProfile = profile)
+                        profile = channelProfile, metadata = channelMetadata, adminPostsOnly = adminPostsOnly, kind = channelKind)), visibility = visibility, publicProfile = profile, generalChannelId = event.body.text("channel_id"))
             }
             "create-channel" -> {
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
@@ -202,10 +202,15 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     require(profile.kind == requireNotNull(old.profile).kind) { "Metadata editing cannot change the channel kind" }
                     old.copy(profile = profile)
                 } else {
-                    require(old.allowedMembers != null && old.kind != null && !event.body.has("channel_profile") && !event.body.has("channel_kind"))
-                    require(old.devices.keys.any { credentialWallet(it) == event.author }) { "Channel metadata requires a current key holder" }
+                    require(old.kind != null && !event.body.has("channel_profile") && !event.body.has("channel_kind"))
+                    val metadataChannel = if (old.allowedMembers != null) channel else requireNotNull(current.generalChannelId)
+                    val metadataGroup = requireNotNull(current.channels[metadataChannel])
+                    require(metadataGroup.visibility == SpaceVisibility.PRIVATE && metadataGroup.devices.keys.any { credentialWallet(it) == event.author }) {
+                        "Channel metadata requires a current holder of its metadata keys"
+                    }
                     val metadata = event.body.text("channel_metadata")
-                    verifyChannelMetadata(metadata, event, SpaceCrypto.Scope(serviceKey, spaceId, channel, old.generation), old.epoch, "channel-profile-edit")
+                    verifyChannelMetadata(metadata, event, SpaceCrypto.Scope(serviceKey, spaceId, metadataChannel, metadataGroup.generation),
+                        metadataGroup.epoch, "channel-profile-edit", channel, allowImplicitTarget = old.allowedMembers != null)
                     old.copy(metadata = metadata)
                 }
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
@@ -322,12 +327,14 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
     }
 
     private fun verifyChannelMetadata(encoded: String, event: SignedSaitoMessage, scope: SpaceCrypto.Scope, epoch: Long,
-        contentKind: String = "channel-profile") {
+        contentKind: String = "channel-profile", targetChannelId: String? = null, allowImplicitTarget: Boolean = false) {
         val metadata = SaitoEnvelope.decode(Base64.getDecoder().decode(encoded).toString(Charsets.UTF_8))
         val body = metadata.body
         header(body, "event")
         require(metadata.author == event.author && metadata.recipients == event.recipients)
         require(body.text("kind") == "content" && body.text("content_kind") == contentKind)
+        if (targetChannelId != null) require(if (body.has("target_channel_id")) body.text("target_channel_id") == targetChannelId
+            else allowImplicitTarget && scope.channelId == targetChannelId) // Earlier restricted edits were bound by their own signed scope.
         require(body.text("space_id") == scope.spaceId && body.text("channel_id") == scope.channelId &&
             body.text("key_generation") == scope.generation && body.number("epoch") == epoch &&
             body.text("control_id") == event.body.text("control_id"))

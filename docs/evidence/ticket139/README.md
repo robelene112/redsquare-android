@@ -219,3 +219,5 @@ actual original recovery and lightweight durable control projection. Local JVM
 verification passes246core/98service; the combined Android/JVM daemon failure and
 final Android compilation qualification remain explicit. All six c1f native
 parents remain failed. This does not complete private editing,139 or a release.
+
+Current General/unrestricted private metadata and native recovery source: [packet](private-general-recovery-source.json). All30 public/6 private-process/4 readiness whole parents remain failed; no complete139 acceptance.

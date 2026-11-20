@@ -156,7 +156,9 @@ class SpacesManagementJourneyTest {
         capture(if (label == "normal") "04-normal-rejected-visible" else "08-compact-rejected-visible")
         val refresh = ui.onNode(hasText(context.getString(R.string.spaces_refresh_settings)) and hasClickAction())
         refresh.performScrollTo().clickReady()
-        readinessMember(fixtures, "retry").assertIsOff().clickReady()
+        val retry = readinessMember(fixtures, "retry")
+        waitUntil { retry.confirmedToggle(false) }
+        retry.assertIsOff().clickReady()
         waitUntil {
             status().getAsJsonArray("allowedMembers").any { it.asString == fixtures.get("retry").asString } && readinessGrantVisible(fixtures, "retry")
         }
@@ -347,7 +349,9 @@ class SpacesManagementJourneyTest {
         check(privateManagement)
         val fixtures = readCheckpoint("private-grant-pending").getAsJsonObject("fixtures")
         launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("private-compact-failure") }) {
-            waitText("Private management General 5")
+            waitUntil { ui.onNode(hasContentDescription(context.getString(R.string.spaces_switch_channel)) and
+                SemanticsMatcher.expectValue(androidx.compose.ui.semantics.SemanticsProperties.StateDescription, "general")).isDisplayed() }
+            waitUntil { ui.onNode(hasSetTextAction() and hasText("Keep General writing through private access changes")).isDisplayed() }
             chooseChannel("native-private-lounge")
             waitText("A native encrypted message after fresh admission")
             openPrivateAccess(); privateMember(fixtures).assertIsOn()
@@ -419,7 +423,7 @@ class SpacesManagementJourneyTest {
             history().performScrollToNode(hasText("Management message 5"))
             readingPixel = pixel("Management message 5")
             capture("01-owner-reading")
-            openMembers(); openRole()
+            openMembers(fixtures); openRole()
             withWriteFailure(activity, fixtures, "role") {
                 clickDialog("Make administrator")
                 waitDialogError()
@@ -431,7 +435,7 @@ class SpacesManagementJourneyTest {
         } }
         launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("role-pending-failure") }) {
             waitText("Management message 5"); assertPixel("Management message 5", readingPixel)
-            openMembers(); openRole()
+            openMembers(fixtures); openRole()
             command("management-drop-next", JsonObject().apply { addProperty("kind", "set-role") })
             clickDialog("Make administrator")
             waitText("Waiting for confirmation.", 5_000)
@@ -454,7 +458,7 @@ class SpacesManagementJourneyTest {
         launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("archive-pending-failure") }) {
             waitText("Management message 5"); assertPixel("Management message 5", previous.get("pixel").asFloat)
             ui.onNode(hasSetTextAction() and hasText("Keep the general draft")).assertIsDisplayed()
-            openMembers(); openRole()
+            openMembers(fixtures); openRole()
             waitUntil { ui.onNode(hasText("Remove administrator role") and hasClickAction() and isEnabled()).isDisplayed() }
             assertRetriedOriginal(previous, "set-role")
             capture("04-cold-role-recovered")
@@ -543,7 +547,7 @@ class SpacesManagementJourneyTest {
         assertEquals(320, context.resources.configuration.screenWidthDp)
         launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("compact-management-failure") }) {
             waitUntil { ui.onNode(hasText(context.getString(R.string.spaces_information)) and hasClickAction()).isDisplayed() }
-            openMembers(); openRole()
+            openMembers(fixtures); openRole()
             ui.onNode(hasText("Make administrator") and hasClickAction()).assertIsDisplayed()
             capture("14-compact-role-review")
             withWriteFailure(activity, fixtures, "compact-role") {
@@ -554,7 +558,7 @@ class SpacesManagementJourneyTest {
         } }
         launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("compact-confirmation-failure") }) {
             waitUntil { ui.onNode(hasText(context.getString(R.string.spaces_information)) and hasClickAction()).isDisplayed() }
-            openMembers(); openRole(); clickDialog("Make administrator")
+            openMembers(fixtures); openRole(); clickDialog("Make administrator")
             waitUntil { ui.onNode(hasText("Remove administrator role") and hasClickAction() and isEnabled()).isDisplayed() }
             capture("16-compact-confirmed-administrator")
             clickDialog("Remove administrator role")
@@ -801,7 +805,17 @@ class SpacesManagementJourneyTest {
         waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
         ui.onNode(hasText(context.getString(R.string.spaces_information)) and hasClickAction()).clickReady()
     }
-    private fun openMembers() { openInformation(); clickDialog("Members"); waitText("MemberOfTheLab@saito") }
+    private fun openMembers(fixtures: JsonObject) {
+        openInformation(); clickDialog("Members")
+        val deadline = SystemClock.elapsedRealtime() + 15_000
+        val list = history()
+        val key = fixtures.get("member").asString
+        waitUntil(15_000) { list.fetchSemanticsNode().config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.IndexForKey)?.invoke(key)?.let { it >= 0 } == true }
+        list.performScrollToKey(key)
+        val remaining = deadline - SystemClock.elapsedRealtime()
+        assertTrue("The actual member remains inside15seconds", remaining > 0)
+        waitText("MemberOfTheLab@saito", remaining)
+    }
     private fun openRole() {
         val deadline = SystemClock.elapsedRealtime() + 5_000
         val node = ui.onNode(hasText("Manage role") and hasClickAction())

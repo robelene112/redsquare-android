@@ -33,6 +33,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -106,6 +108,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     var publicCopied by remember { mutableStateOf(false) }
     var publicShareFailed by remember { mutableStateOf(false) }
     val context = LocalContext.current
+    val compactReading = LocalConfiguration.current.screenHeightDp <= 480 ||
+        LocalConfiguration.current.screenHeightDp <= 700 && LocalDensity.current.fontScale >= 1.5f
     var invitationText by remember { mutableStateOf("") }
     var reviewedInvitation by remember(account) { mutableStateOf<SpaceClient.InvitationPreview?>(null) }
     val invitationReview = state.preview ?: reviewedInvitation
@@ -224,7 +228,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(12.dp), verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                             Column(Modifier.weight(1f)) {
-                                Text(selected?.name ?: profile?.name.orEmpty(), style = MaterialTheme.typography.labelSmall, maxLines = 2,
+                                Text(selected?.name ?: profile?.name.orEmpty(), style = MaterialTheme.typography.labelSmall, maxLines = if (compactReading) 1 else 2,
                                     overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 Text(title, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
                             }
@@ -334,7 +338,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 OutlinedTextField(state.draft, { account.editDraft(selected.id, selected.channel, it) }, Modifier.weight(1f),
                                     enabled = !state.savingNavigation && !state.loadingChannel, placeholder = { Text(stringResource(R.string.spaces_message_channel_hint, channel?.profile?.name ?: "general")) },
-                                    shape = RoundedCornerShape(18.dp), minLines = 1, maxLines = 4)
+                                    shape = RoundedCornerShape(18.dp), minLines = 1, maxLines = if (compactReading) 1 else 4)
                                 FilledIconButton(onClick = account::send, enabled = selected.canSend && state.draft.isNotBlank() && !state.working &&
                                     state.accessProblems[selected.id] == null, modifier = Modifier.size(48.dp)) {
                                     Icon(painterResource(R.drawable.ic_send), stringResource(R.string.spaces_send), Modifier.size(22.dp))

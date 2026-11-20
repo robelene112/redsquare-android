@@ -1,0 +1,47 @@
+{
+  "issue": 139,
+  "base": "28473a3be99b803d2609e065e8308404662df5b3",
+  "scope": "General/unrestricted private metadata editing and diagnosed Android management recovery fixes, not complete139.",
+  "files": {
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceChannelAccessPage.kt": "7cfe979f9e02a3de875a644a91553af94ff6a7ac0b829363f3cc6178db8c2ef3",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesAccount.kt": "e1de11e92dcbd3d1add58ea2c994ce2726a5c3ca7b37f2fc3b7991b8db75c188",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceManagement.kt": "02f60deab7a60eb6f4b6be7ff8951194b7e025da4b24a31bbf2c5011d9bc6bd3",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesScreen.kt": "a9b6a54c3d82a56efd287e91c2e1ac9e04f0bf7f1689115e3188ce2dc671df59",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/AndroidSpaceClientStore.kt": "f17d314259ccb03a199ea70d1d327fbf8814be84d0a95992c26d1855905b2983",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "728c50f1cc0f09dabb82f25a462ee9d6f5314fcf5540b9f18d792b8a5f8acf04",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceCrypto.kt": "6919a1df347d3a5923a090042c5ee04a3dc34439ae6e11f8ed11af9f6c496866",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt": "e63ec7d34e984bbc460b2cb46b6b521ab9ab244bff78ad9a9f7d25351d3406fd"
+  },
+  "privateEditing": {
+    "groups": "General and unrestricted private-child metadata use current General keys. Restricted metadata uses its own current group. Channel identity, own message history and saved drafts remain unchanged.",
+    "binding": "New encrypted metadata includes signed target_channel_id in AES-GCM AAD; receiver independently requires inner/outer target equality. Missing-target legacy fallback is restricted to earlier restricted own-group metadata. General/unrestricted targets require explicit binding.",
+    "compatibility": "@JvmOverloads preserves six-argument Java publish. Histories missing immutable channel_kind still need compatibility work; UI/capability/native edit acceptance pending."
+  },
+  "actualRegressions": [
+    "General/unrestricted editing initially fails old restricted-only requirement.",
+    "Cross-target child redirection initially accepted control instead of rejection.",
+    "Stripped and re-signed target redirected to General initially accepted control instead of rejection.",
+    "First target-green invocation failed Java compilation, not a runtime pass."
+  ],
+  "checks": {
+    "focused": "Actual1core/6service PASS3m15 after both target-binding corrections; original XML retained externally.",
+    "fullJvm": "PASS3m16: actual247core/48classes and102service/9classes, no failures/errors/skips. Both test tasks executed with --no-build-cache; sources compiled up-to-date. Original XML139-general-full-jvm-originals.",
+    "android": "PASS separate final-source main3m5 and instrumentation2m57 compilation, with normal editor warmup18s; no OS execution claim.",
+    "osStore": "New real two-instance Android encrypted-store concurrency contract, pending OS execution. Additive precondition, not an Activity terminal or process-kill count.",
+    "logHashes": {
+      "139-private-general-edit-bound-final.log": "388e432036975d117dbe0da42909691dc4009ccb4b67c95ec0bb395e6cbbbef9",
+      "139-general-full-jvm.log": "6480515a6dc175af076351c8b5d9d4497a5ffb15e61be946f015c761b408748f",
+      "139-general-android-compile.log": "8383f4f771fa3f665c1b2f44af8c2b3bdd4306bb39d144c667d72a6b44c13447"
+    }
+  },
+  "nativeDiagnoses": {
+    "44685974192": "Public10 phase3 Reopen action moved when Copy/Share public link arrived. Initial selected-route projection now includes links before releasing loading.",
+    "44685964829": "Public17 compact member observer waited for offscreen name before scrolling. Now locates actual list key and scrolls inside original15s.",
+    "44685986989": "Private17 compact General draft/context starved the reading viewport. Compact layout keeps full raw draft with one internally scrollable line and one context line; entry observes actual selected General/draft.",
+    "44685995428": "Private10 savedDraft observer opened a second write transaction while Activity store was alive. Canonical-file fair lock now coordinates transaction and close across actual instances; retired instances cannot reopen.",
+    "44686008360": "Readiness17 rejected-status footer prevented a full roster control fitting. Successful actual guarded settings refresh acknowledges captured rejection only after publication; failed refresh retains it.",
+    "44686016832": "Readiness10 same footer geometry issue. Existing action/content deadlines and full48dp geometry remain."
+  },
+  "reviews": "Both full-current-diff source axes zero remaining concrete findings. Final exact build, complete native runs and all-frame/prototype/geometry acceptance pending. Prospective exact-catalogue and additive OS-precondition assessors independently reviewed by both axes with zero findings.",
+  "qualification": "All30public/6private-process/4readiness parents remain FAILED. No passing-prefix assembly, no complete139 acceptance. Beta142 and production state unchanged."
+}

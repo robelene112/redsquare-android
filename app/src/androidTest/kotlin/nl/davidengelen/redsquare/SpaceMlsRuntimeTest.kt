@@ -8,6 +8,12 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.async
+import kotlinx.coroutines.supervisorScope
+import kotlinx.coroutines.withTimeoutOrNull
+import nl.davidengelen.redsquare.spaces.AndroidSpaceClientStore
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 import nl.davidengelen.redsquare.saito.EncryptedLocalFile
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceCrypto
@@ -20,6 +26,65 @@ import java.util.UUID
 
 /** Library/runtime contract only. No Activity/UI or distinct-process claim. */
 class SpaceMlsRuntimeTest {
+    @Test(timeout = 15_000) fun concurrentAccountStoresWaitForTheSameEncryptedTransactionAndKeepCommittedRows() = runBlocking(Dispatchers.IO) {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(BuildConfig.DEBUG && context.packageName == "nl.davidengelen.redsquare.dev" &&
+            Build.HARDWARE in setOf("ranchu", "goldfish") && Looper.myLooper() != Looper.getMainLooper())
+        val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey
+        val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey
+        val node = "owned-store-contract-${UUID.randomUUID()}"
+        val namespace = java.security.MessageDigest.getInstance("SHA-256")
+            .digest("SpacesLocal/v1:$owner:$node:$service".toByteArray(Charsets.UTF_8)).joinToString("") { "%02x".format(it.toInt() and 255) }
+        val alias = "${context.packageName}.spaces.store.v1.$namespace"
+        val files = listOf("", "-journal", "-wal", "-shm").map { File(context.noBackupFilesDir, "spaces-$namespace.sqlite$it") }
+        val keystore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+        check(files.none(File::exists) && !keystore.containsAlias(alias))
+        var first: AndroidSpaceClientStore? = null
+        var second: AndroidSpaceClientStore? = null
+        var primary: Throwable? = null
+        try {
+            val writerStore = AndroidSpaceClientStore(context, owner, node, service).also { first = it }
+            val readerStore = AndroidSpaceClientStore(context, owner, node, service).also { second = it }
+            writerStore.transaction { put("draft", "before".toByteArray()) }
+            supervisorScope {
+                val entered = CountDownLatch(1)
+                val release = CountDownLatch(1)
+                val readerStarted = CountDownLatch(1)
+                val writer = async(Dispatchers.IO) {
+                    writerStore.transaction {
+                        entered.countDown()
+                        check(release.await(5, TimeUnit.SECONDS))
+                        put("draft", "after".toByteArray())
+                    }
+                }
+                try {
+                    check(entered.await(5, TimeUnit.SECONDS))
+                    val reader = async(Dispatchers.IO) {
+                        readerStarted.countDown()
+                        readerStore.transaction { get("draft") }
+                    }
+                    check(readerStarted.await(5, TimeUnit.SECONDS))
+                    assertNull("A second instance cannot observe an unfinished transaction", withTimeoutOrNull(200) { reader.await() })
+                    release.countDown(); writer.await()
+                    assertArrayEquals("after".toByteArray(), reader.await())
+                } finally { release.countDown() }
+            }
+            writerStore.close()
+            assertThrows(IllegalStateException::class.java) { writerStore.transaction { get("draft") } }
+            assertArrayEquals("Closing the retired account does not retire its replacement", "after".toByteArray(), readerStore.transaction { get("draft") })
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally { cleanupAfterTest(primary,
+            { second?.close() }, { first?.close() },
+            { files.forEach { if (it.exists()) check(it.delete()) } },
+            { if (keystore.containsAlias(alias)) keystore.deleteEntry(alias) }) }
+        File(context.cacheDir, "spaces-store-concurrency.json").writeText(JsonObject().apply {
+            addProperty("package", context.packageName); addProperty("sdk", Build.VERSION.SDK_INT)
+            addProperty("pid", android.os.Process.myPid()); addProperty("appApkSha256", apkHash(File(context.applicationInfo.sourceDir)))
+            addProperty("readerBlockedUntilCommit", true); addProperty("committedRow", "after")
+            addProperty("retiredStoreCannotReopen", true); addProperty("replacementRemainsUsable", true); addProperty("ownedCleanupComplete", true)
+        }.toString())
+    }
+
     @Test fun actualJniAndKeystoreRecoverAdmittedHistoryWithoutWritingAnUnprotectedKeyring() = runBlocking(Dispatchers.IO) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(BuildConfig.DEBUG && context.packageName == "nl.davidengelen.redsquare.dev")

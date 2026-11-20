@@ -110,15 +110,20 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
         require(next.epoch == Math.addExact(epoch, 1) && next.bindings == expectedBindings)
         return next
     }
-    fun publish(wallet: SaitoWallet, kind: String, operationId: String, controlId: String,
-        text: String, timestamp: Long): SaitoTransaction = publishRecord(wallet, kind, operationId, controlId, text, timestamp)
+    @JvmOverloads fun publish(wallet: SaitoWallet, kind: String, operationId: String, controlId: String,
+        text: String, timestamp: Long, targetChannelId: String? = null): SaitoTransaction =
+        publishRecord(wallet, kind, operationId, controlId, text, timestamp, targetChannelId = targetChannelId)
 
     private fun publishRecord(wallet: SaitoWallet, kind: String, operationId: String, controlId: String,
-        text: String, timestamp: Long, recipient: String? = null): SaitoTransaction {
+        text: String, timestamp: Long, recipient: String? = null, targetChannelId: String? = null): SaitoTransaction {
         require(text.isNotEmpty() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024 && kind.matches(Regex("[a-z][a-z-]{0,31}")))
         val header = header(wallet, "content", operationId, controlId).apply {
             addProperty("content_kind", kind)
             recipient?.let { addProperty("recipient_credential", it) }
+            targetChannelId?.let {
+                require(kind == "channel-profile-edit" && it.matches(ID))
+                addProperty("target_channel_id", it)
+            }
         }
         val nonce = ByteArray(12).also(SecureRandom()::nextBytes)
         val cipher = Cipher.getInstance("AES/GCM/NoPadding").apply {
@@ -283,7 +288,12 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
             val fields = listOf("SaitoSpacesRecord/v1", scope.groupId, actor, body.text("operation_id"),
                 body.text("control_id"), body.number("epoch").toString(), body.text("content_kind"))
             // Ordinary archive ciphertext keeps its original AAD unchanged.
-            val target = if (body.text("content_kind") == "history-keys") listOf(body.text("recipient_credential")) else emptyList()
+            val target = when (body.text("content_kind")) {
+                "history-keys" -> listOf(body.text("recipient_credential"))
+                "channel-profile-edit" -> if (body.has("target_channel_id"))
+                    listOf(body.text("target_channel_id").also { require(it.matches(ID)) }) else emptyList()
+                else -> emptyList()
+            }
             return (fields + target).joinToString(":").toByteArray(Charsets.UTF_8)
         }
 

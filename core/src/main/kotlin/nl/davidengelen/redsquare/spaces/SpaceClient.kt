@@ -119,14 +119,18 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val previous = requireNotNull(channelProfile(space, channel, state, target, record))
         require(profile.kind == previous.kind)
         val metadata = if (record.visibility == SpaceVisibility.PRIVATE) {
-            require(record.allowedMembers != null && record.kind != null && target.get("joined")?.asBoolean == true)
-            val keys = SpaceCrypto.restore(decode(target.text("crypto")))
-            require(keys.scope == SpaceCrypto.Scope(service, space, channel, record.generation) &&
-                keys.epoch == record.epoch && keys.bindings == record.devices)
+            require(record.kind != null)
+            val metadataChannel = if (record.allowedMembers != null) channel else requireNotNull(snapshot.generalChannelId)
+            val metadataGroup = requireNotNull(snapshot.channels[metadataChannel])
+            val metadataState = channelState(space, metadataChannel, state)
+            require(metadataGroup.visibility == SpaceVisibility.PRIVATE && metadataState.get("joined")?.asBoolean == true)
+            val keys = SpaceCrypto.restore(decode(metadataState.text("crypto")))
+            require(keys.scope == SpaceCrypto.Scope(service, space, metadataChannel, metadataGroup.generation) &&
+                keys.epoch == metadataGroup.epoch && keys.bindings == metadataGroup.devices)
             keys.publish(wallet, "channel-profile-edit", id(), requireNotNull(snapshot.controlId), JsonObject().apply {
                 addProperty("version", 2); addProperty("channel_id", channel)
                 addProperty("name", profile.name); addProperty("category", profile.category)
-            }.toString(), clock.millis()).envelope()
+            }.toString(), clock.millis(), targetChannelId = channel).envelope()
         } else null
         val original = event(space, "edit-channel") {
             addProperty("control_id", requireNotNull(snapshot.controlId)); addProperty("channel_id", channel)
@@ -1664,6 +1668,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val original = SaitoEnvelope.decode(envelope)
             val contentKind = original.body.text("content_kind")
             require(contentKind in setOf("channel-profile", "channel-profile-edit"))
+            if (contentKind == "channel-profile-edit") require(if (original.body.has("target_channel_id"))
+                original.body.text("target_channel_id") == channel else record.allowedMembers != null && original.body.text("channel_id") == channel)
             val keyState = if (record.allowedMembers != null) data.takeIf { it.get("joined")?.asBoolean == true } ?: return null else parent
             val keys = SpaceCrypto.restore(decode(keyState.text("crypto")))
             val text = try { keys.read(envelope).text } catch (_: SpaceCrypto.MissingKeys) { return null }

@@ -1,11 +1,30 @@
 package nl.davidengelen.redsquare.spaces
 
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
+import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import org.junit.Assert.*
 import org.junit.Test
 
 class SpaceCryptoTest {
+    @Test fun encryptedChannelMetadataCannotBeRetargetedEvenWithANewValidEnvelopeSignature() {
+        val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
+        val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val scope = SpaceCrypto.Scope(service.publicKey, "a".repeat(64), "b".repeat(64))
+        val keys = SpaceCrypto.device(owner.publicKey, "c".repeat(64)).create(scope)
+        val metadata = keys.publish(owner, "channel-profile-edit", "d".repeat(64), "e".repeat(128),
+            "An actual encrypted private profile", 1_700_000_000_000, targetChannelId = "f".repeat(64))
+        assertEquals("An actual encrypted private profile", keys.read(metadata.envelope()).text)
+        val earlier = keys.publish(owner, "channel-profile-edit", "2".repeat(64), "e".repeat(128),
+            "Earlier own-group profile", 1_700_000_000_000)
+        assertFalse(SaitoEnvelope.decode(earlier.envelope()).body.has("target_channel_id"))
+        assertEquals("Earlier own-group profile", SpaceCrypto.restore(keys.save()).read(earlier.envelope()).text)
+        val body = SaitoEnvelope.decode(metadata.envelope()).body.deepCopy().apply { addProperty("target_channel_id", "1".repeat(64)) }
+        val retargeted = SaitoTransaction.create(owner, body, 1_700_000_000_000, listOf(service.publicKey))
+        assertEquals(owner.publicKey, SaitoEnvelope.decode(retargeted.envelope()).author)
+        assertThrows(javax.crypto.AEADBadTagException::class.java) { keys.read(retargeted.envelope()) }
+    }
+
     @Test fun portableHistoryKeysRecoverOldContentWithoutCloningAnActiveSenderIntoTheFreshGeneration() {
         val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixtures only.
         val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")

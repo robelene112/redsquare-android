@@ -327,6 +327,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         val messages = current.timeline(space, from = window.from, channel = target.channel)
                         val channels = current.channels(space); val members = current.members(space); val profile = current.profile(space)
                         val rulesToken = profile.takeIf { it.visibility == SpaceVisibility.PUBLIC }?.publicRulesToken
+                        val publicLink = if (profile.visibility == SpaceVisibility.PUBLIC && members.isNotEmpty()) current.publicLink(space) else null
+                        val invitation = current.invitation(space)
                         val listingIntent = current.listingIntent(space)
                         val archiveChange = current.archiveChange(space, target.channel)
                         val roleChange = current.roleChange(space)
@@ -336,7 +338,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         mutable.update { if (it.selected == space && selection.get() == token) it.copy(
                             selectedChannel = target.channel, current = community, channels = channels, members = members, anchor = anchor,
                             archiveChange = archiveChange, roleChange = roleChange, channelEdit = channelEdit, channelCreation = channelCreation, channelAccessChange = channelAccessChange,
-                            profiles = it.profiles + (space to profile), publicRulesToken = rulesToken, listingIntent = dirtyListings[space] ?: listingIntent,
+                            profiles = it.profiles + (space to profile), publicRulesToken = rulesToken, publicLink = publicLink, invitation = invitation,
+                            listingIntent = dirtyListings[space] ?: listingIntent,
                             draft = if (draftVersions[target]?.get() == version) draft else it.draft,
                             messages = messages, loadingChannel = false, contentLoaded = window.loaded, hasEarlier = window.hasEarlier,
                             hasLater = window.hasLater, windowFrom = window.from, followingLatest = historyWindows[target] == null) else it }
@@ -623,6 +626,22 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 if (granted) current.grantChannelAccess(space, channel, member) else current.revokeChannelAccess(space, channel, member)
             }
             publish(); wake.trySend(Unit)
+        }
+    }
+    /** An old rejection is acknowledged only after these selected settings have actually refreshed. */
+    fun refreshChannelSettings(space: String, channel: String, onRefreshed: () -> Unit) {
+        val route = navigationVersion.get()
+        val target = Target(space, channel)
+        localAction(Problem.CONNECTION, isCurrent = { navigationVersion.get() == route && mutable.value.target() == target }) {
+            network.withLock {
+                if (navigationVersion.get() != route || mutable.value.target() != target) return@withLock
+                requireNotNull(client).refresh(space, channel)
+                publish()
+                if (navigationVersion.get() == route && mutable.value.target() == target) {
+                    mutable.update { it.copy(availability = Availability.ONLINE) }
+                    onRefreshed()
+                }
+            }
         }
     }
     fun createChannel(space: String, profile: SpaceChannelProfile, privateMembers: Set<String>? = null) {

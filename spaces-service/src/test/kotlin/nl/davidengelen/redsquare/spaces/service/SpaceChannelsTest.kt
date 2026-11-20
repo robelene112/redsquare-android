@@ -27,6 +27,95 @@ class SpaceChannelsTest {
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
 
+    @Test(timeout = 45_000) fun earlierRestrictedMetadataEditsRemainBoundToTheirOwnSignedGroup() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("earlier-private-edit-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("earlier-private-edit-owner.sqlite").absolutePath).use { ownerStore ->
+                val receipts = mutableListOf<String>()
+                val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                    remote.exchange(original.envelope()).also { receipt ->
+                        if (SaitoEnvelope.decode(receipt).body.get("stream")?.asString == "control") receipts.add(receipt)
+                    }
+                }
+                val space = creator.create(SpaceProfile("Earlier restricted edit", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                val rootHead = SaitoEnvelope.decode(SaitoEnvelope.decode(receipts.single()).body.get("event").asString).id
+                val scope = SpaceCrypto.Scope(service.publicKey, space, "4".repeat(64))
+                val keys = SpaceCrypto.device(owner.publicKey, "5".repeat(64)).create(scope)
+                val initial = keys.publish(owner, "channel-profile", "6".repeat(64), rootHead, JsonObject().apply {
+                    addProperty("version", 1); addProperty("channel_id", scope.channelId); add("profile", SpaceChannelProfile("earlier-private").json())
+                }.toString(), clock.millis())
+                fun event(kind: String, operation: String, head: String, extra: JsonObject.() -> Unit) = SaitoTransaction.create(owner, JsonObject().apply {
+                    addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                    addProperty("space_id", space); addProperty("kind", kind); addProperty("operation_id", operation.repeat(64))
+                    addProperty("control_id", head); addProperty("channel_id", scope.channelId); extra()
+                }, clock.millis(), listOf(service.publicKey))
+                fun encoded(original: SaitoTransaction) = java.util.Base64.getEncoder().encodeToString(original.envelope().toByteArray(Charsets.UTF_8))
+                val creation = event("create-channel", "7", rootHead) {
+                    addProperty("visibility", "private"); addProperty("epoch", 0); addProperty("key_generation", scope.generation)
+                    addProperty("admin_posts_only", false); addProperty("channel_kind", "chat")
+                    add("allowed_members", com.google.gson.JsonArray())
+                    add("devices", JsonObject().apply { keys.bindings.forEach { (id, signer) -> addProperty(id, signer) } })
+                    addProperty("metadata", encoded(initial))
+                }
+                val created = remote.exchange(creation.envelope()); receipts.add(created)
+                assertEquals("control", SaitoEnvelope.decode(created).body.get("stream").asString)
+                val earlier = keys.publish(owner, "channel-profile-edit", "8".repeat(64), creation.id, JsonObject().apply {
+                    addProperty("version", 2); addProperty("channel_id", scope.channelId)
+                    addProperty("name", "compatible-earlier-rename"); addProperty("category", "History")
+                }.toString(), clock.millis())
+                assertFalse(SaitoEnvelope.decode(earlier.envelope()).body.has("target_channel_id"))
+                val edited = remote.exchange(event("edit-channel", "9", creation.id) { addProperty("channel_metadata", encoded(earlier)) }.envelope())
+                assertEquals("control", SaitoEnvelope.decode(edited).body.get("stream").asString); receipts.add(edited)
+                val journal = nl.davidengelen.redsquare.spaces.SpaceJournal(space, service.publicKey)
+                receipts.forEach(journal::receive)
+                assertEquals(SpaceChannelKind.CHAT, journal.snapshot.channels.getValue(scope.channelId).kind)
+                assertEquals("compatible-earlier-rename", com.google.gson.JsonParser.parseString(keys.read(earlier.envelope()).text).asJsonObject.get("name").asString)
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun generalEncryptedMetadataCannotBeRedirectedToAnotherPrivateChildOrGeneral() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("private-edit-target-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("private-edit-target-owner.sqlite").absolutePath).use { ownerStore ->
+                var other: String? = null
+                var general: String? = null
+                var checked = false
+                val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                    if (SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "edit-channel") {
+                        for ((target, operation) in listOf(requireNotNull(other) to "d", requireNotNull(general) to "e")) {
+                            val redirected = SaitoEnvelope.decode(original.envelope()).body.deepCopy().apply {
+                                addProperty("channel_id", target); addProperty("operation_id", operation.repeat(64))
+                            }
+                            val request = SaitoTransaction.create(owner, redirected, clock.millis(), listOf(service.publicKey))
+                            assertEquals("The signed metadata target cannot be replaced by an outer channel", "rejection",
+                                SaitoEnvelope.decode(remote.exchange(request.envelope())).body.get("stream").asString)
+                        }
+                        val redirected = SaitoEnvelope.decode(original.envelope()).body.deepCopy().apply {
+                            addProperty("channel_id", requireNotNull(general)); addProperty("operation_id", "f".repeat(64))
+                        }
+                        val metadataBody = SaitoEnvelope.decode(String(java.util.Base64.getDecoder().decode(redirected.get("channel_metadata").asString), Charsets.UTF_8))
+                            .body.deepCopy().apply { remove("target_channel_id") }
+                        val strippedMetadata = SaitoTransaction.create(owner, metadataBody, clock.millis(), listOf(service.publicKey))
+                        redirected.addProperty("channel_metadata", java.util.Base64.getEncoder().encodeToString(strippedMetadata.envelope().toByteArray(Charsets.UTF_8)))
+                        val strippedTarget = SaitoTransaction.create(owner, redirected, clock.millis(), listOf(service.publicKey))
+                        assertEquals("General requires an explicit target, even when both envelopes are re-signed", "rejection",
+                            SaitoEnvelope.decode(remote.exchange(strippedTarget.envelope())).body.get("stream").asString)
+                        checked = true
+                    }
+                    remote.exchange(original.envelope())
+                }
+                val space = creator.create(SpaceProfile("Separate private metadata targets")); creator.flush(space)
+                general = creator.community(space).channel
+                val first = creator.createChannel(space, SpaceChannelProfile("first-private")); creator.flush(space)
+                other = creator.createChannel(space, SpaceChannelProfile("second-private")); creator.flush(space)
+                creator.editChannel(space, first, SpaceChannelProfile("renamed-first")); creator.flush(space)
+                assertTrue(checked)
+                assertEquals("renamed-first", creator.channels(space).single { it.id == first }.profile.name)
+                assertEquals("second-private", creator.channels(space).single { it.id == other }.profile.name)
+                assertEquals("general", creator.channels(space).single { it.id == general }.profile.name)
+            }
+        }
+    }
+
     @Test(timeout = 45_000) fun anAdministratorWithoutCurrentChannelKeysCannotReplacePrivateMetadata() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("unready-edit-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("unready-edit-owner.sqlite").absolutePath).use { ownerStore ->
@@ -60,7 +149,14 @@ class SpaceChannelsTest {
         }
     }
 
-    @Test(timeout = 45_000) fun privateChannelRenamesStayEncryptedAndKeepReaderHistoryAndDraftsAfterProcessRecovery() = runBlocking<Unit> {
+    @Test(timeout = 45_000) fun privateChannelRenamesStayEncryptedAndKeepReaderHistoryAndDraftsAfterProcessRecovery() =
+        exercisePrivateEditing(SpaceVisibility.PUBLIC)
+    @Test(timeout = 45_000) fun privateGeneralRenamesUseTheCurrentGeneralKeysAndPreserveHistory() =
+        exercisePrivateEditing(SpaceVisibility.PRIVATE, general = true)
+    @Test(timeout = 45_000) fun unrestrictedPrivateChildRenamesUseGeneralMetadataKeysAndPreserveItsOwnHistory() =
+        exercisePrivateEditing(SpaceVisibility.PRIVATE)
+
+    private fun exercisePrivateEditing(visibility: SpaceVisibility, general: Boolean = false) = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("private-edit-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("private-edit-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("private-edit-reader.sqlite").absolutePath).use { readerStore ->
@@ -84,11 +180,25 @@ class SpaceChannelsTest {
                     var creator = manager()
                     fun reader() = SpaceClient(member, "fixture-node", service.publicKey, readerStore, clock) { remote.exchange(it.envelope()) }
                     var participant = reader()
-                    val space = creator.create(SpaceProfile("Private channel metadata", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
-                    participant.openPublic(space); participant.joinPublic(space); participant.flush(space); creator.refresh(space)
                     val originalProfile = SpaceChannelProfile("confidential-planning", category = "Private team")
-                    val channel = creator.createPrivateChannel(space, originalProfile, setOf(member.publicKey)); creator.flush(space)
-                    participant.refresh(space); participant.flush(space); creator.admitPending(space); creator.flush(space); participant.refresh(space)
+                    val space = creator.create(SpaceProfile("Private channel metadata", visibility = visibility),
+                        listOf(if (general) originalProfile else SpaceChannelProfile("general")))
+                    creator.flush(space)
+                    if (visibility == SpaceVisibility.PUBLIC) {
+                        participant.openPublic(space); participant.joinPublic(space); participant.flush(space)
+                    } else {
+                        val invitation = creator.invite(space); creator.flush(space)
+                        participant.join(invitation); participant.flush(space)
+                        creator.admitPending(space); creator.flush(space); participant.refresh(space)
+                    }
+                    creator.refresh(space)
+                    val channel = if (general) creator.community(space).channel else {
+                        val created = if (visibility == SpaceVisibility.PUBLIC) creator.createPrivateChannel(space, originalProfile, setOf(member.publicKey))
+                            else creator.createChannel(space, originalProfile)
+                        creator.flush(space); participant.refresh(space); participant.selectChannel(space, created); participant.flush(space)
+                        creator.admitPending(space); creator.flush(space); participant.refresh(space, created)
+                        created
+                    }
                     val message = participant.send(space, "The same private history survives renaming", channel); participant.flush(space)
                     participant.selectChannel(space, channel); participant.saveDraft(space, "Keep this private draft", channel)
                     creator.refresh(space, channel)
