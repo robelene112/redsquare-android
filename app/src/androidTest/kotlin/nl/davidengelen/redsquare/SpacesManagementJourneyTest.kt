@@ -72,6 +72,11 @@ class SpacesManagementJourneyTest {
             waitText("Membership message 17")
             ui.onNode(hasSetTextAction()).performTextReplacement(membershipDraft); closeKeyboard()
             history().performScrollToNode(hasText("Membership message 5"))
+            waitUntil(15_000) {
+                var committed = false
+                membershipClient { client -> committed = client.readingAnchor(fixtures.get("space").asString, fixtures.get("general").asString) != null }
+                committed
+            }
             saveReadingSnapshot("membership-before", fixtures, "general", visibleTexts = (0 until 18).map { "Membership message $it" })
             openMembershipRoster(); manageMembershipRow(fixtures.get("banned").asString)
             clickDialog(context.getString(R.string.spaces_ban_member))
@@ -237,7 +242,13 @@ class SpacesManagementJourneyTest {
         manageMembershipRow(key); clickDialog(context.getString(R.string.spaces_offer_ownership))
         if (compact) capture("11-compact-transfer-review")
         governanceConfirmation(context.getString(R.string.spaces_offer_ownership), context.getString(R.string.spaces_transfer_ownership)).clickReady()
+        waitUntil(5_000) {
+            ui.onAllNodes(isDialog()).fetchSemanticsNodes().size == 1 &&
+                ui.onAllNodes(hasText(context.getString(R.string.spaces_transfer_ownership)) and !hasClickAction() and hasAnyAncestor(isDialog())).fetchSemanticsNodes().isEmpty()
+        }
+        ui.waitForIdle(); instrumentation.waitForIdleSync()
         device.pressBack(); waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
+        ui.waitForIdle(); instrumentation.waitForIdleSync()
         device.pressBack()
         waitUntil(5_000) { ui.onNode(hasText(context.getString(R.string.spaces_information)) and !hasClickAction() and hasAnyAncestor(isDialog())).isDisplayed() }
     }
@@ -445,7 +456,7 @@ class SpacesManagementJourneyTest {
             waitUntil(governanceRemaining(started)) { status().getAsJsonArray("originals").count {
                 it.asJsonObject.get("id").asString == original } == 2 }
             assertGovernanceOriginal(original, "dissolve")
-            waitText(context.getString(R.string.spaces_dissolved_detail), governanceRemaining(started))
+            waitText(context.getString(R.string.spaces_dissolved), governanceRemaining(started))
             saveGovernanceRecovery("governance-dissolution-recovery", started, original, fixtures)
             ui.onNode(hasText(governanceDraft)).assertIsDisplayed()
             ui.onNode(hasSetTextAction() and hasText(governanceDraft)).assertDoesNotExist()
@@ -460,7 +471,7 @@ class SpacesManagementJourneyTest {
         val wallet = AndroidWalletStore(context)
         wallet.replace(wallet.loadExisting(), SaitoWallet.fromPrivateKey("0".repeat(63) + "5"))
         launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("governance-closed-visitor-failure") }) {
-            waitText(context.getString(R.string.spaces_dissolved_detail))
+            waitText(context.getString(R.string.spaces_dissolved))
             ui.onNode(hasText(context.getString(R.string.spaces_join_public)) and hasClickAction()).assertDoesNotExist()
             ui.onNode(hasText(governanceDraft)).assertDoesNotExist()
             capture("14-compact-other-identity-closed-reading")

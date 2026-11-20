@@ -262,7 +262,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         AnimatedVisibility(archived,
                             enter = fadeIn(tween(AppSpacing.transitionMillis)) + expandVertically(tween(AppSpacing.transitionMillis)),
                             exit = fadeOut(tween(AppSpacing.transitionMillis)) + shrinkVertically(tween(AppSpacing.transitionMillis))) {
-                            Text(stringResource(if (selected?.dissolved == true) R.string.spaces_dissolved_detail else R.string.spaces_channel_archived), color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            Text(stringResource(if (selected?.dissolved == true) R.string.spaces_dissolved else R.string.spaces_channel_archived), color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 style = MaterialTheme.typography.bodySmall)
                         }
                     }
@@ -351,7 +351,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         state.problem?.let { ProblemNotice(it, account::clearProblem) }
                         if (selected.dissolved) {
                             if (state.draft.isNotEmpty()) OutlinedTextField(state.draft, {}, readOnly = true,
-                                label = { Text(stringResource(R.string.spaces_saved_draft)) }, maxLines = 4,
+                                label = { Text(stringResource(R.string.spaces_saved_draft)) }, maxLines = if (compactReading) 1 else 4,
                                 modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp))
                         } else if (profile?.visibility != SpaceVisibility.PUBLIC || selected.joined) {
                             HorizontalDivider()

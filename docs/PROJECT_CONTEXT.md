@@ -1,23 +1,22 @@
 # Red Square Android project context
 
-## Active139: native observer corrections and private handover preparation
+## Active139: compact closed-history and native readiness corrections
 
-Governance44820574581 and public membership44820613631 remain whole FAIL. Both
-axes inspected all633frames and7capture pairs. The private-category first
-checkpoint/kill succeeds; category cold reading is not verified. Ban recovery
-actually accepts the same original in10.697seconds and retains its draft/anchor,
-then the observer fails before Lift. Native archive controls are now correctly
-disabled. These prefixes do not accept either whole journey.
+All recorded native parents remain whole FAIL. Both axes inspected all1433frames
+and21capture pairs from7487. Governance reaches both real kills and actual
+category15.637s/dissolution6.149s recovery, but the compact closed view leaves no
+room for messages. Stored anchors remain equal. The current UI uses a concise
+closed status and a compact readonly draft; full explanation and stored text
+remain available. Both main3m10 and instrumentation2m54 compile at stable inputs.
 
-Current corrections bind the saved-community accessible action and wait for the
-actual banned lazy row. The private-handover variant lets only Android acquire
-the successor credential, separating accepted consent from readiness/completion.
-Its actual host compiles/seeds cleanly; no Android transfer/read is yet claimed.
-Current product files match6177; fresh whole runs verify the new instrumentation.
-See the [originals, corrections and scope](evidence/ticket139/governance-native-preparation.json).
+Native Back now waits for the intended actual dialog; reading baselines wait
+for real persisted anchors. Revised prospective governance verification compares
+actual normal/compact visible baselines instead of wrongly requiring the body
+of a partially visible first item. Empty history remains a failure. No old
+freeze or failed outcome is changed. See the [originals and corrections](evidence/ticket139/governance-native-preparation.json).
 
-Continue139 then140-147 sequentially without a checkpoint stop. ApprovedB,
-beta142 and production/provider/public-write/file-hosting boundaries remain.
+Fresh complete native runs and all-frame/prototype assessment remain before139
+closes and140-147 proceed. ApprovedB, beta142 and production/provider gates stay.
 
 ## Earlier139: visibility and terminal closure source integrated
 

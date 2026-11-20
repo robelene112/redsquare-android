@@ -1,5 +1,5 @@
 {
-  "status": "Governance parents44816109822/44820574581 and public membership parent44820613631 remain whole FAIL. Current observer corrections and private-handover variant are prepared; no new native acceptance. Continue139 then140-147 sequentially.",
+  "status": "All recorded governance/public membership/private ownership parents remain whole FAIL. Current compact closed-history UI and native observer corrections compile; revised prospective governance verifier is reviewed. New complete native runs remain required. Continue139 then140-147.",
   "recordedAt": "2026-11-20T20:55:53.638210+00:00",
   "base": "ca68b8fbf8667409d91dd415f1a7919a119d37f6",
   "sourceFiles": {
@@ -99,7 +99,7 @@
     "Current membership/ownership native and whole139 acceptance, then140-147 sequentially."
   ],
   "unchanged": [
-    "Core/service production source remains atca68. The three declared app archive fixes are compiled by both whole6177 parents; those native parents remain failures. Current follow-up changes are test/host/driver/workflow only.",
+    "Core/service production source remains atca68. The earlier archive fixes are compiled by whole6177 parents. Current SpacesScreen closed-history layout changes additionally pass separate stable main/instrumentation compilation; new complete native verification is still required.",
     "Beta142 and production/provider/public-write/file-hosting boundaries."
   ],
   "finalPreparationReviews": [
@@ -368,5 +368,100 @@
       }
     ],
     "finalReviewAppend": "Only completed source/record review references appended; current source, retained originals, scopes and measured values unchanged."
+  },
+  "readingAndModalCorrection": {
+    "recordedAt": "2026-11-20T22:22:52.681786+00:00",
+    "base": "7487639d3079235c33f050ee98358332483dca5a",
+    "sourceFiles": {
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "63ed26f005dd7d00f64c93e836b8e8c262add390d2eb78d71b72009e4bd37add",
+      "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesScreen.kt": "2a624d78523c393a24c11fec2e8d0335762164891f746efd6b39103c744444f0"
+    },
+    "wholeFailures": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-native3-failure-assessment.json",
+        "sha256": "06e076682cb6baddd680b5d80286e097e8d885cd0df1eccaad523fd0b4f8b16d"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-membership-native2-failure-assessment.json",
+        "sha256": "e56a27de652f128b07a820754d1540b46e3427b75d12bbbd5397e321b0414bd8"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-private-ownership-native1-failure-assessment.json",
+        "sha256": "40b80d752ff5211b4b7afb75ad39e5d279b5af49060c144ef532b206e56ef6eb"
+      }
+    ],
+    "reachedScope": "Gov3 actually reaches four PIDs/two kills, category15.637s and dissolution6.149s accepted recovery and one native terminal case. Compact closed history is empty, so whole FAIL. Public member2 receives a proposal but role sheet remains after Back. Private owner1 never reaches handover; its early protected baseline is null despite the same visible bodies/pixels after recovery. No whole acceptance is assembled from these prefixes.",
+    "productCorrection": "Closed timeline uses concise existing Space closed status, retaining the full explanation in Community information. Saved readonly draft uses the same one-line compact limit as the active composer, preserving its complete stored/accessible value while leaving room for history. Normal wider/taller layouts retain four lines.",
+    "observerCorrections": [
+      "After confirmation, observe its disappearance and exactly the intended remaining dialog, then drain actual UI/native idle before physical Back. The exact previous OS target was not recorded; closing-popup consumption remains a source-consistent hypothesis, not a proven input trace.",
+      "Before protected reading baseline, wait for actual committed nonnull anchor. Existing persistence debounces150ms. No anchor is injected, reset or fabricated; the previous null baseline does not demonstrate reading-position loss."
+    ],
+    "compilation": [
+      {
+        "outcome": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-reading-main1-originals/139-native-reading-main1-outcome.json",
+          "sha256": "343a7237610522be771ad1211f1ee325577dab6ceeb6210546108e29cec66698"
+        },
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-reading-main1-originals/139-native-reading-main1.log",
+          "sha256": "d1617e712de7147dcabd18249d3bc764082c21b9b317026db021e67dc6872f04"
+        },
+        "exit": 0,
+        "unchanged": true
+      },
+      {
+        "outcome": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-reading-instrumentation1-originals/139-native-reading-instrumentation1-outcome.json",
+          "sha256": "343a7237610522be771ad1211f1ee325577dab6ceeb6210546108e29cec66698"
+        },
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-reading-instrumentation1-originals/139-native-reading-instrumentation1.log",
+          "sha256": "210bde0a0eaf58b65e954d7ea528dfa1aee9ddff69fc38186037ed690bbecbd8"
+        },
+        "exit": 0,
+        "unchanged": true
+      }
+    ],
+    "compileScope": "Actual separate main3m10 and instrumentation2m54, both exit0 and stable complete source snapshots. This is current compilation, not Android journey acceptance.",
+    "reviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-reading-corrections-spec-review.txt",
+        "sha256": "8f6fdb2e91a417195fad029117bb628d50d50145a1fa7db7b4795fbcbbd8094b"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-reading-corrections-standards-review.txt",
+        "sha256": "be07f9b6a0154abffe14d9e2eb011b1cdee8fb73549f23f8aa958f1034cb6af2"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-frozen4-draft-prospective-spec-review.txt",
+        "sha256": "a43eb263f762764b8d9085d71829346910d3b5f88952aead3110a8fd06d6a172"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-frozen4-draft-prospective-standards-review.txt",
+        "sha256": "ca3ccc9ac4b631788b32ebb91d86db1b3ba0e13ba8ca1568b55e6800c43f2a62"
+      }
+    ],
+    "prospectiveVerifierCorrection": {
+      "draft": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-governance-validator-revision4-draft/verify-139-native-governance.py",
+        "sha256": "a6740451fa0d22fa98deca42370b024ff87c855248939b1a0aced50969fa572a"
+      },
+      "qualification": "Old frozen body2 visibility assertion misread a partial first lazy item. Actual normal baseline/restored/public show identical bodies3/4/5 and pixels with retained anchor2/71. New revision requires exact normal visible-list/pixel equality, full protected anchor/scope/follow and positive nonempty bodies, plus actual compact-baseline overlap for closed history. Empty history still fails. Prior freezes, goals, deadlines and whole failures remain unchanged."
+    },
+    "remaining": [
+      "Freeze corrected exact source and prospective verifier inputs; run complete affected native parents.",
+      "Actual all-frame/prototype reviews and complete139 acceptance before sequential140-147."
+    ],
+    "finalReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-reading-final-record-spec-review.txt",
+        "sha256": "f302af373fe52558558269c768993502c6c83d634928a3ec15aef3a844940b5a"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-reading-final-record-standards-review.txt",
+        "sha256": "904609195aff7e0a4d3a7068d8e80d543724a4b33132afb0bc7754621d6f9fca"
+      }
+    ],
+    "finalReviewAppend": "Only completed review references appended after inspection; tested source, retained originals and scope are unchanged."
   }
 }
