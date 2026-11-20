@@ -30,6 +30,37 @@ class SpaceDiscoveryTest {
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val visitor = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
 
+    @Test(timeout = 45_000) fun publicReadingUsesOneAuthenticatedSmallPageAndKeepsTheCorrectLargePageTail() = runBlocking<Unit> {
+        for (count in listOf(3, 53)) {
+            SpacesServiceStore(files.newFolder("public-page-$count").toPath(), service, clock).use { remote ->
+                SqliteClientFixture(files.newFile("public-page-owner-$count.sqlite").absolutePath).use { ownerStore ->
+                    SqliteClientFixture(files.newFile("public-page-reader-$count.sqlite").absolutePath).use { readerStore ->
+                        val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                        val space = creator.create(SpaceProfile("Bounded public history", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                        repeat(count) { creator.send(space, "Public line $it") }; creator.flush(space); creator.flush(space)
+                        assertEquals("The complete declared fixture reached the service", "Public line ${count - 1}", creator.messages(space).last())
+                        val cursors = mutableListOf<Long>()
+                        val reader = SpaceClient(visitor, "fixture-node", service.publicKey, readerStore, clock) { original ->
+                            val request = SaitoEnvelope.decode(original.envelope()).body
+                            if (request.get("request")?.asString == "read" && request.getAsJsonObject("scope")?.get("stream")?.asString == "content")
+                                cursors.add(request.getAsJsonObject("scope").get("cursor").asLong)
+                            remote.exchange(original.envelope())
+                        }
+                        reader.openPublic(space); reader.refresh(space)
+                        assertEquals("A small first page is consumed directly; a long history requests its actual tail",
+                            if (count <= 50) listOf(0L) else listOf(0L, 3L), cursors)
+                        assertEquals(((count - 50).coerceAtLeast(0) until count).map { "Public line $it" }, reader.messages(space))
+                        assertFalse(reader.community(space).joined)
+                        cursors.clear()
+                        creator.send(space, "Public line $count"); creator.flush(space); reader.refresh(space)
+                        assertEquals("An incremental read starts at its known cursor", listOf(count.toLong()), cursors)
+                        assertEquals("Public line $count", reader.messages(space).last())
+                    }
+                }
+            }
+        }
+    }
+
     @Test fun aKnownPublicReferenceRestoresVerifiedLocalReadingWithoutNetworkOrAdmission() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("cached-public-link").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("cached-link-owner.sqlite").absolutePath).use { ownerStore ->

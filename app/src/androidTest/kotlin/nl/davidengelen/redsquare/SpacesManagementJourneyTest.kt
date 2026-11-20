@@ -11,6 +11,7 @@ import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
@@ -263,8 +264,7 @@ class SpacesManagementJourneyTest {
     }
     private fun waitDialogError() = waitUntil(5_000) {
         val node = ui.onNode(hasText(saveError) and hasAnyAncestor(isDialog()))
-        node.isDisplayed() && (node.getUnclippedBoundsInRoot().bottom - node.getUnclippedBoundsInRoot().top).value * context.resources.displayMetrics.density <=
-            node.fetchSemanticsNode().boundsInRoot.height + 1f
+        node.isDisplayed() && node.fetchSemanticsNode().let { it.size.height <= it.boundsInRoot.height + 1f }
     }
     private fun history() = ui.onNode(hasScrollToNodeAction() and onScreen)
     private fun closeKeyboard() { ui.waitForIdle(); androidx.test.espresso.Espresso.closeSoftKeyboard() }
@@ -273,11 +273,25 @@ class SpacesManagementJourneyTest {
     private val onScreen get() = SemanticsMatcher("on-screen management route") { it.boundsInRoot.left >= 0 && it.boundsInRoot.top >= 0 && it.boundsInRoot.right > 0 }
     private fun SemanticsNodeInteraction.clickReady(timeout: Long = 5_000) {
         waitUntil(timeout) { isDisplayed() && !fetchSemanticsNode().config.contains(androidx.compose.ui.semantics.SemanticsProperties.Disabled) }
-        val raw = getUnclippedBoundsInRoot()
-        val clipped = fetchSemanticsNode().boundsInRoot
-        val density = context.resources.displayMetrics.density
-        assertTrue("The actual control is at least48dp", (raw.bottom - raw.top).value >= 47.5f && (raw.right - raw.left).value >= 47.5f)
-        assertTrue("The complete control remains visible", (raw.bottom - raw.top).value * density <= clipped.height + 1f)
+        val node = fetchSemanticsNode()
+        val clipped = node.boundsInRoot
+        val touch = node.touchBoundsInRoot
+        val density = node.layoutInfo.density.density
+        val root = generateSequence(node) { it.parent }.last().boundsInRoot
+        fun rectangle(value: androidx.compose.ui.geometry.Rect) = JsonArray().apply {
+            add(value.left); add(value.top); add(value.right); add(value.bottom)
+        }
+        val geometry = JsonObject().apply {
+            addProperty("pid", Process.myPid()); addProperty("node", node.id)
+            addProperty("density", density); addProperty("timeMs", SystemClock.elapsedRealtime())
+            addProperty("layoutWidth", node.size.width); addProperty("layoutHeight", node.size.height)
+            add("clipped", rectangle(clipped)); add("touch", rectangle(touch)); add("root", rectangle(root))
+        }
+        File(evidence, "control-geometry.jsonl").appendText(geometry.toString() + "\n")
+        assertTrue("The actual touch target is at least48dp: $geometry", touch.height / density >= 47.5f && touch.width / density >= 47.5f)
+        assertTrue("The complete layout remains visible: $geometry", node.size.height <= clipped.height + 1f && node.size.width <= clipped.width + 1f)
+        assertTrue("The touch target stays inside its window: $geometry", touch.left >= root.left - 1f && touch.top >= root.top - 1f &&
+            touch.right <= root.right + 1f && touch.bottom <= root.bottom + 1f)
         assertIsEnabled().performClick()
     }
     private fun waitText(text: String, timeout: Long = 15_000) = waitUntil(timeout) { ui.onNode(hasText(text) and onScreen).isDisplayed() }

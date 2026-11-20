@@ -89,3 +89,16 @@ pass and both source review axes are clear. Its RED was compilation-only; no
 runtime failure is fabricated. This API is newer than the current b14 native
 parents and is not proved by their outcomes. The edit UI and remaining139 work
 are pending.
+
+The [reading and touch recovery record](management-reading-touch-recovery.json)
+preserves both failed second native parents. Android17 exposed initial reading
+beyond the unchanged15-second goal; Android10 exposed layout being confused with
+an expanded touch area. Bounded verified page reuse and transactional control
+batching remove duplicate work while preserving authentication/ordering/rollback.
+Touch checks use the actual clickable area and retain48dp, full-layout visibility
+and window containment, with raw geometry retained for independent assessment.
+All83 service cases and the optional public-edit capability bridge contract pass;
+both source and prospective-assessor axes are clear. An incomplete53-message fixture
+failure is retained separately and corrected without changing its volume or goals.
+Fresh complete native parents, actual timing and complete visual acceptance remain
+pending. Public edit UI and the remaining139 scope are still incomplete.

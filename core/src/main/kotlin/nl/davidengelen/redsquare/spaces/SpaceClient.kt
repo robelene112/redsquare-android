@@ -359,9 +359,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                     addProperty("next_outbox", 0); addProperty("content_cursor", 0)
                 }
                 put(stateKey(space), bytes(state))
-                for (receipt in controls) accept(space, receipt)
+                val accepted = journal(space)
+                for (receipt in controls) accept(space, receipt, controlJournal = accepted)
                 if (wallet.publicKey in journal.snapshot.members) put("communities/$space", space.toByteArray(Charsets.UTF_8))
-            } else controls.forEach { accept(space, it) }
+            } else {
+                val accepted = journal(space)
+                controls.forEach { accept(space, it, controlJournal = accepted) }
+            }
         }
         return community(space)
     }
@@ -815,8 +819,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 readControls(null)
             }
             store.transaction {
-                owned(); controls.getAsJsonArray("items").forEach { accept(space, it.asString) }
-                require(journal(space).snapshot.nextPosition == controls.number("next_cursor"))
+                owned()
+                val accepted = journal(space)
+                controls.getAsJsonArray("items").forEach { accept(space, it.asString, controlJournal = accepted) }
+                require(accepted.snapshot.nextPosition == controls.number("next_cursor"))
             }
             if (controls.number("next_cursor") == controlCursor) return
         }
@@ -855,8 +861,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
     }
 
+    private data class AuthenticatedContent(val envelope: String, val receipt: SignedSaitoMessage, val original: SignedSaitoMessage)
+
     private suspend fun ensureAuthorization(space: String, envelope: String, expectedChannel: String,
-        pageControls: MutableMap<String, SpaceJournal>? = null) {
+        pageControls: MutableMap<String, SpaceJournal>? = null): AuthenticatedContent {
         val signed = SaitoEnvelope.decode(envelope)
         require(signed.author == service && signed.body.text("module") == "Spaces" && signed.body.number("version") == 1L &&
             signed.body.text("request") == "receipt" && signed.body.text("space_id") == space && signed.body.text("stream") == "content")
@@ -865,7 +873,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(original.body.text("space_id") == space && original.body.text("channel_id") == channel &&
             channel == expectedChannel) { "Community content belongs to a different channel" }
         val control = signed.body.get("authorized_control")?.asString ?: original.body.text("control_id")
-        if (pageControls?.containsKey(control) == true) return
+        val authenticated = AuthenticatedContent(envelope, signed, original)
+        if (pageControls?.containsKey(control) == true) return authenticated
         var authority = store.transaction { journal(space, through = control) }
         if (authority.snapshot.controlId != control) {
             syncControls(space)
@@ -873,10 +882,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
         require(authority.snapshot.controlId == control)
         pageControls?.put(control, authority)
+        return authenticated
     }
 
-    private suspend fun contentPage(space: String, cursor: Long, until: Long? = null, channel: String): Long {
-        val result = readPage(JsonObject().apply {
+    private suspend fun contentPage(space: String, cursor: Long, until: Long? = null, channel: String, received: JsonObject? = null): Long {
+        val result = received ?: readPage(JsonObject().apply {
             addProperty("space_id", space); addProperty("stream", "content")
             addProperty("channel_id", channel); addProperty("cursor", cursor)
         })
@@ -887,13 +897,15 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         // only within this bounded page; each receipt and original still has
         // its own signature, Space/channel and content permission checks.
         val pageControls = mutableMapOf<String, SpaceJournal>()
-        for (item in selected) ensureAuthorization(space, item, channel, pageControls)
+        val authenticated = mutableMapOf<String, AuthenticatedContent>()
+        for (item in selected) authenticated[item] = ensureAuthorization(space, item, channel, pageControls)
         return store.transaction {
             owned()
             var next = cursor
             for (item in selected) {
-                require(SaitoEnvelope.decode(item).body.number("position") == next)
-                accept(space, item, pageControls); next = Math.addExact(next, 1)
+                val verified = requireNotNull(authenticated[item])
+                require(verified.receipt.body.number("position") == next)
+                accept(space, item, pageControls, authenticated = verified); next = Math.addExact(next, 1)
             }
             require(next == minOf(result.number("next_cursor"), until ?: Long.MAX_VALUE))
             next
@@ -923,16 +935,15 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         syncControls(space)
         val currentChannel = store.transaction { requireNotNull(journal(space).snapshot.channels[targetChannel]) }
         if (currentChannel.visibility != SpaceVisibility.PUBLIC && !store.transaction { channelState(space, targetChannel).get("joined")?.asBoolean == true }) return
-        val end = if (currentChannel.visibility == SpaceVisibility.PUBLIC) {
-            readPage(JsonObject().apply {
-                addProperty("space_id", space); addProperty("stream", "content")
-                addProperty("channel_id", targetChannel); addProperty("cursor", 0)
-            }).number("content_end")
-        } else refreshKeys(space, targetChannel)
         val before = store.transaction { channelState(space, targetChannel) }
         val first = !before.has("content_loaded")
-        val cursor = if (first) (end - 50).coerceAtLeast(0) else before.number("content_cursor")
-        val next = contentPage(space, cursor, channel = targetChannel)
+        val leading = if (currentChannel.visibility == SpaceVisibility.PUBLIC && first) readPage(JsonObject().apply {
+            addProperty("space_id", space); addProperty("stream", "content")
+            addProperty("channel_id", targetChannel); addProperty("cursor", 0)
+        }) else null
+        val end = if (currentChannel.visibility == SpaceVisibility.PUBLIC) leading?.number("content_end") else refreshKeys(space, targetChannel)
+        val cursor = if (first) (requireNotNull(end) - 50).coerceAtLeast(0) else before.number("content_cursor")
+        val next = contentPage(space, cursor, channel = targetChannel, received = leading?.takeIf { cursor == 0L })
         store.transaction {
             val current = channelState(space, targetChannel)
             require(current.number("content_cursor") == before.number("content_cursor"))
@@ -1118,16 +1129,18 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
 
     private fun SpaceClientStore.Transaction.accept(space: String, envelope: String,
-        pageControls: Map<String, SpaceJournal> = emptyMap()) {
-        val receipt = SaitoEnvelope.decode(envelope)
+        pageControls: Map<String, SpaceJournal> = emptyMap(), controlJournal: SpaceJournal? = null,
+        authenticated: AuthenticatedContent? = null) {
+        require(authenticated == null || authenticated.envelope == envelope)
+        val receipt = authenticated?.receipt ?: SaitoEnvelope.decode(envelope)
         val body = receipt.body
         require(receipt.author == service && body.text("module") == "Spaces" && body.number("version") == 1L &&
             body.text("request") == "receipt" && body.text("space_id") == space)
-        val original = SaitoEnvelope.decode(body.text("event"))
+        val original = authenticated?.original ?: SaitoEnvelope.decode(body.text("event"))
         val state = state(space)
         when (body.text("stream")) {
             "control" -> {
-                val journal = journal(space)
+                val journal = controlJournal ?: journal(space)
                 journal.receive(envelope)
                 val position = body.number("position")
                 val key = "$space/control/${positionKey(position)}"

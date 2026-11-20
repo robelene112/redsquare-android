@@ -1,7 +1,7 @@
 {
   "version": 1,
   "ticket": 139,
-  "status": "Prospective complete retry; no fresh native result yet",
+  "status": "Second complete native parents failed; Android17initialreading andAndroid10layout-vs-touch issues retained in next recovery record.",
   "previousContract": "management-native-contract.json",
   "publicChannelBoundarySource": "84690147fe9a553d10a3eb488dfcfa75a94c96c0",
   "failedParents": [
@@ -76,11 +76,11 @@
     "service": 81,
     "serviceClasses": 8,
     "reason": "Preserves all79 named previous service cases and adds two independently tested public-channel metadata cases. No omission or skip.",
-    "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-expected-cases.json",
+    "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-validator-revision2/139-management-expected-cases.json",
     "sha256": "6a38eff41c0a7c2ecdcbd12cf05c24de7beeca6c5e04e566e0014b0b9b8f9332"
   },
   "prospectiveAssessor": {
-    "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/verify-139-native-management.py",
+    "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-validator-revision2/verify-139-native-management.py",
     "sha256": "a2a8ddd8449aa25f503c7a4320f2b4e411806707f751bcdf7eb85ccbc5007e35",
     "goals": "Management-v1 fourphases/twoactualkills/twoterminal/distinct4PIDs/180sphase/5saction/15scontent/1pixel/320font2/3viewportprobes remain unchanged. Separate exactsource freeze before dispatch."
   },

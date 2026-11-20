@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "ticket": 139,
+  "status": "Reviewed source correction; actual fresh Android acceptance pending",
+  "base": "c38215914ba4d20fec8c3c1edbb2c0fee75098ef",
+  "sourceFiles": {
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "2c17a23d283b8304514343e4bfc8c1694da1f1bc1462be509039824900224fce",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "93a739bf150c50032f659ccd8bcc8abd7ebe0f79be04102a448614b72b8d5307",
+    "integrations/saito-spaces/bridge.cjs": "dfbe636b6e3fb1832b5d48155a21cd512aa84943159cf87604e650f4d36c1f04",
+    "integrations/saito-spaces/spaces.js": "7bca7ea1c4b51e6556a474072f4c13ba9ec9f47a155866a4129b66ec19ab9562",
+    "integrations/saito-spaces/test/bridge.test.cjs": "f47bb8a26d8a5b12f9aa852d64de9d9ea96b36bdd5c8f2dda5b607f4bb5b3a9d",
+    "integrations/saito-spaces/test/interop.cjs": "256ef7b6e7859f405109009e4ebfe151c71e6c1a9e55d8f1fe308b7790d16d6e",
+    "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt": "114ce97b1b0d7a9a72290624b8d8a34617cfca3f12676108539d0ae46c227757",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceDiscoveryTest.kt": "3245a5fe81f2a1e32365a7e86ac222657e88c05c7d4ab7ad02ee4e8eedae9616",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStoreTest.kt": "fc2faaddb37c5a58158a1b16908bc6789fc8353aa3e90bc9be2fd1c855257c99"
+  },
+  "failedNativeParents": [
+    {
+      "run": 44641268781,
+      "source": "b14ed3589a51bac05d4b8e1a416be534d5903553",
+      "whole": "FAILURE",
+      "root": "/mnt/storage/redsquare-android-artifacts/spaces139-runtime/attempt2-44641268781",
+      "archiveSha256": "d6a5760e0c34ad010b0a9377c6ea40916b93e3dd97a67c4548aa672d2ca2a1d7",
+      "apiDigestAndCrc": "PASS",
+      "native": "Initialpublicreadingfailed15s; actualspinner, metadata~8.1s/lastcontentnetwork~12.5s/no completedprojection. Duplicatedpublicpage/controlverificationworkidentified; actualCPUvsKeystoreunmeasured, noenvironmentfailureclaim.",
+      "developmentModules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 81,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "cleanup": {
+        "originalFailure": "RuntimeError",
+        "errors": []
+      }
+    },
+    {
+      "run": 44641272678,
+      "source": "b14ed3589a51bac05d4b8e1a416be534d5903553",
+      "whole": "FAILURE",
+      "root": "/mnt/storage/redsquare-android-artifacts/spaces139-runtime/attempt2-44641272678",
+      "archiveSha256": "d435b447da8f1a6f5a9ed4d4fb45cd5403ae111eb9231f35559ae38577ce71f6",
+      "apiDigestAndCrc": "PASS",
+      "native": "ActualInfo controlfails layout>=48dp observer; rawlayout isnotexpandedtouch. PinnedCompose supportsnode.touchBoundsInRoot; correcttouchmeasurementwithsame48goal andseparatelayoutvisibility.",
+      "developmentModules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 81,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "cleanup": {
+        "originalFailure": "RuntimeError",
+        "errors": []
+      }
+    }
+  ],
+  "productCorrection": "Publiccoldreadingconsumestheactualverifiedcursor0pagewhenitcontainsthetail; >50readsthecorrecttail. Incrementalpublicreadingusesknowncursor. Verifiedreceipt/originaltuplesstayprivatewithinoneboundedpage andbindthefullenvelope; scope, ordering, membership, role, epoch andsignature checksremain. Controlbatchreplaysonejournalonlywithintherollbacktransaction; noglobalcache.",
+  "touchCorrection": "PinnedCompose1.11.4actualtouchBoundsInRoot/nodeDensitymeasures48dpwiththeexisting0.5dptolerance; layoutvisibilityremainsseparateandcheckedinbothdimensions, expandedtouchstaysinitswindow. Rawper-actiongeometryJSONLallowsindependentchecking. PublicunannotatedpinnedAPIsneednoexperimentalopt-in. No deadlineorvolumechange.",
+  "publicEditCapability": "Optionalpublic-channel-edit-v1 isadvertisedonlybythematchingreadyservice; older/mismatched/removedfeaturesresetfalse. Peeradvertspaces-public-channel-edit-v1. ActualNodebridgeREDundefinedvsfalse then1GREEN; source/servicecapabilitysupportedpublicmetadataonly. Pinnedframeworkrehearsalsremainpending.",
+  "developmentEvidence": {
+    "publicPageRed": {
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-initial-public-page-red-originals",
+      "tests": 1,
+      "failures": 1,
+      "observation": "Actualsmallpagecontentreadcursors[0,0] vsrequired[0]."
+    },
+    "firstFullService": {
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-initial-public-page-service-failed-originals",
+      "tests": 83,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "observation": "Newlargefixturequeued53butflushwasbounded50; expectedtail[0,3], actual[0]. Not a product-page failure."
+    },
+    "correctedFullService": {
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-initial-public-page-service-fixture-green-originals",
+      "classes": 8,
+      "tests": 83,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 202,
+      "assessmentSha256": "ae8d4f69d5249edafd3df0481b0be33d036b0a5071145d12fe34776e8fc1c29f",
+      "correction": "Twoexplicitflushesandliteralcompletefixtureguard; declared3/53volumesandexpectedtailsunchanged. Allpriorcasesretained, includingforeigncallbacks,reorderedatomicrollback, privatehistoryandrole/archivework."
+    },
+    "node": {
+      "redOriginals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-public-edit-capability-red-originals",
+      "greenLog": "139-public-edit-capability-green.log",
+      "tests": 1,
+      "failures": 0,
+      "sha256": "24b97b49a0d2808c1ff1aa0e45e86d8a569ba36c1166b932630e7efc086702df"
+    }
+  },
+  "sourceReviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-reading-touch-capability-spec-review.txt",
+      "sha256": "a1f38cbc2a1994ce268869a02424c7065c7facefa74af6aa53504bb0d645ebb2"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-reading-touch-capability-standards-review.txt",
+      "sha256": "aa83f2bf9a18d9774a1871aafe2a2249e4099bfd47061304734878c5057b0e81"
+    },
+    "assessorSpec": {
+      "findings": 0,
+      "report": "139-reading-touch-assessor-spec-review.txt",
+      "sha256": "f7883d56d9b7f0c1c7b92e61df2b481b89613b5719355482ec7a8a0fe67cf206"
+    },
+    "assessorStandards": {
+      "findings": 0,
+      "report": "139-reading-touch-assessor-standards-review.txt",
+      "sha256": "6fc1dcd158a7c5456930e04e291720b8be374661a91d8c3f81000c59041c82c6"
+    }
+  },
+  "prospectiveNative": {
+    "catalogue": "244core/83service, allold81plusAPIoneandpublicpageone",
+    "cataloguePath": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-expected-cases.json",
+    "catalogueSha256": "61df6584d1872e9f6915f69c484a25dacc7c009fb4599a8709529c38cd917975",
+    "assessorPath": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/verify-139-native-management.py",
+    "assessorSha256": "0ffdc12fbe89bb7c25495eb23075b9d2068f220ce59291d0df06f230551b17a4",
+    "goals": "Management-v1unchanged4phases/twoactualkills/twoterminal/fourdistinctPIDs/180sphase/5saction/15scontent/1pixel/320font2/threeviewportprobes/min48dp. Rawgeometryvalidationadded.",
+    "compile": "FreshcompleteCIcompilesactualapp/testsourcesbeforeemulator. No duplicateVPSnativecompileforthispublicpinnedAPI-onlyobserverchange. No newnativePASSyet."
+  },
+  "qualification": "Product/API/capabilitysource changedafterfailedb14parents; no byte-identicalperformance-onlycomparisonclaimed. Actualunchanged15sgoal, fullmovies/prototype/geometry needfreshwholeparents. EditUI, categorymanagement/privateACL/futurekeyexclusion/transfer/visibility/dissolve andremaining139areincomplete. Beta142unchanged; no production/provider/public/financial/filehostingactivation."
+}

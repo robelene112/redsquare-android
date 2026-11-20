@@ -26,6 +26,10 @@ Fresh complete Android10/17 parents are required.
 Public edit intent/status also passes three current SQLite cases and both source
 review axes; exact originals, conflicts and drafts recover without optimistic
 accepted metadata. Its edit UI and remaining139 scope are pending.
+Second native parents remain failed: Android17initialread15s andAndroid10layout-vs-touch
+observer. Reviewed bounded page/control work and actual touch geometry corrections
+pass all83 service cases and the Node capability contract. Fresh whole native
+verification remains required; see the current139 packet for exact originals.
 Keep the sequential139–147 authorization and separate release/production gates
 below. Ordinary beta142 remains unchanged.
 
