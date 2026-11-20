@@ -131,3 +131,9 @@ constructor. Four current channel cases pass with independent received metadata,
 unchanged selected channel/draft and member denial. Both incremental source axes
 are clear. Its new API RED was compilation-only. Creation UI and whole139 remain
 incomplete; no native or beta delivery is claimed by this source increment.
+
+Fourth whole native parents remain failed after two actual kills each. Original
+PNG/XML show Workshop correctly restored at a later same-Space reopen; the
+observer expected General. The [last-channel observer correction](last-channel-observer-recovery.json)
+changes that expectation while preserving all goals and the later General check.
+Both independent review axes are clear; fresh whole10/17 parents are required.

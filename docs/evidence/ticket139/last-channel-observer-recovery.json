@@ -1,0 +1,81 @@
+{
+  "ticket": 139,
+  "scope": "Observer-only last-selected-channel correction for management-v2; no accepted whole native parent.",
+  "base": "53ffc0753b30a141136151222f50f91ea59429bd",
+  "sourceFile": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt",
+  "sourceSha256": "f2d18aabcc44ee1a1f25dd2a061a4aa3f60f1c7f755d1516d89e7f8be66c5ec1",
+  "failedParents": [
+    {
+      "whole": "FAILURE",
+      "run": 44652645589,
+      "source": "82300b81ebd075f1b3331da097f276f4be683154",
+      "archiveSha256": "79370095d19c34ed3bf643e1b09ff38e07bc0844a3ebb77ed09d688834633f9b",
+      "apiDigestAndCrc": "PASS",
+      "modules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 83,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Two actual distinct-PID kills completed; phase3 cold archive recovery, readable workshop history, reopening and real local SQL error checks progressed. Subsequent same-Space relaunch correctly restores workshop and its draft. Observer incorrectly waited for General text instead. Both original failure PNG/XML show workshop. Correct expected workshop content, keep same15second read/5second action/180phase bounds. Wholefailedparents remainfailed, no prefix acceptance.",
+      "actualKills": 2,
+      "nativeTerminalPasses": 0,
+      "cleanup": {
+        "originalFailure": "RuntimeError",
+        "errors": []
+      }
+    },
+    {
+      "whole": "FAILURE",
+      "run": 44652648659,
+      "source": "82300b81ebd075f1b3331da097f276f4be683154",
+      "archiveSha256": "68c696d627b1355ce367c4dd5acfe662124935eda62ecc9f6d2a1113312a5a05",
+      "apiDigestAndCrc": "PASS",
+      "modules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 83,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Two actual distinct-PID kills completed; phase3 cold archive recovery, readable workshop history, reopening and real local SQL error checks progressed. Subsequent same-Space relaunch correctly restores workshop and its draft. Observer incorrectly waited for General text instead. Both original failure PNG/XML show workshop. Correct expected workshop content, keep same15second read/5second action/180phase bounds. Wholefailedparents remainfailed, no prefix acceptance.",
+      "actualKills": 2,
+      "nativeTerminalPasses": 0,
+      "cleanup": {
+        "originalFailure": "RuntimeError",
+        "errors": []
+      }
+    }
+  ],
+  "observation": "Both original PNG/XML pairs visually inspected. Same-Space reopen retains workshop and its draft; the observer expected General text. Only expected text and explanatory comment change. Subsequent explicit General selection/draft assertion retained.",
+  "unchangedGoals": "4phases/2kills/2terminal/4PIDs/180sphase/5saction/15sread/1pixel/48dp/combined27seditor; all original parents remain failed.",
+  "sourceReviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-last-channel-observer-spec-review.txt",
+      "sha256": "77eb7b7024937b1cc6fcc7c117d52bd52a4e54d3df92dd8583361110c9711a1c"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-last-channel-observer-standards-review.txt",
+      "sha256": "a5b0a50b118e614a55ee3ed01fcc1cedc445d3f4ada8eddddf952d16c4146c4c"
+    }
+  },
+  "next": "Fresh exact-source complete Android10/17 parents and all-frame/prototype/geometry review required.",
+  "qualification": "No whole139, physical/OEM, release or production acceptance. Ordinary beta142 unchanged."
+}

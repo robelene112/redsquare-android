@@ -158,7 +158,8 @@ class SpacesManagementJourneyTest {
             }
         } }
         launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("announcement-management-failure") }) {
-            waitText("Management message 5")
+            // Reopening the Space preserves its last selected channel, workshop.
+            waitText("A workshop message kept through archive")
             chooseChannel("announcements"); openInformation(); clickDialog("Archive channel")
             waitUntil { ui.onNode(hasText("Reopen channel") and hasClickAction() and isEnabled()).isDisplayed() }
             device.pressBack()
