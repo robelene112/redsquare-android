@@ -50,7 +50,7 @@ import nl.davidengelen.redsquare.registry.registeredIdentity
 
 @Composable internal fun SpaceLeaveControls(account: SpacesAccount, state: SpacesAccount.State) {
     val current = state.current ?: return
-    if (!current.joined || !state.membershipSupported) return
+    if (!current.joined || current.dissolved || !state.membershipSupported) return
     val owner = state.members.any { it.publicKey == account.ownerKey && it.role == SpaceRole.OWNER }
     var confirming by rememberSaveable(current.id) { mutableStateOf(false) }
     HorizontalDivider()

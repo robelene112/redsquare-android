@@ -76,7 +76,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
     val rosterReady = bound && !state.loading && !state.loadingChannel && state.current != null
     val change = state.channelCreation?.takeIf { bound }
     val pending = change?.status in setOf(SpaceClient.ChangeStatus.QUEUED, SpaceClient.ChangeStatus.AWAITING_CONFIRMATION)
-    val authorized = rosterReady && state.current?.joined == true && state.discoverySupported == true &&
+    val authorized = rosterReady && state.current?.dissolved != true && state.current?.joined == true && state.discoverySupported == true &&
         state.members.any { it.publicKey == account.ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) }
     val nameLong = editor.name.trim().toByteArray(Charsets.UTF_8).size > 128
     val categoryLabel = state.categories.firstOrNull { it.id == editor.categoryId }?.profile?.name ?: editor.category
@@ -192,7 +192,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
                 }
             }
         }
-        if (rosterReady && !authorized) Text(stringResource(R.string.spaces_edit_access_changed), color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (rosterReady && !authorized) Text(stringResource(if (state.current?.dissolved == true) R.string.spaces_dissolved_detail else R.string.spaces_edit_access_changed), color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
     if (editor.discard && editor.open && bound) AlertDialog(onDismissRequest = { editor.discard = false },
         title = { Text(stringResource(R.string.spaces_discard_channel_title)) }, text = { Text(stringResource(R.string.spaces_discard_channel_detail)) },

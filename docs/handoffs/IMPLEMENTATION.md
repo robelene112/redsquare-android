@@ -1,21 +1,41 @@
 # Implementation handoff
 
-## Active139: category anchor observation correction
+## Active139: visibility and terminal closure source integrated
 
-Both category Android17 parents44771313022 and44777134728 remain wholeFAIL.
-Parent2 reviews inspected all579frames,11capture pairs and19controls. Its compact
-scene is loaded, but message5 is offscreen after font200 reflow. The corrected
-observer records the real normal-end protected-store anchor and checks its exact
-identity, offset and scope with native content/draft on four compact returns.
-The original15s and normal pixel assertions remain, without scrolling or reset.
-Separate compilation and both source reviews pass. Exact records and source
-bridges are in the [category source record](../evidence/ticket139/categories-and-directory-source.json).
+Owner-confirmed public/private entrance changes and terminal dissolution now
+preserve existing private audiences, old public copies, history and drafts.
+Durable requests recover their exact originals after lost responses; compatible
+legacy roots/invitations remain supported. Current native controls negotiate the
+new capabilities, review public metadata and display closed/read-only state.
 
-Fresh immutable revision3 and a whole native parent remain required. Issue139 is
-current/open; private-category/process, membership/ownership, visibility and
-dissolution remain before140-147. Approved navigationB and beta142 are unchanged.
+Whole core248/48classes and service156/15classes pass with no failures, errors or
+skips. Separate Android main3m11s/instrumentation2m57s compile; both pinned
+0.3.2/0.3.15 adapter rehearsals pass13service assertions. All actual failures and
+fixture qualifications remain. See the [visibility/closure source record](../evidence/ticket139/visibility-and-dissolution-source.json).
 
-## Active139: category source and native preparation
+This is source integration, not current governance native or whole139 acceptance.
+Public category parent44781316246 remains narrowly accepted atdd17364b0, outside
+this new source pin. Current private-category/pending-process, membership,
+ownership, visibility and dissolution native journeys remain before139 closes.
+Continue139 then140-147 sequentially without a checkpoint stop. ApprovedB,
+beta142 and all production/provider/public-write gates are unchanged.
+
+## Earlier139: public category native first feedback accepted
+
+Whole Android17 parent44781316246 atdd17364b0 passes frozen3 and both actual
+all-frame/prototype reviews:754frames,18capture pairs,32controls,2real-IME
+records and5protected reading records per axis. Creation/rename recover within
+14.394/13.696seconds of the unchanged27-second bound. The same message identity,
+position2,69px offset and window survive all four compact returns. Both previous
+failed parents remain unchanged. See the [category source record](../evidence/ticket139/categories-and-directory-source.json).
+
+This narrowly accepts public category first feedback. Private-category/pending
+process, current membership/ownership, visibility changes and dissolution remain
+before complete139 acceptance and sequential140-147. Current visibility source
+has its own receiving tests and is excluded from this immutable native pin.
+Issue139 remains open; approved navigationB and beta142 are unchanged.
+
+## Earlier139: category source and native preparation
 
 Implement137-147 sequentially under134 and approved navigationB. Issues137/138
 are accepted;139 remains current and incomplete. Continue without a checkpoint
@@ -48,7 +68,7 @@ Legacy Chat E2E remains141. Older entries below retain their original scope.
 
 
 
-## Active139: coherent reads and community governance
+## Earlier139: coherent reads and community governance
 
 Implement137–147 sequentially under134 and approved native navigationB. Issues137
 and138 are accepted and closed. Issue139 remains current and incomplete;

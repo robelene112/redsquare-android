@@ -32,6 +32,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
 @Composable internal fun SpaceChannelManagement(account: SpacesAccount, state: SpacesAccount.State,
     channel: SpaceClient.Channel, onAccess: () -> Unit, onEdit: () -> Unit) {
     val current = state.current ?: return
+    if (current.dissolved) return
     val role = state.members.firstOrNull { it.publicKey == account.ownerKey }?.role
     val editingSupported = if (channel.visibility == SpaceVisibility.PUBLIC) state.publicChannelEditSupported else state.privateChannelEditSupported
     if (role !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) ||
@@ -77,7 +78,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
     var closingMember by remember(state.selected, account.ownerKey, account.backend.webUrl) { mutableStateOf<SpaceClient.Member?>(null) }
     SideEffect { if (member != null) closingMember = member }
     val visibleMember = member ?: closingMember
-    val active = open && member != null && state.selected != null
+    val active = open && member != null && state.selected != null && state.current?.dissolved != true
     val owner = state.members.firstOrNull { it.publicKey == account.ownerKey }?.role == SpaceRole.OWNER
     val change = state.roleChange?.takeIf { it.memberKey == visibleMember?.publicKey }
     val pending = change?.status in setOf(SpaceClient.ChangeStatus.QUEUED, SpaceClient.ChangeStatus.AWAITING_CONFIRMATION)

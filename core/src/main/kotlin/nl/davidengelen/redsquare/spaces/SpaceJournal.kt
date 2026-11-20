@@ -29,7 +29,7 @@ data class SpaceSnapshot(val owner: String? = null, val members: Map<String, Spa
     val administratorStartedAt: Map<String, Long> = emptyMap(), val generalChannelId: String? = null,
     val membershipEndedAt: Map<String, Long> = emptyMap(), val bannedMembers: Set<String> = emptySet(),
     val membershipReadThrough: Map<String, Long> = emptyMap(), val ownershipOffer: SpaceOwnershipOffer? = null,
-    val categories: Map<String, SpaceCategoryRecord> = emptyMap())
+    val categories: Map<String, SpaceCategoryRecord> = emptyMap(), val entryChannelId: String? = generalChannelId, val dissolved: Boolean = false)
 
 /** Authenticated control history. Content pages have their own channel cursors. */
 class SpaceJournal(private val spaceId: String, private val serviceKey: String) {
@@ -53,7 +53,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
 
     /** Preparing handover keys grants reading, not contribution or staff powers. */
     fun canContributeChannel(actor: String, channel: String): Boolean =
-        current.channels[channel]?.let { hasChannelAudience(current, actor, it) } == true
+        !current.dissolved && current.channels[channel]?.let { hasChannelAudience(current, actor, it) } == true
 
     private fun hasChannelAudience(snapshot: SpaceSnapshot, actor: String, channel: SpaceChannelRecord): Boolean {
         val role = snapshot.members[actor] ?: return false
@@ -70,7 +70,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
      * newly signed intent acknowledging that departure or a later control. */
     fun hasCurrentMembershipIntent(actor: String, controlId: String?): Boolean {
         val endedAt = current.membershipEndedAt[actor]
-        return actor !in current.bannedMembers && if (controlId == null) endedAt == null else
+        return !current.dissolved && actor !in current.bannedMembers && if (controlId == null) endedAt == null else
             controlPositions[controlId]?.let { it >= (endedAt ?: 0L) } == true
     }
 
@@ -78,7 +78,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
     fun canJoinChannel(actor: String, channel: String, controlId: String): Boolean {
         val record = current.channels[channel] ?: return false
         val position = controlPositions[controlId] ?: return false
-        if (record.visibility != SpaceVisibility.PRIVATE || actor !in current.members || actor in current.bannedMembers || !canAccessChannel(actor, channel) ||
+        if (current.dissolved || record.visibility != SpaceVisibility.PRIVATE || actor !in current.members || actor in current.bannedMembers || !canAccessChannel(actor, channel) ||
             record.devices.keys.any { credentialWallet(it) == actor }) return false
         val startedAt = if (record.allowedMembers == null || actor in record.allowedMembers)
             record.accessStartedAt[actor] ?: 0L else if (current.members[actor] == SpaceRole.ADMIN)
@@ -106,6 +106,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         require(position == current.nextPosition) { "Spaces history has a missing predecessor" }
         val operation = event.body.text("operation_id")
         require(operation !in operations) { "Spaces operation already has an accepted result" }
+        require(!current.dissolved) { "This Space has been dissolved" }
         var admittedJoin: SpaceJoinRequest? = null
         var admittedHistory: Map<String, HistoryDelivery> = emptyMap()
         val next = when (event.body.text("kind")) {
@@ -172,8 +173,10 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     else -> throw IllegalArgumentException("Unknown channel visibility")
                 }
                 require(allowed == null || visibility == SpaceVisibility.PRIVATE)
-                if (visibility == SpaceVisibility.PRIVATE && allowed == null)
-                    require(current.channels.getValue(requireNotNull(current.generalChannelId)).retiredDevices.isEmpty())
+                if (visibility == SpaceVisibility.PRIVATE && allowed == null) {
+                    val entry = current.channels.getValue(requireNotNull(current.entryChannelId))
+                    require(entry.visibility == SpaceVisibility.PRIVATE && entry.retiredDevices.isEmpty())
+                }
                 val channel = event.body.text("channel_id").also { require(it.matches(ID) && it !in current.channels) }
                 val generation = event.body.text("key_generation").also { require(it.matches(ID)) }
                 require(event.body.number("epoch") == 0L)
@@ -195,10 +198,12 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 } ?: (profile?.kind == SpaceChannelKind.ANNOUNCEMENT)
                 require(channelKind == null || adminPostsOnly == (channelKind == SpaceChannelKind.ANNOUNCEMENT))
                 val created = current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    entryChannelId = if (current.visibility == SpaceVisibility.PUBLIC && visibility == SpaceVisibility.PUBLIC &&
+                        current.channels[current.entryChannelId]?.visibility != SpaceVisibility.PUBLIC) channel else current.entryChannelId,
                     channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(0, bindings,
                         generation, position, visibility, profile, metadata, adminPostsOnly, allowedMembers = allowed, kind = channelKind,
                         accessStartedAt = Collections.unmodifiableMap(allowed.orEmpty().associateWith { position }), metadataChannelId = if (visibility == SpaceVisibility.PRIVATE)
-                            if (allowed != null) channel else requireNotNull(current.generalChannelId) else null))))
+                            if (allowed != null) channel else requireNotNull(current.entryChannelId) else null))))
                 categorizedChannel(event, created, channel, created.channels.getValue(channel))
             }
             "grant-channel-access" -> {
@@ -250,6 +255,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 val channel = event.body.text("channel_id")
                 val old = requireNotNull(current.channels[channel])
                 val edited = if (old.visibility == SpaceVisibility.PUBLIC) {
+                    require(current.visibility == SpaceVisibility.PUBLIC) { "Public archives stay read-only while the Space is private" }
                     require(!event.body.has("channel_metadata"))
                     val value = event.body.get("channel_profile").also { require(it != null && it.isJsonObject) }
                     val profile = SpaceChannelProfile.fromJson(value.asJsonObject)
@@ -368,6 +374,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 val channel = event.body.text("channel_id")
                 val old = requireNotNull(current.channels[channel])
                 val value = event.body.get("archived").also { require(it != null && it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) }.asBoolean
+                require(value || old.visibility != SpaceVisibility.PUBLIC || current.visibility == SpaceVisibility.PUBLIC) { "Public archives stay read-only while the Space is private" }
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     channels = Collections.unmodifiableMap(current.channels + (channel to old.copy(archived = value,
                         contributionStartedAt = if (old.archived != value) position else old.contributionStartedAt))))
@@ -381,6 +388,11 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 require(format == null || format == "profile-v1")
                 val channelId = if (format == null) current.channels.keys.first() else event.body.text("channel_id")
                 val channel = requireNotNull(current.channels[channelId])
+                // Earlier peers also invited directly into unrestricted private
+                // member channels. Opening a private Space freezes those audiences,
+                // excluding their earlier history from this compatibility path.
+                val legacyMemberChannel = channel.visibility == SpaceVisibility.PRIVATE && channel.allowedMembers == null
+                require(channelId == current.entryChannelId || legacyMemberChannel) { "An invitation must use the community entrance or an unrestricted private member channel" }
                 val token = if (channel.visibility == SpaceVisibility.PUBLIC) {
                     val value = event.body.get("rules_token")?.let { event.body.text("rules_token") } ?: ""
                     require(value == requireNotNull(current.publicProfile).publicRulesToken)
@@ -398,6 +410,61 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 require(invitation in current.invitations)
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     invitations = Collections.unmodifiableMap(current.invitations - invitation))
+            }
+            "dissolve" -> {
+                require(current.owner == event.author && event.body.text("control_id") == current.controlId)
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1), dissolved = true,
+                    invitations = emptyMap(), ownershipOffer = null, publicProfile = current.publicProfile?.copy(listed = false),
+                    channels = Collections.unmodifiableMap(current.channels.mapValues { (_, channel) ->
+                        channel.copy(archived = true, contributionStartedAt = position)
+                    }))
+            }
+            "set-visibility" -> {
+                require(current.owner == event.author && event.body.text("control_id") == current.controlId)
+                if (event.body.text("visibility") == "private") closePublicSpace(event, position) else {
+                    require(current.visibility == SpaceVisibility.PRIVATE && event.body.text("visibility") == "public")
+                    val profile = SpaceProfile.fromJson(event.body.getAsJsonObject("public_profile"))
+                    require(profile.visibility == SpaceVisibility.PUBLIC)
+                    val channel = event.body.text("channel_id").also { require(it.matches(ID) && it !in current.channels) }
+                    val generation = event.body.text("key_generation").also { require(it.matches(ID)) }
+                    require(event.body.number("epoch") == 0L)
+                    event.body.get("devices").let { require(it != null && it.isJsonObject && it.asJsonObject.size() == 0) }
+                    val entry = SpaceChannelProfile.fromJson(event.body.getAsJsonObject("channel_profile"))
+                    require(entry.kind == SpaceChannelKind.CHAT && entry.category.isEmpty())
+                    // Preserve each old audience while moving shared names to its own encrypted group.
+                    val rebound = current.channels.filter { (id, record) ->
+                        record.visibility == SpaceVisibility.PRIVATE && record.allowedMembers == null && record.metadataGroupId(id, current) != id
+                    }
+                    val metadataUpdates = event.body.get("channel_metadata_updates")?.also { require(it.isJsonObject) }?.asJsonObject ?: JsonObject()
+                    require(metadataUpdates.keySet() == rebound.keys)
+                    val channels = current.channels.mapValues { (id, record) ->
+                        if (record.visibility == SpaceVisibility.PRIVATE && record.allowedMembers == null) {
+                            val frozen = record.copy(allowedMembers = Collections.unmodifiableSet(current.members.keys.toSet()))
+                            if (id !in rebound) frozen else {
+                                require(record.retiredDevices.isEmpty() && record.devices.keys.any { credentialWallet(it) == event.author })
+                                val metadata = metadataUpdates.text(id)
+                                verifyChannelMetadata(metadata, event, SpaceCrypto.Scope(serviceKey, spaceId, id, record.generation), record.epoch)
+                                frozen.copy(metadata = metadata, metadataChannelId = id)
+                            }
+                        } else record
+                    } + (channel to SpaceChannelRecord(0, emptyMap(), generation, position, SpaceVisibility.PUBLIC,
+                        entry, kind = entry.kind))
+                    val next = current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                        visibility = SpaceVisibility.PUBLIC, publicProfile = profile, entryChannelId = channel,
+                        invitations = emptyMap(), channels = Collections.unmodifiableMap(channels))
+                    val categories = rebound.values.mapNotNull { it.categoryId }.toSet().filter { current.categories.getValue(it).profile == null }.toSet()
+                    val categoryUpdates = event.body.get("category_metadata_updates")?.also { require(it.isJsonObject) }?.asJsonObject ?: JsonObject()
+                    require(categoryUpdates.keySet() == categories)
+                    val acceptedCategories = current.categories.toMutableMap()
+                    for (category in categories) {
+                        val old = current.categories.getValue(category)
+                        val update = categoryUpdates.get(category).also { require(it.isJsonObject) }.asJsonObject
+                        require(update.keySet() == setOf("category_metadata"))
+                        acceptedCategories[category] = old.copy(metadata = categoryMetadata(event, update, next,
+                            category, old.revision, next.categoryGroups(category, old.defaultGroup)))
+                    }
+                    next.copy(categories = Collections.unmodifiableMap(acceptedCategories))
+                }
             }
             "set-listed" -> {
                 require(current.owner == event.author && event.body.text("control_id") == current.controlId)
@@ -465,6 +532,26 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         return next
     }
 
+    private fun closePublicSpace(event: SignedSaitoMessage, position: Long): SpaceSnapshot {
+        require(current.visibility == SpaceVisibility.PUBLIC && event.body.text("visibility") == "private")
+        require(!event.body.has("public_profile") && !event.body.has("channel_profile") &&
+            !event.body.has("channel_metadata_updates") && !event.body.has("category_metadata_updates"))
+        val channel = event.body.text("channel_id").also { require(it.matches(ID) && it !in current.channels) }
+        val generation = event.body.text("key_generation").also { require(it.matches(ID)) }
+        require(event.body.number("epoch") == 0L)
+        val bindings = devices(event.body)
+        require(bindings.size == 1 && credentialWallet(bindings.keys.single()) == event.author)
+        val metadata = event.body.text("channel_metadata")
+        verifyChannelMetadata(metadata, event, SpaceCrypto.Scope(serviceKey, spaceId, channel, generation), 0)
+        val channels = current.channels.mapValues { (_, record) ->
+            if (record.visibility == SpaceVisibility.PUBLIC) record.copy(archived = true, contributionStartedAt = position) else record
+        } + (channel to SpaceChannelRecord(0, bindings, generation, position, SpaceVisibility.PRIVATE,
+            metadata = metadata, kind = SpaceChannelKind.CHAT, metadataChannelId = channel))
+        return current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+            visibility = SpaceVisibility.PRIVATE, publicProfile = null, entryChannelId = channel,
+            invitations = emptyMap(), channels = Collections.unmodifiableMap(channels))
+    }
+
     private fun categorizedChannel(event: SignedSaitoMessage, snapshot: SpaceSnapshot, channel: String,
         record: SpaceChannelRecord): SpaceSnapshot {
         val body = event.body
@@ -522,8 +609,10 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             val value = body.get("category_profile").also { require(it.isJsonObject) }
             return SpaceCategoryRecord(SpaceCategoryProfile.fromJson(value.asJsonObject), revision)
         }
-        require(previous == null || previous.profile == null)
-        val defaultGroup = if (previous == null) body.takeIf { it.has("default_group") }?.text("default_group") else {
+        val privatizing = previous?.profile != null
+        if (privatizing) require(snapshot.visibility == SpaceVisibility.PRIVATE &&
+            body.text("default_group") == snapshot.entryChannelId)
+        val defaultGroup = if (previous == null || privatizing) body.takeIf { it.has("default_group") }?.text("default_group") else {
             require(!body.has("default_group")); previous.defaultGroup
         }
         val required = snapshot.categoryGroups(category, defaultGroup)
@@ -610,6 +699,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
 
     /** A valid request alone does not activate membership or advance control. */
     fun verifyJoin(envelope: String, acceptedAt: Long): SpaceJoinRequest {
+        require(!current.dissolved) { "This Space has been dissolved" }
         val join = SaitoEnvelope.decode(envelope)
         header(join.body, "event")
         val channelOnly = join.body.text("kind") == "join-channel"
@@ -672,6 +762,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             require(Base64.getDecoder().decode(body.text("ciphertext")).size in 29..(64 * 1024 + 28))
             return
         }
+        require(!current.dissolved) { "This Space has been dissolved" }
         require(event.author in current.members)
         val channel = requireNotNull(current.channels[body.text("channel_id")])
         require(canContributeChannel(event.author, body.text("channel_id")))

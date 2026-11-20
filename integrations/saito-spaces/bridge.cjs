@@ -24,6 +24,8 @@ module.exports = class SpacesBridge {
     this.supportsMembershipManagement = false;
     this.supportsOwnershipManagement = false;
     this.supportsCategoryManagement = false;
+    this.supportsVisibilityManagement = false;
+    this.supportsDissolution = false;
   }
 
   async ready() {
@@ -36,6 +38,8 @@ module.exports = class SpacesBridge {
     this.supportsMembershipManagement = false;
     this.supportsOwnershipManagement = false;
     this.supportsCategoryManagement = false;
+    this.supportsVisibilityManagement = false;
+    this.supportsDissolution = false;
     try {
       const body = await this.request('/v1/readiness', {method: 'GET'}, 4096, 2000);
       const ready = body.capability === 'spaces-v1' && body.service_key === this.serviceKey &&
@@ -49,6 +53,8 @@ module.exports = class SpacesBridge {
       this.supportsMembershipManagement = ready && Array.isArray(body.features) && body.features.includes('membership-management-v1');
       this.supportsOwnershipManagement = ready && Array.isArray(body.features) && body.features.includes('ownership-management-v1');
       this.supportsCategoryManagement = ready && Array.isArray(body.features) && body.features.includes('category-management-v1');
+      this.supportsVisibilityManagement = ready && Array.isArray(body.features) && body.features.includes('visibility-management-v1');
+      this.supportsDissolution = ready && Array.isArray(body.features) && body.features.includes('dissolution-v1');
       return ready;
     } catch (_) { return false; }
   }

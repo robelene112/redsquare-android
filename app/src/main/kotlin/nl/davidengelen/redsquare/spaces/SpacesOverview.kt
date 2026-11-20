@@ -57,7 +57,11 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
                 items(state.communities, key = { it.id }) { community ->
                     val profile = state.profiles[community.id] ?: SpaceProfile(community.name)
                     SpaceCommunityRow(profile, community.id, account.avatarImages,
-                        summary = stringResource(if (!community.joined) R.string.spaces_confirming_access else R.string.spaces_open_saved_channel),
+                        summary = stringResource(when {
+                            community.dissolved -> R.string.spaces_dissolved_saved_history
+                            !community.joined -> R.string.spaces_confirming_access
+                            else -> R.string.spaces_open_saved_channel
+                        }),
                         hasUnread = community.hasUnread, enabled = !state.savingNavigation, onClick = { onOpen(community.id) })
                 }
                 item {

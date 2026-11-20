@@ -1556,4 +1556,25 @@
     <string name="spaces_category_settings_connection">Connect to check category settings.</string>
     <string name="spaces_category_access_changed">You no longer have access to manage categories in this Space.</string>
     <string name="spaces_category_not_supported">This node does not support category changes.</string>
+    <string name="spaces_visibility_settings">Community visibility</string>
+    <string name="spaces_make_public">Make public</string>
+    <string name="spaces_make_private">Make private</string>
+    <string name="spaces_requested_public">Requested: public Space</string>
+    <string name="spaces_requested_private">Requested: private Space</string>
+    <string name="spaces_requested_listed">Include in Discover</string>
+    <string name="spaces_requested_unlisted">Open by link, hidden from Discover</string>
+    <string name="spaces_visibility_confirmed">This change was confirmed by your node.</string>
+    <string name="spaces_open_visibility_detail">A new public lobby will open. Anyone can read it and join before contributing. Existing private channels, messages and files stay private for their current audience.</string>
+    <string name="spaces_close_visibility_detail">A new encrypted lobby will open for members. Public channels become read-only archives. Earlier public messages and copies on other devices cannot become secret. Existing invitations stop working.</string>
+    <string name="spaces_public_profile_review">Your community name, image, description and house rules will be public. Review them before continuing.</string>
+    <string name="spaces_visibility_changed">The community is updating or your access changed. Close this confirmation and check the current settings.</string>
+    <string name="spaces_private_public_archives_information">New private conversations are encrypted between participating devices. Earlier public channels remain read-only archives; copies can still exist elsewhere.</string>
+    <string name="spaces_dissolved">Space closed</string>
+    <string name="spaces_dissolved_detail">This Space has been closed. Available history remains readable; new contributions have stopped.</string>
+    <string name="spaces_dissolved_saved_history">Closed · view saved history</string>
+    <string name="spaces_saved_draft">Saved draft</string>
+    <string name="spaces_close_community">Close this community</string>
+    <string name="spaces_dissolve">Dissolve Space</string>
+    <string name="spaces_dissolve_title">Permanently close this Space?</string>
+    <string name="spaces_dissolve_detail">This stops new activity, revokes invitations and removes the community from Discover. It cannot be undone. Already received messages and files, local drafts and copies on other devices or storage providers are not erased.</string>
 </resources>

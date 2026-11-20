@@ -39,7 +39,7 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
     val change = state.channelAccessChange?.takeIf { it.channelId == channel?.id }
     val pending = change?.status in setOf(SpaceClient.ChangeStatus.QUEUED, SpaceClient.ChangeStatus.AWAITING_CONFIRMATION)
     val restoring = state.loading || state.loadingChannel || state.current == null || state.availability == SpacesAccount.Availability.CHECKING
-    val available = !restoring && administrator && state.privateChannelAccessSupported && channel?.allowedMembers != null && state.current?.joined == true
+    val available = !restoring && state.current?.dissolved != true && administrator && state.privateChannelAccessSupported && channel?.allowedMembers != null && state.current?.joined == true
     val enabled = available && !state.savingNavigation && state.current?.canManage == true && !state.working && !pending
     val noticeStatus = change?.status?.takeUnless { it == SpaceClient.ChangeStatus.REJECTED && change?.id == reviewedChange }
     LaunchedEffect(available) { if (!available) removing = null }
@@ -60,7 +60,7 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
                     Text(stringResource(R.string.spaces_channel_access_detail), color = MaterialTheme.colorScheme.onSurfaceVariant)
                     if (available && channel?.ready != true) Text(stringResource(R.string.spaces_waiting_channel_keys), color = MaterialTheme.colorScheme.onSurfaceVariant)
                     if (restoring) Text(stringResource(R.string.spaces_loading_channel_settings), color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    else if (!available) Text(stringResource(if (!administrator || state.current?.joined != true)
+                    else if (!available) Text(stringResource(if (state.current?.dissolved == true) R.string.spaces_dissolved_detail else if (!administrator || state.current?.joined != true)
                         R.string.spaces_edit_access_changed else R.string.spaces_channel_settings_unavailable), color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }

@@ -82,10 +82,11 @@ import nl.davidengelen.redsquare.ui.DesignSheet
     val roleAllowed = state.members.any {
         it.publicKey == account.ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
     }
-    val authorized = rosterReady && roleAllowed && targetAvailable && audienceUnchanged && state.categoriesSupported
+    val authorized = rosterReady && state.current?.dissolved != true && roleAllowed && targetAvailable && audienceUnchanged && state.categoriesSupported
     val accessNotice = when {
         !rosterReady -> if (state.availability == SpacesAccount.Availability.OFFLINE) R.string.spaces_category_settings_connection
             else R.string.spaces_category_settings_loading
+        state.current?.dissolved == true -> R.string.spaces_dissolved_detail
         !roleAllowed -> R.string.spaces_category_access_changed
         !targetAvailable || !audienceUnchanged -> R.string.spaces_category_unavailable
         !state.categoriesSupported -> if (state.availability == SpacesAccount.Availability.ONLINE) R.string.spaces_category_not_supported

@@ -254,15 +254,15 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     if (selected != null && !selected.joined && (selected.pending || selected.membershipRequested) &&
                         state.accessProblems[selected.id] == null) Text(stringResource(R.string.spaces_confirming_access),
                         color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
-                    if (selected?.joined == true && channel?.ready == false) Text(stringResource(R.string.spaces_waiting_channel_keys),
+                    if (selected?.joined == true && !selected.dissolved && channel?.ready == false) Text(stringResource(R.string.spaces_waiting_channel_keys),
                         color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
                     key(state.selected, state.selectedChannel) {
                         val archived = remember { MutableTransitionState(false) }
-                        archived.targetState = channel?.archived == true
+                        archived.targetState = selected?.dissolved == true || channel?.archived == true
                         AnimatedVisibility(archived,
                             enter = fadeIn(tween(AppSpacing.transitionMillis)) + expandVertically(tween(AppSpacing.transitionMillis)),
                             exit = fadeOut(tween(AppSpacing.transitionMillis)) + shrinkVertically(tween(AppSpacing.transitionMillis))) {
-                            Text(stringResource(R.string.spaces_channel_archived), color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            Text(stringResource(if (selected?.dissolved == true) R.string.spaces_dissolved_detail else R.string.spaces_channel_archived), color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 style = MaterialTheme.typography.bodySmall)
                         }
                     }
@@ -349,7 +349,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         if (state.hasLater) OutlinedButton(onClick = account::latestMessages,
                             modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_latest_messages)) }
                         state.problem?.let { ProblemNotice(it, account::clearProblem) }
-                        if (profile?.visibility != SpaceVisibility.PUBLIC || selected.joined) {
+                        if (selected.dissolved) {
+                            if (state.draft.isNotEmpty()) OutlinedTextField(state.draft, {}, readOnly = true,
+                                label = { Text(stringResource(R.string.spaces_saved_draft)) }, maxLines = 4,
+                                modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp))
+                        } else if (profile?.visibility != SpaceVisibility.PUBLIC || selected.joined) {
                             HorizontalDivider()
                             Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp), verticalAlignment = Alignment.Bottom,
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -365,7 +369,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         }
                     }
                 }
-                if (selected != null && !state.loadingChannel && profile?.visibility == SpaceVisibility.PUBLIC && !selected.joined) {
+                if (selected != null && !state.loadingChannel && profile?.visibility == SpaceVisibility.PUBLIC && !selected.joined && !selected.dissolved) {
                     Column(Modifier.fillMaxWidth().padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         Text(stringResource(R.string.spaces_public_browsing), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         val banned = account.ownerKey in state.bannedMembers
@@ -488,12 +492,17 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 Text(profile.name, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
             }
             if (profile.description.isNotBlank()) Text(profile.description)
-            Text(stringResource(if (profile.visibility == SpaceVisibility.PUBLIC) R.string.spaces_public_information else R.string.spaces_private_information),
+            Text(stringResource(when {
+                selected.dissolved -> R.string.spaces_dissolved_detail
+                profile.visibility == SpaceVisibility.PUBLIC -> R.string.spaces_public_information
+                state.channels.any { it.visibility == SpaceVisibility.PUBLIC } -> R.string.spaces_private_public_archives_information
+                else -> R.string.spaces_private_information
+            }),
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (selected.joined) Text(stringResource(R.string.spaces_member_confirmed), style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (profile.houseRules.isNotEmpty()) { Text(stringResource(R.string.spaces_house_rules), style = MaterialTheme.typography.titleMedium); Text(profile.houseRules) }
-            state.publicLink?.let { link ->
+            state.publicLink?.takeUnless { selected.dissolved }?.let { link ->
                 OutlinedButton(onClick = {
                     try {
                         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -510,10 +519,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_share_public_link)) }
                 if (publicShareFailed) Text(stringResource(R.string.spaces_share_failed), color = MaterialTheme.colorScheme.error)
             }
-            if (state.members.any { it.publicKey == account.ownerKey && it.role == SpaceRole.OWNER } && profile.visibility == SpaceVisibility.PUBLIC)
+            if (state.members.any { it.publicKey == account.ownerKey && it.role == SpaceRole.OWNER } && profile.visibility == SpaceVisibility.PUBLIC && !selected.dissolved)
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Column(Modifier.weight(1f)) { Text(stringResource(R.string.spaces_discoverable)); Text(stringResource(R.string.spaces_unlisted_detail), style = MaterialTheme.typography.bodySmall) }
-                    Switch(state.listingIntent ?: profile.listed, { account.setListed(selected.id, it) }, enabled = !state.working && !state.savingNavigation)
+                    Switch(state.listingIntent ?: profile.listed, { account.setListed(selected.id, it) },
+                        enabled = selected.canManage && !state.working && !state.savingNavigation)
                 }
             if (state.listingIntent != null) Text(stringResource(R.string.spaces_saving_listing), style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -525,13 +535,13 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     navigation?.navigate(commit) ?: account.guardNavigation(commit)
                 }
             }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_members)) }
-            if (selected.joined && state.discoverySupported == true &&
+            if (selected.joined && !selected.dissolved && state.discoverySupported == true &&
                 state.members.any { it.publicKey == account.ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) })
                 OutlinedButton(onClick = {
                     focusManager.clearFocus(); keyboardController?.hide()
                     channelCreator.show(account, selected.id, state.channelCreation); informationOpen = false
                 }, enabled = !state.working, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_add_channel)) }
-            if (selected.joined && state.categoriesSupported && state.members.any {
+            if (selected.joined && !selected.dissolved && state.categoriesSupported && state.members.any {
                 it.publicKey == account.ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
             }) OutlinedButton(onClick = {
                 focusManager.clearFocus(); keyboardController?.hide()
@@ -549,8 +559,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 channelEditor.open = false; channelEditorPending = true
                 informationOpen = false
             } }
+            SpaceVisibilityControls(account, state)
             SpaceOwnershipOfferControls(account, state)
             SpaceLeaveControls(account, state)
+            SpaceDissolutionControls(account, state)
             SpaceManagementProblem(state.problem, account::clearProblem, scrollIntoView = true)
             TextButton(onClick = { informationOpen = false }, modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_close)) }
         }

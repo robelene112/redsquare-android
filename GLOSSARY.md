@@ -74,6 +74,19 @@ An optional named grouping of channels within a Space.
 A Space whose public channels can be viewed without membership. It may also
 contain private channels restricted to admitted members.
 
+**Dissolved Space**:
+A Space permanently closed by its owner's accepted signed operation. New
+contributions, admissions and management changes stop; available history and
+local drafts remain. Exact historical-key deliveries committed by an earlier
+accepted admission may finish for still-authorized member devices. Closing does
+not erase copies on other devices or storage providers.
+
+**Space entrance**:
+The current channel used by new Space invitations and public admission. Opening
+a previously private Space creates a public entrance while its existing private
+channels keep their earlier audiences. Changing this entrance does not replace
+any client's stored history, private keys, channel drafts or reading position.
+
 **Space directory**:
 A searchable listing for discovering public Spaces. An unlisted public Space
 remains publicly readable through its link.

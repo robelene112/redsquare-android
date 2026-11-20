@@ -1,11 +1,30 @@
 # Ticket139: community governance
 
-Category parents44771313022 and44777134728 remain wholeFAIL. The second full
-visual review covers579frames and11capture pairs. Its compact offscreen-message
-oracle is replaced by actual protected-store anchor/native-content observations
-under unchanged deadlines. [The source record](categories-and-directory-source.json)
-retains both failures, scoped source bridges, compilation and clear source reviews.
-Fresh frozen3/native proof and remaining139 acceptance are pending.
+## Active139: visibility and terminal closure source integrated
+
+Owner-confirmed public/private entrance changes and terminal dissolution now
+preserve existing private audiences, old public copies, history and drafts.
+Durable requests recover their exact originals after lost responses; compatible
+legacy roots/invitations remain supported. Current native controls negotiate the
+new capabilities, review public metadata and display closed/read-only state.
+
+Whole core248/48classes and service156/15classes pass with no failures, errors or
+skips. Separate Android main3m11s/instrumentation2m57s compile; both pinned
+0.3.2/0.3.15 adapter rehearsals pass13service assertions. All actual failures and
+fixture qualifications remain. See the [visibility/closure source record](visibility-and-dissolution-source.json).
+
+This is source integration, not current governance native or whole139 acceptance.
+Public category parent44781316246 remains narrowly accepted atdd17364b0, outside
+this new source pin. Current private-category/pending-process, membership,
+ownership, visibility and dissolution native journeys remain before139 closes.
+Continue139 then140-147 sequentially without a checkpoint stop. ApprovedB,
+beta142 and all production/provider/public-write gates are unchanged.
+
+Public category Android17 parent44781316246 atdd17364b0 passes wholeCI,
+frozen3 and both all-frame/prototype reviews:754frames,18capture pairs,32controls,
+2IME and5exact-anchor records. [The source record](categories-and-directory-source.json)
+preserves exact scope, inputs and both earlier whole failures. Private-category,
+pending-process and remaining139 acceptance are separate and still pending.
 
 The [category and directory source record](categories-and-directory-source.json)
 tracks stable encrypted category identities, native management preparation and

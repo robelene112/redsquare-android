@@ -9,6 +9,7 @@ import nl.davidengelen.redsquare.spaces.SpaceJournal
 import nl.davidengelen.redsquare.spaces.SpaceRole
 import nl.davidengelen.redsquare.spaces.SpaceProfile
 import nl.davidengelen.redsquare.spaces.SpaceVisibility
+import nl.davidengelen.redsquare.spaces.SpaceSnapshot
 import java.nio.file.Files
 import java.nio.file.Path
 import java.sql.Connection
@@ -41,7 +42,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         return JsonObject().apply {
             addProperty("capability", "spaces-v1"); addProperty("service_key", wallet.publicKey)
             addProperty("schema", version); addProperty("state", "ready"); addProperty("file_hosting", false)
-            add("features", JsonArray().apply { add("unread-v1"); add("channel-archive-v1"); add("role-management-v1"); add("public-channel-edit-v1"); add("private-channel-access-v1"); add("private-channel-edit-v1"); add("membership-management-v1"); add("ownership-management-v1"); add("category-management-v1") })
+            add("features", JsonArray().apply { add("unread-v1"); add("channel-archive-v1"); add("role-management-v1"); add("public-channel-edit-v1"); add("private-channel-access-v1"); add("private-channel-edit-v1"); add("membership-management-v1"); add("ownership-management-v1"); add("category-management-v1"); add("visibility-management-v1"); add("dissolution-v1") })
         }.toString()
     }
 
@@ -228,6 +229,27 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
             sql.setString(3, (profile.name + "\n" + profile.description).lowercase(Locale.ROOT))
             sql.setInt(4, if (profile.listed) 1 else 0); sql.setString(5, receipt); sql.setString(6, receipt)
             check(sql.executeUpdate() in 0..1)
+        }
+    }
+
+    private fun indexVisibilityChange(space: String, receipt: String, snapshot: SpaceSnapshot) {
+        if (snapshot.visibility == SpaceVisibility.PRIVATE || snapshot.dissolved) {
+            database.prepareStatement("UPDATE public_spaces SET listed=0,listing_receipt=? WHERE space_id=?").use { sql ->
+                sql.setString(1, receipt); sql.setString(2, space); check(sql.executeUpdate() in 0..1)
+            }
+            return
+        }
+        val profile = requireNotNull(snapshot.publicProfile)
+        require(snapshot.visibility == SpaceVisibility.PUBLIC && profile.visibility == SpaceVisibility.PUBLIC)
+        val creation = database.prepareStatement("SELECT receipt FROM controls WHERE space_id=? AND position=0").use { sql ->
+            sql.setString(1, space)
+            sql.executeQuery().use { rows -> check(rows.next()); rows.getString(1) }
+        }
+        database.prepareStatement("INSERT INTO public_spaces(space_id,profile,search_text,listed,creation_receipt,listing_receipt) VALUES(?,?,?,?,?,?) ON CONFLICT(space_id) DO UPDATE SET profile=excluded.profile,search_text=excluded.search_text,listed=excluded.listed,listing_receipt=excluded.listing_receipt").use { sql ->
+            sql.setString(1, space); sql.setString(2, profile.json().toString())
+            sql.setString(3, (profile.name + "\n" + profile.description).lowercase(Locale.ROOT))
+            sql.setInt(4, if (profile.listed) 1 else 0); sql.setString(5, creation); sql.setString(6, receipt)
+            check(sql.executeUpdate() == 1)
         }
     }
 
@@ -440,6 +462,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     }
                 } else insertSimple(table, space, position, event.id, operation, event.author, envelope, receipt, acceptedAt)
                 if (body.text("kind") == "create") indexPublicCreation(space, receipt)
+                if (body.text("kind") in setOf("set-visibility", "dissolve")) indexVisibilityChange(space, receipt, journal.snapshot)
                 if (body.text("kind") == "set-listed") {
                     val profile = requireNotNull(journal.snapshot.publicProfile)
                     database.prepareStatement("UPDATE public_spaces SET listed=?,profile=?,listing_receipt=? WHERE space_id=?").use { sql ->

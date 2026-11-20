@@ -31,8 +31,8 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
     var managing by rememberSaveable(state.selected) { mutableStateOf<String?>(null) }
     var roleSheetOpen by rememberSaveable(state.selected) { mutableStateOf(false) }
     val ownRole = state.members.firstOrNull { it.publicKey == account.ownerKey }?.role
-    val owner = ownRole == SpaceRole.OWNER
-    val administrator = ownRole in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
+    val owner = ownRole == SpaceRole.OWNER && state.current?.dissolved != true
+    val administrator = ownRole in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) && state.current?.dissolved != true
     Column(modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             FrameIconButton(R.drawable.ic_back, stringResource(R.string.spaces_back)) { onBack() }

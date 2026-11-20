@@ -42,6 +42,8 @@ class Spaces extends ModTemplate {
     if (this.bridge?.supportsMembershipManagement) services.push(new PeerService(null, 'spaces-membership-management-v1'));
     if (this.bridge?.supportsOwnershipManagement) services.push(new PeerService(null, 'spaces-ownership-management-v1'));
     if (this.bridge?.supportsCategoryManagement) services.push(new PeerService(null, 'spaces-category-management-v1'));
+    if (this.bridge?.supportsVisibilityManagement) services.push(new PeerService(null, 'spaces-visibility-management-v1'));
+    if (this.bridge?.supportsDissolution) services.push(new PeerService(null, 'spaces-dissolution-v1'));
     return services;
   }
 
