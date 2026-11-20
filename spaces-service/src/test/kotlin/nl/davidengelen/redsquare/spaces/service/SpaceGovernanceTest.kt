@@ -366,6 +366,119 @@ class SpaceGovernanceTest {
         }
     }
 
+    @Test(timeout = 45_000) fun administratorRemovalCannotTargetTheOwnerOrAnotherAdministrator() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("member-removal-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("member-removal-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("member-removal-admin.sqlite").absolutePath).use { adminStore ->
+                    SqliteClientFixture(files.newFile("member-removal-other-admin.sqlite").absolutePath).use { otherAdminStore ->
+                        SqliteClientFixture(files.newFile("member-removal-member.sqlite").absolutePath).use { ordinaryStore ->
+                            val otherAdminWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+                            val ordinaryWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "5")
+                            var head = ""
+                            fun submit(original: SaitoTransaction) = remote.exchange(original.envelope()).also { reply ->
+                                if (SaitoEnvelope.decode(reply).body.get("stream")?.asString == "control") head = original.id
+                            }
+                            val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { submit(it) }
+                            val administrator = SpaceClient(member, "fixture-node", service.publicKey, adminStore, clock) { submit(it) }
+                            val otherAdmin = SpaceClient(otherAdminWallet, "fixture-node", service.publicKey, otherAdminStore, clock) { submit(it) }
+                            val ordinary = SpaceClient(ordinaryWallet, "fixture-node", service.publicKey, ordinaryStore, clock) { submit(it) }
+                            val space = creator.create(SpaceProfile("Governed membership", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                            for (participant in listOf(administrator, otherAdmin, ordinary)) {
+                                participant.openPublic(space); participant.joinPublic(space); participant.flush(space)
+                            }
+                            creator.refresh(space); creator.setAdministrator(space, member.publicKey, true); creator.flush(space)
+                            creator.setAdministrator(space, otherAdminWallet.publicKey, true); creator.flush(space)
+                            var operation = 0
+                            fun remove(actor: SaitoWallet, target: String): String {
+                                val original = SaitoTransaction.create(actor, JsonObject().apply {
+                                    addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                                    addProperty("kind", "remove-member"); addProperty("space_id", space); addProperty("control_id", head)
+                                    addProperty("operation_id", (++operation).toString(16).padStart(64, '0')); addProperty("member", target)
+                                }, clock.millis(), listOf(service.publicKey))
+                                return SaitoEnvelope.decode(submit(original)).body.get("stream").asString
+                            }
+                            assertEquals("An administrator cannot remove the owner", "rejection", remove(member, owner.publicKey))
+                            assertEquals("Administrators cannot moderate each other", "rejection", remove(member, otherAdminWallet.publicKey))
+                            assertEquals("An ordinary member cannot remove another member", "rejection", remove(ordinaryWallet, member.publicKey))
+                            assertEquals("An administrator can remove an ordinary member", "control", remove(member, ordinaryWallet.publicKey))
+                            creator.refresh(space); ordinary.refresh(space)
+                            assertFalse(ordinary.community(space).joined); assertFalse(ordinary.community(space).canSend)
+                            assertEquals(mapOf(owner.publicKey to "OWNER", member.publicKey to "ADMIN", otherAdminWallet.publicKey to "ADMIN"),
+                                creator.members(space).associate { it.publicKey to it.role.name })
+                            assertEquals("The owner can remove an administrator", "control", remove(owner, otherAdminWallet.publicKey))
+                            creator.refresh(space); otherAdmin.refresh(space)
+                            assertFalse(otherAdmin.community(space).joined)
+                            assertEquals(mapOf(owner.publicKey to "OWNER", member.publicKey to "ADMIN"),
+                                creator.members(space).associate { it.publicKey to it.role.name })
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun removalRotatesPrivateKeysAndPublicRejoinDoesNotRestoreTheOldChannelGrant() = runBlocking<Unit> {
+        restrictedAccessAfterMembershipEnds(banning = false)
+    }
+
+    @Test(timeout = 45_000) fun banRotatesPrivateKeysAndLiftingItDoesNotRestoreTheOldChannelGrant() = runBlocking<Unit> {
+        restrictedAccessAfterMembershipEnds(banning = true)
+    }
+
+    private suspend fun restrictedAccessAfterMembershipEnds(banning: Boolean) {
+        val fixture = if (banning) "private-ban" else "private-removal"
+
+        SpacesServiceStore(files.newFolder("$fixture-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("$fixture-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("$fixture-reader.sqlite").absolutePath).use { readerStore ->
+                    var head = ""
+                    val originals = mutableListOf<SaitoTransaction>()
+                    fun submit(original: SaitoTransaction) = remote.exchange(original.envelope()).also { reply ->
+                        if (SaitoEnvelope.decode(reply).body.get("stream")?.asString == "control") head = original.id
+                    }
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { originals.add(it); submit(it) }
+                    val reader = SpaceClient(member, "fixture-node", service.publicKey, readerStore, clock) { submit(it) }
+                    val space = creator.create(SpaceProfile("Explicit private admission", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    reader.openPublic(space); reader.joinPublic(space); reader.flush(space); creator.refresh(space)
+                    val channel = creator.createPrivateChannel(space, nl.davidengelen.redsquare.spaces.SpaceChannelProfile("Private planning"), setOf(member.publicKey)); creator.flush(space)
+                    reader.refresh(space); reader.flush(space); creator.admitPending(space); creator.flush(space); reader.refresh(space, channel)
+                    creator.send(space, "Received before removal", channel); creator.flush(space); reader.refresh(space, channel)
+                    val copied = readerStore.transaction {
+                        val saved = com.google.gson.JsonParser.parseString(requireNotNull(get("$space/channels/$channel/state")).toString(Charsets.UTF_8)).asJsonObject
+                        nl.davidengelen.redsquare.spaces.SpaceCrypto.restore(java.util.Base64.getDecoder().decode(saved.get("crypto").asString))
+                    }
+                    val removal = SaitoTransaction.create(owner, JsonObject().apply {
+                        addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                        addProperty("kind", if (banning) "ban-member" else "remove-member"); addProperty("space_id", space); addProperty("control_id", head)
+                        addProperty("operation_id", "e".repeat(64)); addProperty("member", member.publicKey)
+                    }, clock.millis(), listOf(service.publicKey))
+                    assertEquals("control", SaitoEnvelope.decode(submit(removal)).body.get("stream").asString)
+                    creator.refresh(space); creator.flush(space)
+                    creator.send(space, "Written after removal", channel); creator.flush(space)
+                    val future = originals.last { SaitoEnvelope.decode(it.envelope()).body.get("content_kind")?.asString == "message" }
+                    try { copied.read(future.envelope()); fail("Removed member keys cannot read later private text") }
+                    catch (_: nl.davidengelen.redsquare.spaces.SpaceCrypto.MissingKeys) { }
+                    reader.refresh(space, creator.community(space).channel)
+                    assertFalse(reader.community(space).joined)
+                    if (banning) {
+                        reader.joinPublic(space); reader.flush(space); reader.refresh(space)
+                        assertFalse("A ban blocks rejoining before it is explicitly lifted", reader.community(space).joined)
+                        creator.unbanMember(space, member.publicKey); creator.flush(space); reader.refresh(space)
+                    }
+                    reader.joinPublic(space); reader.flush(space); reader.refresh(space); creator.refresh(space)
+                    reader.flush(space); creator.admitPending(space); creator.flush(space); reader.refresh(space)
+                    assertTrue(reader.community(space).joined)
+                    assertFalse("A new public membership must not revive the removed private-channel grant", reader.channels(space).any { it.id == channel })
+                    assertEquals(listOf("Received before removal"), reader.messages(space, channel))
+                    creator.grantChannelAccess(space, channel, member.publicKey); creator.flush(space)
+                    reader.refresh(space); reader.flush(space); creator.admitPending(space); creator.flush(space); reader.refresh(space, channel)
+                    creator.send(space, "Written after a new private grant", channel); creator.flush(space); reader.refresh(space, channel)
+                    assertEquals(listOf("Received before removal", "Written after removal", "Written after a new private grant"), reader.messages(space, channel))
+                }
+            }
+        }
+    }
+
     @Test fun anAuthorizedNewMemberReadsEarlierPrivateHistoryWhileTheChannelIsArchived() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("archived-history-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("archived-history-owner.sqlite").absolutePath).use { ownerStore ->
@@ -589,4 +702,201 @@ class SpaceGovernanceTest {
             }
         }
     }
+    @Test(timeout = 45_000) fun removalRetainsItsExactOriginalAndTruthfulStatusAcrossALostResponseAndColdReturn() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("remove-recovery-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("remove-recovery-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("remove-recovery-member.sqlite").absolutePath).use { memberStore ->
+                    var loseRemoval = true
+                    val removals = mutableListOf<String>()
+                    fun ownerClient() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                        val reply = remote.exchange(original.envelope())
+                        if (SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "remove-member") {
+                            removals.add(original.envelope())
+                            if (loseRemoval) { loseRemoval = false; throw java.io.IOException("Owned accepted removal reply lost") }
+                        }
+                        reply
+                    }
+                    var creator = ownerClient()
+                    val reader = SpaceClient(member, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create(SpaceProfile("Durable member removal", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    reader.openPublic(space); reader.joinPublic(space); reader.flush(space); creator.refresh(space)
+                    try { reader.removeMember(space, owner.publicKey); fail("An ordinary member cannot remove the owner") }
+                    catch (_: IllegalArgumentException) { }
+                    assertNull(reader.membershipChange(space))
+                    val original = creator.removeMember(space, member.publicKey)
+                    assertEquals(original, creator.membershipChange(space)?.id)
+                    assertEquals(SpaceClient.ChangeStatus.QUEUED, creator.membershipChange(space)?.status)
+                    assertEquals(2, creator.members(space).size)
+                    try { creator.flush(space); fail("The accepted removal response is deliberately lost") } catch (_: java.io.IOException) { }
+                    assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, creator.membershipChange(space)?.status)
+                    reader.refresh(space)
+                    assertFalse(reader.community(space).joined)
+                    creator = ownerClient()
+                    assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, creator.membershipChange(space)?.status)
+                    creator.flush(space)
+                    assertEquals(2, removals.size); assertEquals(removals[0], removals[1])
+                    assertEquals(original, SaitoEnvelope.decode(removals[1]).id)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, creator.membershipChange(space)?.status)
+                    assertEquals(listOf(owner.publicKey), creator.members(space).map { it.publicKey })
+                }
+            }
+        }
+    }
+
+
+    @Test(timeout = 45_000) fun aBanBlocksNewPublicMembershipUntilExplicitlyLiftedWithoutAutomaticallyReadmittingAnyone() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("ban-public-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("ban-public-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("ban-public-member.sqlite").absolutePath).use { memberStore ->
+                    var head = ""
+                    var operation = 0
+                    fun submit(original: SaitoTransaction) = remote.exchange(original.envelope()).also { reply ->
+                        if (SaitoEnvelope.decode(reply).body.get("stream")?.asString == "control") head = original.id
+                    }
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { submit(it) }
+                    val reader = SpaceClient(member, "fixture-node", service.publicKey, memberStore, clock) { submit(it) }
+                    val space = creator.create(SpaceProfile("Explicit bans", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    reader.openPublic(space); reader.joinPublic(space); reader.flush(space); creator.refresh(space)
+                    fun change(actor: SaitoWallet, kind: String, target: String): String {
+                        val original = SaitoTransaction.create(actor, JsonObject().apply {
+                            addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                            addProperty("space_id", space); addProperty("kind", kind); addProperty("control_id", head)
+                            addProperty("operation_id", (++operation).toString(16).padStart(64, '0')); addProperty("member", target)
+                        }, clock.millis(), listOf(service.publicKey))
+                        return SaitoEnvelope.decode(submit(original)).body.get("stream").asString
+                    }
+                    assertEquals("rejection", change(member, "ban-member", owner.publicKey))
+                    assertEquals("control", change(owner, "ban-member", member.publicKey))
+                    reader.refresh(space); creator.refresh(space)
+                    assertFalse(reader.community(space).joined)
+                    reader.joinPublic(space); reader.flush(space); creator.refresh(space)
+                    assertEquals("A fresh public Join must still respect the accepted ban", listOf(owner.publicKey), creator.members(space).map { it.publicKey })
+                    assertEquals("rejection", change(member, "unban-member", member.publicKey))
+                    assertEquals("control", change(owner, "unban-member", member.publicKey))
+                    creator.refresh(space)
+                    assertEquals("Lifting a ban is not consent to join", listOf(owner.publicKey), creator.members(space).map { it.publicKey })
+                    reader.refresh(space); reader.joinPublic(space); reader.flush(space); creator.refresh(space)
+                    assertEquals(setOf(owner.publicKey, member.publicKey), creator.members(space).map { it.publicKey }.toSet())
+                    reader.send(space, "A deliberate new membership after the ban was lifted"); reader.flush(space); creator.refresh(space)
+                    assertEquals(listOf("A deliberate new membership after the ban was lifted"), creator.messages(space))
+                }
+            }
+        }
+    }
+
+
+    @Test(timeout = 45_000) fun banAndLiftKeepTheirOriginalsAndNeverInventMembershipAcrossLostReplies() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("ban-recovery-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("ban-recovery-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("ban-recovery-member.sqlite").absolutePath).use { memberStore ->
+                    val originals = mutableMapOf<String, MutableList<String>>()
+                    val lost = mutableSetOf<String>()
+                    fun ownerClient() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                        val reply = remote.exchange(original.envelope())
+                        val kind = SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString
+                        if (kind in setOf("ban-member", "unban-member")) {
+                            val action = requireNotNull(kind)
+                            originals.getOrPut(action) { mutableListOf() }.add(original.envelope())
+                            if (lost.add(action)) throw java.io.IOException("Owned moderation reply deliberately lost")
+                        }
+                        reply
+                    }
+                    var creator = ownerClient()
+                    val reader = SpaceClient(member, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create(SpaceProfile("Durable bans", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    reader.openPublic(space); reader.joinPublic(space); reader.flush(space); creator.refresh(space)
+                    val ban = creator.banMember(space, member.publicKey)
+                    assertEquals(SpaceClient.MembershipAction.BAN, creator.membershipChange(space)?.action)
+                    assertEquals(member.publicKey, creator.membershipChange(space)?.memberKey)
+                    assertEquals(SpaceClient.ChangeStatus.QUEUED, creator.membershipChange(space)?.status)
+                    assertEquals(emptySet<String>(), creator.bannedMembers(space))
+                    try { creator.flush(space); fail("The accepted ban reply is lost") } catch (_: java.io.IOException) { }
+                    assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, creator.membershipChange(space)?.status)
+                    reader.refresh(space); assertFalse(reader.community(space).joined)
+                    creator = ownerClient(); creator.flush(space)
+                    assertEquals(ban, creator.membershipChange(space)?.id)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, creator.membershipChange(space)?.status)
+                    assertEquals(setOf(member.publicKey), creator.bannedMembers(space))
+                    val lift = creator.unbanMember(space, member.publicKey)
+                    assertEquals(SpaceClient.MembershipAction.UNBAN, creator.membershipChange(space)?.action)
+                    assertEquals(setOf(member.publicKey), creator.bannedMembers(space))
+                    try { creator.flush(space); fail("The accepted lift reply is lost") } catch (_: java.io.IOException) { }
+                    creator = ownerClient(); creator.flush(space)
+                    assertEquals(lift, creator.membershipChange(space)?.id)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, creator.membershipChange(space)?.status)
+                    assertEquals(emptySet<String>(), creator.bannedMembers(space))
+                    assertEquals(listOf(owner.publicKey), creator.members(space).map { it.publicKey })
+                    for (kind in listOf("ban-member", "unban-member")) {
+                        val sent = originals.getValue(kind); assertEquals(2, sent.size); assertEquals(sent[0], sent[1])
+                    }
+                    reader.refresh(space); assertFalse(reader.community(space).joined)
+                    reader.joinPublic(space); reader.flush(space); creator.refresh(space)
+                    assertEquals(setOf(owner.publicKey, member.publicKey), creator.members(space).map { it.publicKey }.toSet())
+                }
+            }
+        }
+    }
+
+
+    @Test(timeout = 45_000) fun aRemovedPrivateMemberCanLearnTheirDepartureWithoutReceivingLaterControlHistory() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("private-ended-control-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("private-ended-control-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("private-ended-control-member.sqlite").absolutePath).use { memberStore ->
+                    val originals = mutableListOf<SaitoTransaction>()
+                    val observedControls = mutableListOf<String>()
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                        originals.add(original); remote.exchange(original.envelope())
+                    }
+                    val reader = SpaceClient(member, "fixture-node", service.publicKey, memberStore, clock) { original ->
+                        remote.exchange(original.envelope()).also { reply ->
+                            val body = SaitoEnvelope.decode(reply).body
+                            if (body.get("request")?.asString == "page" && body.getAsJsonObject("scope")?.get("stream")?.asString == "control") {
+                                body.getAsJsonArray("items").forEach { item ->
+                                    observedControls.add(SaitoEnvelope.decode(SaitoEnvelope.decode(item.asString).body.get("event").asString).id)
+                                }
+                            }
+                        }
+                    }
+                    val space = creator.create("A private membership can end truthfully"); creator.flush(space)
+                    val invitation = creator.invite(space); creator.flush(space)
+                    reader.join(invitation); reader.flush(space); creator.admitPending(space); creator.flush(space); reader.refresh(space)
+                    creator.send(space, "History already received"); creator.flush(space); reader.refresh(space)
+                    val removal = creator.removeMember(space, member.publicKey); creator.flush(space)
+                    creator.createChannel(space, nl.davidengelen.redsquare.spaces.SpaceChannelProfile("Later private structure")); creator.flush(space)
+                    val laterControl = originals.last { SaitoEnvelope.decode(it.envelope()).body.get("kind")?.asString == "create-channel" }.id
+                    try { reader.refresh(space) } catch (_: SpaceClient.ReadDenied) { }
+                    assertFalse("A removed private member must learn the authenticated membership end", reader.community(space).joined)
+                    assertFalse(reader.community(space).canManage); assertFalse(reader.community(space).canSend)
+                    assertEquals(listOf("History already received"), reader.messages(space))
+                    assertTrue("The bounded control page includes the actual departure", removal in observedControls)
+                    assertFalse("Departure is not access to later private control history", laterControl in observedControls)
+                    reader.refresh(space)
+                    assertFalse(reader.community(space).joined)
+                    assertFalse(laterControl in observedControls)
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun banningAnIdentityThatNeverJoinedDoesNotGrantPrivateControlReading() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("never-member-control-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("never-member-control-owner.sqlite").absolutePath).use { ownerStore ->
+                val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                val space = creator.create("Private control is not granted by a ban"); creator.flush(space)
+                creator.banMember(space, member.publicKey); creator.flush(space)
+                val scope = JsonObject().apply { addProperty("space_id", space); addProperty("stream", "control"); addProperty("cursor", 0) }
+                fun request(kind: String, nonce: String? = null) = SaitoTransaction.create(member, JsonObject().apply {
+                    addProperty("module", "Spaces"); addProperty("version", 1); addProperty("request", kind)
+                    addProperty("request_id", "a".repeat(64)); add("scope", scope.deepCopy())
+                    nonce?.let { addProperty("nonce", it) }
+                }, clock.millis(), listOf(service.publicKey))
+                val challenge = SaitoEnvelope.decode(remote.exchange(request("challenge").envelope())).body
+                val reply = SaitoEnvelope.decode(remote.exchange(request("read", challenge.get("nonce").asString).envelope())).body
+                assertEquals("denied", reply.get("request").asString)
+                assertFalse(reply.has("items"))
+            }
+        }
+    }
+
+
 }

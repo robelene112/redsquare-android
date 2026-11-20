@@ -24,7 +24,8 @@ data class SpaceSnapshot(val owner: String? = null, val members: Map<String, Spa
     val channels: Map<String, SpaceChannelRecord> = emptyMap(),
     val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val publicProfile: SpaceProfile? = null,
     val administratorStartedAt: Map<String, Long> = emptyMap(), val generalChannelId: String? = null,
-    val membershipEndedAt: Map<String, Long> = emptyMap())
+    val membershipEndedAt: Map<String, Long> = emptyMap(), val bannedMembers: Set<String> = emptySet(),
+    val membershipReadThrough: Map<String, Long> = emptyMap())
 
 /** Authenticated control history. Content pages have their own channel cursors. */
 class SpaceJournal(private val spaceId: String, private val serviceKey: String) {
@@ -48,7 +49,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
      * newly signed intent acknowledging that departure or a later control. */
     fun hasCurrentMembershipIntent(actor: String, controlId: String?): Boolean {
         val endedAt = current.membershipEndedAt[actor]
-        return if (controlId == null) endedAt == null else
+        return actor !in current.bannedMembers && if (controlId == null) endedAt == null else
             controlPositions[controlId]?.let { it >= (endedAt ?: 0L) } == true
     }
 
@@ -56,7 +57,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
     fun canJoinChannel(actor: String, channel: String, controlId: String): Boolean {
         val record = current.channels[channel] ?: return false
         val position = controlPositions[controlId] ?: return false
-        if (record.visibility != SpaceVisibility.PRIVATE || actor !in current.members || !canAccessChannel(actor, channel) ||
+        if (record.visibility != SpaceVisibility.PRIVATE || actor !in current.members || actor in current.bannedMembers || !canAccessChannel(actor, channel) ||
             record.devices.keys.any { credentialWallet(it) == actor }) return false
         val startedAt = if (record.allowedMembers == null || actor in record.allowedMembers)
             record.accessStartedAt[actor] ?: 0L else if (current.members[actor] == SpaceRole.ADMIN)
@@ -255,10 +256,29 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 require(event.author in current.members && event.author != current.owner) {
                     "The owner must transfer ownership before leaving"
                 }
-                retireExcludedDevices(current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
-                    members = Collections.unmodifiableMap(current.members - event.author),
-                    administratorStartedAt = Collections.unmodifiableMap(current.administratorStartedAt - event.author),
-                    membershipEndedAt = Collections.unmodifiableMap(current.membershipEndedAt + (event.author to position))))
+                endMembership(current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1)), event.author, position)
+            }
+            "remove-member", "ban-member" -> {
+                require(event.body.text("control_id") == current.controlId)
+                val actorRole = current.members[event.author]
+                require(actorRole in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+                val member = event.body.text("member")
+                val role = current.members[member]
+                val banning = event.body.text("kind") == "ban-member"
+                require(SaitoWallet.isPublicKey(member) && member != current.owner && member != event.author)
+                require(if (banning) member !in current.bannedMembers else role != null)
+                require(actorRole == SpaceRole.OWNER || role == null || role == SpaceRole.MEMBER) { "Administrators cannot moderate each other" }
+                endMembership(current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    bannedMembers = if (banning) Collections.unmodifiableSet(current.bannedMembers + member) else current.bannedMembers), member, position)
+            }
+            "unban-member" -> {
+                require(event.body.text("control_id") == current.controlId)
+                require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+                val member = event.body.text("member")
+                require(member in current.bannedMembers)
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    bannedMembers = Collections.unmodifiableSet(current.bannedMembers - member),
+                    membershipEndedAt = Collections.unmodifiableMap(current.membershipEndedAt + (member to position)))
             }
             "set-role" -> {
                 require(event.author == current.owner && event.body.text("control_id") == current.controlId)
@@ -320,7 +340,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     publicProfile = profile.copy(listed = listed))
             }
             "join-public" -> {
-                require(current.visibility == SpaceVisibility.PUBLIC)
+                require(current.visibility == SpaceVisibility.PUBLIC && event.author !in current.bannedMembers)
                 val profile = requireNotNull(current.publicProfile)
                 require(event.body.text("control_id") == current.controlId && event.author !in current.members)
                 require(current.channels[event.body.text("channel_id")]?.visibility == SpaceVisibility.PUBLIC)
@@ -364,6 +384,17 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         current = next
         return next
     }
+
+    private fun endMembership(snapshot: SpaceSnapshot, member: String, position: Long): SpaceSnapshot =
+        retireExcludedDevices(snapshot.copy(members = Collections.unmodifiableMap(snapshot.members - member),
+            administratorStartedAt = Collections.unmodifiableMap(snapshot.administratorStartedAt - member),
+            membershipEndedAt = Collections.unmodifiableMap(snapshot.membershipEndedAt + (member to position)),
+            membershipReadThrough = if (member in snapshot.members) Collections.unmodifiableMap(snapshot.membershipReadThrough + (member to position))
+                else snapshot.membershipReadThrough,
+            channels = Collections.unmodifiableMap(snapshot.channels.mapValues { (_, channel) ->
+                channel.copy(allowedMembers = channel.allowedMembers?.let { Collections.unmodifiableSet(it - member) },
+                    accessStartedAt = Collections.unmodifiableMap(channel.accessStartedAt - member))
+            })))
 
     /** Retired credentials stay retired even if their wallet later regains a
      * role. New admission must use fresh keys after their actual removal. */

@@ -1,5 +1,12 @@
 # Ticket139: community governance
 
+The [membership and editor source record](membership-and-native-editor-source.json)
+tracks durable removal/ban/lift, actual private-key exclusion and bounded
+membership-end reading, with the native confirmation and editor corrections.
+Current full JVM and separate compiler checks are explicit. Whole139 and current
+native acceptance remain pending; source2b6 failures and narrow readiness
+acceptance remain separate.
+
 The [leave and native feedback source record](leave-and-native-feedback-source.json)
 tracks source048 whole outcomes, actual feedback/delivery failures and current
 leave/rejoin intent and retained-history regressions. Current full/build/native

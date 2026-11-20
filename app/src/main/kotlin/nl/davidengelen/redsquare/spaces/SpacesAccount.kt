@@ -38,11 +38,12 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val archiveChange: SpaceClient.ArchiveChange? = null, val roleChange: SpaceClient.RoleChange? = null,
         val channelEdit: SpaceClient.ChannelEdit? = null, val channelCreation: SpaceClient.ChannelCreation? = null,
         val channelAccessChange: SpaceClient.ChannelAccessChange? = null,
+        val membershipChange: SpaceClient.MembershipChange? = null, val bannedMembers: Set<String> = emptySet(),
         val joinedInvitation: String? = null, val openedPublicReference: String? = null, val contentLoaded: Boolean = false, val requiredNode: String? = null,
         val profiles: Map<String, SpaceProfile> = emptyMap(), val channels: List<SpaceClient.Channel> = emptyList(),
         val members: List<SpaceClient.Member> = emptyList(), val accessProblems: Map<String, SpaceClient.ReadProblem> = emptyMap(),
         val discoverySupported: Boolean? = null, val unreadSupported: Boolean = false,
-        val archiveSupported: Boolean = false, val rolesSupported: Boolean = false, val publicChannelEditSupported: Boolean = false,
+        val archiveSupported: Boolean = false, val rolesSupported: Boolean = false, val membershipSupported: Boolean = false, val publicChannelEditSupported: Boolean = false,
         val privateChannelAccessSupported: Boolean = false, val privateChannelEditSupported: Boolean = false,
         val directoryItems: List<SpaceClient.PublicCommunity> = emptyList(), val directoryQuery: String = "",
         val directoryLoading: Boolean = false, val directoryCached: Boolean = false, val directoryFailed: Boolean = false,
@@ -140,6 +141,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     mutable.update { it.copy(availability = Availability.ONLINE, ready = true,
                         discoverySupported = "spaces-directory-v1" in services, unreadSupported = "spaces-unread-v1" in services,
                         archiveSupported = "spaces-channel-archive-v1" in services, rolesSupported = "spaces-role-management-v1" in services,
+                        membershipSupported = "spaces-membership-management-v1" in services,
                         publicChannelEditSupported = "spaces-public-channel-edit-v1" in services,
                         privateChannelAccessSupported = "spaces-private-channel-access-v1" in services,
                         privateChannelEditSupported = "spaces-private-channel-edit-v1" in services) }
@@ -227,18 +229,19 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
 
     private data class ManagementProjection(val archive: SpaceClient.ArchiveChange?, val role: SpaceClient.RoleChange?,
-        val edit: SpaceClient.ChannelEdit?, val creation: SpaceClient.ChannelCreation?, val access: SpaceClient.ChannelAccessChange?)
+        val edit: SpaceClient.ChannelEdit?, val creation: SpaceClient.ChannelCreation?, val access: SpaceClient.ChannelAccessChange?,
+        val membership: SpaceClient.MembershipChange?)
     private fun managementProjection(current: SpaceClient, target: Target?) = ManagementProjection(
         target?.let { current.archiveChange(it.space, it.channel) }, target?.let { current.roleChange(it.space) },
         target?.let { current.channelEdit(it.space, it.channel) }, target?.let { current.channelCreation(it.space) },
-        target?.let { current.channelAccessChange(it.space, it.channel) })
+        target?.let { current.channelAccessChange(it.space, it.channel) }, target?.let { current.membershipChange(it.space) })
     private fun State.withManagement(changes: ManagementProjection): State {
         val pending = listOf(changes.archive?.status, changes.role?.status, changes.edit?.status,
-            changes.creation?.status, changes.access?.status).any {
+            changes.creation?.status, changes.access?.status, changes.membership?.status).any {
             it == SpaceClient.ChangeStatus.QUEUED || it == SpaceClient.ChangeStatus.AWAITING_CONFIRMATION
         }
         return copy(archiveChange = changes.archive, roleChange = changes.role, channelEdit = changes.edit,
-            channelCreation = changes.creation, channelAccessChange = changes.access,
+            channelCreation = changes.creation, channelAccessChange = changes.access, membershipChange = changes.membership,
             current = if (pending) current?.copy(pending = true, canSend = false, canManage = false) else current)
     }
 
@@ -268,6 +271,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         target?.let { profiles[it.space] = current.profile(it.space) }
         val channels = target?.let { current.channels(it.space) }.orEmpty()
         val members = target?.let { current.members(it.space) }.orEmpty()
+        val bannedMembers = target?.let { current.bannedMembers(it.space) }.orEmpty()
         val window = target?.let { current.historyWindow(it.space, historyWindows[it], channel = it.channel) }
         val messages = target?.let { current.timeline(it.space, from = window?.from, channel = it.channel) }.orEmpty()
         val invitation = target?.let { current.invitation(it.space) }
@@ -278,7 +282,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             val changes = managementProjection(current, target)
             mutable.update { previous ->
                 if (previous.target() != target || previous.loadingChannel) previous.copy(communities = communities, profiles = profiles)
-                else previous.copy(communities = communities, profiles = profiles, current = community, channels = channels, members = members,
+                else previous.copy(communities = communities, profiles = profiles, current = community, channels = channels, members = members, bannedMembers = bannedMembers,
                 messages = messages, invitation = invitation, publicRulesToken = publicRulesToken,
                 listingIntent = target?.let { dirtyListings[it.space] } ?: listingIntent, publicLink = publicLink,
                 contentLoaded = window?.loaded == true, hasEarlier = window?.hasEarlier == true,
@@ -305,7 +309,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             val token = selection.incrementAndGet()
             mutable.update { it.copy(selected = space, selectedChannel = channel, current = null,
                 messages = emptyList(), channels = emptyList(), members = emptyList(), draft = "", invitation = null, anchor = null,
-                problem = null, listingIntent = null, publicLink = null, archiveChange = null, roleChange = null, channelEdit = null, channelCreation = null, channelAccessChange = null,
+                problem = null, listingIntent = null, publicLink = null, archiveChange = null, roleChange = null, channelEdit = null, channelCreation = null, channelAccessChange = null, membershipChange = null, bannedMembers = emptySet(),
                 contentLoaded = false, loadingChannel = space != null, scrollToMessage = null) }
             scope.launch {
                 try {
@@ -333,12 +337,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         val listingIntent = current.listingIntent(space)
                         val archiveChange = current.archiveChange(space, target.channel)
                         val roleChange = current.roleChange(space)
+                        val membershipChange = current.membershipChange(space)
+                        val bannedMembers = current.bannedMembers(space)
                         val channelEdit = current.channelEdit(space, target.channel)
                         val channelCreation = current.channelCreation(space)
                         val channelAccessChange = current.channelAccessChange(space, target.channel)
                         mutable.update { if (it.selected == space && selection.get() == token) it.copy(
                             selectedChannel = target.channel, current = community, channels = channels, members = members, anchor = anchor,
-                            archiveChange = archiveChange, roleChange = roleChange, channelEdit = channelEdit, channelCreation = channelCreation, channelAccessChange = channelAccessChange,
+                            archiveChange = archiveChange, roleChange = roleChange, membershipChange = membershipChange, bannedMembers = bannedMembers, channelEdit = channelEdit, channelCreation = channelCreation, channelAccessChange = channelAccessChange,
                             profiles = it.profiles + (space to profile), publicRulesToken = rulesToken, publicLink = publicLink, invitation = invitation,
                             listingIntent = dirtyListings[space] ?: listingIntent,
                             draft = if (draftVersions[target]?.get() == version) draft else it.draft,
@@ -675,6 +681,23 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 require(selected.metadataReady && if (selected.visibility == SpaceVisibility.PUBLIC)
                     mutable.value.publicChannelEditSupported else mutable.value.privateChannelEditSupported)
                 current.editChannel(space, channel, profile)
+            }
+            publishManagement()
+            urgentOutbox.add(space); wake.trySend(Unit)
+        }
+    }
+    fun changeMembership(space: String, member: String, action: SpaceClient.MembershipAction) {
+        val route = navigationVersion.get()
+        localAction(Problem.SAVE, isCurrent = { navigationVersion.get() == route }) {
+            localAccess.withLock {
+                require(mutable.value.membershipSupported)
+                val current = requireNotNull(client)
+                when (action) {
+                    SpaceClient.MembershipAction.LEAVE -> { require(member == ownerKey); current.leave(space) }
+                    SpaceClient.MembershipAction.REMOVE -> current.removeMember(space, member)
+                    SpaceClient.MembershipAction.BAN -> current.banMember(space, member)
+                    SpaceClient.MembershipAction.UNBAN -> current.unbanMember(space, member)
+                }
             }
             publishManagement()
             urgentOutbox.add(space); wake.trySend(Unit)

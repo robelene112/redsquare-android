@@ -39,6 +39,7 @@ class Spaces extends ModTemplate {
     if (this.bridge?.supportsPublicChannelEditing) services.push(new PeerService(null, 'spaces-public-channel-edit-v1'));
     if (this.bridge?.supportsPrivateChannelAccess) services.push(new PeerService(null, 'spaces-private-channel-access-v1'));
     if (this.bridge?.supportsPrivateChannelEditing) services.push(new PeerService(null, 'spaces-private-channel-edit-v1'));
+    if (this.bridge?.supportsMembershipManagement) services.push(new PeerService(null, 'spaces-membership-management-v1'));
     return services;
   }
 

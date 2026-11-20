@@ -405,7 +405,7 @@ class SpacesManagementJourneyTest {
         val channel = fixtures.get("private").asString
         val renamed = "native-private-reading"
         openInformation(); openChannelEditor()
-        editorField("Channel name").performTextReplacement(renamed)
+        editorField("Channel name").performClick().performTextReplacement(renamed)
         assertFocusedFieldVisible("Channel name", renamed)
         editorField("Category (optional)").performTextReplacement("Shared plans")
         assertFocusedFieldVisible("Category (optional)", "Shared plans")
@@ -779,7 +779,23 @@ class SpacesManagementJourneyTest {
     private fun assertFocusedFieldVisible(label: String, value: String) {
         val field = editorField(label)
         var proof = JsonObject()
+        var observedInput = false
         waitUntil(5_000) {
+            if (!observedInput) {
+                val node = field.fetchSemanticsNode()
+                File(evidence, "editor-input-observations.jsonl").appendText(JsonObject().apply {
+                    addProperty("pid", Process.myPid()); addProperty("timeMs", SystemClock.elapsedRealtime())
+                    addProperty("label", label); addProperty("requested", value)
+                    addProperty("actual", node.config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text)
+                    addProperty("focused", node.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.Focused))
+                }.toString() + "\n")
+                observedInput = true
+            }
+            // Font-scale changes may create this real Gboard banner. Dismiss
+            // its actual control inside the same original five-second goal.
+            device.findObject(By.pkg("com.google.android.inputmethod.latin").desc("Keyboard font size follows system setting."))
+                ?.findObject(By.clazz("android.widget.Button").text("OK").desc("Close the banner."))
+                ?.takeIf { it.isEnabled }?.click()
             val imeBottom = focusedWindowImeBottom()
             val physical = if (imeBottom > 0) device.findObjects(By.text(value)).singleOrNull { it.isFocused }?.visibleBounds else null
             if (physical == null || !field.isDisplayed()) false else field.fetchSemanticsNode().let { node ->
@@ -911,7 +927,12 @@ class SpacesManagementJourneyTest {
         check(file.canonicalFile.parentFile == context.noBackupFilesDir.canonicalFile)
         val space = fixtures.get("space").asString.also { require(it.matches(Regex("[0-9a-f]{64}"))) }
         val trigger = "spaces_owned_management_write_failure"
-        fun database() = SQLiteDatabase.openDatabase(file.path, null, SQLiteDatabase.OPEN_READWRITE)
+        fun database() = SQLiteDatabase.openDatabase(file.path, null,
+            SQLiteDatabase.OPEN_READWRITE or SQLiteDatabase.ENABLE_WRITE_AHEAD_LOGGING).apply {
+            // Fixture preparation participates in SQLite's real bounded writer
+            // arbitration. This happens before the unchanged UI fault deadline.
+            execSQL("PRAGMA busy_timeout=5000")
+        }
         database().use { db ->
             db.rawQuery("SELECT name FROM sqlite_master WHERE type='trigger' AND name=?", arrayOf(trigger)).use { assertFalse(it.moveToFirst()) }
             db.execSQL("CREATE TRIGGER $trigger BEFORE INSERT ON entries WHEN NEW.key='$space/state' BEGIN SELECT RAISE(ABORT,'Owned management storage failure'); END")

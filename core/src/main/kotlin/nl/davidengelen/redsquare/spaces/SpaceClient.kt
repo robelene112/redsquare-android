@@ -48,7 +48,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     enum class ChangeStatus { QUEUED, AWAITING_CONFIRMATION, ACCEPTED, REJECTED }
     data class ArchiveChange(val id: String, val channelId: String, val archived: Boolean, val status: ChangeStatus)
     data class RoleChange(val id: String, val memberKey: String, val administrator: Boolean, val status: ChangeStatus)
-    data class MembershipChange(val id: String, val status: ChangeStatus)
+    enum class MembershipAction(val kind: String) {
+        LEAVE("leave"), REMOVE("remove-member"), BAN("ban-member"), UNBAN("unban-member")
+    }
+    data class MembershipChange(val id: String, val status: ChangeStatus, val memberKey: String, val action: MembershipAction)
     data class ChannelAccessChange(val id: String, val channelId: String, val memberKey: String, val status: ChangeStatus, val granted: Boolean = false)
     data class ChannelCreation(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus, val privateMembers: Set<String>? = null)
     data class ChannelEdit(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus)
@@ -159,26 +162,54 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
 
     /** Membership changes keep the exact durable original separate from accepted membership. */
-    fun leave(space: String): String = store.transaction {
+    fun leave(space: String): String = changeMembership(space, wallet.publicKey, MembershipAction.LEAVE)
+    fun removeMember(space: String, member: String): String = changeMembership(space, member, MembershipAction.REMOVE)
+    fun banMember(space: String, member: String): String = changeMembership(space, member, MembershipAction.BAN)
+    fun unbanMember(space: String, member: String): String = changeMembership(space, member, MembershipAction.UNBAN)
+
+    private fun changeMembership(space: String, member: String, action: MembershipAction): String = store.transaction {
         owned()
         val state = state(space)
         val snapshot = journal(space).snapshot
         require(state.get("joined").asBoolean && !state.has("required_control"))
-        require(wallet.publicKey in snapshot.members && snapshot.owner != wallet.publicKey) {
-            "The owner must transfer ownership before leaving"
+        val role = snapshot.members[wallet.publicKey]
+        if (action == MembershipAction.LEAVE) {
+            require(wallet.publicKey in snapshot.members && snapshot.owner != wallet.publicKey) {
+                "The owner must transfer ownership before leaving"
+            }
+        } else {
+            require(role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+            require(SaitoWallet.isPublicKey(member) && member != snapshot.owner && member != wallet.publicKey)
+            when (action) {
+                MembershipAction.REMOVE -> require(member in snapshot.members)
+                MembershipAction.BAN -> require(member !in snapshot.bannedMembers)
+                MembershipAction.UNBAN -> require(member in snapshot.bannedMembers)
+                else -> error("Unexpected membership action")
+            }
+            require(role == SpaceRole.OWNER || snapshot.members[member] != SpaceRole.ADMIN)
         }
-        val original = event(space, "leave") { addProperty("control_id", requireNotNull(snapshot.controlId)) }
+        val original = event(space, action.kind) {
+            addProperty("control_id", requireNotNull(snapshot.controlId))
+            if (action != MembershipAction.LEAVE) addProperty("member", member)
+        }
         state.add("membership_change", JsonObject().apply {
             addProperty("id", original.id); addProperty("status", ChangeStatus.QUEUED.name)
+            addProperty("member", member); addProperty("action", action.name)
         })
         queue(space, state, original)
         original.id
     }
 
+    fun bannedMembers(space: String): Set<String> = store.transaction {
+        owned(); state(space); journal(space).snapshot.bannedMembers
+    }
+
     fun membershipChange(space: String): MembershipChange? = store.transaction {
         owned()
         val change = state(space).getAsJsonObject("membership_change") ?: return@transaction null
-        MembershipChange(change.text("id"), changeStatus(space, change))
+        MembershipChange(change.text("id"), changeStatus(space, change),
+            change.get("member")?.asString ?: wallet.publicKey,
+            change.get("action")?.asString?.let(MembershipAction::valueOf) ?: MembershipAction.LEAVE)
     }
 
     fun setAdministrator(space: String, memberKey: String, administrator: Boolean): String = store.transaction {
@@ -1488,7 +1519,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                         }
                         "archive-channel" -> recordArchiveResult(space, state, original, ChangeStatus.ACCEPTED)
                         "set-role" -> recordRoleResult(state, original, ChangeStatus.ACCEPTED)
-                        "leave" -> recordMembershipResult(state, original, ChangeStatus.ACCEPTED)
+                        "leave", "remove-member", "ban-member", "unban-member" -> recordMembershipResult(state, original, ChangeStatus.ACCEPTED)
                         "edit-channel" -> recordChannelEditResult(space, state, original, ChangeStatus.ACCEPTED)
                         "invite" -> Unit
                         "revoke-invite" -> {
@@ -1563,7 +1594,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 if (original.body.text("kind") == "create-channel") recordChannelCreationResult(state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "archive-channel") recordArchiveResult(space, state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "set-role") recordRoleResult(state, original, ChangeStatus.REJECTED)
-                if (original.body.text("kind") == "leave") recordMembershipResult(state, original, ChangeStatus.REJECTED)
+                if (original.body.text("kind") in setOf("leave", "remove-member", "ban-member", "unban-member")) recordMembershipResult(state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "edit-channel") recordChannelEditResult(space, state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "rotate-access") state.addProperty("access_rotation_rejected_head", original.body.text("control_id"))
                 if (original.body.text("kind") == "revoke-invite") {
@@ -1663,7 +1694,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private fun recordMembershipResult(state: JsonObject, original: SignedSaitoMessage, status: ChangeStatus) {
         val change = state.getAsJsonObject("membership_change") ?: return
         if (change.text("id") != original.id) return
-        require(original.author == wallet.publicKey && original.body.text("kind") == "leave")
+        require(original.author == wallet.publicKey)
+        val action = change.get("action")?.asString?.let(MembershipAction::valueOf) ?: MembershipAction.LEAVE
+        require(original.body.text("kind") == action.kind)
+        if (action != MembershipAction.LEAVE) require(change.text("member") == original.body.text("member"))
         change.addProperty("status", status.name)
     }
 
@@ -1888,7 +1922,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }.asLong.also { require(it >= 0) }
     private companion object {
         val CONTROL_KINDS = setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite", "create-channel",
-            "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access", "rotate-access", "leave")
+            "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access", "rotate-access", "leave", "remove-member", "ban-member", "unban-member")
         const val DIRECTORY_CACHE_LIMIT = 200
         val ID = Regex("[0-9a-f]{64}")
         val GSON = GsonBuilder().setStrictness(Strictness.STRICT).create()

@@ -41,7 +41,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         return JsonObject().apply {
             addProperty("capability", "spaces-v1"); addProperty("service_key", wallet.publicKey)
             addProperty("schema", version); addProperty("state", "ready"); addProperty("file_hosting", false)
-            add("features", JsonArray().apply { add("unread-v1"); add("channel-archive-v1"); add("role-management-v1"); add("public-channel-edit-v1"); add("private-channel-access-v1"); add("private-channel-edit-v1") })
+            add("features", JsonArray().apply { add("unread-v1"); add("channel-archive-v1"); add("role-management-v1"); add("public-channel-edit-v1"); add("private-channel-access-v1"); add("private-channel-edit-v1"); add("membership-management-v1") })
         }.toString()
     }
 
@@ -94,6 +94,12 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     if (stream == "directory") directoryPage(reply, scope.text("query"), cursor)
                     else {
                     val journal = journal(space)
+                    // A former member may authenticate their own departure.
+                    // This does not authorize later private controls or content,
+                    // and banning a never-member grants no read authority.
+                    val departureEnd = journal.snapshot.membershipReadThrough[request.author]?.takeIf {
+                        stream == "control" && request.author !in journal.snapshot.members && journal.snapshot.visibility == SpaceVisibility.PRIVATE
+                    }
                     fun denied(reason: String) {
                         reply.addProperty("request", "denied"); reply.addProperty("reason", reason)
                     }
@@ -113,7 +119,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         }
                     } else if (!(journal.snapshot.visibility == SpaceVisibility.PUBLIC && stream == "control") &&
                         !(stream == "content" && journal.snapshot.channels[channel]?.visibility == SpaceVisibility.PUBLIC) &&
-                        request.author !in journal.snapshot.members) { denied("unavailable"); return@atomic }
+                        request.author !in journal.snapshot.members && departureEnd == null) { denied("unavailable"); return@atomic }
                     if (channel != null) {
                         val target = journal.snapshot.channels[channel]
                         if (target == null || target.visibility != SpaceVisibility.PUBLIC && (!journal.canAccessChannel(request.author, channel) ||
@@ -146,6 +152,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         if (recipient != null) sql.setString(4, recipient)
                         sql.executeQuery().use { rows ->
                             while (rows.next()) {
+                                if (departureEnd != null && rows.getLong(1) > departureEnd) break
                                 val value = rows.getString(2)
                                 if (stream == "join") {
                                     val original = SaitoEnvelope.decode(SaitoEnvelope.decode(value).body.text("event"))

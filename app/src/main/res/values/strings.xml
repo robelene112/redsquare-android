@@ -1502,4 +1502,21 @@
     <string name="spaces_choose_channel_members">Choose members</string>
     <string name="spaces_remove_unavailable_members">Remove members who have left the Space</string>
     <string name="spaces_create_private_channel_detail">Choose a name, a channel type and an optional category. This channel is private to the selected members, owners and administrators. It appears after the node confirms it.</string>
+
+    <string name="spaces_manage_member">Manage member</string>
+    <string name="spaces_remove_member">Remove member</string>
+    <string name="spaces_remove_member_title">Remove this member?</string>
+    <string name="spaces_remove_member_detail">Their membership and private-channel access will end. They may join again if access is available. Previously received copies cannot be recalled.</string>
+    <string name="spaces_ban_member">Ban member</string>
+    <string name="spaces_ban_member_title">Ban this member?</string>
+    <string name="spaces_ban_member_detail">Their membership and private-channel access will end. This Saito identity cannot join again until a ban is lifted. Previously received copies cannot be recalled.</string>
+    <string name="spaces_banned_members">Banned members</string>
+    <string name="spaces_lift_ban">Lift ban</string>
+    <string name="spaces_banned_join_detail">This identity is banned from joining. An owner or administrator must lift the ban first.</string>
+    <string name="spaces_leave">Leave Space</string>
+    <string name="spaces_leave_title">Leave this Space?</string>
+    <string name="spaces_leave_detail">You will stop receiving new private activity. Previously received copies and your drafts remain on this device. To return, join again if access is available.</string>
+    <string name="spaces_owner_transfer_before_leave">Transfer ownership to another member before leaving.</string>
+    <string name="spaces_cancel">Cancel</string>
+    <string name="spaces_lift_ban_for">Lift ban for %1$s</string>
 </resources>

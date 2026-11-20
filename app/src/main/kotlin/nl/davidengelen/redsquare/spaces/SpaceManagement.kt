@@ -11,6 +11,7 @@ import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -73,29 +74,34 @@ import nl.davidengelen.redsquare.ui.DesignSheet
 
 @Composable internal fun SpaceMemberRoleSheet(open: Boolean, account: SpacesAccount, state: SpacesAccount.State,
     member: SpaceClient.Member?, onDismiss: () -> Unit) {
+    var closingMember by remember(state.selected, account.ownerKey, account.backend.webUrl) { mutableStateOf<SpaceClient.Member?>(null) }
+    SideEffect { if (member != null) closingMember = member }
+    val visibleMember = member ?: closingMember
+    val active = open && member != null && state.selected != null
     val owner = state.members.firstOrNull { it.publicKey == account.ownerKey }?.role == SpaceRole.OWNER
-    val change = state.roleChange?.takeIf { it.memberKey == member?.publicKey }
+    val change = state.roleChange?.takeIf { it.memberKey == visibleMember?.publicKey }
     val pending = change?.status in setOf(SpaceClient.ChangeStatus.QUEUED, SpaceClient.ChangeStatus.AWAITING_CONFIRMATION)
-    DesignSheet(open && member != null && state.selected != null, stringResource(R.string.spaces_manage_role), onDismiss, footer = { first ->
+    DesignSheet(active, stringResource(if (state.membershipSupported) R.string.spaces_manage_member else R.string.spaces_manage_role), onDismiss, footer = { first ->
         SpaceManagementProblem(state.problem, account::clearProblem)
-        if (member != null && owner && member.role != SpaceRole.OWNER && state.rolesSupported) {
-            Button(onClick = { state.selected?.let { account.setAdministrator(it, member.publicKey, member.role != SpaceRole.ADMIN) } },
-                enabled = open && state.current?.canManage == true && !state.working && !pending,
+        if (visibleMember != null && owner && visibleMember.role != SpaceRole.OWNER && state.rolesSupported) {
+            Button(onClick = { state.selected?.let { account.setAdministrator(it, visibleMember.publicKey, visibleMember.role != SpaceRole.ADMIN) } },
+                enabled = active && state.current?.canManage == true && !state.working && !pending,
                 modifier = first.fillMaxWidth().heightIn(min = 48.dp)) {
                 Text(stringResource(when {
                     pending -> R.string.spaces_updating_role
-                    member.role == SpaceRole.ADMIN -> R.string.spaces_remove_administrator
+                    visibleMember.role == SpaceRole.ADMIN -> R.string.spaces_remove_administrator
                     else -> R.string.spaces_make_administrator
                 }))
             }
         }
+        if (visibleMember != null) SpaceMemberRemovalControls(account, state, visibleMember, active)
     }) {
-        if (member != null) {
+        if (visibleMember != null) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-                ProfileAvatar(member.publicKey, Modifier.size(48.dp))
+                ProfileAvatar(visibleMember.publicKey, Modifier.size(48.dp))
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text(registeredIdentity(member.publicKey).name, style = MaterialTheme.typography.titleLarge)
-                    Text(stringResource(when (member.role) {
+                    Text(registeredIdentity(visibleMember.publicKey).name, style = MaterialTheme.typography.titleLarge)
+                    Text(stringResource(when (visibleMember.role) {
                         SpaceRole.OWNER -> R.string.spaces_role_owner
                         SpaceRole.ADMIN -> R.string.spaces_role_admin
                         SpaceRole.MEMBER -> R.string.spaces_role_member
@@ -103,7 +109,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
                 }
             }
             Text(stringResource(R.string.spaces_administrator_detail), color = MaterialTheme.colorScheme.onSurfaceVariant)
-            if (!owner || member.role == SpaceRole.OWNER) Text(stringResource(R.string.spaces_owner_controls_roles))
+            if (!owner || visibleMember.role == SpaceRole.OWNER) Text(stringResource(R.string.spaces_owner_controls_roles))
             ManagementChangeNotice(change?.status, state.availability, account::refresh)
         }
     }

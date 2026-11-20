@@ -30,7 +30,9 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
     modifier: Modifier = Modifier, onBack: () -> Unit, onProfile: (String) -> Unit, onMessage: (String) -> Unit) {
     var managing by rememberSaveable(state.selected) { mutableStateOf<String?>(null) }
     var roleSheetOpen by rememberSaveable(state.selected) { mutableStateOf(false) }
-    val owner = state.members.firstOrNull { it.publicKey == account.ownerKey }?.role == SpaceRole.OWNER
+    val ownRole = state.members.firstOrNull { it.publicKey == account.ownerKey }?.role
+    val owner = ownRole == SpaceRole.OWNER
+    val administrator = ownRole in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
     Column(modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             FrameIconButton(R.drawable.ic_back, stringResource(R.string.spaces_back)) { onBack() }
@@ -40,13 +42,16 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
                 Text(stringResource(R.string.spaces_members), style = MaterialTheme.typography.headlineSmall, modifier = Modifier.semantics { heading() })
             }
         }
+        Box(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
+            SpaceManagementProblem(state.problem, account::clearProblem, scrollIntoView = false)
+        }
         LazyColumn(Modifier.weight(1f).fillMaxWidth(), contentPadding = PaddingValues(AppSpacing.screen),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             if (state.members.isEmpty()) item { Text(stringResource(R.string.spaces_loading_members), color = MaterialTheme.colorScheme.onSurfaceVariant) }
             items(state.members, key = { it.publicKey }) { member ->
                 val identity = registeredIdentity(member.publicKey).name
                 Surface(onClick = { onProfile(member.publicKey) }, shape = RoundedCornerShape(18.dp),
-                    color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = Modifier.fillMaxWidth().semantics { role = Role.Button }) {
+                    color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = Modifier.fillMaxWidth().animateItem().semantics { role = Role.Button }) {
                     Column {
                         Row(Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -63,11 +68,19 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
                                 Icon(painterResource(R.drawable.ic_chat), stringResource(R.string.spaces_message_member, identity), Modifier.size(22.dp))
                             } else Icon(painterResource(R.drawable.ic_forward), null, Modifier.size(18.dp))
                         }
-                        if (owner && state.rolesSupported && member.role != SpaceRole.OWNER) TextButton(
+                        if (member.role != SpaceRole.OWNER && member.publicKey != account.ownerKey &&
+                            (owner && state.rolesSupported || administrator && state.membershipSupported && member.role == SpaceRole.MEMBER)) TextButton(
                             onClick = { managing = member.publicKey; roleSheetOpen = true }, modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp).heightIn(min = 48.dp)) {
-                            Text(stringResource(R.string.spaces_manage_role))
+                            Text(stringResource(if (state.membershipSupported) R.string.spaces_manage_member else R.string.spaces_manage_role))
                         }
                     }
+                }
+            }
+            if (administrator && state.membershipSupported && state.bannedMembers.isNotEmpty()) {
+                item { Text(stringResource(R.string.spaces_banned_members), style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.semantics { heading() }) }
+                items(state.bannedMembers.toList().sorted(), key = { "banned:$it" }) { member ->
+                    SpaceBanRow(account, state, member)
                 }
             }
         }

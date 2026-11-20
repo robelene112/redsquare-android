@@ -7,56 +7,45 @@ and138 are accepted and closed. Issue139 remains current and incomplete;
 140–147 have not started. Continue without a checkpoint stop. Public beta142
 is unchanged.
 
-Committed source048bbf82c adds actual MLS rotation for credentials excluded by
-accepted private-channel policy and protects newer live and same-epoch history
-keys from stale rejection rollback. Its complete JVM run passes247core/107service
-(48/9classes) in4m4s with both test tasks executed; separate main/instrumentation
-compilation passes193/179seconds. Earlier source794 and all failed predecessors
-remain separately qualified in the [rotation/source record](evidence/ticket139/rotation-and-native-recovery.json).
+The current membership increment adds durable leave/remove/ban/lift commands,
+receiving permissions, private-grant clearing and actual future-key exclusion.
+An explicit return cannot revive an old restricted-channel grant. A former
+private member can authenticate controls through their own departure only;
+later controls/content/keys stay unavailable. Banning a never-member grants no
+read access, and lifting a ban does not extend the departure read cap.
 
-All six source048 native parents are terminal and retained. Readiness Android10
-44709339456 and Android17 44709332230 pass frozen5 assessment and both actual
-frame/prototype review axes, narrowly within readiness:605frames/40sheets,
-16PNG/XMLpairs and28geometry records. Public runs44709311194/44709303980 fail
-compact role-error visibility before focused-field checks. Actual movies show
-the enlarged footer leaving the viewport despite a prompt SAVE error. Private
-runs44709325309/44709318464 fail5second pending-confirmation goals in phase1:
-Android10 revoke lacks urgent scheduling; Android17 creation waits3392ms for the
-store. Repeated idle rotation journal verification is an inferred contributor
-to that contention. All34public/12private-process/4readiness failed parents stay
-whole failures, including passing prefixes.
+Native source includes confirmations, role-sensitive member controls, a banned
+roster, visible local-save failures and identity-specific TalkBack labels.
+Capabilities are negotiated. Editor handoff waits for the old Information sheet
+to hide and for restored scope to load, with cancellation on explicit navigation.
+Focused fields request their full bounds after actual IME/focus/size changes.
+The original5/15/27-second,48dp, process, cleanup and provenance goals remain.
 
-Current uncommitted corrections bring SAVE feedback into view after actual
-layout/animation completion, use lightweight urgent delivery for archive/role/
-access changes and avoid repeated idle journal replay using an accepted-policy
-hint (legacy stores bootstrap once). Fault screenshots are captured before
-independent cleanup closes the Activity. Both source review axes are clear for
-these UI/coordinator changes; new Android compilation and whole native/frame
-acceptance remain mandatory. Stable focus ancestry and matching reading-index/
-offset pairing from048 stay in place. Original5/15/27second deadlines,48dp,
-process, provenance and cleanup goals remain unchanged.
+Complete current JVM regression passes247 core/123 service cases in48/9 classes,
+with both tasks executed, no skips and clean exit0 in6m10s. The final separate
+Android main/instrumentation compiler results are recorded in the
+[membership/source packet](evidence/ticket139/membership-and-native-editor-source.json).
+Actual regressions include stale private-grant revival, accepted replies lost
+across cold return, copied-key exclusion after ban and bounded departure reading.
+Both final source-review axes are clear. Current native acceptance is pending.
 
-Leave now has a receiving boundary and durable exact-original API with truthful
-queued/uncertain/accepted/rejected state. Owner departure is rejected until
-transfer; accepted departure retires future keys without recalling received
-bytes. Actual regressions protect against stale unused joins reviving membership
-and old deferred requests blocking fresh applicants. Signed membership intent
-acknowledges the departure or a later accepted control. The current complete JVM run passes247core/115service
-(48/9classes) in6m37s with both test tasks executed and clean command exit0.
-Actual regressions also cover fresh rejoin/history across both rotation orders,
-stale rejection after newer history and old queued writing after public rejoin.
-The earlier three-case log/XML pass2m44s had enclosing exit143 and remains
-qualified separately. See the [leave/source record](evidence/ticket139/leave-and-native-feedback-source.json).
-These APIs are not yet wired to native departure UI. Separate current Android main/instrumentation compilation passes194/191seconds
-with clean command exit0; fresh native acceptance is pending.
+All source2b6 whole originals are retained. Public44719904012/44719912061 fail
+compact category full visibility above the IME. Private44719920368 fails SQL
+fault setup with SQLITE_BUSY;44719928502 retains the old editor text after
+replacement. Those parents remain whole failures. Readiness44719943705 and
+Android10 replacement44722063017 pass frozen6 and both actual-frame/B reviews:
+582 frames/38 sheets,16 PNG/XML pairs,28 geometry records. Earlier44719950894
+failed heap preflight before application assertions and stays separate. Totals
+are36 public,14 private-process and5 readiness failed whole parents. No prefixes
+are combined, and earlier048/794/739 failures retain their qualifications.
 
-Remaining139 includes explicit category identities and management, leave/remove/
-ban UI and all affected future-key exclusion, two-party ownership transfer,
-deliberate visibility changes without publishing prior private history and
-owner-only dissolution. Then continue140–147. No production node/provider
-activation, public development/financial writes or automatic file hosting is
-implied. Keep1/36/55/84/86/105 open. Legacy Chat E2E, Vault rental and physical/OEM/
-Play limits remain separately recorded.
+Remaining139 includes current native membership/management acceptance, explicit
+category identities and management, two-party ownership transfer, deliberate
+visibility changes without publishing prior private history, and owner-only
+dissolution. Then continue140–147. No production node/provider activation,
+public development/financial writes or automatic file hosting is implied. Keep
+1/36/55/84/86/105 open. Legacy Chat E2E, Vault rental and physical/OEM/Play limits
+remain separately recorded.
 
 ## Accepted138, continue139
 

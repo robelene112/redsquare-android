@@ -91,6 +91,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     var joinOpen by remember { mutableStateOf(false) }
     var inviteOpen by remember { mutableStateOf(false) }
     var informationOpen by remember { mutableStateOf(false) }
+    var informationHidden by remember { mutableStateOf(true) }
+    var channelEditorPending by rememberSaveable { mutableStateOf(false) }
     val channelEditor = rememberSaveable(saver = SpaceChannelEditorState.Saver) { SpaceChannelEditorState() }
     val channelCreator = rememberSaveable(saver = SpaceChannelCreatorState.Saver) { SpaceChannelCreatorState() }
     var membersOpen by rememberSaveable { mutableStateOf(false) }
@@ -131,11 +133,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         // Selection is immediate; the panel keeps its rows until its exit ends.
         if (drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed)
             closingDrawerContent = closingDrawerContent ?: state
-        channelEditor.open = false; channelCreator.open = false; channelAccessRoute = null
+        channelEditorPending = false; channelEditor.open = false; channelCreator.open = false; channelAccessRoute = null
         savedSelection = space; account.select(space, channel); tab = SpacesTab.MY_SPACES
         scope.launch { drawer.close() }
     }
-    fun selectTab(target: SpacesTab) { channelEditor.open = false; channelCreator.open = false; channelAccessRoute = null; account.select(null); savedSelection = null; tab = target }
+    fun selectTab(target: SpacesTab) { channelEditorPending = false; channelEditor.open = false; channelCreator.open = false; channelAccessRoute = null; account.select(null); savedSelection = null; tab = target }
     LaunchedEffect(account, state.ready, state.loading) {
         // A verified public visitor has local context without My Spaces membership.
         if (state.ready && !state.loading && state.selected == null && savedSelection != null) account.select(savedSelection)
@@ -150,6 +152,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     LaunchedEffect(initialInvitation, state.ready, state.loading, state.working) {
         val link = initialInvitation ?: return@LaunchedEffect
         if (state.loading || !state.ready || state.working) return@LaunchedEffect
+        channelEditorPending = false; channelEditor.open = false
+        channelCreator.open = false; channelAccessRoute = null
+        informationOpen = false; inviteOpen = false; membersOpen = false; publicRulesOpen = false
         clearInvitationReview()
         if (SpacesLaunchRoutes.isPublic(android.net.Uri.parse(link))) {
             joinOpen = false; informationOpen = false; inviteOpen = false; membersOpen = false; channelAccessRoute = null
@@ -357,8 +362,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 if (selected != null && !state.loadingChannel && profile?.visibility == SpaceVisibility.PUBLIC && !selected.joined) {
                     Column(Modifier.fillMaxWidth().padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         Text(stringResource(R.string.spaces_public_browsing), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        val banned = account.ownerKey in state.bannedMembers
+                        if (banned) Text(stringResource(R.string.spaces_banned_join_detail), color = MaterialTheme.colorScheme.onSurfaceVariant)
                         Button(onClick = { if (profile.houseRules.isEmpty()) account.joinPublic(state.publicRulesToken) else publicRulesOpen = true },
-                            enabled = !state.working && !selected.pending, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                            enabled = !banned && !state.working && !selected.pending, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                             Text(stringResource(if (selected.pending) R.string.spaces_joining_public else R.string.spaces_join_public))
                         }
                     }
@@ -435,7 +442,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     var acceptedPublicRules by remember(state.selected, state.publicRulesToken) { mutableStateOf(false) }
     DesignSheet(publicRulesOpen && selected != null, stringResource(R.string.spaces_house_rules), { publicRulesOpen = false }, footer = { first ->
-        Button(onClick = { account.joinPublic(state.publicRulesToken) }, enabled = acceptedPublicRules && !state.working && selected?.pending != true,
+        Button(onClick = { account.joinPublic(state.publicRulesToken) }, enabled = account.ownerKey !in state.bannedMembers && acceptedPublicRules && !state.working && selected?.pending != true,
             modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_join_public)) }
     }) {
         profile?.let { Text(it.name, style = MaterialTheme.typography.titleLarge); Text(it.houseRules) }
@@ -446,7 +453,20 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         { inviteOpen = false }, account::refresh,
         { days -> selected?.let { account.invite(it.id, days) } },
         { selected?.let { account.revokeInvitation(it.id) } })
-    DesignSheet(informationOpen && selected != null, stringResource(R.string.spaces_information), { informationOpen = false }) { first ->
+    LaunchedEffect(informationOpen, selected?.id) { if (informationOpen && selected != null) informationHidden = false }
+    LaunchedEffect(channelEditorPending, informationHidden, state.ready, state.loading, state.loadingChannel,
+        state.selected, state.selectedChannel, account) {
+        if (channelEditorPending && informationHidden) {
+            if (channelEditor.owner != account.ownerKey || channelEditor.node != account.backend.webUrl) channelEditorPending = false
+            else if (state.ready && !state.loading && !state.loadingChannel && state.selected != null && state.selectedChannel != null) {
+                channelEditorPending = false
+                if (channelEditor.matches(account, state)) channelEditor.open = true
+            }
+        }
+    }
+    DesignSheet(informationOpen && selected != null, stringResource(R.string.spaces_information), { informationOpen = false }, onHidden = {
+        informationHidden = true
+    }) { first ->
         if (selected != null && profile != null) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 SpaceAvatar(profile, selected.id, account.avatarImages, Modifier.size(64.dp))
@@ -502,8 +522,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             }) {
                 focusManager.clearFocus(); keyboardController?.hide()
                 channelEditor.show(account, selected.id, chosen, state.channelEdit)
+                channelEditor.open = false; channelEditorPending = true
                 informationOpen = false
             } }
+            SpaceLeaveControls(account, state)
             SpaceManagementProblem(state.problem, account::clearProblem, scrollIntoView = true)
             TextButton(onClick = { informationOpen = false }, modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_close)) }
         }

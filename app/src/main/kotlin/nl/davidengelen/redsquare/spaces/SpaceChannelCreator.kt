@@ -126,7 +126,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
             }
         }) {
         Text(stringResource(if (editor.restricted) R.string.spaces_create_private_channel_detail else R.string.spaces_create_channel_detail), color = MaterialTheme.colorScheme.onSurfaceVariant)
-        OutlinedTextField(editor.name, { editor.name = it.take(512) }, Modifier.fillMaxWidth().animateContentSize(tween(AppSpacing.transitionMillis)),
+        OutlinedTextField(editor.name, { editor.name = it.take(512) }, Modifier.fillMaxWidth().spaceEditorFocusVisibility().animateContentSize(tween(AppSpacing.transitionMillis)),
             label = { Text(stringResource(R.string.spaces_channel_name)) }, singleLine = true, enabled = editor.open && !locked,
             isError = nameLong, supportingText = if (nameLong) ({ Text(stringResource(R.string.spaces_channel_name_long)) }) else null,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next), keyboardActions = KeyboardActions(onNext = { focus.moveFocus(FocusDirection.Next) }))
@@ -142,7 +142,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
                     enabled = !locked, onClick = { editor.kind = kind; menu = false }) }
             }
         }
-        OutlinedTextField(editor.category, { editor.category = it.take(512) }, Modifier.fillMaxWidth().animateContentSize(tween(AppSpacing.transitionMillis)),
+        OutlinedTextField(editor.category, { editor.category = it.take(512) }, Modifier.fillMaxWidth().spaceEditorFocusVisibility().animateContentSize(tween(AppSpacing.transitionMillis)),
             label = { Text(stringResource(R.string.spaces_category_optional)) }, singleLine = true, enabled = editor.open && !locked,
             isError = categoryLong, supportingText = if (categoryLong) ({ Text(stringResource(R.string.spaces_category_long)) }) else null,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done), keyboardActions = KeyboardActions(onDone = { focus.clearFocus(); keyboard?.hide() }))

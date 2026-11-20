@@ -20,9 +20,10 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit, contentKey: Any? = null,
-    footer: (@Composable ColumnScope.(Modifier) -> Unit)? = null,
+    footer: (@Composable ColumnScope.(Modifier) -> Unit)? = null, onHidden: () -> Unit = {},
     content: @Composable ColumnScope.(Modifier) -> Unit) {
     val firstAction = remember { FocusRequester() }
+    val hidden by rememberUpdatedState(onHidden)
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var mounted by remember { mutableStateOf(false) }
     var dismissalRequest by remember { mutableIntStateOf(0) }
@@ -33,9 +34,12 @@ internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit
             // A caller reviewing unsaved work can keep it open.
             if (mounted) state.show() else mounted = true
         }
-        else if (mounted) {
-            state.hide()
-            mounted = false
+        else {
+            if (mounted) {
+                state.hide()
+                mounted = false
+            }
+            hidden()
         }
     }
     if (mounted) ModalBottomSheet(onDismissRequest = requestDismiss, sheetState = state,
