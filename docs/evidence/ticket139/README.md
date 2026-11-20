@@ -1,5 +1,11 @@
 # Ticket139: community governance
 
+Actual category parent44771313022 remains wholeFAIL. Its469frames and9capture
+pairs exposed a polling exception, pending-form oracle and false restored-access
+copy. [The source record](categories-and-directory-source.json) now records the
+three-file product/observer correction, unchanged goals and original failure.
+Fresh revision2/native proof and remaining139 acceptance are still pending.
+
 The [category and directory source record](categories-and-directory-source.json)
 tracks stable encrypted category identities, native management preparation and
 successor-owned discovery. Full current product/JUnit modules pass248/140;

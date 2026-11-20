@@ -77,8 +77,20 @@ import nl.davidengelen.redsquare.ui.DesignSheet
     val pending = allChange?.status in setOf(SpaceClient.ChangeStatus.QUEUED, SpaceClient.ChangeStatus.AWAITING_CONFIRMATION)
     val targetAvailable = !editor.editing || editor.creating || selected != null
     val audienceUnchanged = !editor.creating || editor.privateCategory == (state.profiles[editor.space]?.visibility == SpaceVisibility.PRIVATE)
-    val authorized = bound && targetAvailable && audienceUnchanged && state.categoriesSupported && state.members.any {
+    val rosterReady = bound && state.ready && !state.loading && !state.loadingChannel && state.current?.id == editor.space &&
+        state.profiles.containsKey(editor.space) && state.members.isNotEmpty()
+    val roleAllowed = state.members.any {
         it.publicKey == account.ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
+    }
+    val authorized = rosterReady && roleAllowed && targetAvailable && audienceUnchanged && state.categoriesSupported
+    val accessNotice = when {
+        !rosterReady -> if (state.availability == SpacesAccount.Availability.OFFLINE) R.string.spaces_category_settings_connection
+            else R.string.spaces_category_settings_loading
+        !roleAllowed -> R.string.spaces_category_access_changed
+        !targetAvailable || !audienceUnchanged -> R.string.spaces_category_unavailable
+        !state.categoriesSupported -> if (state.availability == SpacesAccount.Availability.ONLINE) R.string.spaces_category_not_supported
+            else R.string.spaces_category_settings_connection
+        else -> null
     }
     val name = editor.name.trim()
     val invalid = name.isBlank() || name.toByteArray(Charsets.UTF_8).size > 128
@@ -171,7 +183,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
                 }
             }
         }
-        if (!authorized) Text(stringResource(if (!targetAvailable || !audienceUnchanged) R.string.spaces_category_unavailable else R.string.spaces_edit_access_changed), color = MaterialTheme.colorScheme.onSurfaceVariant)
+        accessNotice?.let { Text(stringResource(it), color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }
     if (editor.discard && editor.open && bound) AlertDialog(onDismissRequest = { editor.discard = false },
         title = { Text(stringResource(R.string.spaces_discard_category_title)) },

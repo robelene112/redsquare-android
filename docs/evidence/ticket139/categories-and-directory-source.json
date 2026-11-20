@@ -560,5 +560,45 @@
     "No physical/OEM/Play acceptance",
     "Legacy Chat E2E remains141",
     "Beta142 unchanged"
-  ]
+  ],
+  "firstNativeFeedback": {
+    "recordedAt": "2026-11-20T16:47:01.332786+00:00",
+    "sourceBase": "1d03625e65f8f6ab02ab8fb7f7b9352f19aba3d4",
+    "failedParent": {
+      "run": 44771313022,
+      "wholeOutcome": "FAIL",
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/spaces139-category-runtime/attempt1-44771313022/original.zip",
+      "sha256": "d905be36a6b317418f6a0c33079fd460afab1e047a8e40dc1b0bd8aa5c16d2b3",
+      "reviewedMovieFramesPerAxis": 469,
+      "capturePairs": 9,
+      "loggedControls": 16,
+      "compactExecuted": false
+    },
+    "actualFindings": [
+      "Gson JsonNull during pending channel assignment threw in the polling observer.",
+      "Accepted-card oracle matched the disabled pending editor; its capture and measured duration did not establish visible receipt.",
+      "Restored roster loading briefly displayed false channel-access-loss copy."
+    ],
+    "corrections": [
+      "Treat JsonNull as not yet observed inside the original15s assignment bound.",
+      "Require the enabled noneditable category card, actual list heading, absent form and absent waiting notice inside the original remaining27s, with exact two host originals.",
+      "Separate unknown authority from known denial and show neutral category loading/connection copy; retain actual category-specific denial and unsupported-node states. Assert denial absence after Activity recreation."
+    ],
+    "sourceFiles": {
+      "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceCategoryEditor.kt": "59278bb31a4ecebac8f643b2ea101245eb43d6438f30b1fd7946814bf38bfe3d",
+      "app/src/main/res/values/strings.xml": "56d79b4e4c9be6ddadeaff9578b1993c38d288ae244190f9c1addf3042b95cf2",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "4a171d42974bb11b5221bf22043486f5ac599796846adec93d6a21a536405d4c"
+    },
+    "evidence": {
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-received-state-main.log": "ec4a6a7a8ee428bfba4b3bd002c1f1371733bfeeb3a5e9333a95f666622a405a",
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-received-state-instrumentation.log": "f0fdbfb89c2f5b23d4bcaee4c6dbdcdb76e5d5d927aea338f0f127ed80e4028e",
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-first-failure-spec-review.txt": "f06135bb6142101c5dd6d36162405e6d9c6e0e17005a48a012ed5f06387bbb98",
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-first-failure-standards-review.txt": "9a39437a5a082cb6891c266773c165e6e986a047786340f64724bb8e40ec9934",
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-received-state-corrections-spec-review.txt": "5050788d961852a1dfc78a67fa17655f2c6ffebcd55a4b70396f0afa6ecc2c9f",
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-received-state-corrections-standards-review.txt": "2eeebbaa0eb7b44158bc6e18836eefb912c7e3bf85decb87fbd02bb2643e21be"
+    },
+    "sourceBridge": "Only these three source files changed from1d for this correction. core/service product and JUnit inputs, native host, workflow, goals, controls, captures and deadlines are unchanged. Historical module and pinned adapter results above remain scoped to their recorded source. This is product UI plus observer source, not observer-only.",
+    "validation": "Separate main log ends BUILD SUCCESSFUL3m17s; outer tool session returned143 after the inner build succeeded. The subsequent instrumentation command also independently warms/checks main; its complete outcome is recorded in the retained log. Both source review axes are clear. No fresh native acceptance or complete139 acceptance is claimed.",
+    "next": "Freeze new immutable source-bound revision2 with identical verifier/catalogues/goals, review both axes prospectively, then run a fresh whole category parent. Private category/pending-process, membership/ownership, visibility and dissolution remain before140-147."
+  }
 }

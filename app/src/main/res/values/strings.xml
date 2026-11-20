@@ -1552,4 +1552,8 @@
     <string name="spaces_category_unavailable">This category or its access has changed. Refresh to check its settings.</string>
     <string name="spaces_discard_category_title">Discard category changes?</string>
     <string name="spaces_discard_category_detail">Your unsaved category details will be lost.</string>
+    <string name="spaces_category_settings_loading">Loading category settings...</string>
+    <string name="spaces_category_settings_connection">Connect to check category settings.</string>
+    <string name="spaces_category_access_changed">You no longer have access to manage categories in this Space.</string>
+    <string name="spaces_category_not_supported">This node does not support category changes.</string>
 </resources>

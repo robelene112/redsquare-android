@@ -79,6 +79,8 @@ class SpacesManagementJourneyTest {
             activity.recreate()
             waitUntil { editorField(label).isDisplayed() &&
                 editorField(label).fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text == "A category draft survives recreation" }
+            ui.onNodeWithText(context.getString(R.string.spaces_edit_access_changed)).assertDoesNotExist()
+            ui.onNodeWithText(context.getString(R.string.spaces_category_access_changed)).assertDoesNotExist()
             capture("02-category-draft-restored")
             closeKeyboard()
             withWriteFailure(activity, fixtures, "category-normal") {
@@ -124,7 +126,7 @@ class SpacesManagementJourneyTest {
             openChannelEditor()
             clickDialog("Native conversations")
             clickDialog(context.getString(R.string.spaces_save_channel))
-            waitUntil { status().getAsJsonObject("channels").getAsJsonObject(fixtures.get("general").asString).get("categoryId")?.asString == category }
+            waitUntil { status().getAsJsonObject("channels").getAsJsonObject(fixtures.get("general").asString).get("categoryId")?.takeUnless { it.isJsonNull }?.asString == category }
             waitInformationName("general")
             capture("09-category-chosen-for-existing-channel")
             clickDialog(context.getString(R.string.spaces_close))
@@ -153,6 +155,8 @@ class SpacesManagementJourneyTest {
                 editorField(label).fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text == "Compact community conversations" }
             editorField(label).performClick()
             assertFocusedFieldVisible(label, "Compact community conversations")
+            ui.onNodeWithText(context.getString(R.string.spaces_edit_access_changed)).assertDoesNotExist()
+            ui.onNodeWithText(context.getString(R.string.spaces_category_access_changed)).assertDoesNotExist()
             capture("11-compact-category-restored")
             editorField(label).performScrollTo().performTextReplacement("C".repeat(129))
             ui.onNode(hasText(context.getString(R.string.spaces_save_category)) and hasClickAction() and hasAnyAncestor(isDialog())).assertIsNotEnabled()
@@ -266,8 +270,12 @@ class SpacesManagementJourneyTest {
         assertTrue("Category recovery stays inside the existing27second budget", remaining > 0)
         waitUntil(remaining) {
             val rows = status().getAsJsonArray("originals").map { it.asJsonObject }.filter { it.get("id").asString == original }
+            val inDialog = hasAnyAncestor(isDialog())
+            val card = ui.onNode(hasText(name) and hasClickAction() and isEnabled() and !hasSetTextAction() and inDialog)
+            val listHeading = ui.onNode(hasText(context.getString(R.string.spaces_categories)) and !hasClickAction() and inDialog)
             rows.size == 2 && rows.all { it.get("kind").asString == kind } && rows.map { it.get("sha256").asString }.distinct().size == 1 &&
-                ui.onNode(hasText(name) and hasClickAction() and hasAnyAncestor(isDialog())).isDisplayed()
+                card.isDisplayed() && listHeading.isDisplayed() && ui.onAllNodes(hasSetTextAction() and inDialog).fetchSemanticsNodes().isEmpty() &&
+                !ui.onNode(hasText(context.getString(R.string.spaces_management_awaiting)) and inDialog).isDisplayed()
         }
         assertTrue(SystemClock.elapsedRealtime() - started <= 27_000)
     }
