@@ -85,6 +85,15 @@ management attempt11 remains failed on initial reading time and an ambiguous
 created-route observer; preserve both originals and all timing goals while
 correcting them. Whole139 and140–147 remain unfinished; beta142 is unchanged.
 
+Repeated Normal transaction signature checks now reuse a bounded exact-envelope
+result with isolated bodies and immutable recipients. No authorization or nonce
+state is cached. The created-route observer now checks the actual selected
+switcher. Full246core/94service and both final source axes pass; see the
+[reuse packet](evidence/ticket139/authenticated-read-reuse.json). Actual native
+15second first reading and complete public/private UI acceptance still require
+fresh whole parents. All22failed parents remain failed; remaining139–147 and
+release gates remain open. Beta142 is unchanged.
+
 ## Accepted138, continue139
 
 Community discovery, creation and reviewed admission138 are accepted at product

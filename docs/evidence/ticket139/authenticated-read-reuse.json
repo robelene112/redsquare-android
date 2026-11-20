@@ -1,0 +1,62 @@
+{
+  "ticket": 139,
+  "scope": "Bounded repeated signature verification and actual created-route observer; source and JVM checks only.",
+  "base": "c7988c5ff137c20c079f90d6d55bea3f5a9d52a6",
+  "sources": {
+    "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoEnvelope.kt": "9ed8dc4550a1a1d8457734f818176ec787cc32be3796accbb88a8b575d3bb257",
+    "core/src/test/kotlin/nl/davidengelen/redsquare/saito/SaitoTransactionTest.kt": "a3300908afb59f2c4c3db295307e5abd64b36d8cca6ccb71b52e4d0d2ba8401e",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "578da72592c86af290c44e8e6eb2c20af53029b453215abcb66e7e411d161732"
+  },
+  "actualFailures": {
+    "android17": {
+      "run": 44669909698,
+      "failure": "Original first-content15second deadline. Accounttrace initial-to-loaded span15.318s, eight recorded RPCs total708ms. Repeated local verification/projection work is diagnosed; ECDSA share is inferred, not separately profiled."
+    },
+    "android10": {
+      "run": 44669911946,
+      "failure": "Actual created article present, but generic text observer matches3nodes. Whole parent stays failed."
+    }
+  },
+  "correction": [
+    "Cache only successfully verified Normal transaction payloads keyed by exact complete raw envelope, never signature/id alone. Maximum128 entries, each at most16384characters. Larger/Bound paths still verify directly.",
+    "Private retained and cache-hit bodies are defensive deep copies. Miss body is freshly parsed and independent; both miss/hit recipient lists are immutable. Verification happens outside the short LRU lock.",
+    "No membership, nonce, epoch, permission, receipt disposition or decrypted private data is cached by this optimization. Domain checks still run at their original receiving boundary.",
+    "Created-channel observer uses actual selected-channel switcher content description and exact state description, preserving independent received effects and original27second workflow."
+  ],
+  "checks": {
+    "counts": {
+      "core": 246,
+      "spaces-service": 94
+    },
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 326,
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-authenticated-read-reuse-full-jvm-originals",
+    "focusedTransactionContracts": 6
+  },
+  "logs": {
+    "139-authenticated-read-reuse-contracts.log": "a44231cfb8dbeabe40b25c9467d50bd4006e9284a105c69a8dc4a6c136d322df",
+    "139-authenticated-read-reuse-full-jvm.log": "485ca889af4f618c4daf94d3ad29de05e5df331733972821aa1834db2827a8b9"
+  },
+  "reviews": {
+    "139-authenticated-read-reuse-final-spec-review.txt": {
+      "sha256": "5b74e57e3412b80b6e5197ec4a9fb5ba7eac09256a6f5ed573696e45aa130cf5",
+      "findings": 0
+    },
+    "139-authenticated-read-reuse-final-standards-review.txt": {
+      "sha256": "c4079816ae71ae9bc40f9bf714d09ad4a5d8effaa158e842e77c36f2f48d5070",
+      "findings": 0
+    },
+    "139-management-created-route-observer-review.txt": {
+      "sha256": "c01b6aea73db482d0fc7be9339b1d25fdad3af21186e282020b783d8bcc85693",
+      "findings": 0
+    }
+  },
+  "qualification": [
+    "Native first-read15s, editor/creation27s,48dp, full visibility and all other management-v3 goals remain unchanged. Fresh complete10/17 parents and actual full-frame/prototype review still required.",
+    "The actual native performance failure is the RED baseline. No functional RED is invented for an optimization that preserves decoding semantics.",
+    "Original P3 miss-list immutability report retained; final review clear.",
+    "All22failed native parents remain failed; no prefixes assembled. Private native and remaining139 are still pending. Beta142 unchanged."
+  ]
+}

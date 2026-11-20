@@ -8,6 +8,7 @@ import com.google.gson.Strictness
 import java.nio.ByteBuffer
 import java.nio.charset.CodingErrorAction
 import java.util.Base64
+import java.util.Collections
 
 data class SignedSaitoMessage(val id: String, val author: String, val createdAt: Long, val body: JsonObject,
     val recipients: List<String>)
@@ -118,8 +119,32 @@ object SaitoEnvelope {
         return SignedSaitoMessage(signed.id, signed.author, signed.createdAt, signed.body.asJsonObject, signed.recipients)
     }
 
+    // Signature validity is immutable for exact bytes. This cache contains no
+    // membership, nonce, permission or decrypted private-content decisions.
+    private const val MAX_CACHED_ENVELOPE_CHARS = 16_384
+    private const val MAX_CACHED_ENVELOPES = 128
+    private val verifiedNormalPayloads = LinkedHashMap<String, VerifiedSaitoPayload>(16, .75f, true)
+
+    private fun VerifiedSaitoPayload.isolated() = copy(body = body.deepCopy(),
+        recipients = Collections.unmodifiableList(recipients.toList()))
+
     /** Chat encrypts before signing: authenticate the JSON string before any decryption. */
-    fun decodePayload(envelope: String): VerifiedSaitoPayload = decodeTypedPayload(envelope, 0)
+    fun decodePayload(envelope: String): VerifiedSaitoPayload {
+        val cacheable = envelope.length <= MAX_CACHED_ENVELOPE_CHARS
+        if (cacheable) synchronized(verifiedNormalPayloads) { verifiedNormalPayloads[envelope] }?.let { return it.isolated() }
+        val verified = decodeTypedPayload(envelope, 0)
+        if (cacheable) {
+            val retained = verified.isolated()
+            synchronized(verifiedNormalPayloads) {
+                verifiedNormalPayloads[envelope] = retained
+                while (verifiedNormalPayloads.size > MAX_CACHED_ENVELOPES) {
+                    val oldest = verifiedNormalPayloads.entries.iterator()
+                    oldest.next(); oldest.remove()
+                }
+            }
+        }
+        return verified.copy(recipients = Collections.unmodifiableList(verified.recipients))
+    }
 
     /** Bound NFT metadata has its own admission path; ordinary application readers remain Normal-only. */
     internal fun decodeBound(envelope: String): SignedSaitoMessage {

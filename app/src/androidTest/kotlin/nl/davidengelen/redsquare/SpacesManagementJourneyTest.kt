@@ -283,7 +283,8 @@ class SpacesManagementJourneyTest {
         waitUntil(remaining) {
             received = status()
             creationRows(received).count { it.get("id").asString == original } == 2 &&
-                ui.onNode(hasText("native-reading-room") and !hasAnyAncestor(isDialog())).isDisplayed()
+                ui.onNode(hasContentDescription(context.getString(R.string.spaces_switch_channel)) and
+                    SemanticsMatcher.expectValue(androidx.compose.ui.semantics.SemanticsProperties.StateDescription, "native-reading-room")).isDisplayed()
         }
         val completed = SystemClock.elapsedRealtime()
         assertTrue("Visible created-channel navigation is inside the recovery budget", completed <= deadline)

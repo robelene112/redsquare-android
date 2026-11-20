@@ -3,10 +3,38 @@ package nl.davidengelen.redsquare.saito
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThrows
 import org.junit.Test
 import java.util.Base64
 
 class SaitoTransactionTest {
+    @Test fun repeatedAuthenticatedReadsKeepIndependentBodiesAndRecipientLists() {
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture, never fund.
+        val envelope = SaitoTransaction.create(wallet, JsonObject().apply { addProperty("text", "Unchanged signed text") }, 1).envelope()
+        repeat(2) {
+            val read = SaitoEnvelope.decodePayload(envelope)
+            assertEquals("Unchanged signed text", read.body.asJsonObject.get("text").asString)
+            assertEquals(listOf(wallet.publicKey), read.recipients)
+            read.body.asJsonObject.addProperty("text", "A caller changed its own object")
+            assertThrows(UnsupportedOperationException::class.java) { (read.recipients as MutableList<String>).clear() }
+        }
+        assertEquals("Unchanged signed text", SaitoEnvelope.decode(envelope).body.get("text").asString)
+    }
+
+    @Test fun anAlteredMessageWithTheSameSignatureNeverReusesAnAuthenticatedRead() {
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture, never fund.
+        val original = SaitoTransaction.create(wallet, JsonObject().apply { addProperty("text", "Authentic text") }, 1).envelope()
+        SaitoEnvelope.decodePayload(original)
+        val altered = JsonParser.parseString(original).asJsonObject.apply {
+            addProperty("m", Base64.getEncoder().encodeToString("{\"text\":\"Different unsigned text\"}".toByteArray(Charsets.UTF_8)))
+        }.toString()
+        try {
+            SaitoEnvelope.decodePayload(altered)
+            org.junit.Assert.fail("Altering message bytes cannot reuse the original signature")
+        } catch (_: IllegalArgumentException) { }
+        assertEquals("Authentic text", SaitoEnvelope.decodePayload(original).body.asJsonObject.get("text").asString)
+    }
+
     @Test(expected = SaitoTransaction.InvalidMessage::class)
     fun jsonEscapingCountsTowardTheCompleteEncodedMessageLimit() {
         val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture, never fund.
