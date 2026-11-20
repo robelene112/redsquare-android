@@ -57,6 +57,12 @@ internal class SpacesGovernanceFixture(private val owner: SpaceClient, private v
         // This member has a different identity and store. The actual Android
         // owner must admit its signed key requests through the normal protocol.
         reader.refresh(space); reader.flush(space)
+        // Reading the old public General does not consume the new private
+        // lobby's committed history-key delivery. Observe each actual private
+        // channel through its normal authenticated reader before checking ready.
+        synchronizeControls()
+        for ((id, channel) in journal.snapshot.channels) if (channel.visibility == SpaceVisibility.PRIVATE)
+            reader.refresh(space, id)
     }
 
     private fun synchronizeControls() {

@@ -41,11 +41,12 @@ class SpacesManagementJourneyTest {
     private val arguments get() = InstrumentationRegistry.getArguments()
     private fun port(name: String) = requireNotNull(arguments.getString(name)).toInt().also { require(it in 1024..65535) }
     private val device get() = UiDevice.getInstance(instrumentation)
+    private val membership get() = arguments.getString("spacesMembership") == "true"
     private val governance get() = arguments.getString("spacesGovernance") == "true"
     private val categoryManagement get() = arguments.getString("spacesCategoryManagement") == "true"
     private val privateManagement get() = arguments.getString("spacesPrivateManagement") == "true"
     private val privateReadiness get() = arguments.getString("spacesPrivateReadiness") == "true"
-    private val evidenceLabel get() = if (governance) "spaces-governance" else if (categoryManagement) "spaces-category-management" else if (privateReadiness) "spaces-private-readiness" else if (privateManagement) "spaces-private-management" else "spaces-management"
+    private val evidenceLabel get() = if (membership) "spaces-membership" else if (governance) "spaces-governance" else if (categoryManagement) "spaces-category-management" else if (privateReadiness) "spaces-private-readiness" else if (privateManagement) "spaces-private-management" else "spaces-management"
     private val evidence get() = File(context.cacheDir, "$evidenceLabel-evidence").apply { mkdirs() }
     private val checkpoint get() = File(context.cacheDir, "$evidenceLabel-checkpoint.json")
     private val peerEndpoint get() = "ws://127.0.0.1:${port("spacesPeerPort")}/wsopen"
@@ -57,6 +58,226 @@ class SpacesManagementJourneyTest {
         putExtra("feedPeerUrl", peerEndpoint)
         putExtra("feedOfficialPeerUrl", peerEndpoint)
         putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
+    })
+
+    private val membershipDraft get() = "Keep the membership channel draft"
+
+    @Test fun ownerReviewsBanAndCheckpointsTheActuallyAcceptedOriginal() {
+        check(membership && arguments.getString("spacesDisposableBaseline") == "true")
+        val wallet = AndroidWalletStore(context); wallet.replace(wallet.loadOrCreate(), fixtureOwner)
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val fixtures = command("membership-fixtures")
+        launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("membership-ban-failure") }) {
+            waitText("Membership message 17")
+            ui.onNode(hasSetTextAction()).performTextReplacement(membershipDraft); closeKeyboard()
+            history().performScrollToNode(hasText("Membership message 5"))
+            saveReadingSnapshot("membership-before", fixtures, "general", visibleTexts = (0 until 18).map { "Membership message $it" })
+            openMembershipRoster(); manageMembershipRow(fixtures.get("banned").asString)
+            clickDialog(context.getString(R.string.spaces_ban_member))
+            governanceConfirmation(context.getString(R.string.spaces_ban_member), context.getString(R.string.spaces_ban_member_title)).assertIsDisplayed()
+            capture("01-ban-review")
+            command("membership-drop-next", JsonObject().apply { addProperty("kind", "ban-member") })
+            val started = SystemClock.elapsedRealtime()
+            governanceConfirmation(context.getString(R.string.spaces_ban_member), context.getString(R.string.spaces_ban_member_title)).clickReady()
+            waitText(context.getString(R.string.spaces_management_awaiting), 5_000)
+            waitUntil(5_000) { status().getAsJsonArray("banned").any { it.asString == fixtures.get("banned").asString } }
+            capture("02-ban-pending")
+            membershipCheckpoint("membership-ban", fixtures, started)
+        } }
+    }
+
+    @Test fun coldBanRecoveryAndBothOwnershipPartiesCheckpointARealAcceptance() {
+        check(membership)
+        val previous = readCheckpoint("membership-ban"); val fixtures = previous.getAsJsonObject("fixtures")
+        launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("membership-owner-recovery-failure") }) {
+            recoverMembershipOriginal(previous, "ban-member")
+            waitText(membershipDraft)
+            assertEquals(membershipDraft, savedDraft(fixtures, "general"))
+            saveReadingSnapshot("membership-restored", fixtures, "general", visibleTexts = (0 until 18).map { "Membership message $it" })
+            val before = JsonParser.parseString(File(evidence, "reading-membership-before.json").readText()).asJsonObject
+            val restored = JsonParser.parseString(File(evidence, "reading-membership-restored.json").readText()).asJsonObject
+            for (key in listOf("owner", "space", "channel", "selectedChannel", "storedFollowLatest", "anchor")) assertEquals(key, before.get(key), restored.get(key))
+            assertTrue(restored.getAsJsonArray("visible").size() > 0)
+            openMembershipRoster()
+            val lift = context.getString(R.string.spaces_lift_ban_for, fixtures.get("bannedName").asString)
+            waitUntil { ui.onNodeWithContentDescription(lift).apply { performScrollTo() }.isDisplayed() }
+            capture("03-ban-recovered")
+            ui.onNodeWithContentDescription(lift).clickReady()
+            waitUntil { status().getAsJsonArray("banned").size() == 0 }
+            manageMembershipRow(fixtures.get("removed").asString)
+            clickDialog(context.getString(R.string.spaces_remove_member))
+            capture("04-remove-review")
+            governanceConfirmation(context.getString(R.string.spaces_remove_member), context.getString(R.string.spaces_remove_member_title)).clickReady()
+            waitUntil { !status().getAsJsonObject("members").has(fixtures.get("removed").asString) }
+            waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
+            offerMembershipOwnership(fixtures.get("member").asString)
+            waitUntil { status().get("offer").let { it.isJsonObject && it.asJsonObject.get("member").asString == fixtures.get("member").asString } }
+            waitMembershipAccepted(fixtures) { ui.onNode(hasText(context.getString(R.string.spaces_cancel_ownership_offer)) and hasClickAction() and hasAnyAncestor(isDialog())).isDisplayed() }
+            capture("05-offer-awaiting-other-person")
+        } }
+        membershipAs("4", fixtures) { _ ->
+            openInformation(); capture("06-recipient-offer")
+            clickDialog(context.getString(R.string.spaces_decline_ownership))
+            governanceConfirmation(context.getString(R.string.spaces_decline_ownership)).clickReady()
+            waitUntil { status().get("offer").isJsonNull }
+            waitMembershipAccepted(fixtures) { !ui.onNode(hasText(context.getString(R.string.spaces_decline_ownership)) and hasClickAction()).isDisplayed() }
+        }
+        membershipAs("3", fixtures) { _ ->
+            openMembershipRoster(); offerMembershipOwnership(fixtures.get("member").asString)
+            waitUntil { !status().get("offer").isJsonNull }
+            clickDialog(context.getString(R.string.spaces_cancel_ownership_offer))
+            governanceConfirmation(context.getString(R.string.spaces_cancel_ownership_offer)).clickReady()
+            waitUntil { status().get("offer").isJsonNull }
+            waitMembershipAccepted(fixtures) { !ui.onNode(hasText(context.getString(R.string.spaces_cancel_ownership_offer)) and hasClickAction()).isDisplayed() }
+            capture("07-cancelled-owner-retained")
+            clickDialog(context.getString(R.string.spaces_members))
+            offerMembershipOwnership(fixtures.get("member").asString)
+            waitUntil { !status().get("offer").isJsonNull }
+        }
+        membershipAs("4", fixtures) { _ ->
+            openInformation(); clickDialog(context.getString(R.string.spaces_accept_ownership))
+            capture("08-accept-review")
+            command("membership-drop-next", JsonObject().apply { addProperty("kind", "accept-owner") })
+            val started = SystemClock.elapsedRealtime()
+            governanceConfirmation(context.getString(R.string.spaces_accept_ownership)).clickReady()
+            waitText(context.getString(R.string.spaces_management_awaiting), 5_000)
+            waitUntil(5_000) { status().getAsJsonObject("members").get(fixtures.get("member").asString).asString == "OWNER" }
+            capture("09-accept-pending")
+            membershipCheckpoint("membership-accept", fixtures, started)
+        }
+    }
+
+    @Test fun coldOwnershipAcceptanceKeepsItsOriginalAndBothActualRoles() {
+        check(membership)
+        val previous = readCheckpoint("membership-accept"); val fixtures = previous.getAsJsonObject("fixtures")
+        launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("membership-accept-recovery-failure") }) {
+            recoverMembershipOriginal(previous, "accept-owner")
+            waitText("Membership message 17")
+            openInformation(); waitText(context.getString(R.string.spaces_owner_transfer_before_leave))
+            assertEquals("OWNER", status().getAsJsonObject("members").get(fixtures.get("member").asString).asString)
+            assertEquals("MEMBER", status().getAsJsonObject("members").get(fixtures.get("owner").asString).asString)
+            ui.onNode(hasText(context.getString(R.string.spaces_leave)) and hasClickAction()).assertDoesNotExist()
+            capture("10-successor-owner-confirmed")
+            saveMembershipCompletion("completed.json", fixtures)
+        } }
+    }
+
+    @Test fun compactOwnershipAndFormerOwnerDepartureUseTheActualMembershipControls() {
+        check(membership)
+        assertEquals(2f, context.resources.configuration.fontScale, .01f)
+        assertEquals(320, context.resources.configuration.screenWidthDp)
+        val fixtures = command("membership-fixtures")
+        launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("membership-compact-owner-failure") }) {
+            waitText("Membership message 17")
+            openMembershipRoster(); offerMembershipOwnership(fixtures.get("owner").asString, compact = true)
+            waitUntil { !status().get("offer").isJsonNull }
+            clickDialog(context.getString(R.string.spaces_cancel_ownership_offer)); capture("12-compact-cancel-review")
+            governanceConfirmation(context.getString(R.string.spaces_cancel_ownership_offer)).clickReady()
+            waitUntil { status().get("offer").isJsonNull }
+        } }
+        membershipAs("3", fixtures) { _ ->
+            waitText(membershipDraft)
+            assertEquals(membershipDraft, savedDraft(fixtures, "general"))
+            openInformation()
+            clickDialog(context.getString(R.string.spaces_leave)); capture("13-compact-leave-review")
+            governanceConfirmation(context.getString(R.string.spaces_leave), context.getString(R.string.spaces_leave_title)).clickReady()
+            waitUntil { !status().getAsJsonObject("members").has(fixtures.get("owner").asString) }
+            waitMembershipAccepted(fixtures, departure = true) { !ui.onNode(hasText(context.getString(R.string.spaces_leave)) and hasClickAction()).isDisplayed() }
+            ui.onNode(hasText(context.getString(R.string.spaces_owner_transfer_before_leave))).assertDoesNotExist()
+            capture("14-compact-former-owner-left")
+            saveMembershipCompletion("compact-completed.json", fixtures)
+        }
+    }
+
+    private fun openMembershipRoster() { openInformation(); clickDialog(context.getString(R.string.spaces_members)) }
+    private fun manageMembershipRow(key: String) {
+        val fixtures = command("membership-fixtures")
+        val name = when (key) {
+            fixtures.get("owner").asString -> "BuildersHost@saito"
+            fixtures.get("member").asString -> "MemberOfTheLab@saito"
+            fixtures.get("removed").asString -> fixtures.get("removedName").asString
+            fixtures.get("banned").asString -> fixtures.get("bannedName").asString
+            else -> error("Unknown owned member")
+        }
+        waitUntil { history().fetchSemanticsNode().config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.IndexForKey)?.invoke(key)?.let { it >= 0 } == true }
+        history().performScrollToKey(key); waitText(name)
+        val row = hasText(context.getString(R.string.spaces_manage_member)) and hasClickAction() and
+            hasAnyAncestor(hasText(name) and hasClickAction())
+        // The enclosing Surface carries the stable member's accessible text.
+        ui.onNode(row).clickReady(scrollIntoView = true)
+    }
+    private fun offerMembershipOwnership(key: String, compact: Boolean = false) {
+        manageMembershipRow(key); clickDialog(context.getString(R.string.spaces_offer_ownership))
+        if (compact) capture("11-compact-transfer-review")
+        governanceConfirmation(context.getString(R.string.spaces_offer_ownership), context.getString(R.string.spaces_transfer_ownership)).clickReady()
+        device.pressBack(); waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
+        device.pressBack()
+        waitUntil(5_000) { ui.onNode(hasText(context.getString(R.string.spaces_information)) and !hasClickAction() and hasAnyAncestor(isDialog())).isDisplayed() }
+    }
+    private fun membershipAs(scalar: String, fixtures: JsonObject, block: (ActivityScenario<MainActivity>) -> Unit) {
+        val wallet = AndroidWalletStore(context); wallet.replace(wallet.loadExisting(), SaitoWallet.fromPrivateKey("0".repeat(63) + scalar))
+        launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("membership-account-$scalar-failure") }) {
+            waitText("Membership message 17"); block(activity)
+        } }
+    }
+    private fun membershipClient(block: (SpaceClient) -> Unit) {
+        val owner = AndroidWalletStore(context).loadExisting()
+        val route = "${SaitoBackend.OWNER}:$peerEndpoint"
+        AndroidSpaceClientStore(context, owner.publicKey, route, fixtureService).use { store ->
+            block(SpaceClient(owner, SaitoBackend.OWNER.webUrl, fixtureService, store, Clock.systemUTC()) { error("No membership-probe transport") })
+        }
+    }
+    private fun waitMembershipAccepted(fixtures: JsonObject, departure: Boolean = false, rendered: () -> Boolean) {
+        waitUntil(15_000) {
+            var accepted = false
+            membershipClient { client ->
+                val space = fixtures.get("space").asString; val current = client.community(space)
+                val status = if (departure) client.membershipChange(space)?.status else client.ownershipChange(space)?.status
+                accepted = status == SpaceClient.ChangeStatus.ACCEPTED && !current.pending && (!departure || !current.joined)
+            }
+            accepted && rendered()
+        }
+    }
+    private fun membershipCheckpoint(phase: String, fixtures: JsonObject, started: Long): Nothing {
+        val remote = status(); val original = remote.getAsJsonArray("dropped").last().asString
+        membershipClient { client ->
+            val space = fixtures.get("space").asString
+            val change = if (phase == "membership-ban") client.membershipChange(space)?.let { it.id to it.status }
+                else client.ownershipChange(space)?.let { it.id to it.status }
+            assertEquals(original, change?.first); assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, change?.second)
+        }
+        saveJson("$phase-host.json", remote)
+        val value = JsonObject().apply {
+            addProperty("phase", phase); addProperty("startedMs", started); addProperty("original", original)
+            addProperty("pid", Process.myPid()); addProperty("owner", AndroidWalletStore(context).loadExisting().publicKey)
+            addProperty("backend", AndroidBackendStore(context).load().id)
+            addProperty("localStatus", SpaceClient.ChangeStatus.AWAITING_CONFIRMATION.name); add("fixtures", fixtures)
+        }
+        saveJson("checkpoint-$phase.json", value)
+        val temporary = File(context.cacheDir, "$evidenceLabel-checkpoint.tmp")
+        temporary.writeText(value.toString()); check(temporary.renameTo(checkpoint))
+        while (true) SystemClock.sleep(250)
+    }
+    private fun recoverMembershipOriginal(previous: JsonObject, kind: String) {
+        val started = previous.get("startedMs").asLong; val original = previous.get("original").asString
+        val fixtures = previous.getAsJsonObject("fixtures")
+        waitUntil(governanceRemaining(started)) {
+            val attempts = status().getAsJsonArray("originals").filter { it.asJsonObject.get("id").asString == original }
+            var accepted = false
+            membershipClient { client -> accepted = (if (kind == "ban-member") client.membershipChange(fixtures.get("space").asString)?.status
+                else client.ownershipChange(fixtures.get("space").asString)?.status) == SpaceClient.ChangeStatus.ACCEPTED }
+            attempts.size == 2 && attempts[0] == attempts[1] && accepted
+        }
+        saveJson("recovery-$kind.json", JsonObject().apply {
+            addProperty("pid", Process.myPid()); addProperty("owner", AndroidWalletStore(context).loadExisting().publicKey)
+            addProperty("original", original); addProperty("elapsedMs", SystemClock.elapsedRealtime() - started)
+            addProperty("localStatus", SpaceClient.ChangeStatus.ACCEPTED.name); add("host", status())
+        })
+    }
+    private fun saveMembershipCompletion(name: String, fixtures: JsonObject) = saveJson(name, JsonObject().apply {
+        addProperty("pid", Process.myPid()); addProperty("owner", AndroidWalletStore(context).loadExisting().publicKey)
+        addProperty("fontScale", context.resources.configuration.fontScale); addProperty("screenWidthDp", context.resources.configuration.screenWidthDp)
+        add("fixtures", fixtures); add("host", status())
     })
 
     private val governanceMessages get() = (0 until 18).map { "Governance message $it" }
@@ -76,6 +297,8 @@ class SpacesManagementJourneyTest {
             capture("01-private-visibility-review")
             governanceConfirmation(context.getString(R.string.spaces_make_private)).clickReady()
             awaitGovernanceVisibility(public = false, requireMemberKeys = true)
+            ui.onNode(hasText(context.getString(R.string.spaces_edit_channel)) and hasClickAction()).assertIsNotEnabled()
+            ui.onNode(hasText(context.getString(R.string.spaces_reopen_channel)) and hasClickAction()).assertIsNotEnabled()
             capture("02-private-visibility-confirmed")
             clickDialog(context.getString(R.string.spaces_close))
             ui.onNode(hasSetTextAction()).performTextReplacement(governanceDraft)
@@ -132,6 +355,8 @@ class SpacesManagementJourneyTest {
             capture("05-public-profile-and-unlisted-review")
             governanceConfirmation(context.getString(R.string.spaces_make_public)).clickReady()
             awaitGovernanceVisibility(public = true)
+            ui.onNode(hasText(context.getString(R.string.spaces_edit_channel)) and hasClickAction()).assertIsEnabled()
+            ui.onNode(hasText(context.getString(R.string.spaces_reopen_channel)) and hasClickAction()).assertIsEnabled()
             capture("06-public-unlisted-confirmed")
             clickDialog(context.getString(R.string.spaces_close))
             saveReadingSnapshot("governance-normal-public", fixtures, "general", visibleTexts = governanceMessages)
@@ -235,8 +460,9 @@ class SpacesManagementJourneyTest {
         val value = hasText(context.getString(if (public) R.string.spaces_public else R.string.spaces_private)) and !hasClickAction() and hasAnyAncestor(isDialog())
         val confirmed = hasText(context.getString(R.string.spaces_visibility_confirmed)) and hasAnyAncestor(isDialog())
         val pending = hasText(context.getString(R.string.spaces_management_awaiting)) or hasText(context.getString(R.string.spaces_management_queued))
-        waitUntil(15_000) {
-            val remote = status()
+        var last = JsonObject()
+        withFailureCapture({ saveJson("visibility-check-${if (public) "public" else "private"}.json", last) }) { waitUntil(15_000) {
+            val remote = status(); last = remote
             val received = remote.get("visibility").asString == (if (public) "PUBLIC" else "PRIVATE") &&
                 (!public || !remote.get("listed").asBoolean) && (!requireMemberKeys || remote.get("memberEntryReady").asBoolean)
             if (!received || ui.onAllNodes(value).fetchSemanticsNodes().size != 1 || ui.onAllNodes(confirmed).fetchSemanticsNodes().size != 1) false
@@ -245,7 +471,8 @@ class SpacesManagementJourneyTest {
                 ui.onNode(value).isDisplayed() && ui.onNode(confirmed).isDisplayed() &&
                     ui.onAllNodes(pending and hasAnyAncestor(isDialog())).fetchSemanticsNodes().isEmpty()
             }
-        }
+        } }
+        saveJson("visibility-check-${if (public) "public" else "private"}.json", last)
     }
     private fun saveGovernanceRecovery(name: String, started: Long, original: String, fixtures: JsonObject) {
         val route = "${SaitoBackend.OWNER}:$peerEndpoint"
@@ -1645,7 +1872,7 @@ class SpacesManagementJourneyTest {
         return false
     }
     private fun capture(name: String) { ui.waitForIdle(); captureNativeScreen(File(evidence, "$name.png")) }
-    private fun status() = command(if (governance) "governance-status" else if (privateReadiness) "readiness-status" else if (privateManagement) "private-management-status" else "management-status")
+    private fun status() = command(if (membership) "membership-status" else if (governance) "governance-status" else if (privateReadiness) "readiness-status" else if (privateManagement) "private-management-status" else "management-status")
     /** Real protected-store rows and separately timestamped visible text,
      * never a synthetic saved-state acknowledgement. */
     private fun saveReadingSnapshot(name: String, fixtures: JsonObject, channelName: String, uiAvailable: Boolean = true,

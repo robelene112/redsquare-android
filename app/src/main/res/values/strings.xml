@@ -1467,6 +1467,7 @@
     <string name="spaces_message_channel_hint">Message %1$s</string>
     <string name="spaces_navigation_panel">Space and channel navigation</string>
     <string name="spaces_channel_settings">Channel settings</string>
+    <string name="spaces_public_archive_read_only">This public channel is read-only while the Space is private. Make the Space public before editing or reopening it.</string>
     <string name="spaces_archive_detail">Archiving keeps history readable and pauses new contributions. You can reopen the channel later.</string>
     <string name="spaces_channel_archived">Archived channel. History remains readable, but new contributions are paused.</string>
     <string name="spaces_archive_channel">Archive channel</string>

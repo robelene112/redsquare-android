@@ -38,6 +38,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
     if (role !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) ||
         !state.archiveSupported && !editingSupported &&
         !(state.privateChannelAccessSupported && channel.allowedMembers != null)) return
+    val publicArchive = channel.visibility == SpaceVisibility.PUBLIC && state.profiles[current.id]?.visibility != SpaceVisibility.PUBLIC
     val change = state.archiveChange?.takeIf { it.channelId == channel.id }
     val pendingEdit = state.channelEdit?.let { it.channelId == channel.id && it.status in setOf(
         SpaceClient.ChangeStatus.QUEUED, SpaceClient.ChangeStatus.AWAITING_CONFIRMATION) } == true
@@ -45,10 +46,10 @@ import nl.davidengelen.redsquare.ui.DesignSheet
         HorizontalDivider()
         Text(stringResource(R.string.spaces_channel_settings), style = MaterialTheme.typography.titleMedium)
         Text(channel.profile.name, style = MaterialTheme.typography.titleSmall)
-        Text(stringResource(R.string.spaces_archive_detail), style = MaterialTheme.typography.bodyMedium,
+        Text(stringResource(if (publicArchive) R.string.spaces_public_archive_read_only else R.string.spaces_archive_detail), style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant)
         if (editingSupported) {
-            OutlinedButton(onClick = onEdit, enabled = !state.working && (pendingEdit || current.canManage && channel.metadataReady),
+            OutlinedButton(onClick = onEdit, enabled = !state.working && (pendingEdit || !publicArchive && current.canManage && channel.metadataReady),
                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_edit_channel)) }
         }
         if (editingSupported && !channel.metadataReady) Text(stringResource(R.string.spaces_waiting_channel_keys),
@@ -61,7 +62,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
             ManagementChangeNotice(change?.status, state.availability, account::refresh)
             val pending = change?.status in setOf(SpaceClient.ChangeStatus.QUEUED, SpaceClient.ChangeStatus.AWAITING_CONFIRMATION)
             OutlinedButton(onClick = { account.archiveChannel(current.id, channel.id, !channel.archived) },
-                enabled = current.canManage && !state.working && !pending, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                enabled = current.canManage && !publicArchive && !state.working && !pending, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                 Text(stringResource(when {
                     pending && change?.archived == true -> R.string.spaces_archiving_channel
                     pending -> R.string.spaces_reopening_channel

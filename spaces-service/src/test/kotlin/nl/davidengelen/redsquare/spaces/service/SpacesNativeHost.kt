@@ -22,11 +22,12 @@ import java.util.concurrent.atomic.AtomicBoolean
  * real service/SQLite/MLS and independent received effects; no public network. */
 object SpacesNativeHost {
     @JvmStatic fun main(args: Array<String>): Unit = runBlocking {
-        require(args.size in 1..2 && (args.size == 1 || args[1] in setOf("discovery-v1", "management-v1", "private-management-v1", "private-readiness-v1", "category-management-v1", "governance-v1")))
+        require(args.size in 1..2 && (args.size == 1 || args[1] in setOf("discovery-v1", "management-v1", "private-management-v1", "private-readiness-v1", "category-management-v1", "governance-v1", "membership-v1")))
         val discoveryMode = args.getOrNull(1) == "discovery-v1"
+        val membershipMode = args.getOrNull(1) == "membership-v1"
         val governanceMode = args.getOrNull(1) == "governance-v1"
         val categoryMode = args.getOrNull(1) == "category-management-v1"
-        val managementMode = args.getOrNull(1) in setOf("management-v1", "category-management-v1", "governance-v1")
+        val managementMode = args.getOrNull(1) in setOf("management-v1", "category-management-v1", "governance-v1", "membership-v1")
         val privateManagementMode = args.getOrNull(1) == "private-management-v1"
         val privateReadinessMode = args.getOrNull(1) == "private-readiness-v1"
         val root = Path.of(args[0])
@@ -46,9 +47,10 @@ object SpacesNativeHost {
                     val client = SpaceClient(guest, "https://saito.davidengelen.nl", service.publicKey, local, clock) { remote.exchange(it.envelope()) }
                     val discovery = if (discoveryMode) SpacesDiscoveryFixture(client, clock as SpacesDiscoveryFixture.AdvancingClock).also { it.seed() } else null
                     val sent = mutableSetOf<String>()
+                    var membership: SpacesMembershipFixture? = null
                     var privateManagement: SpacesPrivateManagementFixture? = null
                     var privateReadiness: SpacesPrivateReadinessFixture? = null
-                    val peer = ControlledFeedPeer("[]", advertisedServices = if (discoveryMode || managementMode || privateManagementMode || privateReadinessMode) "archive||;spaces-v1||;spaces-directory-v1||;spaces-unread-v1||;spaces-channel-archive-v1||;spaces-role-management-v1||;spaces-public-channel-edit-v1||" + (if (privateManagementMode || privateReadinessMode || governanceMode) ";spaces-private-channel-access-v1||;spaces-private-channel-edit-v1||" else "") + (if (categoryMode || governanceMode) ";spaces-category-management-v1||" else "") + (if (governanceMode) ";spaces-membership-management-v1||;spaces-ownership-management-v1||;spaces-visibility-management-v1||;spaces-dissolution-v1||" else "") else "archive||;spaces-v1||", peer = service,
+                    val peer = ControlledFeedPeer("[]", advertisedServices = if (discoveryMode || managementMode || privateManagementMode || privateReadinessMode) "archive||;spaces-v1||;spaces-directory-v1||;spaces-unread-v1||;spaces-channel-archive-v1||;spaces-role-management-v1||;spaces-public-channel-edit-v1||" + (if (privateManagementMode || privateReadinessMode || governanceMode) ";spaces-private-channel-access-v1||;spaces-private-channel-edit-v1||" else "") + (if (categoryMode || governanceMode) ";spaces-category-management-v1||" else "") + (if (governanceMode || membershipMode) ";spaces-membership-management-v1||;spaces-ownership-management-v1||;spaces-visibility-management-v1||;spaces-dissolution-v1||" else "") else "archive||;spaces-v1||", peer = service,
                         archiveResponse = { "[]" }, registryResponse = if (discoveryMode || managementMode || privateManagementMode || privateReadinessMode) ({ criteria ->
                             JsonObject().apply {
                                 if (criteria.get("request")?.asString == "registry query" &&
@@ -57,16 +59,21 @@ object SpacesNativeHost {
                                     criteria.getAsJsonArray("keys").any { it.asString == managedMember.publicKey }) addProperty(managedMember.publicKey, "MemberOfTheLab@saito")
                                 if (criteria.get("request")?.asString == "registry query") {
                                     val keys = criteria.getAsJsonArray("keys").map { it.asString }.toSet()
+                                    membership?.names?.forEach { (key, name) -> if (key in keys) addProperty(key, name) }
                                     privateManagement?.names?.forEach { (key, name) -> if (key in keys) addProperty(key, name) }
                                     privateReadiness?.names?.forEach { (key, name) -> if (key in keys) addProperty(key, name) }
                                 }
                             }.toString()
                         }) else null)
-                    val management = if (managementMode && !governanceMode) SpacesManagementFixture(client, SpaceClient(requireNotNull(managedMember),
+                    val management = if (managementMode && !governanceMode && !membershipMode) SpacesManagementFixture(client, SpaceClient(requireNotNull(managedMember),
                         "https://saito.davidengelen.nl", service.publicKey, requireNotNull(memberStore), clock) { remote.exchange(it.envelope()) }, peer, categoryMode).also { it.seed() } else null
                     val governance = if (governanceMode) SpacesGovernanceFixture(client, SpaceClient(requireNotNull(managedMember),
                         "https://saito.davidengelen.nl", service.publicKey, requireNotNull(memberStore), clock) { remote.exchange(it.envelope()) },
                         peer, remote, service, clock).also { it.seed() } else null
+                    if (membershipMode) membership = SpacesMembershipFixture(client,
+                        SpaceClient(requireNotNull(managedMember), "https://saito.davidengelen.nl", service.publicKey,
+                            requireNotNull(memberStore), clock) { remote.exchange(it.envelope()) },
+                        peer, remote, service, clock, root).also { it.seed() }
                     if (privateManagementMode) privateManagement = SpacesPrivateManagementFixture(client,
                         SpaceClient(requireNotNull(managedMember), "https://saito.davidengelen.nl", service.publicKey,
                             requireNotNull(memberStore), clock) { remote.exchange(it.envelope()) }, peer, root, service, clock, remote).also { it.seed() }
@@ -137,7 +144,7 @@ object SpacesNativeHost {
                                         else -> requireNotNull(management?.command(request.requestURI.path, body)
                                             ?: privateManagement?.command(request.requestURI.path, body)
                                             ?: privateReadiness?.command(request.requestURI.path, body)
-                                            ?: governance?.command(request.requestURI.path, body)
+                                            ?: membership?.command(request.requestURI.path, body) ?: governance?.command(request.requestURI.path, body)
                                             ?: discovery?.command(request.requestURI.path, body)) { "Unknown owned fixture command" }
                                     }
                                 } }
@@ -160,8 +167,9 @@ object SpacesNativeHost {
                                 lock.withLock {
                                     // Private management has an explicit independent reader;
                                     // the legacy host must not publish or request an extra device.
+                                    membership?.maintain()
                                     governance?.maintain()
-                                    if (!privateManagementMode && !privateReadinessMode && !governanceMode) for (community in client.communities()) {
+                                    if (!privateManagementMode && !privateReadinessMode && !governanceMode && !membershipMode) for (community in client.communities()) {
                                         client.flush(community.id)
                                         client.refresh(community.id)
                                         if (client.community(community.id).joined) {
@@ -178,7 +186,7 @@ object SpacesNativeHost {
                                 delay(200)
                             }
                             peer.assertHealthy()
-                            Files.writeString(root.resolve("result.json"), lock.withLock { (governance?.command("/governance-status", JsonObject()) ?: status(client, peer)).toString() })
+                            Files.writeString(root.resolve("result.json"), lock.withLock { (membership?.command("/membership-status", JsonObject()) ?: governance?.command("/governance-status", JsonObject()) ?: status(client, peer)).toString() })
                         } finally { control.stop(0) }
                     }
                 }

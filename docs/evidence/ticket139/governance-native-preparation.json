@@ -1,5 +1,5 @@
 {
-  "status": "Native governance preparation only. No Android journey has run. Issue139 and sequential140-147 remain incomplete.",
+  "status": "Whole first governance parent44816109822 FAIL before checkpoint. Corrected governance and public membership/ownership journeys are prepared, not accepted. Issue139 and140-147 remain incomplete.",
   "recordedAt": "2026-11-20T20:55:53.638210+00:00",
   "base": "ca68b8fbf8667409d91dd415f1a7919a119d37f6",
   "sourceFiles": {
@@ -99,7 +99,7 @@
     "Current membership/ownership native and whole139 acceptance, then140-147 sequentially."
   ],
   "unchanged": [
-    "Product app/core/service source atca68; only test host, instrumentation, driver and workflow change.",
+    "Core/service production source remains atca68. The later declared three app files correct observed public-archive controls and copy; their current compilation/native verification is pending.",
     "Beta142 and production/provider/public-write/file-hosting boundaries."
   ],
   "finalPreparationReviews": [
@@ -112,5 +112,154 @@
       "sha256": "2d83e80c4d57503a5cdfc00d05ca91e242e4467b4ccc76b128d4d7d25effe7c3"
     }
   ],
-  "finalReviewAppend": "Only these completed-review references appended after inspection; source, original observations and qualifications unchanged."
+  "finalReviewAppend": "Only these completed-review references appended after inspection; source, original observations and qualifications unchanged.",
+  "managementNativeRevision": {
+    "recordedAt": "2026-11-20T21:22:58.069298+00:00",
+    "base": "eb37f404393b68121bbeb2b8a31657d51a244641",
+    "sourceFiles": {
+      ".github/workflows/android-proof.yml": "ef095c98b0e3a8009f794c84c10a16ff8e0bca89a44ccf69223a317323f7ac4b",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "a963b1fffb56a212021182528eb707d87ae6d27cbb8514383fe69507e96ca6d3",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesViewportConfigurationTest.kt": "d1ccf962508d12eb1297e735e75373cb4c901066fc9d77dfca3f26ba8ef50111",
+      "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceChannelEditor.kt": "2a27a19c516b5fc085efe596218e5def7e8ec5ffcab1c67484bc4f0d7859495a",
+      "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceManagement.kt": "7f8ce4fb0508bbe22b84bd45077a6ff68b8094dc98b2299c3d6e683bcde5f055",
+      "app/src/main/res/values/strings.xml": "328c0038ba55af0ffa2398b19c7b7cd14307c1dc30324c59e7a924bf21b57342",
+      "scripts/emulator-check": "e5e0d841801076987f2331e01a9e38d98d46888924914bdf3f24c701f381fd26",
+      "scripts/spaces-native-journey": "820fe15a448ce65216a4f8b2979f2c17fa1638c7f92b27dd1c4f07309e3786d7",
+      "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesGovernanceFixture.kt": "0f93eced709b1d530ff311237af02bd28ff30d940182900bffe63bc12ef3d13f",
+      "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesMembershipFixture.kt": "40d121897a9d7b76492e6714d6715da7fc8cfb7719abafeed2e39b889032354b",
+      "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost.kt": "0a8d54157066fc6cca792bd296ae3ca99767f1ab877bc6eb2319c83fbc879d03"
+    },
+    "priorLocalCompilation": [
+      {
+        "stage": "139-membership-native-host-compile1",
+        "outcome": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-membership-native-host-compile1-originals/139-membership-native-host-compile1-outcome.json",
+          "sha256": "6d281c57f4d570bedfe75a7b3648d39775aedd797803ba4ed1646e8e88110964"
+        },
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-membership-native-host-compile1-originals/139-membership-native-host-compile1.log",
+          "sha256": "593f2059711fd0c0528b25e94176e31880abd592cef747289df6e7ab0b5a54b2"
+        },
+        "exit": 0,
+        "unchanged": true
+      },
+      {
+        "stage": "139-membership-native-instrumentation1",
+        "outcome": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-membership-native-instrumentation1-originals/139-membership-native-instrumentation1-outcome.json",
+          "sha256": "6d281c57f4d570bedfe75a7b3648d39775aedd797803ba4ed1646e8e88110964"
+        },
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-membership-native-instrumentation1-originals/139-membership-native-instrumentation1.log",
+          "sha256": "80655307f6e472d85160b37fa6d0e41d396cc970b18d7b6cc91504d9f50ef01b"
+        },
+        "exit": 0,
+        "unchanged": true
+      },
+      {
+        "stage": "139-membership-native-host-compile2",
+        "outcome": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-membership-native-host-compile2-originals/139-membership-native-host-compile2-outcome.json",
+          "sha256": "5f9b7f2a7aca7e44ad3364c4a503e395b7bd1bd28c95e4617617bd6d2dda1bd7"
+        },
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-membership-native-host-compile2-originals/139-membership-native-host-compile2.log",
+          "sha256": "b584a1f64ffa7e3744617c3590589794e494f681747d716276f3ea4f07872cb5"
+        },
+        "exit": 0,
+        "unchanged": true
+      },
+      {
+        "stage": "139-membership-native-instrumentation2",
+        "outcome": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-membership-native-instrumentation2-originals/139-membership-native-instrumentation2-outcome.json",
+          "sha256": "5f9b7f2a7aca7e44ad3364c4a503e395b7bd1bd28c95e4617617bd6d2dda1bd7"
+        },
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-membership-native-instrumentation2-originals/139-membership-native-instrumentation2.log",
+          "sha256": "37764fc5719b919971af94bfb6b933023b7b1955eddc183452fcdcc3040e65a7"
+        },
+        "exit": 0,
+        "unchanged": true
+      }
+    ],
+    "currentCompilationBridge": {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-final-compilation-source-bridge.json",
+      "sha256": "643f55b9fb827e07de2a6e5ebf3d88517442464beb87462a3e70f0b0ad5ee1b8"
+    },
+    "membershipSmoke": {
+      "result": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-membership-native-preparation/host-smoke1/smoke-result.json",
+        "sha256": "4267f759bb11a74d586498b0e96f53c272098bd9b5f8ab5c69d66468cc67c060"
+      },
+      "compiledInputs": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-membership-native-preparation/host-smoke1/compiled-inputs.json",
+        "sha256": "0a67ce16e6ac78a4af3cb20e8b5e785290beb715c56f4e6560230a2d953563b7"
+      },
+      "qualification": "Prior compiled owned public seed, independent member roles/history and clean stop. No native execution/privatehandover claim."
+    },
+    "firstGovernanceFailure": {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-native1-failure-assessment.json",
+      "sha256": "0fe1da03a1498ca80d630f52dffb85582e2107bb9293f2da6cdc42c58412c288"
+    },
+    "failureReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-native1-failure-spec-review.txt",
+        "sha256": "35de878971d7e8698259c7ffa2e96652228d50bec00b096269ef462f4601f060"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-native1-failure-standards-review.txt",
+        "sha256": "c72581f0c7c59bed3859d467441a345328bc34c3293acf14b617047523b3d85f"
+      }
+    ],
+    "corrections": [
+      "The canonical signed private channel IDs drive actual private key/history reading; decrypted profiles cannot gate the keys needed to read those profiles. Missing original memberEntryReady runtime value remains explicitly unobserved.",
+      "Actual enabled Edit/Reopen controls on the public archive now follow receiving authority while the Space is private. Restored editor blocks new saves and explains why, retaining local work. Native assertions cover disabled and re-enabled controls.",
+      "Last composite visibility observation and selected-mode failure state are retained; original5/15/27/180-second bounds remain.",
+      "Separate public member ban/unban/remove, explicit offer/decline/cancel/accept and former-owner leave native flow has two genuine pending checkpoints, four PIDs,14captures and42controls. Private handover remains outside its scope."
+    ],
+    "memberProspectiveReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-membership-prospective-spec-review.txt",
+        "sha256": "a3a7f351b7e6a4e908bbdc42bff73d739db4100bfa15c462321a4a9954ae3bff"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-membership-prospective-standards-review.txt",
+        "sha256": "2bedfa0276d4f98d6ba82a2638473d9deac7436f8a3ef4ba40dffd61aa5ad12d"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-membership-corrections-spec-review.txt",
+        "sha256": "e8d2404625443af868b8ca17b9dd7bc266f37eb28838a7e255cf57afc472587b"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-membership-corrections-standards-review.txt",
+        "sha256": "317364d0c2434b7b8efdd96705f313fe6a48796435cf18989e585f840ce5b58c"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-membership-validator-prospective-spec-review.txt",
+        "sha256": "85504a4034641c9d4edb702c20f17a14ee24d11d0f439c95c87a8a0314402be6"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-membership-validator-prospective-standards-review.txt",
+        "sha256": "c37424f7292f9f735cacb2345b5d5cf2aaae9cd81174f4aa8b94debdee1fd004"
+      }
+    ],
+    "remaining": [
+      "Fresh whole corrected governance and public membership native parents, frozen exact source/contracts and actual all-frame/prototype review.",
+      "Complete139 and sequential140-147; current source is not a release."
+    ],
+    "diagnosticCorrection": "Use existing withFailureCapture so a diagnostic write cannot mask the original failure. Generic and selected-mode host observations run independently. No native or receiving outcome is invented.",
+    "prospectiveGoalStrengthening": "The corrected governance journey additionally asserts public-archive Edit/Reopen disabled while PRIVATE and re-enabled while PUBLIC; existing goals and deadlines unchanged. Membership goals remain42controls/14captures.",
+    "finalRecordReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-final-record-spec-review.txt",
+        "sha256": "34f1802c0e14272f2c733cd7884c1e6f72e2ac95761892f7a9c1969ea8c64984"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-final-record-standards-review.txt",
+        "sha256": "f3832ef7386fbb43a1a9ec1458aa098cd484168b04ee0dcbe1eb4ea182994b31"
+      }
+    ],
+    "finalReviewAppend": "Only completed-review references appended after inspection; exact source/bridge and all original outcomes remain unchanged."
+  }
 }

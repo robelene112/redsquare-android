@@ -1,16 +1,22 @@
 # Implementation handoff
 
-## Active139: governance native preparation
+## Active139: native management preparation and first governance failure
 
-The focused private-category/process, visibility and terminal-closure journey is
-prepared. Corrected host and Android instrumentation compile; the separate JVM
-host verifies signed control reading, member history and clean shutdown. This is
-preparation, with no Android journey acceptance. See the [preparation record](../evidence/ticket139/governance-native-preparation.json).
+Whole governance parent44816109822 failed before its first process checkpoint.
+Both axes inspected all249frames and the actual captures/logs. Public-to-private
+confirmation is visible, but the final member-readiness gate was not retained.
+The owned reader now consumes private history via authenticated channel IDs.
+Observed enabled public-archive Edit/Reopen controls now match receiving authority.
 
-Freeze the committed source and prospective verifier, then run the whole native
-journey and review every transition frame against approvedB. Current membership/
-ownership native, whole139 and sequential140-147 remain. Beta142 is unchanged.
+Public membership/ownership native preparation covers both actual parties and
+pending-process recovery. Prior bounded compiles and public seed smoke pass;
+a five-file source bridge excludes the later corrections from those compile
+claims. Fresh whole CI must compile and verify the current source. See the
+[originals, corrections and scope](../evidence/ticket139/governance-native-preparation.json).
 
+No corrected governance/member native acceptance is claimed. Complete139 then
+140-147 continue sequentially; approvedB, beta142 and production/provider gates
+are unchanged.
 
 ## Earlier139: visibility and terminal closure source integrated
 
