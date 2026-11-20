@@ -123,7 +123,11 @@ class SpacesManagementJourneyTest {
             waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
             offerMembershipOwnership(fixtures.get("member").asString)
             waitUntil { status().get("offer").let { it.isJsonObject && it.asJsonObject.get("member").asString == fixtures.get("member").asString } }
-            waitMembershipAccepted(fixtures) { ui.onNode(hasText(context.getString(R.string.spaces_cancel_ownership_offer)) and hasClickAction() and hasAnyAncestor(isDialog())).isDisplayed() }
+            waitMembershipAccepted(fixtures) {
+                val cancel = hasText(context.getString(R.string.spaces_cancel_ownership_offer)) and hasClickAction() and hasAnyAncestor(isDialog())
+                if (ui.onAllNodes(cancel).fetchSemanticsNodes().size != 1) false
+                else ui.onNode(cancel).performScrollTo().isDisplayed()
+            }
             capture("05-offer-awaiting-other-person")
         } }
         membershipAs("4", fixtures) { _ ->
@@ -287,14 +291,32 @@ class SpacesManagementJourneyTest {
         }
     }
     private fun waitMembershipAccepted(fixtures: JsonObject, departure: Boolean = false, rendered: () -> Boolean) {
-        waitUntil(15_000) {
-            var accepted = false
-            membershipClient { client ->
-                val space = fixtures.get("space").asString; val current = client.community(space)
-                val status = if (departure) client.membershipChange(space)?.status else client.ownershipChange(space)?.status
-                accepted = status == SpaceClient.ChangeStatus.ACCEPTED && !current.pending && (!departure || !current.joined)
+        val observed = JsonObject().apply {
+            addProperty("pid", Process.myPid()); addProperty("owner", AndroidWalletStore(context).loadExisting().publicKey)
+            add("space", fixtures.get("space")); addProperty("departure", departure)
+        }
+        val started = SystemClock.elapsedRealtime()
+        try {
+            waitUntil(15_000) {
+                var accepted = false
+                membershipClient { client ->
+                    val space = fixtures.get("space").asString; val current = client.community(space)
+                    val status = if (departure) client.membershipChange(space)?.status else client.ownershipChange(space)?.status
+                    observed.addProperty("localStatus", status?.name)
+                    observed.addProperty("pending", current.pending); observed.addProperty("joined", current.joined)
+                    accepted = status == SpaceClient.ChangeStatus.ACCEPTED && !current.pending && (!departure || !current.joined)
+                }
+                observed.addProperty("accepted", accepted)
+                observed.remove("rendered")
+                val visible = accepted && rendered()
+                observed.addProperty("rendered", visible)
+                visible
             }
-            accepted && rendered()
+            assertTrue("Received state and the actual action share the15second budget", SystemClock.elapsedRealtime() - started <= 15_000)
+        } finally {
+            observed.addProperty("elapsedMs", SystemClock.elapsedRealtime() - started)
+            // Keep the original timeout/action failure if writing diagnostics also fails.
+            runCatching { File(evidence, "membership-acceptance-observations.jsonl").appendText(observed.toString() + "\n") }
         }
     }
     private fun membershipCheckpoint(phase: String, fixtures: JsonObject, started: Long): Nothing {

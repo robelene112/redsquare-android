@@ -1,6 +1,27 @@
 # Red Square Android project context
 
-## Active139: account-aware native return readiness
+## Active139: governance accepted, ownership observer corrected
+
+Whole Android17 governance44828915996 ated52 passes its frozen contract and
+both actual visual/prototype reviews:921frames,15capturepairs,31controls,
+2IME and5reading records. The compact closed history is actually readable,
+with exact anchor/draft retained. This is narrow governance acceptance.
+
+Member4 44831605158 and private3 44831643022 remain wholeFAIL. Both reach the
+real ownership offer, return to the top of Information and wait on an action
+below the viewport without scrolling. Local offer status at failure was not
+retained. The corrected observer scrolls the actual action within the same
+15seconds and retains last actual status/visibility diagnostics. Stable local
+compilation precedes a final diagnostic-freshness refinement; exact CI remains
+required. Fresh complete affected parents are still needed.
+
+Whole public management-v4/API29 44832654787 is running at9822. A narrow native
+private-category choice/restoration/clear plus real create/edit Save-ID bridge
+also remains before complete139 acceptance, then140-147 sequentially. See the
+[governance and correction record](evidence/ticket139/governance-native-preparation.json). ApprovedB, beta142 and all existing
+production/provider/public-write/file-hosting boundaries remain unchanged.
+
+## Earlier139: account-aware native return readiness
 
 Governance44828915996 passes whole CI and frozen4 numeric/process/receiving checks
 ated52 with the compact closed-history fix. Actual full-frame/prototype review
