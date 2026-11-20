@@ -134,6 +134,12 @@ class SpacesManagementJourneyTest {
             assertPixel("Management message 5", reading.get("pixel").asFloat)
             assertCategoryDrawer(fixtures, category, "Native conversations", "normal")
             ui.onNode(hasSetTextAction() and hasText("Keep the category-management channel draft")).assertIsDisplayed()
+            saveReadingSnapshot("category-normal", fixtures, "general", visibleTexts = categoryMessages)
+            val baseline = categoryReading("normal")
+            val anchor = baseline.getAsJsonObject("anchor")
+            assertTrue(baseline.getAsJsonArray("messages").any { it.asJsonObject.get("id") == anchor.get("message") })
+            assertEquals(fixtures.get("general"), baseline.get("selectedChannel"))
+            assertFalse(baseline.get("storedFollowLatest").asBoolean)
             saveCompletion("completed.json", fixtures)
         } }
     }
@@ -145,7 +151,7 @@ class SpacesManagementJourneyTest {
         val fixtures = command("management-fixtures")
         val label = context.getString(R.string.spaces_category_name)
         launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("category-compact-failure") }) {
-            waitText("Management message 5")
+            waitForCategoryReading(fixtures, "compact-entry")
             openCategories(); clickDialog("Native conversations")
             editorField(label).performScrollTo().performTextReplacement("Compact community conversations")
             assertFocusedFieldVisible(label, "Compact community conversations")
@@ -173,7 +179,7 @@ class SpacesManagementJourneyTest {
             }
         } }
         launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("category-rename-failure") }) {
-            waitText("Management message 5")
+            waitForCategoryReading(fixtures, "compact-reentry")
             openCategories(); clickDialog("Native conversations")
             editorField(label).performScrollTo().performTextReplacement("Compact community conversations")
             closeKeyboard()
@@ -196,7 +202,7 @@ class SpacesManagementJourneyTest {
             })
             capture("16-compact-category-renamed-in-place")
             clickDialog(context.getString(R.string.spaces_close)); clickDialog(context.getString(R.string.spaces_close))
-            waitText("Management message 5")
+            waitForCategoryReading(fixtures, "compact-renamed")
             assertCategoryDrawer(fixtures, category.key, "Compact community conversations", "compact")
             ui.onNode(hasSetTextAction() and hasText("Keep the category-management channel draft")).assertIsDisplayed()
             saveCompletion("compact-completed.json", fixtures)
@@ -263,7 +269,32 @@ class SpacesManagementJourneyTest {
         })
         capture(if (label == "normal") "09b-category-native-drawer" else "17-compact-category-native-drawer")
         general.clickReady()
-        waitText("Management message 5")
+        if (label == "normal") waitText("Management message 5")
+        else waitForCategoryReading(fixtures, "compact-drawer")
+    }
+    private val categoryMessages get() = (0..17).map { "Management message $it" }
+    private fun categoryReading(label: String) = JsonParser.parseString(File(evidence, "reading-category-$label.json").readText()).asJsonObject
+    /** Reflow changes which later messages fit, not the retained first item and offset. */
+    private fun waitForCategoryReading(fixtures: JsonObject, label: String) {
+        val started = SystemClock.elapsedRealtime()
+        val baseline = categoryReading("normal")
+        val anchor = baseline.getAsJsonObject("anchor")
+        val text = baseline.getAsJsonArray("messages").single { it.asJsonObject.get("id") == anchor.get("message") }.asJsonObject.get("text").asString
+        val remaining = 15_000 - (SystemClock.elapsedRealtime() - started)
+        assertTrue("Restored channel observation shares the original15second budget", remaining > 0)
+        waitUntil(remaining) {
+            history().isDisplayed() && ui.onNode(hasText(text) and onScreen).isDisplayed() &&
+                ui.onNode(hasSetTextAction() and hasText("Keep the category-management channel draft")).isDisplayed()
+        }
+        saveReadingSnapshot("category-$label", fixtures, "general", visibleTexts = categoryMessages)
+        val restored = categoryReading(label)
+        for (field in listOf("owner", "space", "channel", "selectedChannel", "storedFollowLatest", "anchor"))
+            assertEquals("Category reading $field survives native reflow and return", baseline.get(field), restored.get(field))
+        assertEquals(fixtures.get("space"), restored.get("space"))
+        assertEquals(fixtures.get("general"), restored.get("channel"))
+        assertEquals(restored.get("channel"), restored.get("selectedChannel"))
+        assertTrue(restored.getAsJsonArray("visible").any { it.asJsonObject.get("text").asString == text })
+        assertTrue(SystemClock.elapsedRealtime() - started <= 15_000)
     }
     private fun awaitCategoryOriginal(original: String, kind: String, name: String, started: Long) {
         val remaining = 27_000 - (SystemClock.elapsedRealtime() - started)
@@ -1337,10 +1368,11 @@ class SpacesManagementJourneyTest {
     private fun status() = command(if (privateReadiness) "readiness-status" else if (privateManagement) "private-management-status" else "management-status")
     /** Real protected-store rows and separately timestamped visible text,
      * never a synthetic saved-state acknowledgement. */
-    private fun saveReadingSnapshot(name: String, fixtures: JsonObject, channelName: String, uiAvailable: Boolean = true) {
+    private fun saveReadingSnapshot(name: String, fixtures: JsonObject, channelName: String, uiAvailable: Boolean = true,
+        visibleTexts: List<String> = listOf("A native encrypted message before removal", "A native encrypted message after fresh admission")) {
         val visibleAt = SystemClock.elapsedRealtime()
         val visible = JsonArray()
-        if (uiAvailable) for (text in listOf("A native encrypted message before removal", "A native encrypted message after fresh admission")) {
+        if (uiAvailable) for (text in visibleTexts) {
             val node = ui.onNode(hasText(text) and onScreen)
             if (node.isDisplayed()) {
                 val bounds = node.fetchSemanticsNode().boundsInRoot

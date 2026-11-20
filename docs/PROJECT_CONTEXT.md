@@ -1,23 +1,19 @@
 # Red Square Android project context
 
-## Active139: actual category first-feedback corrections
+## Active139: category anchor observation correction
 
-Whole Android17 category parent44771313022 at1d03625e6 failed. Both reviews
-inspected all469 movie frames,9capture pairs and16control records. It exposed
-a JsonNull polling exception, a pending-field acceptance oracle and false
-access-loss text during roster restoration. The original archive and deadlines
-remain unchanged; its passing prefix does not establish native acceptance.
+Both category Android17 parents44771313022 and44777134728 remain wholeFAIL.
+Parent2 reviews inspected all579frames,11capture pairs and19controls. Its compact
+scene is loaded, but message5 is offscreen after font200 reflow. The corrected
+observer records the real normal-end protected-store anchor and checks its exact
+identity, offset and scope with native content/draft on four compact returns.
+The original15s and normal pixel assertions remain, without scrolling or reset.
+Separate compilation and both source reviews pass. Exact records and source
+bridges are in the [category source record](evidence/ticket139/categories-and-directory-source.json).
 
-The three-file correction requires the actual enabled category card/list after
-the pending form disappears, waits safely through JsonNull, and separates neutral
-loading from known category access loss. Separate main/instrumentation results,
-source hashes, both reviews and the exact bridge are in the
-[category source record](evidence/ticket139/categories-and-directory-source.json). A fresh source pin and immutable revision2 must
-precede the next whole native parent; no new native acceptance is claimed here.
-
-Issue139 remains current/open. Continue sequentially through140-147 after its
-remaining private-category/process, membership/ownership, visibility and
-dissolution work. Approved navigationB and beta142 remain unchanged.
+Fresh immutable revision3 and a whole native parent remain required. Issue139 is
+current/open; private-category/process, membership/ownership, visibility and
+dissolution remain before140-147. Approved navigationB and beta142 are unchanged.
 
 ## Active139: category source and native preparation
 

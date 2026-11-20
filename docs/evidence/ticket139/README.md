@@ -1,10 +1,11 @@
 # Ticket139: community governance
 
-Actual category parent44771313022 remains wholeFAIL. Its469frames and9capture
-pairs exposed a polling exception, pending-form oracle and false restored-access
-copy. [The source record](categories-and-directory-source.json) now records the
-three-file product/observer correction, unchanged goals and original failure.
-Fresh revision2/native proof and remaining139 acceptance are still pending.
+Category parents44771313022 and44777134728 remain wholeFAIL. The second full
+visual review covers579frames and11capture pairs. Its compact offscreen-message
+oracle is replaced by actual protected-store anchor/native-content observations
+under unchanged deadlines. [The source record](categories-and-directory-source.json)
+retains both failures, scoped source bridges, compilation and clear source reviews.
+Fresh frozen3/native proof and remaining139 acceptance are pending.
 
 The [category and directory source record](categories-and-directory-source.json)
 tracks stable encrypted category identities, native management preparation and

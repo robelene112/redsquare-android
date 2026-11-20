@@ -600,5 +600,57 @@
     "sourceBridge": "Only these three source files changed from1d for this correction. core/service product and JUnit inputs, native host, workflow, goals, controls, captures and deadlines are unchanged. Historical module and pinned adapter results above remain scoped to their recorded source. This is product UI plus observer source, not observer-only.",
     "validation": "Separate main log ends BUILD SUCCESSFUL3m17s; outer tool session returned143 after the inner build succeeded. The subsequent instrumentation command also independently warms/checks main; its complete outcome is recorded in the retained log. Both source review axes are clear. No fresh native acceptance or complete139 acceptance is claimed.",
     "next": "Freeze new immutable source-bound revision2 with identical verifier/catalogues/goals, review both axes prospectively, then run a fresh whole category parent. Private category/pending-process, membership/ownership, visibility and dissolution remain before140-147."
+  },
+  "secondNativeFeedback": {
+    "recordedAt": "2026-11-20T17:12:13.156024+00:00",
+    "sourceBase": "628a676c6ed1a9e805034355c3aa2b2ae7474978",
+    "failedParent": {
+      "run": 44777134728,
+      "wholeOutcome": "FAIL",
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/spaces139-category-runtime/attempt2-44777134728/original.zip",
+      "sha256": "ae7bfd4a7c43b4849712b71534b0af31a696b6f33ccdb091bbb1ef1069f460e1",
+      "framesPerAxis": 579,
+      "sheetsPerAxis": 37,
+      "capturePairs": 11,
+      "loggedControls": 19,
+      "terminalPasses": 1,
+      "compactCategoryUiExecuted": false
+    },
+    "actualFinding": "At320dp/font200, the restored General scene is already loaded with18 messages and the exact draft. Message2 is visible; message3 is clipped and message5 cannot fit. Waiting for message5 to become visible contradicts retaining the first-visible anchor through reflow. The prior packet recorded only message5 pixel405, so it cannot prove the actual protected-store anchor identity.",
+    "correction": "Record the actual protected-store normal-end anchor and native visible messages. On four compact entry/return points, observe native history, the corresponding anchor message and the exact draft, then compare complete owner/node-route-derived store scope, Space/channel/selection/follow mode and anchor fields. The original15s includes observation/protected reads; no scrolling or reset is introduced. Original normal message5 pixel assertion remains.",
+    "sourceFiles": {
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "53bec0a1b04df39ca4bc2abdb4173046c26d2731a5e42e566936b735c968cb22"
+    },
+    "evidence": {
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-second-failure-spec-review.txt": "0c1d683ace61b9e5963b8da3d98e53aebd4f25063aa2cd94a6b3a35ea3630e09",
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-second-failure-standards-review.txt": "7040a1ac12b5ada31bcb6f9e48357a7b714062c762a2ba8004c4886087f4b137",
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-anchor-observer-spec-review.txt": "5f6729230cdf6d6af5f346c0bc56b3d186bcd1baf6d31a8110ecd32008396202",
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-anchor-observer-standards-review.txt": "8dfb817a4d6b918c7c6c09abc1afa0fee7a3528c6ad6c8d811e7cfa3b0c8eed1",
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-anchor-observer-compile-confirmation.log": "e9634c98638e957581e7b1563d7d441ba490249c99aab5f028ddc497482b17d1",
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-second-failure-frames.log": "c3149e848dc3571bc374df270248b6b42a02a454767e3e164ac3fb27bd9ca965",
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-anchor-observer-container-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-anchor-observer-compile-confirmation.json": "6b0cac59812bacbf371e6e7b77b2f3226d8134c63539e6719414b9e2cdf9a60c",
+      "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-anchor-observer-compile.log": "57c5cce90cbd32d0d7369aaa3041c13f16340bcd8034231fa03902a2b2862efb"
+    },
+    "validation": {
+      "separateCompileSuccessfulDurations": [
+        "17s",
+        "22s",
+        "22s"
+      ],
+      "initialOuterToolExit": 143,
+      "initialActualFinalContainerExit": 0,
+      "confirmation": {
+        "exit": 0,
+        "testSourceBefore": "53bec0a1b04df39ca4bc2abdb4173046c26d2731a5e42e566936b735c968cb22",
+        "testSourceAfter": "53bec0a1b04df39ca4bc2abdb4173046c26d2731a5e42e566936b735c968cb22",
+        "unchanged": true
+      },
+      "qualification": "Initial outer shell session ended143 while the actual compiler container continued running. Independently attached docker wait records real terminal0, but the outer output log ends at the compile task. A separately detached confirmation preserves complete output and clean exit at identical source; cached compilation is qualified. No source changed during either compiler lifetime.",
+      "sourceReviewAxes": "Both clear",
+      "nativeAcceptance": false
+    },
+    "sourceBridge": "Observer-only test correction from628. All app/core/service product, JUnit cases, host, workflow, native goals, actions, captures, control counts and deadlines remain unchanged. Existing reading helper gains an optional visible-text list; its private-journey default is unchanged. Five extra reading JSON records strengthen frozen3. No failed native prefix is accepted.",
+    "next": "Commit and freeze immutable revision3, prospectively review source/catalogue/reading gates, then dispatch a fresh whole parent. Continue private-category/process, membership/ownership, visibility and dissolution before140-147. Beta142 unchanged."
   }
 }
