@@ -1,0 +1,206 @@
+{
+  "status": "Partial139 source increment; no current native, whole139 or release acceptance",
+  "base": "048bbf82c41a6b52952edafd4697ff5d04a1a3ea",
+  "sourceFiles": {
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "4d70a4f4a3f91ce4501111d5b9ee4d4ca6378b63eed446d55d5957dbceb288bc",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceManagement.kt": "89b2768a0bfd996164c22cbcb6f014a5736feaca161bd1c75c4220239b1230d0",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesAccount.kt": "6a119d132a06a97d3a6572f6aa0eb95f64bc0b15e434bea9e741dc8ba7760531",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "82a9ab6c1a6f36d6f2e488a650aa0bd39958f43cfe68c815f11a58326c8849d0",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt": "cf0ffe210e45e7f76f4d59471f5d43b9c5213fe3e23f64e4c12115e5365ce4c6",
+    "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt": "dd36824a9eee998b52945cf03424368ee204997a764330e680203288b1a21474",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceGovernanceTest.kt": "5249627dc92cb779d5363ddbda403f26de7a916f686e59bd1a6460edf98044d6"
+  },
+  "source048WholeParents": [
+    {
+      "run": 44709303980,
+      "mode": "public",
+      "sdk": 37,
+      "source": "048bbf82c41a6b52952edafd4697ff5d04a1a3ea",
+      "conclusion": "failure",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-runtime/attempt18-44709303980",
+      "zipSha256": "1a4bbfdff88adb075005927ec90fda6801ba0949a59d89a6c3c5ee9220e90b46",
+      "frozenVersion": 18,
+      "assessmentExit": null
+    },
+    {
+      "run": 44709311194,
+      "mode": "public",
+      "sdk": 29,
+      "source": "048bbf82c41a6b52952edafd4697ff5d04a1a3ea",
+      "conclusion": "failure",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-runtime/attempt18-44709311194",
+      "zipSha256": "6628f1b20940dc8692a4c90298c033fe886fc9ffd5823e097cb24d367b90503d",
+      "frozenVersion": 18,
+      "assessmentExit": null
+    },
+    {
+      "run": 44709318464,
+      "mode": "private",
+      "sdk": 37,
+      "source": "048bbf82c41a6b52952edafd4697ff5d04a1a3ea",
+      "conclusion": "failure",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-private-runtime/attempt6-44709318464",
+      "zipSha256": "e10934634bb062a9665fb2abf5982af416965eeb5e755c7e41a8e6c73ab9c5a0",
+      "frozenVersion": 6,
+      "assessmentExit": null
+    },
+    {
+      "run": 44709325309,
+      "mode": "private",
+      "sdk": 29,
+      "source": "048bbf82c41a6b52952edafd4697ff5d04a1a3ea",
+      "conclusion": "failure",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-private-runtime/attempt6-44709325309",
+      "zipSha256": "c9b12cd96165d7e75bd5f4e7fda409042b2fa9a44513df446a719ed84a2286ab",
+      "frozenVersion": 6,
+      "assessmentExit": null
+    },
+    {
+      "run": 44709332230,
+      "mode": "readiness",
+      "sdk": 37,
+      "source": "048bbf82c41a6b52952edafd4697ff5d04a1a3ea",
+      "conclusion": "success",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-readiness-runtime/attempt5-44709332230",
+      "zipSha256": "9d817bf9fa5ec18ad5a5a32f6ef5c471ba851e741c2f54c33da3ca33691616aa",
+      "frozenVersion": 5,
+      "assessmentExit": 0
+    },
+    {
+      "run": 44709339456,
+      "mode": "readiness",
+      "sdk": 29,
+      "source": "048bbf82c41a6b52952edafd4697ff5d04a1a3ea",
+      "conclusion": "success",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-readiness-runtime/attempt5-44709339456",
+      "zipSha256": "673cf23a6b379b4ffd863dd4dfa841e054407a9283d42b27fcdbd35eb06fa58a",
+      "frozenVersion": 5,
+      "assessmentExit": 0
+    }
+  ],
+  "nativeSource048": {
+    "public": "Both wholeFAIL compact role SAVE error visibility within5s, before focused-field assertions. Standards inspected all214 phase4 frames/15sheets. The actual movies show growing footer leaving viewport; prompt SAVE logged. FailurePNG/XML show launcher after cleanup; actual failing state preserved in movies.",
+    "private": "Both wholeFAILphase1. Android17 creation remainsqueued/nohostoriginals, local lock3392ms/projected4255ms; idle rotation replay attribution inferred. Android10 revoke remainsqueued/norevokeoriginal while unrelated reads continue; missing urgent access scheduling source-confirmed. Spec inspected501frames/32sheets and both failure pairs.",
+    "readiness": "Both wholeSUCCESS/frozen5assessment0 and both actualframe/prototype axes narrowlyaccepted.605frames/40sheets,16originalPNG/XMLpairs,28geometry records; no whole139/current-fix acceptance."
+  },
+  "nativeReviews": {
+    "publicStandards": "Chat-only actual214frames/15sheets; extracteddiagnostics under/tmp/spaces139-attempt18-review, originalmovies retained in wholearchives.",
+    "privateSpec": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-source048-private-failures-spec-review.txt",
+    "readinessSpec": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-source048-readiness-spec-review.txt",
+    "readinessStandards": "Chat-only independent review:335frames/22sheets Android17,270frames/18sheets Android10;16PNG/XMLpairs and28geometry records, zero concrete findings."
+  },
+  "sourceCorrections": [
+    "SAVE feedback requests actual visibility after its layout/transition settles, retaining stable input ancestry. Fault screenshots precede independent cleanup and preserve the original exception.",
+    "Archive, role and private-access actions use the existing lightweight management projection and urgent delivery path. Accepted policy atomically maintains a rotation-required hint; legacy stores derive it once, idle flushes avoid full journal replay.",
+    "Signed leave excludes the owner and retires future private credentials; exact-original API records queued/uncertain/accepted/rejected results without deleting received history or drafts.",
+    "A signed membership-intent reference and receiving/service/local-deferred freshness gates stop old requests reviving ended membership or blocking fresh applicants.",
+    "Explicit rejoin persists a fresh pending device separately from received history. A later old-device rotation preserves that distinct pending request; accepted Welcome retains prior history.",
+    "A delayed rejection recognizes an already authenticated predecessor instead of installing a permanent required-control gate. Unknown heads still require recovery.",
+    "Public and private new publication must acknowledge the current membership term; previously accepted historical receipts retain their historical authorization checks. Old queued writing is retained as rejected, not silently published after rejoin."
+  ],
+  "runtimeRed": [
+    {
+      "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-leave-receiving-red.log",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-leave-receiving-red-originals"
+    },
+    {
+      "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-leave-stale-join-red.log",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-leave-stale-join-red-originals"
+    },
+    {
+      "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-leave-deferred-actual-red-v2.log",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-leave-deferred-actual-red-originals"
+    },
+    {
+      "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-explicit-rejoin-red.log",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-explicit-rejoin-red-originals"
+    },
+    {
+      "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-late-rotation-rejoin-red.log",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-late-rotation-rejoin-red-originals"
+    },
+    {
+      "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-older-departure-rejection-red.log",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-older-departure-rejection-red-originals"
+    },
+    {
+      "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ended-membership-writing-red.log",
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ended-membership-writing-red-originals"
+    }
+  ],
+  "qualifications": [
+    "The leave API RED is compilation-only, missing public methods; no runtime failure claimed.",
+    "Two deferred-fixture compilations accessed internal codec helpers; both failures retained. The corrected independent version1 peer fixture then reproduced the actual stale consumed-operation block at Journal412.",
+    "Three-case XML/logGREEN2m44 had enclosing session63985exit143. Subsequent whole28/29/30/31case runs have clean exit0; no passing-prefix assembly."
+  ],
+  "lastAffectedGreen": {
+    "cases": 31,
+    "durationSeconds": 179,
+    "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-leave-rejoin-final-related.log",
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-leave-rejoin-final-related-originals",
+    "scope": "Before the final delayed-rejection and membership-term-writing corrections; not full current-source verification."
+  },
+  "sourceReviews": {
+    "Spec": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-leave-writing-term-final-spec-review.txt",
+    "Standards": "Chat-only narrow latest correction confirmed, prior UI/observer/correctness reviews retained in cache.",
+    "remainingConcreteFindings": 0
+  },
+  "fullJvm": {
+    "status": "PASS",
+    "core": 247,
+    "service": 115,
+    "classes": {
+      "core": 48,
+      "service": 9
+    },
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 397,
+    "commandExit": 0,
+    "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-membership-term-final-jvm.log",
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-membership-term-final-jvm-originals",
+    "qualification": "Both test tasks executed on the current source. Android/native validation remains separate."
+  },
+  "androidCompilation": {
+    "status": "PASS",
+    "mainSeconds": 194,
+    "instrumentationSeconds": 191,
+    "commandExit": 0,
+    "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-leave-feedback-final-android.log",
+    "qualification": "Existing wrapper keeps warmup, main and instrumentation compiler lifetimes separate. No code edits during builds. Native runtime/frame acceptance remains pending."
+  },
+  "freshNative": "Pending next prospective19/7/6 wholeparents/allframes, preserving all original goals/deadlines.",
+  "remaining": "Leave native UI, removal/ban and allfuture exclusions, ownership/category/visibility/dissolution and remainder139, then140\u2013147 sequentially.",
+  "beta": "142 unchanged; no production node/provider activation, public development or financial writes, or automatic file hosting.",
+  "previousFullJvm": {
+    "core": 247,
+    "service": 114,
+    "classes": {
+      "core": 48,
+      "service": 9
+    },
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 361,
+    "commandExit": 0,
+    "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-leave-rejoin-final-jvm.log",
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-leave-rejoin-final-jvm-originals",
+    "qualification": "Before adding the final membership-term queued-writing regression/guard. Both test tasks executed. Not current115-case verification."
+  },
+  "prospectiveReviews": {
+    "Spec": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-leave-prospective-docs-final-spec-review.txt",
+    "Standards": "Chat-only final115-case/hash/provenance check, zero concrete findings.",
+    "concreteFindings": 0
+  },
+  "prospectiveCatalogue": {
+    "core": 247,
+    "service": 115,
+    "classes": {
+      "core": 48,
+      "service": 9
+    },
+    "qualification": "All107 earlier service cases retained; eight membership cases added. Archived18/6/5 snapshots unchanged. Next19/7/6 freeze must precede dispatch."
+  }
+}

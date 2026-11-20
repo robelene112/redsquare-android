@@ -23,6 +23,349 @@ class SpaceGovernanceTest {
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
 
+    @Test(timeout = 45_000) fun leavingStopsFuturePrivateKeysWithoutRecallingCopiedHistory() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("leave-private-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("leave-private-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("leave-private-member.sqlite").absolutePath).use { memberStore ->
+                    var head = ""
+                    val originals = mutableListOf<SaitoTransaction>()
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                        originals.add(original)
+                        remote.exchange(original.envelope()).also { reply ->
+                            if (SaitoEnvelope.decode(reply).body.get("stream")?.asString == "control") head = original.id
+                        }
+                    }
+                    val reader = SpaceClient(member, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create("A community members can leave"); creator.flush(space)
+                    val invitation = creator.invite(space); creator.flush(space)
+                    reader.join(invitation); reader.flush(space)
+                    creator.admitPending(space); creator.flush(space); reader.refresh(space)
+                    creator.send(space, "Already received history"); creator.flush(space); reader.refresh(space)
+                    val past = originals.last { SaitoEnvelope.decode(it.envelope()).body.get("content_kind")?.asString == "message" }
+                    val copied = memberStore.transaction {
+                        val saved = com.google.gson.JsonParser.parseString(requireNotNull(get("$space/state")).toString(Charsets.UTF_8)).asJsonObject
+                        nl.davidengelen.redsquare.spaces.SpaceCrypto.restore(java.util.Base64.getDecoder().decode(saved.get("crypto").asString))
+                    }
+                    fun leave(actor: SaitoWallet, operation: String) = SaitoTransaction.create(actor, JsonObject().apply {
+                        addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                        addProperty("kind", "leave"); addProperty("space_id", space); addProperty("control_id", head)
+                        addProperty("operation_id", operation)
+                    }, clock.millis(), listOf(service.publicKey))
+                    assertEquals("The owner must transfer ownership before leaving", "rejection",
+                        SaitoEnvelope.decode(remote.exchange(leave(owner, "b".repeat(64)).envelope())).body.get("stream").asString)
+                    val departure = leave(member, "c".repeat(64))
+                    val accepted = remote.exchange(departure.envelope())
+                    assertEquals("An ordinary member can leave their actual private community", "control", SaitoEnvelope.decode(accepted).body.get("stream").asString)
+                    assertEquals(accepted, remote.exchange(departure.envelope()))
+                    creator.refresh(space)
+                    assertEquals(listOf(owner.publicKey), creator.members(space).map { it.publicKey })
+                    assertFalse("Future private writing waits for removal of the departed device", creator.community(space).canSend)
+                    creator.flush(space)
+                    assertTrue(creator.community(space).canSend)
+                    creator.send(space, "Written after the departure key update"); creator.flush(space)
+                    val future = originals.last { SaitoEnvelope.decode(it.envelope()).body.get("content_kind")?.asString == "message" }
+                    try { copied.read(future.envelope()); fail("Copied departed keys cannot decrypt future accepted text") }
+                    catch (_: nl.davidengelen.redsquare.spaces.SpaceCrypto.MissingKeys) { }
+                    assertEquals("Already received history", copied.read(past.envelope()).text)
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun leavingRetainsItsExactOriginalAndTruthfulStatusAcrossALostResponseAndColdReturn() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("leave-recovery-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("leave-recovery-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("leave-recovery-member.sqlite").absolutePath).use { memberStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    var loseDeparture = true
+                    val departures = mutableListOf<String>()
+                    fun memberClient() = SpaceClient(member, "fixture-node", service.publicKey, memberStore, clock) { original ->
+                        val received = remote.exchange(original.envelope())
+                        if (SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "leave") {
+                            departures.add(original.envelope())
+                            if (loseDeparture) { loseDeparture = false; throw java.io.IOException("Owned accepted departure reply lost") }
+                        }
+                        received
+                    }
+                    var reader = memberClient()
+                    val space = creator.create("Durable community departure"); creator.flush(space)
+                    val invitation = creator.invite(space); creator.flush(space)
+                    reader.join(invitation); reader.flush(space)
+                    creator.admitPending(space); creator.flush(space); reader.refresh(space)
+                    creator.send(space, "Past conversation stays readable"); creator.flush(space); reader.refresh(space)
+                    reader.saveDraft(space, "Writing kept when I leave")
+                    try { creator.leave(space); fail("An owner must transfer ownership first") } catch (_: IllegalArgumentException) { }
+                    assertNull(creator.membershipChange(space))
+                    val original = reader.leave(space)
+                    assertEquals(original, reader.membershipChange(space)?.id)
+                    assertEquals(SpaceClient.ChangeStatus.QUEUED, reader.membershipChange(space)?.status)
+                    assertTrue("Queued departure is not a remotely accepted membership result", reader.community(space).joined)
+                    assertFalse(reader.community(space).canSend)
+                    try { reader.flush(space); fail("The actual accepted departure response is lost") } catch (_: java.io.IOException) { }
+                    assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, reader.membershipChange(space)?.status)
+                    creator.refresh(space); creator.flush(space)
+                    assertEquals(listOf(owner.publicKey), creator.members(space).map { it.publicKey })
+                    reader = memberClient()
+                    assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, reader.membershipChange(space)?.status)
+                    reader.flush(space)
+                    assertEquals(2, departures.size); assertEquals(departures[0], departures[1])
+                    assertEquals(original, SaitoEnvelope.decode(departures[1]).id)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, reader.membershipChange(space)?.status)
+                    assertFalse(reader.community(space).joined); assertFalse(reader.community(space).canSend)
+                    assertFalse(reader.community(space).canInvite); assertFalse(reader.community(space).canManage)
+                    assertEquals("Writing kept when I leave", reader.draft(space))
+                    assertEquals(listOf("Past conversation stays readable"), reader.messages(space))
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun aDepartureCannotBeUndoneByAnotherJoinRequestedBeforeTheFirstAdmission() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("leave-old-request-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("leave-old-request-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("leave-old-request-first.sqlite").absolutePath).use { firstStore ->
+                    SqliteClientFixture(files.newFile("leave-old-request-second.sqlite").absolutePath).use { secondStore ->
+                        val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                        val first = SpaceClient(member, "fixture-node", service.publicKey, firstStore, clock) { remote.exchange(it.envelope()) }
+                        val second = SpaceClient(member, "fixture-node", service.publicKey, secondStore, clock) { remote.exchange(it.envelope()) }
+                        val space = creator.create("Explicit membership intent"); creator.flush(space)
+                        val invitation = creator.invite(space); creator.flush(space)
+                        first.join(invitation); first.flush(space)
+                        second.join(invitation); second.flush(space) // Another genuine original from a separately initialized device.
+                        creator.admitPending(space); creator.flush(space); first.refresh(space)
+                        assertTrue(first.community(space).joined)
+                        first.leave(space); first.flush(space)
+                        creator.refresh(space); creator.flush(space)
+                        assertEquals(listOf(owner.publicKey), creator.members(space).map { it.publicKey })
+                        creator.admitPending(space); creator.flush(space)
+                        assertEquals("An accepted departure requires fresh intent before any later admission",
+                            listOf(owner.publicKey), creator.members(space).map { it.publicKey })
+                        assertFalse(first.community(space).joined)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun anOldDeferredInvitationCannotBlockFreshAdmissionsAfterItsApplicantLeaves() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("leave-deferred-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("leave-deferred-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("leave-deferred-admin.sqlite").absolutePath).use { adminStore ->
+                    SqliteClientFixture(files.newFile("leave-deferred-applicant.sqlite").absolutePath).use { applicantStore ->
+                        SqliteClientFixture(files.newFile("leave-deferred-fresh.sqlite").absolutePath).use { freshStore ->
+                            val adminWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+                            val freshWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "5")
+                            val originals = mutableListOf<SaitoTransaction>()
+                            var head = ""
+                            fun submit(original: SaitoTransaction) = remote.exchange(original.envelope()).also { reply ->
+                                if (SaitoEnvelope.decode(reply).body.get("stream")?.asString == "control") head = original.id
+                            }
+                            val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { originals.add(it); submit(it) }
+                            val administrator = SpaceClient(adminWallet, "fixture-node", service.publicKey, adminStore, clock) { submit(it) }
+                            val applicant = SpaceClient(member, "fixture-node", service.publicKey, applicantStore, clock) { submit(it) }
+                            val fresh = SpaceClient(freshWallet, "fixture-node", service.publicKey, freshStore, clock) { submit(it) }
+                            val profile = SpaceProfile("Deferred membership")
+                            val space = creator.create(profile); creator.flush(space)
+                            val invitation = creator.invite(space); creator.flush(space)
+                            administrator.join(invitation); administrator.flush(space)
+                            creator.admitPending(space); creator.flush(space); administrator.refresh(space)
+                            creator.setAdministrator(space, adminWallet.publicKey, true); creator.flush(space)
+                            val channel = creator.createChannel(space, nl.davidengelen.redsquare.spaces.SpaceChannelProfile("Planning")); creator.flush(space)
+                            val creation = SaitoEnvelope.decode(originals.last { SaitoEnvelope.decode(it.envelope()).body.get("kind")?.asString == "create-channel" }.envelope())
+                            val scope = nl.davidengelen.redsquare.spaces.SpaceCrypto.Scope(service.publicKey, space, channel, creation.body.get("key_generation").asString)
+                            val bearer = SaitoWallet.fromPrivateKey("0".repeat(63) + "6")
+                            val previewKey = ByteArray(32) { 9 }
+                            val operation = "e".repeat(64)
+                            // Independent version1 peer encoding, as in the existing discovery interoperability fixtures.
+                            val nonce = ByteArray(12) { 8 }
+                            val cipher = javax.crypto.Cipher.getInstance("AES/GCM/NoPadding").apply {
+                                init(javax.crypto.Cipher.ENCRYPT_MODE, javax.crypto.spec.SecretKeySpec(previewKey, "AES"), javax.crypto.spec.GCMParameterSpec(128, nonce))
+                                updateAAD("SaitoSpacesPreview/v1:${scope.groupId}:$operation".toByteArray(Charsets.UTF_8))
+                            }
+                            val preview = java.util.Base64.getEncoder().encodeToString(nonce + cipher.doFinal(profile.json().toString().toByteArray(Charsets.UTF_8)))
+                            // A compatible peer invites a new member directly into this existing private child.
+                            val childInvite = SaitoTransaction.create(owner, JsonObject().apply {
+                                addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                                addProperty("kind", "invite"); addProperty("space_id", space); addProperty("control_id", head)
+                                addProperty("operation_id", operation); addProperty("invite_key", bearer.publicKey)
+                                addProperty("expires_at", clock.millis() + 60_000); addProperty("preview_format", "profile-v1")
+                                addProperty("channel_id", channel)
+                                addProperty("preview", preview)
+                            }, clock.millis(), listOf(service.publicKey))
+                            assertEquals("control", SaitoEnvelope.decode(submit(childInvite)).body.get("stream").asString)
+                            creator.refresh(space); administrator.refresh(space)
+                            val childReference = JsonObject().apply {
+                                addProperty("version", 1); addProperty("node", "fixture-node")
+                                add("scope", JsonObject().apply {
+                                    addProperty("service", scope.serviceKey); addProperty("space", scope.spaceId)
+                                    addProperty("channel", scope.channelId); addProperty("generation", scope.generation)
+                                })
+                                addProperty("invitation", childInvite.id); addProperty("capability", "0".repeat(63) + "6")
+                                addProperty("preview_key", java.util.Base64.getEncoder().encodeToString(previewKey))
+                            }
+                            val childLink = "saito://spaces/join#" + java.util.Base64.getUrlEncoder().withoutPadding()
+                                .encodeToString(childReference.toString().toByteArray(Charsets.UTF_8))
+                            applicant.join(childLink); applicant.flush(space)
+                            administrator.admitPending(space); administrator.flush(space) // This holder has not received the child keys yet.
+                            assertFalse(administrator.channels(space).single { it.id == channel }.ready)
+                            creator.admitPending(space); creator.flush(space); applicant.refresh(space)
+                            assertTrue(applicant.community(space).joined)
+                            applicant.leave(space); applicant.flush(space); creator.refresh(space); creator.flush(space)
+                            administrator.refresh(space); administrator.selectChannel(space, channel); administrator.flush(space)
+                            creator.admitPending(space); creator.flush(space); administrator.refresh(space, channel)
+                            assertTrue(administrator.channels(space).single { it.id == channel }.ready)
+                            fresh.join(invitation); fresh.flush(space)
+                            administrator.admitPending(space); administrator.flush(space)
+                            fresh.refresh(space); creator.refresh(space)
+                            assertTrue("Discarding a pre-departure deferred request allows the actual fresh request to complete", fresh.community(space).joined)
+                            assertTrue(creator.members(space).any { it.publicKey == freshWallet.publicKey })
+                            assertFalse(creator.members(space).any { it.publicKey == member.publicKey })
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun explicitlyRejoiningCreatesFreshDeviceKeysWithoutDiscardingAlreadyReceivedHistory() = verifyExplicitRejoin(true)
+    @Test(timeout = 45_000) fun aFreshRejoinRequestedBeforeOldDeviceRotationKeepsItsOwnWelcomeMaterial() = verifyExplicitRejoin(false)
+
+    private fun verifyExplicitRejoin(rotateBeforeReturn: Boolean) = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("leave-rejoin-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("leave-rejoin-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("leave-rejoin-reader.sqlite").absolutePath).use { readerStore ->
+                    var holdReturnedHistory = false
+                    val joins = mutableListOf<String>()
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                        if (holdReturnedHistory && SaitoEnvelope.decode(original.envelope()).body.get("content_kind")?.asString == "history-keys") {
+                            holdReturnedHistory = false
+                            throw java.io.IOException("Owned rejoin history grant held before delivery")
+                        }
+                        remote.exchange(original.envelope())
+                    }
+                    fun readerClient() = SpaceClient(member, "fixture-node", service.publicKey, readerStore, clock) { original ->
+                        if (SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "join") joins.add(original.envelope())
+                        remote.exchange(original.envelope())
+                    }
+                    var reader = readerClient()
+                    val space = creator.create("An explicit return"); creator.flush(space)
+                    val invitation = creator.invite(space); creator.flush(space)
+                    reader.join(invitation); reader.flush(space)
+                    creator.admitPending(space); creator.flush(space); reader.refresh(space)
+                    creator.send(space, "Already received before departure"); creator.flush(space); reader.refresh(space)
+                    reader.leave(space); reader.flush(space); creator.refresh(space)
+                    if (rotateBeforeReturn) {
+                        creator.flush(space)
+                        creator.send(space, "Available history from while I was away"); creator.flush(space)
+                    }
+                    reader.join(invitation); reader.flush(space) // A deliberate new signed intent, using the still-valid invitation.
+                    reader = readerClient() // Fresh constructor must recover the new admission material from the actual store.
+                    if (!rotateBeforeReturn) {
+                        creator.flush(space)
+                        creator.send(space, "Available history from while I was away"); creator.flush(space)
+                    }
+                    creator.admitPending(space); holdReturnedHistory = true
+                    try { creator.flush(space); fail("Actual historical key delivery is deliberately held") } catch (_: java.io.IOException) { }
+                    reader.refresh(space)
+                    assertTrue(reader.community(space).joined)
+                    assertTrue("A fresh device admission must not discard already received history while a new grant is unavailable",
+                        reader.messages(space).contains("Already received before departure"))
+                    assertFalse(reader.messages(space).contains("Available history from while I was away"))
+                    assertEquals(2, joins.size)
+                    assertNotEquals(SaitoEnvelope.decode(joins[0]).body.getAsJsonObject("key_package").get("device").asString,
+                        SaitoEnvelope.decode(joins[1]).body.getAsJsonObject("key_package").get("device").asString)
+                    creator.flush(space); reader.refresh(space)
+                    assertEquals(listOf("Already received before departure", "Available history from while I was away"), reader.messages(space))
+                    creator.send(space, "A new message after my return"); creator.flush(space); reader.refresh(space)
+                    assertEquals(listOf("Already received before departure", "Available history from while I was away", "A new message after my return"), reader.messages(space))
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun anOlderDepartureRejectionCannotWaitForeverForAnAlreadyKnownControl() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("leave-old-rejection-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("leave-old-rejection-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("leave-old-rejection-reader.sqlite").absolutePath).use { readerStore ->
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    var holdOldDisposition = true
+                    lateinit var reader: SpaceClient
+                    reader = SpaceClient(member, "fixture-node", service.publicKey, readerStore, clock) { original ->
+                        val received = remote.exchange(original.envelope())
+                        if (holdOldDisposition && SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "leave") {
+                            holdOldDisposition = false
+                            assertEquals("rejection", SaitoEnvelope.decode(received).body.get("stream").asString)
+                            // Another genuine control arrives before this already-created rejection is delivered.
+                            val space = SaitoEnvelope.decode(original.envelope()).body.get("space_id").asString
+                            creator.archiveChannel(space, creator.community(space).channel, false); creator.flush(space)
+                            reader.refresh(space)
+                        }
+                        received
+                    }
+                    val space = creator.create(SpaceProfile("Ordered departure feedback", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    reader.openPublic(space); reader.joinPublic(space); reader.flush(space); reader.refresh(space); creator.refresh(space)
+                    reader.saveDraft(space, "Writing survives the rejected departure")
+                    val rejected = reader.leave(space)
+                    creator.archiveChannel(space, creator.community(space).channel, true); creator.flush(space)
+                    reader.flush(space)
+                    assertEquals(SpaceClient.ChangeStatus.REJECTED, reader.membershipChange(space)?.status)
+                    assertTrue(reader.community(space).joined)
+                    assertTrue("A stale rejection must not require a predecessor which is already authenticated locally", reader.community(space).canSend)
+                    reader.refresh(space)
+                    assertTrue(reader.community(space).canSend)
+                    assertEquals("Writing survives the rejected departure", reader.draft(space))
+                    val reviewed = reader.leave(space); assertNotEquals(rejected, reviewed)
+                    reader.flush(space)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, reader.membershipChange(space)?.status)
+                    assertFalse(reader.community(space).joined)
+                    creator.refresh(space)
+                    assertEquals(listOf(owner.publicKey), creator.members(space).map { it.publicKey })
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun publicRejoinCannotPublishWritingQueuedBeforeThePreviousDeparture() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("membership-writing-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("membership-writing-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("membership-writing-reader.sqlite").absolutePath).use { readerStore ->
+                    var head = ""
+                    var holdOldWriting = true
+                    fun submit(original: SaitoTransaction) = remote.exchange(original.envelope()).also { reply ->
+                        if (SaitoEnvelope.decode(reply).body.get("stream")?.asString == "control") head = original.id
+                    }
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { submit(it) }
+                    val reader = SpaceClient(member, "fixture-node", service.publicKey, readerStore, clock) { original ->
+                        if (holdOldWriting && SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "public-content")
+                            throw java.io.IOException("Owned old signed writing held before delivery")
+                        submit(original)
+                    }
+                    val space = creator.create(SpaceProfile("A new membership term", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    val channel = creator.community(space).channel
+                    reader.openPublic(space); reader.joinPublic(space); reader.flush(space); reader.refresh(space)
+                    val queued = reader.send(space, "Writing signed before departure")
+                    try { reader.flush(space); fail("The old original is deliberately held") } catch (_: java.io.IOException) { }
+                    // A compatible client using the same member wallet deliberately leaves and rejoins while that original remains queued.
+                    fun membership(kind: String, operation: String) = SaitoTransaction.create(member, JsonObject().apply {
+                        addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                        addProperty("space_id", space); addProperty("kind", kind); addProperty("operation_id", operation)
+                        addProperty("control_id", head)
+                        if (kind == "join-public") { addProperty("channel_id", channel); addProperty("rules_token", "") }
+                    }, clock.millis(), listOf(service.publicKey))
+                    assertEquals("control", SaitoEnvelope.decode(submit(membership("leave", "d".repeat(64)))).body.get("stream").asString)
+                    assertEquals("control", SaitoEnvelope.decode(submit(membership("join-public", "e".repeat(64)))).body.get("stream").asString)
+                    reader.refresh(space)
+                    assertTrue(reader.community(space).joined)
+                    holdOldWriting = false; reader.flush(space); creator.refresh(space)
+                    assertEquals("Ending membership must not silently publish its old queued writing after a new join", emptyList<String>(), creator.messages(space))
+                    assertTrue(reader.timeline(space).single { it.id == queued }.rejected)
+                    reader.send(space, "Fresh writing after the reviewed return"); reader.flush(space); creator.refresh(space)
+                    assertEquals(listOf("Fresh writing after the reviewed return"), creator.messages(space))
+                }
+            }
+        }
+    }
+
     @Test fun anAuthorizedNewMemberReadsEarlierPrivateHistoryWhileTheChannelIsArchived() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("archived-history-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("archived-history-owner.sqlite").absolutePath).use { ownerStore ->

@@ -8,46 +8,51 @@ and138 are accepted and closed. Issue139 remains current and incomplete;
 140–147 have not started. Continue without a checkpoint stop. Public beta142
 is unchanged.
 
-Source supports public/private creation and metadata editing, archive/reopen,
-owner-only administrator changes, restricted grants and actual MLS revocation.
-Older private kinds are recovered from their immutable encrypted creation
-metadata. Retained history can identify a newly authorized Admin channel while
-current admission still gates editing. Private editing has an independently
-negotiated capability and the existing native editor preserves pending review.
-Earlier source794 verification passes247core/103service with the explicit cache
-and wrapper qualifications in its [source packet](evidence/ticket139/private-editor-legacy-source.json).
-The current rotation/history source passes the complete247core/107service JVM
-run in4m4s, with both test tasks executed.
-Both pinned framework rehearsals pass within their owned-adapter scope.
+Committed source048bbf82c adds actual MLS rotation for credentials excluded by
+accepted private-channel policy and protects newer live and same-epoch history
+keys from stale rejection rollback. Its complete JVM run passes247core/107service
+(48/9classes) in4m4s with both test tasks executed; separate main/instrumentation
+compilation passes193/179seconds. Earlier source794 and all failed predecessors
+remain separately qualified in the [rotation/source record](evidence/ticket139/rotation-and-native-recovery.json).
 
-Complete source794 Android10/17 readiness executions pass both frozen numeric
-and actual frame/prototype review axes, narrowly within readiness. Public
-management executions fail the real compact focused-field IME goal. Private
-process executions fail the compact second-launch latest-message goal. These
-whole parents remain failed, including their passing prefixes. Cumulative failed
-parent counts are32public/10private-process/4readiness. Source739 evidence and
-its differing Android10 focus reviews remain retained; source794 failures now
-establish actual lost input sessions on both SDKs.
+All six source048 native parents are terminal and retained. Readiness Android10
+44709339456 and Android17 44709332230 pass frozen5 assessment and both actual
+frame/prototype review axes, narrowly within readiness:605frames/40sheets,
+16PNG/XMLpairs and28geometry records. Public runs44709311194/44709303980 fail
+compact role-error visibility before focused-field checks. Actual movies show
+the enlarged footer leaving the viewport despite a prompt SAVE error. Private
+runs44709325309/44709318464 fail5second pending-confirmation goals in phase1:
+Android10 revoke lacks urgent scheduling; Android17 creation waits3392ms for the
+store. Repeated idle rotation journal verification is an inferred contributor
+to that contention. All34public/12private-process/4readiness failed parents stay
+whole failures, including passing prefixes.
 
-Current uncommitted corrections keep one mounted form scroll/focus ancestry
-through keyboard constraint changes and pair each saved reading offset with the
-actual firstVisibleItemIndex key. Actual protected-store snapshots supplement
-native reading-return diagnostics. Exact-source Android main and
-instrumentation compilation pass193/179seconds; fresh whole native/frame
-acceptance under the original deadlines remains required.
+Current uncommitted corrections bring SAVE feedback into view after actual
+layout/animation completion, use lightweight urgent delivery for archive/role/
+access changes and avoid repeated idle journal replay using an accepted-policy
+hint (legacy stores bootstrap once). Fault screenshots are captured before
+independent cleanup closes the Activity. Both source review axes are clear for
+these UI/coordinator changes; new Android compilation and whole native/frame
+acceptance remain mandatory. Stable focus ancestry and matching reading-index/
+offset pairing from048 stay in place. Original5/15/27second deadlines,48dp,
+process, provenance and cleanup goals remain unchanged.
 
-Accepted policy changes now mark excluded private credentials retired. Actual
-MLS removals are durably queued before further private content or replacement
-metadata is accepted. Four current SQLite regressions pass, including exact
-original recovery after a lost rotation response, competing holders, explicit
-regrant/revoke ordering and preservation of history imported at the same epoch
-while an admission was pending. All original runtime failures stay
-retained. Both final source axes report zero remaining concrete findings.
-This increment is neither complete139 nor native acceptance. Keep full
-JVM regression separate from Android instrumentation under the2.5GiB budget.
+Leave now has a receiving boundary and durable exact-original API with truthful
+queued/uncertain/accepted/rejected state. Owner departure is rejected until
+transfer; accepted departure retires future keys without recalling received
+bytes. Actual regressions protect against stale unused joins reviving membership
+and old deferred requests blocking fresh applicants. Signed membership intent
+acknowledges the departure or a later accepted control. The current complete JVM run passes247core/115service
+(48/9classes) in6m37s with both test tasks executed and clean command exit0.
+Actual regressions also cover fresh rejoin/history across both rotation orders,
+stale rejection after newer history and old queued writing after public rejoin.
+The earlier three-case log/XML pass2m44s had enclosing exit143 and remains
+qualified separately. See the [leave/source record](evidence/ticket139/leave-and-native-feedback-source.json).
+These APIs are not yet wired to native departure UI. Separate current Android main/instrumentation compilation passes194/191seconds
+with clean command exit0; fresh native acceptance is pending.
 
-Remaining139 includes explicit category identities and management, all affected
-future-key exclusion on role/membership changes, two-party ownership transfer,
+Remaining139 includes explicit category identities and management, leave/remove/
+ban UI and all affected future-key exclusion, two-party ownership transfer,
 deliberate visibility changes without publishing prior private history and
 owner-only dissolution. Then continue140–147. No production node/provider
 activation, public development/financial writes or automatic file hosting is

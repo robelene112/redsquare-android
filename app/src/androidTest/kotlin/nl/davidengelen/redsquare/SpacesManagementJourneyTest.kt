@@ -917,7 +917,12 @@ class SpacesManagementJourneyTest {
             db.execSQL("CREATE TRIGGER $trigger BEFORE INSERT ON entries WHEN NEW.key='$space/state' BEGIN SELECT RAISE(ABORT,'Owned management storage failure'); END")
         }
         var primary: Throwable? = null
-        try { action() } catch (failure: Throwable) { primary = failure; throw failure }
+        try { action() } catch (failure: Throwable) {
+            primary = failure
+            // Retain the actual faulty window before independent cleanup closes it.
+            try { capture("fault-$label-failure") } catch (captureFailure: Throwable) { failure.addSuppressed(captureFailure) }
+            throw failure
+        }
         finally { cleanupAfterTest(primary, { activity.close() }, {
             database().use { db ->
                 db.execSQL("DROP TRIGGER $trigger")

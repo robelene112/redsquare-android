@@ -23,7 +23,8 @@ data class SpaceSnapshot(val owner: String? = null, val members: Map<String, Spa
     val invitations: Map<String, SpaceInvitationRecord> = emptyMap(),
     val channels: Map<String, SpaceChannelRecord> = emptyMap(),
     val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val publicProfile: SpaceProfile? = null,
-    val administratorStartedAt: Map<String, Long> = emptyMap(), val generalChannelId: String? = null)
+    val administratorStartedAt: Map<String, Long> = emptyMap(), val generalChannelId: String? = null,
+    val membershipEndedAt: Map<String, Long> = emptyMap())
 
 /** Authenticated control history. Content pages have their own channel cursors. */
 class SpaceJournal(private val spaceId: String, private val serviceKey: String) {
@@ -43,6 +44,14 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         return record.allowedMembers == null || actor in record.allowedMembers || role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
     }
 
+    /** Initial legacy requests remain valid, but ending membership requires a
+     * newly signed intent acknowledging that departure or a later control. */
+    fun hasCurrentMembershipIntent(actor: String, controlId: String?): Boolean {
+        val endedAt = current.membershipEndedAt[actor]
+        return if (controlId == null) endedAt == null else
+            controlPositions[controlId]?.let { it >= (endedAt ?: 0L) } == true
+    }
+
     /** A policy regrant cannot revive a request from an earlier access term. */
     fun canJoinChannel(actor: String, channel: String, controlId: String): Boolean {
         val record = current.channels[channel] ?: return false
@@ -52,7 +61,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         val startedAt = if (record.allowedMembers == null || actor in record.allowedMembers)
             record.accessStartedAt[actor] ?: 0L else if (current.members[actor] == SpaceRole.ADMIN)
             current.administratorStartedAt[actor] ?: 0L else 0L
-        return position >= startedAt
+        return position >= maxOf(startedAt, current.membershipEndedAt[actor] ?: 0L)
     }
 
     fun receive(receipt: String): SpaceSnapshot {
@@ -241,6 +250,16 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     channels = Collections.unmodifiableMap(current.channels + (channel to old.copy(epoch = epoch, devices = bindings,
                         epochStartedAt = position, retiredDevices = Collections.unmodifiableSet(old.retiredDevices - removed)))))
             }
+            "leave" -> {
+                require(event.body.text("control_id") == current.controlId)
+                require(event.author in current.members && event.author != current.owner) {
+                    "The owner must transfer ownership before leaving"
+                }
+                retireExcludedDevices(current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    members = Collections.unmodifiableMap(current.members - event.author),
+                    administratorStartedAt = Collections.unmodifiableMap(current.administratorStartedAt - event.author),
+                    membershipEndedAt = Collections.unmodifiableMap(current.membershipEndedAt + (event.author to position))))
+            }
             "set-role" -> {
                 require(event.author == current.owner && event.body.text("control_id") == current.controlId)
                 val member = event.body.text("member")
@@ -397,6 +416,9 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             require(canJoinChannel(join.author, channel, join.body.text("control_id")))
         } else {
             require(channel == requireNotNull(invitation).channelId)
+            require(hasCurrentMembershipIntent(join.author, join.body.takeIf { it.has("membership_control") }?.text("membership_control"))) {
+                "Membership ended after this join was requested"
+            }
             require(join.body.text("control_id") == invitationId && acceptedAt >= 0 && invitation.expiresAt > acceptedAt)
             require((join.body.get("rules_token")?.let { join.body.text("rules_token") } ?: "") == invitation.rulesToken) {
                 "Spaces house rules have not been accepted"
@@ -435,6 +457,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         if (administratorOnly)
             require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         val reference = requireNotNull(controlPositions[body.text("control_id")])
+        require(reference >= (current.membershipEndedAt[event.author] ?: 0L)) { "Writing belongs to a previous membership term" }
         require(keyDelivery || !administratorOnly || reference >= (current.administratorStartedAt[event.author] ?: 0)) {
             "Administrator writing belongs to a previous role term"
         }

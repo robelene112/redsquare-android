@@ -48,6 +48,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     enum class ChangeStatus { QUEUED, AWAITING_CONFIRMATION, ACCEPTED, REJECTED }
     data class ArchiveChange(val id: String, val channelId: String, val archived: Boolean, val status: ChangeStatus)
     data class RoleChange(val id: String, val memberKey: String, val administrator: Boolean, val status: ChangeStatus)
+    data class MembershipChange(val id: String, val status: ChangeStatus)
     data class ChannelAccessChange(val id: String, val channelId: String, val memberKey: String, val status: ChangeStatus, val granted: Boolean = false)
     data class ChannelCreation(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus, val privateMembers: Set<String>? = null)
     data class ChannelEdit(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus)
@@ -156,6 +157,29 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         ChannelEdit(change.text("id"), channel, SpaceChannelProfile.fromJson(change.getAsJsonObject("profile")), changeStatus(space, change))
     }
 
+
+    /** Membership changes keep the exact durable original separate from accepted membership. */
+    fun leave(space: String): String = store.transaction {
+        owned()
+        val state = state(space)
+        val snapshot = journal(space).snapshot
+        require(state.get("joined").asBoolean && !state.has("required_control"))
+        require(wallet.publicKey in snapshot.members && snapshot.owner != wallet.publicKey) {
+            "The owner must transfer ownership before leaving"
+        }
+        val original = event(space, "leave") { addProperty("control_id", requireNotNull(snapshot.controlId)) }
+        state.add("membership_change", JsonObject().apply {
+            addProperty("id", original.id); addProperty("status", ChangeStatus.QUEUED.name)
+        })
+        queue(space, state, original)
+        original.id
+    }
+
+    fun membershipChange(space: String): MembershipChange? = store.transaction {
+        owned()
+        val change = state(space).getAsJsonObject("membership_change") ?: return@transaction null
+        MembershipChange(change.text("id"), changeStatus(space, change))
+    }
 
     fun setAdministrator(space: String, memberKey: String, administrator: Boolean): String = store.transaction {
         owned()
@@ -685,10 +709,17 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(preview.profile.houseRules.isEmpty() || acceptedRulesToken ==
             requireNotNull(preview.journal.snapshot.invitations[invitation.invitationId]).rulesToken) { "Accept the community house rules before joining" }
         require(wallet.publicKey !in preview.journal.snapshot.members) { "This identity is already a member; restore its community keys" }
-        val device = saved?.let { SpaceCrypto.restore(decode(it.text("crypto"))) } ?: SpaceCrypto.device(wallet.publicKey, id())
+        val previous = saved?.let { SpaceCrypto.restore(decode(it.text("crypto"))) }
+        val device = when {
+            previous == null -> SpaceCrypto.device(wallet.publicKey, id())
+            previous.scope == null -> previous
+            else -> saved.get("joining_crypto")?.asString?.let { SpaceCrypto.restore(decode(it)) }
+                ?: SpaceCrypto.device(wallet.publicKey, id())
+        }
         val keyPackage = device.keyPackage(scope, wallet)
         val operation = id()
         val original = event(scope.spaceId, "join", operation) {
+            addProperty("membership_control", requireNotNull(preview.journal.snapshot.controlId))
             addProperty("channel_id", scope.channelId); addProperty("control_id", invitation.invitationId)
             addProperty("invite_id", invitation.invitationId); addProperty("rules_token", requireNotNull(preview.journal.snapshot.invitations[invitation.invitationId]).rulesToken)
             add("key_package", JsonObject().apply {
@@ -708,6 +739,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 add("scope", scope.json()); addProperty("name", preview.profile.name); add("profile", preview.profile.json()); addProperty("crypto", encode(device.save()))
                 addProperty("joined", false); addProperty("next_outbox", 0); addProperty("content_cursor", 0)
             } else state(scope.spaceId)).apply { addProperty("joining_invitation", link) }
+            // Keep received history intact while a new, separately durable
+            // device waits for its own accepted Welcome after departure.
+            if (previous?.scope != null) state.addProperty("joining_crypto", encode(device.save()))
             queue(scope.spaceId, state, original)
         }
         return scope.spaceId
@@ -737,7 +771,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                     val channelOnly = original.body.text("kind") == "join-channel"
                     val invitation = if (channelOnly) null else journal.snapshot.invitations[original.body.text("invite_id")]
                     val completed = if (channelOnly) !journal.canJoinChannel(original.author, channel, original.body.text("control_id"))
-                        else original.author in journal.snapshot.members || invitation == null || invitation.expiresAt <= clock.millis()
+                        else original.author in journal.snapshot.members || invitation == null || invitation.expiresAt <= clock.millis() ||
+                            !journal.hasCurrentMembershipIntent(original.author, original.body.get("membership_control")?.asString)
                     if (completed) remove(row.key) else return DeferredJoin(row.key, receipt)
                 }
                 if (rows.size < 50) break
@@ -908,7 +943,15 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
      * unconfirmed removal request. One original and both MLS outcomes are durable. */
     private fun SpaceClientStore.Transaction.enqueueAccessRotation(space: String, state: JsonObject): Boolean {
         if (!state.get("joined").asBoolean || state.has("control_pending") || state.has("required_control")) return false
+        // Accepted controls maintain this hint in the same transaction as their
+        // receipt. Legacy stores derive it once. Idle flushes must not reverify
+        // the entire history while a local form waits for the shared store.
+        if (state.get("access_rotation_required")?.asBoolean == false) return false
         val journal = journal(space)
+        val required = journal.snapshot.channels.values.any { it.retiredDevices.isNotEmpty() }
+        state.addProperty("access_rotation_required", required)
+        put(stateKey(space), bytes(state))
+        if (!required) return false
         val head = journal.snapshot.controlId ?: return false
         if (state.get("access_rotation_rejected_head")?.asString == head) return false
         for ((channel, record) in journal.snapshot.channels) {
@@ -1426,7 +1469,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                             val pointer = get("$space/operation/${original.id}")?.toString(Charsets.UTF_8)
                             val pending = pointer?.let { get(it) }?.let(::json)
                             if (current?.credential == original.body.text("removed_device")) {
-                                target.addProperty("joined", false); target.remove("joining_channel"); target.remove("joining_crypto")
+                                target.addProperty("joined", false)
+                                val joining = target.get("joining_crypto")?.asString?.let { SpaceCrypto.restore(decode(it)) }
+                                // Retiring the old device must not discard the
+                                // separately durable fresh rejoin request.
+                                if (joining == null || joining.credential == original.body.text("removed_device")) {
+                                    target.remove("joining_channel"); target.remove("joining_crypto")
+                                }
                             } else if (current != null && target.get("joined")?.asBoolean == true) {
                                 val next = pending?.get("candidate")?.asString?.let { SpaceCrypto.restore(decode(it)) }
                                     ?: current.receiveCommit(original.body.text("commit"),
@@ -1439,6 +1488,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                         }
                         "archive-channel" -> recordArchiveResult(space, state, original, ChangeStatus.ACCEPTED)
                         "set-role" -> recordRoleResult(state, original, ChangeStatus.ACCEPTED)
+                        "leave" -> recordMembershipResult(state, original, ChangeStatus.ACCEPTED)
                         "edit-channel" -> recordChannelEditResult(space, state, original, ChangeStatus.ACCEPTED)
                         "invite" -> Unit
                         "revoke-invite" -> {
@@ -1493,7 +1543,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                         }
                         else -> throw IllegalArgumentException("Unsupported community control")
                     }
-                    journal.snapshot.members[wallet.publicKey]?.let { state.addProperty("role", it.name) }
+                    state.addProperty("access_rotation_required", journal.snapshot.channels.values.any { it.retiredDevices.isNotEmpty() })
+                    val role = journal.snapshot.members[wallet.publicKey]
+                    if (role != null) state.addProperty("role", role.name) else {
+                        state.remove("role"); state.addProperty("joined", false)
+                    }
                     if (state.get("control_pending")?.asString == original.id) state.remove("control_pending")
                     if (state.get("required_control")?.asString == original.id) state.remove("required_control")
                     put(key, envelope.toByteArray(Charsets.UTF_8))
@@ -1509,6 +1563,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 if (original.body.text("kind") == "create-channel") recordChannelCreationResult(state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "archive-channel") recordArchiveResult(space, state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "set-role") recordRoleResult(state, original, ChangeStatus.REJECTED)
+                if (original.body.text("kind") == "leave") recordMembershipResult(state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "edit-channel") recordChannelEditResult(space, state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "rotate-access") state.addProperty("access_rotation_rejected_head", original.body.text("control_id"))
                 if (original.body.text("kind") == "revoke-invite") {
@@ -1531,7 +1586,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 if (state.get("control_pending")?.asString == original.id) state.remove("control_pending")
                 body.get("authorized_control")?.asString?.let { head ->
                     require(head.matches(Regex("[0-9a-f]{128}")))
-                    if (journal(space).snapshot.controlId != head) state.addProperty("required_control", head)
+                    // A delayed disposition can refer to an authenticated
+                    // predecessor, rather than the newest local control.
+                    if (journal(space, through = head).snapshot.controlId != head) state.addProperty("required_control", head)
                 }
                 pending.addProperty("disposition", envelope)
                 val rejectedKey = "$space/rejected/${original.id}"
@@ -1600,6 +1657,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         if (change.text("id") != original.id) return
         require(change.text("channel") == original.body.text("channel_id"))
         original.body.getAsJsonObject("channel_profile")?.let { require(change.getAsJsonObject("profile") == it) }
+        change.addProperty("status", status.name)
+    }
+
+    private fun recordMembershipResult(state: JsonObject, original: SignedSaitoMessage, status: ChangeStatus) {
+        val change = state.getAsJsonObject("membership_change") ?: return
+        if (change.text("id") != original.id) return
+        require(original.author == wallet.publicKey && original.body.text("kind") == "leave")
         change.addProperty("status", status.name)
     }
 
@@ -1824,7 +1888,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }.asLong.also { require(it >= 0) }
     private companion object {
         val CONTROL_KINDS = setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite", "create-channel",
-            "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access", "rotate-access")
+            "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access", "rotate-access", "leave")
         const val DIRECTORY_CACHE_LIMIT = 200
         val ID = Regex("[0-9a-f]{64}")
         val GSON = GsonBuilder().setStrictness(Strictness.STRICT).create()

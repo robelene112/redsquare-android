@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.spaces
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
@@ -108,15 +109,19 @@ import nl.davidengelen.redsquare.ui.DesignSheet
     }
 }
 
-@Composable internal fun SpaceManagementProblem(problem: SpacesAccount.Problem?, dismiss: () -> Unit, scrollIntoView: Boolean = false) {
-    AnimatedContent(problem, label = "space-management-local-error", transitionSpec = {
+@Composable internal fun SpaceManagementProblem(problem: SpacesAccount.Problem?, dismiss: () -> Unit, scrollIntoView: Boolean = true) {
+    val transition = updateTransition(problem, label = "space-management-local-error")
+    transition.AnimatedContent(transitionSpec = {
         fadeIn(tween(AppSpacing.transitionMillis)) togetherWith fadeOut(tween(AppSpacing.transitionMillis))
     }) { current ->
         if (current != null) {
             val requester = remember { BringIntoViewRequester() }
             var laidOut by remember { mutableStateOf(false) }
             val shouldScroll = scrollIntoView && problem == current && current == SpacesAccount.Problem.SAVE
-            LaunchedEffect(shouldScroll, laidOut) { if (shouldScroll && laidOut) requester.bringIntoView() }
+            val settled = transition.currentState == transition.targetState && !transition.isRunning
+            LaunchedEffect(shouldScroll, laidOut, settled) {
+                if (shouldScroll && laidOut && settled) requester.bringIntoView()
+            }
             Box(Modifier.fillMaxWidth().bringIntoViewRequester(requester).onGloballyPositioned { laidOut = true }) {
                 ProblemNotice(current, dismiss)
             }

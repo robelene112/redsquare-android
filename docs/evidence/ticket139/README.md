@@ -1,5 +1,10 @@
 # Ticket139: community governance
 
+The [leave and native feedback source record](leave-and-native-feedback-source.json)
+tracks source048 whole outcomes, actual feedback/delivery failures and current
+leave/rejoin intent and retained-history regressions. Current full/build/native
+qualifications remain explicit;139 is incomplete.
+
 The latest [rotation and native recovery record](rotation-and-native-recovery.json)
 retains all six source794 whole outcomes, the narrow readiness review, the actual
 focused-field/private-return failures and current key/history regressions.

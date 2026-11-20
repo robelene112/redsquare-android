@@ -615,7 +615,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 require(mutable.value.archiveSupported)
                 requireNotNull(client).archiveChannel(space, channel, archived)
             }
-            publish(); wake.trySend(Unit)
+            publishManagement()
+            urgentOutbox.add(space); wake.trySend(Unit)
         }
     }
     fun setChannelAccess(space: String, channel: String, member: String, granted: Boolean) {
@@ -626,7 +627,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 val current = requireNotNull(client)
                 if (granted) current.grantChannelAccess(space, channel, member) else current.revokeChannelAccess(space, channel, member)
             }
-            publish(); wake.trySend(Unit)
+            publishManagement()
+            urgentOutbox.add(space); wake.trySend(Unit)
         }
     }
     /** An old rejection is acknowledged only after these selected settings have actually refreshed. */
@@ -685,7 +687,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 require(mutable.value.rolesSupported)
                 requireNotNull(client).setAdministrator(space, memberKey, administrator)
             }
-            publish(); wake.trySend(Unit)
+            publishManagement()
+            urgentOutbox.add(space); wake.trySend(Unit)
         }
     }
     fun setListed(space: String, listed: Boolean) {
