@@ -247,7 +247,7 @@ class SpacesManagementJourneyTest {
         .filter { it.get("kind").asString == "create-channel" }
 
     private fun verifyChannelCreationRecovery(activity: ActivityScenario<MainActivity>, fixtures: JsonObject) {
-        openInformation(); clickDialog("Add channel")
+        openInformation(); clickDialog(context.getString(R.string.spaces_add_channel))
         editorField("Channel name").performScrollTo().performTextReplacement("native-reading-room")
         clickDialog(context.getString(R.string.spaces_kind_chat))
         ui.onNodeWithText(context.getString(R.string.spaces_kind_article)).clickReady()
@@ -274,11 +274,10 @@ class SpacesManagementJourneyTest {
         val channel = first.single().get("channel").asString
         assertEquals("native-reading-room", received.getAsJsonObject("channels").getAsJsonObject(channel).get("name").asString)
         capture("31-new-channel-uncertain")
-        clickDialog("Close"); clickDialog("Add channel")
+        clickDialog("Close"); clickDialog(context.getString(R.string.spaces_add_channel))
         editorField("Channel name").assertIsNotEnabled()
         ui.onNode(hasText("Create channel") and hasClickAction() and hasAnyAncestor(isDialog())).assertIsNotEnabled()
         capture("32-new-channel-pending-reentry")
-        ui.onAllNodes(hasText("Refresh settings") and hasClickAction() and onScreen).fetchSemanticsNodes().takeIf { it.isNotEmpty() }?.let { clickDialog("Refresh settings") }
         val remaining = deadline - SystemClock.elapsedRealtime()
         assertTrue("Creation recovery retains its original27-second workflow deadline", remaining > 0)
         waitUntil(remaining) {
@@ -306,7 +305,7 @@ class SpacesManagementJourneyTest {
     }
 
     private fun verifyCompactCreationError(activity: ActivityScenario<MainActivity>, fixtures: JsonObject) {
-        clickDialog("Add channel")
+        clickDialog(context.getString(R.string.spaces_add_channel))
         editorField("Channel name").performScrollTo().performTextReplacement("compact-new-room")
         closeKeyboard()
         val before = creationRows(status()).size
@@ -377,12 +376,9 @@ class SpacesManagementJourneyTest {
         editorField("Channel name").assertTextContains("commons")
         ui.onNode(hasText("Save changes") and hasClickAction() and hasAnyAncestor(isDialog())).assertIsNotEnabled()
         capture("22-editor-pending-reentry")
-        var refreshRequested = false
         val remaining = recoveryDeadline - SystemClock.elapsedRealtime()
         assertTrue("The editor recovery budget remains after pending reentry", remaining > 0)
         waitUntil(remaining) {
-            val refresh = ui.onNode(hasText("Refresh settings") and hasClickAction() and hasAnyAncestor(isDialog()))
-            if (!refreshRequested && refresh.isDisplayed()) { refresh.clickReady(); refreshRequested = true }
             received = status()
             val attempts = editRows(received).filter { it.get("id").asString == original }
             attempts.size == 2 && ui.onAllNodes(hasText("Waiting for confirmation.") and onScreen).fetchSemanticsNodes().isEmpty()

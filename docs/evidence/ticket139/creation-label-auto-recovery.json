@@ -1,0 +1,86 @@
+{
+  "ticket": 139,
+  "scope": "Actual action resource labels and automatic recovery observer correction",
+  "base": "f6a5967db1ac20db2e6cf56669e553c26c7f7a55",
+  "sourceFile": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt",
+  "sourceSha256": "dc6333babcbab1d176e22fbec30e9cfa47cb8bd67e0fc01e9345c34942bf8caa",
+  "failedParents": [
+    {
+      "whole": "FAILURE",
+      "run": 44664369699,
+      "source": "b879da22e75e2bc36c7c1b2a45734ab1d681f277",
+      "archiveSha256": "62e12237ceaffa215c9c625891f05ff2fe502816f165ca54fd9061b26f156d5e",
+      "apiDigestAndCrc": "PASS",
+      "modules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 84,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Phase3optionalRefreshsettings tapfailedbecauseautoconfirmationremovedthenodebetweenreadinessandclick. OriginalstackexplicitlynodeNoLongerInTree, notdisabledproductcontrol. Removeoptionalmanualaction: automaticrecoverymuststillmeetexactoriginal2/visiblecanonical/full27s. No manualUIclaim.",
+      "actualKills": 2,
+      "nativeTerminalPasses": 0,
+      "cleanup": {
+        "originalFailure": "RuntimeError",
+        "errors": []
+      },
+      "qualification": "Wholefailedparent remainsfailed. All18priorwholefailuresretained. No prefixacceptance."
+    },
+    {
+      "whole": "FAILURE",
+      "run": 44664372373,
+      "source": "b879da22e75e2bc36c7c1b2a45734ab1d681f277",
+      "archiveSha256": "a202fab42795aacadf1177b97a7e898f0e9c647493d9f0d4e1d2496eb54ba03a",
+      "apiDigestAndCrc": "PASS",
+      "modules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 84,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Phase3advancedthroughconfirmededitorrestoration thenAddchannelactiontimedout5s. Testliteral Addchannel mismatchedactualAddachannel resource. Threecallernativeactionsnowuseresource; productlabel unchanged.",
+      "actualKills": 2,
+      "nativeTerminalPasses": 0,
+      "cleanup": {
+        "originalFailure": "RuntimeError",
+        "errors": []
+      },
+      "qualification": "Wholefailedparent remainsfailed. All18priorwholefailuresretained. No prefixacceptance."
+    }
+  ],
+  "goals": "Sameallmanagement-v3goals; optionalmanualRefreshclicknotrequiredbyfrozengoals. Auto-onlynowmustmeetexactoriginal2/visiblecanonical/full27s. No manualrefreshUIacceptance claimed.",
+  "baseline": "Freshnativewillincludecommittedprivatefoundationf6; exact244/89class8cataloguematchedpreservedfullJVM. NewuncommittedrevocationAPI/tests excluded.",
+  "reviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-creation-label-auto-recovery-spec-review.txt",
+      "sha256": "b52ea7ed890edb5f245d93b3b3bf96e20a869898f87ea611035e747240c7da26"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-creation-label-auto-recovery-standards-review.txt",
+      "sha256": "f4307941a36e0fe60702cb1d44d0fda019449645c8d3ebce05510c922eee180d"
+    }
+  },
+  "prospectiveInputs": {
+    "verify-139-native-management.py": "764617e127ff179b6d5cbc95032f46b1f395b65b5cc1c1c09a6bdc9534626a00",
+    "139-management-expected-cases.json": "755fe17cb70622be951a2bba1cb5bc5fa0d983ccc74fb0b0438d2e19923b6985"
+  },
+  "qualification": "ExactsourceCIcompilation requiredbeforeemulator; freshcomplete10/17/allframes/prototype/geometry required. No whole139/privateUI/release acceptance; beta142 unchanged."
+}

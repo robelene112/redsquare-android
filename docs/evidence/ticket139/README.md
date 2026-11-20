@@ -181,3 +181,12 @@ not block unrelated requests. Current-role filtering and fresh controls handle
 withdrawn pending requests. All244core/89service cases pass; both final source
 axes are clear. This is JVM/source acceptance only. Revocation/future exclusion,
 private UI/native flows and the rest of139 remain incomplete; beta142 is unchanged.
+
+Ninth whole parents remain failed: one optional refresh tap raced automatic
+confirmation, and one creation action used a label that differed from the actual
+resource. The [resource/automatic recovery observer correction](creation-label-auto-recovery.json)
+uses the real label and requires automatic recovery under the unchanged original
+goals. No manual-refresh UI acceptance is claimed. Both source axes are clear.
+The next native source includes the committed private foundation's exact244/89
+catalogue, while its UI journey remains public management only. New revocation
+work is excluded. Fresh complete native and visual acceptance remain required.
