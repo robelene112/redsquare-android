@@ -40,6 +40,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     enum class ChangeStatus { QUEUED, AWAITING_CONFIRMATION, ACCEPTED, REJECTED }
     data class ArchiveChange(val id: String, val channelId: String, val archived: Boolean, val status: ChangeStatus)
     data class RoleChange(val id: String, val memberKey: String, val administrator: Boolean, val status: ChangeStatus)
+    data class ChannelCreation(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus)
     data class ChannelEdit(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus)
 
     fun editChannel(space: String, channel: String, profile: SpaceChannelProfile): String = store.transaction {
@@ -132,10 +133,19 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         } else recorded
     }
 
+    fun channelCreation(space: String): ChannelCreation? = store.transaction {
+        owned()
+        val change = state(space).getAsJsonObject("channel_creation") ?: return@transaction null
+        ChannelCreation(change.text("id"), change.text("channel"), SpaceChannelProfile.fromJson(change.getAsJsonObject("profile")),
+            changeStatus(space, change))
+    }
+
     fun createChannel(space: String, profile: SpaceChannelProfile): String = store.transaction {
         owned()
         val scope = SpaceCrypto.Scope(service, space, id())
-        enqueueChannel(space, state(space), profile, scope)
+        val state = state(space)
+        require(!state.has("required_control"))
+        enqueueChannel(space, state, profile, scope)
         scope.channelId
     }
     private fun SpaceClientStore.Transaction.enqueueChannel(space: String, state: JsonObject,
@@ -172,6 +182,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             addProperty("joined", private)
             crypto?.let { addProperty("crypto", encode(it.save())) }
         }))
+        state.add("channel_creation", JsonObject().apply {
+            addProperty("id", original.id); addProperty("channel", scope.channelId); add("profile", profile.json())
+            addProperty("status", ChangeStatus.QUEUED.name)
+        })
         queue(space, state, original)
     }
     /** Each planned channel advances only on its accepted original. A rejected
@@ -1158,6 +1172,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                             }
                         }
                         "create-channel" -> {
+                            recordChannelCreationResult(state, original, ChangeStatus.ACCEPTED)
                             val channel = original.body.text("channel_id")
                             val record = requireNotNull(journal.snapshot.channels[channel])
                             val plan = state.getAsJsonArray("starter_channels")
@@ -1235,6 +1250,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val pointer = requireNotNull(get("$space/operation/${original.id}")).toString(Charsets.UTF_8)
                 val pending = json(requireNotNull(get(pointer)))
                 require(SaitoTransaction.restore(pending.text("original")).envelope() == body.text("event"))
+                if (original.body.text("kind") == "create-channel") recordChannelCreationResult(state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "archive-channel") recordArchiveResult(space, state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "set-role") recordRoleResult(state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "edit-channel") recordChannelEditResult(space, state, original, ChangeStatus.REJECTED)
@@ -1300,6 +1316,14 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             }
             else -> throw IllegalArgumentException("Unexpected community receipt stream")
         }
+    }
+
+    private fun recordChannelCreationResult(state: JsonObject, original: SignedSaitoMessage, status: ChangeStatus) {
+        val change = state.getAsJsonObject("channel_creation") ?: return
+        if (change.text("id") != original.id) return
+        require(change.text("channel") == original.body.text("channel_id"))
+        original.body.getAsJsonObject("channel_profile")?.let { require(change.getAsJsonObject("profile") == it) }
+        change.addProperty("status", status.name)
     }
 
     private fun recordRoleResult(state: JsonObject, original: SignedSaitoMessage, status: ChangeStatus) {

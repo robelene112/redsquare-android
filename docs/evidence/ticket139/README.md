@@ -124,3 +124,10 @@ raw monotonic observations now enforce the full27-second workflow from Save thro
 visible confirmation. The12/15 component values are configuration, not independently
 measured latency. Final source axes are clear. Fresh complete native parents and
 all-frame/prototype/geometry review remain required before any native acceptance.
+
+The [channel creation intent](channel-creation-intent.json) retains the original
+creation and its honest status across an accepted reply loss and a cold client
+constructor. Four current channel cases pass with independent received metadata,
+unchanged selected channel/draft and member denial. Both incremental source axes
+are clear. Its new API RED was compilation-only. Creation UI and whole139 remain
+incomplete; no native or beta delivery is claimed by this source increment.

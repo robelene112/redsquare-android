@@ -1,0 +1,43 @@
+{
+  "ticket": 139,
+  "scope": "Durable channel creation intent/status through the existing creation API; channel IDs remain the return value.",
+  "base": "82300b81ebd075f1b3331da097f276f4be683154",
+  "sources": {
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "1c786e9d8d072d4c060393cadfb0cd66a55e748e031520e80f2b67dbbdd241af",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceChannelsTest.kt": "46aca876671f58d3298e1fac1d8d14d723bb00047ecb41b70a69772e949c63d0"
+  },
+  "red": {
+    "log": "139-channel-creation-red.log",
+    "sha256": "672560b93222043203a6564282e29f994b0a8828e8281a2afd9337f2ee618adb",
+    "qualification": "Compilation-only missing channelCreation API, no runtime RED claimed."
+  },
+  "green": {
+    "log": "139-channel-creation-green.log",
+    "sha256": "c4a4cb4bbc28b48857ddb88ef58546a269e2a4b9d5d9792c2888441db6b1bfc5",
+    "cases": 1,
+    "seconds": 144
+  },
+  "related": {
+    "log": "139-channel-creation-related-green.log",
+    "sha256": "6dbcd59a4783a06cf62cbaaae3af415101c73344cb3a8ab906b3c90c20c632eb",
+    "cases": 4,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 25,
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-channel-creation-related-originals"
+  },
+  "reviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-channel-creation-spec-review.txt",
+      "sha256": "3a02d6b335ade2321d3569d6e55aaf021cc87f222f9bd955f62dee5f7706eaf5"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-channel-creation-standards-review.txt",
+      "sha256": "edd1b0cee3bee33e557bd1217076e81820696767d042d62c45c49917a99b77ce"
+    }
+  },
+  "qualification": "Backend source only; no creation native UI or full139 acceptance. Whole139, private ACL/exclusion/ownership/visibility/categories and140\u2013147 remain. Ordinary beta142 unchanged; no production node/provider/public/financial/filehosting writes."
+}

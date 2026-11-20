@@ -26,6 +26,55 @@ class SpaceChannelsTest {
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
 
+    @Test(timeout = 45_000) fun uncertainChannelCreationRecoversTheSameOriginalAndOnlyShowsAcceptedChannels() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("channel-creation-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("channel-creation-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("channel-creation-reader.sqlite").absolutePath).use { readerStore ->
+                    var loseReply = true
+                    val delivered = mutableListOf<String>()
+                    fun ownerClient() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                        val response = remote.exchange(original.envelope())
+                        if (SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "create-channel") {
+                            delivered.add(original.envelope())
+                            if (loseReply) { loseReply = false; throw java.io.IOException("Owned accepted channel creation reply lost") }
+                        }
+                        response
+                    }
+                    val creator = ownerClient()
+                    val reader = SpaceClient(member, "fixture-node", service.publicKey, readerStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create(SpaceProfile("Recoverable new channels", visibility = SpaceVisibility.PUBLIC))
+                    creator.flush(space); reader.openPublic(space); reader.joinPublic(space); reader.flush(space); creator.refresh(space)
+                    val general = creator.community(space).channel
+                    creator.saveDraft(space, "General draft survives creating a channel", general)
+                    assertNull(creator.channelCreation(space))
+                    val profile = SpaceChannelProfile("reading room", SpaceChannelKind.ARTICLE, "Knowledge")
+                    val channel = creator.createChannel(space, profile)
+                    val queued = requireNotNull(creator.channelCreation(space))
+                    assertEquals(channel, queued.channelId); assertEquals(profile, queued.profile)
+                    assertEquals(SpaceClient.ChangeStatus.QUEUED, queued.status)
+                    assertEquals(listOf(general), creator.channels(space).map { it.id })
+                    try { creator.flush(space); fail("The accepted creation reply is deliberately lost") } catch (_: java.io.IOException) { }
+                    assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, creator.channelCreation(space)?.status)
+                    assertEquals(listOf(general), creator.channels(space).map { it.id })
+                    reader.refresh(space)
+                    assertEquals(profile, reader.channels(space).single { it.id == channel }.profile)
+                    val restored = ownerClient()
+                    assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, restored.channelCreation(space)?.status)
+                    restored.flush(space)
+                    assertEquals(queued.id, restored.channelCreation(space)?.id)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, restored.channelCreation(space)?.status)
+                    assertEquals(2, delivered.size); assertEquals(delivered[0], delivered[1])
+                    assertEquals(profile, restored.channels(space).single { it.id == channel }.profile)
+                    assertEquals(general, restored.community(space).channel)
+                    assertEquals("General draft survives creating a channel", restored.draft(space, general))
+                    try { reader.createChannel(space, SpaceChannelProfile("Unapproved structure")); fail("Members cannot create channels") }
+                    catch (_: IllegalArgumentException) { }
+                    assertNull(reader.channelCreation(space))
+                }
+            }
+        }
+    }
+
     @Test(timeout = 45_000) fun anUncertainChannelEditRetainsItsOriginalAndOnlyProjectsConfirmedMetadata() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("channel-edit-intent-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("channel-edit-intent-owner.sqlite").absolutePath).use { ownerStore ->
