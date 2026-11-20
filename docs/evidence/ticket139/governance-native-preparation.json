@@ -1,5 +1,5 @@
 {
-  "status": "Whole first governance parent44816109822 FAIL before checkpoint. Corrected governance and public membership/ownership journeys are prepared, not accepted. Issue139 and140-147 remain incomplete.",
+  "status": "Governance parents44816109822/44820574581 and public membership parent44820613631 remain whole FAIL. Current observer corrections and private-handover variant are prepared; no new native acceptance. Continue139 then140-147 sequentially.",
   "recordedAt": "2026-11-20T20:55:53.638210+00:00",
   "base": "ca68b8fbf8667409d91dd415f1a7919a119d37f6",
   "sourceFiles": {
@@ -99,7 +99,7 @@
     "Current membership/ownership native and whole139 acceptance, then140-147 sequentially."
   ],
   "unchanged": [
-    "Core/service production source remains atca68. The later declared three app files correct observed public-archive controls and copy; their current compilation/native verification is pending.",
+    "Core/service production source remains atca68. The three declared app archive fixes are compiled by both whole6177 parents; those native parents remain failures. Current follow-up changes are test/host/driver/workflow only.",
     "Beta142 and production/provider/public-write/file-hosting boundaries."
   ],
   "finalPreparationReviews": [
@@ -261,5 +261,112 @@
       }
     ],
     "finalReviewAppend": "Only completed-review references appended after inspection; exact source/bridge and all original outcomes remain unchanged."
+  },
+  "managementFollowup": {
+    "recordedAt": "2026-11-20T21:49:10.422047+00:00",
+    "base": "6177bf7fb9da2f55a3d94aec06449ece1028a86b",
+    "sourceFiles": {
+      ".github/workflows/android-proof.yml": "db1ab6010adc6ee197e34dde4d82d1ce5aa7f6bf876bede97f47a09bf5e3bdfe",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "078e5ea225f4cfb41f29e930daebbd3c886e7ce3a35de206812c3b36798a8273",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesViewportConfigurationTest.kt": "b98f50934f7f43a496353cc499ae377deac4af968afbf84b1394e46f5e2ba100",
+      "scripts/emulator-check": "3af55803aab255fc074274145e3dbabb4f49a9e7fb9bff2d0d5448ca6d282ca4",
+      "scripts/spaces-native-journey": "9c4fe7c3027eceee1019953edf939752f6e2ad6180973b7acd57b4a6e17c7b5b",
+      "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesMembershipFixture.kt": "3cc45cd90a8ad6b75c6b0624173f853b150f29d70dea514cf575208aa2c34f81",
+      "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost.kt": "05df35e4e902acd76cc0c80fae9006951ef1180f895e3e2a977d9d48c0eb1bc0"
+    },
+    "productScope": "App/core/service production files are unchanged from6177; current changes are owned test/host/driver/workflow. Both actual6177 parents compiled the current production app and passed248core/156service; those failed native parents remain failed. Fresh whole runs must compile and execute the corrected instrumentation.",
+    "wholeFailures": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-native2-failure-assessment.json",
+        "sha256": "6fbc2b2f192e9a25bb0b422f2779af4a19ee42ebd0cfda563b41a82a7da6d0e7"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-membership-native1-failure-assessment.json",
+        "sha256": "018d57f76edacbee61c5576f96fac49ccd5eda597238c9488c7143a6c40f9fea"
+      }
+    ],
+    "observerCorrections": [
+      "Saved-community route uses its existing accessible Open-community label and visible control, avoiding two broad name matches. Existing optional card-click count and27-second original recovery bound remain.",
+      "Banned-member flow waits for the actual stable banned:key list index, scrolls that real lazy row into composition, then waits for its accessible action within the original combined15-second content bound. No lift action was accepted by the previous failed run."
+    ],
+    "privateHandoverScope": "A public community has one existing owner-only encrypted room. Only actual Android successor4 requests its group credential and confirms readiness. Existing owner3 is the independent key holder and canonical control/source-history observer; host4 is frozen after baseline. Lost accepted consent is checkpointed before transfer; the cold successor recovers that exact original, reads the real prior private message and later shows owner-only UI. Consent, key readiness and full transfer remain separate.",
+    "privateGoals": {
+      "captures": 15,
+      "controls": 46,
+      "phaseSeconds": 180,
+      "contentSeconds": 15,
+      "actionSeconds": 5,
+      "combinedOriginalRecoverySeconds": 27,
+      "privateContentWaitSeconds": 15,
+      "combinedPrivateAdmissionClaim": false
+    },
+    "prospectivePrivateCorrections": [
+      "Removed competing host4 successor device; this protocol permits one wallet credential per private group. Only Android4 receives successor keys.",
+      "Private pending checkpoint observes actual accepted consent and old roles; completion is verified after cold original recovery and private readiness. Public checkpoint/goals remain unchanged.",
+      "Seed reader4 synchronizes after private creation and asserts actual MEMBER role with no private channel before being frozen. Original owner history is a source reference, never a fabricated successor read."
+    ],
+    "hostCompilation": {
+      "outcome": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-private-ownership-native-host-compile1-originals/139-private-ownership-native-host-compile1-outcome.json",
+        "sha256": "f25923b043fc27e27039e7c4f375b5272e3e5731c41a103ffdeb975130005100"
+      },
+      "log": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-private-ownership-native-host-compile1-originals/139-private-ownership-native-host-compile1.log",
+        "sha256": "b584a1f64ffa7e3744617c3590589794e494f681747d716276f3ea4f07872cb5"
+      },
+      "qualification": "Current owned host compile exit0/stable inputs; not an Android instrumentation compile or native run."
+    },
+    "hostSmoke": {
+      "result": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-private-ownership-native-preparation/host-smoke1/smoke-result.json",
+        "sha256": "a6fadc481f89272ee93aa9a4ee16d3e7b46f983b38e3b24cccaa4b7e3e2da922"
+      },
+      "compiledInputs": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-private-ownership-native-preparation/host-smoke1/compiled-inputs.json",
+        "sha256": "5dc1b6ad46517408a67902c9ce93cf250399333e22e04baa2f043c760c2bc561"
+      },
+      "qualification": "Actual private seed, baseline roles/no successor admission, original public/private source history and clean shutdown. No completed transfer or Android reading claimed."
+    },
+    "prospectiveReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-private-ownership-prospective-spec-review.txt",
+        "sha256": "d642a3e5990ec71ca5e20123707a301b0567d3277f41d8349a27faa58c10eb35"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-private-ownership-prospective-standards-review.txt",
+        "sha256": "50db00ebe3b91fbedb18873286131a88730b09f7b9bf3d5d2f4c5355a97eef53"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-private-ownership-corrections-spec-review.txt",
+        "sha256": "c2e07a8bd3bdbfc06379b244cd38f034c061b2cc7d5d7674e17668af80c8f9c0"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-private-ownership-corrections-standards-review.txt",
+        "sha256": "5d2001169943ff8af591d6fceb2db09733f29ada9116b17128ce2114925ec256"
+      }
+    ],
+    "remaining": [
+      "Freeze current exact source/contracts, run fresh whole governance and public membership parents plus the private-handover variant.",
+      "Inspect every original transition frame/PNG/XML against approvedB and complete139 before sequential140-147."
+    ],
+    "finalReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-management-followup-prospective-spec-review.txt",
+        "sha256": "66cb7d77be6555ef2f6ff8050d95a6685b7f33ced01945800c0bf282dbfd96cc"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-management-followup-prospective-standards-review.txt",
+        "sha256": "c8a05fc2183ae0e021ad30e3884bd54a73e7853ef219b916aa8c0c32ca5a48cb"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-management-followup-final-record-spec-review.txt",
+        "sha256": "105a603b026035a6e53d3262440f8def8847148723da96902e219689b816613f"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-management-followup-final-record-standards-review.txt",
+        "sha256": "f8c1da3a8bc091851a5efe644c6fa2bcfb7b1af157cdfadf7a318f4dbcd81818"
+      }
+    ],
+    "finalReviewAppend": "Only completed source/record review references appended; current source, retained originals, scopes and measured values unchanged."
   }
 }

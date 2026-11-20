@@ -1,22 +1,23 @@
 # Red Square Android project context
 
-## Active139: native management preparation and first governance failure
+## Active139: native observer corrections and private handover preparation
 
-Whole governance parent44816109822 failed before its first process checkpoint.
-Both axes inspected all249frames and the actual captures/logs. Public-to-private
-confirmation is visible, but the final member-readiness gate was not retained.
-The owned reader now consumes private history via authenticated channel IDs.
-Observed enabled public-archive Edit/Reopen controls now match receiving authority.
+Governance44820574581 and public membership44820613631 remain whole FAIL. Both
+axes inspected all633frames and7capture pairs. The private-category first
+checkpoint/kill succeeds; category cold reading is not verified. Ban recovery
+actually accepts the same original in10.697seconds and retains its draft/anchor,
+then the observer fails before Lift. Native archive controls are now correctly
+disabled. These prefixes do not accept either whole journey.
 
-Public membership/ownership native preparation covers both actual parties and
-pending-process recovery. Prior bounded compiles and public seed smoke pass;
-a five-file source bridge excludes the later corrections from those compile
-claims. Fresh whole CI must compile and verify the current source. See the
-[originals, corrections and scope](evidence/ticket139/governance-native-preparation.json).
+Current corrections bind the saved-community accessible action and wait for the
+actual banned lazy row. The private-handover variant lets only Android acquire
+the successor credential, separating accepted consent from readiness/completion.
+Its actual host compiles/seeds cleanly; no Android transfer/read is yet claimed.
+Current product files match6177; fresh whole runs verify the new instrumentation.
+See the [originals, corrections and scope](evidence/ticket139/governance-native-preparation.json).
 
-No corrected governance/member native acceptance is claimed. Complete139 then
-140-147 continue sequentially; approvedB, beta142 and production/provider gates
-are unchanged.
+Continue139 then140-147 sequentially without a checkpoint stop. ApprovedB,
+beta142 and production/provider/public-write/file-hosting boundaries remain.
 
 ## Earlier139: visibility and terminal closure source integrated
 

@@ -277,6 +277,7 @@ if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
                 readiness) journey_options=(private-readiness-v1) ;;
                 governance) journey_options=(governance-v1) ;;
                 membership) journey_options=(membership-v1) ;;
+                private-ownership) journey_options=(private-ownership-v1) ;;
                 *) echo 'Unknown private management case' >&2; exit 2 ;;
             esac
         else journey_options=(management-v1); fi
@@ -284,6 +285,8 @@ if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
     python3 "$repo_dir/scripts/spaces-native-journey" "$evidence" "${journey_options[@]}"
     if [[ "${SPACES_CATEGORY_MANAGEMENT:-false}" == true ]]; then
         printf '%s\n' 'Public category editor first feedback only; no pending-process, private-category, full139 or deployed-node acceptance.' > "$evidence/scope.txt"
+    elif [[ "${SPACES_PRIVATE_MANAGEMENT:-false}" == true && "${SPACES_PRIVATE_MANAGEMENT_CASE:-process}" == private-ownership ]]; then
+        echo 'Public community member management with private-channel ownership handover and actual successor private reading; whole139 acceptance remains separate.' > "$evidence/scope.txt"
     elif [[ "${SPACES_PRIVATE_MANAGEMENT:-false}" == true && "${SPACES_PRIVATE_MANAGEMENT_CASE:-process}" == membership ]]; then
         echo 'Public membership and two-party ownership native recovery only; private handover and whole139 acceptance remain separate.' > "$evidence/scope.txt"
     elif [[ "${SPACES_PRIVATE_MANAGEMENT:-false}" == true && "${SPACES_PRIVATE_MANAGEMENT_CASE:-process}" == governance ]]; then

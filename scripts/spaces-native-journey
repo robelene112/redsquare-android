@@ -13,17 +13,18 @@ import urllib.request
 
 repo = Path(__file__).resolve().parent.parent
 mode = sys.argv[2] if len(sys.argv) == 3 else 'journey-v1'
-if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
+if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
     raise ValueError('Expected evidence directory and optional discovery-v1, management-v1, private-management-v1 or private-readiness-v1 or category-management-v1 or governance-v1')
-membership_mode = mode == 'membership-v1'
+private_ownership_mode = mode == 'private-ownership-v1'
+membership_mode = private_ownership_mode or mode == 'membership-v1'
 governance_mode = mode == 'governance-v1'
 category_management_mode = mode == 'category-management-v1'
 discovery_mode = mode == 'discovery-v1'
 private_management_mode = mode == 'private-management-v1'
 private_readiness_mode = mode == 'private-readiness-v1'
-management_mode = mode in ('management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1')
+management_mode = mode in ('management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1')
 community_mode = discovery_mode or management_mode
-label = 'membership' if membership_mode else 'governance' if governance_mode else 'category-management' if category_management_mode else 'private-readiness' if private_readiness_mode else 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
+label = 'private-ownership' if private_ownership_mode else 'membership' if membership_mode else 'governance' if governance_mode else 'category-management' if category_management_mode else 'private-readiness' if private_readiness_mode else 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
 folder = f'spaces-{label}-evidence'
 checkpoint_name = f'spaces-{label}-checkpoint.json'
 classname = 'SpacesManagementJourneyTest' if management_mode else 'SpacesDiscoveryJourneyTest' if discovery_mode else 'SpacesJourneyTest'
@@ -51,6 +52,7 @@ def instrument(method, filename, peer, control):
         (['-e', 'spacesPrivateReadiness', 'true'] if private_readiness_mode else []) +
         (['-e', 'spacesCategoryManagement', 'true'] if category_management_mode else []) +
         (['-e', 'spacesMembership', 'true'] if membership_mode else []) +
+        (['-e', 'spacesPrivateOwnership', 'true'] if private_ownership_mode else []) +
         (['-e', 'spacesGovernance', 'true'] if governance_mode else []) + [runner],
         stdout=log, stderr=subprocess.STDOUT)
     children.append((process, log))
@@ -260,6 +262,10 @@ try:
                 'protectedReadingRecords': ['membership-before', 'membership-restored'],
                 'viewport': {'widthDp': 320, 'fontScale': 2.0, 'densityDpi': 320, 'resourceProbes': 3},
                 'productionNodeActivated': False, 'ordinaryBetaChanged': False}
+            if private_ownership_mode:
+                goals.update(executionScope='public-community-private-channel-ownership', privateOwnershipNativeCoverage=True,
+                    capturePairs=15, controlGeometryRecords=46, privateContentWaitSeconds=15,
+                    actualSuccessorPrivateHistory=True, originalPrivateMessage='An earlier private ownership conversation')
             reset_disposable_baseline()
         elif governance_mode:
             phases = [
@@ -420,6 +426,10 @@ try:
                         if expected_phase == 'membership-ban':
                             if fixtures['banned'] not in snapshot['banned'] or fixtures['banned'] in snapshot['members']:
                                 raise RuntimeError('The independent reader did not receive the pending ban')
+                        elif private_ownership_mode:
+                            offer = snapshot['offer']
+                            if snapshot['members'] != {fixtures['owner']: 'OWNER', fixtures['member']: 'MEMBER'} or not offer or offer.get('acceptedId') != checkpoint['original']:
+                                raise RuntimeError('Private consent must be genuinely accepted before key readiness completes the handover')
                         elif snapshot['members'] != {fixtures['owner']: 'MEMBER', fixtures['member']: 'OWNER'} or snapshot['offer'] is not None:
                             raise RuntimeError('The independent reader did not receive the explicit ownership acceptance')
                     elif governance_mode:
@@ -481,6 +491,14 @@ try:
                     raise RuntimeError('Member request crossed its declared actor or Space')
             if final['messages'] != [f'Membership message {i}' for i in range(18)]:
                 raise RuntimeError('Member management lost the independent earlier history')
+            if private_ownership_mode:
+                private = final['private']
+                proof = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/private-handover-reading.json').stdout)
+                if private['channel'] != fixtures['private'] or private['original'] != fixtures['privateOriginal'] or private['sourceMessages'] != ['An earlier private ownership conversation']:
+                    raise RuntimeError('The original owner did not retain the exact private source message')
+                if proof['pid'] != pids[2] or proof['owner'] != fixtures['member'] or proof['space'] != fixtures['space'] or proof['channel'] != fixtures['private'] or proof['id'] != fixtures['privateOriginal'] or proof['author'] != fixtures['owner'] or proof['text'] != 'An earlier private ownership conversation':
+                    raise RuntimeError('Actual Android successor private reading crossed identity, channel or original-message scope')
+
             reading = [json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/reading-{name}.json').stdout) for name in goals['protectedReadingRecords']]
             fields = ('owner','space','channel','selectedChannel','storedFollowLatest','anchor')
             if any(reading[0][key] != reading[1][key] for key in fields) or reading[0]['anchor'] is None or not all(row['visible'] for row in reading):

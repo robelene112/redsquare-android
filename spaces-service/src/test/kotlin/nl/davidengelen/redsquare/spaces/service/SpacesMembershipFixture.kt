@@ -10,11 +10,13 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import java.time.Clock
 
-/** Public owned community: Android drives both parties; the separate member
- * observes the canonical result. This fixture does not claim private handover. */
+/** Android drives both parties in an owned public community. Public mode has
+ * a separate member observer. Private mode retains the original key holder;
+ * only Android acquires the successor's credentials and reads private history. */
 internal class SpacesMembershipFixture(private val owner: SpaceClient, private val reader: SpaceClient,
     private val peer: ControlledFeedPeer, private val remote: SpacesServiceStore,
-    private val service: SaitoWallet, private val clock: Clock, private val root: Path) {
+    private val service: SaitoWallet, private val clock: Clock, private val root: Path,
+    private val privateHandover: Boolean = false) {
     private lateinit var space: String
     private val fixtures = JsonObject()
     private val kinds = setOf("set-role", "remove-member", "ban-member", "unban-member", "leave",
@@ -41,6 +43,15 @@ internal class SpacesMembershipFixture(private val owner: SpaceClient, private v
             }
         }
         owner.refresh(space); reader.refresh(space)
+        if (privateHandover) {
+            val channel = owner.createPrivateChannel(space, SpaceChannelProfile("ownership-room"), emptySet())
+            owner.flush(space)
+            val original = owner.send(space, "An earlier private ownership conversation", channel); owner.flush(space)
+            fixtures.addProperty("private", channel); fixtures.addProperty("privateOriginal", original)
+            reader.refresh(space)
+            check(reader.members(space).single { it.publicKey == fixtures.get("member").asString }.role == SpaceRole.MEMBER)
+            check(reader.channels(space).none { it.id == channel })
+        }
         check(reader.members(space).size == 4)
     }
 
@@ -56,19 +67,31 @@ internal class SpacesMembershipFixture(private val owner: SpaceClient, private v
         else -> null
     }
 
-    suspend fun maintain() { reader.refresh(space); reader.flush(space) }
+    suspend fun maintain() {
+        if (privateHandover) {
+            // The original owner is the existing key holder. Only Android may
+            // request successor credentials or acknowledge private readiness.
+            owner.refresh(space); owner.admitPending(space); owner.flush(space)
+        } else { reader.refresh(space); reader.flush(space) }
+    }
 
     private suspend fun status(): JsonObject {
         maintain()
+        val observer = if (privateHandover) owner else reader
         return JsonObject().apply {
             addProperty("space", space)
-            add("members", JsonObject().apply { reader.members(space).forEach { addProperty(it.publicKey, it.role.name) } })
-            add("banned", JsonArray().apply { reader.bannedMembers(space).sorted().forEach(::add) })
-            add("offer", reader.ownershipOffer(space)?.let { offer -> JsonObject().apply {
+            add("members", JsonObject().apply { observer.members(space).forEach { addProperty(it.publicKey, it.role.name) } })
+            add("banned", JsonArray().apply { observer.bannedMembers(space).sorted().forEach(::add) })
+            add("offer", observer.ownershipOffer(space)?.let { offer -> JsonObject().apply {
                 addProperty("id", offer.id); addProperty("member", offer.member)
                 offer.acceptedId?.let { addProperty("acceptedId", it) }
             } } ?: com.google.gson.JsonNull.INSTANCE)
-            add("messages", JsonArray().apply { reader.messages(space, fixtures.get("general").asString).forEach(::add) })
+            add("messages", JsonArray().apply { observer.messages(space, fixtures.get("general").asString).forEach(::add) })
+            if (privateHandover) add("private", JsonObject().apply {
+                val channel = fixtures.get("private").asString
+                addProperty("channel", channel); addProperty("original", fixtures.get("privateOriginal").asString)
+                add("sourceMessages", JsonArray().apply { owner.messages(space, channel).forEach(::add) })
+            })
             add("dropped", JsonArray().apply { peer.withheldSpacesControls.forEach(::add) })
             add("originals", JsonArray().apply { peer.spacesRequests.toList().forEach { original ->
                 val signed = SaitoEnvelope.decode(original.envelope()); val body = signed.body
