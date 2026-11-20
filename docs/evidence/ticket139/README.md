@@ -1,5 +1,14 @@
 # Ticket139: community governance
 
+The [coherent presentation and native preparation record](presentation-and-native-preparation-source.json)
+tracks one transactional read for native rendering and canonical-file maintenance
+coordination for real fault injection. Full current core247 and service132 modules
+pass in separate clean commands; Android main/instrumentation compile. The actual
+initial nullable-result transaction failure is retained, with a corrected whole
+service132 PASS. Source reviews are clear. Actual native responsiveness/fault,
+new membership/ownership and whole139 acceptance remain pending. No old parent is
+promoted; beta142 is unchanged.
+
 The [ownership and history-delivery source record](ownership-and-history-delivery-source.json)
 tracks two-party consent/readiness, durable requests, temporary access retirement,
 exact precommitted encrypted history recovery, eight ownership regressions and

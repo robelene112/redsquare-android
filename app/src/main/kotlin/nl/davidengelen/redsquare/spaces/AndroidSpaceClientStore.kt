@@ -118,8 +118,14 @@ internal class AndroidSpaceClientStore(context: Context, owner: String, node: St
     override fun close() = databaseGate.withLock {
         if (!closed) { closed = true; helper.close() }
     }
-    private companion object {
-        const val MAX_ROW_BYTES = 8 * 1024 * 1024
+    companion object {
+        private const val MAX_ROW_BYTES = 8 * 1024 * 1024
+        /** Schema maintenance shares the canonical-file gate with every
+         * application transaction. Release it before driving any UI action. */
+        fun <T> withDatabaseMaintenance(file: File, action: () -> T): T {
+            check(Looper.myLooper() != Looper.getMainLooper()) { "Community storage belongs off main" }
+            return databaseGate(file.canonicalPath).withLock(action)
+        }
         private val databaseGates = mutableMapOf<String, WeakReference<ReentrantLock>>()
         private fun databaseGate(path: String): ReentrantLock = synchronized(databaseGates) {
             databaseGates.entries.removeAll { it.value.get() == null }

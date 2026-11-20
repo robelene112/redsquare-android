@@ -15,10 +15,12 @@ import java.util.Base64
 /** Application-owned community operations. Call from a serialized IO worker.
  * Signed originals and replacement key state commit before transport is called. */
 class SpaceClient(private val wallet: SaitoWallet, private val node: String, private val service: String,
-    private val store: SpaceClientStore, private val clock: Clock,
+    store: SpaceClientStore, private val clock: Clock,
     private val onDeliveryAttempt: suspend (Delivery) -> Unit = {},
     private val exchange: suspend (SaitoTransaction) -> String) {
     init { require(node.isNotBlank() && node.length <= 2048 && SaitoWallet.isPublicKey(service)) }
+
+    private val store = SpacePresentationStore(store)
 
     enum class Delivery { CONTROL, CONTENT }
     enum class ReadProblem { EXPIRED, UNAVAILABLE }
@@ -164,6 +166,40 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         ChannelEdit(change.text("id"), channel, SpaceChannelProfile.fromJson(change.getAsJsonObject("profile")), changeStatus(space, change))
     }
 
+
+    data class Management(val archive: ArchiveChange? = null, val role: RoleChange? = null,
+        val edit: ChannelEdit? = null, val creation: ChannelCreation? = null, val access: ChannelAccessChange? = null,
+        val membership: MembershipChange? = null, val ownership: OwnershipChange? = null, val ownershipOffer: SpaceOwnershipOffer? = null)
+    data class Presentation(val communities: List<Community>, val profiles: Map<String, SpaceProfile>,
+        val current: Community?, val channels: List<Channel>, val members: List<Member>, val bannedMembers: Set<String>,
+        val window: HistoryWindow?, val messages: List<Message>, val draft: String, val anchor: ReadingAnchor?,
+        val invitation: Invitation?, val publicLink: String?, val listingIntent: Boolean?, val management: Management)
+
+    /** A bounded, coherent read for native rendering. It authenticates control
+     * history once per scope instead of independently rebuilding it for every
+     * visible property. No cached authority survives this transaction. */
+    fun presentation(space: String? = null, channel: String? = null, from: Long? = null): Presentation = store.project {
+        val communities = communities()
+        val profiles = communities.associate { it.id to profile(it.id) }.toMutableMap()
+        val current = space?.let { community(it, channel) }
+        val selected = current?.channel
+        if (space != null) profiles[space] = profile(space)
+        val members = space?.let(::members).orEmpty()
+        val window = space?.let { historyWindow(it, from, selected) }
+        Presentation(communities, profiles, current, space?.let(::channels).orEmpty(), members,
+            space?.let(::bannedMembers).orEmpty(), window,
+            space?.let { timeline(it, from = window?.from, channel = selected) }.orEmpty(),
+            space?.let { draft(it, selected) }.orEmpty(), space?.let { readingAnchor(it, selected) },
+            space?.let(::invitation), space?.takeIf { profiles[it]?.visibility == SpaceVisibility.PUBLIC && members.isNotEmpty() }?.let(::publicLink),
+            space?.let(::listingIntent), space?.let { management(it, selected) } ?: Management())
+    }
+
+    /** Urgent delivery projects just its durable management results. */
+    fun management(space: String, channel: String? = null): Management = store.project {
+        val selected = channel ?: community(space).channel
+        Management(archiveChange(space, selected), roleChange(space), channelEdit(space, selected), channelCreation(space),
+            channelAccessChange(space, selected), membershipChange(space), ownershipChange(space), ownershipOffer(space))
+    }
 
     fun ownershipOffer(space: String): SpaceOwnershipOffer? = store.transaction {
         owned(); state(space); journal(space).snapshot.ownershipOffer
@@ -1851,20 +1887,22 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         putChannelState(space, channel, target)
     }
 
-    private fun SpaceClientStore.Transaction.journal(space: String, through: String? = null): SpaceJournal {
-        val journal = SpaceJournal(space, service)
-        val prefix = "$space/control/"
-        var cursor = prefix
-        while (true) {
-            val rows = page(prefix, cursor)
-            for (row in rows) {
-                journal.receive(row.value.toString(Charsets.UTF_8))
-                if (journal.snapshot.controlId == through) return journal
-            }
-            if (rows.size < 50) return journal
-            cursor = rows.last().key + '\u0000'
+    private fun SpaceClientStore.Transaction.journal(space: String, through: String? = null): SpaceJournal =
+        store.verifiedJournal(service, space, through) {
+            val journal = SpaceJournal(space, service)
+            val prefix = "$space/control/"
+            var cursor = prefix
+            var rows: List<SpaceClientStore.Entry>
+            do {
+                rows = page(prefix, cursor)
+                for (row in rows) {
+                    journal.receive(row.value.toString(Charsets.UTF_8))
+                    if (journal.snapshot.controlId == through) return@verifiedJournal journal
+                }
+                rows.lastOrNull()?.let { cursor = it.key + '\u0000' }
+            } while (rows.size == 50)
+            journal
         }
-    }
 
     private fun SpaceClientStore.Transaction.queue(space: String, state: JsonObject, original: SaitoTransaction,
         candidate: SpaceCrypto? = null, rejected: SpaceCrypto? = null, afterJoinCursor: Long? = null,

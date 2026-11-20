@@ -1,12 +1,20 @@
 # Implementation handoff
 
 
-## Active139: ownership and community governance
+## Active139: coherent reads and community governance
 
 Implement137–147 sequentially under134 and approved native navigationB. Issues137
 and138 are accepted and closed. Issue139 remains current and incomplete;
 140–147 have not started. Continue without a checkpoint stop. Public beta142
 is unchanged.
+
+The current source batches native presentation/management reads into one actual
+transaction, reusing authenticated journals only within that synchronous read.
+No cached authority survives across transactions or failures. Publish/select preserve
+channel scope, draft versions, pixel anchors and the fresh management overlay.
+Real fault-trigger setup/cleanup now shares the canonical-file application gate,
+released before UI actions. The old SQLITE_BUSY setup failure remains retained;
+this coordination and responsiveness still require actual native proof.
 
 The ownership source increment adds durable offer/accept/cancel/decline for an
 existing member. Private handover separates consent from actual receiving-device
@@ -25,13 +33,15 @@ has a scrollable complete explanation; intended capture states wait for actual
 native/Compose readiness within original bounds. These corrections still need
 fresh rendered proof. Native membership/ownership acceptance is not claimed.
 
-Complete current JVM regression passes247 core/131 service cases in48/10 classes,
-including eight ownership cases, with both tasks executed and no skips, clean
-exit0 in5m18s. Android main/instrumentation compile cleanly in3m15s/3m before the
-single dialog guard correction; its final main rebuild passes cleanly in3m20s.
-Both pinned0.3.2/0.3.15 dispatcher/transaction/JS-WASM rehearsals pass the actual
-creation receipt and ten-service catalogue with their owned-adapter limits.
-Final source reviews are clear. See the [ownership/source packet](../evidence/ticket139/ownership-and-history-delivery-source.json).
+Complete current modules pass247 core/48 classes and132 service/11 classes,
+with no failures/errors/skips, in separate clean commands at unchanged module
+blobs (1m47s and5m17s). App-only maintenance glue compiles separately: actual
+Android main3m6s/instrumentation2m59s, clean exit0. The first132-case command's
+null-result/nested-transaction SQLException remains a whole failure; the corrected
+whole service command passes. Both source-review axes are clear. See the
+[presentation/source packet](../evidence/ticket139/presentation-and-native-preparation-source.json). The ownership increment's
+pinned0.3.2/0.3.15 dispatcher/JS-WASM checks remain scoped to that earlier source
+and its owned adapters; current native acceptance is pending.
 
 Whole source1ae public44730822806/44730829775 and private44730837084/44730852326
 remain failures: SQL fault-setup PRAGMA API errors and a real private17 five-second
@@ -45,7 +55,8 @@ promote that parent to visual acceptance. All originals and original deadlines
 remain; earlier2b6/048/794/739 qualifications remain in their packets.
 
 Remaining139 includes current native management/membership/ownership acceptance,
-foreground responsiveness, explicit category identities/management, deliberate
+foreground responsiveness, successor-owned directory listing validation, explicit
+category identities/management, deliberate
 visibility changes without publishing prior private history, and owner-only
 dissolution. Then continue140–147. No production node/provider activation,
 public development/financial writes or automatic community file hosting is

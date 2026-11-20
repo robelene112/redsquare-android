@@ -238,15 +238,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         connection
     }
 
-    private data class ManagementProjection(val archive: SpaceClient.ArchiveChange?, val role: SpaceClient.RoleChange?,
-        val edit: SpaceClient.ChannelEdit?, val creation: SpaceClient.ChannelCreation?, val access: SpaceClient.ChannelAccessChange?,
-        val membership: SpaceClient.MembershipChange?, val ownership: SpaceClient.OwnershipChange?, val ownershipOffer: SpaceOwnershipOffer?)
-    private fun managementProjection(current: SpaceClient, target: Target?) = ManagementProjection(
-        target?.let { current.archiveChange(it.space, it.channel) }, target?.let { current.roleChange(it.space) },
-        target?.let { current.channelEdit(it.space, it.channel) }, target?.let { current.channelCreation(it.space) },
-        target?.let { current.channelAccessChange(it.space, it.channel) }, target?.let { current.membershipChange(it.space) },
-        target?.let { current.ownershipChange(it.space) }, target?.let { current.ownershipOffer(it.space) })
-    private fun State.withManagement(changes: ManagementProjection): State {
+    private fun managementProjection(current: SpaceClient, target: Target?): SpaceClient.Management =
+        target?.let { current.management(it.space, it.channel) } ?: SpaceClient.Management()
+    private fun State.withManagement(changes: SpaceClient.Management): State {
         val pending = listOf(changes.archive?.status, changes.role?.status, changes.edit?.status,
             changes.creation?.status, changes.access?.status, changes.membership?.status, changes.ownership?.status).any {
             it == SpaceClient.ChangeStatus.QUEUED || it == SpaceClient.ChangeStatus.AWAITING_CONFIRMATION
@@ -276,19 +270,19 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val current = client ?: return@withLock
         val before = mutable.value
         val target = before.target()
-        val communities = current.communities()
-        val profiles = communities.associate { it.id to current.profile(it.id) }.toMutableMap()
-        val community = target?.let { current.community(it.space, channel = it.channel) }
-        target?.let { profiles[it.space] = current.profile(it.space) }
-        val channels = target?.let { current.channels(it.space) }.orEmpty()
-        val members = target?.let { current.members(it.space) }.orEmpty()
-        val bannedMembers = target?.let { current.bannedMembers(it.space) }.orEmpty()
-        val window = target?.let { current.historyWindow(it.space, historyWindows[it], channel = it.channel) }
-        val messages = target?.let { current.timeline(it.space, from = window?.from, channel = it.channel) }.orEmpty()
-        val invitation = target?.let { current.invitation(it.space) }
+        val projection = current.presentation(target?.space, target?.channel, target?.let { historyWindows[it] })
+        val communities = projection.communities
+        val profiles = projection.profiles
+        val community = projection.current
+        val channels = projection.channels
+        val members = projection.members
+        val bannedMembers = projection.bannedMembers
+        val window = projection.window
+        val messages = projection.messages
+        val invitation = projection.invitation
         val publicRulesToken = target?.let { profiles[it.space] }?.takeIf { it.visibility == SpaceVisibility.PUBLIC }?.publicRulesToken
-        val listingIntent = target?.let { current.listingIntent(it.space) }
-        val publicLink = target?.takeIf { profiles[it.space]?.visibility == SpaceVisibility.PUBLIC && members.isNotEmpty() }?.let { current.publicLink(it.space) }
+        val listingIntent = projection.listingIntent
+        val publicLink = projection.publicLink
         synchronized(managementChanges) {
             val changes = managementProjection(current, target)
             mutable.update { previous ->
@@ -333,28 +327,32 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             return@withLock
                         }
                         if (channel != null) current.selectChannel(space, channel)
-                        val community = current.community(space)
-                        val target = Target(space, community.channel)
+                        val selectedCommunity = current.community(space)
+                        val target = Target(space, selectedCommunity.channel)
                         val version = draftVersions.getOrPut(target) { AtomicLong() }.get()
                         val anchor = current.readingAnchor(space, channel = target.channel)
                         if (anchor != null) historyWindows.putIfAbsent(target, anchor.windowFrom)
-                        val window = current.historyWindow(space, historyWindows[target], channel = target.channel)
-                        val draft = dirtyDrafts[target] ?: current.draft(space, channel = target.channel)
-                        val messages = current.timeline(space, from = window.from, channel = target.channel)
-                        val channels = current.channels(space); val members = current.members(space); val profile = current.profile(space)
+                        val projection = current.presentation(space, target.channel, historyWindows[target])
+                        val community = requireNotNull(projection.current)
+                        val window = requireNotNull(projection.window)
+                        val draft = dirtyDrafts[target] ?: projection.draft
+                        val messages = projection.messages
+                        val channels = projection.channels
+                        val members = projection.members
+                        val profile = projection.profiles.getValue(space)
                         val rulesToken = profile.takeIf { it.visibility == SpaceVisibility.PUBLIC }?.publicRulesToken
-                        val publicLink = if (profile.visibility == SpaceVisibility.PUBLIC && members.isNotEmpty()) current.publicLink(space) else null
-                        val invitation = current.invitation(space)
-                        val listingIntent = current.listingIntent(space)
-                        val archiveChange = current.archiveChange(space, target.channel)
-                        val roleChange = current.roleChange(space)
-                        val membershipChange = current.membershipChange(space)
-                        val ownershipOffer = current.ownershipOffer(space)
-                        val ownershipChange = current.ownershipChange(space)
-                        val bannedMembers = current.bannedMembers(space)
-                        val channelEdit = current.channelEdit(space, target.channel)
-                        val channelCreation = current.channelCreation(space)
-                        val channelAccessChange = current.channelAccessChange(space, target.channel)
+                        val publicLink = projection.publicLink
+                        val invitation = projection.invitation
+                        val listingIntent = projection.listingIntent
+                        val archiveChange = projection.management.archive
+                        val roleChange = projection.management.role
+                        val membershipChange = projection.management.membership
+                        val ownershipOffer = projection.management.ownershipOffer
+                        val ownershipChange = projection.management.ownership
+                        val bannedMembers = projection.bannedMembers
+                        val channelEdit = projection.management.edit
+                        val channelCreation = projection.management.creation
+                        val channelAccessChange = projection.management.access
                         mutable.update { if (it.selected == space && selection.get() == token) it.copy(
                             selectedChannel = target.channel, current = community, channels = channels, members = members, anchor = anchor,
                             archiveChange = archiveChange, roleChange = roleChange, membershipChange = membershipChange, ownershipOffer = ownershipOffer, ownershipChange = ownershipChange, bannedMembers = bannedMembers, channelEdit = channelEdit, channelCreation = channelCreation, channelAccessChange = channelAccessChange,
