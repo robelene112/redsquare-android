@@ -1,6 +1,18 @@
 # Implementation handoff
 
-## Active139: visibility and terminal closure source integrated
+## Active139: governance native preparation
+
+The focused private-category/process, visibility and terminal-closure journey is
+prepared. Corrected host and Android instrumentation compile; the separate JVM
+host verifies signed control reading, member history and clean shutdown. This is
+preparation, with no Android journey acceptance. See the [preparation record](../evidence/ticket139/governance-native-preparation.json).
+
+Freeze the committed source and prospective verifier, then run the whole native
+journey and review every transition frame against approvedB. Current membership/
+ownership native, whole139 and sequential140-147 remain. Beta142 is unchanged.
+
+
+## Earlier139: visibility and terminal closure source integrated
 
 Owner-confirmed public/private entrance changes and terminal dissolution now
 preserve existing private audiences, old public copies, history and drafts.

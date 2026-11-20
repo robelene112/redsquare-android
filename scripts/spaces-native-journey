@@ -13,15 +13,16 @@ import urllib.request
 
 repo = Path(__file__).resolve().parent.parent
 mode = sys.argv[2] if len(sys.argv) == 3 else 'journey-v1'
-if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
-    raise ValueError('Expected evidence directory and optional discovery-v1, management-v1, private-management-v1 or private-readiness-v1 or category-management-v1')
+if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
+    raise ValueError('Expected evidence directory and optional discovery-v1, management-v1, private-management-v1 or private-readiness-v1 or category-management-v1 or governance-v1')
+governance_mode = mode == 'governance-v1'
 category_management_mode = mode == 'category-management-v1'
 discovery_mode = mode == 'discovery-v1'
 private_management_mode = mode == 'private-management-v1'
 private_readiness_mode = mode == 'private-readiness-v1'
-management_mode = mode in ('management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1')
+management_mode = mode in ('management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1')
 community_mode = discovery_mode or management_mode
-label = 'category-management' if category_management_mode else 'private-readiness' if private_readiness_mode else 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
+label = 'governance' if governance_mode else 'category-management' if category_management_mode else 'private-readiness' if private_readiness_mode else 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
 folder = f'spaces-{label}-evidence'
 checkpoint_name = f'spaces-{label}-checkpoint.json'
 classname = 'SpacesManagementJourneyTest' if management_mode else 'SpacesDiscoveryJourneyTest' if discovery_mode else 'SpacesJourneyTest'
@@ -47,7 +48,8 @@ def instrument(method, filename, peer, control):
         (['-e', 'spacesDisposableBaseline', 'true'] if management_mode else []) +
         (['-e', 'spacesPrivateManagement', 'true'] if private_management_mode else []) +
         (['-e', 'spacesPrivateReadiness', 'true'] if private_readiness_mode else []) +
-        (['-e', 'spacesCategoryManagement', 'true'] if category_management_mode else []) + [runner],
+        (['-e', 'spacesCategoryManagement', 'true'] if category_management_mode else []) +
+        (['-e', 'spacesGovernance', 'true'] if governance_mode else []) + [runner],
         stdout=log, stderr=subprocess.STDOUT)
     children.append((process, log))
     return process
@@ -238,7 +240,33 @@ try:
             raise RuntimeError('Encrypted-store contract scope or cleanup differs')
     if community_mode:
         # Freeze the whole selected journey before the first measurement.
-        if category_management_mode:
+        if governance_mode:
+            phases = [
+                ('privateCategoryCheckpointsItsActualPendingOriginalAfterClosingTheSpace', 'governance-category'),
+                ('coldPrivateCategoryRecoversItsOriginalAndReviewsUnlistedPublicOpening', None),
+                ('compactPrivateCategoryAndDissolutionKeepRealControlsAndCheckpointTheRequest', 'governance-dissolution'),
+                ('coldClosedSpaceRetainsItsDraftAndShowsNoJoinToAnotherIdentity', None),
+            ]
+            goals = {'version': 1, 'mode': mode, 'phases': phases,
+                'executionScope': 'private-category-process-visibility-and-terminal-lifecycle',
+                'phaseSeconds': 180, 'actionSeconds': 5, 'contentSeconds': 15, 'combinedRecoverySeconds': 27,
+                'minimumControlDp': 48, 'nativeTerminalPasses': 2, 'deliberatelyInterruptedCases': 2,
+                'distinctPids': 4, 'pendingOperationProcessRecovery': True, 'privateCategoryNativeCoverage': True,
+                'lostAcceptedReplies': ['create-category', 'dissolve'], 'exactOriginalAttempts': 2,
+                'categoryCount': 1, 'acceptedGovernanceControls': 5, 'governanceOriginalAttempts': 7,
+                'privateCategoryNames': ['Native private conversations', 'Compact private conversations'],
+                'confirmedVisibilitySequence': ['PRIVATE', 'PUBLIC'], 'publicOpeningListed': False,
+                'discoverableDefaultChecked': True, 'closedOtherIdentity': True, 'savedDraftPreserved': True,
+                'protectedReadingRecords': ['governance-normal-before', 'governance-normal-restored',
+                    'governance-normal-public', 'governance-compact-before', 'governance-compact-closed'],
+                'focusedFieldsFullyVisible': 2, 'focusedFieldsRequireIme': True, 'activityRecreations': 1,
+                'capturePairs': 15, 'controlGeometryMinimum': 30, 'controlGeometryMaximum': 31,
+                'conditionalSavedCommunityCard': True,
+                'viewport': {'widthDp': 320, 'fontScale': 2.0, 'densityDpi': 320, 'resourceProbes': 3},
+                'membershipOwnershipNativeCoverage': False,
+                'productionNodeActivated': False, 'ordinaryBetaChanged': False}
+            reset_disposable_baseline()
+        elif category_management_mode:
             phases = [
                 ('categoryEditorRestoresItsDraftAndRecoversAnActuallyUnconfirmedCreation', None),
                 ('compactCategoryEditorKeepsItsRealImeAndSaveRecoveryReachable', None),
@@ -333,7 +361,7 @@ try:
         (evidence / 'frozen-goals.json').write_text(json.dumps(goals, indent=2))
         pids = []
         for number, (method, expected_phase) in enumerate(phases, 1):
-            if number == (2 if private_readiness_mode or category_management_mode else 4): prepare_viewport()
+            if number == (3 if governance_mode else 2 if private_readiness_mode or category_management_mode else 4): prepare_viewport()
             record(number)
             native = instrument(method, f'phase-{number}.txt', peer_port, control_port)
             if expected_phase:
@@ -355,7 +383,7 @@ try:
                     raise RuntimeError('Checkpoint process identity mismatch')
                 pids.append(checkpoint['pid'])
                 if management_mode:
-                    snapshot = command(control_port, 'private-management-status' if private_management_mode else 'management-status')
+                    snapshot = command(control_port, 'governance-status' if governance_mode else 'private-management-status' if private_management_mode else 'management-status')
                     (evidence / f'host-{expected_phase}.json').write_text(json.dumps(snapshot, indent=2))
                     native_snapshot = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{expected_phase}-host.json').stdout)
                     if native_snapshot != snapshot or snapshot['dropped'][-1] != checkpoint['original']:
@@ -363,7 +391,19 @@ try:
                     fixtures = checkpoint['fixtures']
                     if snapshot['space'] != fixtures['space'] or checkpoint['owner'] != fixtures['owner']:
                         raise RuntimeError('Pending management context belongs to another actor or Space')
-                    if private_management_mode:
+                    if governance_mode:
+                        if checkpoint.get('localStatus') != 'AWAITING_CONFIRMATION' or checkpoint['owner'] != fixtures['owner']:
+                            raise RuntimeError('Pending governance checkpoint lacks durable owner identity and actual uncertain state')
+                        rows = [row for row in snapshot['originals'] if row['id'] == checkpoint['original']]
+                        accepted = [row for row in snapshot['accepted'] if row['id'] == checkpoint['original']]
+                        if len(rows) != 1 or len(accepted) != 1 or rows[0] != accepted[0]:
+                            raise RuntimeError('The receiving boundary must have accepted exactly the first actual pending original')
+                        if expected_phase == 'governance-category':
+                            if snapshot['visibility'] != 'PRIVATE' or len(snapshot['categories']) != 1 or not rows[0]['encryptedMetadata'] or rows[0]['containsPrivateName']:
+                                raise RuntimeError('The pending private category is not actually encrypted and accepted')
+                        elif not snapshot['dissolved'] or snapshot['listed'] or any(not row['archived'] for row in snapshot['channels'].values()):
+                            raise RuntimeError('The pending dissolution did not actually stop and archive the owned Space')
+                    elif private_management_mode:
                         if snapshot['members'][fixtures['member']] != 'MEMBER' or len(snapshot['members']) != 26:
                             raise RuntimeError('Private access changed Space membership')
                         if expected_phase == 'private-revoke-pending' and fixtures['private'] in snapshot['channels']:
@@ -386,11 +426,58 @@ try:
                 if native.returncode or 'OK (1 test)' not in (evidence / f'phase-{number}.txt').read_text():
                     raise RuntimeError(f'Native {label} final phase failed')
                 completed = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{"compact-completed.json" if number == (2 if private_readiness_mode or category_management_mode else 4) else "completed.json"}').stdout)
-                if (private_readiness_mode or category_management_mode or number == 3) and completed['pid'] in pids:
+                if (governance_mode or private_readiness_mode or category_management_mode or number == 3) and completed['pid'] in pids:
                     raise RuntimeError('Final phase reused a checkpoint PID')
                 pids.append(completed['pid'])
             finish_record(*movies[-1])
-        if category_management_mode:
+        if governance_mode:
+            if len(set(pids)) != 4: raise RuntimeError('Governance requires four actually distinct native PIDs')
+            fixtures = command(control_port, 'governance-fixtures')
+            final = command(control_port, 'governance-status')
+            (evidence / 'host-governance-final.json').write_text(json.dumps(final, indent=2))
+            if final['space'] != fixtures['space'] or final['members'] != {fixtures['owner']: 'OWNER', fixtures['member']: 'MEMBER'}:
+                raise RuntimeError('Governance changed its account, Space or membership scope')
+            if final['visibility'] != 'PUBLIC' or final['listed'] or not final['dissolved']:
+                raise RuntimeError('Final closure or deliberate unlisted opening differs')
+            if len(final['channels']) != 4 or any(not row['archived'] for row in final['channels'].values()):
+                raise RuntimeError('Closed entrances and earlier public channels must be retained read-only exactly once')
+            if len(final['categories']) != 1 or next(iter(final['categories'].values())) != {'isPrivate': True, 'memberName': 'Compact private conversations'}:
+                raise RuntimeError('Private category identity, audience or canonical member name differs')
+            rows = final['originals']
+            if [row['kind'] for row in rows] != ['set-visibility', 'create-category', 'create-category', 'set-visibility', 'edit-category', 'dissolve', 'dissolve']:
+                raise RuntimeError('Actual governance request order or attempt count differs')
+            if len(final['accepted']) != 5 or len({row['id'] for row in rows}) != 5 or final['dropped'] != [rows[1]['id'], rows[5]['id']]:
+                raise RuntimeError('Actual accepted originals, losses or duplicate identities differ')
+            for first, second in [(1, 2), (5, 6)]:
+                if rows[first] != rows[second]: raise RuntimeError('Cold governance recovery changed original signed bytes')
+            if rows[0]['visibility'] != 'private' or rows[3]['visibility'] != 'public' or rows[3]['listed']:
+                raise RuntimeError('Private closing or same-original unlisted public opening differs')
+            if any(row['actor'] != fixtures['owner'] or row['space'] != fixtures['space'] for row in rows):
+                raise RuntimeError('A governance request crossed actor or Space scope')
+            if any(not row['encryptedMetadata'] or row['containsPrivateName'] for row in rows if row['kind'] in ('create-category', 'edit-category')):
+                raise RuntimeError('A private category name reached plaintext metadata')
+            if final['memberGeneralMessages'] != [f'Governance message {index}' for index in range(18)] or final['directory']:
+                raise RuntimeError('Independent history preservation or final absence from Discover differs')
+            for index, filename in [(1, 'completed.json'), (3, 'compact-completed.json')]:
+                terminal = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{filename}').stdout)
+                expected_owner = fixtures['owner'] if index == 1 else fixtures['visitor']
+                if terminal['pid'] != pids[index] or terminal['owner'] != expected_owner:
+                    raise RuntimeError('A successful native phase changed the declared current identity or process')
+            for recovery_index, name, original_index in [(1, 'governance-category-recovery', 1), (3, 'governance-dissolution-recovery', 5)]:
+                proof = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{name}.json').stdout)
+                if proof['pid'] != pids[recovery_index] or proof['owner'] != fixtures['owner'] or proof['space'] != fixtures['space'] or proof['original'] != rows[original_index]['id']:
+                    raise RuntimeError('Actual cold recovery crossed its process, identity, Space or immutable original')
+                if proof['localStatus'] != 'ACCEPTED' or type(proof['elapsedMs']) is not int or not (0 < proof['elapsedMs'] <= 27000):
+                    raise RuntimeError('Cold recovery lacks an actual accepted protected record inside its original27-second bound')
+            labels = goals['protectedReadingRecords']
+            baseline = None
+            for reading_label in labels:
+                value = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/reading-{reading_label}.json').stdout)
+                fields = {key: value[key] for key in ('owner', 'space', 'channel', 'selectedChannel', 'storedFollowLatest', 'anchor')}
+                if baseline is None: baseline = fields
+                if fields != baseline or value['space'] != fixtures['space'] or value['channel'] != fixtures['general'] or not value['visible']:
+                    raise RuntimeError('Actual protected reading identity/position/offset/window or visible content changed')
+        elif category_management_mode:
             if len(set(pids)) != 2: raise RuntimeError('Category editor cases require two distinct native PIDs')
             fixtures = command(control_port, 'management-fixtures')
             final = command(control_port, 'management-status')
@@ -652,7 +739,7 @@ try:
             focused_raw = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/focused-field-geometry.jsonl').stdout
             (evidence / 'native-focused-field-geometry.jsonl').write_bytes(focused_raw)
             focused = [json.loads(line) for line in focused_raw.splitlines() if line]
-            expected_fields = [('Category name', 'Compact community conversations')] * 2 if category_management_mode else [('Channel name', 'native-private-reading'), ('Category (optional)', 'Shared plans')] if private_management_mode else [
+            expected_fields = [('Category name', 'Compact private conversations')] * 2 if governance_mode else [('Category name', 'Compact community conversations')] * 2 if category_management_mode else [('Channel name', 'native-private-reading'), ('Category (optional)', 'Shared plans')] if private_management_mode else [
                 ('Channel name', 'compact-commons'), ('Category (optional)', 'Projects'),
                 ('Channel name', 'compact-commons'), ('Category (optional)', 'Projects'),
                 ('Channel name', 'compact-new-room'), ('Channel name', 'compact-editable-after-error')]
@@ -660,7 +747,7 @@ try:
                 raise RuntimeError('Focused editing cases are missing or reordered')
             for row in focused:
                 bounds, window = row['bounds'], row['root']
-                if row['pid'] != pids[1 if category_management_mode else 2 if private_management_mode else 3] or row['focused'] is not True or row['fontScale'] <= 0 or (
+                if row['pid'] != pids[2 if governance_mode else 1 if category_management_mode else 2 if private_management_mode else 3] or row['focused'] is not True or row['fontScale'] <= 0 or (
                         not private_management_mode and row['fontScale'] != 2.0) or min(row['width'], row['height']) <= 0 or (
                         row['width'] > row['clippedWidth'] + 1 or row['height'] > row['clippedHeight'] + 1) or any(
                         not isinstance(value, (int, float)) for value in bounds + window) or (

@@ -1,0 +1,116 @@
+{
+  "status": "Native governance preparation only. No Android journey has run. Issue139 and sequential140-147 remain incomplete.",
+  "recordedAt": "2026-11-20T20:55:53.638210+00:00",
+  "base": "ca68b8fbf8667409d91dd415f1a7919a119d37f6",
+  "sourceFiles": {
+    ".github/workflows/android-proof.yml": "33b813eb0d80e32a871bea6a50cf1fe76f0f57f3359a6889d60fc90ef658f3c6",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "6be20b406fbd4201fc07b94fb60f692635a97ccb60f84f8a3f36800641e00de5",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesViewportConfigurationTest.kt": "49aba2f1ba26288c01cf05200b733639c00a2f2f88ef17528f2579ae02089662",
+    "scripts/emulator-check": "5296d3565ab7a11519af715d8d96c5bf4fdf3c3a3d013b0093ed9b9aa6051bb8",
+    "scripts/spaces-native-journey": "3011f47f9ac0518edf5bd2b74a64885dfa7c3c4fb49f1e84cfb7536fe83ca85d",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesGovernanceFixture.kt": "ae4ab0e1d9c73c9250f74d683b096149ee53176e5700221e66a63331128b0c62",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost.kt": "71d331917d6be1ecd8aa11334358d497144c8ffe3f7be408e34794bb87c63d6b"
+  },
+  "compilation": [
+    {
+      "stage": "139-governance-native-host-compile3",
+      "outcome": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-native-host-compile3-originals/139-governance-native-host-compile3-outcome.json",
+        "sha256": "df208c92441fd75b888c73b4c32c38b3417267129207998a744befcf08000bcb"
+      },
+      "log": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-native-host-compile3-originals/139-governance-native-host-compile3.log",
+        "sha256": "10f277bd2ac9136a43fd082621b5ca4dcb16b8ce7f6c79e280e7f5610a97d6ce"
+      },
+      "exit": 0,
+      "unchanged": true
+    },
+    {
+      "stage": "139-governance-native-instrumentation2",
+      "outcome": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-native-instrumentation2-originals/139-governance-native-instrumentation2-outcome.json",
+        "sha256": "df208c92441fd75b888c73b4c32c38b3417267129207998a744befcf08000bcb"
+      },
+      "log": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-native-instrumentation2-originals/139-governance-native-instrumentation2.log",
+        "sha256": "dd830ddbff07e6d5aa63f6bf13c814d8b2e37fab3d48043747b798503ccebac5"
+      },
+      "exit": 0,
+      "unchanged": true
+    },
+    {
+      "stage": "139-governance-native-instrumentation3",
+      "outcome": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-native-instrumentation3-originals/139-governance-native-instrumentation3-outcome.json",
+        "sha256": "a7ddace95e254a8e95f8e8be5403f8a06c8e7c916c9959c1c06565bf2c9fd84c"
+      },
+      "log": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-native-instrumentation3-originals/139-governance-native-instrumentation3.log",
+        "sha256": "a23e0f4021d932753edd27c4785a8fab57a5ae932dbc49cfefdcd5a19b209d68"
+      },
+      "exit": 0,
+      "unchanged": true
+    }
+  ],
+  "scope": "Private category genuine pending-process recovery, deliberate private/public unlisted visibility and terminal dissolution. Four distinct native PIDs, two lost accepted replies and two terminal cases; membership/ownership remain separate.",
+  "hostSmoke": {
+    "result": {
+      "path": "/mnt/storage/redsquare-android-artifacts/spaces139-governance-native-preparation/host-smoke1/smoke-result.json",
+      "sha256": "862dbf6f077e0b21ace8e9315d74f70329d6a04153062e249416ecb04d3669e1"
+    },
+    "log": {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-host-smoke1.log",
+      "sha256": "969a32343da13fe814fc94601d8590150236470b17ab2db780e80abacab5029d"
+    },
+    "qualification": "Actual compiled JVM host seed, authenticated raw signed control reader, separately stored member history and owned clean stop. No Android execution or production activation."
+  },
+  "retainedPreparationInterruption": {
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-governance-native-instrumentation1-originals",
+    "qualification": "Owner of compile container deliberately stopped its still-running instrumentation compiler after prospective review found observer errors. Terminal143 is retained, never a pass. Later corrected whole compilation passes."
+  },
+  "prospectiveCorrections": [
+    "Focused field catalogue/PID and protected draft field-name selector match their actual producers. Confirmed captures require both received state and actual ready Compose UI within original deadlines.",
+    "Viewport probe permits only the explicit owned governance folder and additionally records actual target package. Prospective verifier uses actual viewport resources filenames. No native measurement or deadline changed."
+  ],
+  "reviews": [
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-governance-corrections-spec-review.txt",
+      "sha256": "617d549023bb5afa8d698b3df163c2d7f11d82e13376a3f6b68af8f34b0c5609"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-governance-corrections-standards-review.txt",
+      "sha256": "aad5993a96901adfcf60ff493b3fffe038d8ab2fad61a4e63d1a04bfc50f1758"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-governance-validator-prospective-spec-review.txt",
+      "sha256": "040f6a85d7df96379e79fb80c0025b72239bd23c159a0172099560bf6f4c0b0a"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-governance-validator-prospective-standards-review.txt",
+      "sha256": "8788606d4e02452cc47384d9590b3e4984565f78b030c7c5903c88f30dffe570"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-governance-validator-corrections-spec-review.txt",
+      "sha256": "f8ece51081bffe69a14d659e7bc9f2537ed00f94e38ded66da7da33b4b03bc44"
+    }
+  ],
+  "remaining": [
+    "Freeze exact committed source, verifier and catalogues before first Android17 measurement. Retain whole outcome and inspect all original transition frames against approvedB.",
+    "Current membership/ownership native and whole139 acceptance, then140-147 sequentially."
+  ],
+  "unchanged": [
+    "Product app/core/service source atca68; only test host, instrumentation, driver and workflow change.",
+    "Beta142 and production/provider/public-write/file-hosting boundaries."
+  ],
+  "finalPreparationReviews": [
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-governance-final-preparation-spec-review.txt",
+      "sha256": "91323c26697b8422a0abd46935d5d24da16cdca679e75a78e811cd18560969ca"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-governance-final-preparation-standards-review.txt",
+      "sha256": "2d83e80c4d57503a5cdfc00d05ca91e242e4467b4ccc76b128d4d7d25effe7c3"
+    }
+  ],
+  "finalReviewAppend": "Only these completed-review references appended after inspection; source, original observations and qualifications unchanged."
+}

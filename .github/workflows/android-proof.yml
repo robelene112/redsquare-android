@@ -13,9 +13,9 @@ on:
         type: boolean
         default: false
       spaces_private_management_case:
-        description: Restricted-channel process recovery or key-readiness and rejection journey
+        description: Restricted-channel, readiness, or private-category visibility and closure recovery journey
         type: choice
-        options: [process, readiness]
+        options: [process, readiness, governance]
         default: process
       runner_os:
         description: Standard x64 runner (alternate pool if the default is queued)

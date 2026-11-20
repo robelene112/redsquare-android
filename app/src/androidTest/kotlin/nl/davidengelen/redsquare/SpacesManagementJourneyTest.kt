@@ -41,10 +41,11 @@ class SpacesManagementJourneyTest {
     private val arguments get() = InstrumentationRegistry.getArguments()
     private fun port(name: String) = requireNotNull(arguments.getString(name)).toInt().also { require(it in 1024..65535) }
     private val device get() = UiDevice.getInstance(instrumentation)
+    private val governance get() = arguments.getString("spacesGovernance") == "true"
     private val categoryManagement get() = arguments.getString("spacesCategoryManagement") == "true"
     private val privateManagement get() = arguments.getString("spacesPrivateManagement") == "true"
     private val privateReadiness get() = arguments.getString("spacesPrivateReadiness") == "true"
-    private val evidenceLabel get() = if (categoryManagement) "spaces-category-management" else if (privateReadiness) "spaces-private-readiness" else if (privateManagement) "spaces-private-management" else "spaces-management"
+    private val evidenceLabel get() = if (governance) "spaces-governance" else if (categoryManagement) "spaces-category-management" else if (privateReadiness) "spaces-private-readiness" else if (privateManagement) "spaces-private-management" else "spaces-management"
     private val evidence get() = File(context.cacheDir, "$evidenceLabel-evidence").apply { mkdirs() }
     private val checkpoint get() = File(context.cacheDir, "$evidenceLabel-checkpoint.json")
     private val peerEndpoint get() = "ws://127.0.0.1:${port("spacesPeerPort")}/wsopen"
@@ -57,6 +58,285 @@ class SpacesManagementJourneyTest {
         putExtra("feedOfficialPeerUrl", peerEndpoint)
         putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
     })
+
+    private val governanceMessages get() = (0 until 18).map { "Governance message $it" }
+    private val governanceDraft get() = "Keep the governance channel draft"
+
+    @Test fun privateCategoryCheckpointsItsActualPendingOriginalAfterClosingTheSpace() {
+        check(governance && arguments.getString("spacesDisposableBaseline") == "true")
+        val wallet = AndroidWalletStore(context)
+        wallet.replace(wallet.loadOrCreate(), fixtureOwner)
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val fixtures = command("governance-fixtures")
+        launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("governance-private-category-failure") }) {
+            waitText("Governance message 17")
+            openInformation()
+            clickDialog(context.getString(R.string.spaces_make_private))
+            governanceConfirmation(context.getString(R.string.spaces_make_private)).assertIsDisplayed()
+            capture("01-private-visibility-review")
+            governanceConfirmation(context.getString(R.string.spaces_make_private)).clickReady()
+            awaitGovernanceVisibility(public = false, requireMemberKeys = true)
+            capture("02-private-visibility-confirmed")
+            clickDialog(context.getString(R.string.spaces_close))
+            ui.onNode(hasSetTextAction()).performTextReplacement(governanceDraft)
+            closeKeyboard()
+            history().performScrollToNode(hasText("Governance message 5"))
+            val readingPixel = pixel("Governance message 5")
+            saveReadingSnapshot("governance-normal-before", fixtures, "general", visibleTexts = governanceMessages)
+            openCategories(); clickDialog(context.getString(R.string.spaces_create_category))
+            editorField(context.getString(R.string.spaces_category_name)).performScrollTo().performTextReplacement("Native private conversations")
+            closeKeyboard()
+            command("governance-drop-next", JsonObject().apply { addProperty("kind", "create-category") })
+            val started = SystemClock.elapsedRealtime()
+            clickDialog(context.getString(R.string.spaces_save_category))
+            waitText(context.getString(R.string.spaces_management_awaiting), 5_000)
+            waitUntil(5_000) { status().let { value -> value.getAsJsonArray("dropped").size() == 1 &&
+                value.getAsJsonObject("categories").size() == 1 } }
+            val received = status()
+            assertTrue(received.getAsJsonObject("categories").entrySet().single().value.asJsonObject.get("isPrivate").asBoolean)
+            assertTrue(received.getAsJsonArray("accepted").last().asJsonObject.get("encryptedMetadata").asBoolean)
+            assertFalse(received.getAsJsonArray("accepted").last().asJsonObject.get("containsPrivateName").asBoolean)
+            capture("03-private-category-pending")
+            saveJson("governance-category-start.json", JsonObject().apply { addProperty("startedMs", started) })
+            publishGovernanceCheckpoint("governance-category", fixtures, readingPixel)
+        } }
+    }
+
+    @Test fun coldPrivateCategoryRecoversItsOriginalAndReviewsUnlistedPublicOpening() {
+        check(governance)
+        val previous = readCheckpoint("governance-category")
+        val fixtures = previous.getAsJsonObject("fixtures")
+        launchGovernanceSaved().use { _ -> withFailureCapture({ capture("governance-category-recovery-failure") }) {
+            openGovernanceSavedCommunity(fixtures)
+            val started = JsonParser.parseString(File(evidence, "governance-category-start.json").readText()).asJsonObject.get("startedMs").asLong
+            val original = previous.get("original").asString
+            waitUntil(governanceRemaining(started)) { status().getAsJsonArray("originals").count {
+                it.asJsonObject.get("id").asString == original } == 2 }
+            assertGovernanceOriginal(original, "create-category")
+            openCategories()
+            waitUntil(governanceRemaining(started)) {
+                governanceCategoryVisible("Native private conversations")
+            }
+            assertTrue(SystemClock.elapsedRealtime() - started <= 27_000)
+            saveGovernanceRecovery("governance-category-recovery", started, original, fixtures)
+            capture("04-private-category-recovered-once")
+            closeGovernanceCategories()
+            waitText("Governance message 5")
+            assertPixel("Governance message 5", previous.get("pixel").asFloat)
+            assertEquals(governanceDraft, savedDraft(fixtures, "general"))
+            saveReadingSnapshot("governance-normal-restored", fixtures, "general", visibleTexts = governanceMessages)
+            assertGovernanceAnchor("governance-normal-before", "governance-normal-restored")
+            openInformation(); clickDialog(context.getString(R.string.spaces_make_public))
+            val discoverable = ui.onNode(hasContentDescription(context.getString(R.string.spaces_discoverable)) and hasAnyAncestor(isDialog()))
+            discoverable.assertIsOn(); discoverable.clickReady(); discoverable.assertIsOff()
+            capture("05-public-profile-and-unlisted-review")
+            governanceConfirmation(context.getString(R.string.spaces_make_public)).clickReady()
+            awaitGovernanceVisibility(public = true)
+            capture("06-public-unlisted-confirmed")
+            clickDialog(context.getString(R.string.spaces_close))
+            saveReadingSnapshot("governance-normal-public", fixtures, "general", visibleTexts = governanceMessages)
+            assertGovernanceAnchor("governance-normal-restored", "governance-normal-public")
+            saveGovernanceCompletion("completed.json", fixtures)
+        } }
+    }
+
+    @Test fun compactPrivateCategoryAndDissolutionKeepRealControlsAndCheckpointTheRequest() {
+        check(governance)
+        assertEquals(2f, context.resources.configuration.fontScale, .01f)
+        assertEquals(320, context.resources.configuration.screenWidthDp)
+        val fixtures = command("governance-fixtures")
+        launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("governance-compact-failure") }) {
+            waitUntil { ui.onNode(hasSetTextAction() and hasText(governanceDraft)).isDisplayed() }
+            saveReadingSnapshot("governance-compact-before", fixtures, "general", visibleTexts = governanceMessages)
+            assertGovernanceAnchor("governance-normal-public", "governance-compact-before")
+            openCategories(); clickDialog("Native private conversations")
+            val label = context.getString(R.string.spaces_category_name)
+            editorField(label).performScrollTo().performTextReplacement("Compact private conversations")
+            assertFocusedFieldVisible(label, "Compact private conversations")
+            capture("07-compact-private-category-ime")
+            activity.recreate()
+            waitUntil { editorField(label).isDisplayed() && editorField(label).fetchSemanticsNode().config[
+                androidx.compose.ui.semantics.SemanticsProperties.EditableText].text == "Compact private conversations" }
+            editorField(label).performClick()
+            assertFocusedFieldVisible(label, "Compact private conversations")
+            capture("08-compact-private-draft-restored-ime")
+            closeKeyboard(); clickDialog(context.getString(R.string.spaces_save_category))
+            waitUntil(15_000) {
+                val received = status().getAsJsonObject("categories").entrySet().single().value.asJsonObject.get("memberName")?.asString == "Compact private conversations"
+                received && governanceCategoryVisible("Compact private conversations")
+            }
+            capture("09-compact-private-rename-confirmed")
+            closeGovernanceCategories()
+            openInformation()
+            clickDialog(context.getString(R.string.spaces_dissolve))
+            val confirm = governanceConfirmation(context.getString(R.string.spaces_dissolve), context.getString(R.string.spaces_dissolve_title))
+            confirm.assertIsDisplayed()
+            capture("10-compact-permanent-closure-review")
+            command("governance-drop-next", JsonObject().apply { addProperty("kind", "dissolve") })
+            val started = SystemClock.elapsedRealtime()
+            confirm.clickReady()
+            waitText(context.getString(R.string.spaces_management_awaiting), 5_000)
+            waitUntil(5_000) { status().get("dissolved").asBoolean }
+            capture("11-compact-dissolution-pending")
+            saveJson("governance-dissolution-start.json", JsonObject().apply { addProperty("startedMs", started) })
+            publishGovernanceCheckpoint("governance-dissolution", fixtures, 0f)
+        } }
+    }
+
+    @Test fun coldClosedSpaceRetainsItsDraftAndShowsNoJoinToAnotherIdentity() {
+        check(governance)
+        val previous = readCheckpoint("governance-dissolution")
+        val fixtures = previous.getAsJsonObject("fixtures")
+        launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("governance-closed-recovery-failure") }) {
+            val started = JsonParser.parseString(File(evidence, "governance-dissolution-start.json").readText()).asJsonObject.get("startedMs").asLong
+            val original = previous.get("original").asString
+            waitUntil(governanceRemaining(started)) { status().getAsJsonArray("originals").count {
+                it.asJsonObject.get("id").asString == original } == 2 }
+            assertGovernanceOriginal(original, "dissolve")
+            waitText(context.getString(R.string.spaces_dissolved_detail), governanceRemaining(started))
+            saveGovernanceRecovery("governance-dissolution-recovery", started, original, fixtures)
+            ui.onNode(hasText(governanceDraft)).assertIsDisplayed()
+            ui.onNode(hasSetTextAction() and hasText(governanceDraft)).assertDoesNotExist()
+            assertEquals(governanceDraft, savedDraft(fixtures, "general"))
+            capture("12-compact-closed-saved-draft")
+            saveReadingSnapshot("governance-compact-closed", fixtures, "general", visibleTexts = governanceMessages)
+            assertGovernanceAnchor("governance-compact-before", "governance-compact-closed")
+            openInformation()
+            ui.onNodeWithText(context.getString(R.string.spaces_public_information)).assertDoesNotExist()
+            capture("13-compact-owner-closed-information")
+        } }
+        val wallet = AndroidWalletStore(context)
+        wallet.replace(wallet.loadExisting(), SaitoWallet.fromPrivateKey("0".repeat(63) + "5"))
+        launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("governance-closed-visitor-failure") }) {
+            waitText(context.getString(R.string.spaces_dissolved_detail))
+            ui.onNode(hasText(context.getString(R.string.spaces_join_public)) and hasClickAction()).assertDoesNotExist()
+            ui.onNode(hasText(governanceDraft)).assertDoesNotExist()
+            capture("14-compact-other-identity-closed-reading")
+            openInformation()
+            ui.onNodeWithText(context.getString(R.string.spaces_public_information)).assertDoesNotExist()
+            ui.onNode(hasText(context.getString(R.string.spaces_dissolve)) and hasClickAction()).assertDoesNotExist()
+            capture("15-compact-other-identity-closed-information")
+            saveGovernanceCompletion("compact-completed.json", fixtures)
+        } }
+    }
+
+    private fun governanceCategoryRow(name: String) = ui.onNode(hasText(name) and hasClickAction() and isEnabled() and
+        !SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.EditableText) and hasAnyAncestor(isDialog()))
+    private fun governanceCategoryVisible(name: String): Boolean {
+        val matcher = hasText(name) and hasClickAction() and isEnabled() and
+            !SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.EditableText) and hasAnyAncestor(isDialog())
+        if (!governanceEditorAbsent() || ui.onAllNodes(matcher).fetchSemanticsNodes().size != 1) return false
+        val row = governanceCategoryRow(name); row.performScrollTo()
+        return row.isDisplayed()
+    }
+    private fun governanceEditorAbsent() = ui.onAllNodes(SemanticsMatcher.keyIsDefined(
+        androidx.compose.ui.semantics.SemanticsProperties.EditableText) and hasAnyAncestor(isDialog())).fetchSemanticsNodes().isEmpty()
+    private fun awaitGovernanceVisibility(public: Boolean, requireMemberKeys: Boolean = false) {
+        val value = hasText(context.getString(if (public) R.string.spaces_public else R.string.spaces_private)) and !hasClickAction() and hasAnyAncestor(isDialog())
+        val confirmed = hasText(context.getString(R.string.spaces_visibility_confirmed)) and hasAnyAncestor(isDialog())
+        val pending = hasText(context.getString(R.string.spaces_management_awaiting)) or hasText(context.getString(R.string.spaces_management_queued))
+        waitUntil(15_000) {
+            val remote = status()
+            val received = remote.get("visibility").asString == (if (public) "PUBLIC" else "PRIVATE") &&
+                (!public || !remote.get("listed").asBoolean) && (!requireMemberKeys || remote.get("memberEntryReady").asBoolean)
+            if (!received || ui.onAllNodes(value).fetchSemanticsNodes().size != 1 || ui.onAllNodes(confirmed).fetchSemanticsNodes().size != 1) false
+            else {
+                ui.onNode(value).performScrollTo(); ui.onNode(confirmed).performScrollTo()
+                ui.onNode(value).isDisplayed() && ui.onNode(confirmed).isDisplayed() &&
+                    ui.onAllNodes(pending and hasAnyAncestor(isDialog())).fetchSemanticsNodes().isEmpty()
+            }
+        }
+    }
+    private fun saveGovernanceRecovery(name: String, started: Long, original: String, fixtures: JsonObject) {
+        val route = "${SaitoBackend.OWNER}:$peerEndpoint"
+        AndroidSpaceClientStore(context, fixtureOwner.publicKey, route, fixtureService).use { store ->
+            val client = SpaceClient(fixtureOwner, SaitoBackend.OWNER.webUrl, fixtureService, store, Clock.systemUTC()) { error("No recovery-probe transport") }
+            val change = if (name == "governance-category-recovery") client.categoryChange(fixtures.get("space").asString)?.let { it.id to it.status }
+                else client.dissolutionChange(fixtures.get("space").asString)?.let { it.id to it.status }
+            assertEquals(original, change?.first); assertEquals(SpaceClient.ChangeStatus.ACCEPTED, change?.second)
+        }
+        val elapsed = SystemClock.elapsedRealtime() - started
+        assertTrue(elapsed in 1..27_000)
+        saveJson("$name.json", JsonObject().apply {
+            addProperty("pid", Process.myPid()); addProperty("owner", AndroidWalletStore(context).loadExisting().publicKey)
+            addProperty("space", fixtures.get("space").asString); addProperty("original", original)
+            addProperty("elapsedMs", elapsed); addProperty("localStatus", SpaceClient.ChangeStatus.ACCEPTED.name); add("host", status())
+        })
+    }
+
+    private fun governanceRemaining(started: Long): Long = (27_000 - (SystemClock.elapsedRealtime() - started)).also {
+        assertTrue("Process recovery stays inside the original27-second bound", it > 0)
+    }
+    private fun governanceConfirmation(text: String, title: String = text) = ui.onNode(hasText(text) and hasClickAction() and
+        hasAnyAncestor(isDialog() and hasAnyDescendant(hasText(title) and !hasClickAction())))
+    private fun assertGovernanceOriginal(original: String, kind: String) {
+        val observed = status()
+        val rows = observed.getAsJsonArray("originals").filter { it.asJsonObject.get("id").asString == original }.map { it.asJsonObject }
+        assertEquals(2, rows.size); assertEquals(kind, rows[0].get("kind").asString)
+        assertEquals(rows[0], rows[1])
+        assertEquals(1, observed.getAsJsonArray("accepted").count { it.asJsonObject.get("id").asString == original })
+    }
+    private fun assertGovernanceAnchor(before: String, after: String) {
+        fun value(name: String) = JsonParser.parseString(File(evidence, "reading-$name.json").readText()).asJsonObject
+        val first = value(before); val second = value(after)
+        for (key in listOf("owner", "space", "channel", "selectedChannel", "storedFollowLatest", "anchor")) assertEquals(key, first.get(key), second.get(key))
+        assertTrue(second.getAsJsonArray("visible").size() > 0)
+        assertEquals(fixturesGeneral(second), second.get("selectedChannel").asString)
+    }
+    private fun fixturesGeneral(reading: JsonObject) = command("governance-fixtures").get("general").asString.also {
+        assertEquals(it, reading.get("channel").asString)
+    }
+    private fun saveGovernanceCompletion(name: String, fixtures: JsonObject) = saveJson(name, JsonObject().apply {
+        addProperty("pid", Process.myPid()); addProperty("owner", AndroidWalletStore(context).loadExisting().publicKey)
+        addProperty("fontScale", context.resources.configuration.fontScale); addProperty("screenWidthDp", context.resources.configuration.screenWidthDp)
+        addProperty("visitor", SaitoWallet.fromPrivateKey("0".repeat(63) + "5").publicKey)
+        add("fixtures", fixtures); add("host", status())
+    })
+    private fun launchGovernanceSaved() = ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).apply {
+        putExtra("feedPeerUrl", peerEndpoint); putExtra("feedOfficialPeerUrl", peerEndpoint)
+        putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
+    })
+    private fun openGovernanceSavedCommunity(fixtures: JsonObject) {
+        val labels = listOf("Red Square", "Spaces").map { context.getString(R.string.switch_app, it) }
+        waitUntil { labels.any { ui.onNodeWithContentDescription(it).isDisplayed() } }
+        ui.onNodeWithContentDescription(labels.first { ui.onNodeWithContentDescription(it).isDisplayed() }).clickReady()
+        clickDialog(context.getString(R.string.spaces_title))
+        waitUntil { ui.onNode(hasSetTextAction() and hasText(governanceDraft)).isDisplayed() ||
+            ui.onNode(hasText(fixtures.get("name").asString) and hasClickAction()).isDisplayed() }
+        val row = ui.onNode(hasText(fixtures.get("name").asString) and hasClickAction())
+        if (row.isDisplayed()) row.clickReady()
+        waitUntil { ui.onNode(hasSetTextAction() and hasText(governanceDraft)).isDisplayed() }
+    }
+
+    private fun closeGovernanceCategories() {
+        clickDialog(context.getString(R.string.spaces_close))
+        waitUntil(5_000) { ui.onNode(hasText(context.getString(R.string.spaces_information)) and !hasClickAction() and hasAnyAncestor(isDialog())).isDisplayed() }
+        clickDialog(context.getString(R.string.spaces_close))
+        waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
+    }
+    private fun publishGovernanceCheckpoint(phase: String, fixtures: JsonObject, pixel: Float): Nothing {
+        val remote = status()
+        val original = remote.getAsJsonArray("dropped").last().asString
+        val route = "${SaitoBackend.OWNER}:$peerEndpoint"
+        AndroidSpaceClientStore(context, fixtureOwner.publicKey, route, fixtureService).use { store ->
+            val client = SpaceClient(fixtureOwner, SaitoBackend.OWNER.webUrl, fixtureService, store, Clock.systemUTC()) { error("No checkpoint transport") }
+            val change = if (phase == "governance-category") client.categoryChange(fixtures.get("space").asString)?.let { it.id to it.status }
+                else client.dissolutionChange(fixtures.get("space").asString)?.let { it.id to it.status }
+            assertEquals(original, change?.first)
+            assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, change?.second)
+        }
+        saveJson("$phase-host.json", remote)
+        val value = JsonObject().apply {
+            addProperty("phase", phase); addProperty("pid", Process.myPid()); addProperty("pixel", pixel)
+            addProperty("owner", AndroidWalletStore(context).loadExisting().publicKey)
+            addProperty("backend", AndroidBackendStore(context).load().id); addProperty("original", original)
+            addProperty("localStatus", SpaceClient.ChangeStatus.AWAITING_CONFIRMATION.name); add("fixtures", fixtures)
+        }
+        saveJson("checkpoint-$phase.json", value)
+        val temporary = File(context.cacheDir, "$evidenceLabel-checkpoint.tmp")
+        temporary.writeText(value.toString()); check(temporary.renameTo(checkpoint))
+        while (true) SystemClock.sleep(250)
+    }
 
     @Test fun categoryEditorRestoresItsDraftAndRecoversAnActuallyUnconfirmedCreation() {
         check(categoryManagement && arguments.getString("spacesDisposableBaseline") == "true")
@@ -1365,7 +1645,7 @@ class SpacesManagementJourneyTest {
         return false
     }
     private fun capture(name: String) { ui.waitForIdle(); captureNativeScreen(File(evidence, "$name.png")) }
-    private fun status() = command(if (privateReadiness) "readiness-status" else if (privateManagement) "private-management-status" else "management-status")
+    private fun status() = command(if (governance) "governance-status" else if (privateReadiness) "readiness-status" else if (privateManagement) "private-management-status" else "management-status")
     /** Real protected-store rows and separately timestamped visible text,
      * never a synthetic saved-state acknowledgement. */
     private fun saveReadingSnapshot(name: String, fixtures: JsonObject, channelName: String, uiAvailable: Boolean = true,

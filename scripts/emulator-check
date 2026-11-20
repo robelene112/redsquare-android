@@ -275,6 +275,7 @@ if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
             case "${SPACES_PRIVATE_MANAGEMENT_CASE:-process}" in
                 process) journey_options=(private-management-v1) ;;
                 readiness) journey_options=(private-readiness-v1) ;;
+                governance) journey_options=(governance-v1) ;;
                 *) echo 'Unknown private management case' >&2; exit 2 ;;
             esac
         else journey_options=(management-v1); fi
@@ -282,6 +283,8 @@ if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
     python3 "$repo_dir/scripts/spaces-native-journey" "$evidence" "${journey_options[@]}"
     if [[ "${SPACES_CATEGORY_MANAGEMENT:-false}" == true ]]; then
         printf '%s\n' 'Public category editor first feedback only; no pending-process, private-category, full139 or deployed-node acceptance.' > "$evidence/scope.txt"
+    elif [[ "${SPACES_PRIVATE_MANAGEMENT:-false}" == true && "${SPACES_PRIVATE_MANAGEMENT_CASE:-process}" == governance ]]; then
+        printf '%s\n' 'Private-category pending-process, visibility and terminal lifecycle journey only; current membership/ownership, full139 and deployed-node acceptance remain separate.' > "$evidence/scope.txt"
     else printf '%s\n' 'Focused Spaces Activity and distinct-process journey; no full regression or deployed-node acceptance.' > "$evidence/scope.txt"; fi
     exit 0
 fi
