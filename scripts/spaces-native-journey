@@ -18,6 +18,7 @@ if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'discovery-v1', 'ma
 private_ownership_mode = mode == 'private-ownership-v1'
 membership_mode = private_ownership_mode or mode == 'membership-v1'
 governance_mode = mode == 'governance-v1'
+category_access_mode = governance_mode and os.environ.get('SPACES_PRIVATE_MANAGEMENT_CASE') == 'category-access'
 category_management_mode = mode == 'category-management-v1'
 discovery_mode = mode == 'discovery-v1'
 private_management_mode = mode == 'private-management-v1'
@@ -53,7 +54,8 @@ def instrument(method, filename, peer, control):
         (['-e', 'spacesCategoryManagement', 'true'] if category_management_mode else []) +
         (['-e', 'spacesMembership', 'true'] if membership_mode else []) +
         (['-e', 'spacesPrivateOwnership', 'true'] if private_ownership_mode else []) +
-        (['-e', 'spacesGovernance', 'true'] if governance_mode else []) + [runner],
+        (['-e', 'spacesGovernance', 'true'] if governance_mode else []) +
+        (['-e', 'spacesCategoryAccess', 'true'] if category_access_mode else []) + [runner],
         stdout=log, stderr=subprocess.STDOUT)
     children.append((process, log))
     return process
@@ -293,6 +295,12 @@ try:
                 'viewport': {'widthDp': 320, 'fontScale': 2.0, 'densityDpi': 320, 'resourceProbes': 3},
                 'membershipOwnershipNativeCoverage': False,
                 'productionNodeActivated': False, 'ordinaryBetaChanged': False}
+            if category_access_mode:
+                goals.update(privateCategorySelectionBridge=True, privateCategoryCreates=1, privateCategoryEdits=1,
+                    restrictedOffClearsPrivateCategory=True, activityRecreations=4, capturePairs=21,
+                    controlGeometryMinimum=46, controlGeometryMaximum=47,
+                    acceptedGovernanceControls=7, governanceOriginalAttempts=9)
+                goals['protectedReadingRecords'].insert(4, 'governance-private-category-return')
             reset_disposable_baseline()
         elif category_management_mode:
             phases = [
@@ -517,16 +525,19 @@ try:
                 raise RuntimeError('Governance changed its account, Space or membership scope')
             if final['visibility'] != 'PUBLIC' or final['listed'] or not final['dissolved']:
                 raise RuntimeError('Final closure or deliberate unlisted opening differs')
-            if len(final['channels']) != 4 or any(not row['archived'] for row in final['channels'].values()):
+            if len(final['channels']) != (5 if category_access_mode else 4) or any(not row['archived'] for row in final['channels'].values()):
                 raise RuntimeError('Closed entrances and earlier public channels must be retained read-only exactly once')
             if len(final['categories']) != 1 or next(iter(final['categories'].values())) != {'isPrivate': True, 'memberName': 'Compact private conversations'}:
                 raise RuntimeError('Private category identity, audience or canonical member name differs')
             rows = final['originals']
-            if [row['kind'] for row in rows] != ['set-visibility', 'create-category', 'create-category', 'set-visibility', 'edit-category', 'dissolve', 'dissolve']:
+            expected_kinds = ['set-visibility', 'create-category', 'create-category', 'set-visibility', 'edit-category'] + (
+                ['create-channel', 'edit-channel'] if category_access_mode else []) + ['dissolve', 'dissolve']
+            if [row['kind'] for row in rows] != expected_kinds:
                 raise RuntimeError('Actual governance request order or attempt count differs')
-            if len(final['accepted']) != 5 or len({row['id'] for row in rows}) != 5 or final['dropped'] != [rows[1]['id'], rows[5]['id']]:
+            dissolve_index = 7 if category_access_mode else 5
+            if len(final['accepted']) != goals['acceptedGovernanceControls'] or len({row['id'] for row in rows}) != goals['acceptedGovernanceControls'] or final['dropped'] != [rows[1]['id'], rows[dissolve_index]['id']]:
                 raise RuntimeError('Actual accepted originals, losses or duplicate identities differ')
-            for first, second in [(1, 2), (5, 6)]:
+            for first, second in [(1, 2), (dissolve_index, dissolve_index + 1)]:
                 if rows[first] != rows[second]: raise RuntimeError('Cold governance recovery changed original signed bytes')
             if rows[0]['visibility'] != 'private' or rows[3]['visibility'] != 'public' or rows[3]['listed']:
                 raise RuntimeError('Private closing or same-original unlisted public opening differs')
@@ -541,12 +552,27 @@ try:
                 expected_owner = fixtures['owner'] if index == 1 else fixtures['visitor']
                 if terminal['pid'] != pids[index] or terminal['owner'] != expected_owner:
                     raise RuntimeError('A successful native phase changed the declared current identity or process')
-            for recovery_index, name, original_index in [(1, 'governance-category-recovery', 1), (3, 'governance-dissolution-recovery', 5)]:
+            for recovery_index, name, original_index in [(1, 'governance-category-recovery', 1), (3, 'governance-dissolution-recovery', dissolve_index)]:
                 proof = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{name}.json').stdout)
                 if proof['pid'] != pids[recovery_index] or proof['owner'] != fixtures['owner'] or proof['space'] != fixtures['space'] or proof['original'] != rows[original_index]['id']:
                     raise RuntimeError('Actual cold recovery crossed its process, identity, Space or immutable original')
                 if proof['localStatus'] != 'ACCEPTED' or type(proof['elapsedMs']) is not int or not (0 < proof['elapsedMs'] <= 27000):
                     raise RuntimeError('Cold recovery lacks an actual accepted protected record inside its original27-second bound')
+            if category_access_mode:
+                bridge = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/private-category-selection.json').stdout)
+                (evidence / 'native-private-category-selection.json').write_text(json.dumps(bridge, indent=2))
+                category = next(iter(final['categories']))
+                channel = bridge['channel']
+                if any(bridge[key] != value for key, value in {'pid': pids[2], 'owner': fixtures['owner'], 'space': fixtures['space'], 'category': category, 'restrictionClearedCategory': True}.items()):
+                    raise RuntimeError('Private category native selection crossed scope or lost its cleared state')
+                for state, name in [('created', 'private-category-room'), ('edited', 'private-category-edited')]:
+                    row = bridge[state]['channels'][channel]
+                    if row != {'visibility': 'PRIVATE', 'archived': False, 'categoryId': category, 'memberName': name, 'memberReady': True}:
+                        raise RuntimeError('Independent native category create/edit receipt or category identity differs')
+                if any(rows[index]['channel_id'] != channel or rows[index]['category_id'] != category or not rows[index]['encryptedMetadata'] or rows[index]['containsPrivateName'] for index in [5, 6]):
+                    raise RuntimeError('Actual private create/edit signed metadata or category binding differs')
+                if final['channels'][channel] != {'visibility': 'PRIVATE', 'archived': True, 'categoryId': category, 'memberName': 'private-category-edited', 'memberReady': True}:
+                    raise RuntimeError('Closed private category channel lost its independently received identity')
             labels = goals['protectedReadingRecords']
             baseline = None
             for reading_label in labels:

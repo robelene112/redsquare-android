@@ -70,7 +70,7 @@ object SpacesNativeHost {
                         "https://saito.davidengelen.nl", service.publicKey, requireNotNull(memberStore), clock) { remote.exchange(it.envelope()) }, peer, categoryMode).also { it.seed() } else null
                     val governance = if (governanceMode) SpacesGovernanceFixture(client, SpaceClient(requireNotNull(managedMember),
                         "https://saito.davidengelen.nl", service.publicKey, requireNotNull(memberStore), clock) { remote.exchange(it.envelope()) },
-                        peer, remote, service, clock).also { it.seed() } else null
+                        peer, remote, service, clock, System.getenv("SPACES_PRIVATE_MANAGEMENT_CASE") == "category-access").also { it.seed() } else null
                     if (membershipMode) membership = SpacesMembershipFixture(client,
                         SpaceClient(requireNotNull(managedMember), "https://saito.davidengelen.nl", service.publicKey,
                             requireNotNull(memberStore), clock) { remote.exchange(it.envelope()) },

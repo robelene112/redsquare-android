@@ -14,14 +14,16 @@ import java.time.Clock
  * device is admitted under the Android owner's identity. All traffic is owned. */
 internal class SpacesGovernanceFixture(private val owner: SpaceClient, private val reader: SpaceClient,
     private val peer: ControlledFeedPeer, private val remote: SpacesServiceStore,
-    private val service: SaitoWallet, private val clock: Clock) {
+    private val service: SaitoWallet, private val clock: Clock, private val categoryAccess: Boolean = false) {
     private val actor = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
     private lateinit var space: String
     private lateinit var journal: SpaceJournal
     private val controls = mutableListOf<String>()
+    private var seedControlIds = emptySet<String>()
     private val fixtures = JsonObject()
     private var requestSequence = 0L
-    private val kinds = setOf("set-visibility", "set-listed", "create-category", "edit-category", "dissolve")
+    private val kinds = setOf("set-visibility", "set-listed", "create-category", "edit-category", "dissolve") +
+        if (categoryAccess) setOf("create-channel", "edit-channel") else emptySet()
 
     suspend fun seed() {
         space = owner.create(SpaceProfile("Native Governance Lab", "Owned visibility, private category and terminal recovery journeys.",
@@ -35,10 +37,18 @@ internal class SpacesGovernanceFixture(private val owner: SpaceClient, private v
         fixtures.addProperty("owner", actor.publicKey)
         fixtures.addProperty("visitor", SaitoWallet.fromPrivateKey("0".repeat(63) + "5").publicKey)
         fixtures.addProperty("member", members.single { it.role == SpaceRole.MEMBER }.publicKey)
+        if (categoryAccess) fixtures.addProperty("memberName", "MemberOfTheLab@saito")
         fixtures.addProperty("name", "Native Governance Lab")
         owner.channels(space).forEach { fixtures.addProperty(it.profile.name, it.id) }
         journal = SpaceJournal(space, service.publicKey)
         synchronizeControls()
+        if (categoryAccess) {
+            // The independently verified initial Workshop creation predates
+            // Android. Keep its identity explicit instead of counting it as a
+            // newly submitted native create-channel operation.
+            seedControlIds = controls.map { SaitoEnvelope.decode(SaitoEnvelope.decode(it).body.get("event").asString).id }.toSet()
+            fixtures.add("seedControlIds", JsonArray().apply { seedControlIds.forEach(::add) })
+        }
     }
 
     suspend fun command(path: String, body: JsonObject): JsonObject? = when (path) {
@@ -117,6 +127,7 @@ internal class SpacesGovernanceFixture(private val owner: SpaceClient, private v
             add("members", JsonObject().apply { snapshot.members.forEach { (key, role) -> addProperty(key, role.name) } })
             add("channels", JsonObject().apply { snapshot.channels.forEach { (id, channel) -> add(id, JsonObject().apply {
                 addProperty("visibility", channel.visibility.name); addProperty("archived", channel.archived)
+                if (categoryAccess) addProperty("categoryId", channel.categoryId)
                 memberChannels.firstOrNull { it.id == id }?.let { addProperty("memberName", it.profile.name); addProperty("memberReady", it.ready) }
             }) } })
             add("categories", JsonObject().apply { snapshot.categories.forEach { (id, category) -> add(id, JsonObject().apply {
@@ -126,7 +137,7 @@ internal class SpacesGovernanceFixture(private val owner: SpaceClient, private v
             add("accepted", JsonArray().apply { controls.forEach { receipt ->
                 val original = SaitoEnvelope.decode(receipt).body.get("event").asString
                 val event = SaitoEnvelope.decode(original)
-                if (event.body.get("kind").asString in kinds) add(row(event.id, event.author, event.body, original))
+                if (event.id !in seedControlIds && event.body.get("kind").asString in kinds) add(row(event.id, event.author, event.body, original))
             } })
             add("originals", JsonArray().apply { peer.spacesRequests.toList().forEach { original ->
                 val event = SaitoEnvelope.decode(original.envelope())
@@ -149,6 +160,10 @@ internal class SpacesGovernanceFixture(private val owner: SpaceClient, private v
         if (body.get("kind").asString in setOf("create-category", "edit-category")) {
             addProperty("encryptedMetadata", body.has("category_metadata") && !body.has("category_profile"))
             addProperty("containsPrivateName", listOf("Native private conversations", "Compact private conversations").any { body.toString().contains(it) })
+        }
+        if (categoryAccess && body.get("kind").asString in setOf("create-channel", "edit-channel")) {
+            addProperty("encryptedMetadata", body.has("channel_metadata") && !body.has("channel_profile"))
+            addProperty("containsPrivateName", listOf("private-category-room", "private-category-edited", "Compact private conversations").any { body.toString().contains(it) })
         }
     }
 }

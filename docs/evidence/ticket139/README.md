@@ -1,6 +1,34 @@
 # Ticket139: community governance
 
-## Active139: governance accepted, ownership observer corrected
+## Active139: current public management accepted, final native gaps prepared
+
+Whole public management/API29 44832654787 at9822 passes both actual visual
+axes:1349frames,36capturepairs,76controls and6IME records. Earlier focused-field
+occlusion is actually resolved. Gov4 remains narrowly accepted ated52.
+
+Member5 44834444152/private4 44834468738 remain wholeFAIL at offscreen owner
+policy in phase3. Both reach real two-party ownership; Android4 also decrypts
+the actual earlier private original. Those are observed prefixes, not parent
+acceptance. Capture07 exposed a separate false negative-visibility oracle:
+local ACCEPTED did not prove the old waiting offer had left the UI.
+
+Corrected observers scroll the actual recipient/owner target and require a
+settled Information tree, positive role evidence and no stale offer/pending
+nodes within the same15seconds. Optional category-access adds real compact
+private-category create/edit after recreation, restriction clearing,
+independent canonical-ID/decrypted-name receipts and exact General return.
+Host seed accounting now declares verified pre-Android control IDs explicitly;
+the original failed smoke remains retained and corrected owned smoke passes.
+
+Host compilation and native compilation pass at stable inputs. The final
+one-line heading-presence correction follows the last local compile and still
+requires exact fresh CI. Whole affected member/private and category-access
+parents, actual all-frame/prototype reviews and139 closure mapping remain
+before140-147 proceed sequentially. See the [exact record and limits](governance-native-preparation.json).
+ApprovedB, beta142 and production/provider/public-write/file-hosting boundaries
+remain unchanged.
+
+## Earlier139: governance accepted, ownership observer corrected
 
 Whole Android17 governance44828915996 ated52 passes its frozen contract and
 both actual visual/prototype reviews:921frames,15capturepairs,31controls,

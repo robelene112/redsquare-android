@@ -43,6 +43,7 @@ class SpacesManagementJourneyTest {
     private val device get() = UiDevice.getInstance(instrumentation)
     private val privateOwnership get() = arguments.getString("spacesPrivateOwnership") == "true"
     private val membership get() = arguments.getString("spacesMembership") == "true"
+    private val categoryAccess get() = arguments.getString("spacesCategoryAccess") == "true"
     private val governance get() = arguments.getString("spacesGovernance") == "true"
     private val categoryManagement get() = arguments.getString("spacesCategoryManagement") == "true"
     private val privateManagement get() = arguments.getString("spacesPrivateManagement") == "true"
@@ -131,11 +132,12 @@ class SpacesManagementJourneyTest {
             capture("05-offer-awaiting-other-person")
         } }
         membershipAs("4", fixtures) { _ ->
-            openInformation(); capture("06-recipient-offer")
+            openInformation(); showDialogText(context.getString(R.string.spaces_decline_ownership))
+            capture("06-recipient-offer")
             clickDialog(context.getString(R.string.spaces_decline_ownership))
             governanceConfirmation(context.getString(R.string.spaces_decline_ownership)).clickReady()
             waitUntil { status().get("offer").isJsonNull }
-            waitMembershipAccepted(fixtures) { !ui.onNode(hasText(context.getString(R.string.spaces_decline_ownership)) and hasClickAction()).isDisplayed() }
+            waitMembershipAccepted(fixtures) { membershipInfoSettled() && dialogTextVisible(context.getString(R.string.spaces_member_confirmed)) }
         }
         membershipAs("3", fixtures) { _ ->
             openMembershipRoster(); offerMembershipOwnership(fixtures.get("member").asString)
@@ -143,7 +145,10 @@ class SpacesManagementJourneyTest {
             clickDialog(context.getString(R.string.spaces_cancel_ownership_offer))
             governanceConfirmation(context.getString(R.string.spaces_cancel_ownership_offer)).clickReady()
             waitUntil { status().get("offer").isJsonNull }
-            waitMembershipAccepted(fixtures) { !ui.onNode(hasText(context.getString(R.string.spaces_cancel_ownership_offer)) and hasClickAction()).isDisplayed() }
+            waitMembershipAccepted(fixtures) {
+                membershipInfoSettled() && dialogTextVisible(context.getString(R.string.spaces_owner_transfer_before_leave)) &&
+                    ui.onAllNodes(hasText(context.getString(R.string.spaces_make_private)) and hasClickAction() and isEnabled() and hasAnyAncestor(isDialog())).fetchSemanticsNodes().size == 1
+            }
             capture("07-cancelled-owner-retained")
             clickDialog(context.getString(R.string.spaces_members))
             offerMembershipOwnership(fixtures.get("member").asString)
@@ -189,7 +194,7 @@ class SpacesManagementJourneyTest {
                 chooseChannel("general", fixtures.get("general").asString)
                 waitText("Membership message 17")
             }
-            openInformation(); waitText(context.getString(R.string.spaces_owner_transfer_before_leave))
+            openInformation(); showDialogText(context.getString(R.string.spaces_owner_transfer_before_leave))
             assertEquals("OWNER", status().getAsJsonObject("members").get(fixtures.get("member").asString).asString)
             assertEquals("MEMBER", status().getAsJsonObject("members").get(fixtures.get("owner").asString).asString)
             ui.onNode(hasText(context.getString(R.string.spaces_leave)) and hasClickAction()).assertDoesNotExist()
@@ -218,7 +223,10 @@ class SpacesManagementJourneyTest {
             clickDialog(context.getString(R.string.spaces_leave)); capture("13-compact-leave-review")
             governanceConfirmation(context.getString(R.string.spaces_leave), context.getString(R.string.spaces_leave_title)).clickReady()
             waitUntil { !status().getAsJsonObject("members").has(fixtures.get("owner").asString) }
-            waitMembershipAccepted(fixtures, departure = true) { !ui.onNode(hasText(context.getString(R.string.spaces_leave)) and hasClickAction()).isDisplayed() }
+            waitMembershipAccepted(fixtures, departure = true) {
+                membershipInfoSettled() && ui.onAllNodes(hasText(context.getString(R.string.spaces_leave)) and hasClickAction() and hasAnyAncestor(isDialog())).fetchSemanticsNodes().isEmpty() &&
+                    ui.onAllNodes(hasText(context.getString(R.string.spaces_member_confirmed)) and hasAnyAncestor(isDialog())).fetchSemanticsNodes().isEmpty()
+            }
             ui.onNode(hasText(context.getString(R.string.spaces_owner_transfer_before_leave))).assertDoesNotExist()
             capture("14-compact-former-owner-left")
             saveMembershipCompletion("compact-completed.json", fixtures)
@@ -289,6 +297,23 @@ class SpacesManagementJourneyTest {
         AndroidSpaceClientStore(context, owner.publicKey, route, fixtureService).use { store ->
             block(SpaceClient(owner, SaitoBackend.OWNER.webUrl, fixtureService, store, Clock.systemUTC()) { error("No membership-probe transport") })
         }
+    }
+    private fun dialogTextVisible(text: String): Boolean {
+        val match = hasText(text) and hasAnyAncestor(isDialog())
+        return ui.onAllNodes(match).fetchSemanticsNodes().size == 1 && ui.onNode(match).performScrollTo().isDisplayed()
+    }
+    private fun membershipInfoSettled(): Boolean {
+        val dialog = hasAnyAncestor(isDialog())
+        val heading = hasText(context.getString(R.string.spaces_information)) and !hasClickAction() and dialog
+        if (ui.onAllNodes(heading).fetchSemanticsNodes().size != 1) return false
+        val stale = hasText(context.getString(R.string.spaces_transfer_ownership)) or
+            hasText(context.getString(R.string.spaces_management_awaiting)) or hasText(context.getString(R.string.spaces_management_queued))
+        return ui.onAllNodes(stale and dialog).fetchSemanticsNodes().isEmpty()
+    }
+    private fun showDialogText(text: String) {
+        val started = SystemClock.elapsedRealtime()
+        waitUntil(15_000) { dialogTextVisible(text) }
+        assertTrue("The actual dialog content is visible inside15seconds", SystemClock.elapsedRealtime() - started <= 15_000)
     }
     private fun waitMembershipAccepted(fixtures: JsonObject, departure: Boolean = false, rendered: () -> Boolean) {
         val observed = JsonObject().apply {
@@ -473,6 +498,7 @@ class SpacesManagementJourneyTest {
             }
             capture("09-compact-private-rename-confirmed")
             closeGovernanceCategories()
+            if (categoryAccess) verifyPrivateCategorySelection(activity, fixtures)
             openInformation()
             clickDialog(context.getString(R.string.spaces_dissolve))
             val confirm = governanceConfirmation(context.getString(R.string.spaces_dissolve), context.getString(R.string.spaces_dissolve_title))
@@ -524,6 +550,98 @@ class SpacesManagementJourneyTest {
             capture("15-compact-other-identity-closed-information")
             saveGovernanceCompletion("compact-completed.json", fixtures)
         } }
+    }
+
+    private fun verifyPrivateCategorySelection(activity: ActivityScenario<MainActivity>, fixtures: JsonObject) {
+        val space = fixtures.get("space").asString
+        val category = status().getAsJsonObject("categories").entrySet().single().key
+        val name = "Compact private conversations"
+        val categoryLabel = context.getString(R.string.spaces_category_optional)
+        val nameLabel = context.getString(R.string.spaces_channel_name)
+        val choice = hasText(name) and SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.Selected) and hasAnyAncestor(isDialog())
+        fun selectCategory() { ui.onNode(choice).performScrollTo().clickReady(); ui.onNode(choice).assertIsSelected() }
+        fun fieldValue(label: String) = editorField(label).fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text
+        fun restoredName(expected: String) {
+            val field = SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.EditableText) and hasText(nameLabel) and hasAnyAncestor(isDialog())
+            waitUntil(15_000) {
+                ui.onAllNodes(field).fetchSemanticsNodes().singleOrNull()?.config?.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.EditableText)?.text == expected
+            }
+            editorField(nameLabel).performScrollTo().assertIsDisplayed()
+        }
+
+        openInformation(); clickDialog(context.getString(R.string.spaces_add_channel))
+        editorField(nameLabel).performScrollTo().performTextReplacement("private-category-room")
+        closeKeyboard()
+        privateRestriction().performScrollTo().assertIsOff()
+        ui.onNode(choice).assertDoesNotExist()
+        privateRestriction().clickReady(); privateRestriction().assertIsOn()
+        selectCategory()
+        privateMember(fixtures, true).clickReady(); privateMember(fixtures, true).assertIsOn()
+        ui.onNode(choice).performScrollTo(); capture("09a-private-category-choice")
+        activity.recreate()
+        restoredName("private-category-room")
+        ui.onNode(choice).performScrollTo().assertIsSelected()
+        assertEquals(name, fieldValue(categoryLabel))
+        privateMember(fixtures, true).assertIsOn()
+        capture("09b-private-category-choice-restored")
+
+        privateRestriction().performScrollTo().clickReady(); privateRestriction().assertIsOff()
+        ui.onNode(choice).assertDoesNotExist()
+        editorField(categoryLabel).performScrollTo()
+        assertEquals("", fieldValue(categoryLabel))
+        capture("09c-private-category-cleared")
+        privateRestriction().performScrollTo().clickReady(); privateRestriction().assertIsOn()
+        ui.onNode(choice).assertIsNotSelected()
+        selectCategory()
+        privateMember(fixtures, true).assertIsOn()
+        activity.recreate(); restoredName("private-category-room")
+        ui.onNode(choice).performScrollTo().assertIsSelected()
+        assertEquals(name, fieldValue(categoryLabel))
+        privateMember(fixtures, true).assertIsOn()
+        clickDialog(context.getString(R.string.spaces_create_channel))
+        var created = JsonObject(); var channel = ""
+        waitUntil(15_000) {
+            created = status()
+            channel = created.getAsJsonObject("channels").entrySet().firstOrNull {
+                val row = it.value.asJsonObject
+                row.get("memberName")?.asString == "private-category-room" && row.get("categoryId")?.takeUnless { it.isJsonNull }?.asString == category &&
+                    row.get("visibility").asString == "PRIVATE" && row.get("memberReady")?.asBoolean == true
+            }?.key.orEmpty()
+            channel.isNotEmpty() && ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() &&
+                ui.onNode(hasContentDescription(context.getString(R.string.spaces_switch_channel)) and
+                    SemanticsMatcher.expectValue(androidx.compose.ui.semantics.SemanticsProperties.StateDescription, "private-category-room")).isDisplayed()
+        }
+        capture("09d-private-category-channel-created")
+        openInformation(); openChannelEditor()
+        editorField(categoryLabel).performScrollTo().performTextReplacement("Unlinked local category draft")
+        closeKeyboard(); ui.onNode(choice).assertIsNotSelected(); selectCategory()
+        editorField(nameLabel).performScrollTo().performTextReplacement("private-category-edited")
+        closeKeyboard(); activity.recreate()
+        restoredName("private-category-edited")
+        ui.onNode(choice).performScrollTo().assertIsSelected()
+        assertEquals(name, fieldValue(categoryLabel))
+        capture("09e-private-category-edit-restored")
+        clickDialog(context.getString(R.string.spaces_save_channel))
+        waitInformationName("private-category-edited")
+        var edited = JsonObject()
+        waitUntil(15_000) {
+            edited = status()
+            val row = edited.getAsJsonObject("channels").getAsJsonObject(channel)
+            row.get("memberName")?.asString == "private-category-edited" && row.get("categoryId")?.asString == category &&
+                row.get("visibility").asString == "PRIVATE" && row.get("memberReady")?.asBoolean == true
+        }
+        saveJson("private-category-selection.json", JsonObject().apply {
+            addProperty("pid", Process.myPid()); addProperty("owner", AndroidWalletStore(context).loadExisting().publicKey)
+            addProperty("space", space); addProperty("channel", channel); addProperty("category", category)
+            addProperty("restrictionClearedCategory", true); add("created", created); add("edited", edited)
+        })
+        capture("09f-private-category-edit-confirmed")
+        clickDialog(context.getString(R.string.spaces_close))
+        chooseChannel("general", fixtures.get("general").asString)
+        waitText(governanceDraft)
+        assertEquals(governanceDraft, savedDraft(fixtures, "general"))
+        saveReadingSnapshot("governance-private-category-return", fixtures, "general", visibleTexts = governanceMessages)
+        assertGovernanceAnchor("governance-compact-before", "governance-private-category-return")
     }
 
     private fun governanceCategoryRow(name: String) = ui.onNode(hasText(name) and hasClickAction() and isEnabled() and
