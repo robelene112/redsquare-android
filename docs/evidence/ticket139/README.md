@@ -192,3 +192,5 @@ catalogue, while its UI journey remains public management only. New revocation
 work is excluded. Fresh complete native and visual acceptance remain required.
 
 Restricted private-child revocation source is verified by the [packet](restricted-channel-revocation.json):244core/92service, both source axes clear, independently copied future ciphertext excluded after real key removal. Native private UI and the remaining139 governance scope are pending.
+
+Both attempt10 native parents remain failed at a partially visible creation-entry action. The [observer correction](partial-visibility-observer.json) scrolls real ancestors without changing timing or geometry goals. Both source axes are clear; fresh whole10/17 and actual visual verification are required. All20failed parents retain their originals.

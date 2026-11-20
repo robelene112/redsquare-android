@@ -333,7 +333,7 @@ class SpacesManagementJourneyTest {
         val match = hasText(name) and !SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.EditableText) and hasAnyAncestor(information)
         waitUntil(timeout) { ui.onAllNodes(match).fetchSemanticsNodes().size == 1 }
         val node = ui.onNode(match)
-        if (!node.isDisplayed() && ui.onAllNodes(match and hasAnyAncestor(hasScrollAction())).fetchSemanticsNodes().size == 1) node.performScrollTo()
+        if (ui.onAllNodes(match and hasAnyAncestor(hasScrollAction())).fetchSemanticsNodes().size == 1) node.performScrollTo()
         val remaining = deadline - SystemClock.elapsedRealtime()
         assertTrue("Visible canonical name remains inside its original deadline", remaining > 0)
         waitUntil(remaining) { node.isDisplayed() }
@@ -474,7 +474,7 @@ class SpacesManagementJourneyTest {
         val match = hasText(text) and hasClickAction() and hasAnyAncestor(isDialog())
         waitUntil(5_000) { ui.onAllNodes(match).fetchSemanticsNodes().size == 1 }
         val node = ui.onNode(match)
-        if (!node.isDisplayed() && ui.onAllNodes(match and hasAnyAncestor(hasScrollAction())).fetchSemanticsNodes().size == 1) node.performScrollTo()
+        if (ui.onAllNodes(match and hasAnyAncestor(hasScrollAction())).fetchSemanticsNodes().size == 1) node.performScrollTo()
         node.clickReady((deadline - SystemClock.elapsedRealtime()).coerceAtLeast(1))
     }
     private fun waitDialogButton(text: String) {
@@ -482,7 +482,7 @@ class SpacesManagementJourneyTest {
         val match = hasText(text) and hasClickAction() and isEnabled() and hasAnyAncestor(isDialog())
         waitUntil(15_000) { ui.onAllNodes(match).fetchSemanticsNodes().size == 1 }
         val node = ui.onNode(match)
-        if (!node.isDisplayed() && ui.onAllNodes(match and hasAnyAncestor(hasScrollAction())).fetchSemanticsNodes().size == 1) node.performScrollTo()
+        if (ui.onAllNodes(match and hasAnyAncestor(hasScrollAction())).fetchSemanticsNodes().size == 1) node.performScrollTo()
         val remaining = deadline - SystemClock.elapsedRealtime()
         assertTrue("Visible confirmed action remains inside15seconds", remaining > 0)
         waitUntil(remaining) { node.isDisplayed() }

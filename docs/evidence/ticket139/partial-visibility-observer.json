@@ -1,0 +1,27 @@
+{
+  "ticket": 139,
+  "scope": "Public management-v3 observer correction only. No whole native or whole139 acceptance.",
+  "base": "42f318be3",
+  "failedSources": {
+    "source": "e62ecbd3332fabad3fd990eb214a2f4c0cada61f",
+    "runs": [
+      44667809366,
+      44667811262
+    ],
+    "actual": "Phase3 Add a channel layout48dp had only1px visible. Compose isDisplayed accepted a partial target, so the observer skipped the real scroll ancestor.",
+    "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-runtime/attempt10-RUN"
+  },
+  "correction": "All three scrollable-dialog helpers performScrollTo whenever their actual node has a scroll ancestor. Fixed footer nodes have no ancestor and are unchanged.",
+  "preserved": "Original5second actions/15second reads/combined27second editor and creation recovery; all48dp/full-layout/window geometry; all actual effects, lost receipts, faults, process kills and36captures.",
+  "reviews": {
+    "139-management-partial-visibility-spec-review.txt": {
+      "sha256": "6caf4418a39786566e46362370ab96d2fb30063f68602a1192dae9a74d700c16",
+      "findings": 0
+    },
+    "139-management-partial-visibility-standards-review.txt": {
+      "sha256": "706b85ca95cae5aa439961b556163afcff35451cf3a9f1ca695a56fb775cc540",
+      "findings": 0
+    }
+  },
+  "next": "Freeze prospective exact244core/92service catalogue for committed revocation foundation before fresh whole10/17. Uncommitted grant/history and app private UI excluded. All20prior failed whole parents stay failed."
+}
