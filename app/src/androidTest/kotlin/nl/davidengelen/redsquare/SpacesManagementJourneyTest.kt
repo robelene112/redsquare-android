@@ -315,7 +315,8 @@ class SpacesManagementJourneyTest {
         }
     }
 
-    private fun editorField(label: String) = ui.onNode(hasSetTextAction() and hasText(label) and hasAnyAncestor(isDialog()))
+    private fun editorField(label: String) = ui.onNode(
+        SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.EditableText) and hasText(label) and hasAnyAncestor(isDialog()))
     private fun editRows(value: JsonObject) = value.getAsJsonArray("originals").map { it.asJsonObject }.filter { it.get("kind").asString == "edit-channel" }
     private fun waitInformationName(name: String, timeout: Long = 15_000) = waitUntil(timeout) {
         ui.onNode(hasText("Community information") and hasAnyAncestor(isDialog())).isDisplayed() &&

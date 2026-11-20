@@ -148,3 +148,11 @@ retain the original goals. Prospective management-v3 adds real creation/recovery
 compact local-error dismissal and seven captures. Exact-source app/test compilation and three real host-process checks pass. Fresh
 complete10/17/visual acceptance remains required. Whole139 remains
 incomplete and beta142 stays unchanged.
+
+Sixth whole parents remain failed after the repaired Keep editing flow. Their
+readonly editor correctly shows retained fields, but the observer required an
+editing action that disabled fields intentionally omit. The [readonly-field observer correction](readonly-editor-observer-recovery.json)
+matches their actual EditableText property and retains text/disabled assertions
+and every management-v3 goal. Both source review axes are clear; fresh exact-source
+complete10/17 and visual verification remain required. Private-channel backend
+work in the implementation worktree is excluded from this observer-only source.

@@ -1,0 +1,78 @@
+{
+  "ticket": 139,
+  "scope": "Readonly editor observer correction only",
+  "base": "9792ce08aaa946be40b775967abdf4f8265619d7",
+  "sourceFile": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt",
+  "sourceSha256": "b157c52f2343e20672762f77af86b2971a9d55ca245b5c08269089f5607e1253",
+  "failedParents": [
+    {
+      "whole": "FAILURE",
+      "run": 44658413555,
+      "source": "9792ce08aaa946be40b775967abdf4f8265619d7",
+      "archiveSha256": "b4703e9b463bdebc38a885e9dcc8b73ced82239497f161cac722061970c664e4",
+      "apiDigestAndCrc": "PASS",
+      "modules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 84,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Phase3 progressed throughactualreopening, announcementarchive, editorrecreation, Keepediting productrepair andlostacceptededitreply. Pendingreadonlyeditorcorrectlyshowscommons/Projectsdisabled, buttesthelperrequiresSetTextAction andcannotfindreadonlyfields. OriginalPNG/XML independentlyreviewedbothaxes. MatcherEditableTextproperty+label+Dialogkeepsalltext/disabled/timing/geometryassertions. Wholeparentremainsfailed, no passingprefixacceptance.",
+      "actualKills": 2,
+      "nativeTerminalPasses": 0,
+      "cleanup": {
+        "originalFailure": "RuntimeError",
+        "errors": []
+      }
+    },
+    {
+      "whole": "FAILURE",
+      "run": 44658416513,
+      "source": "9792ce08aaa946be40b775967abdf4f8265619d7",
+      "archiveSha256": "409ae1ae719781dc0ceb2ef24550428caaa5a51d430ee8a18538d7bb48657563",
+      "apiDigestAndCrc": "PASS",
+      "modules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 84,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Phase3 progressed throughactualreopening, announcementarchive, editorrecreation, Keepediting productrepair andlostacceptededitreply. Pendingreadonlyeditorcorrectlyshowscommons/Projectsdisabled, buttesthelperrequiresSetTextAction andcannotfindreadonlyfields. OriginalPNG/XML independentlyreviewedbothaxes. MatcherEditableTextproperty+label+Dialogkeepsalltext/disabled/timing/geometryassertions. Wholeparentremainsfailed, no passingprefixacceptance.",
+      "actualKills": 2,
+      "nativeTerminalPasses": 0,
+      "cleanup": {
+        "originalFailure": "RuntimeError",
+        "errors": []
+      }
+    }
+  ],
+  "reviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-readonly-editor-observer-spec-review.txt",
+      "sha256": "39cf379100bd9a727a61a227870de331ef5f4624d47cd49d8dc3cf91fe5f5d08"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-readonly-editor-observer-standards-review.txt",
+      "sha256": "32c70ffa7d1850ecf6836c34077a8ef728a118ec4e96ca6d2808e946c028bf0e"
+    }
+  },
+  "qualification": "All management-v3 goals remain; exact-source compilation delegated to freshCI beforeemulator. Uncommittedrestrictedbackend notincluded. Freshwhole10/17+allframes/prototype/geometry required. No whole139/release acceptance; beta142 unchanged."
+}
