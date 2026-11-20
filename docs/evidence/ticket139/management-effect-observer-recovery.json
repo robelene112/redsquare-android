@@ -1,0 +1,81 @@
+{
+  "ticket": 139,
+  "scope": "Independent effect readiness and scoped canonical-name observer correction only",
+  "base": "017f1f44c50be3ae3f30aa4a041cf9e031d09208",
+  "sourceFile": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt",
+  "sourceSha256": "068460b9f82c0a03dd0b6850a6058710c581c19b224b71bb965c933f9bad2e58",
+  "failedParents": [
+    {
+      "whole": "FAILURE",
+      "run": 44660280619,
+      "source": "017f1f44c50be3ae3f30aa4a041cf9e031d09208",
+      "archiveSha256": "672c6f20bef636771b5a318fb5b282569c2ea5095a80e69a47a82eee057e23c7",
+      "apiDigestAndCrc": "PASS",
+      "modules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 84,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Phase3actualKeepeditingrepair andreadonlyreentry advanced; confirmededit retriedtwice, then canonicalInfo-name waitspentremaining11938msof27sbudget. OriginalPNGshowsInfoheading/topbody withchannelnamebelowviewport; originalpredicate requiredbothheadingandnamevisible. Newscopedstaticcaptionhelper scrollsactualnamewithinunchangedremainingdeadline, notthroughreadonlyinputorotherdialog.",
+      "actualKills": 2,
+      "nativeTerminalPasses": 0,
+      "cleanup": {
+        "originalFailure": "RuntimeError",
+        "errors": []
+      },
+      "qualification": "WholeFAIL remainsfailed. No prefixacceptance. Freshwhole10/17required, alloriginalgoalsunchanged."
+    },
+    {
+      "whole": "FAILURE",
+      "run": 44660283797,
+      "source": "017f1f44c50be3ae3f30aa4a041cf9e031d09208",
+      "archiveSha256": "afe49a617610690f9d310c75a5929a6a59579f69d0e124e0f4cb2ccec3416a31",
+      "apiDigestAndCrc": "PASS",
+      "modules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 84,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Phase1independentstatus containeddropped1butroleMEMBER, failingADMINassertionbeforecheckpoint. Fixturestatus refreshandlaterdroppedlist capturecanstraddleacceptance; actualmixedsnapshotobservation retained. Sameexisting5swaitnowawaitsbothdropandactualrole. Analogousarchive/edit/create effectawaits preserveoriginalpostconditions and5sdeadlines.",
+      "actualKills": 0,
+      "nativeTerminalPasses": 0,
+      "cleanup": {
+        "originalFailure": "RuntimeError",
+        "errors": []
+      },
+      "qualification": "WholeFAIL remainsfailed. No prefixacceptance. Freshwhole10/17required, alloriginalgoalsunchanged."
+    }
+  ],
+  "unchangedGoals": "Allmanagement-v3phases/captures/counts/48dp/1pixel/180s/5s/15s/27sdeadlines remain. Effectpredicates waitsame5s; scrollandcanonicalvisibilityshareoneoriginalabsolutedeadline.",
+  "reviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-management-effect-observer-spec-review.txt",
+      "sha256": "ade259fe585779f54fce559bf78c4f02ba526d6dbb67534a97e1321ca631546e"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-management-effect-observer-standards-review.txt",
+      "sha256": "000331280f04c168c87541c4a571bcdeb5a3925e66e62a25f3e9410a2a71a8f7"
+    }
+  },
+  "qualification": "Uncommittedprivatebackend excluded. ExactsourceCIcompilation precedesemulator. No whole139/nativevisual/release acceptance; ordinary beta142 unchanged."
+}

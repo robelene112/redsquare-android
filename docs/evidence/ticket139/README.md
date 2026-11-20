@@ -156,3 +156,11 @@ matches their actual EditableText property and retains text/disabled assertions
 and every management-v3 goal. Both source review axes are clear; fresh exact-source
 complete10/17 and visual verification remain required. Private-channel backend
 work in the implementation worktree is excluded from this observer-only source.
+
+Seventh whole parents remain failed. Android10 observed a dropped reply alongside
+an older independent role snapshot; the existing five-second wait now includes
+the actual effect. Android17 reached confirmed edit recovery but the canonical
+name was below the information viewport. The [effect/caption observer correction](management-effect-observer-recovery.json)
+scopes the static caption to its information dialog and scrolls it into view
+within the unchanged absolute deadline. Both axes are clear; fresh complete
+parents and full visual review remain required. Private backend work is excluded.

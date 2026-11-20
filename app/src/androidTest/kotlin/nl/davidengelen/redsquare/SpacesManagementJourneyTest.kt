@@ -86,7 +86,11 @@ class SpacesManagementJourneyTest {
             clickDialog("Make administrator")
             waitText("Waiting for confirmation.", 5_000)
             var received = JsonObject()
-            waitUntil(5_000) { received = status(); received.getAsJsonArray("dropped").size() == 1 }
+            waitUntil(5_000) {
+                received = status()
+                received.getAsJsonArray("dropped").size() == 1 &&
+                    received.getAsJsonObject("members").get(fixtures.get("member").asString).asString == "ADMIN"
+            }
             assertEquals("ADMIN", received.getAsJsonObject("members").get(fixtures.get("member").asString).asString)
             capture("03-role-awaiting-real-receipt")
             saveJson("role-pending-host.json", received)
@@ -117,7 +121,11 @@ class SpacesManagementJourneyTest {
             clickDialog("Archive channel")
             waitText("Waiting for confirmation.", 5_000)
             var received = JsonObject()
-            waitUntil(5_000) { received = status(); received.getAsJsonArray("dropped").size() == 2 }
+            waitUntil(5_000) {
+                received = status()
+                received.getAsJsonArray("dropped").size() == 2 &&
+                    received.getAsJsonObject("channels").getAsJsonObject(fixtures.get("workshop").asString).get("archived").asBoolean
+            }
             assertTrue(received.getAsJsonObject("channels").getAsJsonObject(fixtures.get("workshop").asString).get("archived").asBoolean)
             capture("06-child-archive-awaiting")
             device.pressBack(); chooseChannel("general")
@@ -256,7 +264,9 @@ class SpacesManagementJourneyTest {
         lateinit var received: JsonObject
         waitUntil(5_000) {
             received = status()
-            received.getAsJsonArray("dropped").size() == 4 && ui.onNode(hasText("Waiting for confirmation.") and hasAnyAncestor(isDialog())).isDisplayed()
+            received.getAsJsonArray("dropped").size() == 4 && received.getAsJsonObject("channels").entrySet().any {
+                it.value.asJsonObject.get("name").asString == "native-reading-room" && it.value.asJsonObject.get("category").asString == "Knowledge"
+            } && ui.onNode(hasText("Waiting for confirmation.") and hasAnyAncestor(isDialog())).isDisplayed()
         }
         val original = received.getAsJsonArray("dropped").last().asString
         val first = creationRows(received).filter { it.get("id").asString == original }
@@ -318,9 +328,16 @@ class SpacesManagementJourneyTest {
     private fun editorField(label: String) = ui.onNode(
         SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.EditableText) and hasText(label) and hasAnyAncestor(isDialog()))
     private fun editRows(value: JsonObject) = value.getAsJsonArray("originals").map { it.asJsonObject }.filter { it.get("kind").asString == "edit-channel" }
-    private fun waitInformationName(name: String, timeout: Long = 15_000) = waitUntil(timeout) {
-        ui.onNode(hasText("Community information") and hasAnyAncestor(isDialog())).isDisplayed() &&
-            ui.onNode(hasText(name) and !hasSetTextAction() and hasAnyAncestor(isDialog())).isDisplayed()
+    private fun waitInformationName(name: String, timeout: Long = 15_000) {
+        val deadline = SystemClock.elapsedRealtime() + timeout
+        val information = isDialog() and hasAnyDescendant(hasText(context.getString(R.string.spaces_information)))
+        val match = hasText(name) and !SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.EditableText) and hasAnyAncestor(information)
+        waitUntil(timeout) { ui.onAllNodes(match).fetchSemanticsNodes().size == 1 }
+        val node = ui.onNode(match)
+        if (!node.isDisplayed() && ui.onAllNodes(match and hasAnyAncestor(hasScrollAction())).fetchSemanticsNodes().size == 1) node.performScrollTo()
+        val remaining = deadline - SystemClock.elapsedRealtime()
+        assertTrue("Visible canonical name remains inside its original deadline", remaining > 0)
+        waitUntil(remaining) { node.isDisplayed() }
     }
     private fun restoreGeneralName(fixtures: JsonObject) {
         clickDialog("Edit channel")
@@ -347,7 +364,11 @@ class SpacesManagementJourneyTest {
         val recoveryDeadline = recoveryStarted + 27_000
         clickDialog("Save changes"); waitText("Waiting for confirmation.", 5_000)
         var received = JsonObject()
-        waitUntil(5_000) { received = status(); received.getAsJsonArray("dropped").size() == 3 }
+        waitUntil(5_000) {
+            received = status()
+            val general = received.getAsJsonObject("channels").getAsJsonObject(fixtures.get("general").asString)
+            received.getAsJsonArray("dropped").size() == 3 && general.get("name").asString == "commons" && general.get("category").asString == "Projects"
+        }
         val original = received.getAsJsonArray("dropped").last().asString
         val remote = received.getAsJsonObject("channels").getAsJsonObject(fixtures.get("general").asString)
         assertEquals("commons", remote.get("name").asString); assertEquals("Projects", remote.get("category").asString)
