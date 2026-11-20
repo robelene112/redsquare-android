@@ -202,3 +202,11 @@ The [private-channel UI source packet](private-channel-ui-source.json) records c
 The [authenticated-read reuse packet](authenticated-read-reuse.json) records both attempt11 failures and the bounded exact-envelope correction. Full246core/94service and both final source review axes pass. Actual15second first reading and complete public native acceptance remain unproven until fresh parents; all22previous failed parents remain failed. The actual created-channel observer is scoped to the selected switcher. Private native and remaining139 are still pending.
 
 The [first private-process harness source packet](private-process-harness-source.json) records four actual host-process checks and native compilation. Its future execution proves creation/process/local-fault behavior only; missing-key administration and genuine rejection UI remain mandatory pending139 coverage. Both public attempt12 parents remain failed at compact Manage role entry, with real scrolling and the original absolute5second budget retained. No native/private/whole139 acceptance is claimed here.
+
+## Private readiness and restoration follow-up
+
+The [source packet](private-readiness-source.json) records the separate actual-key
+readiness/rejection harness and corrections from the four failed97bb native
+parents. It retains the original failures and deadlines. Five real host modes
+pass; native Android execution, full-frame/prototype review and whole139 remain
+pending. This adds no release or production activation claim.

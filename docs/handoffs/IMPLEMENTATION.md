@@ -4,47 +4,39 @@
 ## Active139: community governance
 
 Implement137–147 sequentially under134 and approved native navigationB. Issues137
-and138 are accepted and closed. Issue139 is current and incomplete;140–147 have
-not started. Continue the authorized sequence without a checkpoint stop. Ordinary
-public beta142 remains unchanged.
+and138 are closed and accepted. Issue139 remains current and incomplete;
+140–147 have not started. Continue without a checkpoint stop. Public beta142
+is unchanged.
 
-Source implements channel archive/reopen, owner-only admin roles, public channel
-creation/editing, restricted private-child creation/admission, explicit grants and
-actual MLS revocation with durable exact-original recovery. Independent old keys
-cannot decrypt copied future ciphertext; pending readmission preserves past keys
-and obsolete admission terms cannot revive. Full246core/94service passes at
-`0ab2b46d785e16b0124734eb4e08591214e74ddc`. Private creation/member-selection and
-access-page source compile; bridge contracts and both pinned adapter rehearsals
-pass. No complete private UI or whole139 acceptance follows from source checks.
-See the [current139 evidence](../evidence/ticket139/README.md).
+The source supports public channel creation/editing, archive/reopen and owner-only
+administrator changes, plus restricted private-child creation, grants and actual
+MLS revocation. Independent old keys cannot read future ciphertext. Readmission
+preserves available past history and does not revive obsolete access requests.
+The last complete JVM check passes246core/94service. Later harness additions have
+separate affected checks and do not change that full-suite provenance.
 
-All24 public management native parents through attempt12 remain failed. Both last
-parents pass their normal three phases, including two actual kills and one native
-terminal case, but fail entering an offscreen compact role action. The correction
-scrolls the real control and retains the original absolute5second bound and every
-public management-v3 goal. No passing prefix is accepted. Fresh whole Android10/17
-parents and all-frame/prototype/geometry reviews are required.
+All26 public native parents through attempt13 and both first private-process
+parents remain failed. The latest failures expose premature member-list use after
+Activity restoration, transient unavailable-member UI, an offscreen compact-sheet
+observer and an action geometry race. Corrections preserve saved selections,
+wait for actual loaded rows/complete controls and retain the original deadlines.
+No passing prefix is accepted. Whole Android10/17 execution and complete-frame,
+prototype and geometry review remain necessary.
 
-The new private process slice has an isolated flag/fixture/folders,26 actual signed
-members, an independent reader and unauthorized member. Four host-process checks
-and instrumentation compilation pass. Its intended native coverage includes
-private selection/recreation,27second creation recovery, two actual kills,
-exact-original grants/revokes, encrypted reading, General draft/pixel continuity
-and normal/compact local save errors. Its prospective assessor explicitly leaves
-two mandatory native goals pending: administration without current device keys,
-and a genuine rejected change with visible recovery. The full original plan is
-unchanged. These need a separate actual scenario before private UI/139 completion.
+A separate private-readiness scenario uses a real independent key holder: a native
+reader is removed, then promoted to administrator while new key delivery is held.
+It exercises disabled removal, an actual policy-only grant, a genuine rejected
+change and explicit fresh-intent recovery, in normal and compact large-text UI.
+The readiness host startup and all five actual host-process cases pass. Native
+execution and acceptance remain pending. See the [current139 evidence](evidence/ticket139/README.md).
 
-Remaining139 includes explicit category management, private channel editing and
-legacy/general access, future-key exclusion for demotion and Space leave/remove/
-ban across affected groups, two-party ownership transfer, deliberate visibility
-transitions without publishing prior private history, and owner-only dissolution.
-Then continue140–147, including integrated regression and beta delivery.
-
+Remaining139 includes explicit categories, private channel editing and legacy
+General access, future-key exclusion on demotion and Space leave/remove/ban,
+two-party ownership transfer, deliberate visibility transitions without publishing
+prior private history and owner-only dissolution. Then continue140–147.
 No production node/provider activation, public development/financial writes or
-automatic community file hosting is implied. Legacy Chat E2E, Vault rental
-restoration, physical/OEM and Play acceptance retain their separate recorded
-limits. Keep1/36/55/84/86/105 open. Beta142 is unchanged.
+automatic file hosting is implied. Keep1/36/55/84/86/105 open; legacy Chat E2E,
+Vault rental restoration and physical/OEM/Play limits remain separately recorded.
 
 ## Accepted138, continue139
 

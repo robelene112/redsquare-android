@@ -22,15 +22,16 @@ import java.util.concurrent.atomic.AtomicBoolean
  * real service/SQLite/MLS and independent received effects; no public network. */
 object SpacesNativeHost {
     @JvmStatic fun main(args: Array<String>): Unit = runBlocking {
-        require(args.size in 1..2 && (args.size == 1 || args[1] in setOf("discovery-v1", "management-v1", "private-management-v1")))
+        require(args.size in 1..2 && (args.size == 1 || args[1] in setOf("discovery-v1", "management-v1", "private-management-v1", "private-readiness-v1")))
         val discoveryMode = args.getOrNull(1) == "discovery-v1"
         val managementMode = args.getOrNull(1) == "management-v1"
         val privateManagementMode = args.getOrNull(1) == "private-management-v1"
+        val privateReadinessMode = args.getOrNull(1) == "private-readiness-v1"
         val root = Path.of(args[0])
         require(Files.isDirectory(root) && !Files.exists(root.resolve("ready.json")))
         val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
         val guest = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
-        val managedMember = if (managementMode || privateManagementMode) SaitoWallet.fromPrivateKey("0".repeat(63) + "4") else null
+        val managedMember = if (managementMode || privateManagementMode || privateReadinessMode) SaitoWallet.fromPrivateKey("0".repeat(63) + "4") else null
         val clock = if (discoveryMode) SpacesDiscoveryFixture.AdvancingClock() else Clock.systemUTC()
         val stopping = AtomicBoolean()
         val lock = Mutex()
@@ -38,14 +39,15 @@ object SpacesNativeHost {
         val started = System.nanoTime()
         try { SpacesServiceStore(root.resolve("service"), service, clock).use { remote ->
             SqliteClientFixture(root.resolve("independent-client.sqlite").toString()).use { local ->
-                val managedLocal = if (managementMode || privateManagementMode) SqliteClientFixture(root.resolve("management-member.sqlite").toString()) else null
+                val managedLocal = if (managementMode || privateManagementMode || privateReadinessMode) SqliteClientFixture(root.resolve("management-member.sqlite").toString()) else null
                 managedLocal.use { memberStore ->
                     val client = SpaceClient(guest, "https://saito.davidengelen.nl", service.publicKey, local, clock) { remote.exchange(it.envelope()) }
                     val discovery = if (discoveryMode) SpacesDiscoveryFixture(client, clock as SpacesDiscoveryFixture.AdvancingClock).also { it.seed() } else null
                     val sent = mutableSetOf<String>()
                     var privateManagement: SpacesPrivateManagementFixture? = null
-                    val peer = ControlledFeedPeer("[]", advertisedServices = if (discoveryMode || managementMode || privateManagementMode) "archive||;spaces-v1||;spaces-directory-v1||;spaces-unread-v1||;spaces-channel-archive-v1||;spaces-role-management-v1||;spaces-public-channel-edit-v1||" + (if (privateManagementMode) ";spaces-private-channel-access-v1||" else "") else "archive||;spaces-v1||", peer = service,
-                        archiveResponse = { "[]" }, registryResponse = if (discoveryMode || managementMode || privateManagementMode) ({ criteria ->
+                    var privateReadiness: SpacesPrivateReadinessFixture? = null
+                    val peer = ControlledFeedPeer("[]", advertisedServices = if (discoveryMode || managementMode || privateManagementMode || privateReadinessMode) "archive||;spaces-v1||;spaces-directory-v1||;spaces-unread-v1||;spaces-channel-archive-v1||;spaces-role-management-v1||;spaces-public-channel-edit-v1||" + (if (privateManagementMode || privateReadinessMode) ";spaces-private-channel-access-v1||" else "") else "archive||;spaces-v1||", peer = service,
+                        archiveResponse = { "[]" }, registryResponse = if (discoveryMode || managementMode || privateManagementMode || privateReadinessMode) ({ criteria ->
                             JsonObject().apply {
                                 if (criteria.get("request")?.asString == "registry query" &&
                                     criteria.getAsJsonArray("keys").any { it.asString == guest.publicKey }) addProperty(guest.publicKey, "BuildersHost@saito")
@@ -54,6 +56,7 @@ object SpacesNativeHost {
                                 if (criteria.get("request")?.asString == "registry query") {
                                     val keys = criteria.getAsJsonArray("keys").map { it.asString }.toSet()
                                     privateManagement?.names?.forEach { (key, name) -> if (key in keys) addProperty(key, name) }
+                                    privateReadiness?.names?.forEach { (key, name) -> if (key in keys) addProperty(key, name) }
                                 }
                             }.toString()
                         }) else null)
@@ -62,7 +65,11 @@ object SpacesNativeHost {
                     if (privateManagementMode) privateManagement = SpacesPrivateManagementFixture(client,
                         SpaceClient(requireNotNull(managedMember), "https://saito.davidengelen.nl", service.publicKey,
                             requireNotNull(memberStore), clock) { remote.exchange(it.envelope()) }, peer, root, service, clock, remote).also { it.seed() }
-                    peer.spacesResponse = { remote.exchange(it.envelope()).also { _ -> discovery?.afterExchange(it) } }
+                    if (privateReadinessMode) privateReadiness = SpacesPrivateReadinessFixture(local,
+                        requireNotNull(memberStore), peer, root, service, clock, remote).also { it.seed() }
+                    peer.spacesResponse = { original ->
+                        privateReadiness?.exchangeFromPeer(original) ?: remote.exchange(original.envelope()).also { discovery?.afterExchange(original) }
+                    }
                     peer.start().use { socket ->
                         val control = HttpServer.create(InetSocketAddress("127.0.0.1", 0), 8)
                         control.executor = workers
@@ -124,6 +131,7 @@ object SpacesNativeHost {
                                         "/status" -> status(client, peer)
                                         else -> requireNotNull(management?.command(request.requestURI.path, body)
                                             ?: privateManagement?.command(request.requestURI.path, body)
+                                            ?: privateReadiness?.command(request.requestURI.path, body)
                                             ?: discovery?.command(request.requestURI.path, body)) { "Unknown owned fixture command" }
                                     }
                                 } }
@@ -146,7 +154,7 @@ object SpacesNativeHost {
                                 lock.withLock {
                                     // Private management has an explicit independent reader;
                                     // the legacy host must not publish or request an extra device.
-                                    if (!privateManagementMode) for (community in client.communities()) {
+                                    if (!privateManagementMode && !privateReadinessMode) for (community in client.communities()) {
                                         client.flush(community.id)
                                         client.refresh(community.id)
                                         if (client.community(community.id).joined) {

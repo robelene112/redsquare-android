@@ -22,10 +22,12 @@ class SpacesNativeHostTest {
     @Test(timeout = 45_000) fun theDiscoveryHostSeedsRealPublicPrivateAndUnlistedCommunitiesBeforeReadiness() = runHost("discovery-v1")
     @Test(timeout = 45_000) fun theManagementHostSeedsIndependentRolesAndNonemptyChannelHistoryBeforeReadiness() = runHost("management-v1")
     @Test(timeout = 45_000) fun thePrivateManagementHostSeedsARealLongRosterAndAnIndependentReader() = runHost("private-management-v1")
+    @Test(timeout = 45_000) fun theReadinessHostUsesARealIndependentKeyHolderBeforeNativeAdmission() = runHost("private-readiness-v1")
     private fun runHost(mode: String?) {
         val discovery = mode == "discovery-v1"
         val management = mode == "management-v1"
         val privateManagement = mode == "private-management-v1"
+        val privateReadiness = mode == "private-readiness-v1"
         val root = files.newFolder(mode ?: "host-start").toPath()
         val process = ProcessBuilder(Path.of(System.getProperty("java.home"), "bin/java").toString(),
             "-Djava.library.path=" + System.getProperty("java.library.path"),
@@ -54,7 +56,7 @@ class SpacesNativeHostTest {
                 return response.body()
             }
             val status = JsonParser.parseString(command("status")).asJsonObject
-            assertEquals(if (discovery) 5 else if (management || privateManagement) 1 else 0, status.getAsJsonArray("communities").size())
+            assertEquals(if (discovery) 5 else if (management || privateManagement || privateReadiness) 1 else 0, status.getAsJsonArray("communities").size())
             if (discovery) {
                 val fixtures = JsonParser.parseString(command("fixtures")).asJsonObject
                 assertEquals(setOf("public", "unlisted", "nonchat", "private", "expiring"), fixtures.keySet())
@@ -88,6 +90,19 @@ class SpacesNativeHostTest {
                 assertEquals(listOf(fixtures.get("general").asString), received.getAsJsonArray("outsiderChannels").map { it.asString })
                 assertEquals(0, received.getAsJsonArray("originals").size())
                 assertEquals(0, received.getAsJsonArray("dropped").size())
+            }
+            if (privateReadiness) {
+                val fixtures = JsonParser.parseString(command("readiness-fixtures")).asJsonObject
+                val received = JsonParser.parseString(command("readiness-status")).asJsonObject
+                assertEquals(fixtures.get("space").asString, received.get("space").asString)
+                assertEquals(6, received.getAsJsonObject("members").size())
+                assertEquals("OWNER", received.getAsJsonObject("members").get(fixtures.get("owner").asString).asString)
+                assertEquals("ADMIN", received.getAsJsonObject("members").get(fixtures.get("holder").asString).asString)
+                assertEquals("MEMBER", received.getAsJsonObject("members").get(fixtures.get("actor").asString).asString)
+                assertEquals(listOf(fixtures.get("holder").asString), received.getAsJsonArray("keyHolders").map { it.asString })
+                assertEquals(setOf(fixtures.get("actor").asString, fixtures.get("allowed").asString),
+                    received.getAsJsonArray("allowedMembers").map { it.asString }.toSet())
+                assertEquals(0, received.getAsJsonArray("originals").size())
             }
             command("stop")
             check(process.waitFor(10, TimeUnit.SECONDS)) { "Owned fixture did not stop" }

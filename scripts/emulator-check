@@ -268,7 +268,12 @@ verify_group_chat_native() {
 if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
     journey_options=()
     if [[ "${TEST_SCOPE:-full}" == spaces-journey-management* ]]; then
-        if [[ "${SPACES_PRIVATE_MANAGEMENT:-false}" == true ]]; then journey_options=(private-management-v1)
+        if [[ "${SPACES_PRIVATE_MANAGEMENT:-false}" == true ]]; then
+            case "${SPACES_PRIVATE_MANAGEMENT_CASE:-process}" in
+                process) journey_options=(private-management-v1) ;;
+                readiness) journey_options=(private-readiness-v1) ;;
+                *) echo 'Unknown private management case' >&2; exit 2 ;;
+            esac
         else journey_options=(management-v1); fi
     elif [[ "${TEST_SCOPE:-full}" == spaces-journey-discovery* ]]; then journey_options=(discovery-v1); fi
     python3 "$repo_dir/scripts/spaces-native-journey" "$evidence" "${journey_options[@]}"

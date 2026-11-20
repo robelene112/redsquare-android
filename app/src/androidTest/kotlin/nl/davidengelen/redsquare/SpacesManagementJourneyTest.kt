@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Process
 import android.os.SystemClock
 import androidx.compose.ui.test.*
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
@@ -40,11 +41,12 @@ class SpacesManagementJourneyTest {
     private fun port(name: String) = requireNotNull(arguments.getString(name)).toInt().also { require(it in 1024..65535) }
     private val device get() = UiDevice.getInstance(instrumentation)
     private val privateManagement get() = arguments.getString("spacesPrivateManagement") == "true"
-    private val evidenceLabel get() = if (privateManagement) "spaces-private-management" else "spaces-management"
+    private val privateReadiness get() = arguments.getString("spacesPrivateReadiness") == "true"
+    private val evidenceLabel get() = if (privateReadiness) "spaces-private-readiness" else if (privateManagement) "spaces-private-management" else "spaces-management"
     private val evidence get() = File(context.cacheDir, "$evidenceLabel-evidence").apply { mkdirs() }
     private val checkpoint get() = File(context.cacheDir, "$evidenceLabel-checkpoint.json")
     private val peerEndpoint get() = "ws://127.0.0.1:${port("spacesPeerPort")}/wsopen"
-    private val fixtureOwner get() = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+    private val fixtureOwner get() = SaitoWallet.fromPrivateKey("0".repeat(63) + if (privateReadiness) "5" else "3")
     private val fixtureService get() = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey
     private val saveError get() = context.getString(R.string.spaces_save_failed)
     private fun launch(link: String) = ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).apply {
@@ -53,6 +55,125 @@ class SpacesManagementJourneyTest {
         putExtra("feedOfficialPeerUrl", peerEndpoint)
         putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
     })
+
+    @Test fun waitingAdministratorCanGrantButCannotRemoveAndRecoversAnActuallyRejectedGrant() {
+        check(privateReadiness && arguments.getString("spacesDisposableBaseline") == "true")
+        val walletStore = AndroidWalletStore(context)
+        walletStore.replace(walletStore.loadOrCreate(), fixtureOwner)
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val fixtures = command("readiness-fixtures")
+        launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("readiness-normal-failure") }) {
+            waitText("Readiness General 17")
+            waitUntil { status().getAsJsonArray("joinRequests").size() > 0 }
+            command("readiness-admit-initial")
+            chooseChannel("readiness-room", fixtures.get("private").asString)
+            ui.onNode(hasSetTextAction()).performTextReplacement("This device cached the private channel")
+            val send = ui.onNodeWithContentDescription(context.getString(R.string.spaces_send))
+            waitUntil(15_000) { send.isDisplayed() && !send.fetchSemanticsNode().config.contains(androidx.compose.ui.semantics.SemanticsProperties.Disabled) }
+            send.clickReady()
+            waitUntil { status().getAsJsonArray("privateMessages").any { it.asString == "This device cached the private channel" } }
+            assertEquals(setOf(fixtures.get("holder").asString, fixtures.get("actor").asString),
+                status().getAsJsonArray("keyHolders").map { it.asString }.toSet())
+            capture("01-real-private-reading-before-removal")
+            command("readiness-revoke-and-promote")
+            activity.recreate()
+            waitText(context.getString(R.string.spaces_waiting_channel_keys))
+            openPrivateAccess()
+            readinessMember(fixtures, "allowed").assertIsOn().assertIsNotEnabled()
+            capture("02-waiting-keys-cannot-remove")
+            readinessMember(fixtures, "grant").assertIsOff().assertIsEnabled().clickReady()
+            waitUntil { status().getAsJsonArray("allowedMembers").any { it.asString == fixtures.get("grant").asString } }
+            readinessMember(fixtures, "grant").assertIsOn().assertIsNotEnabled()
+            assertReadinessKeys(fixtures)
+            capture("03-policy-granted-without-current-keys")
+            verifyReadinessRejection(fixtures, "normal")
+            saveReadinessCompletion("completed.json", "normal", fixtures)
+        } }
+    }
+
+    @Test fun compactWaitingAdministratorSeesARealRejectionAndExplicitlyRecovers() {
+        check(privateReadiness)
+        assertEquals(2f, context.resources.configuration.fontScale, .01f)
+        assertEquals(320, context.resources.configuration.screenWidthDp)
+        val fixtures = command("readiness-fixtures")
+        command("readiness-reset-retry")
+        launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("readiness-compact-failure") }) {
+            waitText(context.getString(R.string.spaces_waiting_channel_keys))
+            openPrivateAccess()
+            readinessMember(fixtures, "allowed").assertIsOn().assertIsNotEnabled()
+            capture("07-compact-waiting-keys-cannot-remove")
+            verifyReadinessRejection(fixtures, "compact")
+            saveReadinessCompletion("compact-completed.json", "compact", fixtures)
+        } }
+    }
+
+    private fun readinessMember(fixtures: JsonObject, member: String): SemanticsNodeInteraction {
+        val deadline = SystemClock.elapsedRealtime() + 15_000
+        val list = history()
+        val key = fixtures.get(member).asString
+        waitUntil(15_000) {
+            list.fetchSemanticsNode().config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.IndexForKey)?.invoke(key)?.let { it >= 0 } == true
+        }
+        list.performScrollToKey(key)
+        val target = ui.onNode(hasText(fixtures.get(member + "Name").asString) and
+            SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.ToggleableState) and onScreen)
+        val remaining = deadline - SystemClock.elapsedRealtime()
+        assertTrue("The actual member is visible inside15seconds", remaining > 0)
+        waitUntil(remaining) { target.isDisplayed() }
+        return target
+    }
+
+    private fun assertReadinessKeys(fixtures: JsonObject) {
+        val remote = status()
+        assertEquals("ADMIN", remote.getAsJsonObject("members").get(fixtures.get("actor").asString).asString)
+        assertEquals(listOf(fixtures.get("holder").asString), remote.getAsJsonArray("keyHolders").map { it.asString })
+        assertEquals(listOf("This device cached the private channel", "Future private content needs the new keys"),
+            remote.getAsJsonArray("privateMessages").map { it.asString })
+    }
+
+    private fun verifyReadinessRejection(fixtures: JsonObject, label: String) {
+        val before = status()
+        val rejectedBefore = before.getAsJsonArray("rejections").size()
+        val originalsBefore = before.getAsJsonArray("originals").size()
+        readinessMember(fixtures, "retry").assertIsOff().assertIsEnabled()
+        command("readiness-reject-next-grant")
+        readinessMember(fixtures, "retry").clickReady()
+        waitUntil(5_000) { status().getAsJsonArray("rejections").size() == rejectedBefore + 1 }
+        waitText(context.getString(R.string.spaces_management_rejected), 5_000)
+        readinessMember(fixtures, "retry").assertIsOff()
+        val rejected = status().getAsJsonArray("rejections").last().asJsonObject.get("id").asString
+        capture(if (label == "normal") "04-normal-rejected-visible" else "08-compact-rejected-visible")
+        val refresh = ui.onNode(hasText(context.getString(R.string.spaces_refresh_settings)) and hasClickAction())
+        refresh.performScrollTo().clickReady()
+        readinessMember(fixtures, "retry").assertIsOff().clickReady()
+        waitUntil { status().getAsJsonArray("allowedMembers").any { it.asString == fixtures.get("retry").asString } }
+        readinessMember(fixtures, "retry").assertIsOn().assertIsNotEnabled()
+        waitUntil(5_000) { !ui.onNodeWithText(context.getString(R.string.spaces_management_rejected)).isDisplayed() }
+        val remote = status()
+        val originals = remote.getAsJsonArray("originals").drop(originalsBefore).map { it.asJsonObject }
+        assertEquals(2, originals.size)
+        assertEquals(rejected, originals.first().get("id").asString)
+        assertNotEquals(rejected, originals.last().get("id").asString)
+        assertEquals(2, originals.map { it.get("sha256").asString }.distinct().size)
+        assertReadinessKeys(fixtures)
+        saveJson("$label-rejection-recovery.json", JsonObject().apply {
+            addProperty("pid", Process.myPid()); addProperty("actor", fixtures.get("actor").asString)
+            addProperty("space", fixtures.get("space").asString); addProperty("channel", fixtures.get("private").asString)
+            addProperty("rejectedOriginal", rejected); addProperty("freshOriginal", originals.last().get("id").asString)
+            add("originals", JsonArray().apply { originals.forEach(::add) })
+        })
+        capture(if (label == "normal") "05-normal-explicit-fresh-grant" else "09-compact-explicit-fresh-grant")
+    }
+
+    private fun saveReadinessCompletion(name: String, label: String, fixtures: JsonObject) {
+        assertReadinessKeys(fixtures)
+        saveJson("$label-host.json", status())
+        saveJson(name, JsonObject().apply {
+            addProperty("pid", Process.myPid()); addProperty("owner", AndroidWalletStore(context).loadExisting().publicKey)
+            addProperty("space", fixtures.get("space").asString); addProperty("channel", fixtures.get("private").asString)
+            addProperty("fontScale", context.resources.configuration.fontScale); addProperty("screenWidthDp", context.resources.configuration.screenWidthDp)
+        })
+    }
 
     @Test fun privateCreationRestoresSelectedMembersAndCheckpointsARealUnconfirmedRevocation() {
         check(privateManagement && arguments.getString("spacesDisposableBaseline") == "true" && !checkpoint.exists())
@@ -242,10 +363,17 @@ class SpacesManagementJourneyTest {
         val match = hasText(fixtures.get("memberName").asString) and
             SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.ToggleableState)
         val list = ui.onNode(hasScrollToNodeAction() and if (dialog) hasAnyAncestor(isDialog()) else !hasAnyAncestor(isDialog()) and onScreen)
+        val deadline = SystemClock.elapsedRealtime() + 15_000
+        val member = fixtures.get("member").asString
+        waitUntil(15_000) {
+            list.fetchSemanticsNode().config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.IndexForKey)?.invoke(member)?.let { it >= 0 } == true
+        }
         if (dialog) list.performScrollTo()
-        list.performScrollToKey(fixtures.get("member").asString)
+        list.performScrollToKey(member)
         val target = ui.onNode(match and if (dialog) hasAnyAncestor(isDialog()) else !hasAnyAncestor(isDialog()) and onScreen)
-        waitUntil { target.isDisplayed() }
+        val remaining = deadline - SystemClock.elapsedRealtime()
+        assertTrue("The restored member remains inside15seconds", remaining > 0)
+        waitUntil(remaining) { target.isDisplayed() }
         return target
     }
     private fun openPrivateAccess() { openInformation(); clickDialog(context.getString(R.string.spaces_channel_access)); waitText(context.getString(R.string.spaces_channel_access)) }
@@ -666,16 +794,26 @@ class SpacesManagementJourneyTest {
     }
     private fun dismissRole() { device.pressBack(); waitUntil(5_000) { !ui.onNode(hasText("Make administrator") and hasClickAction()).isDisplayed() } }
     private fun closeInformationIfPresent() {
-        waitUntil(5_000) { ui.onNode(hasText("Members") and hasClickAction() and hasAnyAncestor(isDialog())).isDisplayed() }
+        waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().size == 1 }
         device.pressBack()
         waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
     }
-    private fun chooseChannel(name: String) {
+    private fun chooseChannel(name: String, key: String? = null) {
         waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
         ui.onNodeWithContentDescription(context.getString(R.string.spaces_switch_channel)).clickReady()
         val list = ui.onNode(hasScrollToNodeAction() and hasAnyAncestor(SemanticsMatcher.expectValue(
             androidx.compose.ui.semantics.SemanticsProperties.PaneTitle, context.getString(R.string.spaces_navigation_panel))))
-        list.performScrollToNode(hasText(name) and hasClickAction())
+        if (key != null) {
+            val deadline = SystemClock.elapsedRealtime() + 15_000
+            waitUntil(15_000) {
+                list.fetchSemanticsNode().config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.IndexForKey)?.invoke(key)?.let { it >= 0 } == true
+            }
+            list.performScrollToKey(key)
+            val remaining = deadline - SystemClock.elapsedRealtime()
+            assertTrue("The authenticated channel appears inside15seconds", remaining > 0)
+            waitUntil(remaining) { drawerChannel(name).isDisplayed() }
+            assertTrue(SystemClock.elapsedRealtime() <= deadline)
+        } else list.performScrollToNode(hasText(name) and hasClickAction())
         drawerChannel(name).clickReady()
         waitUntil { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
     }
@@ -709,7 +847,21 @@ class SpacesManagementJourneyTest {
     private fun assertPixel(text: String, expected: Float) = assertEquals("Actual channel reading pixel is preserved", expected, pixel(text), 1f)
     private val onScreen get() = SemanticsMatcher("on-screen management route") { it.boundsInRoot.left >= 0 && it.boundsInRoot.top >= 0 && it.boundsInRoot.right > 0 }
     private fun SemanticsNodeInteraction.clickReady(timeout: Long = 5_000) {
-        waitUntil(timeout) { isDisplayed() && !fetchSemanticsNode().config.contains(androidx.compose.ui.semantics.SemanticsProperties.Disabled) }
+        val deadline = SystemClock.elapsedRealtime() + timeout
+        waitUntil(timeout) {
+            if (!isDisplayed()) false else fetchSemanticsNode().let { node ->
+                val bounds = node.boundsInRoot
+                val touch = node.touchBoundsInRoot
+                val density = node.layoutInfo.density.density
+                val root = generateSequence(node) { it.parent }.last().boundsInRoot
+                !node.config.contains(androidx.compose.ui.semantics.SemanticsProperties.Disabled) &&
+                    touch.height / density >= 47.5f && touch.width / density >= 47.5f &&
+                    node.size.height <= bounds.height + 1f && node.size.width <= bounds.width + 1f &&
+                    touch.left >= root.left - 1f && touch.top >= root.top - 1f &&
+                    touch.right <= root.right + 1f && touch.bottom <= root.bottom + 1f
+            }
+        }
+        assertTrue("The complete actionable control settles inside its original deadline", SystemClock.elapsedRealtime() <= deadline)
         val node = fetchSemanticsNode()
         val clipped = node.boundsInRoot
         val touch = node.touchBoundsInRoot
@@ -734,7 +886,7 @@ class SpacesManagementJourneyTest {
     private fun waitText(text: String, timeout: Long = 15_000) = waitUntil(timeout) { ui.onNode(hasText(text) and onScreen).isDisplayed() }
     private fun waitUntil(timeout: Long = 15_000, condition: () -> Boolean) = ui.waitUntil(timeout, condition)
     private fun capture(name: String) = captureNativeScreen(File(evidence, "$name.png"))
-    private fun status() = command(if (privateManagement) "private-management-status" else "management-status")
+    private fun status() = command(if (privateReadiness) "readiness-status" else if (privateManagement) "private-management-status" else "management-status")
     private fun savedDraft(fixtures: JsonObject, channel: String): String {
         val route = "${SaitoBackend.OWNER}:$peerEndpoint"
         val namespace = MessageDigest.getInstance("SHA-256")

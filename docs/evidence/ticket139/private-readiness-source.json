@@ -1,0 +1,75 @@
+{
+  "issue": 139,
+  "base": "97bb52296da5d1cd1d7f8cb3973f2d685d6a117c",
+  "scope": "Private readiness native harness and actual restoration/geometry corrections, source only until whole execution.",
+  "files": {
+    ".github/workflows/android-proof.yml": "aae6868b5785bf9a9cbcc346b871288fb25f13256813d4a2f88c8ee91dbb55c8",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "70e27fef447e7a3e2aaaf6031c4b5b25a502ee244ec0c0df7b187b5000db8de1",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesViewportConfigurationTest.kt": "14efb05500e176b6272d34f01ec281dd31d937a4f40380c2cb3aeec4b7ef9e39",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceChannelCreator.kt": "1313e39c7c62ea3ee7717ff7f72a69b00399cfa1b8dce3b2f9a4b2353e62f98f",
+    "scripts/emulator-check": "b33977252085d6047e03fc993d3c03ad7412de8b431e6748fa0ec12e1201e2eb",
+    "scripts/spaces-native-journey": "9a8577181f4a22f9b8d7a0b891ed5d5e7ebabfb1db0d6c7deb519262369dba5b",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost.kt": "fdf6d3b6b3939eb191fd5e4a42fca0d6cb58e923a9da1962a00abcf30af7ee09",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHostTest.kt": "80fe0e4285223475ee0c785c0a7ba53eeaeeb9fa1ad16caa168ee97249149a32",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesPrivateReadinessFixture.kt": "4565b7b6a44ea70c26be61c0ff6d6e40a5dac5cd6ab331c3b8777de58fb38ff0"
+  },
+  "changes": [
+    "Hydration does not claim saved selected members disappeared or offer their removal before an actual bound roster.",
+    "Actual recreated member keys and full actionable geometry settle within the existing15s content/5s action goals. Compact information dismissal does not depend on an offscreen Members action.",
+    "A separate native actor genuinely reads private content, is removed, then promoted to administrator without new keys. Only the independent holder retains current group keys.",
+    "The UI exercises disabled removal versus allowed policy-only grants, genuine service stale-head rejection and explicit fresh-intent recovery in normal and320dp/200percent text.",
+    "Two terminal readiness methods and two distinct native PIDs have no artificially interrupted case; first private-process slice retains its own two real kills.",
+    "Case selection is separate from process/public workflow scopes and retained in original artifacts."
+  ],
+  "failedParents": [
+    {
+      "run": 44678077487,
+      "scope": "public attempt13 SDK37 compact offscreen Members observer",
+      "whole": "FAIL",
+      "passingPrefixAccepted": false
+    },
+    {
+      "run": 44678079316,
+      "scope": "public attempt13 SDK29 zero clipped action bounds",
+      "whole": "FAIL",
+      "passingPrefixAccepted": false
+    },
+    {
+      "run": 44678081925,
+      "scope": "private process attempt1 SDK37 unhydrated member key",
+      "whole": "FAIL",
+      "passingPrefixAccepted": false
+    },
+    {
+      "run": 44678085140,
+      "scope": "private process attempt1 SDK29 unhydrated member key",
+      "whole": "FAIL",
+      "passingPrefixAccepted": false
+    }
+  ],
+  "checks": {
+    "readinessHostMissingMode": "Actual runtime RED preserved in139-readiness-native-host-red.log and red-originals.",
+    "readinessHostStartup": "PASS74s, targeted one actual host process.",
+    "allFiveHostModes": "PASS five actual process/HTTP cases,37.755s tests. Original XML in139-readiness-and-restoration-host-originals.",
+    "appMainCompilation": "PASS3m.",
+    "firstInstrumentationCompilation": "FAIL missing getOrNull import; compiler errors retained, not native regression evidence.",
+    "finalInstrumentationCompilation": "PASS main20s plus instrumentation2m49s,139-readiness-final-android-compile.log; existing deprecation warnings only.",
+    "syntax": "Python py_compile and bash -n PASS; no emulator acceptance.",
+    "logs": {
+      "139-readiness-native-host-red.log": "01516cc1b189b7cf1e9b73fcfd347858b8df657944b1f8a4af3c262427b64bee",
+      "139-readiness-native-host-green.log": "203a1deb0e7c43da212feaa78cc738a335b1e8f02cf33cff20c86b454434ef07",
+      "139-readiness-and-restoration-compile.log": "0aee54cc8d60e4f57655b49a9830e84776e33cc615d8c5920383cb44c9d772cb",
+      "139-readiness-final-android-compile.log": "028efd3a06f959ad7b4c09f23fc74e88aec638baa9acac3d884c0b07f07d8e28"
+    }
+  },
+  "reviews": {
+    "initialSourceSpec": "2P2, actual Android readiness and action budget; corrected, final recheck pending.",
+    "initialSourceStandards": "1P2 action budget and1P3 missing case artifact; corrected, final recheck pending.",
+    "initialProspectiveAssessorStandards": "1P2 unverified normal independent phase; now validates actual normal policy/key effects and original/rejection prefixes; final recheck pending.",
+    "initialProspectiveAssessorSpec": "0additional checker findings.",
+    "finalSourceSpec": "0remaining; actualdrawer15s and separateSendreadiness15s/click5s corrected.",
+    "finalSourceStandards": "0remaining; caseartifact retained and actionbudget corrected.",
+    "finalProspectiveAssessorStandards": "0remaining; actualnormalhost effects/receiptprefix validated."
+  },
+  "qualification": "No whole private UI, whole139, integrated regression or release acceptance. All26 public and2 private process failed parents remain failed. Prior last full246core/94service JVM result retains its earlier exact source. Next prospective whole catalogue246core/96service. Category/private editing/legacy access/demotion and Space departure rotations/transfer/visibility/dissolution plus140\u2013147 remain required. Beta142 and production node/provider state unchanged."
+}

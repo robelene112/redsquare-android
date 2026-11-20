@@ -8,6 +8,11 @@ on:
         description: Exercise the separate restricted-channel native journey within the management scopes
         type: boolean
         default: false
+      spaces_private_management_case:
+        description: Restricted-channel process recovery or key-readiness and rejection journey
+        type: choice
+        options: [process, readiness]
+        default: process
       runner_os:
         description: Standard x64 runner (alternate pool if the default is queued)
         type: choice
@@ -68,7 +73,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'source' }}${{ inputs.android17_16kb && '-16kb' || '' }}${{ inputs.spaces_private_management && '-private' || '' }}
+  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'source' }}${{ inputs.android17_16kb && '-16kb' || '' }}${{ inputs.spaces_private_management && format('-private-{0}', inputs.spaces_private_management_case || 'process') || '' }}
   cancel-in-progress: true
 jobs:
   native-proof:
@@ -80,6 +85,7 @@ jobs:
     runs-on: ${{ inputs.runner_os || 'ubuntu-24.04' }}
     env:
       SPACES_PRIVATE_MANAGEMENT: ${{ inputs.spaces_private_management && 'true' || 'false' }}
+      SPACES_PRIVATE_MANAGEMENT_CASE: ${{ inputs.spaces_private_management_case || 'process' }}
     # Allow the expanded complete catalog plus SDK/tool provisioning to finish.
     # Individual native, host-process and UI deadlines remain in emulator-check.
     timeout-minutes: ${{ (inputs.scope == 'full' || startsWith(inputs.scope, 'full-')) && 120 || 60 }}
@@ -131,6 +137,7 @@ jobs:
           mkdir -p .scratch
           git rev-parse HEAD | tee .scratch/proof-source.txt
           printf '%s\n' "$SPACES_PRIVATE_MANAGEMENT" > .scratch/proof-private-management.txt
+          printf '%s\n' "$SPACES_PRIVATE_MANAGEMENT_CASE" > .scratch/proof-private-management-case.txt
           printf '%s\n' "$PROOF_WORKFLOW_SHA" | tee .scratch/proof-workflow.txt
           printf '%s\n' "$PROOF_RUNNER" | tee .scratch/proof-runner.txt
       - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
@@ -348,6 +355,7 @@ jobs:
             .scratch/proof-source.txt
             .scratch/proof-workflow.txt
             .scratch/proof-private-management.txt
+            .scratch/proof-private-management-case.txt
             .scratch/proof-runner.txt
             .scratch/device-evidence/
             core/build/reports/tests/

@@ -71,15 +71,16 @@ import nl.davidengelen.redsquare.ui.DesignSheet
 @Composable internal fun SpaceChannelCreationSheet(editor: SpaceChannelCreatorState, account: SpacesAccount,
     state: SpacesAccount.State, onClosed: () -> Unit, onCreated: suspend (String, String) -> Boolean) {
     val bound = editor.matches(account, state)
+    val rosterReady = bound && !state.loading && !state.loadingChannel && state.current != null
     val change = state.channelCreation?.takeIf { bound }
     val pending = change?.status in setOf(SpaceClient.ChangeStatus.QUEUED, SpaceClient.ChangeStatus.AWAITING_CONFIRMATION)
-    val authorized = bound && state.current?.joined == true && state.discoverySupported == true &&
+    val authorized = rosterReady && state.current?.joined == true && state.discoverySupported == true &&
         state.members.any { it.publicKey == account.ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) }
     val nameLong = editor.name.trim().toByteArray(Charsets.UTF_8).size > 128
     val categoryLong = editor.category.trim().toByteArray(Charsets.UTF_8).size > 128
     val desired = if (editor.name.isBlank() || nameLong || categoryLong) null
         else SpaceChannelProfile(editor.name.trim(), editor.kind, editor.category.trim())
-    val missingMembers = editor.members - state.members.map { it.publicKey }.toSet()
+    val missingMembers = if (rosterReady) editor.members - state.members.map { it.publicKey }.toSet() else emptySet()
     val chosenMembers = if (editor.restricted) editor.members else null
     val created = change?.takeIf { editor.submitting && it.id != editor.previousAttempt &&
         it.status == SpaceClient.ChangeStatus.ACCEPTED && it.profile == desired && it.privateMembers == chosenMembers && state.channels.any { channel -> channel.id == it.channelId } }
@@ -145,8 +146,8 @@ import nl.davidengelen.redsquare.ui.DesignSheet
             label = { Text(stringResource(R.string.spaces_category_optional)) }, singleLine = true, enabled = editor.open && !locked,
             isError = categoryLong, supportingText = if (categoryLong) ({ Text(stringResource(R.string.spaces_category_long)) }) else null,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done), keyboardActions = KeyboardActions(onDone = { focus.clearFocus(); keyboard?.hide() }))
-        if (state.privateChannelAccessSupported) {
-            Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).toggleable(editor.restricted, enabled = editor.open && !locked,
+        if (state.privateChannelAccessSupported || editor.restricted) {
+            Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).toggleable(editor.restricted, enabled = editor.open && !locked && rosterReady && state.privateChannelAccessSupported,
                 role = Role.Checkbox, onValueChange = { editor.restricted = it }), verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -154,29 +155,30 @@ import nl.davidengelen.redsquare.ui.DesignSheet
                     Text(stringResource(if (editor.restricted) R.string.spaces_channel_restricted_detail else R.string.spaces_channel_usual_visibility),
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
-                Checkbox(editor.restricted, null, enabled = editor.open && !locked)
+                Checkbox(editor.restricted, null, enabled = editor.open && !locked && rosterReady && state.privateChannelAccessSupported)
             }
             androidx.compose.animation.AnimatedVisibility(editor.restricted) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(stringResource(R.string.spaces_choose_channel_members), style = MaterialTheme.typography.titleSmall)
+                    if (!rosterReady) Text(stringResource(R.string.spaces_loading_members), color = MaterialTheme.colorScheme.onSurfaceVariant)
                     if (missingMembers.isNotEmpty()) TextButton(onClick = { editor.members = editor.members - missingMembers },
                         enabled = !locked, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_remove_unavailable_members)) }
                     LazyColumn(Modifier.fillMaxWidth().heightIn(max = 240.dp)) {
                         items(state.members.filter { it.role == SpaceRole.MEMBER }, key = { it.publicKey }) { member ->
                             val selected = member.publicKey in editor.members
-                            Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).toggleable(selected, enabled = editor.open && !locked,
+                            Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).toggleable(selected, enabled = editor.open && !locked && rosterReady,
                                 role = Role.Checkbox, onValueChange = { checked -> editor.members = if (checked)
                                     editor.members + member.publicKey else editor.members - member.publicKey }),
                                 verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                                 Text(registeredIdentity(member.publicKey).name, Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
-                                Checkbox(selected, null, enabled = editor.open && !locked)
+                                Checkbox(selected, null, enabled = editor.open && !locked && rosterReady)
                             }
                         }
                     }
                 }
             }
         }
-        if (!authorized) Text(stringResource(R.string.spaces_edit_access_changed), color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (rosterReady && !authorized) Text(stringResource(R.string.spaces_edit_access_changed), color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
     if (editor.discard && editor.open && bound) AlertDialog(onDismissRequest = { editor.discard = false },
         title = { Text(stringResource(R.string.spaces_discard_channel_title)) }, text = { Text(stringResource(R.string.spaces_discard_channel_detail)) },
