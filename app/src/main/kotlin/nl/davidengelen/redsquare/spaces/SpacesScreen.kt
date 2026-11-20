@@ -93,6 +93,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     var informationOpen by remember { mutableStateOf(false) }
     var informationHidden by remember { mutableStateOf(true) }
     var channelEditorPending by rememberSaveable { mutableStateOf(false) }
+    var categoryEditorPending by rememberSaveable { mutableStateOf(false) }
+    val categoryEditor = rememberSaveable(saver = SpaceCategoryEditorState.Saver) { SpaceCategoryEditorState() }
     val channelEditor = rememberSaveable(saver = SpaceChannelEditorState.Saver) { SpaceChannelEditorState() }
     val channelCreator = rememberSaveable(saver = SpaceChannelCreatorState.Saver) { SpaceChannelCreatorState() }
     var membersOpen by rememberSaveable { mutableStateOf(false) }
@@ -133,11 +135,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         // Selection is immediate; the panel keeps its rows until its exit ends.
         if (drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed)
             closingDrawerContent = closingDrawerContent ?: state
-        channelEditorPending = false; channelEditor.open = false; channelCreator.open = false; channelAccessRoute = null
+        categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false; channelCreator.open = false; channelAccessRoute = null
         savedSelection = space; account.select(space, channel); tab = SpacesTab.MY_SPACES
         scope.launch { drawer.close() }
     }
-    fun selectTab(target: SpacesTab) { channelEditorPending = false; channelEditor.open = false; channelCreator.open = false; channelAccessRoute = null; account.select(null); savedSelection = null; tab = target }
+    fun selectTab(target: SpacesTab) { categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false; channelCreator.open = false; channelAccessRoute = null; account.select(null); savedSelection = null; tab = target }
     LaunchedEffect(account, state.ready, state.loading) {
         // A verified public visitor has local context without My Spaces membership.
         if (state.ready && !state.loading && state.selected == null && savedSelection != null) account.select(savedSelection)
@@ -152,7 +154,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     LaunchedEffect(initialInvitation, state.ready, state.loading, state.working) {
         val link = initialInvitation ?: return@LaunchedEffect
         if (state.loading || !state.ready || state.working) return@LaunchedEffect
-        channelEditorPending = false; channelEditor.open = false
+        categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false
         channelCreator.open = false; channelAccessRoute = null
         informationOpen = false; inviteOpen = false; membersOpen = false; publicRulesOpen = false
         clearInvitationReview()
@@ -190,9 +192,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     }
                     if (menuCommunity != null) {
                         item { HorizontalDivider(Modifier.padding(vertical = 12.dp)); Text(menuCommunity.name, style = MaterialTheme.typography.titleLarge) }
-                        val groups = menuState.channels.groupBy { it.profile.category }
+                        val groups = menuState.channels.groupBy { it.categoryId?.let { id -> "id:$id" } ?: "label:${it.profile.category}" }
                         groups.forEach { (category, channels) ->
-                            item(key = "category:$category") { Text(category.ifBlank { stringResource(R.string.spaces_channels) },
+                            item(key = "category:$category") { Text(channels.first().profile.category.ifBlank { stringResource(R.string.spaces_channels) },
                                 style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.semantics { heading() }) }
                             items(channels, key = { it.id }) { entry ->
@@ -468,6 +470,15 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             }
         }
     }
+    LaunchedEffect(categoryEditorPending, informationHidden, state.ready, state.loading, state.loadingChannel, state.selected, account) {
+        if (categoryEditorPending && informationHidden) {
+            if (categoryEditor.owner != account.ownerKey || categoryEditor.node != account.backend.webUrl) categoryEditorPending = false
+            else if (state.ready && !state.loading && !state.loadingChannel && state.selected != null) {
+                categoryEditorPending = false
+                if (categoryEditor.matches(account, state)) categoryEditor.open = true
+            }
+        }
+    }
     DesignSheet(informationOpen && selected != null, stringResource(R.string.spaces_information), { informationOpen = false }, onHidden = {
         informationHidden = true
     }) { first ->
@@ -520,6 +531,15 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     focusManager.clearFocus(); keyboardController?.hide()
                     channelCreator.show(account, selected.id, state.channelCreation); informationOpen = false
                 }, enabled = !state.working, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_add_channel)) }
+            if (selected.joined && state.categoriesSupported && state.members.any {
+                it.publicKey == account.ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
+            }) OutlinedButton(onClick = {
+                focusManager.clearFocus(); keyboardController?.hide()
+                categoryEditor.show(account, state); categoryEditor.open = false; categoryEditorPending = true
+                informationOpen = false
+            }, enabled = !state.working, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                Text(stringResource(R.string.spaces_categories))
+            }
             channel?.let { chosen -> SpaceChannelManagement(account, state, chosen, onAccess = {
                 focusManager.clearFocus(); keyboardController?.hide()
                 informationOpen = false; channelAccessRoute = "${selected.id}:${chosen.id}"
@@ -535,6 +555,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             TextButton(onClick = { informationOpen = false }, modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_close)) }
         }
     }
+    SpaceCategorySheet(categoryEditor, account, state) { informationOpen = true }
     SpaceChannelEditSheet(channelEditor, account, state) { informationOpen = true }
     SpaceChannelCreationSheet(channelCreator, account, state, { informationOpen = true }, { space, channelId ->
         val commit: suspend () -> Boolean = {

@@ -41,9 +41,10 @@ class SpacesManagementJourneyTest {
     private val arguments get() = InstrumentationRegistry.getArguments()
     private fun port(name: String) = requireNotNull(arguments.getString(name)).toInt().also { require(it in 1024..65535) }
     private val device get() = UiDevice.getInstance(instrumentation)
+    private val categoryManagement get() = arguments.getString("spacesCategoryManagement") == "true"
     private val privateManagement get() = arguments.getString("spacesPrivateManagement") == "true"
     private val privateReadiness get() = arguments.getString("spacesPrivateReadiness") == "true"
-    private val evidenceLabel get() = if (privateReadiness) "spaces-private-readiness" else if (privateManagement) "spaces-private-management" else "spaces-management"
+    private val evidenceLabel get() = if (categoryManagement) "spaces-category-management" else if (privateReadiness) "spaces-private-readiness" else if (privateManagement) "spaces-private-management" else "spaces-management"
     private val evidence get() = File(context.cacheDir, "$evidenceLabel-evidence").apply { mkdirs() }
     private val checkpoint get() = File(context.cacheDir, "$evidenceLabel-checkpoint.json")
     private val peerEndpoint get() = "ws://127.0.0.1:${port("spacesPeerPort")}/wsopen"
@@ -56,6 +57,220 @@ class SpacesManagementJourneyTest {
         putExtra("feedOfficialPeerUrl", peerEndpoint)
         putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
     })
+
+    @Test fun categoryEditorRestoresItsDraftAndRecoversAnActuallyUnconfirmedCreation() {
+        check(categoryManagement && arguments.getString("spacesDisposableBaseline") == "true")
+        val walletStore = AndroidWalletStore(context)
+        walletStore.replace(walletStore.loadOrCreate(), fixtureOwner)
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val fixtures = command("management-fixtures")
+        launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("category-normal-failure") }) {
+            waitText("Management message 17")
+            ui.onNode(hasSetTextAction()).performTextReplacement("Keep the category-management channel draft")
+            closeKeyboard()
+            history().performScrollToNode(hasText("Management message 5"))
+            val readingPixel = pixel("Management message 5")
+            saveJson("category-reading-before.json", JsonObject().apply { addProperty("pixel", readingPixel) })
+            openCategories()
+            clickDialog(context.getString(R.string.spaces_create_category))
+            val label = context.getString(R.string.spaces_category_name)
+            editorField(label).performScrollTo().performTextReplacement("A category draft survives recreation")
+            capture("01-category-draft")
+            activity.recreate()
+            waitUntil { editorField(label).isDisplayed() &&
+                editorField(label).fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text == "A category draft survives recreation" }
+            capture("02-category-draft-restored")
+            closeKeyboard()
+            withWriteFailure(activity, fixtures, "category-normal") {
+                clickDialog(context.getString(R.string.spaces_save_category))
+                waitDialogError()
+                assertEquals(0, status().getAsJsonArray("originals").size())
+                capture("03-category-local-error")
+                dismissCategorySaveError()
+                capture("04-category-error-dismissed-editable")
+            }
+        } }
+        launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("category-creation-failure") }) {
+            waitText("Management message 5")
+            val reading = JsonParser.parseString(File(evidence, "category-reading-before.json").readText()).asJsonObject
+            assertPixel("Management message 5", reading.get("pixel").asFloat)
+            openCategories(); clickDialog(context.getString(R.string.spaces_create_category))
+            editorField(context.getString(R.string.spaces_category_name)).performScrollTo().performTextReplacement("Native conversations")
+            closeKeyboard()
+            command("management-drop-next", JsonObject().apply { addProperty("kind", "create-category") })
+            val started = SystemClock.elapsedRealtime()
+            clickDialog(context.getString(R.string.spaces_save_category))
+            waitText(context.getString(R.string.spaces_management_awaiting), 5_000)
+            waitUntil(5_000) { status().getAsJsonObject("categories").size() == 1 && status().getAsJsonArray("dropped").size() == 1 }
+            val pending = status(); val original = pending.getAsJsonArray("dropped").single().asString
+            capture("05-category-creation-pending")
+            clickDialog(context.getString(R.string.spaces_back_to_categories))
+            waitUntil(5_000) { ui.onNode(hasText(context.getString(R.string.spaces_categories)) and !hasClickAction() and hasAnyAncestor(isDialog())).isDisplayed() }
+            ui.onNodeWithText(context.getString(R.string.spaces_discard_category_title)).assertDoesNotExist()
+            capture("06-category-pending-back-without-discard")
+            clickDialog(context.getString(R.string.spaces_close))
+            clickDialog(context.getString(R.string.spaces_categories))
+            waitUntil(5_000) { editorField(context.getString(R.string.spaces_category_name)).isDisplayed() }
+            capture("07-category-pending-reentry")
+            awaitCategoryOriginal(original, "create-category", "Native conversations", started)
+            val received = status()
+            val category = received.getAsJsonObject("categories").entrySet().single().key
+            saveJson("category-creation-recovery.json", JsonObject().apply {
+                addProperty("pid", Process.myPid()); addProperty("original", original); addProperty("category", category)
+                addProperty("elapsedMs", SystemClock.elapsedRealtime() - started); add("host", received)
+            })
+            capture("08-category-created-once")
+            clickDialog(context.getString(R.string.spaces_close))
+            openChannelEditor()
+            clickDialog("Native conversations")
+            clickDialog(context.getString(R.string.spaces_save_channel))
+            waitUntil { status().getAsJsonObject("channels").getAsJsonObject(fixtures.get("general").asString).get("categoryId")?.asString == category }
+            waitInformationName("general")
+            capture("09-category-chosen-for-existing-channel")
+            clickDialog(context.getString(R.string.spaces_close))
+            waitText("Management message 5")
+            assertPixel("Management message 5", reading.get("pixel").asFloat)
+            assertCategoryDrawer(fixtures, category, "Native conversations", "normal")
+            ui.onNode(hasSetTextAction() and hasText("Keep the category-management channel draft")).assertIsDisplayed()
+            saveCompletion("completed.json", fixtures)
+        } }
+    }
+
+    @Test fun compactCategoryEditorKeepsItsRealImeAndSaveRecoveryReachable() {
+        check(categoryManagement)
+        assertEquals(2f, context.resources.configuration.fontScale, .01f)
+        assertEquals(320, context.resources.configuration.screenWidthDp)
+        val fixtures = command("management-fixtures")
+        val label = context.getString(R.string.spaces_category_name)
+        launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("category-compact-failure") }) {
+            waitText("Management message 5")
+            openCategories(); clickDialog("Native conversations")
+            editorField(label).performScrollTo().performTextReplacement("Compact community conversations")
+            assertFocusedFieldVisible(label, "Compact community conversations")
+            capture("10-compact-category-real-ime")
+            activity.recreate()
+            waitUntil { editorField(label).isDisplayed() &&
+                editorField(label).fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text == "Compact community conversations" }
+            editorField(label).performClick()
+            assertFocusedFieldVisible(label, "Compact community conversations")
+            capture("11-compact-category-restored")
+            editorField(label).performScrollTo().performTextReplacement("C".repeat(129))
+            ui.onNode(hasText(context.getString(R.string.spaces_save_category)) and hasClickAction() and hasAnyAncestor(isDialog())).assertIsNotEnabled()
+            capture("12-compact-category-length-validation")
+            editorField(label).performScrollTo().performTextReplacement("Compact community conversations")
+            closeKeyboard()
+            val before = status().getAsJsonArray("originals").size()
+            withWriteFailure(activity, fixtures, "category-compact") {
+                clickDialog(context.getString(R.string.spaces_save_category))
+                waitDialogError(); assertEquals(before, status().getAsJsonArray("originals").size())
+                capture("13-compact-category-local-error")
+                dismissCategorySaveError()
+                capture("14-compact-category-error-dismissed-editable")
+            }
+        } }
+        launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("category-rename-failure") }) {
+            waitText("Management message 5")
+            openCategories(); clickDialog("Native conversations")
+            editorField(label).performScrollTo().performTextReplacement("Compact community conversations")
+            closeKeyboard()
+            command("management-drop-next", JsonObject().apply { addProperty("kind", "edit-category") })
+            val started = SystemClock.elapsedRealtime()
+            clickDialog(context.getString(R.string.spaces_save_category))
+            waitText(context.getString(R.string.spaces_management_awaiting), 5_000)
+            waitUntil(5_000) { status().getAsJsonArray("dropped").size() == 2 }
+            val original = status().getAsJsonArray("dropped").last().asString
+            capture("15-compact-category-rename-pending")
+            awaitCategoryOriginal(original, "edit-category", "Compact community conversations", started)
+            val received = status()
+            val category = received.getAsJsonObject("categories").entrySet().single()
+            assertEquals("Compact community conversations", category.value.asJsonObject.get("name").asString)
+            assertEquals(category.key, received.getAsJsonObject("channels").getAsJsonObject(fixtures.get("general").asString).get("categoryId").asString)
+            assertEquals("Compact community conversations", received.getAsJsonObject("channels").getAsJsonObject(fixtures.get("general").asString).get("category").asString)
+            saveJson("category-rename-recovery.json", JsonObject().apply {
+                addProperty("pid", Process.myPid()); addProperty("original", original); addProperty("category", category.key)
+                addProperty("elapsedMs", SystemClock.elapsedRealtime() - started); add("host", received)
+            })
+            capture("16-compact-category-renamed-in-place")
+            clickDialog(context.getString(R.string.spaces_close)); clickDialog(context.getString(R.string.spaces_close))
+            waitText("Management message 5")
+            assertCategoryDrawer(fixtures, category.key, "Compact community conversations", "compact")
+            ui.onNode(hasSetTextAction() and hasText("Keep the category-management channel draft")).assertIsDisplayed()
+            saveCompletion("compact-completed.json", fixtures)
+        } }
+    }
+
+    private fun openCategories() { openInformation(); clickDialog(context.getString(R.string.spaces_categories)) }
+    private fun dismissCategorySaveError() {
+        val deadline = SystemClock.elapsedRealtime() + 5_000
+        val closeMatch = hasText(context.getString(R.string.spaces_close)) and hasClickAction() and hasAnyAncestor(isDialog())
+        waitUntil(5_000) { ui.onAllNodes(closeMatch).fetchSemanticsNodes().size == 1 }
+        var remaining = deadline - SystemClock.elapsedRealtime()
+        assertTrue("The actual error dismissal stays inside5seconds", remaining > 0)
+        ui.onNode(closeMatch).clickReady(remaining, scrollIntoView = true)
+        val save = ui.onNode(hasText(context.getString(R.string.spaces_save_category)) and hasClickAction() and hasAnyAncestor(isDialog()))
+        remaining = deadline - SystemClock.elapsedRealtime()
+        assertTrue("Error disappearance and editability share the same5second budget", remaining > 0)
+        waitUntil(remaining) {
+            !ui.onNode(hasText(saveError) and hasAnyAncestor(isDialog())).isDisplayed() && save.isDisplayed() &&
+                !save.fetchSemanticsNode().config.contains(androidx.compose.ui.semantics.SemanticsProperties.Disabled)
+        }
+        save.assertIsEnabled()
+        assertTrue(SystemClock.elapsedRealtime() <= deadline)
+    }
+    private fun assertCategoryDrawer(fixtures: JsonObject, category: String, name: String, label: String) {
+        val started = SystemClock.elapsedRealtime()
+        val deadline = started + 15_000
+        waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
+        ui.onNodeWithContentDescription(context.getString(R.string.spaces_switch_channel)).clickReady()
+        val pane = SemanticsMatcher.expectValue(androidx.compose.ui.semantics.SemanticsProperties.PaneTitle,
+            context.getString(R.string.spaces_navigation_panel))
+        val list = ui.onNode(hasScrollToNodeAction() and hasAnyAncestor(pane))
+        val headingKey = "category:id:$category"
+        val channel = fixtures.get("general").asString
+        var remaining = deadline - SystemClock.elapsedRealtime()
+        assertTrue("The canonical category drawer stays inside15seconds", remaining > 0)
+        waitUntil(remaining) {
+            val index = list.fetchSemanticsNode().config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.IndexForKey)
+            index?.invoke(headingKey)?.let { it >= 0 } == true && index.invoke(channel)?.let { it >= 0 } == true
+        }
+        list.performScrollToKey(headingKey)
+        val heading = ui.onNode(hasText(name) and hasAnyAncestor(pane))
+        val general = drawerChannel("general")
+        remaining = deadline - SystemClock.elapsedRealtime()
+        assertTrue("Native heading and General become visible inside the same15seconds", remaining > 0)
+        waitUntil(remaining) { heading.isDisplayed() && general.isDisplayed() }
+        val index = list.fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.IndexForKey]
+        val headingIndex = requireNotNull(index(headingKey)); val channelIndex = requireNotNull(index(channel))
+        assertEquals("The same General channel remains immediately under its canonical category heading", headingIndex + 1, channelIndex)
+        val headingNode = heading.fetchSemanticsNode(); val channelNode = general.fetchSemanticsNode()
+        val headingBounds = headingNode.boundsInRoot; val channelBounds = channelNode.boundsInRoot
+        assertTrue(channelBounds.top >= headingBounds.bottom - 1f)
+        for (node in listOf(headingNode, channelNode)) {
+            assertTrue(node.size.width <= node.boundsInRoot.width + 1f && node.size.height <= node.boundsInRoot.height + 1f)
+        }
+        assertTrue(SystemClock.elapsedRealtime() <= deadline)
+        saveJson("category-drawer-$label.json", JsonObject().apply {
+            addProperty("pid", Process.myPid()); addProperty("category", category); addProperty("channel", channel)
+            addProperty("renderedHeading", headingNode.config[androidx.compose.ui.semantics.SemanticsProperties.Text].joinToString("\n") { it.text })
+            addProperty("renderedChannel", channelNode.config[androidx.compose.ui.semantics.SemanticsProperties.Text].joinToString("\n") { it.text })
+            addProperty("headingIndex", headingIndex); addProperty("channelIndex", channelIndex)
+            addProperty("headingBottom", headingBounds.bottom); addProperty("channelTop", channelBounds.top)
+            addProperty("elapsedMs", SystemClock.elapsedRealtime() - started)
+        })
+        capture(if (label == "normal") "09b-category-native-drawer" else "17-compact-category-native-drawer")
+        general.clickReady()
+        waitText("Management message 5")
+    }
+    private fun awaitCategoryOriginal(original: String, kind: String, name: String, started: Long) {
+        val remaining = 27_000 - (SystemClock.elapsedRealtime() - started)
+        assertTrue("Category recovery stays inside the existing27second budget", remaining > 0)
+        waitUntil(remaining) {
+            val rows = status().getAsJsonArray("originals").map { it.asJsonObject }.filter { it.get("id").asString == original }
+            rows.size == 2 && rows.all { it.get("kind").asString == kind } && rows.map { it.get("sha256").asString }.distinct().size == 1 &&
+                ui.onNode(hasText(name) and hasClickAction() and hasAnyAncestor(isDialog())).isDisplayed()
+        }
+        assertTrue(SystemClock.elapsedRealtime() - started <= 27_000)
+    }
 
     @Test fun waitingAdministratorCanGrantButCannotRemoveAndRecoversAnActuallyRejectedGrant() {
         check(privateReadiness && arguments.getString("spacesDisposableBaseline") == "true")

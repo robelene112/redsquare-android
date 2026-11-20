@@ -1,5 +1,37 @@
 # Development workflow
 
+## Active139: category source and native preparation
+
+Implement137-147 sequentially under134 and approved navigationB. Issues137/138
+are accepted;139 remains current and incomplete. Continue without a checkpoint
+stop. Beta142 is unchanged.
+
+Stable public/private categories now support atomic channel assignment, canonical
+renaming, encrypted audience-specific names and durable exact-original recovery.
+Native controls preserve identity, privacy, restoration and failed-write retry;
+successor-owned directory listing validates actual authority history. Complete
+core248/48classes and service140/13classes pass at matching product/JUnit blobs.
+Main3m17s and corrected instrumentation3m15s compile; both source axes are clear.
+Later host-only additions compile and seed independently; they are not another
+whole-module pass. The mixed-container OOM remains a whole failed preparation;
+separate checks pass and an early local guard prevents that workload combination.
+See [the category/directory source record](evidence/ticket139/categories-and-directory-source.json) for exact inputs,
+actual regressions, corrections, source bridges and limits.
+
+A9 private Android17 run44751318736 is now narrowly accepted by both actual
+all-frame/prototype reviews:1067frames,22capture pairs and42touch+2IME records per
+axis. The prior clipped explanation and capture mismatches are corrected. This
+parent does not cover current category/directory or new membership/ownership UI.
+
+The public category native first-feedback harness is prepared, with normal and
+320dp/font200 Activity, fault, exact-original, drawer, draft/pixel and real-IME
+checks. No category native execution is claimed. Private-category/pending-process
+proof, current membership/ownership native flows, visibility changes, dissolution
+and complete139 acceptance remain before140-147. No production activation,
+automatic file hosting, public test/financial writes or physical/OEM/Play claim.
+Legacy Chat E2E remains141. Older entries below retain their original scope.
+
+
 
 ## Active139: coherent reads and community governance
 

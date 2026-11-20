@@ -4,6 +4,10 @@ on:
     branches: [main]
   workflow_dispatch:
     inputs:
+      spaces_category_management:
+        description: Separate public category-editor first-feedback journey, without pending-process recovery acceptance
+        type: boolean
+        default: false
       spaces_private_management:
         description: Exercise the separate restricted-channel native journey within the management scopes
         type: boolean
@@ -73,7 +77,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'source' }}${{ inputs.android17_16kb && '-16kb' || '' }}${{ inputs.spaces_private_management && format('-private-{0}', inputs.spaces_private_management_case || 'process') || '' }}
+  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'source' }}${{ inputs.android17_16kb && '-16kb' || '' }}${{ inputs.spaces_private_management && format('-private-{0}', inputs.spaces_private_management_case || 'process') || '' }}${{ inputs.spaces_category_management && '-categories' || '' }}
   cancel-in-progress: true
 jobs:
   native-proof:
@@ -84,6 +88,7 @@ jobs:
         partition: ${{ fromJSON((inputs.diagnostic_partition && inputs.diagnostic_partition != 'all') && format('["{0}"]', inputs.diagnostic_partition) || (inputs.scope == 'full-android17' || inputs.scope == 'full-android10') && '["chat","social","wallet"]' || '["all"]') }}
     runs-on: ${{ inputs.runner_os || 'ubuntu-24.04' }}
     env:
+      SPACES_CATEGORY_MANAGEMENT: ${{ inputs.spaces_category_management && 'true' || 'false' }}
       SPACES_PRIVATE_MANAGEMENT: ${{ inputs.spaces_private_management && 'true' || 'false' }}
       SPACES_PRIVATE_MANAGEMENT_CASE: ${{ inputs.spaces_private_management_case || 'process' }}
     # Allow the expanded complete catalog plus SDK/tool provisioning to finish.
@@ -136,6 +141,7 @@ jobs:
         run: |
           mkdir -p .scratch
           git rev-parse HEAD | tee .scratch/proof-source.txt
+          printf '%s\n' "$SPACES_CATEGORY_MANAGEMENT" > .scratch/proof-category-management.txt
           printf '%s\n' "$SPACES_PRIVATE_MANAGEMENT" > .scratch/proof-private-management.txt
           printf '%s\n' "$SPACES_PRIVATE_MANAGEMENT_CASE" > .scratch/proof-private-management-case.txt
           printf '%s\n' "$PROOF_WORKFLOW_SHA" | tee .scratch/proof-workflow.txt
@@ -354,6 +360,7 @@ jobs:
           path: |
             .scratch/proof-source.txt
             .scratch/proof-workflow.txt
+            .scratch/proof-category-management.txt
             .scratch/proof-private-management.txt
             .scratch/proof-private-management-case.txt
             .scratch/proof-runner.txt

@@ -1,5 +1,16 @@
 # Ticket139: community governance
 
+The [category and directory source record](categories-and-directory-source.json)
+tracks stable encrypted category identities, native management preparation and
+successor-owned discovery. Full current product/JUnit modules pass248/140;
+separate main/instrumentation compilation and pinned adapter checks pass.
+Later test-only host/native additions are separately compiled, with an actual
+owned seed rehearsal. Current category native execution and whole139 remain
+pending. A9 private17 now has both all-frame/prototype reviews clear within its
+original narrow scope; it does not cover this new category source. The mixed
+container OOM remains failed preparation with actual event and original output.
+Continue139 then140-147; beta142 remains unchanged.
+
 The [coherent presentation and native preparation record](presentation-and-native-preparation-source.json)
 tracks one transactional read for native rendering and canonical-file maintenance
 coordination for real fault injection. Full current core247 and service132 modules

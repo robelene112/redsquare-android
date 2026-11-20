@@ -23,6 +23,7 @@ module.exports = class SpacesBridge {
     this.supportsPrivateChannelEditing = false;
     this.supportsMembershipManagement = false;
     this.supportsOwnershipManagement = false;
+    this.supportsCategoryManagement = false;
   }
 
   async ready() {
@@ -34,6 +35,7 @@ module.exports = class SpacesBridge {
     this.supportsPrivateChannelEditing = false;
     this.supportsMembershipManagement = false;
     this.supportsOwnershipManagement = false;
+    this.supportsCategoryManagement = false;
     try {
       const body = await this.request('/v1/readiness', {method: 'GET'}, 4096, 2000);
       const ready = body.capability === 'spaces-v1' && body.service_key === this.serviceKey &&
@@ -46,6 +48,7 @@ module.exports = class SpacesBridge {
       this.supportsPrivateChannelEditing = ready && Array.isArray(body.features) && body.features.includes('private-channel-edit-v1');
       this.supportsMembershipManagement = ready && Array.isArray(body.features) && body.features.includes('membership-management-v1');
       this.supportsOwnershipManagement = ready && Array.isArray(body.features) && body.features.includes('ownership-management-v1');
+      this.supportsCategoryManagement = ready && Array.isArray(body.features) && body.features.includes('category-management-v1');
       return ready;
     } catch (_) { return false; }
   }

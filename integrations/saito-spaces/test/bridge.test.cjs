@@ -33,7 +33,8 @@ test('the local bridge advertises only the matching service and preserves the re
   assert.equal(bridge.supportsPrivateChannelEditing, false);
   assert.equal(bridge.supportsMembershipManagement, false);
   assert.equal(bridge.supportsOwnershipManagement, false);
-  features = ['unread-v1', 'channel-archive-v1', 'role-management-v1', 'public-channel-edit-v1', 'private-channel-access-v1', 'private-channel-edit-v1', 'membership-management-v1', 'ownership-management-v1'];
+  assert.equal(bridge.supportsCategoryManagement, false);
+  features = ['unread-v1', 'channel-archive-v1', 'role-management-v1', 'public-channel-edit-v1', 'private-channel-access-v1', 'private-channel-edit-v1', 'membership-management-v1', 'ownership-management-v1', 'category-management-v1'];
   assert.equal(await bridge.ready(), true);
   assert.equal(bridge.supportsUnread, true);
   assert.equal(bridge.supportsArchive, true);
@@ -43,6 +44,7 @@ test('the local bridge advertises only the matching service and preserves the re
   assert.equal(bridge.supportsPrivateChannelEditing, true);
   assert.equal(bridge.supportsMembershipManagement, true);
   assert.equal(bridge.supportsOwnershipManagement, true);
+  assert.equal(bridge.supportsCategoryManagement, true);
   const mismatched = new SpacesBridge(endpoint, 'another-key');
   assert.equal(await mismatched.ready(), false);
   assert.equal(mismatched.supportsUnread, false);
@@ -53,6 +55,7 @@ test('the local bridge advertises only the matching service and preserves the re
   assert.equal(mismatched.supportsPrivateChannelEditing, false);
   assert.equal(mismatched.supportsMembershipManagement, false);
   assert.equal(mismatched.supportsOwnershipManagement, false);
+  assert.equal(mismatched.supportsCategoryManagement, false);
   features = ['channel-archive-v1'];
   assert.equal(await bridge.ready(), true);
   assert.equal(bridge.supportsArchive, true);
@@ -62,6 +65,7 @@ test('the local bridge advertises only the matching service and preserves the re
   assert.equal(bridge.supportsPrivateChannelEditing, false);
   assert.equal(bridge.supportsMembershipManagement, false);
   assert.equal(bridge.supportsOwnershipManagement, false);
+  assert.equal(bridge.supportsCategoryManagement, false);
   features = [];
   assert.equal(await bridge.ready(), true);
   assert.equal(bridge.supportsUnread, false);
@@ -72,6 +76,7 @@ test('the local bridge advertises only the matching service and preserves the re
   assert.equal(bridge.supportsPrivateChannelEditing, false);
   assert.equal(bridge.supportsMembershipManagement, false);
   assert.equal(bridge.supportsOwnershipManagement, false);
+  assert.equal(bridge.supportsCategoryManagement, false);
   assert.equal(await new SpacesBridge(endpoint, 'another-key').ready(), false);
   assert.deepEqual(await bridge.exchange(original), receipt);
   assert.deepEqual(originals, [original]);

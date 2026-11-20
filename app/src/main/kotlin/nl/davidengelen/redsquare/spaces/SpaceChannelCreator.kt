@@ -34,6 +34,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
     var space by mutableStateOf("")
     var name by mutableStateOf("")
     var category by mutableStateOf("")
+    var categoryId by mutableStateOf<String?>(null)
     var kind by mutableStateOf(SpaceChannelKind.CHAT)
     var restricted by mutableStateOf(false)
     var members by mutableStateOf(emptySet<String>())
@@ -45,7 +46,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
     fun show(account: SpacesAccount, spaceId: String, change: SpaceClient.ChannelCreation?) {
         owner = account.ownerKey; node = account.backend.webUrl; space = spaceId
         val initial = change?.takeIf { it.status != SpaceClient.ChangeStatus.ACCEPTED }
-        name = initial?.profile?.name.orEmpty(); category = initial?.profile?.category.orEmpty()
+        name = initial?.profile?.name.orEmpty(); category = initial?.profile?.category.orEmpty(); categoryId = initial?.categoryId
         kind = initial?.profile?.kind ?: SpaceChannelKind.CHAT
         restricted = initial?.privateMembers != null; members = initial?.privateMembers.orEmpty()
         submitting = initial?.status in setOf(SpaceClient.ChangeStatus.QUEUED, SpaceClient.ChangeStatus.AWAITING_CONFIRMATION)
@@ -56,13 +57,14 @@ import nl.davidengelen.redsquare.ui.DesignSheet
 
     companion object {
         val Saver = listSaver<SpaceChannelCreatorState, Any>(save = {
-            listOf(2, it.owner, it.node, it.space, it.name, it.category, it.kind.name, it.open, it.submitting, it.previousAttempt, it.discard, it.restricted, it.members.sorted().joinToString(","))
+            listOf(3, it.owner, it.node, it.space, it.name, it.category, it.kind.name, it.open, it.submitting, it.previousAttempt, it.discard, it.restricted, it.members.sorted().joinToString(","), it.categoryId.orEmpty())
         }, restore = { saved ->
-            if (!(saved.size == 11 && saved[0] == 1 || saved.size == 13 && saved[0] == 2)) null else runCatching { SpaceChannelCreatorState().apply {
+            if (!(saved.size == 11 && saved[0] == 1 || saved.size == 13 && saved[0] == 2 || saved.size == 14 && saved[0] == 3)) null else runCatching { SpaceChannelCreatorState().apply {
                 owner = saved[1] as String; node = saved[2] as String; space = saved[3] as String
                 name = saved[4] as String; category = saved[5] as String; kind = SpaceChannelKind.valueOf(saved[6] as String)
                 open = saved[7] as Boolean; submitting = saved[8] as Boolean; previousAttempt = saved[9] as String; discard = saved[10] as Boolean
-                if (saved.size == 13) { restricted = saved[11] as Boolean; members = (saved[12] as String).split(',').filter { it.isNotBlank() }.toSet() }
+                if (saved.size >= 13) { restricted = saved[11] as Boolean; members = (saved[12] as String).split(',').filter { it.isNotBlank() }.toSet() }
+                categoryId = saved.getOrNull(13)?.let { (it as String).ifBlank { null } }
             } }.getOrNull()
         })
     }
@@ -77,13 +79,15 @@ import nl.davidengelen.redsquare.ui.DesignSheet
     val authorized = rosterReady && state.current?.joined == true && state.discoverySupported == true &&
         state.members.any { it.publicKey == account.ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) }
     val nameLong = editor.name.trim().toByteArray(Charsets.UTF_8).size > 128
-    val categoryLong = editor.category.trim().toByteArray(Charsets.UTF_8).size > 128
+    val categoryLabel = state.categories.firstOrNull { it.id == editor.categoryId }?.profile?.name ?: editor.category
+    val categoryLong = categoryLabel.trim().toByteArray(Charsets.UTF_8).size > 128
     val desired = if (editor.name.isBlank() || nameLong || categoryLong) null
-        else SpaceChannelProfile(editor.name.trim(), editor.kind, editor.category.trim())
+        else SpaceChannelProfile(editor.name.trim(), editor.kind, categoryLabel.trim())
     val missingMembers = if (rosterReady) editor.members - state.members.map { it.publicKey }.toSet() else emptySet()
     val chosenMembers = if (editor.restricted) editor.members else null
     val created = change?.takeIf { editor.submitting && it.id != editor.previousAttempt &&
-        it.status == SpaceClient.ChangeStatus.ACCEPTED && it.profile == desired && it.privateMembers == chosenMembers && state.channels.any { channel -> channel.id == it.channelId } }
+        it.status == SpaceClient.ChangeStatus.ACCEPTED &&
+        (if (editor.categoryId != null && it.categoryId == editor.categoryId) it.profile.copy(category = categoryLabel.trim()) else it.profile) == desired && it.privateMembers == chosenMembers && state.channels.any { channel -> channel.id == it.channelId } }
     val locked = pending || state.working || created != null
     val scope = rememberCoroutineScope()
     val focus = LocalFocusManager.current
@@ -114,7 +118,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
                 else desired?.let { profile ->
                     focus.clearFocus(); keyboard?.hide()
                     editor.previousAttempt = change?.id.orEmpty(); editor.submitting = true
-                    account.createChannel(editor.space, profile, chosenMembers)
+                    account.createChannel(editor.space, profile, chosenMembers, editor.categoryId)
                 }
             }, enabled = editor.open && bound && !state.savingNavigation && !state.working &&
                 (created != null || authorized && desired != null && (!editor.restricted || state.privateChannelAccessSupported && missingMembers.isEmpty()) && state.current?.canManage == true && !locked),
@@ -142,13 +146,23 @@ import nl.davidengelen.redsquare.ui.DesignSheet
                     enabled = !locked, onClick = { editor.kind = kind; menu = false }) }
             }
         }
-        OutlinedTextField(editor.category, { editor.category = it.take(512) }, Modifier.fillMaxWidth().spaceEditorFocusVisibility().animateContentSize(tween(AppSpacing.transitionMillis)),
+        OutlinedTextField(categoryLabel, { editor.category = it.take(512); editor.categoryId = null }, Modifier.fillMaxWidth().spaceEditorFocusVisibility().animateContentSize(tween(AppSpacing.transitionMillis)),
             label = { Text(stringResource(R.string.spaces_category_optional)) }, singleLine = true, enabled = editor.open && !locked,
             isError = categoryLong, supportingText = if (categoryLong) ({ Text(stringResource(R.string.spaces_category_long)) }) else null,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done), keyboardActions = KeyboardActions(onDone = { focus.clearFocus(); keyboard?.hide() }))
+        SpaceCategoryChoices(state, editor.restricted || state.profiles[editor.space]?.visibility == SpaceVisibility.PRIVATE,
+            editor.categoryId, editor.open && !locked) { category ->
+            editor.categoryId = category.id; editor.category = category.profile.name
+        }
         if (state.privateChannelAccessSupported || editor.restricted) {
             Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).toggleable(editor.restricted, enabled = editor.open && !locked && rosterReady && state.privateChannelAccessSupported,
-                role = Role.Checkbox, onValueChange = { editor.restricted = it }), verticalAlignment = Alignment.CenterVertically,
+                role = Role.Checkbox, onValueChange = { restricted ->
+                    editor.restricted = restricted
+                    if (!restricted && state.profiles[editor.space]?.visibility == SpaceVisibility.PUBLIC &&
+                        state.categories.any { it.id == editor.categoryId && it.isPrivate }) {
+                        editor.categoryId = null; editor.category = ""
+                    }
+                }), verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(stringResource(R.string.spaces_channel_restricted), style = MaterialTheme.typography.titleSmall)

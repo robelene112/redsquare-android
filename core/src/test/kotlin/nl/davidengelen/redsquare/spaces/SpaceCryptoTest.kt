@@ -7,6 +7,20 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class SpaceCryptoTest {
+    @Test fun encryptedCategoryMetadataCannotBeRetargetedEvenWithANewValidEnvelopeSignature() {
+        val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
+        val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val scope = SpaceCrypto.Scope(service.publicKey, "a".repeat(64), "b".repeat(64))
+        val keys = SpaceCrypto.device(owner.publicKey, "c".repeat(64)).create(scope)
+        val metadata = keys.publish(owner, "category-profile", "d".repeat(64), "e".repeat(128),
+            "An actual private category name", 1_700_000_000_000, targetCategoryId = "f".repeat(64))
+        assertEquals("An actual private category name", keys.read(metadata.envelope()).text)
+        val body = SaitoEnvelope.decode(metadata.envelope()).body.deepCopy().apply { addProperty("target_category_id", "1".repeat(64)) }
+        val redirected = SaitoTransaction.create(owner, body, 1_700_000_000_000, listOf(service.publicKey))
+        assertEquals(owner.publicKey, SaitoEnvelope.decode(redirected.envelope()).author)
+        assertThrows(javax.crypto.AEADBadTagException::class.java) { keys.read(redirected.envelope()) }
+    }
+
     @Test fun encryptedChannelMetadataCannotBeRetargetedEvenWithANewValidEnvelopeSignature() {
         val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
         val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")

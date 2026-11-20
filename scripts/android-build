@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 repo_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
+# The bounded VPS cannot keep JVM test workers beside the large app compiler.
+# Fail before provisioning rather than losing the Gradle daemon to the cgroup.
+has_jvm_tests=false
+has_app_build=false
+for task_argument in "$@"; do
+    if [[ "$task_argument" == :core:test || "$task_argument" == :spaces-service:test ]]; then has_jvm_tests=true; fi
+    if [[ "$task_argument" == :app:compile* || "$task_argument" == :app:assemble* || "$task_argument" == :app:bundle* ]]; then has_app_build=true; fi
+done
+if [[ "$has_jvm_tests" == true && "$has_app_build" == true ]]; then
+    printf '%s\n' 'Run core/service tests and Android compilation in separate android-build invocations on this bounded VPS.' >&2
+    exit 64
+fi
 image=redsquare-android-build:agp8.10.1
 if ! docker image inspect "$image" >/dev/null 2>&1; then
     docker build --memory=2g -t "$image" "$repo_dir/build-support"

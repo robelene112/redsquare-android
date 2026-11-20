@@ -102,6 +102,14 @@ new private content but cannot recall already received copies.
 A person appointed by the Space owner to share the community's day-to-day
 administration.
 
+**Space category**:
+A named group of channels with a stable identity independent of its display name.
+Renaming changes the category label across its channels without moving their
+history or drafts. Public category names are public metadata. Private category
+names are encrypted for the current channel audiences; removing the last link
+from an audience stops later name updates to that audience, while retained past
+copies remain readable.
+
 **Space removal**:
 Ending a member's current membership. The same identity may rejoin through the
 Space's normal admission rules.

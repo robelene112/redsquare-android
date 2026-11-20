@@ -1,0 +1,564 @@
+{
+  "status": "Partial issue139 source increment. Category native execution, private-category/pending-process proof and whole139 acceptance remain pending. Continue139 then140-147; beta142 unchanged.",
+  "recordedAt": "2026-11-20T16:02:52.060741+00:00",
+  "base": "a9c46b3c0de006316593bde50e0c24c2a9d1d73f",
+  "sourceFiles": {
+    ".github/workflows/android-proof.yml": "4f9fc4f5cd69340f188e904ed5ed2328d20048f5f38983f547a2c94b01ad7b15",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "89351607ca371fe8db0597b07f913b264e2382a847d703d3cef32b5778c64786",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesViewportConfigurationTest.kt": "c82440a812c1d1fde15a302303658c94ce18414ea5ca9e7f429bf7a01b1362d0",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceCategoryEditor.kt": "852ba75e84222f3fa6f6a0f139f6b53d605113f0517aa536afdecb0bd9617784",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceChannelCreator.kt": "0c76e662f22b90ee21d90659a7c1a959c97722637bc5571ba2a537c246735ccd",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceChannelEditor.kt": "88fa039932d9b98fc9e72fe9cd0e73818f10560fb627834f8ac91fbd4c305414",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesAccount.kt": "242fc33bcb1c1054b8aa0db366c428c817ddda4503219e5152e32631536d66eb",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesScreen.kt": "77c4e3abec931c0ca200623f7a9c546183f8b48c24c55dcd1368b4fc3813481d",
+    "app/src/main/res/values/strings.xml": "22a6feff0be6840fa9073f674ee88513a0bdc1f58aac9d9da082f48ddcb2d2a9",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceCategoryProfile.kt": "e3a2e40543a1151bacad03f8d4f310f956362ae37ef5ab44d645edaefd54d605",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "3ae1f78a1ece4d739d6a2642a8e2b952bc763c5f67ff3bd2b64c9097b58d2c3c",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceCrypto.kt": "11b647daa7fda2d0050a0932adba4c6f38a4c46b1385ed3cd53c5ac8d0774ba7",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt": "737f1f1f6ab3df33ee41ee08268978c07a511e59b8be82618c10c8d0689eed70",
+    "core/src/test/kotlin/nl/davidengelen/redsquare/spaces/SpaceCryptoTest.kt": "b35933a1a098a6a988426a2f1a4de512b59ff7b7c93a1d03f4097181196eb3bd",
+    "integrations/saito-spaces/bridge.cjs": "72bc0de5fb69c98f306fdc9d4e08c1adde9f1f199f98610ce6adc6926ea121fb",
+    "integrations/saito-spaces/spaces.js": "e728027e3ed69b889ba96d271a1bab15e42cbcd296029904a5b3c82e31412c96",
+    "integrations/saito-spaces/test/bridge.test.cjs": "957ee9b91706aa3d96eefa45cbfe1afceb5564c6156dabf738929dce5ddc04b5",
+    "integrations/saito-spaces/test/interop.cjs": "2528d276a16e6df6220d8a710ed8341fe2bb39cfff056e511cc469a4efab5c81",
+    "scripts/android-build": "6b6be550d47f1c0dc4e63e14f39a9943912d2d34b2ccbc1839751dbb77abf344",
+    "scripts/emulator-check": "39c7bb8cf8289d3e096f9bd956f1354657fc5d517ac17ef3aca1daa86aa1671d",
+    "scripts/spaces-native-journey": "e2fd2ee3ab8669abd82dd164a07c3321a8697b72075cb25bb46e571f7f642f48",
+    "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt": "3b48ea974fe01fd845b560152d5b8f464d244eb71a34b07b52df42d2b37e7559",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceCategoriesTest.kt": "30f2605e58ca6e6f2f05ec4d261c3806fb0dcf3bb4670772c98c770c7e625cf3",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceOwnershipDirectoryTest.kt": "8ce485654a4b361f22056efea153eeb22d4ac12b025aecb5935c2a7634109075",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesManagementFixture.kt": "062b5fd4c9e5b6ef40f3611df4efdde42f5f55db4ea40a4fbfeb2b5d5bc88e74",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost.kt": "a8d48e9c01731ca2b1dc8f2d92a1e0aa50b7a1b0312c3d84afd896c5d341b718",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStoreTest.kt": "957523adf452d42a03bf36abc0b2534ca7d4703cb8e52888137094e70e9cd5cb"
+  },
+  "behavior": [
+    "Successor-owned discoverability verifies actual signed ordered control history through the exact listing predecessor, then receiver authority, before replacing the cache. Independent discovery never joins a Space.",
+    "Categories have stable identities and independent rename operations. Signed channel creation/editing and genesis atomically create or attach the category. Existing references survive duplicate names and legacy name-only edits; canonical labels project without rewriting signed old profiles.",
+    "Private names use existing group archive encryption for exactly their current category audiences; names and plaintext digests never enter public category metadata. Signed and AES-GCM-AAD-bound target_category_id prevents redirecting ciphertext between same-group categories. Retained past copies remain; detached groups receive no later category labels.",
+    "Native category management and category choices negotiate category-management-v1, bind account/node/Space/category identity, preserve local/saved scope and explicit create-versus-rename, handle actual pending work and local errors, and never turn an unreadable private rename into a public creation. New creation captures expected Space visibility.",
+    "A separate public category first-feedback harness exercises real Activity recreation, SQLite faults, error dismissal/editability, lost accepted replies/exact-original same-process recovery, canonical drawer grouping, draft/pixel preservation and compact actual IME. This is prepared source, not runtime acceptance."
+  ],
+  "validation": {
+    "core": {
+      "tests": 248,
+      "classes": 48,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlOriginals": [
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.ControlledLikeArchiveContractTest.xml",
+          "sha256": "a48c062818935401d8150a90427870cc4d3d15f6291ec92821b5122722837861"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.feed.PostLikeInputPolicyTest.xml",
+          "sha256": "5c609395857b6f748615f63b6d164a675724fea58dba837afc0d5b5664bfa6f1"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.ControlledNodeOutageTest.xml",
+          "sha256": "46763cc935dade8dd9ea710aea68a1df767610a67842f4c173cb3829255a8b45"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.FileshareTest.xml",
+          "sha256": "5fc5e3afabe0694acedbb5fe195c1c74682c7e318b017ea16d2c8b142039b08d"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.GroupAdminTest.xml",
+          "sha256": "1b761ebfd2240609a02193a829da457cbd83fb2c490b264e951933c37482c85f"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.GroupChatTest.xml",
+          "sha256": "348c5e16a03935935067af02fea456ca6ba329ffc9d19360befe62b4a6064da6"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.GroupInvitationTest.xml",
+          "sha256": "9706e53198f42756c7ca13ef47aa38296e43691e623095ce247600ff4edc88f4"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.PrivateChatTest.xml",
+          "sha256": "168516d4ed7db93b8fb0bd456f3eaf6ce60f82f78f3e816de1ab071f9bb12c11"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.RedSquareActionsTest.xml",
+          "sha256": "5b8885a72bc93de37c2d0085a856b80f15a3a4eb13d53bff05cd6a7d263f18e6"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest.xml",
+          "sha256": "d111c4565c7c309d8b4a1f1b93bdc76306ca907a705db58c811eae116a8a031d"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.RedSquareFeedTest.xml",
+          "sha256": "313541b355334e12eb76b6625f2826f83d061390e2138088d77261d2cf4ef046"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.RedSquareImagesTest.xml",
+          "sha256": "123169f34ec5b051c9aef2bd95e599d1465e46256c47f98f84676fca3737b182"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.RedSquareNotificationsTest.xml",
+          "sha256": "216f025f920acfd9519e413316f840db7a11357b0251c8c6536b7e7f2e9844f9"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.RedSquareQuotesTest.xml",
+          "sha256": "3c60d2ab8d3ee63ab58bfe590457f94e7e19553ae1cf1e88a5dde4f20bf0e3f3"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.RedSquareVideoTest.xml",
+          "sha256": "dea215f5ee15ee23b88200ffc35cd33cb207de087bab4a337c75efaf634d393f"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoAccessScriptTest.xml",
+          "sha256": "7650537d793861f6e6959df9702131e56e42f4bd02a02b1f82506b66d8927f4c"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoFullBlockTest.xml",
+          "sha256": "5f124c8782e77c1c1e01afe85575a1c8520a6a4294c6d7c8b96f233d8b5ea3cd"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoIdenticonTest.xml",
+          "sha256": "58da114bf56bab17e623eeff4880fade182b4dcc94b53c281c4add7cb37928cb"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoNameDirectoryTest.xml",
+          "sha256": "5422cbdf09cfdd14b1962f7ee486f8b51b072a27f93d2d4c7651f4474d495093"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoNftTransferTest.xml",
+          "sha256": "42b46f750a176d63f835fc0456bb8c90ca06c47affbe0a9766707baa82754e90"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoNodeBlockTest.xml",
+          "sha256": "4cb0fa16457c3d658a081c2b3fdbc81c6003bae5935c86d5a2967a403237987e"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoPaymentChainTest.xml",
+          "sha256": "8465c2e3dff4c8219ad496a809ecd970b4f9e48dab88ec9a7098be1910635e26"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoPaymentTest.xml",
+          "sha256": "3e7df547d2730347051af9b04593e7b759c288ddce3cf4accd965388e882a37e"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoProfilesTest.xml",
+          "sha256": "bbcc9c024debf2f66532eb9d4262db3bfa6b4e76eb7a59f73ccc089dc8126575"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoRegistryTest.xml",
+          "sha256": "93d29e3476d5c7a45ea655205d085aa52f7824e55d6f95af4ea056bbe477683f"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoStackTest.xml",
+          "sha256": "b92d3d4484a3739f6f0923dc93757ad1995159e6b258df5a69c4ae34648a402f"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest.xml",
+          "sha256": "8c1760b73d0a78b6e5128f6c5691e533631b2a653ef9dc743c913cabfc7bf705"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreListingTest.xml",
+          "sha256": "9fa773a6e9fbe103446626ba931e73bf0d775916e002aca5d4a016bdb26b9968"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest.xml",
+          "sha256": "88780a6e2203d805352791df31322a2161a83c0a112eca361f162cbb890abdc4"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreRentalTest.xml",
+          "sha256": "c8dc9282560b0ae72eb6ea3e8fd801cf6e5e500f0803b58a3d01f46fe2fd3029"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreTest.xml",
+          "sha256": "395766c0747cefe87221660c7de0a8492a375096fa9b6527ffc9582bb7cc38ea"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreWithdrawalTest.xml",
+          "sha256": "9aea27dd5e1ec7823844a377c77abe925e93d788c893bd97795256d27c97cb4b"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoTransactionTest.xml",
+          "sha256": "24791dc075ede2886958175cd19091f8848e708e28ecf486e37025633c978154"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoVaultCustomAccessTest.xml",
+          "sha256": "dd915f495a0e8bc8a1cb9a2641329f70cde518c2afa208039faf704abff5f461"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoVaultMintTest.xml",
+          "sha256": "ca65435fe08e28dfd716f6f229e6628469bc629d71041e2ac1781c16ec1dcc9e"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoVaultRentalTest.xml",
+          "sha256": "b24e76f765538c9df5aff542c4b9d243773baf77696a27459b9967fe65e100d3"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoVaultTest.xml",
+          "sha256": "1939f78b9f9da4ebc348cb10ebeec352b47b40be6e7e5b8798374e9cd3c8d648"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoWalletTest.xml",
+          "sha256": "57ccc6145ce771c4647b407ff082c0c2dde0cdfb501d8caa30f54203aad6da6e"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoWireTest.xml",
+          "sha256": "769ce3e41c52d58cbc2761ad2ee8d93799f0217c222a588c49b1e9cfc6f75097"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SharedNodeConnectionTest.xml",
+          "sha256": "4381bf5fdf5736c228b26432b3694834580a04885e7ed47f007edebd01233aa4"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.StackLinkTest.xml",
+          "sha256": "db885223cc44cc8c961613a518d3ba247a69784f954b74715b9ace5cf169d945"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.StoreLinkTest.xml",
+          "sha256": "03fdf9c076508452ac361bd43be2b563699b9b1b4be46dc7b457d5a71556d286"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.TalkTest.xml",
+          "sha256": "a7fb18d4c6062b498d5c21695e30f0f384351d1a96a55ce76956ade9163aa080"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.VaultUploadTransportTest.xml",
+          "sha256": "785cbd5d77d0776f37253090b3d1f01171dcc95157b700f72dfbb41056bacec5"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.spaces.SpaceCryptoTest.xml",
+          "sha256": "2b91ff4addfac5558bf6ad95a55b534149f0e9daed00e9945662ad4d98638d48"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.spaces.SpaceJournalTest.xml",
+          "sha256": "3fad812bba855b8160f18c5ea0a491b2bbd233f83d2707508c90acd467e8f5df"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.spaces.SpaceMlsReferenceTest.xml",
+          "sha256": "966f48fc6b6aff1cbab392aa7e757bceebd22c2e50f826381f373f689d1ffba8"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/core/TEST-nl.davidengelen.redsquare.spaces.SpaceReplyTest.xml",
+          "sha256": "4ff4ef1c59bf7f2c5b05b687d1381b240ba14a2b8c20ed1a707f77902c37ae5d"
+        }
+      ]
+    },
+    "spaces-service": {
+      "tests": 140,
+      "classes": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlOriginals": [
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceCategoriesTest.xml",
+          "sha256": "6294a16e06d4cf37ceb8d4713df77391696c21d6e0077854609d11d383589a44"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceChannelAccessTest.xml",
+          "sha256": "ff971173a0d6bb157971da9b6f47a2998c03dd8b22da64138333083b669d0840"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceChannelsTest.xml",
+          "sha256": "2048ef557a12ca53774c906ebe691665d238748ed4dccb46a5c819b35fbbd435"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceClientTest.xml",
+          "sha256": "788646b47cb02a4b1b94b24df7703f34564cf6b161e1bf99717a90b41fbe54a4"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceContentTest.xml",
+          "sha256": "ac2cfd7d7becb923040f36fe7acb19a5c9e1957bb2ca4387cc7853d53637db6e"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceDiscoveryTest.xml",
+          "sha256": "0f1fd42cdc1e0d2d33573e0cdf1b2b85c9f45b00b746b0d3e6c816d7dabee849"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceGovernanceTest.xml",
+          "sha256": "d7441402d990d81f74f545c8cd1a504e85c09637cfa974bf80753a285e43fa85"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceOwnershipDirectoryTest.xml",
+          "sha256": "58aefdbca3634f9ae1051f9871c8e841ce7f6b804531c17617387a1311967044"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceOwnershipTest.xml",
+          "sha256": "de69767479092f6e8d62109819c21964bbc38216bf6b1ef9553143563afc178a"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpacePresentationTest.xml",
+          "sha256": "75cd4ff1f022c52de8b65f90a1f3ec4170124104f647ab7d3d9d798addc0da6b"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceRolesTest.xml",
+          "sha256": "b5be0e200f6e5a95fee8d677261cd38574dce4d579e98956b4db32bcc6becabc"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpacesNativeHostTest.xml",
+          "sha256": "af2346e711220c263e2d1c751e1d91f8879fcb465b280400b1c2463218e9bc85"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpacesServiceStoreTest.xml",
+          "sha256": "0c55df16378c44fc3080a4466ecceceb9fc76eb3e3b01bf47e1693c9d3f8a695"
+        }
+      ]
+    },
+    "fullJvmCommand": {
+      "log": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm.log",
+        "sha256": "2e5a6f02bd8b5eefc470e0ca2bcb2d8a8561611d5f5db2b131e4fca55bd8e165"
+      },
+      "exit": 0,
+      "elapsed": "4m1s",
+      "qualification": "Complete module invocation at matching production and JUnit source blobs, with trusted unchanged core task outputs reused and service tests executed. Later additions change only non-JUnit host fixtures/native tests/observer workflow; host compilation/seed and instrumentation compile are separate, not a second complete module pass."
+    },
+    "androidMain": {
+      "log": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-android-main.log",
+        "sha256": "d3c967362a9bc85ef60c13c7413361bb4949ab0c2f63219c1c5d7fe2ec6ad272"
+      },
+      "exit": 0,
+      "elapsed": "3m17s"
+    },
+    "nativePreparation": {
+      "log": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-native-corrections-compile.log",
+        "sha256": "92782c24e6ace801578bd65e1ddd6d04e1b8f8c3a21def7a41fb0e30313e89f0"
+      },
+      "exit": 0,
+      "elapsed": "3m15s",
+      "hostCompile": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-native-host-compile.log",
+        "sha256": "008347bdd7acb11c9940fc0b50b31c9c2bab5671bbe67e4cee8876e06715be7a"
+      },
+      "hostSeed": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-native-host-seed.log",
+        "sha256": "76538435c760951fdabf8f34c9595d796396ddca4657f5dd4b175c74319a0eee"
+      },
+      "qualification": "Owned seed only: two members, three channels, zero categories. No native journey executed."
+    },
+    "adapters": {
+      "versions": [
+        "0.3.2",
+        "0.3.15"
+      ],
+      "services": 11,
+      "acceptedCreationControls": 1,
+      "originalBytesPreserved": true,
+      "actualReceiptVerified": true,
+      "qualification": "Actual pinned dispatcher/template/transaction/JS-WASM with named owned adapters, not complete node bootstrap or native category proof."
+    }
+  },
+  "failuresRetained": [
+    "Actual private category receiving initially threw on the absent plaintext profile. The corrected receiving slice passes.",
+    "Initial API affected command failed the existing legacy public edit contract; whole originals remain. Two further actual regressions reproduced target redirection and duplicate-name identity reassignment, then passed after correction.",
+    "Legacy name-only editing after category rename reproduced rejection, then passed after permitting only unchanged implicit old wire labels.",
+    "The mixed full-JVM plus Android command failed when the build container emitted an actual OOM event. Original output and partial/stale XML remain failed preparation, never whole acceptance. Separate JVM/main/instrumentation checks pass. The local wrapper now rejects that explicit mixed workload before provisioning; CI/goals/resources/deadlines are unchanged.",
+    "Source UI reviews found restore cancellation, false discard of queued work, unreadable-rename fallback and retry relatching; corrected final source axes are clear. Prospective native reviews found absent marker upload, host-only grouping proof and stacked dismissal deadlines; corrected preparation axes are clear. No runtime success is inferred."
+  ],
+  "evidenceInputs": [
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-directory-red-v2.log",
+      "sha256": "9c7056372f1af2ffc0b16ade433f48b870e21bdd8d79b9fbab995a8d1738b81e"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-directory-green.log",
+      "sha256": "423243c81e62e275055e525773c872a41da179febe81720c58ac0eb2207713ae"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-categories-receiving-red.log",
+      "sha256": "262dcb8726531ec09eb6ee948ec08c05fa6173885f25121b55470d3d77e4fdf3"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-categories-receiving-green.log",
+      "sha256": "6c8e0173b7ee6f6c1463ada9ee993f6d99ae72e78d5879d653802ca0fd0d311e"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-private-category-red.log",
+      "sha256": "ce79dcdd7cae67f708dc6df31f3d8c51185290d457a590cc979c609455a464d2"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-private-category-green.log",
+      "sha256": "6c8e0173b7ee6f6c1463ada9ee993f6d99ae72e78d5879d653802ca0fd0d311e"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-api-green.log",
+      "sha256": "bdec29a6c7545cd1184658da88d45c111aaa46e502cce0c9a0aa7728fa5ccb94"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-review-red.log",
+      "sha256": "92bdcc8a5ff02e91ead7f36abe0e80d7198e35670f5fb23f57d4eac96d44c110"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-review-green.log",
+      "sha256": "d2018b819e11024ccf088acb3358a874316e2176cfe947fb452f8068d3d91b9e"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-legacy-red.log",
+      "sha256": "e40fdaabb3faeec0181e83f938cff9c604b9bd096fe2c097f3662a86f3634c50"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-full-jvm.log",
+      "sha256": "e8ab64e8226c5bafc693e25f7f3d962de113e335922f5a8bfc9d0d80ef72282c"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-native-source-checks.log",
+      "sha256": "6d3498d035d2985dfad3d0b9d323084beeff490f04e7ec2db3e3d131bd829575"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-build-oom-events.jsonl",
+      "sha256": "c2ba3193d8d6e2bd4384e96e7653680a70e70ccab3db1f952fd5b92001c23372"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-build-mixed-guard.log",
+      "sha256": "9fc32e459be4c8545e9123462ed1e782771f64fb4b6493784ad1f9105c63dbbb"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-final-jvm.log",
+      "sha256": "2e5a6f02bd8b5eefc470e0ca2bcb2d8a8561611d5f5db2b131e4fca55bd8e165"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-android-main.log",
+      "sha256": "d3c967362a9bc85ef60c13c7413361bb4949ab0c2f63219c1c5d7fe2ec6ad272"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-android-instrumentation.log",
+      "sha256": "59ac4a1b83b436830fe1095a58269229b4cd77735f2ce50994ac6c877333a711"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-native-host-compile.log",
+      "sha256": "008347bdd7acb11c9940fc0b50b31c9c2bab5671bbe67e4cee8876e06715be7a"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-native-host-seed.log",
+      "sha256": "76538435c760951fdabf8f34c9595d796396ddca4657f5dd4b175c74319a0eee"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-native-corrections-compile.log",
+      "sha256": "92782c24e6ace801578bd65e1ddd6d04e1b8f8c3a21def7a41fb0e30313e89f0"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-capability-node-green.log",
+      "sha256": "69656876d47e785d4eb8e339f405a5688af4a30c988218461d302469c4d354d5"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-interop-green-0.3.2.log",
+      "sha256": "1df6faef8b7baf4c036c411d6a1f6bfaf6ac1a58d60e6187cc9a5348cafe8d6b"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-interop-green-0.3.15.log",
+      "sha256": "4b9fd4f805b45d214db9fd2bfceeb9855a159acf33411dd866a5dd2d143a94ac"
+    }
+  ],
+  "reviews": [
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-directory-spec-review.txt",
+      "sha256": "1e8fb2911246f2e75c25fce5bb5555a76cdacd001a40f7fb4bb9e323a645ddd5"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-directory-standards-review.txt",
+      "sha256": "d0c56b1370567720472c3db635320e1c824268dc89be83b7c7e705e216684591"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-source-spec-review.txt",
+      "sha256": "be62cb0f14f0145fe91fc9002ec4d4bcb759a906f676133f231bf8ae303dc650"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-source-standards-review.txt",
+      "sha256": "893c3e708a9c0fcac2baf9cbf3fc4586122f296d4f48b4e7bc090e1d3a707ec1"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-corrections-spec-review.txt",
+      "sha256": "bb1b4b11899c4ab53111cf53e5a1eacef4203c27f37af6e8ca58b9a92efec923"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-corrections-standards-review.txt",
+      "sha256": "e63b473dd82787171a3e16849b42bb758f299491d31d0c145680f2baaa3f1704"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-ui-spec-review.txt",
+      "sha256": "62a101b9a9ba3ef83a46f6b1e759bcd1bc3547859b657faad9794fce779f37a1"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-ui-standards-review.txt",
+      "sha256": "c5c928d213c65bab94e1272cc4285ade035952fbc0088a413f60089468d5778f"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-ui-corrections-spec-review.txt",
+      "sha256": "3a915c23b28adcd89b920912003e21d5f01ffb6d8fe6c316c3990ce0bd275db0"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-ui-corrections-standards-review.txt",
+      "sha256": "70aa0b407e3730ea30d95177a274d5d65fdc84656cfa790a5e677c63d9d8bda9"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-ui-final-spec-review.txt",
+      "sha256": "f9cb961ffc455571fb15ff8116b2a8a8748e37dc2551df18003d9112db8e16bc"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-ui-final-standards-review.txt",
+      "sha256": "1a48f2d32077715a08ddb60e717f04268fb22b43c2df9d73b100ddc836a3594a"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-native-prospective-spec-review.txt",
+      "sha256": "d9ff525fb8884c875a310e6ff4a8beb0b32cab6d359acf33caf6ea0023f1b1a5"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-native-prospective-standards-review.txt",
+      "sha256": "1d51c40ead9d8e6491f904cdcfc767b2a9fb06c3c59aed2bbf568c5f64f0e77e"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-native-prospective-corrections-spec-review.txt",
+      "sha256": "0d335f38c9a2d4c6af4ba1a5cc744701455e6ffd25238dc4549f4a2165ceb0a7"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-native-prospective-corrections-standards-review.txt",
+      "sha256": "0a4da50b4398973299db0d8722e9765a252d388a2dc2e867f4e24b793ea283c2"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-sourcea9-private-native-spec-review.txt",
+      "sha256": "c52e80e7bf36105ac7ff4d2043c492dd459b06ca19e1927a45c363847ef8cd47"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-sourcea9-private-native-standards-review.txt",
+      "sha256": "3f5660950233ccc127cdec8c3f088a20d0546c5ed4a241a839d55f6122ee08de"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-record-spec-review.txt",
+      "sha256": "ddd23b8ce9e31e1d4e7120a175f55346fec9d8afd05a5c3a525f06aac781fba2"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-record-standards-review.txt",
+      "sha256": "d8ea4b7fe299c71c8ad3dd2b784cb06d4d317dc252202b853066d9aaaad4eea9"
+    }
+  ],
+  "acceptedEarlierNative": {
+    "source": "a9c46b3c0de006316593bde50e0c24c2a9d1d73f",
+    "run": 44751318736,
+    "sdk": 37,
+    "assessment": {
+      "path": "/mnt/storage/redsquare-android-artifacts/spaces139-private-runtime/attempt11-44751318736/assessment.json",
+      "sha256": "b5046282260333d4195a3693fcc72586df20a40f5c6e77fb7c68a02c4097bcc9"
+    },
+    "framesReviewedPerAxis": 1067,
+    "sheetsPerAxis": 69,
+    "pngXmlPairsPerAxis": 22,
+    "touchRecordsPerAxis": 42,
+    "imeRecordsPerAxis": 2,
+    "qualification": "Both all-frame/prototype reviews narrowly accept the A9 private creation/process/editor/local-fault journey and correction of sourcecf clipping/capture-state findings. This does not execute current category/directory code, new membership/ownership UI, other SDK/public/readiness or whole139. No unique historical lock holder is established."
+  },
+  "remaining139": [
+    "Current native category execution and independent complete-frame/prototype reviews",
+    "Private-category access changes and pending-operation genuine-process native coverage",
+    "Current membership and ownership native journeys",
+    "Deliberate visibility changes preserving prior private history",
+    "Owner-only dissolution",
+    "Complete139 regression/acceptance before140-147"
+  ],
+  "boundaries": [
+    "No production node/provider activation",
+    "No public development or financial writes",
+    "No automatic community file hosting",
+    "No physical/OEM/Play acceptance",
+    "Legacy Chat E2E remains141",
+    "Beta142 unchanged"
+  ]
+}

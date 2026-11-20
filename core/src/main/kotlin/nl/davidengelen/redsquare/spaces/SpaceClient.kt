@@ -28,7 +28,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     class DifferentNode(val node: String) : IllegalArgumentException("This community belongs to a different node")
 
     data class Channel(val id: String, val profile: SpaceChannelProfile, val visibility: SpaceVisibility, val ready: Boolean, val unread: Long? = null, val hasUnread: Boolean? = null,
-        val archived: Boolean = false, val allowedMembers: Set<String>? = null, val metadataReady: Boolean = false)
+        val archived: Boolean = false, val allowedMembers: Set<String>? = null, val metadataReady: Boolean = false, val categoryId: String? = null)
     fun channels(space: String): List<Channel> = store.transaction {
         owned()
         val state = state(space)
@@ -39,14 +39,191 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val data = channelState(space, id, state)
             val readableProfile = channelProfile(space, id, state, data, record)
             val profile = readableProfile ?: if (id == general) SpaceChannelProfile("general") else null
-            val metadataGroup = if (record.allowedMembers != null) record else journal.snapshot.generalChannelId?.let(journal.snapshot.channels::get)
+            val metadataGroupId = record.metadataGroupId(id, journal.snapshot)
+            val metadataGroup = journal.snapshot.channels[metadataGroupId]
             val metadataReady = record.visibility == SpaceVisibility.PUBLIC || readableProfile != null && metadataGroup?.retiredDevices?.isEmpty() == true &&
-                (if (record.allowedMembers != null) data else state).get("joined")?.asBoolean == true
-            profile?.let { Channel(id, it, record.visibility, record.visibility == SpaceVisibility.PUBLIC ||
+                channelState(space, metadataGroupId, state).get("joined")?.asBoolean == true
+            profile?.let { visible ->
+                val category = record.categoryId?.let { categoryProfile(space, it, state, journal)?.name }
+                Channel(id, visible.copy(category = category ?: visible.category), record.visibility, record.visibility == SpaceVisibility.PUBLIC ||
                 data.get("joined")?.asBoolean == true && record.retiredDevices.isEmpty(),
-                data.get("unread")?.asLong, unreadActivity(data), record.archived, record.allowedMembers, metadataReady) }
+                data.get("unread")?.asLong, unreadActivity(data), record.archived, record.allowedMembers, metadataReady, record.categoryId) }
         }
     }
+    data class Category(val id: String, val profile: SpaceCategoryProfile, val isPrivate: Boolean)
+    fun categories(space: String): List<Category> = store.project {
+        store.transaction {
+            owned()
+            val state = state(space)
+            val journal = journal(space)
+            journal.snapshot.categories.mapNotNull { (id, record) ->
+                categoryProfile(space, id, state, journal)?.let { Category(id, it, record.profile == null) }
+            }
+        }
+    }
+
+    private fun SpaceClientStore.Transaction.categoryProfile(space: String, category: String,
+        state: JsonObject, journal: SpaceJournal): SpaceCategoryProfile? {
+        val record = requireNotNull(journal.snapshot.categories[category])
+        record.profile?.let { return it }
+        for (group in journal.snapshot.categoryGroups(category, record.defaultGroup)) {
+            if (!journal.canAccessChannel(wallet.publicKey, group)) continue
+            val accepted = journal.snapshot.channels.getValue(group)
+            if (accepted.retiredDevices.isNotEmpty()) continue
+            val data = channelState(space, group, state)
+            if (data.get("joined")?.asBoolean != true || !data.has("crypto")) continue
+            val metadata = record.metadata[group] ?: continue
+            val keys = SpaceCrypto.restore(decode(data.text("crypto")))
+            if (keys.scope != SpaceCrypto.Scope(service, space, group, accepted.generation) ||
+                keys.epoch != accepted.epoch || keys.bindings != accepted.devices) continue
+            val original = decode(metadata).toString(Charsets.UTF_8)
+            val contents = try { json(keys.read(original).text.toByteArray(Charsets.UTF_8)) }
+                catch (_: SpaceCrypto.MissingKeys) { continue }
+            require(contents.keySet() == setOf("version", "category_id", "profile") && contents.number("version") == 1L &&
+                contents.text("category_id") == category)
+            require(SaitoEnvelope.decode(original).body.text("operation_id") == record.revision &&
+                SaitoEnvelope.decode(original).body.text("target_category_id") == category)
+            return SpaceCategoryProfile.fromJson(contents.getAsJsonObject("profile"))
+        }
+        return null
+    }
+
+    data class CategoryChange(val id: String, val categoryId: String, val profile: SpaceCategoryProfile, val status: ChangeStatus,
+        val creating: Boolean = false, val isPrivate: Boolean = false)
+
+    fun createCategory(space: String, profile: SpaceCategoryProfile, expectedVisibility: SpaceVisibility? = null): String = store.transaction {
+        owned()
+        val state = state(space)
+        val snapshot = categoryManagement(space, state)
+        require(expectedVisibility == null || expectedVisibility == snapshot.visibility) { "Community visibility changed before category creation" }
+        val category = id()
+        val operation = id()
+        val body = JsonObject()
+        if (snapshot.visibility == SpaceVisibility.PUBLIC) body.add("category_profile", profile.json()) else {
+            val general = requireNotNull(snapshot.generalChannelId)
+            body.addProperty("default_group", general)
+            body.add("category_metadata", encryptedCategory(space, category, profile, operation, setOf(general), state, snapshot))
+        }
+        enqueueCategory(space, state, snapshot, category, profile, operation, "create-category", body)
+        category
+    }
+
+    fun editCategory(space: String, category: String, profile: SpaceCategoryProfile): String = store.transaction {
+        owned()
+        val state = state(space)
+        val snapshot = categoryManagement(space, state)
+        val record = requireNotNull(snapshot.categories[category])
+        val operation = id()
+        val body = JsonObject()
+        if (record.profile != null) body.add("category_profile", profile.json()) else {
+            body.add("category_metadata", encryptedCategory(space, category, profile, operation,
+                snapshot.categoryGroups(category, record.defaultGroup), state, snapshot))
+        }
+        enqueueCategory(space, state, snapshot, category, profile, operation, "edit-category", body)
+    }
+
+    fun categoryChange(space: String): CategoryChange? = store.transaction {
+        owned()
+        val change = state(space).getAsJsonObject("category_change") ?: return@transaction null
+        CategoryChange(change.text("id"), change.text("category"), SpaceCategoryProfile.fromJson(change.getAsJsonObject("profile")),
+            changeStatus(space, change), change.get("creating")?.asBoolean == true, change.get("is_private")?.asBoolean == true)
+    }
+
+    private fun SpaceClientStore.Transaction.categoryManagement(space: String, state: JsonObject): SpaceSnapshot {
+        val snapshot = journal(space).snapshot
+        require(state.get("joined").asBoolean && !state.has("required_control"))
+        require(snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+        return snapshot
+    }
+
+    private fun SpaceClientStore.Transaction.enqueueCategory(space: String, state: JsonObject, snapshot: SpaceSnapshot,
+        category: String, profile: SpaceCategoryProfile, operation: String, kind: String, body: JsonObject): String {
+        val original = event(space, kind, operation) {
+            addProperty("control_id", requireNotNull(snapshot.controlId)); addProperty("category_id", category)
+            body.entrySet().forEach { (key, value) -> add(key, value) }
+        }
+        state.add("category_change", JsonObject().apply {
+            addProperty("id", original.id); addProperty("category", category); add("profile", profile.json())
+            addProperty("creating", kind == "create-category"); addProperty("is_private", body.has("category_metadata"))
+            addProperty("status", ChangeStatus.QUEUED.name)
+        })
+        queue(space, state, original)
+        return original.id
+    }
+
+    private fun SpaceClientStore.Transaction.encryptedCategory(space: String, category: String, profile: SpaceCategoryProfile,
+        revision: String, groups: Set<String>, state: JsonObject, snapshot: SpaceSnapshot,
+        overrides: Map<String, SpaceCrypto> = emptyMap()): JsonObject {
+        require(groups.isNotEmpty())
+        return JsonObject().apply {
+            for (channel in groups.sorted()) {
+                val record = snapshot.channels.getValue(channel)
+                require(record.visibility == SpaceVisibility.PRIVATE && record.retiredDevices.isEmpty())
+                val keys = overrides[channel] ?: channelState(space, channel, state).let { data ->
+                    require(data.get("joined")?.asBoolean == true)
+                    SpaceCrypto.restore(decode(data.text("crypto")))
+                }
+                require(keys.scope == SpaceCrypto.Scope(service, space, channel, record.generation) &&
+                    keys.epoch == record.epoch && keys.bindings == record.devices)
+                val metadata = keys.publish(wallet, "category-profile", revision, requireNotNull(snapshot.controlId), JsonObject().apply {
+                    addProperty("version", 1); addProperty("category_id", category); add("profile", profile.json())
+                }.toString(), clock.millis(), targetCategoryId = category)
+                addProperty(channel, encode(metadata.envelope().toByteArray(Charsets.UTF_8)))
+            }
+        }
+    }
+
+    private fun recordCategoryResult(state: JsonObject, original: SignedSaitoMessage, status: ChangeStatus) {
+        val change = state.getAsJsonObject("category_change") ?: return
+        if (change.text("id") != original.id) return
+        require(change.text("category") == original.body.text("category_id"))
+        original.body.getAsJsonObject("category_profile")?.let { require(change.getAsJsonObject("profile") == it) }
+        change.addProperty("status", status.name)
+    }
+
+    /** One signed channel operation creates or attaches its folder atomically. */
+    private fun SpaceClientStore.Transaction.categoryAssignment(space: String, state: JsonObject, snapshot: SpaceSnapshot,
+        channel: String, record: SpaceChannelRecord, profile: SpaceChannelProfile, operation: String,
+        chosen: String? = null, overrides: Map<String, SpaceCrypto> = emptyMap()): JsonObject {
+        val result = JsonObject()
+        if (profile.category.isBlank()) {
+            require(chosen == null)
+            result.add("category_id", com.google.gson.JsonNull.INSTANCE)
+            return result
+        }
+        val private = record.visibility == SpaceVisibility.PRIVATE
+        val retained = record.categoryId?.takeIf { id ->
+            (private || snapshot.categories.getValue(id).profile != null) &&
+                categoryProfile(space, id, state, journal(space))?.name == profile.category
+        }
+        val existing = chosen?.also { require(it in snapshot.categories) } ?: retained ?: snapshot.categories.keys.firstOrNull { id ->
+            (private || snapshot.categories.getValue(id).profile != null) &&
+                categoryProfile(space, id, state, journal(space))?.name == profile.category
+        }
+        val category = existing ?: id()
+        result.addProperty("category_id", category)
+        val accepted = existing?.let(snapshot.categories::get)
+        if (accepted?.profile != null) {
+            require(accepted.profile.name == profile.category)
+        } else if (accepted != null) {
+            require(private && categoryProfile(space, category, state, journal(space))?.name == profile.category)
+            val group = record.metadataGroupId(channel, snapshot)
+            result.add("category_attachment", JsonObject().apply {
+                add("category_metadata", encryptedCategory(space, category, SpaceCategoryProfile(profile.category), accepted.revision,
+                    setOf(group), state, snapshot.copy(channels = snapshot.channels + (channel to record)), overrides))
+            })
+        } else {
+            result.add("category_creation", JsonObject().apply {
+                if (!private) add("category_profile", SpaceCategoryProfile(profile.category).json()) else {
+                    val group = record.metadataGroupId(channel, snapshot)
+                    add("category_metadata", encryptedCategory(space, category, SpaceCategoryProfile(profile.category), operation,
+                        setOf(group), state, snapshot.copy(channels = snapshot.channels + (channel to record)), overrides))
+                }
+            })
+        }
+        return result
+    }
+
     enum class ChangeStatus { QUEUED, AWAITING_CONFIRMATION, ACCEPTED, REJECTED }
     data class ArchiveChange(val id: String, val channelId: String, val archived: Boolean, val status: ChangeStatus)
     data class RoleChange(val id: String, val memberKey: String, val administrator: Boolean, val status: ChangeStatus)
@@ -59,8 +236,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
     data class OwnershipChange(val id: String, val status: ChangeStatus, val memberKey: String, val action: OwnershipAction)
     data class ChannelAccessChange(val id: String, val channelId: String, val memberKey: String, val status: ChangeStatus, val granted: Boolean = false)
-    data class ChannelCreation(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus, val privateMembers: Set<String>? = null)
-    data class ChannelEdit(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus)
+    data class ChannelCreation(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus, val privateMembers: Set<String>? = null, val categoryId: String? = null)
+    data class ChannelEdit(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus, val categoryId: String? = null)
 
     fun grantChannelAccess(space: String, channel: String, member: String): String = store.transaction {
         owned()
@@ -123,7 +300,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         ChannelAccessChange(change.text("id"), channel, change.text("member"), changeStatus(space, change), change.get("granted")?.asBoolean == true)
     }
 
-    fun editChannel(space: String, channel: String, profile: SpaceChannelProfile): String = store.transaction {
+    fun editChannel(space: String, channel: String, profile: SpaceChannelProfile, categoryId: String? = null): String = store.transaction {
         owned()
         val state = state(space)
         val snapshot = journal(space).snapshot
@@ -134,7 +311,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val previous = requireNotNull(channelProfile(space, channel, state, target, record))
         require(profile.kind == previous.kind)
         val metadata = if (record.visibility == SpaceVisibility.PRIVATE) {
-            val metadataChannel = if (record.allowedMembers != null) channel else requireNotNull(snapshot.generalChannelId)
+            val metadataChannel = record.metadataGroupId(channel, snapshot)
             val metadataGroup = requireNotNull(snapshot.channels[metadataChannel])
             val metadataState = channelState(space, metadataChannel, state)
             require(metadataGroup.visibility == SpaceVisibility.PRIVATE && metadataGroup.retiredDevices.isEmpty() && metadataState.get("joined")?.asBoolean == true)
@@ -146,13 +323,17 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 addProperty("name", profile.name); addProperty("category", profile.category)
             }.toString(), clock.millis(), targetChannelId = channel).envelope()
         } else null
-        val original = event(space, "edit-channel") {
+        val operation = id()
+        val assignment = categoryAssignment(space, state, snapshot, channel, record, profile, operation, categoryId)
+        val original = event(space, "edit-channel", operation) {
             addProperty("control_id", requireNotNull(snapshot.controlId)); addProperty("channel_id", channel)
+            assignment.entrySet().forEach { (key, value) -> add(key, value) }
             if (metadata == null) add("channel_profile", profile.json())
             else addProperty("channel_metadata", encode(metadata.toByteArray(Charsets.UTF_8)))
         }
         target.add("channel_edit", JsonObject().apply {
             addProperty("id", original.id); add("profile", profile.json()); addProperty("status", ChangeStatus.QUEUED.name)
+            add("category_id", assignment.get("category_id"))
             metadata?.let { addProperty("metadata", encode(it.toByteArray(Charsets.UTF_8))) }
         })
         putChannelState(space, channel, target)
@@ -163,17 +344,18 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     fun channelEdit(space: String, channel: String): ChannelEdit? = store.transaction {
         owned()
         val change = channelState(space, channel).getAsJsonObject("channel_edit") ?: return@transaction null
-        ChannelEdit(change.text("id"), channel, SpaceChannelProfile.fromJson(change.getAsJsonObject("profile")), changeStatus(space, change))
+        ChannelEdit(change.text("id"), channel, SpaceChannelProfile.fromJson(change.getAsJsonObject("profile")), changeStatus(space, change),
+            change.get("category_id")?.takeUnless { it.isJsonNull }?.asString)
     }
 
 
     data class Management(val archive: ArchiveChange? = null, val role: RoleChange? = null,
         val edit: ChannelEdit? = null, val creation: ChannelCreation? = null, val access: ChannelAccessChange? = null,
-        val membership: MembershipChange? = null, val ownership: OwnershipChange? = null, val ownershipOffer: SpaceOwnershipOffer? = null)
+        val membership: MembershipChange? = null, val ownership: OwnershipChange? = null, val ownershipOffer: SpaceOwnershipOffer? = null, val category: CategoryChange? = null)
     data class Presentation(val communities: List<Community>, val profiles: Map<String, SpaceProfile>,
         val current: Community?, val channels: List<Channel>, val members: List<Member>, val bannedMembers: Set<String>,
         val window: HistoryWindow?, val messages: List<Message>, val draft: String, val anchor: ReadingAnchor?,
-        val invitation: Invitation?, val publicLink: String?, val listingIntent: Boolean?, val management: Management)
+        val invitation: Invitation?, val publicLink: String?, val listingIntent: Boolean?, val management: Management, val categories: List<Category> = emptyList())
 
     /** A bounded, coherent read for native rendering. It authenticates control
      * history once per scope instead of independently rebuilding it for every
@@ -191,14 +373,14 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             space?.let { timeline(it, from = window?.from, channel = selected) }.orEmpty(),
             space?.let { draft(it, selected) }.orEmpty(), space?.let { readingAnchor(it, selected) },
             space?.let(::invitation), space?.takeIf { profiles[it]?.visibility == SpaceVisibility.PUBLIC && members.isNotEmpty() }?.let(::publicLink),
-            space?.let(::listingIntent), space?.let { management(it, selected) } ?: Management())
+            space?.let(::listingIntent), space?.let { management(it, selected) } ?: Management(), space?.let(::categories).orEmpty())
     }
 
     /** Urgent delivery projects just its durable management results. */
     fun management(space: String, channel: String? = null): Management = store.project {
         val selected = channel ?: community(space).channel
         Management(archiveChange(space, selected), roleChange(space), channelEdit(space, selected), channelCreation(space),
-            channelAccessChange(space, selected), membershipChange(space), ownershipChange(space), ownershipOffer(space))
+            channelAccessChange(space, selected), membershipChange(space), ownershipChange(space), ownershipOffer(space), categoryChange(space))
     }
 
     fun ownershipOffer(space: String): SpaceOwnershipOffer? = store.transaction {
@@ -367,28 +549,28 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         owned()
         val change = state(space).getAsJsonObject("channel_creation") ?: return@transaction null
         ChannelCreation(change.text("id"), change.text("channel"), SpaceChannelProfile.fromJson(change.getAsJsonObject("profile")),
-            changeStatus(space, change), change.getAsJsonArray("private_members")?.map { it.asString }?.toSet())
+            changeStatus(space, change), change.getAsJsonArray("private_members")?.map { it.asString }?.toSet(), change.get("category_id")?.takeUnless { it.isJsonNull }?.asString)
     }
 
-    fun createChannel(space: String, profile: SpaceChannelProfile): String = store.transaction {
+    fun createChannel(space: String, profile: SpaceChannelProfile, categoryId: String? = null): String = store.transaction {
         owned()
         val scope = SpaceCrypto.Scope(service, space, id())
         val state = state(space)
         require(!state.has("required_control"))
-        enqueueChannel(space, state, profile, scope)
+        enqueueChannel(space, state, profile, scope, categoryId = categoryId)
         scope.channelId
     }
-    fun createPrivateChannel(space: String, profile: SpaceChannelProfile, members: Set<String>): String = store.transaction {
+    fun createPrivateChannel(space: String, profile: SpaceChannelProfile, members: Set<String>, categoryId: String? = null): String = store.transaction {
         owned()
         val state = state(space)
         require(!state.has("required_control"))
         val scope = SpaceCrypto.Scope(service, space, id())
-        enqueueChannel(space, state, profile, scope, members)
+        enqueueChannel(space, state, profile, scope, members, categoryId)
         scope.channelId
     }
 
     private fun SpaceClientStore.Transaction.enqueueChannel(space: String, state: JsonObject,
-        profile: SpaceChannelProfile, scope: SpaceCrypto.Scope, members: Set<String>? = null) {
+        profile: SpaceChannelProfile, scope: SpaceCrypto.Scope, members: Set<String>? = null, categoryId: String? = null) {
         val snapshot = journal(space).snapshot
         require(state.get("joined").asBoolean && snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         require(scope.serviceKey == service && scope.spaceId == space && scope.channelId !in snapshot.channels)
@@ -412,8 +594,14 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 addProperty("version", 1); addProperty("channel_id", scope.channelId); add("profile", profile.json())
             }.toString(), clock.millis())
         } else null
-        val original = event(space, "create-channel") {
+        val operation = id()
+        val candidate = SpaceChannelRecord(0, crypto?.bindings.orEmpty(), scope.generation, visibility = if (private) SpaceVisibility.PRIVATE else SpaceVisibility.PUBLIC,
+            profile = profile.takeUnless { private }, allowedMembers = members, metadataChannelId = if (members != null) scope.channelId else snapshot.generalChannelId)
+        val assignment = categoryAssignment(space, state, snapshot, scope.channelId, candidate, profile, operation, categoryId,
+            overrides = crypto?.let { mapOf(scope.channelId to it) }.orEmpty())
+        val original = event(space, "create-channel", operation) {
             addProperty("control_id", snapshot.controlId); addProperty("channel_id", scope.channelId)
+            assignment.entrySet().forEach { (key, value) -> add(key, value) }
             addProperty("visibility", if (private) "private" else "public")
             addProperty("epoch", 0); addProperty("key_generation", scope.generation)
             addProperty("admin_posts_only", profile.kind == SpaceChannelKind.ANNOUNCEMENT)
@@ -431,6 +619,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }))
         state.add("channel_creation", JsonObject().apply {
             addProperty("id", original.id); addProperty("channel", scope.channelId); add("profile", profile.json())
+            add("category_id", assignment.get("category_id"))
             members?.let { add("private_members", JsonArray().apply { it.sorted().forEach(::add) }) }
             addProperty("status", ChangeStatus.QUEUED.name)
         })
@@ -696,31 +885,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             addProperty("space_id", "0".repeat(64)); addProperty("stream", "directory")
             addProperty("cursor", cursor); addProperty("query", query.trim())
         })
-        val communities = result.getAsJsonArray("items").map { item ->
-            val value = item.asJsonObject
-            val receipt = SaitoEnvelope.decode(value.text("creation"))
-            val space = receipt.body.text("space_id")
-            val journal = SpaceJournal(space, service)
-            journal.receive(value.text("creation"))
-            val profile = requireNotNull(journal.snapshot.publicProfile)
-            require(profile.visibility == SpaceVisibility.PUBLIC)
-            val listingEnvelope = value.get("listing")?.asString ?: value.text("creation")
-            val listed = if (listingEnvelope == value.text("creation")) profile.listed else {
-                val listing = SaitoEnvelope.decode(listingEnvelope)
-                require(listing.author == service && listing.body.text("module") == "Spaces" && listing.body.number("version") == 1L &&
-                    listing.body.text("request") == "receipt" && listing.body.text("stream") == "control" &&
-                    listing.body.text("space_id") == space && listing.body.number("position") > 0)
-                val command = SaitoEnvelope.decode(listing.body.text("event"))
-                require(command.author == journal.snapshot.owner && command.recipients == listOf(command.author, service).distinct())
-                require(command.body.text("module") == "Spaces" && command.body.number("version") == 1L &&
-                    command.body.text("request") == "event" && command.body.text("kind") == "set-listed" &&
-                    command.body.text("space_id") == space && command.body.text("operation_id").matches(ID) &&
-                    command.body.text("control_id").matches(Regex("[0-9a-f]{128}")))
-                command.body.get("listed").also { require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) }.asBoolean
-            }
-            require(listed)
-            PublicCommunity(space, profile.copy(listed = listed))
-        }
+        val communities = result.getAsJsonArray("items").map { readDirectoryCommunity(it.asJsonObject) }
         val next = result.number("next_cursor")
         val more = result.get("has_more").also { require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) }.asBoolean
         require(next >= cursor && (!more || next > cursor))
@@ -729,6 +894,55 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             cacheDirectory(communities)
         }
         return PublicDirectoryPage(communities, next, more)
+    }
+
+    private suspend fun readDirectoryCommunity(value: JsonObject): PublicCommunity {
+        val creation = value.text("creation")
+        val receipt = SaitoEnvelope.decode(creation)
+        val space = receipt.body.text("space_id")
+        val journal = SpaceJournal(space, service)
+        journal.receive(creation)
+        val listingEnvelope = value.get("listing")?.asString ?: creation
+        if (listingEnvelope != creation) {
+            val listing = SaitoEnvelope.decode(listingEnvelope)
+            require(listing.author == service && listing.body.text("module") == "Spaces" && listing.body.number("version") == 1L &&
+                listing.body.text("request") == "receipt" && listing.body.text("stream") == "control" &&
+                listing.body.text("space_id") == space)
+            val position = listing.body.number("position").also { require(it > 0) }
+            val command = SaitoEnvelope.decode(listing.body.text("event"))
+            require(command.recipients == listOf(command.author, service).distinct())
+            require(command.body.text("module") == "Spaces" && command.body.number("version") == 1L &&
+                command.body.text("request") == "event" && command.body.text("kind") == "set-listed" &&
+                command.body.text("space_id") == space && command.body.text("operation_id").matches(ID) &&
+                command.body.text("control_id").matches(Regex("[0-9a-f]{128}")))
+            command.body.get("listed").also { require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) }
+            var retainedBytes = creation.toByteArray(Charsets.UTF_8).size.toLong() + listingEnvelope.toByteArray(Charsets.UTF_8).size
+            // Ownership belongs to the verified control history, not permanently
+            // to the original creator. Reading this proof never joins a Space.
+            while (journal.snapshot.nextPosition < position) {
+                val before = journal.snapshot.nextPosition
+                val page = readPage(JsonObject().apply {
+                    addProperty("space_id", space); addProperty("stream", "control"); addProperty("cursor", before)
+                })
+                val items = page.getAsJsonArray("items").also { require(it.size() <= 50) }
+                var consumed = 0
+                for (item in items) {
+                    if (journal.snapshot.nextPosition == position) break
+                    val control = item.asString
+                    retainedBytes += control.toByteArray(Charsets.UTF_8).size
+                    require(retainedBytes <= 16L * 1024 * 1024) { "Community listing history exceeds the preview capacity" }
+                    journal.receive(control); consumed++
+                }
+                require(journal.snapshot.nextPosition > before)
+                val next = page.number("next_cursor")
+                require(next >= journal.snapshot.nextPosition)
+                if (consumed == items.size()) require(next == journal.snapshot.nextPosition)
+            }
+            journal.receive(listingEnvelope)
+        }
+        val profile = requireNotNull(journal.snapshot.publicProfile)
+        require(profile.visibility == SpaceVisibility.PUBLIC && profile.listed)
+        return PublicCommunity(space, profile)
     }
 
     /** Only disposable discovery metadata is evicted, never joined-community
@@ -1039,7 +1253,16 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val metadata = crypto.publish(wallet, "metadata", id(), "0".repeat(128), profile.json().toString(), clock.millis())
         val channelMetadata = if (profile.visibility == SpaceVisibility.PRIVATE) crypto.publish(wallet, "channel-profile", id(), "0".repeat(128),
             JsonObject().apply { addProperty("version", 1); addProperty("channel_id", scope.channelId); add("profile", first.json()) }.toString(), clock.millis()) else null
-        val original = event(scope.spaceId, "create") {
+        val operation = id()
+        val rootRecord = SpaceChannelRecord(0, crypto.bindings, scope.generation, visibility = profile.visibility,
+            profile = first.takeIf { profile.visibility == SpaceVisibility.PUBLIC }, metadataChannelId = scope.channelId)
+        val genesis = SpaceSnapshot(owner = wallet.publicKey, members = mapOf(wallet.publicKey to SpaceRole.OWNER),
+            controlId = "0".repeat(128), channels = mapOf(scope.channelId to rootRecord), visibility = profile.visibility, generalChannelId = scope.channelId)
+        val assignment = store.transaction {
+            categoryAssignment(scope.spaceId, JsonObject(), genesis, scope.channelId, rootRecord, first, operation, overrides = mapOf(scope.channelId to crypto))
+        }
+        val original = event(scope.spaceId, "create", operation) {
+            assignment.entrySet().forEach { (key, value) -> add(key, value) }
             addProperty("visibility", if (profile.visibility == SpaceVisibility.PUBLIC) "public" else "private")
             if (profile.visibility == SpaceVisibility.PUBLIC) {
                 add("public_profile", profile.json()); add("channel_profile", first.json())
@@ -1568,6 +1791,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 if (existing != null) require(SaitoEnvelope.decode(existing.toString(Charsets.UTF_8)).body.text("event") == body.text("event"))
                 else {
                     when (original.body.text("kind")) {
+                        "create-category", "edit-category" -> recordCategoryResult(state, original, ChangeStatus.ACCEPTED)
                         "create" -> {
                             if (original.author == wallet.publicKey) {
                                 if (state.has("crypto")) {
@@ -1734,6 +1958,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 if (original.body.text("kind") == "set-role") recordRoleResult(state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") in setOf("leave", "remove-member", "ban-member", "unban-member")) recordMembershipResult(state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "edit-channel") recordChannelEditResult(space, state, original, ChangeStatus.REJECTED)
+                if (original.body.text("kind") in setOf("create-category", "edit-category")) recordCategoryResult(state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") in OwnershipAction.entries.map { it.kind }) recordOwnershipResult(state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "rotate-access") state.addProperty("access_rotation_rejected_head", original.body.text("control_id"))
                 if (original.body.text("kind") == "complete-owner") state.addProperty("ownership_completion_rejected_head", original.body.text("control_id"))
@@ -1987,7 +2212,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 require(channel == generalChannel(parent))
                 SpaceChannelKind.CHAT // The original General-only protocol.
             } else {
-                val keyState = if (record.allowedMembers != null) data else parent
+                val keyState = record.metadataChannelId?.let { channelState(space, it, parent) } ?: if (record.allowedMembers != null) data else parent
                 // Retained history can describe an authorized channel while
                 // readmission is pending. It does not authorize new editing.
                 if (!keyState.has("crypto")) return null
@@ -2011,7 +2236,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             require(contentKind in setOf("channel-profile", "channel-profile-edit"))
             if (contentKind == "channel-profile-edit") require(if (original.body.has("target_channel_id"))
                 original.body.text("target_channel_id") == channel else record.allowedMembers != null && original.body.text("channel_id") == channel)
-            val keyState = if (record.allowedMembers != null) data.takeIf { it.get("joined")?.asBoolean == true } ?: return null else parent
+            val keyState = (record.metadataChannelId?.let { channelState(space, it, parent) } ?: if (record.allowedMembers != null) data else parent)
+                .takeIf { it.get("joined")?.asBoolean == true } ?: return null
             val keys = SpaceCrypto.restore(decode(keyState.text("crypto")))
             val text = try { keys.read(envelope).text } catch (_: SpaceCrypto.MissingKeys) { return null }
             val contents = json(text.toByteArray(Charsets.UTF_8))
@@ -2076,7 +2302,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(it != null && it.isJsonPrimitive && it.asJsonPrimitive.isNumber && it.asString.matches(Regex("0|[1-9][0-9]{0,18}")))
     }.asLong.also { require(it >= 0) }
     private companion object {
-        val CONTROL_KINDS = setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite", "create-channel",
+        val CONTROL_KINDS = setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite", "create-channel", "create-category", "edit-category",
             "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access", "rotate-access", "leave", "remove-member", "ban-member", "unban-member", "propose-owner", "accept-owner", "cancel-owner", "decline-owner", "complete-owner")
         const val DIRECTORY_CACHE_LIMIT = 200
         val ID = Regex("[0-9a-f]{64}")

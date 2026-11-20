@@ -41,7 +41,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         return JsonObject().apply {
             addProperty("capability", "spaces-v1"); addProperty("service_key", wallet.publicKey)
             addProperty("schema", version); addProperty("state", "ready"); addProperty("file_hosting", false)
-            add("features", JsonArray().apply { add("unread-v1"); add("channel-archive-v1"); add("role-management-v1"); add("public-channel-edit-v1"); add("private-channel-access-v1"); add("private-channel-edit-v1"); add("membership-management-v1"); add("ownership-management-v1") })
+            add("features", JsonArray().apply { add("unread-v1"); add("channel-archive-v1"); add("role-management-v1"); add("public-channel-edit-v1"); add("private-channel-access-v1"); add("private-channel-edit-v1"); add("membership-management-v1"); add("ownership-management-v1"); add("category-management-v1") })
         }.toString()
     }
 

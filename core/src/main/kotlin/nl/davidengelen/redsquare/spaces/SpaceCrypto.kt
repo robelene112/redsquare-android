@@ -111,15 +111,17 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
         return next
     }
     @JvmOverloads fun publish(wallet: SaitoWallet, kind: String, operationId: String, controlId: String,
-        text: String, timestamp: Long, targetChannelId: String? = null): SaitoTransaction =
-        publishRecord(wallet, kind, operationId, controlId, text, timestamp, targetChannelId = targetChannelId)
+        text: String, timestamp: Long, targetChannelId: String? = null, targetCategoryId: String? = null): SaitoTransaction =
+        publishRecord(wallet, kind, operationId, controlId, text, timestamp, targetChannelId = targetChannelId, targetCategoryId = targetCategoryId)
 
     private fun publishRecord(wallet: SaitoWallet, kind: String, operationId: String, controlId: String,
-        text: String, timestamp: Long, recipient: String? = null, targetChannelId: String? = null): SaitoTransaction {
+        text: String, timestamp: Long, recipient: String? = null, targetChannelId: String? = null, targetCategoryId: String? = null): SaitoTransaction {
         require(text.isNotEmpty() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024 && kind.matches(Regex("[a-z][a-z-]{0,31}")))
+        require((kind == "category-profile") == (targetCategoryId != null))
         val header = header(wallet, "content", operationId, controlId).apply {
             addProperty("content_kind", kind)
             recipient?.let { addProperty("recipient_credential", it) }
+            targetCategoryId?.let { require(it.matches(ID)); addProperty("target_category_id", it) }
             targetChannelId?.let {
                 require(kind == "channel-profile-edit" && it.matches(ID))
                 addProperty("target_channel_id", it)
@@ -290,6 +292,7 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
             // Ordinary archive ciphertext keeps its original AAD unchanged.
             val target = when (body.text("content_kind")) {
                 "history-keys" -> listOf(body.text("recipient_credential"))
+                "category-profile" -> listOf(body.text("target_category_id").also { require(it.matches(ID)) })
                 "channel-profile-edit" -> if (body.has("target_channel_id"))
                     listOf(body.text("target_channel_id").also { require(it.matches(ID)) }) else emptyList()
                 else -> emptyList()

@@ -10,7 +10,9 @@ import java.security.MessageDigest
 /** Public disposable data only. The Android owner and the separately stored
  * reader observe actual signed service effects; no UI result is injected. */
 internal class SpacesManagementFixture(private val owner: SpaceClient, private val reader: SpaceClient,
-    private val peer: ControlledFeedPeer) {
+    private val peer: ControlledFeedPeer, private val categoriesEnabled: Boolean = false) {
+    private val managementKinds = setOf("set-role", "archive-channel", "edit-channel", "create-channel") +
+        if (categoriesEnabled) setOf("create-category", "edit-category") else emptySet()
     private lateinit var space: String
     private val fixtures = JsonObject()
 
@@ -35,7 +37,7 @@ internal class SpacesManagementFixture(private val owner: SpaceClient, private v
         "/management-fixtures" -> fixtures.deepCopy()
         "/management-drop-next" -> {
             require(body.keySet() == setOf("kind"))
-            val kind = body.get("kind").asString.also { require(it in setOf("set-role", "archive-channel", "edit-channel", "create-channel")) }
+            val kind = body.get("kind").asString.also { require(it in managementKinds) }
             check(peer.withholdNextSpacesControlReply.compareAndSet(null, kind))
             JsonObject().apply { addProperty("armed", kind) }
         }
@@ -49,18 +51,24 @@ internal class SpacesManagementFixture(private val owner: SpaceClient, private v
             addProperty("space", space)
             add("members", JsonObject().apply { reader.members(space).forEach { addProperty(it.publicKey, it.role.name) } })
             add("channels", JsonObject().apply { reader.channels(space).forEach { channel ->
-                add(channel.id, JsonObject().apply { addProperty("name", channel.profile.name); addProperty("category", channel.profile.category); addProperty("archived", channel.archived) })
+                add(channel.id, JsonObject().apply { addProperty("name", channel.profile.name); addProperty("category", channel.profile.category); addProperty("archived", channel.archived)
+                    if (categoriesEnabled) addProperty("categoryId", channel.categoryId) })
+            } })
+            if (categoriesEnabled) add("categories", JsonObject().apply { reader.categories(space).forEach { category ->
+                add(category.id, JsonObject().apply { addProperty("name", category.profile.name); addProperty("isPrivate", category.isPrivate) })
             } })
             add("dropped", JsonArray().apply { peer.withheldSpacesControls.forEach(::add) })
             add("originals", JsonArray().apply {
                 peer.spacesRequests.toList().forEach { original ->
                     val signed = SaitoEnvelope.decode(original.envelope())
                     val body = signed.body
-                    if (body.get("request")?.asString == "event" && body.get("kind")?.asString in setOf("set-role", "archive-channel", "edit-channel", "create-channel")) {
+                    if (body.get("request")?.asString == "event" && body.get("kind")?.asString in managementKinds) {
                         add(JsonObject().apply {
                             addProperty("id", original.id); addProperty("actor", signed.author); addProperty("space", body.get("space_id").asString)
                             addProperty("kind", body.get("kind").asString)
                             if (body.has("channel_id")) addProperty("channel", body.get("channel_id").asString)
+                            if (categoriesEnabled && body.has("category_id")) add("categoryId", body.get("category_id").deepCopy())
+                            if (categoriesEnabled && body.has("category_profile")) add("categoryProfile", body.get("category_profile").deepCopy())
                             if (body.has("member")) addProperty("member", body.get("member").asString)
                             if (body.has("role")) addProperty("role", body.get("role").asString)
                             if (body.has("archived")) addProperty("archived", body.get("archived").asBoolean)

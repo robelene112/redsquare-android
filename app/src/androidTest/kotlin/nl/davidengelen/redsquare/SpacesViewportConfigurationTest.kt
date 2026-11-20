@@ -39,7 +39,7 @@ class SpacesViewportConfigurationTest {
             addProperty("fontSetting", device.executeShellCommand("settings get system font_scale").trim())
         }
         val name = arguments.getString("spacesViewportFolder") ?: "spaces-discovery-evidence"
-        require(name in setOf("spaces-discovery-evidence", "spaces-management-evidence", "spaces-private-management-evidence", "spaces-private-readiness-evidence"))
+        require(name in setOf("spaces-discovery-evidence", "spaces-management-evidence", "spaces-private-management-evidence", "spaces-private-readiness-evidence", "spaces-category-management-evidence"))
         val folder = File(context.cacheDir, name).apply { mkdirs() }
         File(folder, "viewport-$stage.json").writeText(value.toString())
         assertTrue("Actual resource configuration must match the owned viewport", matches())

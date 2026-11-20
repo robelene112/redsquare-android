@@ -14,7 +14,7 @@ data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>,
     val metadata: String? = null, val adminPostsOnly: Boolean = false, val archived: Boolean = false,
     val contributionStartedAt: Long = 0, val allowedMembers: Set<String>? = null,
     val accessStartedAt: Map<String, Long> = emptyMap(), val kind: SpaceChannelKind? = null,
-    val initialMetadata: String? = metadata, val retiredDevices: Set<String> = emptySet())
+    val initialMetadata: String? = metadata, val retiredDevices: Set<String> = emptySet(), val categoryId: String? = null, val metadataChannelId: String? = null)
 data class SpaceOwnershipOffer(val id: String, val member: String, val proposedAt: Long,
     val acceptedId: String? = null, val acceptedAt: Long? = null)
 
@@ -28,7 +28,8 @@ data class SpaceSnapshot(val owner: String? = null, val members: Map<String, Spa
     val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val publicProfile: SpaceProfile? = null,
     val administratorStartedAt: Map<String, Long> = emptyMap(), val generalChannelId: String? = null,
     val membershipEndedAt: Map<String, Long> = emptyMap(), val bannedMembers: Set<String> = emptySet(),
-    val membershipReadThrough: Map<String, Long> = emptyMap(), val ownershipOffer: SpaceOwnershipOffer? = null)
+    val membershipReadThrough: Map<String, Long> = emptyMap(), val ownershipOffer: SpaceOwnershipOffer? = null,
+    val categories: Map<String, SpaceCategoryRecord> = emptyMap())
 
 /** Authenticated control history. Content pages have their own channel cursors. */
 class SpaceJournal(private val spaceId: String, private val serviceKey: String) {
@@ -136,11 +137,21 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean); it.asBoolean
                 } ?: (channelProfile?.kind == SpaceChannelKind.ANNOUNCEMENT)
                 require(channelKind == null || adminPostsOnly == (channelKind == SpaceChannelKind.ANNOUNCEMENT))
-                SpaceSnapshot(event.author, mapOf(event.author to SpaceRole.OWNER), event.id, 1,
+                val created = SpaceSnapshot(event.author, mapOf(event.author to SpaceRole.OWNER), event.id, 1,
                     channels = mapOf(event.body.text("channel_id") to SpaceChannelRecord(0, devices,
                         event.body.takeIf { it.has("key_generation") }?.text("key_generation")?.also { require(it.matches(ID)) }
                             ?: "0".repeat(64), visibility = channelVisibility,
-                        profile = channelProfile, metadata = channelMetadata, adminPostsOnly = adminPostsOnly, kind = channelKind)), visibility = visibility, publicProfile = profile, generalChannelId = event.body.text("channel_id"))
+                        profile = channelProfile, metadata = channelMetadata, adminPostsOnly = adminPostsOnly, kind = channelKind, metadataChannelId = event.body.text("channel_id"))), visibility = visibility, publicProfile = profile, generalChannelId = event.body.text("channel_id"))
+                categorizedChannel(event, created, event.body.text("channel_id"), created.channels.getValue(event.body.text("channel_id")))
+            }
+            "create-category", "edit-category" -> {
+                require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+                require(event.body.text("control_id") == current.controlId)
+                val category = event.body.text("category_id").also { require(it.matches(ID)) }
+                require((category in current.categories) == (event.body.text("kind") == "edit-category"))
+                val record = categoryRecord(event, event.body, current, category, current.categories[category])
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    categories = Collections.unmodifiableMap(current.categories + (category to record)))
             }
             "create-channel" -> {
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
@@ -168,6 +179,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 require(event.body.number("epoch") == 0L)
                 val profile = if (visibility == SpaceVisibility.PUBLIC)
                     SpaceChannelProfile.fromJson(event.body.getAsJsonObject("channel_profile")) else null
+
                 val metadata = if (visibility == SpaceVisibility.PRIVATE) event.body.text("metadata").also {
                     require(!event.body.has("channel_profile") && Base64.getDecoder().decode(it).size in 29..65_536)
                 } else null
@@ -182,10 +194,12 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean); it.asBoolean
                 } ?: (profile?.kind == SpaceChannelKind.ANNOUNCEMENT)
                 require(channelKind == null || adminPostsOnly == (channelKind == SpaceChannelKind.ANNOUNCEMENT))
-                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                val created = current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(0, bindings,
                         generation, position, visibility, profile, metadata, adminPostsOnly, allowedMembers = allowed, kind = channelKind,
-                        accessStartedAt = Collections.unmodifiableMap(allowed.orEmpty().associateWith { position })))))
+                        accessStartedAt = Collections.unmodifiableMap(allowed.orEmpty().associateWith { position }), metadataChannelId = if (visibility == SpaceVisibility.PRIVATE)
+                            if (allowed != null) channel else requireNotNull(current.generalChannelId) else null))))
+                categorizedChannel(event, created, channel, created.channels.getValue(channel))
             }
             "grant-channel-access" -> {
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
@@ -243,7 +257,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     old.copy(profile = profile)
                 } else {
                     require(!event.body.has("channel_profile") && !event.body.has("channel_kind"))
-                    val metadataChannel = if (old.allowedMembers != null) channel else requireNotNull(current.generalChannelId)
+                    val metadataChannel = old.metadataGroupId(channel, current)
                     val metadataGroup = requireNotNull(current.channels[metadataChannel])
                     require(metadataGroup.retiredDevices.isEmpty()) { "Channel access keys need updating" }
                     require(metadataGroup.visibility == SpaceVisibility.PRIVATE && metadataGroup.devices.keys.any { credentialWallet(it) == event.author }) {
@@ -254,8 +268,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                         metadataGroup.epoch, "channel-profile-edit", channel, allowImplicitTarget = old.allowedMembers != null)
                     old.copy(metadata = metadata)
                 }
-                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
-                    channels = Collections.unmodifiableMap(current.channels + (channel to edited)))
+                categorizedChannel(event, current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1)), channel, edited)
             }
             "rotate-access" -> {
                 require(event.body.text("control_id") == current.controlId)
@@ -452,6 +465,90 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         return next
     }
 
+    private fun categorizedChannel(event: SignedSaitoMessage, snapshot: SpaceSnapshot, channel: String,
+        record: SpaceChannelRecord): SpaceSnapshot {
+        val body = event.body
+        val previous = snapshot.channels[channel]
+        val legacyReassignment = !body.has("category_id") && record.profile != null && previous?.profile != null &&
+            record.profile.category != previous.profile.category
+        val category = if (legacyReassignment) snapshot.categories.entries.firstOrNull {
+            it.value.profile?.name == record.profile?.category
+        }?.key else if (!body.has("category_id")) record.categoryId else body.get("category_id").let { value ->
+            if (value.isJsonNull) null else {
+                require(value.isJsonPrimitive && value.asJsonPrimitive.isString)
+                value.asString.also { require(it.matches(ID)) }
+            }
+        }
+        val linked = record.copy(categoryId = category)
+        var next = snapshot.copy(channels = Collections.unmodifiableMap(snapshot.channels + (channel to linked)))
+        if (category == null) {
+            require(!body.has("category_creation") && !body.has("category_attachment"))
+            return next
+        }
+        var resolved = snapshot.categories[category]
+        if (body.has("category_creation")) {
+            require(resolved == null && !body.has("category_attachment"))
+            val creation = body.get("category_creation").also { require(it.isJsonObject) }.asJsonObject
+            require(!creation.has("default_group"))
+            resolved = categoryRecord(event, creation, next, category, null)
+        } else require(resolved != null)
+        var accepted = requireNotNull(resolved)
+        val publicProfile = accepted.profile
+        if (publicProfile != null) {
+            require(!body.has("category_attachment"))
+            record.profile?.let { require(it.category == publicProfile.name ||
+                !body.has("category_id") && it.category == previous?.profile?.category) }
+        } else {
+            require(record.visibility == SpaceVisibility.PRIVATE)
+            val group = record.metadataGroupId(channel, next)
+            if (body.has("category_attachment")) {
+                val attachment = body.get("category_attachment").also { require(it.isJsonObject) }.asJsonObject
+                require(attachment.keySet() == setOf("category_metadata"))
+                accepted = accepted.copy(metadata = Collections.unmodifiableMap(accepted.metadata +
+                    categoryMetadata(event, attachment, next, category, accepted.revision, setOf(group))))
+            }
+            require(group in accepted.metadata)
+        }
+        next = next.copy(categories = Collections.unmodifiableMap(next.categories + (category to accepted)))
+        return next
+    }
+
+    private fun categoryRecord(event: SignedSaitoMessage, body: JsonObject, snapshot: SpaceSnapshot,
+        category: String, previous: SpaceCategoryRecord?): SpaceCategoryRecord {
+        val revision = event.body.text("operation_id")
+        if (body.has("category_profile")) {
+            require(snapshot.visibility == SpaceVisibility.PUBLIC && (previous == null || previous.profile != null))
+            require(!body.has("category_metadata") && !body.has("default_group"))
+            val value = body.get("category_profile").also { require(it.isJsonObject) }
+            return SpaceCategoryRecord(SpaceCategoryProfile.fromJson(value.asJsonObject), revision)
+        }
+        require(previous == null || previous.profile == null)
+        val defaultGroup = if (previous == null) body.takeIf { it.has("default_group") }?.text("default_group") else {
+            require(!body.has("default_group")); previous.defaultGroup
+        }
+        val required = snapshot.categoryGroups(category, defaultGroup)
+        require(required.isNotEmpty())
+        val metadata = categoryMetadata(event, body, snapshot, category, revision, required)
+        return SpaceCategoryRecord(null, revision, metadata, defaultGroup)
+    }
+
+    private fun categoryMetadata(event: SignedSaitoMessage, body: JsonObject, snapshot: SpaceSnapshot,
+        category: String, revision: String, required: Set<String>): Map<String, String> {
+        val value = body.get("category_metadata").also { require(it != null && it.isJsonObject) }.asJsonObject
+        require(value.keySet() == required)
+        return Collections.unmodifiableMap(required.associateWith { channel ->
+            val group = requireNotNull(snapshot.channels[channel])
+            require(group.visibility == SpaceVisibility.PRIVATE && group.retiredDevices.isEmpty())
+            require(group.devices.keys.any { credentialWallet(it) == event.author })
+            val encoded = value.text(channel)
+            verifyChannelMetadata(encoded, event, SpaceCrypto.Scope(serviceKey, spaceId, channel, group.generation),
+                group.epoch, "category-profile")
+            val signed = SaitoEnvelope.decode(Base64.getDecoder().decode(encoded).toString(Charsets.UTF_8))
+            require(signed.body.text("operation_id") == revision && signed.body.text("target_category_id") == category)
+            encoded
+        })
+    }
+
     private fun privateKeysAdmitted(snapshot: SpaceSnapshot, actor: String): Boolean = snapshot.channels.values.all { record ->
         record.visibility == SpaceVisibility.PUBLIC || record.devices.keys.any { credential ->
             credentialWallet(credential) == actor && credential !in record.retiredDevices
@@ -507,7 +604,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             else allowImplicitTarget && scope.channelId == targetChannelId) // Earlier restricted edits were bound by their own signed scope.
         require(body.text("space_id") == scope.spaceId && body.text("channel_id") == scope.channelId &&
             body.text("key_generation") == scope.generation && body.number("epoch") == epoch &&
-            body.text("control_id") == event.body.text("control_id"))
+            body.text("control_id") == (if (event.body.text("kind") == "create") "0".repeat(128) else event.body.text("control_id")))
         require(Base64.getDecoder().decode(body.text("ciphertext")).size in 29..65_536)
     }
 
