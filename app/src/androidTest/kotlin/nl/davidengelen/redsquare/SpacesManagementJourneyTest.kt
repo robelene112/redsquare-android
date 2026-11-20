@@ -39,8 +39,10 @@ class SpacesManagementJourneyTest {
     private val arguments get() = InstrumentationRegistry.getArguments()
     private fun port(name: String) = requireNotNull(arguments.getString(name)).toInt().also { require(it in 1024..65535) }
     private val device get() = UiDevice.getInstance(instrumentation)
-    private val evidence get() = File(context.cacheDir, "spaces-management-evidence").apply { mkdirs() }
-    private val checkpoint get() = File(context.cacheDir, "spaces-management-checkpoint.json")
+    private val privateManagement get() = arguments.getString("spacesPrivateManagement") == "true"
+    private val evidenceLabel get() = if (privateManagement) "spaces-private-management" else "spaces-management"
+    private val evidence get() = File(context.cacheDir, "$evidenceLabel-evidence").apply { mkdirs() }
+    private val checkpoint get() = File(context.cacheDir, "$evidenceLabel-checkpoint.json")
     private val peerEndpoint get() = "ws://127.0.0.1:${port("spacesPeerPort")}/wsopen"
     private val fixtureOwner get() = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
     private val fixtureService get() = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey
@@ -51,6 +53,207 @@ class SpacesManagementJourneyTest {
         putExtra("feedOfficialPeerUrl", peerEndpoint)
         putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
     })
+
+    @Test fun privateCreationRestoresSelectedMembersAndCheckpointsARealUnconfirmedRevocation() {
+        check(privateManagement && arguments.getString("spacesDisposableBaseline") == "true" && !checkpoint.exists())
+        val walletStore = AndroidWalletStore(context)
+        walletStore.replace(walletStore.loadOrCreate(), fixtureOwner)
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val fixtures = command("private-management-fixtures")
+        launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("private-creation-failure") }) {
+            waitText("Private management General 17")
+            ui.onNode(hasSetTextAction()).performTextReplacement("Keep General writing through private access changes")
+            closeKeyboard(); history().performScrollToNode(hasText("Private management General 5"))
+            val readingPixel = pixel("Private management General 5")
+            openInformation(); clickDialog(context.getString(R.string.spaces_add_channel))
+            editorField("Channel name").performScrollTo().performTextReplacement("native-private-lounge")
+            editorField("Category (optional)").performScrollTo().performTextReplacement("Team")
+            closeKeyboard()
+            privateRestriction().performScrollTo().clickReady()
+            privateRestriction().assertIsOn()
+            privateMember(fixtures, true).clickReady()
+            capture("01-private-members-selected")
+            activity.recreate()
+            waitUntil { editorField("Channel name").isDisplayed() }
+            editorField("Channel name").assertTextContains("native-private-lounge")
+            privateRestriction().performScrollTo().assertIsOn()
+            privateMember(fixtures, true).assertIsOn()
+            capture("02-private-creation-restored")
+            command("private-management-drop-next", JsonObject().apply { addProperty("kind", "create-channel") })
+            val started = SystemClock.elapsedRealtime(); val deadline = started + 27_000
+            clickDialog("Create channel")
+            waitText("Waiting for confirmation.", 5_000)
+            clickDialog("Close"); clickDialog(context.getString(R.string.spaces_add_channel))
+            editorField("Channel name").assertIsNotEnabled()
+            privateRestriction().performScrollTo().assertIsOn().assertIsNotEnabled()
+            privateMember(fixtures, true).assertIsOn().assertIsNotEnabled()
+            capture("03-private-creation-pending-reentry")
+            var received = JsonObject()
+            val remaining = deadline - SystemClock.elapsedRealtime()
+            assertTrue("Private creation keeps its full27second budget", remaining > 0)
+            waitUntil(remaining) {
+                received = status()
+                received.getAsJsonArray("originals").map { it.asJsonObject }.count { it.get("kind").asString == "create-channel" } == 2 &&
+                    ui.onNode(hasContentDescription(context.getString(R.string.spaces_switch_channel)) and
+                        SemanticsMatcher.expectValue(androidx.compose.ui.semantics.SemanticsProperties.StateDescription, "native-private-lounge")).isDisplayed()
+            }
+            val completed = SystemClock.elapsedRealtime()
+            assertTrue(completed <= deadline)
+            val channel = received.get("privateChannel").asString
+            saveJson("private-creation-recovery.json", JsonObject().apply {
+                addProperty("pid", Process.myPid()); addProperty("owner", fixtures.get("owner").asString)
+                addProperty("space", fixtures.get("space").asString); addProperty("channel", channel)
+                addProperty("original", received.getAsJsonArray("dropped").first().asString)
+                addProperty("recoveryStartedAtMs", started); addProperty("recoveryCompletedAtMs", completed)
+            })
+            fixtures.addProperty("private", channel)
+            waitUntil { status().getAsJsonObject("channels").has(channel) }
+            assertFalse(status().getAsJsonArray("outsiderChannels").any { it.asString == channel })
+            capture("04-private-created-and-selected")
+            ui.onNode(hasSetTextAction()).performTextReplacement("A native encrypted message before removal")
+            ui.onNodeWithContentDescription(context.getString(R.string.spaces_send)).clickReady()
+            waitUntil { status().getAsJsonArray("privateMessages").any { it.asString == "A native encrypted message before removal" } }
+            openPrivateAccess()
+            val fixedRole = hasText(fixtures.get("adminName").asString) and
+                SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.ToggleableState)
+            history().performScrollToKey(fixtures.get("admin").asString)
+            waitUntil { ui.onNode(fixedRole).isDisplayed() }
+            ui.onNode(fixedRole).assertIsOn().assertIsNotEnabled()
+            capture("05a-private-administrator-access-fixed")
+            privateMember(fixtures).assertIsOn()
+            activity.recreate(); waitText(context.getString(R.string.spaces_channel_access))
+            privateMember(fixtures).assertIsOn()
+            capture("05-private-access-restored")
+            command("private-management-drop-next", JsonObject().apply { addProperty("kind", "revoke-channel-access") })
+            privateMember(fixtures).clickReady()
+            clickDialog(context.getString(R.string.spaces_remove_channel_access))
+            waitText("Waiting for confirmation.", 5_000)
+            waitUntil(5_000) { !status().getAsJsonObject("channels").has(channel) }
+            assertEquals("Keep General writing through private access changes", savedDraft(fixtures, "general"))
+            capture("06-private-revoke-awaiting")
+            saveJson("private-revoke-pending-host.json", status())
+            publishCheckpoint("private-revoke-pending", fixtures, readingPixel)
+        } }
+    }
+
+    @Test fun coldPrivateRevocationRecoversTheSameOriginalThenCheckpointsARealGrant() {
+        check(privateManagement)
+        val previous = readCheckpoint("private-revoke-pending")
+        val fixtures = previous.getAsJsonObject("fixtures")
+        launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("private-grant-failure") }) {
+            waitText("A native encrypted message before removal")
+            openPrivateAccess()
+            assertRetriedOriginal(previous, "revoke-channel-access")
+            privateMember(fixtures).assertIsOff()
+            val received = status(); val channel = fixtures.get("private").asString
+            assertFalse(received.getAsJsonObject("channels").has(channel))
+            assertEquals("MEMBER", received.getAsJsonObject("members").get(fixtures.get("member").asString).asString)
+            assertEquals("Keep General writing through private access changes", savedDraft(fixtures, "general"))
+            capture("07-cold-private-revocation")
+            command("private-management-drop-next", JsonObject().apply { addProperty("kind", "grant-channel-access") })
+            privateMember(fixtures).clickReady()
+            waitText("Waiting for confirmation.", 5_000)
+            waitUntil(5_000) { status().getAsJsonArray("dropped").size() == 3 }
+            capture("08-private-grant-awaiting")
+            saveJson("private-grant-pending-host.json", status())
+            publishCheckpoint("private-grant-pending", fixtures, previous.get("pixel").asFloat)
+        } }
+    }
+
+    @Test fun coldPrivateGrantRestoresActualEncryptedReadingAndKeepsTheGeneralDraft() {
+        check(privateManagement)
+        val previous = readCheckpoint("private-grant-pending")
+        val fixtures = previous.getAsJsonObject("fixtures")
+        launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("private-grant-recovery-failure") }) {
+            waitText("A native encrypted message before removal")
+            openPrivateAccess()
+            assertRetriedOriginal(previous, "grant-channel-access")
+            privateMember(fixtures).assertIsOn()
+            waitUntil { status().getAsJsonObject("channels").getAsJsonObject(fixtures.get("private").asString)?.get("ready")?.asBoolean == true }
+            capture("09-cold-private-grant")
+            device.pressBack(); clickDialog("Close")
+            waitText("A native encrypted message before removal")
+            ui.onNode(hasSetTextAction()).performTextReplacement("A native encrypted message after fresh admission")
+            ui.onNodeWithContentDescription(context.getString(R.string.spaces_send)).clickReady()
+            waitUntil { status().getAsJsonArray("privateMessages").any { it.asString == "A native encrypted message after fresh admission" } }
+            capture("10-private-reader-after-fresh-admission")
+            openPrivateAccess(); privateMember(fixtures).assertIsOn()
+            withWriteFailure(activity, fixtures, "private-access") {
+                val before = status().getAsJsonArray("originals").size()
+                privateMember(fixtures).clickReady(); clickDialog(context.getString(R.string.spaces_remove_channel_access))
+                waitAccessError()
+                assertEquals(before, status().getAsJsonArray("originals").size())
+                capture("11-private-long-roster-error-visible")
+                ui.onNode(hasText("Close") and hasClickAction() and !hasAnyAncestor(isDialog())).performScrollTo().clickReady()
+                waitUntil(5_000) { !ui.onNodeWithText(saveError).isDisplayed() }
+                privateMember(fixtures).assertIsOn().assertIsEnabled()
+                capture("12-private-error-dismissed")
+            }
+        } }
+        launch(fixtures.get("link").asString).use { _ ->
+            waitText("A native encrypted message after fresh admission")
+            chooseChannel("general")
+            waitText("Private management General 5"); assertPixel("Private management General 5", previous.get("pixel").asFloat)
+            waitUntil { ui.onNode(hasSetTextAction() and hasText("Keep General writing through private access changes")).isDisplayed() }
+            saveJson("private-draft-pixel.json", JsonObject().apply {
+                addProperty("pid", Process.myPid()); addProperty("owner", fixtures.get("owner").asString)
+                addProperty("space", fixtures.get("space").asString); addProperty("channel", fixtures.get("general").asString)
+                addProperty("expectedPixel", previous.get("pixel").asFloat); addProperty("actualPixel", pixel("Private management General 5"))
+                addProperty("draft", ui.onNode(hasSetTextAction() and hasText("Keep General writing through private access changes"))
+                    .fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text)
+            })
+            capture("13-private-general-draft-preserved")
+            saveCompletion("completed.json", fixtures)
+        }
+    }
+
+    @Test fun compactPrivateRosterKeepsTheActualLocalErrorAndRemovalControlsReachable() {
+        check(privateManagement)
+        val fixtures = readCheckpoint("private-grant-pending").getAsJsonObject("fixtures")
+        launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("private-compact-failure") }) {
+            waitText("Private management General 5")
+            chooseChannel("native-private-lounge")
+            waitText("A native encrypted message after fresh admission")
+            openPrivateAccess(); privateMember(fixtures).assertIsOn()
+            capture("14-compact-private-roster")
+            withWriteFailure(activity, fixtures, "compact-private-access") {
+                val before = status().getAsJsonArray("originals").size()
+                privateMember(fixtures).clickReady()
+                capture("15-compact-private-remove-confirmation")
+                clickDialog(context.getString(R.string.spaces_remove_channel_access))
+                waitAccessError()
+                assertEquals(before, status().getAsJsonArray("originals").size())
+                capture("16-compact-private-error-visible")
+                ui.onNode(hasText("Close") and hasClickAction() and !hasAnyAncestor(isDialog())).performScrollTo().clickReady()
+                waitUntil(5_000) { !ui.onNodeWithText(saveError).isDisplayed() }
+                privateMember(fixtures).assertIsOn().assertIsEnabled()
+                capture("17-compact-private-error-dismissed")
+            }
+        } }
+        launch(fixtures.get("link").asString).use { _ ->
+            waitText("A native encrypted message after fresh admission")
+            saveCompletion("compact-completed.json", fixtures)
+        }
+    }
+
+    private fun privateRestriction() = ui.onNode(hasText(context.getString(R.string.spaces_channel_restricted)) and
+        SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.ToggleableState) and hasAnyAncestor(isDialog()))
+    private fun privateMember(fixtures: JsonObject, dialog: Boolean = false): SemanticsNodeInteraction {
+        val match = hasText(fixtures.get("memberName").asString) and
+            SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.ToggleableState)
+        val list = ui.onNode(hasScrollToNodeAction() and if (dialog) hasAnyAncestor(isDialog()) else !hasAnyAncestor(isDialog()) and onScreen)
+        if (dialog) list.performScrollTo()
+        list.performScrollToKey(fixtures.get("member").asString)
+        val target = ui.onNode(match and if (dialog) hasAnyAncestor(isDialog()) else !hasAnyAncestor(isDialog()) and onScreen)
+        waitUntil { target.isDisplayed() }
+        return target
+    }
+    private fun openPrivateAccess() { openInformation(); clickDialog(context.getString(R.string.spaces_channel_access)); waitText(context.getString(R.string.spaces_channel_access)) }
+
+    private fun waitAccessError() = waitUntil(5_000) {
+        val error = ui.onNode(hasText(saveError) and !hasAnyAncestor(isDialog()))
+        error.isDisplayed() && error.fetchSemanticsNode().let { it.size.height <= it.boundsInRoot.height + 1f }
+    }
 
     @Test fun ownerSeesLocalRoleErrorsAndCheckpointsAnActuallyAcceptedUnconfirmedPromotion() {
         check(arguments.getString("spacesDisposableBaseline") == "true")
@@ -452,7 +655,15 @@ class SpacesManagementJourneyTest {
         ui.onNode(hasText(context.getString(R.string.spaces_information)) and hasClickAction()).clickReady()
     }
     private fun openMembers() { openInformation(); clickDialog("Members"); waitText("MemberOfTheLab@saito") }
-    private fun openRole() { ui.onNode(hasText("Manage role") and hasClickAction()).clickReady() }
+    private fun openRole() {
+        val deadline = SystemClock.elapsedRealtime() + 5_000
+        val node = ui.onNode(hasText("Manage role") and hasClickAction())
+        node.performScrollTo()
+        val remaining = deadline - SystemClock.elapsedRealtime()
+        assertTrue("Role action remains inside its original5second budget", remaining > 0)
+        node.clickReady(remaining)
+        assertTrue("Scrolling and opening the role action take at most5seconds", SystemClock.elapsedRealtime() <= deadline)
+    }
     private fun dismissRole() { device.pressBack(); waitUntil(5_000) { !ui.onNode(hasText("Make administrator") and hasClickAction()).isDisplayed() } }
     private fun closeInformationIfPresent() {
         waitUntil(5_000) { ui.onNode(hasText("Members") and hasClickAction() and hasAnyAncestor(isDialog())).isDisplayed() }
@@ -523,7 +734,7 @@ class SpacesManagementJourneyTest {
     private fun waitText(text: String, timeout: Long = 15_000) = waitUntil(timeout) { ui.onNode(hasText(text) and onScreen).isDisplayed() }
     private fun waitUntil(timeout: Long = 15_000, condition: () -> Boolean) = ui.waitUntil(timeout, condition)
     private fun capture(name: String) = captureNativeScreen(File(evidence, "$name.png"))
-    private fun status() = command("management-status")
+    private fun status() = command(if (privateManagement) "private-management-status" else "management-status")
     private fun savedDraft(fixtures: JsonObject, channel: String): String {
         val route = "${SaitoBackend.OWNER}:$peerEndpoint"
         val namespace = MessageDigest.getInstance("SHA-256")
@@ -553,7 +764,7 @@ class SpacesManagementJourneyTest {
             add("fixtures", fixtures)
         }
         saveJson("checkpoint-$phase.json", value)
-        val temporary = File(context.cacheDir, "spaces-management-checkpoint.tmp")
+        val temporary = File(context.cacheDir, "$evidenceLabel-checkpoint.tmp")
         temporary.writeText(value.toString()); check(temporary.renameTo(checkpoint))
         while (true) SystemClock.sleep(250)
     }
@@ -565,7 +776,14 @@ class SpacesManagementJourneyTest {
     private fun saveCompletion(name: String, fixtures: JsonObject) {
         val remote = status()
         assertEquals("MEMBER", remote.getAsJsonObject("members").get(fixtures.get("member").asString).asString)
-        assertTrue(remote.getAsJsonObject("channels").entrySet().all { !it.value.asJsonObject.get("archived").asBoolean })
+        if (privateManagement) {
+            val channel = fixtures.get("private").asString
+            assertEquals(26, remote.getAsJsonObject("members").size())
+            assertTrue(remote.getAsJsonObject("channels").getAsJsonObject(channel).get("ready").asBoolean)
+            assertFalse(remote.getAsJsonArray("outsiderChannels").any { it.asString == channel })
+            assertEquals(listOf("A native encrypted message before removal", "A native encrypted message after fresh admission"),
+                remote.getAsJsonArray("privateMessages").map { it.asString })
+        } else assertTrue(remote.getAsJsonObject("channels").entrySet().all { !it.value.asJsonObject.get("archived").asBoolean })
         saveJson(if (name == "completed.json") "normal-host.json" else "compact-host.json", remote)
         saveJson(name, JsonObject().apply {
             addProperty("pid", Process.myPid()); addProperty("owner", AndroidWalletStore(context).loadExisting().publicKey)

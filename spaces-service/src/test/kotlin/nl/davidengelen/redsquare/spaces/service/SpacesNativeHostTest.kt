@@ -21,9 +21,11 @@ class SpacesNativeHostTest {
     @Test(timeout = 45_000) fun theActualFixtureProcessAdvertisesOwnedPortsAndStopsCleanly() = runHost(null)
     @Test(timeout = 45_000) fun theDiscoveryHostSeedsRealPublicPrivateAndUnlistedCommunitiesBeforeReadiness() = runHost("discovery-v1")
     @Test(timeout = 45_000) fun theManagementHostSeedsIndependentRolesAndNonemptyChannelHistoryBeforeReadiness() = runHost("management-v1")
+    @Test(timeout = 45_000) fun thePrivateManagementHostSeedsARealLongRosterAndAnIndependentReader() = runHost("private-management-v1")
     private fun runHost(mode: String?) {
         val discovery = mode == "discovery-v1"
         val management = mode == "management-v1"
+        val privateManagement = mode == "private-management-v1"
         val root = files.newFolder(mode ?: "host-start").toPath()
         val process = ProcessBuilder(Path.of(System.getProperty("java.home"), "bin/java").toString(),
             "-Djava.library.path=" + System.getProperty("java.library.path"),
@@ -52,7 +54,7 @@ class SpacesNativeHostTest {
                 return response.body()
             }
             val status = JsonParser.parseString(command("status")).asJsonObject
-            assertEquals(if (discovery) 5 else if (management) 1 else 0, status.getAsJsonArray("communities").size())
+            assertEquals(if (discovery) 5 else if (management || privateManagement) 1 else 0, status.getAsJsonArray("communities").size())
             if (discovery) {
                 val fixtures = JsonParser.parseString(command("fixtures")).asJsonObject
                 assertEquals(setOf("public", "unlisted", "nonchat", "private", "expiring"), fixtures.keySet())
@@ -70,6 +72,20 @@ class SpacesNativeHostTest {
                 assertEquals(setOf("general", "workshop", "announcements"), received.getAsJsonObject("channels").entrySet()
                     .map { it.value.asJsonObject.get("name").asString }.toSet())
                 assertTrue(received.getAsJsonObject("channels").entrySet().all { !it.value.asJsonObject.get("archived").asBoolean })
+                assertEquals(0, received.getAsJsonArray("originals").size())
+                assertEquals(0, received.getAsJsonArray("dropped").size())
+            }
+            if (privateManagement) {
+                assertEquals((0 until 18).map { "Private management General $it" },
+                    status.getAsJsonArray("communities").single().asJsonObject.getAsJsonArray("received").map { it.asString })
+                val fixtures = JsonParser.parseString(command("private-management-fixtures")).asJsonObject
+                val received = JsonParser.parseString(command("private-management-status")).asJsonObject
+                assertEquals(fixtures.get("space").asString, received.get("space").asString)
+                assertEquals(26, received.getAsJsonObject("members").size())
+                assertEquals("OWNER", received.getAsJsonObject("members").get(fixtures.get("owner").asString).asString)
+                assertEquals("MEMBER", received.getAsJsonObject("members").get(fixtures.get("member").asString).asString)
+                assertEquals(listOf(fixtures.get("general").asString), received.getAsJsonObject("channels").keySet().toList())
+                assertEquals(listOf(fixtures.get("general").asString), received.getAsJsonArray("outsiderChannels").map { it.asString })
                 assertEquals(0, received.getAsJsonArray("originals").size())
                 assertEquals(0, received.getAsJsonArray("dropped").size())
             }

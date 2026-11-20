@@ -1,0 +1,63 @@
+{
+  "ticket": 139,
+  "scope": "First restricted-channel native process harness. Source qualification only; no native acceptance.",
+  "base": "0ab2b46d785e16b0124734eb4e08591214e74ddc",
+  "sources": {
+    ".github/workflows/android-proof.yml": "20d2bf4ad12114650b061a142cece998d615fdcba6092c0db90f10c55b91acec",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "9bf5bfb03ac04c25a1e12917b73d3c4a8c38d40365de69d9873292de0fb4cd71",
+    "scripts/emulator-check": "31af0520429d016c5a3c3127833b4dd1cab0db168b110dc7bf6e81844b55f7d2",
+    "scripts/spaces-native-journey": "4b8bd3d83aa0acac559312b498e3394b94f73a38b654764c688d0c11aa3c4bea",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost.kt": "58ec67d4f483662f0988caf13d7b426af76dd635040fd6345819b71467808dde",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHostTest.kt": "ee47e5fd5850f67d1be831af70b6e509501db157063806d1a11a325033ca211a",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesPrivateManagementFixture.kt": "4fd1eef76fbd4e2050c6ea70a4521eebfca3916ff078780b27009653d1f241d7"
+  },
+  "behaviour": [
+    "Isolated workflow flag, concurrency group, host mode, native cache/checkpoint folder and provenance flag keep the new journey separate from public management-v3.",
+    "Twenty-six real signed SQLite memberships include owner/admin, the independent selected reader at the end of the roster and an unauthorized member. The old generic host neither publishes nor requests a second device in this mode.",
+    "Four native phases retain two actual external process kills, exact-original double deliveries, actual encrypted reader messages, selected-member/private-field recreation and pending reentry,27second creation recovery, General draft/pixel continuity and normal/compact long-roster SQL errors.",
+    "The driver and prospective private assessor explicitly retain key-unavailable administration and genuine service-rejection native coverage as mandatory remaining139 work. This slice never discharges those goals.",
+    "Both public attempt12 parents remain failed at compact Manage role entry. A real scroll with positive remaining time and final completion inside the original absolute5second deadline corrects that observer. All public management-v3 goals remain unchanged."
+  ],
+  "checks": {
+    "actualHostModeRed": "Missing new main-mode argument rejected by the actual Java process, not a product defect.",
+    "actualHostProcessCases": 4,
+    "hostFailures": 0,
+    "hostErrors": 0,
+    "hostSkipped": 0,
+    "hostSeconds": 83,
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-private-native-host-isolated-green-originals",
+    "instrumentationCompile": "PASS168s before the final simple public role-helper deadline refinement; exact CI compilation is required before device execution.",
+    "driverSyntax": "Python AST and shell syntax pass.",
+    "prospectiveCatalogue": "246core/95service,9service classes; whole CI check required before emulator."
+  },
+  "logs": {
+    "139-private-native-host-red.log": "970de30c87de59941c397dbe2a98692e901355b35f66895618aef2efc9f4a853",
+    "139-private-native-host-green.log": "61ac34ffb9cfc102472871ab3f73de9be49d1c4c3c9490bf06bc0c4b5fdbccf4",
+    "139-private-native-host-all-green.log": "40a17a71b1cfed30ed970a045fcc1c2d9982287a07c9078c285c8a75873abc42",
+    "139-private-native-host-isolated-green.log": "fd00343732992dcc20f00d303ddc7b886d10ac19c010bbe51d7fe32064bc1768",
+    "139-private-native-android-compile.log": "cdceec1dc32b925d76c27869f982e4da7214b31e22ca66ca38609535e16ce561"
+  },
+  "reviews": {
+    "firstSliceSpec": {
+      "report": "139-private-native-first-slice-spec-review.txt",
+      "sha256": "b6ba4d37e139f01276f06415c77f169154874aa2443bae16c1989f71c49784ab",
+      "additionalFindings": 0,
+      "pendingWhole139CoverageGaps": 2
+    },
+    "firstSliceStandards": {
+      "report": "139-private-native-first-slice-final-standards-review.txt",
+      "sha256": "5ffa603bde6150d8c0aa9c08457d459594fe59e65c91fb3eba08de2b23f9db19",
+      "findings": 0
+    }
+  },
+  "prospectiveAssessor": {
+    "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/verify-139-private-native-management.py",
+    "sha256": "734d920d1b7568b38942524185d9b04269e66fbc6fe587df29403a00e171bbe9",
+    "scope": "Creation/process/local-fault slice only. Whole originals, movies, exact catalogue, signed-original hashes, actual receiving effects, numeric pixel/draft,18captures,48dp/full-layout and viewport restoration."
+  },
+  "limits": [
+    "No private native execution or visual acceptance yet. The complete written prospective goals remain unchanged.",
+    "Missing-key removal-disabled/policy-only grant and genuine rejection notice/refresh/fresh recovery still require their own actual native scenario. Initial2P2 report retained.",
+    "Remaining139 governance,140\u2013147, full-frame/prototype and release/activation gates stay open. Public beta142 unchanged."
+  ]
+}

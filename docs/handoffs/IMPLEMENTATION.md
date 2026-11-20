@@ -3,97 +3,48 @@
 
 ## Active139: community governance
 
-Issue138 is closed. The first139 backend increment implements authenticated
-archive/reopen, stale queued-writing rejection, retained history/drafts and durable
-invalid-input rejection. The archive intent API retains exact originals and
-honest receipt status through lost responses; five current SQLite cases pass,
-including available private history during archive. Both incremental source
-review axes are clear. Public owner-only admin appointment/demotion and queued
-privilege-term checks also pass; seven current SQLite cases and both source
-review axes are clear. Role intent/status now retains exact originals through
-lost acknowledgments and real rejections; eight current SQLite cases and both
-source review axes pass. Archive/role native controls and capability gates now
-compile in source. Full244core/78service development checks pass; corrected source
-reviews are clear after a hidden-local-error P2 fix. Actual native/error/geometry
-verification is now implemented as a separate prospective management journey.
-Its three actual host process cases pass after correcting a missing fixture child
-read; Android execution and the remaining139 scope are pending. See [the current139 packet](../evidence/ticket139/README.md).
-Public-channel name/category receiving changes also pass two independent SQLite
-cases and both source review axes; the edit API/UI and remaining governance are
-pending. First native management parents failed on an Info-button observer selector,
-with complete originals retained and an unchanged-goal correction source-reviewed.
-Fresh complete Android10/17 parents are required.
-Public edit intent/status also passes three current SQLite cases and both source
-review axes; exact originals, conflicts and drafts recover without optimistic
-accepted metadata. Its edit UI and remaining139 scope are pending.
-Second native parents remain failed: Android17initialread15s andAndroid10layout-vs-touch
-observer. Reviewed bounded page/control work and actual touch geometry corrections
-pass all83 service cases and the Node capability contract. Fresh whole native
-verification remains required; see the current139 packet for exact originals.
-Public channel editor source now includes scoped saved fields, validation, honest
-receipts and48dpfooter. Initial pending-reentry/restoration P2s are corrected;
-final source reviews are clear. Actual editor/compact/rotation/error verification
-is pending. Third native parents at714eba remain failed on a later test-only
-store namespace mismatch, after initial-read/touch progression; no prefix accepted.
-Prospective editor management-v2 retains every earlier goal and adds real editor
-recreation/discard/uncertain-reentry/category/compact-error journeys. The owned-store
-namespace observer is corrected; three host-process cases and compilation pass,
-with final timing guard exact-source compilation delegated to freshCI. A source
-review timer P2 is fixed; raw observations enforce the full27-second workflow.
-Both final source axes are clear, but fresh native/visual acceptance remains pending.
-Keep the sequential139–147 authorization and separate release/production gates
-below. Ordinary beta142 remains unchanged.
+Implement137–147 sequentially under134 and approved native navigationB. Issues137
+and138 are accepted and closed. Issue139 is current and incomplete;140–147 have
+not started. Continue the authorized sequence without a checkpoint stop. Ordinary
+public beta142 remains unchanged.
 
-Channel creation now has a durable source API and a scoped native form with
-guarded accepted navigation. Both UI review P2s are corrected. Fifth whole native
-parents remain failed: an actual hidden sheet after Keep editing on17 and an
-offscreen settings observer on10. Shared sheet restoration and unchanged-deadline
-scrolling corrections are source-reviewed. Prospective management-v3 adds real
-creation recovery and compact error dismissal; fresh complete native/visual
-verification remains required. See the current139 packet; whole139 is incomplete.
+Source implements channel archive/reopen, owner-only admin roles, public channel
+creation/editing, restricted private-child creation/admission, explicit grants and
+actual MLS revocation with durable exact-original recovery. Independent old keys
+cannot decrypt copied future ciphertext; pending readmission preserves past keys
+and obsolete admission terms cannot revive. Full246core/94service passes at
+`0ab2b46d785e16b0124734eb4e08591214e74ddc`. Private creation/member-selection and
+access-page source compile; bridge contracts and both pinned adapter rehearsals
+pass. No complete private UI or whole139 acceptance follows from source checks.
+See the [current139 evidence](../evidence/ticket139/README.md).
 
-Restricted-channel source now passes244core/89service cases with final Spec and
-Standards reviews clear. Own-group encrypted names, selected-member admission,
-durable deferred requests and current-control/role validation are implemented.
-No private UI/capability or future-exclusion acceptance is claimed. Continue
-revocation/key rotation and remaining139; public management-v3 native verification
-atb879 remains separate. Beta142 and all activation gates stay unchanged.
+All24 public management native parents through attempt12 remain failed. Both last
+parents pass their normal three phases, including two actual kills and one native
+terminal case, but fail entering an offscreen compact role action. The correction
+scrolls the real control and retains the original absolute5second bound and every
+public management-v3 goal. No passing prefix is accepted. Fresh whole Android10/17
+parents and all-frame/prototype/geometry reviews are required.
 
-Restricted private-child revocation now passes244core/92service cases and both
-incremental source review axes. Actual MLS removal excludes copied future
-ciphertext from an independent old-key reader; accepted-response loss and stale
-control rejection preserve exact originals and working keys. See the
-[revocation packet](../evidence/ticket139/restricted-channel-revocation.json).
-This is source-level child-channel acceptance only. Private UI, root membership
-removal/demotion, ownership/visibility/dissolution and remaining139 are pending.
-Public management native attempt10 at e62ecbd333 runs separately. Beta142 remains
-unchanged. Continue139 then140–147 without a checkpoint stop.
+The new private process slice has an isolated flag/fixture/folders,26 actual signed
+members, an independent reader and unauthorized member. Four host-process checks
+and instrumentation compilation pass. Its intended native coverage includes
+private selection/recreation,27second creation recovery, two actual kills,
+exact-original grants/revokes, encrypted reading, General draft/pixel continuity
+and normal/compact local save errors. Its prospective assessor explicitly leaves
+two mandatory native goals pending: administration without current device keys,
+and a genuine rejected change with visible recovery. The full original plan is
+unchanged. These need a separate actual scenario before private UI/139 completion.
 
-Explicit restricted-channel grants and readmission now pass244core/94service
-cases with both final source review axes clear. Previously received history
-survives a pending fresh admission; access terms prevent discarded old joins
-from reviving after regrant. Both actual review-discovered failures are retained
-in the [grant packet](../evidence/ticket139/restricted-channel-grants.json).
-Private native UI/capabilities and remaining139 are pending. Public management
-attempt11 atff6a05985 runs separately; beta142 is unchanged. Continue139–147.
+Remaining139 includes explicit category management, private channel editing and
+legacy/general access, future-key exclusion for demotion and Space leave/remove/
+ban across affected groups, two-party ownership transfer, deliberate visibility
+transitions without publishing prior private history, and owner-only dissolution.
+Then continue140–147, including integrated regression and beta delivery.
 
-Restricted-channel creation/member selection and the channel access page now
-compile, with both corrected source review axes clear. Six service contracts,
-one bridge contract and both pinned adapter rehearsals pass. See the
-[private UI source packet](../evidence/ticket139/private-channel-ui-source.json).
-Actual private native/OS/process/geometry verification remains pending. Public
-management attempt11 remains failed on initial reading time and an ambiguous
-created-route observer; preserve both originals and all timing goals while
-correcting them. Whole139 and140–147 remain unfinished; beta142 is unchanged.
-
-Repeated Normal transaction signature checks now reuse a bounded exact-envelope
-result with isolated bodies and immutable recipients. No authorization or nonce
-state is cached. The created-route observer now checks the actual selected
-switcher. Full246core/94service and both final source axes pass; see the
-[reuse packet](../evidence/ticket139/authenticated-read-reuse.json). Actual native
-15second first reading and complete public/private UI acceptance still require
-fresh whole parents. All22failed parents remain failed; remaining139–147 and
-release gates remain open. Beta142 is unchanged.
+No production node/provider activation, public development/financial writes or
+automatic community file hosting is implied. Legacy Chat E2E, Vault rental
+restoration, physical/OEM and Play acceptance retain their separate recorded
+limits. Keep1/36/55/84/86/105 open. Beta142 is unchanged.
 
 ## Accepted138, continue139
 

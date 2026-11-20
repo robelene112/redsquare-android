@@ -13,12 +13,13 @@ import urllib.request
 
 repo = Path(__file__).resolve().parent.parent
 mode = sys.argv[2] if len(sys.argv) == 3 else 'journey-v1'
-if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'discovery-v1', 'management-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
-    raise ValueError('Expected evidence directory and optional discovery-v1 or management-v1')
+if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'discovery-v1', 'management-v1', 'private-management-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
+    raise ValueError('Expected evidence directory and optional discovery-v1, management-v1 or private-management-v1')
 discovery_mode = mode == 'discovery-v1'
-management_mode = mode == 'management-v1'
+private_management_mode = mode == 'private-management-v1'
+management_mode = mode in ('management-v1', 'private-management-v1')
 community_mode = discovery_mode or management_mode
-label = 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
+label = 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
 folder = f'spaces-{label}-evidence'
 checkpoint_name = f'spaces-{label}-checkpoint.json'
 classname = 'SpacesManagementJourneyTest' if management_mode else 'SpacesDiscoveryJourneyTest' if discovery_mode else 'SpacesJourneyTest'
@@ -41,7 +42,8 @@ def instrument(method, filename, peer, control):
     process = subprocess.Popen(['adb', 'shell', 'am', 'instrument', '-w', '-r',
         '-e', 'class', f'nl.davidengelen.redsquare.{classname}#{method}',
         '-e', 'spacesPeerPort', str(peer), '-e', 'spacesControlPort', str(control)] +
-        (['-e', 'spacesDisposableBaseline', 'true'] if management_mode else []) + [runner],
+        (['-e', 'spacesDisposableBaseline', 'true'] if management_mode else []) +
+        (['-e', 'spacesPrivateManagement', 'true'] if private_management_mode else []) + [runner],
         stdout=log, stderr=subprocess.STDOUT)
     children.append((process, log))
     return process
@@ -115,6 +117,12 @@ def verify_restored_viewport():
     (evidence / 'viewport-restoration.json').write_text(json.dumps(result, indent=2))
     if size != original['size'] or density != original['density'] or not (observed['fontSetting'] == original['fontSetting'] or implicit):
         raise RuntimeError('Original viewport configuration was not restored')
+
+def reset_disposable_baseline():
+    reset = adb('shell', 'pm', 'clear', pkg)
+    if reset.stdout.strip() != b'Success': raise RuntimeError('Disposable dev baseline was not cleared')
+    (evidence / 'disposable-baseline.json').write_text(json.dumps({'package': pkg, 'serial': serial,
+        'clearExit': reset.returncode, 'ordinaryPackageTouched': False}))
 
 try:
     serial = adb('get-serialno').stdout.decode().strip()
@@ -214,7 +222,28 @@ try:
         (evidence / f'recorder-{phase}.json').write_text(json.dumps(owner))
     if community_mode:
         # Freeze the whole selected journey before the first measurement.
-        if management_mode:
+        if private_management_mode:
+            phases = [
+                ('privateCreationRestoresSelectedMembersAndCheckpointsARealUnconfirmedRevocation', 'private-revoke-pending'),
+                ('coldPrivateRevocationRecoversTheSameOriginalThenCheckpointsARealGrant', 'private-grant-pending'),
+                ('coldPrivateGrantRestoresActualEncryptedReadingAndKeepsTheGeneralDraft', None),
+                ('compactPrivateRosterKeepsTheActualLocalErrorAndRemovalControlsReachable', None),
+            ]
+            goals = {'version': 1, 'mode': 'private-management-v1', 'phases': phases,
+                'executionScope': 'restricted-creation-and-grant-revoke-process-recovery',
+                'remaining139NativeCoverage': ['key-unavailable-administration', 'genuine-rejection-visible-and-recovered'],
+                'phaseSeconds': 180, 'checkpointObservationSeconds': .25, 'pixelTolerance': 1,
+                'actionSeconds': 5, 'contentSeconds': 15, 'minimumControlDp': 48,
+                'lostAcceptedReplies': ['create-channel', 'revoke-channel-access', 'grant-channel-access'],
+                'exactOriginalAttempts': 2, 'localWriteFailureCases': ['private-access', 'compact-private-access'],
+                'creation': {'activityRecreation': True, 'pendingReentry': True, 'combinedRecoverySeconds': 27,
+                    'name': 'native-private-lounge', 'kind': 'chat', 'category': 'Team', 'selectedMembers': 1},
+                'access': {'activityRecreation': True, 'fixedOwnerAdminAccess': True, 'rosterMembers': 26,
+                    'independentReader': True, 'unauthorizedPreviewHidden': True, 'preservedGeneralDraftAndPixel': True},
+                'viewport': {'widthDp': 320, 'fontScale': 2.0, 'densityDpi': 320, 'resourceProbes': 3},
+                'productionNodeActivated': False, 'ordinaryBetaChanged': False}
+            reset_disposable_baseline()
+        elif management_mode:
             phases = [
                 ('ownerSeesLocalRoleErrorsAndCheckpointsAnActuallyAcceptedUnconfirmedPromotion', 'role-pending'),
                 ('coldRoleRecoveryKeepsTheOriginalThenCheckpointsAnUnconfirmedChildArchive', 'archive-pending'),
@@ -234,10 +263,7 @@ try:
                 'productionNodeActivated': False, 'ordinaryBetaChanged': False}
             # This mode owns the freshly provisioned dev-package baseline. Never
             # clear the ordinary signed package or reuse a user's device here.
-            reset = adb('shell', 'pm', 'clear', pkg)
-            if reset.stdout.strip() != b'Success': raise RuntimeError('Disposable dev baseline was not cleared')
-            (evidence / 'disposable-baseline.json').write_text(json.dumps({'package': pkg, 'serial': serial,
-                'clearExit': reset.returncode, 'ordinaryPackageTouched': False}))
+            reset_disposable_baseline()
         else:
             phases = [
                 ('publicDiscoveryReadsWithoutJoiningAndCheckpointsTheActualVisitorPixel', 'visitor'),
@@ -276,7 +302,7 @@ try:
                     raise RuntimeError('Checkpoint process identity mismatch')
                 pids.append(checkpoint['pid'])
                 if management_mode:
-                    snapshot = command(control_port, 'management-status')
+                    snapshot = command(control_port, 'private-management-status' if private_management_mode else 'management-status')
                     (evidence / f'host-{expected_phase}.json').write_text(json.dumps(snapshot, indent=2))
                     native_snapshot = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{expected_phase}-host.json').stdout)
                     if native_snapshot != snapshot or snapshot['dropped'][-1] != checkpoint['original']:
@@ -284,11 +310,19 @@ try:
                     fixtures = checkpoint['fixtures']
                     if snapshot['space'] != fixtures['space'] or checkpoint['owner'] != fixtures['owner']:
                         raise RuntimeError('Pending management context belongs to another actor or Space')
-                    role = 'ADMIN' if expected_phase == 'role-pending' else 'MEMBER'
-                    if snapshot['members'][fixtures['member']] != role:
-                        raise RuntimeError('Independent member did not receive the expected role')
-                    if snapshot['channels'][fixtures['workshop']]['archived'] != (expected_phase == 'archive-pending'):
-                        raise RuntimeError('Independent channel did not receive the expected archive')
+                    if private_management_mode:
+                        if snapshot['members'][fixtures['member']] != 'MEMBER' or len(snapshot['members']) != 26:
+                            raise RuntimeError('Private access changed Space membership')
+                        if expected_phase == 'private-revoke-pending' and fixtures['private'] in snapshot['channels']:
+                            raise RuntimeError('Independent member still has revoked private channel access')
+                        if expected_phase == 'private-grant-pending' and fixtures['private'] not in snapshot['channels']:
+                            raise RuntimeError('Independent member did not receive the accepted policy regrant')
+                    else:
+                        role = 'ADMIN' if expected_phase == 'role-pending' else 'MEMBER'
+                        if snapshot['members'][fixtures['member']] != role:
+                            raise RuntimeError('Independent member did not receive the expected role')
+                        if snapshot['channels'][fixtures['workshop']]['archived'] != (expected_phase == 'archive-pending'):
+                            raise RuntimeError('Independent channel did not receive the expected archive')
                 adb('shell', 'am', 'force-stop', pkg); native.wait(timeout=15)
                 if adb('shell', 'pidof', pkg, check=False).stdout.strip():
                     raise RuntimeError('Checkpoint PID remains alive')
@@ -303,7 +337,52 @@ try:
                     raise RuntimeError('Final phase reused a checkpoint PID')
                 pids.append(completed['pid'])
             finish_record(*movies[-1])
-        if management_mode:
+        if private_management_mode:
+            if len(set(pids)) != 4: raise RuntimeError('Private management requires four distinct PIDs')
+            fixtures = json.loads((evidence / 'checkpoint-private-grant-pending.raw').read_bytes())['fixtures']
+            final = command(control_port, 'private-management-status')
+            (evidence / 'host-private-management-final.json').write_text(json.dumps(final, indent=2))
+            channel = fixtures['private']
+            if final['space'] != fixtures['space'] or final['privateChannel'] != channel or len(final['members']) != 26:
+                raise RuntimeError('Independent private management scope differs')
+            if final['members'][fixtures['owner']] != 'OWNER' or final['members'][fixtures['member']] != 'MEMBER' or final['members'][fixtures['admin']] != 'ADMIN':
+                raise RuntimeError('Private channel actions changed Space roles')
+            if set(final['channels']) != {fixtures['general'], channel} or final['channels'][channel] != {
+                    'name': 'native-private-lounge', 'category': 'Team', 'ready': True, 'visibility': 'PRIVATE'}:
+                raise RuntimeError('Independent reader did not obtain the intended private channel')
+            if final['outsiderChannels'] != [fixtures['general']]:
+                raise RuntimeError('Unauthorized member received a private channel name or preview')
+            if final['privateMessages'] != ['A native encrypted message before removal', 'A native encrypted message after fresh admission']:
+                raise RuntimeError('Independent encrypted reading did not survive fresh admission')
+            creation = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/private-creation-recovery.json').stdout)
+            (evidence / 'native-private-creation-recovery.json').write_text(json.dumps(creation, indent=2))
+            if creation['pid'] != pids[0] or creation['owner'] != fixtures['owner'] or creation['space'] != fixtures['space'] or creation['channel'] != channel:
+                raise RuntimeError('Private creation recovery scope differs')
+            if not (0 < creation['recoveryStartedAtMs'] <= creation['recoveryCompletedAtMs'] <= creation['recoveryStartedAtMs'] + 27_000):
+                raise RuntimeError('Private creation exceeded its complete27second deadline')
+            checkpoints = [json.loads((evidence / f'checkpoint-{phase}.raw').read_bytes()) for phase in ('private-revoke-pending', 'private-grant-pending')]
+            if final['dropped'] != [creation['original']] + [item['original'] for item in checkpoints]:
+                raise RuntimeError('Private lost-reply identities differ')
+            if len(final['originals']) != 6: raise RuntimeError('Unexpected private management original count')
+            for original, kind in zip(final['dropped'], ('create-channel', 'revoke-channel-access', 'grant-channel-access')):
+                rows = [row for row in final['originals'] if row['id'] == original]
+                if len(rows) != 2 or len({row['sha256'] for row in rows}) != 1 or any(
+                        row['kind'] != kind or row['actor'] != fixtures['owner'] or row['space'] != fixtures['space'] or row['channel'] != channel for row in rows):
+                    raise RuntimeError('Private recovery did not deliver the same accepted original exactly twice')
+                if kind == 'create-channel' and any(row['visibility'] != 'private' or row['allowedMembers'] != [fixtures['member']] for row in rows):
+                    raise RuntimeError('Private creation did not preserve exactly the selected member')
+                if kind == 'revoke-channel-access' and any(row['epoch'] != 2 or row['deviceCount'] != 1 for row in rows):
+                    raise RuntimeError('Revocation did not remove the actually admitted reader device')
+            for name in ('normal-host', 'compact-host'):
+                observed = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{name}.json').stdout)
+                (evidence / f'native-{name}.json').write_text(json.dumps(observed, indent=2))
+                if observed != final: raise RuntimeError('Native and independent final private effects differ')
+            for name, pid in (('private-access', pids[2]), ('compact-private-access', pids[3])):
+                cleanup = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/cleanup-{name}.json').stdout)
+                (evidence / f'local-fault-cleanup-{name}.json').write_text(json.dumps(cleanup, indent=2))
+                if cleanup != {'removed': True, 'pid': pid, 'space': fixtures['space'], 'owner': fixtures['owner']}:
+                    raise RuntimeError('Private local fault was not independently cleaned')
+        elif management_mode:
             if len(set(pids)) != 4: raise RuntimeError('Management phases require four distinct PIDs')
             fixtures = command(control_port, 'management-fixtures')
             final = command(control_port, 'management-status')
