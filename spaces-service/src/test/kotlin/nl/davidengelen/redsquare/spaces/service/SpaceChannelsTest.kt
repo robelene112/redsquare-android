@@ -9,6 +9,7 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceChannelKind
 import nl.davidengelen.redsquare.spaces.SpaceChannelProfile
 import nl.davidengelen.redsquare.spaces.SpaceClient
+import nl.davidengelen.redsquare.spaces.SpaceCrypto
 import nl.davidengelen.redsquare.spaces.SpaceProfile
 import nl.davidengelen.redsquare.spaces.SpaceVisibility
 import org.junit.Assert.*
@@ -25,6 +26,206 @@ class SpaceChannelsTest {
     private val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+
+    @Test(timeout = 45_000) fun aWithdrawnAdminRequestDoesNotBlockAnEligibleMemberWhenControlsChangedElsewhere() = runBlocking<Unit> {
+        val participant = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        SpacesServiceStore(files.newFolder("restricted-withdrawn-request-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("restricted-withdrawn-request-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("restricted-withdrawn-request-admin.sqlite").absolutePath).use { adminStore ->
+                    SqliteClientFixture(files.newFile("restricted-withdrawn-request-participant.sqlite").absolutePath).use { participantStore ->
+                        val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                        val admin = SpaceClient(member, "fixture-node", service.publicKey, adminStore, clock) { remote.exchange(it.envelope()) }
+                        val reader = SpaceClient(participant, "fixture-node", service.publicKey, participantStore, clock) { remote.exchange(it.envelope()) }
+                        val space = creator.create(SpaceProfile("Pending access follows current roles", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                        for (client in listOf(admin, reader)) { client.openPublic(space); client.joinPublic(space); client.flush(space) }
+                        creator.refresh(space); creator.setAdministrator(space, member.publicKey, true); creator.flush(space)
+                        val channel = creator.createPrivateChannel(space, SpaceChannelProfile("Selected active participants"), setOf(participant.publicKey)); creator.flush(space)
+                        admin.refresh(space); admin.flush(space)
+                        val demotion = SaitoTransaction.create(owner, JsonObject().apply {
+                            addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                            addProperty("kind", "set-role"); addProperty("space_id", space); addProperty("operation_id", "d".repeat(64))
+                            addProperty("control_id", requireNotNull(creator.channelCreation(space)).id)
+                            addProperty("member", member.publicKey); addProperty("role", "member")
+                        }, clock.millis(), listOf(service.publicKey))
+                        assertEquals("control", SaitoEnvelope.decode(remote.exchange(demotion.envelope())).body.get("stream").asString)
+                        reader.refresh(space); reader.flush(space)
+                        // The normal owner worker has not performed a UI refresh since the external change.
+                        creator.admitPending(space); creator.flush(space); reader.refresh(space); admin.refresh(space)
+                        assertTrue("The eligible request after an obsolete request must complete", reader.channels(space).any { it.id == channel })
+                        assertFalse("The withdrawn admin must not acquire channel keys", admin.channels(space).any { it.id == channel })
+                        assertEquals(nl.davidengelen.redsquare.spaces.SpaceRole.MEMBER, creator.members(space).single { it.publicKey == member.publicKey }.role)
+                        creator.send(space, "Current permissions govern admission", channel); creator.flush(space)
+                        reader.selectChannel(space, channel); reader.refresh(space)
+                        assertEquals(listOf("Current permissions govern admission"), reader.messages(space))
+                    }
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun anUnreadyPrivateChannelDoesNotBlockOtherAdmissionsAndItsRequestSurvives() = runBlocking<Unit> {
+        val participant = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        SpacesServiceStore(files.newFolder("restricted-deferred-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("restricted-deferred-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("restricted-deferred-admin.sqlite").absolutePath).use { adminStore ->
+                    SqliteClientFixture(files.newFile("restricted-deferred-participant.sqlite").absolutePath).use { participantStore ->
+                        val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                        val admin = SpaceClient(member, "fixture-node", service.publicKey, adminStore, clock) { remote.exchange(it.envelope()) }
+                        val reader = SpaceClient(participant, "fixture-node", service.publicKey, participantStore, clock) { remote.exchange(it.envelope()) }
+                        val space = creator.create(SpaceProfile("One unavailable creator does not pause a community", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                        for (client in listOf(admin, reader)) { client.openPublic(space); client.joinPublic(space); client.flush(space) }
+                        creator.refresh(space); creator.setAdministrator(space, member.publicKey, true); creator.flush(space); admin.refresh(space)
+                        val unready = admin.createPrivateChannel(space, SpaceChannelProfile("Waiting for its creator"), emptySet()); admin.flush(space)
+                        creator.refresh(space); creator.flush(space)
+                        // The admin now goes offline with the only keys to the first requested channel.
+                        val available = creator.createPrivateChannel(space, SpaceChannelProfile("Available owner-managed channel"), setOf(participant.publicKey)); creator.flush(space)
+                        reader.refresh(space); reader.flush(space)
+                        creator.admitPending(space); creator.flush(space); reader.refresh(space)
+                        assertTrue("A later request for a ready channel must be admitted", reader.channels(space).any { it.id == available })
+                        assertEquals("Available owner-managed channel", reader.channels(space).single { it.id == available }.profile.name)
+                        // Returning later must still process the earlier request exactly once.
+                        admin.refresh(space); admin.flush(space); admin.admitPending(space); admin.flush(space); creator.refresh(space)
+                        creator.admitPending(space); creator.flush(space)
+                        assertTrue("The deferred request must survive until its key holder returns", creator.channels(space).any { it.id == unready })
+                        assertEquals("Waiting for its creator", creator.channels(space).single { it.id == unready }.profile.name)
+                        creator.send(space, "Both channels keep moving", available); creator.flush(space)
+                        reader.selectChannel(space, available); reader.refresh(space)
+                        assertEquals(listOf("Both channels keep moving"), reader.messages(space))
+                    }
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun aNewlyAdmittedOwnerCanAdmitAnotherMemberWithoutOpeningTheChannelListFirst() = runBlocking<Unit> {
+        val participant = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        SpacesServiceStore(files.newFolder("restricted-admin-profile-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("restricted-admin-profile-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("restricted-admin-profile-admin.sqlite").absolutePath).use { adminStore ->
+                    SqliteClientFixture(files.newFile("restricted-admin-profile-participant.sqlite").absolutePath).use { participantStore ->
+                        val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                        val admin = SpaceClient(member, "fixture-node", service.publicKey, adminStore, clock) { remote.exchange(it.envelope()) }
+                        val reader = SpaceClient(participant, "fixture-node", service.publicKey, participantStore, clock) { remote.exchange(it.envelope()) }
+                        val space = creator.create(SpaceProfile("Administration does not require visiting a list", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                        for (client in listOf(admin, reader)) { client.openPublic(space); client.joinPublic(space); client.flush(space) }
+                        creator.refresh(space); creator.setAdministrator(space, member.publicKey, true); creator.flush(space); admin.refresh(space)
+                        val profile = SpaceChannelProfile("Admin-created planning")
+                        val channel = admin.createPrivateChannel(space, profile, setOf(participant.publicKey)); admin.flush(space)
+                        creator.refresh(space); creator.flush(space)
+                        reader.refresh(space); reader.flush(space)
+                        admin.admitPending(space); admin.flush(space)
+                        // Refresh installs the actual owner Welcome. It must not require a UI list read.
+                        creator.refresh(space); creator.admitPending(space); creator.flush(space)
+                        reader.refresh(space)
+                        assertEquals(profile, reader.channels(space).single { it.id == channel }.profile)
+                        creator.send(space, "The owner can continue administration", channel); creator.flush(space)
+                        reader.selectChannel(space, channel); reader.refresh(space)
+                        assertEquals(listOf("The owner can continue administration"), reader.messages(space))
+                    }
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun restrictedChannelControlsAndRequestsRequireTheCorrectAudienceAndEncryptedScope() = runBlocking<Unit> {
+        val other = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        SpacesServiceStore(files.newFolder("restricted-boundary-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("restricted-boundary-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("restricted-boundary-member.sqlite").absolutePath).use { memberStore ->
+                    SqliteClientFixture(files.newFile("restricted-boundary-other.sqlite").absolutePath).use { otherStore ->
+                        lateinit var creation: SaitoTransaction
+                        val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                            if (SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "create-channel") creation = original
+                            remote.exchange(original.envelope())
+                        }
+                        val reader = SpaceClient(member, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                        val excluded = SpaceClient(other, "fixture-node", service.publicKey, otherStore, clock) { remote.exchange(it.envelope()) }
+                        val space = creator.create(SpaceProfile("Receiving permissions are authoritative", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                        for (client in listOf(reader, excluded)) { client.openPublic(space); client.joinPublic(space); client.flush(space) }
+                        creator.refresh(space)
+                        val channel = creator.createPrivateChannel(space, SpaceChannelProfile("Selected readers only"), setOf(member.publicKey)); creator.flush(space)
+                        val accepted = SaitoEnvelope.decode(creation.envelope())
+                        fun rejected(original: SaitoTransaction) {
+                            val response = remote.exchange(original.envelope())
+                            assertEquals("rejection", SaitoEnvelope.decode(response).body.get("stream").asString)
+                            assertEquals("Rejected originals keep their disposition", response, remote.exchange(original.envelope()))
+                        }
+                        val foreignMetadata = accepted.body.deepCopy().apply {
+                            addProperty("channel_id", "a".repeat(64)); addProperty("operation_id", "b".repeat(64)); addProperty("control_id", creation.id)
+                        }
+                        rejected(SaitoTransaction.create(owner, foreignMetadata, clock.millis(), listOf(service.publicKey)))
+                        val invalidAudience = accepted.body.deepCopy().apply {
+                            addProperty("channel_id", "c".repeat(64)); addProperty("operation_id", "d".repeat(64)); addProperty("control_id", creation.id)
+                            addProperty("allowed_members", "This must be a member list")
+                        }
+                        rejected(SaitoTransaction.create(owner, invalidAudience, clock.millis(), listOf(service.publicKey)))
+                        val scope = SpaceCrypto.Scope(service.publicKey, space, channel, accepted.body.get("key_generation").asString)
+                        val packageData = SpaceCrypto.device(other.publicKey, "7".repeat(64)).keyPackage(scope, other)
+                        val unauthorized = SaitoTransaction.create(other, JsonObject().apply {
+                            addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                            addProperty("kind", "join-channel"); addProperty("space_id", space); addProperty("channel_id", channel)
+                            addProperty("control_id", creation.id); addProperty("operation_id", "e".repeat(64))
+                            add("key_package", JsonObject().apply {
+                                addProperty("wallet", other.publicKey); addProperty("device", packageData.deviceId)
+                                addProperty("package", packageData.packageBytes); addProperty("signer", packageData.signer)
+                                addProperty("signature", packageData.walletSignature)
+                            })
+                        }, clock.millis(), listOf(service.publicKey))
+                        rejected(unauthorized)
+                        excluded.refresh(space); creator.refresh(space)
+                        assertFalse(excluded.channels(space).any { it.id == channel })
+                        assertEquals(2, creator.channels(space).size)
+                        assertTrue(creator.community(space).canSend)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun selectedMembersReadAPrivateChannelInsideAPublicSpaceWithoutExposingItsNameToOthers() = runBlocking<Unit> {
+        val other = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        SpacesServiceStore(files.newFolder("restricted-channel-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("restricted-channel-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("restricted-channel-member.sqlite").absolutePath).use { memberStore ->
+                    SqliteClientFixture(files.newFile("restricted-channel-other.sqlite").absolutePath).use { otherStore ->
+                        val controls = mutableListOf<String>()
+                        val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                            val response = remote.exchange(original.envelope())
+                            if (SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "create-channel") controls.add(original.envelope())
+                            response
+                        }
+                        val reader = SpaceClient(member, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                        val excluded = SpaceClient(other, "fixture-node", service.publicKey, otherStore, clock) { remote.exchange(it.envelope()) }
+                        val space = creator.create(SpaceProfile("Public with selected private conversations", visibility = SpaceVisibility.PUBLIC))
+                        creator.flush(space)
+                        for (client in listOf(reader, excluded)) { client.openPublic(space); client.joinPublic(space); client.flush(space) }
+                        creator.refresh(space)
+                        val general = creator.community(space).channel
+                        creator.saveDraft(space, "Public writing survives a private channel", general)
+                        val profile = SpaceChannelProfile("Private planning room", category = "Planning")
+                        val channel = creator.createPrivateChannel(space, profile, setOf(member.publicKey))
+                        creator.flush(space)
+                        assertEquals(profile, creator.channels(space).single { it.id == channel }.profile)
+                        assertEquals(SpaceVisibility.PRIVATE, creator.channels(space).single { it.id == channel }.visibility)
+                        assertFalse("The control stream must not expose the private channel name", controls.single().contains("Private planning room"))
+                        reader.refresh(space); excluded.refresh(space)
+                        assertFalse(excluded.channels(space).any { it.id == channel })
+                        try { excluded.selectChannel(space, channel); fail("Other Space members cannot request a restricted channel") }
+                        catch (_: IllegalArgumentException) { }
+                        reader.flush(space); creator.admitPending(space); creator.flush(space); reader.refresh(space)
+                        assertEquals(profile, reader.channels(space).single { it.id == channel }.profile)
+                        creator.send(space, "Only admitted readers can decrypt this planning message", channel); creator.flush(space)
+                        reader.selectChannel(space, channel); reader.refresh(space)
+                        assertEquals(listOf("Only admitted readers can decrypt this planning message"), reader.messages(space))
+                        excluded.refresh(space)
+                        assertEquals(listOf(general), excluded.channels(space).map { it.id })
+                        assertEquals("Public writing survives a private channel", creator.draft(space, general))
+                        assertEquals(general, creator.community(space).channel)
+                    }
+                }
+            }
+        }
+    }
 
     @Test(timeout = 45_000) fun uncertainChannelCreationRecoversTheSameOriginalAndOnlyShowsAcceptedChannels() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("channel-creation-service").toPath(), service, clock).use { remote ->

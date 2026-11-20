@@ -1,0 +1,98 @@
+{
+  "ticket": 139,
+  "scope": "Restricted private-channel creation/admission foundation; notcomplete139 orfutureexclusion.",
+  "base": "b879da22e75e2bc36c7c1b2a45734ab1d681f277",
+  "sources": {
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "748fbc8bf6fa050c861056d306faa66fb860db06f454229a1c50245d851cf580",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt": "ff9eed691f06102bef1971e38f7e05b62cd76452ea592dba5793340a9a1d8c2c",
+    "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt": "94c64b91715e32cfb4d6504902b3f77e10782276145b917c306c649febb644e4",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceChannelsTest.kt": "dc108f25bc5c6e3eefc7f95184c849749e906ddd5337c19a1a7fd5e64b0deeb0"
+  },
+  "behaviour": [
+    "Selected existing members can receive a private child inside public/private Spaces. Owner/admin policy permits all channels; other members get no private name/profile.",
+    "Private child metadata uses its own MLS group and is republished at the admitted epoch; a public General channel provides no child key.",
+    "Receiving validation binds encrypted metadata signer/Space/channel/generation/epoch/control and rejects malformed member lists durably. Unauthorized raw join requests remain rejected.",
+    "Private admission obtains authenticated profile data independently of visiting a channel list.",
+    "Requests for groups whose keys are not ready remain in a durable per-channel backlog; the global join cursor advances to other eligible requests. Accepted membership/expiry/policy checks dispose obsolete deferred requests.",
+    "Now-ineligible queued joins are skipped by the service. Administrative admission synchronizes controls and rechecks role before signing; existing outbound work retains priority."
+  ],
+  "checks": {
+    "core": 244,
+    "service": 89,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 273,
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-private-foundation-final-jvm-originals"
+  },
+  "logs": {
+    "139-restricted-channel-red.log": {
+      "sha256": "f26b849bd9b09f6b40ac3a21254ac4bc87b3a2db7a2e501e45d719c9dfb81f29",
+      "meaning": "Compilation-only missing createPrivateChannel API, no runtime RED claimed."
+    },
+    "139-restricted-channel-green.log": {
+      "sha256": "89dc18989ddad45ef5c80d6a0b8380df1ad289517b6a8b821a8fb2e68ac91ca7",
+      "meaning": "Actual3client selectedadmission/secrecy/message flow1PASS142s."
+    },
+    "139-restricted-boundary-red.log": {
+      "sha256": "1e68f9672656b872a35beecbc43ba08c7dc0dcde77156f82b1ea9260a59336d8",
+      "meaning": "Actual1RED foreign-channel metadata acceptedinstead ofrejected."
+    },
+    "139-restricted-boundary-typed-policy-red.log": {
+      "sha256": "f5be06e45ceae86af131a024426a8d33cf65881c57a33f466fccb5ccaff423eb",
+      "meaning": "Actual1RED invalidallowed_members stringcausedClassCastException ratherthandurablerejection."
+    },
+    "139-restricted-foundation-full-green.log": {
+      "sha256": "f6429068218e44bf62972c1499d1346d10341528179c89abaa276cde9e74afc6",
+      "meaning": "Full244/86PASS359s beforethetwofoundationreview fixes."
+    },
+    "139-private-admin-profile-red.log": {
+      "sha256": "a417bb1dfe5677a7ca373a18914a8386ad218219962f72d8c0cda59a96005de1",
+      "meaning": "ActualNPE inauthorizednewowneradmit withoutpriorchannelListread."
+    },
+    "139-private-admin-profile-green.log": {
+      "sha256": "c105206667a0a90da5a088ba35204bd9b4778b9e8dfcf1c55c08640bcc4ffca5",
+      "meaning": "All7channelcasesPASS149s afterauthenticatedlazyprofilelookup."
+    },
+    "139-private-admission-queue-red.log": {
+      "sha256": "3661ebc10d37ad0028dcb545264e75c1d09becea0628f072b4fbe3560672e630",
+      "meaning": "Actualunreadychannelblocksotheradmission tracefails."
+    },
+    "139-private-admission-queue-green.log": {
+      "sha256": "27403e5343abfe7cde0d444866a990fb7db695ea2369542144478e9a4cb20652",
+      "meaning": "First8caseattempt has7pass/1failure at laterreturn leg: testdidnotflushreturningadminownnewautojoin beforeadmit. OriginalXMLretained, notclaimedPASS."
+    },
+    "139-private-admission-queue-fixture-green.log": {
+      "sha256": "0658b47ec8423a29139c8e667cc312cd1f5bc1bd43cad1665b4850d8d701e3e8",
+      "meaning": "CorrectnormalworkerflushorderfocusedcasePASS74s; strongerexplicitintermediateassertions retained."
+    },
+    "139-private-withdrawn-request-red.log": {
+      "sha256": "ddb7b23e79276d3ed239a7e9172912618b64eadd52e231c0d5f6a25e0ba9dd80",
+      "meaning": "ActualserviceverifyJoin failure whilelistingnowineligiblependingadminrequest."
+    },
+    "139-private-withdrawn-head-red.log": {
+      "sha256": "0c691d86c79ea1043a3fdb84b37e4016734271e99a9b8d231e033b3f9b0ef09d",
+      "meaning": "NextactualclientverifyJoin failure usingunknownexternallychangedcontrolhead."
+    },
+    "139-private-admission-current-controls-green.log": {
+      "sha256": "e181053e81821bc8eff4b2049a3f4d46dc6db3cd3433e821b71170fc4c965c78",
+      "meaning": "All9channelcasesPASS146s withcurrent-policy filteringandfreshcontrols."
+    },
+    "139-private-foundation-final-jvm.log": {
+      "sha256": "046b466ad34cb208664f4bb5cf6b145fcd64247918305716d9b84c16405116b0",
+      "meaning": "Full244/89PASS273s exactcurrentsource, allfailures/errors/skips0."
+    }
+  },
+  "sourceReviews": {
+    "initial": "Spec1P2lazyprofile; Standards1P2head-of-line. Actualnewtests reproduceandcorrections included.",
+    "finalSpec": 0,
+    "finalStandards": 0,
+    "reports": {
+      "139-restricted-foundation-spec-review.txt": "b791dbb4013ac121ac2009126e25de5458836619e16b62b013595267d73b0d3d",
+      "139-restricted-foundation-standards-review.txt": "42e32d6b030b385bea78292049f82e296f5ea80dacae2adcab836aa27704dad0",
+      "139-restricted-foundation-final-spec-review.txt": "6277e93eb7f8ae73912786797f441b25f6d505fdd845ea83d820d879e12266b6",
+      "139-restricted-foundation-final-standards-review.txt": "82f8223e8df5362235dd73f5d35e63b767fc1cf29994fb4344f748ec3cdabc0d"
+    }
+  },
+  "qualification": "Owned JVM/client/service source only. No private-channel UI/capability activation, native private journey, future key-holder exclusion, access revocation ordemotionafterprivatekeygrant acceptance. These andremaining139governance are next;140\u2013147 notstarted. Public management-v3 nativeparents atb879exclude this increment andremainseparate. Beta142 unchanged; no node/provider/public/financial/filehosting activation."
+}

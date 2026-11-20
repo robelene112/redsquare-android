@@ -51,6 +51,13 @@ scrolling corrections are source-reviewed. Prospective management-v3 adds real
 creation recovery and compact error dismissal; fresh complete native/visual
 verification remains required. See the current139 packet; whole139 is incomplete.
 
+Restricted-channel source now passes244core/89service cases with final Spec and
+Standards reviews clear. Own-group encrypted names, selected-member admission,
+durable deferred requests and current-control/role validation are implemented.
+No private UI/capability or future-exclusion acceptance is claimed. Continue
+revocation/key rotation and remaining139; public management-v3 native verification
+atb879 remains separate. Beta142 and all activation gates stay unchanged.
+
 ## Accepted138, continue139
 
 Community discovery, creation and reviewed admission138 are accepted at product

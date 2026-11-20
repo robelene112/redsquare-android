@@ -30,7 +30,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         owned()
         val state = state(space)
         val general = generalChannel(state)
-        journal(space).snapshot.channels.mapNotNull { (id, record) ->
+        val journal = journal(space)
+        journal.snapshot.channels.mapNotNull { (id, record) ->
+            if (!journal.canAccessChannel(wallet.publicKey, id)) return@mapNotNull null
             val data = channelState(space, id, state)
             val profile = channelProfile(space, id, state, data, record)
                 ?: if (id == general) SpaceChannelProfile("general") else null
@@ -148,12 +150,22 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         enqueueChannel(space, state, profile, scope)
         scope.channelId
     }
+    fun createPrivateChannel(space: String, profile: SpaceChannelProfile, members: Set<String>): String = store.transaction {
+        owned()
+        val state = state(space)
+        require(!state.has("required_control"))
+        val scope = SpaceCrypto.Scope(service, space, id())
+        enqueueChannel(space, state, profile, scope, members)
+        scope.channelId
+    }
+
     private fun SpaceClientStore.Transaction.enqueueChannel(space: String, state: JsonObject,
-        profile: SpaceChannelProfile, scope: SpaceCrypto.Scope) {
+        profile: SpaceChannelProfile, scope: SpaceCrypto.Scope, members: Set<String>? = null) {
         val snapshot = journal(space).snapshot
         require(state.get("joined").asBoolean && snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         require(scope.serviceKey == service && scope.spaceId == space && scope.channelId !in snapshot.channels)
-        val private = snapshot.visibility == SpaceVisibility.PRIVATE
+        require(members == null || members.all { it in snapshot.members })
+        val private = members != null || snapshot.visibility == SpaceVisibility.PRIVATE
         val saved = get(channelStateKey(space, scope.channelId))?.let(::json)
         require(saved == null || SpaceCrypto.Scope.fromJson(saved.getAsJsonObject("scope")) == scope &&
             SpaceChannelProfile.fromJson(saved.getAsJsonObject("channel_profile")) == profile)
@@ -161,8 +173,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             ?: SpaceCrypto.device(wallet.publicKey, id()).create(scope) else null
         require(crypto == null || crypto.scope == scope)
         val metadata = if (private) {
-            val metadataKeys = SpaceCrypto.restore(decode(state.text("crypto")))
-            require(metadataKeys.scope?.channelId == generalChannel(state))
+            val metadataKeys = if (members != null) requireNotNull(crypto) else SpaceCrypto.restore(decode(state.text("crypto")))
+            require(metadataKeys.scope?.channelId == if (members != null) scope.channelId else generalChannel(state))
             metadataKeys.publish(wallet, "channel-profile", id(), requireNotNull(snapshot.controlId), JsonObject().apply {
                 addProperty("version", 1); addProperty("channel_id", scope.channelId); add("profile", profile.json())
             }.toString(), clock.millis())
@@ -172,6 +184,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             addProperty("visibility", if (private) "private" else "public")
             addProperty("epoch", 0); addProperty("key_generation", scope.generation)
             addProperty("admin_posts_only", profile.kind == SpaceChannelKind.ANNOUNCEMENT)
+            members?.let { add("allowed_members", JsonArray().apply { it.sorted().forEach(::add) }) }
             if (private) {
                 addProperty("metadata", encode(requireNotNull(metadata).envelope().toByteArray(Charsets.UTF_8)))
                 add("devices", devices(requireNotNull(crypto).bindings))
@@ -196,10 +209,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         enqueueChannel(space, state, SpaceChannelProfile.fromJson(next.getAsJsonObject("profile")),
             SpaceCrypto.Scope.fromJson(next.getAsJsonObject("scope")))
     }
-    fun selectChannel(space: String, channel: String) = store.transaction {
-        owned()
-        val state = state(space)
-        val snapshot = journal(space).snapshot
+    private fun SpaceClientStore.Transaction.prepareChannelJoin(space: String, state: JsonObject, snapshot: SpaceSnapshot, channel: String) {
         val record = requireNotNull(snapshot.channels[channel])
         val data = channelState(space, channel, state)
         if (record.visibility == SpaceVisibility.PRIVATE && state.get("joined").asBoolean &&
@@ -219,6 +229,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             putChannelState(space, channel, data)
             queue(space, state, original)
         }
+    }
+    fun selectChannel(space: String, channel: String) = store.transaction {
+        owned()
+        val state = state(space)
+        val journal = journal(space)
+        require(journal.canAccessChannel(wallet.publicKey, channel))
+        prepareChannelJoin(space, state, journal.snapshot, channel)
         state.addProperty("selected_channel", channel); put(stateKey(space), bytes(state))
     }
 
@@ -607,18 +624,56 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     /** Valid explicit join requests are admitted by the existing owner/admin.
      * Both MLS branches and the original commit are durable before transport. */
+    private data class DeferredJoin(val key: String, val receipt: String)
+
+    /** Keep unavailable-channel requests durable without holding up other channels. */
+    private fun SpaceClientStore.Transaction.deferredJoin(space: String): DeferredJoin? {
+        val journal = journal(space)
+        val state = state(space)
+        for ((channel, record) in journal.snapshot.channels) {
+            if (record.visibility != SpaceVisibility.PRIVATE || !journal.canAccessChannel(wallet.publicKey, channel) ||
+                channelState(space, channel, state).get("joined")?.asBoolean != true) continue
+            val prefix = "$space/deferred-join/$channel/"
+            var cursor = prefix
+            while (true) {
+                val rows = page(prefix, cursor)
+                for (row in rows) {
+                    val receipt = row.value.toString(Charsets.UTF_8)
+                    val received = SaitoEnvelope.decode(receipt)
+                    require(received.author == service && received.body.text("space_id") == space && received.body.text("stream") == "join")
+                    val original = SaitoEnvelope.decode(received.body.text("event"))
+                    require(original.body.text("space_id") == space && original.body.text("channel_id") == channel)
+                    val channelOnly = original.body.text("kind") == "join-channel"
+                    val invitation = if (channelOnly) null else journal.snapshot.invitations[original.body.text("invite_id")]
+                    val completed = if (channelOnly) original.author !in journal.snapshot.members ||
+                        !journal.canAccessChannel(original.author, channel) || record.devices.keys.any { it.split(':')[1] == original.author }
+                        else original.author in journal.snapshot.members || invitation == null || invitation.expiresAt <= clock.millis()
+                    if (completed) remove(row.key) else return DeferredJoin(row.key, receipt)
+                }
+                if (rows.size < 50) break
+                cursor = rows.last().key + '\u0000'
+            }
+        }
+        return null
+    }
+
     suspend fun admitPending(space: String) {
         val state = store.transaction { owned(); state(space) }
         if (!state.get("joined").asBoolean) return
         val role = store.transaction { journal(space).snapshot.members[wallet.publicKey] }
         if (role !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)) return
+        if (store.transaction { page("$space/pending/", limit = 1).isNotEmpty() }) return
+        syncControls(space)
+        if (store.transaction { journal(space).snapshot.members[wallet.publicKey] } !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)) return
         while (true) {
+            if (store.transaction { page("$space/pending/", limit = 1).isNotEmpty() }) return
+            val deferred = store.transaction { deferredJoin(space) }
             val cursor = store.transaction { state(space).get("join_cursor")?.asLong ?: 0 }
-            val result = readPage(JsonObject().apply {
+            val result = if (deferred == null) readPage(JsonObject().apply {
                 addProperty("space_id", space); addProperty("stream", "join"); addProperty("cursor", cursor)
-            })
-            val next = result.number("next_cursor").also { require(it >= cursor) }
-            val request = result.getAsJsonArray("items").firstOrNull()?.asString
+            }) else null
+            val next = result?.number("next_cursor")?.also { require(it >= cursor) } ?: cursor
+            val request = deferred?.receipt ?: result?.getAsJsonArray("items")?.firstOrNull()?.asString
             if (request == null) {
                 store.transaction {
                     owned()
@@ -629,31 +684,53 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 if (next == cursor) return
                 continue
             }
-            store.transaction {
+            val waitingForKeys = store.transaction {
                 owned()
-                if (page("$space/pending/", limit = 1).isNotEmpty()) return@transaction
+                if (page("$space/pending/", limit = 1).isNotEmpty()) return@transaction false
                 val journal = journal(space)
                 val received = SaitoEnvelope.decode(request)
                 require(received.author == service && received.body.text("stream") == "join" && received.body.text("space_id") == space &&
                     received.body.text("module") == "Spaces" && received.body.text("request") == "receipt" && received.body.number("version") == 1L)
-                val position = received.body.number("position").also { require(it >= cursor && it < next) }
+                val position = received.body.number("position").also { require(it >= 0 && (deferred != null || it >= cursor && it < next)) }
                 val join = journal.verifyJoin(received.body.text("event"), clock.millis())
                 val current = state(space)
                 require((current.get("join_cursor")?.asLong ?: 0) == cursor)
-                current.addProperty("join_cursor", position)
+                current.addProperty("join_cursor", if (deferred == null) position else cursor)
                 val target = channelState(space, join.channelId, current)
+                val deferredKey = "$space/deferred-join/${join.channelId}/${positionKey(position)}"
+                if (deferred != null) require(deferred.key == deferredKey && get(deferredKey)?.toString(Charsets.UTF_8) == request)
+                if (target.get("joined")?.asBoolean != true) {
+                    val previous = get(deferredKey)
+                    require(previous == null || previous.toString(Charsets.UTF_8) == request)
+                    put(deferredKey, request.toByteArray(Charsets.UTF_8))
+                    current.addProperty("join_cursor", Math.addExact(position, 1))
+                    put(stateKey(space), bytes(current))
+                    return@transaction true
+                }
                 val crypto = SpaceCrypto.restore(decode(target.text("crypto")))
                 require(crypto.scope == join.keyPackage.scope)
+                val record = journal.snapshot.channels.getValue(join.channelId)
+                val profile = if (record.allowedMembers != null)
+                    requireNotNull(channelProfile(space, join.channelId, current, target, record)) else null
                 val admission = crypto.admit(join.keyPackage)
                 val original = event(space, "admit") {
                     addProperty("control_id", journal.snapshot.controlId); addProperty("channel_id", join.channelId)
                     addProperty("epoch", admission.session.epoch); addProperty("join", join.envelope)
                     addProperty("welcome", admission.welcome); addProperty("commit", admission.commit)
                     add("devices", devices(admission.bindings))
+                    if (profile != null) {
+                        val metadata = admission.session.publish(wallet, "channel-profile", id(), requireNotNull(journal.snapshot.controlId),
+                            JsonObject().apply {
+                                addProperty("version", 1); addProperty("channel_id", join.channelId); add("profile", profile.json())
+                            }.toString(), clock.millis())
+                        addProperty("channel_metadata", encode(metadata.envelope().toByteArray(Charsets.UTF_8)))
+                    }
                 }
-                queue(space, current, original, admission.session, admission.afterRejection, Math.addExact(position, 1))
+                queue(space, current, original, admission.session, admission.afterRejection,
+                    if (deferred == null) Math.addExact(position, 1) else cursor)
+                false
             }
-            return
+            if (!waitingForKeys) return
         }
     }
 
@@ -947,6 +1024,15 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     suspend fun refresh(space: String, channel: String? = null) {
         val targetChannel = store.transaction { owned(); val current = state(space); channel ?: selectedChannel(current) }
         syncControls(space)
+        store.transaction {
+            owned()
+            val state = state(space)
+            val journal = journal(space)
+            if (state.get("joined").asBoolean) journal.snapshot.channels.forEach { (channel, record) ->
+                if (record.allowedMembers != null && journal.canAccessChannel(wallet.publicKey, channel))
+                    prepareChannelJoin(space, state, journal.snapshot, channel)
+            }
+        }
         val currentChannel = store.transaction { requireNotNull(journal(space).snapshot.channels[targetChannel]) }
         if (currentChannel.visibility != SpaceVisibility.PUBLIC && !store.transaction { channelState(space, targetChannel).get("joined")?.asBoolean == true }) return
         val before = store.transaction { channelState(space, targetChannel) }
@@ -1450,7 +1536,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val envelope = decode(encoded).toString(Charsets.UTF_8)
             val original = SaitoEnvelope.decode(envelope)
             require(original.body.text("content_kind") == "channel-profile")
-            val keys = SpaceCrypto.restore(decode(parent.text("crypto")))
+            val keyState = if (record.allowedMembers != null) data.takeIf { it.get("joined")?.asBoolean == true } ?: return null else parent
+            val keys = SpaceCrypto.restore(decode(keyState.text("crypto")))
             val text = try { keys.read(envelope).text } catch (_: SpaceCrypto.MissingKeys) { return null }
             val contents = json(text.toByteArray(Charsets.UTF_8))
             require(contents.number("version") == 1L && contents.text("channel_id") == channel)

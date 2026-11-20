@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare.spaces
 import com.google.gson.JsonObject
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.saito.SignedSaitoMessage
 import java.util.Base64
 import java.util.Collections
 
@@ -11,7 +12,7 @@ data class SpaceInvitationRecord(val key: String, val expiresAt: Long, val chann
 data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>, val generation: String = "0".repeat(64), val epochStartedAt: Long = 0,
     val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val profile: SpaceChannelProfile? = null,
     val metadata: String? = null, val adminPostsOnly: Boolean = false, val archived: Boolean = false,
-    val contributionStartedAt: Long = 0)
+    val contributionStartedAt: Long = 0, val allowedMembers: Set<String>? = null)
 data class SpaceJoinRequest(val envelope: String, val id: String, val actor: String,
     val operationId: String, val channelId: String, val keyPackage: SpaceCrypto.BoundPackage)
 
@@ -32,6 +33,13 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
     init { require(spaceId.matches(ID) && SaitoWallet.isPublicKey(serviceKey)) }
 
     val snapshot: SpaceSnapshot get() = current
+
+    fun canAccessChannel(actor: String, channel: String): Boolean {
+        val record = current.channels[channel] ?: return false
+        if (record.visibility == SpaceVisibility.PUBLIC) return true
+        val role = current.members[actor] ?: return false
+        return record.allowedMembers == null || actor in record.allowedMembers || role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
+    }
 
     fun receive(receipt: String): SpaceSnapshot {
         val signedReceipt = SaitoEnvelope.decode(receipt)
@@ -88,11 +96,22 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             "create-channel" -> {
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
                 require(event.body.text("control_id") == current.controlId)
+                val allowed = event.body.get("allowed_members")?.let { value ->
+                    require(value.isJsonArray)
+                    val values = value.asJsonArray
+                    val members = values.map { value ->
+                        require(value.isJsonPrimitive && value.asJsonPrimitive.isString)
+                        value.asString.also { require(it in current.members) }
+                    }.toSet()
+                    require(members.size == values.size())
+                    Collections.unmodifiableSet(members)
+                }
                 val visibility = when (event.body.text("visibility")) {
-                    "public" -> SpaceVisibility.PUBLIC.also { require(current.visibility == it) }
-                    "private" -> SpaceVisibility.PRIVATE.also { require(current.visibility == it) }
+                    "public" -> SpaceVisibility.PUBLIC.also { require(current.visibility == it && allowed == null) }
+                    "private" -> SpaceVisibility.PRIVATE.also { require(current.visibility == it || allowed != null) }
                     else -> throw IllegalArgumentException("Unknown channel visibility")
                 }
+                require(allowed == null || visibility == SpaceVisibility.PRIVATE)
                 val channel = event.body.text("channel_id").also { require(it.matches(ID) && it !in current.channels) }
                 val generation = event.body.text("key_generation").also { require(it.matches(ID)) }
                 require(event.body.number("epoch") == 0L)
@@ -101,6 +120,8 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 val metadata = if (visibility == SpaceVisibility.PRIVATE) event.body.text("metadata").also {
                     require(!event.body.has("channel_profile") && Base64.getDecoder().decode(it).size in 29..65_536)
                 } else null
+                if (allowed != null) verifyChannelMetadata(requireNotNull(metadata), event,
+                    SpaceCrypto.Scope(serviceKey, spaceId, channel, generation), 0)
                 val bindings = if (visibility == SpaceVisibility.PRIVATE) devices(event.body).also {
                     require(it.size == 1 && credentialWallet(it.keys.single()) == event.author)
                 } else emptyMap()
@@ -110,7 +131,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 require(profile == null || adminPostsOnly == (profile.kind == SpaceChannelKind.ANNOUNCEMENT))
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(0, bindings,
-                        generation, position, visibility, profile, metadata, adminPostsOnly))))
+                        generation, position, visibility, profile, metadata, adminPostsOnly, allowedMembers = allowed))))
             }
             "edit-channel" -> {
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
@@ -213,7 +234,11 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 admittedJoin = join
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     members = Collections.unmodifiableMap(current.members + (join.actor to (current.members[join.actor] ?: SpaceRole.MEMBER))),
-                    channels = Collections.unmodifiableMap(current.channels + (channel to oldChannel.copy(epoch = epoch, devices = devices, epochStartedAt = position))))
+                    channels = Collections.unmodifiableMap(current.channels + (channel to oldChannel.copy(epoch = epoch, devices = devices, epochStartedAt = position,
+                        metadata = if (oldChannel.allowedMembers != null) event.body.text("channel_metadata").also {
+                            require(Base64.getDecoder().decode(it).size in 29..65_536)
+                            verifyChannelMetadata(it, event, SpaceCrypto.Scope(serviceKey, spaceId, channel, oldChannel.generation), epoch)
+                        } else oldChannel.metadata))))
             }
             else -> throw IllegalArgumentException("Unsupported Spaces control version or kind")
         }
@@ -223,6 +248,18 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         admittedJoin?.let { operations[it.operationId] = it.id }
         current = next
         return next
+    }
+
+    private fun verifyChannelMetadata(encoded: String, event: SignedSaitoMessage, scope: SpaceCrypto.Scope, epoch: Long) {
+        val metadata = SaitoEnvelope.decode(Base64.getDecoder().decode(encoded).toString(Charsets.UTF_8))
+        val body = metadata.body
+        header(body, "event")
+        require(metadata.author == event.author && metadata.recipients == event.recipients)
+        require(body.text("kind") == "content" && body.text("content_kind") == "channel-profile")
+        require(body.text("space_id") == scope.spaceId && body.text("channel_id") == scope.channelId &&
+            body.text("key_generation") == scope.generation && body.number("epoch") == epoch &&
+            body.text("control_id") == event.body.text("control_id"))
+        require(Base64.getDecoder().decode(body.text("ciphertext")).size in 29..65_536)
     }
 
     /** A valid request alone does not activate membership or advance control. */
@@ -239,7 +276,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         val invitationId = if (channelOnly) null else join.body.text("invite_id")
         val invitation = invitationId?.let { requireNotNull(current.invitations[it]) }
         if (channelOnly) {
-            require(join.author in current.members && join.body.text("control_id") in controlPositions)
+            require(join.author in current.members && canAccessChannel(join.author, channel) && join.body.text("control_id") in controlPositions)
             require(current.channels.getValue(channel).devices.keys.none { credentialWallet(it) == join.author })
         } else {
             require(channel == requireNotNull(invitation).channelId)

@@ -171,3 +171,13 @@ and drawer row. The [drawer-row observer correction](drawer-row-observer-recover
 scopes the target to the navigation panel while retaining every original click,
 geometry and timing goal. Both source axes are clear; fresh complete10/17 and
 all-frame/prototype/geometry acceptance remain required. No prefix is accepted.
+
+The [restricted-channel foundation](restricted-channel-foundation.json) supports
+selected-member private children inside public/private communities, independently
+encrypted names, actual MLS admission, authenticated metadata scope and durable
+invalid-input rejection. Two source-review P2s are reproduced and corrected:
+admission no longer depends on viewing a list, and unavailable key holders do
+not block unrelated requests. Current-role filtering and fresh controls handle
+withdrawn pending requests. All244core/89service cases pass; both final source
+axes are clear. This is JVM/source acceptance only. Revocation/future exclusion,
+private UI/native flows and the rest of139 remain incomplete; beta142 is unchanged.
