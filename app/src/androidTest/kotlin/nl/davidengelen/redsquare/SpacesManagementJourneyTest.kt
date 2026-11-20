@@ -931,7 +931,9 @@ class SpacesManagementJourneyTest {
             SQLiteDatabase.OPEN_READWRITE or SQLiteDatabase.ENABLE_WRITE_AHEAD_LOGGING).apply {
             // Fixture preparation participates in SQLite's real bounded writer
             // arbitration. This happens before the unchanged UI fault deadline.
-            execSQL("PRAGMA busy_timeout=5000")
+            rawQuery("PRAGMA busy_timeout=5000", null).use { rows ->
+                check(rows.moveToFirst() && rows.getLong(0) == 5000L)
+            }
         }
         database().use { db ->
             db.rawQuery("SELECT name FROM sqlite_master WHERE type='trigger' AND name=?", arrayOf(trigger)).use { assertFalse(it.moveToFirst()) }

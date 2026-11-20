@@ -57,6 +57,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val fixtureTrace = nl.davidengelen.redsquare.BuildConfig.DEBUG && endpoint.startsWith("ws://127.0.0.1:") &&
         android.os.Build.HARDWARE in listOf("ranchu", "goldfish")
     private fun trace(message: String) { if (fixtureTrace) android.util.Log.d("SpacesAccount138", message) }
+    private inline fun <T> traceLocalWork(operation: String, action: () -> T): T {
+        if (!fixtureTrace) return action()
+        val started = android.os.SystemClock.elapsedRealtime()
+        trace("local-work operation=$operation startedAtMs=$started")
+        return try { action() } finally {
+            trace("local-work operation=$operation endedAtMs=${android.os.SystemClock.elapsedRealtime()} heldMs=${android.os.SystemClock.elapsedRealtime() - started}")
+        }
+    }
     private val scope = CoroutineScope(parent.coroutineContext + SupervisorJob(parent.coroutineContext[Job]) + Dispatchers.IO)
     private val mutable = MutableStateFlow(State())
     val state = mutable.asStateFlow()
@@ -261,7 +269,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         }
     }
 
-    private suspend fun publish() = localAccess.withLock {
+    private suspend fun publish() = localAccess.withLock { traceLocalWork("publish") {
         val current = client ?: return@withLock
         val before = mutable.value
         val target = before.target()
@@ -290,7 +298,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 followingLatest = target == null || historyWindows[target] == null).withManagement(changes)
             }
         }
-    }
+    } }
 
     fun visible(active: Boolean) {
         if (wasVisible.getAndSet(active) && !active) synchronized(navigationChanges) { navigationVersion.incrementAndGet() }
@@ -314,7 +322,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             scope.launch {
                 try {
                     val current = client ?: return@launch
-                    localAccess.withLock {
+                    localAccess.withLock { traceLocalWork("select-route") {
                         if (selection.get() != token) return@withLock
                         persistLocal(current)
                         if (space == null) {
@@ -350,7 +358,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             draft = if (draftVersions[target]?.get() == version) draft else it.draft,
                             messages = messages, loadingChannel = false, contentLoaded = window.loaded, hasEarlier = window.hasEarlier,
                             hasLater = window.hasLater, windowFrom = window.from, followingLatest = historyWindows[target] == null) else it }
-                    }
+                    } }
                     publish(); wake.trySend(Unit)
                 } catch (cancelled: CancellationException) { throw cancelled }
                 catch (_: Exception) { mutable.update { if (it.selected == space && selection.get() == token)
@@ -427,7 +435,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
         }
     }
-    private fun persistLocal(current: SpaceClient) {
+    private fun persistLocal(current: SpaceClient) = traceLocalWork("persist-local") {
         for ((target, text) in dirtyDrafts.entries.toList()) {
             current.saveDraft(target.space, text, channel = target.channel)
             dirtyDrafts.remove(target, text)
@@ -656,6 +664,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     fun createChannel(space: String, profile: SpaceChannelProfile, privateMembers: Set<String>? = null) {
         val route = navigationVersion.get()
         val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
+        if (fixtureTrace) trace("channel-create requestedAtMs=$started")
         localAction(Problem.SAVE, isCurrent = { navigationVersion.get() == route }) {
             localAccess.withLock {
                 if (fixtureTrace) trace("channel-create lockMs=${android.os.SystemClock.elapsedRealtime() - started}")
