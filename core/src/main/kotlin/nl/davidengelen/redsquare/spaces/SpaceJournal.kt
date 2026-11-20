@@ -14,7 +14,7 @@ data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>,
     val metadata: String? = null, val adminPostsOnly: Boolean = false, val archived: Boolean = false,
     val contributionStartedAt: Long = 0, val allowedMembers: Set<String>? = null,
     val accessStartedAt: Map<String, Long> = emptyMap(), val kind: SpaceChannelKind? = null,
-    val initialMetadata: String? = metadata)
+    val initialMetadata: String? = metadata, val retiredDevices: Set<String> = emptySet())
 data class SpaceJoinRequest(val envelope: String, val id: String, val actor: String,
     val operationId: String, val channelId: String, val keyPackage: SpaceCrypto.BoundPackage)
 
@@ -128,6 +128,8 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     else -> throw IllegalArgumentException("Unknown channel visibility")
                 }
                 require(allowed == null || visibility == SpaceVisibility.PRIVATE)
+                if (visibility == SpaceVisibility.PRIVATE && allowed == null)
+                    require(current.channels.getValue(requireNotNull(current.generalChannelId)).retiredDevices.isEmpty())
                 val channel = event.body.text("channel_id").also { require(it.matches(ID) && it !in current.channels) }
                 val generation = event.body.text("key_generation").also { require(it.matches(ID)) }
                 require(event.body.number("epoch") == 0L)
@@ -171,6 +173,9 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 val channel = event.body.text("channel_id")
                 val old = requireNotNull(current.channels[channel])
                 require(old.visibility == SpaceVisibility.PRIVATE && old.allowedMembers != null)
+                require(old.retiredDevices.isEmpty()) {
+                    "Channel access keys need updating before publishing replacement metadata"
+                }
                 val member = event.body.text("member")
                 require(current.members[member] == SpaceRole.MEMBER && member in old.allowedMembers)
                 require(old.devices.keys.any { credentialWallet(it) == event.author })
@@ -187,6 +192,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 verifyChannelMetadata(metadata, event, SpaceCrypto.Scope(serviceKey, spaceId, channel, old.generation), epoch)
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     channels = Collections.unmodifiableMap(current.channels + (channel to old.copy(epoch = epoch, devices = bindings,
+                        retiredDevices = Collections.unmodifiableSet(old.retiredDevices.intersect(bindings.keys)),
                         epochStartedAt = if (removed.isEmpty()) old.epochStartedAt else position, metadata = metadata,
                         allowedMembers = Collections.unmodifiableSet(old.allowedMembers - member),
                         accessStartedAt = Collections.unmodifiableMap(old.accessStartedAt - member)))))
@@ -206,6 +212,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     require(!event.body.has("channel_profile") && !event.body.has("channel_kind"))
                     val metadataChannel = if (old.allowedMembers != null) channel else requireNotNull(current.generalChannelId)
                     val metadataGroup = requireNotNull(current.channels[metadataChannel])
+                    require(metadataGroup.retiredDevices.isEmpty()) { "Channel access keys need updating" }
                     require(metadataGroup.visibility == SpaceVisibility.PRIVATE && metadataGroup.devices.keys.any { credentialWallet(it) == event.author }) {
                         "Channel metadata requires a current holder of its metadata keys"
                     }
@@ -216,6 +223,23 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 }
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     channels = Collections.unmodifiableMap(current.channels + (channel to edited)))
+            }
+            "rotate-access" -> {
+                require(event.body.text("control_id") == current.controlId)
+                val channel = event.body.text("channel_id")
+                val old = requireNotNull(current.channels[channel])
+                require(old.visibility == SpaceVisibility.PRIVATE && canAccessChannel(event.author, channel))
+                val removed = event.body.text("removed_device")
+                require(removed in old.retiredDevices)
+                require(old.devices.keys.any { credentialWallet(it) == event.author && it !in old.retiredDevices })
+                val epoch = event.body.number("epoch")
+                val bindings = devices(event.body)
+                require(epoch == Math.addExact(old.epoch, 1) && bindings == old.devices - removed)
+                require(Base64.getDecoder().decode(event.body.text("commit")).size in 1..1_048_576)
+                require(!event.body.has("metadata") && !event.body.has("channel_metadata") && !event.body.has("channel_profile"))
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    channels = Collections.unmodifiableMap(current.channels + (channel to old.copy(epoch = epoch, devices = bindings,
+                        epochStartedAt = position, retiredDevices = Collections.unmodifiableSet(old.retiredDevices - removed)))))
             }
             "set-role" -> {
                 require(event.author == current.owner && event.body.text("control_id") == current.controlId)
@@ -228,8 +252,8 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 }
                 val administratorStartedAt = if (role == SpaceRole.ADMIN && current.members[member] != role)
                     Collections.unmodifiableMap(current.administratorStartedAt + (member to position)) else current.administratorStartedAt
-                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
-                    members = Collections.unmodifiableMap(current.members + (member to role)), administratorStartedAt = administratorStartedAt)
+                retireExcludedDevices(current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    members = Collections.unmodifiableMap(current.members + (member to role)), administratorStartedAt = administratorStartedAt))
             }
             "archive-channel" -> {
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
@@ -292,7 +316,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
                 val channel = event.body.text("channel_id")
                 val oldChannel = requireNotNull(current.channels[channel])
-                require(oldChannel.visibility == SpaceVisibility.PRIVATE)
+                require(oldChannel.visibility == SpaceVisibility.PRIVATE && oldChannel.retiredDevices.isEmpty())
                 val join = verifyJoin(event.body.text("join"), signedReceipt.createdAt)
                 require(join.channelId == channel && join.operationId != operation)
                 val keyPackage = join.keyPackage
@@ -321,6 +345,20 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         current = next
         return next
     }
+
+    /** Retired credentials stay retired even if their wallet later regains a
+     * role. New admission must use fresh keys after their actual removal. */
+    private fun retireExcludedDevices(snapshot: SpaceSnapshot): SpaceSnapshot = snapshot.copy(
+        channels = Collections.unmodifiableMap(snapshot.channels.mapValues { (_, record) ->
+            if (record.visibility == SpaceVisibility.PUBLIC) record else {
+                val excluded = record.devices.keys.filter { credential ->
+                    val member = credentialWallet(credential)
+                    val role = snapshot.members[member]
+                    role == null || record.allowedMembers != null && member !in record.allowedMembers && role !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
+                }
+                record.copy(retiredDevices = Collections.unmodifiableSet(record.retiredDevices.intersect(record.devices.keys) + excluded))
+            }
+        }))
 
     private fun declaredChannelKind(body: JsonObject): SpaceChannelKind? = body.get("channel_kind")?.let { value ->
         require(value.isJsonPrimitive && value.asJsonPrimitive.isString)
@@ -411,6 +449,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
             return
         }
+        require(channel.retiredDevices.isEmpty()) { "Private content must wait for current membership keys" }
         require(channel.devices.keys.any { credentialWallet(it) == event.author })
         when (body.text("kind")) {
             "content" -> {

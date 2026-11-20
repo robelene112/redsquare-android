@@ -1,5 +1,10 @@
 # Ticket139: community governance
 
+The latest [rotation and native recovery record](rotation-and-native-recovery.json)
+retains all six source794 whole outcomes, the narrow readiness review, the actual
+focused-field/private-return failures and current key/history regressions.
+Issue139 remains incomplete; earlier entries below describe their source slices.
+
 In progress. The owned client/service archive increment implements authenticated
 archive/reopen and blocks stale queued contributions after reopening while
 preserving readable history and new drafts. It retains the independent MLS epoch

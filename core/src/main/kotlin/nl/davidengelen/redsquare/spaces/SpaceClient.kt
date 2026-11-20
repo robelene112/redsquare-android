@@ -37,9 +37,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val data = channelState(space, id, state)
             val readableProfile = channelProfile(space, id, state, data, record)
             val profile = readableProfile ?: if (id == general) SpaceChannelProfile("general") else null
-            val metadataReady = record.visibility == SpaceVisibility.PUBLIC || readableProfile != null &&
+            val metadataGroup = if (record.allowedMembers != null) record else journal.snapshot.generalChannelId?.let(journal.snapshot.channels::get)
+            val metadataReady = record.visibility == SpaceVisibility.PUBLIC || readableProfile != null && metadataGroup?.retiredDevices?.isEmpty() == true &&
                 (if (record.allowedMembers != null) data else state).get("joined")?.asBoolean == true
-            profile?.let { Channel(id, it, record.visibility, record.visibility == SpaceVisibility.PUBLIC || data.get("joined")?.asBoolean == true,
+            profile?.let { Channel(id, it, record.visibility, record.visibility == SpaceVisibility.PUBLIC ||
+                data.get("joined")?.asBoolean == true && record.retiredDevices.isEmpty(),
                 data.get("unread")?.asLong, unreadActivity(data), record.archived, record.allowedMembers, metadataReady) }
         }
     }
@@ -78,7 +80,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(state.get("joined").asBoolean && !state.has("required_control"))
         require(snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) && snapshot.members[member] == SpaceRole.MEMBER)
         val record = requireNotNull(snapshot.channels[channel])
-        require(record.visibility == SpaceVisibility.PRIVATE && record.allowedMembers?.contains(member) == true)
+        require(record.visibility == SpaceVisibility.PRIVATE && record.allowedMembers?.contains(member) == true && record.retiredDevices.isEmpty())
         val target = channelState(space, channel, state)
         require(target.get("joined")?.asBoolean == true)
         val keys = SpaceCrypto.restore(decode(target.text("crypto")))
@@ -125,7 +127,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val metadataChannel = if (record.allowedMembers != null) channel else requireNotNull(snapshot.generalChannelId)
             val metadataGroup = requireNotNull(snapshot.channels[metadataChannel])
             val metadataState = channelState(space, metadataChannel, state)
-            require(metadataGroup.visibility == SpaceVisibility.PRIVATE && metadataState.get("joined")?.asBoolean == true)
+            require(metadataGroup.visibility == SpaceVisibility.PRIVATE && metadataGroup.retiredDevices.isEmpty() && metadataState.get("joined")?.asBoolean == true)
             val keys = SpaceCrypto.restore(decode(metadataState.text("crypto")))
             require(keys.scope == SpaceCrypto.Scope(service, space, metadataChannel, metadataGroup.generation) &&
                 keys.epoch == metadataGroup.epoch && keys.bindings == metadataGroup.devices)
@@ -257,6 +259,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val metadata = if (private) {
             val metadataKeys = if (members != null) requireNotNull(crypto) else SpaceCrypto.restore(decode(state.text("crypto")))
             require(metadataKeys.scope?.channelId == if (members != null) scope.channelId else generalChannel(state))
+            if (members == null) {
+                val general = snapshot.channels.getValue(generalChannel(state))
+                require(general.retiredDevices.isEmpty() && metadataKeys.scope == SpaceCrypto.Scope(service, space, generalChannel(state), general.generation) &&
+                    metadataKeys.epoch == general.epoch && metadataKeys.bindings == general.devices)
+            }
             metadataKeys.publish(wallet, "channel-profile", id(), requireNotNull(snapshot.controlId), JsonObject().apply {
                 addProperty("version", 1); addProperty("channel_id", scope.channelId); add("profile", profile.json())
             }.toString(), clock.millis())
@@ -371,7 +378,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name),
             state.has("starter_channels") || state.has("desired_listed") || page("$space/pending/", limit = 1).isNotEmpty(), state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
                 (data.get("joined")?.asBoolean == true || channel?.visibility == SpaceVisibility.PUBLIC) &&
-                channel?.archived != true && (!adminPostsOnly || role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name)),
+                channel?.retiredDevices?.isEmpty() == true && channel.archived != true && (!adminPostsOnly || role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name)),
             !state.get("joined").asBoolean && state.has("joining_invitation"), unread, hasUnread,
             canManage = state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
                 snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
@@ -747,6 +754,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         if (role !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)) return
         if (store.transaction { page("$space/pending/", limit = 1).isNotEmpty() }) return
         syncControls(space)
+        if (store.transaction { enqueueAccessRotation(space, state(space)) }) return
         if (store.transaction { journal(space).snapshot.members[wallet.publicKey] } !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)) return
         while (true) {
             if (store.transaction { page("$space/pending/", limit = 1).isNotEmpty() }) return
@@ -782,7 +790,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val target = channelState(space, join.channelId, current)
                 val deferredKey = "$space/deferred-join/${join.channelId}/${positionKey(position)}"
                 if (deferred != null) require(deferred.key == deferredKey && get(deferredKey)?.toString(Charsets.UTF_8) == request)
-                if (target.get("joined")?.asBoolean != true) {
+                if (target.get("joined")?.asBoolean != true || journal.snapshot.channels.getValue(join.channelId).retiredDevices.isNotEmpty()) {
                     val previous = get(deferredKey)
                     require(previous == null || previous.toString(Charsets.UTF_8) == request)
                     put(deferredKey, request.toByteArray(Charsets.UTF_8))
@@ -896,6 +904,33 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         return scope.spaceId
     }
 
+    /** Key maintenance is derived from accepted policy, never from a peer's
+     * unconfirmed removal request. One original and both MLS outcomes are durable. */
+    private fun SpaceClientStore.Transaction.enqueueAccessRotation(space: String, state: JsonObject): Boolean {
+        if (!state.get("joined").asBoolean || state.has("control_pending") || state.has("required_control")) return false
+        val journal = journal(space)
+        val head = journal.snapshot.controlId ?: return false
+        if (state.get("access_rotation_rejected_head")?.asString == head) return false
+        for ((channel, record) in journal.snapshot.channels) {
+            if (record.visibility != SpaceVisibility.PRIVATE || record.retiredDevices.isEmpty() || !journal.canAccessChannel(wallet.publicKey, channel)) continue
+            val target = channelState(space, channel, state)
+            if (target.get("joined")?.asBoolean != true || !target.has("crypto")) continue
+            val keys = SpaceCrypto.restore(decode(target.text("crypto")))
+            if (keys.credential in record.retiredDevices || keys.scope != SpaceCrypto.Scope(service, space, channel, record.generation) ||
+                keys.epoch != record.epoch || keys.bindings != record.devices) continue
+            val removed = record.retiredDevices.sorted().first()
+            val changed = keys.remove(removed)
+            val original = event(space, "rotate-access") {
+                addProperty("control_id", head); addProperty("channel_id", channel); addProperty("removed_device", removed)
+                addProperty("epoch", changed.session.epoch); addProperty("commit", changed.commit)
+                add("devices", devices(changed.bindings))
+            }
+            queue(space, state, original, changed.session, changed.afterRejection)
+            return true
+        }
+        return false
+    }
+
     /** A local durable queue is not a remote sent/encrypted confirmation. */
     fun send(space: String, text: String, channel: String? = null): String = store.transaction {
         owned()
@@ -917,9 +952,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 addProperty("content_kind", "message"); addProperty("text", text)
             }
         } else {
-            require(data.get("joined")?.asBoolean == true) { "Channel keys are not available on this device" }
+            require(data.get("joined")?.asBoolean == true && record.retiredDevices.isEmpty()) { "Current channel keys are not available on this device" }
             val keys = SpaceCrypto.restore(decode(data.text("crypto")))
-            require(keys.scope == scope)
+            require(keys.scope == scope && keys.epoch == record.epoch && keys.bindings == record.devices)
             keys.publish(wallet, "message", id(), control, text, clock.millis())
         }
         queue(space, state, original)
@@ -936,6 +971,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 owned()
                 if (page(prefix, limit = 1).isEmpty()) {
                     enqueueListing(space, state(space))
+                    if (page(prefix, limit = 1).isEmpty()) enqueueAccessRotation(space, state(space))
                     if (page(prefix, limit = 1).isEmpty()) enqueueStarter(space, state(space))
                 }
                 val row = page(prefix, limit = 1).firstOrNull() ?: return@transaction null
@@ -1382,6 +1418,25 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                             putChannelState(space, channelId, target)
                             recordChannelAccessResult(space, state, original, ChangeStatus.ACCEPTED)
                         }
+                        "rotate-access" -> {
+                            val channelId = original.body.text("channel_id")
+                            val target = channelState(space, channelId, state)
+                            val record = journal.snapshot.channels.getValue(channelId)
+                            val current = target.get("crypto")?.asString?.let { SpaceCrypto.restore(decode(it)) }
+                            val pointer = get("$space/operation/${original.id}")?.toString(Charsets.UTF_8)
+                            val pending = pointer?.let { get(it) }?.let(::json)
+                            if (current?.credential == original.body.text("removed_device")) {
+                                target.addProperty("joined", false); target.remove("joining_channel"); target.remove("joining_crypto")
+                            } else if (current != null && target.get("joined")?.asBoolean == true) {
+                                val next = pending?.get("candidate")?.asString?.let { SpaceCrypto.restore(decode(it)) }
+                                    ?: current.receiveCommit(original.body.text("commit"),
+                                        current.bindings.keys.single { it.split(':')[1] == original.author }, record.devices)
+                                require(next.scope == SpaceCrypto.Scope(service, space, channelId, record.generation) && next.epoch == record.epoch && next.bindings == record.devices)
+                                target.addProperty("crypto", encode(next.save()))
+                            }
+                            putChannelState(space, channelId, target)
+                            state.remove("access_rotation_rejected_head")
+                        }
                         "archive-channel" -> recordArchiveResult(space, state, original, ChangeStatus.ACCEPTED)
                         "set-role" -> recordRoleResult(state, original, ChangeStatus.ACCEPTED)
                         "edit-channel" -> recordChannelEditResult(space, state, original, ChangeStatus.ACCEPTED)
@@ -1455,13 +1510,23 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 if (original.body.text("kind") == "archive-channel") recordArchiveResult(space, state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "set-role") recordRoleResult(state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "edit-channel") recordChannelEditResult(space, state, original, ChangeStatus.REJECTED)
+                if (original.body.text("kind") == "rotate-access") state.addProperty("access_rotation_rejected_head", original.body.text("control_id"))
                 if (original.body.text("kind") == "revoke-invite") {
                     state.remove("revoking_invitation"); state.addProperty("revocation_failed", original.body.text("invite_id"))
                 }
                 if (pending.has("rejected")) {
                     val channel = original.body.text("channel_id")
                     val target = channelState(space, channel, state)
-                    target.addProperty("crypto", pending.text("rejected")); putChannelState(space, channel, target)
+                    val rollback = SpaceCrypto.restore(decode(pending.text("rejected")))
+                    val accepted = target.get("crypto")?.asString?.let { SpaceCrypto.restore(decode(it)) }
+                    // Only accepted controls update active keys; candidates stay
+                    // in the outbox. A delayed rejection cannot undo a newer
+                    // accepted epoch, generation or retained historical state.
+                    val newerAccepted = accepted != null && (accepted.scope != rollback.scope || accepted.epoch > rollback.epoch)
+                    if (!newerAccepted) {
+                        val restored = if (accepted != null) rollback.withRetainedHistory(accepted) else rollback
+                        target.addProperty("crypto", encode(restored.save())); putChannelState(space, channel, target)
+                    }
                 }
                 if (state.get("control_pending")?.asString == original.id) state.remove("control_pending")
                 body.get("authorized_control")?.asString?.let { head ->
@@ -1759,7 +1824,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }.asLong.also { require(it >= 0) }
     private companion object {
         val CONTROL_KINDS = setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite", "create-channel",
-            "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access")
+            "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access", "rotate-access")
         const val DIRECTORY_CACHE_LIMIT = 200
         val ID = Regex("[0-9a-f]{64}")
         val GSON = GsonBuilder().setStrictness(Strictness.STRICT).create()

@@ -287,7 +287,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         LaunchedEffect(list, account) {
                             snapshotFlow {
                                 val visible = list.layoutInfo.visibleItemsInfo
-                                val first = visible.firstOrNull()?.let { item -> latestMessages.firstOrNull { it.id == item.key && it.position != null } }
+                                // visibleItemsInfo may also include a prior item inside content padding.
+                                // The saved offset belongs to firstVisibleItemIndex, so pair its actual key.
+                                val first = visible.firstOrNull { it.index == list.firstVisibleItemIndex }?.let { item ->
+                                    latestMessages.firstOrNull { it.id == item.key && it.position != null }
+                                }
                                 val read = visible.mapNotNull { item -> latestMessages.firstOrNull { it.id == item.key }?.position }.maxOrNull()
                                 val anchor = first?.let { SpaceClient.ReadingAnchor(it.id, requireNotNull(it.position), list.firstVisibleItemScrollOffset, latestWindow) }
                                 ChannelViewport(anchor, !(list.canScrollForward || list.isScrollInProgress), autoScrolling || initialPage, read)

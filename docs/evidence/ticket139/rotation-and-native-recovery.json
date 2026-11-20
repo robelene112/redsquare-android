@@ -1,0 +1,136 @@
+{
+  "status": "partial source increment, not whole139 or native/release acceptance",
+  "base": "79403c4a1a5e72db11b256bffb946133a1071447",
+  "sourceFiles": {
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "83dc500f5d3f6aa3e9955690bb955cad0fa959a2f50a52d54aa9963b226b320d",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt": "0154945bd3619ef8fa810f959279c6b6eb49b5c83835e133671698e72df28d1b",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceChannelsTest.kt": "1a051547f30fa92079bf775af0ac3644a64d355c0a14df1a8000e5768c68f7da",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/ui/DesignSheet.kt": "1c3a6299bc600d5870d4852bfc3f95c2fef3ffd186a3a6323c01017c780e2c9f",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesScreen.kt": "65d42ead8501de08cd1cee2b6db66b42e8cd12780ce3106ba5f1252b433de53a",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "8016fda10f12edb7d8d99991c0500c19ac63d254af8da268c01652c9bd7f1b90",
+    "scripts/spaces-native-journey": "a83b83922dbfad6b4373835072509c73174c29e72d796e39aa0b7caa0a251bba"
+  },
+  "source794WholeParents": [
+    {
+      "run": 44699948460,
+      "sdk": 37,
+      "mode": "public",
+      "conclusion": "failure",
+      "source": "79403c4a1a5e72db11b256bffb946133a1071447",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-runtime/attempt17-44699948460",
+      "zipSha256": "44b94a432b69675a9b0b1f5747df5038044dd8a5ba9c8834a01617c16818025c"
+    },
+    {
+      "run": 44699962650,
+      "sdk": 29,
+      "mode": "public",
+      "conclusion": "failure",
+      "source": "79403c4a1a5e72db11b256bffb946133a1071447",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-runtime/attempt17-44699962650",
+      "zipSha256": "fd9807e5775aabeed170fbda06c2c7d1a9fa01b8e20ed70ab7f19f335161bf15"
+    },
+    {
+      "run": 44699972938,
+      "sdk": 37,
+      "mode": "private",
+      "conclusion": "failure",
+      "source": "79403c4a1a5e72db11b256bffb946133a1071447",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-private-runtime/attempt5-44699972938",
+      "zipSha256": "be4f9e2a81e70c6b7c1753489a8e9d3a30300025d82f8db6819bfd142c72483b"
+    },
+    {
+      "run": 44699987759,
+      "sdk": 29,
+      "mode": "private",
+      "conclusion": "failure",
+      "source": "79403c4a1a5e72db11b256bffb946133a1071447",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-private-runtime/attempt5-44699987759",
+      "zipSha256": "2829baafcfad23ebb24fc765c9113c9ef98c3d216ca501431afe2d276e40ad74"
+    },
+    {
+      "run": 44700000309,
+      "sdk": 37,
+      "mode": "readiness",
+      "conclusion": "success",
+      "source": "79403c4a1a5e72db11b256bffb946133a1071447",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-readiness-runtime/attempt4-44700000309",
+      "zipSha256": "7bdcfd6958a49dbfc38f8ff086f0fa547ffce6c65a58a241699acbaac316f2f5"
+    },
+    {
+      "run": 44700016313,
+      "sdk": 29,
+      "mode": "readiness",
+      "conclusion": "success",
+      "source": "79403c4a1a5e72db11b256bffb946133a1071447",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-readiness-runtime/attempt4-44700016313",
+      "zipSha256": "e4cd8c6e8bc0b22fdea1b2ffc4c34119a729a3b249c76223df942196a8c77352"
+    }
+  ],
+  "nativeObservations": {
+    "readiness": "Both frozen checks and both actual frame/prototype review axes accept readiness narrowly.591 frames,40 sheets,16 PNG/XML pairs,28 geometry records. Review conclusions were chat-only; decoded evidence paths retained below.",
+    "public": "Both whole parents FAIL actual compact focused-field IME assertion. Standards inspected source794 failure images/XML/movie frames and observed actual lost focus/IME during adaptive relayout; the exact detachment mechanism remains inferred; Spec earlier visual clipping diagnosis applies to source739, not a separate source794 frame verdict.",
+    "private": "Both whole parents FAIL compact second-launch latest-message wait. No passing prefix accepted. Persisted root cause unproven by prior originals; new actual store/timing diagnostics remain within original15s."
+  },
+  "readinessDecodedEvidence": [
+    "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-review-readiness-44700016313",
+    "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-review-readiness-44700000309"
+  ],
+  "corrections": [
+    "Accepted policy retires excluded credentials; genuine MLS remove commits precede further private content/metadata/admission. Exact original and both key outcomes persist across lost replies.",
+    "A late rejection preserves newer accepted live keys, and merges accepted same-epoch retained history into the canceled MLS branch.",
+    "Forms retain one mounted scroll/focus ancestry through IME constraint changes. Reading offset pairs with the actual firstVisibleItemIndex key.",
+    "Mandatory protected-store reading snapshots and actual recovery timing supplement native checks without replacing UI success or extending15s."
+  ],
+  "actualRuntimeRed": [
+    "139-demotion-future-keys-red.log",
+    "139-demotion-rotation-recovery-red.log",
+    "139-rotation-concurrent-rejection-red.log",
+    "139-retired-regrant-revoke-actual-red.log",
+    "139-same-epoch-history-red.log"
+  ],
+  "failedFixtureRuns": [
+    "139-access-rotation-boundaries-green.log: two actual passes, third fixture NPE; wholeFAIL, no fullGREEN claim. Earlier revoke fixture failures are not receiving-boundary evidence."
+  ],
+  "affectedGreen": {
+    "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-access-rotation-history-green.log",
+    "cases": 4,
+    "failures": 0,
+    "durationSeconds": 166,
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-access-rotation-history-green-originals"
+  },
+  "finalSourceReviews": {
+    "Spec": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-demotion-rotation-history-final-spec-review.txt",
+    "Standards": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-demotion-history-and-reading-oracle-standards-review.txt",
+    "concreteFindings": 0
+  },
+  "fullJvm": {
+    "core": 247,
+    "service": 107,
+    "classes": {
+      "core": 48,
+      "service": 9
+    },
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 244,
+    "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-access-rotation-final-jvm.log",
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-access-rotation-final-jvm-originals",
+    "qualification": "Both test tasks executed; normal unchanged compile/build outputs reused."
+  },
+  "androidCompilation": {
+    "status": "PASS",
+    "mainSeconds": 193,
+    "instrumentationSeconds": 179,
+    "log": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-rotation-form-final-android.log",
+    "qualification": "Separate recursive warmup/main/instrumentation compiler lifetimes under existing wrapper; no source edits while building. Actual native execution remains pending."
+  },
+  "freshNative": "pending under prospective public18/private6/readiness5; all goals/deadlines unchanged",
+  "beta": "142 unchanged",
+  "remaining": "139 categories/membership/ownership/visibility/dissolution and remaining whole native; then140\u2013147 sequentially. No production activation, public development/financial writes or automatic file hosting.",
+  "finalProspectiveDocumentReviews": {
+    "Spec": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-rotation-native-prospective-docs-final-spec-review.txt",
+    "Standards": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-rotation-prospective-docs-final-standards-review.txt",
+    "concreteFindings": 0
+  }
+}

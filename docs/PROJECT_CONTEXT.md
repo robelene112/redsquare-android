@@ -13,28 +13,37 @@ Older private kinds are recovered from their immutable encrypted creation
 metadata. Retained history can identify a newly authorized Admin channel while
 current admission still gates editing. Private editing has an independently
 negotiated capability and the existing native editor preserves pending review.
-Current JVM verification passes247core/103service with the explicit cache and
-wrapper qualifications in the [current source packet](evidence/ticket139/private-editor-legacy-source.json).
+Earlier source794 verification passes247core/103service with the explicit cache
+and wrapper qualifications in its [source packet](evidence/ticket139/private-editor-legacy-source.json).
+The current rotation/history source passes the complete247core/107service JVM
+run in4m4s, with both test tasks executed.
 Both pinned framework rehearsals pass within their owned-adapter scope.
 
-Complete source739 Android10/17 readiness executions pass numeric checks and
-both actual frame/prototype review axes. The public-management jobs also pass
-numeric checks, but focused fields can be hidden above the IME; visual
-acceptance remains withheld. Spec/Standards differ on the Android10 observation,
-and both reports are retained. Private-process jobs remain failed: Android10
-loses the General reading position, and Android17's multiline empty composer
-hint starves the compact timeline. All prior30public/8private-process/4readiness
-failed parents stay failed. See the [exact originals and reviews](evidence/ticket139/native-recovery-739.json).
+Complete source794 Android10/17 readiness executions pass both frozen numeric
+and actual frame/prototype review axes, narrowly within readiness. Public
+management executions fail the real compact focused-field IME goal. Private
+process executions fail the compact second-launch latest-message goal. These
+whole parents remain failed, including their passing prefixes. Cumulative failed
+parent counts are32public/10private-process/4readiness. Source739 evidence and
+its differing Android10 focus reviews remain retained; source794 failures now
+establish actual lost input sessions on both SDKs.
 
-Current corrections keep compact context/hints on one line, suppress viewport
-writes until initial restoration completes, and adapt constrained sheet scrolling
-without recreating focused fields. New native proofs require actual IME presence,
-complete focused-field geometry and independent physical visibility above the
-keyboard, plus encrypted private edit recovery. Original5/15/27second deadlines,
-48dp targets, process boundaries and provenance gates remain. Both corrected
-source review axes have zero remaining concrete findings. Exact-source Android
-compilation and fresh whole native/frame acceptance remain mandatory. Keep JVM
-regression separate from Android instrumentation under the2.5GiB build budget.
+Current uncommitted corrections keep one mounted form scroll/focus ancestry
+through keyboard constraint changes and pair each saved reading offset with the
+actual firstVisibleItemIndex key. Actual protected-store snapshots supplement
+native reading-return diagnostics. Exact-source Android main and
+instrumentation compilation pass193/179seconds; fresh whole native/frame
+acceptance under the original deadlines remains required.
+
+Accepted policy changes now mark excluded private credentials retired. Actual
+MLS removals are durably queued before further private content or replacement
+metadata is accepted. Four current SQLite regressions pass, including exact
+original recovery after a lost rotation response, competing holders, explicit
+regrant/revoke ordering and preservation of history imported at the same epoch
+while an admission was pending. All original runtime failures stay
+retained. Both final source axes report zero remaining concrete findings.
+This increment is neither complete139 nor native acceptance. Keep full
+JVM regression separate from Android instrumentation under the2.5GiB budget.
 
 Remaining139 includes explicit category identities and management, all affected
 future-key exclusion on role/membership changes, two-party ownership transfer,

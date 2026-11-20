@@ -330,7 +330,11 @@ class SpacesManagementJourneyTest {
                 capture("12-private-error-dismissed")
             }
         } }
-        launch(fixtures.get("link").asString).use { _ ->
+        launch(fixtures.get("link").asString).use { _ -> withFailureCapture({
+            capture("private-return-reading-failure")
+            saveReadingSnapshot("private-return-failure", fixtures, "private")
+            saveReadingSnapshot("general-return-failure", fixtures, "general")
+        }) {
             waitText("A native encrypted message after fresh admission")
             chooseChannel("general")
             waitText("Private management General 5"); assertPixel("Private management General 5", previous.get("pixel").asFloat)
@@ -344,7 +348,7 @@ class SpacesManagementJourneyTest {
             })
             capture("13-private-general-draft-preserved")
             saveCompletion("completed.json", fixtures)
-        }
+        } }
     }
 
     @Test fun compactPrivateRosterKeepsTheActualLocalErrorAndRemovalControlsReachable() {
@@ -356,6 +360,7 @@ class SpacesManagementJourneyTest {
             waitUntil { ui.onNode(hasSetTextAction() and hasText("Keep General writing through private access changes")).isDisplayed() }
             chooseChannel("native-private-lounge")
             waitText("A native encrypted message after fresh admission")
+            saveReadingSnapshot("compact-before-access", fixtures, "private")
             openPrivateAccess(); privateMember(fixtures).assertIsOn()
             capture("14-compact-private-roster")
             withWriteFailure(activity, fixtures, "compact-private-access") {
@@ -370,12 +375,30 @@ class SpacesManagementJourneyTest {
                 waitUntil(5_000) { !ui.onNodeWithText(saveError).isDisplayed() }
                 privateMember(fixtures).assertIsOn().assertIsEnabled()
                 capture("17-compact-private-error-dismissed")
+                saveReadingSnapshot("compact-before-close", fixtures, "private")
             }
         } }
-        launch(fixtures.get("link").asString).use { _ ->
-            waitText("A native encrypted message after fresh admission")
+        saveReadingSnapshot("compact-after-close", fixtures, "private", false)
+        launch(fixtures.get("link").asString).use { _ -> withFailureCapture({
+            capture("private-compact-return-failure")
+            saveReadingSnapshot("compact-return-failure", fixtures, "private")
+        }) {
+            val startedAt = SystemClock.elapsedRealtime()
+            val deadline = startedAt + 15_000
+            saveReadingSnapshot("compact-return-before-wait", fixtures, "private")
+            val remaining = deadline - SystemClock.elapsedRealtime()
+            assertTrue("The reading observation remains inside the original15second goal", remaining > 0)
+            waitText("A native encrypted message after fresh admission", remaining)
+            val completedAt = SystemClock.elapsedRealtime()
+            assertTrue(completedAt <= deadline)
+            saveJson("compact-reading-recovery.json", JsonObject().apply {
+                addProperty("pid", Process.myPid()); addProperty("owner", fixtureOwner.publicKey)
+                addProperty("space", fixtures.get("space").asString); addProperty("channel", fixtures.get("private").asString)
+                addProperty("startedAtMs", startedAt); addProperty("completedAtMs", completedAt)
+            })
+            saveReadingSnapshot("compact-return-confirmed", fixtures, "private")
             saveCompletion("compact-completed.json", fixtures)
-        }
+        } }
     }
 
     private fun verifyPrivateEditorRecovery(activity: ActivityScenario<MainActivity>, fixtures: JsonObject) {
@@ -1035,6 +1058,45 @@ class SpacesManagementJourneyTest {
     }
     private fun capture(name: String) = captureNativeScreen(File(evidence, "$name.png"))
     private fun status() = command(if (privateReadiness) "readiness-status" else if (privateManagement) "private-management-status" else "management-status")
+    /** Real protected-store rows and separately timestamped visible text,
+     * never a synthetic saved-state acknowledgement. */
+    private fun saveReadingSnapshot(name: String, fixtures: JsonObject, channelName: String, uiAvailable: Boolean = true) {
+        val visibleAt = SystemClock.elapsedRealtime()
+        val visible = JsonArray()
+        if (uiAvailable) for (text in listOf("A native encrypted message before removal", "A native encrypted message after fresh admission")) {
+            val node = ui.onNode(hasText(text) and onScreen)
+            if (node.isDisplayed()) {
+                val bounds = node.fetchSemanticsNode().boundsInRoot
+                visible.add(JsonObject().apply {
+                    addProperty("text", text); addProperty("top", bounds.top); addProperty("bottom", bounds.bottom)
+                })
+            }
+        }
+        val route = "${SaitoBackend.OWNER}:$peerEndpoint"
+        val space = fixtures.get("space").asString
+        val channel = fixtures.get(channelName).asString
+        val storedAt = SystemClock.elapsedRealtime()
+        val value = AndroidSpaceClientStore(context, fixtureOwner.publicKey, route, fixtureService).use { store ->
+            val client = SpaceClient(fixtureOwner, SaitoBackend.OWNER.webUrl, fixtureService, store, Clock.systemUTC()) { error("No reading-probe transport") }
+            val anchor = client.readingAnchor(space, channel)
+            JsonObject().apply {
+                addProperty("pid", Process.myPid()); addProperty("owner", fixtureOwner.publicKey)
+                addProperty("space", space); addProperty("channel", channel); addProperty("selectedChannel", client.community(space).channel)
+                addProperty("storedFollowLatest", anchor == null)
+                add("anchor", anchor?.let { JsonObject().apply {
+                    addProperty("message", it.messageId); addProperty("position", it.position)
+                    addProperty("offset", it.offset); addProperty("windowFrom", it.windowFrom)
+                } } ?: com.google.gson.JsonNull.INSTANCE)
+                add("messages", JsonArray().apply { client.timeline(space, channel = channel).forEach { message ->
+                    add(JsonObject().apply { addProperty("id", message.id); addProperty("position", message.position); addProperty("text", message.text) })
+                } })
+            }
+        }
+        value.addProperty("visibleObservedAtMs", visibleAt); value.addProperty("storeObservedAtMs", storedAt)
+        value.addProperty("uiAvailable", uiAvailable); value.add("visible", visible)
+        saveJson("reading-$name.json", value)
+    }
+
     private fun savedDraft(fixtures: JsonObject, channel: String): String {
         val route = "${SaitoBackend.OWNER}:$peerEndpoint"
         val namespace = MessageDigest.getInstance("SHA-256")

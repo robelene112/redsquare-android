@@ -11,6 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -45,35 +46,30 @@ internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit
             Text(title, Modifier.semantics { heading() }, style = MaterialTheme.typography.headlineSmall)
             content(Modifier.focusRequester(firstAction))
         }
-        val latestBody by rememberUpdatedState(body)
-        val latestFooter by rememberUpdatedState(footer)
-        val stableBody = remember(contentKey) { movableContentOf<ColumnScope> { parent -> latestBody.invoke(parent) } }
-        val stableFooter = remember(contentKey) { movableContentOf<ColumnScope> { parent ->
-            latestFooter?.invoke(parent, Modifier.focusRequester(firstAction))
-        } }
-        BoxWithConstraints(Modifier.fillMaxWidth()) {
-            // Preserve room for a complete focused field at large type or with
-            // the IME open. A pinned footer must not consume the whole form.
-            val scrollActions = footer != null && maxHeight < 160.dp * LocalDensity.current.fontScale + 144.dp
-            if (footer == null || scrollActions) {
-                Column(Modifier.fillMaxWidth().verticalScroll(scroll).focusGroup()
-                    .padding(horizontal = AppSpacing.screen).padding(bottom = 28.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    stableBody(this)
-                    if (footer != null) {
-                        HorizontalDivider()
-                        stableFooter(this)
-                    }
-                }
-            } else {
-                Column(Modifier.fillMaxWidth().focusGroup()) {
-                    Column(Modifier.weight(1f, fill = false).fillMaxWidth().verticalScroll(scroll)
-                        .padding(horizontal = AppSpacing.screen).padding(bottom = 12.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp)) { stableBody(this) }
+        if (footer == null) {
+            Column(Modifier.fillMaxWidth().verticalScroll(scroll).focusGroup()
+                .padding(horizontal = AppSpacing.screen).padding(bottom = 28.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp), content = body)
+        } else BoxWithConstraints(Modifier.fillMaxWidth()) {
+            val density = LocalDensity.current
+            var footerPixels by remember(contentKey) { mutableIntStateOf(0) }
+            val sheetScroll = key(contentKey) { rememberScrollState() }
+            val footerHeight = with(density) { footerPixels.toDp() }
+            val remaining = (maxHeight - footerHeight).coerceAtLeast(0.dp)
+            val bodyHeight = if (remaining >= 160.dp * density.fontScale) remaining else maxHeight
+            // Both scroll/focus ancestries stay mounted through IME changes.
+            // With room, only the body scrolls and actions stay pinned. When
+            // constrained, the body gets a full viewport and the outer scroll
+            // makes the actions reachable without replacing the input session.
+            Column(Modifier.fillMaxWidth().verticalScroll(sheetScroll).focusGroup()) {
+                Column(Modifier.fillMaxWidth().heightIn(max = bodyHeight).verticalScroll(scroll)
+                    .padding(horizontal = AppSpacing.screen).padding(bottom = 12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp), content = body)
+                Column(Modifier.fillMaxWidth().onSizeChanged { footerPixels = it.height }) {
                     HorizontalDivider()
                     Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).padding(top = 12.dp, bottom = 28.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        stableFooter(this)
+                        footer(Modifier.focusRequester(firstAction))
                     }
                 }
             }

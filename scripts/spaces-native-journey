@@ -464,6 +464,29 @@ try:
                 (evidence / f'local-fault-cleanup-{name}.json').write_text(json.dumps(cleanup, indent=2))
                 if cleanup != {'removed': True, 'pid': pid, 'space': fixtures['space'], 'owner': fixtures['owner']}:
                     raise RuntimeError('Private local fault was not independently cleaned')
+            reading_names = ('compact-before-access', 'compact-before-close', 'compact-after-close',
+                'compact-return-before-wait', 'compact-return-confirmed')
+            for name in reading_names:
+                observed = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/reading-{name}.json').stdout)
+                (evidence / f'native-reading-{name}.json').write_text(json.dumps(observed, indent=2))
+                if any(observed[key] != value for key, value in {'pid': pids[3], 'owner': fixtures['owner'],
+                        'space': fixtures['space'], 'channel': channel, 'selectedChannel': channel}.items()):
+                    raise RuntimeError('Compact reading observation has a different actual account/channel/process')
+                if not (0 < observed['visibleObservedAtMs'] <= observed['storeObservedAtMs']):
+                    raise RuntimeError('Compact reading observation lacks actual timestamps')
+                if observed['uiAvailable'] != (name != 'compact-after-close'):
+                    raise RuntimeError('Compact reading observation misstates Activity availability')
+                if observed['storedFollowLatest'] != (observed['anchor'] is None):
+                    raise RuntimeError('Stored follow-latest does not match the actual anchor')
+                if name == 'compact-return-confirmed' and not any(row['text'] == 'A native encrypted message after fresh admission'
+                        and row['bottom'] > row['top'] >= 0 for row in observed['visible']):
+                    raise RuntimeError('The latest message did not actually render after returning')
+            recovery = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/compact-reading-recovery.json').stdout)
+            (evidence / 'native-compact-reading-recovery.json').write_text(json.dumps(recovery, indent=2))
+            if any(recovery[key] != value for key, value in {'pid': pids[3], 'owner': fixtures['owner'],
+                    'space': fixtures['space'], 'channel': channel}.items()) or not (
+                    0 < recovery['startedAtMs'] <= recovery['completedAtMs'] <= recovery['startedAtMs'] + 15_000):
+                raise RuntimeError('Compact latest-message return exceeded the original15second goal')
         elif management_mode:
             if len(set(pids)) != 4: raise RuntimeError('Management phases require four distinct PIDs')
             fixtures = command(control_port, 'management-fixtures')
