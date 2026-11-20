@@ -255,7 +255,28 @@ class SpacesManagementJourneyTest {
     private fun membershipAs(scalar: String, fixtures: JsonObject, block: (ActivityScenario<MainActivity>) -> Unit) {
         val wallet = AndroidWalletStore(context); wallet.replace(wallet.loadExisting(), SaitoWallet.fromPrivateKey("0".repeat(63) + scalar))
         launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("membership-account-$scalar-failure") }) {
-            waitText("Membership message 17"); block(activity)
+            val expectedDraft = if (scalar == "3") membershipDraft else ""
+            val space = fixtures.get("space").asString; val general = fixtures.get("general").asString
+            val expectedAnchor = if (scalar == "3") JsonParser.parseString(File(evidence, "reading-membership-before.json").readText()).asJsonObject.getAsJsonObject("anchor") else null
+            waitUntil(15_000) {
+                val fields = ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes()
+                if (fields.size != 1 || !(0 until 18).any { ui.onNode(hasText("Membership message $it") and onScreen).isDisplayed() }) false
+                else {
+                    val input = ui.onNode(hasSetTextAction() and isEnabled())
+                    val rendered = fields.single().config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.EditableText)?.text
+                    var scoped = false
+                    membershipClient { client ->
+                        val current = client.communities().firstOrNull { it.id == space }
+                        scoped = current?.channel == general && client.draft(space, general) == expectedDraft
+                        if (scoped && expectedAnchor != null) scoped = client.readingAnchor(space, general)?.let { anchor ->
+                            anchor.messageId == expectedAnchor.get("message").asString && anchor.position == expectedAnchor.get("position").asLong &&
+                                anchor.offset == expectedAnchor.get("offset").asInt && anchor.windowFrom == expectedAnchor.get("windowFrom").asLong
+                        } == true
+                    }
+                    scoped && input.isDisplayed() && rendered == expectedDraft
+                }
+            }
+            block(activity)
         } }
     }
     private fun membershipClient(block: (SpaceClient) -> Unit) {

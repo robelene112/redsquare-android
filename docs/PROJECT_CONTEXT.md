@@ -1,22 +1,25 @@
 # Red Square Android project context
 
-## Active139: compact closed-history and native readiness corrections
+## Active139: account-aware native return readiness
 
-All recorded native parents remain whole FAIL. Both axes inspected all1433frames
-and21capture pairs from7487. Governance reaches both real kills and actual
-category15.637s/dissolution6.149s recovery, but the compact closed view leaves no
-room for messages. Stored anchors remain equal. The current UI uses a concise
-closed status and a compact readonly draft; full explanation and stored text
-remain available. Both main3m10 and instrumentation2m54 compile at stable inputs.
+Governance44828915996 passes whole CI and frozen4 numeric/process/receiving checks
+ated52 with the compact closed-history fix. Actual full-frame/prototype review
+is pending. Public member3
+44828929683 and private owner2 44828940462 were deliberately cancelled before
+build/runtime, both actually SKIPPED; whole ZIP/raw/logs remain retained. No
+execution success/failure is invented from their restored caches.
 
-Native Back now waits for the intended actual dialog; reading baselines wait
-for real persisted anchors. Revised prospective governance verification compares
-actual normal/compact visible baselines instead of wrongly requiring the body
-of a partially visible first item. Empty history remains a failure. No old
-freeze or failed outcome is changed. See the [originals and corrections](evidence/ticket139/governance-native-preparation.json).
+Prospective inspection found that returning owner3 was incorrectly forced to
+show final message17 despite retaining its actual earlier anchor/draft. The
+corrected native helper checks active identity/Space/General, rendered and
+stored draft, full retained owner anchor and actual visible history within the
+same15seconds. No scroll/reset/write is used. Current instrumentation compiles
+at stable inputs; product and invoked governance paths are unchanged. See the
+[originals, correction and limits](evidence/ticket139/governance-native-preparation.json).
 
-Fresh complete native runs and all-frame/prototype assessment remain before139
-closes and140-147 proceed. ApprovedB, beta142 and production/provider gates stay.
+Replacement whole member/private parents and complete governance/all-frame
+assessment remain before139 closes and140-147 proceed. ApprovedB, beta142 and
+production/provider/public-write/file-hosting boundaries remain unchanged.
 
 ## Earlier139: visibility and terminal closure source integrated
 
