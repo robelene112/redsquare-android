@@ -62,6 +62,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val wake = Channel<Unit>(Channel.CONFLATED)
     private val network = Mutex()
     private val localAccess = Mutex()
+    private val managementChanges = Any()
+    private val urgentOutbox = ConcurrentHashMap.newKeySet<String>()
     private val closed = AtomicBoolean()
     private val selection = AtomicLong()
     private val navigationVersion = AtomicLong()
@@ -141,6 +143,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         publicChannelEditSupported = "spaces-public-channel-edit-v1" in services,
                         privateChannelAccessSupported = "spaces-private-channel-access-v1" in services) }
                     val current = requireNotNull(client)
+                    flushUrgent(current)
                     for (community in current.communities()) {
                         try {
                             trace("refresh background=${community.id.take(10)} flush-start")
@@ -148,6 +151,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             trace("refresh background=${community.id.take(10)} admit-start")
                             current.admitPending(community.id)
                             current.flush(community.id)
+                            flushUrgent(current)
                             trace("refresh background=${community.id.take(10)} unread-start")
                             if ("spaces-unread-v1" in services) current.refreshUnread(community.id)
                             trace("refresh background=${community.id.take(10)} complete")
@@ -164,6 +168,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             // Flush it before asking the node for access. A
                             // private invitation still needs reads for Welcome.
                             if (!selected.joined && selected.pending && !selected.membershipRequested) return@let
+                            flushUrgent(current)
                             trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} start")
                             current.refresh(target.space, channel = target.channel)
                             trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} complete")
@@ -172,6 +177,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             mutable.update { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem)) }
                         }
                     }
+                    flushUrgent(current)
                     publish()
                     trace("refresh projected")
                 } } catch (cancelled: CancellationException) { throw cancelled }
@@ -190,9 +196,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         check(client == null)
         val storage = AndroidSpaceClientStore(appContext, wallet.publicKey, "$backend:$endpoint", service)
         local = storage
-        client = SpaceClient(wallet, backend.webUrl, service, storage, Clock.systemUTC(), onDeliveryAttempt = {
+        client = SpaceClient(wallet, backend.webUrl, service, storage, Clock.systemUTC(), onDeliveryAttempt = { delivery ->
             val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
-            publish()
+            if (delivery == SpaceClient.Delivery.CONTROL) publishManagement() else publish()
             if (fixtureTrace) trace("delivery projectionMs=${android.os.SystemClock.elapsedRealtime() - started}")
         }) { original -> peerCall {
             val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
@@ -219,6 +225,38 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         connection
     }
 
+    private data class ManagementProjection(val archive: SpaceClient.ArchiveChange?, val role: SpaceClient.RoleChange?,
+        val edit: SpaceClient.ChannelEdit?, val creation: SpaceClient.ChannelCreation?, val access: SpaceClient.ChannelAccessChange?)
+    private fun managementProjection(current: SpaceClient, target: Target?) = ManagementProjection(
+        target?.let { current.archiveChange(it.space, it.channel) }, target?.let { current.roleChange(it.space) },
+        target?.let { current.channelEdit(it.space, it.channel) }, target?.let { current.channelCreation(it.space) },
+        target?.let { current.channelAccessChange(it.space, it.channel) })
+    private fun State.withManagement(changes: ManagementProjection): State {
+        val pending = listOf(changes.archive?.status, changes.role?.status, changes.edit?.status,
+            changes.creation?.status, changes.access?.status).any {
+            it == SpaceClient.ChangeStatus.QUEUED || it == SpaceClient.ChangeStatus.AWAITING_CONFIRMATION
+        }
+        return copy(archiveChange = changes.archive, roleChange = changes.role, channelEdit = changes.edit,
+            channelCreation = changes.creation, channelAccessChange = changes.access,
+            current = if (pending) current?.copy(pending = true, canSend = false, canManage = false) else current)
+    }
+
+    /** A durable control attempt must not rebuild the entire readable timeline before transport. */
+    private fun publishManagement() {
+        val current = client ?: return
+        val target = mutable.value.target() ?: return
+        synchronized(managementChanges) {
+            val changes = managementProjection(current, target)
+            mutable.update { if (it.target() == target && !it.loadingChannel) it.withManagement(changes) else it }
+        }
+    }
+    private suspend fun flushUrgent(current: SpaceClient) {
+        for (space in urgentOutbox.toList()) if (urgentOutbox.remove(space)) {
+            try { current.flush(space) }
+            catch (failure: Exception) { urgentOutbox.add(space); throw failure }
+        }
+    }
+
     private suspend fun publish() = localAccess.withLock {
         val current = client ?: return@withLock
         val before = mutable.value
@@ -234,21 +272,18 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val invitation = target?.let { current.invitation(it.space) }
         val publicRulesToken = target?.let { profiles[it.space] }?.takeIf { it.visibility == SpaceVisibility.PUBLIC }?.publicRulesToken
         val listingIntent = target?.let { current.listingIntent(it.space) }
-        val archiveChange = target?.let { current.archiveChange(it.space, it.channel) }
-        val roleChange = target?.let { current.roleChange(it.space) }
-        val channelEdit = target?.let { current.channelEdit(it.space, it.channel) }
-        val channelCreation = target?.let { current.channelCreation(it.space) }
-        val channelAccessChange = target?.let { current.channelAccessChange(it.space, it.channel) }
         val publicLink = target?.takeIf { profiles[it.space]?.visibility == SpaceVisibility.PUBLIC && members.isNotEmpty() }?.let { current.publicLink(it.space) }
-        mutable.update { previous ->
-            if (previous.target() != target || previous.loadingChannel) previous.copy(communities = communities, profiles = profiles)
-            else previous.copy(communities = communities, profiles = profiles, current = community, channels = channels, members = members,
+        synchronized(managementChanges) {
+            val changes = managementProjection(current, target)
+            mutable.update { previous ->
+                if (previous.target() != target || previous.loadingChannel) previous.copy(communities = communities, profiles = profiles)
+                else previous.copy(communities = communities, profiles = profiles, current = community, channels = channels, members = members,
                 messages = messages, invitation = invitation, publicRulesToken = publicRulesToken,
-                archiveChange = archiveChange, roleChange = roleChange, channelEdit = channelEdit, channelCreation = channelCreation, channelAccessChange = channelAccessChange,
                 listingIntent = target?.let { dirtyListings[it.space] } ?: listingIntent, publicLink = publicLink,
                 contentLoaded = window?.loaded == true, hasEarlier = window?.hasEarlier == true,
                 hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0,
-                followingLatest = target == null || historyWindows[target] == null)
+                followingLatest = target == null || historyWindows[target] == null).withManagement(changes)
+            }
         }
     }
 
@@ -592,15 +627,20 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     fun createChannel(space: String, profile: SpaceChannelProfile, privateMembers: Set<String>? = null) {
         val route = navigationVersion.get()
+        val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
         localAction(Problem.SAVE, isCurrent = { navigationVersion.get() == route }) {
             localAccess.withLock {
+                if (fixtureTrace) trace("channel-create lockMs=${android.os.SystemClock.elapsedRealtime() - started}")
                 require(mutable.value.discoverySupported == true)
                 if (privateMembers != null) {
                     require(mutable.value.privateChannelAccessSupported)
                     requireNotNull(client).createPrivateChannel(space, profile, privateMembers)
                 } else requireNotNull(client).createChannel(space, profile)
             }
-            publish(); wake.trySend(Unit)
+            if (fixtureTrace) trace("channel-create durableMs=${android.os.SystemClock.elapsedRealtime() - started}")
+            publishManagement()
+            urgentOutbox.add(space); wake.trySend(Unit)
+            if (fixtureTrace) trace("channel-create projectedMs=${android.os.SystemClock.elapsedRealtime() - started}")
         }
     }
     fun editChannel(space: String, channel: String, profile: SpaceChannelProfile) {

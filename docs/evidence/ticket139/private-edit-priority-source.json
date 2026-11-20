@@ -1,0 +1,92 @@
+{
+  "issue": 139,
+  "base": "c1fdf769423ac17b573e9c31bf3be3407df89025",
+  "files": {
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "e95e0aea15d81f02970748fc0720b439a9f373fed07ac28e4862fbc509913e66",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesAccount.kt": "3e76e3e9abc16ee356a5cf5ebb5c21fc3d8a7350fff688710964958157046415",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "cae1ed0fe1bc0763a32635437d19ecf04208cf32ac7be07dfbca164bac7925a3",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt": "091ffb83e46373e55e214123731cc53cc775cd23fb6272c7a00475f01225cdc1",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceChannelsTest.kt": "457745b193b7476f9b268db62fc0174088890f33bd10e1e3b336d0fa02fe3b17",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceDiscoveryTest.kt": "2940f6da0802ece59f49bb8ca8d8b0aefa5ef7d4b316d33af90be394f102830a"
+  },
+  "scope": "Restricted private metadata API and actual control-status scheduling, plus native observer corrections. Not full139 or complete private editing.",
+  "privateEditing": {
+    "wire": "Creation pins immutable channel_kind. Encrypted channel-profile-edit v2 contains only version,channel_id,name,category. Typed projection takes kind from the creation record.",
+    "receiver": "Current owner/admin, current bound device, current control/epoch/key scope; plaintext editable kind/profile rejected.",
+    "recovery": "Exact original after accepted-but-lost reply; accepted-only decrypted label invalidation, same channel/history/draft.",
+    "pending": [
+      "General and unrestricted private-child metadata editing",
+      "Older histories without an immutable kind pin",
+      "UI and independently negotiated service capability",
+      "Native private-edit acceptance"
+    ]
+  },
+  "controlProjection": {
+    "observedRed": "Private17c1f actual local interval4.830s;8RPCs232ms total; zero creation originals reached host before5s. No CPU or server profile proves a dominant local cost.",
+    "change": "Durable queued status projects without rebuilding the timeline. CONTROL attempts use the same lightweight persisted-state projection before transport; CONTENT retains full timeline projection. The sole network worker flushes urgent stored work before further background reads. Signed originals and FIFO ordering remain in SpaceClient.",
+    "rights": "Actual queued/awaiting statuses conservatively mask canSend/canManage and mark pending in both light/full projections. Fresh full projection restores actual permissions.",
+    "concurrency": "Management status capture/update is synchronized across light/full projection. UI route/target guards remain. No keystore read cache was added.",
+    "measurement": "Owned debug fixture records lock, durable enqueue, quick projection and delivery-projection timings. Original5s/15s/27s native goals remain."
+  },
+  "observers": [
+    "Repeat real ancestor scrolling during layout settlement inside the original absolute5s; retain48dp/full-layout/window geometry and actual click-completion checks.",
+    "Require a rendered editor field before typing under the original15s content goal.",
+    "Combine backend grant acceptance with actual native On/disabled, and exact-original cold recovery with actual native On/Off/enabled, under their existing15s receiving predicates.",
+    "All condition waits assert elapsed completion inside their existing deadline, including time spent in their predicates."
+  ],
+  "checks": {
+    "firstPrivateEdit": "Actual runtimeRED at old public-only requirement; then1GREEN2m29, source review found2P2 before that increment could be accepted.",
+    "keyHolder": "Actual runtimeRED expected rejection but received control; originalXML retained.",
+    "restrictedPrivateBoundaries": "Both actual casesGREEN2m27 after current-device guard and immutable-kind v2 design.",
+    "combinedInvocation": "FAIL: Gradle daemon disappeared during combined instrumentation/JVM invocation. Preserve originals; no combined success or full native acceptance.",
+    "finalJvm": "PASS2m31:246core/48classes and98service/9classes, no errors/failures/skips. Core uses verified Gradle input cache from its actual passing execution in the prior invocation;98service freshly execute in this successful invocation.",
+    "androidQualification": "Main compilation passed and instrumentation emitted completed compilation output in the failed combined invocation, before final conservative-rights and small observer-body corrections. No final Android compilation success is claimed here. Exact fresh CI must compile final source before emulation.",
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-private-edit-priority-final-jvm-originals",
+    "logHashes": {
+      "139-private-edit-red.log": "b505c331777bc266771a6c5712accfc40dba5045194122f321f2653ce0d8da64",
+      "139-private-edit-green.log": "c105206667a0a90da5a088ba35204bd9b4778b9e8dfcf1c55c08640bcc4ffca5",
+      "139-private-edit-keyholder-red.log": "36d689c99308388f8b3c552deceb547c0732646af040c5782d40ca010a6ae485",
+      "139-private-edit-boundary-green.log": "6511f4b35c1a092455f3f092f702677f99c0cff49f0c3e51ff44319590f854e1",
+      "139-private-edit-and-priority-full.log": "affeba98e1090592b92ade0aaa561d42b28dd922b71a7c582f007e12d5ee0d3a",
+      "139-private-edit-priority-final-jvm.log": "dcd37438c31d1ebe8f1f5b3914f4da2371d0c41ddf1d8184db1ebc11c3c5a226"
+    }
+  },
+  "reviews": {
+    "privateInitial": "Spec1P2 immutable kind; Standards2P2 immutable kind and key holder. Both corrected and actual receiving cases added.",
+    "priorityInitial": "Both axes1P2 stale current permission projection. Corrected by conservative shared mask.",
+    "final": "Both source axes0 remaining; native evidence and final exact compilation remain pending."
+  },
+  "failedNativeParents": [
+    {
+      "run": 44681285436,
+      "whole": "FAIL",
+      "prefixAcceptance": false
+    },
+    {
+      "run": 44681296458,
+      "whole": "FAIL",
+      "prefixAcceptance": false
+    },
+    {
+      "run": 44681304567,
+      "whole": "FAIL",
+      "prefixAcceptance": false
+    },
+    {
+      "run": 44681312900,
+      "whole": "FAIL",
+      "prefixAcceptance": false
+    },
+    {
+      "run": 44681324314,
+      "whole": "FAIL",
+      "prefixAcceptance": false
+    },
+    {
+      "run": 44681334688,
+      "whole": "FAIL",
+      "prefixAcceptance": false
+    }
+  ],
+  "qualification": "All28 public,4private-process and2readiness failed parents remain failed. No partial-run assembly. Whole Android10/17 execution and all-frame/prototype/geometry reviews remain mandatory. Remaining139 categories/private legacy access/all affected group rotations/ownership transfer/visibility/dissolution and140\u2013147 remain required. Beta142 and production node/provider state are unchanged."
+}

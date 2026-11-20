@@ -82,7 +82,9 @@ class SpacesManagementJourneyTest {
             readinessMember(fixtures, "allowed").assertIsOn().assertIsNotEnabled()
             capture("02-waiting-keys-cannot-remove")
             readinessMember(fixtures, "grant").assertIsOff().assertIsEnabled().clickReady()
-            waitUntil { status().getAsJsonArray("allowedMembers").any { it.asString == fixtures.get("grant").asString } }
+            waitUntil {
+                status().getAsJsonArray("allowedMembers").any { it.asString == fixtures.get("grant").asString } && readinessGrantVisible(fixtures, "grant")
+            }
             readinessMember(fixtures, "grant").assertIsOn().assertIsNotEnabled()
             assertReadinessKeys(fixtures)
             capture("03-policy-granted-without-current-keys")
@@ -123,6 +125,15 @@ class SpacesManagementJourneyTest {
         return target
     }
 
+    private fun readinessGrantVisible(fixtures: JsonObject, member: String): Boolean {
+        val row = ui.onNode(hasText(fixtures.get(member + "Name").asString) and
+            SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.ToggleableState) and onScreen)
+        return row.isDisplayed() && row.fetchSemanticsNode().config.let {
+            it[androidx.compose.ui.semantics.SemanticsProperties.ToggleableState] == androidx.compose.ui.state.ToggleableState.On &&
+                it.contains(androidx.compose.ui.semantics.SemanticsProperties.Disabled)
+        }
+    }
+
     private fun assertReadinessKeys(fixtures: JsonObject) {
         val remote = status()
         assertEquals("ADMIN", remote.getAsJsonObject("members").get(fixtures.get("actor").asString).asString)
@@ -146,7 +157,9 @@ class SpacesManagementJourneyTest {
         val refresh = ui.onNode(hasText(context.getString(R.string.spaces_refresh_settings)) and hasClickAction())
         refresh.performScrollTo().clickReady()
         readinessMember(fixtures, "retry").assertIsOff().clickReady()
-        waitUntil { status().getAsJsonArray("allowedMembers").any { it.asString == fixtures.get("retry").asString } }
+        waitUntil {
+            status().getAsJsonArray("allowedMembers").any { it.asString == fixtures.get("retry").asString } && readinessGrantVisible(fixtures, "retry")
+        }
         readinessMember(fixtures, "retry").assertIsOn().assertIsNotEnabled()
         waitUntil(5_000) { !ui.onNodeWithText(context.getString(R.string.spaces_management_rejected)).isDisplayed() }
         val remote = status()
@@ -264,8 +277,9 @@ class SpacesManagementJourneyTest {
         launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("private-grant-failure") }) {
             waitText("A native encrypted message before removal")
             openPrivateAccess()
-            assertRetriedOriginal(previous, "revoke-channel-access")
-            privateMember(fixtures).assertIsOff()
+            val member = privateMember(fixtures)
+            assertRetriedOriginal(previous, "revoke-channel-access") { member.confirmedToggle(false) }
+            member.assertIsOff().assertIsEnabled()
             val received = status(); val channel = fixtures.get("private").asString
             assertFalse(received.getAsJsonObject("channels").has(channel))
             assertEquals("MEMBER", received.getAsJsonObject("members").get(fixtures.get("member").asString).asString)
@@ -288,8 +302,9 @@ class SpacesManagementJourneyTest {
         launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("private-grant-recovery-failure") }) {
             waitText("A native encrypted message before removal")
             openPrivateAccess()
-            assertRetriedOriginal(previous, "grant-channel-access")
-            privateMember(fixtures).assertIsOn()
+            val member = privateMember(fixtures)
+            assertRetriedOriginal(previous, "grant-channel-access") { member.confirmedToggle(true) }
+            member.assertIsOn().assertIsEnabled()
             waitUntil { status().getAsJsonObject("channels").getAsJsonObject(fixtures.get("private").asString)?.get("ready")?.asBoolean == true }
             capture("09-cold-private-grant")
             device.pressBack(); clickDialog("Close")
@@ -375,6 +390,10 @@ class SpacesManagementJourneyTest {
         assertTrue("The restored member remains inside15seconds", remaining > 0)
         waitUntil(remaining) { target.isDisplayed() }
         return target
+    }
+    private fun openChannelEditor() {
+        clickDialog(context.getString(R.string.spaces_edit_channel))
+        waitUntil(15_000) { editorField("Channel name").isDisplayed() }
     }
     private fun openPrivateAccess() { openInformation(); clickDialog(context.getString(R.string.spaces_channel_access)); waitText(context.getString(R.string.spaces_channel_access)) }
 
@@ -547,7 +566,7 @@ class SpacesManagementJourneyTest {
             clickDialog("Reopen channel")
             waitDialogButton("Archive channel")
             capture("18-compact-reopened-channel")
-            clickDialog("Edit channel")
+            openChannelEditor()
             editorField("Channel name").performScrollTo().performTextReplacement("compact-commons")
             editorField("Category (optional)").performScrollTo().performTextReplacement("Projects")
             closeKeyboard()
@@ -561,7 +580,7 @@ class SpacesManagementJourneyTest {
             }
         } }
         launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("compact-editor-confirmation-failure") }) {
-            openInformation(); clickDialog("Edit channel")
+            openInformation(); openChannelEditor()
             editorField("Channel name").performScrollTo().performTextReplacement("compact-commons")
             editorField("Category (optional)").performScrollTo().performTextReplacement("Projects")
             closeKeyboard(); clickDialog("Save changes")
@@ -671,7 +690,7 @@ class SpacesManagementJourneyTest {
         waitUntil(remaining) { node.isDisplayed() }
     }
     private fun restoreGeneralName(fixtures: JsonObject) {
-        clickDialog("Edit channel")
+        openChannelEditor()
         editorField("Channel name").performScrollTo().performTextReplacement("general")
         editorField("Category (optional)").performScrollTo().performTextReplacement("")
         closeKeyboard(); clickDialog("Save changes"); waitInformationName("general")
@@ -679,7 +698,7 @@ class SpacesManagementJourneyTest {
         assertEquals("general", actual.get("name").asString); assertEquals("", actual.get("category").asString)
     }
     private fun verifyChannelEditorRecovery(activity: ActivityScenario<MainActivity>, fixtures: JsonObject) {
-        openInformation(); clickDialog("Edit channel")
+        openInformation(); openChannelEditor()
         editorField("Channel name").performTextReplacement("commons")
         editorField("Category (optional)").performTextReplacement("Projects")
         closeKeyboard(); capture("19-editor-unsaved")
@@ -703,7 +722,7 @@ class SpacesManagementJourneyTest {
         val original = received.getAsJsonArray("dropped").last().asString
         val remote = received.getAsJsonObject("channels").getAsJsonObject(fixtures.get("general").asString)
         assertEquals("commons", remote.get("name").asString); assertEquals("Projects", remote.get("category").asString)
-        clickDialog("Close"); clickDialog("Edit channel")
+        clickDialog("Close"); openChannelEditor()
         waitText("Waiting for confirmation.", 5_000)
         editorField("Channel name").assertTextContains("commons")
         ui.onNode(hasText("Save changes") and hasClickAction() and hasAnyAncestor(isDialog())).assertIsNotEnabled()
@@ -789,7 +808,7 @@ class SpacesManagementJourneyTest {
         node.performScrollTo()
         val remaining = deadline - SystemClock.elapsedRealtime()
         assertTrue("Role action remains inside its original5second budget", remaining > 0)
-        node.clickReady(remaining)
+        node.clickReady(remaining, scrollIntoView = true)
         assertTrue("Scrolling and opening the role action take at most5seconds", SystemClock.elapsedRealtime() <= deadline)
     }
     private fun dismissRole() { device.pressBack(); waitUntil(5_000) { !ui.onNode(hasText("Make administrator") and hasClickAction()).isDisplayed() } }
@@ -824,8 +843,11 @@ class SpacesManagementJourneyTest {
         val match = hasText(text) and hasClickAction() and hasAnyAncestor(isDialog())
         waitUntil(5_000) { ui.onAllNodes(match).fetchSemanticsNodes().size == 1 }
         val node = ui.onNode(match)
-        if (ui.onAllNodes(match and hasAnyAncestor(hasScrollAction())).fetchSemanticsNodes().size == 1) node.performScrollTo()
-        node.clickReady((deadline - SystemClock.elapsedRealtime()).coerceAtLeast(1))
+        val scrollable = ui.onAllNodes(match and hasAnyAncestor(hasScrollAction())).fetchSemanticsNodes().size == 1
+        val remaining = deadline - SystemClock.elapsedRealtime()
+        assertTrue("The dialog action remains inside5seconds", remaining > 0)
+        node.clickReady(remaining, scrollIntoView = scrollable)
+        assertTrue(SystemClock.elapsedRealtime() <= deadline)
     }
     private fun waitDialogButton(text: String) {
         val deadline = SystemClock.elapsedRealtime() + 15_000
@@ -846,9 +868,10 @@ class SpacesManagementJourneyTest {
     private fun pixel(text: String) = ui.onNodeWithText(text).fetchSemanticsNode().boundsInRoot.top
     private fun assertPixel(text: String, expected: Float) = assertEquals("Actual channel reading pixel is preserved", expected, pixel(text), 1f)
     private val onScreen get() = SemanticsMatcher("on-screen management route") { it.boundsInRoot.left >= 0 && it.boundsInRoot.top >= 0 && it.boundsInRoot.right > 0 }
-    private fun SemanticsNodeInteraction.clickReady(timeout: Long = 5_000) {
+    private fun SemanticsNodeInteraction.clickReady(timeout: Long = 5_000, scrollIntoView: Boolean = false) {
         val deadline = SystemClock.elapsedRealtime() + timeout
         waitUntil(timeout) {
+            if (scrollIntoView) performScrollTo()
             if (!isDisplayed()) false else fetchSemanticsNode().let { node ->
                 val bounds = node.boundsInRoot
                 val touch = node.touchBoundsInRoot
@@ -882,9 +905,14 @@ class SpacesManagementJourneyTest {
         assertTrue("The touch target stays inside its window: $geometry", touch.left >= root.left - 1f && touch.top >= root.top - 1f &&
             touch.right <= root.right + 1f && touch.bottom <= root.bottom + 1f)
         assertIsEnabled().performClick()
+        assertTrue("The actual click completes inside its original deadline", SystemClock.elapsedRealtime() <= deadline)
     }
     private fun waitText(text: String, timeout: Long = 15_000) = waitUntil(timeout) { ui.onNode(hasText(text) and onScreen).isDisplayed() }
-    private fun waitUntil(timeout: Long = 15_000, condition: () -> Boolean) = ui.waitUntil(timeout, condition)
+    private fun waitUntil(timeout: Long = 15_000, condition: () -> Boolean) {
+        val deadline = SystemClock.elapsedRealtime() + timeout
+        ui.waitUntil(timeout, condition)
+        assertTrue("The observed condition completes inside its original deadline", SystemClock.elapsedRealtime() <= deadline)
+    }
     private fun capture(name: String) = captureNativeScreen(File(evidence, "$name.png"))
     private fun status() = command(if (privateReadiness) "readiness-status" else if (privateManagement) "private-management-status" else "management-status")
     private fun savedDraft(fixtures: JsonObject, channel: String): String {
@@ -898,11 +926,16 @@ class SpacesManagementJourneyTest {
                 .draft(fixtures.get("space").asString, fixtures.get(channel).asString)
         }
     }
-    private fun assertRetriedOriginal(previous: JsonObject, kind: String) {
+    private fun SemanticsNodeInteraction.confirmedToggle(checked: Boolean): Boolean = isDisplayed() && fetchSemanticsNode().config.let {
+        it[androidx.compose.ui.semantics.SemanticsProperties.ToggleableState] ==
+            (if (checked) androidx.compose.ui.state.ToggleableState.On else androidx.compose.ui.state.ToggleableState.Off) &&
+            !it.contains(androidx.compose.ui.semantics.SemanticsProperties.Disabled)
+    }
+    private fun assertRetriedOriginal(previous: JsonObject, kind: String, receivedInUi: () -> Boolean = { true }) {
         waitUntil {
             val actual = status(); val id = previous.get("original").asString
             val rows = actual.getAsJsonArray("originals").map { it.asJsonObject }.filter { it.get("id").asString == id }
-            rows.size == 2 && rows.all { it.get("kind").asString == kind } && rows.map { it.get("sha256").asString }.distinct().size == 1
+            rows.size == 2 && rows.all { it.get("kind").asString == kind } && rows.map { it.get("sha256").asString }.distinct().size == 1 && receivedInUi()
         }
     }
     private fun saveJson(name: String, value: JsonObject) { File(evidence, name).writeText(value.toString()) }

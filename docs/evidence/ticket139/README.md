@@ -210,3 +210,12 @@ readiness/rejection harness and corrections from the four failed97bb native
 parents. It retains the original failures and deadlines. Five real host modes
 pass; native Android execution, full-frame/prototype review and whole139 remain
 pending. This adds no release or production activation claim.
+
+## Restricted private metadata and control-status follow-up
+
+The [source packet](private-edit-priority-source.json) records encrypted editable
+names/categories with immutable creation kind, current-device receiving checks,
+actual original recovery and lightweight durable control projection. Local JVM
+verification passes246core/98service; the combined Android/JVM daemon failure and
+final Android compilation qualification remain explicit. All six c1f native
+parents remain failed. This does not complete private editing,139 or a release.

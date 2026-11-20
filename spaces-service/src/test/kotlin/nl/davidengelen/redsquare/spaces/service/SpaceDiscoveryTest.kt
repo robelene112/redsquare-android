@@ -113,12 +113,14 @@ class SpaceDiscoveryTest {
                     val space = creator.create(SpaceProfile("Observed public room", visibility = SpaceVisibility.PUBLIC))
                     creator.flush(space)
                     var observations = 0
+                    val observedKinds = mutableListOf<SpaceClient.Delivery>()
                     var deliveries = 0
                     var loseMessageAck = true
                     var messageOriginal: String? = null
                     lateinit var reader: SpaceClient
                     reader = SpaceClient(visitor, "fixture-node", service.publicKey, readerStore, clock,
-                        onDeliveryAttempt = {
+                        onDeliveryAttempt = { kind ->
+                            observedKinds.add(kind)
                             observations++
                             assertTrue(reader.community(space).pending)
                             reader.timeline(space).filter { it.pending }.forEach { assertTrue(it.attempted) }
@@ -149,6 +151,7 @@ class SpaceDiscoveryTest {
                     reader.saveDraft(space, "New writing remains independent")
                     reader.flush(space)
                     assertEquals(3, observations)
+                    assertEquals(listOf(SpaceClient.Delivery.CONTROL, SpaceClient.Delivery.CONTENT, SpaceClient.Delivery.CONTENT), observedKinds)
                     assertFalse(reader.community(space).pending)
                     assertEquals("New writing remains independent", reader.draft(space))
                     creator.refresh(space)

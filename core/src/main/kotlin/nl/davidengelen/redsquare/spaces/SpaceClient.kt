@@ -16,10 +16,11 @@ import java.util.Base64
  * Signed originals and replacement key state commit before transport is called. */
 class SpaceClient(private val wallet: SaitoWallet, private val node: String, private val service: String,
     private val store: SpaceClientStore, private val clock: Clock,
-    private val onDeliveryAttempt: suspend () -> Unit = {},
+    private val onDeliveryAttempt: suspend (Delivery) -> Unit = {},
     private val exchange: suspend (SaitoTransaction) -> String) {
     init { require(node.isNotBlank() && node.length <= 2048 && SaitoWallet.isPublicKey(service)) }
 
+    enum class Delivery { CONTROL, CONTENT }
     enum class ReadProblem { EXPIRED, UNAVAILABLE }
     class ReadDenied(val spaceId: String, val problem: ReadProblem) : IllegalArgumentException("Community access is not available")
     class DifferentNode(val node: String) : IllegalArgumentException("This community belongs to a different node")
@@ -114,14 +115,27 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(state.get("joined").asBoolean && !state.has("required_control"))
         require(snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         val record = requireNotNull(snapshot.channels[channel])
-        require(record.visibility == SpaceVisibility.PUBLIC && profile.kind == requireNotNull(record.profile).kind)
+        val target = channelState(space, channel, state)
+        val previous = requireNotNull(channelProfile(space, channel, state, target, record))
+        require(profile.kind == previous.kind)
+        val metadata = if (record.visibility == SpaceVisibility.PRIVATE) {
+            require(record.allowedMembers != null && record.kind != null && target.get("joined")?.asBoolean == true)
+            val keys = SpaceCrypto.restore(decode(target.text("crypto")))
+            require(keys.scope == SpaceCrypto.Scope(service, space, channel, record.generation) &&
+                keys.epoch == record.epoch && keys.bindings == record.devices)
+            keys.publish(wallet, "channel-profile-edit", id(), requireNotNull(snapshot.controlId), JsonObject().apply {
+                addProperty("version", 2); addProperty("channel_id", channel)
+                addProperty("name", profile.name); addProperty("category", profile.category)
+            }.toString(), clock.millis()).envelope()
+        } else null
         val original = event(space, "edit-channel") {
             addProperty("control_id", requireNotNull(snapshot.controlId)); addProperty("channel_id", channel)
-            add("channel_profile", profile.json())
+            if (metadata == null) add("channel_profile", profile.json())
+            else addProperty("channel_metadata", encode(metadata.toByteArray(Charsets.UTF_8)))
         }
-        val target = channelState(space, channel, state)
         target.add("channel_edit", JsonObject().apply {
             addProperty("id", original.id); add("profile", profile.json()); addProperty("status", ChangeStatus.QUEUED.name)
+            metadata?.let { addProperty("metadata", encode(it.toByteArray(Charsets.UTF_8))) }
         })
         putChannelState(space, channel, target)
         queue(space, state, original)
@@ -246,6 +260,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             addProperty("visibility", if (private) "private" else "public")
             addProperty("epoch", 0); addProperty("key_generation", scope.generation)
             addProperty("admin_posts_only", profile.kind == SpaceChannelKind.ANNOUNCEMENT)
+            addProperty("channel_kind", profile.kind.name.lowercase(java.util.Locale.ROOT))
             members?.let { add("allowed_members", JsonArray().apply { it.sorted().forEach(::add) }) }
             if (private) {
                 addProperty("metadata", encode(requireNotNull(metadata).envelope().toByteArray(Charsets.UTF_8)))
@@ -850,6 +865,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 add("public_profile", profile.json()); add("channel_profile", first.json())
             } else addProperty("channel_metadata", encode(requireNotNull(channelMetadata).envelope().toByteArray(Charsets.UTF_8)))
             addProperty("admin_posts_only", first.kind == SpaceChannelKind.ANNOUNCEMENT)
+            addProperty("channel_kind", first.kind.name.lowercase(java.util.Locale.ROOT))
             addProperty("channel_id", scope.channelId)
             addProperty("channel_visibility", if (profile.visibility == SpaceVisibility.PUBLIC) "public" else "private")
             addProperty("key_generation", scope.generation); addProperty("epoch", 0)
@@ -927,7 +943,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             require(outbound.author == wallet.publicKey)
             // Presentation observes the durable attempt before transport can
             // suspend. Signed read RPCs have no outbox change to project.
-            onDeliveryAttempt()
+            onDeliveryAttempt(if (outbound.body.text("kind") in CONTROL_KINDS) Delivery.CONTROL else Delivery.CONTENT)
             val result = exchange(transaction)
             val received = SaitoEnvelope.decode(result)
             require(received.author == service && received.body.text("module") == "Spaces" && received.body.number("version") == 1L &&
@@ -1539,9 +1555,14 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         original: SignedSaitoMessage, status: ChangeStatus) {
         val channel = original.body.text("channel_id")
         val target = channelState(space, channel, state)
+        if (status == ChangeStatus.ACCEPTED && original.body.has("channel_metadata")) {
+            target.remove("channel_profile")
+            putChannelState(space, channel, target)
+        }
         val change = target.getAsJsonObject("channel_edit") ?: return
         if (change.text("id") != original.id) return
-        require(change.getAsJsonObject("profile") == original.body.getAsJsonObject("channel_profile"))
+        if (original.body.has("channel_metadata")) require(change.get("metadata") == original.body.get("channel_metadata"))
+        else require(change.getAsJsonObject("profile") == original.body.getAsJsonObject("channel_profile"))
         change.addProperty("status", status.name)
         putChannelState(space, channel, target)
     }
@@ -1566,7 +1587,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val outbound = SaitoEnvelope.decode(original.envelope())
         val kind = outbound.body.text("kind")
         ensureMessageIndexes(space, state)
-        if (kind in setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite", "create-channel", "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access")) {
+        if (kind in CONTROL_KINDS) {
             require(!state.has("control_pending")) { "A community control is still awaiting confirmation" }
             state.addProperty("control_pending", original.id)
         }
@@ -1635,17 +1656,28 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private fun SpaceClientStore.Transaction.channelProfile(space: String, channel: String, parent: JsonObject,
         data: JsonObject, record: SpaceChannelRecord): SpaceChannelProfile? {
         record.profile?.let { return it }
-        data.getAsJsonObject("channel_profile")?.let { return SpaceChannelProfile.fromJson(it) }
+        data.getAsJsonObject("channel_profile")?.let {
+            return SpaceChannelProfile.fromJson(it).also { cached -> require(record.kind == null || cached.kind == record.kind) }
+        }
         val profile = record.profile ?: record.metadata?.takeIf { parent.get("joined").asBoolean }?.let { encoded ->
             val envelope = decode(encoded).toString(Charsets.UTF_8)
             val original = SaitoEnvelope.decode(envelope)
-            require(original.body.text("content_kind") == "channel-profile")
+            val contentKind = original.body.text("content_kind")
+            require(contentKind in setOf("channel-profile", "channel-profile-edit"))
             val keyState = if (record.allowedMembers != null) data.takeIf { it.get("joined")?.asBoolean == true } ?: return null else parent
             val keys = SpaceCrypto.restore(decode(keyState.text("crypto")))
             val text = try { keys.read(envelope).text } catch (_: SpaceCrypto.MissingKeys) { return null }
             val contents = json(text.toByteArray(Charsets.UTF_8))
-            require(contents.number("version") == 1L && contents.text("channel_id") == channel)
-            SpaceChannelProfile.fromJson(contents.getAsJsonObject("profile")).also {
+            require(contents.text("channel_id") == channel)
+            val decoded = if (contentKind == "channel-profile-edit") {
+                require(contents.keySet() == setOf("version", "channel_id", "name", "category") && contents.get("version").toString() == "2")
+                SpaceChannelProfile(contents.text("name"), requireNotNull(record.kind), contents.text("category"))
+            } else {
+                require(contents.number("version") == 1L)
+                SpaceChannelProfile.fromJson(contents.getAsJsonObject("profile"))
+            }
+            decoded.also {
+                require(record.kind == null || it.kind == record.kind)
                 require(record.adminPostsOnly == (it.kind == SpaceChannelKind.ANNOUNCEMENT))
             }
         }
@@ -1697,6 +1729,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(it != null && it.isJsonPrimitive && it.asJsonPrimitive.isNumber && it.asString.matches(Regex("0|[1-9][0-9]{0,18}")))
     }.asLong.also { require(it >= 0) }
     private companion object {
+        val CONTROL_KINDS = setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite", "create-channel",
+            "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access")
         const val DIRECTORY_CACHE_LIMIT = 200
         val ID = Regex("[0-9a-f]{64}")
         val GSON = GsonBuilder().setStrictness(Strictness.STRICT).create()

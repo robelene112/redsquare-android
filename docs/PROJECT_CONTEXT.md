@@ -3,39 +3,41 @@
 ## Active139: community governance
 
 Implement137–147 sequentially under134 and approved native navigationB. Issues137
-and138 are closed and accepted. Issue139 remains current and incomplete;
+and138 are accepted and closed. Issue139 remains current and incomplete;
 140–147 have not started. Continue without a checkpoint stop. Public beta142
 is unchanged.
 
-The source supports public channel creation/editing, archive/reopen and owner-only
-administrator changes, plus restricted private-child creation, grants and actual
-MLS revocation. Independent old keys cannot read future ciphertext. Readmission
-preserves available past history and does not revive obsolete access requests.
-The last complete JVM check passes246core/94service. Later harness additions have
-separate affected checks and do not change that full-suite provenance.
+Source supports public channel creation/editing, archive/reopen and owner-only
+administrator changes, plus restricted private creation, grants and actual MLS
+revocation. Readmission preserves available past history and rejects obsolete
+access requests. The restricted private-edit API now encrypts name/category
+changes, pins immutable kind on creation and requires a current bound key holder.
+General/unrestricted and older private histories, its UI and capability remain
+pending. Current JVM verification passes246core/98service with the explicit
+cache/combined-build qualifications in the [source packet](evidence/ticket139/private-edit-priority-source.json).
 
-All26 public native parents through attempt13 and both first private-process
-parents remain failed. The latest failures expose premature member-list use after
-Activity restoration, transient unavailable-member UI, an offscreen compact-sheet
-observer and an action geometry race. Corrections preserve saved selections,
-wait for actual loaded rows/complete controls and retain the original deadlines.
-No passing prefix is accepted. Whole Android10/17 execution and complete-frame,
-prototype and geometry review remain necessary.
+All28 public,4 private-process and2 readiness native parents remain failed. Latest
+failures expose one-shot scrolling during layout settlement, premature editor/
+receipt observations and actual local creation latency. Source corrections retain
+all original5/15/27second goals. Control attempts project actual persisted status
+without rebuilding the timeline; queued work is prioritized within the sole
+network worker. Actual queued/uncertain controls conservatively disable writing
+and management. The current trace does not prove the dominant local CPU cost.
+No passing prefix or whole native acceptance is claimed. Exact final-source
+compilation, fresh whole10/17 execution and all-frame/prototype/geometry reviews
+are still required.
 
-A separate private-readiness scenario uses a real independent key holder: a native
-reader is removed, then promoted to administrator while new key delivery is held.
-It exercises disabled removal, an actual policy-only grant, a genuine rejected
-change and explicit fresh-intent recovery, in normal and compact large-text UI.
-The readiness host startup and all five actual host-process cases pass. Native
-execution and acceptance remain pending. See the [current139 evidence](evidence/ticket139/README.md).
+Keep heavy local JVM regression separate from Android instrumentation compilation
+under the existing2.5GiB build budget: the combined invocation lost its Gradle
+daemon. Its originals remain failed; the separate JVM invocation succeeds.
 
-Remaining139 includes explicit categories, private channel editing and legacy
-General access, future-key exclusion on demotion and Space leave/remove/ban,
-two-party ownership transfer, deliberate visibility transitions without publishing
-prior private history and owner-only dissolution. Then continue140–147.
-No production node/provider activation, public development/financial writes or
-automatic file hosting is implied. Keep1/36/55/84/86/105 open; legacy Chat E2E,
-Vault rental restoration and physical/OEM/Play limits remain separately recorded.
+Remaining139 includes explicit categories, complete private/legacy editing and
+access, future-key exclusion on demotion and Space leave/remove/ban, two-party
+ownership transfer, deliberate visibility transitions without publishing prior
+private history and owner-only dissolution. Then continue140–147. No production
+node/provider activation, public development/financial writes or automatic file
+hosting is implied. Keep1/36/55/84/86/105 open. Legacy Chat E2E, Vault rental and
+physical/OEM/Play limits remain separately recorded.
 
 ## Accepted138, continue139
 

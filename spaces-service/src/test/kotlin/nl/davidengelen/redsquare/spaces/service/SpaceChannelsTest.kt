@@ -27,6 +27,108 @@ class SpaceChannelsTest {
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
 
+    @Test(timeout = 45_000) fun anAdministratorWithoutCurrentChannelKeysCannotReplacePrivateMetadata() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("unready-edit-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("unready-edit-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("unready-edit-admin.sqlite").absolutePath).use { adminStore ->
+                    var originalEdit: SaitoTransaction? = null
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                        if (SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "edit-channel") originalEdit = original
+                        remote.exchange(original.envelope())
+                    }
+                    val admin = SpaceClient(member, "fixture-node", service.publicKey, adminStore, clock) { remote.exchange(it.envelope()) }
+                    val space = creator.create(SpaceProfile("Key-holder editing", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    admin.openPublic(space); admin.joinPublic(space); admin.flush(space); creator.refresh(space)
+                    val channel = creator.createPrivateChannel(space, SpaceChannelProfile("Private original"), emptySet()); creator.flush(space)
+                    creator.editChannel(space, channel, SpaceChannelProfile("Private renamed")); creator.flush(space)
+                    creator.setAdministrator(space, member.publicKey, true); creator.flush(space); admin.refresh(space)
+                    assertFalse(admin.channels(space).any { it.id == channel && it.ready })
+                    val head = requireNotNull(creator.roleChange(space)).id
+                    val body = SaitoEnvelope.decode(requireNotNull(originalEdit).envelope()).body.deepCopy()
+                    val encoded = body.get("channel_metadata").asString
+                    val metadataBody = SaitoEnvelope.decode(String(java.util.Base64.getDecoder().decode(encoded), Charsets.UTF_8)).body.deepCopy()
+                    metadataBody.addProperty("control_id", head); metadataBody.addProperty("operation_id", "b".repeat(64))
+                    val metadata = SaitoTransaction.create(member, metadataBody, clock.millis(), listOf(service.publicKey))
+                    body.addProperty("control_id", head); body.addProperty("operation_id", "c".repeat(64))
+                    body.addProperty("channel_metadata", java.util.Base64.getEncoder().encodeToString(metadata.envelope().toByteArray(Charsets.UTF_8)))
+                    val request = SaitoTransaction.create(member, body, clock.millis(), listOf(service.publicKey))
+                    assertEquals("A role alone does not provide a bound channel key holder", "rejection",
+                        SaitoEnvelope.decode(remote.exchange(request.envelope())).body.get("stream").asString)
+                    assertEquals("Private renamed", creator.channels(space).single { it.id == channel }.profile.name)
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun privateChannelRenamesStayEncryptedAndKeepReaderHistoryAndDraftsAfterProcessRecovery() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("private-edit-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("private-edit-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("private-edit-reader.sqlite").absolutePath).use { readerStore ->
+                    val attempts = mutableListOf<String>()
+                    var loseReply = false
+                    fun manager() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                        val edit = SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "edit-channel"
+                        if (edit && attempts.isEmpty()) {
+                            val changedKind = SaitoEnvelope.decode(original.envelope()).body.deepCopy().apply {
+                                addProperty("channel_kind", "article"); addProperty("operation_id", "f".repeat(64))
+                            }
+                            val request = SaitoTransaction.create(owner, changedKind, clock.millis(), listOf(service.publicKey))
+                            assertEquals("Even a current key holder cannot change the signed creation kind", "rejection",
+                                SaitoEnvelope.decode(remote.exchange(request.envelope())).body.get("stream").asString)
+                        }
+                        if (edit) attempts.add(original.envelope())
+                        val response = remote.exchange(original.envelope())
+                        if (edit && loseReply) { loseReply = false; throw java.io.IOException("Owned accepted private edit reply lost") }
+                        response
+                    }
+                    var creator = manager()
+                    fun reader() = SpaceClient(member, "fixture-node", service.publicKey, readerStore, clock) { remote.exchange(it.envelope()) }
+                    var participant = reader()
+                    val space = creator.create(SpaceProfile("Private channel metadata", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                    participant.openPublic(space); participant.joinPublic(space); participant.flush(space); creator.refresh(space)
+                    val originalProfile = SpaceChannelProfile("confidential-planning", category = "Private team")
+                    val channel = creator.createPrivateChannel(space, originalProfile, setOf(member.publicKey)); creator.flush(space)
+                    participant.refresh(space); participant.flush(space); creator.admitPending(space); creator.flush(space); participant.refresh(space)
+                    val message = participant.send(space, "The same private history survives renaming", channel); participant.flush(space)
+                    participant.selectChannel(space, channel); participant.saveDraft(space, "Keep this private draft", channel)
+                    creator.refresh(space, channel)
+                    assertEquals(originalProfile, creator.channels(space).single { it.id == channel }.profile)
+                    assertEquals(originalProfile, participant.channels(space).single { it.id == channel }.profile)
+                    val renamed = originalProfile.copy(name = "confidential-roadmap", category = "Planning together")
+                    loseReply = true
+                    val edit = creator.editChannel(space, channel, renamed)
+                    try { creator.flush(space); fail("The accepted original reply is deliberately lost") } catch (_: java.io.IOException) { }
+                    assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, creator.channelEdit(space, channel)?.status)
+                    creator = manager(); creator.flush(space)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, creator.channelEdit(space, channel)?.status)
+                    assertEquals(edit, creator.channelEdit(space, channel)?.id)
+                    assertEquals(2, attempts.size); assertEquals(attempts[0], attempts[1])
+                    val original = SaitoEnvelope.decode(attempts[0])
+                    assertFalse(original.body.has("channel_profile"))
+                    val signedMetadata = SaitoEnvelope.decode(String(java.util.Base64.getDecoder().decode(original.body.get("channel_metadata").asString), Charsets.UTF_8))
+                    assertFalse(signedMetadata.body.has("profile")); assertTrue(signedMetadata.body.has("ciphertext"))
+                    assertEquals("channel-profile-edit", signedMetadata.body.get("content_kind").asString)
+                    try { creator.editChannel(space, channel, renamed.copy(kind = SpaceChannelKind.ARTICLE)); fail("Editing cannot change channel kind") }
+                    catch (_: IllegalArgumentException) { }
+                    participant.refresh(space, channel); participant = reader()
+                    assertEquals(renamed, participant.channels(space).single { it.id == channel }.profile)
+                    assertEquals(renamed, creator.channels(space).single { it.id == channel }.profile)
+                    assertEquals(channel, participant.community(space).channel)
+                    assertEquals("Keep this private draft", participant.draft(space, channel))
+                    assertEquals(listOf(message), participant.timeline(space, channel = channel).map { it.id })
+                    assertEquals(listOf(message), creator.timeline(space, channel = channel).map { it.id })
+                    try { participant.editChannel(space, channel, originalProfile); fail("An ordinary member cannot edit private metadata") }
+                    catch (_: IllegalArgumentException) { }
+                    val forged = original.body.deepCopy().apply { addProperty("operation_id", "a".repeat(64)) }
+                    val unauthorized = SaitoTransaction.create(member, forged, clock.millis(), listOf(service.publicKey))
+                    assertEquals("rejection", SaitoEnvelope.decode(remote.exchange(unauthorized.envelope())).body.get("stream").asString)
+                    creator.send(space, "New private messages still work", channel); creator.flush(space); participant.refresh(space, channel)
+                    assertEquals(listOf("The same private history survives renaming", "New private messages still work"), participant.messages(space, channel))
+                }
+            }
+        }
+    }
+
     @Test(timeout = 45_000) fun aWithdrawnAdminRequestDoesNotBlockAnEligibleMemberWhenControlsChangedElsewhere() = runBlocking<Unit> {
         val participant = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
         SpacesServiceStore(files.newFolder("restricted-withdrawn-request-service").toPath(), service, clock).use { remote ->
