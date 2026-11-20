@@ -68,6 +68,14 @@ removal/demotion, ownership/visibility/dissolution and remaining139 are pending.
 Public management native attempt10 at e62ecbd333 runs separately. Beta142 remains
 unchanged. Continue139 then140–147 without a checkpoint stop.
 
+Explicit restricted-channel grants and readmission now pass244core/94service
+cases with both final source review axes clear. Previously received history
+survives a pending fresh admission; access terms prevent discarded old joins
+from reviving after regrant. Both actual review-discovered failures are retained
+in the [grant packet](evidence/ticket139/restricted-channel-grants.json).
+Private native UI/capabilities and remaining139 are pending. Public management
+attempt11 atff6a05985 runs separately; beta142 is unchanged. Continue139–147.
+
 ## Accepted138, continue139
 
 Community discovery, creation and reviewed admission138 are accepted at product

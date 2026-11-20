@@ -151,11 +151,8 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                                     val original = SaitoEnvelope.decode(SaitoEnvelope.decode(value).body.text("event"))
                                     val channelOnly = original.body.text("kind") == "join-channel"
                                     val invitation = if (channelOnly) null else journal.snapshot.invitations[original.body.text("invite_id")]
-                                    val completed = if (channelOnly) original.author !in journal.snapshot.members ||
-                                        !journal.canAccessChannel(original.author, original.body.text("channel_id")) ||
-                                        journal.snapshot.channels[original.body.text("channel_id")]?.devices?.keys?.any {
-                                            it.split(':')[1] == original.author
-                                        } != false else invitation == null || original.author in journal.snapshot.members || invitation.expiresAt <= now
+                                    val completed = if (channelOnly) !journal.canJoinChannel(original.author,
+                                        original.body.text("channel_id"), original.body.text("control_id")) else invitation == null || original.author in journal.snapshot.members || invitation.expiresAt <= now
                                     if (completed) {
                                         next = Math.addExact(rows.getLong(1), 1)
                                         continue

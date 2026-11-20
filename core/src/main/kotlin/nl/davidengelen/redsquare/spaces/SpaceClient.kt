@@ -42,9 +42,30 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     enum class ChangeStatus { QUEUED, AWAITING_CONFIRMATION, ACCEPTED, REJECTED }
     data class ArchiveChange(val id: String, val channelId: String, val archived: Boolean, val status: ChangeStatus)
     data class RoleChange(val id: String, val memberKey: String, val administrator: Boolean, val status: ChangeStatus)
-    data class ChannelAccessChange(val id: String, val channelId: String, val memberKey: String, val status: ChangeStatus)
+    data class ChannelAccessChange(val id: String, val channelId: String, val memberKey: String, val status: ChangeStatus, val granted: Boolean = false)
     data class ChannelCreation(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus)
     data class ChannelEdit(val id: String, val channelId: String, val profile: SpaceChannelProfile, val status: ChangeStatus)
+
+    fun grantChannelAccess(space: String, channel: String, member: String): String = store.transaction {
+        owned()
+        val state = state(space)
+        val snapshot = journal(space).snapshot
+        require(state.get("joined").asBoolean && !state.has("required_control"))
+        require(snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) && snapshot.members[member] == SpaceRole.MEMBER)
+        val record = requireNotNull(snapshot.channels[channel])
+        require(record.visibility == SpaceVisibility.PRIVATE && record.allowedMembers != null && member !in record.allowedMembers)
+        val original = event(space, "grant-channel-access") {
+            addProperty("control_id", snapshot.controlId); addProperty("channel_id", channel); addProperty("member", member)
+        }
+        val target = channelState(space, channel, state)
+        target.add("channel_access_change", JsonObject().apply {
+            addProperty("id", original.id); addProperty("member", member); addProperty("granted", true)
+            addProperty("status", ChangeStatus.QUEUED.name)
+        })
+        putChannelState(space, channel, target)
+        queue(space, state, original)
+        original.id
+    }
 
     fun revokeChannelAccess(space: String, channel: String, member: String): String = store.transaction {
         owned()
@@ -83,7 +104,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     fun channelAccessChange(space: String, channel: String): ChannelAccessChange? = store.transaction {
         owned()
         val change = channelState(space, channel).getAsJsonObject("channel_access_change") ?: return@transaction null
-        ChannelAccessChange(change.text("id"), channel, change.text("member"), changeStatus(space, change))
+        ChannelAccessChange(change.text("id"), channel, change.text("member"), changeStatus(space, change), change.get("granted")?.asBoolean == true)
     }
 
     fun editChannel(space: String, channel: String, profile: SpaceChannelProfile): String = store.transaction {
@@ -266,7 +287,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                     addProperty("signature", packageData.walletSignature)
                 })
             }
-            data.addProperty("crypto", encode(device.save())); data.addProperty("joining_channel", original.id)
+            data.addProperty("joining_crypto", encode(device.save())); data.addProperty("joining_channel", original.id)
             putChannelState(space, channel, data)
             queue(space, state, original)
         }
@@ -686,8 +707,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                     require(original.body.text("space_id") == space && original.body.text("channel_id") == channel)
                     val channelOnly = original.body.text("kind") == "join-channel"
                     val invitation = if (channelOnly) null else journal.snapshot.invitations[original.body.text("invite_id")]
-                    val completed = if (channelOnly) original.author !in journal.snapshot.members ||
-                        !journal.canAccessChannel(original.author, channel) || record.devices.keys.any { it.split(':')[1] == original.author }
+                    val completed = if (channelOnly) !journal.canJoinChannel(original.author, channel, original.body.text("control_id"))
                         else original.author in journal.snapshot.members || invitation == null || invitation.expiresAt <= clock.millis()
                     if (completed) remove(row.key) else return DeferredJoin(row.key, receipt)
                 }
@@ -1313,6 +1333,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                                 addProperty("content_cursor", 0)
                             }))
                         }
+                        "grant-channel-access" -> recordChannelAccessResult(space, state, original, ChangeStatus.ACCEPTED)
                         "revoke-channel-access" -> {
                             val channelId = original.body.text("channel_id")
                             val target = channelState(space, channelId, state)
@@ -1320,7 +1341,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                             val current = target.get("crypto")?.asString?.let { SpaceCrypto.restore(decode(it)) }
                             val pending = get("$space/operation/${original.id}")?.toString(Charsets.UTF_8)?.let { get(it) }?.let(::json)
                             if (original.body.text("member") == wallet.publicKey) {
-                                target.addProperty("joined", false); target.remove("joining_channel")
+                                target.addProperty("joined", false); target.remove("joining_channel"); target.remove("joining_crypto")
                             } else {
                                 val next = when {
                                     pending?.has("candidate") == true -> SpaceCrypto.restore(decode(pending.text("candidate")))
@@ -1361,9 +1382,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                             val pending = pointer?.let { get(it) }?.let(::json)
                             val next = when {
                                 pending?.has("candidate") == true -> SpaceCrypto.restore(decode(pending.text("candidate")))
+                                join.author == wallet.publicKey && target.get("joined")?.asBoolean != true -> {
+                                    val device = target.get("joining_crypto")?.asString?.let { SpaceCrypto.restore(decode(it)) } ?: current
+                                    device?.join(scope, original.body.text("welcome"), channel.devices)?.let { joined ->
+                                        if (current?.scope == scope) joined.withRetainedHistory(current) else joined
+                                    }
+                                }
                                 current == null -> null
-                                join.author == wallet.publicKey && target.get("joined")?.asBoolean != true ->
-                                    current.join(scope, original.body.text("welcome"), channel.devices)
                                 target.get("joined")?.asBoolean == true -> current.receiveCommit(original.body.text("commit"),
                                     current.bindings.keys.single { it.split(':')[1] == original.author }, channel.devices)
                                 else -> null
@@ -1371,7 +1396,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                             if (next != null) {
                                 require(next.scope == scope && next.epoch == channel.epoch && next.bindings == channel.devices)
                                 target.addProperty("crypto", encode(next.save())); target.addProperty("joined", true)
-                                target.remove("joining_channel")
+                                target.remove("joining_channel"); target.remove("joining_crypto")
                                 if (channelId == generalChannel(state)) state.remove("joining_invitation")
                                 if (pending?.has("candidate") == true) {
                                     pending.get("after_join_cursor")?.asLong?.let { state.addProperty("join_cursor", it) }
@@ -1402,7 +1427,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val pointer = requireNotNull(get("$space/operation/${original.id}")).toString(Charsets.UTF_8)
                 val pending = json(requireNotNull(get(pointer)))
                 require(SaitoTransaction.restore(pending.text("original")).envelope() == body.text("event"))
-                if (original.body.text("kind") == "revoke-channel-access") recordChannelAccessResult(space, state, original, ChangeStatus.REJECTED)
+                if (original.body.text("kind") in setOf("revoke-channel-access", "grant-channel-access")) recordChannelAccessResult(space, state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "create-channel") recordChannelCreationResult(state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "archive-channel") recordArchiveResult(space, state, original, ChangeStatus.REJECTED)
                 if (original.body.text("kind") == "set-role") recordRoleResult(state, original, ChangeStatus.REJECTED)
@@ -1540,7 +1565,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val outbound = SaitoEnvelope.decode(original.envelope())
         val kind = outbound.body.text("kind")
         ensureMessageIndexes(space, state)
-        if (kind in setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite", "create-channel", "archive-channel", "set-role", "edit-channel", "revoke-channel-access")) {
+        if (kind in setOf("create", "invite", "admit", "set-listed", "join-public", "revoke-invite", "create-channel", "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access")) {
             require(!state.has("control_pending")) { "A community control is still awaiting confirmation" }
             state.addProperty("control_pending", original.id)
         }

@@ -1,0 +1,70 @@
+{
+  "ticket": 139,
+  "scope": "Explicit private-child grants and readmission recovery; incremental source acceptance only.",
+  "base": "42f318be3",
+  "sources": {
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "78e37ebfd44a55a150cb5dce53070a2a152764b04ce8e513331dc579dbff7c07",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceCrypto.kt": "7c202c90e3acebbd310605b3974ec1a4a79b2aa3e5a411a02d36b6230be7f90d",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt": "118c88e41e42ed321db2d47d0869fbdfabd80b99fa5c9a9e1bf44c16f4bf24dd",
+    "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt": "706aaddacd56a125f0a87d39f2730c64daf99b2c17331fac6e86f5713d5ec088",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceChannelAccessTest.kt": "db49d601bc95d8744e959b8efae80fc9986815bdfe0908ef443ea9f293c96574"
+  },
+  "behaviour": [
+    "Current owner/admin can explicitly allow an ordinary Space member in a restricted private child. Permission acceptance does not claim key delivery; actual normal admission is still required.",
+    "Accepted grant response loss retains the exact signed original through a new client and exactly two deliveries; General draft and selection remain unchanged.",
+    "Pending fresh admission device is stored independently of retained read keys. Accepted readmission retains only matching account/Scope history keys, checks epochs and rejects conflicting keys.",
+    "Signed creation/grant positions define channel access terms. Receiving verification, service pending pages and local deferred queues reject obsolete joins from an earlier term, including revoke/regrant before first admission.",
+    "A cold independent client applies only the current second join device and exchanges actual encrypted messages."
+  ],
+  "checks": {
+    "counts": {
+      "core": 244,
+      "spaces-service": 94
+    },
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 264,
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-channel-access-grant-final-jvm-originals"
+  },
+  "logs": {
+    "139-channel-access-grant-red.log": {
+      "sha256": "d09e4045d95121943390c5bc2af515e71841722912e71c0865c09d496721f9f0"
+    },
+    "139-channel-access-grant-green.log": {
+      "sha256": "018291c8df4cb431f64560c8d0098b9c5dd1d66ff6624220aab57e6c4241e699"
+    },
+    "139-channel-access-regrant-history-red.log": {
+      "sha256": "c2bfd8c1b377a5d41e6627b3d8db2747792c12743fe88bc90d0fc6ddcdbe4cab"
+    },
+    "139-channel-access-regrant-history-green.log": {
+      "sha256": "a3cae1d5d159e1d7ec99b9cbe0fc6308b9d071e2a70b6881fe3be65b2876d6dc"
+    },
+    "139-channel-access-regrant-term-red.log": {
+      "sha256": "6b4f65172dd2913dfe1c0a44ebd8809024db5af4a7d40a6a64ac79235294af27"
+    },
+    "139-channel-access-regrant-term-green.log": {
+      "sha256": "62321bf02414097ce3d6e1811494abbf78e841cb4974252cc49b18cb574e8766"
+    },
+    "139-channel-access-grant-final-jvm.log": {
+      "sha256": "7dbf4175cb461f10a21bceb8cbd3aa3c34a68be8dbcd4fe417519f8210aa0acd"
+    }
+  },
+  "reviews": {
+    "139-channel-access-grant-term-final-spec-review.txt": {
+      "sha256": "fdb644ceeccc5957db085c1fe6884d049a2990f6663c5a49f4bef130f5c6f2b5",
+      "findings": 0
+    },
+    "139-channel-access-grant-term-final-standards-review.txt": {
+      "sha256": "54e67fc4e2db4e10194801ff167d098b35871a7eaf2f4ea1071cd0f96c149939",
+      "findings": 0
+    }
+  },
+  "qualifications": [
+    "Initial missing-API RED is compilation only, also contains a corrected observer field typo.",
+    "Both later history and obsolete-join failures are actual runtime REDs; original XML retained separately. Initial P2 review reports remain retained.",
+    "An obvious syntax typo caused an interrupted first term-fix build, not a runtime RED or PASS.",
+    "Private native UI/capability files are unfinished, excluded and not accepted by this packet.",
+    "Legacy unrestricted groups, membership removal/demotion, ownership/visibility/dissolution and remaining139 still pending. Public beta142 unchanged."
+  ]
+}

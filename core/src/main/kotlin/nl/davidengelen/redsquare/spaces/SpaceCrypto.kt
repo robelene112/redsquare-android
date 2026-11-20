@@ -130,6 +130,16 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
     }
     /** Authenticate before decryption. Historical permission is independently
      * evaluated at the application journal before it admits this record. */
+    /** Readmission creates a fresh sender but must retain already received history. */
+    internal fun withRetainedHistory(previous: SpaceCrypto): SpaceCrypto {
+        require(scope != null && scope == previous.scope && walletKey(credential) == walletKey(previous.credential))
+        require(previous.archiveKeys.keys.all { it <= epoch })
+        previous.archiveKeys.forEach { (oldEpoch, key) ->
+            archiveKeys[oldEpoch]?.let { known -> require(MessageDigest.isEqual(known, key)) { "Conflicting history key" } }
+        }
+        return SpaceCrypto(native, scope, Collections.unmodifiableMap(previous.archiveKeys + archiveKeys))
+    }
+
     fun read(envelope: String): PlainRecord = readArchived(requireNotNull(scope), archiveKeys, envelope)
     /** Bounded grants contain archive keys, never another device's MLS state. */
     fun history(wallet: SaitoWallet, target: String, operationId: String, controlId: String,

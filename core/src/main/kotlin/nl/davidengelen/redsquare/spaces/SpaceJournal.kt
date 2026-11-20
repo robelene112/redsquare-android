@@ -12,7 +12,8 @@ data class SpaceInvitationRecord(val key: String, val expiresAt: Long, val chann
 data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>, val generation: String = "0".repeat(64), val epochStartedAt: Long = 0,
     val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val profile: SpaceChannelProfile? = null,
     val metadata: String? = null, val adminPostsOnly: Boolean = false, val archived: Boolean = false,
-    val contributionStartedAt: Long = 0, val allowedMembers: Set<String>? = null)
+    val contributionStartedAt: Long = 0, val allowedMembers: Set<String>? = null,
+    val accessStartedAt: Map<String, Long> = emptyMap())
 data class SpaceJoinRequest(val envelope: String, val id: String, val actor: String,
     val operationId: String, val channelId: String, val keyPackage: SpaceCrypto.BoundPackage)
 
@@ -39,6 +40,18 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         if (record.visibility == SpaceVisibility.PUBLIC) return true
         val role = current.members[actor] ?: return false
         return record.allowedMembers == null || actor in record.allowedMembers || role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
+    }
+
+    /** A policy regrant cannot revive a request from an earlier access term. */
+    fun canJoinChannel(actor: String, channel: String, controlId: String): Boolean {
+        val record = current.channels[channel] ?: return false
+        val position = controlPositions[controlId] ?: return false
+        if (record.visibility != SpaceVisibility.PRIVATE || actor !in current.members || !canAccessChannel(actor, channel) ||
+            record.devices.keys.any { credentialWallet(it) == actor }) return false
+        val startedAt = if (record.allowedMembers == null || actor in record.allowedMembers)
+            record.accessStartedAt[actor] ?: 0L else if (current.members[actor] == SpaceRole.ADMIN)
+            current.administratorStartedAt[actor] ?: 0L else 0L
+        return position >= startedAt
     }
 
     fun receive(receipt: String): SpaceSnapshot {
@@ -131,7 +144,21 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 require(profile == null || adminPostsOnly == (profile.kind == SpaceChannelKind.ANNOUNCEMENT))
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     channels = Collections.unmodifiableMap(current.channels + (channel to SpaceChannelRecord(0, bindings,
-                        generation, position, visibility, profile, metadata, adminPostsOnly, allowedMembers = allowed))))
+                        generation, position, visibility, profile, metadata, adminPostsOnly, allowedMembers = allowed,
+                        accessStartedAt = Collections.unmodifiableMap(allowed.orEmpty().associateWith { position })))))
+            }
+            "grant-channel-access" -> {
+                require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+                require(event.body.text("control_id") == current.controlId)
+                val channel = event.body.text("channel_id")
+                val old = requireNotNull(current.channels[channel])
+                require(old.visibility == SpaceVisibility.PRIVATE && old.allowedMembers != null)
+                val member = event.body.text("member")
+                require(current.members[member] == SpaceRole.MEMBER && member !in old.allowedMembers)
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    channels = Collections.unmodifiableMap(current.channels + (channel to old.copy(
+                        allowedMembers = Collections.unmodifiableSet(old.allowedMembers + member),
+                        accessStartedAt = Collections.unmodifiableMap(old.accessStartedAt + (member to position))))))
             }
             "revoke-channel-access" -> {
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
@@ -156,7 +183,8 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     channels = Collections.unmodifiableMap(current.channels + (channel to old.copy(epoch = epoch, devices = bindings,
                         epochStartedAt = if (removed.isEmpty()) old.epochStartedAt else position, metadata = metadata,
-                        allowedMembers = Collections.unmodifiableSet(old.allowedMembers - member)))))
+                        allowedMembers = Collections.unmodifiableSet(old.allowedMembers - member),
+                        accessStartedAt = Collections.unmodifiableMap(old.accessStartedAt - member)))))
             }
             "edit-channel" -> {
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
@@ -301,8 +329,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         val invitationId = if (channelOnly) null else join.body.text("invite_id")
         val invitation = invitationId?.let { requireNotNull(current.invitations[it]) }
         if (channelOnly) {
-            require(join.author in current.members && canAccessChannel(join.author, channel) && join.body.text("control_id") in controlPositions)
-            require(current.channels.getValue(channel).devices.keys.none { credentialWallet(it) == join.author })
+            require(canJoinChannel(join.author, channel, join.body.text("control_id")))
         } else {
             require(channel == requireNotNull(invitation).channelId)
             require(join.body.text("control_id") == invitationId && acceptedAt >= 0 && invitation.expiresAt > acceptedAt)

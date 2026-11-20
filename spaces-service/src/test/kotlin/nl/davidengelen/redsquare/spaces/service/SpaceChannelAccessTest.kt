@@ -23,6 +23,93 @@ class SpaceChannelAccessTest {
     private val departing = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
     private val remaining = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
 
+    @Test(timeout = 45_000) fun regrantCannotReviveTheDiscardedFirstAdmissionRequest() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("grant-term-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("grant-term-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("grant-term-member.sqlite").absolutePath).use { memberStore ->
+                    val requests = mutableListOf<String>()
+                    val admitted = mutableListOf<String>()
+                    val manager = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                        val body = SaitoEnvelope.decode(original.envelope()).body
+                        if (body.get("kind")?.asString == "admit") admitted.add(body.get("join").asString)
+                        remote.exchange(original.envelope())
+                    }
+                    fun reader() = SpaceClient(departing, "fixture-node", service.publicKey, memberStore, clock) { original ->
+                        if (SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "join-channel") requests.add(original.envelope())
+                        remote.exchange(original.envelope())
+                    }
+                    var member = reader()
+                    val space = manager.create(SpaceProfile("Fresh access terms", visibility = SpaceVisibility.PUBLIC)); manager.flush(space)
+                    member.openPublic(space); member.joinPublic(space); member.flush(space); manager.refresh(space)
+                    val channel = manager.createPrivateChannel(space, SpaceChannelProfile("No discarded admission"), setOf(departing.publicKey)); manager.flush(space)
+                    member.refresh(space); member.flush(space)
+                    assertEquals(1, requests.size)
+                    manager.revokeChannelAccess(space, channel, departing.publicKey); manager.flush(space); member.refresh(space)
+                    manager.grantChannelAccess(space, channel, departing.publicKey); manager.flush(space)
+                    member.refresh(space); member.flush(space)
+                    assertEquals(2, requests.size); assertNotEquals(requests[0], requests[1])
+                    manager.admitPending(space); manager.flush(space)
+                    member = reader(); member.refresh(space)
+                    assertEquals(listOf(requests[1]), admitted)
+                    member.send(space, "Only the current admission device receives keys", channel); member.flush(space); manager.refresh(space, channel)
+                    assertEquals(listOf("Only the current admission device receives keys"), manager.messages(space, channel))
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 45_000) fun explicitlyGrantedMemberCanJoinAndRegainPrivateAccessWithoutLosingOtherWork() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("grant-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("grant-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("grant-member.sqlite").absolutePath).use { memberStore ->
+                    val originals = mutableListOf<SaitoTransaction>()
+                    var loseGrantReply = false
+                    fun creator() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                        val body = SaitoEnvelope.decode(original.envelope()).body
+                        val response = remote.exchange(original.envelope())
+                        if (body.get("kind")?.asString == "grant-channel-access") {
+                            originals.add(original)
+                            if (loseGrantReply) { loseGrantReply = false; throw IOException("Accepted grant reply lost") }
+                        }
+                        response
+                    }
+                    var manager = creator()
+                    val reader = SpaceClient(departing, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                    val space = manager.create(SpaceProfile("Explicit private access", visibility = SpaceVisibility.PUBLIC)); manager.flush(space)
+                    reader.openPublic(space); reader.joinPublic(space); reader.flush(space); manager.refresh(space)
+                    val general = reader.community(space).channel
+                    reader.saveDraft(space, "A General draft survives private access changes", general)
+                    val channel = manager.createPrivateChannel(space, SpaceChannelProfile("Selected writers only"), emptySet()); manager.flush(space)
+                    reader.refresh(space)
+                    assertFalse(reader.channels(space).any { it.id == channel })
+                    loseGrantReply = true
+                    val grant = manager.grantChannelAccess(space, channel, departing.publicKey)
+                    try { manager.flush(space); fail("Accepted grant response is lost") } catch (_: IOException) { }
+                    manager = creator(); manager.flush(space)
+                    assertEquals(grant, manager.channelAccessChange(space, channel)?.id)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, manager.channelAccessChange(space, channel)?.status)
+                    assertEquals(2, originals.size)
+                    assertEquals(originals[0].envelope(), originals[1].envelope())
+                    reader.refresh(space); reader.flush(space); manager.admitPending(space); manager.flush(space); reader.refresh(space)
+                    assertEquals("Selected writers only", reader.channels(space).single { it.id == channel }.profile.name)
+                    reader.send(space, "Explicit grant is usable", channel); reader.flush(space); manager.refresh(space, channel)
+                    assertEquals(listOf("Explicit grant is usable"), manager.messages(space, channel))
+                    manager.revokeChannelAccess(space, channel, departing.publicKey); manager.flush(space); reader.refresh(space)
+                    assertFalse(reader.channels(space).any { it.id == channel })
+                    manager.grantChannelAccess(space, channel, departing.publicKey); manager.flush(space)
+                    reader.refresh(space); reader.flush(space)
+                    assertEquals("Cached private history remains readable while the key holder has not admitted the new device",
+                        listOf("Explicit grant is usable"), reader.messages(space, channel))
+                    manager.admitPending(space); manager.flush(space); reader.refresh(space)
+                    reader.send(space, "Fresh admission after revocation works", channel); reader.flush(space); manager.refresh(space, channel)
+                    assertEquals(listOf("Explicit grant is usable", "Fresh admission after revocation works"), manager.messages(space, channel))
+                    assertEquals("A General draft survives private access changes", reader.draft(space, general))
+                    assertEquals(general, reader.community(space).channel)
+                }
+            }
+        }
+    }
+
     @Test(timeout = 45_000) fun revocationRequiresAuthorityAndACompleteCorrectDeviceChangeAtTheReceivingBoundary() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("access-boundary-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("access-boundary-owner.sqlite").absolutePath).use { ownerStore ->
