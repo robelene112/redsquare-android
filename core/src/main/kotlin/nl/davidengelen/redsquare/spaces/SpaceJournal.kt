@@ -15,6 +15,9 @@ data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>,
     val contributionStartedAt: Long = 0, val allowedMembers: Set<String>? = null,
     val accessStartedAt: Map<String, Long> = emptyMap(), val kind: SpaceChannelKind? = null,
     val initialMetadata: String? = metadata, val retiredDevices: Set<String> = emptySet())
+data class SpaceOwnershipOffer(val id: String, val member: String, val proposedAt: Long,
+    val acceptedId: String? = null, val acceptedAt: Long? = null)
+
 data class SpaceJoinRequest(val envelope: String, val id: String, val actor: String,
     val operationId: String, val channelId: String, val keyPackage: SpaceCrypto.BoundPackage)
 
@@ -25,7 +28,7 @@ data class SpaceSnapshot(val owner: String? = null, val members: Map<String, Spa
     val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val publicProfile: SpaceProfile? = null,
     val administratorStartedAt: Map<String, Long> = emptyMap(), val generalChannelId: String? = null,
     val membershipEndedAt: Map<String, Long> = emptyMap(), val bannedMembers: Set<String> = emptySet(),
-    val membershipReadThrough: Map<String, Long> = emptyMap())
+    val membershipReadThrough: Map<String, Long> = emptyMap(), val ownershipOffer: SpaceOwnershipOffer? = null)
 
 /** Authenticated control history. Content pages have their own channel cursors. */
 class SpaceJournal(private val spaceId: String, private val serviceKey: String) {
@@ -33,6 +36,9 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
     private val applied = mutableMapOf<Long, String>()
     private val operations = mutableMapOf<String, String>()
     private val controlPositions = mutableMapOf<String, Long>()
+    private data class HistoryDelivery(val author: String, val channel: String, val generation: String,
+        val epoch: Long, val recipient: String, val control: String)
+    private val historyDeliveries = mutableMapOf<String, HistoryDelivery>()
 
     init { require(spaceId.matches(ID) && SaitoWallet.isPublicKey(serviceKey)) }
 
@@ -40,10 +46,24 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
 
     fun canAccessChannel(actor: String, channel: String): Boolean {
         val record = current.channels[channel] ?: return false
-        if (record.visibility == SpaceVisibility.PUBLIC) return true
-        val role = current.members[actor] ?: return false
-        return record.allowedMembers == null || actor in record.allowedMembers || role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
+        return record.visibility == SpaceVisibility.PUBLIC || hasChannelAudience(current, actor, record) ||
+            hasConsentedHandoverAccess(current, actor)
     }
+
+    /** Preparing handover keys grants reading, not contribution or staff powers. */
+    fun canContributeChannel(actor: String, channel: String): Boolean =
+        current.channels[channel]?.let { hasChannelAudience(current, actor, it) } == true
+
+    private fun hasChannelAudience(snapshot: SpaceSnapshot, actor: String, channel: SpaceChannelRecord): Boolean {
+        val role = snapshot.members[actor] ?: return false
+        return channel.visibility == SpaceVisibility.PUBLIC || channel.allowedMembers == null || actor in channel.allowedMembers ||
+            role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
+    }
+
+    private fun hasConsentedHandoverAccess(snapshot: SpaceSnapshot, actor: String): Boolean =
+        actor in snapshot.members && snapshot.ownershipOffer?.let {
+            it.member == actor && it.acceptedId != null && it.acceptedAt != null
+        } == true
 
     /** Initial legacy requests remain valid, but ending membership requires a
      * newly signed intent acknowledging that departure or a later control. */
@@ -62,7 +82,9 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         val startedAt = if (record.allowedMembers == null || actor in record.allowedMembers)
             record.accessStartedAt[actor] ?: 0L else if (current.members[actor] == SpaceRole.ADMIN)
             current.administratorStartedAt[actor] ?: 0L else 0L
-        return position >= maxOf(startedAt, current.membershipEndedAt[actor] ?: 0L)
+        val handoverStart = if (!hasChannelAudience(current, actor, record) && hasConsentedHandoverAccess(current, actor))
+            requireNotNull(current.ownershipOffer?.acceptedAt) else 0L
+        return position >= maxOf(startedAt, current.membershipEndedAt[actor] ?: 0L, handoverStart)
     }
 
     fun receive(receipt: String): SpaceSnapshot {
@@ -84,6 +106,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         val operation = event.body.text("operation_id")
         require(operation !in operations) { "Spaces operation already has an accepted result" }
         var admittedJoin: SpaceJoinRequest? = null
+        var admittedHistory: Map<String, HistoryDelivery> = emptyMap()
         val next = when (event.body.text("kind")) {
             "create" -> {
                 require(current.owner == null && position == 0L && !event.body.has("control_id"))
@@ -280,6 +303,38 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     bannedMembers = Collections.unmodifiableSet(current.bannedMembers - member),
                     membershipEndedAt = Collections.unmodifiableMap(current.membershipEndedAt + (member to position)))
             }
+            "propose-owner" -> {
+                require(event.author == current.owner && event.body.text("control_id") == current.controlId)
+                require(current.ownershipOffer == null)
+                val member = event.body.text("member")
+                require(member in current.members && member != current.owner)
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    ownershipOffer = SpaceOwnershipOffer(event.id, member, position))
+            }
+            "accept-owner" -> {
+                val offer = requireNotNull(current.ownershipOffer)
+                require(event.body.text("control_id") == current.controlId && event.body.text("proposal_id") == offer.id)
+                require(event.author == offer.member && event.author in current.members && offer.acceptedId == null)
+                // Published device credentials do not prove that the accepting
+                // device has received usable keys. Private Spaces always wait
+                // for its separately durable local-readiness acknowledgement.
+                if (current.channels.values.all { it.visibility == SpaceVisibility.PUBLIC }) transferOwnership(current, event.author, event.id, position)
+                else current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    ownershipOffer = offer.copy(acceptedId = event.id, acceptedAt = position))
+            }
+            "cancel-owner", "decline-owner" -> {
+                val offer = requireNotNull(current.ownershipOffer)
+                require(event.body.text("control_id") == current.controlId && event.body.text("proposal_id") == offer.id)
+                require(event.author == if (event.body.text("kind") == "cancel-owner") current.owner else offer.member)
+                retireExcludedDevices(current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1), ownershipOffer = null))
+            }
+            "complete-owner" -> {
+                val offer = requireNotNull(current.ownershipOffer)
+                require(event.body.text("control_id") == current.controlId && event.body.text("proposal_id") == offer.id)
+                require(event.author == offer.member && offer.acceptedId != null && event.body.text("acceptance_id") == offer.acceptedId)
+                require(event.author in current.members && privateKeysAdmitted(current, event.author))
+                transferOwnership(current, event.author, event.id, position)
+            }
             "set-role" -> {
                 require(event.author == current.owner && event.body.text("control_id") == current.controlId)
                 val member = event.body.text("member")
@@ -366,6 +421,17 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 for (field in listOf("welcome", "commit")) {
                     require(Base64.getDecoder().decode(event.body.text(field)).size in 1..1_048_576)
                 }
+                event.body.get("history_deliveries")?.let { manifest ->
+                    require(manifest.isJsonArray && manifest.asJsonArray.size() in 1..128)
+                    val ids = manifest.asJsonArray.map {
+                        require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
+                        it.asString.also { id -> require(id.matches(Regex("[0-9a-f]{128}")) && id !in historyDeliveries) }
+                    }
+                    require(ids.distinct().size == ids.size)
+                    val delivery = HistoryDelivery(event.author, channel, oldChannel.generation, epoch,
+                        keyPackage.credential, requireNotNull(current.controlId))
+                    admittedHistory = ids.associateWith { delivery }
+                }
                 admittedJoin = join
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     members = Collections.unmodifiableMap(current.members + (join.actor to (current.members[join.actor] ?: SpaceRole.MEMBER))),
@@ -381,13 +447,28 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         applied[position] = event.id
         operations[operation] = event.id
         admittedJoin?.let { operations[it.operationId] = it.id }
+        historyDeliveries.putAll(admittedHistory)
         current = next
         return next
+    }
+
+    private fun privateKeysAdmitted(snapshot: SpaceSnapshot, actor: String): Boolean = snapshot.channels.values.all { record ->
+        record.visibility == SpaceVisibility.PUBLIC || record.devices.keys.any { credential ->
+            credentialWallet(credential) == actor && credential !in record.retiredDevices
+        }
+    }
+
+    private fun transferOwnership(snapshot: SpaceSnapshot, member: String, control: String, position: Long): SpaceSnapshot {
+        val previousOwner = requireNotNull(snapshot.owner)
+        return retireExcludedDevices(snapshot.copy(controlId = control, nextPosition = Math.addExact(position, 1), owner = member,
+            members = Collections.unmodifiableMap(snapshot.members + (previousOwner to SpaceRole.MEMBER) + (member to SpaceRole.OWNER)),
+            administratorStartedAt = Collections.unmodifiableMap(snapshot.administratorStartedAt - previousOwner - member), ownershipOffer = null))
     }
 
     private fun endMembership(snapshot: SpaceSnapshot, member: String, position: Long): SpaceSnapshot =
         retireExcludedDevices(snapshot.copy(members = Collections.unmodifiableMap(snapshot.members - member),
             administratorStartedAt = Collections.unmodifiableMap(snapshot.administratorStartedAt - member),
+            ownershipOffer = snapshot.ownershipOffer?.takeUnless { it.member == member },
             membershipEndedAt = Collections.unmodifiableMap(snapshot.membershipEndedAt + (member to position)),
             membershipReadThrough = if (member in snapshot.members) Collections.unmodifiableMap(snapshot.membershipReadThrough + (member to position))
                 else snapshot.membershipReadThrough,
@@ -404,7 +485,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 val excluded = record.devices.keys.filter { credential ->
                     val member = credentialWallet(credential)
                     val role = snapshot.members[member]
-                    role == null || record.allowedMembers != null && member !in record.allowedMembers && role !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
+                    role == null || !hasChannelAudience(snapshot, member, record) && !hasConsentedHandoverAccess(snapshot, member)
                 }
                 record.copy(retiredDevices = Collections.unmodifiableSet(record.retiredDevices.intersect(record.devices.keys) + excluded))
             }
@@ -478,9 +559,25 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         header(body, "event")
         require(body.text("space_id") == spaceId && event.recipients == listOf(event.author, serviceKey).distinct())
         require(body.text("operation_id").matches(ID) && body.text("operation_id") !in operations)
+        historyDeliveries[event.id]?.let { delivery ->
+            // An admission commits these exact encrypted originals before it
+            // changes roles or keys. Retrying their delivery cannot create new
+            // writing or redirect history to another device.
+            val channel = requireNotNull(current.channels[delivery.channel])
+            require(event.author == delivery.author && body.text("kind") == "content" && body.text("content_kind") == "history-keys")
+            require(body.text("channel_id") == delivery.channel && body.text("key_generation") == delivery.generation &&
+                body.number("epoch") == delivery.epoch && body.text("control_id") == delivery.control &&
+                body.text("recipient_credential") == delivery.recipient)
+            val recipient = credentialWallet(delivery.recipient)
+            require(channel.visibility == SpaceVisibility.PRIVATE && channel.generation == delivery.generation &&
+                recipient in current.members && canAccessChannel(recipient, delivery.channel) &&
+                delivery.recipient in channel.devices && delivery.recipient !in channel.retiredDevices)
+            require(Base64.getDecoder().decode(body.text("ciphertext")).size in 29..(64 * 1024 + 28))
+            return
+        }
         require(event.author in current.members)
         val channel = requireNotNull(current.channels[body.text("channel_id")])
-        require(canAccessChannel(event.author, body.text("channel_id")))
+        require(canContributeChannel(event.author, body.text("channel_id")))
         val keyDelivery = body.text("kind") == "history" ||
             body.text("kind") == "content" && body.text("content_kind") == "history-keys"
         require(!channel.archived || keyDelivery) { "This channel is archived" }

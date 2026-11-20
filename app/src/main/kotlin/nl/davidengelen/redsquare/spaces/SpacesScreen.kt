@@ -245,6 +245,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     AvailabilityNotice(state.availability, state.refreshing, account::refresh)
                     state.selected?.let { state.accessProblems[it] }?.let { AccessNotice(it) }
+                    if (state.ownershipSupported && state.ownershipOffer?.member == account.ownerKey) {
+                        TextButton(onClick = { focusManager.clearFocus(); keyboardController?.hide(); informationOpen = true },
+                            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_review_ownership_offer)) }
+                    }
                     if (selected != null && !selected.joined && (selected.pending || selected.membershipRequested) &&
                         state.accessProblems[selected.id] == null) Text(stringResource(R.string.spaces_confirming_access),
                         color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
@@ -525,6 +529,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 channelEditor.open = false; channelEditorPending = true
                 informationOpen = false
             } }
+            SpaceOwnershipOfferControls(account, state)
             SpaceLeaveControls(account, state)
             SpaceManagementProblem(state.problem, account::clearProblem, scrollIntoView = true)
             TextButton(onClick = { informationOpen = false }, modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_close)) }

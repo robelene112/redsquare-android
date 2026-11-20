@@ -1495,7 +1495,10 @@
     <string name="spaces_channel_access_granted">Access granted</string>
     <string name="spaces_channel_access_not_granted">No access</string>
     <string name="spaces_remove_channel_access">Remove channel access</string>
-    <string name="spaces_remove_channel_access_detail">Remove %1$s from this channel? They remain in the Space. Previously received copies stay readable. Their access to new private messages ends.</string>
+    <string name="spaces_remove_channel_access_detail">Remove %1$s from this channel?</string>
+    <string name="spaces_remove_channel_access_membership">They remain in the Space.</string>
+    <string name="spaces_remove_channel_access_history">Previously received copies stay readable.</string>
+    <string name="spaces_remove_channel_access_future">Their access to new private messages ends.</string>
     <string name="spaces_channel_restricted">Restrict channel access</string>
     <string name="spaces_channel_restricted_detail">Only selected members, owners and administrators.</string>
     <string name="spaces_channel_usual_visibility">Use the Space\'s usual visibility.</string>
@@ -1519,4 +1522,19 @@
     <string name="spaces_owner_transfer_before_leave">Transfer ownership to another member before leaving.</string>
     <string name="spaces_cancel">Cancel</string>
     <string name="spaces_lift_ban_for">Lift ban for %1$s</string>
+    <string name="spaces_transfer_ownership">Transfer ownership</string>
+    <string name="spaces_offer_ownership">Offer ownership</string>
+    <string name="spaces_review_ownership_offer">Review ownership offer</string>
+    <string name="spaces_accept_ownership">Accept ownership</string>
+    <string name="spaces_decline_ownership">Decline ownership</string>
+    <string name="spaces_cancel_ownership_offer">Cancel ownership offer</string>
+    <string name="spaces_ownership_offer_detail">They must accept your offer. You remain the owner until their private-channel access is ready. After transfer, you become an ordinary member and lose administrator controls.</string>
+    <string name="spaces_ownership_private_access_detail">Accepting gives them access to every private channel. Cancelling cannot erase copies they already received.</string>
+    <string name="spaces_ownership_offered_by">%1$s offered you ownership of this Space.</string>
+    <string name="spaces_ownership_offered_to">You offered ownership to %1$s.</string>
+    <string name="spaces_ownership_awaiting_acceptance">The current owner remains responsible until the chosen member accepts and their access is ready.</string>
+    <string name="spaces_ownership_preparing">Preparing private-channel access. The current owner remains responsible until the transfer completes.</string>
+    <string name="spaces_ownership_accept_detail">Become responsible for this Space and its members? You will have access to every private channel. The current owner becomes an ordinary member once your access is ready.</string>
+    <string name="spaces_ownership_cancel_detail">End this ownership offer? The current owner keeps their role.</string>
+    <string name="spaces_ownership_received_copies_detail">Previously received copies remain readable. Any temporary private-channel access ends if the offer is cancelled.</string>
 </resources>

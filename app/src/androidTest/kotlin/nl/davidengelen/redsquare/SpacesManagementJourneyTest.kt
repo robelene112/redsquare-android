@@ -208,7 +208,12 @@ class SpacesManagementJourneyTest {
             closeKeyboard()
             privateRestriction().performScrollTo().clickReady()
             privateRestriction().assertIsOn()
-            privateMember(fixtures, true).clickReady()
+            val selectedMember = privateMember(fixtures, true)
+            val selectionDeadline = SystemClock.elapsedRealtime() + 5_000
+            selectedMember.clickReady()
+            waitUntil((selectionDeadline - SystemClock.elapsedRealtime()).also { assertTrue(it > 0) }) {
+                selectedMember.confirmedToggle(true) && nativeMemberChecked(fixtures)
+            }
             capture("01-private-members-selected")
             activity.recreate()
             waitUntil { editorField("Channel name").isDisplayed() }
@@ -365,15 +370,28 @@ class SpacesManagementJourneyTest {
             capture("14-compact-private-roster")
             withWriteFailure(activity, fixtures, "compact-private-access") {
                 val before = status().getAsJsonArray("originals").size()
+                val confirmationDeadline = SystemClock.elapsedRealtime() + 5_000
                 privateMember(fixtures).clickReady()
+                val ending = ui.onNode(hasText(context.getString(R.string.spaces_remove_channel_access_future)) and hasAnyAncestor(isDialog()))
+                waitUntil((confirmationDeadline - SystemClock.elapsedRealtime()).also { assertTrue(it > 0) }) { ending.isDisplayed() ||
+                    ui.onAllNodes(hasText(context.getString(R.string.spaces_remove_channel_access_detail, fixtures.get("memberName").asString)) and hasAnyAncestor(isDialog())).fetchSemanticsNodes().isNotEmpty() }
+                ending.performScrollTo()
+                waitUntil((confirmationDeadline - SystemClock.elapsedRealtime()).also { assertTrue(it > 0) }) {
+                    ending.isDisplayed() && ending.fetchSemanticsNode().let { it.size.height <= it.boundsInRoot.height + 1f } &&
+                        nativeDevice.findObject(androidx.test.uiautomator.By.text(context.getString(R.string.spaces_remove_channel_access_future))) != null
+                }
                 capture("15-compact-private-remove-confirmation")
                 clickDialog(context.getString(R.string.spaces_remove_channel_access))
                 waitAccessError()
                 assertEquals(before, status().getAsJsonArray("originals").size())
                 capture("16-compact-private-error-visible")
+                val dismissalDeadline = SystemClock.elapsedRealtime() + 5_000
                 ui.onNode(hasText("Close") and hasClickAction() and !hasAnyAncestor(isDialog())).performScrollTo().clickReady()
-                waitUntil(5_000) { !ui.onNodeWithText(saveError).isDisplayed() }
+                waitUntil((dismissalDeadline - SystemClock.elapsedRealtime()).also { assertTrue(it > 0) }) {
+                    !ui.onNodeWithText(saveError).isDisplayed() && nativeDevice.findObject(androidx.test.uiautomator.By.text(saveError)) == null
+                }
                 privateMember(fixtures).assertIsOn().assertIsEnabled()
+                waitUntil((dismissalDeadline - SystemClock.elapsedRealtime()).also { assertTrue(it > 0) }) { nativeMemberChecked(fixtures) }
                 capture("17-compact-private-error-dismissed")
                 saveReadingSnapshot("compact-before-close", fixtures, "private")
             }
@@ -1084,7 +1102,17 @@ class SpacesManagementJourneyTest {
         ui.waitUntil(timeout, condition)
         assertTrue("The observed condition completes inside its original deadline", SystemClock.elapsedRealtime() <= deadline)
     }
-    private fun capture(name: String) = captureNativeScreen(File(evidence, "$name.png"))
+    private val nativeDevice get() = androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+    private fun nativeMemberChecked(fixtures: JsonObject): Boolean {
+        var node = nativeDevice.findObject(androidx.test.uiautomator.By.pkg(context.packageName).text(fixtures.get("memberName").asString))
+        repeat(5) {
+            val current = node ?: return false
+            if (current.isCheckable) return current.isChecked
+            node = current.parent
+        }
+        return false
+    }
+    private fun capture(name: String) { ui.waitForIdle(); captureNativeScreen(File(evidence, "$name.png")) }
     private fun status() = command(if (privateReadiness) "readiness-status" else if (privateManagement) "private-management-status" else "management-status")
     /** Real protected-store rows and separately timestamped visible text,
      * never a synthetic saved-state acknowledgement. */

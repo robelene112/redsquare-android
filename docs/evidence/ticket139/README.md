@@ -1,5 +1,13 @@
 # Ticket139: community governance
 
+The [ownership and history-delivery source record](ownership-and-history-delivery-source.json)
+tracks two-party consent/readiness, durable requests, temporary access retirement,
+exact precommitted encrypted history recovery, eight ownership regressions and
+capability-gated native controls. Current JVM/build/pinned-adapter checks pass;
+source reviews are clear. New native ownership/membership and whole139 acceptance
+remain pending. Whole sourcecf numeric PASS retains its visual P2/capture findings;
+current source corrections require fresh proof. Beta142 is unchanged.
+
 The [membership and editor source record](membership-and-native-editor-source.json)
 tracks durable removal/ban/lift, actual private-key exclusion and bounded
 membership-end reading, with the native confirmation and editor corrections.

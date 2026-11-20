@@ -93,7 +93,10 @@ the first owner.
 
 **Space ownership transfer**:
 A handover of the owner role to another Space member, confirmed by both the
-current owner and the successor.
+current owner and the successor. For private channels, consent starts temporary
+read access and actual receiving-device key preparation; a separate readiness
+acknowledgement completes the role change. Cancelling ends temporary access to
+new private content but cannot recall already received copies.
 
 **Space administrator**:
 A person appointed by the Space owner to share the community's day-to-day

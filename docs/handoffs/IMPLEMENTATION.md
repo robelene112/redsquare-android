@@ -1,52 +1,56 @@
 # Implementation handoff
 
 
-## Active139: community governance
+## Active139: ownership and community governance
 
 Implement137–147 sequentially under134 and approved native navigationB. Issues137
 and138 are accepted and closed. Issue139 remains current and incomplete;
 140–147 have not started. Continue without a checkpoint stop. Public beta142
 is unchanged.
 
-The current membership increment adds durable leave/remove/ban/lift commands,
-receiving permissions, private-grant clearing and actual future-key exclusion.
-An explicit return cannot revive an old restricted-channel grant. A former
-private member can authenticate controls through their own departure only;
-later controls/content/keys stay unavailable. Banning a never-member grants no
-read access, and lifting a ban does not extend the departure read cap.
+The ownership source increment adds durable offer/accept/cancel/decline for an
+existing member. Private handover separates consent from actual receiving-device
+key readiness; temporary preparation grants reading without new staff/writing
+rights. Signed admissions commit the exact encrypted earlier-history deliveries
+before transport, preserving them across lost replies and later role/epoch
+changes. Cancellation retires temporary access; completion leaves the former
+owner an ordinary member. Received copies remain readable. The initial functional
+Spaces protocol remains unreleased; beta142 has no functional client. Existing
+absent-manifest pending originals retain their old recovery path.
 
-Native source includes confirmations, role-sensitive member controls, a banned
-roster, visible local-save failures and identity-specific TalkBack labels.
-Capabilities are negotiated. Editor handoff waits for the old Information sheet
-to hide and for restored scope to load, with cancellation on explicit navigation.
-Focused fields request their full bounds after actual IME/focus/size changes.
-The original5/15/27-second,48dp, process, cleanup and provenance goals remain.
+Native controls negotiate the ownership capability, identify the parties and
+explain responsibility/private access. Another device's acceptance disables and
+dismisses a stale Accept confirmation. Compact channel-access confirmation now
+has a scrollable complete explanation; intended capture states wait for actual
+native/Compose readiness within original bounds. These corrections still need
+fresh rendered proof. Native membership/ownership acceptance is not claimed.
 
-Complete current JVM regression passes247 core/123 service cases in48/9 classes,
-with both tasks executed, no skips and clean exit0 in6m10s. The final separate
-Android main/instrumentation compiler results are recorded in the
-[membership/source packet](../evidence/ticket139/membership-and-native-editor-source.json).
-Actual regressions include stale private-grant revival, accepted replies lost
-across cold return, copied-key exclusion after ban and bounded departure reading.
-Both final source-review axes are clear. Current native acceptance is pending.
+Complete current JVM regression passes247 core/131 service cases in48/10 classes,
+including eight ownership cases, with both tasks executed and no skips, clean
+exit0 in5m18s. Android main/instrumentation compile cleanly in3m15s/3m before the
+single dialog guard correction; its final main rebuild passes cleanly in3m20s.
+Both pinned0.3.2/0.3.15 dispatcher/transaction/JS-WASM rehearsals pass the actual
+creation receipt and ten-service catalogue with their owned-adapter limits.
+Final source reviews are clear. See the [ownership/source packet](../evidence/ticket139/ownership-and-history-delivery-source.json).
 
-All source2b6 whole originals are retained. Public44719904012/44719912061 fail
-compact category full visibility above the IME. Private44719920368 fails SQL
-fault setup with SQLITE_BUSY;44719928502 retains the old editor text after
-replacement. Those parents remain whole failures. Readiness44719943705 and
-Android10 replacement44722063017 pass frozen6 and both actual-frame/B reviews:
-582 frames/38 sheets,16 PNG/XML pairs,28 geometry records. Earlier44719950894
-failed heap preflight before application assertions and stays separate. Totals
-are36 public,14 private-process and5 readiness failed whole parents. No prefixes
-are combined, and earlier048/794/739 failures retain their qualifications.
+Whole source1ae public44730822806/44730829775 and private44730837084/44730852326
+remain failures: SQL fault-setup PRAGMA API errors and a real private17 five-second
+creation-confirmation miss. Its3112ms lock holder was not proven. Sourcecf
+private44735287694 passes whole CI/frozen9 numbers, but both all-frame reviews
+withhold visual acceptance for clipped compact explanation and mistimed captures:
+1110frames/71sheets,22PNG/XML pairs and44geometry records per axis. Its measured
+1621ms publish span overlaps940ms ofthe new1052ms create-lock wait, without
+proving a unique holder or fixing the earlier miss. Source corrections do not
+promote that parent to visual acceptance. All originals and original deadlines
+remain; earlier2b6/048/794/739 qualifications remain in their packets.
 
-Remaining139 includes current native membership/management acceptance, explicit
-category identities and management, two-party ownership transfer, deliberate
+Remaining139 includes current native management/membership/ownership acceptance,
+foreground responsiveness, explicit category identities/management, deliberate
 visibility changes without publishing prior private history, and owner-only
 dissolution. Then continue140–147. No production node/provider activation,
-public development/financial writes or automatic file hosting is implied. Keep
-1/36/55/84/86/105 open. Legacy Chat E2E, Vault rental and physical/OEM/Play limits
-remain separately recorded.
+public development/financial writes or automatic community file hosting is
+implied. Keep1/36/55/84/86/105 open. Legacy Chat E2E, source-only Vault rental and
+physical/OEM/Play limits remain separate.
 
 ## Accepted138, continue139
 

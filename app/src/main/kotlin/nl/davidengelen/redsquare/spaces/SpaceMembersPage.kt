@@ -47,6 +47,7 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
         }
         LazyColumn(Modifier.weight(1f).fillMaxWidth(), contentPadding = PaddingValues(AppSpacing.screen),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            item { SpaceOwnershipOfferControls(account, state) }
             if (state.members.isEmpty()) item { Text(stringResource(R.string.spaces_loading_members), color = MaterialTheme.colorScheme.onSurfaceVariant) }
             items(state.members, key = { it.publicKey }) { member ->
                 val identity = registeredIdentity(member.publicKey).name
@@ -69,7 +70,7 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
                             } else Icon(painterResource(R.drawable.ic_forward), null, Modifier.size(18.dp))
                         }
                         if (member.role != SpaceRole.OWNER && member.publicKey != account.ownerKey &&
-                            (owner && state.rolesSupported || administrator && state.membershipSupported && member.role == SpaceRole.MEMBER)) TextButton(
+                            (owner && (state.rolesSupported || state.ownershipSupported) || administrator && state.membershipSupported && member.role == SpaceRole.MEMBER)) TextButton(
                             onClick = { managing = member.publicKey; roleSheetOpen = true }, modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp).heightIn(min = 48.dp)) {
                             Text(stringResource(if (state.membershipSupported) R.string.spaces_manage_member else R.string.spaces_manage_role))
                         }

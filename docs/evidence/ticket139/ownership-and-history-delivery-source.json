@@ -1,0 +1,471 @@
+{
+  "status": "Partial issue139 source increment. New ownership native flows and current full139 native acceptance remain pending. Beta142 unchanged.",
+  "recordedAt": "2026-11-20T13:26:30.430179+00:00",
+  "base": "cf2093ebf7621a32b68d0b4e5649d06c7e6a4e8e",
+  "sourceFiles": {
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "9ded1bf8aeb4eaac1a4b39ff6df14f0686f20380c47b33207dc3d3ca20a3502c",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceChannelAccessPage.kt": "cd34031d642adf3fbdbc0aa733952ab6e50d68c70dfdbc3eb751fcaf707b45f2",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceManagement.kt": "17ea118184a50ff4ba3a98a664f51f382650cfce2ecf7a035cb38e4c8c8c6609",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceMembersPage.kt": "845010c08de0e2b7083fd74f7d63f21d499c8b7ec6fa74e91ecf71202e04a3a2",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceOwnershipManagement.kt": "279374fb4e25d2370ef828acfa8154e11475b3c195c315c586e1c21bbda02e5d",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesAccount.kt": "654b0361e83521d10d06d3e6dcb9c3ddb2ad802ac01e2017320b64c277d14197",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesScreen.kt": "5654b1506e22d5e1b2df089395cbc9c630337764156d2735c55d90b22c283a85",
+    "app/src/main/res/values/strings.xml": "7e7244b0bccc42f29d8b763736c471a03a5c8f35ea9d20deee964684d39a0f29",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "9bf33a27450cb91eb503c00a35da250bf650ba7fc3b59aace3bcce3888dd1f01",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt": "6672c9a6e274be624457884777498fc94e7feae067fd04da38b7bcf013dd575b",
+    "integrations/saito-spaces/bridge.cjs": "f3b1f1096d4d02c19c5399005d24f0c06ce6e00becba574e6f95632d95492237",
+    "integrations/saito-spaces/spaces.js": "f65b70ee9526d48107d1ca63c10d45f4f0bd83e0c37adbaec8e681a15eabb374",
+    "integrations/saito-spaces/test/bridge.test.cjs": "fa4b6cfd324e2610eec65f1f298c800d6c96ec999d45d46c16a3ad7cfcbd6dc6",
+    "integrations/saito-spaces/test/interop.cjs": "4eb2c9d92c9370e679ff5869432cf3d0408afc4d4f60d890199de4ef11b96a9e",
+    "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt": "1f6fd4fba06845962bea047f1961de438d856894b301964c69faa2ce3e62cf9d",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceOwnershipTest.kt": "aec37551cc3615ccc08dcb08c09addadd990f291ab527b23f3dd9ce82ce071d8",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStoreTest.kt": "8ff2e9077f8fb56ab88d881a7eb00e9f29e9a1304ea71f3e86b9eea6f5d584fb"
+  },
+  "behavior": [
+    "Two-party ownership offer/accept/cancel/decline for an existing member, with exact durable originals and separate queued/uncertain/accepted/rejected state.",
+    "Private-channel handover waits for the accepting client current scope/epoch/bindings before a distinct completion. Temporary preparation grants reading, not new staff or writing rights.",
+    "Signed admissions commit bounded exact encrypted history originals before transport, so losing the admission reply cannot strand history after role/key rotation. Delivery still requires the intended currently authorized nonretired recipient.",
+    "Departure ends an offer; cancellation retires temporary access. Actual removal changes future MLS keys while prior received copies remain readable. Former owner becomes ordinary member without residual staff powers.",
+    "Capability-gated native offer/accept/decline/cancel controls disclose responsibility and private access. Stale accepting dialogs dismiss and disable after another device accepts.",
+    "Compact channel-access confirmation has a scrollable complete explanation. Named captures wait for intended native and Compose states within original interaction bounds; fresh rendered proof remains required."
+  ],
+  "protocolBoundary": "Initial functional Spaces v1 remains unreleased and undeployed. Exact public beta90b5aadb has no core SpaceClient. Manifests apply to all new admissions, including those preceding an ownership offer. Absent-manifest pending originals retain their old post-ack recovery path. No mixed pre-release reader compatibility is claimed.",
+  "validation": {
+    "fullJvm": {
+      "log": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm.log",
+        "sha256": "12a8a34877e4d50e2cc86714ae493f7bada15bb0108d6346f64d9a4ee6281beb"
+      },
+      "results": {
+        "core": {
+          "classes": 48,
+          "tests": 247,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "xmlOriginals": [
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.ControlledLikeArchiveContractTest.xml",
+              "sha256": "ec0dc68a6167895eae12eff2df08974f4ee2f54036ac73ea4fbc9b71e1d02067"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.feed.PostLikeInputPolicyTest.xml",
+              "sha256": "97dc605c719e2ad570ba2d1541b6128de1e7c12243ea4a9f9fcdfb0c85903ae9"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.ControlledNodeOutageTest.xml",
+              "sha256": "d003749535764e1e65c06f3008a02b0d090ea9f6c65c3ca6e0f943696b2aa504"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.FileshareTest.xml",
+              "sha256": "5d56581e4974d5d9e4960a7a694ad7551efefaee2ad55d288112dfd947623393"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.GroupAdminTest.xml",
+              "sha256": "2503576bbcc7e26f314f7229378373550029f1d30a0279f0d9738f0e1baf2582"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.GroupChatTest.xml",
+              "sha256": "ae74914d8ca451cd844922f3219cd72344cd5616b02cce84db7c2916df8598d2"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.GroupInvitationTest.xml",
+              "sha256": "f90b3198056a4521f6d74d55cba268f6805cb6de638360f09e7eb31596a6c79d"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.PrivateChatTest.xml",
+              "sha256": "f8c61ba29a74eec2ac0657aa0ff84e1c84b9e9e8752de95415e6e2c12a87b81a"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.RedSquareActionsTest.xml",
+              "sha256": "8be207007a1420034d49f759535661c86a2ec51781d6fc13366188a7e7d32957"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest.xml",
+              "sha256": "0cf296ca2932c12b5972923071b16d9c58038eb390987494077376bac7dd4500"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.RedSquareFeedTest.xml",
+              "sha256": "ba104d4468df44050fc309516c34e561cbd42e4aa69dcc7d7c17a55d1ce1088e"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.RedSquareImagesTest.xml",
+              "sha256": "cd9ac2d9c8d5a1ea10290176846787e1316bd9d9758d52048225b22df27b5ca2"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.RedSquareNotificationsTest.xml",
+              "sha256": "da9a44af612a3391f9832a1558f09b75bc248eb73eadb3edce5d12966cca06a8"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.RedSquareQuotesTest.xml",
+              "sha256": "08cd7423c345bf2acbfee52a3438ac512cad38879b97e9124171b7ab06faeffe"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.RedSquareVideoTest.xml",
+              "sha256": "b7adf08ef22dcb28ee60c4cc96cb65a71e046819513e13d1022b52740b156ab7"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoAccessScriptTest.xml",
+              "sha256": "863edcb3e20f12e04cac65492e988b444167bd04288543ff1479e30e6cff67c9"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoFullBlockTest.xml",
+              "sha256": "c6ff8f9bb39c899eb2b1219aa2f969e6ce741f67edbcfbacebfa2e2ea5e49136"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoIdenticonTest.xml",
+              "sha256": "b7d794ab01070b642c13af9231125a84a4b5589a8e7e9f545a28f1caddf53089"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoNameDirectoryTest.xml",
+              "sha256": "a3b043667d9e84b4d1cd9cd05ceaf1a4f11f43568343e0f5480abc9a63eef7d8"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoNftTransferTest.xml",
+              "sha256": "dbb7c240cf076ecb23dfb2ef90e85af574d0761f00c5721d8e874d7f842d0801"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoNodeBlockTest.xml",
+              "sha256": "8db6809ff6fc7d69aeff599299727c72d717ecf177e780f2d7019c0575669602"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoPaymentChainTest.xml",
+              "sha256": "36432dbd855b8525d53074ad70a445b54e9895295f1740f30beaa21ba28c66a2"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoPaymentTest.xml",
+              "sha256": "f833cf36f265c3b85799443ebc4654f73a9f90950ef382c97c0395f7d96ccf83"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoProfilesTest.xml",
+              "sha256": "e2edb3bb22f64c9bf80c415f94a86160f08723a7bf3d95c3ea49b524c28e7d7c"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoRegistryTest.xml",
+              "sha256": "ad42a6109a0119ceede6cdca122a7cce34679658ec580439a865a40a4c2adc3c"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoStackTest.xml",
+              "sha256": "809c87da5837fc2191034e1eea7d481e18e25ab29e5ec7f3cb89f550fbb402b3"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest.xml",
+              "sha256": "53adcff163caf87182cd9f5d822c76730da733c41e3c9d7556682a42a853ba34"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreListingTest.xml",
+              "sha256": "099a932075a2ba184dcb7c7a655f5e5a6e04db3af59d4552df139597905ec157"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest.xml",
+              "sha256": "056423db16c684b0de511840ec1e70c7e274c57dc17e7384e783c98573cddac1"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreRentalTest.xml",
+              "sha256": "b747cfc966ef2d840ccb5a8f011d1e0fccd5fe1b9ded0335c5c5ec9ed29b014b"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreTest.xml",
+              "sha256": "e95c8ed5f25c085b05373d66cab4c0ce2a35f0ecf0559ef0669a72c126be99e9"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoStoreWithdrawalTest.xml",
+              "sha256": "bb695331a042ac96e9577ff6ba89c25f2450febcadc772a2698823fbbacfb6b3"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoTransactionTest.xml",
+              "sha256": "d67232b5723fc82ab53017e56ac4b936eb2519ebbd64f2fee0bbdbf5bf490e2b"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoVaultCustomAccessTest.xml",
+              "sha256": "e01dce7c951a8bf151a34fafa8ca95857c94abe664d19f01cd90c7e0b326e227"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoVaultMintTest.xml",
+              "sha256": "b2fc80d8bb26745ec909fd20ee2c5f548d434a21f9323fb5fb764e76522a8d5d"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoVaultRentalTest.xml",
+              "sha256": "9b44989ed7b019c12d84bb910ae20b0c4ec268ade06d5ff286f92025353d71f7"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoVaultTest.xml",
+              "sha256": "03104437ad8a2ea1baf7f23c88c5e626cc3f20d6b4fcd4b83bf719a56a7c4055"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoWalletTest.xml",
+              "sha256": "e16899525753ce0fa9a9ebff991b4268bd19be72b71a5baf90b60a274cad487c"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SaitoWireTest.xml",
+              "sha256": "b83bf63d1bbd6615adb114d0e7ad5ce9f68a0198ea2b32a272dc3a7d40c29fd6"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.SharedNodeConnectionTest.xml",
+              "sha256": "257b2f13f4276a94adc9d2f8315aa8903fae841e48f7eba4688885a98d6664c1"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.StackLinkTest.xml",
+              "sha256": "45138224f3ff582fe35336b0e63e5ea193f0ce62059568ae6475cbf0490c40db"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.StoreLinkTest.xml",
+              "sha256": "9e0b88c52ca2a1320dcf18c314e28bf2715e16d9e49e76e290cf77c3e8bf5049"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.TalkTest.xml",
+              "sha256": "1f69b16204480ba1d4a50096ccb27da1682bc84232273eac3b3c78a9368e4a21"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.saito.VaultUploadTransportTest.xml",
+              "sha256": "b4a4d33c48455540737a70b5dd1bd4518f0e8c796da200d46677b6b3ccc0e04b"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.spaces.SpaceCryptoTest.xml",
+              "sha256": "a76d2bb8aa46dbca953d33f5d022130db36f6c8be220882cf92c75e88b80cf67"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.spaces.SpaceJournalTest.xml",
+              "sha256": "6757c446c03d66844ddc2a7c30e4f84cba0c41308e46ffe994da60489b68654e"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.spaces.SpaceMlsReferenceTest.xml",
+              "sha256": "71e9f1637f9fd3aa21aad9779abd598bbcebce8241124e7cafae9646d0c6d1c6"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/core/TEST-nl.davidengelen.redsquare.spaces.SpaceReplyTest.xml",
+              "sha256": "54aff0892c2b652b7aebbce1adaf6f94d3ff3df05ceee6f9a09b3c860dce2160"
+            }
+          ]
+        },
+        "spaces-service": {
+          "classes": 10,
+          "tests": 131,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "xmlOriginals": [
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceChannelAccessTest.xml",
+              "sha256": "0f73d32a30b5ce3a225f8b0dcb8112906718d7be82696cf27fe8fe33d3b9d838"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceChannelsTest.xml",
+              "sha256": "babeb1d1360c75beedeb098fcc124888e1430341d7459317c954dae88805fcd6"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceClientTest.xml",
+              "sha256": "101ca8dca53231d204c752f73a48272b68c2f0c5ee1530682e62a523ced2b2ad"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceContentTest.xml",
+              "sha256": "99ed8ffd02d97b60915a9e6c202de363149ca3e02d605f87ae5ff16809af2988"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceDiscoveryTest.xml",
+              "sha256": "5adba078709d457ce49b10999000d093a549e311ddd9f32ee3c091b02eb43b0f"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceGovernanceTest.xml",
+              "sha256": "d9132412cad6207cb53518f9c010a6a62ef2d9b3fcd74238cbbb01fefa66db02"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceOwnershipTest.xml",
+              "sha256": "facf87f716750a1844a287d18df73a533f8207fd2d668b6259c3e35d04aff5fe"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpaceRolesTest.xml",
+              "sha256": "4b860ffbb9c37c08ae2139f1db15b4322e126518c4584eeaffeee643b3e55a83"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpacesNativeHostTest.xml",
+              "sha256": "346f761a4dba78f1c8040c4ccaff2976e3dbef42df81e0ee9528c4a1459b9cde"
+            },
+            {
+              "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-full-jvm-originals/spaces-service/TEST-nl.davidengelen.redsquare.spaces.service.SpacesServiceStoreTest.xml",
+              "sha256": "f3badf006be9115bee6d819f13d6ffc4ef7991983ce87513848c6f843a7f1f40"
+            }
+          ]
+        }
+      },
+      "cleanExit": 0,
+      "duration": "5m18s",
+      "tasks": "Both actual test tasks executed; no skips."
+    },
+    "android": {
+      "initialMainAndInstrumentation": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-ui-android-compile.log",
+        "sha256": "f9a349f9d38b12b0c795f00c726e9fa2033a717c87991a74717508cee85eae42"
+      },
+      "initialOutcome": "Clean exit0, main3m15s and instrumentation3m. Before single stale-accept UI guard correction.",
+      "finalMain": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-ui-correction-android-main.log",
+        "sha256": "f6fc5003c8cf62aa690d0b142f91c145ccd44e78b05b7ece3ecae496dab25b3e"
+      },
+      "finalOutcome": "Clean exit0 after guard correction; instrumentation source unchanged. Exact immutable CI native builds remain pending."
+    },
+    "nodeBridge": {
+      "log": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-capability-node-green.log",
+        "sha256": "0eeec5281393c5eabeacb5349d90b92af71e9e675fd57c453940dac514305ae1"
+      },
+      "tests": 1,
+      "failures": 0
+    },
+    "pinnedInterop": {
+      "0.3.15": {
+        "result": {
+          "acceptedControls": 1,
+          "originalId": "aac887c439f4d12e5ad507e8fdcc851c3880cc3220f3f271ca8b52cbc3ee18fc7cc7298f674b81bc2c7cd09f0e00090839379f83e0281120e7c3f04c2221f6b6",
+          "receiptId": "7a7c9d42cd98bf8c1cf6fd1bc28658d0e6c399e0b77865e63b3fee935fb4ab6b05bbb394d59b9435057706763a97313f01c6ed6cd7e0c668810bcec0d144fe8d",
+          "service": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+          "originalBytesPreserved": true,
+          "actualReceiptVerified": true
+        },
+        "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-private-runtime/node-interop-ownership-green-0.3.15",
+        "compiledInputs": {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces139-private-runtime/node-interop-ownership-green-0.3.15/compiled-inputs.json",
+          "sha256": "5008fb5f7e6de74c663e86c978b2de218553466d282beeae9a6e2eb583a9b000"
+        },
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-interop-green-0.3.15.log",
+          "sha256": "20e4c0a332ecee0567ad669a5aa54922a9b36acd451270f30494bb0942a8056f"
+        },
+        "scope": "Pinned actual dispatcher/transaction/JS-WASM callback and ten advertised services, with explicit owned adapters; one creation receipt, not full node bootstrap or native ownership acceptance."
+      },
+      "0.3.2": {
+        "result": {
+          "acceptedControls": 1,
+          "originalId": "457a37d2978757bef27742447c5669f87cf85f52d9779977c75c2182eeba3c1f6334c4347c763ace833260488c5f8e674f86d1363fe7cb2b3e9d16000743345a",
+          "receiptId": "74c8b9f36977fe66e8e13e7ac6f40ffd94362045ea8b88b7026559174db336617349da2d9987b3a76cc1dc0a9a883c990cf2f752872213dd0201243423657050",
+          "service": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+          "originalBytesPreserved": true,
+          "actualReceiptVerified": true
+        },
+        "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-private-runtime/node-interop-ownership-green-0.3.2",
+        "compiledInputs": {
+          "path": "/mnt/storage/redsquare-android-artifacts/spaces139-private-runtime/node-interop-ownership-green-0.3.2/compiled-inputs.json",
+          "sha256": "5008fb5f7e6de74c663e86c978b2de218553466d282beeae9a6e2eb583a9b000"
+        },
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-interop-green-0.3.2.log",
+          "sha256": "36e4978855556283a4b93cdeaf21e6ceecb8be9f3e5afc3b4f47003174919982"
+        },
+        "scope": "Pinned actual dispatcher/transaction/JS-WASM callback and ten advertised services, with explicit owned adapters; one creation receipt, not full node bootstrap or native ownership acceptance."
+      }
+    },
+    "sourceReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-history-delivery-spec-review.txt",
+        "sha256": "786f0212ca29e9e4db95988bdb1e41f1bf71cbc632f9d6ce902cfeb83e075a6d"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-lost-history-standards-review.txt",
+        "sha256": "ea77e253d4efa100ec7b727d61a69ed5de729e398eb6efd6a38863e7828cda8b"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-final-spec-review.txt",
+        "sha256": "158468ca5e5a3afa6e72628f2c095fcf5909c30f3f226cfac3675a3fa51046f2"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-corrections-standards-review.txt",
+        "sha256": "6303bdfc2be125fa5a424ee8ae1fde2f3f18881fb9e1d5fe665c036c2a69d11e"
+      }
+    ],
+    "originalRed": [
+      {
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-receiving-red.log",
+          "sha256": "dd7b877f57b1e2cde8f7f25478a266f28261474c8b0e6336da27d473aef6fd3f"
+        },
+        "qualification": "Actual valid owner offer rejected before implementation."
+      },
+      {
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-ended-offer-red.log",
+          "sha256": "ed1935dbbabb4659c983f9e3b9b2e8799bc401a013f16cbade3ad53b2ff29833"
+        },
+        "qualification": "Actual ended-membership offer revived after rejoin."
+      },
+      {
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-private-handover-red.log",
+          "sha256": "f119956affbc853d3e87d0b2e587e18d4c57107bf7a710e26d60dd7ca2b7d0ac"
+        },
+        "qualification": "Actual new owner lost usable private-channel access."
+      },
+      {
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-lost-history-red.log",
+          "sha256": "1c3c3be38a729875fbd8eedd746c059b07f4f9d95d003beeb91782c10be35266"
+        },
+        "qualification": "Actual accepted admission reply loss stranded available earlier history."
+      },
+      {
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-local-readiness-red.log",
+          "sha256": "fc87ff230a557833ff1a08b7ba1b93580d941ddc70d4ac16a7779b2249170571"
+        },
+        "qualification": "Actual same-wallet new device without keys accepted ownership immediately."
+      },
+      {
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-cancellation-red.log",
+          "sha256": "f7ec1b43049be39660196748ada9fcd2992d2ede18b56738f8c3decc47432390"
+        },
+        "qualification": "Actual valid owner cancellation rejected."
+      },
+      {
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-api-red.log",
+          "sha256": "0168276de9110c6b7b42ceacd434fb7e3efe31b8fbd363c95a30d5bb96531b49"
+        },
+        "qualification": "Compilation-only missing API; no runtime RED claimed."
+      },
+      {
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-capability-node-red.log",
+          "sha256": "4715389cb88c7d6780b202a4a04c128f1ea38b2478caa143e190607cdc3c0fda"
+        },
+        "qualification": "Actual missing bridge ownership capability."
+      },
+      {
+        "log": {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-ownership-interop-red-0.3.15.log",
+          "sha256": "408820060ca5138216f2f627c56584818ec0565af40e811ee180c556cff6ec64"
+        },
+        "qualification": "Actual pinned interop expected9 services but received10; wire checks had not run."
+      }
+    ],
+    "proofLimits": "The handover copied-former-owner check retains the pre-admission session; the cancellation regression copies the actually admitted recipient session. Current-admitted former-owner copied-key observation remains part of pending native/integrated ownership acceptance."
+  },
+  "nativeParents": {
+    "source1ae": "Whole public44730822806/44730829775 and private44730837084/44730852326 remain failures. PRAGMA fixture API error on both public and private10; private17 misses original5s confirmation, lock wait3112ms, exact holder not proven.",
+    "sourceCf": {
+      "source": "cf2093ebf7621a32b68d0b4e5649d06c7e6a4e8e",
+      "run": 44735287694,
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-private-runtime/attempt9-44735287694",
+      "assessment": "Whole CI SUCCESS and frozen9 numeric PASS, but both all-frame reviews withhold visual acceptance: clipped compact consequence text and mistimed captures. Corrections source-only in this increment.",
+      "reviewed": "1110 original frames/71 sheets,22 PNG/XML pairs,42 touch and2 IME geometry records per axis.",
+      "reviews": [
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-sourcecf-private-native-spec-review.txt",
+          "sha256": "08738f47eda29a3b9f3d7b7e073c158a5cb477800c32a33e984e5086e1502e7a"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-sourcecf-private-native-standards-review.txt",
+          "sha256": "77fabb6a31a2b05bc6a932820af88686e74afb9b75d390176f7ec1d89374ccb4"
+        }
+      ],
+      "timing": "Publish92138\u201393759ms held1621 overlaps create request92819 and940ms ofits1052ms acquisition wait. Strong contributor, without account-instance/CPU proof ofuniqueholder orfixing earlier3112ms miss. Nested spans are not additive."
+    },
+    "bounds": "Original5/15/27-second,48dp, process/cleanup/provenance/IME goals unchanged. No prefixes assembled and no old result promoted to current acceptance."
+  },
+  "remaining139": [
+    "Native membership/ownership and current management acceptance with performance correction where needed.",
+    "Explicit category identities and management.",
+    "Deliberate private/public changes preserving prior private history.",
+    "Owner-only dissolution with clear confirmation."
+  ],
+  "boundaries": "Issues137/138 accepted;139 open/current;140\u2013147 not started. Continue sequentially without checkpoint stop. Production activation, public development/financial writes and automatic file hosting remain separate. Legacy Chat E2E, source-only Vault rental and physical/OEM/Play limits unchanged."
+}

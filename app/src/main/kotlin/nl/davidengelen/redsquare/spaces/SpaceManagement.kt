@@ -111,6 +111,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
             Text(stringResource(R.string.spaces_administrator_detail), color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (!owner || visibleMember.role == SpaceRole.OWNER) Text(stringResource(R.string.spaces_owner_controls_roles))
             ManagementChangeNotice(change?.status, state.availability, account::refresh)
+            SpaceOfferOwnershipButton(account, state, visibleMember, active)
         }
     }
 }

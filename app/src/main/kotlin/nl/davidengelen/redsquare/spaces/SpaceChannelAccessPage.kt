@@ -112,7 +112,13 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
     val member = state.members.firstOrNull { it.publicKey == removing && it.role == SpaceRole.MEMBER }
     if (member != null && available) AlertDialog(onDismissRequest = { removing = null },
         title = { Text(stringResource(R.string.spaces_remove_channel_access)) },
-        text = { Text(stringResource(R.string.spaces_remove_channel_access_detail, registeredIdentity(member.publicKey).name)) },
+        text = { Column(Modifier.heightIn(max = 360.dp).verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text(stringResource(R.string.spaces_remove_channel_access_detail, registeredIdentity(member.publicKey).name))
+            Text(stringResource(R.string.spaces_remove_channel_access_membership))
+            Text(stringResource(R.string.spaces_remove_channel_access_history))
+            Text(stringResource(R.string.spaces_remove_channel_access_future))
+        } },
         confirmButton = { TextButton(onClick = {
             state.selected?.let { space -> channel?.let { account.setChannelAccess(space, it.id, member.publicKey, false) } }
             removing = null
