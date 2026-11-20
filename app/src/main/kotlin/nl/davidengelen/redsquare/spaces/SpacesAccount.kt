@@ -36,7 +36,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val anchor: SpaceClient.ReadingAnchor? = null, val created: String? = null,
         val listingIntent: Boolean? = null, val previewIssue: SpaceClient.ReadProblem? = null, val publicLink: String? = null,
         val archiveChange: SpaceClient.ArchiveChange? = null, val roleChange: SpaceClient.RoleChange? = null,
-        val channelEdit: SpaceClient.ChannelEdit? = null,
+        val channelEdit: SpaceClient.ChannelEdit? = null, val channelCreation: SpaceClient.ChannelCreation? = null,
         val joinedInvitation: String? = null, val openedPublicReference: String? = null, val contentLoaded: Boolean = false, val requiredNode: String? = null,
         val profiles: Map<String, SpaceProfile> = emptyMap(), val channels: List<SpaceClient.Channel> = emptyList(),
         val members: List<SpaceClient.Member> = emptyList(), val accessProblems: Map<String, SpaceClient.ReadProblem> = emptyMap(),
@@ -234,12 +234,13 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val archiveChange = target?.let { current.archiveChange(it.space, it.channel) }
         val roleChange = target?.let { current.roleChange(it.space) }
         val channelEdit = target?.let { current.channelEdit(it.space, it.channel) }
+        val channelCreation = target?.let { current.channelCreation(it.space) }
         val publicLink = target?.takeIf { profiles[it.space]?.visibility == SpaceVisibility.PUBLIC && members.isNotEmpty() }?.let { current.publicLink(it.space) }
         mutable.update { previous ->
             if (previous.target() != target || previous.loadingChannel) previous.copy(communities = communities, profiles = profiles)
             else previous.copy(communities = communities, profiles = profiles, current = community, channels = channels, members = members,
                 messages = messages, invitation = invitation, publicRulesToken = publicRulesToken,
-                archiveChange = archiveChange, roleChange = roleChange, channelEdit = channelEdit,
+                archiveChange = archiveChange, roleChange = roleChange, channelEdit = channelEdit, channelCreation = channelCreation,
                 listingIntent = target?.let { dirtyListings[it.space] } ?: listingIntent, publicLink = publicLink,
                 contentLoaded = window?.loaded == true, hasEarlier = window?.hasEarlier == true,
                 hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0,
@@ -264,7 +265,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             val token = selection.incrementAndGet()
             mutable.update { it.copy(selected = space, selectedChannel = channel, current = null,
                 messages = emptyList(), channels = emptyList(), members = emptyList(), draft = "", invitation = null, anchor = null,
-                problem = null, listingIntent = null, publicLink = null, archiveChange = null, roleChange = null, channelEdit = null,
+                problem = null, listingIntent = null, publicLink = null, archiveChange = null, roleChange = null, channelEdit = null, channelCreation = null,
                 contentLoaded = false, loadingChannel = space != null, scrollToMessage = null) }
             scope.launch {
                 try {
@@ -291,9 +292,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         val archiveChange = current.archiveChange(space, target.channel)
                         val roleChange = current.roleChange(space)
                         val channelEdit = current.channelEdit(space, target.channel)
+                        val channelCreation = current.channelCreation(space)
                         mutable.update { if (it.selected == space && selection.get() == token) it.copy(
                             selectedChannel = target.channel, current = community, channels = channels, members = members, anchor = anchor,
-                            archiveChange = archiveChange, roleChange = roleChange, channelEdit = channelEdit,
+                            archiveChange = archiveChange, roleChange = roleChange, channelEdit = channelEdit, channelCreation = channelCreation,
                             profiles = it.profiles + (space to profile), publicRulesToken = rulesToken, listingIntent = dirtyListings[space] ?: listingIntent,
                             draft = if (draftVersions[target]?.get() == version) draft else it.draft,
                             messages = messages, loadingChannel = false, contentLoaded = window.loaded, hasEarlier = window.hasEarlier,
@@ -568,6 +570,16 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             localAccess.withLock {
                 require(mutable.value.archiveSupported)
                 requireNotNull(client).archiveChannel(space, channel, archived)
+            }
+            publish(); wake.trySend(Unit)
+        }
+    }
+    fun createChannel(space: String, profile: SpaceChannelProfile) {
+        val route = navigationVersion.get()
+        localAction(Problem.SAVE, isCurrent = { navigationVersion.get() == route }) {
+            localAccess.withLock {
+                require(mutable.value.discoverySupported == true)
+                requireNotNull(client).createChannel(space, profile)
             }
             publish(); wake.trySend(Unit)
         }

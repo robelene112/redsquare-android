@@ -35,7 +35,7 @@ internal class SpacesManagementFixture(private val owner: SpaceClient, private v
         "/management-fixtures" -> fixtures.deepCopy()
         "/management-drop-next" -> {
             require(body.keySet() == setOf("kind"))
-            val kind = body.get("kind").asString.also { require(it in setOf("set-role", "archive-channel", "edit-channel")) }
+            val kind = body.get("kind").asString.also { require(it in setOf("set-role", "archive-channel", "edit-channel", "create-channel")) }
             check(peer.withholdNextSpacesControlReply.compareAndSet(null, kind))
             JsonObject().apply { addProperty("armed", kind) }
         }
@@ -56,7 +56,7 @@ internal class SpacesManagementFixture(private val owner: SpaceClient, private v
                 peer.spacesRequests.toList().forEach { original ->
                     val signed = SaitoEnvelope.decode(original.envelope())
                     val body = signed.body
-                    if (body.get("request")?.asString == "event" && body.get("kind")?.asString in setOf("set-role", "archive-channel", "edit-channel")) {
+                    if (body.get("request")?.asString == "event" && body.get("kind")?.asString in setOf("set-role", "archive-channel", "edit-channel", "create-channel")) {
                         add(JsonObject().apply {
                             addProperty("id", original.id); addProperty("actor", signed.author); addProperty("space", body.get("space_id").asString)
                             addProperty("kind", body.get("kind").asString)

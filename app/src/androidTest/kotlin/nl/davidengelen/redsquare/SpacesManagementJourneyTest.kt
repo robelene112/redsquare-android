@@ -147,7 +147,7 @@ class SpacesManagementJourneyTest {
             ui.onNodeWithContentDescription("Send message").assertIsNotEnabled()
             capture("09-archived-child-readable")
             openInformation(); clickDialog("Reopen channel")
-            waitUntil { ui.onNode(hasText("Archive channel") and hasClickAction() and isEnabled()).isDisplayed() }
+            waitDialogButton("Archive channel")
             assertFalse(status().getAsJsonObject("channels").getAsJsonObject(fixtures.get("workshop").asString).get("archived").asBoolean)
             capture("10-confirmed-child-reopening")
             withWriteFailure(activity, fixtures, "archive") {
@@ -161,17 +161,18 @@ class SpacesManagementJourneyTest {
             // Reopening the Space preserves its last selected channel, workshop.
             waitText("A workshop message kept through archive")
             chooseChannel("announcements"); openInformation(); clickDialog("Archive channel")
-            waitUntil { ui.onNode(hasText("Reopen channel") and hasClickAction() and isEnabled()).isDisplayed() }
+            waitDialogButton("Reopen channel")
             device.pressBack()
             waitText(context.getString(R.string.spaces_channel_archived))
             ui.onNodeWithText(context.getString(R.string.spaces_announcements_read_only)).assertDoesNotExist()
             capture("12-owner-archived-announcement")
             openInformation(); clickDialog("Reopen channel")
-            waitUntil { ui.onNode(hasText("Archive channel") and hasClickAction() and isEnabled()).isDisplayed() }
+            waitDialogButton("Archive channel")
             device.pressBack(); chooseChannel("general")
             ui.onNode(hasSetTextAction() and hasText("New general draft while archive awaits")).assertIsDisplayed()
             capture("13-normal-management-return")
             verifyChannelEditorRecovery(activity, fixtures)
+            verifyChannelCreationRecovery(activity, fixtures)
             saveCompletion("completed.json", fixtures)
         } }
     }
@@ -202,10 +203,10 @@ class SpacesManagementJourneyTest {
             waitUntil { ui.onNode(hasText("Make administrator") and hasClickAction() and isEnabled()).isDisplayed() }
             dismissRole(); device.pressBack(); closeInformationIfPresent(); openInformation()
             clickDialog("Archive channel")
-            waitUntil { ui.onNode(hasText("Reopen channel") and hasClickAction() and isEnabled()).isDisplayed() }
+            waitDialogButton("Reopen channel")
             capture("17-compact-archived-channel-settings")
             clickDialog("Reopen channel")
-            waitUntil { ui.onNode(hasText("Archive channel") and hasClickAction() and isEnabled()).isDisplayed() }
+            waitDialogButton("Archive channel")
             capture("18-compact-reopened-channel")
             clickDialog("Edit channel")
             editorField("Channel name").performScrollTo().performTextReplacement("compact-commons")
@@ -229,8 +230,89 @@ class SpacesManagementJourneyTest {
             capture("28-compact-editor-confirmed")
             restoreGeneralName(fixtures)
             capture("29-compact-editor-restored-channel")
+            verifyCompactCreationError(activity, fixtures)
             saveCompletion("compact-completed.json", fixtures)
         } }
+    }
+
+    private fun creationRows(value: JsonObject) = value.getAsJsonArray("originals").map { it.asJsonObject }
+        .filter { it.get("kind").asString == "create-channel" }
+
+    private fun verifyChannelCreationRecovery(activity: ActivityScenario<MainActivity>, fixtures: JsonObject) {
+        openInformation(); clickDialog("Add channel")
+        editorField("Channel name").performScrollTo().performTextReplacement("native-reading-room")
+        clickDialog(context.getString(R.string.spaces_kind_chat))
+        ui.onNodeWithText(context.getString(R.string.spaces_kind_article)).clickReady()
+        editorField("Category (optional)").performScrollTo().performTextReplacement("Knowledge")
+        closeKeyboard(); activity.recreate()
+        waitUntil { editorField("Channel name").isDisplayed() }
+        editorField("Channel name").assertTextContains("native-reading-room")
+        editorField("Category (optional)").assertTextContains("Knowledge")
+        ui.onNode(hasText(context.getString(R.string.spaces_kind_article)) and hasClickAction() and hasAnyAncestor(isDialog())).assertIsDisplayed()
+        capture("30-new-channel-restored-fields")
+        command("management-drop-next", JsonObject().apply { addProperty("kind", "create-channel") })
+        val started = SystemClock.elapsedRealtime(); val deadline = started + 27_000
+        clickDialog("Create channel")
+        lateinit var received: JsonObject
+        waitUntil(5_000) {
+            received = status()
+            received.getAsJsonArray("dropped").size() == 4 && ui.onNode(hasText("Waiting for confirmation.") and hasAnyAncestor(isDialog())).isDisplayed()
+        }
+        val original = received.getAsJsonArray("dropped").last().asString
+        val first = creationRows(received).filter { it.get("id").asString == original }
+        assertEquals(1, first.size)
+        val channel = first.single().get("channel").asString
+        assertEquals("native-reading-room", received.getAsJsonObject("channels").getAsJsonObject(channel).get("name").asString)
+        capture("31-new-channel-uncertain")
+        clickDialog("Close"); clickDialog("Add channel")
+        editorField("Channel name").assertIsNotEnabled()
+        ui.onNode(hasText("Create channel") and hasClickAction() and hasAnyAncestor(isDialog())).assertIsNotEnabled()
+        capture("32-new-channel-pending-reentry")
+        ui.onAllNodes(hasText("Refresh settings") and hasClickAction() and onScreen).fetchSemanticsNodes().takeIf { it.isNotEmpty() }?.let { clickDialog("Refresh settings") }
+        val remaining = deadline - SystemClock.elapsedRealtime()
+        assertTrue("Creation recovery retains its original27-second workflow deadline", remaining > 0)
+        waitUntil(remaining) {
+            received = status()
+            creationRows(received).count { it.get("id").asString == original } == 2 &&
+                ui.onNode(hasText("native-reading-room") and !hasAnyAncestor(isDialog())).isDisplayed()
+        }
+        val completed = SystemClock.elapsedRealtime()
+        assertTrue("Visible created-channel navigation is inside the recovery budget", completed <= deadline)
+        val attempts = creationRows(received).filter { it.get("id").asString == original }
+        assertEquals(1, attempts.map { it.get("sha256").asString }.distinct().size)
+        assertTrue(attempts.all { it.getAsJsonObject("profile").get("kind").asString == "article" && it.getAsJsonObject("profile").get("category").asString == "Knowledge" })
+        saveJson("creation-recovery-host.json", received)
+        saveJson("creation-recovery.json", JsonObject().apply {
+            addProperty("pid", Process.myPid()); addProperty("owner", fixtures.get("owner").asString)
+            addProperty("space", fixtures.get("space").asString); addProperty("channel", channel); addProperty("original", original)
+            addProperty("name", "native-reading-room"); addProperty("category", "Knowledge"); addProperty("kind", "article")
+            addProperty("recoveryStartedAtMs", started); addProperty("recoveryCompletedAtMs", completed)
+        })
+        capture("33-new-channel-confirmed-navigation")
+        chooseChannel("general")
+        waitUntil { ui.onNode(hasSetTextAction() and hasText("New general draft while archive awaits")).isDisplayed() }
+        assertEquals("New general draft while archive awaits", savedDraft(fixtures, "general"))
+        capture("34-new-channel-return-preserves-draft")
+    }
+
+    private fun verifyCompactCreationError(activity: ActivityScenario<MainActivity>, fixtures: JsonObject) {
+        clickDialog("Add channel")
+        editorField("Channel name").performScrollTo().performTextReplacement("compact-new-room")
+        closeKeyboard()
+        val before = creationRows(status()).size
+        withWriteFailure(activity, fixtures, "compact-creation") {
+            clickDialog("Create channel"); waitDialogError()
+            capture("35-compact-creation-local-error")
+            assertEquals(before, creationRows(status()).size)
+            // The first Close belongs to the visible local-error message, not the sheet.
+            ui.onAllNodes(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).onFirst().clickReady()
+            waitUntil(5_000) { ui.onAllNodes(hasText(context.getString(R.string.spaces_save_failed)) and hasAnyAncestor(isDialog())).fetchSemanticsNodes().isEmpty() }
+            editorField("Channel name").assertIsEnabled().performScrollTo().performTextReplacement("compact-editable-after-error")
+            ui.onNode(hasText("Create channel") and hasClickAction() and hasAnyAncestor(isDialog())).assertIsEnabled()
+            capture("36-compact-creation-error-dismissed-editable")
+            clickDialog("Close"); clickDialog("Discard changes")
+            waitInformationName("general")
+        }
     }
 
     private fun editorField(label: String) = ui.onNode(hasSetTextAction() and hasText(label) and hasAnyAncestor(isDialog()))
@@ -372,8 +454,18 @@ class SpacesManagementJourneyTest {
         val match = hasText(text) and hasClickAction() and hasAnyAncestor(isDialog())
         waitUntil(5_000) { ui.onAllNodes(match).fetchSemanticsNodes().size == 1 }
         val node = ui.onNode(match)
-        if (!node.isDisplayed()) node.performScrollTo()
+        if (!node.isDisplayed() && ui.onAllNodes(match and hasAnyAncestor(hasScrollAction())).fetchSemanticsNodes().size == 1) node.performScrollTo()
         node.clickReady((deadline - SystemClock.elapsedRealtime()).coerceAtLeast(1))
+    }
+    private fun waitDialogButton(text: String) {
+        val deadline = SystemClock.elapsedRealtime() + 15_000
+        val match = hasText(text) and hasClickAction() and isEnabled() and hasAnyAncestor(isDialog())
+        waitUntil(15_000) { ui.onAllNodes(match).fetchSemanticsNodes().size == 1 }
+        val node = ui.onNode(match)
+        if (!node.isDisplayed() && ui.onAllNodes(match and hasAnyAncestor(hasScrollAction())).fetchSemanticsNodes().size == 1) node.performScrollTo()
+        val remaining = deadline - SystemClock.elapsedRealtime()
+        assertTrue("Visible confirmed action remains inside15seconds", remaining > 0)
+        waitUntil(remaining) { node.isDisplayed() }
     }
     private fun waitDialogError() = waitUntil(5_000) {
         val node = ui.onNode(hasText(saveError) and hasAnyAncestor(isDialog()))

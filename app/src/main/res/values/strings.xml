@@ -1484,4 +1484,7 @@
     <string name="spaces_management_offline">Waiting for a connection to update this setting.</string>
     <string name="spaces_management_rejected">This change was not accepted. Refresh the settings, then review and try again.</string>
     <string name="spaces_refresh_settings">Refresh settings</string>
+    <string name="spaces_create_channel">Create channel</string>
+    <string name="spaces_create_channel_detail">Choose a name, a channel type and an optional category. The channel follows this community’s visibility. It appears after the node confirms it.</string>
+    <string name="spaces_open_created_channel">Open channel</string>
 </resources>

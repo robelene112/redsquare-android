@@ -43,6 +43,14 @@ Both final source axes are clear, but fresh native/visual acceptance remains pen
 Keep the sequential139–147 authorization and separate release/production gates
 below. Ordinary beta142 remains unchanged.
 
+Channel creation now has a durable source API and a scoped native form with
+guarded accepted navigation. Both UI review P2s are corrected. Fifth whole native
+parents remain failed: an actual hidden sheet after Keep editing on17 and an
+offscreen settings observer on10. Shared sheet restoration and unchanged-deadline
+scrolling corrections are source-reviewed. Prospective management-v3 adds real
+creation recovery and compact error dismissal; fresh complete native/visual
+verification remains required. See the current139 packet; whole139 is incomplete.
+
 ## Accepted138, continue139
 
 Community discovery, creation and reviewed admission138 are accepted at product

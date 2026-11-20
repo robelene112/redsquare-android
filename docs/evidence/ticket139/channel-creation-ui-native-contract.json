@@ -1,0 +1,139 @@
+{
+  "ticket": 139,
+  "scope": "Existing-Space channel creation UI, guarded accepted navigation, native recovery contract and actual discard-sheet repair. App/test compilation and host smoke pass; no fresh whole native result.",
+  "base": "7f2372e363b2bfa505345916b894f68b665ba441",
+  "sources": {
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceChannelCreator.kt": "57282b133d7addaf4a44a692109ddeb06bdfcbb1a6aa52a7a48d833a0fb90a91",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesAccount.kt": "a9ab057a8871a4b110314b1e454cc311f801bc937ddf8339167bba61ecc37580",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesScreen.kt": "48131d2035ee7d30fa4de01e0c5789be5cc960b60e5ea4900b7322d68feb020b",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/ui/DesignSheet.kt": "b5bd1a83e73a05dca91308873a1a31c60b0392a870b183608830c2e6ad448101",
+    "app/src/main/res/values/strings.xml": "03440aaeaa61d8c166d04bbed8c96dd01e1bb82ad4f6d528732c2d3da7a1139e",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "b547423530789c65aee3a263fc25f8c7d3285d28961c344c51f0430f73c241fd",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesManagementFixture.kt": "3f3b8db81fbfded278850c77f2bf2e943c6be0041177bbdf57f7c0a801f48653",
+    "scripts/spaces-native-journey": "649d43a050baa29b1661a44e31586fd00af5088acbdd7d08ec2a7bf0637399e4"
+  },
+  "behaviour": [
+    "Owner/admin Addchannel form follows existing Space visibility; name/kind/category, scoped saved fields, discardreview and128UTF8 validation.",
+    "Actual durable creation status gates readonly pending reentry; matching accepted channel opens through existing navigation guard, preserving prior channel writing.",
+    "Guard failure keeps accepted form readonly with Openchannel retry; local enqueue errors remain editable after message dismissal. No new original for an accepted navigation retry.",
+    "Shared DesignSheet restores a sheet if its caller keeps expanded after Material hides it during Back/swipe dismissal; unsaved editors remain available after Keepediting."
+  ],
+  "failedParents": [
+    {
+      "whole": "FAILURE",
+      "run": 44655023167,
+      "source": "7f2372e363b2bfa505345916b894f68b665ba441",
+      "archiveSha256": "34f550e071443836ee96bcb0b402a17d41308c53b84a868e6aab5f8788219600",
+      "apiDigestAndCrc": "PASS",
+      "modules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 84,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Phase3 normalrecovery advanced throughreopening/localarchiveerror/announcementarchive andeditfields/recreation/discardreview. After Back and Keepediting the actualsheet stayshidden althoughcallerexpandedtrue. OriginalPNG/XML and337framephase3movie supportthisproductbug. clickDialog also attemptedscrollonfixedfooter prematurely; fixkeepsoriginal5sreadinessandscrollsonlyrealscrollancestors. ProductDesignSheet nowreshowswhenacallervetoesdismissal.",
+      "actualKills": 2,
+      "nativeTerminalPasses": 0,
+      "cleanup": {
+        "originalFailure": "RuntimeError",
+        "errors": []
+      },
+      "qualification": "No acceptednativeparent/prefixunion. Freshwholeparentsrequired. Prospectivev3addscreation, nooriginalgoalrelaxation. Frozenv5assessorhasstale service83outputlabelbutassertsexact84catalogue; wholeparentfailurepreventsPASSreceipt. Newv3reportlabelcorrectedto84."
+    },
+    {
+      "whole": "FAILURE",
+      "run": 44655027293,
+      "source": "7f2372e363b2bfa505345916b894f68b665ba441",
+      "archiveSha256": "58d1860694e12273a30cfe6460352c6fc483834b6d2de6f2fbc197c8f8369208",
+      "apiDigestAndCrc": "PASS",
+      "modules": {
+        "core": {
+          "tests": 244,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "spaces-service": {
+          "tests": 84,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "native": "Phase3 coldarchive recovery andrealreopen accepted; accountlogcanSendtrue/pendingfalse. WaitforvisibleArchive actiontimedout15swhileInfo viewportshowedaboveaction. Scrollablebodyrequiresdeliberatescrolltoreachnewaction. Boundedwaithelper scrollsonlyrealscrollancestorinsideoriginal15s, no newdeadline. Not the samefailureasAndroid17.",
+      "actualKills": 2,
+      "nativeTerminalPasses": 0,
+      "cleanup": {
+        "originalFailure": "RuntimeError",
+        "errors": []
+      },
+      "qualification": "No acceptednativeparent/prefixunion. Freshwholeparentsrequired. Prospectivev3addscreation, nooriginalgoalrelaxation. Frozenv5assessorhasstale service83outputlabelbutassertsexact84catalogue; wholeparentfailurepreventsPASSreceipt. Newv3reportlabelcorrectedto84."
+    }
+  ],
+  "sourceReviews": {
+    "initialUi": "Bothaxes1P2 directnavigation bypassed guard; corrected.",
+    "firstUiCorrection": "Bothaxes1P2 error-dismissal reactivated speculative dispatch latch; latch removed, realworking/pending/accepted state only.",
+    "secondUiCorrection": "Bothaxes0 concretefindings.",
+    "initialNative": "Spec1P2 Activityclosed before finalUI assertions; Standardsalso1P2 staleassessoroutputv2/83. Bothcorrected.",
+    "finalNative": "Bothaxes0, includes sharedDesignSheet repair and boundedobservercorrections. Afterwards compiler required explicitUnitcallback annotation only, no behaviouralchange.",
+    "reports": {
+      "139-channel-creation-ui-spec-review.txt": "d650ac718121e895b6694ba9bd311d97bee89645a1d8c5d747a73b889ace4f0a",
+      "139-channel-creation-ui-standards-review.txt": "becb3dd00dc906485fc4f69c73f1a552248611f590c1c77fee1d9c5edae890fe",
+      "139-channel-creation-ui-final-spec-review.txt": "0d8bac8f2eb3d16bfa3a605e120536263dd2b7c07dd4193c07db7c5be1b0ea50",
+      "139-channel-creation-ui-final-standards-review.txt": "3fa06da6b5e5d4c7eca0dff6ea09ff576f7bcc4e5155843461eb83542f633121",
+      "139-channel-creation-ui-second-final-spec-review.txt": "ef57462e9622e0e04e3e24721e2df916adf8439193ad3371029e9bda08619fa1",
+      "139-channel-creation-ui-second-final-standards-review.txt": "dc05ec7755c5f2767a1c4d9889c4a90894f92e16ca353949ea4a8101c452b9c0",
+      "139-creation-native-prospective-spec-review.txt": "d9c9188768a0f968ced5ab8aea45decd85d681fe3562515abbd95eb82242f74f",
+      "139-creation-native-prospective-standards-review.txt": "96ed785c3c8ca7c9bebb65d4459540a526d5401a8df6c83f4cb6b071301771e7",
+      "139-creation-native-prospective-final-spec-review.txt": "bfabc8b334b4ccde6573f0a401acf959c05fa8ee5c476ecc357f1c133c63edae",
+      "139-creation-native-prospective-final-standards-review.txt": "b382c88b29c9a848b25cc1b2e29bfdca6ac40a373ce892a46d62aa6aeba9ae64"
+    }
+  },
+  "nativeContract": {
+    "version": 3,
+    "preserved": "Allv2goals4phases/2kills/2terminal/4PIDs/180sphase/5saction/15sread/1pixel/48dp/27seditor/old29captures. Scrollrequired confirmation stays within original15seconds; footerreadiness stayswithin5seconds.",
+    "added": "Actualarticlecreation, Activityrecreation, fourthacceptedreplyloss, exactoriginaltwoattempts, readonlyreentry, actualnewchannelnavigation+draftreturn underfullmeasured27secondbudget;7captures30\u201336; compactprequeueSQLfailure/errorClose/editableretry/fifthcleanup.",
+    "qualification": "Configured27secondcreationbudget coversstartbeforeCreate throughvisiblecanonicalnewchannel; no separate componentlatencyclaim."
+  },
+  "development": {
+    "fullJvmBeforeUi": "244core/84servicepass235s atcreationAPI53ffc0753; originals139-creation-full-jvm-originals. Currentfixturechanged subsequently; freshhostsmoke/freshCI required.",
+    "priorCompiles": [
+      "FirstUIcompile197s passed beforeguardcorrection.",
+      "Guardcorrectioncompile185s passed beforedispatchlatchremoval.",
+      "App+instrumentationcompile139-channel-creation-ui-native-compile.log passed beforeprospectivereview fixes, productmainandtest.",
+      "FirstDesignSheet correctionfailed compilationonly: inferred Intcallback, explicitUnitannotation corrects it. Original139-creation-native-corrected-compile.log retained."
+    ],
+    "finalCompile": {
+      "status": "PASS",
+      "log": "139-creation-native-final-compile.log",
+      "sha256": "8c5b7bdb56b2b26db2bbcbb44f86dc2b752efc73a4e5aab35d748335f3abde43",
+      "mainSeconds": 181,
+      "instrumentationSeconds": 177,
+      "qualification": "Exact current app and instrumentation sources compile. The serialhostcheck between compilers is not included in these individualGradle durations."
+    },
+    "hostSmoke": {
+      "status": "PASS",
+      "log": "139-creation-native-host-smoke.log",
+      "sha256": "1fc708335379e1add7e35119e065371bb86a05801010e13a9a963f447e36381a",
+      "cases": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 85,
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-creation-native-host-smoke-originals"
+    }
+  },
+  "prospectiveAssessor": {
+    "verify-139-native-management.py": "96db5345830e18fe4e532b6037267453c4869cb187c605c222394dc07e8ace78",
+    "139-management-expected-cases.json": "eeceeba0d212e48848cc2f7af0743ca153498c074c5497ce6e6bab9463c38719"
+  },
+  "qualification": "No whole139/nativevisual/release/physical/OEM/deployednode acceptance. PrivateACL/exclusion/categories/ownership/visibility/dissolution and140\u2013147 remain. Ordinary beta142 unchanged; no node/provider/public/financial/filehosting activation."
+}

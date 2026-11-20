@@ -137,3 +137,14 @@ PNG/XML show Workshop correctly restored at a later same-Space reopen; the
 observer expected General. The [last-channel observer correction](last-channel-observer-recovery.json)
 changes that expectation while preserving all goals and the later General check.
 Both independent review axes are clear; fresh whole10/17 parents are required.
+
+The [channel creation UI/native contract](channel-creation-ui-native-contract.json)
+adds scoped name/type/category entry, honest recovery and guarded accepted
+navigation. Two source-review P2s are corrected; final source axes are clear.
+Whole fifth parents remain failed: Android17 exposed a hidden editor after
+Back/discard/Keep editing, while Android10's observer waited for an action below
+the settings viewport. Shared sheet restoration and bounded scrolling corrections
+retain the original goals. Prospective management-v3 adds real creation/recovery,
+compact local-error dismissal and seven captures. Exact-source app/test compilation and three real host-process checks pass. Fresh
+complete10/17/visual acceptance remains required. Whole139 remains
+incomplete and beta142 stays unchanged.

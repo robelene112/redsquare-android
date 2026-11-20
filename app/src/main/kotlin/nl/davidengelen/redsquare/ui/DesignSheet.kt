@@ -23,16 +23,22 @@ internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit
     val firstAction = remember { FocusRequester() }
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var mounted by remember { mutableStateOf(false) }
-    LaunchedEffect(expanded) {
-        if (expanded) mounted = true
+    var dismissalRequest by remember { mutableIntStateOf(0) }
+    val requestDismiss: () -> Unit = { onDismiss(); dismissalRequest++ }
+    LaunchedEffect(expanded, dismissalRequest) {
+        if (expanded) {
+            // Material may hide the sheet before asking the caller to dismiss.
+            // A caller reviewing unsaved work can keep it open.
+            if (mounted) state.show() else mounted = true
+        }
         else if (mounted) {
             state.hide()
             mounted = false
         }
     }
-    if (mounted) ModalBottomSheet(onDismissRequest = onDismiss, sheetState = state,
+    if (mounted) ModalBottomSheet(onDismissRequest = requestDismiss, sheetState = state,
         containerColor = MaterialTheme.colorScheme.surfaceContainerLow) {
-        SheetKeyboardWindow(onDismiss) { firstAction.requestFocus(FocusDirection.Enter) }
+        SheetKeyboardWindow(requestDismiss) { firstAction.requestFocus(FocusDirection.Enter) }
         val scroll = key(contentKey) { rememberScrollState() }
         val body: @Composable ColumnScope.() -> Unit = {
             Text(title, Modifier.semantics { heading() }, style = MaterialTheme.typography.headlineSmall)
