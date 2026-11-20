@@ -1397,6 +1397,17 @@
     <string name="spaces_house_rules_optional">House rules (optional)</string>
     <string name="spaces_starting_channels">Start with useful channels</string>
     <string name="spaces_starting_channels_detail">Rename, remove or add channels to suit your community.</string>
+    <string name="spaces_edit_channel">Edit channel</string>
+    <string name="spaces_edit_channel_detail">Update this channel’s name and category.</string>
+    <string name="spaces_save_channel">Save changes</string>
+    <string name="spaces_channel_name_required">Enter a channel name.</string>
+    <string name="spaces_channel_name_long">Choose a shorter channel name.</string>
+    <string name="spaces_category_long">Choose a shorter category name.</string>
+    <string name="spaces_edit_access_changed">You no longer have access to edit this channel.</string>
+    <string name="spaces_discard_channel_title">Discard changes?</string>
+    <string name="spaces_discard_channel_detail">These channel details have not been saved.</string>
+    <string name="spaces_discard_changes">Discard changes</string>
+    <string name="spaces_keep_editing">Keep editing</string>
     <string name="spaces_channel_name">Channel name</string>
     <string name="spaces_remove_channel">Remove %1$s</string>
     <string name="spaces_category_optional">Category (optional)</string>

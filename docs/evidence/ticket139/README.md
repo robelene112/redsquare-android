@@ -102,3 +102,13 @@ both source and prospective-assessor axes are clear. An incomplete53-message fix
 failure is retained separately and corrected without changing its volume or goals.
 Fresh complete native parents, actual timing and complete visual acceptance remain
 pending. Public edit UI and the remaining139 scope are still incomplete.
+
+The [public channel editor source](channel-editor-source.json) adds the native
+name/category form, actual capability/status projection, scoped saved input,
+discard confirmation and a fixed48dp footer. Two main-source compilations pass.
+Initial source review found two P2s: pending edits could not reopen and initial
+route restoration closed the saved form. Both are corrected and final source
+reviews are clear. The final guards, actual compact/IME/discard/rotation/error/
+uncertain-reentry journeys and complete frames remain to be verified. This source
+stage is not native or complete139 acceptance. The third native parents were pinned
+to714eba and failed a later test-store namespace helper; no passing prefix is accepted.

@@ -42,7 +42,7 @@ object SpacesNativeHost {
                     val client = SpaceClient(guest, "https://saito.davidengelen.nl", service.publicKey, local, clock) { remote.exchange(it.envelope()) }
                     val discovery = if (discoveryMode) SpacesDiscoveryFixture(client, clock as SpacesDiscoveryFixture.AdvancingClock).also { it.seed() } else null
                     val sent = mutableSetOf<String>()
-                    val peer = ControlledFeedPeer("[]", advertisedServices = if (discoveryMode || managementMode) "archive||;spaces-v1||;spaces-directory-v1||;spaces-unread-v1||;spaces-channel-archive-v1||;spaces-role-management-v1||" else "archive||;spaces-v1||", peer = service,
+                    val peer = ControlledFeedPeer("[]", advertisedServices = if (discoveryMode || managementMode) "archive||;spaces-v1||;spaces-directory-v1||;spaces-unread-v1||;spaces-channel-archive-v1||;spaces-role-management-v1||;spaces-public-channel-edit-v1||" else "archive||;spaces-v1||", peer = service,
                         archiveResponse = { "[]" }, registryResponse = if (discoveryMode || managementMode) ({ criteria ->
                             JsonObject().apply {
                                 if (criteria.get("request")?.asString == "registry query" &&

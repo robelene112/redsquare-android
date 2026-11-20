@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "ticket": 139,
+  "status": "Partial public-channel editor source; native verification pending",
+  "base": "714eba57826af2931740533a1f5fff336d52fb0f",
+  "sourceFiles": {
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceChannelEditor.kt": "f1570ec22568c807fc7907501d77876d17ba663de62ce915d74d3f46c4b7fb95",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceManagement.kt": "97b94a2fb263d11ab6b3d99b55871a78a7d77a83c4ab980f8ce91a52c4d0806f",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesAccount.kt": "a2a8b1a08359f78a614dc4961dd9ac7b84ad4d678ea2a237164024ddb564530f",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacesScreen.kt": "4eb8ba471e5d8b923d1eed6087ad35072cb72089757971bac7e7d7ec2a072f4d",
+    "app/src/main/res/values/strings.xml": "738ce2bf6692f6a9b1f6d2d0513e5483b0a46abc30d6490f51040f9c637468bd",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost.kt": "375185a881f4fed950ade64a2fc2d42a1f228e97d5ca756a6ad08f55660b7745"
+  },
+  "behavior": "Capability/accepted-role-gated native name/category editor. Scoped saved state retainsfields anddiscardconfirmation, bindsowner/node/Space/channel. Localvalidation keeps128UTF8boundswithouttechnicalcopy. Fixed48dpSave/Closefooter exposesactualSAVEandreceiptstatus. Requestedprofileisnotacceptedmetadata; onlynewmatchingacceptedreceiptcloseseditor. Pendingchangescanreopenreadonly, Save remainsguarded. Genuinecontextchangescloseeditor; bootstraprestorationdoesnotdiscardfields.",
+  "appCompile": [
+    {
+      "log": "139-channel-editor-app-compile.log",
+      "sha256": "2c6dfae2a2ba47b962b1d18c6a0473b5f725406c082bbc30f4bfb06bcc6597d9",
+      "exit": 0,
+      "seconds": 182
+    },
+    {
+      "log": "139-channel-editor-polish-compile.log",
+      "sha256": "5d43b7c7b355d66650dbadac03776be148d697dae854639008d79907fb5e8d34",
+      "exit": 0,
+      "seconds": 178
+    }
+  ],
+  "compileQualification": "Bothactualmaincompilationsprecedethefinaltwo reviewedguardcorrections. Nextnativeharnesscompile/completeCI mustchecklatestsource; no finalcompiled/renderedacceptanceclaimed.",
+  "sourceReviews": {
+    "initialSpec": {
+      "findings": 2,
+      "priority": "P2",
+      "report": "139-channel-editor-ui-spec-review.txt",
+      "sha256": "ece4142456300cda22aaefd1bb962fcd9369be367ee5e61488097e5212b5e804",
+      "observations": [
+        "PendingeditcouldnotreopenwhilecanManagefalse",
+        "Overlayselectionbootstrapclosedrestorededitorandlostdraftonreopen"
+      ]
+    },
+    "correctedSpec": {
+      "findings": 0,
+      "report": "139-channel-editor-ui-final-spec-review.txt",
+      "sha256": "c1162198729e3251ca801183ff509b824b5fdae0a13d5a1ec3c443f06302be2a"
+    },
+    "correctedStandards": {
+      "findings": 0,
+      "report": "139-channel-editor-ui-final-standards-review.txt",
+      "sha256": "281aa38e41ab2aea26254951a0803d8e8820c784dab1914ced93b4aab25284e8"
+    }
+  },
+  "qualification": "Sourceonly; no actualeditorPNG/movie/compact/rotation/error/uncertain-reentry acceptanceyet. Nativeparentsat714eba doNOTcontainthiseditor andremainFAILEDlaternamespaceobserver; theirinitialread/touchprogressisnotwholeacceptance. EditUIharnessnext, remaining139categories/privateACL/keys/transfer/visibility/dissolve stillincomplete. Beta142unchanged; no production/provider/public/financial/filehostingactivation."
+}

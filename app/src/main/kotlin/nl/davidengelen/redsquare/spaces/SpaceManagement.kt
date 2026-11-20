@@ -28,10 +28,11 @@ import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.DesignSheet
 
 @Composable internal fun SpaceChannelManagement(account: SpacesAccount, state: SpacesAccount.State,
-    channel: SpaceClient.Channel) {
+    channel: SpaceClient.Channel, onEdit: () -> Unit) {
     val current = state.current ?: return
     val role = state.members.firstOrNull { it.publicKey == account.ownerKey }?.role
-    if (!state.archiveSupported || role !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)) return
+    if (role !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) ||
+        !state.archiveSupported && !(state.publicChannelEditSupported && channel.visibility == SpaceVisibility.PUBLIC)) return
     val change = state.archiveChange?.takeIf { it.channelId == channel.id }
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         HorizontalDivider()
@@ -39,16 +40,22 @@ import nl.davidengelen.redsquare.ui.DesignSheet
         Text(channel.profile.name, style = MaterialTheme.typography.titleSmall)
         Text(stringResource(R.string.spaces_archive_detail), style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant)
-        ManagementChangeNotice(change?.status, state.availability, account::refresh)
-        val pending = change?.status in setOf(SpaceClient.ChangeStatus.QUEUED, SpaceClient.ChangeStatus.AWAITING_CONFIRMATION)
-        OutlinedButton(onClick = { account.archiveChannel(current.id, channel.id, !channel.archived) },
-            enabled = current.canManage && !state.working && !pending, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
-            Text(stringResource(when {
-                pending && change?.archived == true -> R.string.spaces_archiving_channel
-                pending -> R.string.spaces_reopening_channel
-                channel.archived -> R.string.spaces_reopen_channel
-                else -> R.string.spaces_archive_channel
-            }))
+        if (state.publicChannelEditSupported && channel.visibility == SpaceVisibility.PUBLIC) {
+            OutlinedButton(onClick = onEdit, enabled = !state.working,
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_edit_channel)) }
+        }
+        if (state.archiveSupported) {
+            ManagementChangeNotice(change?.status, state.availability, account::refresh)
+            val pending = change?.status in setOf(SpaceClient.ChangeStatus.QUEUED, SpaceClient.ChangeStatus.AWAITING_CONFIRMATION)
+            OutlinedButton(onClick = { account.archiveChannel(current.id, channel.id, !channel.archived) },
+                enabled = current.canManage && !state.working && !pending, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                Text(stringResource(when {
+                    pending && change?.archived == true -> R.string.spaces_archiving_channel
+                    pending -> R.string.spaces_reopening_channel
+                    channel.archived -> R.string.spaces_reopen_channel
+                    else -> R.string.spaces_archive_channel
+                }))
+            }
         }
     }
 }
@@ -107,7 +114,7 @@ import nl.davidengelen.redsquare.ui.DesignSheet
     }
 }
 
-@Composable private fun ManagementChangeNotice(status: SpaceClient.ChangeStatus?, availability: SpacesAccount.Availability,
+@Composable internal fun ManagementChangeNotice(status: SpaceClient.ChangeStatus?, availability: SpacesAccount.Availability,
     retry: () -> Unit) {
     AnimatedContent(status?.takeIf { it != SpaceClient.ChangeStatus.ACCEPTED }, label = "space-management-result",
         transitionSpec = { fadeIn(tween(AppSpacing.transitionMillis)) togetherWith fadeOut(tween(AppSpacing.transitionMillis)) }) { current ->

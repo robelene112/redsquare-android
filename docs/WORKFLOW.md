@@ -30,6 +30,11 @@ Second native parents remain failed: Android17initialread15s andAndroid10layout-
 observer. Reviewed bounded page/control work and actual touch geometry corrections
 pass all83 service cases and the Node capability contract. Fresh whole native
 verification remains required; see the current139 packet for exact originals.
+Public channel editor source now includes scoped saved fields, validation, honest
+receipts and48dpfooter. Initial pending-reentry/restoration P2s are corrected;
+final source reviews are clear. Actual editor/compact/rotation/error verification
+is pending. Third native parents at714eba remain failed on a later test-only
+store namespace mismatch, after initial-read/touch progression; no prefix accepted.
 Keep the sequential139–147 authorization and separate release/production gates
 below. Ordinary beta142 remains unchanged.
 

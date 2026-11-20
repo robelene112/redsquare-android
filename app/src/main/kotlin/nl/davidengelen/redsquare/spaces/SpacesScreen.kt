@@ -89,6 +89,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     var joinOpen by remember { mutableStateOf(false) }
     var inviteOpen by remember { mutableStateOf(false) }
     var informationOpen by remember { mutableStateOf(false) }
+    val channelEditor = rememberSaveable(saver = SpaceChannelEditorState.Saver) { SpaceChannelEditorState() }
     var membersOpen by rememberSaveable { mutableStateOf(false) }
     var overlaySpace by remember { mutableStateOf(state.selected) }
     val focusManager = LocalFocusManager.current
@@ -119,10 +120,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         // Selection is immediate; the panel keeps its rows until its exit ends.
         if (drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed)
             closingDrawerContent = closingDrawerContent ?: state
+        channelEditor.open = false
         savedSelection = space; account.select(space, channel); tab = SpacesTab.MY_SPACES
         scope.launch { drawer.close() }
     }
-    fun selectTab(target: SpacesTab) { account.select(null); savedSelection = null; tab = target }
+    fun selectTab(target: SpacesTab) { channelEditor.open = false; account.select(null); savedSelection = null; tab = target }
     LaunchedEffect(account, state.ready, state.loading) {
         // A verified public visitor has local context without My Spaces membership.
         if (state.ready && !state.loading && state.selected == null && savedSelection != null) account.select(savedSelection)
@@ -152,7 +154,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     LaunchedEffect(selected?.joined) { if (selected?.joined == true) publicRulesOpen = false }
     BackHandler(membersOpen) { membersOpen = false; informationOpen = true }
-    BackHandler(!membersOpen && state.selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen && !publicRulesOpen) { choose(null) }
+    BackHandler(!membersOpen && state.selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !publicRulesOpen) { choose(null) }
     BackHandler(drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed || drawer.isAnimationRunning) {
         scope.launch { drawer.close() }
     }
@@ -466,11 +468,16 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     navigation?.navigate(commit) ?: account.guardNavigation(commit)
                 }
             }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_members)) }
-            channel?.let { SpaceChannelManagement(account, state, it) }
+            channel?.let { chosen -> SpaceChannelManagement(account, state, chosen) {
+                focusManager.clearFocus(); keyboardController?.hide()
+                channelEditor.show(account, selected.id, chosen, state.channelEdit)
+                informationOpen = false
+            } }
             SpaceManagementProblem(state.problem, account::clearProblem, scrollIntoView = true)
             TextButton(onClick = { informationOpen = false }, modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_close)) }
         }
     }
+    SpaceChannelEditSheet(channelEditor, account, state) { informationOpen = true }
 }
 
 private data class ChannelViewport(val anchor: SpaceClient.ReadingAnchor?, val followLatest: Boolean, val automatic: Boolean, val read: Long?)
