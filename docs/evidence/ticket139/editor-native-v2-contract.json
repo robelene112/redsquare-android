@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "ticket": 139,
+  "status": "Prospective management-v2 editor acceptance; no fresh native result",
+  "base": "a23a06644cae76ae357890ff97e1d8eec0a2c536",
+  "sourceFiles": {
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "6b3b7af2144817bd8cb45d64300c4c9e4fe68a6474802ec056fbd6a341a985d1",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceManagement.kt": "c3ba7c476ec1e3c6569cc9c5be2e7e0d3b0b84e2a07dfe1430852545609e74ff",
+    "scripts/spaces-native-journey": "7d0f1e5d637110fbcb9e10e40290aacd2f0302d1b1dc5c0597395dac6ae598fd",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesManagementFixture.kt": "7f755366952ea80964667a70c7947db8bbefd67567d99f941881629efdae4f6e"
+  },
+  "failedParents": [
+    {
+      "run": 44647192059,
+      "source": "714eba57826af2931740533a1f5fff336d52fb0f",
+      "whole": "FAILURE",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-runtime/attempt3-44647192059",
+      "archiveSha256": "251fedad7bc09482e4aad73584c3ccfdf08b51859b4eff617c885d54274cb105",
+      "actualKills": 1,
+      "nativeTerminalPasses": 0,
+      "classification": "Phase2 savedDraft test used webUrl storage namespace; actual app uses backend:peerEndpoint. Failure in test-only fresh wrong store, not observed product draft loss. Entire parent remains failed."
+    },
+    {
+      "run": 44647195734,
+      "source": "714eba57826af2931740533a1f5fff336d52fb0f",
+      "whole": "FAILURE",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-runtime/attempt3-44647195734",
+      "archiveSha256": "59c5b29f1aebabab2d0f5fb09ecc16a37aac1d5d627b2db4fc356ffaef2a07f8",
+      "actualKills": 1,
+      "nativeTerminalPasses": 0,
+      "classification": "Phase2 savedDraft test used webUrl storage namespace; actual app uses backend:peerEndpoint. Failure in test-only fresh wrong store, not observed product draft loss. Entire parent remains failed."
+    }
+  ],
+  "changes": [
+    "Existing namespace guard before opening the declared owned app store; same actualSpaceClient draft oracle.",
+    "Keep fourphases/tworealkills/twoterminal/fourPIDs/old18captures and allold180s/5s/15s/1pixel/48dpgoals.",
+    "Add actual editor recreation/discard review/thirdacceptededitreplyloss/read-onlyreentry/categorydrawer/restore pluscompactSQLerror/actualsave/restore, fourthfaultcleanup and11captures19\u201329.",
+    "Awaiting/offline settings offer an explicit refresh; no success inferred from silence."
+  ],
+  "timing": {
+    "initialSpec": {
+      "findings": 1,
+      "priority": "P2",
+      "report": "139-editor-native-v2-spec-review.txt",
+      "sha256": "eb0de65fd52d43531c39c2303dbdf1dd223f4732bfe21e0a14cb2252c7b2c103",
+      "observation": "The new27-second recovery wait started after earlier recovery steps."
+    },
+    "correction": "Capture actual Android monotonic start beforeSave, retain that deadline across pending observation/Close/reentry/capture/retry and visible canonicalname confirmation. Driver and external assessor independently validate raw start/end <=27000ms.",
+    "qualification": "12-second peer and15-second fresh-read values are configured component labels. Only their combined27-second workflow budget is independently measured, not separate component latency."
+  },
+  "developmentChecks": {
+    "appAndInstrumentation": {
+      "log": "139-editor-native-app-compile.log",
+      "sha256": "137161252ff068be148c8b028cee71439a17bb5a4a316c2c2407d8ef2eea6b33",
+      "exit": 0,
+      "qualification": "Compiles the final editor UI/namespace/newv2journey before the subsequent timing-only guard correction. FreshCI compiles the exact final source again before emulator."
+    },
+    "hostProcesses": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 83,
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-editor-native-host-smoke-originals"
+    }
+  },
+  "sourceReviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-editor-native-v2-final-spec-review.txt",
+      "sha256": "571085aa9a56f4bc0e07393c88bad591f21f3bc8e6bd6df4c75cbd5a0410e403"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-editor-native-v2-final-standards-review.txt",
+      "sha256": "f01f16ff1819815eda1fc625435fc893e1b0177e89fb3b31b9f653924b97456d"
+    }
+  },
+  "prospectiveAssessor": {
+    "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/verify-139-native-management.py",
+    "sha256": "78a35faf42ade46eab93a9b1d2b8f1a36ecf10c22c61526c4f6037ec43f153ab",
+    "cataloguePath": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-management-expected-cases.json",
+    "catalogueSha256": "61df6584d1872e9f6915f69c484a25dacc7c009fb4599a8709529c38cd917975",
+    "cases": "Exact244core/83service identities retained unchanged; source freeze will be written before dispatch."
+  },
+  "qualification": "Not whole139, release, physical/OEM or deployednode/provider acceptance. Full native timing, error/footer/rotation/reentry effects, allframes and prototypecomparison remain pending. PrivateACL/categories/keys/ownership/visibility/dissolve andremaining139work incomplete. Beta142 and all activation/write gates unchanged."
+}

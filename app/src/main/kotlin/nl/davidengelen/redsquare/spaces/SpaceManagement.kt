@@ -130,7 +130,8 @@ import nl.davidengelen.redsquare.ui.DesignSheet
                         else -> R.string.spaces_management_queued
                     }), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
                 }
-                if (current == SpaceClient.ChangeStatus.REJECTED) TextButton(onClick = retry, modifier = Modifier.heightIn(min = 48.dp)) {
+                if (current == SpaceClient.ChangeStatus.REJECTED || current == SpaceClient.ChangeStatus.AWAITING_CONFIRMATION &&
+                    availability == SpacesAccount.Availability.OFFLINE) TextButton(onClick = retry, modifier = Modifier.heightIn(min = 48.dp)) {
                     Text(stringResource(R.string.spaces_refresh_settings))
                 }
             }

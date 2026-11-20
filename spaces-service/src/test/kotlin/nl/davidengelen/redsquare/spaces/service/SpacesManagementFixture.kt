@@ -35,7 +35,7 @@ internal class SpacesManagementFixture(private val owner: SpaceClient, private v
         "/management-fixtures" -> fixtures.deepCopy()
         "/management-drop-next" -> {
             require(body.keySet() == setOf("kind"))
-            val kind = body.get("kind").asString.also { require(it in setOf("set-role", "archive-channel")) }
+            val kind = body.get("kind").asString.also { require(it in setOf("set-role", "archive-channel", "edit-channel")) }
             check(peer.withholdNextSpacesControlReply.compareAndSet(null, kind))
             JsonObject().apply { addProperty("armed", kind) }
         }
@@ -49,14 +49,14 @@ internal class SpacesManagementFixture(private val owner: SpaceClient, private v
             addProperty("space", space)
             add("members", JsonObject().apply { reader.members(space).forEach { addProperty(it.publicKey, it.role.name) } })
             add("channels", JsonObject().apply { reader.channels(space).forEach { channel ->
-                add(channel.id, JsonObject().apply { addProperty("name", channel.profile.name); addProperty("archived", channel.archived) })
+                add(channel.id, JsonObject().apply { addProperty("name", channel.profile.name); addProperty("category", channel.profile.category); addProperty("archived", channel.archived) })
             } })
             add("dropped", JsonArray().apply { peer.withheldSpacesControls.forEach(::add) })
             add("originals", JsonArray().apply {
                 peer.spacesRequests.toList().forEach { original ->
                     val signed = SaitoEnvelope.decode(original.envelope())
                     val body = signed.body
-                    if (body.get("request")?.asString == "event" && body.get("kind")?.asString in setOf("set-role", "archive-channel")) {
+                    if (body.get("request")?.asString == "event" && body.get("kind")?.asString in setOf("set-role", "archive-channel", "edit-channel")) {
                         add(JsonObject().apply {
                             addProperty("id", original.id); addProperty("actor", signed.author); addProperty("space", body.get("space_id").asString)
                             addProperty("kind", body.get("kind").asString)
@@ -64,6 +64,7 @@ internal class SpacesManagementFixture(private val owner: SpaceClient, private v
                             if (body.has("member")) addProperty("member", body.get("member").asString)
                             if (body.has("role")) addProperty("role", body.get("role").asString)
                             if (body.has("archived")) addProperty("archived", body.get("archived").asBoolean)
+                            if (body.has("channel_profile")) add("profile", body.getAsJsonObject("channel_profile").deepCopy())
                             addProperty("sha256", MessageDigest.getInstance("SHA-256").digest(original.envelope().toByteArray(Charsets.UTF_8))
                                 .joinToString("") { "%02x".format(it.toInt() and 255) })
                         })

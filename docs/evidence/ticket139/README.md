@@ -112,3 +112,15 @@ reviews are clear. The final guards, actual compact/IME/discard/rotation/error/
 uncertain-reentry journeys and complete frames remain to be verified. This source
 stage is not native or complete139 acceptance. The third native parents were pinned
 to714eba and failed a later test-store namespace helper; no passing prefix is accepted.
+
+The [prospective editor management-v2 contract](editor-native-v2-contract.json)
+retains both failed714eba parents and corrects the test-only store namespace before
+opening an existing database. It adds actual editor recreation, discard review,
+uncertain read-only reentry, an independently received category and compact error/
+save flows while retaining every prior phase, process and timing goal. Three real
+host-process cases pass; app/instrumentation compilation passes before the final
+timing-only correction. Source review found and fixed a late recovery-timer start;
+raw monotonic observations now enforce the full27-second workflow from Save through
+visible confirmation. The12/15 component values are configuration, not independently
+measured latency. Final source axes are clear. Fresh complete native parents and
+all-frame/prototype/geometry review remain required before any native acceptance.

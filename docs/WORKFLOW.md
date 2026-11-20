@@ -35,6 +35,12 @@ receipts and48dpfooter. Initial pending-reentry/restoration P2s are corrected;
 final source reviews are clear. Actual editor/compact/rotation/error verification
 is pending. Third native parents at714eba remain failed on a later test-only
 store namespace mismatch, after initial-read/touch progression; no prefix accepted.
+Prospective editor management-v2 retains every earlier goal and adds real editor
+recreation/discard/uncertain-reentry/category/compact-error journeys. The owned-store
+namespace observer is corrected; three host-process cases and compilation pass,
+with final timing guard exact-source compilation delegated to freshCI. A source
+review timer P2 is fixed; raw observations enforce the full27-second workflow.
+Both final source axes are clear, but fresh native/visual acceptance remains pending.
 Keep the sequential139–147 authorization and separate release/production gates
 below. Ordinary beta142 remains unchanged.
 

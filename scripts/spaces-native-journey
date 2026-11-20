@@ -221,11 +221,13 @@ try:
                 ('coldArchiveRecoveryAndRealReopeningKeepHistoryAndLocalErrorsReachable', None),
                 ('compactLargeTypeShowsActualRoleErrorsAndArchiveControlsWithoutClipping', None),
             ]
-            goals = {'version': 1, 'mode': 'management-v1', 'phases': phases,
+            goals = {'version': 2, 'mode': 'management-v1', 'phases': phases,
                 'phaseSeconds': 180, 'checkpointObservationSeconds': .25, 'pixelTolerance': 1,
                 'actionSeconds': 5, 'contentSeconds': 15, 'minimumControlDp': 48,
-                'lostAcceptedReplies': ['set-role', 'archive-channel'], 'exactOriginalAttempts': 2,
-                'localWriteFailureCases': ['role', 'archive', 'compact-role'],
+                'lostAcceptedReplies': ['set-role', 'archive-channel', 'edit-channel'], 'exactOriginalAttempts': 2,
+                'localWriteFailureCases': ['role', 'archive', 'compact-role', 'compact-editor'],
+                'editor': {'activityRecreation': True, 'discardReview': True, 'pendingReentry': True,
+                    'peerDeadlineSeconds': 12, 'freshReadSeconds': 15, 'combinedRecoverySeconds': 27, 'sameProcess': True, 'category': 'Projects'},
                 'viewport': {'widthDp': 320, 'fontScale': 2.0, 'densityDpi': 320, 'resourceProbes': 3},
                 'productionNodeActivated': False, 'ordinaryBetaChanged': False}
             # This mode owns the freshly provisioned dev-package baseline. Never
@@ -311,13 +313,30 @@ try:
             if any(value['archived'] for value in final['channels'].values()):
                 raise RuntimeError('The actual managed channels were not reopened')
             checkpoints = [json.loads((evidence / f'checkpoint-{phase}.raw').read_bytes()) for phase in ('role-pending', 'archive-pending')]
-            if final['dropped'] != [item['original'] for item in checkpoints]:
-                raise RuntimeError('Actual dropped reply identities differ from checkpoints')
-            for checkpoint, kind in zip(checkpoints, ('set-role', 'archive-channel')):
+            editor = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/editor-recovery.json').stdout)
+            editor_host = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/editor-recovery-host.json').stdout)
+            (evidence / 'native-editor-recovery.json').write_text(json.dumps(editor, indent=2))
+            (evidence / 'native-editor-recovery-host.json').write_text(json.dumps(editor_host, indent=2))
+            editor_context = {key: value for key, value in editor.items() if key not in ('recoveryStartedAtMs', 'recoveryCompletedAtMs')}
+            if editor_context != {'pid': pids[2], 'owner': fixtures['owner'], 'space': fixtures['space'], 'channel': fixtures['general'],
+                          'original': final['dropped'][-1], 'name': 'commons', 'category': 'Projects', 'peerDeadlineSeconds': 12, 'freshReadSeconds': 15, 'combinedRecoverySeconds': 27}:
+                raise RuntimeError('Editor recovery context or declared boundaries differ')
+            if not (0 < editor['recoveryStartedAtMs'] <= editor['recoveryCompletedAtMs'] <= editor['recoveryStartedAtMs'] + 27_000):
+                raise RuntimeError('Actual editor recovery exceeded its total27-second budget')
+            if editor_host['channels'][fixtures['general']] != {'name': 'commons', 'category': 'Projects', 'archived': False}:
+                raise RuntimeError('Independent reader did not receive the actual editor metadata')
+            if final['dropped'] != [item['original'] for item in checkpoints] + [editor['original']]:
+                raise RuntimeError('Actual dropped reply identities differ from checkpoints/editor')
+            if editor_host['originals'] != final['originals'][:len(editor_host['originals'])]:
+                raise RuntimeError('Editor observation is not the actual received prefix')
+            for checkpoint, kind in zip(checkpoints + [editor], ('set-role', 'archive-channel', 'edit-channel')):
                 rows = [row for row in final['originals'] if row['id'] == checkpoint['original']]
                 if len(rows) != 2 or len({row['sha256'] for row in rows}) != 1 or any(
                         row['kind'] != kind or row['actor'] != fixtures['owner'] or row['space'] != fixtures['space'] for row in rows):
                     raise RuntimeError('Recovery did not deliver the exact accepted original twice')
+            for name in ('general', 'workshop', 'announcements'):
+                if final['channels'][fixtures[name]] != {'name': name, 'category': '', 'archived': False}:
+                    raise RuntimeError('A managed channel profile or archive was not restored')
             for name in ('normal-host', 'compact-host'):
                 observed = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{name}.json').stdout)
                 (evidence / f'native-{name}.json').write_text(json.dumps(observed, indent=2))
@@ -327,7 +346,7 @@ try:
                     raise RuntimeError('Native compact and final host observations differ')
                 if name == 'normal-host' and observed['originals'] != final['originals'][:len(observed['originals'])]:
                     raise RuntimeError('Native normal observation is not the actual received prefix')
-            for name, pid in (('role', pids[0]), ('archive', pids[2]), ('compact-role', pids[3])):
+            for name, pid in (('role', pids[0]), ('archive', pids[2]), ('compact-role', pids[3]), ('compact-editor', pids[3])):
                 cleanup = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/cleanup-{name}.json').stdout)
                 (evidence / f'local-fault-cleanup-{name}.json').write_text(json.dumps(cleanup, indent=2))
                 if cleanup != {'removed': True, 'pid': pid, 'space': fixtures['space'], 'owner': fixtures['owner']}:

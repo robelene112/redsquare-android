@@ -26,6 +26,7 @@ import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
 import java.time.Clock
+import java.security.MessageDigest
 
 /** Disposable dev-package baseline, real Activity/SQLite/peer and two actual
  * externally terminated PIDs. No production wallet, transaction or node. */
@@ -40,13 +41,14 @@ class SpacesManagementJourneyTest {
     private val device get() = UiDevice.getInstance(instrumentation)
     private val evidence get() = File(context.cacheDir, "spaces-management-evidence").apply { mkdirs() }
     private val checkpoint get() = File(context.cacheDir, "spaces-management-checkpoint.json")
+    private val peerEndpoint get() = "ws://127.0.0.1:${port("spacesPeerPort")}/wsopen"
     private val fixtureOwner get() = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
     private val fixtureService get() = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey
     private val saveError get() = context.getString(R.string.spaces_save_failed)
     private fun launch(link: String) = ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).apply {
         action = Intent.ACTION_VIEW; data = Uri.parse(link)
-        putExtra("feedPeerUrl", "ws://127.0.0.1:${port("spacesPeerPort")}/wsopen")
-        putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${port("spacesPeerPort")}/wsopen")
+        putExtra("feedPeerUrl", peerEndpoint)
+        putExtra("feedOfficialPeerUrl", peerEndpoint)
         putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
     })
 
@@ -168,6 +170,7 @@ class SpacesManagementJourneyTest {
             device.pressBack(); chooseChannel("general")
             ui.onNode(hasSetTextAction() and hasText("New general draft while archive awaits")).assertIsDisplayed()
             capture("13-normal-management-return")
+            verifyChannelEditorRecovery(activity, fixtures)
             saveCompletion("completed.json", fixtures)
         } }
     }
@@ -203,8 +206,117 @@ class SpacesManagementJourneyTest {
             clickDialog("Reopen channel")
             waitUntil { ui.onNode(hasText("Archive channel") and hasClickAction() and isEnabled()).isDisplayed() }
             capture("18-compact-reopened-channel")
+            clickDialog("Edit channel")
+            editorField("Channel name").performScrollTo().performTextReplacement("compact-commons")
+            editorField("Category (optional)").performScrollTo().performTextReplacement("Projects")
+            closeKeyboard()
+            capture("26-compact-channel-editor")
+            val before = editRows(status()).size
+            withWriteFailure(activity, fixtures, "compact-editor") {
+                clickDialog("Save changes"); waitDialogError()
+                capture("27-compact-channel-editor-error")
+                assertEquals(before, editRows(status()).size)
+                assertEquals("general", status().getAsJsonObject("channels").getAsJsonObject(fixtures.get("general").asString).get("name").asString)
+            }
+        } }
+        launch(fixtures.get("link").asString).use { activity -> withFailureCapture({ capture("compact-editor-confirmation-failure") }) {
+            openInformation(); clickDialog("Edit channel")
+            editorField("Channel name").performScrollTo().performTextReplacement("compact-commons")
+            editorField("Category (optional)").performScrollTo().performTextReplacement("Projects")
+            closeKeyboard(); clickDialog("Save changes")
+            waitInformationName("compact-commons")
+            capture("28-compact-editor-confirmed")
+            restoreGeneralName(fixtures)
+            capture("29-compact-editor-restored-channel")
             saveCompletion("compact-completed.json", fixtures)
         } }
+    }
+
+    private fun editorField(label: String) = ui.onNode(hasSetTextAction() and hasText(label) and hasAnyAncestor(isDialog()))
+    private fun editRows(value: JsonObject) = value.getAsJsonArray("originals").map { it.asJsonObject }.filter { it.get("kind").asString == "edit-channel" }
+    private fun waitInformationName(name: String, timeout: Long = 15_000) = waitUntil(timeout) {
+        ui.onNode(hasText("Community information") and hasAnyAncestor(isDialog())).isDisplayed() &&
+            ui.onNode(hasText(name) and !hasSetTextAction() and hasAnyAncestor(isDialog())).isDisplayed()
+    }
+    private fun restoreGeneralName(fixtures: JsonObject) {
+        clickDialog("Edit channel")
+        editorField("Channel name").performScrollTo().performTextReplacement("general")
+        editorField("Category (optional)").performScrollTo().performTextReplacement("")
+        closeKeyboard(); clickDialog("Save changes"); waitInformationName("general")
+        val actual = status().getAsJsonObject("channels").getAsJsonObject(fixtures.get("general").asString)
+        assertEquals("general", actual.get("name").asString); assertEquals("", actual.get("category").asString)
+    }
+    private fun verifyChannelEditorRecovery(activity: ActivityScenario<MainActivity>, fixtures: JsonObject) {
+        openInformation(); clickDialog("Edit channel")
+        editorField("Channel name").performTextReplacement("commons")
+        editorField("Category (optional)").performTextReplacement("Projects")
+        closeKeyboard(); capture("19-editor-unsaved")
+        activity.recreate()
+        waitUntil { editorField("Channel name").isDisplayed() && ui.onNode(hasSetTextAction() and hasText("commons") and hasAnyAncestor(isDialog())).isDisplayed() }
+        editorField("Category (optional)").assertTextContains("Projects")
+        capture("20-editor-restored")
+        device.pressBack(); waitText("Discard changes?", 5_000)
+        capture("21-editor-discard-choice")
+        clickDialog("Keep editing")
+        command("management-drop-next", JsonObject().apply { addProperty("kind", "edit-channel") })
+        val recoveryStarted = SystemClock.elapsedRealtime()
+        val recoveryDeadline = recoveryStarted + 27_000
+        clickDialog("Save changes"); waitText("Waiting for confirmation.", 5_000)
+        var received = JsonObject()
+        waitUntil(5_000) { received = status(); received.getAsJsonArray("dropped").size() == 3 }
+        val original = received.getAsJsonArray("dropped").last().asString
+        val remote = received.getAsJsonObject("channels").getAsJsonObject(fixtures.get("general").asString)
+        assertEquals("commons", remote.get("name").asString); assertEquals("Projects", remote.get("category").asString)
+        clickDialog("Close"); clickDialog("Edit channel")
+        waitText("Waiting for confirmation.", 5_000)
+        editorField("Channel name").assertTextContains("commons")
+        ui.onNode(hasText("Save changes") and hasClickAction() and hasAnyAncestor(isDialog())).assertIsNotEnabled()
+        capture("22-editor-pending-reentry")
+        var refreshRequested = false
+        val remaining = recoveryDeadline - SystemClock.elapsedRealtime()
+        assertTrue("The editor recovery budget remains after pending reentry", remaining > 0)
+        waitUntil(remaining) {
+            val refresh = ui.onNode(hasText("Refresh settings") and hasClickAction() and hasAnyAncestor(isDialog()))
+            if (!refreshRequested && refresh.isDisplayed()) { refresh.clickReady(); refreshRequested = true }
+            received = status()
+            val attempts = editRows(received).filter { it.get("id").asString == original }
+            attempts.size == 2 && ui.onAllNodes(hasText("Waiting for confirmation.") and onScreen).fetchSemanticsNodes().isEmpty()
+        }
+        val attempts = editRows(received).filter { it.get("id").asString == original }
+        assertEquals(2, attempts.size); assertEquals(1, attempts.map { it.get("sha256").asString }.distinct().size)
+        if (editorField("Channel name").isDisplayed()) clickDialog("Close")
+        val confirmationRemaining = recoveryDeadline - SystemClock.elapsedRealtime()
+        assertTrue("Confirmed metadata remains inside the original recovery budget", confirmationRemaining > 0)
+        waitInformationName("commons", confirmationRemaining)
+        val recoveryCompleted = SystemClock.elapsedRealtime()
+        assertTrue("The complete editor recovery takes at most27 seconds", recoveryCompleted <= recoveryDeadline)
+        saveJson("editor-recovery-host.json", received)
+        saveJson("editor-recovery.json", JsonObject().apply {
+            addProperty("pid", Process.myPid()); addProperty("owner", fixtures.get("owner").asString)
+            addProperty("space", fixtures.get("space").asString); addProperty("channel", fixtures.get("general").asString)
+            addProperty("original", original); addProperty("name", "commons"); addProperty("category", "Projects")
+            // These are configured components; the independently retained
+            // measurement covers their combined budget through visible confirmation.
+            addProperty("peerDeadlineSeconds", 12); addProperty("freshReadSeconds", 15); addProperty("combinedRecoverySeconds", 27)
+            addProperty("recoveryStartedAtMs", recoveryStarted); addProperty("recoveryCompletedAtMs", recoveryCompleted)
+        })
+        capture("23-editor-confirmed")
+        device.pressBack()
+        waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
+        ui.onNodeWithContentDescription(context.getString(R.string.spaces_switch_channel)).clickReady()
+        val list = ui.onNode(hasScrollToNodeAction() and hasAnyAncestor(SemanticsMatcher.expectValue(
+            androidx.compose.ui.semantics.SemanticsProperties.PaneTitle, context.getString(R.string.spaces_navigation_panel))))
+        list.performScrollToNode(hasText("Projects", ignoreCase = true))
+        ui.onNode(hasText("Projects", ignoreCase = true)).assertIsDisplayed()
+        capture("24-editor-category-drawer")
+        list.performScrollToNode(hasText("commons") and hasClickAction())
+        ui.onNode(hasText("commons") and hasClickAction()).clickReady()
+        waitUntil { ui.onNode(hasSetTextAction() and hasText("New general draft while archive awaits")).isDisplayed() }
+        openInformation(); restoreGeneralName(fixtures)
+        capture("25-editor-restored-channel")
+        device.pressBack()
+        waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
+        ui.onNode(hasSetTextAction() and hasText("New general draft while archive awaits")).assertIsDisplayed()
     }
 
     private fun withWriteFailure(activity: ActivityScenario<MainActivity>, fixtures: JsonObject, label: String, action: () -> Unit) {
@@ -298,10 +410,16 @@ class SpacesManagementJourneyTest {
     private fun waitUntil(timeout: Long = 15_000, condition: () -> Boolean) = ui.waitUntil(timeout, condition)
     private fun capture(name: String) = captureNativeScreen(File(evidence, "$name.png"))
     private fun status() = command("management-status")
-    private fun savedDraft(fixtures: JsonObject, channel: String): String = AndroidSpaceClientStore(context,
-        fixtureOwner.publicKey, SaitoBackend.OWNER.webUrl, fixtureService).use { store ->
-        SpaceClient(fixtureOwner, SaitoBackend.OWNER.webUrl, fixtureService, store, Clock.systemUTC()) { error("No checkpoint transport") }
-            .draft(fixtures.get("space").asString, fixtures.get(channel).asString)
+    private fun savedDraft(fixtures: JsonObject, channel: String): String {
+        val route = "${SaitoBackend.OWNER}:$peerEndpoint"
+        val namespace = MessageDigest.getInstance("SHA-256")
+            .digest("SpacesLocal/v1:${fixtureOwner.publicKey}:$route:$fixtureService".toByteArray(Charsets.UTF_8))
+            .joinToString("") { "%02x".format(it.toInt() and 255) }
+        check(File(context.noBackupFilesDir, "spaces-$namespace.sqlite").isFile) { "The declared owned application store must already exist" }
+        return AndroidSpaceClientStore(context, fixtureOwner.publicKey, route, fixtureService).use { store ->
+            SpaceClient(fixtureOwner, SaitoBackend.OWNER.webUrl, fixtureService, store, Clock.systemUTC()) { error("No checkpoint transport") }
+                .draft(fixtures.get("space").asString, fixtures.get(channel).asString)
+        }
     }
     private fun assertRetriedOriginal(previous: JsonObject, kind: String) {
         waitUntil {
