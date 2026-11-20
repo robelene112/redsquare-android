@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "ticket": 139,
+  "status": "Partial durablepublic-channel edit API; three actualSQLitecases andbothsourceaxes pass",
+  "base": "b14ed3589a51bac05d4b8e1a416be534d5903553",
+  "sourceFiles": {
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "4ab3abce0c2eea5386cf44310e57d383359dfd0622da0fbfbfee208d9ce23a48",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceChannelsTest.kt": "2b141e5ab1fc2422a96bf7f504fddc3207a4f179103bce31ddd89094dc86df5b"
+  },
+  "api": "editChannel returnsoriginalid; channelEdit exposesChannelEdit(id,channelId,profile,status). Perchannel intentcommitsatomicallywithoriginal. SharedexistingchangeStatus derivesAWAITINGfromactualattempt, neverabsence. Acceptedjournalmetadata remainsseparate fromrequestedprofile.",
+  "verification": {
+    "red": {
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-channel-edit-intent-red-originals",
+      "classification": "Compilation-onlyunresolvednewAPI; no runtimeREDclaim."
+    },
+    "green": {
+      "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-channel-edit-intent-green-originals",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 135,
+      "logSha256": "13bf68d712c0e736071906906c69049145639b248d454a371922d1be06c98beb"
+    },
+    "cases": "Actualacceptedreplylost, coldclientconstructor/samebytes2attempts, independentreaderconfirmedmetadata, genuineconflictrejectionwithoutinventedsuccess, explicitnewedit/draftscopepreserved, localmemberdeny. Existingpublicedit/invalidinputcasesalsopass."
+  },
+  "qualification": "Source/APIonly. Currentwhole Android10/17 runs44641272678/44641268781 arepinnedb14 source244/81 anddonotinclude thisnewthirdcase/API. EditUI, privateACL/categories/keys/ownership/visibility/dissolve/whole139acceptance remain. Beta142 unchanged; no production/provider/public/financial/filehostingactivation.",
+  "sourceReviews": {
+    "spec": {
+      "findings": 0,
+      "report": "139-channel-edit-intent-spec-review.txt",
+      "sha256": "cde704b1fefb6c1f22193ad4a6b047c5952433496872d03afd621e69687948c3"
+    },
+    "standards": {
+      "findings": 0,
+      "report": "139-channel-edit-intent-standards-review.txt",
+      "sha256": "a51d9511465c225de9b656b753ac0d169c3b730f0b44d24f9e3f7606ff90d7f4"
+    }
+  }
+}

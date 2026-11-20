@@ -26,6 +26,77 @@ class SpaceChannelsTest {
     private val service = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
 
+    @Test(timeout = 45_000) fun anUncertainChannelEditRetainsItsOriginalAndOnlyProjectsConfirmedMetadata() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("channel-edit-intent-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("channel-edit-intent-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("channel-edit-intent-reader.sqlite").absolutePath).use { readerStore ->
+                    var loseReply = true
+                    val delivered = mutableListOf<String>()
+                    fun ownerClient() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { original ->
+                        val response = remote.exchange(original.envelope())
+                        if (SaitoEnvelope.decode(original.envelope()).body.get("kind")?.asString == "edit-channel") {
+                            delivered.add(original.envelope())
+                            if (loseReply) { loseReply = false; throw java.io.IOException("Owned accepted channel edit reply lost") }
+                        }
+                        response
+                    }
+                    val creator = ownerClient()
+                    val reader = SpaceClient(member, "fixture-node", service.publicKey, readerStore, clock) { remote.exchange(it.envelope()) }
+                    val oldProfile = SpaceChannelProfile("workshop", category = "Conversations")
+                    val space = creator.create(SpaceProfile("Honest channel edit receipts", visibility = SpaceVisibility.PUBLIC),
+                        listOf(SpaceChannelProfile("general"), oldProfile)); creator.flush(space)
+                    reader.openPublic(space); reader.joinPublic(space); reader.flush(space); creator.refresh(space)
+                    val channel = creator.channels(space).single { it.profile == oldProfile }.id
+                    val general = creator.community(space).channel
+                    creator.saveDraft(space, "A workshop draft independent of its label", channel)
+                    creator.saveDraft(space, "A separate general draft", general)
+                    val renamed = SpaceChannelProfile("builders", category = "Projects")
+                    val original = creator.editChannel(space, channel, renamed)
+                    assertEquals(original, creator.channelEdit(space, channel)?.id)
+                    assertEquals(renamed, creator.channelEdit(space, channel)?.profile)
+                    assertEquals(SpaceClient.ChangeStatus.QUEUED, creator.channelEdit(space, channel)?.status)
+                    assertEquals(oldProfile, creator.channels(space).single { it.id == channel }.profile)
+                    assertFalse(creator.community(space).canManage)
+                    try { creator.flush(space); fail("The accepted edit reply is deliberately lost") } catch (_: java.io.IOException) { }
+                    assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, creator.channelEdit(space, channel)?.status)
+                    assertEquals(oldProfile, creator.channels(space).single { it.id == channel }.profile)
+                    reader.refresh(space, channel)
+                    assertEquals(renamed, reader.channels(space).single { it.id == channel }.profile)
+                    val restored = ownerClient()
+                    assertEquals(SpaceClient.ChangeStatus.AWAITING_CONFIRMATION, restored.channelEdit(space, channel)?.status)
+                    restored.flush(space)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, restored.channelEdit(space, channel)?.status)
+                    assertEquals(original, restored.channelEdit(space, channel)?.id)
+                    assertEquals(2, delivered.size); assertEquals(delivered[0], delivered[1])
+                    assertEquals(renamed, restored.channels(space).single { it.id == channel }.profile)
+                    assertNull(restored.channelEdit(space, general))
+                    val another = renamed.copy(name = "build-together")
+                    val rejectedEdit = restored.editChannel(space, channel, another)
+                    val competing = SaitoTransaction.create(owner, JsonObject().apply {
+                        addProperty("module", "Spaces"); addProperty("request", "event"); addProperty("version", 1)
+                        addProperty("kind", "set-listed"); addProperty("space_id", space); addProperty("control_id", original)
+                        addProperty("listed", false); addProperty("operation_id", "e".repeat(64))
+                    }, clock.millis(), listOf(service.publicKey))
+                    assertEquals("control", SaitoEnvelope.decode(remote.exchange(competing.envelope())).body.get("stream").asString)
+                    restored.flush(space)
+                    assertEquals(rejectedEdit, restored.channelEdit(space, channel)?.id)
+                    assertEquals(SpaceClient.ChangeStatus.REJECTED, restored.channelEdit(space, channel)?.status)
+                    assertEquals(renamed, restored.channels(space).single { it.id == channel }.profile)
+                    restored.refresh(space)
+                    val deliberate = restored.editChannel(space, channel, another)
+                    assertNotEquals(rejectedEdit, deliberate); restored.flush(space); reader.refresh(space, channel)
+                    assertEquals(SpaceClient.ChangeStatus.ACCEPTED, restored.channelEdit(space, channel)?.status)
+                    assertEquals(another, reader.channels(space).single { it.id == channel }.profile)
+                    assertEquals("A workshop draft independent of its label", restored.draft(space, channel))
+                    assertEquals("A separate general draft", restored.draft(space, general))
+                    try { reader.editChannel(space, channel, oldProfile); fail("Members cannot prepare channel edits") }
+                    catch (_: IllegalArgumentException) { }
+                    assertNull(reader.channelEdit(space, channel))
+                }
+            }
+        }
+    }
+
     @Test(timeout = 45_000) fun incompletePublicChannelEditsAreDurablyRejectedWithoutInterruptingWriting() = runBlocking<Unit> {
         SpacesServiceStore(files.newFolder("invalid-channel-edit-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("invalid-channel-edit-owner.sqlite").absolutePath).use { ownerStore ->

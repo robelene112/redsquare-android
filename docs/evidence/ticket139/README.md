@@ -80,3 +80,12 @@ select the real semantic text/click action, retaining all goals/deadlines. Both
 source review axes are clear; a fresh complete run on each SDK is required.
 The new244/81 catalogue preserves every earlier case and adds the two public-channel
 metadata cases. No failed parent or passing prefix is accepted.
+
+The [channel edit intent API](channel-edit-intent.json) retains requested public
+metadata separately from accepted labels. Atomic per-channel state keeps exact
+originals and honest queued/uncertain/accepted/rejected status through cold client
+recovery and genuine control conflicts. All three current SQLite channel cases
+pass and both source review axes are clear. Its RED was compilation-only; no
+runtime failure is fabricated. This API is newer than the current b14 native
+parents and is not proved by their outcomes. The edit UI and remaining139 work
+are pending.
