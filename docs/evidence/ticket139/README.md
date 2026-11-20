@@ -190,3 +190,5 @@ goals. No manual-refresh UI acceptance is claimed. Both source axes are clear.
 The next native source includes the committed private foundation's exact244/89
 catalogue, while its UI journey remains public management only. New revocation
 work is excluded. Fresh complete native and visual acceptance remain required.
+
+Restricted private-child revocation source is verified by the [packet](restricted-channel-revocation.json):244core/92service, both source axes clear, independently copied future ciphertext excluded after real key removal. Native private UI and the remaining139 governance scope are pending.

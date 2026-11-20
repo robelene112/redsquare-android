@@ -1,0 +1,68 @@
+{
+  "ticket": 139,
+  "scope": "Restricted private-child channel revocation and actual future-key exclusion. Increment only; no whole139 or native private UI acceptance.",
+  "base": "e62ecbd3332fabad3fd990eb214a2f4c0cada61f",
+  "sources": {
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceClient.kt": "e44e8e23beb0388a16d018d5cd5bbdf0ef4acea7063e48332d27908b3d74d3c2",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpaceJournal.kt": "6ee9afdb457e1b0aae4f3d86ee035931827471073f40d5e8ba8cc3d7636b374d",
+    "spaces-service/src/main/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesServiceStore.kt": "f029fdcd5be179ad821156ab8f57de08e65d475b5eff1eda6e037c026b3e1c4a",
+    "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpaceChannelAccessTest.kt": "e3d2987cbdcf44765bf9a3d7dd0f733eca98a29afd7dbffa3011b2d53b3a23c4"
+  },
+  "checks": {
+    "counts": {
+      "core": 244,
+      "spaces-service": 92
+    },
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "originals": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-channel-access-revoke-final-jvm-originals"
+  },
+  "behaviour": [
+    "Owner/admin revokes an ordinary selected member using an actual MLS removal; accepted metadata is encrypted at the new epoch.",
+    "Independent reference retains old saved keys, reads copied past bytes and cannot decrypt copied accepted future ciphertext that the remaining client reads.",
+    "Accepted but lost replies survive a new client and replay the same original exactly twice, preserving General drafts, selection and Space membership.",
+    "A real competing accepted control rejects a stale key change; working keys recover and only an explicit fresh intent removes access.",
+    "Malformed/missing device maps, wrong authority/epoch/target or retained removed device reject durably at the signed receiving boundary."
+  ],
+  "logs": {
+    "139-channel-access-revoke-red.log": {
+      "sha256": "1f5ad534914e90893c8d7831dd7d50ea5edeb6c000c5abbdbdf3d33169fe1f52"
+    },
+    "139-channel-access-revoke-green.log": {
+      "sha256": "489f1cdc774beef8bc4270ac451ea32e4fbeacfbdf75d35b4b9a31121b14efee"
+    },
+    "139-channel-access-revoke-recovery-green.log": {
+      "sha256": "c4a4cb4bbc28b48857ddb88ef58546a269e2a4b9d5d9792c2888441db6b1bfc5"
+    },
+    "139-channel-access-device-shape-red.log": {
+      "sha256": "042bc9a651f3ed36e3e6e95db7a01d05df58259641871d55ed14f2fbfd6abcab"
+    },
+    "139-channel-access-revoke-full-green.log": {
+      "sha256": "9b09e80654f1dc8c29374aa48512729845178dfb19a1a527a9386274a1a94c9a"
+    }
+  },
+  "reviews": {
+    "139-channel-access-revoke-spec-review.txt": {
+      "sha256": "00075abe5ee0080d50394da2ab2c7ad58e5fb7d1d85be9633bf89a4b1f2399b3",
+      "findings": 0
+    },
+    "139-channel-access-revoke-standards-review.txt": {
+      "sha256": "8a7f20ab2f94e456c71778a5677164090888620ea6788e89466b9af55acb247b",
+      "findings": 0
+    },
+    "139-channel-access-device-final-spec-review.txt": {
+      "sha256": "b62fe89de167deb5e88f1ecafa9abacab6091404270b9a321e760afe8b20d994",
+      "findings": 0
+    },
+    "139-channel-access-device-final-standards-review.txt": {
+      "sha256": "79504a45c475e33b873ba1a518ea58f9df4932e083d6811f2cd35fd6d8314eb0",
+      "findings": 0
+    }
+  },
+  "limits": [
+    "Native private access UI and process-boundary acceptance pending.",
+    "Legacy unrestricted private groups, membership leave/remove/ban, admin demotion and visibility transitions remain pending.",
+    "No deployment or beta142 change."
+  ]
+}
