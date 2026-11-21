@@ -39,6 +39,7 @@ class SpacesJourneyTest {
     private val draft = "Unsent writing survives Android restart"
     private fun launch() = ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
         .putExtra("feedPeerUrl", "ws://127.0.0.1:$peerPort/wsopen")
+        .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:$peerPort/wsopen")
         .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/"))
 
     @Test fun messageMenusAndEditSurviveIncomingMessagesAndRealIme() {
@@ -342,9 +343,14 @@ class SpacesJourneyTest {
     private fun openSpaces(current: String) = switchModule(current, "Spaces")
     private fun switchModule(current: String, next: String) {
         ui.revealAppNavigation()
-        ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: $current").isDisplayed() }
-        ui.onNodeWithContentDescription("Switch app: $current").performClick()
-        ui.onNode(hasText(next) and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())).performScrollTo().performClick()
+        // The cold wallet-loading header is replaced by the real feed shell.
+        // Exercise the settled user route, not a transient startup instance.
+        ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: $current").isDisplayed() &&
+            (current != "Red Square" || ui.onNodeWithText("Home").isDisplayed()) }
+        ui.onNodeWithContentDescription("Switch app: $current").assertIsEnabled().performClick()
+        val target = hasText(next) and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())
+        ui.waitUntil(5_000) { ui.onAllNodes(target).fetchSemanticsNodes().size == 1 }
+        ui.onNode(target).performScrollTo().assertIsEnabled().performClick()
         ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Switch app: $next").isDisplayed() }
     }
     private fun closeKeyboard(activity: ActivityScenario<MainActivity>) {
