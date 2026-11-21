@@ -411,6 +411,7 @@ class SpacesManagementJourneyTest {
             closeKeyboard()
             history().performScrollToNode(hasText("Governance message 5"))
             val readingPixel = pixel("Governance message 5")
+            awaitGovernanceReadingCommit(fixtures, readingPixel)
             saveReadingSnapshot("governance-normal-before", fixtures, "general", visibleTexts = governanceMessages)
             openCategories(); clickDialog(context.getString(R.string.spaces_create_category))
             editorField(context.getString(R.string.spaces_category_name)).performScrollTo().performTextReplacement("Native private conversations")
@@ -642,6 +643,53 @@ class SpacesManagementJourneyTest {
         assertEquals(governanceDraft, savedDraft(fixtures, "general"))
         saveReadingSnapshot("governance-private-category-return", fixtures, "general", visibleTexts = governanceMessages)
         assertGovernanceAnchor("governance-compact-before", "governance-private-category-return")
+    }
+
+    private fun awaitGovernanceReadingCommit(fixtures: JsonObject, expectedPixel: Float) {
+        val space = fixtures.get("space").asString; val channel = fixtures.get("general").asString
+        val route = "${SaitoBackend.OWNER}:$peerEndpoint"
+        val started = SystemClock.elapsedRealtime()
+        var last = JsonObject()
+        withFailureCapture({ saveJson("governance-baseline-commit.json", last) }) {
+            waitUntil(15_000) {
+                val observedAt = SystemClock.elapsedRealtime()
+                val semantics = history().fetchSemanticsNode().config
+                val range = semantics[androidx.compose.ui.semantics.SemanticsProperties.VerticalScrollAxisRange].value()
+                val indexForKey = semantics[androidx.compose.ui.semantics.SemanticsProperties.IndexForKey]
+                var matches = false
+                AndroidSpaceClientStore(context, fixtureOwner.publicKey, route, fixtureService).use { store ->
+                    val client = SpaceClient(fixtureOwner, SaitoBackend.OWNER.webUrl, fixtureService, store, Clock.systemUTC()) { error("No baseline-probe transport") }
+                    val anchor = client.readingAnchor(space, channel)
+                    val storedAt = SystemClock.elapsedRealtime()
+                    val index = anchor?.let { indexForKey(it.messageId) } ?: -1
+                    // The pinned foundation-android1.11.4 bytecode computes its
+                    // public scroll semantics as index*500+pixelOffset. This
+                    // short-message fixture also bounds offset below500, so a
+                    // different first item cannot alias the observed value.
+                    val encoded = anchor?.let { index * 500f + it.offset }
+                    val after = history().fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.VerticalScrollAxisRange].value()
+                    val actualPixel = pixel("Governance message 5")
+                    matches = anchor != null && index >= 0 && anchor.offset in 0 until 500 && encoded == range && after == range &&
+                        client.community(space).channel == channel && client.draft(space, channel) == governanceDraft &&
+                        kotlin.math.abs(actualPixel - expectedPixel) <= 1f
+                    last = JsonObject().apply {
+                        addProperty("pid", Process.myPid()); addProperty("owner", fixtureOwner.publicKey)
+                        addProperty("space", space); addProperty("channel", channel); addProperty("selectedChannel", client.community(space).channel)
+                        addProperty("startedAtMs", started); addProperty("observedAtMs", observedAt); addProperty("storeObservedAtMs", storedAt)
+                        addProperty("completedAtMs", SystemClock.elapsedRealtime()); addProperty("viewportValue", range); addProperty("viewportValueAfter", after)
+                        addProperty("index", index); addProperty("itemUnit", 500); addProperty("encodedValue", encoded)
+                        addProperty("library", "androidx.compose.foundation:foundation-android:1.11.4")
+                        addProperty("visiblePixel", actualPixel); addProperty("expectedPixel", expectedPixel); addProperty("committedToNativeScroll", matches)
+                        add("anchor", anchor?.let { JsonObject().apply {
+                            addProperty("message", it.messageId); addProperty("position", it.position)
+                            addProperty("offset", it.offset); addProperty("windowFrom", it.windowFrom)
+                        } } ?: com.google.gson.JsonNull.INSTANCE)
+                    }
+                }
+                matches
+            }
+        }
+        saveJson("governance-baseline-commit.json", last)
     }
 
     private fun governanceCategoryRow(name: String) = ui.onNode(hasText(name) and hasClickAction() and isEnabled() and

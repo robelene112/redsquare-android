@@ -1,6 +1,30 @@
 # Red Square Android project context
 
-## Active139: current public management accepted, final native gaps prepared
+## Active139: membership accepted, category baseline corrected
+
+Whole member6 44838352313 and private5 44838386136 at4de pass frozen contracts
+and both actual visual/prototype reviews:1105/1134frames,14/15capturepairs,
+42/46controls, two real kills and four PIDs each. Ownership, actual successor
+private-original reading and compact former-owner departure are verified.
+These are complete focused parents; complete139 remains separate.
+
+Category-access1 44838434277 remains wholeFAIL before its new Save bridge.
+Actual before/restored messages3/4/5 and pixels match, but the baseline still
+held the earlier14/41 anchor while the committed restored viewport was2/71.
+The observer now waits for the real protected anchor to match the actual keyed
+native viewport, selected scope/draft and unchanged pixel within15seconds.
+Pinned Compose bytecode and actual APK version corroborate the semantics;
+no product behavior, state write/reset/scroll, fixed sleep or existing goal
+changes. Final source compiles with matching stable inputs and both prospective
+review axes are clear.
+
+Freeze/re-run the whole category-access parent and inspect all actual frames
+and received effects, then complete139 criteria mapping before140-147 proceed
+sequentially. Public/API29 and earlier governance scopes remain accepted at
+their exact pins. See the [current evidence and limits](evidence/ticket139/governance-native-preparation.json). ApprovedB,
+beta142 and production/provider/public-write/file-hosting boundaries are unchanged.
+
+## Earlier139: current public management accepted, final native gaps prepared
 
 Whole public management/API29 44832654787 at9822 passes both actual visual
 axes:1349frames,36capturepairs,76controls and6IME records. Earlier focused-field
