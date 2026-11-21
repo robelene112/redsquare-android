@@ -324,7 +324,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             Text(stringResource(R.string.spaces_earlier_messages))
                         }
                         val anchorIndex = state.anchor?.let { anchor -> state.messages.indexOfFirst { it.id == anchor.messageId } } ?: -1
-                        val initialIndex = if (anchorIndex >= 0) anchorIndex else state.messages.lastIndex.coerceAtLeast(0)
+                        val initialIndex = if (anchorIndex >= 0) anchorIndex else state.messages.size
                         val list = remember { androidx.compose.foundation.lazy.LazyListState(initialIndex, if (anchorIndex >= 0) state.anchor?.offset?.coerceAtLeast(0) ?: 0 else 0) }
                         var initialPage by remember { mutableStateOf(true) }
                         var autoScrolling by remember { mutableStateOf(false) }
@@ -334,6 +334,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         val latestHasLater by rememberUpdatedState(state.hasLater)
                         val latestFollowing by rememberUpdatedState(state.followingLatest)
                         val keyboardBottom = WindowInsets.ime.getBottom(LocalDensity.current)
+                        val viewportSize by remember(list) { derivedStateOf { list.layoutInfo.viewportSize } }
                         LaunchedEffect(list, account) {
                             var userScrolling = false
                             snapshotFlow {
@@ -361,19 +362,20 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 }
                             }
                         }
-                        LaunchedEffect(state.messages.map { it.id }, state.messages.lastOrNull(), state.scrollToMessage, state.followingLatest, keyboardBottom, overlayMode) {
+                        LaunchedEffect(state.messages.map { it.id }, state.messages.lastOrNull(), state.scrollToMessage, state.followingLatest, keyboardBottom, viewportSize, overlayMode) {
                             if (overlayMode != null) return@LaunchedEffect
                             val requested = state.scrollToMessage
                             val requestedIndex = state.messages.indexOfFirst { it.id == requested }
                             if (requestedIndex >= 0) {
                                 autoScrolling = true
-                                try { list.animateScrollToItem(requestedIndex) } finally { autoScrolling = false }
+                                val destinationIndex = if (state.followingLatest && requestedIndex == state.messages.lastIndex) state.messages.size else requestedIndex
+                                try { list.animateScrollToItem(destinationIndex) } finally { autoScrolling = false }
                                 initialPage = false; account.consumeScrollTarget(requireNotNull(requested)); return@LaunchedEffect
                             }
                             if (state.messages.isNotEmpty() && initialPage) {
                                 val index = state.anchor?.let { anchor -> state.messages.indexOfFirst { it.id == anchor.messageId } } ?: -1
                                 autoScrolling = true
-                                try { list.scrollToItem(if (index >= 0) index else state.messages.lastIndex, if (index >= 0) state.anchor?.offset ?: 0 else 0) }
+                                try { list.scrollToItem(if (index >= 0) index else state.messages.size, if (index >= 0) state.anchor?.offset ?: 0 else 0) }
                                 finally { autoScrolling = false }
                                 initialPage = false
                             } else if (state.messages.isNotEmpty() && state.followingLatest) {
@@ -383,7 +385,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 snapshotFlow { list.isScrollInProgress }.first { !it }
                                 if (!latestFollowing || overlayMode != null) return@LaunchedEffect
                                 autoScrolling = true
-                                try { list.animateScrollToItem(state.messages.lastIndex) } finally { autoScrolling = false }
+                                try { list.animateScrollToItem(state.messages.size) } finally { autoScrolling = false }
                             }
                         }
                         if (state.messages.isEmpty() && !state.contentLoaded) Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
@@ -413,6 +415,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                     cancelChange = { id, done -> account.cancelChange(target, id, done) },
                                     working = state.working)
                             }
+                            // A short final item gives following an actual bottom target,
+                            // including when the last message is taller than the viewport.
+                            item(key = "spaces-conversation-end") { Spacer(Modifier.height(1.dp)) }
                         }
                         val acceptedOverlay = overlayMessage?.let { !it.pending && !it.rejected && !it.cancelled } == true
                         val editableOverlay = acceptedOverlay && overlayMessage?.deleted == false && overlayMessage.author == account.ownerKey && canWrite
