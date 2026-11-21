@@ -24,6 +24,200 @@ class SpaceMessageThreadsTest {
     private val clock = Clock.fixed(Instant.ofEpochMilli(1_700_000_000_000), ZoneOffset.UTC)
     private fun wallet(value: Int) = SaitoWallet.fromPrivateKey(value.toString().padStart(64, '0'))
 
+    @Test fun cancellingAnUntransmittedRootOrReplyRetainsRecoverableTextAndCannotWithdrawAnUncertainSend() = runBlocking<Unit> {
+        val owner = wallet(1); val service = wallet(2)
+        SpacesServiceStore(files.newFolder("cancel-message-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("cancel-message-owner.sqlite").absolutePath).use { ownerStore ->
+                var loseSendReply = false
+                val attempts = mutableListOf<String>()
+                fun author() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+                    val root = SaitoEnvelope.decode(request.envelope()).body.get("content_kind")?.asString == "message"
+                    if (root) attempts.add(request.envelope())
+                    remote.exchange(request.envelope()).also { if (root && loseSendReply) {
+                        loseSendReply = false; throw java.io.IOException("The send was accepted, but its reply was lost")
+                    } }
+                }
+                var writer = author()
+                val space = writer.create(SpaceProfile("Recoverable cancellation", visibility = SpaceVisibility.PUBLIC)); writer.flush(space)
+                val cancelledRoot = writer.send(space, "A root cancelled before transmission")
+                writer.saveDraft(space, "Newer channel writing")
+                assertTrue(writer.cancelQueuedMessage(space, cancelledRoot))
+                assertFalse(writer.cancelQueuedMessage(space, cancelledRoot))
+                writer = author()
+                val cancelled = writer.timeline(space).single()
+                assertTrue(cancelled.cancelled); assertFalse(cancelled.pending); assertFalse(cancelled.rejected)
+                assertEquals("A root cancelled before transmission", cancelled.text)
+                assertEquals("Newer channel writing", writer.draft(space))
+                writer.flush(space); assertTrue(attempts.isEmpty()); assertTrue(writer.messages(space).isEmpty())
+                writer.send(space, "An accepted thread parent"); writer.flush(space)
+                val parent = writer.timeline(space).single { !it.cancelled }
+                writer.selectThread(space, parent)
+                val cancelledReply = writer.reply(space, parent, "A reply cancelled before transmission")
+                writer.saveThreadDraft(space, parent, "Newer thread writing")
+                assertTrue(writer.cancelQueuedMessage(space, cancelledReply))
+                writer.flush(space); writer.refreshThread(space, parent)
+                val child = writer.thread(space, parent).single()
+                assertTrue(child.cancelled); assertEquals("A reply cancelled before transmission", child.text)
+                assertEquals("Newer thread writing", writer.threadDraft(space, parent))
+                assertEquals(0L, writer.timeline(space).single { it.id == parent.id }.replyCount)
+                val uncertain = writer.send(space, "An uncertain accepted send")
+                loseSendReply = true
+                try { writer.flush(space); fail("The accepted response is lost") } catch (_: java.io.IOException) { }
+                writer = author()
+                assertFalse(writer.cancelQueuedMessage(space, uncertain))
+                assertTrue(writer.timeline(space).single { it.id == uncertain }.attempted)
+                writer.flush(space)
+                val originals = attempts.filter { SaitoEnvelope.decode(it).id == uncertain }
+                assertEquals(2, originals.size); assertEquals(originals[0], originals[1])
+                assertEquals(1, writer.messages(space).count { it == "An uncertain accepted send" })
+            }
+        }
+    }
+
+    @Test fun pendingMessageChangesKeepTheirVisibleIntentAcrossReopenLostAcknowledgmentAndRejection() = runBlocking<Unit> {
+        val owner = wallet(1); val service = wallet(2); val member = wallet(3)
+        SpacesServiceStore(files.newFolder("message-change-status-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("message-change-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("message-change-member.sqlite").absolutePath).use { memberStore ->
+                    val manager = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    var loseEditReply = false
+                    val attempts = mutableListOf<String>()
+                    fun author() = SpaceClient(member, "fixture-node", service.publicKey, memberStore, clock) { request ->
+                        val edit = SaitoEnvelope.decode(request.envelope()).body.get("content_kind")?.asString == "message-edit"
+                        if (edit) attempts.add(request.envelope())
+                        remote.exchange(request.envelope()).also { if (edit && loseEditReply) {
+                            loseEditReply = false; throw java.io.IOException("The accepted edit acknowledgment was lost")
+                        } }
+                    }
+                    var writer = author()
+                    val space = manager.create(SpaceProfile("Visible queued intent", visibility = SpaceVisibility.PUBLIC)); manager.flush(space)
+                    writer.openPublic(space); writer.joinPublic(space); writer.flush(space); manager.refresh(space)
+                    writer.send(space, "The original received message"); writer.flush(space)
+                    val original = writer.timeline(space).single()
+                    val edit = writer.editMessage(space, original, "The desired replacement")
+                    writer = author()
+                    val queued = requireNotNull(writer.timeline(space).single().change)
+                    assertEquals(edit, queued.operationId); assertEquals(SpaceClient.MessageChangeKind.EDIT, queued.kind)
+                    assertFalse(queued.attempted); assertFalse(queued.rejected); assertEquals("The desired replacement", queued.text)
+                    assertEquals("The original received message", writer.timeline(space).single().text)
+                    loseEditReply = true
+                    try { writer.flush(space); fail("The response is deliberately lost") } catch (_: java.io.IOException) { }
+                    writer = author()
+                    assertTrue(requireNotNull(writer.timeline(space).single().change).attempted)
+                    writer.flush(space)
+                    assertEquals(attempts[0], attempts[1]); assertNull(writer.timeline(space).single().change)
+                    assertEquals("The desired replacement", writer.timeline(space).single().text)
+                    writer.deleteMessage(space, writer.timeline(space).single())
+                    assertEquals(SpaceClient.MessageChangeKind.DELETE, writer.timeline(space).single().change?.kind)
+                    val channel = writer.community(space).channel
+                    manager.archiveChannel(space, channel, true); manager.flush(space)
+                    writer.flush(space)
+                    val rejected = requireNotNull(writer.timeline(space).single().change)
+                    assertEquals(SpaceClient.MessageChangeKind.DELETE, rejected.kind); assertTrue(rejected.rejected)
+                    assertFalse(writer.timeline(space).single().deleted)
+                    manager.archiveChannel(space, channel, false); manager.flush(space); writer.refresh(space)
+                    writer.editMessage(space, writer.timeline(space).single(), "The newer requested text")
+                    val newer = requireNotNull(writer.timeline(space).single().change)
+                    assertFalse(newer.rejected); assertEquals("The newer requested text", newer.text)
+                    writer.flush(space)
+                    assertNull(writer.timeline(space).single().change)
+                    assertEquals("The newer requested text", writer.timeline(space).single().text)
+                }
+            }
+        }
+    }
+
+    @Test fun revokedPrivateAccessPreservesCachedThreadFocusAndUnsavedWritingWithoutGrantingNewContributions() = runBlocking<Unit> {
+        val owner = wallet(1); val service = wallet(2); val member = wallet(3)
+        SpacesServiceStore(files.newFolder("revoked-thread-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("revoked-thread-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("revoked-thread-member.sqlite").absolutePath).use { memberStore ->
+                    val manager = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    var exchanges = 0
+                    fun reader() = SpaceClient(member, "fixture-node", service.publicKey, memberStore, clock) { exchanges++; remote.exchange(it.envelope()) }
+                    var writer = reader()
+                    val space = manager.create(SpaceProfile("Retained local work", visibility = SpaceVisibility.PUBLIC)); manager.flush(space)
+                    writer.openPublic(space); writer.joinPublic(space); writer.flush(space); manager.refresh(space)
+                    val channel = manager.createPrivateChannel(space, SpaceChannelProfile("Private discussions"), setOf(member.publicKey)); manager.flush(space)
+                    writer.refresh(space); writer.flush(space); manager.admitPending(space); manager.flush(space); writer.refresh(space)
+                    manager.send(space, "A previously received private parent", channel); manager.flush(space); writer.refresh(space, channel)
+                    val parent = writer.timeline(space, channel = channel).single()
+                    writer.selectThread(space, parent, channel)
+                    val replyId = writer.reply(space, parent, "A previously received reply", channel); writer.flush(space); writer.refreshThread(space, parent, channel)
+                    val reply = writer.thread(space, parent, channel = channel).single { it.id == replyId }
+                    val position = requireNotNull(reply.position)
+                    val anchor = SpaceClient.ReadingAnchor(reply.id, position, 19, position)
+                    manager.revokeChannelAccess(space, channel, member.publicKey); manager.flush(space)
+                    try { writer.refresh(space, channel) } catch (_: SpaceClient.ReadDenied) { }
+                    assertEquals("Cached identity survives a permission change", parent.id, writer.message(space, parent.id, channel)?.id)
+                    writer.saveThreadDraft(space, parent, "Work typed before the access change")
+                    writer.saveThreadReadingAnchor(space, parent, anchor, channel)
+                    writer = reader()
+                    assertEquals(parent.id, writer.selectedThread(space, channel)?.id)
+                    val view = writer.presentation(space, channel, thread = parent)
+                    assertEquals("A previously received private parent", view.threadParent?.text)
+                    assertEquals(listOf(replyId), view.messages.map { it.id })
+                    assertEquals("Work typed before the access change", view.draft); assertEquals(anchor, view.anchor)
+                    assertFalse(requireNotNull(view.current).canReply)
+                    assertThrows(IllegalArgumentException::class.java) { writer.reply(space, parent, "A new forbidden contribution", channel) }
+                    val requestsBeforeLocalNavigation = exchanges
+                    writer.selectChannel(space, channel)
+                    assertNull(writer.selectedThread(space, channel))
+                    assertEquals("A previously received private parent", writer.presentation(space, channel).messages.single().text)
+                    writer.selectThread(space, parent, channel)
+                    val reopened = writer.presentation(space, channel, thread = requireNotNull(writer.selectedThread(space, channel)))
+                    assertEquals("Work typed before the access change", reopened.draft); assertEquals(anchor, reopened.anchor)
+                    assertFalse(requireNotNull(reopened.current).canReply)
+                    writer.flush(space)
+                    assertEquals("Cached navigation must not send a new join or contribution", requestsBeforeLocalNavigation, exchanges)
+                    assertFalse(requireNotNull(writer.presentation(space, channel).current).canReply)
+                }
+            }
+        }
+    }
+
+    @Test fun aRestoredNativeConversationSelectionProjectsTheRightDraftHistoryAndCurrentParent() = runBlocking<Unit> {
+        val owner = wallet(1); val service = wallet(2)
+        SpacesServiceStore(files.newFolder("thread-selection-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("thread-selection-owner.sqlite").absolutePath).use { ownerStore ->
+                fun author() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                var creator = author()
+                val space = creator.create(SpaceProfile("Native conversation focus", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
+                val parentId = creator.send(space, "The original parent")
+                val otherId = creator.send(space, "Another top-level message"); creator.flush(space)
+                val parent = creator.timeline(space).single { it.id == parentId }
+                val replyId = creator.reply(space, parent, "A focused reply"); creator.flush(space); creator.refresh(space); creator.refreshThread(space, parent)
+                val channel = creator.community(space).channel
+                val reply = creator.thread(space, parent).single()
+                val mainAnchor = SpaceClient.ReadingAnchor(parentId, requireNotNull(parent.position), 11, 0)
+                val replyAnchor = SpaceClient.ReadingAnchor(replyId, requireNotNull(reply.position), 17, requireNotNull(reply.position))
+                creator.saveReadingAnchor(space, channel, mainAnchor)
+                creator.saveThreadReadingAnchor(space, parent, replyAnchor)
+                creator.saveDraft(space, "Channel writing"); creator.saveThreadDraft(space, parent, "Thread writing")
+                creator.selectThread(space, parent)
+                creator = author()
+                val restored = requireNotNull(creator.selectedThread(space))
+                assertEquals(parentId, restored.id)
+                val focused = creator.presentation(space, thread = restored)
+                assertEquals(parentId, focused.threadParent?.id)
+                assertEquals(listOf(replyId), focused.messages.map { it.id })
+                assertEquals("Thread writing", focused.draft); assertEquals(replyAnchor, focused.anchor)
+                assertEquals(listOf(parentId, otherId), creator.presentation(space).messages.map { it.id })
+                creator.editMessage(space, parent, "The updated parent"); creator.flush(space)
+                assertEquals("The updated parent", creator.selectedThread(space)?.text)
+                assertEquals("The updated parent", creator.presentation(space, thread = restored).threadParent?.text)
+                creator.selectChannel(space, channel)
+                assertNull(creator.selectedThread(space))
+                val main = creator.presentation(space)
+                assertNull(main.threadParent); assertEquals("Channel writing", main.draft); assertEquals(mainAnchor, main.anchor)
+                assertEquals("Thread writing", creator.threadDraft(space, parent))
+                assertEquals(replyAnchor, creator.threadReadingAnchor(space, parent))
+                assertThrows(IllegalArgumentException::class.java) { creator.selectThread(space, reply) }
+                assertNull(creator.selectedThread(space))
+            }
+        }
+    }
+
     @Test(timeout = 45_000) fun refreshingAnOlderThreadWindowUpdatesEveryVisibleLargeEditAndRetainsBothAnchors() = runBlocking<Unit> {
         val owner = wallet(1); val service = wallet(2); val member = wallet(3)
         SpacesServiceStore(files.newFolder("anchored-thread-service").toPath(), service, clock).use { remote ->
@@ -241,12 +435,23 @@ class SpaceMessageThreadsTest {
                     assertEquals(listOf(replyId), received.map { it.id })
                     assertEquals("A confidential threaded answer", received.single().text)
                     assertFalse(received.single().pending)
-                    writer.editMessage(space, received.single(), "The corrected confidential answer", channel); writer.flush(space)
+                    writer.editMessage(space, received.single(), "The corrected confidential answer", channel)
+                    val queuedEdit = requireNotNull(writer.thread(space, parent, channel = channel).single().change)
+                    assertEquals(SpaceClient.MessageChangeKind.EDIT, queuedEdit.kind)
+                    assertEquals("The corrected confidential answer", queuedEdit.text)
+                    assertFalse(queuedEdit.attempted)
+                    writer = author()
+                    assertEquals("The corrected confidential answer", writer.thread(space, parent, channel = channel).single().change?.text)
+                    writer.flush(space)
+                    assertNull(writer.thread(space, parent, channel = channel).single().change)
                     creator.refreshThread(space, parent, channel)
                     val corrected = creator.thread(space, parent, channel = channel).single()
                     assertEquals(replyId, corrected.id); assertTrue(corrected.edited)
                     assertEquals("The corrected confidential answer", corrected.text)
-                    writer.deleteMessage(space, received.single(), channel); writer.flush(space); creator.refreshThread(space, parent, channel)
+                    writer.deleteMessage(space, received.single(), channel)
+                    val queuedDeletion = requireNotNull(writer.thread(space, parent, channel = channel).single().change)
+                    assertEquals(SpaceClient.MessageChangeKind.DELETE, queuedDeletion.kind); assertNull(queuedDeletion.text)
+                    writer.flush(space); creator.refreshThread(space, parent, channel)
                     val removed = creator.thread(space, parent, channel = channel).single()
                     assertEquals(replyId, removed.id); assertTrue(removed.deleted); assertNull(removed.text)
                     assertEquals(2, changes.size)
@@ -258,6 +463,13 @@ class SpaceMessageThreadsTest {
                     }
                     assertEquals("A confidential threaded answer", received.single().text)
                     assertFalse(received.single().edited); assertFalse(received.single().deleted)
+                    val cancelledId = writer.reply(space, parent, "An unsent confidential reply", channel)
+                    assertTrue(writer.cancelQueuedMessage(space, cancelledId))
+                    writer = author(); writer.flush(space)
+                    val retained = writer.thread(space, parent, channel = channel).single { it.id == cancelledId }
+                    assertTrue(retained.cancelled); assertEquals("An unsent confidential reply", retained.text)
+                    creator.refreshThread(space, parent, channel)
+                    assertEquals(listOf(replyId), creator.thread(space, parent, channel = channel).map { it.id })
                     creator.refresh(space, channel)
                     assertEquals(1L, creator.timeline(space, channel = channel).single { it.id == parentId }.replyCount)
                 }

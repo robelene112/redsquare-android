@@ -1,25 +1,44 @@
 # Implementation handoff
 
-## In-progress140 conversation backend, native controls next
+## In-progress140 native conversations and recoverable work
 
-The owned conversation backend now has immutable public/private edits and
-removals, targeted reply threads, exact-original recovery, separate thread
-concepts/history/pixel anchors and announcement-member replies. Schema5 adds
-bounded message/target indexes without changing accepted originals or receipts.
-Private reply changes bind their actual thread root in archive AEAD.
+Native source now connects channel and thread conversations, reply-count entry,
+authored edits, staff/author deletion, edited labels and compact removed rows.
+Threads restore their accepted parent identity, separate writing and pixel
+anchor. Account delivery, dirty writes, viewport records and history windows
+carry the thread identity, so stale callbacks cannot overwrite another scope.
+Announcement members use the separate reply permission. NavigationB is retained.
 
-The complete shared backend check passes251core/49classes and174service/18classes
-with zero failures/errors/skips. The21-case focused catalogue also covers actual
-lost replies and service reopens, role demotion/regrant, real held signed reads,
-byte-limited histories and50large older-thread edits during200new arrivals.
-Both independent scoped source reviews have no concrete remaining findings.
+Queued edits/deletions keep their latest durable operation and requested text
+visible while waiting, after an uncertain response and after rejection. Older
+completion cannot clear a newer requested change. Cancellation of an unattempted
+root or reply uses the same transaction as the delivery-attempt marker. It keeps
+its signed original locally as cancelled, without inventing a node rejection,
+and preserves current writing. The native row offers explicit draft restoration.
+An armed cancellation that loses the race shows transmitting/already-sent feedback.
+
+Previously received private conversations and local writing remain recoverable
+after access ends. Navigation within the already selected cached scope does not
+request admission. Fresh contribution permissions stay revoked. The actual
+regression checks Back, thread reopening, draft/pixel recovery and zero network
+calls during that navigation. Thread-aware channel administration stays available.
+
+The shared check passes251core/49classes and178service/18classes, zero failures,
+errors or skips, including private pending-change recovery and cancellation.
+A subsequent local-navigation correction passes all12affected thread cases.
+The Android main source compiles with these controls. These are source/JVM
+checks, not native visual, Activity, IME or process acceptance. Original failing
+and passing outputs remain in the external Spaces implementation cache. Both
+actual scoped source review axes have no concrete remaining findings.
+
+The existing backend includes immutable public/private edits/removals, targeted
+threads, exact-original recovery and bounded schema5 base/version indexes.
 Indexed COUNT scaling and optional mutation-preparation duplication remain
 unmeasured/nonblocking review judgments.
 
-This is an intermediate source checkpoint. Continue140 with native message and
-thread controls, then its cancellation/reactions/pins/notification-policy work
-and actual native/process verification. No140native or whole-ticket acceptance
-is claimed. Keep140open and continue141-147 sequentially afterwards. Beta142,
+Continue140 with cancellation for queued changes, reactions, pins and notification
+policy, followed by actual native/process verification. Keep140open; continue
+141-147 sequentially without stopping at this source checkpoint. Beta142,
 production activation, provider/public-write/file-hosting and legacyChat E2E
 gates retain their existing scopes. The accepted139 record below remains valid.
 

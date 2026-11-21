@@ -29,10 +29,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val endpoint: String, parent: CoroutineScope) {
     enum class Availability { CHECKING, ONLINE, OFFLINE, UNSUPPORTED, CHANGED_IDENTITY, STORAGE_UNAVAILABLE }
     enum class Problem { CONNECTION, SAVE, INVITATION }
-    data class Target(val space: String, val channel: String)
+    data class Target(val space: String, val channel: String, val thread: String? = null)
     data class State(val loading: Boolean = true, val availability: Availability = Availability.CHECKING,
         val communities: List<SpaceClient.Community> = emptyList(), val selected: String? = null,
-        val selectedChannel: String? = null, val current: SpaceClient.Community? = null, val publicRulesToken: String? = null,
+        val selectedChannel: String? = null, val threadParent: SpaceClient.Message? = null, val current: SpaceClient.Community? = null, val publicRulesToken: String? = null,
         val anchor: SpaceClient.ReadingAnchor? = null, val created: String? = null,
         val listingIntent: Boolean? = null, val previewIssue: SpaceClient.ReadProblem? = null, val publicLink: String? = null,
         val archiveChange: SpaceClient.ArchiveChange? = null, val roleChange: SpaceClient.RoleChange? = null,
@@ -82,7 +82,27 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val wasVisible = AtomicBoolean()
     private val previews = AtomicLong()
     private val directoryRequests = AtomicLong()
-    private fun State.target(): Target? = selected?.let { space -> selectedChannel?.let { Target(space, it) } }
+    private fun State.target(): Target? = selected?.let { space -> selectedChannel?.let { Target(space, it, threadParent?.id) } }
+    private fun SpaceClient.parent(target: Target): SpaceClient.Message? = target.thread?.let {
+        requireNotNull(message(target.space, it, target.channel))
+    }
+    private fun SpaceClient.saveDraft(target: Target, text: String) {
+        val parent = parent(target)
+        if (parent == null) saveDraft(target.space, text, target.channel) else saveThreadDraft(target.space, parent, text, target.channel)
+    }
+    private fun SpaceClient.anchor(target: Target): SpaceClient.ReadingAnchor? {
+        val parent = parent(target)
+        return if (parent == null) readingAnchor(target.space, target.channel) else threadReadingAnchor(target.space, parent, target.channel)
+    }
+    private fun SpaceClient.saveAnchor(target: Target, anchor: SpaceClient.ReadingAnchor?) {
+        val parent = parent(target)
+        if (parent == null) saveReadingAnchor(target.space, target.channel, anchor) else saveThreadReadingAnchor(target.space, parent, anchor, target.channel)
+    }
+    private fun SpaceClient.window(target: Target): SpaceClient.HistoryWindow {
+        val parent = parent(target)
+        return if (parent == null) historyWindow(target.space, historyWindows[target], target.channel)
+        else threadHistoryWindow(target.space, parent, historyWindows[target], target.channel)
+    }
     private val historyWindows = ConcurrentHashMap<Target, Long>()
     val ownerKey: String get() = wallet.publicKey
     val avatarImages = SpaceAvatarImages(wallet.publicKey, backend)
@@ -187,7 +207,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             if (!selected.joined && selected.pending && !selected.membershipRequested) return@let
                             flushUrgent(current)
                             trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} start")
-                            current.refresh(target.space, channel = target.channel, from = historyWindows[target])
+                            current.refresh(target.space, channel = target.channel, from = if (target.thread == null) historyWindows[target] else null)
+                            current.parent(target)?.let { current.refreshThread(target.space, it, target.channel, historyWindows[target]) }
                             trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} complete")
                             mutable.update { it.copy(accessProblems = it.accessProblems - target.space) }
                         } catch (denied: SpaceClient.ReadDenied) {
@@ -274,7 +295,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val current = client ?: return@withLock
         val before = mutable.value
         val target = before.target()
-        val projection = current.presentation(target?.space, target?.channel, target?.let { historyWindows[it] })
+        val projection = current.presentation(target?.space, target?.channel, target?.let { historyWindows[it] }, target?.let { current.parent(it) })
         val communities = projection.communities
         val profiles = projection.profiles
         val community = projection.current
@@ -292,7 +313,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             mutable.update { previous ->
                 if (previous.target() != target || previous.loadingChannel) previous.copy(communities = communities, profiles = profiles)
                 else previous.copy(communities = communities, profiles = profiles, current = community, channels = channels, categories = projection.categories, members = members, bannedMembers = bannedMembers,
-                messages = messages, invitation = invitation, publicRulesToken = publicRulesToken,
+                messages = messages, threadParent = projection.threadParent, invitation = invitation, publicRulesToken = publicRulesToken,
                 listingIntent = target?.let { dirtyListings[it.space] } ?: listingIntent, publicLink = publicLink,
                 contentLoaded = window?.loaded == true, hasEarlier = window?.hasEarlier == true,
                 hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0,
@@ -310,13 +331,19 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     fun refresh() { wake.trySend(Unit) }
     fun select(space: String?, channel: String? = null) { selectRoute(space, channel) }
-    private fun selectRoute(space: String?, channel: String? = null, expected: Long? = null): Long? {
+    fun openThread(message: SpaceClient.Message) {
+        val target = mutable.value.target() ?: return
+        if (target.thread != null) return
+        selectRoute(target.space, target.channel, thread = message)
+    }
+    fun closeThread() { mutable.value.target()?.let { select(it.space, it.channel) } }
+    private fun selectRoute(space: String?, channel: String? = null, expected: Long? = null, thread: SpaceClient.Message? = null): Long? {
         if (closed.get()) return null
         return synchronized(navigationChanges) {
             if (expected != null && navigationVersion.get() != expected) return@synchronized null
             val route = navigationVersion.incrementAndGet()
             val token = selection.incrementAndGet()
-            mutable.update { it.copy(selected = space, selectedChannel = channel, current = null,
+            mutable.update { it.copy(selected = space, selectedChannel = channel, threadParent = null, current = null,
                 messages = emptyList(), channels = emptyList(), members = emptyList(), draft = "", invitation = null, anchor = null,
                 problem = null, listingIntent = null, publicLink = null, archiveChange = null, roleChange = null, channelEdit = null, channelCreation = null, categoryChange = null, visibilityChange = null, dissolutionChange = null, categories = emptyList(), channelAccessChange = null, membershipChange = null, ownershipOffer = null, ownershipChange = null, bannedMembers = emptySet(),
                 contentLoaded = false, loadingChannel = space != null, scrollToMessage = null) }
@@ -330,13 +357,15 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             mutable.update { if (selection.get() == token) it.copy(loadingChannel = false) else it }
                             return@withLock
                         }
-                        if (channel != null) current.selectChannel(space, channel)
+                        if (thread != null) current.selectThread(space, thread, channel)
+                        else if (channel != null) current.selectChannel(space, channel)
                         val selectedCommunity = current.community(space)
-                        val target = Target(space, selectedCommunity.channel)
+                        val parent = current.selectedThread(space, selectedCommunity.channel)
+                        val target = Target(space, selectedCommunity.channel, parent?.id)
                         val version = draftVersions.getOrPut(target) { AtomicLong() }.get()
-                        val anchor = current.readingAnchor(space, channel = target.channel)
+                        val anchor = current.anchor(target)
                         if (anchor != null) historyWindows.putIfAbsent(target, anchor.windowFrom)
-                        val projection = current.presentation(space, target.channel, historyWindows[target])
+                        val projection = current.presentation(space, target.channel, historyWindows[target], parent)
                         val community = requireNotNull(projection.current)
                         val window = requireNotNull(projection.window)
                         val draft = dirtyDrafts[target] ?: projection.draft
@@ -358,7 +387,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         val channelCreation = projection.management.creation
                         val channelAccessChange = projection.management.access
                         mutable.update { if (it.selected == space && selection.get() == token) it.copy(
-                            selectedChannel = target.channel, current = community, channels = channels, categories = projection.categories, categoryChange = projection.management.category, visibilityChange = projection.management.visibility, dissolutionChange = projection.management.dissolution, members = members, anchor = anchor,
+                            selectedChannel = target.channel, threadParent = projection.threadParent, current = community, channels = channels, categories = projection.categories, categoryChange = projection.management.category, visibilityChange = projection.management.visibility, dissolutionChange = projection.management.dissolution, members = members, anchor = anchor,
                             archiveChange = archiveChange, roleChange = roleChange, membershipChange = membershipChange, ownershipOffer = ownershipOffer, ownershipChange = ownershipChange, bannedMembers = bannedMembers, channelEdit = channelEdit, channelCreation = channelCreation, channelAccessChange = channelAccessChange,
                             profiles = it.profiles + (space to profile), publicRulesToken = rulesToken, publicLink = publicLink, invitation = invitation,
                             listingIntent = dirtyListings[space] ?: listingIntent,
@@ -374,20 +403,20 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             route
         }
     }
-    fun editDraft(text: String) { mutable.value.target()?.let { editDraft(it.space, it.channel, text) } }
+    fun editDraft(text: String) { mutable.value.target()?.let { editDraft(it.space, it.channel, text, it.thread) } }
     fun editDraft(space: String, text: String) {
-        mutable.value.target()?.takeIf { it.space == space }?.let { editDraft(space, it.channel, text) }
+        mutable.value.target()?.takeIf { it.space == space }?.let { editDraft(space, it.channel, text, it.thread) }
     }
-    fun editDraft(space: String, channel: String, text: String) {
+    fun editDraft(space: String, channel: String, text: String, thread: String? = null) {
         if (closed.get() || navigationSaving.get()) return
-        val target = Target(space, channel)
+        val target = Target(space, channel, thread)
         dirtyDrafts[target] = text
         val version = draftVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
         mutable.update { if (it.target() == target) it.copy(draft = text) else it }
         scope.launch {
             try { localAccess.withLock {
                 if (draftVersions[target]?.get() == version) {
-                    requireNotNull(client).saveDraft(space, text, channel = channel)
+                    requireNotNull(client).saveDraft(target, text)
                     dirtyDrafts.remove(target, text)
                 }
             } }
@@ -402,12 +431,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             localAccess.withLock {
                 val current = requireNotNull(client)
                 if (mutable.value.target() == target && mutable.value.draft == before.draft)
-                    current.saveDraft(target.space, before.draft, channel = target.channel)
-                val queued = current.send(target.space, before.draft, channel = target.channel)
+                    current.saveDraft(target, before.draft)
+                val parent = current.parent(target)
+                val queued = if (parent == null) current.send(target.space, before.draft, channel = target.channel)
+                else current.reply(target.space, parent, before.draft, target.channel)
                 historyWindows.remove(target)
                 anchorVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
                 dirtyAnchors.remove(target)
-                current.saveReadingAnchor(target.space, target.channel, null)
+                current.saveAnchor(target, null)
                 mutable.update { if (it.target() == target && it.draft == before.draft) {
                     draftVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
                     dirtyDrafts.remove(target, before.draft)
@@ -417,11 +448,29 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             publish(); wake.trySend(Unit)
         }
     }
-    fun readingPosition(space: String, followLatest: Boolean) {
-        mutable.value.target()?.takeIf { it.space == space }?.let { readingPosition(space, it.channel, followLatest) }
+    fun cancelSend(target: Target, messageId: String, onFinished: (Boolean) -> Unit) {
+        if (mutable.value.target() != target) return
+        localAction(isCurrent = { mutable.value.target() == target }) {
+            val cancelled = localAccess.withLock { requireNotNull(client).cancelQueuedMessage(target.space, messageId) }
+            onFinished(cancelled); publish()
+        }
     }
-    fun readingPosition(space: String, channel: String, followLatest: Boolean, anchor: SpaceClient.ReadingAnchor? = null) {
-        val before = mutable.value; val target = Target(space, channel)
+    fun editMessage(target: Target, message: SpaceClient.Message, text: String, onQueued: () -> Unit) =
+        changeMessage(target, onQueued) { editMessage(target.space, message, text, target.channel) }
+    fun deleteMessage(target: Target, message: SpaceClient.Message, onQueued: () -> Unit) =
+        changeMessage(target, onQueued) { deleteMessage(target.space, message, target.channel) }
+    private fun changeMessage(target: Target, onQueued: () -> Unit, change: SpaceClient.() -> String) {
+        if (mutable.value.target() != target) return
+        localAction(isCurrent = { mutable.value.target() == target }) {
+            localAccess.withLock { requireNotNull(client).change() }
+            onQueued(); publish(); wake.trySend(Unit)
+        }
+    }
+    fun readingPosition(space: String, followLatest: Boolean) {
+        mutable.value.target()?.takeIf { it.space == space }?.let { readingPosition(space, it.channel, followLatest, thread = it.thread) }
+    }
+    fun readingPosition(space: String, channel: String, followLatest: Boolean, anchor: SpaceClient.ReadingAnchor? = null, thread: String? = null) {
+        val before = mutable.value; val target = Target(space, channel, thread)
         if (before.target() != target || before.loadingChannel) return
         val latest = followLatest && !before.hasLater
         if (latest) historyWindows.remove(target) else historyWindows.putIfAbsent(target, before.windowFrom)
@@ -434,7 +483,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             delay(150)
             try { localAccess.withLock {
                 if (anchorVersions[target]?.get() == version) {
-                    requireNotNull(client).saveReadingAnchor(space, channel, snapshot.anchor)
+                    requireNotNull(client).saveAnchor(target, snapshot.anchor)
                     dirtyAnchors.remove(target, snapshot)
                 }
             } }
@@ -444,11 +493,11 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     private fun persistLocal(current: SpaceClient) = traceLocalWork("persist-local") {
         for ((target, text) in dirtyDrafts.entries.toList()) {
-            current.saveDraft(target.space, text, channel = target.channel)
+            current.saveDraft(target, text)
             dirtyDrafts.remove(target, text)
         }
         for ((target, viewport) in dirtyAnchors.entries.toList()) {
-            current.saveReadingAnchor(target.space, target.channel, viewport.anchor)
+            current.saveAnchor(target, viewport.anchor)
             dirtyAnchors.remove(target, viewport)
         }
         for ((space, listed) in dirtyListings.entries.toList()) {
@@ -462,8 +511,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val target = mutable.value.target() ?: return
         localAction(Problem.CONNECTION) { network.withLock {
             val current = requireNotNull(client)
-            val before = current.historyWindow(target.space, historyWindows[target], channel = target.channel)
-            val start = current.older(target.space, channel = target.channel, before = before.from)
+            val before = current.window(target)
+            val parent = current.parent(target)
+            val start = if (parent == null) current.older(target.space, channel = target.channel, before = before.from)
+            else current.olderThread(target.space, parent, before.from, target.channel)
             historyWindows[target] = start
             publish()
             mutable.update { if (it.target() == target) it.copy(scrollToMessage = it.messages.firstOrNull()?.id) else it }
@@ -479,7 +530,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         localAction {
             localAccess.withLock {
                 if (anchorVersions[target]?.get() == version) {
-                    requireNotNull(client).saveReadingAnchor(target.space, target.channel, null)
+                    requireNotNull(client).saveAnchor(target, null)
                     dirtyAnchors.remove(target, snapshot)
                 }
             }
@@ -495,11 +546,11 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
         }
     }
-    fun restoreRejectedDraft(messageId: String) {
+    fun restoreUnsentDraft(messageId: String) {
         val before = mutable.value
         val space = before.selected ?: return
         if (before.draft.isNotEmpty() || before.working) return
-        val text = before.messages.singleOrNull { it.id == messageId && it.rejected }?.text ?: return
+        val text = before.messages.singleOrNull { it.id == messageId && (it.rejected || it.cancelled) }?.text ?: return
         // Reuse the ordinary immediate, revision-fenced editing path. A queued
         // blank save cannot overwrite this user action or newer typing.
         editDraft(space, text)
@@ -653,11 +704,11 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     /** An old rejection is acknowledged only after these selected settings have actually refreshed. */
     fun refreshChannelSettings(space: String, channel: String, onRefreshed: () -> Unit) {
         val route = navigationVersion.get()
-        val target = Target(space, channel)
+        val target = mutable.value.target()?.takeIf { it.space == space && it.channel == channel } ?: return
         localAction(Problem.CONNECTION, isCurrent = { navigationVersion.get() == route && mutable.value.target() == target }) {
             network.withLock {
                 if (navigationVersion.get() != route || mutable.value.target() != target) return@withLock
-                requireNotNull(client).refresh(space, channel, from = historyWindows[target])
+                requireNotNull(client).refresh(space, channel, from = historyWindows[target.copy(thread = null)])
                 publish()
                 if (navigationVersion.get() == route && mutable.value.target() == target) {
                     mutable.update { it.copy(availability = Availability.ONLINE) }
@@ -689,7 +740,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val route = navigationVersion.get()
         localAction(Problem.SAVE, isCurrent = { navigationVersion.get() == route }) {
             localAccess.withLock {
-                require(navigationVersion.get() == route && mutable.value.target() == Target(space, channel))
+                require(navigationVersion.get() == route && mutable.value.target()?.copy(thread = null) == Target(space, channel))
                 val current = requireNotNull(client)
                 val selected = current.channels(space).single { it.id == channel }
                 require(selected.metadataReady && if (selected.visibility == SpaceVisibility.PUBLIC)

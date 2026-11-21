@@ -3,8 +3,9 @@
 ## In-progress140 conversation storage
 
 Current source uses envelope version1 and persistent schema5. The conversation
-backend is verified independently of the native interface. Native message
-controls, remaining140 features and node activation are still in progress.
+backend is verified independently of the native interface. Native conversation
+controls compile; their visual/process checks, remaining140 features and node
+activation are still in progress.
 Earlier sections below retain their explicitly stated stage/version scopes.
 
 Accepted `content` and `public-content` records now distinguish `message`,
@@ -56,6 +57,31 @@ backfilled in100-row batches; original envelopes and signed receipts remain
 byte-exact. The adapter accepts compatible schema4/5 services. These source
 changes do not install a module, expose a private channel, activate file hosting
 or update the ordinary public beta.
+
+### Local conversation selection and queued changes
+
+A version1 local thread hint contains only channel, accepted message ID and
+position. Rendering resolves that identity against the cached signed original
+and current accepted changes. It never trusts a stored copy of parent text.
+Explicit channel selection clears the thread hint. Drafts, history windows and
+pixel anchors remain independent per channel/thread. Previously accepted local
+copies and writing remain recoverable after access ends. Navigation within the
+already selected cached scope never queues admission when access is absent;
+new contributions still require current permission and keys.
+
+A per-message latest-change pointer references the exact queued edit/deletion.
+Projection distinguishes unattempted, attempted and rejected intent and retains
+requested edit text locally. Older acceptance/rejection only updates that pointer
+if it still references the same operation. No delayed result can clear a newer
+requested replacement.
+
+Cancellation of an unattempted root/reply and the durable delivery-attempt marker
+are serialized in one store transaction. Successful cancellation removes pending
+and operation pointers but retains the immutable original with a local cancelled
+marker, separate from an authenticated node rejection. Received-message helpers
+exclude cancelled originals. Current writing is never overwritten; restoring the
+text is an explicit native action. Attempted/uncertain sends cannot be withdrawn
+through this local cancellation path and retain exact-original recovery.
 
 ## In-progress138 public directory contract
 

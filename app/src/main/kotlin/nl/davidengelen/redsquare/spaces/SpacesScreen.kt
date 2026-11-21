@@ -38,6 +38,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -173,7 +174,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     LaunchedEffect(selected?.joined) { if (selected?.joined == true) publicRulesOpen = false }
     BackHandler(channelAccessRoute != null) { channelAccessRoute = null; informationOpen = selected != null }
     BackHandler(membersOpen) { membersOpen = false; informationOpen = true }
-    BackHandler(!membersOpen && !channelAccessOpen && state.selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !channelCreator.open && !publicRulesOpen) { choose(null) }
+    BackHandler(!membersOpen && !channelAccessOpen && state.selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !channelCreator.open && !publicRulesOpen) { if (state.threadParent != null) account.closeThread() else choose(null) }
     BackHandler(drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed || drawer.isAnimationRunning) {
         scope.launch { drawer.close() }
     }
@@ -266,14 +267,14 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 style = MaterialTheme.typography.bodySmall)
                         }
                     }
-                    if (selected?.joined == true && channel?.profile?.kind == SpaceChannelKind.ANNOUNCEMENT && !channel.archived &&
+                    if (selected?.joined == true && channel?.profile?.kind == SpaceChannelKind.ANNOUNCEMENT && state.threadParent == null && !channel.archived &&
                         state.members.firstOrNull { it.publicKey == account.ownerKey }?.role !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
                         Text(stringResource(R.string.spaces_announcements_read_only), color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.bodySmall)
                 }
                 if (state.loadingChannel || selected == null) Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                     if (state.problem == null) CircularProgressIndicator(Modifier.size(28.dp)) else ProblemNotice(requireNotNull(state.problem), account::clearProblem)
-                } else key(selected.id, selected.channel) {
+                } else key(selected.id, selected.channel, state.threadParent?.id) {
                     val conversation = channel?.profile?.kind in setOf(SpaceChannelKind.CHAT, SpaceChannelKind.ANNOUNCEMENT) || channel == null
                     if (!conversation) Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -282,6 +283,24 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             Text(stringResource(R.string.spaces_channel_not_available), color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     } else {
+                        val threadParent = state.threadParent
+                        val target = SpacesAccount.Target(selected.id, selected.channel, threadParent?.id)
+                        val canWrite = if (threadParent == null) selected.canSend else selected.canReply
+                        threadParent?.let { parent ->
+                            Surface(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp),
+                                shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                                Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        FrameIconButton(R.drawable.ic_back, stringResource(R.string.spaces_back_to_channel), onClick = account::closeThread)
+                                        Text(stringResource(R.string.spaces_thread), style = MaterialTheme.typography.titleSmall)
+                                    }
+                                    Text(registeredIdentity(parent.author).name, style = MaterialTheme.typography.labelMedium)
+                                    Text(parent.text ?: stringResource(if (parent.deleted) R.string.spaces_message_deleted else R.string.spaces_message_unavailable),
+                                        maxLines = if (compactReading) 1 else 3, overflow = TextOverflow.Ellipsis,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
+                                }
+                            }
+                        }
                         if (state.hasEarlier) OutlinedButton(onClick = account::olderMessages, enabled = !state.working,
                             modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).heightIn(min = 48.dp)) {
                             Text(stringResource(R.string.spaces_earlier_messages))
@@ -309,8 +328,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             }.collect { viewport ->
                                 if (!viewport.automatic) {
                                     if (viewport.anchor != null) account.readingPosition(selected.id, selected.channel,
-                                        viewport.followLatest && !latestHasLater, viewport.anchor)
-                                    viewport.read?.let { position -> if (lastRead == null || position > requireNotNull(lastRead)) {
+                                        viewport.followLatest && !latestHasLater, viewport.anchor, target.thread)
+                                    viewport.read?.takeIf { target.thread == null }?.let { position -> if (lastRead == null || position > requireNotNull(lastRead)) {
                                         lastRead = position; account.markRead(selected.id, selected.channel, position)
                                     } }
                                 }
@@ -344,7 +363,17 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         } else LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = list,
                             contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = 8.dp),
                             verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                            items(state.messages, key = { it.id }) { message -> MessageRow(message, state.draft.isEmpty() && !state.working) { account.restoreRejectedDraft(message.id) } }
+                            items(state.messages, key = { it.id }) { message ->
+                                val accepted = !message.pending && !message.rejected && !message.cancelled
+                                val own = message.author == account.ownerKey
+                                MessageRow(message, state.draft.isEmpty() && !state.working,
+                                    restore = { account.restoreUnsentDraft(message.id) },
+                                    reply = if (accepted && threadParent == null) ({ account.openThread(message) }) else null,
+                                    edit = if (accepted && !message.deleted && own && canWrite) ({ text, done -> account.editMessage(target, message, text, done) }) else null,
+                                    remove = if (accepted && !message.deleted && canWrite && (own || selected.canManage)) ({ done -> account.deleteMessage(target, message, done) }) else null,
+                                    cancel = if (message.pending && !message.attempted) ({ done -> account.cancelSend(target, message.id, done) }) else null,
+                                    working = state.working)
+                            }
                         }
                         if (state.hasLater) OutlinedButton(onClick = account::latestMessages,
                             modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_latest_messages)) }
@@ -357,11 +386,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             HorizontalDivider()
                             Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp), verticalAlignment = Alignment.Bottom,
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                OutlinedTextField(state.draft, { account.editDraft(selected.id, selected.channel, it) }, Modifier.weight(1f),
-                                    enabled = !state.savingNavigation && !state.loadingChannel, placeholder = { Text(stringResource(R.string.spaces_message_channel_hint, channel?.profile?.name ?: "general"),
+                                OutlinedTextField(state.draft, { account.editDraft(selected.id, selected.channel, it, target.thread) }, Modifier.weight(1f),
+                                    enabled = !state.savingNavigation && !state.loadingChannel, placeholder = { Text(stringResource(if (threadParent == null) R.string.spaces_message_channel_hint else R.string.spaces_reply_thread_hint, channel?.profile?.name ?: "general"),
                                         maxLines = if (compactReading) 1 else Int.MAX_VALUE, overflow = TextOverflow.Ellipsis) },
                                     shape = RoundedCornerShape(18.dp), minLines = 1, maxLines = if (compactReading) 1 else 4)
-                                FilledIconButton(onClick = account::send, enabled = selected.canSend && state.draft.isNotBlank() && !state.working &&
+                                FilledIconButton(onClick = account::send, enabled = canWrite && state.draft.isNotBlank() && !state.working &&
                                     state.accessProblems[selected.id] == null, modifier = Modifier.size(48.dp)) {
                                     Icon(painterResource(R.drawable.ic_send), stringResource(R.string.spaces_send), Modifier.size(22.dp))
                                 }
@@ -593,22 +622,90 @@ private data class ChannelViewport(val anchor: SpaceClient.ReadingAnchor?, val f
     }
 }
 
-@Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, restore: () -> Unit) {
+@Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, restore: () -> Unit,
+    reply: (() -> Unit)? = null, edit: ((String, () -> Unit) -> Unit)? = null,
+    remove: ((() -> Unit) -> Unit)? = null, cancel: (((Boolean) -> Unit) -> Unit)? = null, working: Boolean = false) {
     val name = registeredIdentity(message.author).name
     val time = remember(message.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(message.createdAt)) }
+    var menu by remember { mutableStateOf(false) }
+    var editing by rememberSaveable { mutableStateOf(false) }
+    var removing by rememberSaveable { mutableStateOf(false) }
+    var cancelling by rememberSaveable { mutableStateOf(false) }
+    var cancelTooLate by remember { mutableStateOf(false) }
+    var editedText by rememberSaveable { mutableStateOf("") }
+    LaunchedEffect(cancel != null, message.pending) {
+        if (cancelling && cancel == null) {
+            cancelling = false
+            cancelTooLate = !message.cancelled && !message.rejected
+        }
+    }
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         ProfileAvatar(message.author, Modifier.size(38.dp))
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-            Text(name, style = MaterialTheme.typography.titleSmall)
-            Text(message.text ?: stringResource(if (message.missingKeys) R.string.spaces_missing_keys else R.string.spaces_message_unavailable),
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                Text(name, Modifier.weight(1f), style = MaterialTheme.typography.titleSmall)
+                if (edit != null || remove != null) Box {
+                    FrameIconButton(R.drawable.ic_more, stringResource(R.string.spaces_message_actions)) { menu = true }
+                    DropdownMenu(menu, { menu = false }) {
+                        if (edit != null) DropdownMenuItem(text = { Text(stringResource(R.string.spaces_edit_message)) },
+                            onClick = { menu = false; editedText = message.change?.text ?: message.text.orEmpty(); editing = true }, enabled = !working)
+                        if (remove != null) DropdownMenuItem(text = { Text(stringResource(R.string.spaces_delete_message)) },
+                            onClick = { menu = false; removing = true }, enabled = !working)
+                    }
+                }
+            }
+            Text(message.text ?: stringResource(if (message.deleted) R.string.spaces_message_deleted else if (message.missingKeys) R.string.spaces_missing_keys else R.string.spaces_message_unavailable),
+                style = if (message.deleted) MaterialTheme.typography.bodySmall else MaterialTheme.typography.bodyLarge,
                 color = if (message.text != null) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant)
-            Text(if (message.rejected) stringResource(R.string.spaces_not_sent)
-                else if (message.pending) stringResource(if (message.attempted) R.string.spaces_unconfirmed else R.string.spaces_queued) else time,
+            Text(if (message.cancelled) stringResource(R.string.spaces_send_cancelled)
+                else if (message.rejected) stringResource(R.string.spaces_not_sent)
+                else if (message.pending) stringResource(if (message.attempted) R.string.spaces_unconfirmed else R.string.spaces_queued)
+                else if (message.edited && !message.deleted) stringResource(R.string.spaces_edited_at, time) else time,
                 style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            if (message.rejected && message.text != null) TextButton(onClick = restore, enabled = canRestore,
+            message.change?.let { change ->
+                val status = when {
+                    change.rejected -> if (change.kind == SpaceClient.MessageChangeKind.EDIT) R.string.spaces_edit_not_accepted else R.string.spaces_delete_not_accepted
+                    change.attempted -> R.string.spaces_change_awaiting_confirmation
+                    change.kind == SpaceClient.MessageChangeKind.EDIT -> R.string.spaces_edit_waiting_connection
+                    else -> R.string.spaces_delete_waiting_connection
+                }
+                Text(stringResource(status), style = MaterialTheme.typography.labelSmall,
+                    color = if (change.rejected) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            if (reply != null) TextButton(onClick = reply, modifier = Modifier.heightIn(min = 48.dp)) {
+                Icon(painterResource(R.drawable.ic_chat), null, Modifier.size(18.dp))
+                Spacer(Modifier.width(8.dp))
+                Text(if (message.replyCount == 0L) stringResource(R.string.spaces_reply_in_thread)
+                    else pluralStringResource(R.plurals.social_reply_count, message.replyCount.coerceAtMost(Int.MAX_VALUE.toLong()).toInt(), message.replyCount))
+            }
+            if (cancel != null) TextButton(onClick = { cancelling = true }, enabled = !working,
+                modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_cancel_send)) }
+            if (cancelTooLate && !message.cancelled && !message.rejected) Text(stringResource(
+                if (message.pending) R.string.spaces_cancel_send_too_late else R.string.spaces_cancel_send_already_sent),
+                style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if ((message.rejected || message.cancelled) && message.text != null) TextButton(onClick = restore, enabled = canRestore,
                 modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_restore_draft)) }
         }
     }
+    if (cancelling && cancel != null) AlertDialog(onDismissRequest = { if (!working) cancelling = false },
+        title = { Text(stringResource(R.string.spaces_cancel_send)) },
+        text = { Text(stringResource(R.string.spaces_cancel_send_detail)) },
+        confirmButton = { TextButton(onClick = { cancel { stopped -> cancelling = false; cancelTooLate = !stopped } }, enabled = !working) {
+            Text(stringResource(R.string.spaces_cancel_send)) } },
+        dismissButton = { TextButton(onClick = { cancelling = false }, enabled = !working) { Text(stringResource(R.string.spaces_keep_queued)) } })
+    if (editing && edit != null) AlertDialog(onDismissRequest = { if (!working) editing = false },
+        title = { Text(stringResource(R.string.spaces_edit_message)) },
+        text = { OutlinedTextField(editedText, { editedText = it }, Modifier.fillMaxWidth(), enabled = !working,
+            label = { Text(stringResource(R.string.spaces_message_text)) }, maxLines = 8) },
+        confirmButton = { TextButton(onClick = { edit(editedText) { editing = false } }, enabled = !working && editedText.isNotBlank() && editedText != (message.change?.takeUnless { it.rejected }?.text ?: message.text)) {
+            Text(stringResource(R.string.spaces_save_channel)) } },
+        dismissButton = { TextButton(onClick = { editing = false }, enabled = !working) { Text(stringResource(R.string.spaces_cancel)) } })
+    if (removing && remove != null) AlertDialog(onDismissRequest = { if (!working) removing = false },
+        title = { Text(stringResource(R.string.spaces_delete_message)) },
+        text = { Text(stringResource(R.string.spaces_delete_message_detail)) },
+        confirmButton = { TextButton(onClick = { remove { removing = false } }, enabled = !working) {
+            Text(stringResource(R.string.spaces_delete_message), color = MaterialTheme.colorScheme.error) } },
+        dismissButton = { TextButton(onClick = { removing = false }, enabled = !working) { Text(stringResource(R.string.spaces_cancel)) } })
 }
 
 @Composable private fun AvailabilityNotice(availability: SpacesAccount.Availability, refreshing: Boolean, retry: () -> Unit) {

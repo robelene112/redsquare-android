@@ -358,25 +358,30 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     data class Presentation(val communities: List<Community>, val profiles: Map<String, SpaceProfile>,
         val current: Community?, val channels: List<Channel>, val members: List<Member>, val bannedMembers: Set<String>,
         val window: HistoryWindow?, val messages: List<Message>, val draft: String, val anchor: ReadingAnchor?,
-        val invitation: Invitation?, val publicLink: String?, val listingIntent: Boolean?, val management: Management, val categories: List<Category> = emptyList())
+        val invitation: Invitation?, val publicLink: String?, val listingIntent: Boolean?, val management: Management, val categories: List<Category> = emptyList(), val threadParent: Message? = null)
 
     /** A bounded, coherent read for native rendering. It authenticates control
      * history once per scope instead of independently rebuilding it for every
      * visible property. No cached authority survives this transaction. */
-    fun presentation(space: String? = null, channel: String? = null, from: Long? = null): Presentation = store.project {
+    fun presentation(space: String? = null, channel: String? = null, from: Long? = null, thread: Message? = null): Presentation = store.project {
         val communities = communities()
         val profiles = communities.associate { it.id to profile(it.id) }.toMutableMap()
         val current = space?.let { community(it, channel) }
         val selected = current?.channel
         if (space != null) profiles[space] = profile(space)
         val members = space?.let(::members).orEmpty()
-        val window = space?.let { historyWindow(it, from, selected) }
+        val parent = if (space != null && thread != null) {
+            store.transaction { threadParent(space, requireNotNull(selected), thread) }
+            requireNotNull(message(space, thread.id, selected))
+        } else null
+        val window = space?.let { if (parent == null) historyWindow(it, from, selected) else threadHistoryWindow(it, parent, from, selected) }
         Presentation(communities, profiles, current, space?.let(::channels).orEmpty(), members,
             space?.let(::bannedMembers).orEmpty(), window,
-            space?.let { timeline(it, from = window?.from, channel = selected) }.orEmpty(),
-            space?.let { draft(it, selected) }.orEmpty(), space?.let { readingAnchor(it, selected) },
+            space?.let { if (parent == null) timeline(it, from = window?.from, channel = selected) else thread(it, parent, from = window?.from, channel = selected) }.orEmpty(),
+            space?.let { if (parent == null) draft(it, selected) else threadDraft(it, parent, selected) }.orEmpty(),
+            space?.let { if (parent == null) readingAnchor(it, selected) else threadReadingAnchor(it, parent, selected) },
             space?.let(::invitation), space?.takeIf { profiles[it]?.visibility == SpaceVisibility.PUBLIC && members.isNotEmpty() }?.let(::publicLink),
-            space?.let(::listingIntent), space?.let { management(it, selected) } ?: Management(), space?.let(::categories).orEmpty())
+            space?.let(::listingIntent), space?.let { management(it, selected) } ?: Management(), space?.let(::categories).orEmpty(), parent)
     }
 
     /** Urgent delivery projects just its durable management results. */
@@ -671,17 +676,63 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         owned()
         val state = state(space)
         val journal = journal(space)
-        require(journal.canAccessChannel(wallet.publicKey, channel))
-        prepareChannelJoin(space, state, journal.snapshot, channel)
-        state.addProperty("selected_channel", channel); put(stateKey(space), bytes(state))
+        val canAccess = journal.canAccessChannel(wallet.publicKey, channel)
+        // Returning from an already-open cached thread is local navigation,
+        // including after access ended. It never requests fresh membership.
+        require(canAccess || channel == selectedChannel(state))
+        if (canAccess) prepareChannelJoin(space, state, journal.snapshot, channel)
+        state.addProperty("selected_channel", channel); state.remove("selected_thread"); put(stateKey(space), bytes(state))
     }
+
+    /** Persist only the accepted identity of the focus, never a stale copy of its text. */
+    fun selectThread(space: String, parent: Message, channel: String? = null) = store.transaction {
+        owned()
+        val state = state(space); val target = channel ?: selectedChannel(state)
+        val journal = journal(space)
+        val canAccess = journal.canAccessChannel(wallet.publicKey, target)
+        require(canAccess || target == selectedChannel(state))
+        threadParent(space, target, parent)
+        indexConfirmedMessage(space, target, json(requireNotNull(get(contentPrefix(space, target) + positionKey(requireNotNull(parent.position))))))
+        if (canAccess) prepareChannelJoin(space, state, journal.snapshot, target)
+        state.addProperty("selected_channel", target)
+        state.add("selected_thread", JsonObject().apply {
+            addProperty("version", 1); addProperty("channel_id", target)
+            addProperty("message_id", parent.id); addProperty("position", parent.position)
+        })
+        put(stateKey(space), bytes(state))
+    }
+
+    fun selectedThread(space: String, channel: String? = null): Message? = store.project { store.transaction {
+        owned()
+        val state = state(space); val target = channel ?: selectedChannel(state)
+        val saved = state.getAsJsonObject("selected_thread") ?: return@transaction null
+        if (saved.number("version") != 1L || saved.text("channel_id") != target) return@transaction null
+        message(space, saved.text("message_id"), target)?.takeIf { it.position == saved.number("position") }
+    } }
+
+    /** A bounded lookup for a previously accepted message, including its current changes. */
+    fun message(space: String, messageId: String, channel: String? = null): Message? = store.project { store.transaction {
+        owned()
+        val target = channel ?: selectedChannel(state(space))
+        val pointer = get(messageIdKey(space, target, messageId)) ?: return@transaction null
+        val receipt = get(pointer.toString(Charsets.UTF_8)) ?: return@transaction null
+        val body = json(receipt)
+        val original = SaitoEnvelope.decode(body.text("event"))
+        require(original.id == messageId)
+        conversationTimeline(space, body.number("position"), 1, target, messageThread(original.body)).firstOrNull { it.id == messageId }
+    } }
 
     data class Community(val id: String, val name: String, val channel: String, val joined: Boolean,
         val canInvite: Boolean, val pending: Boolean, val canSend: Boolean, val membershipRequested: Boolean = false, val unread: Long? = null, val hasUnread: Boolean? = null,
         val canManage: Boolean = false, val dissolved: Boolean = false, val canReply: Boolean = false)
+    enum class MessageChangeKind { EDIT, DELETE }
+    data class MessageChange(val operationId: String, val kind: MessageChangeKind, val attempted: Boolean,
+        val rejected: Boolean, val text: String?) {
+        override fun toString() = "Private community message change"
+    }
     data class Message(val id: String, val author: String, val createdAt: Long, val text: String?,
         val pending: Boolean, val attempted: Boolean, val missingKeys: Boolean, val rejected: Boolean = false, val position: Long? = null,
-        val edited: Boolean = false, val deleted: Boolean = false, val replyCount: Long = 0) {
+        val edited: Boolean = false, val deleted: Boolean = false, val replyCount: Long = 0, val change: MessageChange? = null, val cancelled: Boolean = false) {
         override fun toString() = "Private community message"
     }
     data class Invitation(val link: String, val confirmed: Boolean, val expiresAt: Long = 0, val expired: Boolean = false, val revoked: Boolean = false, val revocationPending: Boolean = false, val revocationFailed: Boolean = false) {
@@ -1666,6 +1717,25 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         deletion.id
     }
 
+    /** Cancellation and the durable transmission marker share the same store transaction.
+     * A cancelled original remains locally recoverable, without a forged node rejection. */
+    fun cancelQueuedMessage(space: String, messageId: String): Boolean = store.transaction {
+        owned(); state(space)
+        val pointer = get("$space/operation/$messageId")?.toString(Charsets.UTF_8) ?: return@transaction false
+        val saved = json(requireNotNull(get(pointer)))
+        val original = SaitoEnvelope.decode(SaitoTransaction.restore(saved.text("original")).envelope())
+        require(original.id == messageId && original.author == wallet.publicKey && original.body.text("space_id") == space)
+        val channel = requireNotNull(messageChannel(original.body))
+        if (saved.get("attempted").asBoolean) return@transaction false
+        val cancelledKey = "$space/rejected/$messageId"
+        saved.addProperty("cancelled", true)
+        put(cancelledKey, bytes(saved))
+        put(messageIndex(space, channel, "rejected", messageThread(original.body)) + messageId, cancelledKey.toByteArray(Charsets.UTF_8))
+        remove(messageIndex(space, channel, "pending", messageThread(original.body)) + pointer.substringAfterLast('/'))
+        remove(pointer); remove("$space/operation/$messageId")
+        true
+    }
+
     /** On an uncertain response keep the exact signed original for reconciliation. */
     suspend fun flush(space: String) {
         val prefix = "$space/pending/"
@@ -1705,6 +1775,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val received = SaitoEnvelope.decode(result)
                 require(received.body.text("event") == transaction.envelope()) { "Community service returned a different original" }
                 accept(space, result)
+                messageChangeKey(space, outbound.body)?.let { key ->
+                    if (get(key)?.toString(Charsets.UTF_8) == item.key) remove(key)
+                }
                 remove(item.key)
                 messageChannel(outbound.body)?.let { channel -> remove(messageIndex(space, channel, "pending", messageThread(outbound.body)) + item.key.substringAfterLast('/')) }
                 remove("$space/operation/${transaction.id}")
@@ -2055,7 +2128,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val indexed = data.get("message_history")?.asBoolean == true
         val start = from ?: if (indexed) maxOf(data.get("latest_message_from")?.asLong ?: 0, latestMessageStart(space, targetChannel, limit, thread)) else
             maxOf((last - limit + 1).coerceAtLeast(0), data.get("history_from")?.asLong ?: 0)
-        fun message(envelope: String, pending: Boolean, attempted: Boolean, rejected: Boolean = false, position: Long? = null): Message? {
+        fun message(envelope: String, pending: Boolean, attempted: Boolean, rejected: Boolean = false, position: Long? = null, cancelled: Boolean = false): Message? {
             val original = SaitoEnvelope.decode(envelope)
             if (original.body.get("channel_id")?.asString != targetChannel) return null
             if (original.body.text("kind") !in setOf("content", "public-content") || original.body.text("content_kind") != (if (thread == null) "message" else "thread-reply")) return null
@@ -2066,9 +2139,20 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                     try { crypto.read(source).text }
                     catch (_: SpaceCrypto.MissingKeys) { missing = true; null }
                     catch (_: java.security.GeneralSecurityException) { null }
+            val change = get(messageChangeKey(space, targetChannel, original.id))?.let { pointer ->
+                get(pointer.toString(Charsets.UTF_8))?.let(::json)
+            }?.let { saved ->
+                val pending = SaitoEnvelope.decode(SaitoTransaction.restore(saved.text("original")).envelope())
+                require(pending.author == wallet.publicKey && pending.body.text("target_message_id") == original.id &&
+                    pending.body.text("channel_id") == targetChannel && pending.body.get("thread_root_id")?.asString == thread)
+                val edit = pending.body.text("content_kind") == "message-edit"
+                MessageChange(pending.id, if (edit) MessageChangeKind.EDIT else MessageChangeKind.DELETE,
+                    saved.get("attempted").asBoolean, saved.has("disposition"),
+                    if (edit) read(SaitoTransaction.restore(saved.text("original")).envelope(), pending) else null)
+            }
             val base = Message(original.id, original.author, original.createdAt, read(envelope, original),
                 pending, attempted, missing, rejected, position,
-                replyCount = if (thread == null) get(replyCountKey(space, targetChannel, original.id))?.let(::json)?.number("count") ?: 0 else 0)
+                replyCount = if (thread == null) get(replyCountKey(space, targetChannel, original.id))?.let(::json)?.number("count") ?: 0 else 0, change = change, cancelled = cancelled)
             val removed = if (position == null) null else messageDeletion(space, targetChannel, original.id, original.author)
             if (removed != null && removed.number("target_position") == position && removed.get("thread_root_id")?.asString == thread) return base.copy(text = null, deleted = true, missingKeys = false)
             val saved = if (position == null) null else get(messageEditKey(space, targetChannel, original.id, original.author))
@@ -2093,11 +2177,12 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
         val rejected = page(messageIndex(space, targetChannel, "rejected", thread), limit = limit).mapNotNull { row ->
             val saved = json(requireNotNull(get(row.value.toString(Charsets.UTF_8))))
-            message(SaitoTransaction.restore(saved.text("original")).envelope(), pending = false, attempted = true, rejected = true)
+            val cancelled = saved.get("cancelled")?.asBoolean == true
+            message(SaitoTransaction.restore(saved.text("original")).envelope(), pending = false, attempted = !cancelled, rejected = !cancelled, cancelled = cancelled)
         }
         (confirmed + pending + rejected).distinctBy { it.id }
     }
-    fun messages(space: String, channel: String? = null): List<String> = timeline(space, channel = channel).filter { !it.pending && !it.rejected }.mapNotNull { it.text }
+    fun messages(space: String, channel: String? = null): List<String> = timeline(space, channel = channel).filter { !it.pending && !it.rejected && !it.cancelled }.mapNotNull { it.text }
 
     data class ReadingAnchor(val messageId: String, val position: Long, val offset: Int, val windowFrom: Long) {
         init {
@@ -2492,6 +2577,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 pending.addProperty("disposition", envelope)
                 val rejectedKey = "$space/rejected/${original.id}"
                 put(rejectedKey, bytes(pending))
+                messageChangeKey(space, original.body)?.let { key ->
+                    if (get(key)?.toString(Charsets.UTF_8) == pointer) put(key, rejectedKey.toByteArray(Charsets.UTF_8))
+                }
                 messageChannel(original.body)?.let { channel ->
                     put(messageIndex(space, channel, "rejected", messageThread(original.body)) + original.id, rejectedKey.toByteArray(Charsets.UTF_8))
                 }
@@ -2668,6 +2756,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             put(messageIndex(space, channel, "pending", messageThread(outbound.body)) + positionKey(sequence), key.toByteArray(Charsets.UTF_8))
         }
         put("$space/operation/${original.id}", key.toByteArray(Charsets.UTF_8))
+        messageChangeKey(space, outbound.body)?.let { put(it, key.toByteArray(Charsets.UTF_8)) }
         state.addProperty("next_outbox", Math.addExact(sequence, 1))
         put(stateKey(space), bytes(state))
         put("communities/$space", space.toByteArray(Charsets.UTF_8))
@@ -2698,6 +2787,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val thread = messageThread(original.body)
         val position = receipt.number("position")
         val pointer = (contentPrefix(space, channel) + positionKey(position)).toByteArray(Charsets.UTF_8)
+        put(messageIdKey(space, channel, original.id), pointer)
         put(confirmedMessageIndex(space, channel, thread) + positionKey(position), pointer)
         put(reverseMessageIndex(space, channel, thread) + positionKey(Long.MAX_VALUE - position), pointer)
     }
@@ -2705,6 +2795,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         page(reverseMessageIndex(space, channel, thread), limit = limit).lastOrNull()?.let {
             Long.MAX_VALUE - it.key.substringAfterLast('/').toLong()
         } ?: 0
+    private fun messageChangeKey(space: String, channel: String, message: String) = "$space/channels/$channel/message-change/$message"
+    private fun messageChangeKey(space: String, body: JsonObject): String? =
+        if (body.get("kind")?.asString in setOf("content", "public-content") && body.get("content_kind")?.asString in setOf("message-edit", "message-delete"))
+            messageChangeKey(space, body.text("channel_id"), body.text("target_message_id")) else null
+    private fun messageIdKey(space: String, channel: String, message: String) = "$space/channels/$channel/message-ids/$message"
     private fun messageDeletionKey(space: String, channel: String, message: String, author: String) =
         "$space/channels/$channel/message-deletions/$message/author/$author"
     private fun messageModerationKey(space: String, channel: String, message: String) =
