@@ -1,24 +1,22 @@
 # Red Square Android project context
 
-## Active139: ownership accepted, category restore readiness corrected
+## Active139: category metadata witness corrected
 
-Whole member6/private5 at4de and public management/API29 at9822 remain accepted
-by both actual visual/prototype axes at their exact scopes and source pins.
+Member6/private5 at4de, public management/API29 at9822 and governance4 ated52
+remain accepted at their exact scopes and source pins. Category3 44844437756
+remains wholeFAIL: all four native phases and both terminal cases completed,
+but the final receiving observer used the edit metadata field for creation.
+Actual independent member receipts retain the created/edited private names and
+canonical category/channel IDs. This successful prefix is not parent acceptance.
 
-Category2 44841747515 remains wholeFAIL. The real committed baseline now matches
-native range1071, anchor2/71 and message5-pixel435, and the normal terminal passes.
-The compact creation form restores its saved name/category and Restricted flag,
-but the observer queried the chip while the actual choices/action were still
-loading. Permanent selection loss is not established by that interrupted run.
-
-The restoration gate now requires the exact name, actual enabled/selected chip
-and actual enabled Create/Save action within the same15seconds, including the
-name scroll. No re-selection/reset/write/extra click/delay or changed native
-goals/counts. Exact current source compiles at stable inputs and both prospective
-axes are clear. A fresh whole category-access parent and all-frame/prototype
-assessment remain before final139 mapping, closure and sequential140-147.
-See the [originals, source and limits](evidence/ticket139/governance-native-preparation.json). ApprovedB, beta142 and existing
-production/provider/public-write/file-hosting gates remain unchanged.
+The corrected observer verifies the actual signed creation/replacement fields
+and header scope. Owned JVM replay reproduces the original failure and passes
+with the correction; final host compilation passes at stable inputs. Product
+code, native paths, goals and catalogues are unchanged. Both review axes and a
+fresh frozen whole category-access parent with actual all-frame/prototype
+assessment remain before final139 mapping/closure and sequential140-147.
+ApprovedB, beta142 and production/provider/public-write/file-hosting gates stay
+unchanged. See the maintained governance-native-preparation.json evidence record.
 
 ## Earlier139: current public management accepted, final native gaps prepared
 

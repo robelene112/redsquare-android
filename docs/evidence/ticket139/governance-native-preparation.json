@@ -1128,5 +1128,85 @@
       "Complete139 criterion/source/evidence mapping, then close139 and continue140-147 sequentially."
     ],
     "boundaries": "ApprovedB, beta142 and production/provider/public-write/financial/file-hosting gates unchanged."
+  },
+  "signedCategoryMetadataWitness": {
+    "recordedAt": "2026-11-21T01:02:28.291262+00:00",
+    "base": "0b94cc6c0542f991cb599688460945fc7563cb03",
+    "sourceFiles": {
+      "scripts/spaces-native-journey": "4d5d83fc11a812bf43266d6266c236229cd0bf86cb20d3547d39408def227fc4",
+      "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesGovernanceFixture.kt": "6cae5ee1be3f8e23c6ed4b6feb2508c664a5942e11fa65f16e8fe4a72a715b51"
+    },
+    "wholeFailure": {
+      "run": 44844437756,
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-runtime/attempt3-44844437756",
+      "conclusion": "failure",
+      "observed": "All four native phases,21capture pairs,47controls,1125frames/73sheets, two kills and both terminal cases completed; final receiving assertion reported false encryptedMetadata for actual private creation. Independent member decrypted actual created/edited names and stable category/channel IDs. No whole-parent acceptance."
+    },
+    "correction": "Read actual creation metadata and replacement channel_metadata separately. Decode and verify the signed nested envelope, author/service recipients, module/request/version/content kind, Space and ciphertext bounds. Driver and prospective verifier bind actual field, author, Space, channel, kind and envelope SHA. No product code or native paths/goals/counts changed.",
+    "compilation": {
+      "exit": 0,
+      "unchanged": true,
+      "outcome": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-access-metadata-host-compile2-originals/139-category-access-metadata-host-compile2-outcome.json",
+        "sha256": "b55120c9ea1c230d83f47176d5bb39e415bf15dd9ca446727e07eec231f8d5c0"
+      },
+      "log": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-access-metadata-host-compile2-originals/139-category-access-metadata-host-compile2.log",
+        "sha256": "e63b5037c542f08eafd6e1dbdf6fb66c06866a811c9fde4a17b88e2723809a8b"
+      }
+    },
+    "focusedActualReplay": {
+      "red": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-native-preparation/metadata-replay1/red-outcome.json",
+        "sha256": "71396317cece70f8a336c90d08609bd5b2b2edece57dd98706289748bf23f0d1"
+      },
+      "redRuntime": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-native-preparation/metadata-replay1/red-runtime.log",
+        "sha256": "46c5abc774f97c1b9ab001aeff66334c157978c76684475d313d04310dc3da68"
+      },
+      "green": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-native-preparation/metadata-replay1/green-outcome.json",
+        "sha256": "5f02517f852d166f06ccc3812e4a671352ec4c5c72185320bd4b1aa1a21ac8ba"
+      },
+      "greenRuntime": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-native-preparation/metadata-replay1/green-runtime.log",
+        "sha256": "76630e846159ed81c1edb4a24d37b416ca2c72947aaa0fb811b8c71783815a2a"
+      },
+      "runner": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-native-preparation/metadata-replay1/MetadataReplay.kt",
+        "sha256": "150c68821a7f7cd7bb40cc9902909a7f187804e1bb01249c6106b7c19f691e8d"
+      },
+      "qualification": "Owned actual JVM private create/edit producer/service and decrypted profile/excluded outsider; not Android, full catalogue or whole139 acceptance. Initial prep compile failure retained separately. Green jar compilation completed before process interruption; existing jar runtime resumed without overwrite."
+    },
+    "prospectiveVerifier": {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-category-access-metadata-validator-draft/verify-139-native-category-access.py",
+      "sha256": "6e007986596dda985b7e21ccfb1878773028b9c56eb7785b4f6f8f1b0ac725e8"
+    },
+    "remaining": [
+      "Commit reviewed exact source and freeze revision4 before dispatch.",
+      "Freeze revision4 and run a fresh whole category-access parent, followed by all-frame/prototype assessment.",
+      "Complete139 criterion/source/evidence map and closure, then140-147 sequentially."
+    ],
+    "boundaries": "ApprovedB, beta142 and production/provider/public-write/financial/file-hosting gates unchanged.",
+    "failureReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-access-native3-failure-spec-review.txt",
+        "sha256": "b96b125b457ffd54b2dc0fbadbbff81defcfd5bdc4712eea269324624a963535"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-access-native3-failure-standards-review.txt",
+        "sha256": "01365e3ed2eca1eddb3dfde7d6b673e882f75c780c291f273ec42c6bc31ddac4"
+      }
+    ],
+    "prospectiveReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-access-metadata-prospective-spec-review.txt",
+        "sha256": "952ae002edb06f5ddc76fa46f337290743f4545744ab76bbdcd74b4c10db6d0e"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-access-metadata-prospective-standards-review.txt",
+        "sha256": "661bcb01c9605031dc4fe4cb41a2e4c993fa758f54ea4eed4d1b8e3f60ed6fe0"
+      }
+    ]
   }
 }

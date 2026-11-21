@@ -9,6 +9,7 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.*
 import java.security.MessageDigest
 import java.time.Clock
+import java.util.Base64
 
 /** An independent admitted member and authenticated control reader. No extra
  * device is admitted under the Android owner's identity. All traffic is owned. */
@@ -162,7 +163,24 @@ internal class SpacesGovernanceFixture(private val owner: SpaceClient, private v
             addProperty("containsPrivateName", listOf("Native private conversations", "Compact private conversations").any { body.toString().contains(it) })
         }
         if (categoryAccess && body.get("kind").asString in setOf("create-channel", "edit-channel")) {
-            addProperty("encryptedMetadata", body.has("channel_metadata") && !body.has("channel_profile"))
+            val creating = body.get("kind").asString == "create-channel"
+            val field = if (creating) "metadata" else "channel_metadata"
+            val bytes = Base64.getDecoder().decode(body.get(field).asString)
+            val metadata = SaitoEnvelope.decode(bytes.toString(Charsets.UTF_8))
+            val header = metadata.body
+            val expectedKind = if (creating) "channel-profile" else "channel-profile-edit"
+            addProperty("metadataField", field)
+            addProperty("metadataAuthor", metadata.author)
+            addProperty("metadataSpace", header.get("space_id").asString)
+            addProperty("metadataChannel", header.get("channel_id").asString)
+            addProperty("metadataKind", header.get("content_kind").asString)
+            addProperty("metadataEnvelopeSha256", MessageDigest.getInstance("SHA-256").digest(bytes)
+                .joinToString("") { "%02x".format(it.toInt() and 255) })
+            addProperty("encryptedMetadata", !body.has("channel_profile") && metadata.author == author &&
+                metadata.recipients == listOf(author, service.publicKey).distinct() && header.get("module").asString == "Spaces" &&
+                header.get("request").asString == "event" && header.get("version").asInt == 1 &&
+                header.get("kind").asString == "content" && header.get("content_kind").asString == expectedKind &&
+                header.get("space_id") == body.get("space_id") && Base64.getDecoder().decode(header.get("ciphertext").asString).size in 29..(64 * 1024 + 28))
             addProperty("containsPrivateName", listOf("private-category-room", "private-category-edited", "Compact private conversations").any { body.toString().contains(it) })
         }
     }

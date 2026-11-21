@@ -571,6 +571,11 @@ try:
                         raise RuntimeError('Independent native category create/edit receipt or category identity differs')
                 if any(rows[index]['channel_id'] != channel or rows[index]['category_id'] != category or not rows[index]['encryptedMetadata'] or rows[index]['containsPrivateName'] for index in [5, 6]):
                     raise RuntimeError('Actual private create/edit signed metadata or category binding differs')
+                for index, field, kind in [(5, 'metadata', 'channel-profile'), (6, 'channel_metadata', 'channel-profile-edit')]:
+                    row = rows[index]
+                    if any(row[key] != value for key, value in {'metadataField': field, 'metadataAuthor': fixtures['owner'],
+                            'metadataSpace': fixtures['space'], 'metadataChannel': channel, 'metadataKind': kind}.items()) or not re.fullmatch('[a-f0-9]{64}', row['metadataEnvelopeSha256']):
+                        raise RuntimeError('Private creation/replacement encrypted envelopes lack their actual signed scope or field')
                 if final['channels'][channel] != {'visibility': 'PRIVATE', 'archived': True, 'categoryId': category, 'memberName': 'private-category-edited', 'memberReady': True}:
                     raise RuntimeError('Closed private category channel lost its independently received identity')
             labels = goals['protectedReadingRecords']
