@@ -80,7 +80,7 @@ class SpacesJourneyTest {
                 try { remembered = command("message-observation", JsonObject().apply { addProperty("space", space); addProperty("text", original) }); true }
                 catch (_: AssertionError) { false }
             }
-            fun rowAction(text: String, description: String) = ui.onNode(hasContentDescription(description) and hasAnyAncestor(
+            fun rowAction(text: String, description: String) = ui.onNode(hasText(description) and hasClickAction() and hasAnyAncestor(
                 hasTestTag("spaces-message") and hasAnyDescendant(hasText(text))))
             ui.waitUntil(5_000) { rowAction(original, "Message actions").isDisplayed() }
             rowAction(original, "Message actions").assertIsEnabled().performClick()
