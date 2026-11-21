@@ -22,6 +22,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     private val store = SpacePresentationStore(store)
     private var supportsMessageHistory = false
+    private var supportsMessageReactions = false
 
     enum class Delivery { CONTROL, CONTENT }
     enum class ReadProblem { EXPIRED, UNAVAILABLE }
@@ -724,15 +725,18 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     data class Community(val id: String, val name: String, val channel: String, val joined: Boolean,
         val canInvite: Boolean, val pending: Boolean, val canSend: Boolean, val membershipRequested: Boolean = false, val unread: Long? = null, val hasUnread: Boolean? = null,
-        val canManage: Boolean = false, val dissolved: Boolean = false, val canReply: Boolean = false)
+        val canManage: Boolean = false, val dissolved: Boolean = false, val canReply: Boolean = false, val canReact: Boolean = false)
     enum class MessageChangeKind { EDIT, DELETE }
     data class MessageChange(val operationId: String, val kind: MessageChangeKind, val attempted: Boolean,
-        val rejected: Boolean, val text: String?) {
+        val rejected: Boolean, val text: String?, val cancelled: Boolean = false) {
         override fun toString() = "Private community message change"
+    }
+    data class Reaction(val emoji: String, val count: Long?, val selected: Boolean) {
+        override fun toString() = "Private community reaction"
     }
     data class Message(val id: String, val author: String, val createdAt: Long, val text: String?,
         val pending: Boolean, val attempted: Boolean, val missingKeys: Boolean, val rejected: Boolean = false, val position: Long? = null,
-        val edited: Boolean = false, val deleted: Boolean = false, val replyCount: Long = 0, val change: MessageChange? = null, val cancelled: Boolean = false) {
+        val edited: Boolean = false, val deleted: Boolean = false, val replyCount: Long = 0, val change: MessageChange? = null, val cancelled: Boolean = false, val reactions: List<Reaction> = emptyList(), val reactionsComplete: Boolean = true, val reactionsHaveMore: Boolean = false, val ownReactionsAvailable: Boolean = true) {
         override fun toString() = "Private community message"
     }
     data class Invitation(val link: String, val confirmed: Boolean, val expiresAt: Long = 0, val expired: Boolean = false, val revoked: Boolean = false, val revocationPending: Boolean = false, val revocationFailed: Boolean = false) {
@@ -783,7 +787,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             canReply && (!adminPostsOnly || role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name)),
             !state.get("joined").asBoolean && state.has("joining_invitation"), unread, hasUnread,
             canManage = !snapshot.dissolved && state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
-                snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN), dissolved = snapshot.dissolved, canReply = canReply)
+                snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN), dissolved = snapshot.dissolved, canReply = canReply,
+            canReact = canReply && (supportsMessageReactions || data.get("reactions_supported")?.asBoolean == true))
     }
     fun profile(space: String): SpaceProfile = store.transaction {
         owned(); val state = state(space)
@@ -1717,21 +1722,196 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         deletion.id
     }
 
+    /** The exact desired author selection is signed before transport, including rapid changes. */
+    fun setReaction(space: String, message: Message, emoji: String, selected: Boolean, channel: String? = null): String? = store.transaction {
+        owned()
+        val state = state(space); val target = channel ?: selectedChannel(state)
+        require(communityFromStore(space, target).canReply)
+        val data = channelState(space, target, state)
+        require(supportsMessageReactions || data.get("reactions_supported")?.asBoolean == true)
+        val original = acceptedMessage(space, target, message)
+        require(messageDeletion(space, target, message.id, original.author) == null)
+        get(reactionActorsPrefix(space, target, message.id) + wallet.publicKey)?.let { reconcileReaction(space, target, json(it)) }
+        require(get(reactionInvalidPrefix(space, target, message.id) + wallet.publicKey) == null) { "Earlier reaction choices are not available yet" }
+        SpaceReactionSelection.encode(setOf(emoji))
+        require(ownReactionAvailable(space, target, message.id)) { "Earlier reaction choices are not available yet" }
+        val current = reactionProjection(space, target, message.id).own
+        val desired = if (selected) current + emoji else current - emoji
+        if (desired == current) return@transaction null
+        val text = SpaceReactionSelection.encode(desired)
+        val journal = journal(space); val accepted = journal.snapshot.channels.getValue(target)
+        val thread = if (original.body.text("content_kind") == "thread-reply") original.body.text("target_message_id") else null
+        val control = requireNotNull(journal.snapshot.controlId)
+        val reaction = if (accepted.visibility == SpaceVisibility.PUBLIC) event(space, "public-content") {
+            addProperty("channel_id", target); addProperty("control_id", control)
+            addProperty("epoch", accepted.epoch); addProperty("key_generation", accepted.generation)
+            addProperty("content_kind", "message-reaction"); addProperty("text", text)
+            addProperty("target_message_id", original.id); addProperty("target_position", message.position)
+            thread?.let { addProperty("thread_root_id", it) }
+        } else {
+            val keys = SpaceCrypto.restore(decode(data.text("crypto")))
+            require(keys.scope == SpaceCrypto.Scope.fromJson(data.getAsJsonObject("scope")) && keys.epoch == accepted.epoch && keys.bindings == accepted.devices)
+            keys.publishMessageReaction(wallet, id(), control, text, clock.millis(), original.id, requireNotNull(message.position), thread)
+        }
+        queue(space, state, reaction)
+        reaction.id
+    }
+
+    private data class ReactionProjection(val values: List<Reaction>, val own: Set<String>, val complete: Boolean, val more: Boolean = false, val nextEmoji: String? = null)
+    private fun SpaceClientStore.Transaction.reactionDecoder(space: String, channel: String): (String) -> Set<String>? {
+        val crypto by lazy { SpaceCrypto.restore(decode(channelState(space, channel).text("crypto"))) }
+        return { envelope ->
+            try {
+                val signed = SaitoEnvelope.decode(envelope)
+                val text = if (signed.body.text("kind") == "public-content") signed.body.text("text") else crypto.read(envelope).text
+                SpaceReactionSelection.decode(text)
+            } catch (_: Exception) { null }
+        }
+    }
+    private fun SpaceClientStore.Transaction.readReaction(space: String, channel: String, envelope: String): Set<String>? =
+        reactionDecoder(space, channel)(envelope)
+
+    /** Key grants may arrive after the accepted actor state. Repair retained
+     * originals locally, with fair bounded work and no replacement operation. */
+    private fun SpaceClientStore.Transaction.retryUnavailableReactions(space: String, channel: String) {
+        val prefix = "$space/channels/$channel/reaction-invalid/"
+        val cursorKey = "$space/channels/$channel/reaction-repair-after"
+        val cursor = get(cursorKey)?.toString(Charsets.UTF_8)?.takeIf { it.startsWith(prefix) } ?: prefix
+        var rows = page(prefix, cursor, 16)
+        if (rows.isEmpty() && cursor != prefix) rows = page(prefix, limit = 16)
+        if (rows.isEmpty()) { remove(cursorKey); return }
+        val decoder = reactionDecoder(space, channel)
+        for (row in rows) {
+            val parts = row.key.removePrefix(prefix).split('/')
+            require(parts.size == 2)
+            val original = get(reactionActorsPrefix(space, channel, parts[0]) + parts[1])
+            if (original == null) remove(row.key) else reconcileReaction(space, channel, json(original), decoder)
+        }
+        put(cursorKey, (rows.last().key + '\u0000').toByteArray(Charsets.UTF_8))
+    }
+
+    /** Materialize each accepted author revision once in the encrypted store.
+     * Rendering reads counts and the current author's choice, never every actor. */
+    private fun SpaceClientStore.Transaction.reconcileReaction(space: String, channel: String, receipt: JsonObject, reader: ((String) -> Set<String>?)? = null) {
+        val incoming = SaitoEnvelope.decode(receipt.text("event"))
+        val message = incoming.body.text("target_message_id")
+        val key = reactionActorsPrefix(space, channel, message) + incoming.author
+        val prior = get(key)?.let(::json)
+        val latest = if (prior == null || prior.number("position") < receipt.number("position")) receipt.also { put(key, bytes(it)) } else prior
+        val appliedKey = reactionAppliedPrefix(space, channel, message) + incoming.author
+        val applied = get(appliedKey)?.let(::json)
+        if (applied != null && applied.number("position") >= latest.number("position")) return
+        val invalidKey = reactionInvalidPrefix(space, channel, message) + incoming.author
+        val choices = if (reader == null) readReaction(space, channel, latest.text("event")) else reader(latest.text("event"))
+        if (choices == null) { put(invalidKey, byteArrayOf(1)); return }
+        val previous = applied?.text("selection")?.let(SpaceReactionSelection::decode).orEmpty()
+        for (emoji in previous + choices) {
+            val delta = (if (emoji in choices) 1 else 0) - (if (emoji in previous) 1 else 0)
+            if (delta == 0) continue
+            val countKey = reactionCountsPrefix(space, channel, message) + Base64.getUrlEncoder().withoutPadding().encodeToString(emoji.toByteArray(Charsets.UTF_8))
+            val count = Math.addExact(get(countKey)?.let(::json)?.number("count") ?: 0, delta.toLong())
+            require(count >= 0)
+            if (count == 0L) remove(countKey) else put(countKey, bytes(JsonObject().apply { addProperty("emoji", emoji); addProperty("count", count) }))
+        }
+        put(appliedKey, bytes(JsonObject().apply { addProperty("position", latest.number("position")); addProperty("selection", SpaceReactionSelection.encode(choices)) }))
+        remove(invalidKey)
+    }
+
+    data class ReactionPage(val choices: List<Reaction>, val nextEmoji: String?, val complete: Boolean)
+    fun reactionPage(space: String, message: Message, afterEmoji: String? = null, channel: String? = null): ReactionPage = store.project { store.transaction {
+        owned(); val target = channel ?: selectedChannel(state(space))
+        val original = acceptedMessage(space, target, message)
+        retryUnavailableReactions(space, target)
+        afterEmoji?.let { SpaceReactionSelection.encode(setOf(it)) }
+        if (messageDeletion(space, target, message.id, original.author) != null) return@transaction ReactionPage(emptyList(), null, true)
+        val projection = reactionProjection(space, target, message.id, afterEmoji, includeOwn = false)
+        ReactionPage(projection.values, projection.nextEmoji, projection.complete)
+    } }
+
+    private fun SpaceClientStore.Transaction.ownReactionAvailable(space: String, channel: String, message: String): Boolean {
+        if (get(reactionInvalidPrefix(space, channel, message) + wallet.publicKey) != null) return false
+        val summary = get(reactionSummaryKey(space, channel, message))?.let(::json) ?: return true
+        val through = get(ownReactionVersionKey(space, channel, message))?.let(::json)?.number("through") ?: -1L
+        return summary.number("loaded") >= summary.number("goal") || through >= summary.number("goal")
+    }
+
+    private fun SpaceClientStore.Transaction.reactionProjection(space: String, channel: String, message: String,
+        afterEmoji: String? = null, includeOwn: Boolean = true): ReactionProjection {
+        val summary = get(reactionSummaryKey(space, channel, message))?.let(::json)
+        var complete = (summary == null || summary.number("loaded") >= summary.number("goal")) && page(reactionInvalidPrefix(space, channel, message), limit = 1).isEmpty()
+        val prefix = reactionCountsPrefix(space, channel, message)
+        val after = afterEmoji?.let(::reactionEmojiKey)
+        val first = page(prefix, if (after == null) prefix else prefix + after + '\u0000', 50)
+        // A selection contains at most16 emojis. Seventeen extra count rows
+        // preserve a full bounded page even if all16 own choices are removed.
+        val following = if (first.size == 50) page(prefix, first.last().key + '\u0000', 17) else emptyList()
+        val counts = (first + following).associate { row ->
+            val body = json(row.value); body.text("emoji") to body.number("count")
+        }.toMutableMap()
+        val acceptedOwn = get(reactionAppliedPrefix(space, channel, message) + wallet.publicKey)?.let(::json)?.text("selection")?.let(SpaceReactionSelection::decode).orEmpty()
+        var own = acceptedOwn
+        val pending = get(reactionPendingKey(space, channel, message))?.let { get(it.toString(Charsets.UTF_8)) }?.let(::json)
+        if (pending != null && !pending.has("disposition")) {
+            val envelope = SaitoTransaction.restore(pending.text("original")).envelope()
+            val desired = readReaction(space, channel, envelope)
+            if (desired == null) complete = false else own = desired
+        }
+        for (emoji in acceptedOwn + own) {
+            if (emoji !in counts) get(prefix + reactionEmojiKey(emoji))?.let { counts[emoji] = json(it).number("count") }
+            val count = Math.addExact(counts[emoji] ?: 0, ((if (emoji in own) 1 else 0) - (if (emoji in acceptedOwn) 1 else 0)).toLong())
+            require(count >= 0)
+            if (count == 0L) counts.remove(emoji) else counts[emoji] = count
+        }
+        val ordered = counts.entries.filter { after == null || reactionEmojiKey(it.key) > after }.sortedBy { reactionEmojiKey(it.key) }
+        val firstChoices = ordered.take(50)
+        val shown = if (includeOwn) (firstChoices + ordered.filter { it.key in acceptedOwn || it.key in own }).distinctBy { it.key } else firstChoices
+        val visible = shown.map { it.key }.toSet()
+        val more = ordered.any { it.key !in visible }
+        return ReactionProjection(shown.map { (emoji, count) -> Reaction(emoji, count.takeIf { complete }, emoji in own) }, own, complete,
+            more, firstChoices.lastOrNull()?.key?.takeIf { more })
+    }
+
+    private fun SpaceClientStore.Transaction.reactionProgress(space: String, channel: String, cursor: Long, before: Boolean, thread: String?): JsonObject {
+        val result = JsonObject()
+        if (before && cursor == 0L) return result
+        val prefix = if (before) reverseMessageIndex(space, channel, thread) else confirmedMessageIndex(space, channel, thread)
+        val from = if (before) Long.MAX_VALUE - cursor + 1 else cursor
+        for (row in page(prefix, prefix + positionKey(from), 50)) {
+            val position = row.key.substringAfterLast('/').toLong().let { if (before) Long.MAX_VALUE - it else it }
+            val id = get(messagePositionIdKey(space, channel, position))?.toString(Charsets.UTF_8) ?: continue
+            val saved = get(reactionSummaryKey(space, channel, id))?.let(::json) ?: continue
+            result.add(id, JsonObject().apply {
+                val loaded = saved.number("loaded"); val goal = saved.number("goal")
+                addProperty("after", if (loaded >= goal) loaded else saved.number("cursor"))
+                if (loaded < goal) addProperty("through", goal)
+            })
+        }
+        return result
+    }
+
     /** Cancellation and the durable transmission marker share the same store transaction.
      * A cancelled original remains locally recoverable, without a forged node rejection. */
-    fun cancelQueuedMessage(space: String, messageId: String): Boolean = store.transaction {
+    fun cancelQueuedMessage(space: String, messageId: String): Boolean = cancelQueuedContent(space, messageId, change = false)
+    fun cancelQueuedChange(space: String, operationId: String): Boolean = cancelQueuedContent(space, operationId, change = true)
+    private fun cancelQueuedContent(space: String, messageId: String, change: Boolean): Boolean = store.transaction {
         owned(); state(space)
         val pointer = get("$space/operation/$messageId")?.toString(Charsets.UTF_8) ?: return@transaction false
         val saved = json(requireNotNull(get(pointer)))
         val original = SaitoEnvelope.decode(SaitoTransaction.restore(saved.text("original")).envelope())
         require(original.id == messageId && original.author == wallet.publicKey && original.body.text("space_id") == space)
-        val channel = requireNotNull(messageChannel(original.body))
+        val channel = messageChannel(original.body)
+        val changeKey = messageChangeKey(space, original.body)
+        require(if (change) changeKey != null else channel != null)
         if (saved.get("attempted").asBoolean) return@transaction false
         val cancelledKey = "$space/rejected/$messageId"
         saved.addProperty("cancelled", true)
         put(cancelledKey, bytes(saved))
-        put(messageIndex(space, channel, "rejected", messageThread(original.body)) + messageId, cancelledKey.toByteArray(Charsets.UTF_8))
-        remove(messageIndex(space, channel, "pending", messageThread(original.body)) + pointer.substringAfterLast('/'))
+        if (channel != null) {
+            put(messageIndex(space, channel, "rejected", messageThread(original.body)) + messageId, cancelledKey.toByteArray(Charsets.UTF_8))
+            remove(messageIndex(space, channel, "pending", messageThread(original.body)) + pointer.substringAfterLast('/'))
+        } else if (changeKey != null && get(changeKey)?.toString(Charsets.UTF_8) == pointer) {
+            put(changeKey, cancelledKey.toByteArray(Charsets.UTF_8))
+        }
         remove(pointer); remove("$space/operation/$messageId")
         true
     }
@@ -1776,6 +1956,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 require(received.body.text("event") == transaction.envelope()) { "Community service returned a different original" }
                 accept(space, result)
                 messageChangeKey(space, outbound.body)?.let { key ->
+                    if (get(key)?.toString(Charsets.UTF_8) == item.key) remove(key)
+                }
+                if (outbound.body.get("content_kind")?.asString == "message-reaction") {
+                    val key = reactionPendingKey(space, outbound.body.text("channel_id"), outbound.body.text("target_message_id"))
                     if (get(key)?.toString(Charsets.UTF_8) == item.key) remove(key)
                 }
                 remove(item.key)
@@ -1901,22 +2085,28 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
 
     private data class MessagePage(val start: Long, val end: Long, val next: Long, val count: Int, val more: Boolean)
-    private suspend fun messagePage(space: String, channel: String, cursor: Long = Long.MAX_VALUE, before: Boolean = true, limit: Int = 50, thread: String? = null): MessagePage {
+    private suspend fun messagePage(space: String, channel: String, cursor: Long = Long.MAX_VALUE, before: Boolean = true, limit: Int = 50, thread: String? = null, reactionRounds: Int = 2): MessagePage {
         require(limit in 1..50)
         val result = readPage(JsonObject().apply {
             addProperty("space_id", space); addProperty("stream", "messages"); addProperty("channel_id", channel)
             addProperty("cursor", cursor); addProperty("direction", if (before) "before" else "after"); addProperty("limit", limit)
             thread?.let { addProperty("thread_id", it) }
+            if (supportsMessageReactions) {
+                addProperty("reaction_history", true)
+                add("reaction_cursors", store.transaction { reactionProgress(space, channel, cursor, before, thread) })
+            }
         })
         require(result.getAsJsonArray("items").size() <= limit)
         val controls = mutableMapOf<String, SpaceJournal>()
         val records = mutableListOf<AuthenticatedContent>()
         val positions = mutableListOf<Long>()
         val replyCounts = mutableMapOf<String, Long>()
+        val reactionSummaries = mutableMapOf<String, Triple<Long, Long, Boolean>>()
+        val ownReactionVersions = mutableMapOf<String, Long>()
         val end = result.number("content_end")
         for (value in result.getAsJsonArray("items")) {
             val item = value.asJsonObject
-            require(item.has("message") && item.keySet().all { it in setOf("message", "edit", "deletion", "reply_count") })
+            require(item.has("message") && item.keySet().all { it in setOf("message", "edit", "deletion", "reply_count", "reactions", "reactions_complete", "reaction_version", "reaction_next_cursor", "own_reaction") })
             val original = ensureAuthorization(space, item.text("message"), channel, controls)
             val position = original.receipt.body.number("position")
             require(original.original.body.text("content_kind") == (if (thread == null) "message" else "thread-reply") &&
@@ -1927,6 +2117,35 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 require(thread == null)
                 replyCounts[original.original.id] = item.number("reply_count")
             }
+            if (item.has("reactions")) {
+                require(result.get("message_reactions")?.asBoolean == true)
+                val values = item.getAsJsonArray("reactions"); require(values.size() <= 50)
+                val actors = mutableSetOf<String>()
+                for (value in values) {
+                    val reaction = ensureAuthorization(space, value.asString, channel, controls)
+                    require(reaction.original.body.text("content_kind") == "message-reaction" && actors.add(reaction.original.author) &&
+                        reaction.original.body.text("target_message_id") == original.original.id && reaction.original.body.number("target_position") == position &&
+                        reaction.original.body.get("thread_root_id")?.asString == thread && reaction.receipt.body.number("position") in (position + 1) until end)
+                    records.add(reaction)
+                }
+                val complete = item.get("reactions_complete").also { require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) }.asBoolean
+                val version = item.number("reaction_version"); val next = item.number("reaction_next_cursor")
+                val progress = result.getAsJsonObject("scope").getAsJsonObject("reaction_cursors")?.getAsJsonObject(original.original.id)
+                val after = progress?.number("after") ?: 0L
+                require(version <= end && after <= next && next <= version && (if (complete) next == version else values.size() > 0 && next > after))
+                progress?.get("through")?.asLong?.let { require(version == it) }
+                item.get("own_reaction")?.let { own ->
+                    if (!own.isJsonNull) {
+                        val reaction = ensureAuthorization(space, own.asString, channel, controls)
+                        require(reaction.original.author == wallet.publicKey && reaction.original.body.text("content_kind") == "message-reaction" &&
+                            reaction.original.body.text("target_message_id") == original.original.id && reaction.original.body.number("target_position") == position &&
+                            reaction.original.body.get("thread_root_id")?.asString == thread && reaction.receipt.body.number("position") in (position + 1) until version)
+                        records.add(reaction)
+                    }
+                    ownReactionVersions[original.original.id] = version
+                }
+                reactionSummaries[original.original.id] = Triple(version, next, complete)
+            } else require(!item.has("reactions_complete"))
             item.get("edit")?.asString?.let { envelope ->
                 val edit = ensureAuthorization(space, envelope, channel, controls)
                 require(edit.original.body.text("content_kind") == "message-edit" && edit.original.author == original.original.author &&
@@ -1955,7 +2174,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             owned()
             // Every record is verified before this page changes the visible
             // projection. A malformed later entry rolls the whole page back.
-            for (record in records) accept(space, record.envelope, controls, authenticated = record)
+            val decoder = reactionDecoder(space, channel)
+            for (record in records) accept(space, record.envelope, controls, authenticated = record, reactionReader = decoder)
+            retryUnavailableReactions(space, channel)
             for ((id, count) in replyCounts) {
                 val key = replyCountKey(space, channel, id)
                 val previous = get(key)?.let(::json)
@@ -1964,6 +2185,26 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                     addProperty("count", count); addProperty("content_end", end)
                 }))
             }
+            for ((id, version) in ownReactionVersions) {
+                val key = ownReactionVersionKey(space, channel, id)
+                val previous = get(key)?.let(::json)?.number("through") ?: -1L
+                if (version > previous) put(key, bytes(JsonObject().apply { addProperty("through", version) }))
+            }
+            for ((id, progress) in reactionSummaries) {
+                val (version, next, complete) = progress
+                val key = reactionSummaryKey(space, channel, id)
+                val previous = get(key)?.let(::json)
+                val loaded = previous?.number("loaded") ?: 0L
+                val goal = previous?.number("goal") ?: 0L
+                if (version < loaded || version < goal || loaded >= version && previous != null) continue
+                put(key, bytes(JsonObject().apply {
+                    addProperty("loaded", if (complete) maxOf(loaded, version) else loaded)
+                    addProperty("goal", version)
+                    addProperty("cursor", if (complete) version else maxOf(next, if (goal == version) previous?.number("cursor") ?: 0 else 0))
+                }))
+            }
+            val capability = channelState(space, channel)
+            capability.addProperty("reactions_supported", supportsMessageReactions); putChannelState(space, channel, capability)
             val current = conversationState(space, channel, thread)
             // Earlier immutable records remain useful, but an old page cannot
             // reset the latest-window boundary after a newer read completed.
@@ -1986,6 +2227,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             }
             putConversationState(space, channel, thread, current)
         }
+        if (reactionRounds > 0 && reactionSummaries.values.any { !it.third })
+            return messagePage(space, channel, cursor, before, limit, thread, reactionRounds - 1)
         return MessagePage(start, end, result.number("next_cursor"), positions.size, more)
     }
 
@@ -2061,7 +2304,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val next = if (first) page.end else contentPage(space, before.number("content_cursor"), channel = targetChannel)
             store.transaction {
                 val current = channelState(space, targetChannel)
-                require(current.number("content_cursor") == before.number("content_cursor"))
+                // Another completed read owns the newer delivery cursor.
+                // Retain verified immutable records without replacing its progress.
+                if (current.number("content_cursor") != before.number("content_cursor")) return@transaction
                 current.addProperty("content_cursor", next); current.addProperty("content_loaded", true)
                 putChannelState(space, targetChannel, current)
             }
@@ -2120,6 +2365,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val state = state(space)
         ensureMessageIndexes(space, state)
         val targetChannel = channel ?: selectedChannel(state)
+        retryUnavailableReactions(space, targetChannel)
         val channelData = channelState(space, targetChannel, state)
         val data = conversationState(space, targetChannel, thread)
         val crypto by lazy { SpaceCrypto.restore(decode(channelData.text("crypto"))) }
@@ -2148,13 +2394,15 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val edit = pending.body.text("content_kind") == "message-edit"
                 MessageChange(pending.id, if (edit) MessageChangeKind.EDIT else MessageChangeKind.DELETE,
                     saved.get("attempted").asBoolean, saved.has("disposition"),
-                    if (edit) read(SaitoTransaction.restore(saved.text("original")).envelope(), pending) else null)
+                    if (edit) read(SaitoTransaction.restore(saved.text("original")).envelope(), pending) else null,
+                    cancelled = saved.get("cancelled")?.asBoolean == true)
             }
+            val reactions = if (pending || rejected || cancelled) ReactionProjection(emptyList(), emptySet(), true) else reactionProjection(space, targetChannel, original.id)
             val base = Message(original.id, original.author, original.createdAt, read(envelope, original),
                 pending, attempted, missing, rejected, position,
-                replyCount = if (thread == null) get(replyCountKey(space, targetChannel, original.id))?.let(::json)?.number("count") ?: 0 else 0, change = change, cancelled = cancelled)
+                replyCount = if (thread == null) get(replyCountKey(space, targetChannel, original.id))?.let(::json)?.number("count") ?: 0 else 0, change = change, cancelled = cancelled, reactions = reactions.values, reactionsComplete = reactions.complete, reactionsHaveMore = reactions.more, ownReactionsAvailable = ownReactionAvailable(space, targetChannel, original.id))
             val removed = if (position == null) null else messageDeletion(space, targetChannel, original.id, original.author)
-            if (removed != null && removed.number("target_position") == position && removed.get("thread_root_id")?.asString == thread) return base.copy(text = null, deleted = true, missingKeys = false)
+            if (removed != null && removed.number("target_position") == position && removed.get("thread_root_id")?.asString == thread) return base.copy(text = null, deleted = true, missingKeys = false, reactions = emptyList(), reactionsHaveMore = false)
             val saved = if (position == null) null else get(messageEditKey(space, targetChannel, original.id, original.author))
             val editEnvelope = saved?.let(::originalEnvelope)
             val edit = editEnvelope?.let(SaitoEnvelope::decode)
@@ -2321,12 +2569,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
         require(result.text("request") == "page" && result.getAsJsonArray("items").size() <= 50)
         supportsMessageHistory = result.get("message_history")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean } == true
+        supportsMessageReactions = result.get("message_reactions")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean } == true
         return result
     }
 
     private fun SpaceClientStore.Transaction.accept(space: String, envelope: String,
         pageControls: Map<String, SpaceJournal> = emptyMap(), controlJournal: SpaceJournal? = null,
-        authenticated: AuthenticatedContent? = null) {
+        authenticated: AuthenticatedContent? = null, reactionReader: ((String) -> Set<String>?)? = null) {
         require(authenticated == null || authenticated.envelope == envelope)
         val receipt = authenticated?.receipt ?: SaitoEnvelope.decode(envelope)
         val body = receipt.body
@@ -2635,6 +2884,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                         contentState.addProperty("last_content", maxOf(contentState.get("last_content")?.asLong ?: 0, body.number("position")))
                     putChannelState(space, channel, contentState)
                 }
+                if (original.body.get("content_kind")?.asString == "message-reaction") reconcileReaction(space, channel, body, reactionReader)
                 indexConfirmedMessage(space, channel, body)
             }
             else -> throw IllegalArgumentException("Unexpected community receipt stream")
@@ -2757,6 +3007,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
         put("$space/operation/${original.id}", key.toByteArray(Charsets.UTF_8))
         messageChangeKey(space, outbound.body)?.let { put(it, key.toByteArray(Charsets.UTF_8)) }
+        if (outbound.body.get("content_kind")?.asString == "message-reaction")
+            put(reactionPendingKey(space, outbound.body.text("channel_id"), outbound.body.text("target_message_id")), key.toByteArray(Charsets.UTF_8))
         state.addProperty("next_outbox", Math.addExact(sequence, 1))
         put(stateKey(space), bytes(state))
         put("communities/$space", space.toByteArray(Charsets.UTF_8))
@@ -2787,6 +3039,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val thread = messageThread(original.body)
         val position = receipt.number("position")
         val pointer = (contentPrefix(space, channel) + positionKey(position)).toByteArray(Charsets.UTF_8)
+        put(messagePositionIdKey(space, channel, position), original.id.toByteArray(Charsets.UTF_8))
         put(messageIdKey(space, channel, original.id), pointer)
         put(confirmedMessageIndex(space, channel, thread) + positionKey(position), pointer)
         put(reverseMessageIndex(space, channel, thread) + positionKey(Long.MAX_VALUE - position), pointer)
@@ -2795,6 +3048,15 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         page(reverseMessageIndex(space, channel, thread), limit = limit).lastOrNull()?.let {
             Long.MAX_VALUE - it.key.substringAfterLast('/').toLong()
         } ?: 0
+    private fun reactionActorsPrefix(space: String, channel: String, message: String) = "$space/channels/$channel/reaction-actors/$message/"
+    private fun reactionEmojiKey(emoji: String) = Base64.getUrlEncoder().withoutPadding().encodeToString(emoji.toByteArray(Charsets.UTF_8))
+    private fun reactionAppliedPrefix(space: String, channel: String, message: String) = "$space/channels/$channel/reaction-applied/$message/"
+    private fun reactionCountsPrefix(space: String, channel: String, message: String) = "$space/channels/$channel/reaction-counts/$message/"
+    private fun reactionInvalidPrefix(space: String, channel: String, message: String) = "$space/channels/$channel/reaction-invalid/$message/"
+    private fun messagePositionIdKey(space: String, channel: String, position: Long) = "$space/channels/$channel/message-position-ids/${positionKey(position)}"
+    private fun reactionPendingKey(space: String, channel: String, message: String) = "$space/channels/$channel/reaction-pending/$message"
+    private fun ownReactionVersionKey(space: String, channel: String, message: String) = "$space/channels/$channel/own-reaction-through/$message"
+    private fun reactionSummaryKey(space: String, channel: String, message: String) = "$space/channels/$channel/reaction-summary/$message"
     private fun messageChangeKey(space: String, channel: String, message: String) = "$space/channels/$channel/message-change/$message"
     private fun messageChangeKey(space: String, body: JsonObject): String? =
         if (body.get("kind")?.asString in setOf("content", "public-content") && body.get("content_kind")?.asString in setOf("message-edit", "message-delete"))

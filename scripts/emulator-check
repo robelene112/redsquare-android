@@ -267,6 +267,10 @@ verify_group_chat_native() {
 }
 if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
     journey_options=()
+    if [[ "${SPACES_CONVERSATION_OVERLAYS:-false}" == true ]]; then
+        [[ "${TEST_SCOPE:-full}" == spaces-journey || "${TEST_SCOPE:-full}" == spaces-journey-android17 ]] || { echo 'Conversation overlays require the base journey scope' >&2; exit 2; }
+        journey_options=(conversation-overlays-v1)
+    fi
     if [[ "${TEST_SCOPE:-full}" == spaces-journey-management* ]]; then
         if [[ "${SPACES_CATEGORY_MANAGEMENT:-false}" == true ]]; then
             [[ "${SPACES_PRIVATE_MANAGEMENT:-false}" != true ]] || { echo 'Select one Spaces management journey' >&2; exit 2; }
@@ -283,7 +287,9 @@ if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
         else journey_options=(management-v1); fi
     elif [[ "${TEST_SCOPE:-full}" == spaces-journey-discovery* ]]; then journey_options=(discovery-v1); fi
     python3 "$repo_dir/scripts/spaces-native-journey" "$evidence" "${journey_options[@]}"
-    if [[ "${SPACES_CATEGORY_MANAGEMENT:-false}" == true ]]; then
+    if [[ "${SPACES_CONVERSATION_OVERLAYS:-false}" == true ]]; then
+        printf '%s\n' 'Focused message overlays, real IME and Activity recreation only; no distinct-PID, full140, regression or deployed-node acceptance.' > "$evidence/scope.txt"
+    elif [[ "${SPACES_CATEGORY_MANAGEMENT:-false}" == true ]]; then
         printf '%s\n' 'Public category editor first feedback only; no pending-process, private-category, full139 or deployed-node acceptance.' > "$evidence/scope.txt"
     elif [[ "${SPACES_PRIVATE_MANAGEMENT:-false}" == true && "${SPACES_PRIVATE_MANAGEMENT_CASE:-process}" == private-ownership ]]; then
         echo 'Public community member management with private-channel ownership handover and actual successor private reading; whole139 acceptance remains separate.' > "$evidence/scope.txt"

@@ -448,10 +448,43 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             publish(); wake.trySend(Unit)
         }
     }
-    fun cancelSend(target: Target, messageId: String, onFinished: (Boolean) -> Unit) {
+    fun toggleReaction(target: Target, message: SpaceClient.Message, emoji: String) {
+        if (closed.get() || navigationSaving.get() || mutable.value.target() != target) return
+        scope.launch {
+            try {
+                localAccess.withLock {
+                    val current = requireNotNull(client)
+                    val actual = requireNotNull(current.message(target.space, message.id, target.channel))
+                    val selected = actual.reactions.any { it.emoji == emoji && it.selected }
+                    current.setReaction(target.space, actual, emoji, !selected, target.channel)
+                }
+                publish(); wake.trySend(Unit)
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
+        }
+    }
+    suspend fun loadReactionPage(target: Target, message: SpaceClient.Message, afterEmoji: String?): SpaceClient.ReactionPage = withContext(Dispatchers.IO) {
+        localAccess.withLock {
+            if (closed.get() || mutable.value.target() != target) throw CancellationException("Conversation changed")
+            requireNotNull(client).reactionPage(target.space, message, afterEmoji, target.channel)
+        }
+    }
+    suspend fun loadMessage(target: Target, messageId: String): SpaceClient.Message? = withContext(Dispatchers.IO) {
+        try { localAccess.withLock {
+            if (closed.get() || mutable.value.target() != target) throw CancellationException("Conversation changed")
+            requireNotNull(client).message(target.space, messageId, target.channel)
+        } } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { null }
+    }
+    fun cancelSend(target: Target, messageId: String, onFinished: (Boolean) -> Unit) = cancelOperation(target, messageId, false, onFinished)
+    fun cancelChange(target: Target, operationId: String, onFinished: (Boolean) -> Unit) = cancelOperation(target, operationId, true, onFinished)
+    private fun cancelOperation(target: Target, operationId: String, change: Boolean, onFinished: (Boolean) -> Unit) {
         if (mutable.value.target() != target) return
         localAction(isCurrent = { mutable.value.target() == target }) {
-            val cancelled = localAccess.withLock { requireNotNull(client).cancelQueuedMessage(target.space, messageId) }
+            val cancelled = localAccess.withLock {
+                val current = requireNotNull(client)
+                if (change) current.cancelQueuedChange(target.space, operationId) else current.cancelQueuedMessage(target.space, operationId)
+            }
             onFinished(cancelled); publish()
         }
     }

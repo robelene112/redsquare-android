@@ -119,6 +119,11 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
         publishRecord(wallet, "message-edit", operationId, controlId, text, timestamp,
             targetMessageId = targetMessageId, targetPosition = targetPosition, threadRootId = threadRootId)
 
+    fun publishMessageReaction(wallet: SaitoWallet, operationId: String, controlId: String, selection: String,
+        timestamp: Long, targetMessageId: String, targetPosition: Long, threadRootId: String? = null): SaitoTransaction =
+        publishRecord(wallet, "message-reaction", operationId, controlId, selection, timestamp,
+            targetMessageId = targetMessageId, targetPosition = targetPosition, threadRootId = threadRootId)
+
     fun publishThreadReply(wallet: SaitoWallet, operationId: String, controlId: String, text: String,
         timestamp: Long, parentId: String, parentPosition: Long): SaitoTransaction =
         publishRecord(wallet, "thread-reply", operationId, controlId, text, timestamp,
@@ -134,7 +139,7 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
         targetMessageId: String? = null, targetPosition: Long? = null, threadRootId: String? = null): SaitoTransaction {
         require(text.isNotEmpty() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024 && kind.matches(Regex("[a-z][a-z-]{0,31}")))
         require((kind == "category-profile") == (targetCategoryId != null))
-        require((kind in setOf("message-edit", "message-delete", "thread-reply")) == (targetMessageId != null && targetPosition != null))
+        require((kind in setOf("message-edit", "message-delete", "thread-reply", "message-reaction")) == (targetMessageId != null && targetPosition != null))
         val header = header(wallet, "content", operationId, controlId).apply {
             addProperty("content_kind", kind)
             recipient?.let { addProperty("recipient_credential", it) }
@@ -144,7 +149,7 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
                 addProperty("target_channel_id", it)
             }
             threadRootId?.let {
-                require(kind in setOf("message-edit", "message-delete") && it.matches(SIGNATURE))
+                require(kind in setOf("message-edit", "message-delete", "message-reaction") && it.matches(SIGNATURE))
                 addProperty("thread_root_id", it)
             }
             targetMessageId?.let {
@@ -320,7 +325,7 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
                 "category-profile" -> listOf(body.text("target_category_id").also { require(it.matches(ID)) })
                 "channel-profile-edit" -> if (body.has("target_channel_id"))
                     listOf(body.text("target_channel_id").also { require(it.matches(ID)) }) else emptyList()
-                "message-edit", "message-delete", "thread-reply" -> listOf(body.text("target_message_id").also { require(it.matches(SIGNATURE)) },
+                "message-edit", "message-delete", "thread-reply", "message-reaction" -> listOf(body.text("target_message_id").also { require(it.matches(SIGNATURE)) },
                     body.number("target_position").also { require(it >= 0) }.toString())
                 else -> emptyList()
             }

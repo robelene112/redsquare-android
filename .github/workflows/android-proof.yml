@@ -4,6 +4,10 @@ on:
     branches: [main]
   workflow_dispatch:
     inputs:
+      spaces_conversation_overlays:
+        description: Focused message-menu, edit, IME and reaction-details lifecycle check only
+        type: boolean
+        default: false
       spaces_startup_trace:
         description: Diagnostic initial-history sampling only, never a complete native acceptance run
         type: boolean
@@ -92,6 +96,7 @@ jobs:
         partition: ${{ fromJSON((inputs.diagnostic_partition && inputs.diagnostic_partition != 'all') && format('["{0}"]', inputs.diagnostic_partition) || (inputs.scope == 'full-android17' || inputs.scope == 'full-android10') && '["chat","social","wallet"]' || '["all"]') }}
     runs-on: ${{ inputs.runner_os || 'ubuntu-24.04' }}
     env:
+      SPACES_CONVERSATION_OVERLAYS: ${{ inputs.spaces_conversation_overlays && 'true' || 'false' }}
       SPACES_STARTUP_TRACE: ${{ inputs.spaces_startup_trace && 'true' || 'false' }}
       SPACES_CATEGORY_MANAGEMENT: ${{ inputs.spaces_category_management && 'true' || 'false' }}
       SPACES_PRIVATE_MANAGEMENT: ${{ inputs.spaces_private_management && 'true' || 'false' }}
@@ -100,6 +105,15 @@ jobs:
     # Individual native, host-process and UI deadlines remain in emulator-check.
     timeout-minutes: ${{ (inputs.scope == 'full' || startsWith(inputs.scope, 'full-')) && 120 || 60 }}
     steps:
+      - name: Qualify conversation overlay scope
+        if: inputs.spaces_conversation_overlays
+        env:
+          VERIFICATION_SCOPE: ${{ inputs.scope }}
+        run: |
+          case "$VERIFICATION_SCOPE" in
+            spaces-journey|spaces-journey-android17) ;;
+            *) echo 'Conversation overlays require the base Spaces journey scope' >&2; exit 2 ;;
+          esac
       - name: Qualify private-channel native variant
         if: inputs.spaces_private_management
         env:

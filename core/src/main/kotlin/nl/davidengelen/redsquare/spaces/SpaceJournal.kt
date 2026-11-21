@@ -781,9 +781,9 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             body.text("kind") == "content" && body.text("content_kind") == "history-keys"
         require(!channel.archived || keyDelivery) { "This channel is archived" }
         val contentKind = body.get("content_kind")?.asString
-        if (body.has("thread_root_id")) require(contentKind in setOf("message-edit", "message-delete") &&
+        if (body.has("thread_root_id")) require(contentKind in setOf("message-edit", "message-delete", "message-reaction") &&
             body.text("thread_root_id").matches(Regex("[0-9a-f]{128}")))
-        val threadContribution = contentKind == "thread-reply" || contentKind in setOf("message-edit", "message-delete") && body.has("thread_root_id")
+        val threadContribution = contentKind in setOf("thread-reply", "message-reaction") || contentKind in setOf("message-edit", "message-delete", "message-reaction") && body.has("thread_root_id")
         val administratorOnly = (channel.adminPostsOnly || channel.profile?.kind == SpaceChannelKind.ANNOUNCEMENT) && !threadContribution
         if (administratorOnly)
             require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
@@ -797,13 +797,14 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         // History-key delivery remains independent of the contribution window.
         require(keyDelivery || reference >= channel.contributionStartedAt) { "Channel writing permissions changed" }
         require(body.number("epoch") == channel.epoch && body.text("key_generation") == channel.generation)
-        if (body.get("content_kind")?.asString in setOf("message-edit", "message-delete", "thread-reply")) {
+        if (body.get("content_kind")?.asString in setOf("message-edit", "message-delete", "thread-reply", "message-reaction")) {
             require(body.text("target_message_id").matches(Regex("[0-9a-f]{128}")) && body.number("target_position") >= 0)
         }
         if (channel.visibility == SpaceVisibility.PUBLIC) {
-            require(body.text("kind") == "public-content" && body.text("content_kind") in setOf("message", "message-edit", "message-delete", "thread-reply"))
+            require(body.text("kind") == "public-content" && body.text("content_kind") in setOf("message", "message-edit", "message-delete", "thread-reply", "message-reaction"))
             val text = body.text("text")
             require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
+            if (contentKind == "message-reaction") SpaceReactionSelection.decode(text)
             return
         }
         require(channel.retiredDevices.isEmpty()) { "Private content must wait for current membership keys" }
@@ -812,7 +813,8 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             "content" -> {
                 require(body.text("content_kind").matches(Regex("[a-z][a-z-]{0,31}")))
                 if (body.text("content_kind") == "history-keys") require(body.text("recipient_credential") in channel.devices)
-                require(Base64.getDecoder().decode(body.text("ciphertext")).size in 29..(64 * 1024 + 28))
+                val size = Base64.getDecoder().decode(body.text("ciphertext")).size
+                require(size in 29..(if (contentKind == "message-reaction") 2048 else 64 * 1024 + 28))
             }
             "history" -> {
                 require(body.text("recipient_credential") in channel.devices)

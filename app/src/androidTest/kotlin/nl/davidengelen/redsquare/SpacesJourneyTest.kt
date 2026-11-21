@@ -41,6 +41,103 @@ class SpacesJourneyTest {
         .putExtra("feedPeerUrl", "ws://127.0.0.1:$peerPort/wsopen")
         .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/"))
 
+    @Test fun messageMenusAndEditSurviveIncomingMessagesAndRealIme() {
+        val original = "Native overlay original"
+        val edited = "Preserved native edit while the live conversation moves"
+        val reactionText = "Native reaction details original"
+        launch().use { activity -> withFailureCapture({ capture("overlay-failure") }) {
+            openSpaces("Red Square")
+            ui.waitUntil(15_000) { ui.onNode(hasText("Create a Space") and hasClickAction() and isEnabled()).isDisplayed() }
+            ui.onNode(hasText("Create a Space") and hasClickAction()).performClick()
+            ui.onNodeWithText("Space name").performTextInput("Stable native message overlays")
+            closeKeyboard(activity)
+            listOf("announcements", "the lounge", "reading room", "resources").forEach { name ->
+                ui.onNodeWithContentDescription("Remove $name").performScrollTo().performClick()
+            }
+            ui.onNode(hasText("Create a Space") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Message general").isDisplayed() }
+            ui.onNodeWithText("Message general").performTextInput(original)
+            ui.onNodeWithContentDescription("Send message").performClick(); closeKeyboard(activity)
+            ui.waitUntil(15_000) { ui.onNodeWithText(original).isDisplayed() }
+            ui.onNodeWithContentDescription("Switch Space or channel").performClick()
+            ui.onNodeWithText("Invite people").performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Copy invitation").isDisplayed() }
+            ui.onNodeWithText("Copy invitation").performClick()
+            ui.onNodeWithText("Invitation copied").assertIsDisplayed()
+            var link = ""
+            activity.onActivity { link = (it.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip?.getItemAt(0)?.text.toString() }
+            val joined = command("join", JsonObject().apply { addProperty("link", link) })
+            val space = joined.get("space").asString
+            UiDevice.getInstance(instrumentation).pressBack()
+            ui.waitUntil(20_000) { ui.onNodeWithText("Reply from independent member").isDisplayed() }
+            val remembered = command("message-observation", JsonObject().apply { addProperty("space", space); addProperty("text", original) })
+            fun rowAction(text: String, description: String) = ui.onNode(hasContentDescription(description) and hasAnyAncestor(
+                hasTestTag("spaces-message") and hasAnyDescendant(hasText(text))))
+            rowAction(original, "Message actions").performClick()
+            ui.waitUntil(5_000) { ui.onNode(hasText("Edit message") and hasClickAction() and hasAnyAncestor(isDialog())).isDisplayed() }
+            capture("overlay-01-actions")
+            command("populate", JsonObject().apply { addProperty("space", space); addProperty("from", 0); addProperty("count", 60) })
+            ui.waitUntil(20_000) { ui.onAllNodesWithText(original).fetchSemanticsNodes().isEmpty() }
+            ui.onNode(hasText("Edit message") and hasClickAction() and hasAnyAncestor(isDialog())).assertIsDisplayed().performClick()
+            fun editor() = ui.onNode(hasText("Message") and hasSetTextAction() and hasAnyAncestor(isDialog()))
+            ui.waitUntil(5_000) { editor().isDisplayed() }
+            editor().performClick().performTextReplacement(edited)
+            ui.waitUntil(5_000) { focusedWindowImeBottom() > 0 }
+            val ime = focusedWindowImeBottom(); assertTrue(ime > 0)
+            capture("overlay-02-real-ime")
+            val incoming = command("populate", JsonObject().apply { addProperty("space", space); addProperty("from", 60); addProperty("count", 8) })
+            var consumed = JsonObject()
+            ui.waitUntil(15_000) {
+                consumed = command("message-consumption", incoming)
+                consumed.get("observed").asBoolean
+            }
+            assertEquals(AndroidWalletStore(context).loadOrCreate().publicKey, consumed.get("author").asString)
+            editor().assertIsDisplayed()
+            assertEquals(edited, editor().fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text)
+            assertTrue("Actual keyboard remains open during incoming messages", focusedWindowImeBottom() > 0)
+            UiDevice.getInstance(instrumentation).pressBack()
+            ui.waitUntil(5_000) { focusedWindowImeBottom() == 0 && editor().isDisplayed() }
+            activity.recreate()
+            ui.waitUntil(15_000) { editor().isDisplayed() && editor().fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text == edited }
+            capture("overlay-03-recreated-edit")
+            ui.onNode(hasText("Save changes") and hasClickAction() and hasAnyAncestor(isDialog())).performScrollTo().performClick()
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Message") and hasSetTextAction() and hasAnyAncestor(isDialog())).fetchSemanticsNodes().isEmpty() }
+            var observed = JsonObject()
+            ui.waitUntil(15_000) {
+                observed = command("message-observation", remembered.deepCopy().apply { addProperty("space", space) })
+                observed.get("text").asString == edited && observed.get("edited").asBoolean
+            }
+            assertEquals(remembered.get("id").asString, observed.get("id").asString)
+            ui.onNodeWithText("Message general").performTextInput(reactionText)
+            ui.onNodeWithContentDescription("Send message").performClick(); closeKeyboard(activity)
+            ui.waitUntil(15_000) { ui.onNodeWithText(reactionText).isDisplayed() }
+            var reactionMessage = JsonObject()
+            ui.waitUntil(15_000) {
+                try { reactionMessage = command("react-to-message", JsonObject().apply { addProperty("space", space); addProperty("text", reactionText) }); true }
+                catch (_: AssertionError) { false }
+            }
+            ui.waitUntil(15_000) { ui.onNode(hasText("All reactions") and hasClickAction()).isDisplayed() }
+            ui.onNode(hasText("All reactions") and hasClickAction()).performClick()
+            ui.waitUntil(10_000) { ui.onNode(hasText("Reactions") and hasAnyAncestor(isDialog())).isDisplayed() }
+            capture("overlay-04-reaction-details")
+            command("populate", JsonObject().apply { addProperty("space", space); addProperty("from", 68); addProperty("count", 60) })
+            ui.waitUntil(20_000) { ui.onAllNodesWithText(reactionText).fetchSemanticsNodes().isEmpty() }
+            ui.onNode(hasText("Reactions") and hasAnyAncestor(isDialog())).assertIsDisplayed()
+            ui.onNode(hasText("❤️") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+            var reactionObserved = JsonObject()
+            ui.waitUntil(15_000) {
+                reactionObserved = command("message-observation", reactionMessage.deepCopy().apply { addProperty("space", space) })
+                reactionObserved.getAsJsonArray("reactions").any { it.asJsonObject.get("emoji").asString == "❤️" && it.asJsonObject.get("count")?.asLong == 2L }
+            }
+            capture("overlay-05-reaction-after-row-disposal")
+            File(evidence, "overlay-results.json").writeText(JsonObject().apply {
+                addProperty("pid", Process.myPid()); addProperty("imeBottom", ime)
+                add("editedMessage", observed); add("reactedMessage", reactionObserved)
+                addProperty("activityRecreated", true); addProperty("incomingBeforeEdit", 60); add("incomingDuringIme", incoming); add("androidConsumptionWhileImeOpen", consumed); addProperty("incomingDuringDetails", 60)
+            }.toString())
+        } }
+    }
+
     @Test fun createInviteJoinReadAndCheckpointAnUncertainOriginal() {
         check(!checkpoint.exists())
         val wallet = AndroidWalletStore(context).loadOrCreate()

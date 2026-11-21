@@ -13,8 +13,9 @@ import urllib.request
 
 repo = Path(__file__).resolve().parent.parent
 mode = sys.argv[2] if len(sys.argv) == 3 else 'journey-v1'
-if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
+if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'conversation-overlays-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
     raise ValueError('Expected evidence directory and optional discovery-v1, management-v1, private-management-v1 or private-readiness-v1 or category-management-v1 or governance-v1')
+conversation_overlays_mode = mode == 'conversation-overlays-v1'
 private_ownership_mode = mode == 'private-ownership-v1'
 membership_mode = private_ownership_mode or mode == 'membership-v1'
 governance_mode = mode == 'governance-v1'
@@ -884,6 +885,25 @@ try:
         (evidence / 'journey-outcome.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
             'phasePids': pids, 'nativeTerminalPasses': 2, 'deliberatelyInterruptedCases': 0 if private_readiness_mode or category_management_mode else 2,
             'productionNodeActivated': False, 'ordinaryBetaChanged': False}))
+    elif conversation_overlays_mode:
+        record(1)
+        session = instrument('messageMenusAndEditSurviveIncomingMessagesAndRealIme', 'conversation-overlays.txt', peer_port, control_port)
+        session.wait(timeout=180)
+        output = (evidence / 'conversation-overlays.txt').read_text()
+        if session.returncode or len(re.findall(r'^OK \(1 test\)\s*$', output, re.M)) != 1:
+            raise RuntimeError('Focused conversation overlays failed; retain the original native result')
+        observed = json.loads(adb('exec-out', 'run-as', pkg, 'cat', 'cache/spaces-journey-evidence/overlay-results.json').stdout)
+        if not (observed['pid'] > 0 and observed['imeBottom'] > 0 and observed['activityRecreated'] and
+                observed['editedMessage']['edited'] and observed['incomingDuringIme']['count'] >= 8 and
+                observed['androidConsumptionWhileImeOpen']['observed'] and observed['androidConsumptionWhileImeOpen']['request']):
+            raise RuntimeError('Focused conversation observations are incomplete')
+        (evidence / 'overlay-results.json').write_text(json.dumps(observed, indent=2))
+        (evidence / 'host-status.json').write_text(json.dumps(command(control_port, 'status')))
+        command(control_port, 'stop'); host.wait(timeout=15)
+        if host.returncode: raise RuntimeError('Owned conversation host failed')
+        (evidence / 'journey-outcome.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
+            'pid': observed['pid'], 'nativeTerminalPasses': 1, 'deliberatelyInterruptedCases': 0,
+            'distinctPidAcceptance': False, 'whole140Acceptance': False, 'productionNodeActivated': False}))
     else:
         record(1)
         first = instrument('createInviteJoinReadAndCheckpointAnUncertainOriginal', 'before-kill.txt', peer_port, control_port)

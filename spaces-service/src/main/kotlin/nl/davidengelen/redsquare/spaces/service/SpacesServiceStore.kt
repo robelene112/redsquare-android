@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare.spaces.service
 
 import com.google.gson.JsonObject
+import com.google.gson.JsonPrimitive
+import com.google.gson.JsonNull
 import com.google.gson.JsonArray
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoTransaction
@@ -59,7 +61,9 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val space = scope.text("space_id").also { require(it.matches(ID)) }
         val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation", "directory", "heads", "messages")) }
         require(scope.keySet() == setOf("space_id", "stream", "cursor") + when (stream) {
-            "messages" -> setOf("channel_id", "direction", "limit") + if (scope.has("thread_id")) setOf("thread_id") else emptySet()
+            "messages" -> setOf("channel_id", "direction", "limit") + (if (scope.has("thread_id")) setOf("thread_id") else emptySet()) +
+                (if (scope.has("reaction_history")) setOf("reaction_history") else emptySet()) +
+                (if (scope.has("reaction_cursors")) setOf("reaction_cursors") else emptySet())
             "content" -> setOf("channel_id"); "keys" -> setOf("channel_id", "recipient_credential")
             "invitation" -> setOf("invite_id"); "directory" -> setOf("query"); "heads" -> setOf("positions"); else -> emptySet()
         })
@@ -68,6 +72,18 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val recipient = if (stream == "keys") scope.text("recipient_credential") else null
         val cursor = scope.number("cursor")
         if (stream == "messages") require(scope.text("direction") in setOf("before", "after") && scope.number("limit") in 1..50)
+        if (stream == "messages" && scope.has("reaction_history")) require(scope.get("reaction_history").let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean })
+        if (stream == "messages" && scope.has("reaction_cursors")) {
+            require(scope.get("reaction_history")?.asBoolean == true)
+            val cursors = scope.getAsJsonObject("reaction_cursors"); require(cursors.size() <= 50)
+            for ((message, value) in cursors.entrySet()) {
+                require(message.matches(Regex("[0-9a-f]{128}")) && value.isJsonObject)
+                val progress = value.asJsonObject
+                require(progress.keySet() == setOf("after") + if (progress.has("through")) setOf("through") else emptySet())
+                require(progress.number("after") >= 0)
+                if (progress.has("through")) require(progress.number("through") >= progress.number("after"))
+            }
+        }
         if (stream == "messages" && scope.has("thread_id")) require(scope.text("thread_id").matches(Regex("[0-9a-f]{128}")))
         if (stream == "heads") {
             require(cursor == 0L)
@@ -153,7 +169,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                             }
                             if (!known) { denied("unavailable"); return@atomic }
                         }
-                        messagePage(reply, space, requireNotNull(channel), cursor, scope.text("direction"), scope.number("limit").toInt(), thread)
+                        messagePage(reply, space, requireNotNull(channel), request.author, cursor, scope.text("direction"), scope.number("limit").toInt(), thread, scope.get("reaction_history")?.asBoolean == true, scope.getAsJsonObject("reaction_cursors"))
                         return@atomic
                     }
                     val items = JsonArray()
@@ -200,6 +216,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 if (!reply.has("request")) reply.addProperty("request", "page")
                 reply.addProperty("nonce", nonce)
                 reply.addProperty("message_history", true)
+                reply.addProperty("message_reactions", true)
             }
             else -> throw IllegalArgumentException("Unsupported Spaces read request")
         }
@@ -208,7 +225,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
 
     /** Message slots, independent of the number of immutable mutations. The
      * original receipt and its latest edit remain independently authenticated. */
-    private fun messagePage(reply: JsonObject, space: String, channel: String, cursor: Long, direction: String, limit: Int, thread: String?) {
+    private fun messagePage(reply: JsonObject, space: String, channel: String, reader: String, cursor: Long, direction: String, limit: Int, thread: String?, reactions: Boolean, reactionCursors: JsonObject?) {
         val before = direction == "before"
         val items = mutableListOf<JsonObject>()
         var size = 0
@@ -234,6 +251,39 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     database.prepareStatement("SELECT receipt FROM records WHERE space_id=? AND channel_id=? AND kind='message-delete' AND target_message_id=? ORDER BY position DESC LIMIT 1").use { deletion ->
                         deletion.setString(1, space); deletion.setString(2, channel); deletion.setString(3, rows.getString(2))
                         deletion.executeQuery().use { versions -> if (versions.next()) item.addProperty("deletion", versions.getString(1)) }
+                    }
+                    if (reactions) {
+                        val progress = reactionCursors?.getAsJsonObject(rows.getString(2))
+                        val after = progress?.number("after") ?: 0L
+                        val latest = database.prepareStatement("SELECT COALESCE(MAX(position)+1,0) FROM records WHERE space_id=? AND channel_id=? AND kind='message-reaction' AND target_message_id=?").use { query ->
+                            query.setString(1, space); query.setString(2, channel); query.setString(3, rows.getString(2))
+                            query.executeQuery().use { values -> check(values.next()); values.getLong(1) }
+                        }
+                        val through = progress?.get("through")?.asLong ?: latest
+                        require(after <= through && through <= latest)
+                        val choices = JsonArray()
+                        var complete = true
+                        var next = after
+                        database.prepareStatement("SELECT r.receipt,r.position FROM records r WHERE r.space_id=? AND r.channel_id=? AND r.kind='message-reaction' AND r.target_message_id=? AND r.position>=? AND r.position<? " +
+                            "AND NOT EXISTS (SELECT 1 FROM records n WHERE n.space_id=r.space_id AND n.channel_id=r.channel_id AND n.kind=r.kind AND n.target_message_id=r.target_message_id AND n.actor=r.actor AND n.position>r.position AND n.position<?) ORDER BY r.position LIMIT 51").use { query ->
+                            query.setString(1, space); query.setString(2, channel); query.setString(3, rows.getString(2))
+                            query.setLong(4, after); query.setLong(5, through); query.setLong(6, through)
+                            query.executeQuery().use { actors -> while (actors.next()) {
+                                if (choices.size() == 50) { complete = false; break }
+                                choices.add(actors.getString(1)); next = Math.addExact(actors.getLong(2), 1)
+                            } }
+                        }
+                        // The caller's complete desired selection is independent of
+                        // group pagination, so a cold client cannot overwrite choices
+                        // that happen to fall beyond this bounded actor page.
+                        val own = database.prepareStatement("SELECT receipt FROM records WHERE space_id=? AND channel_id=? AND kind='message-reaction' AND target_message_id=? AND actor=? AND position<? ORDER BY position DESC LIMIT 1").use { query ->
+                            query.setString(1, space); query.setString(2, channel); query.setString(3, rows.getString(2))
+                            query.setString(4, reader); query.setLong(5, through)
+                            query.executeQuery().use { actor -> if (actor.next()) actor.getString(1) else null }
+                        }
+                        item.add("own_reaction", own?.let(::JsonPrimitive) ?: JsonNull.INSTANCE)
+                        item.add("reactions", choices); item.addProperty("reactions_complete", complete)
+                        item.addProperty("reaction_version", through); item.addProperty("reaction_next_cursor", if (complete) through else next)
                     }
                     val bytes = item.toString().toByteArray(Charsets.UTF_8).size
                     check(bytes <= PAGE_BYTES) { "Spaces message exceeds the page capacity" }
@@ -567,7 +617,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
     private fun verifyMessageMutation(event: SignedSaitoMessage, journal: SpaceJournal) {
         val body = event.body
         val kind = body.get("content_kind")?.asString
-        if (kind !in setOf("message-edit", "message-delete", "thread-reply")) return
+        if (kind !in setOf("message-edit", "message-delete", "thread-reply", "message-reaction")) return
         val target = body.text("target_message_id")
         val position = body.number("target_position")
         require(target.matches(Regex("[0-9a-f]{128}")) && position >= 0)
@@ -585,7 +635,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val thread = if (acceptedKind == "thread-reply") accepted.body.text("target_message_id") else null
         require(body.get("thread_root_id")?.asString == thread) { "A change belongs to its actual conversation" }
         val author = accepted.author
-        require(author == event.author || kind == "message-delete" && journal.hasCurrentAdministratorIntent(event.author, body.text("control_id"))) {
+        require(kind == "message-reaction" || author == event.author || kind == "message-delete" && journal.hasCurrentAdministratorIntent(event.author, body.text("control_id"))) {
             "Only the author can edit; moderation needs current staff authority"
         }
         val deleted = database.prepareStatement("SELECT 1 FROM records WHERE space_id=? AND channel_id=? AND kind='message-delete' AND target_message_id=? LIMIT 1").use { sql ->

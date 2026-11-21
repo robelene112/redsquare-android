@@ -58,6 +58,33 @@ byte-exact. The adapter accepts compatible schema4/5 services. These source
 changes do not install a module, expose a private channel, activate file hosting
 or update the ordinary public beta.
 
+### Bounded reaction histories and own choices
+
+`message-reaction` signs the author's complete desired set (at most16 distinct
+choices,32UTF8bytes each). Private selections use the existing archive AEAD,
+including the actual base ID/position and optional thread root. Valid announcement
+members may react without receiving top-level publishing permission.
+
+Caller/nonce-bound pages advertise `message_reactions`. Opted-in
+`reaction_history` reads add per-base latest-author pages of at most50 receipts,
+`reaction_version`, `reaction_next_cursor` and `reactions_complete`. Scoped
+`reaction_cursors` resume a fixed `through` observation. The client performs at
+most two follow-up requests per read and resumes remaining hydration later.
+Counts remain unavailable while the accepted group projection is incomplete.
+
+Each opted-in item also carries nullable `own_reaction`, independently selected
+for the authenticated caller within that same observation. A cold installation
+therefore retains all its choices before the whole group is loaded. The client
+validates its author, target, thread and position and advances own-choice knowledge
+monotonically. Incomplete own knowledge or unavailable own historical keys prevent
+full-set replacement. Genuine stale pages cannot undo later author revisions.
+
+Protected local projections apply each actor revision once. Rendering reads
+bounded count/own-choice pages instead of decrypting the entire actor history.
+Own selections remain visible/removable even beyond50 emoji types. Retained
+unreadable receipts are repaired fairly in bounded batches after exact historical
+keys arrive, including subsequent offline reads. No repair signs another reaction.
+
 ### Local conversation selection and queued changes
 
 A version1 local thread hint contains only channel, accepted message ID and
@@ -70,17 +97,20 @@ already selected cached scope never queues admission when access is absent;
 new contributions still require current permission and keys.
 
 A per-message latest-change pointer references the exact queued edit/deletion.
-Projection distinguishes unattempted, attempted and rejected intent and retains
+Projection distinguishes unattempted, attempted, cancelled and rejected intent and retains
 requested edit text locally. Older acceptance/rejection only updates that pointer
 if it still references the same operation. No delayed result can clear a newer
 requested replacement.
 
-Cancellation of an unattempted root/reply and the durable delivery-attempt marker
+Cancellation of an unattempted root/reply or edit/deletion and the durable delivery-attempt marker
 are serialized in one store transaction. Successful cancellation removes pending
 and operation pointers but retains the immutable original with a local cancelled
 marker, separate from an authenticated node rejection. Received-message helpers
 exclude cancelled originals. Current writing is never overwritten; restoring the
-text is an explicit native action. Attempted/uncertain sends cannot be withdrawn
+text is an explicit native action. Saved edits remain viewable/copyable after permissions change.
+Conversation-owned menus, editor, confirmations and reaction details remain outside
+the recycled list; active overlays suspend automatic scrolling/read marking.
+Attempted/uncertain sends cannot be withdrawn
 through this local cancellation path and retain exact-original recovery.
 
 ## In-progress138 public directory contract

@@ -114,9 +114,53 @@ object SpacesNativeHost {
                                             val from = body.get("from")?.asInt ?: 0
                                             val count = body.get("count")?.asInt ?: 20
                                             require(from in 0..100 && count in 1..60)
-                                            repeat(count) { client.send(space, "Fixture line ${from + it}") }
+                                            var last = ""
+                                            repeat(count) { last = client.send(space, "Fixture line ${from + it}") }
                                             client.flush(space); client.flush(space)
-                                            JsonObject()
+                                            val accepted = requireNotNull(client.message(space, last))
+                                            JsonObject().apply {
+                                                addProperty("space", space); addProperty("id", accepted.id)
+                                                addProperty("position", requireNotNull(accepted.position)); addProperty("count", count)
+                                            }
+                                        }
+                                        "/message-consumption" -> {
+                                            val space = body.get("space").asString; val id = body.get("id").asString
+                                            requireNotNull(client.message(space, id))
+                                            // A new authenticated Android request acknowledges an
+                                            // earlier committed message page via its durable cursor.
+                                            // No fixture/client data is injected into Android.
+                                            val acknowledgement = peer.spacesRequests.lastOrNull { transaction ->
+                                                val signed = SaitoEnvelope.decode(transaction.envelope()); val read = signed.body
+                                                val scope = read.getAsJsonObject("scope")
+                                                read.get("request")?.asString == "read" && scope?.get("stream")?.asString == "messages" &&
+                                                    scope.get("space_id")?.asString == space && scope.getAsJsonObject("reaction_cursors")?.has(id) == true
+                                            }
+                                            JsonObject().apply {
+                                                addProperty("message", id); addProperty("observed", acknowledgement != null)
+                                                acknowledgement?.let {
+                                                    addProperty("request", it.envelope()); addProperty("author", SaitoEnvelope.decode(it.envelope()).author)
+                                                }
+                                            }
+                                        }
+                                        "/message-observation", "/react-to-message" -> {
+                                            val space = body.get("space").asString
+                                            val expected = body.get("id")?.asString
+                                            val position = body.get("position")?.asLong
+                                            if (position != null) client.older(space, before = Math.addExact(position, 1))
+                                            val message = if (expected != null) requireNotNull(client.message(space, expected))
+                                                else client.timeline(space).single { it.text == body.get("text").asString }
+                                            if (request.requestURI.path == "/react-to-message") {
+                                                listOf("👍", "❤️", "🔥", "🎉", "🚀", "😂", "🤔", "👀").forEach { emoji -> client.setReaction(space, message, emoji, true) }
+                                                client.flush(space)
+                                            }
+                                            val received = requireNotNull(client.message(space, message.id))
+                                            JsonObject().apply {
+                                                addProperty("id", received.id); addProperty("position", requireNotNull(received.position))
+                                                addProperty("text", received.text); addProperty("edited", received.edited)
+                                                add("reactions", com.google.gson.JsonArray().apply { received.reactions.forEach { choice -> add(JsonObject().apply {
+                                                    addProperty("emoji", choice.emoji); choice.count?.let { addProperty("count", it) }; addProperty("selected", choice.selected)
+                                                }) } })
+                                            }
                                         }
                                         "/hold" -> { peer.withholdSpacesReply = true; JsonObject() }
                                         "/release" -> { peer.withholdSpacesReply = false; JsonObject() }

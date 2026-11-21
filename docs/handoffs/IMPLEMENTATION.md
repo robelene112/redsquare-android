@@ -1,5 +1,32 @@
 # Implementation handoff
 
+## In-progress140 reaction and overlay checkpoint
+
+Source now includes encrypted/public full-set author reactions, bounded50-actor
+history paging, independent caller-bound own choices and protected incremental
+count projections. Cold152-actor hydration preserves existing own selections.
+Late historical keys repair retained choices offline; stale signed pages cannot
+restore removed choices. Member announcement reactions retain publishing limits.
+Private revoke/regrant epochs and archive/reopen preserve exact refusals and drafts.
+
+Unattempted edits/deletions are cancellable with retained signed originals and
+saved edit text. All message menus, edit/cancel/delete dialogs and reaction detail
+pages are owned above virtualized rows. Active overlays pause automatic scrolling
+and read marking. Saved edit text remains copyable after permission changes.
+
+The earlier full shared check passed251core and187service cases. Subsequent
+own-choice changes passed9reaction/13thread cases, retaining the actual failing
+cold152 regression. Equivalent service-boundary participant setup then passed
+that case in37.87s without changing its180s deadline or assertions. Main Android
+and instrumentation compilation passed, including the strengthened signed Android
+consumption witness. The focused native overlay journey awaits actual execution and
+visual review; it claims neither distinct-PID nor complete140 acceptance.
+
+Continue140 pins/unread/notification policies and complete native/process checks,
+then141–147 sequentially. No checkpoint stop. Beta142, node/provider/public-write
+and file-hosting gates remain unchanged. Earlier source-stage entries below retain
+their narrower chronological scopes.
+
 ## In-progress140 native conversations and recoverable work
 
 Native source now connects channel and thread conversations, reply-count entry,

@@ -1580,7 +1580,7 @@
     <string name="spaces_dissolve_detail">This stops new activity, revokes invitations and removes the community from Discover. It cannot be undone. Already received messages and files, local drafts and copies on other devices or storage providers are not erased.</string>
     <string name="spaces_thread">Thread</string>
     <string name="spaces_back_to_channel">Back to channel</string>
-    <string name="spaces_reply_in_thread">Reply in thread</string>
+    <string name="spaces_reply_in_thread">Reply</string>
     <string name="spaces_reply_thread_hint">Reply in this thread</string>
     <string name="spaces_message_actions">Message actions</string>
     <string name="spaces_edit_message">Edit message</string>
@@ -1592,7 +1592,7 @@
     <string name="spaces_edit_waiting_connection">Edit saved · Waiting for connection</string>
     <string name="spaces_delete_waiting_connection">Deletion saved · Waiting for connection</string>
     <string name="spaces_change_awaiting_confirmation">Change sent · Waiting for confirmation</string>
-    <string name="spaces_edit_not_accepted">Edit was not accepted. Your requested text is saved in Edit message.</string>
+    <string name="spaces_edit_not_accepted">Edit was not accepted. Your requested text is saved.</string>
     <string name="spaces_delete_not_accepted">Deletion was not accepted. The message is still here.</string>
     <string name="spaces_message_waiting_connection">Waiting for connection</string>
     <string name="spaces_send_cancelled">Send cancelled</string>
@@ -1601,4 +1601,20 @@
     <string name="spaces_cancel_send_too_late">Sending has already started. Waiting for confirmation.</string>
     <string name="spaces_keep_queued">Keep queued</string>
     <string name="spaces_cancel_send_already_sent">The message was sent before it could be cancelled.</string>
+    <string name="spaces_cancel_change">Cancel change</string>
+    <string name="spaces_edit_cancelled">Edit cancelled. Your requested text is saved.</string>
+    <string name="spaces_deletion_cancelled">Deletion cancelled</string>
+    <string name="spaces_change_cancel_too_late">Change transmission has already started. Waiting for confirmation.</string>
+    <string name="spaces_add_reaction">Add reaction</string>
+    <string name="spaces_reactions">Reactions</string>
+    <string name="spaces_all_reactions">View all reactions</string>
+    <string name="spaces_reactions_not_complete">Some reaction counts aren’t available yet.</string>
+    <string name="spaces_previous_reactions">Previous</string>
+    <string name="spaces_next_reactions">Next</string>
+    <string name="spaces_no_reactions_page">No reactions on this page.</string>
+    <string name="spaces_retry_reactions">Could not load reactions. Retry</string>
+    <string name="spaces_saved_edit">Saved edit</string>
+    <string name="spaces_view_saved_edit">View saved edit</string>
+    <string name="spaces_copy_edit">Copy text</string>
+    <string name="spaces_copy_edit_failed">Could not copy. Retry</string>
 </resources>

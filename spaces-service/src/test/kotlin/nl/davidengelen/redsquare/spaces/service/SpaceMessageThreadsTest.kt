@@ -24,6 +24,58 @@ class SpaceMessageThreadsTest {
     private val clock = Clock.fixed(Instant.ofEpochMilli(1_700_000_000_000), ZoneOffset.UTC)
     private fun wallet(value: Int) = SaitoWallet.fromPrivateKey(value.toString().padStart(64, '0'))
 
+    @Test fun cancellingAQueuedEditOrDeletionKeepsItsRecoverableIntentAndCannotUndoAnAttemptedChange() = runBlocking<Unit> {
+        val owner = wallet(1); val service = wallet(2)
+        SpacesServiceStore(files.newFolder("cancel-change-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("cancel-change-owner.sqlite").absolutePath).use { ownerStore ->
+                var loseEditReply = false
+                val edits = mutableListOf<String>()
+                fun author() = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+                    val edit = SaitoEnvelope.decode(request.envelope()).body.get("content_kind")?.asString == "message-edit"
+                    if (edit) edits.add(request.envelope())
+                    remote.exchange(request.envelope()).also { if (edit && loseEditReply) {
+                        loseEditReply = false; throw java.io.IOException("The change was accepted before its response was lost")
+                    } }
+                }
+                var writer = author()
+                val space = writer.create(SpaceProfile("Recoverable change cancellation", visibility = SpaceVisibility.PUBLIC)); writer.flush(space)
+                writer.send(space, "The unchanged accepted text"); writer.flush(space)
+                val message = writer.timeline(space).single()
+                val cancelledEdit = writer.editMessage(space, message, "The saved cancelled replacement")
+                writer.saveDraft(space, "Independent newer writing")
+                assertTrue(writer.cancelQueuedChange(space, cancelledEdit))
+                writer = author(); writer.flush(space)
+                val retained = requireNotNull(writer.timeline(space).single().change)
+                assertTrue(retained.cancelled); assertFalse(retained.rejected); assertFalse(retained.attempted)
+                assertEquals("The saved cancelled replacement", retained.text)
+                assertEquals("The unchanged accepted text", writer.timeline(space).single().text)
+                assertEquals("Independent newer writing", writer.draft(space)); assertTrue(edits.isEmpty())
+                val obsolete = writer.editMessage(space, message, "An older queued replacement")
+                val newest = writer.editMessage(space, message, "The newer queued replacement")
+                assertTrue(writer.cancelQueuedChange(space, obsolete))
+                assertEquals(newest, writer.timeline(space).single().change?.operationId)
+                assertEquals("The newer queued replacement", writer.timeline(space).single().change?.text)
+                assertFalse(requireNotNull(writer.timeline(space).single().change).cancelled)
+                assertTrue(writer.cancelQueuedChange(space, newest))
+                writer.flush(space); assertTrue(edits.isEmpty())
+                val cancelledDeletion = writer.deleteMessage(space, message)
+                assertTrue(writer.cancelQueuedChange(space, cancelledDeletion)); writer.flush(space)
+                assertTrue(requireNotNull(writer.timeline(space).single().change).cancelled)
+                assertFalse(writer.timeline(space).single().deleted)
+                val uncertain = writer.editMessage(space, message, "The accepted uncertain replacement")
+                loseEditReply = true
+                try { writer.flush(space); fail("The actual acknowledgment is lost") } catch (_: java.io.IOException) { }
+                writer = author()
+                assertFalse(writer.cancelQueuedChange(space, uncertain))
+                assertTrue(requireNotNull(writer.timeline(space).single().change).attempted)
+                writer.flush(space)
+                assertEquals(2, edits.size); assertEquals(edits[0], edits[1])
+                assertEquals("The accepted uncertain replacement", writer.timeline(space).single().text)
+                assertNull(writer.timeline(space).single().change)
+            }
+        }
+    }
+
     @Test fun cancellingAnUntransmittedRootOrReplyRetainsRecoverableTextAndCannotWithdrawAnUncertainSend() = runBlocking<Unit> {
         val owner = wallet(1); val service = wallet(2)
         SpacesServiceStore(files.newFolder("cancel-message-service").toPath(), service, clock).use { remote ->
@@ -435,6 +487,16 @@ class SpaceMessageThreadsTest {
                     assertEquals(listOf(replyId), received.map { it.id })
                     assertEquals("A confidential threaded answer", received.single().text)
                     assertFalse(received.single().pending)
+                    val abandoned = writer.editMessage(space, received.single(), "A cancelled confidential revision", channel)
+                    assertTrue(writer.cancelQueuedChange(space, abandoned))
+                    writer = author(); writer.flush(space)
+                    val abandonedIntent = requireNotNull(writer.thread(space, parent, channel = channel).single().change)
+                    assertTrue(abandonedIntent.cancelled); assertFalse(abandonedIntent.rejected)
+                    assertEquals("A cancelled confidential revision", abandonedIntent.text)
+                    assertEquals("A confidential threaded answer", writer.thread(space, parent, channel = channel).single().text)
+                    creator.refreshThread(space, parent, channel)
+                    assertEquals("A confidential threaded answer", creator.thread(space, parent, channel = channel).single().text)
+                    assertTrue(changes.isEmpty())
                     writer.editMessage(space, received.single(), "The corrected confidential answer", channel)
                     val queuedEdit = requireNotNull(writer.thread(space, parent, channel = channel).single().change)
                     assertEquals(SpaceClient.MessageChangeKind.EDIT, queuedEdit.kind)

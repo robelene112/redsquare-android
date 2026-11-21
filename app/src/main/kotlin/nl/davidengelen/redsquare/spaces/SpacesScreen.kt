@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.togetherWith
 import androidx.compose.animation.AnimatedVisibility
@@ -32,6 +33,7 @@ import nl.davidengelen.redsquare.feed.LocalPostNavigation
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -52,6 +54,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.feed.ProfileAvatar
 import nl.davidengelen.redsquare.registry.registeredIdentity
@@ -286,6 +292,17 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         val threadParent = state.threadParent
                         val target = SpacesAccount.Target(selected.id, selected.channel, threadParent?.id)
                         val canWrite = if (threadParent == null) selected.canSend else selected.canReply
+                        var overlayId by rememberSaveable { mutableStateOf<String?>(null) }
+                        var overlayMode by rememberSaveable { mutableStateOf<MessageOverlay?>(null) }
+                        var overlayText by rememberSaveable { mutableStateOf("") }
+                        var retainedMessage by remember { mutableStateOf<SpaceClient.Message?>(null) }
+                        val overlayMessage = state.messages.firstOrNull { it.id == overlayId } ?: retainedMessage?.takeIf { it.id == overlayId }
+                        LaunchedEffect(overlayId, overlayMode, state.messages) {
+                            val id = overlayId ?: return@LaunchedEffect
+                            if (overlayMode == null) return@LaunchedEffect
+                            state.messages.firstOrNull { it.id == id }?.let { retainedMessage = it }
+                                ?: account.loadMessage(target, id)?.let { retainedMessage = it }
+                        }
                         threadParent?.let { parent ->
                             Surface(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp),
                                 shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
@@ -324,7 +341,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 }
                                 val read = visible.mapNotNull { item -> latestMessages.firstOrNull { it.id == item.key }?.position }.maxOrNull()
                                 val anchor = first?.let { SpaceClient.ReadingAnchor(it.id, requireNotNull(it.position), list.firstVisibleItemScrollOffset, latestWindow) }
-                                ChannelViewport(anchor, !(list.canScrollForward || list.isScrollInProgress), autoScrolling || initialPage, read)
+                                ChannelViewport(anchor, !(list.canScrollForward || list.isScrollInProgress), autoScrolling || initialPage || overlayMode != null, read)
                             }.collect { viewport ->
                                 if (!viewport.automatic) {
                                     if (viewport.anchor != null) account.readingPosition(selected.id, selected.channel,
@@ -335,7 +352,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 }
                             }
                         }
-                        LaunchedEffect(state.messages.map { it.id }, state.scrollToMessage) {
+                        LaunchedEffect(state.messages.map { it.id }, state.scrollToMessage, overlayMode) {
+                            if (overlayMode != null) return@LaunchedEffect
                             val requested = state.scrollToMessage
                             val requestedIndex = state.messages.indexOfFirst { it.id == requested }
                             if (requestedIndex >= 0) {
@@ -369,12 +387,35 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 MessageRow(message, state.draft.isEmpty() && !state.working,
                                     restore = { account.restoreUnsentDraft(message.id) },
                                     reply = if (accepted && threadParent == null) ({ account.openThread(message) }) else null,
-                                    edit = if (accepted && !message.deleted && own && canWrite) ({ text, done -> account.editMessage(target, message, text, done) }) else null,
-                                    remove = if (accepted && !message.deleted && canWrite && (own || selected.canManage)) ({ done -> account.deleteMessage(target, message, done) }) else null,
-                                    cancel = if (message.pending && !message.attempted) ({ done -> account.cancelSend(target, message.id, done) }) else null,
+                                    canEdit = accepted && !message.deleted && own && canWrite,
+                                    canRemove = accepted && !message.deleted && canWrite && (own || selected.canManage),
+                                    canCancel = message.pending && !message.attempted,
+                                    openOverlay = { mode ->
+                                        retainedMessage = message; overlayId = message.id
+                                        overlayText = message.change?.text ?: message.text.orEmpty()
+                                        overlayMode = mode
+                                    },
+                                    react = if (accepted && !message.deleted && selected.canReact && message.ownReactionsAvailable) ({ emoji -> account.toggleReaction(target, message, emoji) }) else null,
+                                    cancelChange = { id, done -> account.cancelChange(target, id, done) },
                                     working = state.working)
                             }
                         }
+                        val acceptedOverlay = overlayMessage?.let { !it.pending && !it.rejected && !it.cancelled } == true
+                        val editableOverlay = acceptedOverlay && overlayMessage?.deleted == false && overlayMessage.author == account.ownerKey && canWrite
+                        MessageOverlays(overlayMessage, overlayMode, overlayText, { overlayText = it }, { overlayMode = null },
+                            selectMode = { mode ->
+                                if (mode == MessageOverlay.EDIT) overlayText = overlayMessage?.change?.text ?: overlayMessage?.text.orEmpty()
+                                overlayMode = mode
+                            },
+                            edit = if (editableOverlay) ({ text, done -> account.editMessage(target, requireNotNull(overlayMessage), text, done) }) else null,
+                            remove = if (acceptedOverlay && overlayMessage?.deleted == false && canWrite && (overlayMessage.author == account.ownerKey || selected.canManage))
+                                ({ done -> account.deleteMessage(target, overlayMessage, done) }) else null,
+                            cancel = if (overlayMessage?.pending == true && !overlayMessage.attempted)
+                                ({ done -> account.cancelSend(target, overlayMessage.id, done) }) else null,
+                            react = if (acceptedOverlay && overlayMessage?.deleted == false && selected.canReact && overlayMessage.ownReactionsAvailable)
+                                ({ emoji -> account.toggleReaction(target, overlayMessage, emoji) }) else null,
+                            loadReactions = overlayMessage?.let { message -> { after -> account.loadReactionPage(target, message, after) } },
+                            working = state.working)
                         if (state.hasLater) OutlinedButton(onClick = account::latestMessages,
                             modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_latest_messages)) }
                         state.problem?.let { ProblemNotice(it, account::clearProblem) }
@@ -622,48 +663,34 @@ private data class ChannelViewport(val anchor: SpaceClient.ReadingAnchor?, val f
     }
 }
 
+private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANCEL, REACTIONS }
+
 @Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, restore: () -> Unit,
-    reply: (() -> Unit)? = null, edit: ((String, () -> Unit) -> Unit)? = null,
-    remove: ((() -> Unit) -> Unit)? = null, cancel: (((Boolean) -> Unit) -> Unit)? = null, working: Boolean = false) {
+    reply: (() -> Unit)?, canEdit: Boolean, canRemove: Boolean, canCancel: Boolean, openOverlay: (MessageOverlay) -> Unit,
+    cancelChange: ((String, (Boolean) -> Unit) -> Unit)?, react: ((String) -> Unit)?, working: Boolean) {
+    val savedEdit = message.change?.takeIf { it.kind == SpaceClient.MessageChangeKind.EDIT }?.text
     val name = registeredIdentity(message.author).name
     val time = remember(message.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(message.createdAt)) }
-    var menu by remember { mutableStateOf(false) }
-    var editing by rememberSaveable { mutableStateOf(false) }
-    var removing by rememberSaveable { mutableStateOf(false) }
-    var cancelling by rememberSaveable { mutableStateOf(false) }
-    var cancelTooLate by remember { mutableStateOf(false) }
-    var editedText by rememberSaveable { mutableStateOf("") }
-    LaunchedEffect(cancel != null, message.pending) {
-        if (cancelling && cancel == null) {
-            cancelling = false
-            cancelTooLate = !message.cancelled && !message.rejected
-        }
-    }
-    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+    var changeCancelTooLate by remember(message.change?.operationId) { mutableStateOf(false) }
+    Row(Modifier.fillMaxWidth().testTag("spaces-message"), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         ProfileAvatar(message.author, Modifier.size(38.dp))
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Text(name, Modifier.weight(1f), style = MaterialTheme.typography.titleSmall)
-                if (edit != null || remove != null) Box {
-                    FrameIconButton(R.drawable.ic_more, stringResource(R.string.spaces_message_actions)) { menu = true }
-                    DropdownMenu(menu, { menu = false }) {
-                        if (edit != null) DropdownMenuItem(text = { Text(stringResource(R.string.spaces_edit_message)) },
-                            onClick = { menu = false; editedText = message.change?.text ?: message.text.orEmpty(); editing = true }, enabled = !working)
-                        if (remove != null) DropdownMenuItem(text = { Text(stringResource(R.string.spaces_delete_message)) },
-                            onClick = { menu = false; removing = true }, enabled = !working)
-                    }
-                }
+                if (canEdit || canRemove || savedEdit != null)
+                    FrameIconButton(R.drawable.ic_more, stringResource(R.string.spaces_message_actions)) { openOverlay(MessageOverlay.ACTIONS) }
             }
             Text(message.text ?: stringResource(if (message.deleted) R.string.spaces_message_deleted else if (message.missingKeys) R.string.spaces_missing_keys else R.string.spaces_message_unavailable),
                 style = if (message.deleted) MaterialTheme.typography.bodySmall else MaterialTheme.typography.bodyLarge,
                 color = if (message.text != null) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant)
             Text(if (message.cancelled) stringResource(R.string.spaces_send_cancelled)
                 else if (message.rejected) stringResource(R.string.spaces_not_sent)
-                else if (message.pending) stringResource(if (message.attempted) R.string.spaces_unconfirmed else R.string.spaces_queued)
+                else if (message.pending) stringResource(if (message.attempted) R.string.spaces_unconfirmed else R.string.spaces_message_waiting_connection)
                 else if (message.edited && !message.deleted) stringResource(R.string.spaces_edited_at, time) else time,
                 style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             message.change?.let { change ->
                 val status = when {
+                    change.cancelled -> if (change.kind == SpaceClient.MessageChangeKind.EDIT) R.string.spaces_edit_cancelled else R.string.spaces_deletion_cancelled
                     change.rejected -> if (change.kind == SpaceClient.MessageChangeKind.EDIT) R.string.spaces_edit_not_accepted else R.string.spaces_delete_not_accepted
                     change.attempted -> R.string.spaces_change_awaiting_confirmation
                     change.kind == SpaceClient.MessageChangeKind.EDIT -> R.string.spaces_edit_waiting_connection
@@ -671,41 +698,207 @@ private data class ChannelViewport(val anchor: SpaceClient.ReadingAnchor?, val f
                 }
                 Text(stringResource(status), style = MaterialTheme.typography.labelSmall,
                     color = if (change.rejected) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)
+                if (cancelChange != null && !change.cancelled && !change.rejected && !change.attempted)
+                    TextButton(onClick = { cancelChange(change.operationId) { stopped -> changeCancelTooLate = !stopped } },
+                        enabled = !working, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_cancel_change)) }
+                if (changeCancelTooLate && change.attempted && !change.rejected && !change.cancelled)
+                    Text(stringResource(R.string.spaces_change_cancel_too_late), style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
-            if (reply != null) TextButton(onClick = reply, modifier = Modifier.heightIn(min = 48.dp)) {
-                Icon(painterResource(R.drawable.ic_chat), null, Modifier.size(18.dp))
-                Spacer(Modifier.width(8.dp))
-                Text(if (message.replyCount == 0L) stringResource(R.string.spaces_reply_in_thread)
-                    else pluralStringResource(R.plurals.social_reply_count, message.replyCount.coerceAtMost(Int.MAX_VALUE.toLong()).toInt(), message.replyCount))
-            }
-            if (cancel != null) TextButton(onClick = { cancelling = true }, enabled = !working,
+            if (reply != null || react != null || message.reactions.isNotEmpty() || message.reactionsHaveMore)
+                MessageReactions(message, react, reply,
+                    openPicker = { openOverlay(MessageOverlay.REACTION_PICKER) }, openDetails = { openOverlay(MessageOverlay.REACTIONS) })
+            if (canCancel) TextButton(onClick = { openOverlay(MessageOverlay.CANCEL) }, enabled = !working,
                 modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_cancel_send)) }
-            if (cancelTooLate && !message.cancelled && !message.rejected) Text(stringResource(
-                if (message.pending) R.string.spaces_cancel_send_too_late else R.string.spaces_cancel_send_already_sent),
-                style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             if ((message.rejected || message.cancelled) && message.text != null) TextButton(onClick = restore, enabled = canRestore,
                 modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_restore_draft)) }
         }
     }
-    if (cancelling && cancel != null) AlertDialog(onDismissRequest = { if (!working) cancelling = false },
+}
+
+/** Conversation-owned modal host. Neither IME resizing nor lazy row disposal
+ * owns this input session or the paged reaction sheet. */
+@Composable private fun MessageOverlays(message: SpaceClient.Message?, mode: MessageOverlay?, editedText: String,
+    onText: (String) -> Unit, dismiss: () -> Unit, selectMode: (MessageOverlay) -> Unit, edit: ((String, () -> Unit) -> Unit)?,
+    remove: ((() -> Unit) -> Unit)?, cancel: (((Boolean) -> Unit) -> Unit)?,
+    react: ((String) -> Unit)?, loadReactions: (suspend (String?) -> SpaceClient.ReactionPage)?, working: Boolean) {
+    val context = LocalContext.current
+    var editCopied by remember(message?.id) { mutableStateOf(false) }
+    var editCopyFailed by remember(message?.id) { mutableStateOf(false) }
+    var cancelTooLate by remember(message?.id) { mutableStateOf(false) }
+    val savedEditLabel = stringResource(R.string.spaces_saved_edit)
+    LaunchedEffect(editedText) { editCopied = false; editCopyFailed = false }
+    LaunchedEffect(mode) { if (mode != MessageOverlay.CANCEL) cancelTooLate = false }
+    if (mode == MessageOverlay.CANCEL) AlertDialog(onDismissRequest = { if (!working) dismiss() },
         title = { Text(stringResource(R.string.spaces_cancel_send)) },
-        text = { Text(stringResource(R.string.spaces_cancel_send_detail)) },
-        confirmButton = { TextButton(onClick = { cancel { stopped -> cancelling = false; cancelTooLate = !stopped } }, enabled = !working) {
-            Text(stringResource(R.string.spaces_cancel_send)) } },
-        dismissButton = { TextButton(onClick = { cancelling = false }, enabled = !working) { Text(stringResource(R.string.spaces_keep_queued)) } })
-    if (editing && edit != null) AlertDialog(onDismissRequest = { if (!working) editing = false },
-        title = { Text(stringResource(R.string.spaces_edit_message)) },
-        text = { OutlinedTextField(editedText, { editedText = it }, Modifier.fillMaxWidth(), enabled = !working,
-            label = { Text(stringResource(R.string.spaces_message_text)) }, maxLines = 8) },
-        confirmButton = { TextButton(onClick = { edit(editedText) { editing = false } }, enabled = !working && editedText.isNotBlank() && editedText != (message.change?.takeUnless { it.rejected }?.text ?: message.text)) {
-            Text(stringResource(R.string.spaces_save_channel)) } },
-        dismissButton = { TextButton(onClick = { editing = false }, enabled = !working) { Text(stringResource(R.string.spaces_cancel)) } })
-    if (removing && remove != null) AlertDialog(onDismissRequest = { if (!working) removing = false },
+        text = { Text(stringResource(if (cancelTooLate || cancel == null) {
+            if (message?.pending == true) R.string.spaces_cancel_send_too_late else R.string.spaces_cancel_send_already_sent
+        } else R.string.spaces_cancel_send_detail)) },
+        confirmButton = { if (cancel != null && !cancelTooLate) TextButton(onClick = {
+            cancel { stopped -> if (stopped) dismiss() else cancelTooLate = true }
+        }, enabled = !working) { Text(stringResource(R.string.spaces_cancel_send)) } },
+        dismissButton = { TextButton(onClick = dismiss, enabled = !working) {
+            Text(stringResource(if (cancelTooLate || cancel == null) R.string.spaces_close else R.string.spaces_keep_queued)) } })
+    val editor = mode == MessageOverlay.EDIT
+    val entryMenu = mode == MessageOverlay.ACTIONS || mode == MessageOverlay.REACTION_PICKER
+    val sheetTitle = when (mode) {
+        MessageOverlay.ACTIONS -> R.string.spaces_message_actions
+        MessageOverlay.REACTION_PICKER -> R.string.spaces_add_reaction
+        else -> if (edit == null) R.string.spaces_saved_edit else R.string.spaces_edit_message
+    }
+    DesignSheet(editor || entryMenu, stringResource(sheetTitle),
+        { if (!working || !editor || edit == null) dismiss() }, contentKey = message?.id to mode,
+        footer = { first ->
+            if (editor) {
+                if (edit != null) Button(onClick = { edit(editedText, dismiss) },
+                    enabled = !working && editedText.isNotBlank() && editedText != (message?.change?.takeUnless { it.rejected || it.cancelled }?.text ?: message?.text),
+                    modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_save_channel)) }
+                OutlinedButton(onClick = {
+                    try {
+                        val clip = ClipData.newPlainText(savedEditLabel, editedText).apply {
+                            description.extras = android.os.PersistableBundle().apply { putBoolean("android.content.extra.IS_SENSITIVE", true) }
+                        }
+                        (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
+                        editCopied = true; editCopyFailed = false
+                    } catch (_: Exception) { editCopyFailed = true }
+                }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                    Text(stringResource(if (editCopyFailed) R.string.spaces_copy_edit_failed else if (editCopied) R.string.spaces_copied else R.string.spaces_copy_edit))
+                }
+            }
+            TextButton(onClick = dismiss, enabled = edit == null || !working, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                Text(stringResource(if (edit == null) R.string.spaces_close else R.string.spaces_cancel)) }
+        }) { first ->
+        when (mode) {
+            MessageOverlay.EDIT -> OutlinedTextField(editedText, { if (edit != null) onText(it) }, first.fillMaxWidth(), enabled = edit == null || !working,
+                readOnly = edit == null, label = { Text(stringResource(R.string.spaces_message_text)) }, maxLines = 8)
+            MessageOverlay.ACTIONS -> {
+                val savedEdit = message?.change?.takeIf { it.kind == SpaceClient.MessageChangeKind.EDIT }?.text
+                if (edit != null || savedEdit != null) TextButton(onClick = { selectMode(MessageOverlay.EDIT) }, enabled = !working,
+                    modifier = first.fillMaxWidth().heightIn(min = 48.dp)) {
+                    Text(stringResource(if (edit == null) R.string.spaces_view_saved_edit else R.string.spaces_edit_message)) }
+                if (remove != null) TextButton(onClick = { selectMode(MessageOverlay.DELETE) }, enabled = !working,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_delete_message)) }
+            }
+            MessageOverlay.REACTION_PICKER -> {
+                spaceReactionChoices.chunked(if (LocalDensity.current.fontScale >= 1.5f) 2 else 4).forEach { choices ->
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                        choices.forEach { emoji -> TextButton(onClick = { react?.invoke(emoji); dismiss() }, enabled = react != null,
+                            modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp)) {
+                            Text(emoji, style = MaterialTheme.typography.headlineSmall)
+                        } }
+                    }
+                }
+            }
+            else -> Unit
+        }
+    }
+    if (mode == MessageOverlay.DELETE) AlertDialog(onDismissRequest = { if (!working) dismiss() },
         title = { Text(stringResource(R.string.spaces_delete_message)) },
         text = { Text(stringResource(R.string.spaces_delete_message_detail)) },
-        confirmButton = { TextButton(onClick = { remove { removing = false } }, enabled = !working) {
+        confirmButton = { if (remove != null) TextButton(onClick = { remove(dismiss) }, enabled = !working) {
             Text(stringResource(R.string.spaces_delete_message), color = MaterialTheme.colorScheme.error) } },
-        dismissButton = { TextButton(onClick = { removing = false }, enabled = !working) { Text(stringResource(R.string.spaces_cancel)) } })
+        dismissButton = { TextButton(onClick = dismiss, enabled = !working) { Text(stringResource(R.string.spaces_cancel)) } })
+    key(message?.id) { MessageReactionDetails(message, mode == MessageOverlay.REACTIONS, dismiss, react, loadReactions) }
+}
+
+private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "🚀", "😂", "🤔", "👀")
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable private fun MessageReactions(message: SpaceClient.Message, react: ((String) -> Unit)?, reply: (() -> Unit)?,
+    openPicker: () -> Unit, openDetails: () -> Unit) {
+    var knownOrder by remember(message.id) { mutableStateOf<List<String>>(emptyList()) }
+    var lastChoice by remember(message.id) { mutableStateOf<String?>(null) }
+    val available = message.reactions.associateBy { it.emoji }
+    val ordered = (knownOrder.filter { it in available } + available.keys.filter { it !in knownOrder }).distinct()
+    SideEffect { knownOrder = ordered }
+    val shown = (ordered.take(6) + ordered.filter { available[it]?.selected == true || it == lastChoice }).distinct().mapNotNull(available::get)
+    val hasMore = message.reactionsHaveMore || shown.size < message.reactions.size
+    val choose: ((String) -> Unit)? = react?.let { action -> { emoji -> lastChoice = emoji; action(emoji) } }
+    FlowRow(Modifier.fillMaxWidth().animateContentSize(tween(AppSpacing.transitionMillis)),
+        horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        shown.forEach { reaction -> key(reaction.emoji) { ReactionChip(reaction, choose) } }
+        if (react != null) FrameIconButton(R.drawable.ic_reaction_add, stringResource(R.string.spaces_add_reaction), onClick = openPicker)
+        if (reply != null) TextButton(onClick = reply, modifier = Modifier.heightIn(min = 48.dp)) {
+            Icon(painterResource(R.drawable.ic_chat), null, Modifier.size(18.dp)); Spacer(Modifier.width(8.dp))
+            Text(if (message.replyCount == 0L) stringResource(R.string.spaces_reply_in_thread)
+                else pluralStringResource(R.plurals.social_reply_count, message.replyCount.coerceAtMost(Int.MAX_VALUE.toLong()).toInt(), message.replyCount))
+        }
+        if (hasMore) TextButton(onClick = openDetails,
+            modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_all_reactions)) }
+    }
+    AnimatedVisibility(!message.reactionsComplete,
+        enter = fadeIn(tween(AppSpacing.transitionMillis)) + expandVertically(tween(AppSpacing.transitionMillis)),
+        exit = fadeOut(tween(AppSpacing.transitionMillis)) + shrinkVertically(tween(AppSpacing.transitionMillis))) {
+        Text(stringResource(R.string.spaces_reactions_not_complete), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable private fun MessageReactionDetails(message: SpaceClient.Message?, allOpen: Boolean, dismiss: () -> Unit,
+    react: ((String) -> Unit)?, loadPage: (suspend (String?) -> SpaceClient.ReactionPage)?) {
+    var cursor by rememberSaveable { mutableStateOf<String?>(null) }
+    var previousCursors by rememberSaveable { mutableStateOf<List<String?>>(emptyList()) }
+    var page by remember { mutableStateOf<SpaceClient.ReactionPage?>(null) }
+    var pageCursor by remember { mutableStateOf<String?>(null) }
+    var pageReady by remember { mutableStateOf(false) }
+    var pageFailed by remember { mutableStateOf(false) }
+    var retries by remember { mutableIntStateOf(0) }
+    LaunchedEffect(allOpen) { if (allOpen) { cursor = null; previousCursors = emptyList(); page = null; pageReady = false } }
+    val pageLoading = (!pageReady || pageCursor != cursor) && !pageFailed
+    LaunchedEffect(allOpen, cursor, message?.reactions, message?.reactionsComplete, retries) {
+        if (!allOpen || loadPage == null) return@LaunchedEffect
+        val requestedCursor = cursor
+        pageFailed = false
+        while (currentCoroutineContext().isActive) {
+            try {
+                val received = loadPage(requestedCursor)
+                if (cursor == requestedCursor && allOpen) {
+                    page = received; pageCursor = requestedCursor; pageReady = true; pageFailed = false
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { if (cursor == requestedCursor) pageFailed = true }
+            delay(5_000)
+        }
+    }
+    DesignSheet(allOpen, stringResource(R.string.spaces_reactions), dismiss, contentKey = message?.id to cursor,
+        footer = { first ->
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                if (previousCursors.isNotEmpty()) OutlinedButton(onClick = {
+                    cursor = previousCursors.last(); previousCursors = previousCursors.dropLast(1)
+                }, enabled = true, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_previous_reactions)) }
+                page?.nextEmoji?.let { next -> OutlinedButton(onClick = {
+                    if (pageReady && pageCursor == cursor) { previousCursors = previousCursors + cursor; cursor = next }
+                }, enabled = pageReady && pageCursor == cursor, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_next_reactions)) } }
+            }
+            TextButton(onClick = dismiss, modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_close)) }
+        }) { _ ->
+        if (pageLoading) CircularProgressIndicator(Modifier.size(24.dp))
+        page?.let { received ->
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                received.choices.forEach { reaction -> key(reaction.emoji) { ReactionChip(reaction, react) } }
+            }
+            if (received.choices.isEmpty()) Text(stringResource(R.string.spaces_no_reactions_page), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (!received.complete) Text(stringResource(R.string.spaces_reactions_not_complete), color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        if (pageFailed) TextButton(onClick = { retries++ }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_retry_reactions)) }
+    }
+}
+
+@Composable private fun ReactionChip(reaction: SpaceClient.Reaction, react: ((String) -> Unit)?) {
+    FilterChip(selected = reaction.selected, onClick = { react?.invoke(reaction.emoji) }, enabled = react != null,
+        modifier = Modifier.heightIn(min = 48.dp),
+        leadingIcon = {
+            Box(Modifier.size(16.dp), contentAlignment = Alignment.Center) {
+                AnimatedVisibility(reaction.selected, enter = fadeIn(tween(AppSpacing.transitionMillis)), exit = fadeOut(tween(AppSpacing.transitionMillis))) {
+                    Icon(painterResource(R.drawable.ic_check), null, Modifier.size(16.dp))
+                }
+            }
+        }, label = {
+            Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text(reaction.emoji)
+                reaction.count?.let { Text(it.toString(), style = MaterialTheme.typography.labelMedium) }
+            }
+        })
 }
 
 @Composable private fun AvailabilityNotice(availability: SpacesAccount.Availability, refreshing: Boolean, retry: () -> Unit) {
