@@ -147,8 +147,10 @@ object SpacesNativeHost {
                                             val expected = body.get("id")?.asString
                                             val position = body.get("position")?.asLong
                                             if (position != null) client.older(space, before = Math.addExact(position, 1))
+                                            val parent = body.get("parent")?.asString?.let { requireNotNull(client.message(space, it)) }
+                                            if (parent != null) client.refreshThread(space, parent)
                                             val message = if (expected != null) requireNotNull(client.message(space, expected))
-                                                else client.timeline(space).single { it.text == body.get("text").asString }
+                                                else (if (parent == null) client.timeline(space) else client.thread(space, parent)).single { it.text == body.get("text").asString }
                                             if (request.requestURI.path == "/react-to-message") {
                                                 listOf("👍", "❤️", "🔥", "🎉", "🚀", "😂", "🤔", "👀").forEach { emoji -> client.setReaction(space, message, emoji, true) }
                                                 client.flush(space)
@@ -157,6 +159,8 @@ object SpacesNativeHost {
                                             JsonObject().apply {
                                                 addProperty("id", received.id); addProperty("position", requireNotNull(received.position))
                                                 addProperty("text", received.text); addProperty("edited", received.edited)
+                                                addProperty("pinned", received.pinned); addProperty("pinPending", received.pinPending)
+                                                parent?.let { addProperty("parent", it.id) }
                                                 add("reactions", com.google.gson.JsonArray().apply { received.reactions.forEach { choice -> add(JsonObject().apply {
                                                     addProperty("emoji", choice.emoji); choice.count?.let { addProperty("count", it) }; addProperty("selected", choice.selected)
                                                 }) } })

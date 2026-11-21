@@ -127,8 +127,8 @@ class SpacesJourneyTest {
                 try { reactionMessage = command("react-to-message", JsonObject().apply { addProperty("space", space); addProperty("text", reactionText) }); true }
                 catch (_: AssertionError) { false }
             }
-            ui.waitUntil(15_000) { ui.onNode(hasText("All reactions") and hasClickAction()).isDisplayed() }
-            ui.onNode(hasText("All reactions") and hasClickAction()).performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasText(context.getString(R.string.spaces_all_reactions)) and hasClickAction()).isDisplayed() }
+            ui.onNode(hasText(context.getString(R.string.spaces_all_reactions)) and hasClickAction()).performClick()
             ui.waitUntil(10_000) { ui.onNode(hasText("Reactions") and hasAnyAncestor(isDialog())).isDisplayed() }
             capture("overlay-04-reaction-details")
             command("populate", JsonObject().apply { addProperty("space", space); addProperty("from", 68); addProperty("count", 60) })
@@ -160,6 +160,94 @@ class SpacesJourneyTest {
                 add("editedMessage", observed); add("reactedMessage", reactionObserved)
                 addProperty("readingBefore", readingBefore); addProperty("readingAfter", readingAfter)
                 addProperty("activityRecreated", true); addProperty("incomingBeforeEdit", 60); add("incomingDuringIme", incoming); add("androidConsumptionWhileImeOpen", consumed); addProperty("incomingDuringDetails", 60)
+            }.toString())
+        } }
+    }
+
+    @Test fun pinsOpenTheirExactRootAndThreadWhilePreservingWriting() {
+        val rootText = "A real native pinned reference"
+        val replyText = "A real pinned thread reply"
+        val channelDraft = "Keep my channel writing while opening a pin"
+        val threadDraft = "Keep my thread writing while opening another pin"
+        launch().use { activity -> withFailureCapture({ capture("pins-failure") }) {
+            openSpaces("Red Square")
+            ui.onNode(hasText("My Spaces") and hasClickAction()).performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasText("Create a Space") and hasClickAction() and isEnabled()).isDisplayed() }
+            ui.onNode(hasText("Create a Space") and hasClickAction()).performClick()
+            ui.onNodeWithText("Space name").performTextInput("Native pinned conversations")
+            closeKeyboard(activity)
+            listOf("announcements", "the lounge", "reading room", "resources").forEach { name ->
+                ui.onNodeWithContentDescription("Remove $name").performScrollTo().performClick()
+            }
+            ui.onNode(hasText("Create a Space") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Message general").isDisplayed() }
+            ui.onNodeWithContentDescription("Switch Space or channel").performClick()
+            ui.waitUntil(5_000) { ui.onNode(hasText("Invite people") and hasClickAction() and isEnabled()).isDisplayed() }
+            ui.onNode(hasText("Invite people") and hasClickAction()).performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasText("Copy invitation") and hasClickAction() and isEnabled()).isDisplayed() }
+            ui.onNode(hasText("Copy invitation") and hasClickAction()).performClick()
+            ui.waitUntil(5_000) { ui.onNodeWithText("Invitation copied").isDisplayed() }
+            var link = ""
+            activity.onActivity { link = (it.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip?.getItemAt(0)?.text.toString() }
+            val space = command("join", JsonObject().apply { addProperty("link", link) }).get("space").asString
+            UiDevice.getInstance(instrumentation).pressBack()
+            ui.waitUntil(20_000) { ui.onNodeWithText("Reply from independent member").isDisplayed() }
+            fun rowAction(text: String, label: String) = ui.onNode(hasText(label) and hasClickAction() and hasAnyAncestor(
+                hasTestTag("spaces-message") and hasAnyDescendant(hasText(text))))
+            fun observation(text: String, parent: String? = null): JsonObject = command("message-observation", JsonObject().apply {
+                addProperty("space", space); addProperty("text", text); parent?.let { addProperty("parent", it) }
+            })
+            fun send(text: String, placeholder: String) {
+                ui.onNodeWithText(placeholder).performTextInput(text)
+                ui.waitUntil(10_000) { ui.onNode(hasContentDescription("Send message") and isEnabled()).isDisplayed() }
+                ui.onNodeWithContentDescription("Send message").performClick(); closeKeyboard(activity)
+                ui.waitUntil(15_000) { ui.onNodeWithText(text).isDisplayed() }
+            }
+            fun pin(text: String) {
+                ui.waitUntil(5_000) { rowAction(text, "Message actions").isDisplayed() }
+                rowAction(text, "Message actions").performClick()
+                ui.waitUntil(5_000) { ui.onNode(hasText("Pin message") and hasClickAction() and hasAnyAncestor(isDialog())).isDisplayed() }
+                ui.onNode(hasText("Pin message") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+            }
+            send(rootText, "Message general")
+            var root = JsonObject()
+            ui.waitUntil(15_000) { try { root = observation(rootText); true } catch (_: AssertionError) { false } }
+            pin(rootText)
+            ui.waitUntil(15_000) { root = observation(rootText); root.get("pinned").asBoolean && !root.get("pinPending").asBoolean }
+            ui.onNodeWithText("Message general").performTextInput(channelDraft); closeKeyboard(activity)
+            ui.onNode(hasText("Pinned messages") and hasClickAction()).performClick()
+            ui.waitUntil(5_000) { ui.onNode(hasText(rootText) and hasAnyAncestor(isDialog())).isDisplayed() }
+            capture("pins-01-root-list")
+            val incomingPins = command("populate", JsonObject().apply { addProperty("space", space); addProperty("count", 60) })
+            var pinsConsumed = JsonObject()
+            ui.waitUntil(15_000) {
+                pinsConsumed = command("message-consumption", incomingPins.deepCopy())
+                pinsConsumed.get("observed").asBoolean && ui.onAllNodes(hasText(rootText) and !hasAnyAncestor(isDialog())).fetchSemanticsNodes().isEmpty()
+            }
+            ui.onNode(hasText(rootText) and hasAnyAncestor(isDialog())).assertIsDisplayed()
+            ui.onNode(hasText("Open message") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+            ui.waitUntil(10_000) { ui.onNodeWithText(rootText).isDisplayed() && ui.onNodeWithText(channelDraft).isDisplayed() }
+            rowAction(rootText, "Reply").performClick()
+            ui.waitUntil(10_000) { ui.onNodeWithText("Reply in this thread").isDisplayed() }
+            send(replyText, "Reply in this thread")
+            var reply = JsonObject()
+            ui.waitUntil(15_000) { try { reply = observation(replyText, root.get("id").asString); true } catch (_: AssertionError) { false } }
+            pin(replyText)
+            ui.waitUntil(15_000) { reply = observation(replyText, root.get("id").asString); reply.get("pinned").asBoolean }
+            ui.onNodeWithText("Reply in this thread").performTextInput(threadDraft); closeKeyboard(activity)
+            ui.onNode(hasText("Pinned messages") and hasClickAction()).performClick()
+            ui.waitUntil(5_000) { ui.onNode(hasText(replyText) and hasAnyAncestor(isDialog())).isDisplayed() }
+            capture("pins-02-root-and-thread-list")
+            ui.onNode(hasText("Open reply in thread") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+            ui.waitUntil(10_000) { ui.onNodeWithText(replyText).isDisplayed() && ui.onNodeWithText(threadDraft).isDisplayed() }
+            capture("pins-03-exact-thread-draft")
+            ui.onNode(hasText("Back to channel") and hasClickAction()).performClick()
+            ui.waitUntil(10_000) { ui.onNodeWithText(channelDraft).isDisplayed() }
+            capture("pins-04-channel-draft-restored")
+            File(evidence, "pins-results.json").writeText(JsonObject().apply {
+                addProperty("pid", Process.myPid()); addProperty("space", space); add("root", root); add("reply", reply)
+                addProperty("channelDraftPreserved", true); addProperty("threadDraftPreserved", true); addProperty("incomingWhileOpen", 60)
+                add("androidConsumptionWhilePinsOpen", pinsConsumed)
             }.toString())
         } }
     }

@@ -513,3 +513,21 @@ operation. Use independent fixture decisions instead of copying production
 reducers into expected results. Native Activity/OS journeys prove approved
 navigationB, input, visible state and real process loss. Contract tests alone
 do not prove the final UI, Android/runtime persistence or a deployed provider.
+
+### Message pins
+
+The optional signed `message_pins` capability enables staff-only `message-pin`
+content with exact target ID/position and optional thread root. Private choices
+use the existing archive cipher with target-bound associated data. Labels are
+`pinned` and `unpinned`; a role removal/regrant cannot authorize an old decision.
+At most one local undecided pin operation per target is queued. Its immutable
+original can be cancelled before the durable attempt marker, or retried unchanged
+after an uncertain reply. A refusal restores accepted state and remains visible.
+
+Opt-in message pages request `pin_history`; the separate `pins` stream pages a
+fixed-through latest-decision snapshot independently of the live window. Each
+reference includes the authenticated base, current versions and actual parent
+for a reply. Clients validate originals before atomic commit and retain monotonic
+progress. Protected active-only indexes avoid paging through removed references;
+missing historical keys remain explicit and are repaired locally in bounded
+batches. Importing a reference does not move the live conversation window.

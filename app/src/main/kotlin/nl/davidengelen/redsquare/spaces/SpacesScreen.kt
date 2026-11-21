@@ -293,6 +293,22 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         val threadParent = state.threadParent
                         val target = SpacesAccount.Target(selected.id, selected.channel, threadParent?.id)
                         val canWrite = if (threadParent == null) selected.canSend else selected.canReply
+                        var pinsOpen by rememberSaveable { mutableStateOf(false) }
+                        val pinsModal by rememberUpdatedState(pinsOpen)
+                        if (state.pinStatus?.supported == true) {
+                            TextButton(onClick = { focusManager.clearFocus(); keyboardController?.hide(); pinsOpen = true },
+                                modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).heightIn(min = 48.dp)) {
+                                Icon(painterResource(R.drawable.ic_pin), null, Modifier.size(18.dp))
+                                Spacer(Modifier.width(8.dp))
+                                Text(stringResource(R.string.spaces_pinned_messages))
+                            }
+                        }
+                        PinnedMessagesSheet(pinsOpen, state.availability, { pinsOpen = false },
+                            { after -> account.loadPinnedPage(target, after) }, { reference ->
+                                scope.launch { account.guardNavigation {
+                                    account.openPinned(target, reference); pinsOpen = false; true
+                                } }
+                            }, account::refresh)
                         var overlayId by rememberSaveable { mutableStateOf<String?>(null) }
                         var overlayMode by rememberSaveable { mutableStateOf<MessageOverlay?>(null) }
                         var overlayText by rememberSaveable { mutableStateOf("") }
@@ -346,7 +362,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 }
                                 val read = visible.mapNotNull { item -> latestMessages.firstOrNull { it.id == item.key }?.position }.maxOrNull()
                                 val anchor = first?.let { SpaceClient.ReadingAnchor(it.id, requireNotNull(it.position), list.firstVisibleItemScrollOffset, latestWindow) }
-                                ChannelViewport(anchor, !(list.canScrollForward || list.isScrollInProgress), autoScrolling || initialPage || overlayMode != null, list.isScrollInProgress, read)
+                                ChannelViewport(anchor, !(list.canScrollForward || list.isScrollInProgress), autoScrolling || initialPage || overlayMode != null || pinsModal, list.isScrollInProgress, read)
                             }.collect { viewport ->
                                 if (viewport.automatic) userScrolling = false else {
                                     if (viewport.scrolling) userScrolling = true
@@ -362,8 +378,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 }
                             }
                         }
-                        LaunchedEffect(state.messages.map { it.id }, state.messages.lastOrNull(), state.scrollToMessage, state.followingLatest, keyboardBottom, viewportSize, overlayMode) {
-                            if (overlayMode != null) return@LaunchedEffect
+                        LaunchedEffect(state.messages.map { it.id }, state.messages.lastOrNull(), state.scrollToMessage, state.followingLatest, keyboardBottom, viewportSize, overlayMode, pinsOpen) {
+                            if (overlayMode != null || pinsOpen) return@LaunchedEffect
                             val requested = state.scrollToMessage
                             val requestedIndex = state.messages.indexOfFirst { it.id == requested }
                             if (requestedIndex >= 0) {
@@ -383,7 +399,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 // Keep the follow request until idle; a deliberate scroll
                                 // changes followingLatest and cancels this keyed effect.
                                 snapshotFlow { list.isScrollInProgress }.first { !it }
-                                if (!latestFollowing || overlayMode != null) return@LaunchedEffect
+                                if (!latestFollowing || overlayMode != null || pinsModal) return@LaunchedEffect
                                 autoScrolling = true
                                 try { list.animateScrollToItem(state.messages.size) } finally { autoScrolling = false }
                             }
@@ -433,6 +449,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 ({ done -> account.cancelSend(target, overlayMessage.id, done) }) else null,
                             react = if (acceptedOverlay && overlayMessage?.deleted == false && selected.canReact && overlayMessage.ownReactionsAvailable)
                                 ({ emoji -> account.toggleReaction(target, overlayMessage, emoji) }) else null,
+                            pin = if (acceptedOverlay && overlayMessage?.deleted == false && overlayMessage.pinAvailable && selected.canPin && !overlayMessage.pinPending)
+                                ({ done -> account.pinMessage(target, overlayMessage, !overlayMessage.pinned, done) }) else null,
                             loadReactions = overlayMessage?.let { message -> { after -> account.loadReactionPage(target, message, after) } },
                             working = state.working)
                         if (state.hasLater) OutlinedButton(onClick = account::latestMessages,
@@ -696,7 +714,7 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Text(name, Modifier.weight(1f), style = MaterialTheme.typography.titleSmall)
-                if (canEdit || canRemove || savedEdit != null)
+                if (canEdit || canRemove || savedEdit != null || message.pinChange != null)
                     FrameIconButton(R.drawable.ic_more, stringResource(R.string.spaces_message_actions)) { openOverlay(MessageOverlay.ACTIONS) }
             }
             Text(message.text ?: stringResource(if (message.deleted) R.string.spaces_message_deleted else if (message.missingKeys) R.string.spaces_missing_keys else R.string.spaces_message_unavailable),
@@ -707,6 +725,15 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
                 else if (message.pending) stringResource(if (message.attempted) R.string.spaces_unconfirmed else R.string.spaces_message_waiting_connection)
                 else if (message.edited && !message.deleted) stringResource(R.string.spaces_edited_at, time) else time,
                 style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (message.pinned && !message.deleted) Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                Icon(painterResource(R.drawable.ic_pin), null, Modifier.size(14.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(stringResource(R.string.spaces_pinned), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            PinChangeNotice(message.pinChange)
+            message.pinChange?.takeIf { !it.attempted && !it.rejected && !it.cancelled }?.let { change ->
+                if (cancelChange != null) TextButton(onClick = { cancelChange(change.operationId) { stopped -> changeCancelTooLate = !stopped } },
+                    enabled = !working, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_cancel_change)) }
+            }
             message.change?.let { change ->
                 val status = when {
                     change.cancelled -> if (change.kind == SpaceClient.MessageChangeKind.EDIT) R.string.spaces_edit_cancelled else R.string.spaces_deletion_cancelled
@@ -740,7 +767,7 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
 @Composable private fun MessageOverlays(message: SpaceClient.Message?, mode: MessageOverlay?, editedText: String,
     onText: (String) -> Unit, dismiss: () -> Unit, selectMode: (MessageOverlay) -> Unit, edit: ((String, () -> Unit) -> Unit)?,
     remove: ((() -> Unit) -> Unit)?, cancel: (((Boolean) -> Unit) -> Unit)?,
-    react: ((String) -> Unit)?, loadReactions: (suspend (String?) -> SpaceClient.ReactionPage)?, working: Boolean) {
+    react: ((String) -> Unit)?, pin: ((() -> Unit) -> Unit)?, loadReactions: (suspend (String?) -> SpaceClient.ReactionPage)?, working: Boolean) {
     val context = LocalContext.current
     var editCopied by remember(message?.id) { mutableStateOf(false) }
     var editCopyFailed by remember(message?.id) { mutableStateOf(false) }
@@ -791,6 +818,11 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
             MessageOverlay.EDIT -> OutlinedTextField(editedText, { if (edit != null) onText(it) }, first.fillMaxWidth(), enabled = edit == null || !working,
                 readOnly = edit == null, label = { Text(stringResource(R.string.spaces_message_text)) }, maxLines = 8)
             MessageOverlay.ACTIONS -> {
+                PinChangeNotice(message?.pinChange)
+                if (pin != null) TextButton(onClick = { pin(dismiss) }, enabled = !working,
+                    modifier = first.fillMaxWidth().heightIn(min = 48.dp)) {
+                    Text(stringResource(if (message?.pinned == true) R.string.spaces_unpin_message else R.string.spaces_pin_message))
+                }
                 val savedEdit = message?.change?.takeIf { it.kind == SpaceClient.MessageChangeKind.EDIT }?.text
                 if (edit != null || savedEdit != null) TextButton(onClick = { selectMode(MessageOverlay.EDIT) }, enabled = !working,
                     modifier = first.fillMaxWidth().heightIn(min = 48.dp)) {
@@ -818,6 +850,78 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
             Text(stringResource(R.string.spaces_delete_message), color = MaterialTheme.colorScheme.error) } },
         dismissButton = { TextButton(onClick = dismiss, enabled = !working) { Text(stringResource(R.string.spaces_cancel)) } })
     key(message?.id) { MessageReactionDetails(message, mode == MessageOverlay.REACTIONS, dismiss, react, loadReactions) }
+}
+
+@Composable private fun PinChangeNotice(change: SpaceClient.PinChange?) {
+    if (change == null) return
+    Text(stringResource(when {
+        change.cancelled -> R.string.spaces_pin_cancelled
+        change.rejected -> R.string.spaces_pin_refused
+        change.attempted -> R.string.spaces_pin_uncertain
+        else -> R.string.spaces_pin_waiting
+    }), style = MaterialTheme.typography.labelSmall,
+        color = if (change.rejected) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)
+}
+
+@Composable private fun PinnedMessagesSheet(open: Boolean, availability: SpacesAccount.Availability, dismiss: () -> Unit,
+    load: suspend (String?) -> SpaceClient.PinnedPage, navigate: (SpaceClient.PinnedMessage) -> Unit, refresh: () -> Unit) {
+    var cursor by remember { mutableStateOf<String?>(null) }
+    var previous by remember { mutableStateOf<List<String?>>(emptyList()) }
+    var page by remember { mutableStateOf<SpaceClient.PinnedPage?>(null) }
+    var pageCursor by remember { mutableStateOf<String?>(null) }
+    var failed by remember { mutableStateOf(false) }
+    var retry by remember { mutableIntStateOf(0) }
+    val latestLoad by rememberUpdatedState(load)
+    LaunchedEffect(open) { if (open) { cursor = null; previous = emptyList(); page = null; failed = false } }
+    LaunchedEffect(open, cursor, retry) {
+        if (!open) return@LaunchedEffect
+        val requested = cursor
+        while (currentCoroutineContext().isActive) {
+            try {
+                val received = latestLoad(requested)
+                page = received; pageCursor = requested; failed = false
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { failed = true }
+            delay(5_000)
+        }
+    }
+    val ready = page != null && pageCursor == cursor
+    DesignSheet(open, stringResource(R.string.spaces_pinned_messages), dismiss, contentKey = cursor,
+        footer = { first ->
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                if (previous.isNotEmpty()) OutlinedButton(onClick = { cursor = previous.last(); previous = previous.dropLast(1) },
+                    modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_previous_reactions)) }
+                if (ready) page?.nextMessage?.let { next -> OutlinedButton(onClick = { previous = previous + cursor; cursor = next },
+                    modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_next_reactions)) } }
+            }
+            TextButton(onClick = { refresh(); retry++ }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                Text(stringResource(R.string.spaces_pins_retry)) }
+            TextButton(onClick = dismiss, modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_close)) }
+        }) { _ ->
+        if (availability == SpacesAccount.Availability.OFFLINE) Text(stringResource(R.string.spaces_pins_offline), color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (!ready && !failed) Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            CircularProgressIndicator(Modifier.size(20.dp)); Text(stringResource(R.string.spaces_pins_loading))
+        }
+        if (failed) Text(stringResource(R.string.spaces_pins_failed), color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (ready) page?.let { received ->
+            if (!received.complete) Text(stringResource(R.string.spaces_pins_partial), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (received.items.isEmpty() && received.complete) Text(stringResource(R.string.spaces_no_pins), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            received.items.forEach { reference -> key(reference.message.id) {
+                val message = reference.message
+                Surface(Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(registeredIdentity(message.author).name, style = MaterialTheme.typography.titleSmall)
+                        Text(message.text ?: stringResource(R.string.spaces_missing_keys), maxLines = 5, overflow = TextOverflow.Ellipsis)
+                        PinChangeNotice(message.pinChange)
+                        TextButton(onClick = { navigate(reference) }, enabled = !message.missingKeys && !message.deleted &&
+                            (reference.threadId == null || reference.parent?.missingKeys == false),
+                            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                            Text(stringResource(if (reference.threadId == null) R.string.spaces_open_pinned else R.string.spaces_open_pinned_reply)) }
+                    }
+                }
+            } }
+        }
+    }
 }
 
 private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "🚀", "😂", "🤔", "👀")

@@ -23,6 +23,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private val store = SpacePresentationStore(store)
     private var supportsMessageHistory = false
     private var supportsMessageReactions = false
+    private var supportsMessagePins = false
 
     enum class Delivery { CONTROL, CONTENT }
     enum class ReadProblem { EXPIRED, UNAVAILABLE }
@@ -725,18 +726,21 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     data class Community(val id: String, val name: String, val channel: String, val joined: Boolean,
         val canInvite: Boolean, val pending: Boolean, val canSend: Boolean, val membershipRequested: Boolean = false, val unread: Long? = null, val hasUnread: Boolean? = null,
-        val canManage: Boolean = false, val dissolved: Boolean = false, val canReply: Boolean = false, val canReact: Boolean = false)
+        val canManage: Boolean = false, val dissolved: Boolean = false, val canReply: Boolean = false, val canReact: Boolean = false, val canPin: Boolean = false)
     enum class MessageChangeKind { EDIT, DELETE }
     data class MessageChange(val operationId: String, val kind: MessageChangeKind, val attempted: Boolean,
         val rejected: Boolean, val text: String?, val cancelled: Boolean = false) {
         override fun toString() = "Private community message change"
+    }
+    data class PinChange(val operationId: String, val attempted: Boolean, val rejected: Boolean, val cancelled: Boolean = false) {
+        override fun toString() = "Private community pin change"
     }
     data class Reaction(val emoji: String, val count: Long?, val selected: Boolean) {
         override fun toString() = "Private community reaction"
     }
     data class Message(val id: String, val author: String, val createdAt: Long, val text: String?,
         val pending: Boolean, val attempted: Boolean, val missingKeys: Boolean, val rejected: Boolean = false, val position: Long? = null,
-        val edited: Boolean = false, val deleted: Boolean = false, val replyCount: Long = 0, val change: MessageChange? = null, val cancelled: Boolean = false, val reactions: List<Reaction> = emptyList(), val reactionsComplete: Boolean = true, val reactionsHaveMore: Boolean = false, val ownReactionsAvailable: Boolean = true) {
+        val edited: Boolean = false, val deleted: Boolean = false, val replyCount: Long = 0, val change: MessageChange? = null, val cancelled: Boolean = false, val reactions: List<Reaction> = emptyList(), val reactionsComplete: Boolean = true, val reactionsHaveMore: Boolean = false, val ownReactionsAvailable: Boolean = true, val pinned: Boolean = false, val pinPending: Boolean = false, val pinAvailable: Boolean = true, val pinChange: PinChange? = null) {
         override fun toString() = "Private community message"
     }
     data class Invitation(val link: String, val confirmed: Boolean, val expiresAt: Long = 0, val expired: Boolean = false, val revoked: Boolean = false, val revocationPending: Boolean = false, val revocationFailed: Boolean = false) {
@@ -788,7 +792,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             !state.get("joined").asBoolean && state.has("joining_invitation"), unread, hasUnread,
             canManage = !snapshot.dissolved && state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
                 snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN), dissolved = snapshot.dissolved, canReply = canReply,
-            canReact = canReply && (supportsMessageReactions || data.get("reactions_supported")?.asBoolean == true))
+            canReact = canReply && (supportsMessageReactions || data.get("reactions_supported")?.asBoolean == true),
+            canPin = canReply && snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) &&
+                (supportsMessagePins || data.get("pins_supported")?.asBoolean == true))
     }
     fun profile(space: String): SpaceProfile = store.transaction {
         owned(); val state = state(space)
@@ -1722,6 +1728,136 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         deletion.id
     }
 
+    /** Staff moderation retains the exact reviewed target and current authority term. */
+    fun pinMessage(space: String, message: Message, pinned: Boolean, channel: String? = null): String = store.transaction {
+        owned(); val state = state(space); val target = channel ?: selectedChannel(state)
+        require(communityFromStore(space, target).canPin)
+        ensurePinProjection(space, target)
+        require(!messagePin(space, target, message.id).pending) { "A pin change is already waiting for this message" }
+        val original = acceptedMessage(space, target, message)
+        require(messageDeletion(space, target, original.id, original.author) == null)
+        val journal = journal(space); val accepted = journal.snapshot.channels.getValue(target)
+        val control = requireNotNull(journal.snapshot.controlId)
+        val thread = messageThread(original.body)
+        val candidate = if (accepted.visibility == SpaceVisibility.PUBLIC) event(space, "public-content") {
+            addProperty("channel_id", target); addProperty("control_id", control)
+            addProperty("epoch", accepted.epoch); addProperty("key_generation", accepted.generation)
+            addProperty("content_kind", "message-pin"); addProperty("text", if (pinned) "pinned" else "unpinned")
+            addProperty("target_message_id", original.id); addProperty("target_position", requireNotNull(message.position))
+            thread?.let { addProperty("thread_root_id", it) }
+        } else {
+            val data = channelState(space, target, state)
+            val keys = SpaceCrypto.restore(decode(data.text("crypto")))
+            require(keys.scope == SpaceCrypto.Scope.fromJson(data.getAsJsonObject("scope")) && keys.epoch == accepted.epoch && keys.bindings == accepted.devices)
+            keys.publishMessagePin(wallet, id(), control, pinned, clock.millis(), original.id, requireNotNull(message.position), thread)
+        }
+        queue(space, state, candidate); candidate.id
+    }
+
+    data class PinnedMessage(val message: Message, val parent: Message? = null, val threadId: String? = null)
+    data class PinnedPage(val items: List<PinnedMessage>, val nextMessage: String?, val complete: Boolean)
+    fun pinnedMessages(space: String, afterMessage: String? = null, channel: String? = null): PinnedPage = store.project { store.transaction {
+        owned(); val target = channel ?: selectedChannel(state(space))
+        afterMessage?.let { require(it.matches(Regex("[0-9a-f]{128}"))) }
+        ensurePinProjection(space, target); retryUnavailablePins(space, target)
+        val prefix = activePinsPrefix(space, target)
+        val rows = page(prefix, if (afterMessage == null) prefix else prefix + afterMessage + '\u0000', 51)
+        val messages = rows.take(50).mapNotNull { message(space, it.key.removePrefix(prefix), target) }
+        val references = messages.filter { (it.pinned || it.pinPending) && !it.deleted }.map { value ->
+            val pointer = requireNotNull(get(messageIdKey(space, target, value.id)))
+            val receipt = json(requireNotNull(get(pointer.toString(Charsets.UTF_8))))
+            val original = SaitoEnvelope.decode(receipt.text("event"))
+            val parentId = messageThread(original.body)
+            PinnedMessage(value, parentId?.let { message(space, it, target) }, parentId)
+        }
+        PinnedPage(references,
+            rows.take(50).lastOrNull()?.key?.removePrefix(prefix)?.takeIf { rows.size > 50 },
+            pinProjectionComplete(space, target) && messages.filterNot { it.deleted }.all { it.pinAvailable && !it.missingKeys } &&
+                references.all { it.threadId == null || it.parent?.missingKeys == false })
+    } }
+    private data class PinProjection(val pinned: Boolean, val pending: Boolean, val available: Boolean)
+    private fun SpaceClientStore.Transaction.pinReader(space: String, channel: String): (String) -> String? {
+        val crypto by lazy { SpaceCrypto.restore(decode(channelState(space, channel).text("crypto"))) }
+        return { envelope -> try {
+            val signed = SaitoEnvelope.decode(envelope)
+            if (signed.body.text("kind") == "public-content") signed.body.text("text") else crypto.read(envelope).text
+        } catch (_: Exception) { null } }
+    }
+    private fun SpaceClientStore.Transaction.messagePin(space: String, channel: String, message: String,
+        reader: ((String) -> String?)? = null): PinProjection {
+        val accepted = get(messagePinKey(space, channel, message))?.let(::json)
+        val read = reader ?: pinReader(space, channel)
+        val known = accepted?.let { receipt ->
+            val key = pinChoiceKey(space, channel, message)
+            val cached = get(key)?.let(::json)
+            if (cached?.number("position") == receipt.number("position")) cached.get("pinned").asBoolean else {
+                val text = read(receipt.text("event"))
+                if (text !in setOf("pinned", "unpinned")) null else (text == "pinned").also { pinned ->
+                    put(key, bytes(JsonObject().apply { addProperty("position", receipt.number("position")); addProperty("pinned", pinned) }))
+                }
+            }
+        }
+        val pending = get(pinPendingKey(space, channel, message))?.let { get(it.toString(Charsets.UTF_8)) }?.let(::json)
+            ?.takeUnless { it.has("disposition") || it.get("cancelled")?.asBoolean == true }
+        if (pending != null) {
+            val text = read(SaitoTransaction.restore(pending.text("original")).envelope())
+            return PinProjection(text == "pinned", true, text in setOf("pinned", "unpinned"))
+        }
+        return PinProjection(known == true, false, accepted == null || known != null)
+    }
+    private fun SpaceClientStore.Transaction.reconcilePinTarget(space: String, channel: String, message: String,
+        reader: ((String) -> String?)? = null) {
+        val active = activePinsPrefix(space, channel) + message
+        val unavailable = unavailablePinsPrefix(space, channel) + message
+        val pointer = get(messageIdKey(space, channel, message)) ?: return
+        val base = get(pointer.toString(Charsets.UTF_8))?.let(::json) ?: return
+        val author = SaitoEnvelope.decode(base.text("event")).author
+        if (messageDeletion(space, channel, message, author) != null) { remove(active); remove(unavailable); return }
+        val choice = messagePin(space, channel, message, reader)
+        if (!choice.available) { remove(active); put(unavailable, byteArrayOf(1)); return }
+        remove(unavailable)
+        // Keep an unpinning reference visible with its pending state until the
+        // exact original is accepted, rather than implying a completed removal.
+        if (choice.pinned || choice.pending) put(active, byteArrayOf(1)) else remove(active)
+    }
+    private fun SpaceClientStore.Transaction.ensurePinProjection(space: String, channel: String) {
+        val data = channelState(space, channel)
+        if (data.get("pin_projection_version")?.asLong == 1L) return
+        val prefix = pinTargetsPrefix(space, channel)
+        val after = data.get("pin_projection_after")?.asString ?: prefix
+        val rows = page(prefix, after, 50); val reader = pinReader(space, channel)
+        for (row in rows) reconcilePinTarget(space, channel, row.key.removePrefix(prefix), reader)
+        if (rows.size < 50) { data.addProperty("pin_projection_version", 1); data.remove("pin_projection_after") }
+        else data.addProperty("pin_projection_after", rows.last().key + '\u0000')
+        putChannelState(space, channel, data)
+    }
+    private fun SpaceClientStore.Transaction.retryUnavailablePins(space: String, channel: String) {
+        val prefix = unavailablePinsPrefix(space, channel)
+        val key = "$space/channels/$channel/pin-repair-after"
+        val after = get(key)?.toString(Charsets.UTF_8)?.takeIf { it.startsWith(prefix) } ?: prefix
+        var rows = page(prefix, after, 16)
+        if (rows.isEmpty() && after != prefix) rows = page(prefix, limit = 16)
+        if (rows.isEmpty()) { remove(key); return }
+        val reader = pinReader(space, channel)
+        for (row in rows) reconcilePinTarget(space, channel, row.key.removePrefix(prefix), reader)
+        put(key, (rows.last().key + '\u0000').toByteArray(Charsets.UTF_8))
+    }
+    private fun SpaceClientStore.Transaction.pinProjectionComplete(space: String, channel: String): Boolean {
+        val data = channelState(space, channel)
+        return data.get("pins_loaded")?.asBoolean == true && data.get("pin_projection_version")?.asLong == 1L &&
+            (data.get("pin_loaded")?.asLong ?: 0) >= (data.get("pin_goal")?.asLong ?: 0) && page(unavailablePinsPrefix(space, channel), limit = 1).isEmpty()
+    }
+    data class PinStatus(val supported: Boolean, val hasPins: Boolean?, val complete: Boolean)
+    fun pinStatus(space: String, channel: String? = null): PinStatus = store.project { store.transaction {
+        owned(); val target = channel ?: selectedChannel(state(space))
+        ensurePinProjection(space, target); retryUnavailablePins(space, target)
+        val data = channelState(space, target)
+        val supported = supportsMessagePins || data.get("pins_supported")?.asBoolean == true
+        val complete = pinProjectionComplete(space, target)
+        val any = page(activePinsPrefix(space, target), limit = 1).isNotEmpty()
+        PinStatus(supported, if (any) true else if (complete) false else null, complete)
+    } }
+
     /** The exact desired author selection is signed before transport, including rapid changes. */
     fun setReaction(space: String, message: Message, emoji: String, selected: Boolean, channel: String? = null): String? = store.transaction {
         owned()
@@ -1889,6 +2025,74 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         return result
     }
 
+    /** Read pin targets independently of the current conversation window. */
+    suspend fun refreshPins(space: String, channel: String? = null) = refreshPinPage(space, channel, 2)
+
+    private suspend fun refreshPinPage(space: String, channel: String?, remainingPages: Int) {
+        require(remainingPages in 0..2)
+        val target = store.transaction { owned(); channel ?: selectedChannel(state(space)) }
+        val before = store.transaction { ensurePinProjection(space, target); channelState(space, target).deepCopy() }
+        val cursor = before.get("pin_cursor")?.asLong ?: before.get("pin_loaded")?.asLong ?: 0L
+        val through = before.get("pin_through")?.asLong?.takeIf { it > cursor }
+        val result = readPage(JsonObject().apply {
+            addProperty("space_id", space); addProperty("channel_id", target); addProperty("stream", "pins"); addProperty("cursor", cursor)
+            through?.let { addProperty("through", it) }
+        })
+        require(supportsMessagePins)
+        val end = result.number("content_end"); val version = result.number("pin_version"); val goal = result.number("pin_end")
+        val next = result.number("next_cursor"); val more = result.get("has_more").also { require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) }.asBoolean
+        require(cursor <= next && next <= version && version <= goal && goal <= end && (!more || next > cursor))
+        through?.let { require(it == version) }; if (!more) require(next == version)
+        val records = mutableListOf<AuthenticatedContent>(); val controls = mutableMapOf<String, SpaceJournal>()
+        val replyCounts = mutableMapOf<String, Long>()
+        var lastPin = cursor - 1
+        val targets = mutableSetOf<String>()
+        for (value in result.getAsJsonArray("items")) {
+            val item = value.asJsonObject
+            require(item.keySet().all { it in setOf("message", "pin", "edit", "deletion", "reply_count", "parent") } && item.has("pin"))
+            val original = ensureAuthorization(space, item.text("message"), target, controls)
+            val body = original.original.body; val kind = body.text("content_kind")
+            require(kind in setOf("message", "thread-reply") && original.receipt.body.number("position") < end && targets.add(original.original.id))
+            val thread = if (kind == "thread-reply") body.text("target_message_id") else null
+            if (thread != null) {
+                val parentItem = item.getAsJsonObject("parent")
+                require(parentItem.keySet().all { it in setOf("message", "edit", "deletion", "reply_count") })
+                val parent = ensureAuthorization(space, parentItem.text("message"), target, controls)
+                require(parent.original.id == thread && parent.original.body.text("content_kind") == "message" &&
+                    parent.receipt.body.number("position") == body.number("target_position") && parent.receipt.body.number("position") < original.receipt.body.number("position"))
+                if (parentItem.has("reply_count")) replyCounts[parent.original.id] = parentItem.number("reply_count")
+                records.add(parent); records.addAll(messageVersions(space, target, parentItem, parent, null, end, controls))
+            } else require(!item.has("parent"))
+            val pin = SaitoEnvelope.decode(item.text("pin")); val position = pin.body.number("position")
+            require(position >= cursor && position < version && position > lastPin); lastPin = position
+            if (item.has("reply_count")) { require(thread == null); replyCounts[original.original.id] = item.number("reply_count") }
+            records.add(original); records.addAll(messageVersions(space, target, item, original, thread, end, controls))
+        }
+        require(!more || records.isNotEmpty() && next == Math.addExact(lastPin, 1))
+        store.transaction {
+            owned()
+            for (record in records) accept(space, record.envelope, controls, authenticated = record)
+            recordReplyCounts(space, target, replyCounts, end)
+            val current = channelState(space, target)
+            val loaded = current.get("pin_loaded")?.asLong ?: 0
+            val priorGoal = current.get("pin_goal")?.asLong ?: 0
+            current.addProperty("pin_goal", maxOf(priorGoal, goal))
+            if (loaded <= version) {
+                if (!more) {
+                    current.addProperty("pin_loaded", maxOf(loaded, version)); current.addProperty("pin_cursor", maxOf(loaded, version)); current.remove("pin_through")
+                } else if (loaded < version) {
+                    val priorVersion = current.get("pin_through")?.asLong
+                    if (priorVersion == null || priorVersion <= version) {
+                        current.addProperty("pin_cursor", maxOf(next, if (priorVersion == version) current.get("pin_cursor")?.asLong ?: 0 else 0))
+                        current.addProperty("pin_through", version)
+                    }
+                }
+            }
+            current.addProperty("pins_loaded", true); putChannelState(space, target, current)
+        }
+        if (more && remainingPages > 0) refreshPinPage(space, target, remainingPages - 1)
+    }
+
     /** Cancellation and the durable transmission marker share the same store transaction.
      * A cancelled original remains locally recoverable, without a forged node rejection. */
     fun cancelQueuedMessage(space: String, messageId: String): Boolean = cancelQueuedContent(space, messageId, change = false)
@@ -1900,7 +2104,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val original = SaitoEnvelope.decode(SaitoTransaction.restore(saved.text("original")).envelope())
         require(original.id == messageId && original.author == wallet.publicKey && original.body.text("space_id") == space)
         val channel = messageChannel(original.body)
-        val changeKey = messageChangeKey(space, original.body)
+        val pinChannel = original.body.get("channel_id")?.asString?.takeIf { original.body.get("content_kind")?.asString == "message-pin" }
+        val changeKey = messageChangeKey(space, original.body) ?: pinChannel?.let { pinPendingKey(space, it, original.body.text("target_message_id")) }
         require(if (change) changeKey != null else channel != null)
         if (saved.get("attempted").asBoolean) return@transaction false
         val cancelledKey = "$space/rejected/$messageId"
@@ -1913,6 +2118,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             put(changeKey, cancelledKey.toByteArray(Charsets.UTF_8))
         }
         remove(pointer); remove("$space/operation/$messageId")
+        pinChannel?.let { reconcilePinTarget(space, it, original.body.text("target_message_id")) }
         true
     }
 
@@ -1958,6 +2164,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 messageChangeKey(space, outbound.body)?.let { key ->
                     if (get(key)?.toString(Charsets.UTF_8) == item.key) remove(key)
                 }
+                if (outbound.body.get("content_kind")?.asString == "message-pin") {
+                    val key = pinPendingKey(space, outbound.body.text("channel_id"), outbound.body.text("target_message_id"))
+                    if (get(key)?.toString(Charsets.UTF_8) == item.key) remove(key)
+                }
                 if (outbound.body.get("content_kind")?.asString == "message-reaction") {
                     val key = reactionPendingKey(space, outbound.body.text("channel_id"), outbound.body.text("target_message_id"))
                     if (get(key)?.toString(Charsets.UTF_8) == item.key) remove(key)
@@ -1965,6 +2175,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 remove(item.key)
                 messageChannel(outbound.body)?.let { channel -> remove(messageIndex(space, channel, "pending", messageThread(outbound.body)) + item.key.substringAfterLast('/')) }
                 remove("$space/operation/${transaction.id}")
+                if (outbound.body.get("content_kind")?.asString == "message-pin")
+                    reconcilePinTarget(space, outbound.body.text("channel_id"), outbound.body.text("target_message_id"))
             }
         }
     }
@@ -2091,6 +2303,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             addProperty("space_id", space); addProperty("stream", "messages"); addProperty("channel_id", channel)
             addProperty("cursor", cursor); addProperty("direction", if (before) "before" else "after"); addProperty("limit", limit)
             thread?.let { addProperty("thread_id", it) }
+            if (supportsMessagePins) addProperty("pin_history", true)
             if (supportsMessageReactions) {
                 addProperty("reaction_history", true)
                 add("reaction_cursors", store.transaction { reactionProgress(space, channel, cursor, before, thread) })
@@ -2106,7 +2319,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val end = result.number("content_end")
         for (value in result.getAsJsonArray("items")) {
             val item = value.asJsonObject
-            require(item.has("message") && item.keySet().all { it in setOf("message", "edit", "deletion", "reply_count", "reactions", "reactions_complete", "reaction_version", "reaction_next_cursor", "own_reaction") })
+            require(item.has("message") && item.keySet().all { it in setOf("message", "edit", "deletion", "reply_count", "reactions", "reactions_complete", "reaction_version", "reaction_next_cursor", "own_reaction", "pin") })
             val original = ensureAuthorization(space, item.text("message"), channel, controls)
             val position = original.receipt.body.number("position")
             require(original.original.body.text("content_kind") == (if (thread == null) "message" else "thread-reply") &&
@@ -2146,25 +2359,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 }
                 reactionSummaries[original.original.id] = Triple(version, next, complete)
             } else require(!item.has("reactions_complete"))
-            item.get("edit")?.asString?.let { envelope ->
-                val edit = ensureAuthorization(space, envelope, channel, controls)
-                require(edit.original.body.text("content_kind") == "message-edit" && edit.original.author == original.original.author &&
-                    edit.original.body.text("target_message_id") == original.original.id && edit.original.body.number("target_position") == position &&
-                    edit.original.body.get("thread_root_id")?.asString == thread &&
-                    edit.receipt.body.number("position") in (position + 1) until end)
-                records.add(edit)
-            }
-            item.get("deletion")?.asString?.let { envelope ->
-                val deletion = ensureAuthorization(space, envelope, channel, controls)
-                val control = deletion.receipt.body.get("authorized_control")?.asString ?: deletion.original.body.text("control_id")
-                val authority = requireNotNull(controls[control])
-                require(deletion.original.body.text("content_kind") == "message-delete" &&
-                    (deletion.original.author == original.original.author || authority.hasCurrentAdministratorIntent(deletion.original.author, deletion.original.body.text("control_id"))) &&
-                    deletion.original.body.text("target_message_id") == original.original.id && deletion.original.body.number("target_position") == position &&
-                    deletion.original.body.get("thread_root_id")?.asString == thread &&
-                    deletion.receipt.body.number("position") in (position + 1) until end)
-                records.add(deletion)
-            }
+            records.addAll(messageVersions(space, channel, item, original, thread, end, controls))
         }
         require(result.number("next_cursor") == positions.lastOrNull()?.let { Math.addExact(it, 1) } ?: cursor)
         val more = result.get("has_more").also { require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) }.asBoolean
@@ -2177,14 +2372,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val decoder = reactionDecoder(space, channel)
             for (record in records) accept(space, record.envelope, controls, authenticated = record, reactionReader = decoder)
             retryUnavailableReactions(space, channel)
-            for ((id, count) in replyCounts) {
-                val key = replyCountKey(space, channel, id)
-                val previous = get(key)?.let(::json)
-                if (previous != null && previous.number("content_end") == end) require(previous.number("count") == count)
-                if (previous == null || previous.number("content_end") < end) put(key, bytes(JsonObject().apply {
-                    addProperty("count", count); addProperty("content_end", end)
-                }))
-            }
+            recordReplyCounts(space, channel, replyCounts, end)
             for ((id, version) in ownReactionVersions) {
                 val key = ownReactionVersionKey(space, channel, id)
                 val previous = get(key)?.let(::json)?.number("through") ?: -1L
@@ -2204,6 +2392,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 }))
             }
             val capability = channelState(space, channel)
+            capability.addProperty("pins_supported", supportsMessagePins)
             capability.addProperty("reactions_supported", supportsMessageReactions); putChannelState(space, channel, capability)
             val current = conversationState(space, channel, thread)
             // Earlier immutable records remain useful, but an old page cannot
@@ -2230,6 +2419,53 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         if (reactionRounds > 0 && reactionSummaries.values.any { !it.third })
             return messagePage(space, channel, cursor, before, limit, thread, reactionRounds - 1)
         return MessagePage(start, end, result.number("next_cursor"), positions.size, more)
+    }
+
+    private fun SpaceClientStore.Transaction.recordReplyCounts(space: String, channel: String, replyCounts: Map<String, Long>, end: Long) {
+        for ((id, count) in replyCounts) {
+            val key = replyCountKey(space, channel, id)
+            val previous = get(key)?.let(::json)
+            if (previous != null && previous.number("content_end") == end) require(previous.number("count") == count)
+            if (previous == null || previous.number("content_end") < end) put(key, bytes(JsonObject().apply {
+                addProperty("count", count); addProperty("content_end", end)
+            }))
+        }
+    }
+
+    private suspend fun messageVersions(space: String, channel: String, item: JsonObject,
+        original: AuthenticatedContent, thread: String?, end: Long, controls: MutableMap<String, SpaceJournal>): List<AuthenticatedContent> {
+        val records = mutableListOf<AuthenticatedContent>()
+        val position = original.receipt.body.number("position")
+        item.get("pin")?.asString?.let { envelope ->
+            require(supportsMessagePins)
+            val pin = ensureAuthorization(space, envelope, channel, controls)
+            val control = pin.receipt.body.get("authorized_control")?.asString ?: pin.original.body.text("control_id")
+            require(pin.original.body.text("content_kind") == "message-pin" &&
+                requireNotNull(controls[control]).hasCurrentAdministratorIntent(pin.original.author, pin.original.body.text("control_id")) &&
+                pin.original.body.text("target_message_id") == original.original.id && pin.original.body.number("target_position") == position &&
+                pin.original.body.get("thread_root_id")?.asString == thread && pin.receipt.body.number("position") in (position + 1) until end)
+            records.add(pin)
+        }
+        item.get("edit")?.asString?.let { envelope ->
+            val edit = ensureAuthorization(space, envelope, channel, controls)
+            require(edit.original.body.text("content_kind") == "message-edit" && edit.original.author == original.original.author &&
+                edit.original.body.text("target_message_id") == original.original.id && edit.original.body.number("target_position") == position &&
+                edit.original.body.get("thread_root_id")?.asString == thread &&
+                edit.receipt.body.number("position") in (position + 1) until end)
+            records.add(edit)
+        }
+        item.get("deletion")?.asString?.let { envelope ->
+            val deletion = ensureAuthorization(space, envelope, channel, controls)
+            val control = deletion.receipt.body.get("authorized_control")?.asString ?: deletion.original.body.text("control_id")
+            val authority = requireNotNull(controls[control])
+            require(deletion.original.body.text("content_kind") == "message-delete" &&
+                (deletion.original.author == original.original.author || authority.hasCurrentAdministratorIntent(deletion.original.author, deletion.original.body.text("control_id"))) &&
+                deletion.original.body.text("target_message_id") == original.original.id && deletion.original.body.number("target_position") == position &&
+                deletion.original.body.get("thread_root_id")?.asString == thread &&
+                deletion.receipt.body.number("position") in (position + 1) until end)
+            records.add(deletion)
+        }
+        return records
     }
 
     suspend fun olderThread(space: String, parent: Message, before: Long? = null, channel: String? = null): Long {
@@ -2310,6 +2546,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 current.addProperty("content_cursor", next); current.addProperty("content_loaded", true)
                 putChannelState(space, targetChannel, current)
             }
+            if (supportsMessagePins) refreshPins(space, targetChannel)
             return
         }
         val leading = if (currentChannel.visibility == SpaceVisibility.PUBLIC && first) readPage(JsonObject().apply {
@@ -2398,11 +2635,19 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                     cancelled = saved.get("cancelled")?.asBoolean == true)
             }
             val reactions = if (pending || rejected || cancelled) ReactionProjection(emptyList(), emptySet(), true) else reactionProjection(space, targetChannel, original.id)
+            val pin = if (pending || rejected || cancelled) PinProjection(false, false, true) else messagePin(space, targetChannel, original.id)
+            val pinChange = get(pinPendingKey(space, targetChannel, original.id))?.let { get(it.toString(Charsets.UTF_8)) }?.let(::json)?.let { saved ->
+                val intent = SaitoEnvelope.decode(SaitoTransaction.restore(saved.text("original")).envelope())
+                require(intent.author == wallet.publicKey && intent.body.text("content_kind") == "message-pin" &&
+                    intent.body.text("channel_id") == targetChannel && intent.body.text("target_message_id") == original.id &&
+                    intent.body.get("thread_root_id")?.asString == thread)
+                PinChange(intent.id, saved.get("attempted").asBoolean, saved.has("disposition"), saved.get("cancelled")?.asBoolean == true)
+            }
             val base = Message(original.id, original.author, original.createdAt, read(envelope, original),
                 pending, attempted, missing, rejected, position,
-                replyCount = if (thread == null) get(replyCountKey(space, targetChannel, original.id))?.let(::json)?.number("count") ?: 0 else 0, change = change, cancelled = cancelled, reactions = reactions.values, reactionsComplete = reactions.complete, reactionsHaveMore = reactions.more, ownReactionsAvailable = ownReactionAvailable(space, targetChannel, original.id))
+                replyCount = if (thread == null) get(replyCountKey(space, targetChannel, original.id))?.let(::json)?.number("count") ?: 0 else 0, change = change, cancelled = cancelled, reactions = reactions.values, reactionsComplete = reactions.complete, reactionsHaveMore = reactions.more, ownReactionsAvailable = ownReactionAvailable(space, targetChannel, original.id), pinned = pin.pinned, pinPending = pin.pending, pinAvailable = pin.available, pinChange = pinChange)
             val removed = if (position == null) null else messageDeletion(space, targetChannel, original.id, original.author)
-            if (removed != null && removed.number("target_position") == position && removed.get("thread_root_id")?.asString == thread) return base.copy(text = null, deleted = true, missingKeys = false, reactions = emptyList(), reactionsHaveMore = false)
+            if (removed != null && removed.number("target_position") == position && removed.get("thread_root_id")?.asString == thread) return base.copy(text = null, deleted = true, missingKeys = false, reactions = emptyList(), reactionsHaveMore = false, pinned = false, pinPending = false)
             val saved = if (position == null) null else get(messageEditKey(space, targetChannel, original.id, original.author))
             val editEnvelope = saved?.let(::originalEnvelope)
             val edit = editEnvelope?.let(SaitoEnvelope::decode)
@@ -2570,6 +2815,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(result.text("request") == "page" && result.getAsJsonArray("items").size() <= 50)
         supportsMessageHistory = result.get("message_history")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean } == true
         supportsMessageReactions = result.get("message_reactions")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean } == true
+        supportsMessagePins = result.get("message_pins")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean } == true
         return result
     }
 
@@ -2829,6 +3075,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 messageChangeKey(space, original.body)?.let { key ->
                     if (get(key)?.toString(Charsets.UTF_8) == pointer) put(key, rejectedKey.toByteArray(Charsets.UTF_8))
                 }
+                if (original.body.get("content_kind")?.asString == "message-pin") {
+                    val key = pinPendingKey(space, original.body.text("channel_id"), original.body.text("target_message_id"))
+                    if (get(key)?.toString(Charsets.UTF_8) == pointer) put(key, rejectedKey.toByteArray(Charsets.UTF_8))
+                }
                 messageChannel(original.body)?.let { channel ->
                     put(messageIndex(space, channel, "rejected", messageThread(original.body)) + original.id, rejectedKey.toByteArray(Charsets.UTF_8))
                 }
@@ -2868,6 +3118,12 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                         }
                     }
                     put(key, bytes(body))
+                    if (original.body.get("content_kind")?.asString == "message-pin") {
+                        val pinKey = messagePinKey(space, channel, original.body.text("target_message_id"))
+                        val previous = get(pinKey)?.let(::json)
+                        if (previous == null || previous.number("position") < body.number("position")) put(pinKey, bytes(body))
+                        put(pinTargetsPrefix(space, channel) + original.body.text("target_message_id"), byteArrayOf(1))
+                    }
                     if (original.body.text("kind") in setOf("content", "public-content") && original.body.text("content_kind") == "message-edit") {
                         val editKey = messageEditKey(space, channel, original.body.text("target_message_id"), original.author)
                         val prior = get(editKey)?.let(::json)
@@ -2884,6 +3140,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                         contentState.addProperty("last_content", maxOf(contentState.get("last_content")?.asLong ?: 0, body.number("position")))
                     putChannelState(space, channel, contentState)
                 }
+                if (original.body.get("content_kind")?.asString == "message-pin") {
+                    val progress = channelState(space, channel)
+                    progress.addProperty("pin_goal", maxOf(progress.get("pin_goal")?.asLong ?: 0, Math.addExact(body.number("position"), 1)))
+                    putChannelState(space, channel, progress)
+                }
+                if (original.body.get("content_kind")?.asString in setOf("message-pin", "message-delete"))
+                    reconcilePinTarget(space, channel, original.body.text("target_message_id"))
                 if (original.body.get("content_kind")?.asString == "message-reaction") reconcileReaction(space, channel, body, reactionReader)
                 indexConfirmedMessage(space, channel, body)
             }
@@ -3007,6 +3270,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
         put("$space/operation/${original.id}", key.toByteArray(Charsets.UTF_8))
         messageChangeKey(space, outbound.body)?.let { put(it, key.toByteArray(Charsets.UTF_8)) }
+        if (outbound.body.get("content_kind")?.asString == "message-pin") {
+            put(pinPendingKey(space, outbound.body.text("channel_id"), outbound.body.text("target_message_id")), key.toByteArray(Charsets.UTF_8))
+            put(pinTargetsPrefix(space, outbound.body.text("channel_id")) + outbound.body.text("target_message_id"), byteArrayOf(1))
+            reconcilePinTarget(space, outbound.body.text("channel_id"), outbound.body.text("target_message_id"))
+        }
         if (outbound.body.get("content_kind")?.asString == "message-reaction")
             put(reactionPendingKey(space, outbound.body.text("channel_id"), outbound.body.text("target_message_id")), key.toByteArray(Charsets.UTF_8))
         state.addProperty("next_outbox", Math.addExact(sequence, 1))
@@ -3057,6 +3325,12 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private fun reactionPendingKey(space: String, channel: String, message: String) = "$space/channels/$channel/reaction-pending/$message"
     private fun ownReactionVersionKey(space: String, channel: String, message: String) = "$space/channels/$channel/own-reaction-through/$message"
     private fun reactionSummaryKey(space: String, channel: String, message: String) = "$space/channels/$channel/reaction-summary/$message"
+    private fun messagePinKey(space: String, channel: String, message: String) = "$space/channels/$channel/message-pin/$message"
+    private fun pinPendingKey(space: String, channel: String, message: String) = "$space/channels/$channel/pin-pending/$message"
+    private fun activePinsPrefix(space: String, channel: String) = "$space/channels/$channel/active-pins/"
+    private fun unavailablePinsPrefix(space: String, channel: String) = "$space/channels/$channel/unavailable-pins/"
+    private fun pinChoiceKey(space: String, channel: String, message: String) = "$space/channels/$channel/pin-choice/$message"
+    private fun pinTargetsPrefix(space: String, channel: String) = "$space/channels/$channel/pin-targets/"
     private fun messageChangeKey(space: String, channel: String, message: String) = "$space/channels/$channel/message-change/$message"
     private fun messageChangeKey(space: String, body: JsonObject): String? =
         if (body.get("kind")?.asString in setOf("content", "public-content") && body.get("content_kind")?.asString in setOf("message-edit", "message-delete"))

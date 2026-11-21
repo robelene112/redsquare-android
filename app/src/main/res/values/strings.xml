@@ -1617,4 +1617,20 @@
     <string name="spaces_view_saved_edit">View saved edit</string>
     <string name="spaces_copy_edit">Copy text</string>
     <string name="spaces_copy_edit_failed">Could not copy. Retry</string>
+    <string name="spaces_pinned_messages">Pinned messages</string>
+    <string name="spaces_pinned">Pinned</string>
+    <string name="spaces_pin_message">Pin message</string>
+    <string name="spaces_unpin_message">Unpin message</string>
+    <string name="spaces_pin_waiting">Pin change saved · Waiting for connection</string>
+    <string name="spaces_pin_uncertain">Pin change sent · Waiting for confirmation</string>
+    <string name="spaces_pin_cancelled">Pin change cancelled</string>
+    <string name="spaces_pin_refused">Pin change was not accepted. The previous pin is unchanged.</string>
+    <string name="spaces_no_pins">No pinned messages in this channel.</string>
+    <string name="spaces_pins_partial">Showing available pins. Some references or keys have not arrived yet.</string>
+    <string name="spaces_pins_offline">Saved pins · Offline</string>
+    <string name="spaces_pins_failed">Could not load pins. Your conversation is unchanged.</string>
+    <string name="spaces_pins_loading">Loading pinned messages…</string>
+    <string name="spaces_open_pinned">Open message</string>
+    <string name="spaces_open_pinned_reply">Open reply in thread</string>
+    <string name="spaces_pins_retry">Refresh pins</string>
 </resources>

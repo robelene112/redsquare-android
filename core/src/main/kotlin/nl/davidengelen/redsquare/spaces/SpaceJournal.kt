@@ -781,9 +781,12 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             body.text("kind") == "content" && body.text("content_kind") == "history-keys"
         require(!channel.archived || keyDelivery) { "This channel is archived" }
         val contentKind = body.get("content_kind")?.asString
-        if (body.has("thread_root_id")) require(contentKind in setOf("message-edit", "message-delete", "message-reaction") &&
+        if (body.has("thread_root_id")) require(contentKind in setOf("message-edit", "message-delete", "message-reaction", "message-pin") &&
             body.text("thread_root_id").matches(Regex("[0-9a-f]{128}")))
-        val threadContribution = contentKind in setOf("thread-reply", "message-reaction") || contentKind in setOf("message-edit", "message-delete", "message-reaction") && body.has("thread_root_id")
+        val threadContribution = contentKind in setOf("thread-reply", "message-reaction", "message-pin") || contentKind in setOf("message-edit", "message-delete", "message-reaction", "message-pin") && body.has("thread_root_id")
+        if (contentKind == "message-pin") require(hasCurrentAdministratorIntent(event.author, body.text("control_id"))) {
+            "Pin changes need current administrator authority"
+        }
         val administratorOnly = (channel.adminPostsOnly || channel.profile?.kind == SpaceChannelKind.ANNOUNCEMENT) && !threadContribution
         if (administratorOnly)
             require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
@@ -797,14 +800,15 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         // History-key delivery remains independent of the contribution window.
         require(keyDelivery || reference >= channel.contributionStartedAt) { "Channel writing permissions changed" }
         require(body.number("epoch") == channel.epoch && body.text("key_generation") == channel.generation)
-        if (body.get("content_kind")?.asString in setOf("message-edit", "message-delete", "thread-reply", "message-reaction")) {
+        if (body.get("content_kind")?.asString in setOf("message-edit", "message-delete", "thread-reply", "message-reaction", "message-pin")) {
             require(body.text("target_message_id").matches(Regex("[0-9a-f]{128}")) && body.number("target_position") >= 0)
         }
         if (channel.visibility == SpaceVisibility.PUBLIC) {
-            require(body.text("kind") == "public-content" && body.text("content_kind") in setOf("message", "message-edit", "message-delete", "thread-reply", "message-reaction"))
+            require(body.text("kind") == "public-content" && body.text("content_kind") in setOf("message", "message-edit", "message-delete", "thread-reply", "message-reaction", "message-pin"))
             val text = body.text("text")
             require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
             if (contentKind == "message-reaction") SpaceReactionSelection.decode(text)
+            if (contentKind == "message-pin") require(text in setOf("pinned", "unpinned"))
             return
         }
         require(channel.retiredDevices.isEmpty()) { "Private content must wait for current membership keys" }

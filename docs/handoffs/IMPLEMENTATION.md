@@ -1,5 +1,37 @@
 # Implementation handoff
 
+## In-progress140 pins and native conversation checks
+
+Staff pins now use signed public or encrypted private decisions, current authority
+terms and exact immutable retries. A separate bounded pin snapshot restores old
+roots and actual reply parents outside the visible conversation window. Active
+reference indexes and retained-key repair keep removed pins out of useful pages.
+The native pin sheet opens the exact root or thread through guarded navigation,
+preserves separate writing and fences automatic scrolling/read marking.
+Waiting, uncertain, refused and locally cancelled pin changes stay distinct.
+One pending pin decision per target is enforced atomically in core, matching UI.
+
+The latest affected check passes7pin,9reaction and13thread cases with stable
+source fingerprints. Original failures include cold references, missing parent
+counts, removed-reference paging, cancellation and conflicting pending decisions.
+Main/instrumentation compilation passed before the final one-line overlap guard.
+Both source review axes checked pins and native routing; the selector finding was
+withdrawn after rechecking shared FrameIconButton text semantics.
+
+Retain focused native failures44887188418/44888957444/44890262081/44891273965/
+44893486169/44895732987. Cold-shell and invite readiness, icon text semantics,
+intentional following and actual bottom targeting are corrected. The last actual
+screenshot now shows the full reaction footer; the remaining failure was a test
+query for All reactions instead of the actual View all reactions resource.
+Focused goalsv8 preserve original180s overlay assertions and add a separate180s
+pin phase with independent signed received effects, actual Android consumption,
+row disposal, root/thread navigation and draft preservation. Execution and visual
+review remain pending. This is not whole140 or distinct-PID acceptance.
+
+Continue140 unread/notification policy and full native/process checks, then141–147
+sequentially. Beta142 and production/provider/public-write/file-hosting gates
+remain unchanged. Do not stop at this source checkpoint or close140 yet.
+
 ## In-progress140 reaction and overlay checkpoint
 
 Source now includes encrypted/public full-set author reactions, bounded50-actor

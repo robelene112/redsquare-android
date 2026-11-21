@@ -59,19 +59,22 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val requestId = body.text("request_id").also { require(it.matches(ID)) }
         val scope = body.get("scope").also { require(it != null && it.isJsonObject) }.asJsonObject.deepCopy()
         val space = scope.text("space_id").also { require(it.matches(ID)) }
-        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation", "directory", "heads", "messages")) }
+        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation", "directory", "heads", "messages", "pins")) }
         require(scope.keySet() == setOf("space_id", "stream", "cursor") + when (stream) {
             "messages" -> setOf("channel_id", "direction", "limit") + (if (scope.has("thread_id")) setOf("thread_id") else emptySet()) +
+                (if (scope.has("pin_history")) setOf("pin_history") else emptySet()) +
                 (if (scope.has("reaction_history")) setOf("reaction_history") else emptySet()) +
                 (if (scope.has("reaction_cursors")) setOf("reaction_cursors") else emptySet())
+            "pins" -> setOf("channel_id") + (if (scope.has("through")) setOf("through") else emptySet())
             "content" -> setOf("channel_id"); "keys" -> setOf("channel_id", "recipient_credential")
             "invitation" -> setOf("invite_id"); "directory" -> setOf("query"); "heads" -> setOf("positions"); else -> emptySet()
         })
         if (stream == "directory") require(space == "0".repeat(64) && scope.text("query").let { it.codePointCount(0, it.length) <= 128 })
-        val channel = if (stream in setOf("content", "keys", "messages")) scope.text("channel_id").also { require(it.matches(ID)) } else null
+        val channel = if (stream in setOf("content", "keys", "messages", "pins")) scope.text("channel_id").also { require(it.matches(ID)) } else null
         val recipient = if (stream == "keys") scope.text("recipient_credential") else null
         val cursor = scope.number("cursor")
         if (stream == "messages") require(scope.text("direction") in setOf("before", "after") && scope.number("limit") in 1..50)
+        if (stream == "messages" && scope.has("pin_history")) require(scope.get("pin_history").let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean })
         if (stream == "messages" && scope.has("reaction_history")) require(scope.get("reaction_history").let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean })
         if (stream == "messages" && scope.has("reaction_cursors")) {
             require(scope.get("reaction_history")?.asBoolean == true)
@@ -139,7 +142,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                             denied("unavailable"); return@atomic
                         }
                     } else if (!(journal.snapshot.visibility == SpaceVisibility.PUBLIC && stream == "control") &&
-                        !(stream in setOf("content", "messages") && journal.snapshot.channels[channel]?.visibility == SpaceVisibility.PUBLIC) &&
+                        !(stream in setOf("content", "messages", "pins") && journal.snapshot.channels[channel]?.visibility == SpaceVisibility.PUBLIC) &&
                         request.author !in journal.snapshot.members && departureEnd == null) { denied("unavailable"); return@atomic }
                     if (channel != null) {
                         val target = journal.snapshot.channels[channel]
@@ -160,6 +163,10 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         headPage(reply, space, request.author, positions)
                         return@atomic
                     }
+                    if (stream == "pins") {
+                        pinPage(reply, space, requireNotNull(channel), request.author, cursor, scope.get("through")?.let { scope.number("through") })
+                        return@atomic
+                    }
                     if (stream == "messages") {
                         val thread = scope.get("thread_id")?.asString
                         if (thread != null) {
@@ -169,7 +176,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                             }
                             if (!known) { denied("unavailable"); return@atomic }
                         }
-                        messagePage(reply, space, requireNotNull(channel), request.author, cursor, scope.text("direction"), scope.number("limit").toInt(), thread, scope.get("reaction_history")?.asBoolean == true, scope.getAsJsonObject("reaction_cursors"))
+                        messagePage(reply, space, requireNotNull(channel), request.author, cursor, scope.text("direction"), scope.number("limit").toInt(), thread, scope.get("reaction_history")?.asBoolean == true, scope.getAsJsonObject("reaction_cursors"), scope.get("pin_history")?.asBoolean == true)
                         return@atomic
                     }
                     val items = JsonArray()
@@ -217,6 +224,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 reply.addProperty("nonce", nonce)
                 reply.addProperty("message_history", true)
                 reply.addProperty("message_reactions", true)
+                reply.addProperty("message_pins", true)
             }
             else -> throw IllegalArgumentException("Unsupported Spaces read request")
         }
@@ -225,7 +233,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
 
     /** Message slots, independent of the number of immutable mutations. The
      * original receipt and its latest edit remain independently authenticated. */
-    private fun messagePage(reply: JsonObject, space: String, channel: String, reader: String, cursor: Long, direction: String, limit: Int, thread: String?, reactions: Boolean, reactionCursors: JsonObject?) {
+    private fun messagePage(reply: JsonObject, space: String, channel: String, reader: String, cursor: Long, direction: String, limit: Int, thread: String?, reactions: Boolean, reactionCursors: JsonObject?, pins: Boolean) {
         val before = direction == "before"
         val items = mutableListOf<JsonObject>()
         var size = 0
@@ -251,6 +259,10 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     database.prepareStatement("SELECT receipt FROM records WHERE space_id=? AND channel_id=? AND kind='message-delete' AND target_message_id=? ORDER BY position DESC LIMIT 1").use { deletion ->
                         deletion.setString(1, space); deletion.setString(2, channel); deletion.setString(3, rows.getString(2))
                         deletion.executeQuery().use { versions -> if (versions.next()) item.addProperty("deletion", versions.getString(1)) }
+                    }
+                    if (pins) database.prepareStatement("SELECT receipt FROM records WHERE space_id=? AND channel_id=? AND kind='message-pin' AND target_message_id=? ORDER BY position DESC LIMIT 1").use { pin ->
+                        pin.setString(1, space); pin.setString(2, channel); pin.setString(3, rows.getString(2))
+                        pin.executeQuery().use { versions -> if (versions.next()) item.addProperty("pin", versions.getString(1)) }
                     }
                     if (reactions) {
                         val progress = reactionCursors?.getAsJsonObject(rows.getString(2))
@@ -296,6 +308,46 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         reply.add("items", JsonArray().apply { items.forEach(::add) })
         reply.addProperty("next_cursor", items.lastOrNull()?.let { Math.addExact(SaitoEnvelope.decode(it.text("message")).body.number("position"), 1) } ?: cursor)
         reply.addProperty("has_more", more)
+        reply.addProperty("content_end", nextPosition("records", space, channel))
+    }
+
+    /** Latest target states within a fixed signed observation, independent of
+     * the currently visible message window. Private pin intent stays encrypted. */
+    private fun pinPage(reply: JsonObject, space: String, channel: String, reader: String, after: Long, observedThrough: Long?) {
+        val latest = database.prepareStatement("SELECT COALESCE(MAX(position)+1,0) FROM records WHERE space_id=? AND channel_id=? AND kind='message-pin'").use { query ->
+            query.setString(1, space); query.setString(2, channel)
+            query.executeQuery().use { rows -> check(rows.next()); rows.getLong(1) }
+        }
+        val through = observedThrough ?: latest
+        require(after <= through && through <= latest)
+        val items = JsonArray(); var size = 0; var next = after; var more = false
+        database.prepareStatement("SELECT r.receipt,r.position,r.target_message_id,r.original FROM records r WHERE r.space_id=? AND r.channel_id=? AND r.kind='message-pin' AND r.position>=? AND r.position<? " +
+            "AND NOT EXISTS (SELECT 1 FROM records n WHERE n.space_id=r.space_id AND n.channel_id=r.channel_id AND n.kind=r.kind AND n.target_message_id=r.target_message_id AND n.position>r.position AND n.position<?) ORDER BY r.position LIMIT 51").use { query ->
+            query.setString(1, space); query.setString(2, channel); query.setLong(3, after); query.setLong(4, through); query.setLong(5, through)
+            query.executeQuery().use { rows -> while (rows.next()) {
+                val pin = SaitoEnvelope.decode(rows.getString(4))
+                val page = JsonObject()
+                messagePage(page, space, channel, reader, Math.addExact(pin.body.number("target_position"), 1), "before", 1,
+                    pin.body.get("thread_root_id")?.asString, false, null, true)
+                val item = page.getAsJsonArray("items").single().asJsonObject.deepCopy()
+                require(SaitoEnvelope.decode(item.text("message")).body.text("event").let(SaitoEnvelope::decode).id == rows.getString(3))
+                item.addProperty("pin", rows.getString(1))
+                pin.body.get("thread_root_id")?.asString?.let { parent ->
+                    val base = SaitoEnvelope.decode(SaitoEnvelope.decode(item.text("message")).body.text("event"))
+                    val root = JsonObject()
+                    messagePage(root, space, channel, reader, Math.addExact(base.body.number("target_position"), 1), "before", 1, null, false, null, false)
+                    val parentItem = root.getAsJsonArray("items").single().asJsonObject
+                    require(SaitoEnvelope.decode(SaitoEnvelope.decode(parentItem.text("message")).body.text("event")).id == parent)
+                    item.add("parent", parentItem)
+                }
+                val bytes = item.toString().toByteArray(Charsets.UTF_8).size
+                check(bytes <= PAGE_BYTES)
+                if (items.size() == 50 || size + bytes > PAGE_BYTES) { more = true; break }
+                items.add(item); size += bytes; next = Math.addExact(rows.getLong(2), 1)
+            } }
+        }
+        reply.add("items", items); reply.addProperty("next_cursor", if (more) next else through)
+        reply.addProperty("has_more", more); reply.addProperty("pin_version", through); reply.addProperty("pin_end", latest)
         reply.addProperty("content_end", nextPosition("records", space, channel))
     }
 
@@ -617,7 +669,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
     private fun verifyMessageMutation(event: SignedSaitoMessage, journal: SpaceJournal) {
         val body = event.body
         val kind = body.get("content_kind")?.asString
-        if (kind !in setOf("message-edit", "message-delete", "thread-reply", "message-reaction")) return
+        if (kind !in setOf("message-edit", "message-delete", "thread-reply", "message-reaction", "message-pin")) return
         val target = body.text("target_message_id")
         val position = body.number("target_position")
         require(target.matches(Regex("[0-9a-f]{128}")) && position >= 0)
@@ -635,7 +687,8 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val thread = if (acceptedKind == "thread-reply") accepted.body.text("target_message_id") else null
         require(body.get("thread_root_id")?.asString == thread) { "A change belongs to its actual conversation" }
         val author = accepted.author
-        require(kind == "message-reaction" || author == event.author || kind == "message-delete" && journal.hasCurrentAdministratorIntent(event.author, body.text("control_id"))) {
+        require(if (kind == "message-pin") journal.hasCurrentAdministratorIntent(event.author, body.text("control_id"))
+            else kind == "message-reaction" || author == event.author || kind == "message-delete" && journal.hasCurrentAdministratorIntent(event.author, body.text("control_id"))) {
             "Only the author can edit; moderation needs current staff authority"
         }
         val deleted = database.prepareStatement("SELECT 1 FROM records WHERE space_id=? AND channel_id=? AND kind='message-delete' AND target_message_id=? LIMIT 1").use { sql ->

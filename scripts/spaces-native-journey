@@ -898,11 +898,23 @@ try:
                 observed['androidConsumptionWhileImeOpen']['observed'] and observed['androidConsumptionWhileImeOpen']['request']):
             raise RuntimeError('Focused conversation observations are incomplete')
         (evidence / 'overlay-results.json').write_text(json.dumps(observed, indent=2))
+        finish_record(*movies[-1]); record(2)
+        pins_session = instrument('pinsOpenTheirExactRootAndThreadWhilePreservingWriting', 'conversation-pins.txt', peer_port, control_port)
+        pins_session.wait(timeout=180)
+        pins_output = (evidence / 'conversation-pins.txt').read_text()
+        if pins_session.returncode or len(re.findall(r'^OK \(1 test\)\s*$', pins_output, re.M)) != 1:
+            raise RuntimeError('Focused conversation pins failed; retain the original native result')
+        pins = json.loads(adb('exec-out', 'run-as', pkg, 'cat', 'cache/spaces-journey-evidence/pins-results.json').stdout)
+        if not (pins['pid'] > 0 and pins['root']['pinned'] and pins['reply']['pinned'] and
+                pins['reply']['parent'] == pins['root']['id'] and pins['channelDraftPreserved'] and pins['threadDraftPreserved'] and
+                pins['incomingWhileOpen'] >= 60 and pins['androidConsumptionWhilePinsOpen']['observed'] and pins['androidConsumptionWhilePinsOpen']['request']):
+            raise RuntimeError('Focused native pin observations are incomplete')
+        (evidence / 'pins-results.json').write_text(json.dumps(pins, indent=2))
         (evidence / 'host-status.json').write_text(json.dumps(command(control_port, 'status')))
         command(control_port, 'stop'); host.wait(timeout=15)
         if host.returncode: raise RuntimeError('Owned conversation host failed')
         (evidence / 'journey-outcome.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
-            'pid': observed['pid'], 'nativeTerminalPasses': 1, 'deliberatelyInterruptedCases': 0,
+            'pid': observed['pid'], 'pinsPid': pins['pid'], 'nativeTerminalPasses': 2, 'deliberatelyInterruptedCases': 0,
             'distinctPidAcceptance': False, 'whole140Acceptance': False, 'productionNodeActivated': False}))
     else:
         record(1)
