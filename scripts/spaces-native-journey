@@ -19,6 +19,9 @@ private_ownership_mode = mode == 'private-ownership-v1'
 membership_mode = private_ownership_mode or mode == 'membership-v1'
 governance_mode = mode == 'governance-v1'
 category_access_mode = governance_mode and os.environ.get('SPACES_PRIVATE_MANAGEMENT_CASE') == 'category-access'
+startup_trace = os.environ.get('SPACES_STARTUP_TRACE') == 'true'
+if startup_trace and not category_access_mode:
+    raise ValueError('Initial-history sampling requires the isolated category-access journey')
 category_management_mode = mode == 'category-management-v1'
 discovery_mode = mode == 'discovery-v1'
 private_management_mode = mode == 'private-management-v1'
@@ -55,7 +58,8 @@ def instrument(method, filename, peer, control):
         (['-e', 'spacesMembership', 'true'] if membership_mode else []) +
         (['-e', 'spacesPrivateOwnership', 'true'] if private_ownership_mode else []) +
         (['-e', 'spacesGovernance', 'true'] if governance_mode else []) +
-        (['-e', 'spacesCategoryAccess', 'true'] if category_access_mode else []) + [runner],
+        (['-e', 'spacesCategoryAccess', 'true'] if category_access_mode else []) +
+        (['-e', 'spacesStartupTrace', 'true'] if startup_trace else []) + [runner],
         stdout=log, stderr=subprocess.STDOUT)
     children.append((process, log))
     return process
@@ -395,6 +399,10 @@ try:
                 'viewport': {'widthDp': 320, 'fontScale': 2.0, 'densityDpi': 320, 'resourceProbes': 3},
                 'productionNodeActivated': False, 'ordinaryBetaChanged': False}
         (evidence / 'frozen-goals.json').write_text(json.dumps(goals, indent=2))
+        if startup_trace:
+            (evidence / 'diagnostic-startup.json').write_text(json.dumps({'diagnosticOnly': True,
+                'completeAcceptance': False, 'source': (repo / '.scratch/proof-source.txt').read_text().strip(),
+                'contentSeconds': 15, 'samplingIntervalUs': 1000}))
         pids = []
         for number, (method, expected_phase) in enumerate(phases, 1):
             if number == (3 if governance_mode else 2 if private_readiness_mode or category_management_mode else 4): prepare_viewport()
@@ -407,6 +415,8 @@ try:
                         raise RuntimeError(f'Native {label} phase {number} exceeded180s')
                     observed = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{checkpoint_name}', check=False)
                     if observed.returncode == 0 and observed.stdout.lstrip().startswith(b'{'):
+                        if startup_trace:
+                            raise RuntimeError('Initial-history diagnostic reached its first checkpoint; this is not complete acceptance')
                         checkpoint = json.loads(observed.stdout)
                         if checkpoint['phase'] == expected_phase:
                             (evidence / f'checkpoint-{expected_phase}.raw').write_bytes(observed.stdout)

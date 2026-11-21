@@ -1,22 +1,21 @@
 # Red Square Android project context
 
-## Active139: category metadata witness corrected
+## Active139: diagnosing initial history startup
 
-Member6/private5 at4de, public management/API29 at9822 and governance4 ated52
-remain accepted at their exact scopes and source pins. Category3 44844437756
-remains wholeFAIL: all four native phases and both terminal cases completed,
-but the final receiving observer used the edit metadata field for creation.
-Actual independent member receipts retain the created/edited private names and
-canonical category/channel IDs. This successful prefix is not parent acceptance.
+Category4 44848682074 atdef5 remains wholeFAIL: the first General history did not
+render within the original15seconds, before any management action or metadata
+assertion. Both actual visual reviews confirm the spinner and absent messages;
+ONLINE/channel readiness is not completed content. The exact cause is unresolved.
 
-The corrected observer verifies the actual signed creation/replacement fields
-and header scope. Owned JVM replay reproduces the original failure and passes
-with the correction; final host compilation passes at stable inputs. Product
-code, native paths, goals and catalogues are unchanged. Both review axes and a
-fresh frozen whole category-access parent with actual all-frame/prototype
-assessment remain before final139 mapping/closure and sequential140-147.
-ApprovedB, beta142 and production/provider/public-write/file-hosting gates stay
-unchanged. See the maintained governance-native-preparation.json evidence record.
+An optional, false-default startup sampler measures only that original wait.
+It is explicitly diagnostic and cannot count as complete acceptance, even when
+the initial content arrives. Original failures stay primary if trace cleanup
+also fails. Product code, ordinary native paths, deadlines and catalogues stay
+unchanged. The next step is actual timing evidence before choosing a correction.
+Public/API29, governance4 and member6/private5 keep their exact accepted scopes.
+Fresh untraced category-access whole/visual acceptance and final139 reconciliation
+remain before sequential140-147. ApprovedB, beta142 and production/provider/
+public-write/file-hosting gates stay unchanged. See governance-native-preparation.json.
 
 ## Earlier139: current public management accepted, final native gaps prepared
 

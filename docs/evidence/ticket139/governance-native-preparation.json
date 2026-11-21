@@ -1208,5 +1208,72 @@
         "sha256": "661bcb01c9605031dc4fe4cb41a2e4c993fa758f54ea4eed4d1b8e3f60ed6fe0"
       }
     ]
+  },
+  "initialHistoryStartupDiagnosis": {
+    "recordedAt": "2026-11-21T01:33:38.193100+00:00",
+    "base": "def5c605b1fffdc9a46eb6154c213cce455f8c6f",
+    "failure": {
+      "run": 44848682074,
+      "source": "def5c605b1fffdc9a46eb6154c213cce455f8c6f",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-runtime/attempt4-44848682074",
+      "conclusion": "failure",
+      "observed": "Phase1 initial history wait exceeds original15seconds before any management action. All136frames/9sheets and failurePNG/XML show actual General spinner without history. ONLINE/joined/channelReady do not establish completed content fetch. Independent fixture retains18messages. Metadata witness is not reached. No product or invoked phase1 change from preceding source; exact cause remains unresolved."
+    },
+    "failureReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-access-native4-failure-spec-review.txt",
+        "sha256": "aabc25d2c04aafb475c9e68951c98cb4d764b0ccacdb689e74921429ccc2a2a0"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-access-native4-failure-standards-review.txt",
+        "sha256": "253706141ff4517f06c65b7b081e5458c6f335fe6e9a5c1adcc6312ca4e81241"
+      }
+    ],
+    "diagnostic": "Optional false-default startup sampling at1000us/16MiB covers the original initial15second history wait only. Diagnostic marker and forced first-checkpoint failure prohibit whole acceptance. Default path invokes original wait directly. Both trace stop and metadata write are attempted; original failure remains primary with cleanup failures suppressed. No product, deadline, goal or catalogue change. Sampling overhead/finite buffer limit interpretation.",
+    "prospectiveInitialReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-startup-trace-prospective-spec-review.txt",
+        "sha256": "4fbd69b01425d2c0c1a823ba54e4664df919edf57abdaffa7ffac8c117500f5e"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-startup-trace-prospective-standards-review.txt",
+        "sha256": "abdc390763c5420845c5622c1a5237ed19ddd0c27901729572e69bb98f403749"
+      }
+    ],
+    "remaining": [
+      "Commit exact reviewed/compiled diagnostic source, then run qualified sampling parent.",
+      "Run explicitly qualified sampling parent and inspect actual trace before choosing a correction.",
+      "Fresh untraced whole category-access plus both visual reviews, final139 mapping/closure, then140-147 sequentially."
+    ],
+    "boundaries": "ApprovedB, beta142 and existing production/provider/public-write/file-hosting gates unchanged.",
+    "finalReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-startup-trace-final-spec-review.txt",
+        "sha256": "e3a13872aed030b3d3b007b1f775bd9df091eb47d8d3fb3f0abf86e8a37b04cb"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-startup-trace-final-standards-review.txt",
+        "sha256": "154a9b3755f57356ee3eb4f47ed9ca9c4c281a280063ca2ed370c21cc7288fcb"
+      }
+    ],
+    "compilation": {
+      "exit": 0,
+      "unchanged": true,
+      "gradleSeconds": 167,
+      "log": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-startup-trace-instrumentation2-originals/139-startup-trace-instrumentation2.log",
+        "sha256": "8eafc42494b87876f5550ec7d006229deea156bdd39e45baa3ca28db84c3230a"
+      },
+      "outcome": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-startup-trace-instrumentation2-originals/139-startup-trace-instrumentation2-outcome.json",
+        "sha256": "9157a5afc1635419e144ab17160fc34eaf997eecbef900fe3b5424c0b417430a"
+      },
+      "qualification": "Exact final diagnostic instrumentation compiles. No sampler/runtime/whole acceptance inferred."
+    },
+    "sourceFiles": {
+      ".github/workflows/android-proof.yml": "f52496290968130aaf458ebc3be8c21cc9e2bbdc4f9af83d0677004108f02bfc",
+      "scripts/spaces-native-journey": "f32ca4f9222809320b503ae4533a30e9a90300621c6eabc25a0339822658d583",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "f4f170646a2c5e6cd17a7a632399af2e2fc61cbe0fb17a61c3630fc22c44fd09"
+    }
   }
 }

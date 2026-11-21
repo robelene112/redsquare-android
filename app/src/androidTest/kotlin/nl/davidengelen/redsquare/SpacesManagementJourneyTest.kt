@@ -389,6 +389,27 @@ class SpacesManagementJourneyTest {
     private val governanceMessages get() = (0 until 18).map { "Governance message $it" }
     private val governanceDraft get() = "Keep the governance channel draft"
 
+    private fun tracedInitialHistory(read: () -> Unit) {
+        if (arguments.getString("spacesStartupTrace") != "true") return read()
+        val trace = File(evidence, "initial-history.trace")
+        val started = SystemClock.elapsedRealtime()
+        android.os.Debug.startMethodTracingSampling(trace.absolutePath, 16 * 1024 * 1024, 1000)
+        var loaded = false
+        var problem: Throwable? = null
+        fun retain(failure: Throwable) {
+            if (problem == null) problem = failure else problem!!.addSuppressed(failure)
+        }
+        try { read(); loaded = true } catch (failure: Throwable) { problem = failure } finally {
+            runCatching { android.os.Debug.stopMethodTracing() }.onFailure(::retain)
+            runCatching { saveJson("initial-history-trace.json", JsonObject().apply {
+                addProperty("diagnosticOnly", true); addProperty("loadedWithinOriginalLimit", loaded)
+                addProperty("elapsedMs", SystemClock.elapsedRealtime() - started)
+                addProperty("pid", Process.myPid()); addProperty("samplingIntervalUs", 1000)
+            }) }.onFailure(::retain)
+        }
+        problem?.let { throw it }
+    }
+
     @Test fun privateCategoryCheckpointsItsActualPendingOriginalAfterClosingTheSpace() {
         check(governance && arguments.getString("spacesDisposableBaseline") == "true")
         val wallet = AndroidWalletStore(context)
@@ -396,7 +417,7 @@ class SpacesManagementJourneyTest {
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
         val fixtures = command("governance-fixtures")
         launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("governance-private-category-failure") }) {
-            waitText("Governance message 17")
+            tracedInitialHistory { waitText("Governance message 17") }
             openInformation()
             clickDialog(context.getString(R.string.spaces_make_private))
             governanceConfirmation(context.getString(R.string.spaces_make_private)).assertIsDisplayed()

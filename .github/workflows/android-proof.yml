@@ -4,6 +4,10 @@ on:
     branches: [main]
   workflow_dispatch:
     inputs:
+      spaces_startup_trace:
+        description: Diagnostic initial-history sampling only, never a complete native acceptance run
+        type: boolean
+        default: false
       spaces_category_management:
         description: Separate public category-editor first-feedback journey, without pending-process recovery acceptance
         type: boolean
@@ -88,6 +92,7 @@ jobs:
         partition: ${{ fromJSON((inputs.diagnostic_partition && inputs.diagnostic_partition != 'all') && format('["{0}"]', inputs.diagnostic_partition) || (inputs.scope == 'full-android17' || inputs.scope == 'full-android10') && '["chat","social","wallet"]' || '["all"]') }}
     runs-on: ${{ inputs.runner_os || 'ubuntu-24.04' }}
     env:
+      SPACES_STARTUP_TRACE: ${{ inputs.spaces_startup_trace && 'true' || 'false' }}
       SPACES_CATEGORY_MANAGEMENT: ${{ inputs.spaces_category_management && 'true' || 'false' }}
       SPACES_PRIVATE_MANAGEMENT: ${{ inputs.spaces_private_management && 'true' || 'false' }}
       SPACES_PRIVATE_MANAGEMENT_CASE: ${{ inputs.spaces_private_management_case || 'process' }}
