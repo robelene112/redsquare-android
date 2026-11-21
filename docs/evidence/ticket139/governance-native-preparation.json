@@ -1422,5 +1422,67 @@
         "sha256": "d632d2b8d20054ff8e46075ce00c90aad2b339a038833a79c6ac8fe811ed20fe"
       }
     ]
-  }
+  },
+  "currentCategoryNativeWhole": {
+    "recordedAt": "2026-11-21T02:29:30.693722+00:00",
+    "run": 44854528463,
+    "source": "b0b659d1ca25e34944d9253c5506c792d75c27c4",
+    "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-runtime/attempt5-44854528463",
+    "wholeConclusion": "success",
+    "frozenAssessmentExit": 0,
+    "wholeAccepted": true,
+    "visualReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-access-native5-spec-review.txt",
+        "sha256": "7c7b7a0f11f178669b79286a1fdb7780d6f475db0b19f76afd083c745af7da6b"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-access-native5-standards-review.txt",
+        "sha256": "f8d44f0510d2956ebda1857defc6e358ff0a617b8183340b92a885cbc46c314e"
+      }
+    ],
+    "frozen": {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-category-access-validator-revision5/139-native-category-access-validator-frozen.json",
+      "sha256": "cea19033fb6de44959c7b1182e887acba09d64cb74ed9ee7cf22079a16e56a85"
+    },
+    "originalAssessment": {
+      "path": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-runtime/attempt5-44854528463/assessment.json",
+      "sha256": "9831169e2df3133d3fda741379adf6887441379e4722f0588eb56ad8d8069b19"
+    },
+    "reportCountQualification": {
+      "path": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-runtime/attempt5-44854528463/review/observed-catalogue-qualification.json",
+      "sha256": "5c83277b1b47a6ed78a1e833182ee6b83bdf347a3ffd2f9827a6ae33edbb6865"
+    },
+    "archiveSha256": "0df287169cfa84f45c5e7f2913bec3f509f5481d30c3e3bc349172ab7cb718bf",
+    "observed": {
+      "coreTests": 251,
+      "coreClasses": 49,
+      "serviceTests": 156,
+      "serviceClasses": 15,
+      "frames": 1174,
+      "sheets": 75,
+      "capturePairs": 21,
+      "controls": 47,
+      "focusedImeRecords": 2,
+      "readingRecords": 6,
+      "phasePids": [
+        3674,
+        4648,
+        5223,
+        5922
+      ],
+      "deliberateKills": 2,
+      "nativeTerminalPasses": 2,
+      "acceptedControls": 7,
+      "signedAttempts": 9,
+      "categoryRecoveryMs": 15372,
+      "dissolutionRecoveryMs": 7213
+    },
+    "reportingLimit": "Original frozen verifier asserts exact251/49 and all case names, while its terminal summary retains stale literal248. Original assessment/freeze retained unchanged; independent XML/case audit records observed251/49 and156/15. No requirement weakening or missing-case acceptance.",
+    "remaining": [
+      "Final record review/commit and139closure, then140-147 sequentially."
+    ],
+    "boundaries": "ApprovedB, beta142 and production/provider/public-write/file-hosting gates unchanged."
+  },
+  "finalAcceptanceRecord": "final-acceptance.json"
 }

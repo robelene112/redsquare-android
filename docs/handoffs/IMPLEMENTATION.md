@@ -1,225 +1,24 @@
 # Implementation handoff
 
-## Active139: bounded projection reads pass current regression
+## Accepted139, continue140
 
-The actual public client/SQLite probe now reads4rows once each instead of
-57reads for4unique rows, retaining the same18messages, owner role and draft.
-The correction shares copied rows only inside an existing atomic presentation,
-with128row/1MiB limits, mutation isolation, write invalidation and retirement
-on failure. No plaintext or authority is retained across presentations.
+Community channel/category administration, roles, private access, explicit
+ownership transfer, archive/reopen and owner-confirmed dissolution are accepted.
+Measured source `b0b659d1ca25e34944d9253c5506c792d75c27c4` passes the current251core/156service
+catalogue and whole untraced native44854528463 with both actual visual reviews.
+All1174frames/21capture pairs,47controls,2IME records,4PIDs/two kills/two terminal
+cases and independent encrypted create/edit/history effects are checked againstB.
+Historical Android10 public-management and Android17 private/ownership evidence
+retain their exact source scopes and explicit bounded-memo semantic bridge.
+See [final139 acceptance](../evidence/ticket139/final-acceptance.json) for all five criteria,
+source/artifact identities, the qualified summary-count typo and retained failures.
 
-All current251core/49classes and156service/15classes pass with no failures,
-errors or skips, including three new Transaction-interface safety contracts
-and existing realSQLite permission/private-history coverage. Owned host smoke
-also passes. These results do not establish native startup timing or139 closure.
-Diagnostic44851431064 stays diagnostic; previous whole failures stay failures.
-
-Final review/commit, a fresh untraced category-access whole parent and both
-actual visual reviews remain before final139 reconciliation and sequential
-140-147. Native goals/deadlines and test clock are unchanged. Previous exact-
-source scopes require the explicit bounded-memo semantic bridge. ApprovedB,
-beta142 and production/provider/public-write/file-hosting gates stay unchanged.
-See governance-native-preparation.json for exact evidence and limitations.
-
-## Earlier139: current public management accepted, final native gaps prepared
-
-Whole public management/API29 44832654787 at9822 passes both actual visual
-axes:1349frames,36capturepairs,76controls and6IME records. Earlier focused-field
-occlusion is actually resolved. Gov4 remains narrowly accepted ated52.
-
-Member5 44834444152/private4 44834468738 remain wholeFAIL at offscreen owner
-policy in phase3. Both reach real two-party ownership; Android4 also decrypts
-the actual earlier private original. Those are observed prefixes, not parent
-acceptance. Capture07 exposed a separate false negative-visibility oracle:
-local ACCEPTED did not prove the old waiting offer had left the UI.
-
-Corrected observers scroll the actual recipient/owner target and require a
-settled Information tree, positive role evidence and no stale offer/pending
-nodes within the same15seconds. Optional category-access adds real compact
-private-category create/edit after recreation, restriction clearing,
-independent canonical-ID/decrypted-name receipts and exact General return.
-Host seed accounting now declares verified pre-Android control IDs explicitly;
-the original failed smoke remains retained and corrected owned smoke passes.
-
-Host compilation and native compilation pass at stable inputs. The final
-one-line heading-presence correction follows the last local compile and still
-requires exact fresh CI. Whole affected member/private and category-access
-parents, actual all-frame/prototype reviews and139 closure mapping remain
-before140-147 proceed sequentially. See the [exact record and limits](../evidence/ticket139/governance-native-preparation.json).
-ApprovedB, beta142 and production/provider/public-write/file-hosting boundaries
-remain unchanged.
-
-## Earlier139: governance accepted, ownership observer corrected
-
-Whole Android17 governance44828915996 ated52 passes its frozen contract and
-both actual visual/prototype reviews:921frames,15capturepairs,31controls,
-2IME and5reading records. The compact closed history is actually readable,
-with exact anchor/draft retained. This is narrow governance acceptance.
-
-Member4 44831605158 and private3 44831643022 remain wholeFAIL. Both reach the
-real ownership offer, return to the top of Information and wait on an action
-below the viewport without scrolling. Local offer status at failure was not
-retained. The corrected observer scrolls the actual action within the same
-15seconds and retains last actual status/visibility diagnostics. Stable local
-compilation precedes a final diagnostic-freshness refinement; exact CI remains
-required. Fresh complete affected parents are still needed.
-
-Whole public management-v4/API29 44832654787 is running at9822. A narrow native
-private-category choice/restoration/clear plus real create/edit Save-ID bridge
-also remains before complete139 acceptance, then140-147 sequentially. See the
-[governance and correction record](../evidence/ticket139/governance-native-preparation.json). ApprovedB, beta142 and all existing
-production/provider/public-write/file-hosting boundaries remain unchanged.
-
-## Earlier139: account-aware native return readiness
-
-Governance44828915996 passes whole CI and frozen4 numeric/process/receiving checks
-ated52 with the compact closed-history fix. Actual full-frame/prototype review
-is pending. Public member3
-44828929683 and private owner2 44828940462 were deliberately cancelled before
-build/runtime, both actually SKIPPED; whole ZIP/raw/logs remain retained. No
-execution success/failure is invented from their restored caches.
-
-Prospective inspection found that returning owner3 was incorrectly forced to
-show final message17 despite retaining its actual earlier anchor/draft. The
-corrected native helper checks active identity/Space/General, rendered and
-stored draft, full retained owner anchor and actual visible history within the
-same15seconds. No scroll/reset/write is used. Current instrumentation compiles
-at stable inputs; product and invoked governance paths are unchanged. See the
-[originals, correction and limits](../evidence/ticket139/governance-native-preparation.json).
-
-Replacement whole member/private parents and complete governance/all-frame
-assessment remain before139 closes and140-147 proceed. ApprovedB, beta142 and
-production/provider/public-write/file-hosting boundaries remain unchanged.
-
-## Earlier139: visibility and terminal closure source integrated
-
-Owner-confirmed public/private entrance changes and terminal dissolution now
-preserve existing private audiences, old public copies, history and drafts.
-Durable requests recover their exact originals after lost responses; compatible
-legacy roots/invitations remain supported. Current native controls negotiate the
-new capabilities, review public metadata and display closed/read-only state.
-
-Whole core248/48classes and service156/15classes pass with no failures, errors or
-skips. Separate Android main3m11s/instrumentation2m57s compile; both pinned
-0.3.2/0.3.15 adapter rehearsals pass13service assertions. All actual failures and
-fixture qualifications remain. See the [visibility/closure source record](../evidence/ticket139/visibility-and-dissolution-source.json).
-
-This is source integration, not current governance native or whole139 acceptance.
-Public category parent44781316246 remains narrowly accepted atdd17364b0, outside
-this new source pin. Current private-category/pending-process, membership,
-ownership, visibility and dissolution native journeys remain before139 closes.
-Continue139 then140-147 sequentially without a checkpoint stop. ApprovedB,
-beta142 and all production/provider/public-write gates are unchanged.
-
-## Earlier139: public category native first feedback accepted
-
-Whole Android17 parent44781316246 atdd17364b0 passes frozen3 and both actual
-all-frame/prototype reviews:754frames,18capture pairs,32controls,2real-IME
-records and5protected reading records per axis. Creation/rename recover within
-14.394/13.696seconds of the unchanged27-second bound. The same message identity,
-position2,69px offset and window survive all four compact returns. Both previous
-failed parents remain unchanged. See the [category source record](../evidence/ticket139/categories-and-directory-source.json).
-
-This narrowly accepts public category first feedback. Private-category/pending
-process, current membership/ownership, visibility changes and dissolution remain
-before complete139 acceptance and sequential140-147. Current visibility source
-has its own receiving tests and is excluded from this immutable native pin.
-Issue139 remains open; approved navigationB and beta142 are unchanged.
-
-## Earlier139: category source and native preparation
-
-Implement137-147 sequentially under134 and approved navigationB. Issues137/138
-are accepted;139 remains current and incomplete. Continue without a checkpoint
-stop. Beta142 is unchanged.
-
-Stable public/private categories now support atomic channel assignment, canonical
-renaming, encrypted audience-specific names and durable exact-original recovery.
-Native controls preserve identity, privacy, restoration and failed-write retry;
-successor-owned directory listing validates actual authority history. Complete
-core248/48classes and service140/13classes pass at matching product/JUnit blobs.
-Main3m17s and corrected instrumentation3m15s compile; both source axes are clear.
-Later host-only additions compile and seed independently; they are not another
-whole-module pass. The mixed-container OOM remains a whole failed preparation;
-separate checks pass and an early local guard prevents that workload combination.
-See [the category/directory source record](../evidence/ticket139/categories-and-directory-source.json) for exact inputs,
-actual regressions, corrections, source bridges and limits.
-
-A9 private Android17 run44751318736 is now narrowly accepted by both actual
-all-frame/prototype reviews:1067frames,22capture pairs and42touch+2IME records per
-axis. The prior clipped explanation and capture mismatches are corrected. This
-parent does not cover current category/directory or new membership/ownership UI.
-
-The public category native first-feedback harness is prepared, with normal and
-320dp/font200 Activity, fault, exact-original, drawer, draft/pixel and real-IME
-checks. No category native execution is claimed. Private-category/pending-process
-proof, current membership/ownership native flows, visibility changes, dissolution
-and complete139 acceptance remain before140-147. No production activation,
-automatic file hosting, public test/financial writes or physical/OEM/Play claim.
-Legacy Chat E2E remains141. Older entries below retain their original scope.
-
-
-
-## Earlier139: coherent reads and community governance
-
-Implement137–147 sequentially under134 and approved native navigationB. Issues137
-and138 are accepted and closed. Issue139 remains current and incomplete;
-140–147 have not started. Continue without a checkpoint stop. Public beta142
-is unchanged.
-
-The current source batches native presentation/management reads into one actual
-transaction, reusing authenticated journals only within that synchronous read.
-No cached authority survives across transactions or failures. Publish/select preserve
-channel scope, draft versions, pixel anchors and the fresh management overlay.
-Real fault-trigger setup/cleanup now shares the canonical-file application gate,
-released before UI actions. The old SQLITE_BUSY setup failure remains retained;
-this coordination and responsiveness still require actual native proof.
-
-The ownership source increment adds durable offer/accept/cancel/decline for an
-existing member. Private handover separates consent from actual receiving-device
-key readiness; temporary preparation grants reading without new staff/writing
-rights. Signed admissions commit the exact encrypted earlier-history deliveries
-before transport, preserving them across lost replies and later role/epoch
-changes. Cancellation retires temporary access; completion leaves the former
-owner an ordinary member. Received copies remain readable. The initial functional
-Spaces protocol remains unreleased; beta142 has no functional client. Existing
-absent-manifest pending originals retain their old recovery path.
-
-Native controls negotiate the ownership capability, identify the parties and
-explain responsibility/private access. Another device's acceptance disables and
-dismisses a stale Accept confirmation. Compact channel-access confirmation now
-has a scrollable complete explanation; intended capture states wait for actual
-native/Compose readiness within original bounds. These corrections still need
-fresh rendered proof. Native membership/ownership acceptance is not claimed.
-
-Complete current modules pass247 core/48 classes and132 service/11 classes,
-with no failures/errors/skips, in separate clean commands at unchanged module
-blobs (1m47s and5m17s). App-only maintenance glue compiles separately: actual
-Android main3m6s/instrumentation2m59s, clean exit0. The first132-case command's
-null-result/nested-transaction SQLException remains a whole failure; the corrected
-whole service command passes. Both source-review axes are clear. See the
-[presentation/source packet](../evidence/ticket139/presentation-and-native-preparation-source.json). The ownership increment's
-pinned0.3.2/0.3.15 dispatcher/JS-WASM checks remain scoped to that earlier source
-and its owned adapters; current native acceptance is pending.
-
-Whole source1ae public44730822806/44730829775 and private44730837084/44730852326
-remain failures: SQL fault-setup PRAGMA API errors and a real private17 five-second
-creation-confirmation miss. Its3112ms lock holder was not proven. Sourcecf
-private44735287694 passes whole CI/frozen9 numbers, but both all-frame reviews
-withhold visual acceptance for clipped compact explanation and mistimed captures:
-1110frames/71sheets,22PNG/XML pairs and44geometry records per axis. Its measured
-1621ms publish span overlaps940ms ofthe new1052ms create-lock wait, without
-proving a unique holder or fixing the earlier miss. Source corrections do not
-promote that parent to visual acceptance. All originals and original deadlines
-remain; earlier2b6/048/794/739 qualifications remain in their packets.
-
-Remaining139 includes current native management/membership/ownership acceptance,
-foreground responsiveness, successor-owned directory listing validation, explicit
-category identities/management, deliberate
-visibility changes without publishing prior private history, and owner-only
-dissolution. Then continue140–147. No production node/provider activation,
-public development/financial writes or automatic community file hosting is
-implied. Keep1/36/55/84/86/105 open. Legacy Chat E2E, source-only Vault rental and
-physical/OEM/Play limits remain separate.
+Continue140-147 sequentially, one implementation issue at a time, without stopping
+at a source/CI checkpoint. Message threads/reactions, legacy Chat E2E and other
+content/provider/release features remain subsequent scope. Beta142 and production
+node/provider/public-write/file-hosting gates stay unchanged. Keep1/36/55/84/86/105
+open; Vault rental restoration is source-only UNDEPLOYED. Older entries below are
+historical and do not override this current boundary.
 
 ## Accepted138, continue139
 

@@ -1,0 +1,384 @@
+{
+  "ticket": 139,
+  "parent": 134,
+  "recordedAt": "2026-11-21T02:32:58.961445+00:00",
+  "status": "accepted",
+  "measuredProductSource": "b0b659d1ca25e34944d9253c5506c792d75c27c4",
+  "approvedDesign": "Native prototype B",
+  "acceptanceMap": {
+    "preparedAt": "2026-11-20T23:42:46.501343+00:00",
+    "source": "b0b659d1ca25e34944d9253c5506c792d75c27c4",
+    "status": "Accepted139 scope after whole native5, both actual visual/prototype axes and current regression/read-accounting proof.",
+    "criteria": [
+      {
+        "criterion": 1,
+        "behavior": "Create/edit categories and five channel kinds; staff-only structure, no private names/previews outside audience.",
+        "receivingClasses": [
+          "SpaceCategoriesTest",
+          "SpaceChannelsTest",
+          "SpaceChannelAccessTest",
+          "SpaceDiscoveryTest"
+        ],
+        "acceptedNative": [
+          "public-management/API29 44832654787 at9822",
+          "public-category/API37 44781316246 atdd173",
+          "private-process/API37 44751318736 atA9, exact earlier scope/source bridge",
+          "category-access/API37 44854528463 atb0b, whole/frozen5/bothactualvisual"
+        ],
+        "requiredCurrentNative": [],
+        "qualification": "New private canonical-category create/edit Save-ID/restore/clear interaction is not accepted until the new complete parent and both actual visual axes pass. Five kinds have actual receiving coverage; ARTICLE native creation does not imply article-body functionality."
+      },
+      {
+        "criterion": 2,
+        "behavior": "Receiving authorization, control-order/idempotency convergence and account/node/channel isolation.",
+        "receivingClasses": [
+          "SpacesServiceStoreTest",
+          "SpaceGovernanceTest",
+          "SpaceRolesTest",
+          "SpaceOwnershipTest",
+          "SpacePresentationTest",
+          "SpaceDiscoveryTest",
+          "SpaceClientTest",
+          "SpaceJournalTest",
+          "SpacePresentationStoreTest"
+        ],
+        "acceptedNative": [
+          "accepted foundation137/138 scope only",
+          "actual OS encrypted-store concurrency precondition in accepted public/governance parents",
+          "membership6/API37 44838352313 at4de whole+frozen6+bothvisual",
+          "privateownership5/API37 44838386136 at4de whole+frozen5+bothvisual",
+          "category-access/API37 44854528463 atb0b, whole/frozen5/bothactualvisual"
+        ],
+        "requiredCurrentNative": [],
+        "qualification": "No current whole pass inferred from earlier prefixes. Stable IDs, exact signed originals and separate stores are observable, not only UI role hiding.",
+        "receivingCases": [
+          "SpaceClientTest.reversedAuthenticatedControlPagesRollBackBeforeAHealthyReadCanRecover",
+          "SpaceJournalTest.anInvitationAdvancesOnlyTheAuthorizedControlChainAndDoesNotEnrollItsHolder",
+          "SpaceJournalTest.anAuthenticatedCreationEstablishesExactlyOneOwnerAndDuplicateReceiptDoesNotCreateAnother"
+        ]
+      },
+      {
+        "criterion": 3,
+        "behavior": "Available authorized earlier history, future exclusion after leave/remove/ban, private/public history boundaries and truthful retained copies.",
+        "receivingCases": [
+          "SpaceGovernanceTest.leavingStopsFuturePrivateKeysWithoutRecallingCopiedHistory",
+          "SpaceGovernanceTest.banRotatesPrivateKeysAndLiftingItDoesNotRestoreTheOldChannelGrant",
+          "SpaceGovernanceTest.removalRotatesPrivateKeysAndPublicRejoinDoesNotRestoreTheOldChannelGrant",
+          "SpaceOwnershipTest.aConfirmedHandoverDeliversPrivateKeysAndExcludesTheFormerOwnersFutureAccess",
+          "SpaceOwnershipTest.aLostAdmissionReplyDuringHandoverStillDeliversAvailableEarlierPrivateHistory",
+          "SpaceVisibilityTest.makingASpacePublicAddsAPublicEntryWithoutPublishingEarlierPrivateHistory"
+        ],
+        "acceptedNative": [
+          "private-process/API37 A9 original scope/source bridge",
+          "governance/API37 44828915996 ated52",
+          "membership6/API37 44838352313 at4de whole+frozen6+bothvisual",
+          "privateownership5/API37 44838386136 at4de whole+frozen5+bothvisual"
+        ],
+        "requiredCurrentNative": [],
+        "qualification": "Accepted private5 actual Android4 successor reads real earlier private original3; independent4OWNER/3MEMBER, exact same IDs and decrypted bytes. Earlier private4/member5 failed parents remain failures. No erased-copy promise."
+      },
+      {
+        "criterion": 4,
+        "behavior": "Owner-only admin management, protected staff, explicit two-party ownership to an existing member, exactly one owner, no automatic promotion.",
+        "receivingCases": [
+          "SpaceRolesTest.onlyTheOwnerAppointsAdminsAndDemotionStopsQueuedAnnouncementWriting",
+          "SpaceGovernanceTest.administratorRemovalCannotTargetTheOwnerOrAnotherAdministrator",
+          "SpaceOwnershipTest.onlyTheOwnerCanOfferOwnershipAndOnlyTheChosenMemberCanAcceptIt",
+          "SpaceOwnershipTest.anAdmittedWalletCannotCompletePrivateHandoverBeforeTheAcceptingDeviceHasKeys"
+        ],
+        "acceptedNative": [
+          "public-management/API29 44832654787 role changes/errors",
+          "membership6/API37 44838352313 at4de whole+frozen6+bothvisual",
+          "privateownership5/API37 44838386136 at4de whole+frozen5+bothvisual"
+        ],
+        "requiredCurrentNative": [],
+        "qualification": "Transfer consent, actual accepting-device key readiness and completed ownership remain distinct. Current owner cannot leave until transfer, former owner remains an ordinary member before its separate departure."
+      },
+      {
+        "criterion": 5,
+        "behavior": "Archive/reopen with history and drafts; terminal owner-only dissolution and pending process/role/epoch crossings without false success.",
+        "receivingClasses": [
+          "SpaceGovernanceTest",
+          "SpaceDissolutionTest",
+          "SpaceVisibilityTest",
+          "SpaceOwnershipTest"
+        ],
+        "acceptedNative": [
+          "public-management/API29 44832654787 actual archive/reopen/errors/process/editor",
+          "governance/API37 44828915996 actual2kills/4PIDs/terminal closure/visitor/compact reading",
+          "member6/private5 settled recipient completion and former-owner departure both whole+visual",
+          "category-access/API37 44854528463 atb0b, whole/frozen5/bothactualvisual"
+        ],
+        "requiredCurrentNative": [],
+        "qualification": "Earlier whole failed parents and invalid07 render flags remain failed. No erased-history promise, production activation or complete release qualification follows."
+      }
+    ],
+    "sourceBridgeReview": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-accepted-scope-source-bridge-review.txt",
+    "pairwise": "Whole public/API29 and narrow current governance/API37 accepted; new affected journeys runAPI37. No Cartesian reruns proposed. Final full-app/profileable/update/OEM/provider acceptance remains explicitly separate for integration/release tickets.",
+    "updatedAt": "2026-11-21T01:12:23.000690+00:00",
+    "pendingNativeRun": null,
+    "currentSourceBridges": {
+      "governance4": {
+        "acceptedSource": "ed52f8ecc3314551be97e3f0e0f01ee32a6c8b17",
+        "targetSource": "b0b659d1ca25e34944d9253c5506c792d75c27c4",
+        "mainProductionDiff": [
+          "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacePresentationStore.kt"
+        ],
+        "changedFiles": [
+          ".github/workflows/android-proof.yml",
+          "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt",
+          "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacePresentationStore.kt",
+          "core/src/test/kotlin/nl/davidengelen/redsquare/spaces/SpacePresentationStoreTest.kt",
+          "docs/PROJECT_CONTEXT.md",
+          "docs/WORKFLOW.md",
+          "docs/evidence/ticket139/README.md",
+          "docs/evidence/ticket139/governance-native-preparation.json",
+          "docs/handoffs/IMPLEMENTATION.md",
+          "scripts/emulator-check",
+          "scripts/spaces-native-journey",
+          "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesGovernanceFixture.kt",
+          "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost.kt"
+        ],
+        "qualification": "Exact historical source/APK scope retained, not target APK equality. Sole bounded transaction-local row delta is supported by current407contracts, exact physical-read GREEN and whole untraced native5 with both actual visual reviews."
+      },
+      "publicManagement": {
+        "acceptedSource": "98223725c01cb6ea7285dd5acc448386523fbbe4",
+        "targetSource": "b0b659d1ca25e34944d9253c5506c792d75c27c4",
+        "mainProductionDiff": [
+          "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacePresentationStore.kt"
+        ],
+        "changedFiles": [
+          ".github/workflows/android-proof.yml",
+          "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt",
+          "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacePresentationStore.kt",
+          "core/src/test/kotlin/nl/davidengelen/redsquare/spaces/SpacePresentationStoreTest.kt",
+          "docs/PROJECT_CONTEXT.md",
+          "docs/WORKFLOW.md",
+          "docs/evidence/ticket139/README.md",
+          "docs/evidence/ticket139/governance-native-preparation.json",
+          "docs/handoffs/IMPLEMENTATION.md",
+          "scripts/emulator-check",
+          "scripts/spaces-native-journey",
+          "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesGovernanceFixture.kt",
+          "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesNativeHost.kt"
+        ],
+        "qualification": "Exact historical source/APK scope retained, not target APK equality. Sole bounded transaction-local row delta is supported by current407contracts, exact physical-read GREEN and whole untraced native5 with both actual visual reviews."
+      },
+      "membership6AndPrivate5": {
+        "acceptedSource": "4de6234392b141cec1dfb236bc3bf9239cec53f1",
+        "targetSource": "b0b659d1ca25e34944d9253c5506c792d75c27c4",
+        "mainProductionDiff": [
+          "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacePresentationStore.kt"
+        ],
+        "changedFiles": [
+          ".github/workflows/android-proof.yml",
+          "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt",
+          "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacePresentationStore.kt",
+          "core/src/test/kotlin/nl/davidengelen/redsquare/spaces/SpacePresentationStoreTest.kt",
+          "docs/PROJECT_CONTEXT.md",
+          "docs/WORKFLOW.md",
+          "docs/evidence/ticket139/README.md",
+          "docs/evidence/ticket139/governance-native-preparation.json",
+          "docs/handoffs/IMPLEMENTATION.md",
+          "scripts/spaces-native-journey",
+          "spaces-service/src/test/kotlin/nl/davidengelen/redsquare/spaces/service/SpacesGovernanceFixture.kt"
+        ],
+        "qualification": "Exact historical source/APK scope retained, not target APK equality. Sole bounded transaction-local row delta is supported by current407contracts, exact physical-read GREEN and whole untraced native5 with both actual visual reviews."
+      }
+    },
+    "currentRegression": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-projection-row-regression1-originals/catalogue-verification.json",
+    "physicalReadGreen": "/mnt/storage/redsquare-android-artifacts/spaces139-startup-diagnostics/projection-reads1/green-outcome.json",
+    "nativeVisualReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-access-native5-spec-review.txt",
+        "sha256": "7c7b7a0f11f178669b79286a1fdb7780d6f475db0b19f76afd083c745af7da6b"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-access-native5-standards-review.txt",
+        "sha256": "f8d44f0510d2956ebda1857defc6e358ff0a617b8183340b92a885cbc46c314e"
+      }
+    ],
+    "nativeContract": {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-category-access-validator-revision5/139-native-category-access-validator-frozen.json",
+      "sha256": "cea19033fb6de44959c7b1182e887acba09d64cb74ed9ee7cf22079a16e56a85",
+      "source": "b0b659d1ca25e34944d9253c5506c792d75c27c4",
+      "qualification": "Prospectively frozen5 contract passed whole run and both actual visual axes; preserved original report count typo is independently qualified."
+    },
+    "productionCorrection": {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacePresentationStore.kt",
+      "sha256": "fe0770eb42f9b41495b90e90d80e4742089b529e614445a13637ac994e76b18a",
+      "scope": "Only transaction-local bounded copied rows inside existing synchronous presentation. No platform store, protocol, authority, native action, test clock or deadline change.",
+      "verifiedEvidence": "Three Transaction-interface contracts plus actual realSQLite SpacePresentationTest/allcore+service and exact physical-read GREEN; fresh untraced native whole+visual."
+    }
+  },
+  "currentWholeNative": {
+    "run": 44854528463,
+    "url": "https://github.com/robelene112/redsquare-android/actions/runs/44854528463",
+    "source": "b0b659d1ca25e34944d9253c5506c792d75c27c4",
+    "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-runtime/attempt5-44854528463",
+    "archiveSha256": "0df287169cfa84f45c5e7f2913bec3f509f5481d30c3e3bc349172ab7cb718bf",
+    "frozen": {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-native-category-access-validator-revision5/139-native-category-access-validator-frozen.json",
+      "sha256": "cea19033fb6de44959c7b1182e887acba09d64cb74ed9ee7cf22079a16e56a85"
+    },
+    "originalAssessment": {
+      "path": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-runtime/attempt5-44854528463/assessment.json",
+      "sha256": "9831169e2df3133d3fda741379adf6887441379e4722f0588eb56ad8d8069b19"
+    },
+    "catalogueQualification": {
+      "path": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-runtime/attempt5-44854528463/review/observed-catalogue-qualification.json",
+      "sha256": "5c83277b1b47a6ed78a1e833182ee6b83bdf347a3ffd2f9827a6ae33edbb6865"
+    },
+    "actualVisualReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-access-native5-spec-review.txt",
+        "sha256": "7c7b7a0f11f178669b79286a1fdb7780d6f475db0b19f76afd083c745af7da6b"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-category-access-native5-standards-review.txt",
+        "sha256": "f8d44f0510d2956ebda1857defc6e358ff0a617b8183340b92a885cbc46c314e"
+      }
+    ],
+    "observed": {
+      "coreTests": 251,
+      "coreClasses": 49,
+      "serviceTests": 156,
+      "serviceClasses": 15,
+      "frames": 1174,
+      "sheets": 75,
+      "capturePairs": 21,
+      "controls": 47,
+      "focusedImeRecords": 2,
+      "readingRecords": 6,
+      "phasePids": [
+        3674,
+        4648,
+        5223,
+        5922
+      ],
+      "deliberateKills": 2,
+      "nativeTerminalPasses": 2,
+      "acceptedControls": 7,
+      "signedAttempts": 9,
+      "categoryRecoveryMs": 15372,
+      "dissolutionRecoveryMs": 7213
+    },
+    "reportingQualification": "Frozen assertions and independent original XML/case audit verify251core/49classes. Original terminal summary contains stale core248 literal. Original assessment/frozen inputs remain unchanged; this output-only typo does not omit or relax any case. Both reviews explicitly accept the bounded qualification."
+  },
+  "acceptedNativeScopes": [
+    {
+      "scope": "public management / Android10",
+      "run": 44832654787,
+      "source": "98223725c01cb6ea7285dd5acc448386523fbbe4",
+      "behavior": "Roles/errors, public edit and ARTICLE creation, archive/reopen, six actual IME records.",
+      "qualification": "Exact historical source/APK scope, semantically bridged to current product; no APK byte equality or entire-issue promotion from a passing prefix."
+    },
+    {
+      "scope": "public categories / Android17",
+      "run": 44781316246,
+      "source": "dd17364b0f05154897eb712a47de04d5b6dd42ec",
+      "behavior": "Canonical public category creation/rename/assignment and restored drawer grouping.",
+      "qualification": "Exact historical source/APK scope, semantically bridged to current product; no APK byte equality or entire-issue promotion from a passing prefix."
+    },
+    {
+      "scope": "earlier private process / Android17",
+      "run": 44751318736,
+      "source": "a9c46b3c0de006316593bde50e0c24c2a9d1d73f",
+      "behavior": "Narrow unchanged private creation/access/editor/local-error/process behavior; specific source bridge only.",
+      "qualification": "Exact historical source/APK scope, semantically bridged to current product; no APK byte equality or entire-issue promotion from a passing prefix."
+    },
+    {
+      "scope": "governance4 / Android17",
+      "run": 44828915996,
+      "source": "ed52f8ecc3314551be97e3f0e0f01ee32a6c8b17",
+      "behavior": "Private category original recovery, explicit visibility/unlisted opening and terminal closure/readability.",
+      "qualification": "Exact historical source/APK scope, semantically bridged to current product; no APK byte equality or entire-issue promotion from a passing prefix."
+    },
+    {
+      "scope": "membership6 / Android17",
+      "run": 44838352313,
+      "source": "4de6234392b141cec1dfb236bc3bf9239cec53f1",
+      "behavior": "Ban recovery, two-party decline/cancel/accept, settled roles and former-owner departure.",
+      "qualification": "Exact historical source/APK scope, semantically bridged to current product; no APK byte equality or entire-issue promotion from a passing prefix."
+    },
+    {
+      "scope": "private ownership5 / Android17",
+      "run": 44838386136,
+      "source": "4de6234392b141cec1dfb236bc3bf9239cec53f1",
+      "behavior": "Actual successor Android private-history read, key readiness, owner transfer and former-owner departure.",
+      "qualification": "Exact historical source/APK scope, semantically bridged to current product; no APK byte equality or entire-issue promotion from a passing prefix."
+    },
+    {
+      "scope": "private category5 / Android17",
+      "run": 44854528463,
+      "source": "b0b659d1ca25e34944d9253c5506c792d75c27c4",
+      "behavior": "Current private category selection/recreation/clearing, real encrypted create/edit, independent stable IDs/names, return and closure.",
+      "qualification": "Exact historical source/APK scope, semantically bridged to current product; no APK byte equality or entire-issue promotion from a passing prefix."
+    }
+  ],
+  "currentProductionBridge": {
+    "onlyProductionDeltaSinceAcceptedCurrentParents": "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacePresentationStore.kt",
+    "scope": "Bounded copied rows within one actual atomic presentation, never across transactions or identities. No protocol/platform/action/clock/deadline change. Current full core/service contracts, real SQLite permission/history regression, physical-read red/green and untraced native5 cover this delta.",
+    "reviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-projection-row-memo-final-spec-review.txt",
+        "sha256": "c41a60ddbef115dea2bd3e8e510d9965c2a9571c443991b00afeb3a8e6f6c67a"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-projection-row-memo-final-standards-review.txt",
+        "sha256": "d632d2b8d20054ff8e46075ce00c90aad2b339a038833a79c6ac8fe811ed20fe"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-row-memo-validator-prospective-spec-review.txt",
+        "sha256": "76f9c25d314fd42bc6275533856b52208ec5dddd980d763af2a46c6f0fbf45f2"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-row-memo-validator-prospective-standards-review.txt",
+        "sha256": "d495f4f0a207c36e9e78debf6ba7d6052beeecd84718abce363c85e21308b1e2"
+      }
+    ],
+    "regression": {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-projection-row-regression1-originals/catalogue-verification.json",
+      "sha256": "a35809cb3448a08ab3dc5ba081244fd08b534f8813eec3243a8f3f939fd499d2"
+    },
+    "green": {
+      "path": "/mnt/storage/redsquare-android-artifacts/spaces139-startup-diagnostics/projection-reads1/green-outcome.json",
+      "sha256": "3f2db4b985cc91af7670cdf0b60c290f68e941ba8209291920cbc2badf7a690a"
+    }
+  },
+  "historicalRecords": [
+    "governance-native-preparation.json",
+    "categories-and-directory-source.json",
+    "visibility-and-dissolution-source.json",
+    "membership-and-native-editor-source.json",
+    "native-recovery-739.json"
+  ],
+  "failedParentsRemainFailed": [
+    44838434277,
+    44841747515,
+    44844437756,
+    44848682074
+  ],
+  "diagnosticIsNotAcceptance": {
+    "run": 44851431064,
+    "qualification": "Intentional first-checkpoint failure with sampling. Supports a bounded optimization target, not exact causality of earlier timeout or a performance/SLA claim."
+  },
+  "limits": [
+    "Governance/channel metadata only: actual message editing/threads/reactions, legacy Chat E2E, call/article/file content, search/activity/backup and integrated release belong to140-147.",
+    "ARTICLE channel creation does not establish article body functionality; reusable voice/file channel metadata is not call/provider acceptance.",
+    "Pairwise Android10/17 owned emulator evidence is not physical/OEM, Play, final update/profileable/full-app release or production/provider acceptance.",
+    "Available authorized history and future exclusion do not promise permanent archives or erasure of copied past bytes.",
+    "Beta142, production node/provider/public-development/financial-write and automatic community file-hosting gates unchanged. Vault rental restoration remains source-only UNDEPLOYED; keep1/36/55/84/86/105 open."
+  ],
+  "next": "Continue140 then141-147 sequentially without a checkpoint stop.",
+  "finalRecordReviews": [
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-final-acceptance-spec-review.txt",
+      "sha256": "0d733d36cbf9814a505d3571e8bc6049446e6544163b80279d25f3ebb2e1788b"
+    },
+    {
+      "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-final-acceptance-standards-review.txt",
+      "sha256": "7e5d25e1de2988b8a6eeddda2311c3dba7b317dc3fbf3fceaccb8764566e9279"
+    }
+  ]
+}
