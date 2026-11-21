@@ -1,28 +1,24 @@
 # Implementation handoff
 
-## Active139: membership accepted, category baseline corrected
+## Active139: ownership accepted, category restore readiness corrected
 
-Whole member6 44838352313 and private5 44838386136 at4de pass frozen contracts
-and both actual visual/prototype reviews:1105/1134frames,14/15capturepairs,
-42/46controls, two real kills and four PIDs each. Ownership, actual successor
-private-original reading and compact former-owner departure are verified.
-These are complete focused parents; complete139 remains separate.
+Whole member6/private5 at4de and public management/API29 at9822 remain accepted
+by both actual visual/prototype axes at their exact scopes and source pins.
 
-Category-access1 44838434277 remains wholeFAIL before its new Save bridge.
-Actual before/restored messages3/4/5 and pixels match, but the baseline still
-held the earlier14/41 anchor while the committed restored viewport was2/71.
-The observer now waits for the real protected anchor to match the actual keyed
-native viewport, selected scope/draft and unchanged pixel within15seconds.
-Pinned Compose bytecode and actual APK version corroborate the semantics;
-no product behavior, state write/reset/scroll, fixed sleep or existing goal
-changes. Final source compiles with matching stable inputs and both prospective
-review axes are clear.
+Category2 44841747515 remains wholeFAIL. The real committed baseline now matches
+native range1071, anchor2/71 and message5-pixel435, and the normal terminal passes.
+The compact creation form restores its saved name/category and Restricted flag,
+but the observer queried the chip while the actual choices/action were still
+loading. Permanent selection loss is not established by that interrupted run.
 
-Freeze/re-run the whole category-access parent and inspect all actual frames
-and received effects, then complete139 criteria mapping before140-147 proceed
-sequentially. Public/API29 and earlier governance scopes remain accepted at
-their exact pins. See the [current evidence and limits](../evidence/ticket139/governance-native-preparation.json). ApprovedB,
-beta142 and production/provider/public-write/file-hosting boundaries are unchanged.
+The restoration gate now requires the exact name, actual enabled/selected chip
+and actual enabled Create/Save action within the same15seconds, including the
+name scroll. No re-selection/reset/write/extra click/delay or changed native
+goals/counts. Exact current source compiles at stable inputs and both prospective
+axes are clear. A fresh whole category-access parent and all-frame/prototype
+assessment remain before final139 mapping, closure and sequential140-147.
+See the [originals, source and limits](../evidence/ticket139/governance-native-preparation.json). ApprovedB, beta142 and existing
+production/provider/public-write/file-hosting gates remain unchanged.
 
 ## Earlier139: current public management accepted, final native gaps prepared
 

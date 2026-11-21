@@ -562,12 +562,16 @@ class SpacesManagementJourneyTest {
         val choice = hasText(name) and SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.Selected) and hasAnyAncestor(isDialog())
         fun selectCategory() { ui.onNode(choice).performScrollTo().clickReady(); ui.onNode(choice).assertIsSelected() }
         fun fieldValue(label: String) = editorField(label).fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text
-        fun restoredName(expected: String) {
+        fun restoredName(expected: String, action: String = context.getString(R.string.spaces_create_channel)) {
+            val started = SystemClock.elapsedRealtime()
             val field = SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.EditableText) and hasText(nameLabel) and hasAnyAncestor(isDialog())
             waitUntil(15_000) {
-                ui.onAllNodes(field).fetchSemanticsNodes().singleOrNull()?.config?.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.EditableText)?.text == expected
+                ui.onAllNodes(field).fetchSemanticsNodes().singleOrNull()?.config?.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.EditableText)?.text == expected &&
+                    ui.onAllNodes(choice and isEnabled() and SemanticsMatcher.expectValue(androidx.compose.ui.semantics.SemanticsProperties.Selected, true)).fetchSemanticsNodes().size == 1 &&
+                    ui.onAllNodes(hasText(action) and hasClickAction() and isEnabled() and hasAnyAncestor(isDialog())).fetchSemanticsNodes().size == 1
             }
             editorField(nameLabel).performScrollTo().assertIsDisplayed()
+            assertTrue("Restored fields, category choice and actual action share15seconds", SystemClock.elapsedRealtime() - started <= 15_000)
         }
 
         openInformation(); clickDialog(context.getString(R.string.spaces_add_channel))
@@ -618,7 +622,7 @@ class SpacesManagementJourneyTest {
         closeKeyboard(); ui.onNode(choice).assertIsNotSelected(); selectCategory()
         editorField(nameLabel).performScrollTo().performTextReplacement("private-category-edited")
         closeKeyboard(); activity.recreate()
-        restoredName("private-category-edited")
+        restoredName("private-category-edited", context.getString(R.string.spaces_save_channel))
         ui.onNode(choice).performScrollTo().assertIsSelected()
         assertEquals(name, fieldValue(categoryLabel))
         capture("09e-private-category-edit-restored")
