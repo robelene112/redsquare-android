@@ -57,29 +57,38 @@ class SpacesJourneyTest {
             }
             ui.onNode(hasText("Create a Space") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Message general").isDisplayed() }
-            ui.onNodeWithText("Message general").performTextInput(original)
-            ui.onNodeWithContentDescription("Send message").performClick(); closeKeyboard(activity)
-            ui.waitUntil(15_000) { ui.onNodeWithText(original).isDisplayed() }
             ui.onNodeWithContentDescription("Switch Space or channel").performClick()
-            ui.onNodeWithText("Invite people").performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("Copy invitation").isDisplayed() }
-            ui.onNodeWithText("Copy invitation").performClick()
-            ui.onNodeWithText("Invitation copied").assertIsDisplayed()
+            ui.waitUntil(5_000) { ui.onNode(hasText("Invite people") and hasClickAction() and isEnabled()).isDisplayed() }
+            ui.onNode(hasText("Invite people") and hasClickAction() and isEnabled()).performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasText("Copy invitation") and hasClickAction() and isEnabled()).isDisplayed() }
+            ui.onNode(hasText("Copy invitation") and hasClickAction() and isEnabled()).performClick()
+            ui.waitUntil(5_000) { ui.onNodeWithText("Invitation copied").isDisplayed() }
             var link = ""
             activity.onActivity { link = (it.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip?.getItemAt(0)?.text.toString() }
             val joined = command("join", JsonObject().apply { addProperty("link", link) })
             val space = joined.get("space").asString
             UiDevice.getInstance(instrumentation).pressBack()
             ui.waitUntil(20_000) { ui.onNodeWithText("Reply from independent member").isDisplayed() }
-            val remembered = command("message-observation", JsonObject().apply { addProperty("space", space); addProperty("text", original) })
+            // Keep the reviewed message at the live edge. Opening an older
+            // scrolled window would correctly retain it under incoming updates.
+            ui.onNodeWithText("Message general").performTextInput(original)
+            ui.waitUntil(10_000) { ui.onNode(hasContentDescription("Send message") and isEnabled()).isDisplayed() }
+            ui.onNodeWithContentDescription("Send message").performClick(); closeKeyboard(activity)
+            ui.waitUntil(15_000) { ui.onNodeWithText(original).isDisplayed() }
+            var remembered = JsonObject()
+            ui.waitUntil(15_000) {
+                try { remembered = command("message-observation", JsonObject().apply { addProperty("space", space); addProperty("text", original) }); true }
+                catch (_: AssertionError) { false }
+            }
             fun rowAction(text: String, description: String) = ui.onNode(hasContentDescription(description) and hasAnyAncestor(
                 hasTestTag("spaces-message") and hasAnyDescendant(hasText(text))))
-            rowAction(original, "Message actions").performClick()
-            ui.waitUntil(5_000) { ui.onNode(hasText("Edit message") and hasClickAction() and hasAnyAncestor(isDialog())).isDisplayed() }
+            ui.waitUntil(5_000) { rowAction(original, "Message actions").isDisplayed() }
+            rowAction(original, "Message actions").assertIsEnabled().performClick()
+            ui.waitUntil(5_000) { ui.onNode(hasText("Edit message") and hasClickAction() and isEnabled() and hasAnyAncestor(isDialog())).isDisplayed() }
             capture("overlay-01-actions")
             command("populate", JsonObject().apply { addProperty("space", space); addProperty("from", 0); addProperty("count", 60) })
             ui.waitUntil(20_000) { ui.onAllNodesWithText(original).fetchSemanticsNodes().isEmpty() }
-            ui.onNode(hasText("Edit message") and hasClickAction() and hasAnyAncestor(isDialog())).assertIsDisplayed().performClick()
+            ui.onNode(hasText("Edit message") and hasClickAction() and isEnabled() and hasAnyAncestor(isDialog())).assertIsDisplayed().performClick()
             fun editor() = ui.onNode(hasText("Message") and hasSetTextAction() and hasAnyAncestor(isDialog()))
             ui.waitUntil(5_000) { editor().isDisplayed() }
             editor().performClick().performTextReplacement(edited)
@@ -110,6 +119,7 @@ class SpacesJourneyTest {
             }
             assertEquals(remembered.get("id").asString, observed.get("id").asString)
             ui.onNodeWithText("Message general").performTextInput(reactionText)
+            ui.waitUntil(10_000) { ui.onNode(hasContentDescription("Send message") and isEnabled()).isDisplayed() }
             ui.onNodeWithContentDescription("Send message").performClick(); closeKeyboard(activity)
             ui.waitUntil(15_000) { ui.onNodeWithText(reactionText).isDisplayed() }
             var reactionMessage = JsonObject()
