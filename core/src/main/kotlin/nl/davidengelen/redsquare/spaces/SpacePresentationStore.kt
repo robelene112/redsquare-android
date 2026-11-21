@@ -16,7 +16,7 @@ internal class SpacePresentationStore(private val backing: SpaceClientStore) : S
     fun <T> project(action: () -> T): T {
         if (active.get() != null) return action()
         return backing.transaction {
-            active.set(Read(this))
+            active.set(Read(SnapshotRows(this)))
             try { action() } finally { active.remove() }
         }
     }
@@ -24,5 +24,47 @@ internal class SpacePresentationStore(private val backing: SpaceClientStore) : S
     fun verifiedJournal(service: String, space: String, through: String?, load: () -> SpaceJournal): SpaceJournal {
         val read = active.get() ?: return load()
         return read.journals.getOrPut(Triple(service, space, through), load)
+    }
+
+    /** Repeated identity/state reads share this one atomic snapshot, including
+     * disposable index writes. Never retain plaintext or authority between transactions. */
+    private class SnapshotRows(private val backing: SpaceClientStore.Transaction) : SpaceClientStore.Transaction {
+        private val values = LinkedHashMap<String, ByteArray?>(16, .75f, true)
+        private var bytes = 0
+
+        override fun get(key: String): ByteArray? {
+            if (values.containsKey(key)) return values[key]?.copyOf()
+            return backing.get(key).also { remember(key, it) }
+        }
+
+        override fun put(key: String, value: ByteArray) {
+            forget(key)
+            backing.put(key, value)
+            remember(key, value)
+        }
+
+        override fun remove(key: String) {
+            forget(key)
+            backing.remove(key)
+            remember(key, null)
+        }
+
+        override fun page(prefix: String, cursor: String, limit: Int): List<SpaceClientStore.Entry> =
+            backing.page(prefix, cursor, limit).also { rows -> rows.forEach { remember(it.key, it.value) } }
+
+        private fun forget(key: String) { bytes -= values.remove(key)?.size ?: 0 }
+
+        private fun remember(key: String, value: ByteArray?) {
+            forget(key)
+            if ((value?.size ?: 0) > MAX_BYTES) return
+            values[key] = value?.copyOf()
+            bytes += value?.size ?: 0
+            while (values.size > MAX_ROWS || bytes > MAX_BYTES) forget(values.keys.first())
+        }
+
+        companion object {
+            private const val MAX_ROWS = 128
+            private const val MAX_BYTES = 1024 * 1024
+        }
     }
 }

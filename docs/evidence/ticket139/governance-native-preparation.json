@@ -1275,5 +1275,152 @@
       "scripts/spaces-native-journey": "f32ca4f9222809320b503ae4533a30e9a90300621c6eabc25a0339822658d583",
       "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SpacesManagementJourneyTest.kt": "f4f170646a2c5e6cd17a7a632399af2e2fc61cbe0fb17a61c3630fc22c44fd09"
     }
+  },
+  "projectionReadMemoization": {
+    "recordedAt": "2026-11-21T02:00:19.165906+00:00",
+    "base": "a7c1fa8a04431ff9446696b99ea92bbfcdc6b69b",
+    "diagnosticRun": {
+      "run": 44851431064,
+      "source": "a7c1fa8a04431ff9446696b99ea92bbfcdc6b69b",
+      "originals": "/mnt/storage/redsquare-android-artifacts/spaces139-startup-diagnostics/attempt1-44851431064",
+      "conclusion": "Intentional diagnostic failure atfirstcheckpoint, never complete acceptance.",
+      "observed": "All245frames/16sheets and3PNG/XML show actual initial history then pending category. Sampling header13.601910seconds, native elapsed14122ms includes stop. ThreadCPU6.432233s; nested inclusive observer/IO times overlap and coroutine work spans threads. Store decryption is an observed cost, not proof of failure4 cause. Eight initial logged RPCs span62..236ms.",
+      "trace": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-startup-diagnostics/attempt1-44851431064/review/spaces-governance-evidence/initial-history.trace",
+        "sha256": "e47c67efaf49fb490e3e8e6f16dbc7fc912910ec2672630c2801de2a0a09d8e9"
+      },
+      "nativeTraceReceipt": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-startup-diagnostics/attempt1-44851431064/review/spaces-governance-evidence/initial-history-trace.json",
+        "sha256": "e5864b40ef1f1fc4a150d6a5f75327778eb7c206d471bddd1adb60aaf0aac8b5"
+      },
+      "analysis": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-startup-diagnostics/attempt1-44851431064/review/startup-profile-by-thread.json",
+        "sha256": "84fbb1e7cd4d9a9c5f935499caa57ce8bcada65f10f8976cc16f1a450a3b48bf"
+      },
+      "primaryToolOutput": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-startup-diagnostics/attempt1-44851431064/review/startup-profile.txt",
+        "sha256": "16a8dca2ba38ba11df967102a8518212fab226b0300532515c614e300fc310b1"
+      },
+      "primaryToolSource": {
+        "path": "/mnt/storage/redsquare-android-artifacts/review-tools/dmtracedump/source.json",
+        "sha256": "29804b67d3f7f0699cdb1aa0b0cc6711c0f5379d12e18ded20b7dda39ec8c5e8"
+      },
+      "reviews": [
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-startup-diagnostic1-spec-review.txt",
+          "sha256": "70177e7d842ecea20b80d1e209f7856f536a616e4053975074d54ff901f9702f"
+        },
+        {
+          "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-startup-diagnostic1-standards-review.txt",
+          "sha256": "8abc9627318f9a84119f0d405b60739c037e3be275018a291bbe550c8e302c90"
+        }
+      ]
+    },
+    "actualBackingReadProbe": {
+      "source": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-startup-diagnostics/projection-reads1/MetadataReplay.kt",
+        "sha256": "24a80753358369f006a772c4bbc307fe801801618052444c5f11a5bbb2f05bb7"
+      },
+      "red": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-startup-diagnostics/projection-reads1/red-outcome.json",
+        "sha256": "32b6221d2c713a17037f95fe6351fdb26efe8b69864438af9b9268aba3b42158"
+      },
+      "redRuntime": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-startup-diagnostics/projection-reads1/red-runtime.log",
+        "sha256": "a884ff95c1c9b655e9bbadbc086f1f633645e77d952bfeb8b8cb5daaa195ff85"
+      },
+      "observed": "Actual cold public client receives18messages and projects owner role/draft in one real SQLite transaction:57backing get calls,4unique rows,53repeated reads. Identity27/state28. Assertion fails before optimization.",
+      "qualification": "Exact physical-read accounting through public SpaceClient.presentation/SpaceClientStore adapter, not Android timing, full catalogue or native acceptance.",
+      "green": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-startup-diagnostics/projection-reads1/green-outcome.json",
+        "sha256": "3f2db4b985cc91af7670cdf0b60c290f68e941ba8209291920cbc2badf7a690a"
+      },
+      "greenRuntime": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-startup-diagnostics/projection-reads1/green-runtime.log",
+        "sha256": "10439f9fe4838413cee5e8f74efe4aabbdfe4006065d42cc2ea5af39ebd9bcf0"
+      },
+      "greenObserved": "Same frozen source/workload now4backing gets/4unique/0redundant, actual18received messages, owner role and draft unchanged. Native startup timing remains unmeasured after optimization."
+    },
+    "correction": "Only presentation project callbacks memoize bounded row copies within their existing actual atomic transaction.128rows/1MiB, oversized bypass; cached misses; byte copies; invalidate before writes/removes and remember only after success; page primes copied rows. ThreadLocal/finally retires snapshot. No cross-transaction/account/node authority or plaintext cache, no Android at-rest or test-clock/deadline change.",
+    "sourceFiles": {
+      "core/src/main/kotlin/nl/davidengelen/redsquare/spaces/SpacePresentationStore.kt": "fe0770eb42f9b41495b90e90d80e4742089b529e614445a13637ac994e76b18a",
+      "core/src/test/kotlin/nl/davidengelen/redsquare/spaces/SpacePresentationStoreTest.kt": "5a5726a2c93f768aa6ca4928344a0414b50e3569b3cbb9891becb8ecd0e612ac"
+    },
+    "prospectiveReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-projection-row-memo-prospective-spec-review.txt",
+        "sha256": "dac8f55a42bbda06a5abe05d5fbf9e3fc76b48f4e5ca41972567b0ddd8fc5621"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-projection-row-memo-prospective-standards-review.txt",
+        "sha256": "09d79e65e6f314ce6c6999d91d3e539f322b75c9015ce32347ae81b8eb683604"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-projection-row-memo-contracts-prospective-standards-review.txt",
+        "sha256": "3aa1e7445ccb3e986368f84ae0d487f2aa95ebd4cf87f85178c6cebbb2b80e6b"
+      }
+    ],
+    "prospectiveCatalogue": {
+      "coreTests": 251,
+      "coreClasses": 49,
+      "serviceTests": 156,
+      "serviceClasses": 15,
+      "oldFrozenParents": "Unchanged, retain248/48at their exact sources."
+    },
+    "remaining": [
+      "Commit reviewed source and freeze fresh untraced whole parent before dispatch.",
+      "Review current production change source bridge and final evidence, freeze fresh untraced whole native contract.",
+      "Actual whole category-access/visual acceptance, final139map/closure, then140-147 sequentially."
+    ],
+    "boundaries": "ApprovedB, beta142 and production/provider/public-write/file-hosting gates unchanged.",
+    "regression": {
+      "exit": 0,
+      "unchanged": true,
+      "gradleSeconds": 412,
+      "log": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-projection-row-regression1-originals/139-projection-row-regression1.log",
+        "sha256": "b86439004b90bcb096edd9c46578e701496366d0bd5994dd9ee5b44a765d1e1d"
+      },
+      "outcome": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-projection-row-regression1-originals/139-projection-row-regression1-outcome.json",
+        "sha256": "1f9f46fcc2146bc85435f2843e4b831ea797d665bf101160731bb6712a747800"
+      },
+      "catalogue": {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-projection-row-regression1-originals/catalogue-verification.json",
+        "sha256": "a35809cb3448a08ab3dc5ba081244fd08b534f8813eec3243a8f3f939fd499d2"
+      },
+      "qualification": "Actual current251core/49classes and156service/15classes, zero failures/errors/skips. Exact prospective catalogue matches all observed method names. No native/whole139 acceptance inferred."
+    },
+    "hostSmoke": {
+      "result": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-native-preparation/host-smoke4/smoke-result.json",
+        "sha256": "07bc742073cda5e634a89d9218ff137175dce604a3a14ceda0da77e5dbccd247"
+      },
+      "compiledInputs": {
+        "path": "/mnt/storage/redsquare-android-artifacts/spaces139-category-access-native-preparation/host-smoke4/compiled-inputs.json",
+        "sha256": "f438039c72388223bd9b00784f8a4c7bb7849ab08b04e62aadddd9ac048dc1a7"
+      },
+      "qualification": "Actual owned seed/status/independent18message history and category-access variant pass; JVM only."
+    },
+    "prospectiveValidatorReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-row-memo-validator-prospective-spec-review.txt",
+        "sha256": "76f9c25d314fd42bc6275533856b52208ec5dddd980d763af2a46c6f0fbf45f2"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-row-memo-validator-prospective-standards-review.txt",
+        "sha256": "d495f4f0a207c36e9e78debf6ba7d6052beeecd84718abce363c85e21308b1e2"
+      }
+    ],
+    "finalReviews": [
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-projection-row-memo-final-spec-review.txt",
+        "sha256": "c41a60ddbef115dea2bd3e8e510d9965c2a9571c443991b00afeb3a8e6f6c67a"
+      },
+      {
+        "path": "/home/david/.cache/redsquare-android-artifacts/spaces-implementation/139-projection-row-memo-final-standards-review.txt",
+        "sha256": "d632d2b8d20054ff8e46075ce00c90aad2b339a038833a79c6ac8fe811ed20fe"
+      }
+    ]
   }
 }

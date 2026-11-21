@@ -1,21 +1,25 @@
 # Implementation handoff
 
-## Active139: diagnosing initial history startup
+## Active139: bounded projection reads pass current regression
 
-Category4 44848682074 atdef5 remains wholeFAIL: the first General history did not
-render within the original15seconds, before any management action or metadata
-assertion. Both actual visual reviews confirm the spinner and absent messages;
-ONLINE/channel readiness is not completed content. The exact cause is unresolved.
+The actual public client/SQLite probe now reads4rows once each instead of
+57reads for4unique rows, retaining the same18messages, owner role and draft.
+The correction shares copied rows only inside an existing atomic presentation,
+with128row/1MiB limits, mutation isolation, write invalidation and retirement
+on failure. No plaintext or authority is retained across presentations.
 
-An optional, false-default startup sampler measures only that original wait.
-It is explicitly diagnostic and cannot count as complete acceptance, even when
-the initial content arrives. Original failures stay primary if trace cleanup
-also fails. Product code, ordinary native paths, deadlines and catalogues stay
-unchanged. The next step is actual timing evidence before choosing a correction.
-Public/API29, governance4 and member6/private5 keep their exact accepted scopes.
-Fresh untraced category-access whole/visual acceptance and final139 reconciliation
-remain before sequential140-147. ApprovedB, beta142 and production/provider/
-public-write/file-hosting gates stay unchanged. See governance-native-preparation.json.
+All current251core/49classes and156service/15classes pass with no failures,
+errors or skips, including three new Transaction-interface safety contracts
+and existing realSQLite permission/private-history coverage. Owned host smoke
+also passes. These results do not establish native startup timing or139 closure.
+Diagnostic44851431064 stays diagnostic; previous whole failures stay failures.
+
+Final review/commit, a fresh untraced category-access whole parent and both
+actual visual reviews remain before final139 reconciliation and sequential
+140-147. Native goals/deadlines and test clock are unchanged. Previous exact-
+source scopes require the explicit bounded-memo semantic bridge. ApprovedB,
+beta142 and production/provider/public-write/file-hosting gates stay unchanged.
+See governance-native-preparation.json for exact evidence and limitations.
 
 ## Earlier139: current public management accepted, final native gaps prepared
 
