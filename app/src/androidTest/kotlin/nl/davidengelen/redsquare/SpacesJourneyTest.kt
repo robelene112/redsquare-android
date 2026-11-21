@@ -141,9 +141,24 @@ class SpacesJourneyTest {
                 reactionObserved.getAsJsonArray("reactions").any { it.asJsonObject.get("emoji").asString == "❤️" && it.asJsonObject.get("count")?.asLong == 2L }
             }
             capture("overlay-05-reaction-after-row-disposal")
+            ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+            ui.waitUntil(5_000) { ui.onAllNodes(hasText("Reactions") and hasAnyAncestor(isDialog())).fetchSemanticsNodes().isEmpty() }
+            // Establish an actual reading gesture before aligning the exact row.
+            messageHistory().performTouchInput { swipeDown(durationMillis = 350) }
+            ui.waitForIdle()
+            messageHistory().performScrollToNode(hasText("Fixture line 100"))
+            ui.waitUntil(5_000) { ui.onNodeWithText("Fixture line 100").isDisplayed() }
+            val readingBefore = ui.onNodeWithText("Fixture line 100").fetchSemanticsNode().boundsInRoot.top
+            capture("overlay-06-deliberate-reading-position")
+            command("populate", JsonObject().apply { addProperty("space", space); addProperty("from", 0); addProperty("count", 8) })
+            ui.waitUntil(20_000) { ui.onNodeWithText("Back to latest messages").isDisplayed() }
+            val readingAfter = ui.onNodeWithText("Fixture line 100").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
+            assertEquals("Incoming activity preserves deliberate older reading", readingBefore, readingAfter, 1f)
+            capture("overlay-07-incoming-retains-reading-position")
             File(evidence, "overlay-results.json").writeText(JsonObject().apply {
                 addProperty("pid", Process.myPid()); addProperty("imeBottom", ime)
                 add("editedMessage", observed); add("reactedMessage", reactionObserved)
+                addProperty("readingBefore", readingBefore); addProperty("readingAfter", readingAfter)
                 addProperty("activityRecreated", true); addProperty("incomingBeforeEdit", 60); add("incomingDuringIme", incoming); add("androidConsumptionWhileImeOpen", consumed); addProperty("incomingDuringDetails", 60)
             }.toString())
         } }

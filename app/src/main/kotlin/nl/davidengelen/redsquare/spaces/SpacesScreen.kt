@@ -58,6 +58,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.flow.first
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.feed.ProfileAvatar
 import nl.davidengelen.redsquare.registry.registeredIdentity
@@ -331,7 +332,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         val latestMessages by rememberUpdatedState(state.messages)
                         val latestWindow by rememberUpdatedState(state.windowFrom)
                         val latestHasLater by rememberUpdatedState(state.hasLater)
+                        val latestFollowing by rememberUpdatedState(state.followingLatest)
+                        val keyboardBottom = WindowInsets.ime.getBottom(LocalDensity.current)
                         LaunchedEffect(list, account) {
+                            var userScrolling = false
                             snapshotFlow {
                                 val visible = list.layoutInfo.visibleItemsInfo
                                 // visibleItemsInfo may also include a prior item inside content padding.
@@ -341,18 +345,23 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 }
                                 val read = visible.mapNotNull { item -> latestMessages.firstOrNull { it.id == item.key }?.position }.maxOrNull()
                                 val anchor = first?.let { SpaceClient.ReadingAnchor(it.id, requireNotNull(it.position), list.firstVisibleItemScrollOffset, latestWindow) }
-                                ChannelViewport(anchor, !(list.canScrollForward || list.isScrollInProgress), autoScrolling || initialPage || overlayMode != null, read)
+                                ChannelViewport(anchor, !(list.canScrollForward || list.isScrollInProgress), autoScrolling || initialPage || overlayMode != null, list.isScrollInProgress, read)
                             }.collect { viewport ->
-                                if (!viewport.automatic) {
-                                    if (viewport.anchor != null) account.readingPosition(selected.id, selected.channel,
-                                        viewport.followLatest && !latestHasLater, viewport.anchor, target.thread)
+                                if (viewport.automatic) userScrolling = false else {
+                                    if (viewport.scrolling) userScrolling = true
+                                    // Row acceptance, reactions and IME resizing can move
+                                    // the viewport without an intentional reading gesture.
+                                    if (viewport.anchor != null && (userScrolling || !latestFollowing))
+                                        account.readingPosition(selected.id, selected.channel,
+                                            viewport.followLatest && !latestHasLater, viewport.anchor, target.thread)
+                                    if (!viewport.scrolling) userScrolling = false
                                     viewport.read?.takeIf { target.thread == null }?.let { position -> if (lastRead == null || position > requireNotNull(lastRead)) {
                                         lastRead = position; account.markRead(selected.id, selected.channel, position)
                                     } }
                                 }
                             }
                         }
-                        LaunchedEffect(state.messages.map { it.id }, state.scrollToMessage, overlayMode) {
+                        LaunchedEffect(state.messages.map { it.id }, state.messages.lastOrNull(), state.scrollToMessage, state.followingLatest, keyboardBottom, overlayMode) {
                             if (overlayMode != null) return@LaunchedEffect
                             val requested = state.scrollToMessage
                             val requestedIndex = state.messages.indexOfFirst { it.id == requested }
@@ -368,6 +377,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 finally { autoScrolling = false }
                                 initialPage = false
                             } else if (state.messages.isNotEmpty() && state.followingLatest) {
+                                // A replaced automatic animation may still be unwinding.
+                                // Keep the follow request until idle; a deliberate scroll
+                                // changes followingLatest and cancels this keyed effect.
+                                snapshotFlow { list.isScrollInProgress }.first { !it }
+                                if (!latestFollowing || overlayMode != null) return@LaunchedEffect
                                 autoScrolling = true
                                 try { list.animateScrollToItem(state.messages.lastIndex) } finally { autoScrolling = false }
                             }
@@ -648,7 +662,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     })
 }
 
-private data class ChannelViewport(val anchor: SpaceClient.ReadingAnchor?, val followLatest: Boolean, val automatic: Boolean, val read: Long?)
+private data class ChannelViewport(val anchor: SpaceClient.ReadingAnchor?, val followLatest: Boolean, val automatic: Boolean, val scrolling: Boolean, val read: Long?)
 @Composable private fun RulesAcceptance(accepted: Boolean, onChange: (Boolean) -> Unit) {
     Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).toggleable(accepted, role = Role.Checkbox, onValueChange = onChange),
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {

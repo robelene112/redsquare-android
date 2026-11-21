@@ -506,6 +506,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val before = mutable.value; val target = Target(space, channel, thread)
         if (before.target() != target || before.loadingChannel) return
         val latest = followLatest && !before.hasLater
+        if (fixtureTrace && latest != before.followingLatest)
+            trace("reading followLatest=$latest windowFrom=${before.windowFrom} channel=${channel.take(10)} thread=${thread?.take(10)}")
         if (latest) historyWindows.remove(target) else historyWindows.putIfAbsent(target, before.windowFrom)
         mutable.update { if (it.target() == target) it.copy(followingLatest = latest, anchor = if (latest) null else anchor ?: it.anchor) else it }
         if (!latest && anchor == null) return
