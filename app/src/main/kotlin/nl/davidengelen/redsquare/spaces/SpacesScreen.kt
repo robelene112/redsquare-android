@@ -17,6 +17,8 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -129,6 +131,15 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     fun clearInvitationReview() { reviewedInvitation = null; account.dismissPreview() }
     var savedSelection by rememberSaveable { mutableStateOf<String?>(null) }
     val selected = state.current
+    var pinsRoute by rememberSaveable(account.ownerKey, account.backend) { mutableStateOf<String?>(null) }
+    val pinConversationRoute = selected?.takeUnless { state.loadingChannel }?.let { "${it.id}:${it.channel}:${state.threadParent?.id.orEmpty()}" }
+    val pinsOpen = pinConversationRoute != null && pinsRoute == pinConversationRoute
+    LaunchedEffect(pinConversationRoute, state.ready, state.loading, savedSelection) {
+        // Account restoration initially has no selected conversation. Keep the
+        // saved route until a real scope, or the communities page, is restored.
+        if (pinConversationRoute != null && pinsRoute != pinConversationRoute ||
+            state.ready && !state.loading && state.selected == null && savedSelection == null) pinsRoute = null
+    }
     val profile = state.selected?.let { state.profiles[it] }
     val channel = state.channels.firstOrNull { it.id == state.selectedChannel }
     LaunchedEffect(state.publicLink) { publicCopied = false; publicShareFailed = false }
@@ -250,6 +261,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             Icon(painterResource(R.drawable.ic_chevron_down), null, Modifier.size(20.dp))
                         }
                     }
+                    if (!state.loadingChannel && state.pinStatus?.supported == true && channel?.profile?.kind in setOf(SpaceChannelKind.CHAT, SpaceChannelKind.ANNOUNCEMENT))
+                        FrameIconButton(R.drawable.ic_pin, stringResource(R.string.spaces_pinned_messages)) { focusManager.clearFocus(); keyboardController?.hide(); pinsRoute = pinConversationRoute }
                     FrameIconButton(R.drawable.ic_info, stringResource(R.string.spaces_information)) { focusManager.clearFocus(); keyboardController?.hide(); informationOpen = true }
                 }
                 Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -293,20 +306,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         val threadParent = state.threadParent
                         val target = SpacesAccount.Target(selected.id, selected.channel, threadParent?.id)
                         val canWrite = if (threadParent == null) selected.canSend else selected.canReply
-                        var pinsOpen by rememberSaveable { mutableStateOf(false) }
                         val pinsModal by rememberUpdatedState(pinsOpen)
-                        if (state.pinStatus?.supported == true) {
-                            TextButton(onClick = { focusManager.clearFocus(); keyboardController?.hide(); pinsOpen = true },
-                                modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).heightIn(min = 48.dp)) {
-                                Icon(painterResource(R.drawable.ic_pin), null, Modifier.size(18.dp))
-                                Spacer(Modifier.width(8.dp))
-                                Text(stringResource(R.string.spaces_pinned_messages))
-                            }
-                        }
-                        PinnedMessagesSheet(pinsOpen, state.availability, { pinsOpen = false },
+                        PinnedMessagesSheet(pinsOpen, state.availability, { pinsRoute = null },
                             { after -> account.loadPinnedPage(target, after) }, { reference ->
                                 scope.launch { account.guardNavigation {
-                                    account.openPinned(target, reference); pinsOpen = false; true
+                                    account.openPinned(target, reference); pinsRoute = null; true
                                 } }
                             }, account::refresh)
                         var overlayId by rememberSaveable { mutableStateOf<String?>(null) }
@@ -608,6 +612,13 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (selected.joined) Text(stringResource(R.string.spaces_member_confirmed), style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
+            state.notificationPolicy?.let { policy ->
+                val target = SpacesAccount.Target(selected.id, selected.channel, state.threadParent?.id)
+                ChannelNotificationPreferences(channel?.profile?.name ?: "general", policy,
+                    enabled = !state.working && !state.savingNavigation,
+                    chooseMode = { account.setNotificationPolicy(target, mode = it) },
+                    allowEveryone = { account.setNotificationPolicy(target, allowEveryone = it) })
+            }
             if (profile.houseRules.isNotEmpty()) { Text(stringResource(R.string.spaces_house_rules), style = MaterialTheme.typography.titleMedium); Text(profile.houseRules) }
             state.publicLink?.takeUnless { selected.dissolved }?.let { link ->
                 OutlinedButton(onClick = {
@@ -850,6 +861,45 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
             Text(stringResource(R.string.spaces_delete_message), color = MaterialTheme.colorScheme.error) } },
         dismissButton = { TextButton(onClick = dismiss, enabled = !working) { Text(stringResource(R.string.spaces_cancel)) } })
     key(message?.id) { MessageReactionDetails(message, mode == MessageOverlay.REACTIONS, dismiss, react, loadReactions) }
+}
+
+@Composable private fun ChannelNotificationPreferences(channel: String, policy: SpaceNotificationPolicy, enabled: Boolean,
+    chooseMode: (SpaceNotificationMode) -> Unit, allowEveryone: (Boolean) -> Unit) {
+    HorizontalDivider()
+    Text(stringResource(R.string.spaces_notification_preferences, channel), style = MaterialTheme.typography.titleMedium)
+    Text(stringResource(R.string.spaces_notification_device_detail), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    Column(Modifier.fillMaxWidth().selectableGroup()) {
+        SpaceNotificationMode.entries.forEach { mode ->
+            val title = when (mode) {
+                SpaceNotificationMode.PERSONAL -> R.string.spaces_notifications_personal
+                SpaceNotificationMode.ALL -> R.string.spaces_notifications_all
+                SpaceNotificationMode.SILENT -> R.string.spaces_notifications_silent
+            }
+            val detail = when (mode) {
+                SpaceNotificationMode.PERSONAL -> R.string.spaces_notifications_personal_detail
+                SpaceNotificationMode.ALL -> R.string.spaces_notifications_all_detail
+                SpaceNotificationMode.SILENT -> R.string.spaces_notifications_silent_detail
+            }
+            Row(Modifier.fillMaxWidth().heightIn(min = 64.dp).selectable(policy.mode == mode, enabled = enabled,
+                role = Role.RadioButton, onClick = { chooseMode(mode) }).padding(vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                RadioButton(policy.mode == mode, onClick = null, enabled = enabled)
+                Column(Modifier.weight(1f)) {
+                    Text(stringResource(title)); Text(stringResource(detail), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+            }
+        }
+    }
+    Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).toggleable(policy.allowEveryone,
+        enabled = enabled, role = Role.Switch, onValueChange = allowEveryone), verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        Column(Modifier.weight(1f)) {
+            Text(stringResource(R.string.spaces_notifications_everyone))
+            Text(stringResource(R.string.spaces_notifications_everyone_detail), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        Switch(policy.allowEveryone, onCheckedChange = null, enabled = enabled)
+    }
+    HorizontalDivider()
 }
 
 @Composable private fun PinChangeNotice(change: SpaceClient.PinChange?) {

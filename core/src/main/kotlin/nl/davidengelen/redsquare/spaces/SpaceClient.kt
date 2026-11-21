@@ -2721,6 +2721,21 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
     }
 
+    fun notificationPolicy(space: String, channel: String? = null): SpaceNotificationPolicy = store.transaction {
+        owned(); val target = channel ?: selectedChannel(state(space))
+        require(target in journal(space).snapshot.channels)
+        val saved = get("$space/channels/$target/notification-policy")?.let(::json) ?: return@transaction SpaceNotificationPolicy()
+        require(saved.keySet() == setOf("mode", "everyone") && saved.get("everyone").let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean })
+        SpaceNotificationPolicy(SpaceNotificationMode.entries.single { it.wire == saved.text("mode") }, saved.get("everyone").asBoolean)
+    }
+    fun setNotificationPolicy(space: String, policy: SpaceNotificationPolicy, channel: String? = null) = store.transaction {
+        owned(); val state = state(space); val target = channel ?: selectedChannel(state)
+        require(journal(space).canAccessChannel(wallet.publicKey, target) || target == selectedChannel(state))
+        put("$space/channels/$target/notification-policy", bytes(JsonObject().apply {
+            addProperty("mode", policy.mode.wire); addProperty("everyone", policy.allowEveryone)
+        }))
+    }
+
     /** A known remaining message keeps ordinary activity visible even while
      * its exact count is unknown after a partial read. */
     private fun unreadActivity(data: JsonObject): Boolean? = data.get("unread_message_end")?.asLong?.let {

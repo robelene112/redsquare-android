@@ -1,5 +1,28 @@
 # Implementation handoff
 
+## In-progress140 local notification preferences and pin-route recovery
+
+Per-channel PERSONAL/ALL/SILENT preferences and recipient everyone opt-out now
+persist locally under the protected account/node/service store. Defaults select
+personal mentions/replies, never own messages. ALL still means all messages;
+SILENT suppresses all alerts. Saving preferences requires no network operation
+and survives reopening SQLite offline. One focused preference case and Android
+main compilation pass; both scoped source review axes found no remaining issue.
+Actual received personal counters and notification delivery are still outstanding.
+
+Focused run44899021125 atf83b858e0 passes the original overlay case in82.812s:
+actual IME/recreation, independent edit/reaction effects, held menus after row
+recycling and exact379px reading position are retained. Its separate native pin
+case passes signed root pin,60incoming consumed by Android and exact oldroot/
+draft navigation, then fails at a clipped Reply tap. Pin access now occupies a
+channel-header icon rather than an extra48dp reading row. The test scrolls and
+asserts Reply visible/enabled before tapping. A source review also caught pin-sheet
+state lost across initial null selection during restoration; it now saves the
+exact route and the next native phase recreates the actual Activity with the
+pin sheet open. Main/instrumentation compilation pass. Both180s phase bounds
+and original assertions remain, frozen goalsv10. Native re-execution/visual review
+and whole140/process acceptance remain outstanding. Continue without checkpoint stop.
+
 ## In-progress140 pins and native conversation checks
 
 Staff pins now use signed public or encrypted private decisions, current authority

@@ -225,9 +225,12 @@ class SpacesJourneyTest {
                 pinsConsumed.get("observed").asBoolean && ui.onAllNodes(hasText(rootText) and !hasAnyAncestor(isDialog())).fetchSemanticsNodes().isEmpty()
             }
             ui.onNode(hasText(rootText) and hasAnyAncestor(isDialog())).assertIsDisplayed()
+            activity.recreate()
+            ui.waitUntil(15_000) { ui.onNode(hasText(rootText) and hasAnyAncestor(isDialog())).isDisplayed() }
+            capture("pins-01b-restored-route")
             ui.onNode(hasText("Open message") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
             ui.waitUntil(10_000) { ui.onNodeWithText(rootText).isDisplayed() && ui.onNodeWithText(channelDraft).isDisplayed() }
-            rowAction(rootText, "Reply").performClick()
+            rowAction(rootText, "Reply").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
             ui.waitUntil(10_000) { ui.onNodeWithText("Reply in this thread").isDisplayed() }
             send(replyText, "Reply in this thread")
             var reply = JsonObject()
@@ -247,6 +250,7 @@ class SpacesJourneyTest {
             File(evidence, "pins-results.json").writeText(JsonObject().apply {
                 addProperty("pid", Process.myPid()); addProperty("space", space); add("root", root); add("reply", reply)
                 addProperty("channelDraftPreserved", true); addProperty("threadDraftPreserved", true); addProperty("incomingWhileOpen", 60)
+                addProperty("pinSheetRestoredAfterRecreate", true)
                 add("androidConsumptionWhilePinsOpen", pinsConsumed)
             }.toString())
         } }

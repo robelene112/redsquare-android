@@ -51,7 +51,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val directoryLoading: Boolean = false, val directoryCached: Boolean = false, val directoryFailed: Boolean = false,
         val directoryLoaded: Boolean = false,
         val directoryCursor: Long = 0, val directoryHasMore: Boolean = false,
-        val pinStatus: SpaceClient.PinStatus? = null, val messages: List<SpaceClient.Message> = emptyList(), val draft: String = "",
+        val notificationPolicy: SpaceNotificationPolicy? = null, val pinStatus: SpaceClient.PinStatus? = null, val messages: List<SpaceClient.Message> = emptyList(), val draft: String = "",
         val invitation: SpaceClient.Invitation? = null, val preview: SpaceClient.InvitationPreview? = null,
         val problem: Problem? = null, val working: Boolean = false, val refreshing: Boolean = false,
         val ready: Boolean = false, val savingNavigation: Boolean = false, val loadingChannel: Boolean = false, val hasEarlier: Boolean = false, val hasLater: Boolean = false, val scrollToMessage: String? = null, val windowFrom: Long = 0, val followingLatest: Boolean = true)
@@ -305,6 +305,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val window = projection.window
         val messages = projection.messages
         val pins = target?.let { current.pinStatus(it.space, it.channel) }
+        val notifications = target?.let { current.notificationPolicy(it.space, it.channel) }
         val invitation = projection.invitation
         val publicRulesToken = target?.let { profiles[it.space] }?.takeIf { it.visibility == SpaceVisibility.PUBLIC }?.publicRulesToken
         val listingIntent = projection.listingIntent
@@ -314,7 +315,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             mutable.update { previous ->
                 if (previous.target() != target || previous.loadingChannel) previous.copy(communities = communities, profiles = profiles)
                 else previous.copy(communities = communities, profiles = profiles, current = community, channels = channels, categories = projection.categories, members = members, bannedMembers = bannedMembers,
-                pinStatus = pins, messages = messages, threadParent = projection.threadParent, invitation = invitation, publicRulesToken = publicRulesToken,
+                notificationPolicy = notifications, pinStatus = pins, messages = messages, threadParent = projection.threadParent, invitation = invitation, publicRulesToken = publicRulesToken,
                 listingIntent = target?.let { dirtyListings[it.space] } ?: listingIntent, publicLink = publicLink,
                 contentLoaded = window?.loaded == true, hasEarlier = window?.hasEarlier == true,
                 hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0,
@@ -351,7 +352,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             val route = navigationVersion.incrementAndGet()
             val token = selection.incrementAndGet()
             mutable.update { it.copy(selected = space, selectedChannel = channel, threadParent = null, current = null,
-                pinStatus = null, messages = emptyList(), channels = emptyList(), members = emptyList(), draft = "", invitation = null, anchor = null,
+                notificationPolicy = null, pinStatus = null, messages = emptyList(), channels = emptyList(), members = emptyList(), draft = "", invitation = null, anchor = null,
                 problem = null, listingIntent = null, publicLink = null, archiveChange = null, roleChange = null, channelEdit = null, channelCreation = null, categoryChange = null, visibilityChange = null, dissolutionChange = null, categories = emptyList(), channelAccessChange = null, membershipChange = null, ownershipOffer = null, ownershipChange = null, bannedMembers = emptySet(),
                 contentLoaded = false, loadingChannel = space != null, scrollToMessage = null) }
             scope.launch {
@@ -400,7 +401,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             profiles = it.profiles + (space to profile), publicRulesToken = rulesToken, publicLink = publicLink, invitation = invitation,
                             listingIntent = dirtyListings[space] ?: listingIntent,
                             draft = if (draftVersions[target]?.get() == version) draft else it.draft,
-                            pinStatus = current.pinStatus(space, target.channel), scrollToMessage = jump?.id,
+                            notificationPolicy = current.notificationPolicy(space, target.channel), pinStatus = current.pinStatus(space, target.channel), scrollToMessage = jump?.id,
                             messages = messages, loadingChannel = false, contentLoaded = window.loaded, hasEarlier = window.hasEarlier,
                             hasLater = window.hasLater, windowFrom = window.from, followingLatest = historyWindows[target] == null) else it }
                     } }
@@ -476,6 +477,18 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         localAccess.withLock {
             if (closed.get() || mutable.value.target() != target) throw CancellationException("Conversation changed")
             requireNotNull(client).reactionPage(target.space, message, afterEmoji, target.channel)
+        }
+    }
+    fun setNotificationPolicy(target: Target, mode: SpaceNotificationMode? = null, allowEveryone: Boolean? = null) {
+        if (mutable.value.target() != target) return
+        localAction(isCurrent = { mutable.value.target() == target }) {
+            localAccess.withLock {
+                val current = requireNotNull(client)
+                val before = current.notificationPolicy(target.space, target.channel)
+                current.setNotificationPolicy(target.space, before.copy(mode = mode ?: before.mode,
+                    allowEveryone = allowEveryone ?: before.allowEveryone), target.channel)
+            }
+            publish()
         }
     }
     fun pinMessage(target: Target, message: SpaceClient.Message, pinned: Boolean, onQueued: () -> Unit) =

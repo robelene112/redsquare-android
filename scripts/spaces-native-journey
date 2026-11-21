@@ -906,7 +906,7 @@ try:
             raise RuntimeError('Focused conversation pins failed; retain the original native result')
         pins = json.loads(adb('exec-out', 'run-as', pkg, 'cat', 'cache/spaces-journey-evidence/pins-results.json').stdout)
         if not (pins['pid'] > 0 and pins['root']['pinned'] and pins['reply']['pinned'] and
-                pins['reply']['parent'] == pins['root']['id'] and pins['channelDraftPreserved'] and pins['threadDraftPreserved'] and
+                pins['reply']['parent'] == pins['root']['id'] and pins['channelDraftPreserved'] and pins['threadDraftPreserved'] and pins['pinSheetRestoredAfterRecreate'] and
                 pins['incomingWhileOpen'] >= 60 and pins['androidConsumptionWhilePinsOpen']['observed'] and pins['androidConsumptionWhilePinsOpen']['request']):
             raise RuntimeError('Focused native pin observations are incomplete')
         (evidence / 'pins-results.json').write_text(json.dumps(pins, indent=2))

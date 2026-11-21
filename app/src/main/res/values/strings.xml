@@ -1633,4 +1633,14 @@
     <string name="spaces_open_pinned">Open message</string>
     <string name="spaces_open_pinned_reply">Open reply in thread</string>
     <string name="spaces_pins_retry">Refresh pins</string>
+    <string name="spaces_notification_preferences">Notifications · %1$s</string>
+    <string name="spaces_notification_device_detail">For this channel on this device. Unread activity stays visible.</string>
+    <string name="spaces_notifications_personal">Mentions and replies</string>
+    <string name="spaces_notifications_personal_detail">Personal updates, without every conversation interrupting you.</string>
+    <string name="spaces_notifications_all">All messages</string>
+    <string name="spaces_notifications_all_detail">Notify for every new message from other people.</string>
+    <string name="spaces_notifications_silent">Silent</string>
+    <string name="spaces_notifications_silent_detail">Keep this channel quiet, including mentions and replies.</string>
+    <string name="spaces_notifications_everyone">Allow @everyone alerts</string>
+    <string name="spaces_notifications_everyone_detail">Include owner and admin group alerts with mentions and replies. All messages and Silent keep their own behavior.</string>
 </resources>
