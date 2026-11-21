@@ -1,5 +1,62 @@
 # Spaces protocol and persistence, version1
 
+## In-progress140 conversation storage
+
+Current source uses envelope version1 and persistent schema5. The conversation
+backend is verified independently of the native interface. Native message
+controls, remaining140 features and node activation are still in progress.
+Earlier sections below retain their explicitly stated stage/version scopes.
+
+Accepted `content` and `public-content` records now distinguish `message`,
+`thread-reply`, `message-edit` and `message-delete`. Every change retains its
+own immutable operation, wallet signature, original bytes and service receipt.
+An exact accepted or rejected original returns its existing disposition on
+retry, including after restart. No retry creates a replacement signature.
+
+Replies identify an accepted top-level parent with `target_message_id` and
+`target_position`. Changes identify the actual accepted base at that same pair.
+For edits/deletions of a reply, `thread_root_id` must match that base's real
+parent. The service checks the actual stored base, independently of client
+labels. Authors may edit; authors and current staff may remove. A new staff or
+membership term cannot revive undelivered moderation from an earlier term.
+Removal retains the original position as a placeholder and prevents later edits
+from bringing its text back. Available earlier copies are not recalled.
+
+Announcement publishing remains staff-only. Members may contribute to its
+threads, including editing/removing their own replies, while current membership,
+channel access, key epoch and archive permissions remain mandatory. Private
+reply/change payloads use the existing archive AEAD. Target IDs/positions enter
+the authenticated data; reply changes additionally bind their thread root.
+Ordinary archive ciphertext retains its previous authenticated-data format.
+
+Fresh caller/nonce-bound read pages advertise `message_history=true`. The
+`messages` scope contains Space/channel, numeric cursor, `direction=before|after`
+and `limit=1..50`, with optional `thread_id`. A before cursor is exclusive;
+an after cursor is inclusive. Latest requests use the maximum signed64-bit
+cursor. Main pages contain top-level bases; thread pages contain only replies
+for that accepted parent. Pages return at most50 bases and2MiB, independently
+of how many edits/key grants occupy the raw channel stream.
+
+Each item carries its signed base receipt under `message`, with optional signed
+`edit` and `deletion` receipts. Main items also provide an observed `reply_count`.
+Items are ordered by accepted position. `next_cursor`, `has_more` and channel
+`content_end` describe this page; they do not guarantee a permanent complete
+archive. Each original, receipt, target, author and historical permission is
+verified before the bounded page transaction commits. Older summaries/window
+endpoints cannot overwrite newer observed state.
+
+The raw `content` stream remains available for incremental replay and older
+services. Clients keep separate root/thread indexes, pending work, drafts and
+pixel anchors. Byte-limited latest pages cannot merge disconnected cached
+windows. Refreshing an older visible window follows bounded forward pages for
+at most50 bases, retaining both the channel and thread reading positions.
+
+Schema5 adds target metadata and message/version indexes. Existing records are
+backfilled in100-row batches; original envelopes and signed receipts remain
+byte-exact. The adapter accepts compatible schema4/5 services. These source
+changes do not install a module, expose a private channel, activate file hosting
+or update the ordinary public beta.
+
 ## In-progress138 public directory contract
 
 Envelope version1 remains distinct from persistent schema4. Public creation may

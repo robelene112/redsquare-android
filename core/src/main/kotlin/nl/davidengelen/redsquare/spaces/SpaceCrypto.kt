@@ -114,10 +114,27 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
         text: String, timestamp: Long, targetChannelId: String? = null, targetCategoryId: String? = null): SaitoTransaction =
         publishRecord(wallet, kind, operationId, controlId, text, timestamp, targetChannelId = targetChannelId, targetCategoryId = targetCategoryId)
 
+    fun publishMessageEdit(wallet: SaitoWallet, operationId: String, controlId: String, text: String,
+        timestamp: Long, targetMessageId: String, targetPosition: Long, threadRootId: String? = null): SaitoTransaction =
+        publishRecord(wallet, "message-edit", operationId, controlId, text, timestamp,
+            targetMessageId = targetMessageId, targetPosition = targetPosition, threadRootId = threadRootId)
+
+    fun publishThreadReply(wallet: SaitoWallet, operationId: String, controlId: String, text: String,
+        timestamp: Long, parentId: String, parentPosition: Long): SaitoTransaction =
+        publishRecord(wallet, "thread-reply", operationId, controlId, text, timestamp,
+            targetMessageId = parentId, targetPosition = parentPosition)
+
+    fun publishMessageDeletion(wallet: SaitoWallet, operationId: String, controlId: String,
+        timestamp: Long, targetMessageId: String, targetPosition: Long, threadRootId: String? = null): SaitoTransaction =
+        publishRecord(wallet, "message-delete", operationId, controlId, "deleted", timestamp,
+            targetMessageId = targetMessageId, targetPosition = targetPosition, threadRootId = threadRootId)
+
     private fun publishRecord(wallet: SaitoWallet, kind: String, operationId: String, controlId: String,
-        text: String, timestamp: Long, recipient: String? = null, targetChannelId: String? = null, targetCategoryId: String? = null): SaitoTransaction {
+        text: String, timestamp: Long, recipient: String? = null, targetChannelId: String? = null, targetCategoryId: String? = null,
+        targetMessageId: String? = null, targetPosition: Long? = null, threadRootId: String? = null): SaitoTransaction {
         require(text.isNotEmpty() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024 && kind.matches(Regex("[a-z][a-z-]{0,31}")))
         require((kind == "category-profile") == (targetCategoryId != null))
+        require((kind in setOf("message-edit", "message-delete", "thread-reply")) == (targetMessageId != null && targetPosition != null))
         val header = header(wallet, "content", operationId, controlId).apply {
             addProperty("content_kind", kind)
             recipient?.let { addProperty("recipient_credential", it) }
@@ -125,6 +142,14 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
             targetChannelId?.let {
                 require(kind == "channel-profile-edit" && it.matches(ID))
                 addProperty("target_channel_id", it)
+            }
+            threadRootId?.let {
+                require(kind in setOf("message-edit", "message-delete") && it.matches(SIGNATURE))
+                addProperty("thread_root_id", it)
+            }
+            targetMessageId?.let {
+                require(it.matches(SIGNATURE) && requireNotNull(targetPosition) >= 0)
+                addProperty("target_message_id", it); addProperty("target_position", targetPosition)
             }
         }
         val nonce = ByteArray(12).also(SecureRandom()::nextBytes)
@@ -295,9 +320,12 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
                 "category-profile" -> listOf(body.text("target_category_id").also { require(it.matches(ID)) })
                 "channel-profile-edit" -> if (body.has("target_channel_id"))
                     listOf(body.text("target_channel_id").also { require(it.matches(ID)) }) else emptyList()
+                "message-edit", "message-delete", "thread-reply" -> listOf(body.text("target_message_id").also { require(it.matches(SIGNATURE)) },
+                    body.number("target_position").also { require(it >= 0) }.toString())
                 else -> emptyList()
             }
-            return (fields + target).joinToString(":").toByteArray(Charsets.UTF_8)
+            val thread = body.get("thread_root_id")?.asString?.also { require(it.matches(SIGNATURE)) }
+            return (fields + target + if (thread == null) emptyList() else listOf("thread", thread)).joinToString(":").toByteArray(Charsets.UTF_8)
         }
 
         private val ID = Regex("[0-9a-f]{64}")

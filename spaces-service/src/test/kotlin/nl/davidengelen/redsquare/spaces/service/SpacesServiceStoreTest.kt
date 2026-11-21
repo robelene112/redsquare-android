@@ -40,10 +40,10 @@ class SpacesServiceStoreTest {
             val body = com.google.gson.JsonParser.parseString(response.body()).asJsonObject
             assertEquals("spaces-v1", body.get("capability").asString)
             assertEquals(service.publicKey, body.get("service_key").asString)
-            assertEquals(4, body.get("schema").asInt)
+            assertEquals(5, body.get("schema").asInt)
             assertEquals("ready", body.get("state").asString)
             assertFalse(body.get("file_hosting").asBoolean)
-            assertEquals(listOf("unread-v1", "channel-archive-v1", "role-management-v1", "public-channel-edit-v1", "private-channel-access-v1", "private-channel-edit-v1", "membership-management-v1", "ownership-management-v1", "category-management-v1", "visibility-management-v1", "dissolution-v1"), body.getAsJsonArray("features").map { it.asString })
+            assertEquals(listOf("message-history-v1", "unread-v1", "channel-archive-v1", "role-management-v1", "public-channel-edit-v1", "private-channel-access-v1", "private-channel-edit-v1", "membership-management-v1", "ownership-management-v1", "category-management-v1", "visibility-management-v1", "dissolution-v1"), body.getAsJsonArray("features").map { it.asString })
         }
     }
 

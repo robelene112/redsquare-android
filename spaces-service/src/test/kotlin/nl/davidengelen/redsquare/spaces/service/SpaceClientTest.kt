@@ -389,7 +389,7 @@ class SpaceClientTest {
         }
     }
 
-    @Test fun aColdMemberCanReachEarlierMessagesWhenItsRecentPageContainsOnlyKeyGrants() = runBlocking {
+    @Test fun aColdMemberSeesEarlierMessagesEvenWhenItsRecentRecordsContainOnlyKeyGrants() = runBlocking {
         SpacesServiceStore(files.newFolder("only-recent-key-grants").toPath(), service, clock).use { remote ->
             val creator = SpaceClient(owner, "fixture-node", service.publicKey, local("only-grants-owner.sqlite"), clock) {
                 remote.exchange(it.envelope())
@@ -412,12 +412,13 @@ class SpaceClientTest {
             member.refresh(space)
             member.saveDraft(space, "Independent writing survives earlier-history loading")
             val recent = member.historyWindow(space)
-            assertTrue("The first page really starts after the original message", recent.loadedFrom > 0)
-            assertTrue(member.timeline(space, from = recent.from).isEmpty())
-            assertTrue("Available earlier messages must retain an Earlier action", recent.hasEarlier)
+            assertEquals("Key grants cannot displace the original message", 0L, recent.loadedFrom)
+            assertEquals(listOf("The conversation already has a message"), member.timeline(space, from = recent.from).map { it.text })
+            assertFalse("There are no omitted earlier messages", recent.hasEarlier)
             assertTrue("The visible window cannot start before its loaded boundary", recent.from >= recent.loadedFrom)
             val restored = returningMember()
-            assertTrue("Cold restoration must keep earlier history reachable", restored.historyWindow(space).hasEarlier)
+            assertEquals(original, restored.timeline(space).single().id)
+            assertFalse("Cold restoration retains the complete message window", restored.historyWindow(space).hasEarlier)
             val from = restored.older(space)
             assertEquals(0L, from)
             val received = restored.timeline(space, from = from).single()

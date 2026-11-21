@@ -31,29 +31,40 @@ class SpaceDiscoveryTest {
     private val visitor = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
 
     @Test(timeout = 45_000) fun publicReadingUsesOneAuthenticatedSmallPageAndKeepsTheCorrectLargePageTail() = runBlocking<Unit> {
-        for (count in listOf(3, 53)) {
-            SpacesServiceStore(files.newFolder("public-page-$count").toPath(), service, clock).use { remote ->
-                SqliteClientFixture(files.newFile("public-page-owner-$count.sqlite").absolutePath).use { ownerStore ->
-                    SqliteClientFixture(files.newFile("public-page-reader-$count.sqlite").absolutePath).use { readerStore ->
+        for (legacy in listOf(true, false)) for (count in listOf(3, 53)) {
+            SpacesServiceStore(files.newFolder("public-page-$legacy-$count").toPath(), service, clock).use { remote ->
+                SqliteClientFixture(files.newFile("public-page-owner-$legacy-$count.sqlite").absolutePath).use { ownerStore ->
+                    SqliteClientFixture(files.newFile("public-page-reader-$legacy-$count.sqlite").absolutePath).use { readerStore ->
                         val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
                         val space = creator.create(SpaceProfile("Bounded public history", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
                         repeat(count) { creator.send(space, "Public line $it") }; creator.flush(space); creator.flush(space)
                         assertEquals("The complete declared fixture reached the service", "Public line ${count - 1}", creator.messages(space).last())
                         val cursors = mutableListOf<Long>()
+                        val messageCursors = mutableListOf<Long>()
                         val reader = SpaceClient(visitor, "fixture-node", service.publicKey, readerStore, clock) { original ->
                             val request = SaitoEnvelope.decode(original.envelope()).body
                             if (request.get("request")?.asString == "read" && request.getAsJsonObject("scope")?.get("stream")?.asString == "content")
                                 cursors.add(request.getAsJsonObject("scope").get("cursor").asLong)
-                            remote.exchange(original.envelope())
+                            if (request.get("request")?.asString == "read" && request.getAsJsonObject("scope")?.get("stream")?.asString == "messages")
+                                messageCursors.add(request.getAsJsonObject("scope").get("cursor").asLong)
+                            val received = remote.exchange(original.envelope())
+                            val reply = SaitoEnvelope.decode(received).body
+                            // Owned adapter for the preceding capability contract,
+                            // not an execution of an older service binary.
+                            if (legacy && reply.get("request")?.asString == "page")
+                                SaitoTransaction.createSpaceReply(service, reply.deepCopy().apply { remove("message_history") }, clock.millis(), visitor.publicKey).envelope()
+                            else received
                         }
                         reader.openPublic(space); reader.refresh(space)
                         assertEquals("A small first page is consumed directly; a long history requests its actual tail",
-                            if (count <= 50) listOf(0L) else listOf(0L, 3L), cursors)
+                            if (legacy) (if (count <= 50) listOf(0L) else listOf(0L, 3L)) else emptyList<Long>(), cursors)
+                        assertEquals(if (legacy) emptyList<Long>() else listOf(Long.MAX_VALUE), messageCursors)
                         assertEquals(((count - 50).coerceAtLeast(0) until count).map { "Public line $it" }, reader.messages(space))
                         assertFalse(reader.community(space).joined)
-                        cursors.clear()
+                        cursors.clear(); messageCursors.clear()
                         creator.send(space, "Public line $count"); creator.flush(space); reader.refresh(space)
                         assertEquals("An incremental read starts at its known cursor", listOf(count.toLong()), cursors)
+                        assertEquals(if (legacy) emptyList<Long>() else listOf(Long.MAX_VALUE), messageCursors)
                         assertEquals("Public line $count", reader.messages(space).last())
                     }
                 }
@@ -896,12 +907,16 @@ class SpaceDiscoveryTest {
         }
     }
 
-    @Test fun aFreshChannelPageCannotAdvanceItsCursorWithAnotherChannelsAuthenticReceipt() = verifyChannelPageBinding(relabel = false)
+    @Test fun aFreshChannelPageCannotAdvanceItsCursorWithAnotherChannelsAuthenticReceipt() {
+        for (legacy in listOf(true, false)) verifyChannelPageBinding(relabel = false, legacy = legacy)
+    }
 
-    @Test fun aFreshChannelPageCannotRelabelAnAuthenticOriginalIntoAnotherChannel() = verifyChannelPageBinding(relabel = true)
+    @Test fun aFreshChannelPageCannotRelabelAnAuthenticOriginalIntoAnotherChannel() {
+        for (legacy in listOf(true, false)) verifyChannelPageBinding(relabel = true, legacy = legacy)
+    }
 
-    private fun verifyChannelPageBinding(relabel: Boolean) = runBlocking<Unit> {
-        val suffix = if (relabel) "original" else "request"
+    private fun verifyChannelPageBinding(relabel: Boolean, legacy: Boolean) = runBlocking<Unit> {
+        val suffix = (if (relabel) "original" else "request") + "-$legacy"
         SpacesServiceStore(files.newFolder("channel-page-$suffix").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("channel-page-owner-$suffix.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("channel-page-reader-$suffix.sqlite").absolutePath).use { visitorStore ->
@@ -928,15 +943,23 @@ class SpaceDiscoveryTest {
                         val result = remote.exchange(request.envelope())
                         val body = SaitoEnvelope.decode(result).body
                         if (altered && body.get("request").asString == "page" &&
-                            body.getAsJsonObject("scope").get("stream").asString == "content" &&
+                            body.getAsJsonObject("scope").get("stream").asString in setOf("content", "messages") &&
                             body.getAsJsonObject("scope").get("channel_id").asString == workshop) {
                             val item = if (!relabel) generalReceipt else {
                                 val originalReceipt = SaitoEnvelope.decode(generalReceipt).body.deepCopy().apply { addProperty("channel_id", workshop) }
                                 SaitoTransaction.createSpaceReply(service, originalReceipt, clock.millis(), owner.publicKey).envelope()
                             }
-                            val changed = body.deepCopy().apply { add("items", JsonArray().apply { add(item) }) }
+                            val changed = body.deepCopy().apply {
+                                if (legacy) remove("message_history")
+                                add("items", JsonArray().apply {
+                                    if (body.getAsJsonObject("scope").get("stream").asString == "messages")
+                                        add(JsonObject().apply { addProperty("message", item) }) else add(item)
+                                })
+                            }
                             SaitoTransaction.createSpaceReply(service, changed, clock.millis(), visitor.publicKey).envelope()
-                        } else result
+                        } else if (legacy && body.get("request")?.asString == "page")
+                            SaitoTransaction.createSpaceReply(service, body.deepCopy().apply { remove("message_history") }, clock.millis(), visitor.publicKey).envelope()
+                        else result
                     }
                     reader.openPublic(space)
                     reader.selectChannel(space, workshop)
@@ -1747,6 +1770,7 @@ class SpaceDiscoveryTest {
                     }
                     publicSpace = creator.create(SpaceProfile("A listed migration", "Actual public metadata", SpaceVisibility.PUBLIC))
                     creator.flush(publicSpace)
+                    creator.send(publicSpace, "An original public record"); creator.flush(publicSpace)
                     val unlisted = creator.create(SpaceProfile("Not in the migrated list", "Unlisted", SpaceVisibility.PUBLIC, listed = false))
                     creator.flush(unlisted)
                     privateSpace = creator.create(SpaceProfile("Keep this private", "No private directory entry"))
@@ -1758,6 +1782,9 @@ class SpaceDiscoveryTest {
                 // actual accepted rows. This is not an old-binary rehearsal.
                 DriverManager.getConnection("jdbc:sqlite:${directory.resolve("spaces.sqlite")}").use { db ->
                     db.createStatement().use { sql ->
+                        sql.execute("DROP INDEX records_message_versions")
+                        sql.execute("DROP INDEX records_messages")
+                        sql.execute("ALTER TABLE records DROP COLUMN target_message_id")
                         sql.execute("DROP TABLE public_spaces")
                         sql.execute("PRAGMA user_version=3")
                     }
@@ -1765,11 +1792,13 @@ class SpaceDiscoveryTest {
                 var firstCursor: Long? = null
                 repeat(2) {
                     SpacesServiceStore(directory, service, clock).use { reopened ->
-                        assertEquals(4, com.google.gson.JsonParser.parseString(reopened.readiness()).asJsonObject.get("schema").asInt)
+                        assertEquals(5, com.google.gson.JsonParser.parseString(reopened.readiness()).asJsonObject.get("schema").asInt)
                         val reader = SpaceClient(visitor, "fixture-node", service.publicKey, visitorStore, clock) { reopened.exchange(it.envelope()) }
                         val page = reader.discover()
                         assertEquals(listOf(publicSpace), page.items.map { it.id })
                         assertEquals("Actual public metadata", page.items.single().profile.description)
+                        reader.openPublic(publicSpace); reader.refresh(publicSpace)
+                        assertEquals(listOf("An original public record"), reader.messages(publicSpace))
                         if (firstCursor == null) firstCursor = page.nextCursor else assertEquals(firstCursor, page.nextCursor)
                         assertFalse(page.hasMore)
                         for ((original, receipt) in originals) assertEquals(receipt, reopened.exchange(original))

@@ -187,7 +187,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             if (!selected.joined && selected.pending && !selected.membershipRequested) return@let
                             flushUrgent(current)
                             trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} start")
-                            current.refresh(target.space, channel = target.channel)
+                            current.refresh(target.space, channel = target.channel, from = historyWindows[target])
                             trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} complete")
                             mutable.update { it.copy(accessProblems = it.accessProblems - target.space) }
                         } catch (denied: SpaceClient.ReadDenied) {
@@ -463,9 +463,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         localAction(Problem.CONNECTION) { network.withLock {
             val current = requireNotNull(client)
             val before = current.historyWindow(target.space, historyWindows[target], channel = target.channel)
-            val start = (before.from - 50).coerceAtLeast(0)
-            while (current.historyWindow(target.space, channel = target.channel).loadedFrom > start)
-                current.older(target.space, channel = target.channel)
+            val start = current.older(target.space, channel = target.channel, before = before.from)
             historyWindows[target] = start
             publish()
             mutable.update { if (it.target() == target) it.copy(scrollToMessage = it.messages.firstOrNull()?.id) else it }
@@ -659,7 +657,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         localAction(Problem.CONNECTION, isCurrent = { navigationVersion.get() == route && mutable.value.target() == target }) {
             network.withLock {
                 if (navigationVersion.get() != route || mutable.value.target() != target) return@withLock
-                requireNotNull(client).refresh(space, channel)
+                requireNotNull(client).refresh(space, channel, from = historyWindows[target])
                 publish()
                 if (navigationVersion.get() == route && mutable.value.target() == target) {
                     mutable.update { it.copy(availability = Availability.ONLINE) }

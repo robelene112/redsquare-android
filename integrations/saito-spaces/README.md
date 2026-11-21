@@ -1,14 +1,20 @@
 # Spaces service adapter
 
-Source-stage, opt-in integration for137 and the in-progress138. Nothing here installs
+Source-stage, opt-in integration through139 and the in-progress140. Nothing here installs
 or activates a production node. The ordinary public app remains beta142.
+
+Schema5 adds indexed message pages, with each original and its latest edit
+returned as separately signed receipts. An authenticated page advertises
+`message_history=true`; older services keep the raw-content read path. Upgrades
+backfill routing metadata in bounded batches and retain original envelopes and
+receipts byte for byte. This source change does not activate a node.
 
 Schema4 adds a public profile index and authenticated discovery, including
 owner-signed listing changes. It advertises `spaces-directory-v1` alongside the
 existing `spaces-v1` capability. Public reading/joining, richer invitation rules,
 independent channels and durable starter creation have owned source checks;
-native138 remains unfinished. Do not activate it as a completed public-community
-service on that basis.
+native137-139 evidence retains its recorded scope. New140 conversation controls
+remain in progress; actual node activation requires its separate operating gate.
 
 A matching service explicitly reporting readiness feature `unread-v1` additionally
 advertises `spaces-unread-v1`. An older schema4 service without that feature keeps
@@ -29,7 +35,7 @@ the actual wallet signature, recipients, scope, role, control order, epoch and
 operation identity. Only its signed durable receipt confirms acceptance.
 
 The existing node peer key is the service identity. The adapter advertises
-its capabilities only after its local service reports that same key and schema4.
+its capabilities only after its local service reports that same key and a compatible schema4 or schema5.
 Provisioning that signing identity is a separate operator-authorized secret
 handoff. Do not copy node options, keys or private backups into this repository,
 command arguments, CI artifacts or logs. No fallback/new wallet is generated.
@@ -111,7 +117,9 @@ atomic transaction. Upgrading3 to4 adds the public profile index, with bounded
 100-row genesis backfill and unchanged accepted original/receipt bytes.
 Metadata backfill is batched, preserving original/receipt
 bytes. Unsupported versions, unversioned data and a different service identity
-fail before a destructive schema or journal-mode change. Reopening4 is idempotent.
+fail before a destructive schema or journal-mode change. Upgrading4 to5 adds message and mutation-target indexes with bounded100-row
+metadata backfill. Reopening5 is idempotent; signed originals and receipts stay
+unchanged. A schema4 binary cannot open5 and must not replace it over later writes.
 
 Only after readiness, migration preservation and isolated signed write/read pass,
 configure `SAITO_SPACES_SERVICE_URL=http://127.0.0.1:<chosen-port>` for the node,

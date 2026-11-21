@@ -1,5 +1,28 @@
 # Implementation handoff
 
+## In-progress140 conversation backend, native controls next
+
+The owned conversation backend now has immutable public/private edits and
+removals, targeted reply threads, exact-original recovery, separate thread
+concepts/history/pixel anchors and announcement-member replies. Schema5 adds
+bounded message/target indexes without changing accepted originals or receipts.
+Private reply changes bind their actual thread root in archive AEAD.
+
+The complete shared backend check passes251core/49classes and174service/18classes
+with zero failures/errors/skips. The21-case focused catalogue also covers actual
+lost replies and service reopens, role demotion/regrant, real held signed reads,
+byte-limited histories and50large older-thread edits during200new arrivals.
+Both independent scoped source reviews have no concrete remaining findings.
+Indexed COUNT scaling and optional mutation-preparation duplication remain
+unmeasured/nonblocking review judgments.
+
+This is an intermediate source checkpoint. Continue140 with native message and
+thread controls, then its cancellation/reactions/pins/notification-policy work
+and actual native/process verification. No140native or whole-ticket acceptance
+is claimed. Keep140open and continue141-147 sequentially afterwards. Beta142,
+production activation, provider/public-write/file-hosting and legacyChat E2E
+gates retain their existing scopes. The accepted139 record below remains valid.
+
 ## Accepted139, continue140
 
 Community channel/category administration, roles, private access, explicit

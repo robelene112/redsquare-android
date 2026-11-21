@@ -21,6 +21,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     init { require(node.isNotBlank() && node.length <= 2048 && SaitoWallet.isPublicKey(service)) }
 
     private val store = SpacePresentationStore(store)
+    private var supportsMessageHistory = false
 
     enum class Delivery { CONTROL, CONTENT }
     enum class ReadProblem { EXPIRED, UNAVAILABLE }
@@ -677,9 +678,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     data class Community(val id: String, val name: String, val channel: String, val joined: Boolean,
         val canInvite: Boolean, val pending: Boolean, val canSend: Boolean, val membershipRequested: Boolean = false, val unread: Long? = null, val hasUnread: Boolean? = null,
-        val canManage: Boolean = false, val dissolved: Boolean = false)
+        val canManage: Boolean = false, val dissolved: Boolean = false, val canReply: Boolean = false)
     data class Message(val id: String, val author: String, val createdAt: Long, val text: String?,
-        val pending: Boolean, val attempted: Boolean, val missingKeys: Boolean, val rejected: Boolean = false, val position: Long? = null) {
+        val pending: Boolean, val attempted: Boolean, val missingKeys: Boolean, val rejected: Boolean = false, val position: Long? = null,
+        val edited: Boolean = false, val deleted: Boolean = false, val replyCount: Long = 0) {
         override fun toString() = "Private community message"
     }
     data class Invitation(val link: String, val confirmed: Boolean, val expiresAt: Long = 0, val expired: Boolean = false, val revoked: Boolean = false, val revocationPending: Boolean = false, val revocationFailed: Boolean = false) {
@@ -720,15 +722,17 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             activity.isNotEmpty() && activity.all { it == false } -> false
             else -> null
         }
+        val canReply = state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
+            journal.canContributeChannel(wallet.publicKey, scope.channelId) &&
+            (data.get("joined")?.asBoolean == true || channel?.visibility == SpaceVisibility.PUBLIC) &&
+            channel?.retiredDevices?.isEmpty() == true && channel.archived != true
         return Community(space, state.text("name"), scope.channelId, state.get("joined").asBoolean,
             !snapshot.dissolved && role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name),
-            state.has("starter_channels") || state.has("desired_listed") || page("$space/pending/", limit = 1).isNotEmpty(), state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
-                journal.canContributeChannel(wallet.publicKey, scope.channelId) &&
-                (data.get("joined")?.asBoolean == true || channel?.visibility == SpaceVisibility.PUBLIC) &&
-                channel?.retiredDevices?.isEmpty() == true && channel.archived != true && (!adminPostsOnly || role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name)),
+            state.has("starter_channels") || state.has("desired_listed") || page("$space/pending/", limit = 1).isNotEmpty(),
+            canReply && (!adminPostsOnly || role in setOf(SpaceRole.OWNER.name, SpaceRole.ADMIN.name)),
             !state.get("joined").asBoolean && state.has("joining_invitation"), unread, hasUnread,
             canManage = !snapshot.dissolved && state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
-                snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN), dissolved = snapshot.dissolved)
+                snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN), dissolved = snapshot.dissolved, canReply = canReply)
     }
     fun profile(space: String): SpaceProfile = store.transaction {
         owned(); val state = state(space)
@@ -748,6 +752,15 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         owned(); val current = state(space); val target = channel ?: selectedChannel(current)
         channelState(space, target, current); require(text.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
         put(draftKey(space, target), text.toByteArray(Charsets.UTF_8))
+    }
+    fun threadDraft(space: String, parent: Message, channel: String? = null): String = store.transaction {
+        owned(); val target = channel ?: selectedChannel(state(space)); threadParent(space, target, parent)
+        get(threadDraftKey(space, target, parent.id))?.toString(Charsets.UTF_8) ?: ""
+    }
+    fun saveThreadDraft(space: String, parent: Message, text: String, channel: String? = null) = store.transaction {
+        owned(); val target = channel ?: selectedChannel(state(space)); threadParent(space, target, parent)
+        val value = text.toByteArray(Charsets.UTF_8).also { require(it.size <= 64 * 1024) }
+        put(threadDraftKey(space, target, parent.id), value)
     }
     fun invitation(space: String): Invitation? = store.transaction {
         owned()
@@ -1524,6 +1537,135 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         original.id
     }
 
+    fun editMessage(space: String, message: Message, text: String, channel: String? = null): String = store.transaction {
+        owned()
+        val state = state(space)
+        val targetChannel = channel ?: selectedChannel(state)
+        val original = acceptedMessage(space, targetChannel, message)
+        require(original.author == wallet.publicKey)
+        val thread = messageThread(original.body)
+        val available = communityFromStore(space, targetChannel)
+        require(if (thread == null) available.canSend else available.canReply) { "Writing is not currently available" }
+        val position = requireNotNull(message.position)
+        val journal = journal(space)
+        require(messageDeletion(space, targetChannel, original.id, original.author) == null) { "This message has been removed" }
+        require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
+        val accepted = journal.snapshot.channels.getValue(targetChannel)
+        val control = requireNotNull(journal.snapshot.controlId)
+        val replacement = if (accepted.visibility == SpaceVisibility.PUBLIC) event(space, "public-content") {
+            addProperty("channel_id", targetChannel); addProperty("control_id", requireNotNull(journal.snapshot.controlId))
+            addProperty("epoch", accepted.epoch); addProperty("key_generation", accepted.generation)
+            addProperty("content_kind", "message-edit"); addProperty("text", text)
+            addProperty("target_message_id", original.id); addProperty("target_position", position)
+            thread?.let { addProperty("thread_root_id", it) }
+        } else {
+            val data = channelState(space, targetChannel, state)
+            val scope = SpaceCrypto.Scope.fromJson(data.getAsJsonObject("scope"))
+            val keys = SpaceCrypto.restore(decode(data.text("crypto")))
+            require(keys.scope == scope && keys.epoch == accepted.epoch && keys.bindings == accepted.devices)
+            keys.publishMessageEdit(wallet, id(), control, text, clock.millis(), original.id, position, thread)
+        }
+        queue(space, state, replacement)
+        replacement.id
+    }
+
+    private fun SpaceClientStore.Transaction.acceptedMessage(space: String, channel: String, message: Message): SignedSaitoMessage {
+        require(!message.pending && !message.rejected && message.position != null)
+        val original = SaitoEnvelope.decode(originalEnvelope(requireNotNull(get(contentPrefix(space, channel) + positionKey(message.position)))))
+        require(original.id == message.id && original.body.text("space_id") == space && original.body.text("channel_id") == channel &&
+            original.body.text("content_kind") in setOf("message", "thread-reply"))
+        return original
+    }
+    private fun SpaceClientStore.Transaction.threadParent(space: String, channel: String, parent: Message): SignedSaitoMessage =
+        acceptedMessage(space, channel, parent).also { require(it.body.text("content_kind") == "message") }
+
+    fun reply(space: String, parent: Message, text: String, channel: String? = null): String = store.transaction {
+        owned()
+        val state = state(space); val target = channel ?: selectedChannel(state)
+        require(communityFromStore(space, target).canReply) { "Writing is not currently available" }
+        val root = threadParent(space, target, parent)
+        require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
+        val journal = journal(space); val accepted = journal.snapshot.channels.getValue(target)
+        val control = requireNotNull(journal.snapshot.controlId)
+        val reply = if (accepted.visibility == SpaceVisibility.PUBLIC) event(space, "public-content") {
+            addProperty("channel_id", target); addProperty("control_id", control)
+            addProperty("epoch", accepted.epoch); addProperty("key_generation", accepted.generation)
+            addProperty("content_kind", "thread-reply"); addProperty("text", text)
+            addProperty("target_message_id", root.id); addProperty("target_position", parent.position)
+        } else {
+            val data = channelState(space, target, state)
+            val scope = SpaceCrypto.Scope.fromJson(data.getAsJsonObject("scope"))
+            val keys = SpaceCrypto.restore(decode(data.text("crypto")))
+            require(keys.scope == scope && keys.epoch == accepted.epoch && keys.bindings == accepted.devices)
+            keys.publishThreadReply(wallet, id(), control, text, clock.millis(), root.id, requireNotNull(parent.position))
+        }
+        queue(space, state, reply)
+        val draft = threadDraftKey(space, target, root.id)
+        if (get(draft)?.toString(Charsets.UTF_8) == text) remove(draft)
+        reply.id
+    }
+
+    suspend fun refreshThread(space: String, parent: Message, channel: String? = null, from: Long? = null) {
+        require(from == null || from >= 0)
+        val target = store.transaction { owned(); val target = channel ?: selectedChannel(state(space)); threadParent(space, target, parent); target }
+        syncControls(space)
+        if (store.transaction { journal(space).snapshot.channels.getValue(target).visibility } != SpaceVisibility.PUBLIC)
+            refreshKeys(space, target)
+        val latest = messagePage(space, target, thread = parent.id)
+        val readingFrom = from ?: threadReadingAnchor(space, parent, target)?.windowFrom
+        if (readingFrom != null && readingFrom < latest.start) {
+            var cursor: Long = readingFrom
+            var remaining = 50
+            while (remaining > 0) {
+                val observed = messagePage(space, target, cursor, before = false, limit = remaining, thread = parent.id)
+                remaining -= observed.count
+                if (!observed.more || observed.count == 0) break
+                require(observed.next > cursor)
+                cursor = observed.next
+            }
+        }
+        store.transaction {
+            val state = conversationState(space, target, parent.id)
+            state.addProperty("content_loaded", true); putConversationState(space, target, parent.id, state)
+        }
+    }
+
+    fun thread(space: String, parent: Message, from: Long? = null, limit: Int = 50, channel: String? = null): List<Message> {
+        val target = store.transaction { owned(); val target = channel ?: selectedChannel(state(space)); threadParent(space, target, parent); target }
+        return conversationTimeline(space, from, limit, target, parent.id)
+    }
+
+    fun deleteMessage(space: String, message: Message, channel: String? = null): String = store.transaction {
+        owned()
+        val state = state(space)
+        val target = channel ?: selectedChannel(state)
+        val original = acceptedMessage(space, target, message)
+        val thread = messageThread(original.body)
+        val available = communityFromStore(space, target)
+        require(if (thread == null) available.canSend else available.canReply) { "Writing is not currently available" }
+        val position = requireNotNull(message.position)
+        val journal = journal(space)
+        require(original.author == wallet.publicKey || journal.snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+        require(messageDeletion(space, target, original.id, original.author) == null) { "This message has already been removed" }
+        val accepted = journal.snapshot.channels.getValue(target)
+        val control = requireNotNull(journal.snapshot.controlId)
+        val deletion = if (accepted.visibility == SpaceVisibility.PUBLIC) event(space, "public-content") {
+            addProperty("channel_id", target); addProperty("control_id", control)
+            addProperty("epoch", accepted.epoch); addProperty("key_generation", accepted.generation)
+            addProperty("content_kind", "message-delete"); addProperty("text", "deleted")
+            addProperty("target_message_id", original.id); addProperty("target_position", position)
+            thread?.let { addProperty("thread_root_id", it) }
+        } else {
+            val data = channelState(space, target, state)
+            val scope = SpaceCrypto.Scope.fromJson(data.getAsJsonObject("scope"))
+            val keys = SpaceCrypto.restore(decode(data.text("crypto")))
+            require(keys.scope == scope && keys.epoch == accepted.epoch && keys.bindings == accepted.devices)
+            keys.publishMessageDeletion(wallet, id(), control, clock.millis(), original.id, position, thread)
+        }
+        queue(space, state, deletion)
+        deletion.id
+    }
+
     /** On an uncertain response keep the exact signed original for reconciliation. */
     suspend fun flush(space: String) {
         val prefix = "$space/pending/"
@@ -1564,7 +1706,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 require(received.body.text("event") == transaction.envelope()) { "Community service returned a different original" }
                 accept(space, result)
                 remove(item.key)
-                messageChannel(outbound.body)?.let { channel -> remove(messageIndex(space, channel, "pending") + item.key.substringAfterLast('/')) }
+                messageChannel(outbound.body)?.let { channel -> remove(messageIndex(space, channel, "pending", messageThread(outbound.body)) + item.key.substringAfterLast('/')) }
                 remove("$space/operation/${transaction.id}")
             }
         }
@@ -1685,9 +1827,108 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
     }
 
-    suspend fun older(space: String, channel: String? = null): Long {
+    private data class MessagePage(val start: Long, val end: Long, val next: Long, val count: Int, val more: Boolean)
+    private suspend fun messagePage(space: String, channel: String, cursor: Long = Long.MAX_VALUE, before: Boolean = true, limit: Int = 50, thread: String? = null): MessagePage {
+        require(limit in 1..50)
+        val result = readPage(JsonObject().apply {
+            addProperty("space_id", space); addProperty("stream", "messages"); addProperty("channel_id", channel)
+            addProperty("cursor", cursor); addProperty("direction", if (before) "before" else "after"); addProperty("limit", limit)
+            thread?.let { addProperty("thread_id", it) }
+        })
+        require(result.getAsJsonArray("items").size() <= limit)
+        val controls = mutableMapOf<String, SpaceJournal>()
+        val records = mutableListOf<AuthenticatedContent>()
+        val positions = mutableListOf<Long>()
+        val replyCounts = mutableMapOf<String, Long>()
+        val end = result.number("content_end")
+        for (value in result.getAsJsonArray("items")) {
+            val item = value.asJsonObject
+            require(item.has("message") && item.keySet().all { it in setOf("message", "edit", "deletion", "reply_count") })
+            val original = ensureAuthorization(space, item.text("message"), channel, controls)
+            val position = original.receipt.body.number("position")
+            require(original.original.body.text("content_kind") == (if (thread == null) "message" else "thread-reply") &&
+                (thread == null || original.original.body.text("target_message_id") == thread) && position < end &&
+                (if (before) position < cursor else position >= cursor) && (positions.lastOrNull()?.let { position > it } ?: true))
+            positions.add(position); records.add(original)
+            if (item.has("reply_count")) {
+                require(thread == null)
+                replyCounts[original.original.id] = item.number("reply_count")
+            }
+            item.get("edit")?.asString?.let { envelope ->
+                val edit = ensureAuthorization(space, envelope, channel, controls)
+                require(edit.original.body.text("content_kind") == "message-edit" && edit.original.author == original.original.author &&
+                    edit.original.body.text("target_message_id") == original.original.id && edit.original.body.number("target_position") == position &&
+                    edit.original.body.get("thread_root_id")?.asString == thread &&
+                    edit.receipt.body.number("position") in (position + 1) until end)
+                records.add(edit)
+            }
+            item.get("deletion")?.asString?.let { envelope ->
+                val deletion = ensureAuthorization(space, envelope, channel, controls)
+                val control = deletion.receipt.body.get("authorized_control")?.asString ?: deletion.original.body.text("control_id")
+                val authority = requireNotNull(controls[control])
+                require(deletion.original.body.text("content_kind") == "message-delete" &&
+                    (deletion.original.author == original.original.author || authority.hasCurrentAdministratorIntent(deletion.original.author, deletion.original.body.text("control_id"))) &&
+                    deletion.original.body.text("target_message_id") == original.original.id && deletion.original.body.number("target_position") == position &&
+                    deletion.original.body.get("thread_root_id")?.asString == thread &&
+                    deletion.receipt.body.number("position") in (position + 1) until end)
+                records.add(deletion)
+            }
+        }
+        require(result.number("next_cursor") == positions.lastOrNull()?.let { Math.addExact(it, 1) } ?: cursor)
+        val more = result.get("has_more").also { require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) }.asBoolean
+        require(!more || positions.isNotEmpty())
+        val start = positions.firstOrNull() ?: if (before) 0 else cursor
+        store.transaction {
+            owned()
+            // Every record is verified before this page changes the visible
+            // projection. A malformed later entry rolls the whole page back.
+            for (record in records) accept(space, record.envelope, controls, authenticated = record)
+            for ((id, count) in replyCounts) {
+                val key = replyCountKey(space, channel, id)
+                val previous = get(key)?.let(::json)
+                if (previous != null && previous.number("content_end") == end) require(previous.number("count") == count)
+                if (previous == null || previous.number("content_end") < end) put(key, bytes(JsonObject().apply {
+                    addProperty("count", count); addProperty("content_end", end)
+                }))
+            }
+            val current = conversationState(space, channel, thread)
+            // Earlier immutable records remain useful, but an old page cannot
+            // reset the latest-window boundary after a newer read completed.
+            if (current.get("history_observed_end")?.asLong?.let { it > end } == true) return@transaction
+            current.addProperty("history_observed_end", end)
+            val indexed = current.get("message_history")?.asBoolean == true
+            val previous = current.get("history_from")?.asLong
+            val previousEnd = current.get("message_window_end")?.asLong
+            // A latest page after a long offline gap is a separate window.
+            // Never describe the interval between two islands as loaded.
+            if (!indexed || previous == null || start <= previous ||
+                before && cursor == Long.MAX_VALUE && (previousEnd == null || start > previousEnd)) {
+                current.addProperty("history_from", start)
+                if (before) current.addProperty("history_has_earlier", more)
+            }
+            current.addProperty("message_history", true)
+            if (before && cursor == Long.MAX_VALUE) {
+                current.addProperty("message_window_end", positions.lastOrNull()?.let { Math.addExact(it, 1) } ?: 0)
+                current.addProperty("latest_message_from", start)
+            }
+            putConversationState(space, channel, thread, current)
+        }
+        return MessagePage(start, end, result.number("next_cursor"), positions.size, more)
+    }
+
+    suspend fun olderThread(space: String, parent: Message, before: Long? = null, channel: String? = null): Long {
+        require(before == null || before >= 0)
+        val target = store.transaction { owned(); val target = channel ?: selectedChannel(state(space)); threadParent(space, target, parent); target }
+        val cursor = before ?: store.transaction { conversationState(space, target, parent.id).get("history_from")?.asLong ?: 0 }
+        return messagePage(space, target, cursor, thread = parent.id).start
+    }
+
+    suspend fun older(space: String, channel: String? = null, before: Long? = null): Long {
+        require(before == null || before >= 0)
         val targetChannel = store.transaction { owned(); val current = state(space); channel ?: selectedChannel(current) }
-        val upper = store.transaction { channelState(space, targetChannel).get("history_from")?.asLong ?: 0 }
+        val upper = before ?: store.transaction { channelState(space, targetChannel).get("history_from")?.asLong ?: 0 }
+        if (store.transaction { channelState(space, targetChannel).get("message_history")?.asBoolean == true })
+            return messagePage(space, targetChannel, upper).start
         val start = (upper - 50).coerceAtLeast(0)
         var cursor = start
         while (cursor < upper) {
@@ -1697,13 +1938,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
         store.transaction {
             val current = channelState(space, targetChannel)
-            require((current.get("history_from")?.asLong ?: 0) == upper)
-            current.addProperty("history_from", start); putChannelState(space, targetChannel, current)
+            current.addProperty("history_from", minOf(current.get("history_from")?.asLong ?: start, start)); putChannelState(space, targetChannel, current)
         }
         return start
     }
 
-    suspend fun refresh(space: String, channel: String? = null) {
+    suspend fun refresh(space: String, channel: String? = null, from: Long? = null) {
+        require(from == null || from >= 0)
         val targetChannel = store.transaction { owned(); val current = state(space); channel ?: selectedChannel(current) }
         syncControls(space)
         store.transaction {
@@ -1720,6 +1961,39 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         if (currentChannel.visibility != SpaceVisibility.PUBLIC && !store.transaction { channelState(space, targetChannel).get("joined")?.asBoolean == true }) return
         val before = store.transaction { channelState(space, targetChannel) }
         val first = !before.has("content_loaded")
+        if (supportsMessageHistory) {
+            if (currentChannel.visibility != SpaceVisibility.PUBLIC) refreshKeys(space, targetChannel)
+            // Seed only the previously visible bounded cache when upgrading
+            // from a raw-record service, preserving offline reading anchors.
+            if (before.get("message_history")?.asBoolean != true) store.transaction {
+                val prefix = contentPrefix(space, targetChannel)
+                val from = maxOf(((before.get("last_content")?.asLong ?: 0) - 49).coerceAtLeast(0), before.get("history_from")?.asLong ?: 0)
+                val anchor = get("$space/channels/$targetChannel/reading")?.let(::json)?.number("window_from")
+                for (start in listOfNotNull(from, anchor).distinct())
+                    page(prefix, prefix + positionKey(start)).forEach { indexConfirmedMessage(space, targetChannel, json(it.value)) }
+            }
+            val page = messagePage(space, targetChannel)
+            val readingFrom = from ?: readingAnchor(space, targetChannel)?.windowFrom
+            if (readingFrom != null && readingFrom < page.start) {
+                var cursor: Long = readingFrom
+                var remaining = 50
+                while (remaining > 0) {
+                    val observed = messagePage(space, targetChannel, cursor, before = false, limit = remaining)
+                    remaining -= observed.count
+                    if (!observed.more || observed.count == 0) break
+                    require(observed.next > cursor)
+                    cursor = observed.next
+                }
+            }
+            val next = if (first) page.end else contentPage(space, before.number("content_cursor"), channel = targetChannel)
+            store.transaction {
+                val current = channelState(space, targetChannel)
+                require(current.number("content_cursor") == before.number("content_cursor"))
+                current.addProperty("content_cursor", next); current.addProperty("content_loaded", true)
+                putChannelState(space, targetChannel, current)
+            }
+            return
+        }
         val leading = if (currentChannel.visibility == SpaceVisibility.PUBLIC && first) readPage(JsonObject().apply {
             addProperty("space_id", space); addProperty("stream", "content")
             addProperty("channel_id", targetChannel); addProperty("cursor", 0)
@@ -1737,10 +2011,26 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
 
     data class HistoryWindow(val from: Long, val loadedFrom: Long, val hasEarlier: Boolean, val hasLater: Boolean, val loaded: Boolean = false)
-    fun historyWindow(space: String, from: Long? = null, channel: String? = null): HistoryWindow = store.transaction {
-        owned()
+    fun historyWindow(space: String, from: Long? = null, channel: String? = null): HistoryWindow =
+        conversationHistoryWindow(space, from, channel, null)
+    fun threadHistoryWindow(space: String, parent: Message, from: Long? = null, channel: String? = null): HistoryWindow =
+        conversationHistoryWindow(space, from, channel, parent)
+
+    private fun conversationHistoryWindow(space: String, from: Long?, channel: String?, parent: Message?): HistoryWindow = store.transaction {
+        owned(); require(from == null || from >= 0)
         val state = state(space)
-        val current = channelState(space, channel ?: selectedChannel(state), state)
+        val target = channel ?: selectedChannel(state)
+        parent?.let { threadParent(space, target, it) }
+        val current = conversationState(space, target, parent?.id)
+        if (current.get("message_history")?.asBoolean == true) {
+            val prefix = confirmedMessageIndex(space, target, parent?.id)
+            val start = from ?: maxOf(current.get("latest_message_from")?.asLong ?: 0, latestMessageStart(space, target, 50, parent?.id))
+            val localEarlier = page(prefix, limit = 1).firstOrNull()?.key?.substringAfterLast('/')?.toLong()?.let { it < start } == true
+            val rows = page(prefix, prefix + positionKey(start), 50)
+            val later = rows.lastOrNull()?.let { page(prefix, it.key + '\u0000', 1).isNotEmpty() } == true
+            return@transaction HistoryWindow(start, current.get("history_from")?.asLong ?: start,
+                start > 0 && (localEarlier || current.get("history_has_earlier")?.asBoolean == true), later, current.get("content_loaded")?.asBoolean == true)
+        }
         val last = current.get("last_content")?.asLong ?: 0
         val start = from ?: maxOf((last - 49).coerceAtLeast(0), current.get("history_from")?.asLong ?: 0)
         require(start >= 0)
@@ -1749,36 +2039,59 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     /** Bounded local page, including explicit unavailable keys and durable
      * queued originals. The UI never infers receipt from an optimistic row. */
-    fun timeline(space: String, from: Long? = null, limit: Int = 50, channel: String? = null): List<Message> = store.transaction {
+    fun timeline(space: String, from: Long? = null, limit: Int = 50, channel: String? = null): List<Message> =
+        conversationTimeline(space, from, limit, channel, null)
+
+    private fun conversationTimeline(space: String, from: Long?, limit: Int, channel: String?, thread: String?): List<Message> = store.transaction {
         owned(); require(limit in 1..50)
         val state = state(space)
         ensureMessageIndexes(space, state)
         val targetChannel = channel ?: selectedChannel(state)
-        val data = channelState(space, targetChannel, state)
-        val crypto by lazy { SpaceCrypto.restore(decode(data.text("crypto"))) }
+        val channelData = channelState(space, targetChannel, state)
+        val data = conversationState(space, targetChannel, thread)
+        val crypto by lazy { SpaceCrypto.restore(decode(channelData.text("crypto"))) }
         val prefix = contentPrefix(space, targetChannel)
         val last = data.get("last_content")?.asLong ?: 0
-        val start = from ?: maxOf((last - limit + 1).coerceAtLeast(0), data.get("history_from")?.asLong ?: 0)
+        val indexed = data.get("message_history")?.asBoolean == true
+        val start = from ?: if (indexed) maxOf(data.get("latest_message_from")?.asLong ?: 0, latestMessageStart(space, targetChannel, limit, thread)) else
+            maxOf((last - limit + 1).coerceAtLeast(0), data.get("history_from")?.asLong ?: 0)
         fun message(envelope: String, pending: Boolean, attempted: Boolean, rejected: Boolean = false, position: Long? = null): Message? {
             val original = SaitoEnvelope.decode(envelope)
             if (original.body.get("channel_id")?.asString != targetChannel) return null
-            if (original.body.text("kind") !in setOf("content", "public-content") || original.body.text("content_kind") != "message") return null
-            if (original.body.text("kind") == "public-content") return Message(original.id, original.author, original.createdAt,
-                original.body.text("text"), pending, attempted, missingKeys = false, rejected = rejected, position = position)
+            if (original.body.text("kind") !in setOf("content", "public-content") || original.body.text("content_kind") != (if (thread == null) "message" else "thread-reply")) return null
+            if (thread != null && original.body.text("target_message_id") != thread) return null
             var missing = false
-            val text = try { crypto.read(envelope).text }
-                catch (_: SpaceCrypto.MissingKeys) { missing = true; null }
-                catch (_: java.security.GeneralSecurityException) { null }
-            return Message(original.id, original.author, original.createdAt, text, pending, attempted, missing, rejected, position)
+            fun read(source: String, signed: SignedSaitoMessage): String? =
+                if (signed.body.text("kind") == "public-content") signed.body.text("text") else
+                    try { crypto.read(source).text }
+                    catch (_: SpaceCrypto.MissingKeys) { missing = true; null }
+                    catch (_: java.security.GeneralSecurityException) { null }
+            val base = Message(original.id, original.author, original.createdAt, read(envelope, original),
+                pending, attempted, missing, rejected, position,
+                replyCount = if (thread == null) get(replyCountKey(space, targetChannel, original.id))?.let(::json)?.number("count") ?: 0 else 0)
+            val removed = if (position == null) null else messageDeletion(space, targetChannel, original.id, original.author)
+            if (removed != null && removed.number("target_position") == position && removed.get("thread_root_id")?.asString == thread) return base.copy(text = null, deleted = true, missingKeys = false)
+            val saved = if (position == null) null else get(messageEditKey(space, targetChannel, original.id, original.author))
+            val editEnvelope = saved?.let(::originalEnvelope)
+            val edit = editEnvelope?.let(SaitoEnvelope::decode)
+            return if (edit != null && edit.author == original.author && edit.body.number("target_position") == position && edit.body.get("thread_root_id")?.asString == thread) {
+                missing = false
+                val replacement = read(requireNotNull(editEnvelope), edit)
+                base.copy(text = replacement, edited = true, missingKeys = missing)
+            } else base
         }
-        val confirmed = page(prefix, prefix + positionKey(start), limit).mapNotNull { row ->
-            message(originalEnvelope(row.value), pending = false, attempted = true, position = json(row.value).number("position"))
+        val confirmedRows = if (indexed) {
+            val messages = confirmedMessageIndex(space, targetChannel, thread)
+            page(messages, messages + positionKey(start), limit).map { requireNotNull(get(it.value.toString(Charsets.UTF_8))) }
+        } else page(prefix, prefix + positionKey(start), limit).map { it.value }
+        val confirmed = confirmedRows.mapNotNull { row ->
+            message(originalEnvelope(row), pending = false, attempted = true, position = json(row).number("position"))
         }
-        val pending = page(messageIndex(space, targetChannel, "pending"), limit = limit).mapNotNull { row ->
+        val pending = page(messageIndex(space, targetChannel, "pending", thread), limit = limit).mapNotNull { row ->
             val saved = json(requireNotNull(get(row.value.toString(Charsets.UTF_8))))
             message(SaitoTransaction.restore(saved.text("original")).envelope(), pending = true, attempted = saved.get("attempted").asBoolean)
         }
-        val rejected = page(messageIndex(space, targetChannel, "rejected"), limit = limit).mapNotNull { row ->
+        val rejected = page(messageIndex(space, targetChannel, "rejected", thread), limit = limit).mapNotNull { row ->
             val saved = json(requireNotNull(get(row.value.toString(Charsets.UTF_8))))
             message(SaitoTransaction.restore(saved.text("original")).envelope(), pending = false, attempted = true, rejected = true)
         }
@@ -1793,22 +2106,36 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
     }
     fun readingAnchor(space: String, channel: String? = null): ReadingAnchor? = store.transaction {
-        owned(); val parent = state(space); val target = channel ?: selectedChannel(parent)
-        channelState(space, target, parent)
-        val saved = get("$space/channels/$target/reading")?.let(::json) ?: return@transaction null
+        owned(); val target = channel ?: selectedChannel(state(space)); channelState(space, target)
+        readConversationAnchor(space, target, null)
+    }
+    fun threadReadingAnchor(space: String, parent: Message, channel: String? = null): ReadingAnchor? = store.transaction {
+        owned(); val target = channel ?: selectedChannel(state(space)); threadParent(space, target, parent)
+        readConversationAnchor(space, target, parent.id)
+    }
+    private fun SpaceClientStore.Transaction.readConversationAnchor(space: String, channel: String, thread: String?): ReadingAnchor? {
+        val saved = get(conversationPrefix(space, channel, thread) + "reading")?.let(::json) ?: return null
         require(saved.number("version") == 1L)
         val offset = saved.get("offset").also { require(it.isJsonPrimitive && it.asJsonPrimitive.isNumber) }.asString.toInt()
-        ReadingAnchor(saved.text("message"), saved.number("position"), offset, saved.number("window_from"))
+        return ReadingAnchor(saved.text("message"), saved.number("position"), offset, saved.number("window_from"))
     }
     fun saveReadingAnchor(space: String, channel: String, anchor: ReadingAnchor?) = store.transaction {
         owned(); channelState(space, channel)
-        val key = "$space/channels/$channel/reading"
+        saveConversationAnchor(space, channel, null, anchor)
+    }
+    fun saveThreadReadingAnchor(space: String, parent: Message, anchor: ReadingAnchor?, channel: String? = null) = store.transaction {
+        owned(); val target = channel ?: selectedChannel(state(space)); threadParent(space, target, parent)
+        saveConversationAnchor(space, target, parent, anchor)
+    }
+    private fun SpaceClientStore.Transaction.saveConversationAnchor(space: String, channel: String, parent: Message?, anchor: ReadingAnchor?) {
+        val key = conversationPrefix(space, channel, parent?.id) + "reading"
         if (anchor == null) remove(key) else {
             val record = json(requireNotNull(get(contentPrefix(space, channel) + positionKey(anchor.position))))
             val original = SaitoEnvelope.decode(record.text("event"))
             require(record.number("position") == anchor.position && original.id == anchor.messageId &&
                 original.body.text("space_id") == space && original.body.text("channel_id") == channel &&
-                original.body.text("content_kind") == "message")
+                original.body.text("content_kind") == if (parent == null) "message" else "thread-reply")
+            if (parent != null) require(original.body.text("target_message_id") == parent.id && original.body.number("target_position") == parent.position)
             put(key, bytes(JsonObject().apply {
                 addProperty("version", 1); addProperty("message", anchor.messageId); addProperty("position", anchor.position)
                 addProperty("offset", anchor.offset); addProperty("window_from", anchor.windowFrom)
@@ -1908,6 +2235,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             throw ReadDenied(scope.text("space_id"), problem)
         }
         require(result.text("request") == "page" && result.getAsJsonArray("items").size() <= 50)
+        supportsMessageHistory = result.get("message_history")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean } == true
         return result
     }
 
@@ -2165,7 +2493,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val rejectedKey = "$space/rejected/${original.id}"
                 put(rejectedKey, bytes(pending))
                 messageChannel(original.body)?.let { channel ->
-                    put(messageIndex(space, channel, "rejected") + original.id, rejectedKey.toByteArray(Charsets.UTF_8))
+                    put(messageIndex(space, channel, "rejected", messageThread(original.body)) + original.id, rejectedKey.toByteArray(Charsets.UTF_8))
                 }
                 put(stateKey(space), bytes(state))
             }
@@ -2203,10 +2531,23 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                         }
                     }
                     put(key, bytes(body))
+                    if (original.body.text("kind") in setOf("content", "public-content") && original.body.text("content_kind") == "message-edit") {
+                        val editKey = messageEditKey(space, channel, original.body.text("target_message_id"), original.author)
+                        val prior = get(editKey)?.let(::json)
+                        if (prior == null || prior.number("position") < body.number("position")) put(editKey, bytes(body))
+                    }
+                    if (original.body.text("kind") in setOf("content", "public-content") && original.body.text("content_kind") == "message-delete") {
+                        val target = original.body.text("target_message_id")
+                        val deletionKey = if (historic.hasCurrentAdministratorIntent(original.author, original.body.text("control_id")))
+                            messageModerationKey(space, channel, target) else messageDeletionKey(space, channel, target, original.author)
+                        val prior = get(deletionKey)?.let(::json)
+                        if (prior == null || prior.number("position") < body.number("position")) put(deletionKey, bytes(body))
+                    }
                     if (original.body.text("kind") in setOf("content", "public-content") && original.body.text("content_kind") == "message")
                         contentState.addProperty("last_content", maxOf(contentState.get("last_content")?.asLong ?: 0, body.number("position")))
                     putChannelState(space, channel, contentState)
                 }
+                indexConfirmedMessage(space, channel, body)
             }
             else -> throw IllegalArgumentException("Unexpected community receipt stream")
         }
@@ -2324,7 +2665,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             historyDeliveries?.let { add("history_deliveries", JsonArray().apply { it.forEach { add(it.encoded()) } }) }
         }))
         messageChannel(outbound.body)?.let { channel ->
-            put(messageIndex(space, channel, "pending") + positionKey(sequence), key.toByteArray(Charsets.UTF_8))
+            put(messageIndex(space, channel, "pending", messageThread(outbound.body)) + positionKey(sequence), key.toByteArray(Charsets.UTF_8))
         }
         put("$space/operation/${original.id}", key.toByteArray(Charsets.UTF_8))
         state.addProperty("next_outbox", Math.addExact(sequence, 1))
@@ -2332,10 +2673,47 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         put("communities/$space", space.toByteArray(Charsets.UTF_8))
     }
     private fun messageChannel(body: JsonObject): String? {
-        if (body.text("kind") !in setOf("content", "public-content") || body.text("content_kind") != "message") return null
+        if (body.text("kind") !in setOf("content", "public-content") || body.text("content_kind") !in setOf("message", "thread-reply")) return null
         return body.text("channel_id").also { require(it.matches(ID)) }
     }
-    private fun messageIndex(space: String, channel: String, disposition: String) = "$space/channels/$channel/$disposition/"
+    private fun messageThread(body: JsonObject): String? =
+        if (body.get("content_kind")?.asString == "thread-reply") body.text("target_message_id") else null
+    private fun conversationPrefix(space: String, channel: String, thread: String?) =
+        if (thread == null) "$space/channels/$channel/" else "$space/channels/$channel/threads/$thread/"
+    private fun messageIndex(space: String, channel: String, disposition: String, thread: String? = null) = conversationPrefix(space, channel, thread) + "$disposition/"
+    private fun confirmedMessageIndex(space: String, channel: String, thread: String? = null) = conversationPrefix(space, channel, thread) + "messages/"
+    private fun reverseMessageIndex(space: String, channel: String, thread: String? = null) = conversationPrefix(space, channel, thread) + "messages-reverse/"
+    private fun threadDraftKey(space: String, channel: String, parent: String) = conversationPrefix(space, channel, parent) + "draft"
+    private fun replyCountKey(space: String, channel: String, parent: String) = "$space/channels/$channel/reply-counts/$parent"
+    private fun SpaceClientStore.Transaction.conversationState(space: String, channel: String, thread: String?): JsonObject =
+        if (thread == null) channelState(space, channel) else get(conversationPrefix(space, channel, thread) + "state")?.let(::json) ?: JsonObject().apply {
+            addProperty("content_cursor", 0); addProperty("message_history", true)
+        }
+    private fun SpaceClientStore.Transaction.putConversationState(space: String, channel: String, thread: String?, data: JsonObject) {
+        if (thread == null) putChannelState(space, channel, data) else put(conversationPrefix(space, channel, thread) + "state", bytes(data))
+    }
+    private fun SpaceClientStore.Transaction.indexConfirmedMessage(space: String, channel: String, receipt: JsonObject) {
+        val original = SaitoEnvelope.decode(receipt.text("event"))
+        if (original.body.get("content_kind")?.asString !in setOf("message", "thread-reply")) return
+        val thread = messageThread(original.body)
+        val position = receipt.number("position")
+        val pointer = (contentPrefix(space, channel) + positionKey(position)).toByteArray(Charsets.UTF_8)
+        put(confirmedMessageIndex(space, channel, thread) + positionKey(position), pointer)
+        put(reverseMessageIndex(space, channel, thread) + positionKey(Long.MAX_VALUE - position), pointer)
+    }
+    private fun SpaceClientStore.Transaction.latestMessageStart(space: String, channel: String, limit: Int, thread: String? = null): Long =
+        page(reverseMessageIndex(space, channel, thread), limit = limit).lastOrNull()?.let {
+            Long.MAX_VALUE - it.key.substringAfterLast('/').toLong()
+        } ?: 0
+    private fun messageDeletionKey(space: String, channel: String, message: String, author: String) =
+        "$space/channels/$channel/message-deletions/$message/author/$author"
+    private fun messageModerationKey(space: String, channel: String, message: String) =
+        "$space/channels/$channel/message-deletions/$message/staff"
+    private fun SpaceClientStore.Transaction.messageDeletion(space: String, channel: String, message: String, author: String): JsonObject? =
+        listOf(messageDeletionKey(space, channel, message, author), messageModerationKey(space, channel, message))
+            .mapNotNull { get(it)?.let(::json) }.maxByOrNull { it.number("position") }?.let { SaitoEnvelope.decode(it.text("event")).body }
+    private fun messageEditKey(space: String, channel: String, message: String, author: String) =
+        "$space/channels/$channel/message-edits/$message/$author"
     /** Rebuild disposable pointers from pre-index records, retaining every original. */
     private fun SpaceClientStore.Transaction.ensureMessageIndexes(space: String, state: JsonObject) {
         state.get("message_index_version")?.let { require(it.toString() == "1"); return }
@@ -2350,7 +2728,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                         original.body.text("module") == "Spaces" && original.body.text("request") == "event" &&
                         original.body.number("version") == 1L && original.body.text("space_id") == space)
                     messageChannel(original.body)?.let { channel ->
-                        put(messageIndex(space, channel, disposition) + row.key.substringAfterLast('/'), row.key.toByteArray(Charsets.UTF_8))
+                        put(messageIndex(space, channel, disposition, messageThread(original.body)) + row.key.substringAfterLast('/'), row.key.toByteArray(Charsets.UTF_8))
                     }
                 }
                 if (rows.size < 50) break

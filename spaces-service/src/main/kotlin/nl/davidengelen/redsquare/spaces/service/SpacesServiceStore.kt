@@ -5,6 +5,7 @@ import com.google.gson.JsonArray
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.saito.SignedSaitoMessage
 import nl.davidengelen.redsquare.spaces.SpaceJournal
 import nl.davidengelen.redsquare.spaces.SpaceRole
 import nl.davidengelen.redsquare.spaces.SpaceProfile
@@ -31,18 +32,18 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val version = database.createStatement().use { sql ->
             sql.executeQuery("PRAGMA user_version").use { rows -> check(rows.next()); rows.getInt(1) }
         }
-        check(version == 4)
+        check(version == 5)
         database.createStatement().use { sql ->
             sql.executeQuery("SELECT service_key FROM service_metadata WHERE id=1").use { rows ->
                 check(rows.next() && rows.getString(1) == wallet.publicKey)
             }
         }
-        database.createStatement().use { it.executeQuery("SELECT kind,recipient_credential FROM records LIMIT 0").close() }
+        database.createStatement().use { it.executeQuery("SELECT kind,recipient_credential,target_message_id FROM records LIMIT 0").close() }
         database.createStatement().use { it.executeQuery("SELECT space_id,listed,listing_receipt FROM public_spaces LIMIT 0").close() }
         return JsonObject().apply {
             addProperty("capability", "spaces-v1"); addProperty("service_key", wallet.publicKey)
             addProperty("schema", version); addProperty("state", "ready"); addProperty("file_hosting", false)
-            add("features", JsonArray().apply { add("unread-v1"); add("channel-archive-v1"); add("role-management-v1"); add("public-channel-edit-v1"); add("private-channel-access-v1"); add("private-channel-edit-v1"); add("membership-management-v1"); add("ownership-management-v1"); add("category-management-v1"); add("visibility-management-v1"); add("dissolution-v1") })
+            add("features", JsonArray().apply { add("message-history-v1"); add("unread-v1"); add("channel-archive-v1"); add("role-management-v1"); add("public-channel-edit-v1"); add("private-channel-access-v1"); add("private-channel-edit-v1"); add("membership-management-v1"); add("ownership-management-v1"); add("category-management-v1"); add("visibility-management-v1"); add("dissolution-v1") })
         }.toString()
     }
 
@@ -56,15 +57,18 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val requestId = body.text("request_id").also { require(it.matches(ID)) }
         val scope = body.get("scope").also { require(it != null && it.isJsonObject) }.asJsonObject.deepCopy()
         val space = scope.text("space_id").also { require(it.matches(ID)) }
-        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation", "directory", "heads")) }
+        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation", "directory", "heads", "messages")) }
         require(scope.keySet() == setOf("space_id", "stream", "cursor") + when (stream) {
+            "messages" -> setOf("channel_id", "direction", "limit") + if (scope.has("thread_id")) setOf("thread_id") else emptySet()
             "content" -> setOf("channel_id"); "keys" -> setOf("channel_id", "recipient_credential")
             "invitation" -> setOf("invite_id"); "directory" -> setOf("query"); "heads" -> setOf("positions"); else -> emptySet()
         })
         if (stream == "directory") require(space == "0".repeat(64) && scope.text("query").let { it.codePointCount(0, it.length) <= 128 })
-        val channel = if (stream in setOf("content", "keys")) scope.text("channel_id").also { require(it.matches(ID)) } else null
+        val channel = if (stream in setOf("content", "keys", "messages")) scope.text("channel_id").also { require(it.matches(ID)) } else null
         val recipient = if (stream == "keys") scope.text("recipient_credential") else null
         val cursor = scope.number("cursor")
+        if (stream == "messages") require(scope.text("direction") in setOf("before", "after") && scope.number("limit") in 1..50)
+        if (stream == "messages" && scope.has("thread_id")) require(scope.text("thread_id").matches(Regex("[0-9a-f]{128}")))
         if (stream == "heads") {
             require(cursor == 0L)
             val positions = scope.getAsJsonObject("positions")
@@ -119,7 +123,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                             denied("unavailable"); return@atomic
                         }
                     } else if (!(journal.snapshot.visibility == SpaceVisibility.PUBLIC && stream == "control") &&
-                        !(stream == "content" && journal.snapshot.channels[channel]?.visibility == SpaceVisibility.PUBLIC) &&
+                        !(stream in setOf("content", "messages") && journal.snapshot.channels[channel]?.visibility == SpaceVisibility.PUBLIC) &&
                         request.author !in journal.snapshot.members && departureEnd == null) { denied("unavailable"); return@atomic }
                     if (channel != null) {
                         val target = journal.snapshot.channels[channel]
@@ -138,6 +142,18 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         } == true }
                         if (!allowed) { denied("unavailable"); return@atomic }
                         headPage(reply, space, request.author, positions)
+                        return@atomic
+                    }
+                    if (stream == "messages") {
+                        val thread = scope.get("thread_id")?.asString
+                        if (thread != null) {
+                            val known = database.prepareStatement("SELECT 1 FROM records WHERE space_id=? AND channel_id=? AND kind='message' AND event_id=?").use { sql ->
+                                sql.setString(1, space); sql.setString(2, channel); sql.setString(3, thread)
+                                sql.executeQuery().use { it.next() }
+                            }
+                            if (!known) { denied("unavailable"); return@atomic }
+                        }
+                        messagePage(reply, space, requireNotNull(channel), cursor, scope.text("direction"), scope.number("limit").toInt(), thread)
                         return@atomic
                     }
                     val items = JsonArray()
@@ -183,10 +199,54 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 }
                 if (!reply.has("request")) reply.addProperty("request", "page")
                 reply.addProperty("nonce", nonce)
+                reply.addProperty("message_history", true)
             }
             else -> throw IllegalArgumentException("Unsupported Spaces read request")
         }
         return SaitoTransaction.createSpaceReply(wallet, reply, now, request.author).envelope()
+    }
+
+    /** Message slots, independent of the number of immutable mutations. The
+     * original receipt and its latest edit remain independently authenticated. */
+    private fun messagePage(reply: JsonObject, space: String, channel: String, cursor: Long, direction: String, limit: Int, thread: String?) {
+        val before = direction == "before"
+        val items = mutableListOf<JsonObject>()
+        var size = 0
+        var more = false
+        database.prepareStatement("SELECT position,event_id,receipt FROM records WHERE space_id=? AND channel_id=? AND kind=?" +
+            (if (thread == null) "" else " AND target_message_id=?") + " AND position" +
+            (if (before) "<? ORDER BY position DESC" else ">=? ORDER BY position") + " LIMIT ?").use { sql ->
+            sql.setString(1, space); sql.setString(2, channel); sql.setString(3, if (thread == null) "message" else "thread-reply")
+            var parameter = 4
+            if (thread != null) sql.setString(parameter++, thread)
+            sql.setLong(parameter++, cursor); sql.setInt(parameter, limit + 1)
+            sql.executeQuery().use { rows ->
+                while (rows.next()) {
+                    val item = JsonObject().apply { addProperty("message", rows.getString(3)) }
+                    if (thread == null) database.prepareStatement("SELECT COUNT(*) FROM records WHERE space_id=? AND channel_id=? AND kind='thread-reply' AND target_message_id=?").use { count ->
+                        count.setString(1, space); count.setString(2, channel); count.setString(3, rows.getString(2))
+                        count.executeQuery().use { summary -> check(summary.next()); item.addProperty("reply_count", summary.getLong(1)) }
+                    }
+                    database.prepareStatement("SELECT receipt FROM records WHERE space_id=? AND channel_id=? AND kind='message-edit' AND target_message_id=? ORDER BY position DESC LIMIT 1").use { edit ->
+                        edit.setString(1, space); edit.setString(2, channel); edit.setString(3, rows.getString(2))
+                        edit.executeQuery().use { versions -> if (versions.next()) item.addProperty("edit", versions.getString(1)) }
+                    }
+                    database.prepareStatement("SELECT receipt FROM records WHERE space_id=? AND channel_id=? AND kind='message-delete' AND target_message_id=? ORDER BY position DESC LIMIT 1").use { deletion ->
+                        deletion.setString(1, space); deletion.setString(2, channel); deletion.setString(3, rows.getString(2))
+                        deletion.executeQuery().use { versions -> if (versions.next()) item.addProperty("deletion", versions.getString(1)) }
+                    }
+                    val bytes = item.toString().toByteArray(Charsets.UTF_8).size
+                    check(bytes <= PAGE_BYTES) { "Spaces message exceeds the page capacity" }
+                    if (items.size == limit || size + bytes > PAGE_BYTES) { more = true; break }
+                    items.add(item); size += bytes
+                }
+            }
+        }
+        if (before) items.reverse()
+        reply.add("items", JsonArray().apply { items.forEach(::add) })
+        reply.addProperty("next_cursor", items.lastOrNull()?.let { Math.addExact(SaitoEnvelope.decode(it.text("message")).body.number("position"), 1) } ?: cursor)
+        reply.addProperty("has_more", more)
+        reply.addProperty("content_end", nextPosition("records", space, channel))
     }
 
     private fun originalEnvelope(receipt: String): String = SaitoEnvelope.decode(receipt).body.text("event")
@@ -264,7 +324,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val existingVersion = sql.executeQuery("PRAGMA user_version").use { rows ->
                     check(rows.next()); rows.getInt(1)
                 }
-                check(existingVersion in 0..4) { "Spaces storage version needs a compatible service" }
+                check(existingVersion in 0..5) { "Spaces storage version needs a compatible service" }
                 if (existingVersion == 0) sql.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").use { rows ->
                     check(!rows.next()) { "Existing unversioned Spaces storage needs recovery" }
                 }
@@ -282,7 +342,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val version = database.createStatement().use { sql ->
                     sql.executeQuery("PRAGMA user_version").use { rows -> check(rows.next()); rows.getInt(1) }
                 }
-                check(version in 0..4) { "Spaces storage version needs a compatible service" }
+                check(version in 0..5) { "Spaces storage version needs a compatible service" }
                 if (version == 0) {
                     database.createStatement().use { sql ->
                         sql.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").use {
@@ -368,6 +428,31 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     }
                     database.createStatement().use { it.execute("PRAGMA user_version=4") }
                 }
+                if (version < 5) {
+                    database.createStatement().use { it.execute("ALTER TABLE records ADD COLUMN target_message_id TEXT") }
+                    var after = 0L
+                    while (true) {
+                        val batch = database.prepareStatement("SELECT rowid,original FROM records WHERE rowid>? ORDER BY rowid LIMIT 100").use { select ->
+                            select.setLong(1, after)
+                            select.executeQuery().use { rows -> buildList { while (rows.next()) add(rows.getLong(1) to rows.getString(2)) } }
+                        }
+                        for ((row, original) in batch) {
+                            val body = SaitoEnvelope.decode(original).body
+                            database.prepareStatement("UPDATE records SET kind=?,target_message_id=? WHERE rowid=?").use { update ->
+                                update.setString(1, if (body.text("kind") in setOf("content", "public-content")) body.text("content_kind") else body.text("kind"))
+                                update.setString(2, body.get("target_message_id")?.asString); update.setLong(3, row)
+                                check(update.executeUpdate() == 1)
+                            }
+                            after = row
+                        }
+                        if (batch.size < 100) break
+                    }
+                    database.createStatement().use { sql ->
+                        sql.execute("CREATE INDEX records_messages ON records(space_id,channel_id,kind,position)")
+                        sql.execute("CREATE INDEX records_message_versions ON records(space_id,channel_id,kind,target_message_id,position)")
+                        sql.execute("PRAGMA user_version=5")
+                    }
+                }
             }
         } catch (failure: Throwable) {
             try { database.close() } catch (cleanup: Throwable) { failure.addSuppressed(cleanup) }
@@ -438,7 +523,10 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 try {
                     when {
                         joining -> journal.verifyJoin(envelope, acceptedAt)
-                        content -> journal.verifyContent(envelope)
+                        content -> {
+                            journal.verifyContent(envelope)
+                            verifyMessageMutation(event, journal)
+                        }
                         else -> journal.receive(receipt)
                     }
                 } catch (_: IllegalArgumentException) {
@@ -450,7 +538,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     return@atomic rejected
                 }
                 if (content) {
-                    database.prepareStatement("INSERT INTO records(space_id,channel_id,position,event_id,operation_id,actor,control_id,epoch,generation,original,receipt,accepted_at,kind,recipient_credential) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)").use { sql ->
+                    database.prepareStatement("INSERT INTO records(space_id,channel_id,position,event_id,operation_id,actor,control_id,epoch,generation,original,receipt,accepted_at,kind,recipient_credential,target_message_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)").use { sql ->
                         sql.setString(1, space); sql.setString(2, body.text("channel_id")); sql.setLong(3, position)
                         sql.setString(4, event.id); sql.setString(5, operation); sql.setString(6, event.author)
                         sql.setString(7, requireNotNull(state.controlId)); sql.setLong(8, body.number("epoch"))
@@ -458,6 +546,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         sql.setString(11, receipt); sql.setLong(12, acceptedAt)
                         sql.setString(13, if (body.text("kind") in setOf("content", "public-content")) body.text("content_kind") else body.text("kind"))
                         sql.setString(14, body.get("recipient_credential")?.asString)
+                        sql.setString(15, body.get("target_message_id")?.asString)
                         check(sql.executeUpdate() == 1)
                     }
                 } else insertSimple(table, space, position, event.id, operation, event.author, envelope, receipt, acceptedAt)
@@ -473,6 +562,37 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 receipt
             }
         }
+    }
+
+    private fun verifyMessageMutation(event: SignedSaitoMessage, journal: SpaceJournal) {
+        val body = event.body
+        val kind = body.get("content_kind")?.asString
+        if (kind !in setOf("message-edit", "message-delete", "thread-reply")) return
+        val target = body.text("target_message_id")
+        val position = body.number("target_position")
+        require(target.matches(Regex("[0-9a-f]{128}")) && position >= 0)
+        val original = database.prepareStatement("SELECT original FROM records WHERE space_id=? AND channel_id=? AND position=? AND event_id=? AND kind IN ('message','thread-reply')").use { sql ->
+            sql.setString(1, body.text("space_id")); sql.setString(2, body.text("channel_id"))
+            sql.setLong(3, position); sql.setString(4, target)
+            sql.executeQuery().use { rows -> if (rows.next()) rows.getString(1) else null }
+        }
+        val accepted = SaitoEnvelope.decode(requireNotNull(original))
+        val acceptedKind = accepted.body.text("content_kind")
+        if (kind == "thread-reply") {
+            require(acceptedKind == "message") { "Replies belong to a top-level message" }
+            return
+        }
+        val thread = if (acceptedKind == "thread-reply") accepted.body.text("target_message_id") else null
+        require(body.get("thread_root_id")?.asString == thread) { "A change belongs to its actual conversation" }
+        val author = accepted.author
+        require(author == event.author || kind == "message-delete" && journal.hasCurrentAdministratorIntent(event.author, body.text("control_id"))) {
+            "Only the author can edit; moderation needs current staff authority"
+        }
+        val deleted = database.prepareStatement("SELECT 1 FROM records WHERE space_id=? AND channel_id=? AND kind='message-delete' AND target_message_id=? LIMIT 1").use { sql ->
+            sql.setString(1, body.text("space_id")); sql.setString(2, body.text("channel_id")); sql.setString(3, target)
+            sql.executeQuery().use { it.next() }
+        }
+        require(!deleted) { "The message has already been removed" }
     }
 
     private fun nextPosition(table: String, space: String, channel: String? = null): Long =

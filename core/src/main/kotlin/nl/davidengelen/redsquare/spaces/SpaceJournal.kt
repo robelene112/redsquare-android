@@ -37,6 +37,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
     private val applied = mutableMapOf<Long, String>()
     private val operations = mutableMapOf<String, String>()
     private val controlPositions = mutableMapOf<String, Long>()
+    private var ownershipStartedAt = 0L
     private data class HistoryDelivery(val author: String, val channel: String, val generation: String,
         val epoch: Long, val recipient: String, val control: String)
     private val historyDeliveries = mutableMapOf<String, HistoryDelivery>()
@@ -72,6 +73,15 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         val endedAt = current.membershipEndedAt[actor]
         return !current.dissolved && actor !in current.bannedMembers && if (controlId == null) endedAt == null else
             controlPositions[controlId]?.let { it >= (endedAt ?: 0L) } == true
+    }
+
+    /** Regranting staff powers cannot revive an earlier moderation decision. */
+    fun hasCurrentAdministratorIntent(actor: String, controlId: String): Boolean {
+        val reference = controlPositions[controlId] ?: return false
+        val role = current.members[actor]
+        if (current.dissolved || role !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)) return false
+        val startedAt = if (role == SpaceRole.OWNER) ownershipStartedAt else current.administratorStartedAt[actor] ?: 0L
+        return reference >= maxOf(startedAt, current.membershipEndedAt[actor] ?: 0L)
     }
 
     /** A policy regrant cannot revive a request from an earlier access term. */
@@ -528,6 +538,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         operations[operation] = event.id
         admittedJoin?.let { operations[it.operationId] = it.id }
         historyDeliveries.putAll(admittedHistory)
+        if (next.owner != current.owner) ownershipStartedAt = position
         current = next
         return next
     }
@@ -769,7 +780,11 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         val keyDelivery = body.text("kind") == "history" ||
             body.text("kind") == "content" && body.text("content_kind") == "history-keys"
         require(!channel.archived || keyDelivery) { "This channel is archived" }
-        val administratorOnly = channel.adminPostsOnly || channel.profile?.kind == SpaceChannelKind.ANNOUNCEMENT
+        val contentKind = body.get("content_kind")?.asString
+        if (body.has("thread_root_id")) require(contentKind in setOf("message-edit", "message-delete") &&
+            body.text("thread_root_id").matches(Regex("[0-9a-f]{128}")))
+        val threadContribution = contentKind == "thread-reply" || contentKind in setOf("message-edit", "message-delete") && body.has("thread_root_id")
+        val administratorOnly = (channel.adminPostsOnly || channel.profile?.kind == SpaceChannelKind.ANNOUNCEMENT) && !threadContribution
         if (administratorOnly)
             require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         val reference = requireNotNull(controlPositions[body.text("control_id")])
@@ -782,8 +797,11 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         // History-key delivery remains independent of the contribution window.
         require(keyDelivery || reference >= channel.contributionStartedAt) { "Channel writing permissions changed" }
         require(body.number("epoch") == channel.epoch && body.text("key_generation") == channel.generation)
+        if (body.get("content_kind")?.asString in setOf("message-edit", "message-delete", "thread-reply")) {
+            require(body.text("target_message_id").matches(Regex("[0-9a-f]{128}")) && body.number("target_position") >= 0)
+        }
         if (channel.visibility == SpaceVisibility.PUBLIC) {
-            require(body.text("kind") == "public-content" && body.text("content_kind") == "message")
+            require(body.text("kind") == "public-content" && body.text("content_kind") in setOf("message", "message-edit", "message-delete", "thread-reply"))
             val text = body.text("text")
             require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
             return

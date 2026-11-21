@@ -7,12 +7,13 @@ const SpacesBridge = require('../bridge.cjs');
 test('the local bridge advertises only the matching service and preserves the received envelope', async t => {
   const originals = [];
   let features = [];
+  let schema = 4;
   const original = JSON.stringify({t: 'fixture-request-header', m: 'fixture-ciphertext', opt: 'e30='});
   const receipt = {t: 'fixture-receipt-header', m: 'fixture-signed-receipt', opt: 'e30='};
   const server = http.createServer(async (request, response) => {
     response.setHeader('Content-Type', 'application/json');
     if (request.method === 'GET' && request.url === '/v1/readiness') {
-      response.end(JSON.stringify({capability: 'spaces-v1', service_key: 'service-key', schema: 4, state: 'ready', file_hosting: false, features}));
+      response.end(JSON.stringify({capability: 'spaces-v1', service_key: 'service-key', schema, state: 'ready', file_hosting: false, features}));
     } else if (request.method === 'POST' && request.url === '/v1/exchange') {
       const chunks = [];
       for await (const chunk of request) chunks.push(chunk);
@@ -49,6 +50,16 @@ test('the local bridge advertises only the matching service and preserves the re
   assert.equal(bridge.supportsCategoryManagement, true);
   assert.equal(bridge.supportsVisibilityManagement, true);
   assert.equal(bridge.supportsDissolution, true);
+  schema = 5;
+  assert.equal(await bridge.ready(), true);
+  assert.equal(bridge.supportsUnread, true);
+  assert.equal(bridge.supportsDissolution, true);
+  schema = 6;
+  assert.equal(await bridge.ready(), false);
+  assert.equal(bridge.supportsUnread, false);
+  assert.equal(bridge.supportsDissolution, false);
+  schema = 5;
+  assert.equal(await bridge.ready(), true);
   const mismatched = new SpacesBridge(endpoint, 'another-key');
   assert.equal(await mismatched.ready(), false);
   assert.equal(mismatched.supportsUnread, false);
