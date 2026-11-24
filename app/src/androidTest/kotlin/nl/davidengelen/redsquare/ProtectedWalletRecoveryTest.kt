@@ -50,7 +50,7 @@ class ProtectedWalletRecoveryTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:1/wsopen").putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:1/wsopen")
                 .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
                 withFailureCapture({ captureNativeScreen(File(evidence, "failure.png")) }) {
-                    ui.waitUntil(15_000) { ui.onNodeWithText("Home").isDisplayed() }
+                    ui.waitForAccountMenu(15_000)
                     ui.openWallet()
                     assertEquals(wallet.publicKey, displayedWalletAddress(ui))
                     ui.onNode(hasText("Import wallet") and hasClickAction()).performScrollTo().assertIsEnabled().performClick()
