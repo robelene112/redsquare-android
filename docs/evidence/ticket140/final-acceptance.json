@@ -1,0 +1,203 @@
+{
+  "ticket": 140,
+  "parent": 134,
+  "approvedDesign": "Native prototype option B",
+  "status": "accepted",
+  "recordedAt": "2026-11-24T22:10:46.542017+00:00",
+  "measuredProductSource": "78a2b6a702c8968770330e51b538f876b23d6013",
+  "acceptanceMap": [
+    {
+      "requirement": "Signed conversations, threads, edits, removals, reactions, staff pins and announcement authority",
+      "evidence": [
+        "Android 10 and 17 each open real threads from a pinned root and reply, preserve both drafts and render the same reply before and after the pin action.",
+        "Native edit and moderator removal retain the accepted base ID. An independent wallet confirms the exact edit, deletion and reaction. The reaction sheet also renders selected heart and count two after its origin leaves composition.",
+        "SpaceMessageThreadsTest, SpaceMessageDeletionTest, SpaceMessageReactionsTest and SpaceMessagePinsTest exercise service authority, encryption, receipt binding and announcement publishing with member replies."
+      ]
+    },
+    {
+      "requirement": "Durable drafts, cancellation and exact retry",
+      "evidence": [
+        "Separate channel and thread drafts survive normal routes and recreation. Real force-stop and cold load keep a later draft and reconcile the same signed original.",
+        "SpaceMessageThreadsTest exercises offline queued root and reply cancellation, absence at the peer, cancellation versus attempted delivery and retained drafts through the production client and store."
+      ]
+    },
+    {
+      "requirement": "Bounded off-main history and stable reading",
+      "evidence": [
+        "Native tests require a signed Android consumption witness for new independent deliveries, preserve the reader's original pixel, and keep the full pinned reply readable when its state changes.",
+        "The process run preserves the exact reading pixel across arrivals and a switch to Red Square and back. It also shows correct older and latest pages."
+      ]
+    },
+    {
+      "requirement": "Distinct unread activity and personal mentions",
+      "evidence": [
+        "Both Android runs use an independent sender, show an ordinary dot and then personal count one, clear the indicators on read and restore Silent after Activity recreation.",
+        "SpaceMessageAttentionTest and SpaceNotificationPreferencesTest verify the personal default, All and Silent, exact parent/mention handling, staff-only everyone authority, recipient opt-out and recovery after delayed keys."
+      ]
+    },
+    {
+      "requirement": "Peer effects, key and permission changes, native interruption, and app continuity",
+      "evidence": [
+        "Actual IME, Back, Activity recreation and independent received effects in both focused journeys. Real Android 17 external force-stop and separate PID recovery in the process journey.",
+        "Service suite covers archive, timeout, state races and epochs. The process journey checks the real wallet and Red Square module on its ordinary route. The integrated regression and beta delivery are part of #147."
+      ]
+    }
+  ],
+  "nativeConversationScopes": {
+    "android10": {
+      "run": "https://github.com/robelene112/redsquare-android/actions/runs/45495990945",
+      "source": "78a2b6a702c8968770330e51b538f876b23d6013",
+      "api": "29",
+      "apkSha256": {
+        "app-debug.apk": "af922a691c4af043c4cde36a2f96b158da6e7ed5f7b82c6326391e62de1c8097",
+        "app-debug-androidTest.apk": "0dff1329f5b5149f95be60186f3665b5bf30b84097b6d63096bd4ff8738e75b2"
+      },
+      "jvm": {
+        "core": {
+          "tests": 254,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        "spaces-service": {
+          "tests": 200,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        }
+      },
+      "manifestFiles": 27,
+      "nativeTimesSeconds": {
+        "conversation-overlays": 77.964,
+        "conversation-pins": 44.224,
+        "conversation-attention": 27.193
+      },
+      "pairs": 17,
+      "recordedFrames": {
+        "phase-1": 387,
+        "phase-2": 256,
+        "phase-3": 105
+      },
+      "terminalCases": 3,
+      "artifact": "android-native-proof",
+      "evidencePath": ".scratch/device-evidence/api-29/spaces-journey"
+    },
+    "android17": {
+      "run": "https://github.com/robelene112/redsquare-android/actions/runs/45495174950",
+      "source": "78a2b6a702c8968770330e51b538f876b23d6013",
+      "api": "37.0",
+      "apkSha256": {
+        "app-debug.apk": "6f0b03de578e14bc8eb5f732ae1a637b2750921887ec1ad15d3389b98ec08c0d",
+        "app-debug-androidTest.apk": "638b4a053edb55bfe387a9b6dfec67258ef8529f64c3a1f0c8e2d705edca8b40"
+      },
+      "jvm": {
+        "core": {
+          "tests": 254,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        "spaces-service": {
+          "tests": 200,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        }
+      },
+      "manifestFiles": 27,
+      "nativeTimesSeconds": {
+        "conversation-overlays": 89.583,
+        "conversation-pins": 48.447,
+        "conversation-attention": 24.264
+      },
+      "pairs": 17,
+      "recordedFrames": {
+        "phase-1": 538,
+        "phase-2": 379,
+        "phase-3": 162
+      },
+      "terminalCases": 3,
+      "artifact": "android-native-proof",
+      "evidencePath": ".scratch/device-evidence/api-37.0/spaces-journey"
+    }
+  },
+  "distinctProcessScope": {
+    "run": "https://github.com/robelene112/redsquare-android/actions/runs/45488826281",
+    "source": "2fd8542021af002e575078d44347d7432b040ad4",
+    "api": "37.0",
+    "apkSha256": {
+      "app-debug.apk": "7374193fa8b583a167a750b0f1598bed49bb2281ec9a85de7b2e9834e32bde6e",
+      "app-debug-androidTest.apk": "575c524895fb4ee1021dbbfda63777a9200400d7af1734f9d4192a0775c1b1f4"
+    },
+    "jvm": {
+      "core": {
+        "tests": 254,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      "spaces-service": {
+        "tests": 200,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      }
+    },
+    "manifestFiles": 24,
+    "nativeTimesSeconds": {
+      "after-kill": 10.705
+    },
+    "pairs": 15,
+    "recordedFrames": {
+      "phase-1": 565,
+      "phase-2": 113
+    },
+    "terminalCases": 1,
+    "artifact": "android-native-proof",
+    "evidencePath": ".scratch/device-evidence/api-37.0/spaces-journey",
+    "oldPid": 3089,
+    "newPid": 5721,
+    "forceStopped": true,
+    "sameOriginalSubmissions": 2,
+    "independentAcceptedMessages": 1,
+    "independentCopiesOfUnsentDraft": 0,
+    "anchorPixelBoundsBeforeAfterAndReturn": [
+      68,
+      271,
+      158,
+      290
+    ],
+    "sourceBridge": "Only the separately reviewed pin, reaction and editor overlays change on the ordinary process route after this measured source. Its ordinary scroll targets retain their IDs and behavior. The revised metadata uses the same text height for non-pin messages. The recorded APK hashes remain those of this run."
+  },
+  "retainedEarlierEvidence": {
+    "failedWholeRuns": [
+      45480966394,
+      45481404334,
+      45481745618,
+      45484218827,
+      45484644819,
+      45487532502,
+      45491713958
+    ],
+    "passingWithVisualFindings": [
+      45484219208,
+      45486534253,
+      45486534592,
+      45488825588,
+      45489261440,
+      45491435016,
+      45494243730
+    ]
+  },
+  "qualifications": [
+    "The scope is an owned signed-peer fixture and Android emulators. It does not activate production nodes or providers.",
+    "The Android 17 process recording retains a single approximately 17ms prior overview frame after Join. Integrated module transition and physical-device verification remain in #147.",
+    "Delivery through Activity, deep links, integration at scale and public beta publication remain in their later tickets.",
+    "One 33 ms Android 10 keyboard transition frame briefly covers the composer at the OS boundary. The next and settled frames show the field and controls. No material recurrence of the earlier clipped editor or pin body was observed in the targeted flows."
+  ],
+  "nextIssue": 141,
+  "reviews": {
+    "standards": "Verified the latest archived Android 10 and 17 actual frame sequences for readable pin, correct modal exit and editor restoration, and visible reaction selection. Reviewed all 678 frames of the distinct Android 17 recovery recording.",
+    "specification": "Verified source identity, independent effects, visible actual IME edits, exact selected heart and pins, distinct attention counters, restored drafts and process retry invariants."
+  }
+}

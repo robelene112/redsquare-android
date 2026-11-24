@@ -1,5 +1,15 @@
 # Development workflow
 
+## Accepted #140, continue #141
+
+Native Spaces conversations and threads, edits and moderation placeholders,
+reactions and staff pins, separate recoverable drafts, unread indicators and
+notification preferences are accepted. The
+[#140 acceptance record](evidence/ticket140/final-acceptance.json) ties exact
+Android 10 and 17 artifacts and distinct-process evidence to their source.
+Continue #141 through #147 sequentially. Legacy Chat E2E starts in #141.
+Public beta delivery and integrated scale and device checks remain in #147.
+
 ## Accepted139, continue140
 
 Community channel/category administration, roles, private access, explicit

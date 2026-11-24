@@ -1,12 +1,12 @@
 # Spaces protocol and persistence, version1
 
-## In-progress140 conversation storage
+## Accepted #140 conversations
 
-Current source uses envelope version1 and persistent schema5. The conversation
-backend is verified independently of the native interface. Native conversation
-controls compile; their visual/process checks, remaining140 features and node
-activation are still in progress.
-Earlier sections below retain their explicitly stated stage/version scopes.
+The client and owned service use envelope version 1 and persistent schema 5.
+Native conversations, edits, reactions, pins, and attention passed on Android 10
+and 17. The independent-peer and process evidence is in the
+[#140 acceptance record](evidence/ticket140/final-acceptance.json).
+Earlier sections retain their explicitly stated stage and version scopes.
 
 Accepted `content` and `public-content` records now distinguish `message`,
 `thread-reply`, `message-edit` and `message-delete`. Every change retains its
@@ -119,9 +119,10 @@ A `message-pin` is a staff decision on an accepted base ID and position.
 Reply pins bind the original thread parent. Private decisions use archive AEAD.
 The service verifies staff authority for the supplied control term. A local
 pending change retains the exact signed original and permits cancellation
-before its first attempt. The authenticated pin stream pages active references
-independently of the visible message window. Opening a reference resolves
-the exact root or reply, keeping separate drafts for the channel and thread.
+before its first attempt. The authenticated pin stream pages the latest signed
+decisions independently of the visible message window. The client projects
+active references from those decisions. Opening a reference resolves the exact
+root or reply and keeps separate drafts for the channel and thread.
 
 The protected receiving client derives personal unread activity from exact
 wallet mentions and the authenticated parent of a reply. It checks

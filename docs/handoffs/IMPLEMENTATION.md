@@ -1,26 +1,26 @@
 # Implementation handoff
 
-## In-progress #140 Android conversation evidence
+## Accepted #140, continue #141
 
-Android 17 process run 45484219208 at `f8082298a` passed an actual
-force-stop and cold recovery across PIDs 3021 and 5495. The peer received two
-submissions of the same signed original, stored one message, and received zero
-copies of the separately restored editable draft. Three visible captures retain
-the same reading anchor at the same pixel. Both reviewers checked all 645
-original frames and 24 archive hashes. The recording exposed brief message
-clipping and a one-line composer hiding the wrapped draft end during IME entry.
-The latest source keeps a stable two-line compact editor and hides redundant
-chrome once the measured viewport shrinks.
+Android 10 run 45495990945 and Android 17 run 45495174950 both pass three
+native conversation phases at `78a2b6a70`, with 254 core and 200 service tests
+passing in each run. The latest native recordings keep the edit text and Send
+visible, retain the affected reply through pinning and reopen the exact reply
+with its parent and draft. The recycled reaction sheet shows the Android
+selection and count before dismissal. Ordinary unread uses a dot, personal
+unread shows a number, reading clears the indicators, and Silent survives
+Activity recreation.
 
-Android 10 run 45484218827 at the same source passed the focused edit,
-reactions, pins, and moderation phases with an independent deletion receipt.
-It failed the personal badge deadline. Attention now catches up in bounded
-batches while a Space list is open and yields between network operations. The
-six scoped service cases passed. Main and instrumentation compilation passed
-at `01ac1d373`. Latest source `15b958514` adds the measured header correction
-and a real tap on the settled module switcher. Native runs 45486534592,
-45486534253 and 45487532502 are pending; earlier passing parts establish only
-their own scope. Continue #140 verification and then #141–147 sequentially.
+Android 17 process run 45488826281 at `2fd854202` passed real force-stop and
+recovery across PIDs 3089 and 5721. The independent peer saw two submissions
+of the same signed original, accepted one message, and received no copies of
+the unsent draft. Three unobscured checkpoints retain the exact reading pixel.
+See the [acceptance record](../evidence/ticket140/final-acceptance.json) for
+exact provenance, retained failures and scope.
+
+Continue #141 through #147 one at a time. #141 covers legacy Chat E2E
+compatibility, device keys and guided recovery. The public beta and production
+node/provider state remain at their prior deployed versions.
 
 ## In-progress #140 personal activity and Android verification
 
