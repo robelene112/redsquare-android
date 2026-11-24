@@ -280,10 +280,14 @@ class SpacesJourneyTest {
             if (latest.isDisplayed()) latest.performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Fixture line 59").isDisplayed() }
             ui.onNode(hasText("Community information") and hasClickAction()).performClick()
-            val silent = ui.onNode(hasText("Silent") and isSelectable() and hasAnyAncestor(isDialog()))
+            val silentChoice = hasText("Silent") and isSelectable() and hasAnyAncestor(isDialog())
+            val silent = ui.onNode(silentChoice)
             val personal = ui.onNode(hasText("Mentions and replies") and isSelectable() and hasAnyAncestor(isDialog()))
             personal.performScrollTo().assertIsSelected()
-            silent.performScrollTo().assertIsEnabled().performClick()
+            silent.performScrollTo()
+            val enabledSilent = ui.onNode(silentChoice and isEnabled())
+            ui.waitUntil(5_000) { enabledSilent.isDisplayed() }
+            enabledSilent.performClick()
             ui.waitUntil(5_000) { ui.onNode(hasText("Silent") and isSelected() and hasAnyAncestor(isDialog())).isDisplayed() }
             capture("attention-01-channel-preferences")
             ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).performScrollTo().performClick()
