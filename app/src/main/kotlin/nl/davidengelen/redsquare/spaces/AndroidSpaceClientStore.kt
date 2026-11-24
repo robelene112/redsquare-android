@@ -25,7 +25,8 @@ internal class AndroidSpaceClientStore(context: Context, owner: String, node: St
     private val namespace = MessageDigest.getInstance("SHA-256")
         .digest("SpacesLocal/v1:$owner:$node:$service".toByteArray(Charsets.UTF_8))
         .joinToString("") { "%02x".format(it.toInt() and 255) }
-    private val databaseGate = databaseGate(File(context.noBackupFilesDir, "spaces-$namespace.sqlite").canonicalPath)
+    private val databaseFile = File(context.noBackupFilesDir, "spaces-$namespace.sqlite")
+    private val databaseGate = databaseGate(databaseFile.canonicalPath)
     private var closed = false
     private val alias = "${context.packageName}.spaces.store.v1.$namespace"
     private val aadPrefix = "${context.packageName}:SpacesLocal/v1:$namespace:"
@@ -43,6 +44,8 @@ internal class AndroidSpaceClientStore(context: Context, owner: String, node: St
         override fun onDowngrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) =
             throw IllegalStateException("Community storage cannot be downgraded")
     }
+
+    fun hasStorage(): Boolean = databaseFile.isFile
 
     override fun <T> transaction(action: SpaceClientStore.Transaction.() -> T): T {
         check(Looper.myLooper() != Looper.getMainLooper()) { "Community storage belongs off main" }

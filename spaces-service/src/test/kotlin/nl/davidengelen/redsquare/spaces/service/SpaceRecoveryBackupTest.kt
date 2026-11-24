@@ -5,6 +5,7 @@ import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.AccountRecoveryBackup
 import nl.davidengelen.redsquare.spaces.SpaceClient
+import nl.davidengelen.redsquare.spaces.SpaceArchiveInbox
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -77,8 +78,15 @@ class SpaceRecoveryBackupTest {
                         assertTrue(awaitingKeys.missingKeys)
                         assertNull(awaitingKeys.text)
 
-                        replacement.restoreHistoryKeys(payload.history)
-                        replacement.restoreHistoryKeys(payload.history)
+                        SqliteClientFixture(files.newFile("recovery-inbox.sqlite").absolutePath).use { inboxStore ->
+                            val inbox = SpaceArchiveInbox(payload.wallet.publicKey, inboxStore)
+                            inbox.retain(payload.history)
+                            inbox.retain(payload.history)
+                            assertTrue(inbox.records(owner.publicKey).isEmpty())
+                            assertEquals(payload.history.size, inbox.records(service.publicKey).size)
+                            replacement.restoreHistoryKeys(inbox.records(service.publicKey))
+                            replacement.restoreHistoryKeys(inbox.records(service.publicKey))
+                        }
                         val restored = requireNotNull(replacement.message(space, oldMessage))
                         assertEquals("Message from the original device", restored.text)
                         assertFalse(restored.missingKeys)

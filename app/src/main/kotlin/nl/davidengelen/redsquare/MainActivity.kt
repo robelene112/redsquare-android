@@ -144,6 +144,9 @@ class MainActivity : ComponentActivity() {
     private val createWalletDocument = registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) {
         walletExports?.documentChosen(it)
     }
+    private val createProtectedWalletDocument = registerForActivityResult(ActivityResultContracts.CreateDocument("application/octet-stream")) {
+        walletExports?.documentChosen(it, protected = true)
+    }
     private val openWalletDocument = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
         walletImports?.documentChosen(it)
     }
@@ -305,7 +308,13 @@ class MainActivity : ComponentActivity() {
             var recoveryGuideOpen by remember { mutableStateOf(false) }
             val backupReminders = remember { getSharedPreferences("wallet-backup-reminders", MODE_PRIVATE) }
             var backupReminder by remember { mutableStateOf(false) }
-            val walletExport = remember { WalletExport(this@MainActivity, { wallet }, createWalletDocument::launch) }
+            val spacesRecovery = remember {
+                nl.davidengelen.redsquare.spaces.AndroidSpacesRecovery(applicationContext) { FeedEndpoints.fromIntent(intent, it) }
+            }
+            val walletExport = remember {
+                WalletExport(this@MainActivity, { wallet }, createWalletDocument::launch,
+                    createProtectedWalletDocument::launch, spacesRecovery::collect)
+            }
             val balances = remember { WalletBalances.fromIntent(intent) }
             val walletImport = remember { WalletImport(this@MainActivity, { wallet }, { backend }, balances,
                 beforeSelection = { postNavigation.save() },
@@ -328,7 +337,8 @@ class MainActivity : ComponentActivity() {
                     failed = result.wallet == null
                     nl.davidengelen.redsquare.notifications.PushRegistration.request(applicationContext)
                     result
-                }, chooseDocument = { openWalletDocument.launch(arrayOf("*/*")) }) }
+                }, chooseDocument = { openWalletDocument.launch(arrayOf("*/*")) },
+                retainArchive = { incoming, archives -> withContext(Dispatchers.IO) { spacesRecovery.retain(incoming, archives) } }) }
             val walletScrollState = rememberScrollState()
             LaunchedEffect(walletOpen, walletImport.preview?.publicKey) {
                 // Enter each overview/review at its beginning. Later balance,

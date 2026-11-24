@@ -21,6 +21,7 @@ object AccountRecoveryBackup {
     internal const val MAX_HISTORY_SCOPES = 4_096
     private val magic = "SAITOREC".encodeToByteArray()
     private val headerSize = magic.size + 1 + SALT_BYTES + NONCE_BYTES
+    val maxFileBytes: Int = headerSize + TAG_BYTES + MAX_PAYLOAD_BYTES
     private val random = SecureRandom()
 
     class Restored internal constructor(val wallet: SaitoWallet, val history: List<SpaceHistoryKeys>) {

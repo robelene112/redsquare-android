@@ -1645,4 +1645,15 @@
     <string name="spaces_notifications_everyone">Allow @everyone alerts</string>
     <string name="spaces_notifications_everyone_detail">Include owner and admin group alerts with mentions and replies. All messages and Silent keep their own behavior.</string>
     <string name="spaces_personal_unread_count">%1$d unread personal mentions and replies</string>
+    <string name="wallet_protected_export">Back up identity and history</string>
+    <string name="wallet_protected_unlock">Unlock backup</string>
+    <string name="wallet_protected_passphrase">Passphrase</string>
+    <string name="wallet_protected_passphrase_detail">Choose a passphrase you can keep safe. It protects your wallet and the message history keys available on this device.</string>
+    <string name="wallet_protected_confirm_phrase">Repeat passphrase</string>
+    <string name="wallet_protected_choose_file">Choose file</string>
+    <string name="wallet_protected_unlock_failed">Could not unlock this backup. Check the passphrase and try again.</string>
+    <string name="wallet_protected_restore_failed">Could not store the message history keys. Try again.</string>
+    <string name="wallet_protected_wallet_only">This file restores the wallet identity. Encrypted history may need another backup.</string>
+    <string name="wallet_protected_history_empty">This backup contains no message history keys.</string>
+    <string name="wallet_protected_history_available">This backup includes message history keys. Available messages can be read after you rejoin their conversations.</string>
 </resources>

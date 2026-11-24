@@ -20,7 +20,6 @@ import nl.davidengelen.redsquare.saito.SaitoPeer
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.io.IOException
-import java.security.MessageDigest
 import java.time.Clock
 
 /** Account-owned work survives navigation. Local writes never wait for a held
@@ -124,11 +123,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private var cachedService: String? = null
     private var cacheFailed = false
     private var ticker: Job? = null
-    private val namespace = MessageDigest.getInstance("SHA-256").digest("${wallet.publicKey}:$endpoint".toByteArray())
-        .joinToString("") { "%02x".format(it.toInt() and 255) }
-    private val filename = "spaces-directory-$namespace.v1"
-    private val directory = EncryptedLocalFile(appContext, filename,
-        "${appContext.packageName}.spaces.directory.$namespace", filename)
+    private val directory = spaceServiceDirectory(appContext, wallet.publicKey, endpoint)
     private class MissingService : IOException()
     private class ChangedIdentity : IOException()
 
@@ -240,9 +235,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
 
     private fun installClient(service: String) {
         check(client == null)
+        val restored = retainedSpaceArchives(appContext, wallet.publicKey, service)
         val storage = AndroidSpaceClientStore(appContext, wallet.publicKey, "$backend:$endpoint", service)
-        local = storage
-        client = SpaceClient(wallet, backend.webUrl, service, storage, Clock.systemUTC(), onDeliveryAttempt = { delivery ->
+        val installed = SpaceClient(wallet, backend.webUrl, service, storage, Clock.systemUTC(), onDeliveryAttempt = { delivery ->
             val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
             if (delivery == SpaceClient.Delivery.CONTROL) publishManagement() else publish()
             if (fixtureTrace) trace("delivery projectionMs=${android.os.SystemClock.elapsedRealtime() - started}")
@@ -254,6 +249,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             if (fixtureTrace) trace("request=${original.id.take(10)} returnedMs=${android.os.SystemClock.elapsedRealtime() - started}")
             received
         } }
+        try {
+            if (restored.isNotEmpty()) installed.restoreHistoryKeys(restored)
+        } catch (failure: Exception) {
+            storage.close()
+            throw failure
+        }
+        local = storage
+        client = installed
         mutable.update { it.copy(ready = true) }
     }
 

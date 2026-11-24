@@ -38,7 +38,7 @@ public final class ExportTestDocumentsProvider extends DocumentsProvider {
                 case Root.COLUMN_ROOT_ID: case Root.COLUMN_DOCUMENT_ID: value = ROOT_ID; break;
                 case Root.COLUMN_TITLE: value = TITLE; break;
                 case Root.COLUMN_FLAGS: value = Root.FLAG_SUPPORTS_CREATE | Root.FLAG_LOCAL_ONLY; break;
-                case Root.COLUMN_MIME_TYPES: value = "application/json"; break;
+                case Root.COLUMN_MIME_TYPES: value = "application/json\napplication/octet-stream"; break;
             }
             row.add(value);
         }
@@ -60,7 +60,7 @@ public final class ExportTestDocumentsProvider extends DocumentsProvider {
     }
 
     @Override public String createDocument(String parent, String mimeType, String name) throws FileNotFoundException {
-        if (!ROOT_ID.equals(parent) || !"application/json".equals(mimeType)) {
+        if (!ROOT_ID.equals(parent) || !("application/json".equals(mimeType) || "application/octet-stream".equals(mimeType))) {
             throw new FileNotFoundException("Invalid test destination");
         }
         try {
@@ -131,7 +131,8 @@ public final class ExportTestDocumentsProvider extends DocumentsProvider {
             switch (column) {
                 case Document.COLUMN_DOCUMENT_ID: value = id; break;
                 case Document.COLUMN_DISPLAY_NAME: value = root ? TITLE : id; break;
-                case Document.COLUMN_MIME_TYPE: value = root ? Document.MIME_TYPE_DIR : "application/json"; break;
+                case Document.COLUMN_MIME_TYPE:
+                    value = root ? Document.MIME_TYPE_DIR : id.endsWith(".saito") ? "application/octet-stream" : "application/json"; break;
                 case Document.COLUMN_FLAGS: value = root ? Document.FLAG_DIR_SUPPORTS_CREATE
                     : Document.FLAG_SUPPORTS_WRITE | Document.FLAG_SUPPORTS_DELETE; break;
                 case Document.COLUMN_SIZE: value = root ? 0L : document(id).length(); break;

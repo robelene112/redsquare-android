@@ -13,7 +13,7 @@ import java.util.Base64
 class SpaceHistoryKeys internal constructor(val owner: String, val scope: SpaceCrypto.Scope,
     private val keys: Map<Long, ByteArray>) {
     fun read(envelope: String): SpaceCrypto.PlainRecord = SpaceCrypto.readArchived(scope, keys, envelope)
-    internal fun merge(other: SpaceHistoryKeys): SpaceHistoryKeys {
+    fun merge(other: SpaceHistoryKeys): SpaceHistoryKeys {
         require(owner == other.owner && scope == other.scope)
         for ((epoch, key) in other.keys) {
             keys[epoch]?.let { require(MessageDigest.isEqual(it, key)) { "Conflicting history key" } }

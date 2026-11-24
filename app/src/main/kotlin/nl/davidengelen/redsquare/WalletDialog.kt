@@ -1,6 +1,9 @@
 package nl.davidengelen.redsquare
 
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
@@ -38,6 +41,7 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
     walletImport: WalletImport, scrollState: ScrollState, backend: SaitoBackend?, balances: WalletBalances,
     overviewHeader: @Composable () -> Unit,
     onClose: () -> Unit, onOpen: (WalletDestination) -> Unit) {
+    var showProtectedExport by remember(address) { mutableStateOf(false) }
     var balance by remember(address, backend) { mutableStateOf<SaitoBalanceSnapshot?>(null) }
     var checkingBalance by remember(address, backend) { mutableStateOf(true) }
     LaunchedEffect(address, backend) {
@@ -114,6 +118,11 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
                                     style = MaterialTheme.typography.titleMedium)
                                 val selectedAddressLabel = stringResource(R.string.wallet_import_address)
                                 Text(preview.publicKey, Modifier.semantics { contentDescription = selectedAddressLabel })
+                                Text(stringResource(when {
+                                    preview.archiveScopes == null -> R.string.wallet_protected_wallet_only
+                                    preview.archiveScopes == 0 -> R.string.wallet_protected_history_empty
+                                    else -> R.string.wallet_protected_history_available
+                                }), style = MaterialTheme.typography.bodySmall)
                                 Text(stringResource(if (preview.sameIdentity) R.string.wallet_import_restore_detail else R.string.wallet_import_replace_detail))
                                 if (!preview.sameIdentity) {
                                     Text(stringResource(R.string.wallet_import_local_posts))
@@ -170,6 +179,9 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
                         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                             Text(stringResource(R.string.wallet_backup_section), Modifier.semantics { heading() }, style = MaterialTheme.typography.titleSmall)
                             Text(stringResource(R.string.wallet_backup_section_detail), style = MaterialTheme.typography.bodySmall)
+                            AccountActionRow(stringResource(R.string.wallet_protected_export), R.drawable.ic_save,
+                                enabled = address != null && !walletExport.busy && !walletImport.busy,
+                                onClick = { showProtectedExport = true })
                             AccountActionRow(stringResource(R.string.wallet_export), R.drawable.ic_save,
                                 enabled = address != null && !walletExport.busy && !walletImport.busy,
                                 onClick = { walletExport.start() })
@@ -207,6 +219,48 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
                 onClick = { onClose() },
             ) { Text(stringResource(R.string.wallet_import_cancel)) }
         }) else null,
+    )
+    if (showProtectedExport) RecoveryPassphraseDialog(
+        exporting = true, busy = false, problem = null, onClose = { showProtectedExport = false },
+        onConfirm = { secret -> showProtectedExport = false; walletExport.startProtected(secret) },
+    )
+    if (walletImport.needsPassphrase) RecoveryPassphraseDialog(
+        exporting = false, busy = walletImport.busy, problem = walletImport.message, onClose = walletImport::cancel,
+        onConfirm = walletImport::unlock,
+    )
+}
+
+@Composable
+private fun RecoveryPassphraseDialog(exporting: Boolean, busy: Boolean, problem: Int?,
+    onClose: () -> Unit, onConfirm: (CharArray) -> Unit) {
+    var passphrase by remember { mutableStateOf("") }
+    var confirmation by remember { mutableStateOf("") }
+    val keyboard = KeyboardOptions(keyboardType = KeyboardType.Password)
+    AlertDialog(
+        onDismissRequest = { if (!busy) onClose() },
+        title = { Text(stringResource(if (exporting) R.string.wallet_protected_export else R.string.wallet_protected_unlock)) },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                if (exporting) Text(stringResource(R.string.wallet_protected_passphrase_detail))
+                OutlinedTextField(passphrase, { if (it.length <= 1_024) passphrase = it }, modifier = Modifier.fillMaxWidth(),
+                    label = { Text(stringResource(R.string.wallet_protected_passphrase)) }, enabled = !busy,
+                    singleLine = true, visualTransformation = PasswordVisualTransformation(), keyboardOptions = keyboard)
+                if (exporting) OutlinedTextField(confirmation, { if (it.length <= 1_024) confirmation = it },
+                    modifier = Modifier.fillMaxWidth(), label = { Text(stringResource(R.string.wallet_protected_confirm_phrase)) },
+                    singleLine = true, visualTransformation = PasswordVisualTransformation(), keyboardOptions = keyboard)
+                if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
+                problem?.let { Text(stringResource(it), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall) }
+            }
+        },
+        confirmButton = {
+            TextButton(enabled = !busy && passphrase.isNotBlank() && (!exporting || passphrase == confirmation), onClick = {
+                val secret = passphrase.toCharArray()
+                passphrase = ""
+                confirmation = ""
+                try { onConfirm(secret) } finally { secret.fill('\u0000') }
+            }) { Text(stringResource(if (exporting) R.string.wallet_protected_choose_file else R.string.wallet_protected_unlock)) }
+        },
+        dismissButton = { TextButton(onClick = onClose, enabled = !busy) { Text(stringResource(R.string.wallet_import_cancel)) } },
     )
 }
 

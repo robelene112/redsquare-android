@@ -21,12 +21,16 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.spaces.AccountRecoveryBackup
+import nl.davidengelen.redsquare.spaces.SpaceHistoryKeys
 
 /** One device-authenticated export. No grant or secret is saved across recreation. */
 class WalletExport(
     private val activity: ComponentActivity,
     private val currentWallet: () -> SaitoWallet?,
     private val chooseDocument: (String) -> Unit,
+    private val chooseProtectedDocument: ((String) -> Unit)? = null,
+    private val collectArchives: (SaitoWallet) -> List<SpaceHistoryKeys> = { emptyList() },
 ) {
     private val documents = activity.applicationContext.contentResolver
     var message by mutableStateOf<Int?>(null)
@@ -35,7 +39,11 @@ class WalletExport(
         private set
     @Volatile private var attempt: Attempt? = null
 
-    private class Attempt(val wallet: SaitoWallet, val onVerified: (SaitoWallet) -> Unit) {
+    private class Attempt(val wallet: SaitoWallet, passphrase: CharArray?, val onVerified: (SaitoWallet) -> Unit) {
+        val protected = passphrase != null
+        private val secret = passphrase?.copyOf()
+        @Synchronized fun copySecret(): CharArray? = secret?.copyOf()
+        @Synchronized fun clearSecret() { secret?.fill('\u0000') }
         val cancellation = CancellationSignal()
         var uri: Uri? = null
         var authenticating = false
@@ -45,23 +53,33 @@ class WalletExport(
 
     fun clearMessage() { if (!busy) message = null }
 
-    fun start(onVerified: (SaitoWallet) -> Unit = {}) {
+    fun start(onVerified: (SaitoWallet) -> Unit = {}) = startExport(null, onVerified)
+
+    fun startProtected(passphrase: CharArray) {
+        require(passphrase.isNotEmpty() && chooseProtectedDocument != null)
+        startExport(passphrase) {}
+    }
+
+    private fun startExport(passphrase: CharArray?, onVerified: (SaitoWallet) -> Unit) {
         if (busy) return
         if (!activity.getSystemService(KeyguardManager::class.java).isDeviceSecure) {
             message = R.string.wallet_auth_setup
             return
         }
         val wallet = currentWallet() ?: return
-        val operation = Attempt(wallet, onVerified)
+        val operation = Attempt(wallet, passphrase, onVerified)
         attempt = operation
         busy = true
         message = null
-        try { chooseDocument("saito-wallet-${wallet.publicKey.takeLast(8)}.json") }
-        catch (_: Exception) { finish(operation, R.string.wallet_export_failed) }
+        val suffix = wallet.publicKey.takeLast(8)
+        try {
+            if (passphrase == null) chooseDocument("saito-wallet-$suffix.json")
+            else requireNotNull(chooseProtectedDocument).invoke("saito-recovery-$suffix.saito")
+        } catch (_: Exception) { finish(operation, R.string.wallet_export_failed) }
     }
 
-    fun documentChosen(uri: Uri?) {
-        val operation = attempt ?: return
+    fun documentChosen(uri: Uri?, protected: Boolean = false) {
+        val operation = attempt?.takeIf { it.protected == protected } ?: return
         if (uri == null) { finish(operation, R.string.wallet_export_cancelled); return }
         operation.uri = uri
         if (!isCurrent(operation)) { cancel(); return }
@@ -113,11 +131,14 @@ class WalletExport(
             val saved = withContext(Dispatchers.IO) {
                 var verified = false
                 var bytes: ByteArray? = null
+                val secret = operation.copySecret()
                 try {
                     check(isCurrent(operation))
-                    val backup = operation.wallet.exportJson().toByteArray(Charsets.UTF_8)
+                    val backup = if (secret == null) operation.wallet.exportJson().encodeToByteArray()
+                    else AccountRecoveryBackup.seal(operation.wallet, collectArchives(operation.wallet), secret)
                     bytes = backup
-                    require(backup.size in 1..SaitoWallet.MAX_BACKUP_BYTES)
+                    val maxBytes = if (secret == null) SaitoWallet.MAX_BACKUP_BYTES else AccountRecoveryBackup.maxFileBytes
+                    require(backup.size in 1..maxBytes)
                     check(isCurrent(operation))
                     val output = requireNotNull(documents.openFileDescriptor(uri, "wt", operation.cancellation))
                     operation.descriptor = output
@@ -146,7 +167,9 @@ class WalletExport(
                         }
                         check(size == backup.size)
                         check(backup.indices.all { backup[it] == readback[it] })
-                        check(SaitoWallet.fromBackup(String(readback, 0, size, Charsets.UTF_8)).publicKey == operation.wallet.publicKey)
+                        val restored = if (secret == null) SaitoWallet.fromBackup(String(readback, 0, size, Charsets.UTF_8))
+                        else AccountRecoveryBackup.open(backup, secret).wallet
+                        check(restored.publicKey == operation.wallet.publicKey)
                         check(isCurrent(operation))
                         verified = true
                     } finally { readback.fill(0) }
@@ -155,6 +178,7 @@ class WalletExport(
                 } finally {
                     operation.descriptor = null
                     bytes?.fill(0)
+                    secret?.fill('\u0000')
                     if (!verified) discard(operation)
                 }
                 verified
@@ -172,6 +196,7 @@ class WalletExport(
     private fun finish(operation: Attempt, result: Int) {
         if (attempt !== operation) return
         attempt = null
+        operation.clearSecret()
         operation.deadline?.cancel()
         busy = false
         message = result
