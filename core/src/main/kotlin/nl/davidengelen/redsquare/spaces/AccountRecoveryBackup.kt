@@ -18,7 +18,7 @@ object AccountRecoveryBackup {
     private const val TAG_BYTES = 16
     private const val KEY_BYTES = 32
     private const val MAX_PAYLOAD_BYTES = 16 * 1024 * 1024
-    private const val MAX_HISTORY_SCOPES = 4_096
+    internal const val MAX_HISTORY_SCOPES = 4_096
     private val magic = "SAITOREC".encodeToByteArray()
     private val headerSize = magic.size + 1 + SALT_BYTES + NONCE_BYTES
     private val random = SecureRandom()

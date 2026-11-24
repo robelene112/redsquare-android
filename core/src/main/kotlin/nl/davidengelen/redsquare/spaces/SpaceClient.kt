@@ -761,6 +761,79 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             }
         }
     }
+    /** Export archive keys from this authenticated service partition, including
+     * keys already recovered on the current device. No sending state is copied. */
+    fun exportHistoryKeys(): List<SpaceHistoryKeys> = store.transaction {
+        if (get("identity") == null) return@transaction emptyList()
+        owned()
+        val recovered = linkedMapOf<SpaceCrypto.Scope, SpaceHistoryKeys>()
+        fun retain(keys: SpaceHistoryKeys) {
+            recovered[keys.scope] = recovered[keys.scope]?.merge(keys) ?: keys
+            require(recovered.size <= AccountRecoveryBackup.MAX_HISTORY_SCOPES) { "Account backup has too many history scopes" }
+        }
+        forEachRecoveryRow("recovered-archives/") { record ->
+            retain(SpaceHistoryKeys.restore(record.value, wallet.publicKey))
+        }
+        forEachRecoveryRow("communities/") { record ->
+            val space = record.value.toString(Charsets.UTF_8)
+            val snapshot = journal(space).snapshot
+            for (channel in snapshot.channels.keys) {
+                val data = channelState(space, channel)
+                val saved = data.get("crypto")?.asString ?: continue
+                val session = SpaceCrypto.restore(decode(saved))
+                if (session.scope != null) retain(session.archiveHistorySnapshot())
+            }
+        }
+        recovered.values.toList()
+    }
+
+    /** Import readable history without enrolling a device or touching pending
+     * operations. The selected node must already authenticate this service. */
+    fun restoreHistoryKeys(archives: List<SpaceHistoryKeys>) {
+        require(archives.size <= AccountRecoveryBackup.MAX_HISTORY_SCOPES)
+        require(archives.all { it.owner == wallet.publicKey && it.scope.serviceKey == service })
+        store.transaction {
+            owned(initialize = true)
+            for (keys in archives) {
+                val key = recoveredArchiveKey(keys.scope)
+                val existing = get(key)?.let { SpaceHistoryKeys.restore(it, wallet.publicKey) }
+                put(key, (existing?.merge(keys) ?: keys).save())
+            }
+        }
+    }
+
+    private fun SpaceClientStore.Transaction.forEachRecoveryRow(prefix: String, visit: (SpaceClientStore.Entry) -> Unit) {
+        var cursor = prefix
+        while (true) {
+            val rows = page(prefix, cursor, limit = 50)
+            rows.forEach(visit)
+            if (rows.size < 50) return
+            cursor = rows.last().key + '\u0000'
+        }
+    }
+
+    private fun recoveredArchiveKey(scope: SpaceCrypto.Scope) =
+        "recovered-archives/${scope.spaceId}/${scope.channelId}/${scope.generation}"
+
+    private fun SpaceClientStore.Transaction.protectedHistoryReader(space: String, channel: String): (String, SignedSaitoMessage) -> String {
+        val active by lazy {
+            channelState(space, channel).get("crypto")?.asString?.let { SpaceCrypto.restore(decode(it)) }
+        }
+        val recovered = mutableMapOf<SpaceCrypto.Scope, SpaceHistoryKeys?>()
+        return read@{ envelope, signed ->
+            val scope = SpaceCrypto.Scope(service, space, channel, signed.body.text("key_generation"))
+            val current = active
+            if (current?.scope == scope) {
+                try { return@read current.read(envelope).text }
+                catch (_: SpaceCrypto.MissingKeys) { /* A portable archive may cover an earlier epoch. */ }
+            }
+            if (!recovered.containsKey(scope))
+                recovered[scope] = get(recoveredArchiveKey(scope))?.let { SpaceHistoryKeys.restore(it, wallet.publicKey) }
+            val archive = recovered[scope] ?: throw SpaceCrypto.MissingKeys()
+            archive.read(envelope).text
+        }
+    }
+
     fun community(space: String, channel: String? = null): Community = store.transaction { owned(); communityFromStore(space, channel) }
     private fun SpaceClientStore.Transaction.communityFromStore(space: String, channelId: String? = null): Community {
         val state = state(space)
@@ -1782,10 +1855,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     } }
     private data class PinProjection(val pinned: Boolean, val pending: Boolean, val available: Boolean)
     private fun SpaceClientStore.Transaction.pinReader(space: String, channel: String): (String) -> String? {
-        val crypto by lazy { SpaceCrypto.restore(decode(channelState(space, channel).text("crypto"))) }
+        val readPrivate = protectedHistoryReader(space, channel)
         return { envelope -> try {
             val signed = SaitoEnvelope.decode(envelope)
-            if (signed.body.text("kind") == "public-content") signed.body.text("text") else crypto.read(envelope).text
+            if (signed.body.text("kind") == "public-content") signed.body.text("text") else readPrivate(envelope, signed)
         } catch (_: Exception) { null } }
     }
     private fun SpaceClientStore.Transaction.messagePin(space: String, channel: String, message: String,
@@ -1900,11 +1973,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     private data class ReactionProjection(val values: List<Reaction>, val own: Set<String>, val complete: Boolean, val more: Boolean = false, val nextEmoji: String? = null)
     private fun SpaceClientStore.Transaction.reactionDecoder(space: String, channel: String): (String) -> Set<String>? {
-        val crypto by lazy { SpaceCrypto.restore(decode(channelState(space, channel).text("crypto"))) }
+        val readPrivate = protectedHistoryReader(space, channel)
         return { envelope ->
             try {
                 val signed = SaitoEnvelope.decode(envelope)
-                val text = if (signed.body.text("kind") == "public-content") signed.body.text("text") else crypto.read(envelope).text
+                val text = if (signed.body.text("kind") == "public-content") signed.body.text("text") else readPrivate(envelope, signed)
                 SpaceReactionSelection.decode(text)
             } catch (_: Exception) { null }
         }
@@ -2608,9 +2681,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         ensureMessageIndexes(space, state)
         val targetChannel = channel ?: selectedChannel(state)
         retryUnavailableReactions(space, targetChannel)
-        val channelData = channelState(space, targetChannel, state)
         val data = conversationState(space, targetChannel, thread)
-        val crypto by lazy { SpaceCrypto.restore(decode(channelData.text("crypto"))) }
+        val readPrivate = protectedHistoryReader(space, targetChannel)
         val prefix = contentPrefix(space, targetChannel)
         val last = data.get("last_content")?.asLong ?: 0
         val indexed = data.get("message_history")?.asBoolean == true
@@ -2624,7 +2696,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             var missing = false
             fun read(source: String, signed: SignedSaitoMessage): String? =
                 if (signed.body.text("kind") == "public-content") signed.body.text("text") else
-                    try { crypto.read(source).text }
+                    try { readPrivate(source, signed) }
                     catch (_: SpaceCrypto.MissingKeys) { missing = true; null }
                     catch (_: java.security.GeneralSecurityException) { null }
             val change = get(messageChangeKey(space, targetChannel, original.id))?.let { pointer ->
@@ -2783,10 +2855,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         SpaceAttentionIndex(this, "$space/channels/$target").markRead(parent.id, position)
     }
     private fun SpaceClientStore.Transaction.attentionReader(space: String, channel: String): (String) -> String? {
-        val crypto by lazy { SpaceCrypto.restore(decode(channelState(space, channel).text("crypto"))) }
+        val readPrivate = protectedHistoryReader(space, channel)
         return { envelope -> try {
             val original = SaitoEnvelope.decode(envelope)
-            if (original.body.text("kind") == "public-content") original.body.text("text") else crypto.read(envelope).text
+            if (original.body.text("kind") == "public-content") original.body.text("text") else readPrivate(envelope, original)
         } catch (_: Exception) { null } }
     }
     private fun SpaceClientStore.Transaction.reconcileAttention(space: String, channel: String, message: String, read: (String) -> String?): Boolean {

@@ -6,12 +6,23 @@ import com.google.gson.Strictness
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.nio.ByteBuffer
 import java.nio.charset.CodingErrorAction
+import java.security.MessageDigest
 import java.util.Base64
 
 /** Archive-only recovery must not clone a live MLS sender to another device. */
 class SpaceHistoryKeys internal constructor(val owner: String, val scope: SpaceCrypto.Scope,
     private val keys: Map<Long, ByteArray>) {
     fun read(envelope: String): SpaceCrypto.PlainRecord = SpaceCrypto.readArchived(scope, keys, envelope)
+    internal fun merge(other: SpaceHistoryKeys): SpaceHistoryKeys {
+        require(owner == other.owner && scope == other.scope)
+        for ((epoch, key) in other.keys) {
+            keys[epoch]?.let { require(MessageDigest.isEqual(it, key)) { "Conflicting history key" } }
+        }
+        val combined = keys + other.keys
+        require(combined.size <= MAX_EPOCHS)
+        return SpaceHistoryKeys(owner, scope, combined)
+    }
+
     /** Secret portable bytes. Encrypt the artifact before exporting it. */
     fun save(): ByteArray = JsonObject().apply {
         addProperty("version", 1); addProperty("owner", owner); add("scope", scope.json())
@@ -22,6 +33,7 @@ class SpaceHistoryKeys internal constructor(val owner: String, val scope: SpaceC
     override fun toString() = "Private Space history keys"
     companion object {
         private const val MAX_BYTES = 2 * 1024 * 1024
+        private const val MAX_EPOCHS = 16_384
         fun restore(bytes: ByteArray, expectedOwner: String): SpaceHistoryKeys {
             require(bytes.size in 1..MAX_BYTES && SaitoWallet.isPublicKey(expectedOwner))
             val text = Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
@@ -32,7 +44,7 @@ class SpaceHistoryKeys internal constructor(val owner: String, val scope: SpaceC
             require(owner == expectedOwner) { "History keys belong to a different account" }
             val scope = SpaceCrypto.Scope.fromJson(value.getAsJsonObject("scope"))
             val stored = value.getAsJsonObject("archive_keys")
-            require(stored.size() in 1..16_384)
+            require(stored.size() in 1..MAX_EPOCHS)
             val keys = stored.entrySet().associate { (epoch, key) ->
                 require(epoch.matches(Regex("0|[1-9][0-9]{0,18}")) && key.isJsonPrimitive && key.asJsonPrimitive.isString)
                 epoch.toLong() to Base64.getDecoder().decode(key.asString).also { require(it.size == 32) }

@@ -250,8 +250,11 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
         }
         return restored
     }
+    internal fun archiveHistorySnapshot(): SpaceHistoryKeys =
+        SpaceHistoryKeys(walletKey(credential), requireNotNull(scope), archiveKeys)
+
     /** Secret bytes for the repository's authenticated at-rest transaction. */
-    fun historyBackup(): ByteArray = SpaceHistoryKeys(walletKey(credential), requireNotNull(scope), archiveKeys).save()
+    fun historyBackup(): ByteArray = archiveHistorySnapshot().save()
     fun save(): ByteArray = JsonObject().apply {
         addProperty("version", 2); add("native", native.deepCopy())
         scope?.let { add("scope", it.json()) }
