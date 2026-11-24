@@ -637,7 +637,7 @@ class MainActivity : ComponentActivity() {
                     fun closeWallet() {
                         walletExport.cancel(); walletImport.cancel(); walletOpen = false
                     }
-                    val appHeader: @Composable (Boolean) -> Unit = { hideForKeyboard ->
+                    val renderAppHeader: @Composable (Boolean) -> Unit = { hideForKeyboard ->
                         val navigationEnabled = !postNavigation.transitioning && !savingBackend &&
                             !walletImport.busy && !walletExport.busy
                         if (!hideForKeyboard && !keyboardVisible) AppHeader(visibleBackend?.domain, address, module,
@@ -666,8 +666,9 @@ class MainActivity : ComponentActivity() {
                             if (moduleSwitchFailed) stringResource(R.string.navigation_save_failed) else null,
                             nl.davidengelen.redsquare.ui.StatusTone.ERROR)
                     }
+                    val appHeader: @Composable () -> Unit = { renderAppHeader(false) }
                     val renderChrome: @Composable (Boolean, Boolean) -> Unit = { isHome, hideForKeyboard ->
-                        appHeader(hideForKeyboard)
+                        renderAppHeader(hideForKeyboard)
                         if (module != AppModule.TALK) TalkActiveBar(address, backend) { selectModule(AppModule.TALK) { talkDraft = null } }
                         InlineStatus(if (talkReturnExpired) stringResource(R.string.talk_return_expired) else null, StatusTone.INFO)
                         nl.davidengelen.redsquare.ui.BetaUpdateNotice(updateAvailable && !keyboardVisible && !hideForKeyboard) {
