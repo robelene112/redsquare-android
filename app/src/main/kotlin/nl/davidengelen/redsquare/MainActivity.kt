@@ -637,10 +637,10 @@ class MainActivity : ComponentActivity() {
                     fun closeWallet() {
                         walletExport.cancel(); walletImport.cancel(); walletOpen = false
                     }
-                    val appHeader: @Composable () -> Unit = {
+                    val appHeader: @Composable (Boolean) -> Unit = { hideForKeyboard ->
                         val navigationEnabled = !postNavigation.transitioning && !savingBackend &&
                             !walletImport.busy && !walletExport.busy
-                        if (!nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()) AppHeader(visibleBackend?.domain, address, module,
+                        if (!hideForKeyboard && !keyboardVisible) AppHeader(visibleBackend?.domain, address, module,
                             walletEnabled = navigationEnabled,
                             settingsEnabled = backendReady && navigationEnabled,
                             onWallet = {
@@ -666,11 +666,11 @@ class MainActivity : ComponentActivity() {
                             if (moduleSwitchFailed) stringResource(R.string.navigation_save_failed) else null,
                             nl.davidengelen.redsquare.ui.StatusTone.ERROR)
                     }
-                    val chrome: @Composable (Boolean) -> Unit = { isHome ->
-                        appHeader()
+                    val renderChrome: @Composable (Boolean, Boolean) -> Unit = { isHome, hideForKeyboard ->
+                        appHeader(hideForKeyboard)
                         if (module != AppModule.TALK) TalkActiveBar(address, backend) { selectModule(AppModule.TALK) { talkDraft = null } }
                         InlineStatus(if (talkReturnExpired) stringResource(R.string.talk_return_expired) else null, StatusTone.INFO)
-                        nl.davidengelen.redsquare.ui.BetaUpdateNotice(updateAvailable && !keyboardVisible) {
+                        nl.davidengelen.redsquare.ui.BetaUpdateNotice(updateAvailable && !keyboardVisible && !hideForKeyboard) {
                             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PreviewUpdates.REVIEW_PAGE)))
                         }
                         if (publishingAgreement.savedNotice) Text(stringResource(R.string.publishing_saved),
@@ -687,6 +687,7 @@ class MainActivity : ComponentActivity() {
                             Button(onClick = { failed = false; retry++ }) { Text(stringResource(R.string.retry)) }
                         }
                     }
+                    val chrome: @Composable (Boolean) -> Unit = { isHome -> renderChrome(isHome, false) }
                     Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(vertical = 4.dp)) {
                         if (usernameOpen && wallet != null && backend != null) {
                             chrome(false)
@@ -776,7 +777,8 @@ class MainActivity : ComponentActivity() {
                                                             RegisteredIdentityScope(currentWallet, endpoint, selected,
                                                                 RegistryAuthority.directoryPeer(intent, endpoint).takeIf { nameDirectoryEnabled == true }) {
                                                                 spacesScreenStates.SaveableStateProvider("${currentWallet.publicKey}:${selected.id}") {
-                                                                    nl.davidengelen.redsquare.spaces.SpacesScreen(account, Modifier.fillMaxSize(), chrome,
+                                                                    nl.davidengelen.redsquare.spaces.SpacesScreen(account, Modifier.fillMaxSize(),
+                                                                        chrome = { keyboardInLayout -> renderChrome(false, keyboardInLayout) },
                                                                         onProfile = { openSpaceMember(it, false) }, onMessage = { openSpaceMember(it, true) },
                                                                         onOpenNode = ::openSpaceNode, initialInvitation = pendingSpaceInvitation,
                                                                         onInvitationConsumed = { pendingSpaceInvitation = null })

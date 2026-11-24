@@ -515,7 +515,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 OutlinedTextField(state.draft, { account.editDraft(selected.id, selected.channel, it, target.thread) }, Modifier.weight(1f),
                                     enabled = !state.savingNavigation && !state.loadingChannel, placeholder = { Text(stringResource(if (threadParent == null) R.string.spaces_message_channel_hint else R.string.spaces_reply_thread_hint, channel?.profile?.name ?: "general"),
                                         maxLines = if (compactReading) 1 else Int.MAX_VALUE, overflow = TextOverflow.Ellipsis) },
-                                    shape = RoundedCornerShape(18.dp), minLines = 1, maxLines = if (compactReading) 1 else 4)
+                                    shape = RoundedCornerShape(18.dp), minLines = 1, maxLines = if (compactConfiguration) 2 else 4)
                                 FilledIconButton(onClick = account::send, enabled = canWrite && state.draft.isNotBlank() && !state.working &&
                                     state.accessProblems[selected.id] == null, modifier = Modifier.size(48.dp)) {
                                     Icon(painterResource(R.drawable.ic_send), stringResource(R.string.spaces_send), Modifier.size(22.dp))

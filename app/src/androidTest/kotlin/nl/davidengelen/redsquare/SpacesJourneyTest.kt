@@ -586,12 +586,23 @@ class SpacesJourneyTest {
     private fun communityRow(name: String) = ui.onNode(onScreenCommunity(name))
     private fun openSpaces(current: String) = switchModule(current, "Spaces")
     private fun switchModule(current: String, next: String) {
-        ui.revealAppNavigation()
-        // The cold wallet-loading header is replaced by the real feed shell.
-        // Exercise the settled user route, not a transient startup instance.
-        ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: $current").isDisplayed() &&
-            (current != "Red Square" || ui.onNodeWithText("Home").isDisplayed()) }
-        ui.onNodeWithContentDescription("Switch app: $current").assertIsEnabled().performClick()
+        val reveal = appNavigationRevealAction()
+        val revealedHosts = mutableSetOf<Int>()
+        val switch = ui.onNode(hasContentDescription("Switch app: $current") and isEnabled())
+        var previousBounds: androidx.compose.ui.geometry.Rect? = null
+        // The cold header and a masked reading header can both expose the
+        // switcher before it is ready to receive a real tap.
+        ui.waitUntil(15_000) {
+            val host = ui.onAllNodes(reveal).fetchSemanticsNodes(atLeastOneRootRequired = false).singleOrNull()
+            if (host != null && revealedHosts.add(host.id)) ui.revealAppNavigation()
+            val ready = host == null && switch.isDisplayed() &&
+                (current != "Red Square" || ui.onNodeWithText("Home").isDisplayed())
+            val bounds = if (ready) switch.fetchSemanticsNode().boundsInRoot else null
+            val settled = bounds != null && bounds == previousBounds
+            previousBounds = bounds
+            settled
+        }
+        switch.assertIsDisplayed().performTouchInput { click() }
         val target = hasText(next) and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())
         ui.waitUntil(5_000) { ui.onAllNodes(target).fetchSemanticsNodes().size == 1 }
         ui.onNode(target).performScrollTo().assertIsEnabled().performClick()
