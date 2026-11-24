@@ -297,8 +297,9 @@ class SpacesJourneyTest {
             enabledSilent.performClick()
             ui.waitUntil(5_000) { ui.onNode(hasText("Silent") and isSelected() and hasAnyAncestor(isDialog())).isDisplayed() }
             capture("attention-01-channel-preferences")
-            ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).performScrollTo().performClick()
-            ui.onNode(hasText("Back to your communities") and hasClickAction()).performClick()
+            ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).performScrollTo().assertIsDisplayed().performClick()
+            ui.waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
+            backToCommunities()
             ui.waitUntil(10_000) { communityRow(spaceName).isDisplayed() }
             fun badge(label: String) = ui.onNode(hasContentDescription(label) and hasAnyAncestor(hasContentDescription("Open $spaceName")),
                 useUnmergedTree = true)
@@ -316,7 +317,7 @@ class SpacesJourneyTest {
             capture("attention-03-personal-number")
             communityRow(spaceName).performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText(mention.get("text").asString).isDisplayed() }
-            ui.onNode(hasText("Back to your communities") and hasClickAction()).performClick()
+            backToCommunities()
             ui.waitUntil(15_000) { communityRow(spaceName).isDisplayed() && !count.isDisplayed() && !unread.isDisplayed() }
             activity.recreate()
             ui.waitUntil(15_000) { communityRow(spaceName).isDisplayed() }
@@ -427,8 +428,7 @@ class SpacesJourneyTest {
             // preview and explicit join path rather than only owner admission.
             val invitationDetails = command("invitation")
             val invitation = invitationDetails.get("link").asString
-            ui.onNode(hasText("Back to your communities") and hasClickAction() and
-                !hasAnyAncestor(hasScrollToNodeAction())).assertIsDisplayed().performClick()
+            backToCommunities()
             ui.waitUntil(5_000) { communityRow(community).isDisplayed() }
             val joinWithInvitation = hasText("Join with an invitation") and hasClickAction()
             visibleSpacesList().performScrollToNode(joinWithInvitation)
@@ -543,6 +543,11 @@ class SpacesJourneyTest {
                 addProperty("phase", "recovered"); addProperty("recoveredPid", Process.myPid()); add("observed", status)
             }.toString())
         } }
+    }
+
+    private fun backToCommunities() {
+        ui.onNode(hasText("Back to your communities") and hasClickAction() and
+            !hasAnyAncestor(hasScrollToNodeAction())).assertIsDisplayed().assertIsEnabled().performClick()
     }
 
     private fun newerMessagesAvailable() = SemanticsMatcher.expectValue(

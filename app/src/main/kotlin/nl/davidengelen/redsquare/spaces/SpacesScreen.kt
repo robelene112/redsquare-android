@@ -61,6 +61,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.feed.ProfileAvatar
@@ -412,6 +413,21 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 if (!latestFollowing || overlayMode != null || pinsModal) return@LaunchedEffect
                                 autoScrolling = true
                                 try { list.animateScrollToItem(state.messages.size) } finally { autoScrolling = false }
+                            }
+                            if (state.messages.isNotEmpty() && latestFollowing) {
+                                // Reaction chips can still be expanding after a message
+                                // update has settled. Follow the rendered bottom as its
+                                // geometry changes, even when the message ID is unchanged.
+                                snapshotFlow {
+                                    if (!list.isScrollInProgress && list.canScrollForward)
+                                        list.layoutInfo.visibleItemsInfo.lastOrNull()?.let { Triple(it.index, it.offset, it.size) }
+                                    else null
+                                }.filterNotNull().collect {
+                                    if (latestFollowing && overlayMode == null && !pinsModal && !list.isScrollInProgress) {
+                                        autoScrolling = true
+                                        try { list.scrollToItem(state.messages.size) } finally { autoScrolling = false }
+                                    }
+                                }
                             }
                         }
                         if (state.messages.isEmpty() && !state.contentLoaded) Box(Modifier.weight(1f).fillMaxWidth().clipToBounds().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
