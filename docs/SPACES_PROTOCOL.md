@@ -113,6 +113,27 @@ the recycled list; active overlays suspend automatic scrolling/read marking.
 Attempted/uncertain sends cannot be withdrawn
 through this local cancellation path and retain exact-original recovery.
 
+### Pins and channel attention
+
+A `message-pin` is a staff decision on an accepted base ID and position.
+Reply pins bind the original thread parent. Private decisions use archive AEAD.
+The service verifies staff authority for the supplied control term. A local
+pending change retains the exact signed original and permits cancellation
+before its first attempt. The authenticated pin stream pages active references
+independently of the visible message window. Opening a reference resolves
+the exact root or reply, keeping separate drafts for the channel and thread.
+
+The protected receiving client derives personal unread activity from exact
+wallet mentions and the authenticated parent of a reply. It checks
+`@everyone` against staff authority at acceptance. It keeps separate read
+positions for a channel and each thread. A negative root-only summary leaves
+unknown thread activity unresolved. Only a complete local projection publishes
+a personal count. An ordinary unread dot can appear while the count is pending.
+The native list catches up through bounded signed reads outside the composition
+thread. Preference defaults are Mentions and replies, with per-channel All and
+Silent and a separate recipient setting for `@everyone`. The preferences persist
+locally. Delivery through Activity and links is tracked in the later slice.
+
 ## In-progress138 public directory contract
 
 Envelope version1 remains distinct from persistent schema4. Public creation may
