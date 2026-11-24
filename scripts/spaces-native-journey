@@ -897,7 +897,7 @@ try:
                 observed['editedMessage']['edited'] and observed['incomingDuringIme']['count'] >= 8 and
                 observed['androidConsumptionWhileImeOpen']['observed'] and observed['androidConsumptionWhileImeOpen']['request'] and
                 observed['readingConsumption']['observed'] and observed['readingConsumption']['request'] and
-                observed['readingConsumption']['message'] == observed['readingIncoming']['id']):
+                observed['readingConsumption']['message'] == observed['readingIncoming']['id'] and observed['deletedMessage']['deleted']):
             raise RuntimeError('Focused conversation observations are incomplete')
         (evidence / 'overlay-results.json').write_text(json.dumps(observed, indent=2))
         finish_record(*movies[-1]); record(2)

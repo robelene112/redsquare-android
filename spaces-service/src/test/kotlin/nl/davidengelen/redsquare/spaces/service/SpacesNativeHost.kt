@@ -175,7 +175,7 @@ object SpacesNativeHost {
                                             val received = requireNotNull(client.message(space, message.id))
                                             JsonObject().apply {
                                                 addProperty("id", received.id); addProperty("position", requireNotNull(received.position))
-                                                addProperty("text", received.text); addProperty("edited", received.edited)
+                                                addProperty("text", received.text); addProperty("edited", received.edited); addProperty("deleted", received.deleted)
                                                 addProperty("pinned", received.pinned); addProperty("pinPending", received.pinPending)
                                                 parent?.let { addProperty("parent", it.id) }
                                                 add("reactions", com.google.gson.JsonArray().apply { received.reactions.forEach { choice -> add(JsonObject().apply {

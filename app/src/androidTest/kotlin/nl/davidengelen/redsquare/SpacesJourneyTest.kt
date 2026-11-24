@@ -164,11 +164,30 @@ class SpacesJourneyTest {
             val readingAfter = ui.onNodeWithText("Fixture line 100").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
             assertEquals("Incoming activity preserves deliberate older reading", readingBefore, readingAfter, 1f)
             capture("overlay-07-incoming-retains-reading-position", "Fixture line 100")
+            val moderated = command("message-observation", JsonObject().apply {
+                addProperty("space", space); addProperty("text", "Fixture line 100")
+            })
+            rowAction("Fixture line 100", "Message actions").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
+            val removeChoice = hasText("Delete message") and hasClickAction() and hasAnyAncestor(isDialog())
+            ui.waitUntil(5_000) { ui.onNode(removeChoice).isDisplayed() }
+            ui.onNode(removeChoice).performClick()
+            val deletionDetail = context.getString(R.string.spaces_delete_message_detail)
+            ui.waitUntil(5_000) { ui.onNodeWithText(deletionDetail).isDisplayed() && ui.onAllNodes(removeChoice).fetchSemanticsNodes().size == 1 }
+            ui.onNode(removeChoice and isEnabled()).assertIsDisplayed().performClick()
+            var deleted = JsonObject()
+            ui.waitUntil(15_000) {
+                if (deleted.get("deleted")?.asBoolean != true)
+                    deleted = command("message-observation", moderated.deepCopy().apply { addProperty("space", space) })
+                deleted.get("deleted").asBoolean && ui.onNodeWithText("Message deleted").isDisplayed()
+            }
+            assertEquals(moderated.get("id").asString, deleted.get("id").asString)
+            capture("overlay-08-moderated-placeholder", "Message deleted")
             File(evidence, "overlay-results.json").writeText(JsonObject().apply {
                 addProperty("pid", Process.myPid()); addProperty("imeBottom", ime)
                 add("editedMessage", observed); add("reactedMessage", reactionObserved)
                 addProperty("readingBefore", readingBefore); addProperty("readingAfter", readingAfter)
                 add("readingIncoming", readingIncoming); add("readingConsumption", readingConsumption)
+                add("deletedMessage", deleted)
                 addProperty("activityRecreated", true); addProperty("incomingBeforeEdit", 60); add("incomingDuringIme", incoming); add("androidConsumptionWhileImeOpen", consumed); addProperty("incomingDuringDetails", 60)
             }.toString())
         } }
