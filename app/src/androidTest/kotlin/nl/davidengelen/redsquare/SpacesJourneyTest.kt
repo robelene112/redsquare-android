@@ -149,8 +149,7 @@ class SpacesJourneyTest {
             messageHistory().performScrollToNode(hasText("Fixture line 100"))
             ui.waitUntil(5_000) { ui.onNodeWithText("Fixture line 100").isDisplayed() }
             val returnToLatest = hasText("Back to latest messages") and hasClickAction()
-            val newerActivity = SemanticsMatcher.expectValue(androidx.compose.ui.semantics.SemanticsProperties.StateDescription,
-                context.getString(R.string.spaces_newer_messages_available))
+            val newerActivity = newerMessagesAvailable()
             ui.onNode(returnToLatest).assertIsDisplayed().assert(!newerActivity)
             val readingBefore = ui.onNodeWithText("Fixture line 100").fetchSemanticsNode().boundsInRoot.top
             capture("overlay-06-deliberate-reading-position")
@@ -370,13 +369,16 @@ class SpacesJourneyTest {
             ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
             command("populate", JsonObject().apply { addProperty("space", joined.get("space").asString) })
             ui.waitUntil(15_000) { ui.onNodeWithText("Fixture line 19").isDisplayed() }
+            messageHistory().performTouchInput { swipeDown(durationMillis = 350) }
             messageHistory().performScrollToNode(hasText("Fixture line 5"))
+            val returnToLatest = hasText("Back to latest messages") and hasClickAction()
+            ui.onNode(returnToLatest).assertIsDisplayed().assert(!newerMessagesAvailable())
             val anchor = ui.onNodeWithText("Fixture line 5").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
             capture("04a-scrolled-before-module-switch")
             command("populate", JsonObject().apply {
                 addProperty("space", joined.get("space").asString); addProperty("from", 20); addProperty("count", 60)
             })
-            ui.waitUntil(20_000) { ui.onNodeWithText("Back to latest messages").isDisplayed() }
+            ui.waitUntil(20_000) { ui.onNode(returnToLatest and newerMessagesAvailable()).isDisplayed() }
             assertEquals("Unrelated incoming pages keep the actual reading pixel", anchor,
                 ui.onNodeWithText("Fixture line 5").fetchSemanticsNode().boundsInRoot.top, 1f)
             capture("04a-incoming-messages-preserve-anchor")
@@ -391,8 +393,10 @@ class SpacesJourneyTest {
             val reachedEnd = SystemClock.elapsedRealtime()
             ui.waitUntil(5_000) {
                 SystemClock.elapsedRealtime() - reachedEnd >= 500 &&
-                    ui.onNodeWithText("Fixture line 46").isDisplayed() &&
-                    ui.onNodeWithText("Back to latest messages").isDisplayed()
+                    // Two accepted initial messages precede the 48 fixture lines
+                    // that fit in the first 50-message window.
+                    ui.onNodeWithText("Fixture line 47").isDisplayed() &&
+                    ui.onNode(returnToLatest and newerMessagesAvailable()).isDisplayed()
             }
             capture("04c-historical-page-end")
             ui.onNodeWithText("Back to latest messages").performClick()
@@ -510,6 +514,10 @@ class SpacesJourneyTest {
             }.toString())
         } }
     }
+
+    private fun newerMessagesAvailable() = SemanticsMatcher.expectValue(
+        androidx.compose.ui.semantics.SemanticsProperties.StateDescription,
+        context.getString(R.string.spaces_newer_messages_available))
 
     private fun messageHistory() = ui.onNode(hasScrollToNodeAction() and SemanticsMatcher("on-screen message history") {
         it.boundsInRoot.right > 0f && it.boundsInRoot.left >= 0f && it.boundsInRoot.bottom > 0f
