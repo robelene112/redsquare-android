@@ -419,9 +419,15 @@ class SpacesJourneyTest {
             ui.waitUntil(5_000) { communityRow(community).isDisplayed() }
             val joinWithInvitation = hasText("Join with an invitation") and hasClickAction()
             visibleSpacesList().performScrollToNode(joinWithInvitation)
-            ui.onNode(joinWithInvitation).assertIsDisplayed().assertIsEnabled().performClick()
-            ui.onNode(hasSetTextAction()).performTextInput(invitation)
-            ui.onNode(hasText("View invitation") and hasClickAction()).performClick()
+            val joinAction = ui.onNode(joinWithInvitation and isEnabled())
+            ui.waitUntil(5_000) { joinAction.isDisplayed() }
+            joinAction.performClick()
+            val invitationInput = ui.onNode(hasSetTextAction() and hasAnyAncestor(isDialog()))
+            ui.waitUntil(5_000) { invitationInput.isDisplayed() }
+            invitationInput.performTextInput(invitation)
+            val viewInvitation = ui.onNode(hasText("View invitation") and hasClickAction() and isEnabled() and hasAnyAncestor(isDialog()))
+            ui.waitUntil(5_000) { viewInvitation.isDisplayed() }
+            viewInvitation.performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Builders on another device").isDisplayed() &&
                 ui.onNode(hasText("Join community") and hasClickAction() and isEnabled()).isDisplayed() }
             ui.onNodeWithText("Builders on another device").assertIsDisplayed()
@@ -430,7 +436,8 @@ class SpacesJourneyTest {
             ui.onNode(hasText("Use another invitation") and hasClickAction()).performClick()
             ui.waitUntil(5_000) { ui.onNode(hasSetTextAction() and hasAnyAncestor(isDialog())).isDisplayed() }
             ui.onNode(hasSetTextAction() and hasAnyAncestor(isDialog())).performTextReplacement(invitation)
-            ui.onNode(hasText("View invitation") and hasClickAction()).performClick()
+            ui.waitUntil(5_000) { viewInvitation.isDisplayed() }
+            viewInvitation.performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Builders on another device").isDisplayed() &&
                 ui.onNode(hasText("Join community") and hasClickAction() and isEnabled()).isDisplayed() }
             ui.onNode(hasText("Join community") and hasClickAction()).performClick()
