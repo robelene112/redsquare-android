@@ -78,12 +78,18 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
             native.text("key_package"), native.text("signer"), "")
         return unsigned.copy(walletSignature = wallet.sign(unsigned.signedBytes()))
     }
-    fun admit(member: BoundPackage): Admission {
+    fun admit(member: BoundPackage, replace: String? = null): Admission {
         require(member.scope == requireNotNull(scope) && member.credential !in bindings)
+        if (replace != null) require(replace in bindings && replace != credential &&
+            walletKey(replace) == member.walletKey) { "Replacement must retain the authenticated wallet identity" }
         member.verify()
-        val response = step("add") { addProperty("key_package", member.packageBytes) }
+        val response = step(if (replace == null) "add" else "replace") {
+            addProperty("key_package", member.packageBytes)
+            replace?.let { addProperty("identity", it) }
+        }
         val next = advance(response, scope)
-        require(next.epoch == Math.addExact(epoch, 1) && next.bindings == bindings + (member.credential to member.signer)) {
+        val continuing = if (replace == null) bindings else bindings - replace
+        require(next.epoch == Math.addExact(epoch, 1) && next.bindings == continuing + (member.credential to member.signer)) {
             "MLS admission does not match its wallet binding"
         }
         return Admission(next, response.text("welcome"), next.bindings, response.text("wire"), cancelled(response))

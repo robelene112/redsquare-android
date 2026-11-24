@@ -138,7 +138,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         if (!validProof) { denied("unavailable"); return@atomic }
                         if (invitation.expiresAt <= now) { denied("expired"); return@atomic }
                     } else if (stream == "join") {
-                        if (journal.snapshot.members[request.author] !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)) {
+                        if (!journal.canApproveDeviceRequests(request.author)) {
                             denied("unavailable"); return@atomic
                         }
                     } else if (!(journal.snapshot.visibility == SpaceVisibility.PUBLIC && stream == "control") &&
@@ -196,12 +196,9 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                                 val value = rows.getString(2)
                                 if (stream == "join") {
                                     val original = SaitoEnvelope.decode(SaitoEnvelope.decode(value).body.text("event"))
-                                    val channelOnly = original.body.text("kind") == "join-channel"
-                                    val invitation = if (channelOnly) null else journal.snapshot.invitations[original.body.text("invite_id")]
-                                    val completed = if (channelOnly) !journal.canJoinChannel(original.author,
-                                        original.body.text("channel_id"), original.body.text("control_id")) else invitation == null || original.author in journal.snapshot.members || invitation.expiresAt <= now ||
-                                        !journal.hasCurrentMembershipIntent(original.author, original.body.get("membership_control")?.asString)
-                                    if (completed) {
+                                    val allowed = journal.snapshot.members[request.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) ||
+                                        original.body.text("kind") == "replace-device"
+                                    if (!allowed || !journal.pendingJoinIsCurrent(original, now)) {
                                         next = Math.addExact(rows.getLong(1), 1)
                                         continue
                                     }
@@ -226,6 +223,8 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 reply.addProperty("message_reactions", true)
                 reply.addProperty("message_pins", true)
                 reply.addProperty("addressed_invitations", true)
+                reply.addProperty("device_replacement_v1", true)
+                reply.addProperty("protected_chat_v1", true)
             }
             else -> throw IllegalArgumentException("Unsupported Spaces read request")
         }
@@ -609,7 +608,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val journal = journal(space)
                 val state = journal.snapshot
                 val acceptedAt = clock.millis().also { require(it >= 0) }
-                val joining = body.text("kind") in setOf("join", "join-channel")
+                val joining = body.text("kind") in setOf("join", "join-channel", "replace-device")
                 val content = body.text("kind") in setOf("content", "history", "public-content")
                 val table = if (joining) "joins" else if (content) "records" else "controls"
                 val position = if (joining || content) nextPosition(table, space, if (content) body.text("channel_id") else null)

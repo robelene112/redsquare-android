@@ -19,8 +19,11 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
-import java.util.Base64
 import java.util.regex.Pattern
+import android.provider.DocumentsContract
+import android.app.KeyguardManager
+import nl.davidengelen.redsquare.spaces.AndroidSpaceClientStore
+import nl.davidengelen.redsquare.spaces.AndroidSpacesRecovery
 
 class ProtectedWalletRecoveryTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -38,17 +41,50 @@ class ProtectedWalletRecoveryTest {
         val message = original.publish(wallet, "message", "d".repeat(64), "e".repeat(128), "Recovered native history", 1)
         val archive = SpaceHistoryKeys.restore(original.historyBackup(), wallet.publicKey)
         val phrase = "isolated device recovery fixture"
-        val bytes = AccountRecoveryBackup.seal(wallet, listOf(archive), phrase.toCharArray())
-        val encoded = Base64.getEncoder().encodeToString(bytes)
-        val filename = "00-protected-recovery.saito"
-        val testPackage = instrumentation.context.packageName
-        val destination = "files/wallet-test-documents/$filename"
-        assertTrue(device.executeShellCommand("run-as $testPackage sh -c 'mkdir -p files/wallet-test-documents && echo $encoded | base64 -d > $destination'").isBlank())
+        val filename = "protected-recovery-${java.util.UUID.randomUUID()}.saito"
+        val uri = DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, filename)
+        val keyguard = context.getSystemService(KeyguardManager::class.java)
+        assertFalse(keyguard.isDeviceSecure)
+        val intent = Intent(context, MainActivity::class.java).putExtra("feedDisabled", true)
+            .putExtra("feedPeerUrl", "ws://127.0.0.1:1/wsopen").putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:1/wsopen")
+            .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
         val evidence = File(context.cacheDir, "protected-recovery-evidence").apply { mkdirs() }
+        AndroidSpacesRecovery(context) { error("The recovery fixture uses only locally staged archives") }.retain(wallet, listOf(archive))
+        device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
         try {
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("feedDisabled", true)
-                .putExtra("feedPeerUrl", "ws://127.0.0.1:1/wsopen").putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:1/wsopen")
-                .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
+            ui.waitUntil(10_000) { keyguard.isDeviceSecure }
+            ActivityScenario.launch<MainActivity>(intent).use {
+                withFailureCapture({ captureNativeScreen(File(evidence, "export-failure.png")) }) {
+                    ui.waitForAccountMenu(15_000)
+                    ui.openWallet()
+                    ui.onNode(hasText("Back up identity and history") and hasClickAction()).performScrollTo().performClick()
+                    ui.onNode(hasSetTextAction() and hasText("Passphrase")).performTextInput(phrase)
+                    ui.onNode(hasSetTextAction() and hasText("Repeat passphrase")).performTextInput(phrase)
+                    androidx.test.espresso.Espresso.closeSoftKeyboard()
+                    ui.onNode(hasText("Choose file") and hasClickAction()).assertIsEnabled().performClick()
+                    chooseTestBackup(device, filename)
+                    enterRealSystemPin(device)
+                    ui.waitUntil(15_000) { ui.onNodeWithText("Wallet backup saved").isDisplayed() }
+                    val saved = requireNotNull(context.contentResolver.openInputStream(uri)).use { it.readBytes() }
+                    try {
+                        assertTrue(AccountRecoveryBackup.recognizes(saved))
+                        val decoded = AccountRecoveryBackup.open(saved, phrase.toCharArray())
+                        assertEquals(wallet.publicKey, decoded.wallet.publicKey)
+                        assertEquals("Recovered native history", decoded.history.single { key -> key.scope == scope }.read(message.envelope()).text)
+                    } finally { saved.fill(0) }
+                    captureNativeScreen(File(evidence, "00-verified-protected-export.png"), "Wallet backup saved")
+                }
+            }
+            AndroidSpaceClientStore(context, wallet.publicKey, "local-recovery", wallet.publicKey).use { store ->
+                store.transaction {
+                    val key = "archive/${scope.serviceKey}/${scope.spaceId}/${scope.channelId}/${scope.generation}"
+                    require(get(key) != null)
+                    remove(key)
+                    val count = requireNotNull(get("archive-count")).decodeToString().toInt()
+                    put("archive-count", (count - 1).toString().encodeToByteArray())
+                }
+            }
+            ActivityScenario.launch<MainActivity>(intent).use {
                 withFailureCapture({ captureNativeScreen(File(evidence, "failure.png")) }) {
                     ui.waitForAccountMenu(15_000)
                     ui.openWallet()
@@ -81,8 +117,8 @@ class ProtectedWalletRecoveryTest {
                 }
             }
         } finally {
-            bytes.fill(0)
-            device.executeShellCommand("run-as $testPackage rm $destination")
+            runCatching { DocumentsContract.deleteDocument(context.contentResolver, uri) }
+            device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0")
         }
     }
 
@@ -93,13 +129,13 @@ class ProtectedWalletRecoveryTest {
         while (SystemClock.uptimeMillis() < deadline) {
             try {
                 if (device.currentPackageName == context.packageName &&
-                    ui.onNode(hasText("Unlock backup") and hasClickAction()).isDisplayed()) return
+                    ui.onAllNodes(hasText("Unlock backup") and hasClickAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()) return
                 val opened = device.findObject(drawer)
                 if (opened != null) {
-                    opened.findObject(row)?.click()
+                    if (opened.findObject(row) != null) clickTestBackupRoot()
                     device.wait(Until.gone(drawer), 2_000)
                 } else {
-                    val file = device.findObject(By.text(filename).res("android", "title"))
+                    val file = device.findObject(By.text(filename))
                     if (file != null) file.click()
                     else device.findObject(By.desc("Show roots"))?.click()
                 }

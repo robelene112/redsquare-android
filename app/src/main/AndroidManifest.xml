@@ -41,6 +41,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="saito" android:host="spaces" android:path="/join" />
+                <data android:scheme="saito" android:host="spaces" android:path="/chat" />
                 <data android:scheme="saito" android:host="spaces" android:path="/community" />
             </intent-filter>
             <intent-filter>

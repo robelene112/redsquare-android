@@ -255,6 +255,7 @@ class MainActivity : ComponentActivity() {
             val address = wallet?.publicKey
             var spacesActivated by rememberSaveable { mutableStateOf(false) }
             var pendingSpaceInvitation by remember { mutableStateOf<String?>(null) }
+            var pendingProtectedInvitation by remember { mutableStateOf<String?>(null) }
             val incomingSpaceUri by spaceUris.collectAsState()
             LaunchedEffect(module) { if (module == AppModule.SPACES) spacesActivated = true }
             val spacesAccount = remember(address, backend, spacesActivated) {
@@ -282,9 +283,18 @@ class MainActivity : ComponentActivity() {
                 val moved = postNavigation.navigate {
                     if (wallet?.publicKey != owner || backend != node || spaceUris.value != incoming) false
                     else {
-                        spacesActivated = true; pendingSpaceInvitation = incoming.toString()
+                        spacesActivated = true
                         stackLinkEntry = null; storeLinkEntry = null; vaultRentalEntry = null
-                        module = AppModule.SPACES; spaceUris.value = null; true
+                        clearSpacesReturn()
+                        if (nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.isProtectedChat(incoming)) {
+                            pendingProtectedInvitation = incoming.toString()
+                            module = AppModule.RED_SQUARE
+                        } else {
+                            pendingSpaceInvitation = incoming.toString()
+                            module = AppModule.SPACES
+                        }
+                        spaceUris.value = null
+                        true
                     }
                 }
                 moduleSwitchFailed = !moved
@@ -586,6 +596,8 @@ class MainActivity : ComponentActivity() {
                 nl.davidengelen.redsquare.feed.ProfileAvatarScope(wallet, backend,
                     backend?.let { FeedEndpoints.fromIntent(intent, it) }) {
                 CompositionLocalProvider(LocalTalkLaunch provides launchTalk, LocalPublishingAgreement provides publishingAgreement,
+                    nl.davidengelen.redsquare.chat.LocalProtectedChats provides
+                        nl.davidengelen.redsquare.chat.ProtectedChatAccess(spacesAccount) { spacesActivated = true },
                     androidx.compose.ui.platform.LocalUriHandler provides readingUri,
                     nl.davidengelen.redsquare.ui.LocalExternalUriHandler provides externalUri,
                     LocalVideoFixture provides VideoFixture.fromIntent(intent),
@@ -915,6 +927,8 @@ class MainActivity : ComponentActivity() {
                                                         RegistryAuthority.directoryPeer(intent, feedEndpoint).takeIf { nameDirectoryEnabled == true }) {
                                                         FeedScreen(wallet, failed, feedEndpoint, selected,
                                                             lifecycle, Modifier.fillMaxSize(), notificationRoutes = notificationRoutes,
+                                                            initialProtectedInvitation = pendingProtectedInvitation,
+                                                            onProtectedInvitationConsumed = { pendingProtectedInvitation = null },
                                                             allowPushRoute = featureUnobstructed,
                                                             externalReturnDepth = spacesReturnDepth.takeIf { spacesReturnOwner == wallet?.publicKey && spacesReturnBackend == selected.id },
                                                             onExternalBack = { clearSpacesReturn(); module = AppModule.SPACES },

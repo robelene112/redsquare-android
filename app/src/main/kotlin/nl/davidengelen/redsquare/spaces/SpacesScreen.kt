@@ -4,6 +4,8 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.AnimatedContent
@@ -82,8 +84,11 @@ import java.util.Date
 internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     chrome: @Composable (Boolean) -> Unit, onProfile: (String) -> Unit, onMessage: (String) -> Unit,
     onOpenNode: (String, String) -> Unit, initialInvitation: String? = null, onInvitationConsumed: () -> Unit = {}) {
-    val state by account.state.collectAsState()
+    val sharedState by account.state.collectAsState()
+    val communities = remember(sharedState.communities) { sharedState.communities.filter { it.protectedChat == null } }
+    val state = sharedState.copy(communities = communities)
     val scope = rememberCoroutineScope()
+    val publishing = nl.davidengelen.redsquare.policy.LocalPublishingAgreement.current
     val navigation = LocalPostNavigation.current
     DisposableEffect(navigation, account) {
         val save: suspend () -> Boolean = { account.guardNavigation { true } }
@@ -136,6 +141,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     val compactConfiguration = screenHeight <= 480.dp ||
         screenHeight <= 700.dp && LocalDensity.current.fontScale >= 1.5f
     var invitationText by remember { mutableStateOf("") }
+    var replacingDevice by remember { mutableStateOf(false) }
     var reviewedInvitation by remember(account) { mutableStateOf<SpaceClient.InvitationPreview?>(null) }
     val invitationReview = state.preview ?: reviewedInvitation
     SideEffect { state.preview?.let { reviewedInvitation = it } }
@@ -188,6 +194,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         channelCreator.open = false; channelAccessRoute = null
         informationOpen = false; inviteOpen = false; membersOpen = false; publicRulesOpen = false
         clearInvitationReview()
+        replacingDevice = false
         if (SpacesLaunchRoutes.isPublic(android.net.Uri.parse(link))) {
             joinOpen = false; informationOpen = false; inviteOpen = false; membersOpen = false; channelAccessRoute = null
             publicReference = link; account.openPublicLink(link)
@@ -200,6 +207,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             account.consumeJoinedInvitation(joined)
         }
     }
+    LaunchedEffect(joinOpen) { if (!joinOpen) replacingDevice = false }
     LaunchedEffect(selected?.joined) { if (selected?.joined == true) publicRulesOpen = false }
     BackHandler(channelAccessRoute != null) { channelAccessRoute = null; informationOpen = selected != null }
     BackHandler(membersOpen) { membersOpen = false; informationOpen = true }
@@ -313,6 +321,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 if (state.loadingChannel || selected == null) Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                     if (state.problem == null) CircularProgressIndicator(Modifier.size(28.dp)) else ProblemNotice(requireNotNull(state.problem), account::clearProblem)
                 } else key(selected.id, selected.channel, state.threadParent?.id) {
+                    when {
+                        selected.deviceReplaced -> InlineStatus(stringResource(R.string.recovery_device_replaced), StatusTone.WARNING)
+                        selected.replacingDevice -> InlineStatus(stringResource(R.string.recovery_device_waiting), StatusTone.INFO)
+                        selected.replacementRejected -> InlineStatus(stringResource(R.string.recovery_device_rejected), StatusTone.WARNING)
+                    }
                     val conversation = channel?.profile?.kind in setOf(SpaceChannelKind.CHAT, SpaceChannelKind.ANNOUNCEMENT) || channel == null
                     if (!conversation) Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -576,20 +589,31 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     SpaceCreationSheet(createOpen, account, state) { createOpen = false }
     var acceptedInvitation by remember(invitationReview?.spaceId, invitationReview?.rulesToken) { mutableStateOf(false) }
-    DesignSheet(joinOpen, stringResource(R.string.spaces_join_invitation), { joinOpen = false; account.dismissPreview() },
+    DesignSheet(joinOpen, stringResource(if (replacingDevice) R.string.recovery_replace_device else R.string.spaces_join_invitation),
+        { joinOpen = false; account.dismissPreview() },
         contentKey = invitationReview?.spaceId, footer = { first ->
             val focus = LocalFocusManager.current; val keyboard = LocalSoftwareKeyboardController.current
             val rulesAccepted = invitationReview?.profile?.houseRules.isNullOrEmpty() || acceptedInvitation
             Button(onClick = {
                 focus.clearFocus(); keyboard?.hide()
-                if (invitationReview == null) account.preview(invitationText.trim()) else account.join(invitationText.trim(), invitationReview?.rulesToken)
+                if (replacingDevice) scope.launch {
+                    if (publishing.beforePublishing()) {
+                        account.replaceDevice(invitationText.trim(), expectProtectedChat = false)
+                    }
+                }
+                else if (invitationReview == null) account.preview(invitationText.trim()) else account.join(invitationText.trim(), invitationReview?.rulesToken)
             }, enabled = joinOpen && invitationText.isNotBlank() && !state.working && rulesAccepted && (invitationReview == null || state.preview != null),
                 modifier = (if (invitationReview != null) first else Modifier).fillMaxWidth().heightIn(min = 48.dp)) {
-                Text(stringResource(if (invitationReview == null) R.string.spaces_preview else R.string.spaces_join))
+                Text(stringResource(when {
+                    replacingDevice -> R.string.recovery_replace_confirm
+                    invitationReview == null -> R.string.spaces_preview
+                    else -> R.string.spaces_join
+                }))
             }
             if (state.working) LinearProgressIndicator(Modifier.fillMaxWidth())
         }) { first ->
-        Text(stringResource(R.string.spaces_join_detail), color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(stringResource(if (replacingDevice) R.string.recovery_replace_device_detail else R.string.spaces_join_detail),
+            color = MaterialTheme.colorScheme.onSurfaceVariant)
         Text(stringResource(R.string.spaces_join_as, registeredIdentity(account.ownerKey).name), style = MaterialTheme.typography.labelLarge)
         AnimatedContent(invitationReview, label = "spaces-invitation-review", transitionSpec = {
             fadeIn(tween(AppSpacing.transitionMillis)) togetherWith fadeOut(tween(AppSpacing.transitionMillis))
@@ -619,6 +643,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         }
         state.previewIssue?.let { issue -> Text(stringResource(if (issue == SpaceClient.ReadProblem.EXPIRED)
             R.string.spaces_invitation_expired else R.string.spaces_expiry_unavailable), color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        if (invitationReview == null && !replacingDevice) TextButton(onClick = {
+            clearInvitationReview()
+            replacingDevice = true
+        }, enabled = !state.working) { Text(stringResource(R.string.recovery_replace_device)) }
         state.problem?.let { ProblemNotice(it, account::clearProblem) }
     }
     var acceptedPublicRules by remember(state.selected, state.publicRulesToken) { mutableStateOf(false) }
@@ -1196,6 +1224,9 @@ private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "�
         SpacesAccount.Problem.INVITATION -> R.string.spaces_invitation_failed
         SpacesAccount.Problem.SAVE -> R.string.spaces_save_failed
         SpacesAccount.Problem.CONNECTION -> R.string.spaces_offline
+        SpacesAccount.Problem.PROTECTED_CHAT_UNSUPPORTED -> R.string.protected_chat_unsupported
+        SpacesAccount.Problem.DEVICE_RECOVERY_UNSUPPORTED -> R.string.recovery_device_unsupported
+        SpacesAccount.Problem.DEVICE_RECOVERY_NO_APPROVER -> R.string.recovery_device_no_approver
     }
     Column {
         Text(stringResource(message), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)

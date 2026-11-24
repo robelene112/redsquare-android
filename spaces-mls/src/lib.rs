@@ -131,7 +131,7 @@ pub fn exchange(request: &str) -> Result<String, &'static str> {
             client.group = Some(MlsGroup::new_with_group_id(&client.provider, &client.signer, &config,
                 GroupId::from_slice(id.as_bytes()), client.credential()).map_err(|_| "MLS creation failed")?);
         }
-        "add" => {
+        "add" | "replace" => {
             let package = KeyPackageIn::tls_deserialize_exact(decode(field(&request, "key_package")?)?)
                 .map_err(|_| "Invalid MLS key package")?
                 .validate(client.provider.crypto(), ProtocolVersion::Mls10).map_err(|_| "Invalid MLS key package")?;
@@ -141,8 +141,22 @@ pub fn exchange(request: &str) -> Result<String, &'static str> {
                 return Err("MLS key package lifetime exceeds the supported range");
             }
             let group = client.group.as_mut().ok_or("MLS group unavailable")?;
-            let (commit, welcome, _) = group.add_members(&client.provider, &client.signer, &[package])
-                .map_err(|_| "MLS admission failed")?;
+            let (commit, welcome) = if op == "replace" {
+                let identity = field(&request, "identity")?;
+                let targets: Vec<_> = group.members()
+                    .filter(|member| member.credential.serialized_content() == identity.as_bytes())
+                    .map(|member| member.index).collect();
+                if targets.len() != 1 || targets[0] == group.own_leaf_index() {
+                    return Err("Invalid MLS device replacement");
+                }
+                let swapped = group.swap_members(&client.provider, &client.signer, &targets, &[package])
+                    .map_err(|_| "MLS device replacement failed")?;
+                (swapped.commit, swapped.welcome)
+            } else {
+                let (commit, welcome, _) = group.add_members(&client.provider, &client.signer, &[package])
+                    .map_err(|_| "MLS admission failed")?;
+                (commit, welcome)
+            };
             response["wire"] = STANDARD.encode(commit.tls_serialize_detached().map_err(|_| "MLS encoding failed")?).into();
             response["welcome"] = STANDARD.encode(welcome.tls_serialize_detached().map_err(|_| "MLS encoding failed")?).into();
             response["pending_state"] = client.snapshot()?.into();

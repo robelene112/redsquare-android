@@ -50,7 +50,7 @@ internal fun chooseTestBackup(device: UiDevice, name: String) {
 }
 
 /** Use the real clickable provider row, rather than a coordinate tap on its text leaf. */
-private fun clickTestBackupRoot() {
+internal fun clickTestBackupRoot() {
     val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
     val deadline = SystemClock.uptimeMillis() + 20_000 // Original provider-control budget.
     fun find(root: AccessibilityNodeInfo): AccessibilityNodeInfo? {

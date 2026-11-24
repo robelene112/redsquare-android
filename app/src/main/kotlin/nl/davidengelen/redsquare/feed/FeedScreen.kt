@@ -78,6 +78,7 @@ private enum class FeedOverlay { QUEUE, AUTHOR_CHANGES, COMPOSER }
 internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend,
     lifecycle: Lifecycle, modifier: Modifier, canReportDrawn: Boolean,
     notificationRoutes: NotificationRoutes? = null, allowPushRoute: Boolean = true,
+    initialProtectedInvitation: String? = null, onProtectedInvitationConsumed: () -> Unit = {},
     externalReturnDepth: Int? = null, onExternalBack: () -> Unit = {}, onExternalNavigate: () -> Unit = {},
     chrome: @Composable (Boolean) -> Unit = {},
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit,
@@ -122,6 +123,9 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     var reviewingQueue by rememberSaveable { mutableStateOf(false) }
     var reviewingChanges by rememberSaveable { mutableStateOf(false) }
     var reviewingChat by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(initialProtectedInvitation) {
+        if (initialProtectedInvitation != null) reviewingChat = true
+    }
     // Wallet loading is transient. Keep the bound reference until identity can be checked.
     var chatAlertUri by rememberSaveable { mutableStateOf<String?>(null) }
     val restoredChatAlert = nl.davidengelen.redsquare.chat.ChatAlertReference.parse(chatAlertUri?.let(android.net.Uri::parse))
@@ -499,6 +503,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 key(chatAlertGeneration) {
                     nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, childModifier, onWalletMetadata,
                         initialContact = fileAlert?.contact ?: chatAlert?.privateContact, initialGroup = chatAlert?.groupId,
+                        initialProtectedInvitation = initialProtectedInvitation,
+                        onProtectedInvitationConsumed = onProtectedInvitationConsumed,
                         onInitialDestinationClosed = { chatAlertUri = null; fileAlertUri = null }) {
                             reviewingChat = false; chatAlertUri = null; fileAlertUri = null
                         }

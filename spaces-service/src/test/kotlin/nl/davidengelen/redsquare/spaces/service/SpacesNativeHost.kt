@@ -110,6 +110,26 @@ object SpacesNativeHost {
                                             client.flush(space)
                                             JsonObject().apply { addProperty("link", link); addProperty("space", space) }
                                         }
+                                        "/protected-chat-invitation" -> {
+                                            val recipient = body.get("recipient").asString
+                                            val space = client.createProtectedChat("Protected native conversation", recipient)
+                                            client.flush(space)
+                                            val link = client.inviteFor(space, recipient)
+                                            client.flush(space)
+                                            JsonObject().apply { addProperty("link", link); addProperty("space", space) }
+                                        }
+                                        "/protected-chat-proof" -> {
+                                            val space = body.get("space").asString
+                                            val text = body.get("text").asString
+                                            client.refresh(space)
+                                            val originals = peer.spacesRequests.map { SaitoEnvelope.decode(it.envelope()).body }
+                                                .filter { it.get("space_id")?.asString == space && it.get("content_kind")?.asString == "message" }
+                                            JsonObject().apply {
+                                                addProperty("readByIndependentPeer", client.messages(space).count { it == text } == 1)
+                                                addProperty("encryptedOriginals", originals.count { it.has("ciphertext") && !it.has("text") && !it.toString().contains(text) })
+                                                addProperty("contentOriginals", originals.size)
+                                            }
+                                        }
                                         "/attention-message" -> {
                                             check(conversationMode)
                                             val space = body.get("space").asString

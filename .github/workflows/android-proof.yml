@@ -4,6 +4,10 @@ on:
     branches: [main]
   workflow_dispatch:
     inputs:
+      spaces_protected_chat:
+        description: Focused protected Chat invitation and independent encrypted round trip
+        type: boolean
+        default: false
       spaces_conversation_overlays:
         description: Focused message-menu, edit, IME and reaction-details lifecycle check only
         type: boolean
@@ -97,6 +101,7 @@ jobs:
     runs-on: ${{ inputs.runner_os || 'ubuntu-24.04' }}
     env:
       SPACES_CONVERSATION_OVERLAYS: ${{ inputs.spaces_conversation_overlays && 'true' || 'false' }}
+      SPACES_PROTECTED_CHAT: ${{ inputs.spaces_protected_chat && 'true' || 'false' }}
       SPACES_STARTUP_TRACE: ${{ inputs.spaces_startup_trace && 'true' || 'false' }}
       SPACES_CATEGORY_MANAGEMENT: ${{ inputs.spaces_category_management && 'true' || 'false' }}
       SPACES_PRIVATE_MANAGEMENT: ${{ inputs.spaces_private_management && 'true' || 'false' }}

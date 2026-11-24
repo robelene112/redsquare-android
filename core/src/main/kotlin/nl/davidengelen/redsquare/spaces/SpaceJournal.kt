@@ -21,8 +21,14 @@ data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>,
 data class SpaceOwnershipOffer(val id: String, val member: String, val proposedAt: Long,
     val acceptedId: String? = null, val acceptedAt: Long? = null)
 
+data class ProtectedChat(val directPeer: String? = null) {
+    init { require(directPeer == null || SaitoWallet.isPublicKey(directPeer)) }
+    internal fun acceptsRecipient(recipient: String?) = recipient != null && (directPeer == null || directPeer == recipient)
+}
+
 data class SpaceJoinRequest(val envelope: String, val id: String, val actor: String,
-    val operationId: String, val channelId: String, val keyPackage: SpaceCrypto.BoundPackage)
+    val operationId: String, val channelId: String, val keyPackage: SpaceCrypto.BoundPackage,
+    val replacedDevice: String? = null)
 
 data class SpaceSnapshot(val owner: String? = null, val members: Map<String, SpaceRole> = emptyMap(),
     val controlId: String? = null, val nextPosition: Long = 0,
@@ -32,7 +38,7 @@ data class SpaceSnapshot(val owner: String? = null, val members: Map<String, Spa
     val administratorStartedAt: Map<String, Long> = emptyMap(), val generalChannelId: String? = null,
     val membershipEndedAt: Map<String, Long> = emptyMap(), val bannedMembers: Set<String> = emptySet(),
     val membershipReadThrough: Map<String, Long> = emptyMap(), val ownershipOffer: SpaceOwnershipOffer? = null,
-    val categories: Map<String, SpaceCategoryRecord> = emptyMap(), val entryChannelId: String? = generalChannelId, val dissolved: Boolean = false)
+    val categories: Map<String, SpaceCategoryRecord> = emptyMap(), val entryChannelId: String? = generalChannelId, val dissolved: Boolean = false, val protectedChat: ProtectedChat? = null)
 
 /** Authenticated control history. Content pages have their own channel cursors. */
 class SpaceJournal(private val spaceId: String, private val serviceKey: String) {
@@ -101,6 +107,29 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         return position >= maxOf(startedAt, current.membershipEndedAt[actor] ?: 0L, handoverStart)
     }
 
+    fun canApproveDeviceRequests(actor: String): Boolean =
+        current.members[actor] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) ||
+            current.protectedChat?.directPeer != null && actor in current.members
+
+    private fun canReplaceDevice(actor: String, channel: String, credential: String, controlId: String): Boolean {
+        val record = current.channels[channel] ?: return false
+        val position = controlPositions[controlId] ?: return false
+        return !current.dissolved && actor in current.members && actor !in current.bannedMembers &&
+            record.visibility == SpaceVisibility.PRIVATE && canAccessChannel(actor, channel) &&
+            credential in record.devices && credential !in record.retiredDevices && credentialWallet(credential) == actor &&
+            position >= maxOf(current.membershipEndedAt[actor] ?: 0L, record.accessStartedAt[actor] ?: 0L)
+    }
+
+    fun pendingJoinIsCurrent(join: SignedSaitoMessage, now: Long): Boolean = when (join.body.text("kind")) {
+        "join-channel" -> canJoinChannel(join.author, join.body.text("channel_id"), join.body.text("control_id"))
+        "replace-device" -> canReplaceDevice(join.author, join.body.text("channel_id"),
+            join.body.text("replace_device"), join.body.text("control_id"))
+        else -> current.invitations[join.body.text("invite_id")]?.let { invitation ->
+            join.author !in current.members && invitation.expiresAt > now &&
+                hasCurrentMembershipIntent(join.author, join.body.get("membership_control")?.asString)
+        } == true
+    }
+
     fun receive(receipt: String): SpaceSnapshot {
         val signedReceipt = SaitoEnvelope.decode(receipt)
         require(signedReceipt.author == serviceKey) { "Spaces receipt has a different service identity" }
@@ -151,14 +180,24 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean); it.asBoolean
                 } ?: (channelProfile?.kind == SpaceChannelKind.ANNOUNCEMENT)
                 require(channelKind == null || adminPostsOnly == (channelKind == SpaceChannelKind.ANNOUNCEMENT))
+                val protectedChat = event.body.get("protected_chat")?.let { value ->
+                    require(value.isJsonObject)
+                    val details = value.asJsonObject
+                    require(details.keySet().all { it == "direct_peer" })
+                    val peer = details.get("direct_peer")?.let { details.text("direct_peer") }
+                    require(visibility == SpaceVisibility.PRIVATE && channelVisibility == SpaceVisibility.PRIVATE &&
+                        channelKind == SpaceChannelKind.CHAT && peer != event.author)
+                    ProtectedChat(peer)
+                }
                 val created = SpaceSnapshot(event.author, mapOf(event.author to SpaceRole.OWNER), event.id, 1,
                     channels = mapOf(event.body.text("channel_id") to SpaceChannelRecord(0, devices,
                         event.body.takeIf { it.has("key_generation") }?.text("key_generation")?.also { require(it.matches(ID)) }
                             ?: "0".repeat(64), visibility = channelVisibility,
-                        profile = channelProfile, metadata = channelMetadata, adminPostsOnly = adminPostsOnly, kind = channelKind, metadataChannelId = event.body.text("channel_id"))), visibility = visibility, publicProfile = profile, generalChannelId = event.body.text("channel_id"))
+                        profile = channelProfile, metadata = channelMetadata, adminPostsOnly = adminPostsOnly, kind = channelKind, metadataChannelId = event.body.text("channel_id"))), visibility = visibility, publicProfile = profile, generalChannelId = event.body.text("channel_id"), protectedChat = protectedChat)
                 categorizedChannel(event, created, event.body.text("channel_id"), created.channels.getValue(event.body.text("channel_id")))
             }
             "create-category", "edit-category" -> {
+                require(current.protectedChat == null) { "Protected chats have one private conversation" }
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
                 require(event.body.text("control_id") == current.controlId)
                 val category = event.body.text("category_id").also { require(it.matches(ID)) }
@@ -168,6 +207,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     categories = Collections.unmodifiableMap(current.categories + (category to record)))
             }
             "create-channel" -> {
+                require(current.protectedChat == null) { "Protected chats have one private conversation" }
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
                 require(event.body.text("control_id") == current.controlId)
                 val allowed = event.body.get("allowed_members")?.let { value ->
@@ -336,6 +376,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     membershipEndedAt = Collections.unmodifiableMap(current.membershipEndedAt + (member to position)))
             }
             "propose-owner" -> {
+                require(current.protectedChat?.directPeer == null)
                 require(event.author == current.owner && event.body.text("control_id") == current.controlId)
                 require(current.ownershipOffer == null)
                 val member = event.body.text("member")
@@ -407,6 +448,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 val legacyMemberChannel = channel.visibility == SpaceVisibility.PRIVATE && channel.allowedMembers == null
                 require(channelId == current.entryChannelId || legacyMemberChannel) { "An invitation must use the community entrance or an unrestricted private member channel" }
                 val recipient = event.body.get("recipient")?.let { event.body.text("recipient") }
+                require(current.protectedChat?.acceptsRecipient(recipient) != false)
                 if (recipient != null) {
                     require(channel.visibility == SpaceVisibility.PRIVATE && format == "profile-v1")
                     require(SaitoWallet.isPublicKey(recipient) && recipient !in current.members)
@@ -438,6 +480,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     }))
             }
             "set-visibility" -> {
+                require(current.protectedChat == null) { "Protected chats have one private conversation" }
                 require(current.owner == event.author && event.body.text("control_id") == current.controlId)
                 if (event.body.text("visibility") == "private") closePublicSpace(event, position) else {
                     require(current.visibility == SpaceVisibility.PRIVATE && event.body.text("visibility") == "public")
@@ -505,17 +548,21 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             }
             "admit" -> {
                 require(current.owner != null && event.body.text("control_id") == current.controlId)
-                require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
                 val channel = event.body.text("channel_id")
                 val oldChannel = requireNotNull(current.channels[channel])
                 require(oldChannel.visibility == SpaceVisibility.PRIVATE && oldChannel.retiredDevices.isEmpty())
                 val join = verifyJoin(event.body.text("join"), signedReceipt.createdAt)
                 require(join.channelId == channel && join.operationId != operation)
+                val replacing = join.replacedDevice
+                if (replacing == null) require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
+                else require(canApproveDeviceRequests(event.author) && event.author != join.actor &&
+                    canAccessChannel(event.author, channel) && oldChannel.devices.keys.any { credentialWallet(it) == event.author })
                 val keyPackage = join.keyPackage
                 val epoch = event.body.number("epoch")
                 val devices = devices(event.body)
+                val continuing = if (replacing == null) oldChannel.devices else oldChannel.devices - replacing
                 require(epoch == Math.addExact(oldChannel.epoch, 1) &&
-                    devices == oldChannel.devices + (keyPackage.credential to keyPackage.signer))
+                    devices == continuing + (keyPackage.credential to keyPackage.signer))
                 for (field in listOf("welcome", "commit")) {
                     require(Base64.getDecoder().decode(event.body.text(field)).size in 1..1_048_576)
                 }
@@ -721,22 +768,19 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         require(!current.dissolved) { "This Space has been dissolved" }
         val join = SaitoEnvelope.decode(envelope)
         header(join.body, "event")
-        val channelOnly = join.body.text("kind") == "join-channel"
-        require(join.body.text("kind") in setOf("join", "join-channel") && join.body.text("space_id") == spaceId &&
+        val kind = join.body.text("kind")
+        require(kind in setOf("join", "join-channel", "replace-device") && join.body.text("space_id") == spaceId &&
             join.recipients == listOf(join.author, serviceKey).distinct())
         val channel = join.body.text("channel_id")
         require(current.channels[channel]?.visibility == SpaceVisibility.PRIVATE)
         val operation = join.body.text("operation_id")
         require(operation.matches(ID) && operation !in operations)
-        val invitationId = if (channelOnly) null else join.body.text("invite_id")
+        val invitationId = if (kind == "join") join.body.text("invite_id") else null
         val invitation = invitationId?.let { requireNotNull(current.invitations[it]) }
-        if (channelOnly) {
-            require(canJoinChannel(join.author, channel, join.body.text("control_id")))
-        } else {
+        val replacedDevice = if (kind == "replace-device") join.body.text("replace_device") else null
+        require(pendingJoinIsCurrent(join, acceptedAt)) { "The device or membership request is no longer current" }
+        if (invitation != null) {
             require(channel == requireNotNull(invitation).channelId && invitation.accepts(join.author))
-            require(hasCurrentMembershipIntent(join.author, join.body.takeIf { it.has("membership_control") }?.text("membership_control"))) {
-                "Membership ended after this join was requested"
-            }
             require(join.body.text("control_id") == invitationId && acceptedAt >= 0 && invitation.expiresAt > acceptedAt)
             require((join.body.get("rules_token")?.let { join.body.text("rules_token") } ?: "") == invitation.rulesToken) {
                 "Spaces house rules have not been accepted"
@@ -748,14 +792,14 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             data.text("package"), data.text("signer"), data.text("signature"))
         keyPackage.verify()
         require(keyPackage.walletKey == join.author)
-        if (!channelOnly) {
-            require(join.author !in current.members)
+        if (replacedDevice != null) require(keyPackage.credential !in current.channels.getValue(channel).devices)
+        if (invitation != null) {
             val proof = "SaitoSpacesJoin/v1:${scope.groupId}:$invitationId:${join.author}:$operation:${keyPackage.walletSignature}"
-            require(SaitoWallet.verify(proof.toByteArray(Charsets.UTF_8), join.body.text("invite_proof"), requireNotNull(invitation).key)) {
+            require(SaitoWallet.verify(proof.toByteArray(Charsets.UTF_8), join.body.text("invite_proof"), invitation.key)) {
                 "Spaces invitation does not authorize this join"
             }
         }
-        return SpaceJoinRequest(envelope, join.id, join.author, operation, channel, keyPackage)
+        return SpaceJoinRequest(envelope, join.id, join.author, operation, channel, keyPackage, replacedDevice)
     }
 
     /** The service checks accepted membership and routing, never community plaintext. */

@@ -42,6 +42,52 @@ class SpacesJourneyTest {
         .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:$peerPort/wsopen")
         .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/"))
 
+    @Test fun addressedProtectedChatLinkOpensAndSendsThroughNativeChat() {
+        val deviceOwner = nl.davidengelen.redsquare.saito.AndroidWalletStore(context).loadOrCreate()
+        AndroidBackendStore(context).save(nl.davidengelen.redsquare.saito.SaitoBackend.OWNER)
+        val policy = File(context.noBackupFilesDir, "publishing-policy-fixture.json")
+        check(!policy.exists())
+        policy.writeText("""{"revision":"protected-chat-fixture","ready":true,"enforce":false,"terms":"Isolated fixture terms","community":"Isolated fixture rules"}""")
+        val invitation = command("protected-chat-invitation", JsonObject().apply { addProperty("recipient", deviceOwner.publicKey) })
+        val intent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse(invitation.get("link").asString), context, MainActivity::class.java)
+            .putExtra("feedPeerUrl", "ws://127.0.0.1:$peerPort/wsopen")
+            .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:$peerPort/wsopen")
+            .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
+        val expected = "Reply from independent member"
+        val text = "Protected Android reply reaches the separate device"
+        try {
+            ActivityScenario.launch<MainActivity>(intent).use { activity ->
+                withFailureCapture({ capture("protected-chat-failure") }) {
+                    val confirm = ui.onNode(hasText("Join chat") and hasClickAction())
+                    ui.waitUntil(25_000) { confirm.isDisplayed() }
+                    ui.onNodeWithText("Protected native conversation").assertIsDisplayed()
+                    confirm.assertIsEnabled().performClick()
+                    ui.waitUntil(30_000) { ui.onNodeWithText(expected).isDisplayed() }
+                    capture("protected-chat-received", expected)
+                    val editor = ui.onNode(hasSetTextAction() and hasText("Message"))
+                    editor.performTextInput(text)
+                    closeKeyboard(activity)
+                    ui.onNode(hasText("Send") and hasClickAction()).assertIsEnabled().performClick()
+                    val parameters = JsonObject().apply { addProperty("space", invitation.get("space").asString); addProperty("text", text) }
+                    var observation = JsonObject()
+                    val deadline = SystemClock.uptimeMillis() + 15_000
+                    while (SystemClock.uptimeMillis() < deadline) {
+                        observation = command("protected-chat-proof", parameters)
+                        if (observation.get("readByIndependentPeer").asBoolean) break
+                        SystemClock.sleep(200)
+                    }
+                    assertTrue(observation.get("readByIndependentPeer").asBoolean)
+                    assertEquals(observation.get("contentOriginals").asInt, observation.get("encryptedOriginals").asInt)
+                    assertTrue(observation.get("encryptedOriginals").asInt > 0)
+                    capture("protected-chat-submitted", text)
+                    File(evidence, "protected-chat-result.json").writeText(observation.toString())
+                }
+            }
+        } finally {
+            policy.delete()
+        }
+    }
+
     @Test fun messageMenusAndEditSurviveIncomingMessagesAndRealIme() {
         val original = "Native overlay original"
         val edited = "Preserved native edit while the live conversation moves"

@@ -52,6 +52,7 @@ import nl.davidengelen.redsquare.saito.*
 @Composable
 internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, initialContact: String? = null, initialGroup: String? = null, initialDraft: String? = null, onInitialDestinationClosed: () -> Unit = {},
+    initialProtectedInvitation: String? = null, onProtectedInvitationConsumed: () -> Unit = {},
     onBack: () -> Unit) {
     val promptContext = LocalContext.current.applicationContext
     nl.davidengelen.redsquare.NotificationPermissionPrompt(detail = R.string.chat_background_offer_detail,
@@ -60,9 +61,30 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         } })
     var groupDestination by rememberSaveable(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
     var reviewingGroups by rememberSaveable(wallet.publicKey,backend) { mutableStateOf(initialGroup != null) }
-    SingleOwnerReveal(reviewingGroups, modifier) {
+    var counterparty by rememberSaveable(wallet.publicKey, backend) { mutableStateOf(initialContact) }
+    val protectedChats = LocalProtectedChats.current
+    var reviewingProtected by rememberSaveable(wallet.publicKey, backend) { mutableStateOf(false) }
+    var protectedName by rememberSaveable(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
+    var protectedPeer by rememberSaveable(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
+    fun openProtected(name: String? = null, peer: String? = null) {
+        protectedName = name; protectedPeer = peer; reviewingProtected = true
+    }
+    LaunchedEffect(initialProtectedInvitation) {
+        if (initialProtectedInvitation != null && protectedChats != null) openProtected()
+    }
+    SingleOwnerReveal(if (reviewingProtected) "protected" else if (reviewingGroups) "groups" else "direct", modifier) {
+    if (reviewingProtected && protectedChats != null) {
+        ProtectedChats(protectedChats, wallet.publicKey, protectedName, protectedPeer, Modifier.fillMaxSize(),
+            initialProtectedInvitation, onProtectedInvitationConsumed) {
+            reviewingProtected = false
+            protectedName = null
+            protectedPeer = null
+        }
+        return@SingleOwnerReveal
+    }
     if (reviewingGroups) {
-        GroupChatScreen(wallet,endpoint,backend,Modifier.fillMaxSize(),onWalletMetadata,groupDestination, onInitialDestinationClosed) {
+        GroupChatScreen(wallet,endpoint,backend,Modifier.fillMaxSize(),onWalletMetadata,groupDestination, onInitialDestinationClosed,
+            onProtectedGroup = if (protectedChats == null) null else { id, name -> groupDestination = id; openProtected(name) }) {
             reviewingGroups=false; groupDestination=null
         }
         return@SingleOwnerReveal
@@ -79,7 +101,6 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var contacts by remember(wallet.publicKey, backend) { mutableStateOf<List<String>>(emptyList()) }
     var contactsFailed by remember(wallet.publicKey, backend) { mutableStateOf(false) }
     var contactsReady by remember(wallet.publicKey, backend) { mutableStateOf(false) }
-    var counterparty by rememberSaveable(wallet.publicKey, backend) { mutableStateOf(initialContact) }
     val fileSession = remember(wallet.publicKey, backend, endpoint, counterparty) {
         counterparty?.let { nl.davidengelen.redsquare.fileshare.FileshareRuntime.session(context, wallet, backend, endpoint, it) }
     }
@@ -364,7 +385,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             Column(Modifier.weight(1f)) {
                 Text(counterparty?.let { registeredIdentity(it).name } ?: stringResource(R.string.chat_title),
                     style = MaterialTheme.typography.headlineSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                if (counterparty != null) Text(stringResource(R.string.chat_encrypted), style = MaterialTheme.typography.labelSmall,
+                if (counterparty != null) Text(stringResource(R.string.protected_chat_legacy_direct), style = MaterialTheme.typography.labelSmall,
                     maxLines = 1, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             counterparty?.let { ConversationMuteButton(PrivateChat.conversationId(wallet.publicKey, it)) }
@@ -425,10 +446,20 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             Row(verticalAlignment = Alignment.CenterVertically) {
                 TextButton(onClick = { refresh++ }, enabled = !loading) { Text(stringResource(R.string.feed_refresh)) }
             }
+            if (protectedChats != null) {
+                val name = registeredIdentity(contact).name
+                TextButton(enabled = !navigation.transitioning, onClick = {
+                    scope.launch { navigation.navigate { details = false; openProtected(name, contact); true } }
+                }) { Text(stringResource(R.string.protected_chat_continue)) }
+            }
             statusContent(true)
         }
         if (contact == null) {
             var search by rememberSaveable { mutableStateOf("") }
+            if (protectedChats != null) OutlinedButton(
+                enabled = !savingContact && !navigation.transitioning,
+                onClick = { scope.launch { navigation.navigate { openProtected(); true } } }
+            ) { Text(stringResource(R.string.protected_chat_title)) }
             val availableContacts = contacts.map { it to registeredIdentity(it).name }
                 .filter { (key, name) -> search.isBlank() || key.contains(search, ignoreCase = true) || name.contains(search, ignoreCase = true) }
             OutlinedTextField(search, onValueChange = { search = it.take(256) },

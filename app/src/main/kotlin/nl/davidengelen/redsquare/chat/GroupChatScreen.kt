@@ -46,7 +46,8 @@ private enum class GroupStatusSection { HISTORY, MANAGEMENT }
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
-    onWalletMetadata: suspend (SaitoWallet,SaitoWallet) -> Unit, initialGroup: String? = null, onInitialDestinationClosed: () -> Unit = {}, onBack: () -> Unit) {
+    onWalletMetadata: suspend (SaitoWallet,SaitoWallet) -> Unit, initialGroup: String? = null,
+    onInitialDestinationClosed: () -> Unit = {}, onProtectedGroup: ((String, String) -> Unit)? = null, onBack: () -> Unit) {
     val gifCredits = nl.davidengelen.redsquare.media.LocalGiphyAttributions.current
     val context = LocalContext.current.applicationContext
     val publishing = nl.davidengelen.redsquare.policy.LocalPublishingAgreement.current
@@ -464,6 +465,11 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             Row(verticalAlignment = Alignment.CenterVertically) {
                 TextButton(enabled=!busy&&!paging&&!navigation.transitioning,
                     onClick={if(!navigation.transitioning)refresh++}) { Text(stringResource(R.string.feed_refresh)) }
+            }
+            if (onProtectedGroup != null && entry.group.memberRoles[wallet.publicKey] == ChatGroupRole.ADMIN) {
+                TextButton(enabled = !busy && !paging && !navigation.transitioning, onClick = {
+                    scope.launch { navigation.navigate { details = false; onProtectedGroup(entry.group.id, entry.group.name); true } }
+                }) { Text(stringResource(R.string.protected_chat_continue)) }
             }
             statusContent(true)
         }

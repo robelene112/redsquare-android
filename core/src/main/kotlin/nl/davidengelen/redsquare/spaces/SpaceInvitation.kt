@@ -21,14 +21,15 @@ internal class SpaceInvitation(val node: String, val scope: SpaceCrypto.Scope, v
     fun joinProof(caller: String, operation: String, binding: String): String = capability.sign(
         "SaitoSpacesJoin/v1:${scope.groupId}:$invitationId:$caller:$operation:$binding".toByteArray(Charsets.UTF_8))
     fun preview(ciphertext: String, operation: String): String = decryptPreview(scope, previewKey, operation, ciphertext)
-    fun link(): String {
+    fun link(protectedChat: Boolean = false): String {
         val value = JsonObject().apply {
             addProperty("version", 1); addProperty("node", node); add("scope", scope.json())
             addProperty("invitation", invitationId)
             addProperty("capability", GSON.fromJson(capability.exportJson(), JsonObject::class.java).getAsJsonObject("wallet").get("privateKey").asString)
             addProperty("preview_key", Base64.getEncoder().encodeToString(previewKey))
         }
-        return "saito://spaces/join#" + Base64.getUrlEncoder().withoutPadding().encodeToString(value.toString().toByteArray(Charsets.UTF_8))
+        val path = if (protectedChat) "chat" else "join"
+        return "saito://spaces/$path#" + Base64.getUrlEncoder().withoutPadding().encodeToString(value.toString().toByteArray(Charsets.UTF_8))
     }
     override fun toString() = "Private community invitation"
     companion object {
@@ -36,7 +37,8 @@ internal class SpaceInvitation(val node: String, val scope: SpaceCrypto.Scope, v
         fun parse(link: String): SpaceInvitation {
             require(link.length in 1..8192)
             val uri = URI(link)
-            require(uri.scheme == "saito" && uri.host == "spaces" && uri.path == "/join" && uri.rawQuery == null && uri.userInfo == null && uri.port == -1)
+            require(uri.scheme == "saito" && uri.host == "spaces" && uri.path in setOf("/join", "/chat") &&
+                uri.rawQuery == null && uri.userInfo == null && uri.port == -1)
             val text = Base64.getUrlDecoder().decode(requireNotNull(uri.rawFragment)).toString(Charsets.UTF_8)
             val value = GSON.fromJson(text, JsonObject::class.java)
             require(value.keySet() == setOf("version", "node", "scope", "invitation", "capability", "preview_key") && value.get("version").toString() == "1")

@@ -27,7 +27,7 @@ import java.time.Clock
 internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, val backend: SaitoBackend,
     private val endpoint: String, parent: CoroutineScope) {
     enum class Availability { CHECKING, ONLINE, OFFLINE, UNSUPPORTED, CHANGED_IDENTITY, STORAGE_UNAVAILABLE }
-    enum class Problem { CONNECTION, SAVE, INVITATION }
+    enum class Problem { CONNECTION, SAVE, INVITATION, PROTECTED_CHAT_UNSUPPORTED, DEVICE_RECOVERY_UNSUPPORTED, DEVICE_RECOVERY_NO_APPROVER }
     data class Target(val space: String, val channel: String, val thread: String? = null)
     data class MessageScroll(val id: String, val showBody: Boolean = false)
 
@@ -698,6 +698,17 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             createAndOpen(profile, channels, route)
         }
     }
+    fun createProtectedChat(name: String, directPeer: String?) {
+        val route = navigationVersion.get()
+        localAction {
+            val space = network.withLock { requireNotNull(client).createProtectedChat(name, directPeer) }
+            urgentOutbox.add(space)
+            mutable.update { it.copy(created = space) }
+            selectRoute(space, expected = route)
+            publish()
+            wake.trySend(Unit)
+        }
+    }
     private suspend fun createAndOpen(profile: SpaceProfile, channels: List<SpaceChannelProfile>, route: Long) {
         val space = localAccess.withLock { requireNotNull(client).create(profile, channels) }
         urgentOutbox.add(space)
@@ -717,9 +728,17 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             publish()
         }
     }
+    fun inviteProtectedChat(space: String, recipient: String) {
+        localAction {
+            localAccess.withLock { requireNotNull(client).inviteFor(space, recipient) }
+            urgentOutbox.add(space)
+            publish()
+            wake.trySend(Unit)
+        }
+    }
     fun preview(link: String) {
         val token = previews.incrementAndGet()
-        mutable.update { it.copy(preview = null, previewIssue = null) }
+        mutable.update { it.copy(preview = null, previewIssue = null, requiredNode = null) }
         localAction(Problem.INVITATION) { network.withLock {
             val current = client ?: run {
                 val service = peerCall { authenticatedPeer().servicePublicKey("spaces-v1") }
@@ -733,13 +752,28 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             catch (failure: Exception) { if (previews.get() == token) throw failure }
         } }
     }
-    fun join(link: String, acceptedRulesToken: String? = null) {
+    fun join(link: String, acceptedRulesToken: String? = null) = joinInvitation(link, acceptedRulesToken, false)
+    fun joinProtectedChat(link: String) = joinInvitation(link, null, true)
+
+    fun replaceDevice(link: String, expectProtectedChat: Boolean) {
         val route = navigationVersion.get(); val review = previews.get()
         localAction(Problem.INVITATION) { network.withLock {
-            val space = requireNotNull(client).join(link, acceptedRulesToken)
-            if (previews.get() == review) {
+            val space = requireNotNull(client).requestDeviceReplacement(link, expectProtectedChat)
+            urgentOutbox.add(space)
+            if (previews.get() == review && selectRoute(space, expected = route) != null) {
                 mutable.update { it.copy(preview = null, joinedInvitation = link) }
-                selectRoute(space, expected = route)
+            }
+            wake.trySend(Unit)
+            publish()
+        } }
+    }
+
+    private fun joinInvitation(link: String, acceptedRulesToken: String?, protectedChat: Boolean) {
+        val route = navigationVersion.get(); val review = previews.get()
+        localAction(Problem.INVITATION) { network.withLock {
+            val space = requireNotNull(client).join(link, acceptedRulesToken, expectProtectedChat = protectedChat)
+            if (previews.get() == review && selectRoute(space, expected = route) != null) {
+                mutable.update { it.copy(preview = null, joinedInvitation = link) }
             }
             publish(); wake.trySend(Unit)
         } }
@@ -1032,7 +1066,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             finally { mutable.update { if (directoryRequests.get() == token) it.copy(directoryLoading = false) else it } }
         }
     }
-    fun dismissPreview() { previews.incrementAndGet(); mutable.update { it.copy(preview = null, previewIssue = null) } }
+    fun dismissPreview() { previews.incrementAndGet(); mutable.update {
+        it.copy(preview = null, previewIssue = null, requiredNode = null,
+            problem = it.problem.takeUnless { problem -> problem == Problem.INVITATION })
+    } }
     fun clearProblem() { mutable.update { it.copy(problem = null) } }
     private fun localAction(problem: Problem = Problem.SAVE, isCurrent: () -> Boolean = { true }, action: suspend () -> Unit) {
         if (closed.get() || navigationSaving.get() || mutable.value.working || mutable.value.loading) return
@@ -1050,6 +1087,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             catch (different: SpaceClient.DifferentNode) { report { it.copy(requiredNode = different.node) } }
             catch (_: ChangedIdentity) { report { it.copy(availability = Availability.CHANGED_IDENTITY) } }
             catch (_: MissingService) { report { it.copy(availability = Availability.UNSUPPORTED) } }
+            catch (_: SpaceClient.ProtectedChatUnsupported) { report { it.copy(problem = Problem.PROTECTED_CHAT_UNSUPPORTED) } }
+            catch (_: SpaceClient.DeviceReplacementUnsupported) { report { it.copy(problem = Problem.DEVICE_RECOVERY_UNSUPPORTED) } }
+            catch (_: SpaceClient.NoReplacementApprover) { report { it.copy(problem = Problem.DEVICE_RECOVERY_NO_APPROVER) } }
             catch (_: Exception) { report { it.copy(problem = problem) } }
             finally { mutable.update { it.copy(working = false) } }
         }
