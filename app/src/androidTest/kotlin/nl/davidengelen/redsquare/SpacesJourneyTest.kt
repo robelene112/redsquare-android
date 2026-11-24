@@ -237,7 +237,15 @@ class SpacesJourneyTest {
             ui.waitUntil(10_000) { ui.onNodeWithText("Reply in this thread").isDisplayed() }
             send(replyText, "Reply in this thread")
             var reply = JsonObject()
-            ui.waitUntil(15_000) { try { reply = observation(replyText, root.get("id").asString); true } catch (_: AssertionError) { false } }
+            ui.waitUntil(15_000) {
+                // The independent wallet may see acceptance before Android receives
+                // its own receipt. Wait for both boundaries without polling the
+                // independent wallet again after it has verified the original.
+                if (!reply.has("id")) {
+                    try { reply = observation(replyText, root.get("id").asString) } catch (_: AssertionError) { }
+                }
+                reply.has("id") && rowAction(replyText, "Message actions").isDisplayed()
+            }
             pin(replyText)
             ui.waitUntil(15_000) { reply = observation(replyText, root.get("id").asString); reply.get("pinned").asBoolean }
             ui.onNodeWithText("Reply in this thread").performTextInput(threadDraft); closeKeyboard(activity)
