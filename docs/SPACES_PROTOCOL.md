@@ -531,3 +531,18 @@ for a reply. Clients validate originals before atomic commit and retain monotoni
 progress. Protected active-only indexes avoid paging through removed references;
 missing historical keys remain explicit and are repaired locally in bounded
 batches. Importing a reference does not move the live conversation window.
+
+
+### Conversation attention
+
+The receiving client derives personal attention from authenticated message text
+and the authenticated thread parent. A direct mention uses an exact
+`@<wallet-public-key>` token. An `@everyone` token can trigger group attention
+only when the signed author had administrator authority for that accepted record.
+Private content keeps this text inside the existing encrypted record.
+
+Root and thread read positions are independent. Attention catches up through
+bounded authenticated content pages, leaving unread counts unknown when the
+necessary records or keys are unavailable. An ordinary unread dot can still use
+a positive top-level head. Channel preferences are local to the receiving account,
+node and device and do not change the unread counts.

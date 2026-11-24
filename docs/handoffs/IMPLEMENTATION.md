@@ -1,5 +1,43 @@
 # Implementation handoff
 
+## In-progress #140 personal activity and Android verification
+
+Personal unread counts and ordinary unread dots are now separate in My Spaces
+and the channel switcher. The receiving client derives mentions from exact wallet
+references and replies from the authenticated thread parent. It evaluates group
+alert authority at message acceptance and keeps channel and thread read markers
+separate. The background reader advances bounded pages without moving the
+conversation or replacing its draft. A negative top-level unread count does not
+stand in for an incomplete thread count.
+
+Six affected service tests passed, covering the local settings on pending Space
+creation, public and private attention, deletion, partial-read state and late
+history keys. The earlier three local index tests also passed. The app, Android
+instrumentation and owned host fixture compiled. Android verification is still
+required before closing #140.
+
+Run 45461322104 stopped at the disabled Invite people control. Run 45461618392
+caught a genuine viewport regression when Back to latest messages appeared and
+clipped the previously visible message. The first fix waits for the invitation
+controls to become enabled. The second keeps the return action present whenever
+the reader scrolls away from the latest messages, then flags new activity without
+changing the reading area's size. The Android 10 test still requires the same
+message and exact prior reading pixel. Runs 45463903875 and 45464896479 with
+unread enabled timed out before the row disposal or the exact Android consumption
+witness, respectively. Foreground publication now runs first, then at most one
+Space/channel gets background attention work per cycle. Replayed accepted
+messages leave the existing projection valid. The six affected service cases
+passed again after the priority and replay corrections. A prior full JVM run
+at 46ee8ea7c had 254 core and 200 service tests passing.
+
+Run 45464160237 passed invitation readiness and the read position checks, then
+stopped at an outdated historical-window endpoint. The emulator displayed the
+accepted line 47 at the end of the 50-message window. The test now requires that
+line and the newer-activity state. Run 45466993849 checks distinct PID recovery.
+Runs 45467342679 and 45467493496 verify the foreground scheduling change on
+Android 17 and 10 with the full UI sequence. Inspect terminal cases and original
+captures before accepting #140. Continue #141 through #147 one at a time.
+
 ## In-progress140 local notification preferences and pin-route recovery
 
 Per-channel PERSONAL/ALL/SILENT preferences and recipient everyone opt-out now

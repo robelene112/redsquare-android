@@ -40,6 +40,9 @@ class SpaceMessageAttentionTest {
                     assertEquals(true, reader.channels(space).single().hasUnread)
                     assertEquals(1L, reader.channels(space).single().personalUnread)
                     assertEquals(1L, reader.community(space).personalUnread)
+                    reader.refresh(space)
+                    reader.refreshThread(space, parent)
+                    assertEquals("Rereading the same signed records must not invalidate an exact count", 1L, reader.community(space).personalUnread)
                 }
             }
         }

@@ -3305,6 +3305,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                     }
                     if (original.body.text("kind") in setOf("content", "public-content") && original.body.text("content_kind") == "message")
                         contentState.addProperty("last_content", maxOf(contentState.get("last_content")?.asLong ?: 0, body.number("position")))
+                    val kind = original.body.get("content_kind")?.asString
+                    if (kind in setOf("message", "thread-reply", "message-edit", "message-delete")) {
+                        val message = if (kind == "message" || kind == "thread-reply") original.id else original.body.text("target_message_id")
+                        put("$space/channels/$channel/attention-dirty/$message", byteArrayOf(1))
+                        val end = Math.addExact(body.number("position"), 1)
+                        contentState.addProperty("attention_goal", maxOf(contentState.get("attention_goal")?.asLong ?: 0, end))
+                    }
                     putChannelState(space, channel, contentState)
                 }
                 if (original.body.get("content_kind")?.asString == "message-pin") {
@@ -3316,13 +3323,6 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                     reconcilePinTarget(space, channel, original.body.text("target_message_id"))
                 if (original.body.get("content_kind")?.asString == "message-reaction") reconcileReaction(space, channel, body, reactionReader)
                 indexConfirmedMessage(space, channel, body)
-                if (original.body.get("content_kind")?.asString in setOf("message", "thread-reply", "message-edit", "message-delete")) {
-                    val message = if (original.body.text("content_kind") in setOf("message", "thread-reply")) original.id else original.body.text("target_message_id")
-                    put("$space/channels/$channel/attention-dirty/$message", byteArrayOf(1))
-                    val progress = channelState(space, channel)
-                    progress.addProperty("attention_goal", maxOf(progress.get("attention_goal")?.asLong ?: 0, Math.addExact(body.number("position"), 1)))
-                    putChannelState(space, channel, progress)
-                }
             }
             else -> throw IllegalArgumentException("Unexpected community receipt stream")
         }
