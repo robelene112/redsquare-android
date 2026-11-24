@@ -14,6 +14,21 @@ import java.time.ZoneOffset
 class SpaceNotificationPreferencesTest {
     @get:Rule val files = TemporaryFolder()
     private val clock = Clock.fixed(Instant.ofEpochMilli(1_700_000_000_000), ZoneOffset.UTC)
+    @Test fun aPendingSpaceKeepsLocalDefaultsAndWritingBeforeItsFirstConfirmation() {
+        val owner = SaitoWallet.fromPrivateKey("1".padStart(64, '0'))
+        val service = SaitoWallet.fromPrivateKey("2".padStart(64, '0'))
+        SqliteClientFixture(files.newFile("pending-notification-policy.sqlite").absolutePath).use { local ->
+            val client = SpaceClient(owner, "fixture-node", service.publicKey, local, clock) { error("Local creation preferences must not contact a peer") }
+            val space = client.create("Pending native community")
+            client.saveDraft(space, "Writing while creation is queued")
+            assertEquals(SpaceNotificationPolicy(), client.notificationPolicy(space))
+            client.setNotificationPolicy(space, SpaceNotificationPolicy(SpaceNotificationMode.SILENT))
+            assertEquals(SpaceNotificationMode.SILENT, client.notificationPolicy(space).mode)
+            assertFalse(client.community(space).joined); assertFalse(client.community(space).canSend)
+            assertEquals("Writing while creation is queued", client.draft(space))
+        }
+    }
+
     @Test fun channelPoliciesRemainLocalAndDurableWhilePersonalDefaultsExcludeOrdinaryActivity() = runBlocking<Unit> {
         val owner = SaitoWallet.fromPrivateKey("1".padStart(64, '0'))
         val service = SaitoWallet.fromPrivateKey("2".padStart(64, '0'))

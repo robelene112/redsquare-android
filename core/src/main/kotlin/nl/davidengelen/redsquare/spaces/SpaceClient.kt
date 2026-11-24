@@ -31,7 +31,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     class DifferentNode(val node: String) : IllegalArgumentException("This community belongs to a different node")
 
     data class Channel(val id: String, val profile: SpaceChannelProfile, val visibility: SpaceVisibility, val ready: Boolean, val unread: Long? = null, val hasUnread: Boolean? = null,
-        val archived: Boolean = false, val allowedMembers: Set<String>? = null, val metadataReady: Boolean = false, val categoryId: String? = null)
+        val archived: Boolean = false, val allowedMembers: Set<String>? = null, val metadataReady: Boolean = false, val categoryId: String? = null, val personalUnread: Long? = null)
     fun channels(space: String): List<Channel> = store.transaction {
         owned()
         val state = state(space)
@@ -48,9 +48,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 channelState(space, metadataGroupId, state).get("joined")?.asBoolean == true
             profile?.let { visible ->
                 val category = record.categoryId?.let { categoryProfile(space, it, state, journal)?.name }
+                val attention = cachedAttention(space, id)
                 Channel(id, visible.copy(category = category ?: visible.category), record.visibility, record.visibility == SpaceVisibility.PUBLIC ||
                 data.get("joined")?.asBoolean == true && record.retiredDevices.isEmpty(),
-                data.get("unread")?.asLong, unreadActivity(data), record.archived, record.allowedMembers, metadataReady, record.categoryId) }
+                data.get("unread")?.asLong, attention.hasUnread ?: unreadActivity(data)?.takeIf { it }, record.archived, record.allowedMembers, metadataReady, record.categoryId, attention.personal) }
         }
     }
     data class Category(val id: String, val profile: SpaceCategoryProfile, val isPrivate: Boolean)
@@ -726,7 +727,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     data class Community(val id: String, val name: String, val channel: String, val joined: Boolean,
         val canInvite: Boolean, val pending: Boolean, val canSend: Boolean, val membershipRequested: Boolean = false, val unread: Long? = null, val hasUnread: Boolean? = null,
-        val canManage: Boolean = false, val dissolved: Boolean = false, val canReply: Boolean = false, val canReact: Boolean = false, val canPin: Boolean = false)
+        val canManage: Boolean = false, val dissolved: Boolean = false, val canReply: Boolean = false, val canReact: Boolean = false, val canPin: Boolean = false, val personalUnread: Long? = null)
     enum class MessageChangeKind { EDIT, DELETE }
     data class MessageChange(val operationId: String, val kind: MessageChangeKind, val attempted: Boolean,
         val rejected: Boolean, val text: String?, val cancelled: Boolean = false) {
@@ -770,12 +771,16 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val channel = snapshot.channels[scope.channelId]
         val role = state.get("role")?.asString ?: snapshot.members[wallet.publicKey]?.name
         val adminPostsOnly = channel?.adminPostsOnly == true || channel?.profile?.kind == SpaceChannelKind.ANNOUNCEMENT
-        val eligible = snapshot.channels.filter { (_, record) -> record.visibility == SpaceVisibility.PUBLIC ||
-            record.devices.keys.any { it.split(':')[1] == wallet.publicKey } }.keys.map { channelState(space, it, state) }
+        val eligibleChannels = snapshot.channels.filter { (_, record) -> record.visibility == SpaceVisibility.PUBLIC ||
+            record.devices.keys.any { it.split(':')[1] == wallet.publicKey } }.keys
+        val eligible = eligibleChannels.map { channelState(space, it, state) }
         val counts = eligible.map { it.get("unread")?.asLong }
         val unread = counts.takeIf { it.isNotEmpty() && it.none { count -> count == null } }
             ?.fold(0L) { total, count -> Math.addExact(total, requireNotNull(count)) }
-        val activity = eligible.map(::unreadActivity)
+        val channelAttention = eligibleChannels.map { cachedAttention(space, it) }
+        val personal = channelAttention.map { it.personal }.takeIf { it.isNotEmpty() && it.none { count -> count == null } }
+            ?.fold(0L) { total, count -> Math.addExact(total, requireNotNull(count)) }
+        val activity = eligible.mapIndexed { index, value -> channelAttention[index].hasUnread ?: unreadActivity(value)?.takeIf { it } }
         val hasUnread = when {
             activity.any { it == true } -> true
             activity.isNotEmpty() && activity.all { it == false } -> false
@@ -794,7 +799,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN), dissolved = snapshot.dissolved, canReply = canReply,
             canReact = canReply && (supportsMessageReactions || data.get("reactions_supported")?.asBoolean == true),
             canPin = canReply && snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) &&
-                (supportsMessagePins || data.get("pins_supported")?.asBoolean == true))
+                (supportsMessagePins || data.get("pins_supported")?.asBoolean == true), personalUnread = personal)
     }
     fun profile(space: String): SpaceProfile = store.transaction {
         owned(); val state = state(space)
@@ -2721,9 +2726,127 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
     }
 
-    fun notificationPolicy(space: String, channel: String? = null): SpaceNotificationPolicy = store.transaction {
+    data class Attention(val personal: Long?, val hasUnread: Boolean?, val complete: Boolean)
+    fun attention(space: String, channel: String? = null): Attention = store.project { store.transaction {
         owned(); val target = channel ?: selectedChannel(state(space))
-        require(target in journal(space).snapshot.channels)
+        ensureAttentionProjection(space, target); repairAttention(space, target)
+        cachedAttention(space, target)
+    } }
+    /** Cached sidebar projection performs no decryption or history migration. */
+    private fun SpaceClientStore.Transaction.cachedAttention(space: String, target: String): Attention {
+        val data = channelState(space, target)
+        val counts = SpaceAttentionIndex(this, "$space/channels/$target").counts()
+        val complete = data.get("attention_observed")?.asBoolean == true && data.get("attention_projection_version")?.asLong == 1L &&
+            (data.get("attention_cursor")?.asLong ?: 0) >= (data.get("attention_goal")?.asLong ?: 0) &&
+            page("$space/channels/$target/attention-dirty/", limit = 1).isEmpty()
+        return Attention(if (complete) counts.personal else null, when {
+            counts.ordinary != null && counts.ordinary > 0 -> true
+            complete && counts.ordinary == 0L -> false
+            else -> null
+        }, complete && counts.personal != null)
+    }
+    fun messageAttention(space: String, messageId: String, channel: String? = null): SpaceMessageAttention? = store.transaction {
+        owned(); val target = channel ?: selectedChannel(state(space))
+        reconcileAttention(space, target, messageId, attentionReader(space, target))
+        get("$space/channels/$target/message-attention/$messageId")?.let(::json)?.let { value ->
+            SpaceMessageAttention(value.get("mentioned").asBoolean, value.get("replied").asBoolean,
+                value.get("everyone").asBoolean, value.get("own").asBoolean)
+        }
+    }
+    /** One bounded existing content page, retaining its authenticated ordering.
+     * This does not move the conversation window, draft or reading anchor. */
+    suspend fun refreshAttention(space: String, channel: String? = null) {
+        syncControls(space)
+        val target = store.transaction { owned(); channel ?: selectedChannel(state(space)) }
+        if (store.transaction { journal(space).snapshot.channels.getValue(target).visibility } != SpaceVisibility.PUBLIC) refreshKeys(space, target)
+        val cursor = store.transaction { channelState(space, target).get("attention_cursor")?.asLong ?: 0 }
+        val page = readPage(JsonObject().apply {
+            addProperty("space_id", space); addProperty("channel_id", target); addProperty("stream", "content"); addProperty("cursor", cursor)
+        })
+        val next = contentPage(space, cursor, channel = target, received = page)
+        store.project { store.transaction {
+            owned(); val data = channelState(space, target)
+            data.addProperty("attention_cursor", maxOf(data.get("attention_cursor")?.asLong ?: 0, next))
+            data.addProperty("attention_goal", maxOf(data.get("attention_goal")?.asLong ?: 0, page.number("content_end")))
+            data.addProperty("attention_observed", true); putChannelState(space, target, data)
+            ensureAttentionProjection(space, target); repairAttention(space, target)
+        } }
+    }
+    fun markThreadRead(space: String, parent: Message, position: Long, channel: String? = null) = store.transaction {
+        owned(); val target = channel ?: selectedChannel(state(space)); threadParent(space, target, parent)
+        val receipt = json(requireNotNull(get(contentPrefix(space, target) + positionKey(position))))
+        val original = SaitoEnvelope.decode(receipt.text("event"))
+        require(original.body.text("channel_id") == target && original.body.text("content_kind") == "thread-reply" && messageThread(original.body) == parent.id)
+        val data = conversationState(space, target, parent.id)
+        data.addProperty("read_cursor", maxOf(data.get("read_cursor")?.asLong ?: 0, Math.addExact(position, 1)))
+        putConversationState(space, target, parent.id, data)
+        SpaceAttentionIndex(this, "$space/channels/$target").markRead(parent.id, position)
+    }
+    private fun SpaceClientStore.Transaction.attentionReader(space: String, channel: String): (String) -> String? {
+        val crypto by lazy { SpaceCrypto.restore(decode(channelState(space, channel).text("crypto"))) }
+        return { envelope -> try {
+            val original = SaitoEnvelope.decode(envelope)
+            if (original.body.text("kind") == "public-content") original.body.text("text") else crypto.read(envelope).text
+        } catch (_: Exception) { null } }
+    }
+    private fun SpaceClientStore.Transaction.reconcileAttention(space: String, channel: String, message: String, read: (String) -> String?): Boolean {
+        val pointer = get(messageIdKey(space, channel, message)) ?: return false
+        val receipt = get(pointer.toString(Charsets.UTF_8))?.let(::json) ?: return false
+        val original = SaitoEnvelope.decode(receipt.text("event")); val thread = messageThread(original.body)
+        val position = receipt.number("position")
+        val edit = get(messageEditKey(space, channel, message, original.author))?.let(::json)
+        val deletion = messageDeletionReceipt(space, channel, message, original.author)
+        val latest = edit ?: receipt
+        val text = if (deletion != null) "" else read(latest.text("event"))
+        val own = original.author == wallet.publicKey
+        val mentioned = text?.let { SpaceMessageAttention.mentions(it, wallet.publicKey) }
+        val parent = thread?.let { get(messageIdKey(space, channel, it)) }?.let { get(it.toString(Charsets.UTF_8)) }?.let(::json)
+            ?.let { SaitoEnvelope.decode(it.text("event")) }
+        val replied = if (thread == null) false else parent?.let { it.author == wallet.publicKey }
+        val personal = if (own || deletion != null) false else if (mentioned == true || replied == true) true else
+            if (mentioned == null || replied == null) null else false
+        val index = SpaceAttentionIndex(this, "$space/channels/$channel")
+        index.observe(message, position, thread, personal, maxOf(position, edit?.number("position") ?: position, deletion?.number("position") ?: position), deletion != null, own)
+        val key = "$space/channels/$channel/message-attention/$message"
+        if (text == null || replied == null) remove(key) else {
+            val event = SaitoEnvelope.decode(latest.text("event"))
+            val control = latest.get("authorized_control")?.asString ?: event.body.text("control_id")
+            val everyone = deletion == null && SpaceMessageAttention.everyone(text) &&
+                journal(space, through = control).hasCurrentAdministratorIntent(event.author, event.body.text("control_id"))
+            put(key, bytes(JsonObject().apply {
+                addProperty("mentioned", mentioned == true); addProperty("replied", replied == true)
+                addProperty("everyone", everyone); addProperty("own", own)
+            }))
+        }
+        return true
+    }
+    private fun SpaceClientStore.Transaction.ensureAttentionProjection(space: String, channel: String) {
+        val data = channelState(space, channel)
+        if (data.get("attention_projection_version")?.asLong == 1L) return
+        val prefix = messageIdKey(space, channel, "")
+        val index = SpaceAttentionIndex(this, "$space/channels/$channel")
+        (data.get("read_cursor")?.asLong ?: 0).takeIf { it > 0 }?.let { index.markRead(null, it - 1) }
+        val rows = page(prefix, data.get("attention_projection_after")?.asString ?: prefix, 50)
+        val read = attentionReader(space, channel)
+        rows.forEach { reconcileAttention(space, channel, it.key.removePrefix(prefix), read) }
+        if (rows.size < 50) { data.addProperty("attention_projection_version", 1); data.remove("attention_projection_after") }
+        else data.addProperty("attention_projection_after", rows.last().key + '\u0000')
+        putChannelState(space, channel, data)
+    }
+    private fun SpaceClientStore.Transaction.repairAttention(space: String, channel: String) {
+        val prefix = "$space/channels/$channel/attention-dirty/"
+        val read = attentionReader(space, channel)
+        for (row in page(prefix, limit = 16)) if (reconcileAttention(space, channel, row.key.removePrefix(prefix), read)) remove(row.key)
+        val index = SpaceAttentionIndex(this, "$space/channels/$channel")
+        val cursor = "$space/channels/$channel/attention-repair-after"
+        val ids = index.unavailable(after = get(cursor)?.toString(Charsets.UTF_8))
+        ids.forEach { reconcileAttention(space, channel, it, read) }
+        ids.lastOrNull()?.let { put(cursor, it.toByteArray(Charsets.UTF_8)) }
+    }
+
+    fun notificationPolicy(space: String, channel: String? = null): SpaceNotificationPolicy = store.transaction {
+        owned(); val state = state(space); val target = channel ?: selectedChannel(state)
+        require(target == generalChannel(state) || target in journal(space).snapshot.channels)
         val saved = get("$space/channels/$target/notification-policy")?.let(::json) ?: return@transaction SpaceNotificationPolicy()
         require(saved.keySet() == setOf("mode", "everyone") && saved.get("everyone").let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean })
         SpaceNotificationPolicy(SpaceNotificationMode.entries.single { it.wire == saved.text("mode") }, saved.get("everyone").asBoolean)
@@ -2749,6 +2872,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val original = SaitoEnvelope.decode(record.text("event"))
         require(original.body.text("channel_id") == channel && original.body.text("content_kind") == "message")
         val cursor = Math.addExact(position, 1)
+        SpaceAttentionIndex(this, "$space/channels/$channel").markRead(null, position)
         if (cursor > (data.get("read_cursor")?.asLong ?: 0)) {
             data.addProperty("read_cursor", cursor)
             if (data.get("unread_message_end")?.asLong?.let { cursor >= it } == true) data.addProperty("unread", 0)
@@ -2790,10 +2914,28 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                         end < (data.get("unread_end")?.asLong ?: 0)) continue
                     data.addProperty("unread", count); data.addProperty("unread_end", end)
                     data.addProperty("unread_message_end", messageEnd)
+                    data.addProperty("attention_goal", maxOf(data.get("attention_goal")?.asLong ?: 0, end))
                     data.addProperty("unread_checked_at", clock.millis()); putChannelState(space, channel, data)
                 }
             }
         }
+    }
+    /** Separate opt-in budget from cheap unread heads. Fairly visit one
+     * eligible channel per cycle, never fetch an entire conversation at once. */
+    suspend fun refreshNextAttention(space: String) {
+        val next = store.transaction {
+            owned(); state(space)
+            val snapshot = journal(space).snapshot
+            if (wallet.publicKey !in snapshot.members) return@transaction null
+            val available = snapshot.channels.filter { (channel, record) ->
+                record.visibility == SpaceVisibility.PUBLIC || record.devices.keys.any { it.split(':')[1] == wallet.publicKey } &&
+                    channelState(space, channel).get("joined")?.asBoolean == true
+            }.keys.sorted()
+            val key = "$space/attention-next-channel"
+            val after = get(key)?.toString(Charsets.UTF_8)
+            (available.firstOrNull { after == null || it > after } ?: available.firstOrNull())?.also { put(key, it.toByteArray(Charsets.UTF_8)) }
+        }
+        next?.let { refreshAttention(space, it) }
     }
 
     private suspend fun readPage(scope: JsonObject, invitation: SpaceInvitation? = null): JsonObject {
@@ -3164,6 +3306,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                     reconcilePinTarget(space, channel, original.body.text("target_message_id"))
                 if (original.body.get("content_kind")?.asString == "message-reaction") reconcileReaction(space, channel, body, reactionReader)
                 indexConfirmedMessage(space, channel, body)
+                if (original.body.get("content_kind")?.asString in setOf("message", "thread-reply", "message-edit", "message-delete")) {
+                    val message = if (original.body.text("content_kind") in setOf("message", "thread-reply")) original.id else original.body.text("target_message_id")
+                    put("$space/channels/$channel/attention-dirty/$message", byteArrayOf(1))
+                    val progress = channelState(space, channel)
+                    progress.addProperty("attention_goal", maxOf(progress.get("attention_goal")?.asLong ?: 0, Math.addExact(body.number("position"), 1)))
+                    putChannelState(space, channel, progress)
+                }
             }
             else -> throw IllegalArgumentException("Unexpected community receipt stream")
         }
@@ -3356,8 +3505,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private fun messageModerationKey(space: String, channel: String, message: String) =
         "$space/channels/$channel/message-deletions/$message/staff"
     private fun SpaceClientStore.Transaction.messageDeletion(space: String, channel: String, message: String, author: String): JsonObject? =
+        messageDeletionReceipt(space, channel, message, author)?.let { SaitoEnvelope.decode(it.text("event")).body }
+    private fun SpaceClientStore.Transaction.messageDeletionReceipt(space: String, channel: String, message: String, author: String): JsonObject? =
         listOf(messageDeletionKey(space, channel, message, author), messageModerationKey(space, channel, message))
-            .mapNotNull { get(it)?.let(::json) }.maxByOrNull { it.number("position") }?.let { SaitoEnvelope.decode(it.text("event")).body }
+            .mapNotNull { get(it)?.let(::json) }.maxByOrNull { it.number("position") }
     private fun messageEditKey(space: String, channel: String, message: String, author: String) =
         "$space/channels/$channel/message-edits/$message/$author"
     /** Rebuild disposable pointers from pre-index records, retaining every original. */

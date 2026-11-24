@@ -190,7 +190,11 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             current.flush(community.id)
                             flushUrgent(current)
                             trace("refresh background=${community.id.take(10)} unread-start")
-                            if ("spaces-unread-v1" in services) current.refreshUnread(community.id)
+                            if ("spaces-unread-v1" in services) {
+                                current.refreshUnread(community.id)
+                                flushUrgent(current)
+                                current.refreshNextAttention(community.id)
+                            }
                             trace("refresh background=${community.id.take(10)} complete")
                             mutable.update { it.copy(accessProblems = it.accessProblems - community.id) }
                         } catch (denied: SpaceClient.ReadDenied) {
@@ -295,6 +299,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val current = client ?: return@withLock
         val before = mutable.value
         val target = before.target()
+        target?.let { current.attention(it.space, it.channel) }
         val projection = current.presentation(target?.space, target?.channel, target?.let { historyWindows[it] }, target?.let { current.parent(it) })
         val communities = projection.communities
         val profiles = projection.profiles
@@ -603,10 +608,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             mutable.update { if (it.target() == target) it.copy(scrollToMessage = it.messages.lastOrNull()?.id) else it }
         }
     }
-    fun markRead(space: String, channel: String, position: Long) {
-        val target = Target(space, channel)
+    fun markRead(space: String, channel: String, position: Long, thread: String? = null) {
+        val target = Target(space, channel, thread)
         scope.launch {
-            try { localAccess.withLock { requireNotNull(client).markRead(space, channel, position) }; publish() }
+            try { localAccess.withLock {
+                val current = requireNotNull(client)
+                if (thread == null) current.markRead(space, channel, position)
+                else current.markThreadRead(space, requireNotNull(current.message(space, thread, channel)), position, channel)
+            }; publish() }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
         }

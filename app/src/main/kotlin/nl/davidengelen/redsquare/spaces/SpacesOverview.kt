@@ -62,7 +62,7 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
                             !community.joined -> R.string.spaces_confirming_access
                             else -> R.string.spaces_open_saved_channel
                         }),
-                        hasUnread = community.hasUnread, enabled = !state.savingNavigation, onClick = { onOpen(community.id) })
+                        hasUnread = community.hasUnread, personalUnread = community.personalUnread, enabled = !state.savingNavigation, onClick = { onOpen(community.id) })
                 }
                 item {
                     OutlinedButton(onClick = onCreate, enabled = state.ready && !state.loading && !state.working,
@@ -127,8 +127,7 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
 }
 
 @Composable internal fun SpaceCommunityRow(profile: SpaceProfile, id: String, images: SpaceAvatarImages,
-    summary: String, hasUnread: Boolean? = null, selected: Boolean = false, enabled: Boolean = true, onClick: () -> Unit) {
-    val unreadLabel = stringResource(R.string.spaces_unread_activity)
+    summary: String, hasUnread: Boolean? = null, personalUnread: Long? = null, selected: Boolean = false, enabled: Boolean = true, onClick: () -> Unit) {
     val openLabel = stringResource(R.string.spaces_open_community, profile.name)
     Surface(onClick = onClick, enabled = enabled, shape = RoundedCornerShape(18.dp),
         color = if (selected) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceContainerLow,
@@ -140,8 +139,7 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
                 Text(summary, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 2, overflow = TextOverflow.Ellipsis)
             }
-            if (hasUnread == true) Box(Modifier.size(9.dp).clip(CircleShape).background(MaterialTheme.colorScheme.primary)
-                .semantics { contentDescription = unreadLabel })
+            SpaceUnreadBadge(personalUnread, hasUnread)
             Icon(painterResource(R.drawable.ic_forward), null, Modifier.size(18.dp))
         }
     }
@@ -203,5 +201,18 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
             Icon(painterResource(icon), null, Modifier.size(24.dp), tint = MaterialTheme.colorScheme.primary)
             Text(stringResource(text), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
+    }
+}
+
+@Composable internal fun SpaceUnreadBadge(personal: Long?, ordinary: Boolean?) {
+    if (personal != null && personal > 0) {
+        val label = stringResource(R.string.spaces_personal_unread_count, personal)
+        Badge(modifier = Modifier.semantics { contentDescription = label }) {
+            Text(if (personal > 99) "99+" else personal.toString())
+        }
+    } else if (ordinary == true) {
+        val label = stringResource(R.string.spaces_unread_activity)
+        Box(Modifier.size(9.dp).clip(CircleShape).background(MaterialTheme.colorScheme.primary)
+            .semantics { contentDescription = label })
     }
 }

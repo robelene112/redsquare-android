@@ -207,7 +207,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     items(menuState.communities, key = { "space:${it.id}" }) { community ->
                         SpaceCommunityRow(menuState.profiles[community.id] ?: SpaceProfile(community.name), community.id, account.avatarImages,
                             summary = stringResource(if (community.id == menuState.selected) R.string.spaces_current_community else R.string.spaces_open_saved_channel),
-                            selected = community.id == menuState.selected, hasUnread = community.hasUnread) { choose(community.id) }
+                            selected = community.id == menuState.selected, hasUnread = community.hasUnread, personalUnread = community.personalUnread) { choose(community.id) }
                     }
                     if (menuCommunity != null) {
                         item { HorizontalDivider(Modifier.padding(vertical = 12.dp)); Text(menuCommunity.name, style = MaterialTheme.typography.titleLarge) }
@@ -220,7 +220,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 NavigationDrawerItem(label = { Text(entry.profile.name, maxLines = 2, overflow = TextOverflow.Ellipsis) },
                                     selected = entry.id == menuState.selectedChannel, onClick = { choose(menuCommunity.id, entry.id) },
                                     icon = { Icon(painterResource(channelKindIcon(entry.profile.kind)), null, Modifier.size(22.dp)) },
-                                    badge = if (entry.hasUnread == true) ({ Box(Modifier.size(8.dp).background(MaterialTheme.colorScheme.primary, CircleShape)) }) else null)
+                                    badge = if (entry.hasUnread == true || (entry.personalUnread ?: 0) > 0) ({ SpaceUnreadBadge(entry.personalUnread, entry.hasUnread) }) else null)
                             }
                         }
                         if (menuCommunity.canInvite) item { OutlinedButton(onClick = {
@@ -376,8 +376,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                         account.readingPosition(selected.id, selected.channel,
                                             viewport.followLatest && !latestHasLater, viewport.anchor, target.thread)
                                     if (!viewport.scrolling) userScrolling = false
-                                    viewport.read?.takeIf { target.thread == null }?.let { position -> if (lastRead == null || position > requireNotNull(lastRead)) {
-                                        lastRead = position; account.markRead(selected.id, selected.channel, position)
+                                    viewport.read?.let { position -> if (lastRead == null || position > requireNotNull(lastRead)) {
+                                        lastRead = position; account.markRead(selected.id, selected.channel, position, target.thread)
                                     } }
                                 }
                             }

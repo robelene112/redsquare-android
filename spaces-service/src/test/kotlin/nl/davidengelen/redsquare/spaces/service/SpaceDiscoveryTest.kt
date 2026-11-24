@@ -1554,6 +1554,8 @@ class SpaceDiscoveryTest {
                     assertNull(member.community(space).unread)
                     member.markRead(space, channel, requireNotNull(messages.last().position))
                     assertEquals(0L, member.community(space).unread)
+                    assertNull("A root count alone cannot rule out unread replies", member.community(space).hasUnread)
+                    member.refreshAttention(space)
                     assertEquals(false, member.community(space).hasUnread)
                 }
             }
