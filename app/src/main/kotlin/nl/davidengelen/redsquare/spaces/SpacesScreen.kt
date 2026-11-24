@@ -129,7 +129,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     var publicCopied by remember { mutableStateOf(false) }
     var publicShareFailed by remember { mutableStateOf(false) }
     val context = LocalContext.current
-    val compactReading = LocalConfiguration.current.screenHeightDp <= 480 ||
+    val compactConfiguration = LocalConfiguration.current.screenHeightDp <= 480 ||
         LocalConfiguration.current.screenHeightDp <= 700 && LocalDensity.current.fontScale >= 1.5f
     var invitationText by remember { mutableStateOf("") }
     var reviewedInvitation by remember(account) { mutableStateOf<SpaceClient.InvitationPreview?>(null) }
@@ -241,7 +241,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 }
             }
         }) {
-        Column(Modifier.fillMaxSize()) {
+        SpacesViewport { shortWindow ->
+            val compactReading = compactConfiguration || shortWindow
             chrome(imeVisible)
             if (channelAccessOpen && selected != null) Box(Modifier.weight(1f)) {
                 SpaceChannelAccessPage(account, state) { channelAccessRoute = null; informationOpen = true }
@@ -526,7 +527,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     }
                 }
             }
-            if (!imeVisible) SpacesBottomBar(tab) { selectTab(it) }
+            if (!imeVisible && (!shortWindow || state.selected == null)) SpacesBottomBar(tab) { selectTab(it) }
         }
     }
     DesignSheet(publicReference != null, stringResource(R.string.spaces_open_public_community), { publicReference = null; account.dismissPublicReference() }) { first ->
@@ -742,6 +743,16 @@ private data class ChannelViewport(val anchor: SpaceClient.ReadingAnchor?, val f
     Surface(shape = RoundedCornerShape(14.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
         Text(stringResource(if (problem == SpaceClient.ReadProblem.EXPIRED) R.string.spaces_invitation_expired else R.string.spaces_access_unavailable),
             Modifier.fillMaxWidth().padding(14.dp), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
+}
+
+/** Read the adjusted viewport before reserving space for the bottom bar.
+ * During IME entry the window can shrink before Compose receives visibility. */
+@Composable
+private fun SpacesViewport(content: @Composable ColumnScope.(shortWindow: Boolean) -> Unit) {
+    BoxWithConstraints(Modifier.fillMaxSize()) {
+        val shortWindow = maxHeight < 420.dp
+        Column(Modifier.fillMaxSize()) { content(shortWindow) }
     }
 }
 
