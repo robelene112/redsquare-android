@@ -285,17 +285,20 @@ class SpacesJourneyTest {
                 reply.has("id") && rowAction(replyText, "Message actions").isDisplayed()
             }
             pin(replyText)
-            ui.waitUntil(15_000) { reply = observation(replyText, root.get("id").asString); reply.get("pinned").asBoolean }
+            val pinnedReply = ui.onNodeWithText(replyText)
+            fun replyFullyVisible() = pinnedReply.isDisplayed() &&
+                pinnedReply.fetchSemanticsNode().let { it.boundsInRoot.height >= it.size.height }
+            ui.waitUntil(15_000) {
+                if (reply.get("pinned")?.asBoolean != true) reply = observation(replyText, root.get("id").asString)
+                reply.get("pinned").asBoolean && ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() && replyFullyVisible()
+            }
+            capture("pins-01c-pinned-reply-stays-readable", replyText)
             ui.onNodeWithText("Reply in this thread").performTextInput(threadDraft); closeKeyboard(activity)
             ui.onNode(hasText("Pinned messages") and hasClickAction()).performClick()
             ui.waitUntil(5_000) { ui.onNode(hasText(replyText) and hasAnyAncestor(isDialog())).isDisplayed() }
             capture("pins-02-root-and-thread-list")
             ui.onNode(hasText("Open reply in thread") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
-            val pinnedReply = ui.onNodeWithText(replyText)
-            ui.waitUntil(10_000) {
-                pinnedReply.isDisplayed() && pinnedReply.fetchSemanticsNode().let { it.boundsInRoot.height >= it.size.height } &&
-                    ui.onNodeWithText(threadDraft).isDisplayed()
-            }
+            ui.waitUntil(10_000) { replyFullyVisible() && ui.onNodeWithText(threadDraft).isDisplayed() }
             capture("pins-03-exact-thread-draft", replyText)
             ui.onNode(hasText("Back to channel") and hasClickAction()).performClick()
             ui.waitUntil(10_000) { ui.onNodeWithText(channelDraft).isDisplayed() }

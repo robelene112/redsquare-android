@@ -335,12 +335,14 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         var overlayMode by rememberSaveable { mutableStateOf<MessageOverlay?>(null) }
                         var overlayText by rememberSaveable { mutableStateOf("") }
                         var retainedMessage by remember { mutableStateOf<SpaceClient.Message?>(null) }
+                        var checkedOverlayId by remember { mutableStateOf<String?>(null) }
                         val overlayMessage = state.messages.firstOrNull { it.id == overlayId } ?: retainedMessage?.takeIf { it.id == overlayId }
                         LaunchedEffect(overlayId, overlayMode, state.messages) {
                             val id = overlayId ?: return@LaunchedEffect
                             if (overlayMode == null) return@LaunchedEffect
-                            state.messages.firstOrNull { it.id == id }?.let { retainedMessage = it }
-                                ?: account.loadMessage(target, id)?.let { retainedMessage = it }
+                            val resolved = state.messages.firstOrNull { it.id == id } ?: account.loadMessage(target, id)
+                            if (resolved != null) retainedMessage = resolved
+                            checkedOverlayId = id
                         }
                         if (!compactTyping) threadParent?.let { parent ->
                             Surface(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp),
@@ -486,6 +488,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         val acceptedOverlay = overlayMessage?.let { !it.pending && !it.rejected && !it.cancelled } == true
                         val editableOverlay = acceptedOverlay && overlayMessage?.deleted == false && overlayMessage.author == account.ownerKey && canWrite
                         MessageOverlays(overlayMessage, overlayMode, overlayText, { overlayText = it }, { overlayMode = null },
+                            loadingTarget = overlayMessage == null && overlayId != null && overlayId != checkedOverlayId,
                             selectMode = { mode ->
                                 if (mode == MessageOverlay.EDIT) overlayText = overlayMessage?.change?.text ?: overlayMessage?.text.orEmpty()
                                 overlayMode = mode
@@ -499,6 +502,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 ({ emoji, onSaved -> account.toggleReaction(target, overlayMessage, emoji, onSaved) }) else null,
                             pin = if (acceptedOverlay && overlayMessage?.deleted == false && overlayMessage.pinAvailable && selected.canPin && !overlayMessage.pinPending)
                                 ({ done -> account.pinMessage(target, overlayMessage, !overlayMessage.pinned, done) }) else null,
+                            cancelPin = overlayMessage?.pinChange?.takeIf { !it.attempted && !it.rejected && !it.cancelled }?.let { change ->
+                                { done -> account.cancelChange(target, change.operationId, done) }
+                            },
                             loadReactions = overlayMessage?.let { message -> { after -> account.loadReactionPage(target, message, after) } },
                             working = state.working)
                         if ((state.hasLater || !state.followingLatest) && !compactTyping) {
@@ -796,19 +802,17 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
                 modifier = if (message.deleted) bodyModifier.testTag("spaces-deleted-${message.id}") else bodyModifier,
                 style = if (message.deleted) MaterialTheme.typography.bodySmall else MaterialTheme.typography.bodyLarge,
                 color = if (message.text != null) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant)
-            Text(if (message.cancelled) stringResource(R.string.spaces_send_cancelled)
-                else if (message.rejected) stringResource(R.string.spaces_not_sent)
-                else if (message.pending) stringResource(if (message.attempted) R.string.spaces_unconfirmed else R.string.spaces_message_waiting_connection)
-                else if (message.edited && !message.deleted) stringResource(R.string.spaces_edited_at, time) else time,
-                style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            if (message.pinned && !message.deleted) Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                Icon(painterResource(R.drawable.ic_pin), null, Modifier.size(14.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                Text(stringResource(R.string.spaces_pinned), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-            PinChangeNotice(message.pinChange)
-            message.pinChange?.takeIf { !it.attempted && !it.rejected && !it.cancelled }?.let { change ->
-                if (cancelChange != null) TextButton(onClick = { cancelChange(change.operationId) { stopped -> changeCancelTooLate = !stopped } },
-                    enabled = !working, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_cancel_change)) }
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                Text(if (message.cancelled) stringResource(R.string.spaces_send_cancelled)
+                    else if (message.rejected) stringResource(R.string.spaces_not_sent)
+                    else if (message.pending) stringResource(if (message.attempted) R.string.spaces_unconfirmed else R.string.spaces_message_waiting_connection)
+                    else if (message.edited && !message.deleted) stringResource(R.string.spaces_edited_at, time) else time,
+                    style = MaterialTheme.typography.labelSmall)
+                if (!message.deleted && (message.pinned || message.pinChange != null)) {
+                    val status = message.pinChange?.let(::pinChangeLabel) ?: R.string.spaces_pinned
+                    Icon(painterResource(R.drawable.ic_pin), stringResource(status), Modifier.size(14.dp),
+                        tint = if (message.pinChange?.rejected == true) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)
+                }
             }
             message.change?.let { change ->
                 val status = when {
@@ -843,13 +847,15 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
 /** Conversation-owned modal host. Neither IME resizing nor lazy row disposal
  * owns this input session or the paged reaction sheet. */
 @Composable private fun MessageOverlays(message: SpaceClient.Message?, mode: MessageOverlay?, editedText: String,
-    onText: (String) -> Unit, dismiss: () -> Unit, selectMode: (MessageOverlay) -> Unit, edit: ((String, () -> Unit) -> Unit)?,
+    onText: (String) -> Unit, dismiss: () -> Unit, loadingTarget: Boolean, selectMode: (MessageOverlay) -> Unit, edit: ((String, () -> Unit) -> Unit)?,
     remove: ((() -> Unit) -> Unit)?, cancel: (((Boolean) -> Unit) -> Unit)?,
-    react: ((String, () -> Unit) -> Unit)?, pin: ((() -> Unit) -> Unit)?, loadReactions: (suspend (String?) -> SpaceClient.ReactionPage)?, working: Boolean) {
+    react: ((String, () -> Unit) -> Unit)?, pin: ((() -> Unit) -> Unit)?, cancelPin: (((Boolean) -> Unit) -> Unit)?,
+    loadReactions: (suspend (String?) -> SpaceClient.ReactionPage)?, working: Boolean) {
     val context = LocalContext.current
     var editCopied by remember(message?.id) { mutableStateOf(false) }
     var editCopyFailed by remember(message?.id) { mutableStateOf(false) }
     var cancelTooLate by remember(message?.id) { mutableStateOf(false) }
+    var pinCancelTooLate by remember(message?.pinChange?.operationId) { mutableStateOf(false) }
     val savedEditLabel = stringResource(R.string.spaces_saved_edit)
     LaunchedEffect(editedText) { editCopied = false; editCopyFailed = false }
     LaunchedEffect(mode) { if (mode != MessageOverlay.CANCEL) cancelTooLate = false }
@@ -868,17 +874,18 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
     SideEffect { if (sheetMode != null) lastSheetMode = sheetMode }
     val shownSheet = sheetMode ?: lastSheetMode
     val editor = shownSheet == MessageOverlay.EDIT
+    val restoringEdit = editor && loadingTarget
     val sheetTitle = when (shownSheet) {
         MessageOverlay.ACTIONS -> R.string.spaces_message_actions
         MessageOverlay.REACTION_PICKER -> R.string.spaces_add_reaction
-        else -> if (edit == null) R.string.spaces_saved_edit else R.string.spaces_edit_message
+        else -> if (edit != null || restoringEdit) R.string.spaces_edit_message else R.string.spaces_saved_edit
     }
     DesignSheet(sheetMode != null, stringResource(sheetTitle),
-        { if (!working || !editor || edit == null) dismiss() }, contentKey = message?.id to shownSheet,
+        { if (!restoringEdit && (!working || !editor || edit == null)) dismiss() }, contentKey = shownSheet,
         footer = { first ->
             if (editor) {
-                if (edit != null) Button(onClick = { edit(editedText, dismiss) },
-                    enabled = !working && editedText.isNotBlank() && editedText != (message?.change?.takeUnless { it.rejected || it.cancelled }?.text ?: message?.text),
+                if (edit != null || restoringEdit) Button(onClick = { edit?.invoke(editedText, dismiss) },
+                    enabled = edit != null && !working && editedText.isNotBlank() && editedText != (message?.change?.takeUnless { it.rejected || it.cancelled }?.text ?: message?.text),
                     modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_save_channel)) }
                 OutlinedButton(onClick = {
                     try {
@@ -892,14 +899,24 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
                     Text(stringResource(if (editCopyFailed) R.string.spaces_copy_edit_failed else if (editCopied) R.string.spaces_copied else R.string.spaces_copy_edit))
                 }
             }
-            TextButton(onClick = dismiss, enabled = edit == null || !working, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
-                Text(stringResource(if (edit == null) R.string.spaces_close else R.string.spaces_cancel)) }
+            TextButton(onClick = dismiss, enabled = !restoringEdit && (edit == null || !working), modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                Text(stringResource(if (edit != null || restoringEdit) R.string.spaces_cancel else R.string.spaces_close)) }
         }) { first ->
         when (shownSheet) {
-            MessageOverlay.EDIT -> OutlinedTextField(editedText, { if (edit != null) onText(it) }, first.fillMaxWidth(), enabled = edit == null || !working,
-                readOnly = edit == null, label = { Text(stringResource(R.string.spaces_message_text)) }, maxLines = 8)
+            MessageOverlay.EDIT -> {
+                if (restoringEdit) LinearProgressIndicator(Modifier.fillMaxWidth())
+                OutlinedTextField(editedText, { if (edit != null) onText(it) }, first.fillMaxWidth(), enabled = edit == null || !working,
+                    readOnly = edit == null, label = { Text(stringResource(R.string.spaces_message_text)) }, maxLines = 8)
+            }
             MessageOverlay.ACTIONS -> {
                 PinChangeNotice(message?.pinChange)
+                if (cancelPin != null) TextButton(onClick = {
+                    cancelPin { stopped -> pinCancelTooLate = !stopped }
+                }, enabled = !working, modifier = first.fillMaxWidth().heightIn(min = 48.dp)) {
+                    Text(stringResource(R.string.spaces_cancel_change))
+                }
+                if (pinCancelTooLate && message?.pinChange?.attempted == true)
+                    Text(stringResource(R.string.spaces_change_cancel_too_late), style = MaterialTheme.typography.labelSmall)
                 if (pin != null) TextButton(onClick = { pin(dismiss) }, enabled = !working,
                     modifier = first.fillMaxWidth().heightIn(min = 48.dp)) {
                     Text(stringResource(if (message?.pinned == true) R.string.spaces_unpin_message else R.string.spaces_pin_message))
@@ -972,14 +989,16 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
     HorizontalDivider()
 }
 
+private fun pinChangeLabel(change: SpaceClient.PinChange): Int = when {
+    change.cancelled -> R.string.spaces_pin_cancelled
+    change.rejected -> R.string.spaces_pin_refused
+    change.attempted -> R.string.spaces_pin_uncertain
+    else -> R.string.spaces_pin_waiting
+}
+
 @Composable private fun PinChangeNotice(change: SpaceClient.PinChange?) {
     if (change == null) return
-    Text(stringResource(when {
-        change.cancelled -> R.string.spaces_pin_cancelled
-        change.rejected -> R.string.spaces_pin_refused
-        change.attempted -> R.string.spaces_pin_uncertain
-        else -> R.string.spaces_pin_waiting
-    }), style = MaterialTheme.typography.labelSmall,
+    Text(stringResource(pinChangeLabel(change)), style = MaterialTheme.typography.labelSmall,
         color = if (change.rejected) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)
 }
 
