@@ -663,14 +663,22 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     private suspend fun createAndOpen(profile: SpaceProfile, channels: List<SpaceChannelProfile>, route: Long) {
         val space = localAccess.withLock { requireNotNull(client).create(profile, channels) }
+        urgentOutbox.add(space)
+        wake.trySend(Unit)
         mutable.update { it.copy(created = space) }
-        selectRoute(space, expected = route); publish(); wake.trySend(Unit)
+        selectRoute(space, expected = route)
+        publish()
     }
     fun dismissCreation() { synchronized(navigationChanges) { navigationVersion.incrementAndGet() } }
     fun consumeCreated(space: String) { mutable.update { if (it.created == space) it.copy(created = null) else it } }
     fun invite(days: Int = 7) { mutable.value.selected?.let { invite(it, days) } }
     fun invite(space: String, days: Int = 7) {
-        localAction { localAccess.withLock { requireNotNull(client).invite(space, days * 86_400_000L) }; publish(); wake.trySend(Unit) }
+        localAction {
+            localAccess.withLock { requireNotNull(client).invite(space, days * 86_400_000L) }
+            urgentOutbox.add(space)
+            wake.trySend(Unit)
+            publish()
+        }
     }
     fun preview(link: String) {
         val token = previews.incrementAndGet()

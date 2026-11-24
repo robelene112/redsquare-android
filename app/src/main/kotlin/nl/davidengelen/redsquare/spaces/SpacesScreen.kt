@@ -233,7 +233,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         if (menuCommunity.canInvite) item { OutlinedButton(onClick = {
                             scope.launch { drawer.close() }; inviteOpen = true
                             if (state.invitation == null) account.invite(menuCommunity.id)
-                        }, enabled = !state.working && !menuCommunity.pending, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                        }, enabled = !state.working && menuCommunity.canManage, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                             Text(stringResource(R.string.spaces_invite))
                         } }
                     }
@@ -605,7 +605,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         RulesAcceptance(acceptedPublicRules, { acceptedPublicRules = it })
         state.problem?.let { ProblemNotice(it, account::clearProblem) }
     }
-    InvitationSheet(inviteOpen, state.invitation, state.working, selected?.canInvite == true && !selected.pending,
+    InvitationSheet(inviteOpen, state.invitation, state.working, selected?.canManage == true,
         { inviteOpen = false }, account::refresh,
         { days -> selected?.let { account.invite(it.id, days) } },
         { selected?.let { account.revokeInvitation(it.id) } })
@@ -681,7 +681,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             if (state.listingIntent != null) Text(stringResource(R.string.spaces_saving_listing), style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (selected.canInvite) OutlinedButton(onClick = { informationOpen = false; inviteOpen = true; if (state.invitation == null) account.invite(selected.id) },
-                enabled = !state.working && !selected.pending, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_invite)) }
+                enabled = !state.working && selected.canManage, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_invite)) }
             OutlinedButton(onClick = {
                 scope.launch {
                     val commit: suspend () -> Boolean = { informationOpen = false; membersOpen = true; true }
