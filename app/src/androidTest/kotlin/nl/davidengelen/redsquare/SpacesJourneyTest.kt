@@ -301,7 +301,7 @@ class SpacesJourneyTest {
             ui.waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
             backToCommunities()
             ui.waitUntil(10_000) { communityRow(spaceName).isDisplayed() }
-            fun badge(label: String) = ui.onNode(hasContentDescription(label) and hasAnyAncestor(hasContentDescription("Open $spaceName")),
+            fun badge(label: String) = ui.onNode(hasContentDescription(label) and hasAnyAncestor(onScreenCommunity(spaceName)),
                 useUnmergedTree = true)
             val unread = badge("Unread activity")
             ui.waitUntil(15_000) { !unread.isDisplayed() }
@@ -557,10 +557,11 @@ class SpacesJourneyTest {
     private fun visibleSpacesList() = ui.onNode(hasScrollToNodeAction() and SemanticsMatcher("on-screen Spaces list") {
         it.boundsInRoot.right > 0f && it.boundsInRoot.left >= 0f && it.boundsInRoot.bottom > 0f
     })
-    private fun communityRow(name: String) = ui.onNode(hasContentDescription("Open $name") and
+    private fun onScreenCommunity(name: String) = hasContentDescription("Open $name") and
         SemanticsMatcher("on-screen community") {
             it.boundsInRoot.right > 0f && it.boundsInRoot.left >= 0f && it.boundsInRoot.bottom > 0f
-        })
+        }
+    private fun communityRow(name: String) = ui.onNode(onScreenCommunity(name))
     private fun openSpaces(current: String) = switchModule(current, "Spaces")
     private fun switchModule(current: String, next: String) {
         ui.revealAppNavigation()
