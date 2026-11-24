@@ -91,9 +91,16 @@ class SpacesJourneyTest {
             ui.onNode(hasText("Edit message") and hasClickAction() and isEnabled() and hasAnyAncestor(isDialog())).assertIsDisplayed().performClick()
             fun editor() = ui.onNode(hasText("Message") and hasSetTextAction() and hasAnyAncestor(isDialog()))
             ui.waitUntil(5_000) { editor().isDisplayed() }
-            editor().performClick().performTextReplacement(edited)
+            editor().performClick()
             ui.waitUntil(5_000) { focusedWindowImeBottom() > 0 }
-            val ime = focusedWindowImeBottom(); assertTrue(ime > 0)
+            // Establish the real input connection before replacing its text.
+            // Android 10 can still recreate that connection on first focus.
+            editor().performTextReplacement(edited)
+            ui.waitUntil(5_000) {
+                editor().fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text == edited &&
+                    focusedWindowImeBottom() > 0
+            }
+            val ime = focusedWindowImeBottom()
             capture("overlay-02-real-ime", edited)
             val incoming = command("populate", JsonObject().apply { addProperty("space", space); addProperty("from", 60); addProperty("count", 8) })
             var consumed = JsonObject()
