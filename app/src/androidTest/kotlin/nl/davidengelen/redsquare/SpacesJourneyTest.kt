@@ -174,13 +174,16 @@ class SpacesJourneyTest {
             val deletionDetail = context.getString(R.string.spaces_delete_message_detail)
             ui.waitUntil(5_000) { ui.onNodeWithText(deletionDetail).isDisplayed() && ui.onAllNodes(removeChoice).fetchSemanticsNodes().size == 1 }
             ui.onNode(removeChoice and isEnabled()).assertIsDisplayed().performClick()
+            val moderatedId = moderated.get("id").asString
+            val placeholder = ui.onNode(hasTestTag("spaces-deleted-$moderatedId") and hasText("Message deleted"))
             var deleted = JsonObject()
             ui.waitUntil(15_000) {
                 if (deleted.get("deleted")?.asBoolean != true)
                     deleted = command("message-observation", moderated.deepCopy().apply { addProperty("space", space) })
-                deleted.get("deleted").asBoolean && ui.onNodeWithText("Message deleted").isDisplayed()
+                deleted.get("deleted").asBoolean && placeholder.isDisplayed()
             }
-            assertEquals(moderated.get("id").asString, deleted.get("id").asString)
+            assertEquals(moderatedId, deleted.get("id").asString)
+            ui.onNodeWithText("Fixture line 100").assertDoesNotExist()
             capture("overlay-08-moderated-placeholder", "Message deleted")
             File(evidence, "overlay-results.json").writeText(JsonObject().apply {
                 addProperty("pid", Process.myPid()); addProperty("imeBottom", ime)

@@ -55,6 +55,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.CancellationException
@@ -129,8 +130,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     var publicCopied by remember { mutableStateOf(false) }
     var publicShareFailed by remember { mutableStateOf(false) }
     val context = LocalContext.current
-    val compactConfiguration = LocalConfiguration.current.screenHeightDp <= 480 ||
-        LocalConfiguration.current.screenHeightDp <= 700 && LocalDensity.current.fontScale >= 1.5f
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+    val compactConfiguration = screenHeight <= 480.dp ||
+        screenHeight <= 700.dp && LocalDensity.current.fontScale >= 1.5f
     var invitationText by remember { mutableStateOf("") }
     var reviewedInvitation by remember(account) { mutableStateOf<SpaceClient.InvitationPreview?>(null) }
     val invitationReview = state.preview ?: reviewedInvitation
@@ -241,9 +243,15 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 }
             }
         }) {
-        SpacesViewport { shortWindow ->
+        SpacesViewport { height ->
+            val shortWindow = height < 420.dp
+            // During the first IME frames the resized viewport can arrive
+            // ahead of the inset signal. Compare to the actual configuration
+            // so a short landscape or split-screen window keeps navigation.
+            val keyboardInLayout = imeVisible || (shortWindow && screenHeight - height >= 96.dp)
             val compactReading = compactConfiguration || shortWindow
-            chrome(imeVisible)
+            val compactTyping = state.selected != null && keyboardInLayout && height < 290.dp
+            chrome(keyboardInLayout)
             if (channelAccessOpen && selected != null) Box(Modifier.weight(1f)) {
                 SpaceChannelAccessPage(account, state) { channelAccessRoute = null; informationOpen = true }
             }
@@ -254,7 +262,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             else {
                 val title = channel?.profile?.name ?: stringResource(R.string.spaces_kind_chat)
                 val menu = stringResource(R.string.spaces_switch_channel)
-                Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                if (!compactTyping) Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                     FrameIconButton(R.drawable.ic_back, stringResource(R.string.spaces_back)) { choose(null) }
                     Surface(onClick = { focusManager.clearFocus(); keyboardController?.hide(); scope.launch { drawer.open() } }, shape = RoundedCornerShape(14.dp),
                         color = MaterialTheme.colorScheme.surfaceContainerLow,
@@ -273,7 +281,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         FrameIconButton(R.drawable.ic_pin, stringResource(R.string.spaces_pinned_messages)) { focusManager.clearFocus(); keyboardController?.hide(); pinsRoute = pinConversationRoute }
                     FrameIconButton(R.drawable.ic_info, stringResource(R.string.spaces_information)) { focusManager.clearFocus(); keyboardController?.hide(); informationOpen = true }
                 }
-                Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                if (!compactTyping) Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     AvailabilityNotice(state.availability, state.refreshing, account::refresh)
                     state.selected?.let { state.accessProblems[it] }?.let { AccessNotice(it) }
                     if (state.ownershipSupported && state.ownershipOffer?.member == account.ownerKey) {
@@ -332,7 +340,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             state.messages.firstOrNull { it.id == id }?.let { retainedMessage = it }
                                 ?: account.loadMessage(target, id)?.let { retainedMessage = it }
                         }
-                        threadParent?.let { parent ->
+                        if (!compactTyping) threadParent?.let { parent ->
                             Surface(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp),
                                 shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
                                 Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -347,7 +355,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 }
                             }
                         }
-                        if (state.hasEarlier) OutlinedButton(onClick = account::olderMessages, enabled = !state.working,
+                        if (state.hasEarlier && !compactTyping) OutlinedButton(onClick = account::olderMessages, enabled = !state.working,
                             modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).heightIn(min = 48.dp)) {
                             Text(stringResource(R.string.spaces_earlier_messages))
                         }
@@ -447,7 +455,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 val own = message.author == account.ownerKey
                                 MessageRow(message, state.draft.isEmpty() && !state.working,
                                     restore = { account.restoreUnsentDraft(message.id) },
-                                    reply = if (accepted && threadParent == null) ({ account.openThread(message) }) else null,
+                                    reply = if (accepted && threadParent == null && (!message.deleted || message.replyCount > 0))
+                                        ({ account.openThread(message) }) else null,
                                     canEdit = accepted && !message.deleted && own && canWrite,
                                     canRemove = accepted && !message.deleted && canWrite && (own || selected.canManage),
                                     canCancel = message.pending && !message.attempted,
@@ -482,7 +491,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 ({ done -> account.pinMessage(target, overlayMessage, !overlayMessage.pinned, done) }) else null,
                             loadReactions = overlayMessage?.let { message -> { after -> account.loadReactionPage(target, message, after) } },
                             working = state.working)
-                        if (state.hasLater || !state.followingLatest) {
+                        if ((state.hasLater || !state.followingLatest) && !compactTyping) {
                             val newerActivity = stringResource(R.string.spaces_newer_messages_available)
                             OutlinedButton(onClick = account::latestMessages,
                                 modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).heightIn(min = 48.dp)
@@ -494,7 +503,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 Text(stringResource(R.string.spaces_latest_messages))
                             }
                         }
-                        state.problem?.let { ProblemNotice(it, account::clearProblem) }
+                        if (!compactTyping) state.problem?.let { ProblemNotice(it, account::clearProblem) }
                         if (selected.dissolved) {
                             if (state.draft.isNotEmpty()) OutlinedTextField(state.draft, {}, readOnly = true,
                                 label = { Text(stringResource(R.string.spaces_saved_draft)) }, maxLines = if (compactReading) 1 else 4,
@@ -527,7 +536,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     }
                 }
             }
-            if (!imeVisible && (!shortWindow || state.selected == null)) SpacesBottomBar(tab) { selectTab(it) }
+            if (!keyboardInLayout) SpacesBottomBar(tab) { selectTab(it) }
         }
     }
     DesignSheet(publicReference != null, stringResource(R.string.spaces_open_public_community), { publicReference = null; account.dismissPublicReference() }) { first ->
@@ -749,10 +758,10 @@ private data class ChannelViewport(val anchor: SpaceClient.ReadingAnchor?, val f
 /** Read the adjusted viewport before reserving space for the bottom bar.
  * During IME entry the window can shrink before Compose receives visibility. */
 @Composable
-private fun SpacesViewport(content: @Composable ColumnScope.(shortWindow: Boolean) -> Unit) {
+private fun SpacesViewport(content: @Composable ColumnScope.(height: Dp) -> Unit) {
     BoxWithConstraints(Modifier.fillMaxSize()) {
-        val shortWindow = maxHeight < 420.dp
-        Column(Modifier.fillMaxSize()) { content(shortWindow) }
+        val height = maxHeight
+        Column(Modifier.fillMaxSize()) { content(height) }
     }
 }
 
@@ -774,6 +783,7 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
                     FrameIconButton(R.drawable.ic_more, stringResource(R.string.spaces_message_actions)) { openOverlay(MessageOverlay.ACTIONS) }
             }
             Text(message.text ?: stringResource(if (message.deleted) R.string.spaces_message_deleted else if (message.missingKeys) R.string.spaces_missing_keys else R.string.spaces_message_unavailable),
+                modifier = if (message.deleted) Modifier.testTag("spaces-deleted-${message.id}") else Modifier,
                 style = if (message.deleted) MaterialTheme.typography.bodySmall else MaterialTheme.typography.bodyLarge,
                 color = if (message.text != null) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant)
             Text(if (message.cancelled) stringResource(R.string.spaces_send_cancelled)
@@ -807,7 +817,9 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
                     Text(stringResource(R.string.spaces_change_cancel_too_late), style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
-            if (reply != null || react != null || message.reactions.isNotEmpty() || message.reactionsHaveMore)
+            if (message.deleted) {
+                if (reply != null) ThreadReplyButton(message.replyCount, reply)
+            } else if (reply != null || react != null || message.reactions.isNotEmpty() || message.reactionsHaveMore)
                 MessageReactions(message, react, reply,
                     openPicker = { openOverlay(MessageOverlay.REACTION_PICKER) }, openDetails = { openOverlay(MessageOverlay.REACTIONS) })
             if (canCancel) TextButton(onClick = { openOverlay(MessageOverlay.CANCEL) }, enabled = !working,
@@ -1036,11 +1048,7 @@ private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "�
         horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         shown.forEach { reaction -> key(reaction.emoji) { ReactionChip(reaction, choose) } }
         if (react != null) FrameIconButton(R.drawable.ic_reaction_add, stringResource(R.string.spaces_add_reaction), onClick = openPicker)
-        if (reply != null) TextButton(onClick = reply, modifier = Modifier.heightIn(min = 48.dp)) {
-            Icon(painterResource(R.drawable.ic_chat), null, Modifier.size(18.dp)); Spacer(Modifier.width(8.dp))
-            Text(if (message.replyCount == 0L) stringResource(R.string.spaces_reply_in_thread)
-                else pluralStringResource(R.plurals.social_reply_count, message.replyCount.coerceAtMost(Int.MAX_VALUE.toLong()).toInt(), message.replyCount))
-        }
+        if (reply != null) ThreadReplyButton(message.replyCount, reply)
         if (hasMore) TextButton(onClick = openDetails,
             modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_all_reactions)) }
     }
@@ -1048,6 +1056,15 @@ private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "�
         enter = fadeIn(tween(AppSpacing.transitionMillis)) + expandVertically(tween(AppSpacing.transitionMillis)),
         exit = fadeOut(tween(AppSpacing.transitionMillis)) + shrinkVertically(tween(AppSpacing.transitionMillis))) {
         Text(stringResource(R.string.spaces_reactions_not_complete), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
+}
+
+@Composable private fun ThreadReplyButton(count: Long, reply: () -> Unit) {
+    TextButton(onClick = reply, modifier = Modifier.heightIn(min = 48.dp)) {
+        Icon(painterResource(R.drawable.ic_chat), null, Modifier.size(18.dp))
+        Spacer(Modifier.width(8.dp))
+        Text(if (count == 0L) stringResource(R.string.spaces_reply_in_thread)
+            else pluralStringResource(R.plurals.social_reply_count, count.coerceAtMost(Int.MAX_VALUE.toLong()).toInt(), count))
     }
 }
 

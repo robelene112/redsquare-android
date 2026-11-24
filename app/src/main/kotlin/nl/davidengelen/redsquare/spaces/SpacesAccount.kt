@@ -161,68 +161,70 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             for (ignored in wake) {
                 if (cacheFailed) continue
                 mutable.update { it.copy(refreshing = true) }
-                try { network.withLock {
-                    val service = peerCall { authenticatedPeer().servicePublicKey("spaces-v1") }
-                    if (cachedService != null && cachedService != service) throw ChangedIdentity()
-                    if (client == null) {
-                        directory.save(EncryptedLocalFile.Contents(1, service))
-                        cachedService = service
-                        installClient(service)
-                    }
-                    val services = peerCall { authenticatedPeer().services() }
-                    mutable.update { it.copy(availability = Availability.ONLINE, ready = true,
-                        discoverySupported = "spaces-directory-v1" in services, unreadSupported = "spaces-unread-v1" in services,
-                        archiveSupported = "spaces-channel-archive-v1" in services, rolesSupported = "spaces-role-management-v1" in services,
-                        membershipSupported = "spaces-membership-management-v1" in services,
-                        ownershipSupported = "spaces-ownership-management-v1" in services,
-                        categoriesSupported = "spaces-category-management-v1" in services,
-                        visibilitySupported = "spaces-visibility-management-v1" in services,
-                        dissolutionSupported = "spaces-dissolution-v1" in services,
-                        publicChannelEditSupported = "spaces-public-channel-edit-v1" in services,
-                        privateChannelAccessSupported = "spaces-private-channel-access-v1" in services,
-                        privateChannelEditSupported = "spaces-private-channel-edit-v1" in services) }
-                    val current = requireNotNull(client)
-                    flushUrgent(current)
-                    val communities = current.communities()
-                    for (community in communities) {
-                        try {
-                            trace("refresh background=${community.id.take(10)} flush-start")
-                            current.flush(community.id)
-                            trace("refresh background=${community.id.take(10)} admit-start")
-                            current.admitPending(community.id)
-                            current.flush(community.id)
-                            flushUrgent(current)
-                            trace("refresh background=${community.id.take(10)} complete")
-                            mutable.update { it.copy(accessProblems = it.accessProblems - community.id) }
-                        } catch (denied: SpaceClient.ReadDenied) {
-                            mutable.update { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem)) }
+                try {
+                    val attention = network.withLock {
+                        val service = peerCall { authenticatedPeer().servicePublicKey("spaces-v1") }
+                        if (cachedService != null && cachedService != service) throw ChangedIdentity()
+                        if (client == null) {
+                            directory.save(EncryptedLocalFile.Contents(1, service))
+                            cachedService = service
+                            installClient(service)
                         }
-                    }
-                    mutable.value.target()?.let { target ->
-                        try {
-                            val selected = current.community(target.space, channel = target.channel)
-                            // A new local creation or public join can enter
-                            // after this cycle's outbox inventory was taken.
-                            // Flush it before asking the node for access. A
-                            // private invitation still needs reads for Welcome.
-                            if (!selected.joined && selected.pending && !selected.membershipRequested) return@let
-                            flushUrgent(current)
-                            trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} start")
-                            current.refresh(target.space, channel = target.channel, from = if (target.thread == null) historyWindows[target] else null)
-                            flushUrgent(current)
-                            current.parent(target)?.let { current.refreshThread(target.space, it, target.channel, historyWindows[target]) }
-                            trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} complete")
-                            mutable.update { it.copy(accessProblems = it.accessProblems - target.space) }
-                        } catch (denied: SpaceClient.ReadDenied) {
-                            mutable.update { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem)) }
+                        val services = peerCall { authenticatedPeer().services() }
+                        mutable.update { it.copy(availability = Availability.ONLINE, ready = true,
+                            discoverySupported = "spaces-directory-v1" in services, unreadSupported = "spaces-unread-v1" in services,
+                            archiveSupported = "spaces-channel-archive-v1" in services, rolesSupported = "spaces-role-management-v1" in services,
+                            membershipSupported = "spaces-membership-management-v1" in services,
+                            ownershipSupported = "spaces-ownership-management-v1" in services,
+                            categoriesSupported = "spaces-category-management-v1" in services,
+                            visibilitySupported = "spaces-visibility-management-v1" in services,
+                            dissolutionSupported = "spaces-dissolution-v1" in services,
+                            publicChannelEditSupported = "spaces-public-channel-edit-v1" in services,
+                            privateChannelAccessSupported = "spaces-private-channel-access-v1" in services,
+                            privateChannelEditSupported = "spaces-private-channel-edit-v1" in services) }
+                        val current = requireNotNull(client)
+                        flushUrgent(current)
+                        val communities = current.communities()
+                        for (community in communities) {
+                            try {
+                                trace("refresh background=${community.id.take(10)} flush-start")
+                                current.flush(community.id)
+                                trace("refresh background=${community.id.take(10)} admit-start")
+                                current.admitPending(community.id)
+                                current.flush(community.id)
+                                flushUrgent(current)
+                                trace("refresh background=${community.id.take(10)} complete")
+                                mutable.update { it.copy(accessProblems = it.accessProblems - community.id) }
+                            } catch (denied: SpaceClient.ReadDenied) {
+                                mutable.update { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem)) }
+                            }
                         }
+                        mutable.value.target()?.let { target ->
+                            try {
+                                val selected = current.community(target.space, channel = target.channel)
+                                // A new local creation or public join can enter
+                                // after this cycle's outbox inventory was taken.
+                                // Flush it before asking the node for access. A
+                                // private invitation still needs reads for Welcome.
+                                if (!selected.joined && selected.pending && !selected.membershipRequested) return@let
+                                flushUrgent(current)
+                                trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} start")
+                                current.refresh(target.space, channel = target.channel, from = if (target.thread == null) historyWindows[target] else null)
+                                flushUrgent(current)
+                                current.parent(target)?.let { current.refreshThread(target.space, it, target.channel, historyWindows[target]) }
+                                trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} complete")
+                                mutable.update { it.copy(accessProblems = it.accessProblems - target.space) }
+                            } catch (denied: SpaceClient.ReadDenied) {
+                                mutable.update { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem)) }
+                            }
+                        }
+                        flushUrgent(current)
+                        publish()
+                        trace("refresh projected")
+                        (current to communities).takeIf { "spaces-unread-v1" in services && viewingSpaceLists() }
                     }
-                    flushUrgent(current)
-                    publish()
-                    trace("refresh projected")
-                    if ("spaces-unread-v1" in services && viewingSpaceLists())
-                        refreshVisibleAttention(current, communities)
-                } } catch (cancelled: CancellationException) { throw cancelled }
+                    attention?.let { (current, communities) -> refreshVisibleAttention(current, communities) }
+                } catch (cancelled: CancellationException) { throw cancelled }
                 catch (_: MissingService) { mutable.update { it.copy(availability = Availability.UNSUPPORTED) } }
                 catch (_: ChangedIdentity) { mutable.update { it.copy(availability = Availability.CHANGED_IDENTITY) } }
                 catch (_: Exception) {
@@ -295,25 +297,36 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         if (joined.isEmpty()) return
         val checkedHeads = mutableSetOf<String>()
         val finished = mutableSetOf<String>()
-        // A short burst can catch up cached badges after a busy conversation.
-        // Each turn is still one authenticated page, and foreground work wins
-        // before the next page starts.
-        repeat(4) {
-            if (!viewingSpaceLists() || urgentOutbox.isNotEmpty() || finished.size == joined.size) return
+        fun canContinue() = viewingSpaceLists() && !mutable.value.working && urgentOutbox.isEmpty()
+        // Return the network lock between Spaces and pages so an interactive
+        // preview or queued send can take priority over the rest of the burst.
+        var changed = false
+        for (turn in 0 until 4) {
+            if (!canContinue() || finished.size == joined.size) break
             val candidates = joined.filterNot(finished::contains)
             val after = attentionAfterSpace
             val next = candidates.firstOrNull { after == null || it > after } ?: candidates.first()
             attentionAfterSpace = next
             try {
-                if (checkedHeads.add(next)) current.refreshUnread(next)
-                if (!viewingSpaceLists() || urgentOutbox.isNotEmpty()) return
-                if (!current.refreshNextAttention(next)) finished.add(next)
-                publish()
+                if (checkedHeads.add(next)) {
+                    val checked = network.withLock {
+                        if (!canContinue()) return@withLock false
+                        current.refreshUnread(next)
+                        true
+                    }
+                    if (!checked) break
+                    changed = true
+                }
+                val fetched = network.withLock {
+                    if (canContinue()) current.refreshNextAttention(next) else null
+                } ?: break
+                if (!fetched) finished.add(next)
             } catch (_: SpaceClient.ReadDenied) {
                 // The foreground still owns access state for a retired channel.
                 finished.add(next)
             }
         }
+        if (changed && canContinue()) publish()
     }
 
     private suspend fun flushUrgent(current: SpaceClient) {
