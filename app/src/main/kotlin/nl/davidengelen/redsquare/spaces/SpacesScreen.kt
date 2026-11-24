@@ -89,6 +89,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         }
     }
     val drawer = rememberDrawerState(DrawerValue.Closed)
+    DisposableEffect(account, drawer.isOpen) {
+        account.channelDrawerVisible(drawer.isOpen)
+        onDispose { account.channelDrawerVisible(false) }
+    }
     var closingDrawerContent by remember(account) { mutableStateOf<SpacesAccount.State?>(null) }
     LaunchedEffect(drawer.currentValue, drawer.targetValue, drawer.isAnimationRunning) {
         if (drawer.targetValue == DrawerValue.Open || (drawer.currentValue == DrawerValue.Closed &&

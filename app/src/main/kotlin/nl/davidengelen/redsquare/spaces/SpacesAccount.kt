@@ -71,6 +71,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val mutable = MutableStateFlow(State())
     val state = mutable.asStateFlow()
     private var attentionAfterSpace: String? = null
+    private val channelDrawerVisible = AtomicBoolean()
     private val wake = Channel<Unit>(Channel.CONFLATED)
     private val network = Mutex()
     private val localAccess = Mutex()
@@ -191,8 +192,6 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             current.admitPending(community.id)
                             current.flush(community.id)
                             flushUrgent(current)
-                            trace("refresh background=${community.id.take(10)} unread-start")
-                            if ("spaces-unread-v1" in services) current.refreshUnread(community.id)
                             trace("refresh background=${community.id.take(10)} complete")
                             mutable.update { it.copy(accessProblems = it.accessProblems - community.id) }
                         } catch (denied: SpaceClient.ReadDenied) {
@@ -220,14 +219,16 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     flushUrgent(current)
                     publish()
                     trace("refresh projected")
-                    if ("spaces-unread-v1" in services) {
+                    if ("spaces-unread-v1" in services && (mutable.value.selected == null || channelDrawerVisible.get())) {
                         val joined = communities.filter { it.joined && !it.dissolved }.map { it.id }.sorted()
                         val after = attentionAfterSpace
                         val next = joined.firstOrNull { after == null || it > after } ?: joined.firstOrNull()
                         if (next != null) {
                             attentionAfterSpace = next
                             try {
-                                if (current.refreshNextAttention(next)) publish()
+                                current.refreshUnread(next)
+                                current.refreshNextAttention(next)
+                                publish()
                             } catch (_: SpaceClient.ReadDenied) {
                                 // The foreground and authoritative heads own access state.
                                 // One retired background channel must not hide usable content.
@@ -339,6 +340,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             }
         }
     } }
+
+    fun channelDrawerVisible(visible: Boolean) {
+        if (channelDrawerVisible.getAndSet(visible) != visible && visible) wake.trySend(Unit)
+    }
 
     fun visible(active: Boolean) {
         if (wasVisible.getAndSet(active) && !active) synchronized(navigationChanges) { navigationVersion.incrementAndGet() }
