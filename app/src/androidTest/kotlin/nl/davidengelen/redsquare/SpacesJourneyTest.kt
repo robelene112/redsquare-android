@@ -378,7 +378,9 @@ class SpacesJourneyTest {
             ui.onNode(hasText("Community information") and hasClickAction()).assertIsDisplayed().performClick()
             ui.waitUntil(5_000) { ui.onNodeWithText("You are a member of this community.").isDisplayed() }
             capture("04e-community-information", "You are a member of this community.")
-            ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+            val closeInformation = ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog()))
+            closeInformation.performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
+            ui.waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
             command("populate", JsonObject().apply { addProperty("space", joined.get("space").asString) })
             ui.waitUntil(15_000) { ui.onNodeWithText("Fixture line 19").isDisplayed() }
             visibleSpacesList().performTouchInput { swipeDown(durationMillis = 350) }
@@ -386,20 +388,20 @@ class SpacesJourneyTest {
             val returnToLatest = hasText("Back to latest messages") and hasClickAction()
             ui.onNode(returnToLatest).assertIsDisplayed().assert(!newerMessagesAvailable())
             val anchor = ui.onNodeWithText("Fixture line 5").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
-            capture("04a-scrolled-before-module-switch")
+            capture("04a-scrolled-before-module-switch", "Fixture line 5")
             command("populate", JsonObject().apply {
                 addProperty("space", joined.get("space").asString); addProperty("from", 20); addProperty("count", 60)
             })
             ui.waitUntil(20_000) { ui.onNode(returnToLatest and newerMessagesAvailable()).isDisplayed() }
             assertEquals("Unrelated incoming pages keep the actual reading pixel", anchor,
                 ui.onNodeWithText("Fixture line 5").fetchSemanticsNode().boundsInRoot.top, 1f)
-            capture("04a-incoming-messages-preserve-anchor")
+            capture("04a-incoming-messages-preserve-anchor", "Fixture line 5")
             switchModule("Spaces", "Red Square")
             openSpaces("Red Square")
             ui.waitUntil(10_000) { ui.onNodeWithText("Fixture line 5").isDisplayed() }
             assertEquals("Module return keeps the actual reading pixel", anchor,
                 ui.onNodeWithText("Fixture line 5").fetchSemanticsNode().boundsInRoot.top, 1f)
-            capture("04b-scrolled-after-module-switch")
+            capture("04b-scrolled-after-module-switch", "Fixture line 5")
             val history = visibleSpacesList()
             history.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.ScrollBy) { scroll -> scroll(0f, 100_000f) }
             val reachedEnd = SystemClock.elapsedRealtime()
@@ -410,10 +412,10 @@ class SpacesJourneyTest {
                     ui.onNodeWithText("Fixture line 47").isDisplayed() &&
                     ui.onNode(returnToLatest and newerMessagesAvailable()).isDisplayed()
             }
-            capture("04c-historical-page-end")
+            capture("04c-historical-page-end", "Fixture line 47")
             ui.onNodeWithText("Back to latest messages").performClick()
             ui.waitUntil(10_000) { ui.onNodeWithText("Fixture line 79").isDisplayed() }
-            capture("04d-explicit-latest-return")
+            capture("04d-explicit-latest-return", "Fixture line 79")
             // A second, independently created community exercises the native
             // preview and explicit join path rather than only owner admission.
             val invitationDetails = command("invitation")
