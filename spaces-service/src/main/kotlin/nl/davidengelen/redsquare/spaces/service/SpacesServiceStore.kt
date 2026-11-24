@@ -130,7 +130,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     if (stream == "invitation") {
                         val invitationId = scope.text("invite_id")
                         val invitation = journal.snapshot.invitations[invitationId]
-                        if (invitation == null) { denied("unavailable"); return@atomic }
+                        if (invitation == null || !invitation.accepts(request.author)) { denied("unavailable"); return@atomic }
                         val proof = "SaitoSpacesPreview/v1:${wallet.publicKey}:$space:$invitationId:${request.author}:$nonce"
                         val validProof = runCatching {
                             SaitoWallet.verify(proof.toByteArray(Charsets.UTF_8), body.text("invite_proof"), invitation.key)
@@ -225,6 +225,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 reply.addProperty("message_history", true)
                 reply.addProperty("message_reactions", true)
                 reply.addProperty("message_pins", true)
+                reply.addProperty("addressed_invitations", true)
             }
             else -> throw IllegalArgumentException("Unsupported Spaces read request")
         }

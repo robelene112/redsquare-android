@@ -24,6 +24,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private var supportsMessageHistory = false
     private var supportsMessageReactions = false
     private var supportsMessagePins = false
+    @Volatile private var supportsAddressedInvitations = false
 
     enum class Delivery { CONTROL, CONTENT }
     enum class ReadProblem { EXPIRED, UNAVAILABLE }
@@ -818,18 +819,23 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private fun SpaceClientStore.Transaction.protectedHistoryReader(space: String, channel: String): (String, SignedSaitoMessage) -> String {
         val active by lazy {
             channelState(space, channel).get("crypto")?.asString?.let { SpaceCrypto.restore(decode(it)) }
+                ?.takeIf { session ->
+                    session.scope?.let { it.serviceKey == service && it.spaceId == space && it.channelId == channel } == true
+                }
         }
-        val recovered = mutableMapOf<SpaceCrypto.Scope, SpaceHistoryKeys?>()
+        val recovered = mutableMapOf<String, SpaceHistoryKeys?>()
         return read@{ envelope, signed ->
-            val scope = SpaceCrypto.Scope(service, space, channel, signed.body.text("key_generation"))
+            val generation = signed.body.text("key_generation")
             val current = active
-            if (current?.scope == scope) {
+            if (current != null && current.scope?.generation == generation) {
                 try { return@read current.read(envelope).text }
                 catch (_: SpaceCrypto.MissingKeys) { /* A portable archive may cover an earlier epoch. */ }
             }
-            if (!recovered.containsKey(scope))
-                recovered[scope] = get(recoveredArchiveKey(scope))?.let { SpaceHistoryKeys.restore(it, wallet.publicKey) }
-            val archive = recovered[scope] ?: throw SpaceCrypto.MissingKeys()
+            if (!recovered.containsKey(generation)) {
+                val scope = SpaceCrypto.Scope(service, space, channel, generation)
+                recovered[generation] = get(recoveredArchiveKey(scope))?.let { SpaceHistoryKeys.restore(it, wallet.publicKey) }
+            }
+            val archive = recovered[generation] ?: throw SpaceCrypto.MissingKeys()
             archive.read(envelope).text
         }
     }
@@ -1274,7 +1280,17 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         })
     }
 
-    fun invite(space: String, expiresAfterMillis: Long = 604_800_000): String = store.transaction {
+    fun invite(space: String, expiresAfterMillis: Long = 604_800_000): String =
+        createInvitation(space, expiresAfterMillis, null)
+
+    /** A signed on-node invitation that admits only the intended wallet. */
+    fun inviteFor(space: String, recipient: String, expiresAfterMillis: Long = 604_800_000): String {
+        require(supportsAddressedInvitations) { "This node has not confirmed addressed invitations" }
+        require(SaitoWallet.isPublicKey(recipient))
+        return createInvitation(space, expiresAfterMillis, recipient)
+    }
+
+    private fun createInvitation(space: String, expiresAfterMillis: Long, recipient: String?): String = store.transaction {
         owned()
         require(expiresAfterMillis in 60_000..31_536_000_000L)
         val state = state(space)
@@ -1282,7 +1298,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(journal.snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         require(!state.has("control_pending")) { "A community change is awaiting confirmation" }
         val entry = requireNotNull(journal.snapshot.entryChannelId)
-        val scope = SpaceCrypto.Scope(service, space, entry, journal.snapshot.channels.getValue(entry).generation)
+        val channel = journal.snapshot.channels.getValue(entry)
+        if (recipient != null) require(channel.visibility == SpaceVisibility.PRIVATE && recipient !in journal.snapshot.members)
+        val scope = SpaceCrypto.Scope(service, space, entry, channel.generation)
         val bearer = SaitoWallet.create()
         val key = ByteArray(32).also(SecureRandom()::nextBytes)
         val operation = id()
@@ -1290,6 +1308,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val original = event(space, "invite", operation) {
             addProperty("control_id", journal.snapshot.controlId); addProperty("invite_key", bearer.publicKey)
             addProperty("expires_at", expiry)
+            recipient?.let { addProperty("recipient", it) }
             val profile = state.getAsJsonObject("profile")?.let(SpaceProfile::fromJson) ?: SpaceProfile(state.text("name"))
             addProperty("preview_format", "profile-v1"); addProperty("channel_id", scope.channelId)
             if (journal.snapshot.channels[scope.channelId]?.visibility == SpaceVisibility.PUBLIC)
@@ -1520,7 +1539,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             if (journal.snapshot.nextPosition == before) break
         }
         val authorized = requireNotNull(journal.snapshot.invitations[invitation.invitationId])
-        require(authorized.expiresAt > clock.millis() && invitation.scope.channelId in journal.snapshot.channels)
+        require(authorized.expiresAt > clock.millis() && authorized.accepts(wallet.publicKey) &&
+            invitation.scope.channelId in journal.snapshot.channels)
         val original = controls.asSequence().map { SaitoEnvelope.decode(SaitoEnvelope.decode(it).body.text("event")) }
             .first { it.id == invitation.invitationId }
         val text = invitation.preview(original.body.text("preview"), original.body.text("operation_id"))
@@ -3055,6 +3075,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         supportsMessageHistory = result.get("message_history")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean } == true
         supportsMessageReactions = result.get("message_reactions")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean } == true
         supportsMessagePins = result.get("message_pins")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean } == true
+        supportsAddressedInvitations = result.get("addressed_invitations")?.let {
+            it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean
+        } == true
         return result
     }
 

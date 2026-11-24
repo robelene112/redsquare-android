@@ -8,7 +8,10 @@ import java.util.Base64
 import java.util.Collections
 
 enum class SpaceRole { OWNER, ADMIN, MEMBER }
-data class SpaceInvitationRecord(val key: String, val expiresAt: Long, val channelId: String, val rulesToken: String = "")
+data class SpaceInvitationRecord(val key: String, val expiresAt: Long, val channelId: String, val rulesToken: String = "",
+    val recipient: String? = null) {
+    fun accepts(wallet: String): Boolean = recipient == null || recipient == wallet
+}
 data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>, val generation: String = "0".repeat(64), val epochStartedAt: Long = 0,
     val visibility: SpaceVisibility = SpaceVisibility.PRIVATE, val profile: SpaceChannelProfile? = null,
     val metadata: String? = null, val adminPostsOnly: Boolean = false, val archived: Boolean = false,
@@ -403,6 +406,11 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 // excluding their earlier history from this compatibility path.
                 val legacyMemberChannel = channel.visibility == SpaceVisibility.PRIVATE && channel.allowedMembers == null
                 require(channelId == current.entryChannelId || legacyMemberChannel) { "An invitation must use the community entrance or an unrestricted private member channel" }
+                val recipient = event.body.get("recipient")?.let { event.body.text("recipient") }
+                if (recipient != null) {
+                    require(channel.visibility == SpaceVisibility.PRIVATE && format == "profile-v1")
+                    require(SaitoWallet.isPublicKey(recipient) && recipient !in current.members)
+                }
                 val token = if (channel.visibility == SpaceVisibility.PUBLIC) {
                     val value = event.body.get("rules_token")?.let { event.body.text("rules_token") } ?: ""
                     require(value == requireNotNull(current.publicProfile).publicRulesToken)
@@ -411,7 +419,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 // Private consent binds the signed invitation containing its
                 // encrypted preview, never a guessable digest of private text.
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
-                    invitations = Collections.unmodifiableMap(current.invitations + (event.id to SpaceInvitationRecord(key, expiry, channelId, token))))
+                    invitations = Collections.unmodifiableMap(current.invitations + (event.id to SpaceInvitationRecord(key, expiry, channelId, token, recipient))))
             }
             "revoke-invite" -> {
                 require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
@@ -725,7 +733,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         if (channelOnly) {
             require(canJoinChannel(join.author, channel, join.body.text("control_id")))
         } else {
-            require(channel == requireNotNull(invitation).channelId)
+            require(channel == requireNotNull(invitation).channelId && invitation.accepts(join.author))
             require(hasCurrentMembershipIntent(join.author, join.body.takeIf { it.has("membership_control") }?.text("membership_control"))) {
                 "Membership ended after this join was requested"
             }
