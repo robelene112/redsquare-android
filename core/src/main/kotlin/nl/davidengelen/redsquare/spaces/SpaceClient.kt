@@ -2836,7 +2836,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private fun SpaceClientStore.Transaction.repairAttention(space: String, channel: String) {
         val prefix = "$space/channels/$channel/attention-dirty/"
         val read = attentionReader(space, channel)
-        for (row in page(prefix, limit = 16)) if (reconcileAttention(space, channel, row.key.removePrefix(prefix), read)) remove(row.key)
+        for (row in page(prefix, limit = 50)) if (reconcileAttention(space, channel, row.key.removePrefix(prefix), read)) remove(row.key)
         val index = SpaceAttentionIndex(this, "$space/channels/$channel")
         val cursor = "$space/channels/$channel/attention-repair-after"
         val ids = index.unavailable(after = get(cursor)?.toString(Charsets.UTF_8))

@@ -220,22 +220,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     flushUrgent(current)
                     publish()
                     trace("refresh projected")
-                    if ("spaces-unread-v1" in services && (mutable.value.selected == null || channelDrawerVisible.get())) {
-                        val joined = communities.filter { it.joined && !it.dissolved }.map { it.id }.sorted()
-                        val after = attentionAfterSpace
-                        val next = joined.firstOrNull { after == null || it > after } ?: joined.firstOrNull()
-                        if (next != null) {
-                            attentionAfterSpace = next
-                            try {
-                                current.refreshUnread(next)
-                                current.refreshNextAttention(next)
-                                publish()
-                            } catch (_: SpaceClient.ReadDenied) {
-                                // The foreground and authoritative heads own access state.
-                                // One retired background channel must not hide usable content.
-                            }
-                        }
-                    }
+                    if ("spaces-unread-v1" in services && viewingSpaceLists())
+                        refreshVisibleAttention(current, communities)
                 } } catch (cancelled: CancellationException) { throw cancelled }
                 catch (_: MissingService) { mutable.update { it.copy(availability = Availability.UNSUPPORTED) } }
                 catch (_: ChangedIdentity) { mutable.update { it.copy(availability = Availability.CHANGED_IDENTITY) } }
@@ -302,6 +288,34 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             mutable.update { if (it.target() == target && !it.loadingChannel) it.withManagement(changes) else it }
         }
     }
+    private fun viewingSpaceLists() = wasVisible.get() && (mutable.value.selected == null || channelDrawerVisible.get())
+
+    private suspend fun refreshVisibleAttention(current: SpaceClient, communities: List<SpaceClient.Community>) {
+        val joined = communities.filter { it.joined && !it.dissolved }.map { it.id }.sorted()
+        if (joined.isEmpty()) return
+        val checkedHeads = mutableSetOf<String>()
+        val finished = mutableSetOf<String>()
+        // A short burst can catch up cached badges after a busy conversation.
+        // Each turn is still one authenticated page, and foreground work wins
+        // before the next page starts.
+        repeat(4) {
+            if (!viewingSpaceLists() || urgentOutbox.isNotEmpty() || finished.size == joined.size) return
+            val candidates = joined.filterNot(finished::contains)
+            val after = attentionAfterSpace
+            val next = candidates.firstOrNull { after == null || it > after } ?: candidates.first()
+            attentionAfterSpace = next
+            try {
+                if (checkedHeads.add(next)) current.refreshUnread(next)
+                if (!viewingSpaceLists() || urgentOutbox.isNotEmpty()) return
+                if (!current.refreshNextAttention(next)) finished.add(next)
+                publish()
+            } catch (_: SpaceClient.ReadDenied) {
+                // The foreground still owns access state for a retired channel.
+                finished.add(next)
+            }
+        }
+    }
+
     private suspend fun flushUrgent(current: SpaceClient) {
         for (space in urgentOutbox.toList()) if (urgentOutbox.remove(space)) {
             try { current.flush(space) }
