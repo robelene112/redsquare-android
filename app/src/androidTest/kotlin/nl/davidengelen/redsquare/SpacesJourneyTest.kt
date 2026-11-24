@@ -144,9 +144,9 @@ class SpacesJourneyTest {
             ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
             ui.waitUntil(5_000) { ui.onAllNodes(hasText("Reactions") and hasAnyAncestor(isDialog())).fetchSemanticsNodes().isEmpty() }
             // Establish an actual reading gesture before aligning the exact row.
-            messageHistory().performTouchInput { swipeDown(durationMillis = 350) }
+            visibleSpacesList().performTouchInput { swipeDown(durationMillis = 350) }
             ui.waitForIdle()
-            messageHistory().performScrollToNode(hasText("Fixture line 100"))
+            visibleSpacesList().performScrollToNode(hasText("Fixture line 100"))
             ui.waitUntil(5_000) { ui.onNodeWithText("Fixture line 100").isDisplayed() }
             val returnToLatest = hasText("Back to latest messages") and hasClickAction()
             val newerActivity = newerMessagesAvailable()
@@ -369,8 +369,8 @@ class SpacesJourneyTest {
             ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
             command("populate", JsonObject().apply { addProperty("space", joined.get("space").asString) })
             ui.waitUntil(15_000) { ui.onNodeWithText("Fixture line 19").isDisplayed() }
-            messageHistory().performTouchInput { swipeDown(durationMillis = 350) }
-            messageHistory().performScrollToNode(hasText("Fixture line 5"))
+            visibleSpacesList().performTouchInput { swipeDown(durationMillis = 350) }
+            visibleSpacesList().performScrollToNode(hasText("Fixture line 5"))
             val returnToLatest = hasText("Back to latest messages") and hasClickAction()
             ui.onNode(returnToLatest).assertIsDisplayed().assert(!newerMessagesAvailable())
             val anchor = ui.onNodeWithText("Fixture line 5").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
@@ -388,7 +388,7 @@ class SpacesJourneyTest {
             assertEquals("Module return keeps the actual reading pixel", anchor,
                 ui.onNodeWithText("Fixture line 5").fetchSemanticsNode().boundsInRoot.top, 1f)
             capture("04b-scrolled-after-module-switch")
-            val history = messageHistory()
+            val history = visibleSpacesList()
             history.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.ScrollBy) { scroll -> scroll(0f, 100_000f) }
             val reachedEnd = SystemClock.elapsedRealtime()
             ui.waitUntil(5_000) {
@@ -408,8 +408,10 @@ class SpacesJourneyTest {
             val invitation = invitationDetails.get("link").asString
             ui.onNode(hasText("Back to your communities") and hasClickAction() and
                 !hasAnyAncestor(hasScrollToNodeAction())).assertIsDisplayed().performClick()
-            ui.waitUntil(5_000) { ui.onNode(hasText("Join with an invitation") and hasClickAction()).isDisplayed() }
-            ui.onNode(hasText("Join with an invitation") and hasClickAction()).performClick()
+            ui.waitUntil(5_000) { communityRow(community).isDisplayed() }
+            val joinWithInvitation = hasText("Join with an invitation") and hasClickAction()
+            visibleSpacesList().performScrollToNode(joinWithInvitation)
+            ui.onNode(joinWithInvitation).assertIsDisplayed().assertIsEnabled().performClick()
             ui.onNode(hasSetTextAction()).performTextInput(invitation)
             ui.onNode(hasText("View invitation") and hasClickAction()).performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Builders on another device").isDisplayed() &&
@@ -519,7 +521,7 @@ class SpacesJourneyTest {
         androidx.compose.ui.semantics.SemanticsProperties.StateDescription,
         context.getString(R.string.spaces_newer_messages_available))
 
-    private fun messageHistory() = ui.onNode(hasScrollToNodeAction() and SemanticsMatcher("on-screen message history") {
+    private fun visibleSpacesList() = ui.onNode(hasScrollToNodeAction() and SemanticsMatcher("on-screen Spaces list") {
         it.boundsInRoot.right > 0f && it.boundsInRoot.left >= 0f && it.boundsInRoot.bottom > 0f
     })
     private fun communityRow(name: String) = ui.onNode(hasContentDescription("Open $name") and
