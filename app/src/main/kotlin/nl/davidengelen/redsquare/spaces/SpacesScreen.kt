@@ -379,7 +379,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                     if (viewport.scrolling) userScrolling = true
                                     // Row acceptance, reactions and IME resizing can move
                                     // the viewport without an intentional reading gesture.
-                                    if (viewport.anchor != null && (userScrolling || !latestFollowing))
+                                    // Queued rows lack a durable position. A drag
+                                    // through them still stops automatic following.
+                                    if (userScrolling || (viewport.anchor != null && !latestFollowing))
                                         account.readingPosition(selected.id, selected.channel,
                                             viewport.followLatest && !latestHasLater, viewport.anchor, target.thread)
                                     if (!viewport.scrolling) userScrolling = false
