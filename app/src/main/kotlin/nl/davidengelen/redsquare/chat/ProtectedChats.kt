@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare.chat
 
 import android.content.Intent
+import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -28,6 +29,7 @@ import nl.davidengelen.redsquare.spaces.SpaceClient
 import nl.davidengelen.redsquare.spaces.SpacesAccount
 import nl.davidengelen.redsquare.spaces.RecoveredHistoryPicker
 import nl.davidengelen.redsquare.spaces.ReplaceArchivedDevicePrompt
+import nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes
 import nl.davidengelen.redsquare.ui.FrameIconButton
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
@@ -232,15 +234,16 @@ internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, starting
             if (current.canManage && (directPeer == null || state.members.none { it.publicKey == directPeer })) {
                 val invitation = state.invitation?.takeIf { it.confirmed && !it.expired && !it.revoked && !it.revocationPending }
                 val shareText = stringResource(R.string.protected_chat_share_invite)
+                val shareBody = invitation?.let { stringResource(R.string.protected_chat_share_body, it.link) }
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     OutlinedButton(onClick = {
                         invitee = directPeer.orEmpty(); dialog = "invite"
                     }, enabled = enabled && online && !current.pending) {
                         Text(stringResource(R.string.protected_chat_invite))
                     }
-                    if (invitation != null) TextButton(onClick = {
+                    if (shareBody != null) TextButton(onClick = {
                         val send = Intent(Intent.ACTION_SEND).apply {
-                            type = "text/plain"; putExtra(Intent.EXTRA_TEXT, invitation.link)
+                            type = "text/plain"; putExtra(Intent.EXTRA_TEXT, shareBody)
                         }
                         context.startActivity(Intent.createChooser(send, shareText))
                     }) { Text(shareText) }
@@ -322,7 +325,8 @@ internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, starting
             },
             confirmButton = {
                 Button(onClick = {
-                    val invitation = link.trim()
+                    val invitation = link.lineSequence().map(String::trim)
+                        .singleOrNull { SpacesLaunchRoutes.isProtectedChat(Uri.parse(it)) } ?: link.trim()
                     if (dialog == "restore") scope.launch {
                         if (publishing.beforePublishing()) {
                             link = invitation

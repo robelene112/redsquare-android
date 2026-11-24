@@ -44,7 +44,7 @@ class SpacesJourneyTest {
         .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/"))
 
     @Test fun addressedProtectedChatLinkOpensAndCheckpointsTheNativeSend() {
-        val deviceOwner = nl.davidengelen.redsquare.saito.AndroidWalletStore(context).loadOrCreate()
+        val deviceOwner = AndroidWalletStore(context).loadOrCreate()
         AndroidBackendStore(context).save(nl.davidengelen.redsquare.saito.SaitoBackend.OWNER)
         val policy = File(context.noBackupFilesDir, "publishing-policy-fixture.json")
         check(!policy.exists())

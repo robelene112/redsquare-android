@@ -484,11 +484,11 @@ No functional Spaces state exists in the ordinary beta142 predecessor.
 `SpaceHistoryKeys` is a separate archive-only format: version1, account owner,
 exact group scope and available epoch keys. It can decrypt retained signed
 records but has no operational sender or membership-mutation interface. Its
-raw bytes are secret component data, not an encrypted export. The later guided
-backup must encrypt the artifact before document-provider export. Starting a
-fresh-generation group does not itself activate it: an authenticated membership/
-device update or owner-authorized recovery control, and key delivery to other
-authorized members, remain required application/service integration work.
+raw bytes are secret component data. The guided wallet export seals them and
+the Saito wallet together in a versioned Argon2id and AES-GCM file before
+writing to the Android document provider. The same credential confirmation
+used by wallet export gates this backup. Import authenticates the file and
+stores archive keys only after the user confirms the wallet restore.
 
 Android owns authenticated encryption at rest with its existing device Keystore
 and durable file/database conventions. Never put snapshots, keys or plaintext
@@ -497,22 +497,38 @@ event IDs/read cursors alongside content and key changes. A fresh process must
 recover the original operation, rather than sign/send a replacement. Background
 callbacks retain their exact account/node/Space/channel generation.
 
-The future guided backup includes identity and available archive keys, separately
-from any claim of recovered server history. Active MLS sender state must not be
-cloned onto two simultaneously operating devices. A replacement device uses a
-fresh bound key package and an explicit membership/device update; until that
-completes, show the actual missing-access state. Restoring the Saito identity
-preserves owner authority but does not manufacture missing group/history keys.
+The backup includes identity and available epoch keys. The recovered history
+reader opens signed records the authenticated service can still supply to that
+wallet. It can read earlier messages using the restored keys before another
+participant activates the new device. Active sender state and queued outbound
+originals stay on the device that created them.
+
+Device replacement signs a request under the wallet that owns the current
+credential. For Spaces, an eligible owner or administrator with current
+channel keys approves it. In a protected Chat, a different current member
+with keys can approve it. The accepted MLS commit retires that exact old
+credential and admits the fresh bound key package in the same epoch change.
+The requesting device persists its fresh key material and exact signed
+original before transport. A retried original reconciles against the
+service's recorded disposition. Once replacement is accepted, the old device
+can still read its retained history. Subsequent messages use the new epoch.
 
 ## Existing Chat compatibility
 
-Existing direct Chat uses its current ECDH/AES-CBC envelope with the outer Saito
-signature. Existing named group Chat carries plaintext. Neither is relabelled
-as the new MLS protocol. Ticket141 adds authenticated capability negotiation,
-an explicit encrypted-group upgrade and guided backup/recovery, preserving old
-readable history. Older clients must get an unsupported/upgrade explanation;
-there is no silent plaintext downgrade. Existing signed Chat transactions and
-wallet exports remain valid. Spaces keys never enter the legacy Chat payload.
+Existing direct Chat uses its current ECDH/AES-CBC envelope with the outer
+Saito signature. Existing named group Chat carries plaintext. Both remain
+readable in their original views. The Android transition from those views
+remembers the original conversation on the active device. Existing group
+administrators can select which members to invite into the protected group.
+
+Protected Chat uses the same pinned MLS construction as private Spaces. The
+client verifies the node capability from a signed challenge response. Each
+recipient proves wallet ownership, client protocol version and a bound MLS
+key package on the signed join. Addressed invitations are valid only for the
+selected wallet. Protected writing becomes available when both the sender and
+another member have current MLS credentials. Existing signed Chat
+transactions and wallet exports remain valid. The protected composer sends
+only through MLS.
 
 ## Service source and activation
 

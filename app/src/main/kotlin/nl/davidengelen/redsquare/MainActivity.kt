@@ -104,6 +104,8 @@ private class ActivityTalkAccount(val account: TalkAccount) : RememberObserver {
     override fun onAbandoned() = account.detach()
 }
 
+private data class ProtectedInvitationRoute(val owner: String, val backend: SaitoBackend, val link: String)
+
 class MainActivity : ComponentActivity() {
     private val routeModels by lazy {
         // This exported Activity's Intent extras are untrusted, not saved route defaults.
@@ -255,10 +257,10 @@ class MainActivity : ComponentActivity() {
             val address = wallet?.publicKey
             var spacesActivated by rememberSaveable { mutableStateOf(false) }
             var pendingSpaceInvitation by remember { mutableStateOf<String?>(null) }
-            var pendingProtectedInvitation by remember { mutableStateOf<Triple<String, SaitoBackend, String>?>(null) }
+            var pendingProtectedInvitation by remember { mutableStateOf<ProtectedInvitationRoute?>(null) }
             LaunchedEffect(address, backend) {
                 val pending = pendingProtectedInvitation
-                if (pending != null && (pending.first != address || pending.second != backend)) pendingProtectedInvitation = null
+                if (pending != null && (pending.owner != address || pending.backend != backend)) pendingProtectedInvitation = null
             }
             val incomingSpaceUri by spaceUris.collectAsState()
             LaunchedEffect(module) { if (module == AppModule.SPACES) spacesActivated = true }
@@ -291,7 +293,7 @@ class MainActivity : ComponentActivity() {
                         stackLinkEntry = null; storeLinkEntry = null; vaultRentalEntry = null
                         clearSpacesReturn()
                         if (nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.isProtectedChat(incoming)) {
-                            pendingProtectedInvitation = Triple(owner, node, incoming.toString())
+                            pendingProtectedInvitation = ProtectedInvitationRoute(owner, node, incoming.toString())
                             module = AppModule.RED_SQUARE
                         } else {
                             pendingSpaceInvitation = incoming.toString()
@@ -929,11 +931,14 @@ class MainActivity : ComponentActivity() {
                                                     LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
                                                     RegisteredIdentityScope(wallet, feedEndpoint, selected,
                                                         RegistryAuthority.directoryPeer(intent, feedEndpoint).takeIf { nameDirectoryEnabled == true }) {
+                                                        val protectedInvitation = pendingProtectedInvitation
+                                                            ?.takeIf { it.owner == wallet?.publicKey && it.backend == selected }
                                                         FeedScreen(wallet, failed, feedEndpoint, selected,
                                                             lifecycle, Modifier.fillMaxSize(), notificationRoutes = notificationRoutes,
-                                                            initialProtectedInvitation = pendingProtectedInvitation
-                                                                ?.takeIf { it.first == wallet?.publicKey && it.second == selected }?.third,
-                                                            onProtectedInvitationConsumed = { pendingProtectedInvitation = null },
+                                                            initialProtectedInvitation = protectedInvitation?.link,
+                                                            onProtectedInvitationConsumed = {
+                                                                if (pendingProtectedInvitation == protectedInvitation) pendingProtectedInvitation = null
+                                                            },
                                                             allowPushRoute = featureUnobstructed,
                                                             externalReturnDepth = spacesReturnDepth.takeIf { spacesReturnOwner == wallet?.publicKey && spacesReturnBackend == selected.id },
                                                             onExternalBack = { clearSpacesReturn(); module = AppModule.SPACES },
