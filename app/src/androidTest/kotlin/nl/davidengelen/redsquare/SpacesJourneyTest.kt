@@ -148,10 +148,14 @@ class SpacesJourneyTest {
             ui.waitForIdle()
             messageHistory().performScrollToNode(hasText("Fixture line 100"))
             ui.waitUntil(5_000) { ui.onNodeWithText("Fixture line 100").isDisplayed() }
+            val returnToLatest = hasText("Back to latest messages") and hasClickAction()
+            val newerActivity = SemanticsMatcher.expectValue(androidx.compose.ui.semantics.SemanticsProperties.StateDescription,
+                context.getString(R.string.spaces_newer_messages_available))
+            ui.onNode(returnToLatest).assertIsDisplayed().assert(!newerActivity)
             val readingBefore = ui.onNodeWithText("Fixture line 100").fetchSemanticsNode().boundsInRoot.top
             capture("overlay-06-deliberate-reading-position")
             command("populate", JsonObject().apply { addProperty("space", space); addProperty("from", 0); addProperty("count", 8) })
-            ui.waitUntil(20_000) { ui.onNodeWithText("Back to latest messages").isDisplayed() }
+            ui.waitUntil(20_000) { ui.onNode(returnToLatest and newerActivity).isDisplayed() }
             val readingAfter = ui.onNodeWithText("Fixture line 100").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
             assertEquals("Incoming activity preserves deliberate older reading", readingBefore, readingAfter, 1f)
             capture("overlay-07-incoming-retains-reading-position")

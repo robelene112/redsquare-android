@@ -457,8 +457,18 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 ({ done -> account.pinMessage(target, overlayMessage, !overlayMessage.pinned, done) }) else null,
                             loadReactions = overlayMessage?.let { message -> { after -> account.loadReactionPage(target, message, after) } },
                             working = state.working)
-                        if (state.hasLater) OutlinedButton(onClick = account::latestMessages,
-                            modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_latest_messages)) }
+                        if (state.hasLater || !state.followingLatest) {
+                            val newerActivity = stringResource(R.string.spaces_newer_messages_available)
+                            OutlinedButton(onClick = account::latestMessages,
+                                modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).heightIn(min = 48.dp)
+                                    .semantics { if (state.hasLater) stateDescription = newerActivity }) {
+                                Box(Modifier.size(14.dp), contentAlignment = Alignment.Center) {
+                                    if (state.hasLater) Box(Modifier.size(7.dp).background(MaterialTheme.colorScheme.primary, CircleShape))
+                                }
+                                Spacer(Modifier.width(6.dp))
+                                Text(stringResource(R.string.spaces_latest_messages))
+                            }
+                        }
                         state.problem?.let { ProblemNotice(it, account::clearProblem) }
                         if (selected.dissolved) {
                             if (state.draft.isNotEmpty()) OutlinedTextField(state.draft, {}, readOnly = true,
