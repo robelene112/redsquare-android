@@ -2928,8 +2928,12 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val snapshot = journal(space).snapshot
             if (wallet.publicKey !in snapshot.members) return@transaction null
             val available = snapshot.channels.filter { (channel, record) ->
-                record.visibility == SpaceVisibility.PUBLIC || record.devices.keys.any { it.split(':')[1] == wallet.publicKey } &&
-                    channelState(space, channel).get("joined")?.asBoolean == true
+                val data = channelState(space, channel)
+                val readable = record.visibility == SpaceVisibility.PUBLIC ||
+                    record.devices.keys.any { it.split(':')[1] == wallet.publicKey } && data.get("joined")?.asBoolean == true
+                val fetched = data.get("attention_observed")?.asBoolean == true &&
+                    (data.get("attention_cursor")?.asLong ?: 0) >= (data.get("attention_goal")?.asLong ?: 0)
+                readable && !fetched
             }.keys.sorted()
             val key = "$space/attention-next-channel"
             val after = get(key)?.toString(Charsets.UTF_8)

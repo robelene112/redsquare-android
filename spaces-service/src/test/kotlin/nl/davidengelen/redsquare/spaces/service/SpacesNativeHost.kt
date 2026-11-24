@@ -9,6 +9,7 @@ import kotlinx.coroutines.sync.withLock
 import nl.davidengelen.redsquare.ControlledFeedPeer
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.spaces.SpaceRole
 import nl.davidengelen.redsquare.spaces.SpaceClient
 import java.net.InetSocketAddress
 import java.nio.file.Files
@@ -22,7 +23,8 @@ import java.util.concurrent.atomic.AtomicBoolean
  * real service/SQLite/MLS and independent received effects; no public network. */
 object SpacesNativeHost {
     @JvmStatic fun main(args: Array<String>): Unit = runBlocking {
-        require(args.size in 1..2 && (args.size == 1 || args[1] in setOf("discovery-v1", "management-v1", "private-management-v1", "private-readiness-v1", "category-management-v1", "governance-v1", "membership-v1", "private-ownership-v1")))
+        require(args.size in 1..2 && (args.size == 1 || args[1] in setOf("conversation-overlays-v1", "discovery-v1", "management-v1", "private-management-v1", "private-readiness-v1", "category-management-v1", "governance-v1", "membership-v1", "private-ownership-v1")))
+        val conversationMode = args.getOrNull(1) == "conversation-overlays-v1"
         val discoveryMode = args.getOrNull(1) == "discovery-v1"
         val privateOwnershipMode = args.getOrNull(1) == "private-ownership-v1"
         val membershipMode = privateOwnershipMode || args.getOrNull(1) == "membership-v1"
@@ -51,7 +53,7 @@ object SpacesNativeHost {
                     var membership: SpacesMembershipFixture? = null
                     var privateManagement: SpacesPrivateManagementFixture? = null
                     var privateReadiness: SpacesPrivateReadinessFixture? = null
-                    val peer = ControlledFeedPeer("[]", advertisedServices = if (discoveryMode || managementMode || privateManagementMode || privateReadinessMode) "archive||;spaces-v1||;spaces-directory-v1||;spaces-unread-v1||;spaces-channel-archive-v1||;spaces-role-management-v1||;spaces-public-channel-edit-v1||" + (if (privateManagementMode || privateReadinessMode || governanceMode || privateOwnershipMode) ";spaces-private-channel-access-v1||;spaces-private-channel-edit-v1||" else "") + (if (categoryMode || governanceMode) ";spaces-category-management-v1||" else "") + (if (governanceMode || membershipMode) ";spaces-membership-management-v1||;spaces-ownership-management-v1||;spaces-visibility-management-v1||;spaces-dissolution-v1||" else "") else "archive||;spaces-v1||", peer = service,
+                    val peer = ControlledFeedPeer("[]", advertisedServices = if (discoveryMode || managementMode || privateManagementMode || privateReadinessMode) "archive||;spaces-v1||;spaces-directory-v1||;spaces-unread-v1||;spaces-channel-archive-v1||;spaces-role-management-v1||;spaces-public-channel-edit-v1||" + (if (privateManagementMode || privateReadinessMode || governanceMode || privateOwnershipMode) ";spaces-private-channel-access-v1||;spaces-private-channel-edit-v1||" else "") + (if (categoryMode || governanceMode) ";spaces-category-management-v1||" else "") + (if (governanceMode || membershipMode) ";spaces-membership-management-v1||;spaces-ownership-management-v1||;spaces-visibility-management-v1||;spaces-dissolution-v1||" else "") else if (conversationMode) "archive||;spaces-v1||;spaces-unread-v1||" else "archive||;spaces-v1||", peer = service,
                         archiveResponse = { "[]" }, registryResponse = if (discoveryMode || managementMode || privateManagementMode || privateReadinessMode) ({ criteria ->
                             JsonObject().apply {
                                 if (criteria.get("request")?.asString == "registry query" &&
@@ -107,6 +109,21 @@ object SpacesNativeHost {
                                             val link = client.invite(space)
                                             client.flush(space)
                                             JsonObject().apply { addProperty("link", link); addProperty("space", space) }
+                                        }
+                                        "/attention-message" -> {
+                                            check(conversationMode)
+                                            val space = body.get("space").asString
+                                            client.refresh(space)
+                                            val mention = body.get("mention").asBoolean
+                                            val owner = client.members(space).single { it.role == SpaceRole.OWNER }.publicKey
+                                            val text = if (mention) "A personal message for @$owner" else "An ordinary unread message"
+                                            val id = client.send(space, text)
+                                            client.flush(space)
+                                            val received = requireNotNull(client.message(space, id))
+                                            check(received.position != null && !received.pending)
+                                            JsonObject().apply {
+                                                addProperty("id", id); addProperty("position", requireNotNull(received.position)); addProperty("text", text)
+                                            }
                                         }
                                         "/populate" -> {
                                             val space = body.get("space").asString

@@ -151,7 +151,7 @@ try:
     hostroot.mkdir(parents=True, exist_ok=False)
     hostlog = (hostroot / 'host.log').open('wb')
     host = subprocess.Popen(['java', '-Xmx512m', f'-Djava.library.path={native}', '-cp', classpath,
-        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + ([mode] if community_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
+        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + ([mode] if community_mode or conversation_overlays_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
     children.append((host, hostlog))
     deadline = time.monotonic() + 30
     while not (hostroot / 'ready.json').exists():
@@ -910,11 +910,23 @@ try:
                 pins['incomingWhileOpen'] >= 60 and pins['androidConsumptionWhilePinsOpen']['observed'] and pins['androidConsumptionWhilePinsOpen']['request']):
             raise RuntimeError('Focused native pin observations are incomplete')
         (evidence / 'pins-results.json').write_text(json.dumps(pins, indent=2))
+        finish_record(*movies[-1]); record(3)
+        attention_session = instrument('unreadBadgeDistinguishesOrdinaryMessagesFromPersonalMentions',
+                                      'conversation-attention.txt', peer_port, control_port)
+        attention_session.wait(timeout=180)
+        attention_output = (evidence / 'conversation-attention.txt').read_text()
+        if attention_session.returncode or len(re.findall(r'^OK \(1 test\)\s*$', attention_output, re.M)) != 1:
+            raise RuntimeError('Focused unread badge check failed')
+        attention = json.loads(adb('exec-out', 'run-as', pkg, 'cat', 'cache/spaces-journey-evidence/attention-results.json').stdout)
+        if not (attention['ordinaryDot'] and attention['personalCount'] == 1 and attention['acknowledgedAfterReading'] and
+                attention['silentRestored'] and attention['mention']['position'] > attention['ordinary']['position']):
+            raise RuntimeError('Focused unread badge observations are incomplete')
+        (evidence / 'attention-results.json').write_text(json.dumps(attention, indent=2))
         (evidence / 'host-status.json').write_text(json.dumps(command(control_port, 'status')))
         command(control_port, 'stop'); host.wait(timeout=15)
         if host.returncode: raise RuntimeError('Owned conversation host failed')
         (evidence / 'journey-outcome.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
-            'pid': observed['pid'], 'pinsPid': pins['pid'], 'nativeTerminalPasses': 2, 'deliberatelyInterruptedCases': 0,
+            'pid': observed['pid'], 'pinsPid': pins['pid'], 'nativeTerminalPasses': 3, 'deliberatelyInterruptedCases': 0,
             'distinctPidAcceptance': False, 'whole140Acceptance': False, 'productionNodeActivated': False}))
     else:
         record(1)

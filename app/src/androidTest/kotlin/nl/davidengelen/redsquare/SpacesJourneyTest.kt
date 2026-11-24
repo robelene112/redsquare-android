@@ -256,6 +256,61 @@ class SpacesJourneyTest {
         } }
     }
 
+    @Test fun unreadBadgeDistinguishesOrdinaryMessagesFromPersonalMentions() {
+        val spaceName = "Native pinned conversations"
+        val space = JsonParser.parseString(File(evidence, "pins-results.json").readText()).asJsonObject.get("space").asString
+        launch().use { activity -> withFailureCapture({ capture("attention-failure") }) {
+            openSpaces("Red Square")
+            ui.onNode(hasText("My Spaces") and hasClickAction()).performClick()
+            ui.waitUntil(15_000) { communityRow(spaceName).isDisplayed() }
+            communityRow(spaceName).assertIsEnabled().performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Keep my channel writing while opening a pin").isDisplayed() }
+            val latest = ui.onNode(hasText("Back to latest messages") and hasClickAction())
+            if (latest.isDisplayed()) latest.performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Fixture line 59").isDisplayed() }
+            ui.onNode(hasText("Community information") and hasClickAction()).performClick()
+            val silent = ui.onNode(hasText("Silent") and isSelectable() and hasAnyAncestor(isDialog()))
+            val personal = ui.onNode(hasText("Mentions and replies") and isSelectable() and hasAnyAncestor(isDialog()))
+            personal.performScrollTo().assertIsSelected()
+            silent.performScrollTo().assertIsEnabled().performClick()
+            ui.waitUntil(5_000) { ui.onNode(hasText("Silent") and isSelected() and hasAnyAncestor(isDialog())).isDisplayed() }
+            capture("attention-01-channel-preferences")
+            ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).performScrollTo().performClick()
+            ui.onNode(hasText("Back to your communities") and hasClickAction()).performClick()
+            ui.waitUntil(10_000) { communityRow(spaceName).isDisplayed() }
+            fun badge(label: String) = ui.onNode(hasContentDescription(label) and hasAnyAncestor(hasContentDescription("Open $spaceName")),
+                useUnmergedTree = true)
+            val unread = badge("Unread activity")
+            ui.waitUntil(15_000) { !unread.isDisplayed() }
+            fun send(mention: Boolean) = command("attention-message", JsonObject().apply {
+                addProperty("space", space); addProperty("mention", mention)
+            })
+            val ordinary = send(false)
+            ui.waitUntil(15_000) { unread.isDisplayed() }
+            capture("attention-02-ordinary-dot")
+            val mention = send(true)
+            val count = badge("1 unread personal mentions and replies")
+            ui.waitUntil(15_000) { count.isDisplayed() }
+            capture("attention-03-personal-number")
+            communityRow(spaceName).performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText(mention.get("text").asString).isDisplayed() }
+            ui.onNode(hasText("Back to your communities") and hasClickAction()).performClick()
+            ui.waitUntil(15_000) { communityRow(spaceName).isDisplayed() && !count.isDisplayed() && !unread.isDisplayed() }
+            activity.recreate()
+            ui.waitUntil(15_000) { communityRow(spaceName).isDisplayed() }
+            communityRow(spaceName).performClick()
+            ui.waitUntil(10_000) { ui.onNode(hasText("Community information") and hasClickAction()).isDisplayed() }
+            ui.onNode(hasText("Community information") and hasClickAction()).performClick()
+            ui.waitUntil(5_000) { silent.isDisplayed() || ui.onAllNodes(hasText("Silent") and isSelectable() and hasAnyAncestor(isDialog())).fetchSemanticsNodes().isNotEmpty() }
+            silent.performScrollTo().assertIsSelected()
+            File(evidence, "attention-results.json").writeText(JsonObject().apply {
+                add("ordinary", ordinary); add("mention", mention)
+                addProperty("ordinaryDot", true); addProperty("personalCount", 1)
+                addProperty("acknowledgedAfterReading", true); addProperty("silentRestored", true)
+            }.toString())
+        } }
+    }
+
     @Test fun createInviteJoinReadAndCheckpointAnUncertainOriginal() {
         check(!checkpoint.exists())
         val wallet = AndroidWalletStore(context).loadOrCreate()
