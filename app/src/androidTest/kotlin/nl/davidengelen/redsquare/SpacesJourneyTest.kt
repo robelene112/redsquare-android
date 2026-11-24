@@ -335,12 +335,14 @@ class SpacesJourneyTest {
             closeKeyboard(activity)
             ui.waitUntil(15_000) { ui.onNodeWithText("Hello from the native Android client").isDisplayed() }
             ui.onNodeWithContentDescription("Switch Space or channel").performClick()
-            ui.waitUntil(5_000) { ui.onNodeWithText("Your communities").isDisplayed() && ui.onNodeWithText("Invite people").isDisplayed() }
+            val invite = ui.onNode(hasText("Invite people") and hasClickAction() and isEnabled())
+            ui.waitUntil(5_000) { ui.onNodeWithText("Your communities").isDisplayed() && invite.isDisplayed() }
             capture("02-drawer-b", "Your communities")
-            ui.onNodeWithText("Invite people").performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("Copy invitation").isDisplayed() }
-            ui.onNodeWithText("Copy invitation").performClick()
-            ui.onNodeWithText("Invitation copied").assertIsDisplayed()
+            invite.performClick()
+            val copy = ui.onNode(hasText("Copy invitation") and hasClickAction() and isEnabled())
+            ui.waitUntil(15_000) { copy.isDisplayed() }
+            copy.performClick()
+            ui.waitUntil(5_000) { ui.onNodeWithText("Invitation copied").isDisplayed() }
             var link = ""
             activity.onActivity {
                 val clipboard = it.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
