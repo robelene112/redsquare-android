@@ -17,6 +17,8 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.selection.toggleable
@@ -371,6 +373,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         val latestFollowing by rememberUpdatedState(state.followingLatest)
                         val keyboardBottom = WindowInsets.ime.getBottom(LocalDensity.current)
                         val viewportSize by remember(list) { derivedStateOf { list.layoutInfo.viewportSize } }
+                        val messageBody = remember { BringIntoViewRequester() }
                         LaunchedEffect(list, account) {
                             var userScrolling = false
                             snapshotFlow {
@@ -403,12 +406,17 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         LaunchedEffect(state.messages.map { it.id }, state.messages.lastOrNull(), state.scrollToMessage, state.followingLatest, keyboardBottom, viewportSize, overlayMode, pinsOpen) {
                             if (overlayMode != null || pinsOpen) return@LaunchedEffect
                             val requested = state.scrollToMessage
-                            val requestedIndex = state.messages.indexOfFirst { it.id == requested }
+                            val requestedIndex = state.messages.indexOfFirst { it.id == requested?.id }
                             if (requestedIndex >= 0) {
                                 autoScrolling = true
                                 val destinationIndex = if (state.followingLatest && requestedIndex == state.messages.lastIndex) state.messages.size else requestedIndex
-                                try { list.animateScrollToItem(destinationIndex) } finally { autoScrolling = false }
-                                initialPage = false; account.consumeScrollTarget(requireNotNull(requested)); return@LaunchedEffect
+                                try {
+                                    list.animateScrollToItem(destinationIndex)
+                                    if (requested?.showBody == true) messageBody.bringIntoView()
+                                } finally { autoScrolling = false }
+                                initialPage = false
+                                account.consumeScrollTarget(requireNotNull(requested))
+                                return@LaunchedEffect
                             }
                             if (state.messages.isNotEmpty() && initialPage) {
                                 val index = state.anchor?.let { anchor -> state.messages.indexOfFirst { it.id == anchor.messageId } } ?: -1
@@ -453,7 +461,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             items(state.messages, key = { it.id }) { message ->
                                 val accepted = !message.pending && !message.rejected && !message.cancelled
                                 val own = message.author == account.ownerKey
+                                val showBody = state.scrollToMessage?.let { it.id == message.id && it.showBody } == true
                                 MessageRow(message, state.draft.isEmpty() && !state.working,
+                                    bodyModifier = if (showBody) Modifier.bringIntoViewRequester(messageBody) else Modifier,
                                     restore = { account.restoreUnsentDraft(message.id) },
                                     reply = if (accepted && threadParent == null && (!message.deleted || message.replyCount > 0))
                                         ({ account.openThread(message) }) else null,
@@ -486,7 +496,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             cancel = if (overlayMessage?.pending == true && !overlayMessage.attempted)
                                 ({ done -> account.cancelSend(target, overlayMessage.id, done) }) else null,
                             react = if (acceptedOverlay && overlayMessage?.deleted == false && selected.canReact && overlayMessage.ownReactionsAvailable)
-                                ({ emoji -> account.toggleReaction(target, overlayMessage, emoji) }) else null,
+                                ({ emoji, onSaved -> account.toggleReaction(target, overlayMessage, emoji, onSaved) }) else null,
                             pin = if (acceptedOverlay && overlayMessage?.deleted == false && overlayMessage.pinAvailable && selected.canPin && !overlayMessage.pinPending)
                                 ({ done -> account.pinMessage(target, overlayMessage, !overlayMessage.pinned, done) }) else null,
                             loadReactions = overlayMessage?.let { message -> { after -> account.loadReactionPage(target, message, after) } },
@@ -767,7 +777,7 @@ private fun SpacesViewport(content: @Composable ColumnScope.(height: Dp) -> Unit
 
 private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANCEL, REACTIONS }
 
-@Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, restore: () -> Unit,
+@Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, bodyModifier: Modifier, restore: () -> Unit,
     reply: (() -> Unit)?, canEdit: Boolean, canRemove: Boolean, canCancel: Boolean, openOverlay: (MessageOverlay) -> Unit,
     cancelChange: ((String, (Boolean) -> Unit) -> Unit)?, react: ((String) -> Unit)?, working: Boolean) {
     val savedEdit = message.change?.takeIf { it.kind == SpaceClient.MessageChangeKind.EDIT }?.text
@@ -783,7 +793,7 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
                     FrameIconButton(R.drawable.ic_more, stringResource(R.string.spaces_message_actions)) { openOverlay(MessageOverlay.ACTIONS) }
             }
             Text(message.text ?: stringResource(if (message.deleted) R.string.spaces_message_deleted else if (message.missingKeys) R.string.spaces_missing_keys else R.string.spaces_message_unavailable),
-                modifier = if (message.deleted) Modifier.testTag("spaces-deleted-${message.id}") else Modifier,
+                modifier = if (message.deleted) bodyModifier.testTag("spaces-deleted-${message.id}") else bodyModifier,
                 style = if (message.deleted) MaterialTheme.typography.bodySmall else MaterialTheme.typography.bodyLarge,
                 color = if (message.text != null) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant)
             Text(if (message.cancelled) stringResource(R.string.spaces_send_cancelled)
@@ -835,7 +845,7 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
 @Composable private fun MessageOverlays(message: SpaceClient.Message?, mode: MessageOverlay?, editedText: String,
     onText: (String) -> Unit, dismiss: () -> Unit, selectMode: (MessageOverlay) -> Unit, edit: ((String, () -> Unit) -> Unit)?,
     remove: ((() -> Unit) -> Unit)?, cancel: (((Boolean) -> Unit) -> Unit)?,
-    react: ((String) -> Unit)?, pin: ((() -> Unit) -> Unit)?, loadReactions: (suspend (String?) -> SpaceClient.ReactionPage)?, working: Boolean) {
+    react: ((String, () -> Unit) -> Unit)?, pin: ((() -> Unit) -> Unit)?, loadReactions: (suspend (String?) -> SpaceClient.ReactionPage)?, working: Boolean) {
     val context = LocalContext.current
     var editCopied by remember(message?.id) { mutableStateOf(false) }
     var editCopyFailed by remember(message?.id) { mutableStateOf(false) }
@@ -853,15 +863,18 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
         }, enabled = !working) { Text(stringResource(R.string.spaces_cancel_send)) } },
         dismissButton = { TextButton(onClick = dismiss, enabled = !working) {
             Text(stringResource(if (cancelTooLate || cancel == null) R.string.spaces_close else R.string.spaces_keep_queued)) } })
-    val editor = mode == MessageOverlay.EDIT
-    val entryMenu = mode == MessageOverlay.ACTIONS || mode == MessageOverlay.REACTION_PICKER
-    val sheetTitle = when (mode) {
+    val sheetMode = mode?.takeIf { it == MessageOverlay.EDIT || it == MessageOverlay.ACTIONS || it == MessageOverlay.REACTION_PICKER }
+    var lastSheetMode by remember { mutableStateOf<MessageOverlay?>(null) }
+    SideEffect { if (sheetMode != null) lastSheetMode = sheetMode }
+    val shownSheet = sheetMode ?: lastSheetMode
+    val editor = shownSheet == MessageOverlay.EDIT
+    val sheetTitle = when (shownSheet) {
         MessageOverlay.ACTIONS -> R.string.spaces_message_actions
         MessageOverlay.REACTION_PICKER -> R.string.spaces_add_reaction
         else -> if (edit == null) R.string.spaces_saved_edit else R.string.spaces_edit_message
     }
-    DesignSheet(editor || entryMenu, stringResource(sheetTitle),
-        { if (!working || !editor || edit == null) dismiss() }, contentKey = message?.id to mode,
+    DesignSheet(sheetMode != null, stringResource(sheetTitle),
+        { if (!working || !editor || edit == null) dismiss() }, contentKey = message?.id to shownSheet,
         footer = { first ->
             if (editor) {
                 if (edit != null) Button(onClick = { edit(editedText, dismiss) },
@@ -882,7 +895,7 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
             TextButton(onClick = dismiss, enabled = edit == null || !working, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                 Text(stringResource(if (edit == null) R.string.spaces_close else R.string.spaces_cancel)) }
         }) { first ->
-        when (mode) {
+        when (shownSheet) {
             MessageOverlay.EDIT -> OutlinedTextField(editedText, { if (edit != null) onText(it) }, first.fillMaxWidth(), enabled = edit == null || !working,
                 readOnly = edit == null, label = { Text(stringResource(R.string.spaces_message_text)) }, maxLines = 8)
             MessageOverlay.ACTIONS -> {
@@ -901,7 +914,7 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
             MessageOverlay.REACTION_PICKER -> {
                 spaceReactionChoices.chunked(if (LocalDensity.current.fontScale >= 1.5f) 2 else 4).forEach { choices ->
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                        choices.forEach { emoji -> TextButton(onClick = { react?.invoke(emoji); dismiss() }, enabled = react != null,
+                        choices.forEach { emoji -> TextButton(onClick = { react?.invoke(emoji) {}; dismiss() }, enabled = react != null,
                             modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp)) {
                             Text(emoji, style = MaterialTheme.typography.headlineSmall)
                         } }
@@ -1070,17 +1083,18 @@ private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "�
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable private fun MessageReactionDetails(message: SpaceClient.Message?, allOpen: Boolean, dismiss: () -> Unit,
-    react: ((String) -> Unit)?, loadPage: (suspend (String?) -> SpaceClient.ReactionPage)?) {
+    react: ((String, () -> Unit) -> Unit)?, loadPage: (suspend (String?) -> SpaceClient.ReactionPage)?) {
     var cursor by rememberSaveable { mutableStateOf<String?>(null) }
     var previousCursors by rememberSaveable { mutableStateOf<List<String?>>(emptyList()) }
     var page by remember { mutableStateOf<SpaceClient.ReactionPage?>(null) }
     var pageCursor by remember { mutableStateOf<String?>(null) }
     var pageReady by remember { mutableStateOf(false) }
     var pageFailed by remember { mutableStateOf(false) }
-    var retries by remember { mutableIntStateOf(0) }
+    var refreshVersion by remember { mutableIntStateOf(0) }
+    val reactAndRefresh = react?.let { send -> { emoji: String -> send(emoji) { refreshVersion++ } } }
     LaunchedEffect(allOpen) { if (allOpen) { cursor = null; previousCursors = emptyList(); page = null; pageReady = false } }
     val pageLoading = (!pageReady || pageCursor != cursor) && !pageFailed
-    LaunchedEffect(allOpen, cursor, message?.reactions, message?.reactionsComplete, retries) {
+    LaunchedEffect(allOpen, cursor, message?.reactions, message?.reactionsComplete, refreshVersion) {
         if (!allOpen || loadPage == null) return@LaunchedEffect
         val requestedCursor = cursor
         pageFailed = false
@@ -1110,12 +1124,12 @@ private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "�
         if (pageLoading) CircularProgressIndicator(Modifier.size(24.dp))
         page?.let { received ->
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                received.choices.forEach { reaction -> key(reaction.emoji) { ReactionChip(reaction, react) } }
+                received.choices.forEach { reaction -> key(reaction.emoji) { ReactionChip(reaction, reactAndRefresh) } }
             }
             if (received.choices.isEmpty()) Text(stringResource(R.string.spaces_no_reactions_page), color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (!received.complete) Text(stringResource(R.string.spaces_reactions_not_complete), color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
-        if (pageFailed) TextButton(onClick = { retries++ }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_retry_reactions)) }
+        if (pageFailed) TextButton(onClick = { refreshVersion++ }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_retry_reactions)) }
     }
 }
 

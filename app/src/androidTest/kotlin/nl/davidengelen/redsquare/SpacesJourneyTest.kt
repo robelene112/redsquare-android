@@ -94,7 +94,7 @@ class SpacesJourneyTest {
             editor().performClick().performTextReplacement(edited)
             ui.waitUntil(5_000) { focusedWindowImeBottom() > 0 }
             val ime = focusedWindowImeBottom(); assertTrue(ime > 0)
-            capture("overlay-02-real-ime")
+            capture("overlay-02-real-ime", edited)
             val incoming = command("populate", JsonObject().apply { addProperty("space", space); addProperty("from", 60); addProperty("count", 8) })
             var consumed = JsonObject()
             ui.waitUntil(15_000) {
@@ -140,6 +140,8 @@ class SpacesJourneyTest {
                 reactionObserved = command("message-observation", reactionMessage.deepCopy().apply { addProperty("space", space) })
                 reactionObserved.getAsJsonArray("reactions").any { it.asJsonObject.get("emoji").asString == "❤️" && it.asJsonObject.get("count")?.asLong == 2L }
             }
+            val confirmedHeart = hasText("❤️") and hasText("2") and isSelected() and hasAnyAncestor(isDialog())
+            ui.waitUntil(5_000) { ui.onNode(confirmedHeart).isDisplayed() }
             capture("overlay-05-reaction-after-row-disposal")
             ui.onNode(hasText("Close") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
             ui.waitUntil(5_000) { ui.onAllNodes(hasText("Reactions") and hasAnyAncestor(isDialog())).fetchSemanticsNodes().isEmpty() }
@@ -282,8 +284,12 @@ class SpacesJourneyTest {
             ui.waitUntil(5_000) { ui.onNode(hasText(replyText) and hasAnyAncestor(isDialog())).isDisplayed() }
             capture("pins-02-root-and-thread-list")
             ui.onNode(hasText("Open reply in thread") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
-            ui.waitUntil(10_000) { ui.onNodeWithText(replyText).isDisplayed() && ui.onNodeWithText(threadDraft).isDisplayed() }
-            capture("pins-03-exact-thread-draft")
+            val pinnedReply = ui.onNodeWithText(replyText)
+            ui.waitUntil(10_000) {
+                pinnedReply.isDisplayed() && pinnedReply.fetchSemanticsNode().let { it.boundsInRoot.height >= it.size.height } &&
+                    ui.onNodeWithText(threadDraft).isDisplayed()
+            }
+            capture("pins-03-exact-thread-draft", replyText)
             ui.onNode(hasText("Back to channel") and hasClickAction()).performClick()
             ui.waitUntil(10_000) { ui.onNodeWithText(channelDraft).isDisplayed() }
             capture("pins-04-channel-draft-restored")

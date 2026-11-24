@@ -30,6 +30,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     enum class Availability { CHECKING, ONLINE, OFFLINE, UNSUPPORTED, CHANGED_IDENTITY, STORAGE_UNAVAILABLE }
     enum class Problem { CONNECTION, SAVE, INVITATION }
     data class Target(val space: String, val channel: String, val thread: String? = null)
+    data class MessageScroll(val id: String, val showBody: Boolean = false)
+
     data class State(val loading: Boolean = true, val availability: Availability = Availability.CHECKING,
         val communities: List<SpaceClient.Community> = emptyList(), val selected: String? = null,
         val selectedChannel: String? = null, val threadParent: SpaceClient.Message? = null, val current: SpaceClient.Community? = null, val publicRulesToken: String? = null,
@@ -54,7 +56,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val notificationPolicy: SpaceNotificationPolicy? = null, val pinStatus: SpaceClient.PinStatus? = null, val messages: List<SpaceClient.Message> = emptyList(), val draft: String = "",
         val invitation: SpaceClient.Invitation? = null, val preview: SpaceClient.InvitationPreview? = null,
         val problem: Problem? = null, val working: Boolean = false, val refreshing: Boolean = false,
-        val ready: Boolean = false, val savingNavigation: Boolean = false, val loadingChannel: Boolean = false, val hasEarlier: Boolean = false, val hasLater: Boolean = false, val scrollToMessage: String? = null, val windowFrom: Long = 0, val followingLatest: Boolean = true)
+        val ready: Boolean = false, val savingNavigation: Boolean = false, val loadingChannel: Boolean = false, val hasEarlier: Boolean = false, val hasLater: Boolean = false, val scrollToMessage: MessageScroll? = null, val windowFrom: Long = 0, val followingLatest: Boolean = true)
     private val appContext = context.applicationContext
     private val fixtureTrace = nl.davidengelen.redsquare.BuildConfig.DEBUG && endpoint.startsWith("ws://127.0.0.1:") &&
         android.os.Build.HARDWARE in listOf("ranchu", "goldfish")
@@ -450,7 +452,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             profiles = it.profiles + (space to profile), publicRulesToken = rulesToken, publicLink = publicLink, invitation = invitation,
                             listingIntent = dirtyListings[space] ?: listingIntent,
                             draft = if (draftVersions[target]?.get() == version) draft else it.draft,
-                            notificationPolicy = current.notificationPolicy(space, target.channel), pinStatus = current.pinStatus(space, target.channel), scrollToMessage = jump?.id,
+                            notificationPolicy = current.notificationPolicy(space, target.channel), pinStatus = current.pinStatus(space, target.channel), scrollToMessage = jump?.let { MessageScroll(it.id, showBody = true) },
                             messages = messages, loadingChannel = false, contentLoaded = window.loaded, hasEarlier = window.hasEarlier,
                             hasLater = window.hasLater, windowFrom = window.from, followingLatest = historyWindows[target] == null) else it }
                     } }
@@ -503,13 +505,13 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 mutable.update { if (it.target() == target && it.draft == before.draft) {
                     draftVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
                     dirtyDrafts.remove(target, before.draft)
-                    it.copy(draft = "", anchor = null, followingLatest = true, scrollToMessage = queued)
-                } else if (it.target() == target) it.copy(anchor = null, followingLatest = true, scrollToMessage = queued) else it }
+                    it.copy(draft = "", anchor = null, followingLatest = true, scrollToMessage = MessageScroll(queued))
+                } else if (it.target() == target) it.copy(anchor = null, followingLatest = true, scrollToMessage = MessageScroll(queued)) else it }
             }
             publish(); wake.trySend(Unit)
         }
     }
-    fun toggleReaction(target: Target, message: SpaceClient.Message, emoji: String) {
+    fun toggleReaction(target: Target, message: SpaceClient.Message, emoji: String, onSaved: (() -> Unit)? = null) {
         if (closed.get() || navigationSaving.get() || mutable.value.target() != target) return
         scope.launch {
             try {
@@ -519,7 +521,12 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     val selected = actual.reactions.any { it.emoji == emoji && it.selected }
                     current.setReaction(target.space, actual, emoji, !selected, target.channel)
                 }
-                publish(); wake.trySend(Unit)
+                urgentOutbox.add(target.space)
+                wake.trySend(Unit)
+                if (onSaved != null) withContext(Dispatchers.Main.immediate) {
+                    if (mutable.value.target() == target) onSaved()
+                }
+                publish()
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
         }
@@ -620,7 +627,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             current.setListed(space, listed); dirtyListings.remove(space, listed)
         }
     }
-    fun consumeScrollTarget(message: String) {
+    fun consumeScrollTarget(message: MessageScroll) {
         mutable.update { if (it.scrollToMessage == message) it.copy(scrollToMessage = null) else it }
     }
     fun olderMessages() {
@@ -633,7 +640,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             else current.olderThread(target.space, parent, before.from, target.channel)
             historyWindows[target] = start
             publish()
-            mutable.update { if (it.target() == target) it.copy(scrollToMessage = it.messages.firstOrNull()?.id) else it }
+            mutable.update { if (it.target() == target) it.copy(scrollToMessage = it.messages.firstOrNull()?.let { message -> MessageScroll(message.id) }) else it }
         } }
     }
     fun latestMessages() {
@@ -651,7 +658,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 }
             }
             publish()
-            mutable.update { if (it.target() == target) it.copy(scrollToMessage = it.messages.lastOrNull()?.id) else it }
+            mutable.update { if (it.target() == target) it.copy(scrollToMessage = it.messages.lastOrNull()?.let { message -> MessageScroll(message.id) }) else it }
         }
     }
     fun markRead(space: String, channel: String, position: Long, thread: String? = null) {
