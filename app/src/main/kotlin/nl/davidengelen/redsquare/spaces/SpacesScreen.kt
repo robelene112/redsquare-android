@@ -33,6 +33,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import nl.davidengelen.redsquare.feed.LocalPostNavigation
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
@@ -67,6 +68,7 @@ import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.DesignSheet
 import nl.davidengelen.redsquare.ui.FrameIconButton
+import nl.davidengelen.redsquare.ui.keyboardOccupiesWindow
 import java.text.DateFormat
 import java.util.Date
 
@@ -153,7 +155,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             account.consumePublicReference(opened)
         }
     }
-    val imeVisible = WindowInsets.ime.getBottom(androidx.compose.ui.platform.LocalDensity.current) > 0
+    val imeVisible = keyboardOccupiesWindow()
     fun choose(space: String?, channel: String? = null) {
         // Selection is immediate; the panel keeps its rows until its exit ends.
         if (drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed)
@@ -412,7 +414,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 try { list.animateScrollToItem(state.messages.size) } finally { autoScrolling = false }
                             }
                         }
-                        if (state.messages.isEmpty() && !state.contentLoaded) Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
+                        if (state.messages.isEmpty() && !state.contentLoaded) Box(Modifier.weight(1f).fillMaxWidth().clipToBounds().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
                             if (state.refreshing) CircularProgressIndicator(Modifier.size(28.dp))
                             else Text(stringResource(R.string.spaces_history_not_loaded), color = MaterialTheme.colorScheme.onSurfaceVariant)
                         } else if (state.messages.isEmpty()) Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {

@@ -3322,7 +3322,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 if (original.body.get("content_kind")?.asString in setOf("message-pin", "message-delete"))
                     reconcilePinTarget(space, channel, original.body.text("target_message_id"))
                 if (original.body.get("content_kind")?.asString == "message-reaction") reconcileReaction(space, channel, body, reactionReader)
-                indexConfirmedMessage(space, channel, body)
+                indexConfirmedMessage(space, channel, body, original)
             }
             else -> throw IllegalArgumentException("Unexpected community receipt stream")
         }
@@ -3475,14 +3475,16 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private fun SpaceClientStore.Transaction.putConversationState(space: String, channel: String, thread: String?, data: JsonObject) {
         if (thread == null) putChannelState(space, channel, data) else put(conversationPrefix(space, channel, thread) + "state", bytes(data))
     }
-    private fun SpaceClientStore.Transaction.indexConfirmedMessage(space: String, channel: String, receipt: JsonObject) {
-        val original = SaitoEnvelope.decode(receipt.text("event"))
+    private fun SpaceClientStore.Transaction.indexConfirmedMessage(space: String, channel: String, receipt: JsonObject,
+        original: SignedSaitoMessage = SaitoEnvelope.decode(receipt.text("event"))) {
         if (original.body.get("content_kind")?.asString !in setOf("message", "thread-reply")) return
         val thread = messageThread(original.body)
         val position = receipt.number("position")
         val pointer = (contentPrefix(space, channel) + positionKey(position)).toByteArray(Charsets.UTF_8)
+        val idKey = messageIdKey(space, channel, original.id)
+        if (get(idKey)?.contentEquals(pointer) == true) return
         put(messagePositionIdKey(space, channel, position), original.id.toByteArray(Charsets.UTF_8))
-        put(messageIdKey(space, channel, original.id), pointer)
+        put(idKey, pointer)
         put(confirmedMessageIndex(space, channel, thread) + positionKey(position), pointer)
         put(reverseMessageIndex(space, channel, thread) + positionKey(Long.MAX_VALUE - position), pointer)
     }

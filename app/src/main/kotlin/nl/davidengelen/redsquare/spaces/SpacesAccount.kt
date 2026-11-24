@@ -209,6 +209,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             flushUrgent(current)
                             trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} start")
                             current.refresh(target.space, channel = target.channel, from = if (target.thread == null) historyWindows[target] else null)
+                            flushUrgent(current)
                             current.parent(target)?.let { current.refreshThread(target.space, it, target.channel, historyWindows[target]) }
                             trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} complete")
                             mutable.update { it.copy(accessProblems = it.accessProblems - target.space) }
@@ -466,6 +467,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 val parent = current.parent(target)
                 val queued = if (parent == null) current.send(target.space, before.draft, channel = target.channel)
                 else current.reply(target.space, parent, before.draft, target.channel)
+                urgentOutbox.add(target.space)
+                wake.trySend(Unit)
                 historyWindows.remove(target)
                 anchorVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
                 dirtyAnchors.remove(target)

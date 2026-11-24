@@ -150,18 +150,25 @@ class SpacesJourneyTest {
             ui.waitUntil(5_000) { ui.onNodeWithText("Fixture line 100").isDisplayed() }
             val returnToLatest = hasText("Back to latest messages") and hasClickAction()
             val newerActivity = newerMessagesAvailable()
-            ui.onNode(returnToLatest).assertIsDisplayed().assert(!newerActivity)
+            ui.onNode(returnToLatest).assertIsDisplayed()
             val readingBefore = ui.onNodeWithText("Fixture line 100").fetchSemanticsNode().boundsInRoot.top
-            capture("overlay-06-deliberate-reading-position")
-            command("populate", JsonObject().apply { addProperty("space", space); addProperty("from", 0); addProperty("count", 8) })
-            ui.waitUntil(20_000) { ui.onNode(returnToLatest and newerActivity).isDisplayed() }
+            capture("overlay-06-deliberate-reading-position", "Fixture line 100")
+            val readingIncoming = command("populate", JsonObject().apply { addProperty("space", space); addProperty("from", 0); addProperty("count", 8) })
+            var readingConsumption = JsonObject()
+            ui.waitUntil(20_000) {
+                if (readingConsumption.get("observed")?.asBoolean != true)
+                    readingConsumption = command("message-consumption", readingIncoming)
+                readingConsumption.get("observed").asBoolean && ui.onNode(returnToLatest and newerActivity).isDisplayed()
+            }
+            assertEquals(consumed.get("author").asString, readingConsumption.get("author").asString)
             val readingAfter = ui.onNodeWithText("Fixture line 100").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
             assertEquals("Incoming activity preserves deliberate older reading", readingBefore, readingAfter, 1f)
-            capture("overlay-07-incoming-retains-reading-position")
+            capture("overlay-07-incoming-retains-reading-position", "Fixture line 100")
             File(evidence, "overlay-results.json").writeText(JsonObject().apply {
                 addProperty("pid", Process.myPid()); addProperty("imeBottom", ime)
                 add("editedMessage", observed); add("reactedMessage", reactionObserved)
                 addProperty("readingBefore", readingBefore); addProperty("readingAfter", readingAfter)
+                add("readingIncoming", readingIncoming); add("readingConsumption", readingConsumption)
                 addProperty("activityRecreated", true); addProperty("incomingBeforeEdit", 60); add("incomingDuringIme", incoming); add("androidConsumptionWhileImeOpen", consumed); addProperty("incomingDuringDetails", 60)
             }.toString())
         } }

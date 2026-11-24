@@ -895,7 +895,9 @@ try:
         observed = json.loads(adb('exec-out', 'run-as', pkg, 'cat', 'cache/spaces-journey-evidence/overlay-results.json').stdout)
         if not (observed['pid'] > 0 and observed['imeBottom'] > 0 and observed['activityRecreated'] and
                 observed['editedMessage']['edited'] and observed['incomingDuringIme']['count'] >= 8 and
-                observed['androidConsumptionWhileImeOpen']['observed'] and observed['androidConsumptionWhileImeOpen']['request']):
+                observed['androidConsumptionWhileImeOpen']['observed'] and observed['androidConsumptionWhileImeOpen']['request'] and
+                observed['readingConsumption']['observed'] and observed['readingConsumption']['request'] and
+                observed['readingConsumption']['message'] == observed['readingIncoming']['id']):
             raise RuntimeError('Focused conversation observations are incomplete')
         (evidence / 'overlay-results.json').write_text(json.dumps(observed, indent=2))
         finish_record(*movies[-1]); record(2)
