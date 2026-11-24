@@ -126,6 +126,7 @@ class SpaceMessageAttentionTest {
                     reader.refreshAttention(space)
                     assertEquals(1L, reader.attention(space).personal)
                     assertTrue(requireNotNull(reader.message(space, mentioned)).deleted)
+                    assertNull(reader.messageAttention(space, mentioned))
                     reader.markRead(space, reader.community(space).channel, requireNotNull(root.position))
                     assertEquals("Reading channel messages must not acknowledge an unseen thread reply", 1L, reader.attention(space).personal)
                     val reply = requireNotNull(reader.message(space, replyId))

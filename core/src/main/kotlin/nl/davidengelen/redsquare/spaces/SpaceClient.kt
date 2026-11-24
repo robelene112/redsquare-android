@@ -2808,10 +2808,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val index = SpaceAttentionIndex(this, "$space/channels/$channel")
         index.observe(message, position, thread, personal, maxOf(position, edit?.number("position") ?: position, deletion?.number("position") ?: position), deletion != null, own)
         val key = "$space/channels/$channel/message-attention/$message"
-        if (text == null || replied == null) remove(key) else {
+        if (deletion != null || text == null || replied == null) remove(key) else {
             val event = SaitoEnvelope.decode(latest.text("event"))
             val control = latest.get("authorized_control")?.asString ?: event.body.text("control_id")
-            val everyone = deletion == null && SpaceMessageAttention.everyone(text) &&
+            val everyone = SpaceMessageAttention.everyone(text) &&
                 journal(space, through = control).hasCurrentAdministratorIntent(event.author, event.body.text("control_id"))
             put(key, bytes(JsonObject().apply {
                 addProperty("mentioned", mentioned == true); addProperty("replied", replied == true)
@@ -2922,24 +2922,30 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
     /** Separate opt-in budget from cheap unread heads. Fairly visit one
      * eligible channel per cycle, never fetch an entire conversation at once. */
-    suspend fun refreshNextAttention(space: String) {
-        val next = store.transaction {
+    suspend fun refreshNextAttention(space: String): Boolean {
+        val work = store.transaction {
             owned(); state(space)
             val snapshot = journal(space).snapshot
             if (wallet.publicKey !in snapshot.members) return@transaction null
-            val available = snapshot.channels.filter { (channel, record) ->
+            val pending = snapshot.channels.mapNotNull { (channel, record) ->
                 val data = channelState(space, channel)
-                val readable = record.visibility == SpaceVisibility.PUBLIC ||
-                    record.devices.keys.any { it.split(':')[1] == wallet.publicKey } && data.get("joined")?.asBoolean == true
-                val fetched = data.get("attention_observed")?.asBoolean == true &&
-                    (data.get("attention_cursor")?.asLong ?: 0) >= (data.get("attention_goal")?.asLong ?: 0)
-                readable && !fetched
-            }.keys.sorted()
+                val hasDevice = record.devices.keys.any { it.split(':')[1] == wallet.publicKey }
+                if (record.visibility != SpaceVisibility.PUBLIC && (!hasDevice || data.get("joined")?.asBoolean != true))
+                    return@mapNotNull null
+                val needsPage = data.get("attention_observed")?.asBoolean != true ||
+                    (data.get("attention_cursor")?.asLong ?: 0) < (data.get("attention_goal")?.asLong ?: 0)
+                val needsProjection = data.get("attention_projection_version")?.asLong != 1L ||
+                    page("$space/channels/$channel/attention-dirty/", limit = 1).isNotEmpty()
+                if (needsPage || needsProjection) channel to needsPage else null
+            }.sortedBy { it.first }
             val key = "$space/attention-next-channel"
             val after = get(key)?.toString(Charsets.UTF_8)
-            (available.firstOrNull { after == null || it > after } ?: available.firstOrNull())?.also { put(key, it.toByteArray(Charsets.UTF_8)) }
-        }
-        next?.let { refreshAttention(space, it) }
+            (pending.firstOrNull { after == null || it.first > after } ?: pending.firstOrNull())
+                ?.also { put(key, it.first.toByteArray(Charsets.UTF_8)) }
+        } ?: return false
+        val (channel, needsPage) = work
+        if (needsPage) refreshAttention(space, channel) else attention(space, channel)
+        return true
     }
 
     private suspend fun readPage(scope: JsonObject, invitation: SpaceInvitation? = null): JsonObject {

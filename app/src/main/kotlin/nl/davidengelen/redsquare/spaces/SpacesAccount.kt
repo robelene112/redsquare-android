@@ -70,6 +70,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val scope = CoroutineScope(parent.coroutineContext + SupervisorJob(parent.coroutineContext[Job]) + Dispatchers.IO)
     private val mutable = MutableStateFlow(State())
     val state = mutable.asStateFlow()
+    private var attentionAfterSpace: String? = null
     private val wake = Channel<Unit>(Channel.CONFLATED)
     private val network = Mutex()
     private val localAccess = Mutex()
@@ -181,7 +182,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         privateChannelEditSupported = "spaces-private-channel-edit-v1" in services) }
                     val current = requireNotNull(client)
                     flushUrgent(current)
-                    for (community in current.communities()) {
+                    val communities = current.communities()
+                    for (community in communities) {
                         try {
                             trace("refresh background=${community.id.take(10)} flush-start")
                             current.flush(community.id)
@@ -190,11 +192,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             current.flush(community.id)
                             flushUrgent(current)
                             trace("refresh background=${community.id.take(10)} unread-start")
-                            if ("spaces-unread-v1" in services) {
-                                current.refreshUnread(community.id)
-                                flushUrgent(current)
-                                current.refreshNextAttention(community.id)
-                            }
+                            if ("spaces-unread-v1" in services) current.refreshUnread(community.id)
                             trace("refresh background=${community.id.take(10)} complete")
                             mutable.update { it.copy(accessProblems = it.accessProblems - community.id) }
                         } catch (denied: SpaceClient.ReadDenied) {
@@ -222,6 +220,20 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     flushUrgent(current)
                     publish()
                     trace("refresh projected")
+                    if ("spaces-unread-v1" in services) {
+                        val joined = communities.filter { it.joined && !it.dissolved }.map { it.id }.sorted()
+                        val after = attentionAfterSpace
+                        val next = joined.firstOrNull { after == null || it > after } ?: joined.firstOrNull()
+                        if (next != null) {
+                            attentionAfterSpace = next
+                            try {
+                                if (current.refreshNextAttention(next)) publish()
+                            } catch (_: SpaceClient.ReadDenied) {
+                                // The foreground and authoritative heads own access state.
+                                // One retired background channel must not hide usable content.
+                            }
+                        }
+                    }
                 } } catch (cancelled: CancellationException) { throw cancelled }
                 catch (_: MissingService) { mutable.update { it.copy(availability = Availability.UNSUPPORTED) } }
                 catch (_: ChangedIdentity) { mutable.update { it.copy(availability = Availability.CHANGED_IDENTITY) } }
@@ -299,7 +311,6 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val current = client ?: return@withLock
         val before = mutable.value
         val target = before.target()
-        target?.let { current.attention(it.space, it.channel) }
         val projection = current.presentation(target?.space, target?.channel, target?.let { historyWindows[it] }, target?.let { current.parent(it) })
         val communities = projection.communities
         val profiles = projection.profiles
