@@ -63,7 +63,9 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
 
     /** Preparing handover keys grants reading, not contribution or staff powers. */
     fun canContributeChannel(actor: String, channel: String): Boolean =
-        !current.dissolved && current.channels[channel]?.let { hasChannelAudience(current, actor, it) } == true
+        !current.dissolved && current.channels[channel]?.let {
+            hasChannelAudience(current, actor, it) && (current.protectedChat == null || it.devices.size >= 2)
+        } == true
 
     private fun hasChannelAudience(snapshot: SpaceSnapshot, actor: String, channel: SpaceChannelRecord): Boolean {
         val role = snapshot.members[actor] ?: return false
@@ -109,7 +111,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
 
     fun canApproveDeviceRequests(actor: String): Boolean =
         current.members[actor] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) ||
-            current.protectedChat?.directPeer != null && actor in current.members
+            current.protectedChat != null && actor in current.members
 
     private fun canReplaceDevice(actor: String, channel: String, credential: String, controlId: String): Boolean {
         val record = current.channels[channel] ?: return false
@@ -773,6 +775,9 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             join.recipients == listOf(join.author, serviceKey).distinct())
         val channel = join.body.text("channel_id")
         require(current.channels[channel]?.visibility == SpaceVisibility.PRIVATE)
+        if (current.protectedChat != null) require(join.body.number("protected_chat_version") == 1L) {
+            "This member needs a client that supports protected chat"
+        }
         val operation = join.body.text("operation_id")
         require(operation.matches(ID) && operation !in operations)
         val invitationId = if (kind == "join") join.body.text("invite_id") else null

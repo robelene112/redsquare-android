@@ -37,12 +37,13 @@ class SpacesJourneyTest {
     private val community = "Independent voices"
     private val originalText = "Original awaiting Android restart"
     private val draft = "Unsent writing survives Android restart"
+    private val protectedReply = "Protected Android reply reaches the separate device"
     private fun launch() = ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
         .putExtra("feedPeerUrl", "ws://127.0.0.1:$peerPort/wsopen")
         .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:$peerPort/wsopen")
         .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/"))
 
-    @Test fun addressedProtectedChatLinkOpensAndSendsThroughNativeChat() {
+    @Test fun addressedProtectedChatLinkOpensAndCheckpointsTheNativeSend() {
         val deviceOwner = nl.davidengelen.redsquare.saito.AndroidWalletStore(context).loadOrCreate()
         AndroidBackendStore(context).save(nl.davidengelen.redsquare.saito.SaitoBackend.OWNER)
         val policy = File(context.noBackupFilesDir, "publishing-policy-fixture.json")
@@ -54,7 +55,7 @@ class SpacesJourneyTest {
             .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:$peerPort/wsopen")
             .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
         val expected = "Reply from independent member"
-        val text = "Protected Android reply reaches the separate device"
+        val text = protectedReply
         try {
             ActivityScenario.launch<MainActivity>(intent).use { activity ->
                 withFailureCapture({ capture("protected-chat-failure") }) {
@@ -64,6 +65,7 @@ class SpacesJourneyTest {
                     confirm.assertIsEnabled().performClick()
                     ui.waitUntil(30_000) { ui.onNodeWithText(expected).isDisplayed() }
                     capture("protected-chat-received", expected)
+                    command("hold")
                     val editor = ui.onNode(hasSetTextAction() and hasText("Message"))
                     editor.performTextInput(text)
                     closeKeyboard(activity)
@@ -79,13 +81,71 @@ class SpacesJourneyTest {
                     assertTrue(observation.get("readByIndependentPeer").asBoolean)
                     assertEquals(observation.get("contentOriginals").asInt, observation.get("encryptedOriginals").asInt)
                     assertTrue(observation.get("encryptedOriginals").asInt > 0)
-                    capture("protected-chat-submitted", text)
-                    File(evidence, "protected-chat-result.json").writeText(observation.toString())
+                    ui.waitUntil(10_000) { ui.onNodeWithText("Waiting for confirmation.").isDisplayed() }
+                    editor.performTextInput(draft)
+                    closeKeyboard(activity)
+                    switchModule("Red Square", "Spaces")
+                    switchModule("Spaces", "Red Square")
+                    ui.waitUntil(15_000) { ui.onNode(hasSetTextAction() and hasText(draft)).isDisplayed() }
+                    capture("protected-chat-awaiting-confirmation", text)
+                    val saved = JsonObject().apply {
+                        addProperty("phase", "ready-for-process-kill")
+                        addProperty("pid", Process.myPid())
+                        addProperty("space", invitation.get("space").asString)
+                        addProperty("original", observation.get("original").asString)
+                        addProperty("owner", deviceOwner.publicKey)
+                    }
+                    val atomic = android.util.AtomicFile(checkpoint)
+                    val output = atomic.startWrite()
+                    try {
+                        output.write(saved.toString().encodeToByteArray())
+                        atomic.finishWrite(output)
+                    } catch (failure: Exception) {
+                        atomic.failWrite(output)
+                        throw failure
+                    }
+                    while (true) SystemClock.sleep(200)
                 }
             }
         } finally {
             policy.delete()
         }
+    }
+
+    @Test fun protectedChatSurvivesForceStopAndReconcilesTheSameNativeOriginal() {
+        val saved = JsonParser.parseString(checkpoint.readText()).asJsonObject
+        assertNotEquals(saved.get("pid").asInt, Process.myPid())
+        assertEquals(saved.get("owner").asString, AndroidWalletStore(context).loadExisting().publicKey)
+        launch().use {
+            withFailureCapture({ capture("protected-chat-recovery-failure") }) {
+                ui.waitUntil(15_000) { ui.onNode(hasText("Chat") and hasClickAction()).isDisplayed() }
+                ui.onNode(hasText("Chat") and hasClickAction()).performClick()
+                val protectedChats = ui.onNode(hasText("Protected chats") and hasClickAction())
+                ui.waitUntil(15_000) { protectedChats.isDisplayed() }
+                protectedChats.performClick()
+                val destination = ui.onNode(hasText("Protected native conversation") and hasClickAction())
+                ui.waitUntil(15_000) { destination.isDisplayed() }
+                destination.performClick()
+                ui.waitUntil(15_000) { ui.onNode(hasSetTextAction() and hasText(draft)).isDisplayed() }
+                command("release")
+                val parameters = JsonObject().apply { addProperty("space", saved.get("space").asString); addProperty("text", protectedReply) }
+                var observation = JsonObject()
+                ui.waitUntil(20_000) {
+                    observation = command("protected-chat-proof", parameters)
+                    observation.get("originalSubmissions").asInt >= 2 &&
+                        !ui.onNodeWithText("Waiting for confirmation.").isDisplayed()
+                }
+                assertEquals(saved.get("original").asString, observation.get("original").asString)
+                assertTrue(observation.get("readByIndependentPeer").asBoolean)
+                assertTrue(observation.get("exactOriginal").asBoolean)
+                assertEquals(observation.get("contentOriginals").asInt, observation.get("encryptedOriginals").asInt)
+                ui.onNode(hasSetTextAction() and hasText(draft)).assertIsDisplayed()
+                capture("protected-chat-after-process-restart", protectedReply)
+                observation.addProperty("recoveredPid", Process.myPid())
+                File(evidence, "protected-chat-result.json").writeText(observation.toString())
+            }
+        }
+        File(context.noBackupFilesDir, "publishing-policy-fixture.json").delete()
     }
 
     @Test fun messageMenusAndEditSurviveIncomingMessagesAndRealIme() {

@@ -1672,6 +1672,8 @@
     <string name="protected_chat_offline">Offline. Saved messages and drafts are available.</string>
     <string name="protected_chat_action_failed">Could not complete this action. Try again.</string>
     <string name="protected_chat_create_detail">Choose a name and who can join. Any earlier messages stay in the original conversation.</string>
+    <string name="protected_chat_migrate_direct">Continue with this contact in a protected chat. Earlier messages and drafts stay in the original conversation.</string>
+    <string name="protected_chat_migrate_group">Start a protected version of this group. Choose which existing members to invite after creating it. Earlier messages and drafts stay in the original group.</string>
     <string name="protected_chat_name">Conversation name</string>
     <string name="protected_chat_peer">Recipient public key</string>
     <string name="protected_chat_create">Create chat</string>
@@ -1701,4 +1703,14 @@
     <string name="recovery_device_rejected">The device replacement was declined. Check the conversation and try again.</string>
     <string name="recovery_device_unsupported">This node does not support device replacement.</string>
     <string name="recovery_device_no_approver">No other eligible device holds the keys needed to activate this device.</string>
+    <string name="recovery_device_already_active">This device already has access to the conversation.</string>
+    <string name="recovery_archive_title">Read backed-up history</string>
+    <string name="recovery_archive_empty">No backed-up conversations were found on this node.</string>
+    <string name="recovery_archive_failed">Could not load the backed-up conversation.</string>
+    <string name="recovery_archive_in_spaces">Open this conversation from Spaces.</string>
+    <string name="recovery_archive_in_chat">Open this conversation from Protected chats.</string>
+    <string name="recovery_archive_item">Conversation %1$s · %2$s</string>
+    <string name="recovery_archive_read_only">Backed-up history. Read only on this device.</string>
+    <string name="recovery_replace_archive_device_detail">Ask a current key holder to activate this device. The previous device will lose access to messages sent after replacement.</string>
+    <string name="protected_chat_waiting_peer">Waiting for someone to join with a client that supports protected chats.</string>
 </resources>

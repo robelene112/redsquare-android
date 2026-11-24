@@ -66,25 +66,34 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var reviewingProtected by rememberSaveable(wallet.publicKey, backend) { mutableStateOf(false) }
     var protectedName by rememberSaveable(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
     var protectedPeer by rememberSaveable(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
-    fun openProtected(name: String? = null, peer: String? = null) {
+    var legacyGroup by rememberSaveable(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
+    var legacyMembers by rememberSaveable(wallet.publicKey, backend) { mutableStateOf(arrayListOf<String>()) }
+    fun openProtected(name: String? = null, peer: String? = null, legacyId: String? = null, candidates: List<String> = emptyList()) {
         protectedName = name; protectedPeer = peer; reviewingProtected = true
+        legacyGroup = legacyId
+        legacyMembers = ArrayList(candidates)
     }
     LaunchedEffect(initialProtectedInvitation) {
         if (initialProtectedInvitation != null && protectedChats != null) openProtected()
     }
     SingleOwnerReveal(if (reviewingProtected) "protected" else if (reviewingGroups) "groups" else "direct", modifier) {
     if (reviewingProtected && protectedChats != null) {
-        ProtectedChats(protectedChats, wallet.publicKey, protectedName, protectedPeer, Modifier.fillMaxSize(),
-            initialProtectedInvitation, onProtectedInvitationConsumed) {
+        ProtectedChats(protectedChats, wallet.publicKey, protectedName, protectedPeer, legacyGroup, legacyMembers,
+            Modifier.fillMaxSize(), initialProtectedInvitation, onProtectedInvitationConsumed) {
             reviewingProtected = false
             protectedName = null
             protectedPeer = null
+            legacyGroup = null
+            legacyMembers = arrayListOf()
         }
         return@SingleOwnerReveal
     }
     if (reviewingGroups) {
         GroupChatScreen(wallet,endpoint,backend,Modifier.fillMaxSize(),onWalletMetadata,groupDestination, onInitialDestinationClosed,
-            onProtectedGroup = if (protectedChats == null) null else { id, name -> groupDestination = id; openProtected(name) }) {
+            onProtectedGroup = if (protectedChats == null) null else { id, name, members ->
+                groupDestination = id
+                openProtected(name, legacyId = id, candidates = members)
+            }) {
             reviewingGroups=false; groupDestination=null
         }
         return@SingleOwnerReveal

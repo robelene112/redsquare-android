@@ -142,6 +142,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         screenHeight <= 700.dp && LocalDensity.current.fontScale >= 1.5f
     var invitationText by remember { mutableStateOf("") }
     var replacingDevice by remember { mutableStateOf(false) }
+    var archivePickerOpen by remember { mutableStateOf(false) }
+    var archiveActivationOpen by remember { mutableStateOf(false) }
     var reviewedInvitation by remember(account) { mutableStateOf<SpaceClient.InvitationPreview?>(null) }
     val invitationReview = state.preview ?: reviewedInvitation
     SideEffect { state.preview?.let { reviewedInvitation = it } }
@@ -205,6 +207,13 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         state.joinedInvitation?.let { joined ->
             if (joinOpen && invitationText.trim() == joined) joinOpen = false
             account.consumeJoinedInvitation(joined)
+        }
+    }
+    LaunchedEffect(state.openedRecovery, archivePickerOpen) {
+        val archive = state.openedRecovery ?: return@LaunchedEffect
+        if (archivePickerOpen) {
+            archivePickerOpen = false
+            account.consumeRecoveredHistory(archive)
         }
     }
     LaunchedEffect(joinOpen) { if (!joinOpen) replacingDevice = false }
@@ -325,6 +334,12 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         selected.deviceReplaced -> InlineStatus(stringResource(R.string.recovery_device_replaced), StatusTone.WARNING)
                         selected.replacingDevice -> InlineStatus(stringResource(R.string.recovery_device_waiting), StatusTone.INFO)
                         selected.replacementRejected -> InlineStatus(stringResource(R.string.recovery_device_rejected), StatusTone.WARNING)
+                        selected.archiveScope != null -> InlineStatus(stringResource(R.string.recovery_archive_read_only), StatusTone.INFO)
+                    }
+                    if (selected.archiveScope != null && !selected.replacingDevice) {
+                        TextButton(onClick = { archiveActivationOpen = true }, enabled = state.ready && !state.working) {
+                            Text(stringResource(R.string.recovery_replace_device))
+                        }
                     }
                     val conversation = channel?.profile?.kind in setOf(SpaceChannelKind.CHAT, SpaceChannelKind.ANNOUNCEMENT) || channel == null
                     if (!conversation) Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
@@ -647,7 +662,23 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             clearInvitationReview()
             replacingDevice = true
         }, enabled = !state.working) { Text(stringResource(R.string.recovery_replace_device)) }
+        if (invitationReview == null && !replacingDevice) TextButton(onClick = {
+            clearInvitationReview()
+            joinOpen = false
+            archivePickerOpen = true
+        }, enabled = !state.working) { Text(stringResource(R.string.recovery_archive_title)) }
         state.problem?.let { ProblemNotice(it, account::clearProblem) }
+    }
+    if (archivePickerOpen) RecoveredHistoryPicker(account, state, protectedChat = false) { archivePickerOpen = false }
+    if (archiveActivationOpen) selected?.archiveScope?.let { archive ->
+        ReplaceArchivedDevicePrompt(dismiss = { archiveActivationOpen = false }, confirm = {
+            scope.launch {
+                if (publishing.beforePublishing()) {
+                    archiveActivationOpen = false
+                    account.replaceDevice(archive, expectProtectedChat = false)
+                }
+            }
+        })
     }
     var acceptedPublicRules by remember(state.selected, state.publicRulesToken) { mutableStateOf(false) }
     DesignSheet(publicRulesOpen && selected != null, stringResource(R.string.spaces_house_rules), { publicRulesOpen = false }, footer = { first ->
@@ -1227,6 +1258,8 @@ private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "�
         SpacesAccount.Problem.PROTECTED_CHAT_UNSUPPORTED -> R.string.protected_chat_unsupported
         SpacesAccount.Problem.DEVICE_RECOVERY_UNSUPPORTED -> R.string.recovery_device_unsupported
         SpacesAccount.Problem.DEVICE_RECOVERY_NO_APPROVER -> R.string.recovery_device_no_approver
+        SpacesAccount.Problem.DEVICE_ALREADY_ACTIVE -> R.string.recovery_device_already_active
+        SpacesAccount.Problem.RECOVERY_OTHER_MODULE -> R.string.recovery_archive_in_chat
     }
     Column {
         Text(stringResource(message), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)

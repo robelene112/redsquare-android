@@ -49,6 +49,17 @@ class ProtectedWalletRecoveryTest {
             .putExtra("feedPeerUrl", "ws://127.0.0.1:1/wsopen").putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:1/wsopen")
             .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
         val evidence = File(context.cacheDir, "protected-recovery-evidence").apply { mkdirs() }
+        fun removeFixtureArchive() {
+            AndroidSpaceClientStore(context, wallet.publicKey, "local-recovery", wallet.publicKey).use { store ->
+                store.transaction {
+                    val key = "archive/${scope.serviceKey}/${scope.spaceId}/${scope.channelId}/${scope.generation}"
+                    if (get(key) == null) return@transaction
+                    remove(key)
+                    val count = requireNotNull(get("archive-count")).decodeToString().toInt()
+                    put("archive-count", (count - 1).toString().encodeToByteArray())
+                }
+            }
+        }
         AndroidSpacesRecovery(context) { error("The recovery fixture uses only locally staged archives") }.retain(wallet, listOf(archive))
         device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
         try {
@@ -75,15 +86,7 @@ class ProtectedWalletRecoveryTest {
                     captureNativeScreen(File(evidence, "00-verified-protected-export.png"), "Wallet backup saved")
                 }
             }
-            AndroidSpaceClientStore(context, wallet.publicKey, "local-recovery", wallet.publicKey).use { store ->
-                store.transaction {
-                    val key = "archive/${scope.serviceKey}/${scope.spaceId}/${scope.channelId}/${scope.generation}"
-                    require(get(key) != null)
-                    remove(key)
-                    val count = requireNotNull(get("archive-count")).decodeToString().toInt()
-                    put("archive-count", (count - 1).toString().encodeToByteArray())
-                }
-            }
+            removeFixtureArchive()
             ActivityScenario.launch<MainActivity>(intent).use {
                 withFailureCapture({ captureNativeScreen(File(evidence, "failure.png")) }) {
                     ui.waitForAccountMenu(15_000)
@@ -119,6 +122,7 @@ class ProtectedWalletRecoveryTest {
         } finally {
             runCatching { DocumentsContract.deleteDocument(context.contentResolver, uri) }
             device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0")
+            removeFixtureArchive()
         }
     }
 

@@ -26,6 +26,8 @@ import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceClient
 import nl.davidengelen.redsquare.spaces.SpacesAccount
+import nl.davidengelen.redsquare.spaces.RecoveredHistoryPicker
+import nl.davidengelen.redsquare.spaces.ReplaceArchivedDevicePrompt
 import nl.davidengelen.redsquare.ui.FrameIconButton
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
@@ -35,7 +37,8 @@ internal val LocalProtectedChats = staticCompositionLocalOf<ProtectedChatAccess?
 
 @Composable
 internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, startingName: String?,
-    startingPeer: String?, modifier: Modifier, initialInvitation: String?, onInvitationConsumed: () -> Unit,
+    startingPeer: String?, legacyGroup: String?, legacyMembers: List<String>, modifier: Modifier,
+    initialInvitation: String?, onInvitationConsumed: () -> Unit,
     onBack: () -> Unit) {
     LaunchedEffect(Unit) { access.activate() }
     val account = access.account
@@ -69,9 +72,11 @@ internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, starting
         }
     }
     var selected by rememberSaveable(owner, account.backend) { mutableStateOf<String?>(null) }
-    var dialog by rememberSaveable(owner, account.backend) {
-        mutableStateOf(if (startingName == null) null else "create")
-    }
+    var dialog by rememberSaveable(owner, account.backend) { mutableStateOf<String?>(null) }
+    val legacyId = legacyGroup ?: startingPeer
+    val legacyChat = if (legacyGroup != null) "group:$legacyGroup" else startingPeer?.let { "direct:$it" }
+    var openingLegacy by rememberSaveable(owner, account.backend, legacyId) { mutableStateOf(legacyId != null) }
+    var migrating by rememberSaveable(owner, account.backend) { mutableStateOf(false) }
     var name by rememberSaveable(owner, account.backend) { mutableStateOf(startingName.orEmpty()) }
     var peer by rememberSaveable(owner, account.backend) { mutableStateOf(startingPeer.orEmpty()) }
     var group by rememberSaveable(owner, account.backend) { mutableStateOf(startingPeer == null && startingName != null) }
@@ -85,6 +90,22 @@ internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, starting
         if (!state.loading) {
             account.dismissPreview()
             account.select(selected)
+        }
+    }
+    LaunchedEffect(state.loading, conversations, openingLegacy) {
+        if (!state.loading && openingLegacy) {
+            openingLegacy = false
+            val existing = conversations.firstOrNull { it.legacyChat == legacyChat }
+            if (existing == null) {
+                migrating = true
+                name = startingName.orEmpty()
+                peer = startingPeer.orEmpty()
+                group = legacyGroup != null
+                dialog = "create"
+            } else {
+                selected = existing.id
+                account.select(existing.id)
+            }
         }
     }
     LaunchedEffect(initialInvitation, state.loading, state.working) {
@@ -110,6 +131,14 @@ internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, starting
             account.consumeJoinedInvitation(joined)
             link = ""
             dialog = null
+        }
+    }
+    LaunchedEffect(state.openedRecovery, dialog) {
+        val archive = state.openedRecovery ?: return@LaunchedEffect
+        if (dialog == "archive") {
+            selected = archive.spaceId
+            dialog = null
+            account.consumeRecoveredHistory(archive)
         }
     }
     fun back() {
@@ -151,7 +180,7 @@ internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, starting
         if (selected == null) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Button(onClick = {
-                    name = ""; peer = ""; group = false; dialog = "create"
+                    name = ""; peer = ""; group = false; migrating = false; dialog = "create"
                 }, enabled = enabled && online, modifier = Modifier.weight(1f)) {
                     Text(stringResource(R.string.protected_chat_new))
                 }
@@ -160,6 +189,9 @@ internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, starting
                 }, enabled = enabled && online, modifier = Modifier.weight(1f)) {
                     Text(stringResource(R.string.protected_chat_invitation))
                 }
+            }
+            TextButton(enabled = enabled && online, onClick = { account.clearProblem(); dialog = "archive" }) {
+                Text(stringResource(R.string.recovery_archive_title))
             }
             LazyColumn(Modifier.fillMaxWidth().weight(1f)) {
                 if (conversations.isEmpty() && !state.loading) {
@@ -177,6 +209,7 @@ internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, starting
                                     chat.deviceReplaced -> R.string.recovery_device_replaced
                                     chat.replacingDevice -> R.string.recovery_device_waiting
                                     chat.replacementRejected -> R.string.recovery_device_rejected
+                                    chat.archiveScope != null -> R.string.recovery_archive_read_only
                                     chat.hasUnread == true -> R.string.protected_chat_unread
                                     !chat.joined -> R.string.protected_chat_waiting
                                     chat.protectedChat?.directPeer == null -> R.string.protected_chat_group
@@ -190,6 +223,11 @@ internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, starting
             if (state.loading || state.loadingChannel) LinearProgressIndicator(Modifier.fillMaxWidth())
             else Text(stringResource(R.string.protected_chat_unavailable))
         } else {
+            if (current.archiveScope != null && !current.replacingDevice) {
+                OutlinedButton(onClick = { dialog = "activate-archive" }, enabled = enabled && online) {
+                    Text(stringResource(R.string.recovery_replace_device))
+                }
+            }
             val directPeer = current.protectedChat?.directPeer
             if (current.canManage && (directPeer == null || state.members.none { it.publicKey == directPeer })) {
                 val invitation = state.invitation?.takeIf { it.confirmed && !it.expired && !it.revoked && !it.revocationPending }
@@ -215,26 +253,45 @@ internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, starting
     val operationError = state.problem != null || state.previewIssue != null || state.requiredNode != null ||
         state.preview != null && preview == null
     when (dialog) {
+        "archive" -> RecoveredHistoryPicker(account, state, protectedChat = true) { dialog = null }
+        "activate-archive" -> current?.archiveScope?.let { archive ->
+            ReplaceArchivedDevicePrompt(dismiss = { dialog = null }, confirm = {
+                scope.launch {
+                    if (publishing.beforePublishing()) {
+                        dialog = null
+                        account.replaceDevice(archive, expectProtectedChat = true)
+                    }
+                }
+            })
+        }
         "create" -> AlertDialog(onDismissRequest = { if (!state.working) { account.dismissCreation(); dialog = null } },
             title = { Text(stringResource(R.string.protected_chat_new)) },
             text = {
                 Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text(stringResource(R.string.protected_chat_create_detail))
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(stringResource(when {
+                        migrating && group -> R.string.protected_chat_migrate_group
+                        migrating -> R.string.protected_chat_migrate_direct
+                        else -> R.string.protected_chat_create_detail
+                    }))
+                    if (!migrating) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         FilterChip(selected = !group, onClick = { group = false }, label = { Text(stringResource(R.string.protected_chat_direct)) })
                         FilterChip(selected = group, onClick = { group = true }, label = { Text(stringResource(R.string.protected_chat_group)) })
                     }
                     OutlinedTextField(name, { name = it.take(100) }, singleLine = true,
                         label = { Text(stringResource(R.string.protected_chat_name)) })
                     if (!group) OutlinedTextField(peer, { peer = it.take(128) }, singleLine = true,
-                        readOnly = startingPeer != null && peer == startingPeer,
+                        readOnly = migrating,
                         label = { Text(stringResource(R.string.protected_chat_peer)) })
                     if (operationError) ProtectedChatError(state)
                 }
             },
             confirmButton = {
                 Button(onClick = {
-                    scope.launch { if (publishing.beforePublishing()) account.createProtectedChat(name.trim(), peer.trim().takeUnless { group }) }
+                    scope.launch {
+                        if (publishing.beforePublishing()) {
+                            account.createProtectedChat(name.trim(), peer.trim().takeUnless { group }, legacyId.takeIf { migrating })
+                        }
+                    }
                 }, enabled = enabled && online && name.isNotBlank() &&
                     (group || (peer.trim() != owner && SaitoWallet.isPublicKey(peer.trim())))) {
                     Text(stringResource(R.string.protected_chat_create))
@@ -294,9 +351,20 @@ internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, starting
             onDismissRequest = { dialog = null },
             title = { Text(stringResource(R.string.protected_chat_invite)) },
             text = {
-                OutlinedTextField(invitee, { invitee = it.take(128) }, singleLine = true,
-                    readOnly = current.protectedChat?.directPeer != null,
-                    label = { Text(stringResource(R.string.protected_chat_peer)) })
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedTextField(invitee, { invitee = it.take(128) }, singleLine = true,
+                        readOnly = current.protectedChat?.directPeer != null,
+                        label = { Text(stringResource(R.string.protected_chat_peer)) })
+                    if (legacyGroup != null && current.legacyChat == legacyChat) {
+                        val remaining = legacyMembers.filter { key -> state.members.none { it.publicKey == key } }
+                        if (remaining.isNotEmpty()) LazyColumn(Modifier.heightIn(max = 192.dp)) {
+                            items(remaining, key = { it }) { key ->
+                                FilterChip(selected = invitee == key, onClick = { invitee = key },
+                                    label = { Text(registeredIdentity(key).name) })
+                            }
+                        }
+                    }
+                }
             },
             confirmButton = {
                 Button(enabled = enabled && online && SaitoWallet.isPublicKey(invitee.trim()) &&
@@ -319,6 +387,7 @@ private fun ProtectedChatError(state: SpacesAccount.State) {
         state.problem == SpacesAccount.Problem.PROTECTED_CHAT_UNSUPPORTED -> R.string.protected_chat_unsupported
         state.problem == SpacesAccount.Problem.DEVICE_RECOVERY_UNSUPPORTED -> R.string.recovery_device_unsupported
         state.problem == SpacesAccount.Problem.DEVICE_RECOVERY_NO_APPROVER -> R.string.recovery_device_no_approver
+        state.problem == SpacesAccount.Problem.DEVICE_ALREADY_ACTIVE -> R.string.recovery_device_already_active
         state.requiredNode != null -> R.string.protected_chat_invite_node
         state.previewIssue != null || state.preview != null -> R.string.protected_chat_invite_denied
         else -> R.string.protected_chat_action_failed
@@ -333,7 +402,7 @@ private fun ProtectedConversation(account: SpacesAccount, state: SpacesAccount.S
     val scope = rememberCoroutineScope()
     val editable = current.joined && !state.savingNavigation && !state.loadingChannel
     val messages by rememberUpdatedState(state.messages)
-    val canMarkRead by rememberUpdatedState(state.followingLatest && !state.hasLater)
+    val canMarkRead by rememberUpdatedState(current.joined && state.followingLatest && !state.hasLater)
     LaunchedEffect(account, current.id, current.channel, list) {
         snapshotFlow {
             val latest = messages.lastOrNull { it.position != null }
@@ -356,6 +425,8 @@ private fun ProtectedConversation(account: SpacesAccount, state: SpacesAccount.S
                 current.deviceReplaced -> R.string.recovery_device_replaced
                 current.replacingDevice -> R.string.recovery_device_waiting
                 current.replacementRejected -> R.string.recovery_device_rejected
+                current.archiveScope != null -> R.string.recovery_archive_read_only
+                state.members.size < 2 -> R.string.protected_chat_waiting_peer
                 current.joined && !current.pending -> R.string.spaces_missing_keys
                 else -> R.string.protected_chat_waiting
             }),

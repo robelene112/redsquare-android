@@ -122,12 +122,20 @@ object SpacesNativeHost {
                                             val space = body.get("space").asString
                                             val text = body.get("text").asString
                                             client.refresh(space)
-                                            val originals = peer.spacesRequests.map { SaitoEnvelope.decode(it.envelope()).body }
-                                                .filter { it.get("space_id")?.asString == space && it.get("content_kind")?.asString == "message" }
+                                            val originals = peer.spacesRequests.filter { transaction ->
+                                                val content = SaitoEnvelope.decode(transaction.envelope()).body
+                                                content.get("space_id")?.asString == space && content.get("content_kind")?.asString == "message"
+                                            }
+                                            val confirmed = originals.firstOrNull { original -> client.message(space, original.id)?.text == text }
+                                            val matching = originals.filter { it.id == confirmed?.id }
+                                            val contents = originals.map { SaitoEnvelope.decode(it.envelope()).body }
                                             JsonObject().apply {
                                                 addProperty("readByIndependentPeer", client.messages(space).count { it == text } == 1)
-                                                addProperty("encryptedOriginals", originals.count { it.has("ciphertext") && !it.has("text") && !it.toString().contains(text) })
+                                                addProperty("encryptedOriginals", contents.count { it.has("ciphertext") && !it.has("text") && !it.toString().contains(text) })
                                                 addProperty("contentOriginals", originals.size)
+                                                addProperty("original", confirmed?.id)
+                                                addProperty("originalSubmissions", matching.size)
+                                                addProperty("exactOriginal", matching.map { it.envelope() }.distinct().size == 1)
                                             }
                                         }
                                         "/attention-message" -> {

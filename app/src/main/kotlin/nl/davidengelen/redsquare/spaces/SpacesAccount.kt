@@ -27,7 +27,8 @@ import java.time.Clock
 internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, val backend: SaitoBackend,
     private val endpoint: String, parent: CoroutineScope) {
     enum class Availability { CHECKING, ONLINE, OFFLINE, UNSUPPORTED, CHANGED_IDENTITY, STORAGE_UNAVAILABLE }
-    enum class Problem { CONNECTION, SAVE, INVITATION, PROTECTED_CHAT_UNSUPPORTED, DEVICE_RECOVERY_UNSUPPORTED, DEVICE_RECOVERY_NO_APPROVER }
+    enum class Problem { CONNECTION, SAVE, INVITATION, PROTECTED_CHAT_UNSUPPORTED, DEVICE_RECOVERY_UNSUPPORTED,
+        DEVICE_RECOVERY_NO_APPROVER, DEVICE_ALREADY_ACTIVE, RECOVERY_OTHER_MODULE }
     data class Target(val space: String, val channel: String, val thread: String? = null)
     data class MessageScroll(val id: String, val showBody: Boolean = false)
 
@@ -42,7 +43,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val dissolutionChange: SpaceClient.DissolutionChange? = null, val visibilityChange: SpaceClient.VisibilityChange? = null, val categoryChange: SpaceClient.CategoryChange? = null, val categories: List<SpaceClient.Category> = emptyList(),
         val ownershipOffer: SpaceOwnershipOffer? = null, val ownershipChange: SpaceClient.OwnershipChange? = null,
         val membershipChange: SpaceClient.MembershipChange? = null, val bannedMembers: Set<String> = emptySet(),
-        val joinedInvitation: String? = null, val openedPublicReference: String? = null, val contentLoaded: Boolean = false, val requiredNode: String? = null,
+        val joinedInvitation: String? = null, val openedPublicReference: String? = null, val openedRecovery: SpaceCrypto.Scope? = null,
+        val contentLoaded: Boolean = false, val requiredNode: String? = null,
         val profiles: Map<String, SpaceProfile> = emptyMap(), val channels: List<SpaceClient.Channel> = emptyList(),
         val members: List<SpaceClient.Member> = emptyList(), val accessProblems: Map<String, SpaceClient.ReadProblem> = emptyMap(),
         val discoverySupported: Boolean? = null, val unreadSupported: Boolean = false,
@@ -235,7 +237,6 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
 
     private fun installClient(service: String) {
         check(client == null)
-        val restored = retainedSpaceArchives(appContext, wallet.publicKey, service)
         val storage = AndroidSpaceClientStore(appContext, wallet.publicKey, "$backend:$endpoint", service)
         val installed = SpaceClient(wallet, backend.webUrl, service, storage, Clock.systemUTC(), onDeliveryAttempt = { delivery ->
             val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
@@ -249,15 +250,19 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             if (fixtureTrace) trace("request=${original.id.take(10)} returnedMs=${android.os.SystemClock.elapsedRealtime() - started}")
             received
         } }
-        try {
-            if (restored.isNotEmpty()) installed.restoreHistoryKeys(restored)
-        } catch (failure: Exception) {
-            storage.close()
-            throw failure
-        }
         local = storage
         client = installed
         mutable.update { it.copy(ready = true) }
+        scope.launch {
+            try {
+                val restored = retainedSpaceArchives(appContext, wallet.publicKey, service)
+                if (restored.isNotEmpty()) {
+                    localAccess.withLock { installed.restoreHistoryKeys(restored) }
+                    publish()
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { mutable.update { it.copy(problem = Problem.SAVE) } }
+        }
     }
 
     private suspend fun <T> peerCall(action: suspend () -> T): T = try { action() }
@@ -698,10 +703,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             createAndOpen(profile, channels, route)
         }
     }
-    fun createProtectedChat(name: String, directPeer: String?) {
+    fun createProtectedChat(name: String, directPeer: String?, legacyId: String?) {
         val route = navigationVersion.get()
         localAction {
-            val space = network.withLock { requireNotNull(client).createProtectedChat(name, directPeer) }
+            val space = network.withLock { requireNotNull(client).createProtectedChat(name, directPeer, legacyId) }
             urgentOutbox.add(space)
             mutable.update { it.copy(created = space) }
             selectRoute(space, expected = route)
@@ -754,6 +759,32 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     fun join(link: String, acceptedRulesToken: String? = null) = joinInvitation(link, acceptedRulesToken, false)
     fun joinProtectedChat(link: String) = joinInvitation(link, null, true)
+
+    suspend fun recoveredScopes(): List<SpaceCrypto.Scope> = withContext(Dispatchers.IO) {
+        client?.recoveredScopes().orEmpty()
+    }
+
+    fun openRecoveredHistory(archive: SpaceCrypto.Scope, expectProtectedChat: Boolean) {
+        val route = navigationVersion.get()
+        localAction { network.withLock {
+            val space = requireNotNull(client).openRecoveredHistory(archive, expectProtectedChat)
+            if (selectRoute(space, expected = route) != null) mutable.update { it.copy(openedRecovery = archive) }
+            publish()
+        } }
+    }
+
+    fun consumeRecoveredHistory(archive: SpaceCrypto.Scope) {
+        mutable.update { if (it.openedRecovery == archive) it.copy(openedRecovery = null) else it }
+    }
+
+    fun replaceDevice(archive: SpaceCrypto.Scope, expectProtectedChat: Boolean) {
+        localAction { network.withLock {
+            val space = requireNotNull(client).requestDeviceReplacement(archive, expectProtectedChat)
+            urgentOutbox.add(space)
+            wake.trySend(Unit)
+            publish()
+        } }
+    }
 
     fun replaceDevice(link: String, expectProtectedChat: Boolean) {
         val route = navigationVersion.get(); val review = previews.get()
@@ -1090,6 +1121,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             catch (_: SpaceClient.ProtectedChatUnsupported) { report { it.copy(problem = Problem.PROTECTED_CHAT_UNSUPPORTED) } }
             catch (_: SpaceClient.DeviceReplacementUnsupported) { report { it.copy(problem = Problem.DEVICE_RECOVERY_UNSUPPORTED) } }
             catch (_: SpaceClient.NoReplacementApprover) { report { it.copy(problem = Problem.DEVICE_RECOVERY_NO_APPROVER) } }
+            catch (_: SpaceClient.ActiveDeviceAlreadyPresent) { report { it.copy(problem = Problem.DEVICE_ALREADY_ACTIVE) } }
+            catch (_: SpaceClient.RecoveredHistoryOtherModule) { report { it.copy(problem = Problem.RECOVERY_OTHER_MODULE) } }
             catch (_: Exception) { report { it.copy(problem = problem) } }
             finally { mutable.update { it.copy(working = false) } }
         }

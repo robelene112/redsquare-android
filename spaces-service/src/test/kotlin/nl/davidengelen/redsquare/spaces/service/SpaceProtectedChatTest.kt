@@ -19,6 +19,41 @@ class SpaceProtectedChatTest {
     @get:Rule val files = TemporaryFolder()
     private val clock = Clock.fixed(Instant.ofEpochMilli(1_700_000_000_000), ZoneOffset.UTC)
 
+    @Test fun aSoloOwnerReadsBackedUpHistoryWithoutAWelcomeOrAnOldLink() = runBlocking<Unit> {
+        val owner = SaitoWallet.create()
+        val service = SaitoWallet.create()
+        val freshEvents = mutableListOf<String>()
+        SpacesServiceStore(files.newFolder("solo-archived-history").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile().absolutePath).use { oldStore ->
+                SqliteClientFixture(files.newFile().absolutePath).use { newStore ->
+                    val old = SpaceClient(owner, "fixture-node", service.publicKey, oldStore, clock) { remote.exchange(it.envelope()) }
+                    val fresh = SpaceClient(owner, "fixture-node", service.publicKey, newStore, clock) { tx ->
+                        val event = SaitoEnvelope.decode(tx.envelope()).body
+                        if (event.get("request").asString == "event") freshEvents += event.get("kind").asString
+                        remote.exchange(tx.envelope())
+                    }
+                    val space = old.create("Recovered solo space")
+                    old.flush(space)
+                    val id = old.send(space, "Recorded before the original device was lost")
+                    old.flush(space)
+                    fresh.restoreHistoryKeys(old.exportHistoryKeys())
+                    val scope = fresh.recoveredScopes().single()
+                    assertEquals(space, scope.spaceId)
+                    assertEquals(space, fresh.openRecoveredHistory(scope, expectProtectedChat = false))
+                    assertEquals(scope, fresh.community(space).archiveScope)
+                    assertEquals("Recovered solo space", fresh.community(space).name)
+                    assertFalse(fresh.community(space).canSend)
+                    assertEquals("Recorded before the original device was lost", fresh.message(space, id)?.text)
+                    try {
+                        fresh.requestDeviceReplacement(scope, expectProtectedChat = false)
+                        fail("A solo owner has no different device to approve activation")
+                    } catch (_: SpaceClient.NoReplacementApprover) { }
+                    assertTrue(freshEvents.isEmpty())
+                }
+            }
+        }
+    }
+
     @Test fun protectedDirectChatRequiresItsExactParticipantAndCannotBeMadePublic() = runBlocking<Unit> {
         val owner = SaitoWallet.create()
         val peer = SaitoWallet.create()
@@ -174,7 +209,9 @@ class SpaceProtectedChatTest {
                         old.refresh(space); old.flush(space)
                         assertTrue(old.community(space).deviceReplaced)
                         assertFalse(old.community(space).canSend)
-                        assertTrue(old.message(space, retiredDraft)?.rejected == true)
+                        val retained = old.timeline(space).single { it.id == retiredDraft }
+                        assertTrue(retained.rejected)
+                        assertEquals("Signed before replacement while offline", retained.text)
                         val newId = remaining.send(space, "Only the continuing devices can read this")
                         remaining.flush(space); fresh.refresh(space); old.refresh(space)
                         assertEquals("Only the continuing devices can read this", fresh.message(space, newId)?.text)

@@ -255,7 +255,11 @@ class MainActivity : ComponentActivity() {
             val address = wallet?.publicKey
             var spacesActivated by rememberSaveable { mutableStateOf(false) }
             var pendingSpaceInvitation by remember { mutableStateOf<String?>(null) }
-            var pendingProtectedInvitation by remember { mutableStateOf<String?>(null) }
+            var pendingProtectedInvitation by remember { mutableStateOf<Triple<String, SaitoBackend, String>?>(null) }
+            LaunchedEffect(address, backend) {
+                val pending = pendingProtectedInvitation
+                if (pending != null && (pending.first != address || pending.second != backend)) pendingProtectedInvitation = null
+            }
             val incomingSpaceUri by spaceUris.collectAsState()
             LaunchedEffect(module) { if (module == AppModule.SPACES) spacesActivated = true }
             val spacesAccount = remember(address, backend, spacesActivated) {
@@ -287,7 +291,7 @@ class MainActivity : ComponentActivity() {
                         stackLinkEntry = null; storeLinkEntry = null; vaultRentalEntry = null
                         clearSpacesReturn()
                         if (nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.isProtectedChat(incoming)) {
-                            pendingProtectedInvitation = incoming.toString()
+                            pendingProtectedInvitation = Triple(owner, node, incoming.toString())
                             module = AppModule.RED_SQUARE
                         } else {
                             pendingSpaceInvitation = incoming.toString()
@@ -927,7 +931,8 @@ class MainActivity : ComponentActivity() {
                                                         RegistryAuthority.directoryPeer(intent, feedEndpoint).takeIf { nameDirectoryEnabled == true }) {
                                                         FeedScreen(wallet, failed, feedEndpoint, selected,
                                                             lifecycle, Modifier.fillMaxSize(), notificationRoutes = notificationRoutes,
-                                                            initialProtectedInvitation = pendingProtectedInvitation,
+                                                            initialProtectedInvitation = pendingProtectedInvitation
+                                                                ?.takeIf { it.first == wallet?.publicKey && it.second == selected }?.third,
                                                             onProtectedInvitationConsumed = { pendingProtectedInvitation = null },
                                                             allowPushRoute = featureUnobstructed,
                                                             externalReturnDepth = spacesReturnDepth.takeIf { spacesReturnOwner == wallet?.publicKey && spacesReturnBackend == selected.id },

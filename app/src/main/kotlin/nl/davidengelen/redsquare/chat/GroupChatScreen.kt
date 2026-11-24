@@ -47,7 +47,7 @@ private enum class GroupStatusSection { HISTORY, MANAGEMENT }
 @Composable
 internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
     onWalletMetadata: suspend (SaitoWallet,SaitoWallet) -> Unit, initialGroup: String? = null,
-    onInitialDestinationClosed: () -> Unit = {}, onProtectedGroup: ((String, String) -> Unit)? = null, onBack: () -> Unit) {
+    onInitialDestinationClosed: () -> Unit = {}, onProtectedGroup: ((String, String, List<String>) -> Unit)? = null, onBack: () -> Unit) {
     val gifCredits = nl.davidengelen.redsquare.media.LocalGiphyAttributions.current
     val context = LocalContext.current.applicationContext
     val publishing = nl.davidengelen.redsquare.policy.LocalPublishingAgreement.current
@@ -468,7 +468,12 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             }
             if (onProtectedGroup != null && entry.group.memberRoles[wallet.publicKey] == ChatGroupRole.ADMIN) {
                 TextButton(enabled = !busy && !paging && !navigation.transitioning, onClick = {
-                    scope.launch { navigation.navigate { details = false; onProtectedGroup(entry.group.id, entry.group.name); true } }
+                    scope.launch { navigation.navigate {
+                        val participants = entry.group.memberRoles.filter { (member, role) -> member != wallet.publicKey && role.active }.keys.toList()
+                        details = false
+                        onProtectedGroup(entry.group.id, entry.group.name, participants)
+                        true
+                    } }
                 }) { Text(stringResource(R.string.protected_chat_continue)) }
             }
             statusContent(true)
