@@ -30,13 +30,22 @@ messages leave the existing projection valid. The six affected service cases
 passed again after the priority and replay corrections. A prior full JVM run
 at 46ee8ea7c had 254 core and 200 service tests passing.
 
-Run 45464160237 passed invitation readiness and the read position checks, then
-stopped at an outdated historical-window endpoint. The emulator displayed the
-accepted line 47 at the end of the 50-message window. The test now requires that
-line and the newer-activity state. Run 45466993849 checks distinct PID recovery.
-Runs 45467342679 and 45467493496 verify the foreground scheduling change on
-Android 17 and 10 with the full UI sequence. Inspect terminal cases and original
-captures before accepting #140. Continue #141 through #147 one at a time.
+Run 45464160237 stopped at an outdated historical-window endpoint. The emulator
+displayed the accepted line 47 at the end of the 50-message window. Run
+45466993849 verifies that endpoint and the fixed reading pixel across incoming
+messages and module switches. Its compact overview needed scrolling to the
+invitation action. Run 45469219841 continues the distinct process journey with
+that interaction.
+
+Run 45467342679 passes the entire Android 17 overlay phase, including exact
+reading pixel, and restores the pin list after Activity recreation. Its pin
+phase then observes a locally unconfirmed reply already received by the other
+wallet. The revised test requires both observations before pinning. Run
+45467493496 misses the Android 10 receipt witness during IME. The code now
+defers separate background history reads until the Spaces overview or channel
+drawer is visible. Runs 45470166473 and 45470355715 are the next Android 10 and
+17 proofs. A passing phase in an unsuccessful run is insufficient for whole
+#140 acceptance. Continue #141 through #147 one at a time.
 
 ## In-progress140 local notification preferences and pin-route recovery
 
