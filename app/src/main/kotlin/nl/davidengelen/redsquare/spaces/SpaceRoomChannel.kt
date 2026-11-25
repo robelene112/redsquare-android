@@ -55,10 +55,12 @@ internal fun SpaceRoomChannel(account: SpacesAccount, state: SpacesAccount.State
     val current = global?.takeIf { it.owner == account.ownerKey && it.savedBackend == account.backend && it.phase.started }
     val call = current?.takeIf { item -> item.spaceRoom?.let { it.space == target.space && it.channel == target.channel } == true }
     val joining = call?.phase == CallPhase.JOINING
-    var room by remember(target) { mutableStateOf<SpaceVoiceRoom?>(null) }
-    var loading by remember(target) { mutableStateOf(true) }
-    var failed by remember(target) { mutableStateOf(false) }
-    var unsupported by remember(target) { mutableStateOf(false) }
+    // A completed call needs a fresh signed roster. The earlier prejoin
+    // snapshot predates both our admission and the subsequent leave.
+    var room by remember(account, target, call?.token) { mutableStateOf<SpaceVoiceRoom?>(null) }
+    var loading by remember(account, target, call?.token) { mutableStateOf(true) }
+    var failed by remember(account, target, call?.token) { mutableStateOf(false) }
+    var unsupported by remember(account, target, call?.token) { mutableStateOf(false) }
     var activity by remember(target) { mutableStateOf(false) }
     var failureMessage by remember(target) { mutableIntStateOf(0) }
     val online = state.availability == SpacesAccount.Availability.ONLINE
