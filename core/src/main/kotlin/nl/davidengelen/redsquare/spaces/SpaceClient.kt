@@ -32,6 +32,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     @Volatile private var supportsDeviceReplacement = false
     @Volatile private var supportsSpaceArticles = false
     @Volatile private var supportsWriteRestrictions = false
+    @Volatile private var supportsFileStorage = false
 
     enum class Delivery { CONTROL, CONTENT }
     enum class ReadProblem { EXPIRED, UNAVAILABLE }
@@ -564,6 +565,36 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
         queue(space, state, original)
         original.id
+    }
+
+    /** The owner explicitly approves the exact provider-signed terms. */
+    fun approveFileStorage(space: String, reviewed: SpaceStorageOffer): String = store.transaction {
+        owned()
+        val state = state(space)
+        val snapshot = journal(space).snapshot
+        require(state.get("joined").asBoolean && !snapshot.dissolved && snapshot.owner == wallet.publicKey)
+        require(snapshot.protectedChat == null && snapshot.channels.values.any { (it.kind ?: it.profile?.kind) == SpaceChannelKind.FILE })
+        val saved = "$space/file-storage/intents/${reviewed.id}"
+        get(saved)?.let { return@transaction it.toString(Charsets.UTF_8) }
+        require(supportsFileStorage && !state.has("required_control")) { "File storage is unavailable on this node" }
+        reviewed.verifyScope(space, service, wallet.publicKey, clock.millis())
+        require(reviewed.costNolan.signum() == 0) { "This provider offer requires unsupported payment" }
+        require(!java.net.URI.create(reviewed.origin).host.equals(runCatching { java.net.URI.create(node).host }.getOrNull(), ignoreCase = true)) {
+            "Choose a storage provider separate from this node"
+        }
+        val original = event(space, "approve-file-storage") {
+            addProperty("control_id", requireNotNull(snapshot.controlId))
+            addProperty("offer", reviewed.envelope)
+        }
+        queue(space, state, original)
+        put(saved, original.id.toByteArray(Charsets.UTF_8))
+        original.id
+    }
+
+    fun fileStorageApproval(space: String, operation: String): String? = store.transaction {
+        owned()
+        require(space.matches(ID) && operation.matches(Regex("[0-9a-f]{128}")))
+        get("$space/file-storage/approvals/$operation")?.toString(Charsets.UTF_8)
     }
 
     /** Absence of an outbox entry is never treated as an accepted change. */
@@ -3509,6 +3540,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         supportsWriteRestrictions = result.get("space_write_restrictions_v1")?.let {
             it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean
         } == true
+        supportsFileStorage = result.get("space_file_storage_v1")?.let {
+            it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean
+        } == true
         return result
     }
 
@@ -3617,6 +3651,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                         }
                         "archive-channel" -> recordArchiveResult(space, state, original, ChangeStatus.ACCEPTED)
                         "set-write-restriction" -> Unit // The verified journal owns the restriction projection.
+                        "approve-file-storage" -> put("$space/file-storage/approvals/${original.id}", envelope.toByteArray(Charsets.UTF_8))
                         "set-role" -> recordRoleResult(state, original, ChangeStatus.ACCEPTED)
                         "leave", "remove-member", "ban-member", "unban-member" -> recordMembershipResult(state, original, ChangeStatus.ACCEPTED)
                         "edit-channel" -> recordChannelEditResult(space, state, original, ChangeStatus.ACCEPTED)
@@ -4226,7 +4261,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val ROOT_CONTENT_KINDS = setOf("message", "article")
         val TIMELINE_CONTENT_KINDS = ROOT_CONTENT_KINDS + "thread-reply"
         val CONTROL_KINDS = setOf("create", "invite", "admit", "set-listed", "set-visibility", "dissolve", "join-public", "revoke-invite", "create-channel", "create-category", "edit-category",
-            "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access", "rotate-access", "leave", "remove-member", "ban-member", "unban-member", "propose-owner", "accept-owner", "cancel-owner", "decline-owner", "complete-owner", "set-write-restriction")
+            "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access", "rotate-access", "leave", "remove-member", "ban-member", "unban-member", "propose-owner", "accept-owner", "cancel-owner", "decline-owner", "complete-owner", "set-write-restriction", "approve-file-storage")
         const val DIRECTORY_CACHE_LIMIT = 200
         val ID = Regex("[0-9a-f]{64}")
         val GSON = GsonBuilder().setStrictness(Strictness.STRICT).create()

@@ -43,7 +43,8 @@ data class SpaceSnapshot(val owner: String? = null, val members: Map<String, Spa
     val membershipEndedAt: Map<String, Long> = emptyMap(), val bannedMembers: Set<String> = emptySet(),
     val membershipReadThrough: Map<String, Long> = emptyMap(), val ownershipOffer: SpaceOwnershipOffer? = null,
     val categories: Map<String, SpaceCategoryRecord> = emptyMap(), val entryChannelId: String? = generalChannelId, val dissolved: Boolean = false, val protectedChat: ProtectedChat? = null,
-    val writeRestrictions: Map<Pair<String, String?>, SpaceWriteRestriction> = emptyMap())
+    val writeRestrictions: Map<Pair<String, String?>, SpaceWriteRestriction> = emptyMap(),
+    val fileStorageOffers: Set<String> = emptySet())
 
 /** Authenticated control history. Content pages have their own channel cursors. */
 class SpaceJournal(private val spaceId: String, private val serviceKey: String) {
@@ -405,6 +406,16 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                     else expiry > signedReceipt.createdAt)
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     writeRestrictions = Collections.unmodifiableMap(current.writeRestrictions + (scope to SpaceWriteRestriction(expiry, position))))
+            }
+            "approve-file-storage" -> {
+                require(current.protectedChat == null && current.owner == event.author && event.body.text("control_id") == current.controlId)
+                require(current.channels.values.any { (it.kind ?: it.profile?.kind) == SpaceChannelKind.FILE })
+                val approval = SpaceStorageApproval.read(receipt, serviceKey)
+                val offer = approval.offer
+                require(offer.costNolan.signum() == 0) { "This provider offer requires unsupported payment" }
+                require(offer.id !in current.fileStorageOffers) { "This storage offer was already confirmed" }
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    fileStorageOffers = Collections.unmodifiableSet(current.fileStorageOffers + offer.id))
             }
             "propose-owner" -> {
                 require(current.protectedChat?.directPeer == null)
