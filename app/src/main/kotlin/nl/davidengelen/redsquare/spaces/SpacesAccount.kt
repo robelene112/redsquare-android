@@ -495,7 +495,19 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     fun send() = queueSend()
 
-    fun sendProtected(space: String, draft: String) = queueSend(space, draft)
+    fun sendProtected(space: String, beforePublishing: suspend () -> Boolean) {
+        val before = mutable.value
+        val matches = before.selected == space && before.current?.protectedChat != null
+        trace("protected-send clicked matches=$matches hasDraft=${before.draft.isNotBlank()} working=${before.working}")
+        if (!matches || before.draft.isBlank() || before.working) return
+        val version = selection.get()
+        scope.launch {
+            val allowed = withContext(Dispatchers.Main.immediate) { beforePublishing() }
+            val sameRoute = selection.get() == version && wasVisible.get()
+            trace("protected-send permission=$allowed sameRoute=$sameRoute")
+            if (allowed && sameRoute) queueSend(space, before.draft)
+        }
+    }
 
     private fun queueSend(space: String? = null, requestedDraft: String? = null) {
         val before = mutable.value

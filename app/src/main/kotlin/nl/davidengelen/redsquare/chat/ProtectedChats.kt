@@ -403,7 +403,6 @@ private fun ProtectedConversation(account: SpacesAccount, state: SpacesAccount.S
     canSend: Boolean, modifier: Modifier) {
     val list = rememberLazyListState()
     val publishing = LocalPublishingAgreement.current
-    val scope = rememberCoroutineScope()
     val editable = current.joined && !state.savingNavigation && !state.loadingChannel
     val messages by rememberUpdatedState(state.messages)
     val canMarkRead by rememberUpdatedState(current.joined && state.followingLatest && !state.hasLater)
@@ -478,12 +477,10 @@ private fun ProtectedConversation(account: SpacesAccount, state: SpacesAccount.S
             OutlinedTextField(state.draft, account::editDraft, enabled = editable, maxLines = 4,
                 modifier = Modifier.weight(1f), label = { Text(stringResource(R.string.protected_chat_message)) })
             val draft = state.draft
-            Button(enabled = canSend && draft.isNotBlank(), onClick = {
-                val requested = account.state.value.takeIf { it.selected == current.id }?.draft ?: return@Button
-                scope.launch {
-                    if (publishing.beforePublishing()) account.sendProtected(current.id, requested)
-                }
-            }) { Text(stringResource(R.string.protected_chat_send)) }
+            Button(enabled = canSend && draft.isNotBlank(),
+                onClick = { account.sendProtected(current.id, publishing::beforePublishing) }) {
+                Text(stringResource(R.string.protected_chat_send))
+            }
         }
     }
 }

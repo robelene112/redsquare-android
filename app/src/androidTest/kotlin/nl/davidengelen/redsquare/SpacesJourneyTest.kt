@@ -70,7 +70,8 @@ class SpacesJourneyTest {
                     editor.performTextInput(text)
                     closeKeyboard(activity)
                     editor.assertEditableTextEquals(text)
-                    ui.onNode(hasText("Send") and hasClickAction()).assertIsEnabled().performTouchInput { click() }
+                    ui.onNode(hasText("Send") and hasClickAction()).assertIsEnabled()
+                        .performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.OnClick) { action -> check(action()) }
                     val parameters = JsonObject().apply { addProperty("space", invitation.get("space").asString); addProperty("text", text) }
                     var observation = JsonObject()
                     val deadline = SystemClock.uptimeMillis() + 15_000
