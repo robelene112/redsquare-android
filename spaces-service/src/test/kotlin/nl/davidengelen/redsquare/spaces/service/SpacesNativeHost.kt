@@ -381,7 +381,8 @@ object SpacesNativeHost {
                                     // the legacy host must not publish or request an extra device.
                                     membership?.maintain()
                                     governance?.maintain()
-                                    if (!privateManagementMode && !privateReadinessMode && !governanceMode && !membershipMode) for (community in client.communities()) {
+                                    if (!moderationMode && !privateManagementMode && !privateReadinessMode &&
+                                        !governanceMode && !membershipMode) for (community in client.communities()) {
                                         client.flush(community.id)
                                         client.refresh(community.id)
                                         if (client.community(community.id).joined) {

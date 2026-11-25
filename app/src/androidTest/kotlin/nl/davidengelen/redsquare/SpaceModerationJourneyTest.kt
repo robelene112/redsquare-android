@@ -33,9 +33,9 @@ class SpaceModerationJourneyTest {
         val fixture = request("moderation-config")
         launch(fixture, seedIdentity = true).use {
             withFailureCapture({ capture("reporter-failure") }) {
-                waitText("Moderation proof message", 25_000)
-                val actions = ui.onNodeWithContentDescription("Message actions")
-                ui.waitUntil(10_000) { actions.isDisplayed() }
+                val row = hasTestTag("spaces-message") and hasAnyDescendant(hasText("Moderation proof message"))
+                val actions = ui.onNode(hasContentDescription("Message actions") and hasAnyAncestor(row))
+                ui.waitUntil(25_000) { actions.isDisplayed() || runCatching { actions.performScrollTo().isDisplayed() }.getOrDefault(false) }
                 actions.performClick()
                 click("Report message")
                 val field = ui.onNode(hasSetTextAction() and isEnabled())
