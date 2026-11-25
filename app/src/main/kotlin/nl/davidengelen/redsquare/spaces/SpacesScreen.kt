@@ -126,7 +126,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     var tab by rememberSaveable { mutableStateOf(SpacesTab.MY_SPACES) }
     var createOpen by remember { mutableStateOf(false) }
     var joinOpen by remember { mutableStateOf(false) }
-    var inviteOpen by remember { mutableStateOf(false) }
+    var invitationSpace by remember(account) { mutableStateOf<String?>(null) }
+    var invitationAfterInformation by remember(account) { mutableStateOf<String?>(null) }
     var informationOpen by remember { mutableStateOf(false) }
     var informationHidden by remember { mutableStateOf(true) }
     var channelEditorPending by rememberSaveable { mutableStateOf(false) }
@@ -173,6 +174,13 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     fun clearInvitationReview() { reviewedInvitation = null; account.dismissPreview() }
     var savedSelection by rememberSaveable { mutableStateOf<String?>(null) }
     val selected = state.current
+    val inviteOpen = invitationSpace != null && invitationSpace == state.selected
+    fun showInvitation(space: String) {
+        val latest = account.state.value
+        if (latest.selected != space || latest.current?.canInvite != true) return
+        invitationSpace = space
+        if (latest.invitation == null && latest.current.canManage) account.invite(space)
+    }
     var pinsRoute by rememberSaveable(account.ownerKey, account.backend) { mutableStateOf<String?>(null) }
     val pinConversationRoute = selected?.takeUnless { state.loadingChannel }?.let { "${it.id}:${it.channel}:${state.threadParent?.id.orEmpty()}" }
     val pinsOpen = pinConversationRoute != null && pinsRoute == pinConversationRoute
@@ -223,7 +231,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     LaunchedEffect(state.selected) {
         if (overlaySpace != state.selected) {
-            informationOpen = false; inviteOpen = false; membersOpen = false; reportsSpace = null; publicRulesOpen = false
+            informationOpen = false; invitationSpace = null; invitationAfterInformation = null
+            membersOpen = false; reportsSpace = null; publicRulesOpen = false
             searchSpace = null; searchResultOpen = false; searchLink = null
             overlaySpace = state.selected
         }
@@ -236,13 +245,14 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         if ((state.loading && !destination) || !state.ready || state.working || state.savingNavigation) return@LaunchedEffect
         categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false
         channelCreator.open = false; channelAccessRoute = null
-        informationOpen = false; inviteOpen = false; membersOpen = false; reportsSpace = null; publicRulesOpen = false
+        informationOpen = false; invitationSpace = null; invitationAfterInformation = null
+        membersOpen = false; reportsSpace = null; publicRulesOpen = false
         searchSpace = null; searchResultOpen = false; searchLink = null
         activityReturn = false; activityLink = null; activityGroup = null
         clearInvitationReview()
         replacingDevice = false
         if (SpacesLaunchRoutes.isArticle(uri) || SpacesLaunchRoutes.isPublic(uri) || destination) {
-            joinOpen = false; informationOpen = false; inviteOpen = false; membersOpen = false; channelAccessRoute = null
+            joinOpen = false; channelAccessRoute = null
             publicReference = link
             when {
                 destination -> {
@@ -321,8 +331,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             }
                         }
                         if (menuCommunity.canInvite) item { OutlinedButton(onClick = {
-                            scope.launch { drawer.close() }; inviteOpen = true
-                            if (state.invitation == null) account.invite(menuCommunity.id)
+                            scope.launch {
+                                drawer.close()
+                                showInvitation(menuCommunity.id)
+                            }
                         }, enabled = !state.working && menuCommunity.canManage, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                             Text(stringResource(R.string.spaces_invite))
                         } }
@@ -888,7 +900,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         state.problem?.let { ProblemNotice(it, account::clearProblem) }
     }
     InvitationSheet(inviteOpen, state.invitation, state.working, selected?.canManage == true,
-        { inviteOpen = false }, account::refresh,
+        { invitationSpace = null }, account::refresh,
         { days -> selected?.let { account.invite(it.id, days) } },
         { selected?.let { account.revokeInvitation(it.id) } })
     LaunchedEffect(informationOpen, selected?.id) { if (informationOpen && selected != null) informationHidden = false }
@@ -916,7 +928,13 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             TextButton(onClick = { informationOpen = false }, modifier = first.fillMaxWidth().heightIn(min = 48.dp)) {
                 Text(stringResource(R.string.spaces_close))
             }
-        }, onHidden = { informationHidden = true }) {
+        }, onHidden = {
+            informationHidden = true
+            invitationAfterInformation?.let { space ->
+                invitationAfterInformation = null
+                showInvitation(space)
+            }
+        }) {
         if (selected != null && profile != null) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 SpaceAvatar(profile, selected.id, account.avatarImages, Modifier.size(64.dp))
@@ -988,7 +1006,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             }
             if (state.listingIntent != null) Text(stringResource(R.string.spaces_saving_listing), style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
-            if (selected.canInvite) OutlinedButton(onClick = { informationOpen = false; inviteOpen = true; if (state.invitation == null) account.invite(selected.id) },
+            if (selected.canInvite) OutlinedButton(onClick = {
+                invitationAfterInformation = selected.id
+                informationOpen = false
+            },
                 enabled = !state.working && selected.canManage, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_invite)) }
             OutlinedButton(onClick = {
                 scope.launch {
