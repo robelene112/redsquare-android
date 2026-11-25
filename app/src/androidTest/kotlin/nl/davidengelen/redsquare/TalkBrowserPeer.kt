@@ -12,9 +12,10 @@ import java.util.concurrent.atomic.*
 
 /** Exact official module bodies in a separate real Chromium, with owned Relay and controlled inputs. */
 internal class TalkBrowserPeer(val wallet: SaitoWallet, private val ownerKey: String,
-    private val colour: String, private val frequency: Int, private val send: (String) -> Unit) : Closeable {
+    private val colour: String, private val frequency: Int, private val debugPort: Int = 9222,
+    private val send: (String) -> Unit) : Closeable {
     constructor(wallet: SaitoWallet, owner: SaitoWallet, colour: String, frequency: Int, send: (String) -> Unit) :
-        this(wallet, owner.publicKey, colour, frequency, send)
+        this(wallet, owner.publicKey, colour, frequency, send = send)
     val errors = CopyOnWriteArrayList<String>()
     val diagnostics = CopyOnWriteArrayList<String>()
     val captures = AtomicInteger()
@@ -53,7 +54,7 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val ownerKey: St
         """.trimIndent()
         html = "<html><body><div id='dialer'></div><script>$host\n$source</script></body></html>"
         TalkBrowserServer.add(id, this)
-        try { devtools = TalkDevTools("http://127.0.0.1:19004/p/$id") { errors.add(it) } }
+        try { devtools = TalkDevTools("http://127.0.0.1:19004/p/$id", debugPort) { errors.add(it) } }
         catch (failure: Exception) { TalkBrowserServer.remove(id); throw failure }
         try { check(ready.await(15, TimeUnit.SECONDS)) { "Talk browser initialization: $errors" } }
         catch (failure: Exception) { devtools.close(); TalkBrowserServer.remove(id); throw failure }
@@ -70,6 +71,7 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val ownerKey: St
     fun connectSpacePeer(peer: String) = evaluate("roomConnect(${JsonPrimitive(peer)})")
     fun spaceSignal(peer: String, message: JsonObject) = evaluate("roomMessage(${JsonPrimitive(peer)},$message)")
     fun removeSpacePeer(peer: String) = evaluate("roomDisconnect(${JsonPrimitive(peer)})")
+    fun setSpaceCamera(enabled: Boolean) = evaluate("roomCamera($enabled)")
     private fun evaluate(script: String) = devtools.evaluate(script)
     fun response(request: RecordedRequest): MockResponse {
         if (request.url.encodedPath == "/p/$id") return MockResponse.Builder().code(200)
@@ -170,7 +172,7 @@ private object TalkBrowserServer {
 }
 
 /** Only browser/HTTP/CDP system boundaries are adapted. No call or RTC method is replaced. */
-private class TalkDevTools(url: String, private val failure: (String) -> Unit) : Closeable {
+private class TalkDevTools(url: String, private val debugPort: Int, private val failure: (String) -> Unit) : Closeable {
     private val client = OkHttpClient.Builder().callTimeout(5, TimeUnit.SECONDS).build()
     private val sequence = AtomicInteger()
     private val replies = ConcurrentHashMap<Int, CompletableFuture<JsonObject>>()
@@ -178,7 +180,7 @@ private class TalkDevTools(url: String, private val failure: (String) -> Unit) :
     private val socket: WebSocket
     private val target: String
     init {
-        val response = client.newCall(Request.Builder().url("http://127.0.0.1:9222/json/new?about%3Ablank")
+        val response = client.newCall(Request.Builder().url("http://127.0.0.1:$debugPort/json/new?about%3Ablank")
             .put(ByteArray(0).toRequestBody()).build()).execute().use {
             check(it.isSuccessful); JsonParser.parseString(requireNotNull(it.body).string()).asJsonObject
         }
@@ -226,7 +228,7 @@ private class TalkDevTools(url: String, private val failure: (String) -> Unit) :
         send("Runtime.evaluate", JsonObject().apply { addProperty("expression", script) })
     }
     override fun close() {
-        runCatching { client.newCall(Request.Builder().url("http://127.0.0.1:9222/json/close/$target").build()).execute().close() }
+        runCatching { client.newCall(Request.Builder().url("http://127.0.0.1:$debugPort/json/close/$target").build()).execute().close() }
         socket.close(1000, "Owned proof completed")
         client.dispatcher.executorService.shutdown(); client.connectionPool.evictAll()
     }

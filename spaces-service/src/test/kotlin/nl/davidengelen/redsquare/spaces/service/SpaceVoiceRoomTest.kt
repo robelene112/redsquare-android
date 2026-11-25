@@ -88,6 +88,13 @@ class SpaceVoiceRoomTest {
                 assertTrue(member.renewVoiceRoom(room, channel, token(2), received.sequence).signals.isEmpty())
                 assertTrue(owner.relayVoiceSignal(room, channel, token(1), encrypted).admitted)
                 assertTrue(member.renewVoiceRoom(room, channel, token(2), received.sequence).signals.isEmpty())
+                val stoppedCamera = SpaceVoiceSignalKey.CaptureState(2, microphone = true, camera = false)
+                val cameraNotice = ownerMedia.sealCapture(memberMedia.contact, stoppedCamera, clock.millis())
+                assertFalse(cameraNotice.json().has("camera"))
+                assertTrue(owner.relayVoiceSignal(room, channel, token(1), cameraNotice).admitted)
+                val cameraDelivery = member.renewVoiceRoom(room, channel, token(2), received.sequence).signals.single()
+                assertEquals(stoppedCamera, SpaceVoiceSignalKey.captureState(memberMedia.open(ownerMedia.contact, cameraDelivery.packet)))
+                assertTrue(member.renewVoiceRoom(room, channel, token(2), cameraDelivery.sequence).signals.isEmpty())
 
                 val target = full.participants.single { it.wallet == wallets[1].publicKey }
                 assertTrue(runCatching { visitor.moderateVoiceRoom(room, channel, target.session, remove = true) }
@@ -104,6 +111,7 @@ class SpaceVoiceRoomTest {
                 owner.refresh(room)
                 owner.setWriteRestriction(room, wallets[3].publicKey, channel, clock.millis() + 60_000)
                 owner.flush(room)
+                assertEquals(clock.millis() + 60_000, owner.scopedWriteRestriction(room, wallets[3].publicKey, channel))
                 assertFalse(visitor.renewVoiceRoom(room, channel, token(4)).participants.single { it.session == token(4) }.canSpeak)
                 assertTrue(owner.leaveVoiceRoom(room, channel, token(1)).participants.none { it.session == token(1) })
                 clock.advance(60_001)

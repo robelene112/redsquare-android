@@ -6,8 +6,11 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Process
+import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
@@ -85,6 +88,27 @@ class SpaceRoomJourneyTest {
                 assertPermissionAbsent(Manifest.permission.RECORD_AUDIO)
                 capture("room-permission-denied")
 
+                ui.onNodeWithContentDescription("Switch Space or channel").performClick()
+                ui.onNodeWithText("General").performScrollTo().performClick()
+                val draft = ui.onNode(hasSetTextAction())
+                ui.waitUntil(15_000) { draft.isDisplayed() }
+                draft.performTouchInput { click() }
+                ui.waitUntil(10_000) {
+                    var visible = false
+                    activity.onActivity { screen ->
+                        visible = ViewCompat.getRootWindowInsets(screen.window.decorView)?.isVisible(WindowInsetsCompat.Type.ime()) == true
+                    }
+                    visible
+                }
+                draft.performTextInput("Room call and a local draft")
+                waitText("Call")
+                ui.onNode(hasText("Unmute") and hasClickAction()).assertIsDisplayed()
+                ui.onNode(hasText("End call") and hasClickAction()).assertIsDisplayed()
+                capture("room-bar-with-keyboard")
+                click("Call")
+                waitText("You’re in the room", 15_000)
+                assertEquals(call.token, TalkRuntime.call.value?.token)
+
                 roomClick("Browse while in the room")
                 click("Return to Open lounge")
                 waitText("You’re in the room", 15_000)
@@ -96,12 +120,16 @@ class SpaceRoomJourneyTest {
                 click("Return to Open lounge")
                 waitText("You’re in the room", 15_000)
 
-                device.setOrientationLeft()
-                waitText("You’re in the room", 15_000)
-                assertEquals(call.token, TalkRuntime.call.value?.token)
-                assertFalse(requireNotNull(TalkRuntime.call.value).microphone)
-                capture("room-landscape")
-                device.setOrientationNatural()
+                try {
+                    device.setOrientationLeft()
+                    waitText("You’re in the room", 15_000)
+                    assertEquals(call.token, TalkRuntime.call.value?.token)
+                    assertFalse(requireNotNull(TalkRuntime.call.value).microphone)
+                    capture("room-landscape")
+                } finally {
+                    device.setOrientationNatural()
+                    device.unfreezeRotation()
+                }
                 activity.recreate()
                 waitText("You’re in the room", 20_000)
                 assertEquals(call.token, TalkRuntime.call.value?.token)
@@ -116,6 +144,7 @@ class SpaceRoomJourneyTest {
                     addProperty("pid", Process.myPid())
                     addProperty("participantRemoved", observed().participants.isEmpty())
                     addProperty("nativePermissionDenied", context.checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_DENIED)
+                    addProperty("roomControlsWithRealKeyboard", true)
                     addProperty("roomSurvives", observed().status == SpaceVoiceRoom.Status.AVAILABLE)
                 }.toString())
             }
@@ -137,6 +166,7 @@ class SpaceRoomJourneyTest {
             }
         }
         val guests = mutableListOf<SpaceRoomBrowserFixture>()
+        var primary: Throwable? = null
         try {
             launch(fixture).use {
                 withFailureCapture({
@@ -156,6 +186,10 @@ class SpaceRoomJourneyTest {
                     guests += SpaceRoomBrowserFixture(address, 2, local, ::request)
                     guests.forEach(SpaceRoomBrowserFixture::start)
                     waitMedia(guests, 25_000) { TalkRuntime.call.value?.participants?.let { it.size == 2 && it.all { p -> p.connected } } == true }
+                    waitMedia(guests, 25_000) { guests.all { guest ->
+                        val other = guests.single { it !== guest }
+                        guest.browser.media[other.contact.key]?.let { it.width >= 320 && it.nonBlack > 500 && it.rms > 0.01 } == true
+                    } }
                     assertEquals(0, samples.get())
                     assertFalse(requireNotNull(TalkRuntime.call.value).microphone)
                     assertNull(requireNotNull(TalkRuntime.call.value).localVideo)
@@ -200,6 +234,21 @@ class SpaceRoomJourneyTest {
                     try { waitMedia(guests, 10_000) { tracks.all { it.first.get() >= 3 && it.second.get() } } }
                     finally { tracks.forEach { it.third() } }
                     capture("room-three-peer-media")
+                    val firstGuest = guests.first()
+                    val secondGuest = guests.last()
+                    fun receivedFrom(guest: SpaceRoomBrowserFixture) =
+                        TalkRuntime.call.value?.participants?.firstOrNull { it.roomSession == guest.contact.session }
+                    firstGuest.setCamera(false)
+                    waitMedia(guests, 10_000) { receivedFrom(firstGuest)?.camera == false && receivedFrom(secondGuest)?.camera == true }
+                    firstGuest.setCamera(true)
+                    waitMedia(guests, 10_000) { receivedFrom(firstGuest)?.camera == true }
+                    val guestModeration = JsonObject().apply { addProperty("peer", 1); addProperty("remove", false) }
+                    val mutedGuest = SpaceVoiceRoom.read(request("room-moderate-guest", guestModeration))
+                    assertFalse(mutedGuest.participants.single { it.session == firstGuest.contact.session }.canSpeak)
+                    waitMedia(guests, 10_000) {
+                        receivedFrom(firstGuest)?.audio?.enabled() == false && receivedFrom(secondGuest)?.audio?.enabled() == true &&
+                            (secondGuest.browser.media[firstGuest.contact.key]?.rms ?: 0.0) > 0.01
+                    }
                     val browserBefore = guests.map { requireNotNull(it.browser.audioBytes[local.key]) }
                     roomClick("Browse while in the room")
                     switchToRedSquare()
@@ -210,6 +259,24 @@ class SpaceRoomJourneyTest {
                     } }
                     capture("room-media-across-module")
 
+                    val beforeSleep = guests.map { requireNotNull(it.browser.audioBytes[local.key]) }
+                    device.sleep()
+                    try {
+                        assertFalse(device.isScreenOn)
+                        val end = SystemClock.elapsedRealtime() + 8000
+                        fun stillAudible() = guests.withIndex().all { (index, guest) ->
+                            (guest.browser.audioBytes[local.key] ?: 0L) > beforeSleep[index] &&
+                                (guest.browser.media[local.key]?.rms ?: 0.0) > 0.01
+                        }
+                        while (!stillAudible() && SystemClock.elapsedRealtime() < end) Thread.sleep(80)
+                        assertTrue("Independent peers continued to decode audio with the screen off", stillAudible())
+                        assertEquals(initial.token, TalkRuntime.call.value?.token)
+                    } finally {
+                        device.wakeUp()
+                        device.executeShellCommand("wm dismiss-keyguard")
+                    }
+                    waitText("Return to Open lounge", 12_000)
+
                     val muted = SpaceVoiceRoom.read(request("room-mute-native"))
                     assertFalse(muted.participants.single { it.session == initial.token }.canSpeak)
                     waitMedia(guests, 10_000) { TalkRuntime.call.value?.let { !it.microphoneAllowed && !it.microphone } == true }
@@ -217,23 +284,162 @@ class SpaceRoomJourneyTest {
                     click("Return to Open lounge")
                     showRoomItem(hasText("Your microphone is paused by a moderator."))
                     capture("room-media-moderation")
+                    firstGuest.expectRemoval = true
+                    guestModeration.addProperty("remove", true)
+                    assertEquals(2, SpaceVoiceRoom.read(request("room-moderate-guest", guestModeration)).participants.size)
+                    waitMedia(guests, 12_000) {
+                        firstGuest.removed && receivedFrom(firstGuest) == null && receivedFrom(secondGuest)?.connected == true &&
+                            TalkRuntime.call.value?.let { it.token == initial.token && it.phase == CallPhase.ACTIVE } == true
+                    }
                     File(evidence, "room-media-result.json").writeText(JsonObject().apply {
                         addProperty("pid", Process.myPid())
                         addProperty("admittedParticipants", full.participants.size)
                         addProperty("fourthPeerRefused", true)
                         addProperty("decodedAudioAndVideoBothWays", true)
                         addProperty("audioAcrossModules", true)
+                        addProperty("decodedAudioWithScreenOff", true)
+                        addProperty("guestsDecodedEachOther", true)
+                        addProperty("remoteCameraToggleObserved", true)
+                        addProperty("receiverBlockedModeratedGuest", true)
+                        addProperty("remainingPeerSurvivedRemoval", true)
                         addProperty("moderatorStoppedDecodedAudio", true)
                         addProperty("audioInputBuffers", samples.get())
                     }.toString())
                     TalkRuntime.end(initial.token)
                 }
             }
+        } catch (failure: Throwable) {
+            primary = failure
+            throw failure
         } finally {
-            TalkRuntime.call.value?.takeIf { it.spaceRoom != null }?.let { TalkRuntime.end(it.token) }
-            guests.asReversed().forEach(SpaceRoomBrowserFixture::close)
-            RtcPlatform.audioInputForTest(null)
+            cleanupAfterTest(primary,
+                { TalkRuntime.call.value?.takeIf { it.spaceRoom != null }?.let { TalkRuntime.end(it.token) } },
+                *guests.asReversed().map { guest -> { guest.close() } }.toTypedArray(),
+                { RtcPlatform.audioInputForTest(null) })
         }
+    }
+
+    @Test fun recordAnActiveCameraForTheOperatingSystemRevocation() {
+        assertPermissionAbsent(Manifest.permission.RECORD_AUDIO)
+        assertPermissionAbsent(Manifest.permission.CAMERA)
+        launch(request("room-config")).use {
+            withFailureCapture({ capture("room-camera-checkpoint-failure") }) {
+                waitText("0 people here", 25_000)
+                roomClick("Join room")
+                waitText("You’re in the room", 20_000)
+                val token = requireNotNull(TalkRuntime.call.value).token
+                roomClick("Camera on")
+                grantCapturePermission()
+                val frames = waitCameraFrames()
+                assertPermissionAbsent(Manifest.permission.RECORD_AUDIO)
+                assertFalse(requireNotNull(TalkRuntime.call.value).microphone)
+                capture("room-camera-without-microphone")
+
+                device.sleep()
+                val sleepingBy = SystemClock.elapsedRealtime() + 5000
+                while (TalkRuntime.call.value?.camera == true && SystemClock.elapsedRealtime() < sleepingBy) Thread.sleep(60)
+                assertFalse("The owned Android screen must be off", device.isScreenOn)
+                val sleeping = requireNotNull(TalkRuntime.call.value)
+                assertEquals(token, sleeping.token)
+                assertEquals(CallPhase.ACTIVE, sleeping.phase)
+                assertFalse(sleeping.camera)
+                assertNull(sleeping.localVideo)
+                assertEquals(token, observed().participants.single().session)
+                device.wakeUp()
+                device.executeShellCommand("wm dismiss-keyguard")
+                roomClick("Camera on")
+                val resumedFrames = waitCameraFrames()
+                assertEquals(token, TalkRuntime.call.value?.token)
+                capture("room-camera-before-revoke")
+                val checkpoint = File(evidence, "room-camera-checkpoint.json")
+                val written = File(evidence, "room-camera-checkpoint.pending")
+                written.writeText(JsonObject().apply {
+                    addProperty("pid", Process.myPid())
+                    addProperty("session", token)
+                    addProperty("cameraFrames", frames)
+                    addProperty("resumedCameraFrames", resumedFrames)
+                    addProperty("screenOffPausedVideo", true)
+                }.toString())
+                check(written.renameTo(checkpoint))
+                // Let the host revoke the actual Android permission while the camera is sending.
+                val deadline = SystemClock.elapsedRealtime() + 45_000
+                while (SystemClock.elapsedRealtime() < deadline) {
+                    if (context.checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED &&
+                        TalkRuntime.call.value?.let { !it.camera && it.localVideo == null } == true) {
+                        File(evidence, "room-camera-revoked-live.txt").writeText("Camera turned off in the existing process\n")
+                    }
+                    Thread.sleep(100)
+                }
+                error("The native revocation harness did not finish the checkpoint")
+            }
+        }
+    }
+
+    @Test fun aNewProcessCanExplicitlyRejoinAfterTheCameraPermissionWasRevoked() {
+        val before = JsonParser.parseString(File(evidence, "room-camera-checkpoint.json").readText()).asJsonObject
+        assertNotEquals(before.get("pid").asInt, Process.myPid())
+        assertPermissionAbsent(Manifest.permission.CAMERA)
+        assertPermissionAbsent(Manifest.permission.RECORD_AUDIO)
+        launch(request("room-config")).use { activity ->
+            withFailureCapture({ capture("room-camera-recovery-failure") }) {
+                waitText("0 people here", 25_000)
+                assertTrue(observed().participants.isEmpty())
+                assertTrue(TalkRuntime.call.value?.phase?.live != true)
+                capture("room-recovered-quiet")
+                roomClick("Join room")
+                waitText("You’re in the room", 20_000)
+                val call = requireNotNull(TalkRuntime.call.value)
+                assertNotEquals(before.get("session").asString, call.token)
+                assertEquals(call.token, observed().participants.single().session)
+                assertFalse(call.microphone); assertFalse(call.camera); assertNull(call.localVideo)
+                capture("room-rejoined-quiet")
+                roomClick("Leave room")
+                ui.waitUntil(10_000) { TalkRuntime.call.value?.phase == CallPhase.ENDED }
+                waitText("0 people here", 12_000)
+                assertTrue(observed().participants.isEmpty())
+
+                roomClick("Join room")
+                waitText("You’re in the room", 20_000)
+                val backendStore = AndroidBackendStore(context)
+                try {
+                    backendStore.save(SaitoBackend.OFFICIAL)
+                    ui.waitUntil(10_000) { TalkRuntime.call.value?.phase == CallPhase.INTERRUPTED }
+                    assertNull(TalkRuntime.call.value?.localVideo)
+                    waitText("0 people here", 15_000)
+                } finally { backendStore.save(SaitoBackend.OWNER) }
+                activity.recreate()
+                waitText("0 people here", 20_000)
+                roomClick("Join room")
+                waitText("You’re in the room", 20_000)
+                val wallets = AndroidWalletStore(context)
+                val wallet = wallets.loadExisting()
+                val replacement = SaitoWallet.fromPrivateKey("0".repeat(63) + "7")
+                try {
+                    wallets.replace(wallet, replacement)
+                    ui.waitUntil(10_000) { TalkRuntime.call.value?.phase == CallPhase.INTERRUPTED }
+                    assertNull(TalkRuntime.call.value?.localVideo)
+                    waitText("0 people here", 15_000)
+                } finally { wallets.replace(replacement, wallet) }
+                File(evidence, "room-camera-recovery.json").writeText(JsonObject().apply {
+                    addProperty("pid", Process.myPid())
+                    addProperty("explicitFreshSession", true)
+                    addProperty("cameraPermissionStillRevoked", context.checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
+                    addProperty("nodeChangeEndedOriginalScope", true)
+                    addProperty("walletChangeEndedOriginalScope", true)
+                    addProperty("roomSurvived", observed().status == SpaceVoiceRoom.Status.AVAILABLE)
+                }.toString())
+            }
+        }
+    }
+
+    private fun waitCameraFrames(): Int {
+        ui.waitUntil(10_000) { TalkRuntime.call.value?.camera == true && TalkRuntime.call.value?.localVideo != null }
+        val track = requireNotNull(TalkRuntime.call.value?.localVideo)
+        val frames = AtomicInteger()
+        val sink = VideoSink { frame -> if (frame.buffer.width > 0 && frame.buffer.height > 0) frames.incrementAndGet() }
+        track.addSink(sink)
+        try { ui.waitUntil(10_000) { frames.get() >= 3 } } finally { runCatching { track.removeSink(sink) } }
+        return frames.get()
     }
 
     private fun launch(fixture: JsonObject): ActivityScenario<MainActivity> {

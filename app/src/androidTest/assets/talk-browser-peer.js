@@ -195,6 +195,9 @@ window.roomDisconnect = peer => {
   roomOperations.delete(peer);
   document.getElementById('remote-' + peer)?.remove();
 };
+window.roomCamera = async enabled => {
+  if (roomStream) (await roomStream).getVideoTracks().forEach(track => { track.enabled = enabled; });
+};
 setInterval(async () => {
   for (const [peer, pc] of [...stun.peers, ...roomPeers]) {
     try {

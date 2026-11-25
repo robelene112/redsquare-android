@@ -51,6 +51,12 @@ internal class SpacesVoiceRoomFixture(root: Path, private val authority: SaitoWa
         return owner.moderateVoiceRoom(space, channel, native.session, remove).json()
     }
 
+    suspend fun moderateGuest(body: JsonObject): JsonObject {
+        val guest = wallets[body.get("peer").asInt.also { require(it in 1..2) }]
+        val participant = owner.voiceRoom(space, channel).participants.single { it.wallet == guest.publicKey }
+        return owner.moderateVoiceRoom(space, channel, participant.session, body.get("remove").asBoolean).json()
+    }
+
     private fun actor(body: JsonObject): SpaceClient = actors[body.get("peer").asInt.also { require(it in 1..3) }]
 
     suspend fun join(body: JsonObject) = actor(body).joinVoiceRoom(space, channel,

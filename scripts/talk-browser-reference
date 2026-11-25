@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Run a native Talk proof against real, separate host Chromium peers. No production browser is used.
 set -euo pipefail
-[[ $# == 1 ]] || { echo 'Usage: talk-browser-reference evidence-directory' >&2; exit 2; }
+[[ $# == 1 || $# == 2 && $2 == 2 ]] || { echo 'Usage: talk-browser-reference evidence-directory [2]' >&2; exit 2; }
 proof_browser_evidence=$1
+proof_browser_count=${2:-1}
 mkdir -p "$proof_browser_evidence"
 command -v google-chrome >/dev/null
 command -v curl >/dev/null
@@ -10,13 +11,20 @@ command -v curl >/dev/null
 [[ -z "$(adb forward --list | awk '$2 == "tcp:19004" {print}')" ]]
 [[ -z "$(adb reverse --list | awk '$2 == "tcp:9222" {print}')" ]]
 ! curl -fsS --max-time 1 http://127.0.0.1:9222/json/version >/dev/null 2>&1
+if [[ "$proof_browser_count" == 2 ]]; then
+    [[ -z "$(adb reverse --list | awk '$2 == "tcp:9223" {print}')" ]]
+    ! curl -fsS --max-time 1 http://127.0.0.1:9223/json/version >/dev/null 2>&1
+fi
 proof_browser_profile=$(mktemp -d)
-proof_browser_pid=
+proof_browser_pids=()
+proof_browser_ports=()
 proof_browser_parent=$PPID
 cleanup_browser() {
     adb forward --remove tcp:19004 >/dev/null 2>&1 || true
-    adb reverse --remove tcp:9222 >/dev/null 2>&1 || true
-    if [[ -n "$proof_browser_pid" ]]; then
+    for proof_browser_port in "${proof_browser_ports[@]}"; do
+        adb reverse --remove "tcp:$proof_browser_port" >/dev/null 2>&1 || true
+    done
+    for proof_browser_pid in "${proof_browser_pids[@]}"; do
         # Chrome's descendants can still write their profile after the launcher
         # exits. Own a separate process group and reap it before deleting data.
         kill -- "-$proof_browser_pid" 2>/dev/null || true
@@ -26,28 +34,36 @@ cleanup_browser() {
         done
         kill -KILL -- "-$proof_browser_pid" 2>/dev/null || true
         wait "$proof_browser_pid" 2>/dev/null || true
-    fi
+    done
     rm -rf -- "$proof_browser_profile"
 }
 trap cleanup_browser EXIT INT TERM
 google-chrome --version > "$proof_browser_evidence/chromium-version.txt"
-setsid google-chrome --headless=new --mute-audio --no-sandbox --disable-dev-shm-usage --no-first-run --no-default-browser-check \
+start_browser() {
+    local port=$1 suffix=$2 pid
+    setsid google-chrome --headless=new --mute-audio --no-sandbox --disable-dev-shm-usage --no-first-run --no-default-browser-check \
     --disable-background-networking --disable-component-update --disable-sync --disable-features=WebRtcHideLocalIpsWithMdns \
-    --autoplay-policy=no-user-gesture-required --remote-debugging-address=127.0.0.1 --remote-debugging-port=9222 \
-    --user-data-dir="$proof_browser_profile" --no-startup-window > "$proof_browser_evidence/chromium.log" 2>&1 &
-proof_browser_pid=$!
-for proof_browser_attempt in {1..200}; do
-    if curl -fsS --max-time 1 http://127.0.0.1:9222/json/version > "$proof_browser_evidence/devtools-version.json"; then break; fi
-    kill -0 "$proof_browser_pid"
-    sleep 0.1
-done
-curl -fsS --max-time 1 http://127.0.0.1:9222/json/version >/dev/null
-adb reverse tcp:9222 tcp:9222
+    --autoplay-policy=no-user-gesture-required --remote-debugging-address=127.0.0.1 --remote-debugging-port="$port" \
+    --user-data-dir="$proof_browser_profile/$port" --no-startup-window > "$proof_browser_evidence/chromium$suffix.log" 2>&1 &
+    pid=$!
+    proof_browser_pids+=("$pid")
+    for proof_browser_attempt in {1..200}; do
+        if curl -fsS --max-time 1 "http://127.0.0.1:$port/json/version" > "$proof_browser_evidence/devtools-version$suffix.json"; then break; fi
+        kill -0 "$pid"
+        sleep 0.1
+    done
+    curl -fsS --max-time 1 "http://127.0.0.1:$port/json/version" >/dev/null
+    adb reverse "tcp:$port" "tcp:$port"
+    proof_browser_ports+=("$port")
+}
+start_browser 9222 ''
+if [[ "$proof_browser_count" == 2 ]]; then start_browser 9223 '-2'; fi
+printf '%s\n' "${proof_browser_pids[@]}" > "$proof_browser_evidence/chromium-pids.txt"
 adb forward tcp:19004 tcp:19004
 printf '%s\n' 'ready' > "$proof_browser_evidence/ready"
 # The parent runs the unchanged bounded native class, then removes this marker.
 while [[ -e "$proof_browser_evidence/ready" ]]; do
-    kill -0 "$proof_browser_pid"
+    for proof_browser_pid in "${proof_browser_pids[@]}"; do kill -0 "$proof_browser_pid"; done
     kill -0 "$proof_browser_parent"
     sleep 0.2
 done

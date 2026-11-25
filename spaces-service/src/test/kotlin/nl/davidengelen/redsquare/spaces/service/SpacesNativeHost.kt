@@ -163,6 +163,7 @@ object SpacesNativeHost {
                                         "/room-observe" -> requireNotNull(voiceRoom).observe()
                                         "/room-remove-native" -> requireNotNull(voiceRoom).moderateNative(remove = true)
                                         "/room-mute-native" -> requireNotNull(voiceRoom).moderateNative(remove = false)
+                                        "/room-moderate-guest" -> requireNotNull(voiceRoom).moderateGuest(body)
                                         "/room-join" -> requireNotNull(voiceRoom).join(body)
                                         "/room-renew" -> requireNotNull(voiceRoom).renew(body)
                                         "/room-signal" -> requireNotNull(voiceRoom).signal(body)

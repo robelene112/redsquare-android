@@ -76,6 +76,7 @@ file_certificate = None
 movies = []
 movie_owners = {}
 viewport_original = None
+room_rotation_original = None
 owned_emulator = False
 article_agreement_owned = False
 
@@ -911,30 +912,48 @@ try:
     elif room_mode:
         reset_disposable_baseline()
         compact_room = os.environ['TEST_DEVICE_API'].startswith('37')
+        room_rotation_original = {key: adb('shell', 'settings', 'get', 'system', key).stdout.decode().strip()
+            for key in ('accelerometer_rotation', 'user_rotation')}
+        if any(value not in ('0', '1', '2', '3', 'null') for value in room_rotation_original.values()):
+            raise RuntimeError('Unexpected owned emulator rotation settings')
+        (evidence / 'rotation-original.json').write_text(json.dumps(room_rotation_original, indent=2))
         if compact_room:
             prepare_viewport()
             adb('shell', 'pm', 'grant', pkg, 'android.permission.POST_NOTIFICATIONS')
+        def wait_until_empty():
+            deadline = time.monotonic() + 20
+            while time.monotonic() < deadline:
+                if not command(control_port, 'room-observe')['participants']:
+                    return
+                time.sleep(.2)
+            raise RuntimeError('Expired or relinquished room presence did not clear')
+
         record(1)
         native = instrument('prejoinIsQuietAndTheCallReturnsFromAnotherModule', 'room-journey.txt', peer_port, control_port)
         native.wait(timeout=180)
         output = (evidence / 'room-journey.txt').read_text()
+        lifecycle_failure = None
+        result = {}
         if native.returncode or len(re.findall(r'^OK \(1 test\)\s*$', output, re.M)) != 1:
-            raise RuntimeError('Native reusable room journey failed')
-        result = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/room-result.json').stdout)
-        if not all(result[flag] is True for flag in ('participantRemoved', 'nativePermissionDenied', 'roomSurvives')):
-            raise RuntimeError('Native room lifecycle did not match independently observed effects')
+            lifecycle_failure = 'Native reusable room lifecycle failed'
+            (evidence / 'room-lifecycle-original-failure.txt').write_text(lifecycle_failure)
+        else:
+            result = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/room-result.json').stdout)
+            if not all(result[flag] is True for flag in ('participantRemoved', 'nativePermissionDenied', 'roomSurvives', 'roomControlsWithRealKeyboard')):
+                raise RuntimeError('Native room lifecycle did not match independently observed effects')
         finish_record(*movies[-1])
         (evidence / 'room-prejoin-native.tar').write_bytes(
             adb('exec-out', 'run-as', pkg, 'tar', '-C', 'cache', '-cf', '-', folder, timeout=30).stdout)
         adb('shell', 'am', 'force-stop', pkg)
         if adb('shell', 'pidof', pkg, check=False).stdout.strip():
             raise RuntimeError('The room lifecycle process survived force-stop')
+        wait_until_empty()
         reset_disposable_baseline()
         if compact_room:
             adb('shell', 'pm', 'grant', pkg, 'android.permission.POST_NOTIFICATIONS')
         browser_evidence = evidence / 'chromium'
         browser_log = (evidence / 'chromium-launch.log').open('wb')
-        browser = subprocess.Popen([str(repo / 'scripts/talk-browser-reference'), str(browser_evidence)],
+        browser = subprocess.Popen([str(repo / 'scripts/talk-browser-reference'), str(browser_evidence), '2'],
             stdout=browser_log, stderr=subprocess.STDOUT)
         children.append((browser, browser_log))
         marker = browser_evidence / 'ready'
@@ -944,15 +963,21 @@ try:
                 if browser.poll() is not None or time.monotonic() >= ready_by:
                     raise RuntimeError('Independent Chromium room clients did not become ready')
                 time.sleep(.1)
+            browser_pids = (browser_evidence / 'chromium-pids.txt').read_text().splitlines()
+            if len(set(browser_pids)) != 2 or not all(pid.isdigit() for pid in browser_pids):
+                raise RuntimeError('Media requires different Chromium processes and profiles')
             record(2)
             media = instrument('threeAdmittedPeersExchangeDecodedAudioAndVideo', 'room-media.txt', peer_port, control_port)
             media.wait(timeout=180)
             media_output = (evidence / 'room-media.txt').read_text()
             if media.returncode or len(re.findall(r'^OK \(1 test\)\s*$', media_output, re.M)) != 1:
-                raise RuntimeError('Native and Chromium did not finish the three-peer media journey')
+                raise RuntimeError((lifecycle_failure + '; ' if lifecycle_failure else '') +
+                    'Native and Chromium did not finish the three-peer media journey')
             media_result = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/room-media-result.json').stdout)
-            if media_result['pid'] == result['pid'] or media_result['admittedParticipants'] != 3 or media_result['audioInputBuffers'] <= 0 or not all(
-                media_result[flag] is True for flag in ('fourthPeerRefused', 'decodedAudioAndVideoBothWays', 'audioAcrossModules', 'moderatorStoppedDecodedAudio')
+            if media_result['pid'] == result.get('pid') or media_result['admittedParticipants'] != 3 or media_result['audioInputBuffers'] <= 0 or not all(
+                media_result[flag] is True for flag in ('fourthPeerRefused', 'decodedAudioAndVideoBothWays', 'audioAcrossModules',
+                    'moderatorStoppedDecodedAudio', 'decodedAudioWithScreenOff', 'guestsDecodedEachOther', 'remoteCameraToggleObserved',
+                    'receiverBlockedModeratedGuest', 'remainingPeerSurvivedRemoval')
             ):
                 raise RuntimeError('Recorded room effects do not establish measured media and the capacity boundary')
             finish_record(*movies[-1])
@@ -960,11 +985,70 @@ try:
             if marker.exists(): marker.unlink()
         browser.wait(timeout=15)
         if browser.returncode: raise RuntimeError('Owned Chromium processes did not finish cleanly')
+        (evidence / 'room-media-native.tar').write_bytes(
+            adb('exec-out', 'run-as', pkg, 'tar', '-C', 'cache', '-cf', '-', folder, timeout=30).stdout)
+        if lifecycle_failure:
+            (evidence / 'room-diagnostic-media.json').write_text(json.dumps(media_result, indent=2))
+            raise RuntimeError(lifecycle_failure)
+
+        wait_until_empty()
+        reset_disposable_baseline()
+        if compact_room:
+            adb('shell', 'pm', 'grant', pkg, 'android.permission.POST_NOTIFICATIONS')
+        record(3)
+        checkpoint_test = instrument('recordAnActiveCameraForTheOperatingSystemRevocation', 'room-before-revoke.txt', peer_port, control_port)
+        checkpoint_path = f'cache/{folder}/room-camera-checkpoint.json'
+        deadline = time.monotonic() + 110
+        while True:
+            if checkpoint_test.poll() is not None or time.monotonic() >= deadline:
+                raise RuntimeError('Native room did not author an active-camera checkpoint')
+            checkpoint = adb('exec-out', 'run-as', pkg, 'cat', checkpoint_path, check=False)
+            if checkpoint.returncode == 0:
+                camera = json.loads(checkpoint.stdout)
+                break
+            time.sleep(.2)
+        original_pid = str(camera['pid'])
+        if adb('shell', 'pidof', pkg).stdout.decode().strip() != original_pid or camera['resumedCameraFrames'] < 3:
+            raise RuntimeError('The active camera checkpoint is not from the running Android process')
+        accepted = command(control_port, 'room-observe')['participants']
+        if len(accepted) != 1 or accepted[0]['contact']['session'] != camera['session']:
+            raise RuntimeError('The node did not see the Android camera session')
+        adb('shell', 'pm', 'revoke', pkg, 'android.permission.CAMERA')
+        deadline = time.monotonic() + 8
+        revoked_in_process = False
+        while True:
+            existing = adb('shell', 'pidof', pkg, check=False).stdout.decode().strip()
+            if original_pid not in existing.split(): break
+            if time.monotonic() >= deadline: raise RuntimeError('Camera permission revocation did not stop the active preview')
+            observed = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/room-camera-revoked-live.txt', check=False)
+            if observed.returncode == 0:
+                revoked_in_process = True
+                adb('shell', 'am', 'force-stop', pkg)
+                break
+            time.sleep(.2)
+        checkpoint_test.wait(timeout=15)
+        if original_pid in adb('shell', 'pidof', pkg, check=False).stdout.decode().split():
+            raise RuntimeError('The old Android room process remained running after revocation and teardown')
+        finish_record(*movies[-1])
+        wait_until_empty()
+        record(4)
+        restored = instrument('aNewProcessCanExplicitlyRejoinAfterTheCameraPermissionWasRevoked',
+            'room-after-revoke.txt', peer_port, control_port)
+        restored.wait(timeout=110)
+        if restored.returncode or len(re.findall(r'^OK \(1 test\)\s*$', (evidence / 'room-after-revoke.txt').read_text(), re.M)) != 1:
+            raise RuntimeError('The restarted Android process did not demonstrate a fresh quiet rejoin')
+        recovery = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/room-camera-recovery.json').stdout)
+        if camera['pid'] == recovery['pid'] or not all(recovery[flag] is True for flag in (
+            'explicitFreshSession', 'cameraPermissionStillRevoked', 'roomSurvived',
+            'nodeChangeEndedOriginalScope', 'walletChangeEndedOriginalScope')):
+            raise RuntimeError('The permission and process-recovery evidence does not match the room journey')
+        finish_record(*movies[-1])
         command(control_port, 'stop')
         host.wait(timeout=15)
         if host.returncode:
             raise RuntimeError('Owned room host did not finish cleanly')
-        (evidence / 'room-journey-outcome.json').write_text(json.dumps({'lifecycle': result, 'media': media_result}, indent=2))
+        (evidence / 'room-journey-outcome.json').write_text(json.dumps({'lifecycle': result, 'media': media_result,
+            'camera': camera, 'cameraStoppedInOldProcess': revoked_in_process, 'recovery': recovery}, indent=2))
     elif file_mode:
         reset_disposable_baseline()
         article_agreement_owned = True
@@ -1279,6 +1363,16 @@ finally:
         cleanup('native-archive', archive)
     # Resizing a running recorder crops its projection. Restore only after all
     # recordings and native originals have been stopped, pulled and retained.
+    if room_rotation_original is not None:
+        def restore_rotation():
+            for key, value in room_rotation_original.items():
+                if value == 'null': adb('shell', 'settings', 'delete', 'system', key)
+                else: adb('shell', 'settings', 'put', 'system', key, value)
+            restored = {key: adb('shell', 'settings', 'get', 'system', key).stdout.decode().strip()
+                for key in room_rotation_original}
+            (evidence / 'rotation-restored.json').write_text(json.dumps(restored, indent=2))
+            if restored != room_rotation_original: raise RuntimeError('Owned emulator rotation was not restored')
+        cleanup('restore-room-rotation', restore_rotation)
     if viewport_original is not None:
         cleanup('restore-viewport-size', lambda: adb('shell', 'wm', 'size', viewport_original['size']['override'] or 'reset'))
         cleanup('restore-viewport-density', lambda: adb('shell', 'wm', 'density', viewport_original['density']['override'] or 'reset'))

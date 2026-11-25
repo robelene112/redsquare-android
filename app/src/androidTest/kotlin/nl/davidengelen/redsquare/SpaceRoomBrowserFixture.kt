@@ -23,8 +23,13 @@ internal class SpaceRoomBrowserFixture(address: SpaceVoiceSignalKey.Address, pri
     private var run: Job? = null
     val errors = CopyOnWriteArrayList<String>()
     val contact = keys.contact
+    val remoteCapture = ConcurrentHashMap<String, SpaceVoiceSignalKey.CaptureState>()
+    @Volatile private var localCapture = SpaceVoiceSignalKey.CaptureState(1, microphone = true, camera = true)
+    @Volatile var expectRemoval = false
+    @Volatile var removed = false
+        private set
     val browser = TalkBrowserPeer(keys.rtcWallet, nativeContact.key, if (peer == 1) "#ef2020" else "#2050ef",
-        if (peer == 1) 660 else 880) { envelope ->
+        if (peer == 1) 660 else 880, debugPort = 9221 + peer) { envelope ->
         val message = SaitoEnvelope.decode(envelope)
         check(message.author == contact.key && message.body.get("module").asString == "Stun")
         val recipient = contacts.values.singleOrNull { it.key in message.recipients } ?: return@TalkBrowserPeer
@@ -41,15 +46,24 @@ internal class SpaceRoomBrowserFixture(address: SpaceVoiceSignalKey.Address, pri
                 var cursor = 0L
                 while (isActive) {
                     val room = SpaceVoiceRoom.read(call("room-renew") { addProperty("receivedThrough", cursor) })
+                    if (!room.admitted && expectRemoval) { removed = true; break }
                     check(room.admitted)
                     val peers = room.participants.map { it.contact }.filter { it.session != contact.session }
                     contacts.values.filter { old -> peers.none { it.session == old.session } }.forEach { lost ->
                         contacts.remove(lost.session); browser.removeSpacePeer(lost.key)
                     }
-                    peers.forEach { seen -> if (contacts.putIfAbsent(seen.session, seen) == null) browser.connectSpacePeer(seen.key) }
+                    peers.forEach { seen ->
+                        if (contacts.putIfAbsent(seen.session, seen) == null) {
+                            browser.connectSpacePeer(seen.key)
+                            sendCapture(seen)
+                        }
+                    }
                     room.signals.forEach { delivery ->
                         val sender = requireNotNull(contacts[delivery.packet.from])
-                        browser.spaceSignal(sender.key, keys.open(sender, delivery.packet).body)
+                        val signed = keys.open(sender, delivery.packet)
+                        val capture = SpaceVoiceSignalKey.captureState(signed)
+                        if (capture != null) remoteCapture[sender.session] = capture
+                        else browser.spaceSignal(sender.key, signed.body)
                         cursor = delivery.sequence
                     }
                     repeat(12) {
@@ -61,6 +75,16 @@ internal class SpaceRoomBrowserFixture(address: SpaceVoiceSignalKey.Address, pri
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (failure: Throwable) { errors += "${failure.javaClass.simpleName} ${failure.message.orEmpty()}" }
         }
+    }
+
+    fun setCamera(enabled: Boolean) {
+        browser.setSpaceCamera(enabled)
+        localCapture = localCapture.copy(sequence = localCapture.sequence + 1, camera = enabled)
+        contacts.values.forEach(::sendCapture)
+    }
+
+    private fun sendCapture(recipient: SpaceVoiceSignalKey.Contact) {
+        check(outgoing.trySend(keys.sealCapture(recipient, localCapture, System.currentTimeMillis())).isSuccess)
     }
 
     private fun call(action: String, fields: JsonObject.() -> Unit = {}) = request(action, JsonObject().apply {
