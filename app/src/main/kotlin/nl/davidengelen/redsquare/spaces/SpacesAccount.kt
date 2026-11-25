@@ -561,9 +561,11 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
 
     private fun queueArticle(target: Target, onQueued: (String) -> Unit, queue: SpaceClient.() -> String) {
         if (target.thread != null || mutable.value.target() != target) return
-        localAction {
+        val route = navigationVersion.get()
+        fun onOriginalRoute() = navigationVersion.get() == route && mutable.value.target() == target
+        localAction(isCurrent = ::onOriginalRoute) {
             val id = localAccess.withLock {
-                if (mutable.value.target() != target) return@localAction
+                if (!onOriginalRoute()) return@localAction
                 requireNotNull(client).queue().also {
                     urgentOutbox.add(target.space)
                     historyWindows.remove(target)
@@ -572,7 +574,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             wake.trySend(Unit)
             publish()
             withContext(Dispatchers.Main.immediate) {
-                if (mutable.value.target() == target) onQueued(id)
+                if (onOriginalRoute()) onQueued(id)
             }
         }
     }
@@ -991,6 +993,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             val opened = try { network.withLock { current.openArticleLink(link) } }
             catch (denied: SpaceClient.ReadDenied) { publish(); throw denied }
             catch (failure: IOException) {
+                if (failure is ChangedIdentity || failure is MissingService) throw failure
                 cached = true
                 localAccess.withLock { current.cachedArticleLink(link) } ?: throw failure
             }

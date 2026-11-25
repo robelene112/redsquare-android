@@ -44,6 +44,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.Saver
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -256,7 +257,13 @@ class MainActivity : ComponentActivity() {
             }
             val address = wallet?.publicKey
             var spacesActivated by rememberSaveable { mutableStateOf(false) }
-            var pendingSpaceInvitation by rememberSaveable { mutableStateOf<String?>(null) }
+            val articleRouteSaver = remember {
+                Saver<String?, String>(
+                    save = { link -> link?.takeIf { nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.isArticle(android.net.Uri.parse(it)) } },
+                    restore = { it },
+                )
+            }
+            var pendingSpaceInvitation by rememberSaveable(stateSaver = articleRouteSaver) { mutableStateOf<String?>(null) }
             var pendingProtectedInvitation by remember { mutableStateOf<ProtectedInvitationRoute?>(null) }
             LaunchedEffect(address, backend) {
                 val pending = pendingProtectedInvitation

@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare.spaces.service
 
 import kotlinx.coroutines.runBlocking
+import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceArticleContent
 import nl.davidengelen.redsquare.spaces.SpaceArticleReference
@@ -87,20 +88,32 @@ class SpaceArticleLinksTest {
         }
     }
 
-    @Test fun signedDeparturePreventsReopeningASavedPrivateLink() = runBlocking<Unit> {
+    @Test fun signedExactDenialSurvivesOfflineRetryAndExcludesFuturePrivateArticles() = runBlocking<Unit> {
         val authority = SaitoWallet.create()
         val member = SaitoWallet.create()
         SpacesServiceStore(files.newFolder().toPath(), authority, clock).use { service ->
             SqliteClientFixture(files.newFile().absolutePath).use { writerStore ->
                 SqliteClientFixture(files.newFile().absolutePath).use { memberStore ->
+                    var revokeDuringExactRead: String? = null
+                    var offline = false
                     val writer = SpaceClient(SaitoWallet.create(), "fixture-node", authority.publicKey, writerStore, clock) {
                         service.exchange(it.envelope())
                     }
                     val reader = SpaceClient(member, "fixture-node", authority.publicKey, memberStore, clock) {
-                        service.exchange(it.envelope())
+                        if (offline) throw java.io.IOException("Owned fixture disconnected")
+                        val envelope = it.envelope()
+                        val request = SaitoEnvelope.decode(envelope).body
+                        val target = revokeDuringExactRead
+                        if (target != null && request.get("request")?.asString == "read" &&
+                            request.getAsJsonObject("scope")?.has("article_id") == true) {
+                            revokeDuringExactRead = null
+                            writer.removeMember(target, member.publicKey)
+                            writer.flush(target)
+                        }
+                        service.exchange(envelope)
                     }
                     val space = writer.create(SpaceProfile("Private library"), listOf(SpaceChannelProfile("Reading", SpaceChannelKind.ARTICLE)))
-                    writer.flush(space)
+                    writer.flush(space); writer.refresh(space)
                     val invitation = writer.inviteFor(space, member.publicKey)
                     writer.flush(space)
                     reader.join(invitation); reader.flush(space); writer.admitPending(space); writer.flush(space); reader.refresh(space)
@@ -109,9 +122,18 @@ class SpaceArticleLinksTest {
                     writer.flush(space)
                     val link = writer.articleLink(space, writer.community(space).channel, id)
                     assertEquals(article, reader.openArticleLink(link)?.content)
-                    writer.removeMember(space, member.publicKey); writer.flush(space)
+                    revokeDuringExactRead = space
                     assertTrue(runCatching { reader.openArticleLink(link) }.exceptionOrNull() is SpaceClient.ReadDenied)
+                    assertNull(revokeDuringExactRead)
+                    offline = true
+                    assertTrue(runCatching { reader.openArticleLink(link) }.exceptionOrNull() is java.io.IOException)
                     assertNull(reader.cachedArticleLink(link))
+                    offline = false
+                    val later = writer.publishArticle(space, article.copy(title = "After departure"))
+                    writer.flush(space)
+                    val laterLink = writer.articleLink(space, writer.community(space).channel, later)
+                    assertTrue(runCatching { reader.openArticleLink(laterLink) }.exceptionOrNull() is SpaceClient.ReadDenied)
+                    assertNull(reader.cachedArticleLink(laterLink))
                 }
             }
         }

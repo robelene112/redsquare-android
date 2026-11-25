@@ -47,6 +47,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val journal = journal(space)
         journal.snapshot.channels.mapNotNull { (id, record) ->
             if (!journal.canAccessChannel(wallet.publicKey, id)) return@mapNotNull null
+            if (record.rootContentKind == "article" && get(articleReadDeniedKey(space, id)) != null) return@mapNotNull null
             val data = channelState(space, id, state)
             val readableProfile = channelProfile(space, id, state, data, record)
             val profile = readableProfile ?: if (id == general) SpaceChannelProfile("general") else null
@@ -777,7 +778,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             if (get("identity") == null || get(stateKey(space)) == null) return@transaction false
             owned()
             val journal = journal(space)
-            journal.snapshot.channels[reference.channel]?.rootContentKind == "article" &&
+            get(articleReadDeniedKey(space, reference.channel)) == null &&
+                journal.snapshot.channels[reference.channel]?.rootContentKind == "article" &&
                 journal.canAccessChannel(wallet.publicKey, reference.channel)
         }
         return if (available) article(reference.community.spaceId, reference.article, reference.channel) else null
@@ -788,22 +790,38 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(it.community.serviceKey == service) { "This reference does not match the selected service" }
     }
 
+    private fun articleReadDeniedKey(space: String, channel: String) = "$space/channels/$channel/article-read-denied"
+
     suspend fun openArticleLink(link: String): Article? {
         val reference = articleReference(link)
         val space = reference.community.spaceId
         val channel = reference.channel
-        val known = store.transaction { get(stateKey(space)) != null }
-        if (known) syncControls(space) else openPublic(space)
-        val hasActiveKeys = store.transaction {
-            owned()
-            val journal = journal(space)
-            val record = journal.snapshot.channels[channel]
-            if (record?.rootContentKind != "article" || !journal.canAccessChannel(wallet.publicKey, channel))
-                throw ReadDenied(space, ReadProblem.UNAVAILABLE)
-            record.visibility == SpaceVisibility.PRIVATE && channelState(space, channel).get("joined")?.asBoolean == true
+        val deniedKey = articleReadDeniedKey(space, channel)
+        val page = try {
+            val known = store.transaction { get(stateKey(space)) != null }
+            if (known) syncControls(space) else openPublic(space)
+            val hasActiveKeys = store.transaction {
+                owned()
+                val journal = journal(space)
+                val record = journal.snapshot.channels[channel]
+                if (record?.rootContentKind != "article" || !journal.canAccessChannel(wallet.publicKey, channel))
+                    throw ReadDenied(space, ReadProblem.UNAVAILABLE)
+                record.visibility == SpaceVisibility.PRIVATE && channelState(space, channel).get("joined")?.asBoolean == true
+            }
+            if (hasActiveKeys) refreshKeys(space, channel)
+            messagePage(space, channel, limit = 1, exactArticle = reference.article)
+        } catch (denied: ReadDenied) {
+            // The service can revoke access between the controls and exact
+            // content reads. An offline retry must honor the observed denial.
+            store.transaction {
+                if (get(stateKey(space)) != null) {
+                    owned()
+                    put(deniedKey, byteArrayOf(1))
+                }
+            }
+            throw denied
         }
-        if (hasActiveKeys) refreshKeys(space, channel)
-        if (messagePage(space, channel, limit = 1, exactArticle = reference.article).count == 0) return null
+        if (page.count == 0) return null
         return cachedArticleLink(link)
     }
 
@@ -832,7 +850,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     data class Message(val id: String, val author: String, val createdAt: Long, val text: String?,
         val pending: Boolean, val attempted: Boolean, val missingKeys: Boolean, val rejected: Boolean = false, val position: Long? = null,
         val edited: Boolean = false, val deleted: Boolean = false, val replyCount: Long = 0, val change: MessageChange? = null, val cancelled: Boolean = false, val reactions: List<Reaction> = emptyList(), val reactionsComplete: Boolean = true, val reactionsHaveMore: Boolean = false, val ownReactionsAvailable: Boolean = true, val pinned: Boolean = false, val pinPending: Boolean = false, val pinAvailable: Boolean = true, val pinChange: PinChange? = null,
-        val isArticle: Boolean = false) {
+        val isArticle: Boolean = false, val editedAt: Long? = null) {
         override fun toString() = "Private community message"
     }
     data class Invitation(val link: String, val confirmed: Boolean, val expiresAt: Long = 0, val expired: Boolean = false, val revoked: Boolean = false, val revocationPending: Boolean = false, val revocationFailed: Boolean = false) {
@@ -1020,7 +1038,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             else -> null
         }
         val restrictedUntil = journal.writeRestrictedUntil(wallet.publicKey, scope.channelId, clock.millis())
-        val canReply = restrictedUntil == null && state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
+        val articleReadDenied = channel?.rootContentKind == "article" && get(articleReadDeniedKey(space, scope.channelId)) != null
+        val canReply = !articleReadDenied && restrictedUntil == null && state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
             journal.canContributeChannel(wallet.publicKey, scope.channelId) &&
             (data.get("joined")?.asBoolean == true || channel?.visibility == SpaceVisibility.PUBLIC) &&
             channel?.retiredDevices?.isEmpty() == true && channel.archived != true
@@ -2007,6 +2026,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         if (contentKind == "article") require(supportsSpaceArticles || data.get("articles_supported")?.asBoolean == true) {
             "The authenticated node does not support Space articles"
         }
+        require(contentKind != "article" || get(articleReadDeniedKey(space, scope.channelId)) == null) { "Article channel access is unavailable" }
         require(journal.canContributeChannel(wallet.publicKey, scope.channelId)) { "Private access is still being prepared" }
         require(journal.writeRestrictedUntil(wallet.publicKey, scope.channelId, clock.millis()) == null) { "Writing is temporarily restricted" }
         require(!record.archived) { "This channel is archived" }
@@ -2843,6 +2863,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             // projection. A malformed later entry rolls the whole page back.
             val decoder = reactionDecoder(space, channel)
             for (record in records) accept(space, record.envelope, controls, authenticated = record, reactionReader = decoder)
+            val denial = articleReadDeniedKey(space, channel)
+            if (get(denial) != null) remove(denial)
             if (exactArticle != null) return@transaction
             retryUnavailableReactions(space, channel)
             recordReplyCounts(space, channel, replyCounts, end)
@@ -3138,7 +3160,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 if (base.isArticle && replacement != null && runCatching {
                         SpaceArticleContent.decode(replacement)
                     }.getOrNull() !is SpaceArticleContent.Original) return base
-                base.copy(text = replacement, edited = true, missingKeys = missing)
+                base.copy(text = replacement, edited = true, missingKeys = missing, editedAt = edit.createdAt)
             } else base
         }
         val confirmedRows = if (indexed) {

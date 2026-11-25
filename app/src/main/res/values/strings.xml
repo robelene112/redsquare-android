@@ -1728,7 +1728,7 @@
     <string name="spaces_article_opening">Opening article…</string>
     <string name="spaces_article_missing">This article could not be found in the linked channel.</string>
     <string name="spaces_article_link_failed">Could not open this article. Check your connection and try again.</string>
-    <string name="spaces_article_cached">Offline · showing the saved article</string>
+    <string name="spaces_article_cached">Saved copy · Last changed %1$s</string>
     <string name="spaces_article_copy_link">Copy article link</string>
     <string name="spaces_article_copy_failed">Could not copy the article link.</string>
     <string name="spaces_article_send_rejected">The node did not accept this article. Your writing is saved here.</string>

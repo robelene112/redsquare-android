@@ -7,6 +7,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
@@ -34,10 +35,13 @@ import nl.davidengelen.redsquare.stack.StackDraft
 import nl.davidengelen.redsquare.stack.StackEditorForm
 import nl.davidengelen.redsquare.stack.StackMarkdown
 import nl.davidengelen.redsquare.stack.StackVisualBuffer
+import nl.davidengelen.redsquare.stack.stackArticleDate
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.FrameIconButton
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
+import java.text.DateFormat
+import java.util.Date
 
 private enum class ArticlePage { LIST, READER, EDITOR, REVIEW, SHARE }
 
@@ -90,14 +94,45 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
             account.consumeArticleFocus(requested)
         }
     }
-    val articles by produceState(emptyMap<String, SpaceArticleContent?>(), target, state.messages) {
+    val articles by produceState(emptyMap<SpaceClient.Message, SpaceArticleContent?>(), target, state.messages) {
         value = withContext(Dispatchers.Default) {
             state.messages.mapNotNull { record ->
                 if (!record.isArticle) return@mapNotNull null
                 val content = record.text?.let { runCatching { SpaceArticleContent.decode(it) }.getOrNull() }
-                record.id to content
+                record to content
             }.toMap()
         }
+    }
+    val records = remember(state.messages) { state.messages.filter { it.isArticle }.asReversed() }
+    val savedAnchor = state.anchor
+    val list = rememberLazyListState(
+        initialFirstVisibleItemIndex = records.indexOfFirst { it.id == savedAnchor?.messageId }.coerceAtLeast(0),
+        initialFirstVisibleItemScrollOffset = savedAnchor?.takeIf { anchor -> records.any { it.id == anchor.messageId } }?.offset ?: 0,
+    )
+    val currentRecords by rememberUpdatedState(records)
+    val windowFrom by rememberUpdatedState(state.windowFrom)
+    LaunchedEffect(target, page, list) {
+        if (page != ArticlePage.LIST) return@LaunchedEffect
+        var scrolled = false
+        snapshotFlow { Triple(list.isScrollInProgress, list.firstVisibleItemIndex, list.firstVisibleItemScrollOffset) }
+            .collect { (scrolling, index, offset) ->
+                if (scrolling) scrolled = true
+                else if (scrolled) {
+                    val item = list.layoutInfo.visibleItemsInfo.firstOrNull { it.index == index }
+                    val record = currentRecords.firstOrNull { it.id == item?.key }
+                    val anchor = record?.position?.takeIf { it >= windowFrom }
+                        ?.let { SpaceClient.ReadingAnchor(record.id, it, offset, windowFrom) }
+                    account.readingPosition(target.space, target.channel, !list.canScrollBackward, anchor)
+                    scrolled = false
+                }
+            }
+    }
+    LaunchedEffect(target, page, state.scrollToMessage, records) {
+        val requested = state.scrollToMessage ?: return@LaunchedEffect
+        if (page != ArticlePage.LIST) return@LaunchedEffect
+        val index = records.indexOfFirst { it.id == requested.id }
+        if (index >= 0) list.requestScrollToItem(index)
+        account.consumeScrollTarget(requested)
     }
     val canWrite = state.current?.canSend == true && !state.loadingChannel && !state.working && !state.savingNavigation
     fun save(value: StackDraft): Boolean {
@@ -157,15 +192,16 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
                     enabled = canWrite, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.spaces_article_share_stack)) }
             }
             if (!state.contentLoaded && state.refreshing) LinearProgressIndicator(Modifier.fillMaxWidth())
-            val records = state.messages.filter { it.isArticle }.asReversed()
             if (records.isEmpty() && state.contentLoaded) Text(stringResource(R.string.spaces_article_empty),
                 color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(vertical = 16.dp))
-            LazyColumn(Modifier.fillMaxWidth().weight(1f), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            LazyColumn(Modifier.fillMaxWidth().weight(1f), state = list, verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 items(records, key = { it.id }) { record ->
-                    val content = articles[record.id]
+                    val content = articles[record]
                     Card(onClick = { selected = record.id; page = ArticlePage.READER }, enabled = !record.deleted) {
                         Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text(articleTitle(content, record), style = MaterialTheme.typography.titleLarge, maxLines = 3,
+                            val title = if (record.text != null && record !in articles) stringResource(R.string.spaces_article_opening)
+                                else articleTitle(content, record)
+                            Text(title, style = MaterialTheme.typography.titleLarge, maxLines = 3,
                                 overflow = TextOverflow.Ellipsis)
                             if (content is SpaceArticleContent.Original && content.subtitle.isNotBlank())
                                 Text(content.subtitle, style = MaterialTheme.typography.bodyMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
@@ -203,11 +239,16 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
                 ArticlePage.LIST -> Unit
                 ArticlePage.READER -> {
                     val record = readerRecord
-                    val content = if (listedRecord != null) articles[listedRecord.id]
+                    val content = if (listedRecord != null) articles[listedRecord]
                         else readerDocument?.takeIf { it.first == record }?.second
                     if (record != null) {
-                        if (fromCache && state.availability != SpacesAccount.Availability.ONLINE)
-                            Text(stringResource(R.string.spaces_article_cached), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        if (fromCache || state.availability == SpacesAccount.Availability.OFFLINE) {
+                            val revision = record.editedAt ?: record.createdAt
+                            val date = remember(revision) {
+                                DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(revision))
+                            }
+                            Text(stringResource(R.string.spaces_article_cached, date), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
                         articleStatus(record)?.let { Text(stringResource(it), style = MaterialTheme.typography.labelMedium) }
                         when (content) {
                             is SpaceArticleContent.Original -> {
@@ -225,7 +266,7 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
                             }
                             is SpaceArticleContent.PublicStack -> SharedStackArticle(account, content.link)
                             null -> {
-                                val loaded = if (listedRecord != null) listedRecord.id in articles else readerDocument?.first == record
+                                val loaded = if (listedRecord != null) listedRecord in articles else readerDocument?.first == record
                                 if (loaded || record.text == null) Text(articleTitle(null, record))
                                 else LinearProgressIndicator(Modifier.fillMaxWidth())
                             }
@@ -348,6 +389,8 @@ private fun SharedStackArticle(account: SpacesAccount, link: StackLink,
             LiveStackCard(article, link.backend) {}
             share(article)
         } else {
+            if (library.failed) Text(stringResource(R.string.spaces_article_cached, stackArticleDate(article)),
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
             Text(article.title, style = MaterialTheme.typography.headlineLarge)
             if (article.excerpt.isNotBlank()) Text(article.excerpt, style = MaterialTheme.typography.bodyLarge)
             Text(registeredIdentity(article.author).name, style = MaterialTheme.typography.labelMedium)
