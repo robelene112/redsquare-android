@@ -124,6 +124,22 @@ The editor and call actions now share that row. The new native checks on
 [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45699144527)
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45699144348)
 measure all four targets and retain the original signed session and attachment checks.
+The next checks include Send and the accessible editor label in
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45705007972)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45705007969).
+Both completed on the recorded source. The Android 17 settled capture showed
+part of a wrapped line at 200% text. The editor now measures the number of
+complete lines that fit and lets the native field scroll the remaining draft.
+
+The invitation sheet survives confirmation and clipboard copy on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45697805959)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45697806104).
+The Android 17 recording decodes 427 ordered frames and shows the same sheet
+progressing from confirmation to copy. The signed expiry crossing completes
+on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45702935784)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45702936102).
+The UI disables Join after the rejection and the independent service confirms
+that the wallet did not become a member.
 
 All eight [Android 10 native viewports](https://github.com/robelene112/redsquare-android/actions/runs/45689003144)
 pass, including protected wallet recovery from a backup without message keys
@@ -163,7 +179,17 @@ action deadlines, and verifies Escape returns focus to Red Square's controls.
 The original Chat partition remains failed. The Android 10 Chat partition of
 [the next source run](https://github.com/robelene112/redsquare-android/actions/runs/45702935713)
 stopped during dependency resolution after Maven Central returned HTTP 429.
-The repeat uses the alternate configured runner pool.
+The complete source reruns use the alternate configured runner pool on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45708852886)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45708853241).
+
+The new early access path opens the precise notification and cold external
+reply in [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45706147784)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45706147653).
+These focused runs verify the requested route and real notification. The
+[next profileable scale run](https://github.com/robelene112/redsquare-android/actions/runs/45705007818)
+uses the immediately earlier task-lifecycle source, before the light cold
+opening screen and deferred inventory. It supplies separate baseline evidence.
 
 ## Accepted #146, continue #147
 
