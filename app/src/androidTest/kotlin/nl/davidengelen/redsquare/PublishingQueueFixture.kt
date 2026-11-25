@@ -128,9 +128,11 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
                     else ChatQueueScheduling.enqueue(context, wallet, SaitoBackend.OWNER, endpoint)
                     val deadline = SystemClock.elapsedRealtime() + 40_000
                     var pending: WorkInfo? = null
+                    var lastWork: WorkInfo? = null
                     while (pending == null && SystemClock.elapsedRealtime() < deadline) {
                         val current = info()
                         if (current != null) {
+                            lastWork = current
                             if (workerId == null) workerId = current.id
                             assertEquals(workerId, current.id)
                             assertFalse("Unaccepted intent must remain retryable", current.state.isFinished)
@@ -139,8 +141,12 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
                         }
                         if (pending == null) SystemClock.sleep(50)
                     }
-                    val paused = requireNotNull(pending) { "Actual headless worker did not retain the unaccepted intent" }
                     assertQueued()
+                    val paused = requireNotNull(pending) {
+                        "No authenticated headless pause within the deadline. " +
+                            "Work state=${lastWork?.state}, attempts=${lastWork?.runAttemptCount}, " +
+                            "loopback upgrades=${peer.connectionAttempts.get()}, authenticated=${wallet.publicKey in peer.clientKeys}"
+                    }
                     assertTrue(wallet.exportJson() == wallets.loadExisting().exportJson())
                     File(context.cacheDir, "agreement-${kind.capture}-queue-evidence/$label-worker-paused.json").apply {
                         parentFile!!.mkdirs()
