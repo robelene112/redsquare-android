@@ -8,6 +8,7 @@ import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.StackLink
 import nl.davidengelen.redsquare.spaces.SpaceArticleContent
+import nl.davidengelen.redsquare.spaces.SpaceArticleDraft
 import nl.davidengelen.redsquare.spaces.SpaceChannelKind
 import nl.davidengelen.redsquare.spaces.SpaceChannelProfile
 import nl.davidengelen.redsquare.spaces.SpaceClient
@@ -24,6 +25,50 @@ import java.time.ZoneOffset
 class SpaceArticlesTest {
     @get:Rule val files = TemporaryFolder()
     private val clock = Clock.fixed(Instant.ofEpochMilli(1_700_000_000_000), ZoneOffset.UTC)
+
+    @Test fun queuingAnArticleConsumesOnlyItsReviewedDraftAndPreservesOtherWriting() = runBlocking<Unit> {
+        val authority = SaitoWallet.create()
+        val author = SaitoWallet.create()
+        val storage = files.newFile().absolutePath
+        val reviewed = SpaceArticleDraft("Reviewed", "", "First article's approved body.", true)
+        val revision = SpaceArticleDraft("Revision idea", "", "An independent edit draft.", false)
+        val newer = SpaceArticleDraft("New", "", "Writing started after the first submission.", true)
+        val otherChannel = SpaceArticleDraft("Separate", "", "Writing in a different channel.", false)
+        SpacesServiceStore(files.newFolder().toPath(), authority, clock).use { service ->
+            fun open(store: SqliteClientFixture) = SpaceClient(author, "fixture-node", authority.publicKey, store, clock) {
+                service.exchange(it.envelope())
+            }
+            lateinit var space: String
+            lateinit var first: String
+            lateinit var second: String
+            lateinit var original: String
+            SqliteClientFixture(storage).use { store ->
+                val writer = open(store)
+                space = writer.create(SpaceProfile("Local writing"), listOf(
+                    SpaceChannelProfile("Main reading room", SpaceChannelKind.ARTICLE),
+                    SpaceChannelProfile("Other reading room", SpaceChannelKind.ARTICLE)))
+                writer.flush(space)
+                writer.refresh(space)
+                val channels = writer.channels(space)
+                first = channels.single { it.profile?.name == "Main reading room" }.id
+                second = channels.single { it.profile?.name == "Other reading room" }.id
+                writer.saveArticleDraft(space, second, null, otherChannel)
+                writer.saveArticleDraft(space, first, null, reviewed)
+                original = writer.publishArticle(space, reviewed.content(), first, reviewed)
+                writer.flush(space)
+                assertNull(writer.articleDraft(space, first, null))
+                writer.saveArticleDraft(space, first, original, revision)
+                writer.saveArticleDraft(space, first, null, newer)
+            }
+            SqliteClientFixture(storage).use { reopened ->
+                val writer = open(reopened)
+                assertEquals(newer, writer.articleDraft(space, first, null))
+                assertEquals(revision, writer.articleDraft(space, first, original))
+                assertEquals(otherChannel, writer.articleDraft(space, second, null))
+                assertEquals(reviewed.content(), writer.article(space, original, first)?.content)
+            }
+        }
+    }
 
     @Test fun publicChannelSharesOnlyAnAuthenticatedExactStackRevision() = runBlocking<Unit> {
         val authority = SaitoWallet.create()

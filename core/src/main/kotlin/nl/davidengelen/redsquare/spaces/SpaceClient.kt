@@ -994,6 +994,16 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         channelState(space, target, current); require(text.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
         put(draftKey(space, target), text.toByteArray(Charsets.UTF_8))
     }
+    fun articleDraft(space: String, channel: String, article: String?): SpaceArticleDraft? = store.transaction {
+        owned()
+        require(journal(space).snapshot.channels[channel]?.rootContentKind == "article")
+        get(articleDraftKey(space, channel, article))?.let(SpaceArticleDraft::restore)
+    }
+    fun saveArticleDraft(space: String, channel: String, article: String?, draft: SpaceArticleDraft) = store.transaction {
+        owned()
+        require(journal(space).snapshot.channels[channel]?.rootContentKind == "article")
+        put(articleDraftKey(space, channel, article), draft.bytes())
+    }
     fun threadDraft(space: String, parent: Message, channel: String? = null): String = store.transaction {
         owned(); val target = channel ?: selectedChannel(state(space)); threadParent(space, target, parent)
         get(threadDraftKey(space, target, parent.id))?.toString(Charsets.UTF_8) ?: ""
@@ -1907,8 +1917,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     fun send(space: String, text: String, channel: String? = null): String =
         publishRoot(space, text, channel, "message")
 
-    fun publishArticle(space: String, article: SpaceArticleContent.Original, channel: String? = null): String =
-        publishRoot(space, article.encode(), channel, "article")
+    fun publishArticle(space: String, article: SpaceArticleContent.Original, channel: String? = null,
+        reviewedDraft: SpaceArticleDraft? = null): String {
+        require(reviewedDraft == null || reviewedDraft.content() == article)
+        return publishRoot(space, article.encode(), channel, "article", reviewedDraft)
+    }
 
     fun shareStackArticle(space: String, backend: SaitoBackend, signedEnvelope: String, channel: String? = null): String {
         val article = SaitoStack.decode(signedEnvelope)
@@ -1916,7 +1929,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         return publishRoot(space, reference.encode(), channel, "article")
     }
 
-    private fun publishRoot(space: String, text: String, channel: String?, contentKind: String): String = store.transaction {
+    private fun publishRoot(space: String, text: String, channel: String?, contentKind: String,
+        reviewedDraft: SpaceArticleDraft? = null): String = store.transaction {
         owned()
         val state = state(space)
         require(state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control")) { "Community admission or key change is not confirmed" }
@@ -1947,9 +1961,24 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             keys.publish(wallet, contentKind, id(), control, text, clock.millis())
         }
         queue(space, state, original)
-        val draft = draftKey(space, scope.channelId)
-        if (get(draft)?.toString(Charsets.UTF_8) == text) remove(draft)
+        if (contentKind == "article") {
+            if (reviewedDraft != null) consumeArticleDraft(space, scope.channelId, null, reviewedDraft)
+        } else {
+            val draft = draftKey(space, scope.channelId)
+            if (get(draft)?.toString(Charsets.UTF_8) == text) remove(draft)
+        }
         original.id
+    }
+
+    private fun articleDraftKey(space: String, channel: String, article: String?): String {
+        require(space.matches(ID) && channel.matches(ID) && (article == null || article.matches(Regex("[0-9a-f]{128}"))))
+        return "$space/channels/$channel/article-drafts/${article ?: "new"}"
+    }
+
+    private fun SpaceClientStore.Transaction.consumeArticleDraft(space: String, channel: String, article: String?,
+        reviewed: SpaceArticleDraft) {
+        val key = articleDraftKey(space, channel, article)
+        if (get(key)?.contentEquals(reviewed.bytes()) == true) remove(key)
     }
 
     fun editMessage(space: String, message: Message, text: String, channel: String? = null): String = store.transaction {

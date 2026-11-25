@@ -67,3 +67,30 @@ sealed interface SpaceArticleContent {
         }
     }
 }
+
+data class SpaceArticleDraft(val title: String = "", val subtitle: String = "", val markdown: String = "",
+    val sourceMode: Boolean = false) {
+    fun content() = SpaceArticleContent.Original(title, subtitle, markdown)
+    fun fitsStorage(): Boolean = runCatching { bytes() }.isSuccess
+
+    internal fun bytes(): ByteArray = JsonObject().apply {
+        addProperty("version", 1)
+        addProperty("title", title)
+        addProperty("subtitle", subtitle)
+        addProperty("markdown", markdown)
+        addProperty("source_mode", sourceMode)
+    }.toString().toByteArray(Charsets.UTF_8).also { require(it.size <= SpaceArticleContent.MAX_BYTES) }
+
+    override fun toString() = "Space article draft"
+
+    internal companion object {
+        fun restore(bytes: ByteArray): SpaceArticleDraft {
+            require(bytes.size <= SpaceArticleContent.MAX_BYTES)
+            val fields = JsonParser.parseString(bytes.decodeToString(throwOnInvalidSequence = true)).asJsonObject
+            require(fields.keySet() == setOf("version", "title", "subtitle", "markdown", "source_mode") &&
+                fields.get("version").toString() == "1" && fields.getAsJsonPrimitive("source_mode").isBoolean)
+            fun text(name: String): String = fields.getAsJsonPrimitive(name).also { require(it.isString) }.asString
+            return SpaceArticleDraft(text("title"), text("subtitle"), text("markdown"), fields.get("source_mode").asBoolean)
+        }
+    }
+}
