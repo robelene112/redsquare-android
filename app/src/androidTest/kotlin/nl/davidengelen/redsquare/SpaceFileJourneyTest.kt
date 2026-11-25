@@ -5,8 +5,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Process
+import android.os.SystemClock
 import android.provider.MediaStore
 import android.util.AtomicFile
+import android.view.accessibility.AccessibilityNodeInfo
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -83,14 +85,7 @@ class SpaceFileJourneyTest {
                     click("Confirm storage terms")
                     waitForStorageDialogToClose()
                     click("Upload a file", timeout = 25_000, lazy = true)
-                    val source = device.wait(Until.findObject(By.text(name)), 10000)
-                    if (source == null) {
-                        device.findObject(By.descContains("Show roots"))?.click()
-                        device.wait(Until.findObject(By.text("Downloads")), 5000)?.click()
-                    }
-                    val selected = source ?: device.wait(Until.findObject(By.text(name)), 10_000)
-                    assertNotNull("System DocumentsUI must expose the created document", selected)
-                    selected!!.click()
+                    chooseDocument()
                     val publishedRow = hasText(name) and hasClickAction()
                     showFileItem(publishedRow, 30_000)
                     val published = ui.onNode(publishedRow)
@@ -222,6 +217,37 @@ class SpaceFileJourneyTest {
 
     private fun waitForStorageDialogToClose() = ui.waitUntil(35_000) {
         ui.onAllNodes(isDialog()).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
+    }
+
+    private fun chooseDocument() {
+        if (!device.wait(Until.hasObject(By.text(name)), 10_000)) {
+            device.findObject(By.descContains("Show roots"))?.click()
+            device.wait(Until.findObject(By.text("Downloads")), 5000)?.click()
+        }
+        // The filename is a text leaf. At 200% fonts a coordinate tap on the leaf
+        // can miss the document row. Use the actual clickable DocumentsUI ancestor.
+        val packages = setOf("com.android.documentsui", "com.google.android.documentsui")
+        val deadline = SystemClock.uptimeMillis() + 10_000
+        var requested = false
+        while (SystemClock.uptimeMillis() < deadline) {
+            val root = instrumentation.uiAutomation.rootInActiveWindow
+            if (requested && root?.packageName?.toString() == context.packageName) return
+            if (!requested && root?.packageName?.toString() in packages) {
+                val label = root?.findAccessibilityNodeInfosByText(name).orEmpty().firstOrNull {
+                    it.text?.toString() == name && it.isVisibleToUser
+                }
+                var row = label
+                while (row != null && row.packageName?.toString() in packages) {
+                    if (row.isVisibleToUser && row.isClickable && row.isEnabled) {
+                        requested = row.performAction(AccessibilityNodeInfo.ACTION_CLICK)
+                        break
+                    }
+                    row = row.parent
+                }
+            }
+            SystemClock.sleep(100)
+        }
+        error("DocumentsUI did not return the selected file to Spaces")
     }
 
     private fun insertDocument(): Uri = requireNotNull(context.contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI,
