@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""Check the isolated profileable Spaces fixture and cold native reading."""
+"""Check a signed Spaces fixture in the isolated profileable Android application."""
 import hashlib
 import json
-import os
 from pathlib import Path
 import re
 import shlex
@@ -11,10 +10,14 @@ import sys
 import time
 import urllib.request
 from xml.etree import ElementTree
+from spaces_scale_timing import measure
 
 repo = Path(__file__).resolve().parent.parent
 evidence = Path(sys.argv[1]).resolve()
 apk = Path(sys.argv[2]).resolve()
+full = len(sys.argv) == 4 and sys.argv[3] == '--full'
+if len(sys.argv) not in (3, 4) or len(sys.argv) == 4 and not full:
+    raise SystemExit('Expected evidence directory, APK and optional --full')
 tests = repo / 'app/build/outputs/apk/androidTest/performance/app-performance-androidTest.apk'
 package = 'nl.davidengelen.redsquare.performance'
 test_package = package + '.test'
@@ -38,14 +41,15 @@ app = parsed.find('application')
 if parsed.get('package') != package or app.get(android + 'debuggable') == 'true' or app.find('profileable').get(android + 'shell') != 'true':
     raise RuntimeError('Scale fixture requires the isolated nondebuggable profileable build')
 
-fixture = repo / '.scratch' / 'scale-smoke-fixture'
+fixture = repo / '.scratch' / ('scale-full-fixture' if full else 'scale-smoke-fixture')
 java = ['java', '-Xmx640m', f'-Djava.library.path={native}', '-cp', classpath]
 prefix = 'nl.davidengelen.redsquare.spaces.service.'
 with (evidence / 'seed.log').open('wb') as seed_log:
-    subprocess.run(java + [prefix + 'SpacesScaleSeeder', str(fixture), str(contract), '--smoke'],
-                   timeout=90, check=True, stdout=seed_log, stderr=subprocess.STDOUT)
+    command = java + [prefix + 'SpacesScaleSeeder', str(fixture), str(contract)]
+    subprocess.run(command if full else command + ['--smoke'],
+                   timeout=3600 if full else 90, check=True, stdout=seed_log, stderr=subprocess.STDOUT)
 manifest = json.loads((fixture / 'fixture.json').read_text())
-if manifest['contractSha256'] != sha(contract) or manifest['qualifiesForTimedRuns']:
+if manifest['contractSha256'] != sha(contract) or manifest['qualifiesForTimedRuns'] != full:
     raise RuntimeError('Unexpected calibration fixture')
 (evidence / 'fixture.json').write_bytes((fixture / 'fixture.json').read_bytes())
 with (evidence / 'host.log').open('wb') as host_log:
@@ -71,18 +75,25 @@ with (evidence / 'host.log').open('wb') as host_log:
         if f'package:{package}' in adb('shell', 'pm', 'list', 'packages', package).decode().splitlines():
             raise RuntimeError('Scale fixture requires a clean isolated package')
         adb('reverse', f'tcp:{local_port}', f'tcp:{local_port}')
+        if full:
+            for setting in ('window_animation_scale', 'transition_animation_scale', 'animator_duration_scale'):
+                adb('shell', 'settings', 'put', 'global', setting, '1')
+            adb('shell', 'wm', 'size', '824x1836')
+            adb('shell', 'wm', 'density', '320')
+            adb('shell', 'settings', 'put', 'system', 'font_scale', '1.0')
+            adb('shell', 'cmd', 'uimode', 'night', 'no')
         adb('install', str(apk), timeout=100)
         adb('install', str(tests), timeout=100)
         transfer = f'/sdcard/Android/media/{package}/spaces-scale'
         adb('shell', 'mkdir', '-p', transfer)
         for name in ('fixture.json', 'fixture-author.sqlite'):
-            adb('push', str(fixture / name), f'{transfer}/{name}', timeout=45)
+            adb('push', str(fixture / name), f'{transfer}/{name}', timeout=180 if full else 45)
         arguments = ['am', 'instrument', '-w', '-r',
                      '-e', 'class', 'nl.davidengelen.redsquare.SpacesScaleSeedObserver#importReleaseScaleFixture',
                      '-e', 'spacesScalePort', str(local_port),
                      '-e', 'spacesScaleDatabaseSha256', sha(fixture / 'fixture-author.sqlite'),
                      f'{test_package}/androidx.test.runner.AndroidJUnitRunner']
-        imported = adb('shell', shlex.join(arguments), timeout=180).decode()
+        imported = adb('shell', shlex.join(arguments), timeout=2400 if full else 180).decode()
         (evidence / 'seed-native.txt').write_text(imported)
         observed = re.findall(r'^INSTRUMENTATION_STATUS: spacesScaleSeed=(.*)$', imported, re.M)
         if len(observed) != 1 or not re.search(r'^OK \(1 test\)\s*$', imported, re.M):
@@ -99,7 +110,8 @@ with (evidence / 'host.log').open('wb') as host_log:
             adb('shell', 'uiautomator', 'dump', '/sdcard/spaces-scale-smoke.xml', timeout=10)
             document = adb('exec-out', 'cat', '/sdcard/spaces-scale-smoke.xml')
             (evidence / 'actual-screen.xml').write_bytes(document)
-            if b'Benchmark Space 001' in document and b'record 8.' in document and request('status')['readRequests'] > 0:
+            latest = f"record {manifest['hotChannelMessages']}.".encode()
+            if b'Benchmark Space 001' in document and latest in document and request('status')['readRequests'] > 0:
                 break
             if time.monotonic() >= deadline:
                 raise RuntimeError('Cold launch did not render the signed latest fixture message')
@@ -114,13 +126,17 @@ with (evidence / 'host.log').open('wb') as host_log:
             'apkSha256': sha(apk), 'testApkSha256': sha(tests), 'seed': receipt, 'appPid': pid,
             'nativeAndIndependentService': request('status'), 'independentArrival': accepted,
             'device': adb('shell', 'getprop', 'ro.build.fingerprint').decode().strip(),
-            'mode': 'profileable calibration only', 'qualifiesForTimedRuns': False,
+            'mode': 'owned release-equivalent timing' if full else 'profileable calibration only',
+            'qualifiesForTimedRuns': full,
         }
+        if full:
+            summary['timing'] = measure(adb, evidence, package, f'ws://127.0.0.1:{local_port}/wsopen',
+                                        endpoints, manifest, json.loads(contract.read_text()), request)
         stopping()
         stopping = None
         if host.wait(timeout=15) != 0:
             raise RuntimeError('Owned scale peer terminated with errors')
-        (evidence / 'calibration.json').write_text(json.dumps(summary, indent=2) + '\n')
+        (evidence / ('scale-result.json' if full else 'calibration.json')).write_text(json.dumps(summary, indent=2) + '\n')
     finally:
         if stopping is not None and host.poll() is None:
             try:

@@ -3,7 +3,7 @@ set -euo pipefail
 repo_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
 artifact="$repo_dir/app/build/outputs/apk/debug/app-debug.apk"
 if [[ "${TEST_SCOPE:-full}" == scroll-profile* ]]; then artifact="$repo_dir/app/build/outputs/apk/performance/app-performance-unsigned.apk"; fi
-if [[ "${SPACES_SCALE_SMOKE:-false}" == true ]]; then artifact="$repo_dir/app/build/outputs/apk/performance/app-performance.apk"; fi
+if [[ "${SPACES_SCALE_SMOKE:-false}" == true || "${SPACES_SCALE_FULL:-false}" == true ]]; then artifact="$repo_dir/app/build/outputs/apk/performance/app-performance.apk"; fi
 if [[ ! -f "$artifact" ]]; then echo 'Build the diagnostic APK first' >&2; exit 2; fi
 evidence="$repo_dir/.scratch/device-evidence/api-$TEST_DEVICE_API"
 mkdir -p "$evidence"
@@ -125,10 +125,15 @@ if [[ "${TEST_SCOPE:-full}" == scroll-profile* ]]; then
     exit 0
 fi
 
-if [[ "${SPACES_SCALE_SMOKE:-false}" == true ]]; then
+if [[ "${SPACES_SCALE_SMOKE:-false}" == true || "${SPACES_SCALE_FULL:-false}" == true ]]; then
     [[ "$TEST_DEVICE_API" == 37.0 && "$acceleration" == on ]] || { echo 'Scale calibration requires the owned Android 17 KVM device' >&2; exit 2; }
-    python3 "$repo_dir/scripts/spaces-scale-smoke" "$evidence/spaces-scale-calibration" "$artifact"
-    printf '%s\n' 'Profileable fixture calibration on small signed data. Scale acceptance and performance timing remain separate.' > "$evidence/scope.txt"
+    if [[ "${SPACES_SCALE_FULL:-false}" == true ]]; then
+        python3 "$repo_dir/scripts/spaces-scale-check" "$evidence/spaces-scale" "$artifact" --full
+        printf '%s\n' 'Owned release-equivalent timing against the frozen signed dataset. Physical device qualification remains separate.' > "$evidence/scope.txt"
+    else
+        python3 "$repo_dir/scripts/spaces-scale-check" "$evidence/spaces-scale-calibration" "$artifact"
+        printf '%s\n' 'Profileable fixture calibration on small signed data. Scale acceptance and performance timing remain separate.' > "$evidence/scope.txt"
+    fi
     exit 0
 fi
 sha256sum "$artifact" "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk" \

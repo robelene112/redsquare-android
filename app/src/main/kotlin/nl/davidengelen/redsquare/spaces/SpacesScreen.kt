@@ -42,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
@@ -1337,6 +1338,10 @@ private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "�
 @OptIn(ExperimentalLayoutApi::class)
 @Composable private fun MessageReactions(message: SpaceClient.Message, react: ((String) -> Unit)?, reply: (() -> Unit)?,
     openPicker: () -> Unit, openDetails: () -> Unit) {
+    if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE) {
+        val view = LocalView.current
+        SideEffect { SpacesScaleMeasurement.reactionDrawn(message, view) }
+    }
     var knownOrder by remember(message.id) { mutableStateOf<List<String>>(emptyList()) }
     var lastChoice by remember(message.id) { mutableStateOf<String?>(null) }
     val available = message.reactions.associateBy { it.emoji }

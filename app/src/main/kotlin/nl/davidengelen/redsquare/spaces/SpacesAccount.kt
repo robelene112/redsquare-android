@@ -452,6 +452,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         if (active) ticker = scope.launch {
             while (isActive) { wake.trySend(Unit); delay(5_000) }
         }
+        if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE)
+            SpacesScaleMeasurement.visible(wasVisible.get(), ticker?.isActive == true)
     }
     fun refresh() { wake.trySend(Unit) }
     fun select(space: String?, channel: String? = null) { selectRoute(space, channel) }
@@ -1053,6 +1055,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     fun toggleReaction(target: Target, message: SpaceClient.Message, emoji: String, onSaved: (() -> Unit)? = null) {
         if (closed.get() || navigationSaving.get() || mutable.value.target() != target) return
+        if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE)
+            SpacesScaleMeasurement.reactionPressed(message, emoji)
         scope.launch {
             try {
                 localAccess.withLock {
