@@ -5,6 +5,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.Dp
@@ -19,8 +20,11 @@ internal fun PublishingEditor(value: String, onChange: (String) -> Unit, enabled
     val height = maximumHeight.coerceIn(1.dp, 280.dp)
     val field = modifier.fillMaxWidth().heightIn(min = minOf(160.dp, height), max = height)
     val label = stringResource(R.string.post_write)
-    if (compact) CompactWritingField(value, onChange, enabled, label, field, maxLines = Int.MAX_VALUE)
-    else OutlinedTextField(value = value, onValueChange = onChange, enabled = enabled,
+    if (compact) {
+        val lineHeight = with(LocalDensity.current) { MaterialTheme.typography.bodyLarge.lineHeight.toDp() }
+        val visibleLines = ((height - 4.dp) / lineHeight).toInt().coerceAtLeast(1)
+        CompactWritingField(value, onChange, enabled, label, field, maxLines = visibleLines)
+    } else OutlinedTextField(value = value, onValueChange = onChange, enabled = enabled,
         label = { Text(label) }, textStyle = MaterialTheme.typography.bodyLarge,
         colors = OutlinedTextFieldDefaults.colors(disabledTextColor = MaterialTheme.colorScheme.onSurface),
         shape = RoundedCornerShape(AppSpacing.controlRadius), modifier = field)
