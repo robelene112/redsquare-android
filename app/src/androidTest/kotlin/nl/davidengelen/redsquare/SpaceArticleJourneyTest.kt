@@ -52,7 +52,7 @@ class SpaceArticleJourneyTest {
         agreement.writeText("""{"revision":"spaces-article-fixture","ready":true,"enforce":false,"terms":"Isolated fixture terms","community":"Isolated fixture rules"}""")
         val fixture = request("article-invitation", JsonObject().apply { addProperty("recipient", wallet.publicKey) })
         launch(fixture.get("link").asString).use { activity ->
-            withFailureCapture({ capture("articles-first-failure") }) {
+            observeJourney("articles-first-failure") {
                 clickWhenVisible("Join community")
                 clickWhenVisible("Write article", timeout = 40_000)
                 val titleField = editField("Title")
@@ -131,7 +131,7 @@ class SpaceArticleJourneyTest {
         assertEquals(saved.get("author").asString, AndroidWalletStore(context).loadExisting().publicKey)
         request("release")
         launch(saved.get("link").asString).use {
-            withFailureCapture({ capture("articles-recovery-failure") }) {
+            observeJourney("articles-recovery-failure") {
                 ui.waitUntil(30_000) { ui.onNodeWithText(title).isDisplayed() }
                 ui.onNodeWithText(subtitle).assertIsDisplayed()
                 val pending = expected(saved, saved.get("author").asString)
@@ -224,6 +224,16 @@ class SpaceArticleJourneyTest {
         ui.waitUntil(5_000) { !imeVisible(activity) }
     }
     private fun capture(name: String, expected: String? = null) = captureNativeScreen(File(evidence, "$name.png"), expected)
+
+    private fun observeJourney(name: String, journey: () -> Unit) {
+        withFailureCapture({ capture(name) }) {
+            try { journey() }
+            catch (failure: Throwable) {
+                File(evidence, "$name.txt").writeText(failure.stackTraceToString())
+                throw failure
+            }
+        }
+    }
 
     private fun request(path: String, body: JsonObject = JsonObject()): JsonObject {
         val connection = URL("http://127.0.0.1:${port("spacesControlPort")}/$path").openConnection() as HttpURLConnection

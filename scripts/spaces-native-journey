@@ -103,12 +103,13 @@ def prepare_viewport():
     global viewport_original
     # Capture every original before the first mutation. Separate resource probes
     # observe the actual Android configuration, not a shell command's intent.
-    viewport_original = {'size': viewport_override('size'), 'density': viewport_override('density'),
+    original = {'size': viewport_override('size'), 'density': viewport_override('density'),
         'fontSetting': adb('shell', 'settings', 'get', 'system', 'font_scale').stdout.decode().strip()}
-    if not re.fullmatch(r'null|[0-9]+(?:\.[0-9]+)?', viewport_original['fontSetting']):
+    if not re.fullmatch(r'null|[0-9]+(?:\.[0-9]+)?', original['fontSetting']):
         raise RuntimeError('Unrecognized original font setting')
-    (evidence / 'viewport-original.json').write_text(json.dumps(viewport_original, indent=2))
-    viewport_original['resources'] = viewport_observation('baseline')
+    (evidence / 'viewport-original.json').write_text(json.dumps(original, indent=2))
+    original['resources'] = viewport_observation('baseline')
+    viewport_original = original
     (evidence / 'viewport-original.json').write_text(json.dumps(viewport_original, indent=2))
     adb('shell', 'am', 'force-stop', pkg)
     adb('shell', 'wm', 'size', '640x1280')
