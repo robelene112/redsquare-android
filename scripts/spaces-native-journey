@@ -924,6 +924,13 @@ try:
             raise RuntimeError('Independent encrypted round trip did not satisfy the expected effects')
         (evidence / 'protected-chat-result.json').write_text(json.dumps(proof, indent=2))
         finish_record(*movies[-1])
+        (evidence / 'journey-outcome.json').write_text(json.dumps({
+            'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
+            'oldPid': pending['pid'], 'newPid': proof['recoveredPid'], 'nativeTerminalPasses': 1,
+            'deliberatelyInterruptedCases': 1, 'exactOriginal': proof['exactOriginal'],
+            'encryptedOriginals': proof['encryptedOriginals'], 'originalSubmissions': proof['originalSubmissions'],
+            'readByIndependentPeer': proof['readByIndependentPeer'], 'screenTapReceived': proof['screenTapReceived'],
+            'productionNodeActivated': False}, indent=2))
     elif conversation_overlays_mode:
         record(1)
         session = instrument('messageMenusAndEditSurviveIncomingMessagesAndRealIme', 'conversation-overlays.txt', peer_port, control_port)
