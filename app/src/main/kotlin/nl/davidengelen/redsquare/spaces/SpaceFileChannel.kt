@@ -77,6 +77,9 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
         }
     }
     val lease = library?.lease
+    LaunchedEffect(settings, lease?.id) {
+        if (settings && providerOrigin.isBlank()) lease?.offer?.origin?.let { providerOrigin = it }
+    }
     LaunchedEffect(target, lease?.id, online, joined) {
         val end = lease?.offer?.expiresAt ?: return@LaunchedEffect
         while (true) {
@@ -161,7 +164,7 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
         state.current?.canSend == true && library?.upload == null
     if (selectedRecord != null && selection != null) {
         val row = selectedRecord
-        LazyColumn(modifier.fillMaxWidth(), contentPadding = PaddingValues(AppSpacing.screen),
+        LazyColumn(modifier.fillMaxWidth().testTag("spaces-file-detail"), contentPadding = PaddingValues(AppSpacing.screen),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item {
                 TextButton(onClick = { selected = null; problem = 0 }) { Text(stringResource(R.string.spaces_files_back_to_library)) }

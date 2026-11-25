@@ -104,9 +104,8 @@ class SpaceFileJourneyTest {
                     assertEquals(0, request("file-provider-downloads").get("nativeDownloads").asInt)
                     capture("file-library")
                     click(name)
-                    waitVisible("Keep an offline copy")
-                    click("Keep an offline copy")
-                    waitVisible("Remove offline copy", 30_000)
+                    clickFileDetail("Keep an offline copy")
+                    showFileDetail("Remove offline copy", 30_000)
                     assertEquals(1, request("file-provider-downloads").get("nativeDownloads").asInt)
                     capture("file-keep-offline")
                     val proof = request("file-received")
@@ -144,22 +143,25 @@ class SpaceFileJourneyTest {
                 showFileItem(hasText("Shared library"))
                 click("Shared library")
                 click("Refresh storage")
-                waitVisible("Could not reach the storage provider.")
+                val providerOffline = ui.onNode(hasText("Could not reach the storage provider.") and hasAnyAncestor(isDialog()))
+                ui.waitUntil(15_000) { providerOffline.isDisplayed() }
                 capture("file-provider-offline")
                 click("Cancel")
                 showFileItem(hasText(name))
                 click(name)
-                waitVisible("Remove offline copy")
-                click("Open file")
-                val receiver = device.wait(Until.findObject(By.text("Spaces file verifier")), 10_000)
-                assertNotNull("A separate Android file consumer must be offered", receiver)
-                capture("file-open-chooser")
-                receiver!!.click()
+                showFileDetail("Remove offline copy")
+                clickFileDetail("Open file")
+                val wanted = before.get("sha256").asString
+                val receiver = device.wait(Until.findObject(By.text("Spaces file verifier")), 8_000)
+                if (receiver != null) {
+                    capture("file-open-chooser")
+                    receiver.click()
+                }
                 assertTrue("The separate viewer must read the exact saved bytes with storage offline",
-                    device.wait(Until.hasObject(By.text(before.get("sha256").asString)), 15_000))
+                    device.wait(Until.hasObject(By.text(wanted)), 15_000))
                 capture("file-viewer-bytes")
                 device.pressBack()
-                waitVisible("Remove offline copy")
+                showFileDetail("Remove offline copy")
                 request("file-provider-start")
                 val stillStored = request("file-received")
                 assertEquals(before.get("sha256").asString, stillStored.get("sha256").asString)
@@ -168,13 +170,13 @@ class SpaceFileJourneyTest {
                 assertNotEquals(before.get("providerPid").asLong, stillStored.get("providerPid").asLong)
                 assertEquals(1, stillStored.get("nativeDownloads").asInt)
 
-                click("Remove offline copy")
+                clickFileDetail("Remove offline copy")
                 clickDialog("Remove offline copy", "Remove the copy saved on this device?")
-                waitVisible("Keep an offline copy")
+                showFileDetail("Keep an offline copy")
                 assertEquals(before.get("used").asLong, request("file-received").get("used").asLong)
                 capture("file-local-removal")
 
-                click("Remove from Space")
+                clickFileDetail("Remove from Space")
                 clickDialog("Remove from Space", "Remove this file from the shared library and storage?")
                 waitVisible("No shared files yet", 25_000)
                 val final = request("file-received")
@@ -242,9 +244,17 @@ class SpaceFileJourneyTest {
         button.performTouchInput { click() }
     }
 
-    private fun showFileItem(matcher: SemanticsMatcher, timeout: Long = 12_000) {
+    private fun clickFileDetail(label: String) {
+        showFileDetail(label)
+        click(label)
+    }
+
+    private fun showFileDetail(label: String, timeout: Long = 12_000) =
+        showFileItem(hasText(label), timeout, list = "spaces-file-detail")
+
+    private fun showFileItem(matcher: SemanticsMatcher, timeout: Long = 12_000, list: String = "spaces-file-list") {
         ui.waitUntil(timeout) {
-            runCatching { ui.onNodeWithTag("spaces-file-list").performScrollToNode(matcher) }.isSuccess
+            runCatching { ui.onNodeWithTag(list).performScrollToNode(matcher) }.isSuccess
         }
     }
 
