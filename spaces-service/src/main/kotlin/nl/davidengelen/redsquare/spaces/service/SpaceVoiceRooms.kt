@@ -13,7 +13,7 @@ internal class SpaceVoiceRooms {
     private data class Key(val space: String, val channel: String)
     private data class AccessTerm(val generation: String, val epoch: Long, val reopenedAt: Long,
         val channelAccess: Long?, val previousDeparture: Long?)
-    private data class Session(val wallet: String, val id: String, val term: AccessTerm, val expiresAt: Long,
+    private data class Session(val wallet: String, val device: String?, val id: String, val term: AccessTerm, val expiresAt: Long,
         val mutedByStaff: Boolean = false)
     private class Room {
         val sessions = linkedMapOf<String, Session>()
@@ -22,7 +22,7 @@ internal class SpaceVoiceRooms {
 
     private val rooms = mutableMapOf<Key, Room>()
 
-    fun exchange(space: String, channel: String, caller: String, command: Command, sessionId: String?,
+    fun exchange(space: String, channel: String, caller: String, device: String?, command: Command, sessionId: String?,
         journal: SpaceJournal, now: Long): SpaceVoiceRoom {
         val snapshot = journal.snapshot
         val record = requireNotNull(snapshot.channels[channel])
@@ -38,7 +38,7 @@ internal class SpaceVoiceRooms {
         }
         val room = existing ?: Room()
         room.sessions.values.toList().forEach { entry ->
-            if (!canJoin(journal, record, channel, entry.wallet) || entry.term != term(journal, record, entry.wallet))
+            if (!canJoin(journal, record, channel, entry.wallet, entry.device) || entry.term != term(journal, record, entry.wallet))
                 retire(room, entry)
         }
         val previous = room.sessions[caller]
@@ -47,7 +47,7 @@ internal class SpaceVoiceRooms {
         when (command) {
             Command.OBSERVE -> {
                 status = when {
-                    !canJoin(journal, record, channel, caller) -> Status.MEMBERS_ONLY
+                    !canJoin(journal, record, channel, caller, device) -> Status.MEMBERS_ONLY
                     room.sessions.size == SpaceVoiceRoom.CAPACITY && previous == null -> Status.FULL
                     else -> Status.AVAILABLE
                 }
@@ -55,14 +55,14 @@ internal class SpaceVoiceRooms {
             Command.JOIN -> {
                 val id = requireNotNull(sessionId)
                 status = when {
-                    !canJoin(journal, record, channel, caller) -> Status.MEMBERS_ONLY
+                    !canJoin(journal, record, channel, caller, device) -> Status.MEMBERS_ONLY
+                    previous != null && (previous.id != id || previous.device != device) -> Status.ALREADY_JOINED
                     id in room.retired || room.sessions.values.any { it.id == id && it.wallet != caller } -> Status.SESSION_ENDED
                     previous == null && room.sessions.size == SpaceVoiceRoom.CAPACITY -> Status.FULL
                     else -> {
                         require(existing != null || rooms.size < MAX_ACTIVE_ROOMS) { "Room service is at capacity" }
                         require(room.retired.size < MAX_RECENT_SESSIONS) { "Room has too many recent sessions" }
-                        if (previous != null && previous.id != id) retire(room, previous)
-                        room.sessions[caller] = Session(caller, id, term(journal, record, caller),
+                        room.sessions[caller] = Session(caller, device, id, term(journal, record, caller),
                             Math.addExact(now, SpaceVoiceRoom.LEASE_MILLIS),
                             mutedByStaff = previous?.takeIf { it.id == id }?.mutedByStaff == true)
                         rooms[key] = room
@@ -72,13 +72,13 @@ internal class SpaceVoiceRooms {
                 }
             }
             Command.RENEW -> {
-                if (previous != null && previous.id == sessionId) {
+                if (previous != null && previous.id == sessionId && previous.device == device) {
                     room.sessions[caller] = previous.copy(expiresAt = Math.addExact(now, SpaceVoiceRoom.LEASE_MILLIS))
                     admitted = true
                 } else status = Status.SESSION_ENDED
             }
             Command.LEAVE -> {
-                if (previous != null && previous.id == sessionId) retire(room, previous)
+                if (previous != null && previous.id == sessionId && previous.device == device) retire(room, previous)
             }
             Command.MUTE, Command.REMOVE -> {
                 val target = requireNotNull(room.sessions.values.singleOrNull { it.id == sessionId })
@@ -94,9 +94,9 @@ internal class SpaceVoiceRooms {
         return SpaceVoiceRoom(status, admitted, SpaceVoiceRoom.CAPACITY, participants, now)
     }
 
-    private fun canJoin(journal: SpaceJournal, record: SpaceChannelRecord, channel: String, wallet: String): Boolean =
+    private fun canJoin(journal: SpaceJournal, record: SpaceChannelRecord, channel: String, wallet: String, device: String?): Boolean =
         wallet !in journal.snapshot.bannedMembers && journal.canContributeChannel(wallet, channel) &&
-            (record.visibility == SpaceVisibility.PUBLIC || record.devices.keys.any { it.split(':')[1] == wallet })
+            (record.visibility == SpaceVisibility.PUBLIC && device == null || device != null && device in record.devices && device.split(':')[1] == wallet)
 
     private fun term(journal: SpaceJournal, record: SpaceChannelRecord, wallet: String) =
         AccessTerm(record.generation, record.epoch, record.contributionStartedAt, record.accessStartedAt[wallet],

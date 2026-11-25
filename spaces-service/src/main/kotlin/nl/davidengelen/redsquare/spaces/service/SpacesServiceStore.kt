@@ -182,7 +182,17 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     }
                     if (roomCommand != null) {
                         try {
-                            reply.add("voice_room", voiceRooms.exchange(space, requireNotNull(channel), request.author,
+                            val roomChannel = requireNotNull(channel)
+                            val record = journal.snapshot.channels.getValue(roomChannel)
+                            val credential = if (record.visibility == SpaceVisibility.PRIVATE) {
+                                body.text("room_device").also { device ->
+                                    val key = requireNotNull(record.devices[device])
+                                    require(device.split(':')[1] == request.author)
+                                    require(SpaceVoiceRoom.verifyDeviceChallenge(key, body.text("room_proof"),
+                                        SpaceVoiceRoom.deviceChallenge(wallet.publicKey, request.author, scope, nonce)))
+                                }
+                            } else null
+                            reply.add("voice_room", voiceRooms.exchange(space, roomChannel, request.author, credential,
                                 roomCommand, roomSession, journal, now).json())
                             reply.add("items", JsonArray())
                             reply.addProperty("next_cursor", 0)

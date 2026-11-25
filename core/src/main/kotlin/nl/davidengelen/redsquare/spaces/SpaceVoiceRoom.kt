@@ -3,6 +3,10 @@ package nl.davidengelen.redsquare.spaces
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import org.bouncycastle.crypto.params.Ed25519PublicKeyParameters
+import org.bouncycastle.crypto.signers.Ed25519Signer
+import java.security.MessageDigest
+import java.util.Base64
 
 /** Signed room presence is short-lived. The channel itself is durable. */
 data class SpaceVoiceRoom(
@@ -12,7 +16,7 @@ data class SpaceVoiceRoom(
     val participants: List<Participant>,
     val observedAt: Long,
 ) {
-    enum class Status { AVAILABLE, FULL, ARCHIVED, MEMBERS_ONLY, SESSION_ENDED }
+    enum class Status { AVAILABLE, FULL, ARCHIVED, MEMBERS_ONLY, SESSION_ENDED, ALREADY_JOINED }
 
     data class Participant(val wallet: String, val session: String, val canSpeak: Boolean, val expiresAt: Long) {
         init { require(SaitoWallet.isPublicKey(wallet) && session.matches(SESSION) && expiresAt > 0) }
@@ -61,6 +65,27 @@ data class SpaceVoiceRoom(
         private val SESSION = Regex("[0-9a-f]{32}")
 
         fun validSession(session: String) = session.matches(SESSION)
+
+        fun deviceChallenge(authority: String, wallet: String, scope: JsonObject, nonce: String): String {
+            require(SaitoWallet.isPublicKey(authority) && SaitoWallet.isPublicKey(wallet) && nonce.matches(ID))
+            val canonical = JsonObject().apply { scope.keySet().sorted().forEach { key -> add(key, scope.get(key)) } }
+            val digest = MessageDigest.getInstance("SHA-256").digest(canonical.toString().toByteArray(Charsets.UTF_8))
+            return "SaitoSpacesRoomDevice/v1:$authority:$wallet:$nonce:${Base64.getEncoder().encodeToString(digest)}"
+        }
+
+        fun verifyDeviceChallenge(signer: String, signature: String, challenge: String): Boolean {
+            if (signer.length != 44 || signature.length != 88) return false
+            return runCatching {
+                val key = Base64.getDecoder().decode(signer)
+                val proof = Base64.getDecoder().decode(signature)
+                val text = challenge.toByteArray(Charsets.UTF_8)
+                require(key.size == 32 && proof.size == 64)
+                Ed25519Signer().apply {
+                    init(false, Ed25519PublicKeyParameters(key, 0))
+                    update(text, 0, text.size)
+                }.verifySignature(proof)
+            }.getOrDefault(false)
+        }
 
         fun scope(space: String, channel: String, command: Command, session: String?): JsonObject {
             require(space.matches(ID) && channel.matches(ID))

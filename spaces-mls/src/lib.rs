@@ -6,6 +6,7 @@ use openmls::prelude::*;
 use openmls::prelude::tls_codec::{Deserialize as TlsDeserialize, Serialize as TlsSerialize};
 use openmls_basic_credential::SignatureKeyPair;
 use openmls_rust_crypto::OpenMlsRustCrypto;
+use openmls_traits::signatures::Signer;
 use openmls_traits::OpenMlsProvider;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
@@ -117,6 +118,14 @@ pub fn exchange(request: &str) -> Result<String, &'static str> {
     let mut response = json!({"version":1, "identity":client.identity, "signer":STANDARD.encode(client.signer.public())});
     match op {
         "status" => {},
+        "room-device-proof" => {
+            let challenge = field(&request, "challenge")?;
+            if client.group.is_none() || challenge.len() > 512 || !challenge.starts_with("SaitoSpacesRoomDevice/v1:") {
+                return Err("Invalid room device challenge");
+            }
+            let signature = client.signer.sign(challenge.as_bytes()).map_err(|_| "Room device signing failed")?;
+            return Ok(json!({"version": 1, "signature": STANDARD.encode(signature)}).to_string());
+        }
         "new" => {
             let package = KeyPackage::builder().build(SUITE, &client.provider, &client.signer, client.credential())
                 .map_err(|_| "MLS key package unavailable")?;

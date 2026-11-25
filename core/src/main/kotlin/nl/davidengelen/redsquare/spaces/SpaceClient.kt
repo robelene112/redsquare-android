@@ -696,7 +696,21 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     private suspend fun voiceRoomCommand(space: String, channel: String, command: SpaceVoiceRoom.Command,
         session: String? = null): SpaceVoiceRoom {
-        val reply = readPage(SpaceVoiceRoom.scope(space, channel, command, session))
+        val scope = SpaceVoiceRoom.scope(space, channel, command, session)
+        val device = store.transaction {
+            if (get(stateKey(space)) == null) return@transaction null
+            owned()
+            val record = journal(space).snapshot.channels[channel]
+            if (record?.visibility != SpaceVisibility.PRIVATE) return@transaction null
+            val saved = channelState(space, channel).get("crypto")?.asString ?: throw SpaceCrypto.MissingKeys()
+            SpaceCrypto.restore(decode(saved)).also { require(it.credential in record.devices) }
+        }
+        val reply = readPage(scope, decorateRead = device?.let { keys ->
+            { nonce, request ->
+                request.addProperty("room_device", keys.credential)
+                request.addProperty("room_proof", keys.proveRoomDevice(SpaceVoiceRoom.deviceChallenge(service, wallet.publicKey, scope, nonce)))
+            }
+        })
         val room = SpaceVoiceRoom.read(reply.getAsJsonObject("voice_room"))
         require(!room.admitted || room.participants.any { it.wallet == wallet.publicKey && it.session == session })
         return room
@@ -3637,7 +3651,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         return true
     }
 
-    private suspend fun readPage(scope: JsonObject, invitation: SpaceInvitation? = null): JsonObject {
+    private suspend fun readPage(scope: JsonObject, invitation: SpaceInvitation? = null,
+        decorateRead: ((String, JsonObject) -> Unit)? = null): JsonObject {
         val requestId = id()
         fun request(kind: String, nonce: String? = null) = SaitoTransaction.create(wallet, JsonObject().apply {
             addProperty("module", "Spaces"); addProperty("request", kind); addProperty("version", 1)
@@ -3645,6 +3660,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             nonce?.let {
                 addProperty("nonce", it)
                 invitation?.let { invite -> addProperty("invite_proof", invite.proof(wallet.publicKey, nonce)) }
+                decorateRead?.invoke(it, this)
             }
         }, clock.millis(), listOf(service))
         fun verified(envelope: String, kind: String?): JsonObject {

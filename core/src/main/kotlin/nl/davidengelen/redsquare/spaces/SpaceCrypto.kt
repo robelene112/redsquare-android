@@ -268,6 +268,15 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
 
     /** Secret bytes for the repository's authenticated at-rest transaction. */
     fun historyBackup(): ByteArray = archiveHistorySnapshot().save()
+
+    internal fun proveRoomDevice(challenge: String): String {
+        requireNotNull(scope)
+        require(challenge.startsWith("SaitoSpacesRoomDevice/v1:"))
+        return step("room-device-proof") { addProperty("challenge", challenge) }.let { proof ->
+            require(proof.number("version") == 1L && proof.keySet() == setOf("version", "signature"))
+            proof.text("signature").also { require(decode(it).size == 64) }
+        }
+    }
     fun save(): ByteArray = JsonObject().apply {
         addProperty("version", 2); add("native", native.deepCopy())
         scope?.let { add("scope", it.json()) }

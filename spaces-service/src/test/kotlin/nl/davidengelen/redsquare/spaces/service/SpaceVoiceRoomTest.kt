@@ -1,6 +1,9 @@
 package nl.davidengelen.redsquare.spaces.service
 
 import kotlinx.coroutines.runBlocking
+import com.google.gson.JsonObject
+import nl.davidengelen.redsquare.saito.SaitoEnvelope
+import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceChannelKind
 import nl.davidengelen.redsquare.spaces.SpaceChannelProfile
@@ -67,6 +70,8 @@ class SpaceVoiceRoomTest {
                     .exceptionOrNull() is SpaceClient.ReadDenied)
                 owner.moderateVoiceRoom(room, channel, target.session, remove = false)
                 assertFalse(member.renewVoiceRoom(room, channel, token(2)).participants.single { it.session == token(2) }.canSpeak)
+                assertFalse(member.joinVoiceRoom(room, channel, token(6)).admitted)
+                assertFalse(member.renewVoiceRoom(room, channel, token(2)).participants.single { it.session == token(2) }.canSpeak)
                 owner.moderateVoiceRoom(room, channel, target.session, remove = true)
                 assertFalse(member.renewVoiceRoom(room, channel, token(2)).admitted)
                 assertTrue(visitor.joinVoiceRoom(room, channel, token(4)).admitted)
@@ -88,6 +93,46 @@ class SpaceVoiceRoomTest {
                 assertEquals(SpaceVoiceRoom.Status.ARCHIVED, archived.status)
                 assertTrue(archived.participants.isEmpty())
             } finally { stores.forEach(SqliteClientFixture::close) }
+        }
+    }
+
+    @Test fun privateParticipationRequiresTheCurrentEnrolledDeviceKey() = runBlocking<Unit> {
+        val clock = RoomClock()
+        val node = SaitoWallet.create()
+        val memberWallet = SaitoWallet.create()
+        SpacesServiceStore(files.newFolder().toPath(), node, clock).use { service ->
+            SqliteClientFixture(files.newFile().absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile().absolutePath).use { memberStore ->
+                    fun client(wallet: SaitoWallet, store: SqliteClientFixture) =
+                        SpaceClient(wallet, "https://rooms.example.test", node.publicKey, store, clock) { service.exchange(it.envelope()) }
+                    val owner = client(SaitoWallet.create(), ownerStore)
+                    val member = client(memberWallet, memberStore)
+                    val room = owner.create(SpaceProfile("Private lounge"), listOf(SpaceChannelProfile("Lounge", SpaceChannelKind.VOICE)))
+                    owner.flush(room); owner.refresh(room)
+                    val channel = owner.channels(room).single().id
+                    val invite = owner.inviteFor(room, memberWallet.publicKey)
+                    owner.flush(room)
+                    member.join(invite); member.flush(room)
+                    owner.admitPending(room); owner.flush(room); member.refresh(room)
+                    val scope = SpaceVoiceRoom.scope(room, channel, SpaceVoiceRoom.Command.JOIN, token(2))
+                    fun raw(kind: String, nonce: String? = null): JsonObject {
+                        val request = SaitoTransaction.create(memberWallet, JsonObject().apply {
+                            addProperty("module", "Spaces"); addProperty("version", 1); addProperty("request", kind)
+                            addProperty("request_id", "1".repeat(64)); add("scope", scope)
+                            nonce?.let { addProperty("nonce", it) }
+                        }, clock.millis(), listOf(node.publicKey))
+                        return SaitoEnvelope.decode(service.exchange(request.envelope())).body
+                    }
+                    val nonce = raw("challenge").get("nonce").asString
+                    assertEquals("denied", raw("read", nonce).get("request").asString)
+                    assertTrue(owner.voiceRoom(room, channel).participants.isEmpty())
+                    assertTrue(member.joinVoiceRoom(room, channel, token(2)).admitted)
+                    assertEquals(memberWallet.publicKey, owner.voiceRoom(room, channel).participants.single().wallet)
+                    member.leave(room); member.flush(room)
+                    assertTrue(owner.voiceRoom(room, channel).participants.isEmpty())
+                    assertTrue(runCatching { member.renewVoiceRoom(room, channel, token(2)) }.isFailure)
+                }
+            }
         }
     }
 
