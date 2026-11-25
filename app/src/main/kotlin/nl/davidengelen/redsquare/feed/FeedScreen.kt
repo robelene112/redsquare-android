@@ -97,6 +97,17 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     val followingOwner = if (followingView) wallet?.publicKey else null
     val cache = remember(backend, followingOwner) { AndroidFeedCache(context, backend, followingOwner = followingOwner) }
     val archivePolicy = remember(wallet?.publicKey, endpoint) { ArchiveReadPolicy() }
+    val traceArchiveLaunch = nl.davidengelen.redsquare.BuildConfig.DEBUG &&
+        activity.intent.getBooleanExtra("tracePhotoArchiveLaunch", false) && endpoint.startsWith("ws://127.0.0.1:")
+    val mountedArchiveOwner = remember { Any() }
+    fun traceArchive(message: String) {
+        if (traceArchiveLaunch) android.util.Log.i("Spaces147PhotoTrace",
+            "owner=${System.identityHashCode(mountedArchiveOwner)} policy=${System.identityHashCode(archivePolicy)} wallet=${System.identityHashCode(wallet)} $message")
+    }
+    DisposableEffect(mountedArchiveOwner) {
+        traceArchive("mounted")
+        onDispose { traceArchive("disposed") }
+    }
     val archiveContinuations = remember(wallet?.publicKey, endpoint, followingView) {
         mutableMapOf<String, Pair<com.google.gson.JsonObject, ArchiveReadCursor>>()
     }
@@ -330,12 +341,14 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     }
     LaunchedEffect(wallet, cacheReady, refresh, internet, followingView,
         following?.accounts.takeIf { followingView }, following?.ready.takeIf { followingView }) {
+        traceArchive("effect cache=$cacheReady refresh=$refresh following=$followingView internet=$internet")
         if (!internet.available) { hadOutage = true; recovered = false }
         if (wallet == null || !cacheReady) return@LaunchedEffect
         if (followingView && following?.ready != true) { loading = false; pullRefreshing = false; manualPullPending = false; pulledTopPost = null; return@LaunchedEffect }
         if (followingView && following?.accounts?.isEmpty() == true) { loading = false; pullRefreshing = false; manualPullPending = false; pulledTopPost = null; return@LaunchedEffect }
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (currentCoroutineContext().isActive) {
+                traceArchive("turn")
                 if (!internet.available) {
                     loading = false
                     pullRefreshing = false
@@ -435,6 +448,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                                             archiveContinuations[key] = query to requireNotNull(cursor)
                                         }
                                     }
+                                    traceArchive("request from=${criteria.get("created_earlier_than").asLong} continuation=${archiveContinuations.isNotEmpty()}")
                                     readStream(criteria, RedSquareFeed::readArchive)
                                     readSucceeded = true
                                     val quoteCriteria = criteria.deepCopy().apply {
@@ -472,8 +486,14 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     // The request's own deadline must not cancel the foreground polling loop.
                     currentCoroutineContext().ensureActive()
                     manualPullPending = false; pulledTopPost = null; failed = true; followingPartial = false; hadOutage = true; recovered = false
-                } catch (cancelled: CancellationException) { throw cancelled }
-                catch (_: Exception) { manualPullPending = false; pulledTopPost = null; failed = true; followingPartial = false; hadOutage = true; recovered = false }
+                } catch (cancelled: CancellationException) {
+                    traceArchive("turn cancelled ${cancelled.javaClass.simpleName}")
+                    throw cancelled
+                }
+                catch (failure: Exception) {
+                    traceArchive("turn failed ${failure.javaClass.simpleName}")
+                    manualPullPending = false; pulledTopPost = null; failed = true; followingPartial = false; hadOutage = true; recovered = false
+                }
                 finally { if (currentCoroutineContext().isActive) { loading = false; pullRefreshing = false } }
                 delay(if (failed) 5_000 else 30_000)
             }

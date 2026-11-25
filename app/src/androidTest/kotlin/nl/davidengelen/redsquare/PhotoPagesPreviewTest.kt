@@ -158,7 +158,8 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
         peer.start().use { server ->
             val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use {
+                .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)
+                .putExtra("tracePhotoArchiveLaunch", largeRows)).use {
                 withFailureCapture({
                     File(context.cacheDir, "photo-pages-evidence").mkdirs()
                     File(context.cacheDir, "photo-pages-evidence/$mode-wire-failure.json").writeText(JsonArray().apply {
