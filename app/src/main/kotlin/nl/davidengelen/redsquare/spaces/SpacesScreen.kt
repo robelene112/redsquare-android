@@ -90,9 +90,12 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     val scope = rememberCoroutineScope()
     val publishing = nl.davidengelen.redsquare.policy.LocalPublishingAgreement.current
     val navigation = LocalPostNavigation.current
+    var articleEditorGuard by remember(account) { mutableStateOf<(() -> Boolean)?>(null) }
     DisposableEffect(navigation, account) {
-        val save: suspend () -> Boolean = { account.guardNavigation { true } }
-        val guard: suspend (suspend () -> Boolean) -> Boolean = { commit -> account.guardNavigation(commit) }
+        val save: suspend () -> Boolean = { articleEditorGuard?.invoke() != false && account.guardNavigation { true } }
+        val guard: suspend (suspend () -> Boolean) -> Boolean = { commit ->
+            articleEditorGuard?.invoke() != false && account.guardNavigation(commit)
+        }
         navigation?.saveCurrent = save; navigation?.guardedCurrent = guard
         onDispose {
             if (navigation?.saveCurrent === save) navigation.saveCurrent = null
@@ -170,6 +173,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     val imeVisible = keyboardOccupiesWindow()
     fun choose(space: String?, channel: String? = null) {
+        if (articleEditorGuard?.invoke() == false) return
         // Selection is immediate; the panel keeps its rows until its exit ends.
         if (drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed)
             closingDrawerContent = closingDrawerContent ?: state
@@ -177,7 +181,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         savedSelection = space; account.select(space, channel); tab = SpacesTab.MY_SPACES
         scope.launch { drawer.close() }
     }
-    fun selectTab(target: SpacesTab) { categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false; channelCreator.open = false; channelAccessRoute = null; account.select(null); savedSelection = null; tab = target }
+    fun selectTab(target: SpacesTab) {
+        if (articleEditorGuard?.invoke() == false) return
+        categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false
+        channelCreator.open = false; channelAccessRoute = null; account.select(null); savedSelection = null; tab = target
+    }
     LaunchedEffect(account, state.ready, state.loading) {
         // A verified public visitor has local context without My Spaces membership.
         if (state.ready && !state.loading && state.selected == null && savedSelection != null) account.select(savedSelection)
@@ -342,7 +350,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         }
                     }
                     val conversation = channel?.profile?.kind in setOf(SpaceChannelKind.CHAT, SpaceChannelKind.ANNOUNCEMENT) || channel == null
-                    if (!conversation) Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
+                    if (channel?.profile?.kind == SpaceChannelKind.ARTICLE) {
+                        SpaceArticleChannel(account, state, channel, Modifier.weight(1f)) { articleEditorGuard = it }
+                    } else if (!conversation) Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(16.dp)) {
                             Icon(painterResource(channelKindIcon(requireNotNull(channel).profile.kind)), null, Modifier.size(40.dp), tint = MaterialTheme.colorScheme.primary)
                             Text(channel.profile.name, style = MaterialTheme.typography.headlineSmall)

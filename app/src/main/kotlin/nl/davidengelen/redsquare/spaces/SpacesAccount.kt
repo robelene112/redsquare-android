@@ -30,6 +30,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     enum class Problem { CONNECTION, SAVE, INVITATION, PROTECTED_CHAT_UNSUPPORTED, DEVICE_RECOVERY_UNSUPPORTED,
         DEVICE_RECOVERY_NO_APPROVER, DEVICE_ALREADY_ACTIVE, RECOVERY_OTHER_MODULE }
     data class Target(val space: String, val channel: String, val thread: String? = null)
+    private data class ArticleDraftTarget(val channel: Target, val article: String?)
     data class MessageScroll(val id: String, val showBody: Boolean = false)
 
     data class State(val loading: Boolean = true, val availability: Availability = Availability.CHECKING,
@@ -113,6 +114,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     val avatarImages = SpaceAvatarImages(wallet.publicKey, backend)
     private val draftVersions = ConcurrentHashMap<Target, AtomicLong>()
     private val dirtyDrafts = ConcurrentHashMap<Target, String>()
+    private val dirtyArticleDrafts = ConcurrentHashMap<ArticleDraftTarget, SpaceArticleDraft>()
     private data class SavedViewport(val anchor: SpaceClient.ReadingAnchor?)
     private val dirtyAnchors = ConcurrentHashMap<Target, SavedViewport>()
     private val anchorVersions = ConcurrentHashMap<Target, AtomicLong>()
@@ -495,6 +497,64 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     fun send() = queueSend()
 
+    suspend fun articleDraft(target: Target, article: String?): SpaceArticleDraft? = withContext(Dispatchers.IO) {
+        val slot = ArticleDraftTarget(target, article)
+        localAccess.withLock {
+            dirtyArticleDrafts[slot] ?: requireNotNull(client).articleDraft(target.space, target.channel, article)
+        }
+    }
+
+    fun editArticleDraft(target: Target, article: String?, draft: SpaceArticleDraft) {
+        if (target.thread != null || mutable.value.target() != target || navigationSaving.get()) return
+        val slot = ArticleDraftTarget(target, article)
+        dirtyArticleDrafts[slot] = draft
+        scope.launch {
+            delay(300)
+            try {
+                localAccess.withLock {
+                    if (dirtyArticleDrafts[slot] == draft) saveArticleDraft(requireNotNull(client), slot, draft)
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
+        }
+    }
+
+    fun publishArticle(target: Target, reviewed: SpaceArticleDraft, onQueued: (String) -> Unit) {
+        val slot = ArticleDraftTarget(target, null)
+        queueArticle(target, onQueued) {
+            dirtyArticleDrafts[slot]?.let { saveArticleDraft(this, slot, it) }
+            publishArticle(target.space, reviewed.content(), target.channel, reviewed)
+        }
+    }
+
+    fun shareStackArticle(target: Target, link: nl.davidengelen.redsquare.saito.StackLink, article: nl.davidengelen.redsquare.saito.StackArticle,
+        onQueued: (String) -> Unit) {
+        require(article.author == link.author && article.revision == link.signature)
+        queueArticle(target, onQueued) { shareStackArticle(target.space, link.backend, article.envelope, target.channel) }
+    }
+
+    private fun queueArticle(target: Target, onQueued: (String) -> Unit, queue: SpaceClient.() -> String) {
+        if (target.thread != null || mutable.value.target() != target) return
+        localAction {
+            val id = localAccess.withLock {
+                if (mutable.value.target() != target) return@localAction
+                requireNotNull(client).queue().also {
+                    urgentOutbox.add(target.space)
+                    historyWindows.remove(target)
+                }
+            }
+            wake.trySend(Unit)
+            publish()
+            withContext(Dispatchers.Main.immediate) {
+                if (mutable.value.target() == target) onQueued(id)
+            }
+        }
+    }
+
+    fun stackArticleLibrary(link: nl.davidengelen.redsquare.saito.StackLink) =
+        nl.davidengelen.redsquare.stack.StackLibrary(appContext, wallet, link.backend,
+            if (link.backend == backend) endpoint else link.backend.peerUrl, requireNotNull(link.author), requireNotNull(link.signature))
+
     fun sendProtected(space: String, beforePublishing: suspend () -> Boolean) {
         val before = mutable.value
         val matches = before.selected == space && before.current?.protectedChat != null
@@ -647,6 +707,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             current.saveDraft(target, text)
             dirtyDrafts.remove(target, text)
         }
+        for ((slot, draft) in dirtyArticleDrafts.entries.toList()) saveArticleDraft(current, slot, draft)
         for ((target, viewport) in dirtyAnchors.entries.toList()) {
             current.saveAnchor(target, viewport.anchor)
             dirtyAnchors.remove(target, viewport)
@@ -654,6 +715,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         for ((space, listed) in dirtyListings.entries.toList()) {
             current.setListed(space, listed); dirtyListings.remove(space, listed)
         }
+    }
+    private fun saveArticleDraft(client: SpaceClient, target: ArticleDraftTarget, draft: SpaceArticleDraft) {
+        client.saveArticleDraft(target.channel.space, target.channel.channel, target.article, draft)
+        dirtyArticleDrafts.remove(target, draft)
     }
     fun consumeScrollTarget(message: MessageScroll) {
         mutable.update { if (it.scrollToMessage == message) it.copy(scrollToMessage = null) else it }
@@ -1157,7 +1222,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 localAccess.withLock {
                     try {
                         val current = client
-                        if (current == null) dirtyDrafts.isEmpty() && dirtyAnchors.isEmpty() && dirtyListings.isEmpty()
+                        if (current == null) dirtyDrafts.isEmpty() && dirtyArticleDrafts.isEmpty() && dirtyAnchors.isEmpty() && dirtyListings.isEmpty()
                         else {
                             persistLocal(current)
                             true

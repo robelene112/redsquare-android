@@ -1715,4 +1715,18 @@
     <string name="recovery_archive_read_only">Backed-up history. Read only on this device.</string>
     <string name="recovery_replace_archive_device_detail">Ask a current key holder to activate this device. The previous device will lose access to messages sent after replacement.</string>
     <string name="protected_chat_waiting_peer">Waiting for someone to join with a client that supports protected chats.</string>
+    <string name="spaces_article_write">Write article</string>
+    <string name="spaces_article_share_stack">Share Stack article</string>
+    <string name="spaces_article_empty">No articles have been shared in this channel.</string>
+    <string name="spaces_article_public_stack">Public Stack article</string>
+    <string name="spaces_article_unavailable">This article is unavailable.</string>
+    <string name="spaces_article_deleted">Article removed</string>
+    <string name="spaces_article_too_long">This draft exceeds the article size limit.</string>
+    <string name="spaces_article_review_invalid">Use a title and body that fit the article size limit.</string>
+    <string name="spaces_article_private_scope">Only members with access to this channel can read this article.</string>
+    <string name="spaces_article_public_scope">Anyone who can open this public channel can read this article.</string>
+    <string name="spaces_article_publish">Publish in this channel</string>
+    <string name="spaces_article_stack_link">Public Stack article link</string>
+    <string name="spaces_article_review_stack">Preview article</string>
+    <string name="spaces_article_stack_unavailable">This public Stack revision is unavailable.</string>
 </resources>
