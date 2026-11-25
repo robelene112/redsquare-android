@@ -23,7 +23,7 @@ internal object SpacesScaleMeasurement {
     private val input = AtomicReference<Input?>()
     private val pending = AtomicReference<Reaction?>()
     private const val tag = "SpacesScaleProof"
-    private val hotRecord = Regex("""General • Benchmark Space 001 • record (\d+)\.""")
+    private val hotRecord = Regex("""^General • Benchmark Space 001 • record (\d+)\.""")
 
     fun inputObserver(message: String, emoji: String): Modifier = Modifier.pointerInput(message, emoji) {
         awaitEachGesture {
@@ -59,7 +59,7 @@ internal object SpacesScaleMeasurement {
     }
 
     fun rowGeometry(view: View, body: String?, bounds: Rect) {
-        val record = body?.let(hotRecord::matchEntire)?.groupValues?.get(1) ?: return
+        val record = body?.let(hotRecord::find)?.groupValues?.get(1) ?: return
         if (!view.isHardwareAccelerated || !view.viewTreeObserver.isAlive) return
         view.viewTreeObserver.registerFrameCommitCallback {
             Log.i(tag, "anchor-frame ${SystemClock.elapsedRealtimeNanos()} $record ${bounds.top} ${bounds.bottom}")

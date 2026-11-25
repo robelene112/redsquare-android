@@ -59,7 +59,7 @@ object SpacesScaleHost {
                     actor.refresh(expectedHotSpace, expectedHotChannel)
                     val record = manifest.get("hotChannelMessages").asInt
                     actor.timeline(expectedHotSpace, channel = expectedHotChannel).single {
-                        it.text == "General • Benchmark Space 001 • record $record." && it.position != null && !it.pending
+                        it.text?.startsWith("General • Benchmark Space 001 • record $record.") == true && it.position != null && !it.pending
                     }
                 } else null
                 val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;spaces-v1||;spaces-unread-v1||",

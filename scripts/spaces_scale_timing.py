@@ -194,9 +194,9 @@ file_write_period_ms: 5000
                 frame_measurements.extend(observed)
                 missing_warm += len(unavailable) + unretained
             anchor = view(f'{name}-anchor', lambda nodes: next((n for n in nodes
-                if body.fullmatch(label(n)) and 200 < bounds(n)[1] < 1400 and hot not in label(n)), None))
+                if body.match(label(n)) and 200 < bounds(n)[1] < 1400 and hot not in label(n)), None))
             identity, before = label(anchor), bounds(anchor)
-            record = body.fullmatch(identity)[1]
+            record = body.match(identity)[1]
             if any(hot in label(node) for node in ElementTree.parse(evidence / f'{name}-anchor.xml').iter('node')):
                 raise RuntimeError('The independently updated thread is still visible before its arrival')
             reset_frames()
