@@ -88,7 +88,13 @@ class SpaceArticleLinksTest {
         }
     }
 
-    @Test fun signedExactDenialSurvivesOfflineRetryAndExcludesFuturePrivateArticles() = runBlocking<Unit> {
+    @Test fun signedExactDenialSurvivesOfflineRetryAndExcludesFuturePrivateArticles() =
+        articleDeniedDuringDeparture(exact = true)
+
+    @Test fun signedChannelRefreshDenialHidesPreviouslyCachedArticles() =
+        articleDeniedDuringDeparture(exact = false)
+
+    private fun articleDeniedDuringDeparture(exact: Boolean) = runBlocking<Unit> {
         val authority = SaitoWallet.create()
         val member = SaitoWallet.create()
         SpacesServiceStore(files.newFolder().toPath(), authority, clock).use { service ->
@@ -104,8 +110,9 @@ class SpaceArticleLinksTest {
                         val envelope = it.envelope()
                         val request = SaitoEnvelope.decode(envelope).body
                         val target = revokeDuringExactRead
+                        val scope = request.getAsJsonObject("scope")
                         if (target != null && request.get("request")?.asString == "read" &&
-                            request.getAsJsonObject("scope")?.has("article_id") == true) {
+                            scope?.get("stream")?.asString == "messages" && scope.has("article_id") == exact) {
                             revokeDuringExactRead = null
                             writer.removeMember(target, member.publicKey)
                             writer.flush(target)
@@ -122,9 +129,15 @@ class SpaceArticleLinksTest {
                     writer.flush(space)
                     val link = writer.articleLink(space, writer.community(space).channel, id)
                     assertEquals(article, reader.openArticleLink(link)?.content)
+                    val channel = writer.community(space).channel
                     revokeDuringExactRead = space
-                    assertTrue(runCatching { reader.openArticleLink(link) }.exceptionOrNull() is SpaceClient.ReadDenied)
+                    val denied = runCatching {
+                        if (exact) reader.openArticleLink(link) else reader.refresh(space, channel)
+                    }.exceptionOrNull()
+                    assertTrue(denied is SpaceClient.ReadDenied)
                     assertNull(revokeDuringExactRead)
+                    assertTrue(reader.community(space, channel).articleReadDenied)
+                    assertNull(reader.article(space, id, channel))
                     offline = true
                     assertTrue(runCatching { reader.openArticleLink(link) }.exceptionOrNull() is java.io.IOException)
                     assertNull(reader.cachedArticleLink(link))

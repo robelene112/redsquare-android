@@ -161,10 +161,10 @@ class SpaceArticleJourneyTest {
                 ui.waitUntil(8_000) { request("article-held-read").get("held").asBoolean }
                 assertTrue(UiDevice.getInstance(instrumentation).pressBack())
                 ui.waitUntil(5_000) { !ui.onNodeWithText("Open Space article").isDisplayed() }
+                switchChannel("Reading room")
                 assertTrue(request("article-release-read").get("released").asBoolean)
-                articleBack()
                 clickWhenVisible("Write article")
-                ui.waitUntil(10_000) { ui.onNode(hasText(otherDraft) and hasSetTextAction()).isDisplayed() }
+                ui.waitUntil(10_000) { ui.onNode(hasText(sequel) and hasSetTextAction()).isDisplayed() }
                 ui.onNodeWithText(title).assertDoesNotExist()
                 proof = request("article-proof", pending)
                 assertEquals(saved.get("original").asString, proof.get("original").asString)

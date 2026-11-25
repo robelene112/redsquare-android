@@ -47,7 +47,6 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val journal = journal(space)
         journal.snapshot.channels.mapNotNull { (id, record) ->
             if (!journal.canAccessChannel(wallet.publicKey, id)) return@mapNotNull null
-            if (record.rootContentKind == "article" && get(articleReadDeniedKey(space, id)) != null) return@mapNotNull null
             val data = channelState(space, id, state)
             val readableProfile = channelProfile(space, id, state, data, record)
             val profile = readableProfile ?: if (id == general) SpaceChannelProfile("general") else null
@@ -792,11 +791,18 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     private fun articleReadDeniedKey(space: String, channel: String) = "$space/channels/$channel/article-read-denied"
 
+    private fun rememberArticleReadDenial(space: String, channel: String) = store.transaction {
+        if (get(stateKey(space)) != null) {
+            owned()
+            if (journal(space).snapshot.channels[channel]?.rootContentKind == "article")
+                put(articleReadDeniedKey(space, channel), byteArrayOf(1))
+        }
+    }
+
     suspend fun openArticleLink(link: String): Article? {
         val reference = articleReference(link)
         val space = reference.community.spaceId
         val channel = reference.channel
-        val deniedKey = articleReadDeniedKey(space, channel)
         val page = try {
             val known = store.transaction { get(stateKey(space)) != null }
             if (known) syncControls(space) else openPublic(space)
@@ -813,12 +819,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         } catch (denied: ReadDenied) {
             // The service can revoke access between the controls and exact
             // content reads. An offline retry must honor the observed denial.
-            store.transaction {
-                if (get(stateKey(space)) != null) {
-                    owned()
-                    put(deniedKey, byteArrayOf(1))
-                }
-            }
+            rememberArticleReadDenial(space, channel)
             throw denied
         }
         if (page.count == 0) return null
@@ -835,7 +836,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val canInvite: Boolean, val pending: Boolean, val canSend: Boolean, val membershipRequested: Boolean = false, val unread: Long? = null, val hasUnread: Boolean? = null,
         val canManage: Boolean = false, val dissolved: Boolean = false, val canReply: Boolean = false, val canReact: Boolean = false, val canPin: Boolean = false, val personalUnread: Long? = null, val protectedChat: ProtectedChat? = null,
         val deviceReplaced: Boolean = false, val replacingDevice: Boolean = false, val replacementRejected: Boolean = false,
-        val archiveScope: SpaceCrypto.Scope? = null, val legacyChat: String? = null, val writeRestrictedUntil: Long? = null)
+        val archiveScope: SpaceCrypto.Scope? = null, val legacyChat: String? = null, val writeRestrictedUntil: Long? = null,
+        val articleReadDenied: Boolean = false)
     enum class MessageChangeKind { EDIT, DELETE }
     data class MessageChange(val operationId: String, val kind: MessageChangeKind, val attempted: Boolean,
         val rejected: Boolean, val text: String?, val cancelled: Boolean = false) {
@@ -1038,7 +1040,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             else -> null
         }
         val restrictedUntil = journal.writeRestrictedUntil(wallet.publicKey, scope.channelId, clock.millis())
-        val articleReadDenied = channel?.rootContentKind == "article" && get(articleReadDeniedKey(space, scope.channelId)) != null
+        val articleReadDenied = channel?.rootContentKind == "article" &&
+            (get(articleReadDeniedKey(space, scope.channelId)) != null || !journal.canAccessChannel(wallet.publicKey, scope.channelId))
         val canReply = !articleReadDenied && restrictedUntil == null && state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
             journal.canContributeChannel(wallet.publicKey, scope.channelId) &&
             (data.get("joined")?.asBoolean == true || channel?.visibility == SpaceVisibility.PUBLIC) &&
@@ -1054,7 +1057,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             canPin = canReply && snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) &&
                 (supportsMessagePins || data.get("pins_supported")?.asBoolean == true), personalUnread = personal,
             protectedChat = snapshot.protectedChat ?: state.getAsJsonObject("new_protected_chat")?.let { ProtectedChat(it.get("direct_peer")?.asString) },
-            writeRestrictedUntil = restrictedUntil,
+            writeRestrictedUntil = restrictedUntil, articleReadDenied = articleReadDenied,
             deviceReplaced = data.get("device_replaced")?.asBoolean == true, replacingDevice = data.has("replacement_request"),
             replacementRejected = data.get("replacement_rejected")?.asBoolean == true,
             archiveScope = scope.takeIf { data.get("archive_only")?.asBoolean == true }, legacyChat = state.get("legacy_chat")?.asString)
@@ -2993,7 +2996,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     suspend fun refresh(space: String, channel: String? = null, from: Long? = null) {
         require(from == null || from >= 0)
         val targetChannel = store.transaction { owned(); val current = state(space); channel ?: selectedChannel(current) }
-        syncControls(space)
+        try { syncControls(space) }
+        catch (denied: ReadDenied) { rememberArticleReadDenial(space, targetChannel); throw denied }
         store.transaction {
             owned()
             val state = state(space)
@@ -3108,12 +3112,16 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val indexed = data.get("message_history")?.asBoolean == true
         val start = from ?: if (indexed) maxOf(data.get("latest_message_from")?.asLong ?: 0, latestMessageStart(space, targetChannel, limit, thread)) else
             maxOf((last - limit + 1).coerceAtLeast(0), data.get("history_from")?.asLong ?: 0)
+        val mayReadArticles by lazy {
+            get(articleReadDeniedKey(space, targetChannel)) == null && journal(space).canAccessChannel(wallet.publicKey, targetChannel)
+        }
         fun message(envelope: String, pending: Boolean, attempted: Boolean, rejected: Boolean = false, position: Long? = null, cancelled: Boolean = false): Message? {
             val original = SaitoEnvelope.decode(envelope)
             if (original.body.get("channel_id")?.asString != targetChannel) return null
             if (original.body.text("kind") !in setOf("content", "public-content")) return null
             val contentKind = original.body.text("content_kind")
             if (contentKind !in (if (thread == null) ROOT_CONTENT_KINDS else setOf("thread-reply"))) return null
+            if (contentKind == "article" && !mayReadArticles) return null
             if (thread != null && original.body.text("target_message_id") != thread) return null
             var missing = false
             fun read(source: String, signed: SignedSaitoMessage): String? =
@@ -3478,7 +3486,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 "unavailable" -> ReadProblem.UNAVAILABLE
                 else -> throw IllegalArgumentException("Unknown community read disposition")
             }
-            throw ReadDenied(scope.text("space_id"), problem)
+            val space = scope.text("space_id")
+            scope.get("channel_id")?.asString?.let { rememberArticleReadDenial(space, it) }
+            throw ReadDenied(space, problem)
         }
         require(result.text("request") == "page" && result.getAsJsonArray("items").size() <= 50)
         supportsMessageHistory = result.get("message_history")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean } == true

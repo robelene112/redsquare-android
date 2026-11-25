@@ -70,6 +70,8 @@ control_port = None
 movies = []
 movie_owners = {}
 viewport_original = None
+owned_emulator = False
+article_agreement_owned = False
 
 def viewport_observation(stage, expected=None):
     args = ['shell', 'am', 'instrument', '-w', '-r', '-e', 'class',
@@ -146,6 +148,7 @@ try:
     serial = adb('get-serialno').stdout.decode().strip()
     if not serial.startswith('emulator-'):
         raise RuntimeError('Only a disposable emulator may run this fixture')
+    owned_emulator = True
     classpath = (repo / 'spaces-service/build/host-fixture-classpath.txt').read_text().strip()
     native = repo / 'core/build/generated/spaces-mls-host'
     hostroot = repo / '.scratch' / ((f'spaces-{label}-host-' if community_mode or article_mode else 'spaces-native-host-') + os.environ['TEST_DEVICE_API'])
@@ -888,6 +891,7 @@ try:
             'productionNodeActivated': False, 'ordinaryBetaChanged': False}))
     elif article_mode:
         reset_disposable_baseline()
+        article_agreement_owned = True
         compact_articles = os.environ['TEST_DEVICE_API'].startswith('37')
         if compact_articles:
             prepare_viewport()
@@ -1096,9 +1100,10 @@ finally:
     def capture_crash():
         (evidence / 'crash.log').write_bytes(adb('logcat', '-d', '-b', 'crash', timeout=10).stdout)
         (evidence / 'last-window.png').write_bytes(adb('exec-out', 'screencap', '-p', timeout=10).stdout)
-    cleanup('failure-buffers', capture_crash)
-    cleanup('fixture-account-diagnostics', lambda: (evidence / 'spaces-account.log').write_bytes(
-        adb('logcat', '-d', '-v', 'threadtime', '-s', 'SpacesAccount138:D', '*:S', timeout=10).stdout))
+    if owned_emulator:
+        cleanup('failure-buffers', capture_crash)
+        cleanup('fixture-account-diagnostics', lambda: (evidence / 'spaces-account.log').write_bytes(
+            adb('logcat', '-d', '-v', 'threadtime', '-s', 'SpacesAccount138:D', '*:S', timeout=10).stdout))
     if primary is not None and control_port and host.poll() is None:
         def observe_host_failure():
             (evidence / 'failure-host-status.json').write_text(json.dumps(command(control_port, 'status'), indent=2))
@@ -1107,8 +1112,9 @@ finally:
             selected_status = 'membership-status' if membership_mode else 'governance-status'
             cleanup('selected-mode-failure-observation', lambda: (evidence / ('failure-host-' + selected_status + '.json')).write_text(
                 json.dumps(command(control_port, selected_status), indent=2)))
-    cleanup('stop-owned-android-process', lambda: adb('shell', 'am', 'force-stop', pkg))
-    if article_mode:
+    if owned_emulator:
+        cleanup('stop-owned-android-process', lambda: adb('shell', 'am', 'force-stop', pkg))
+    if article_agreement_owned:
         cleanup('remove-owned-article-agreement-fixture',
                 lambda: adb('shell', 'run-as', pkg, 'rm', '-f', 'no_backup/publishing-policy-fixture.json'))
     for process, remote, phase in movies:
@@ -1128,7 +1134,8 @@ finally:
         (evidence / 'native-evidence.tar').write_bytes(capture.stdout)
         (evidence / 'native-evidence-capture.json').write_text(json.dumps({'exit': capture.returncode}))
         if capture.returncode: raise RuntimeError('Native evidence archive failed')
-    cleanup('native-archive', archive)
+    if owned_emulator:
+        cleanup('native-archive', archive)
     # Resizing a running recorder crops its projection. Restore only after all
     # recordings and native originals have been stopped, pulled and retained.
     if viewport_original is not None:

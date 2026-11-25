@@ -289,7 +289,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             else if (state.selected == null) SpacesOverview(account, state, tab, { choose(it) }, { createOpen = true },
                 { clearInvitationReview(); joinOpen = true }, Modifier.weight(1f)) { AvailabilityNotice(state.availability, state.refreshing, account::refresh) }
             else {
-                val title = channel?.profile?.name ?: stringResource(R.string.spaces_kind_chat)
+                val title = channel?.profile?.name ?: stringResource(
+                    if (selected?.articleReadDenied == true) R.string.spaces_kind_article else R.string.spaces_kind_chat)
                 val menu = stringResource(R.string.spaces_switch_channel)
                 if (!compactTyping) Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                     FrameIconButton(R.drawable.ic_back, stringResource(R.string.spaces_back)) { choose(null) }
@@ -356,7 +357,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         }
                     }
                     val conversation = channel?.profile?.kind in setOf(SpaceChannelKind.CHAT, SpaceChannelKind.ANNOUNCEMENT) || channel == null
-                    if (channel?.profile?.kind == SpaceChannelKind.ARTICLE) {
+                    if (selected.articleReadDenied) {
+                        Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
+                            AccessNotice(SpaceClient.ReadProblem.UNAVAILABLE)
+                        }
+                    } else if (channel?.profile?.kind == SpaceChannelKind.ARTICLE) {
                         SpaceArticleChannel(account, state, channel, Modifier.weight(1f)) { articleEditorGuard = it }
                     } else if (state.messages.any { it.isArticle }) {
                         Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
