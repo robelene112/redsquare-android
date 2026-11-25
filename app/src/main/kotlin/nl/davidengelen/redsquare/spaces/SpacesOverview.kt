@@ -15,7 +15,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
@@ -71,6 +70,9 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
         when (tab) {
             SpacesTab.MY_SPACES -> {
                 if (state.communities.isNotEmpty()) item { SectionLabel(stringResource(R.string.spaces_your_communities)) }
+                if (state.ready && !state.loading && state.communities.isEmpty()) {
+                    item { OverviewNotice(R.string.spaces_no_memberships, R.drawable.ic_spaces) }
+                }
                 items(state.communities, key = { it.id }) { community ->
                     val profile = state.profiles[community.id] ?: SpaceProfile(community.name)
                     SpaceCommunityRow(profile, community.id, account.avatarImages,
@@ -86,20 +88,6 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
                         modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), shape = RoundedCornerShape(14.dp)) {
                         Icon(painterResource(R.drawable.ic_compose), null, Modifier.size(20.dp))
                         Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.spaces_create))
-                    }
-                }
-                item {
-                    Surface(shape = RoundedCornerShape(24.dp)) {
-                        Column(Modifier.fillMaxWidth().background(Brush.linearGradient(listOf(Color(0xff452b38), Color(0xff233842))))
-                            .padding(22.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                            Text(stringResource(R.string.spaces_hero_eyebrow), style = MaterialTheme.typography.labelMedium, color = Color(0xffffb6a4))
-                            Text(stringResource(R.string.spaces_hero_title), style = MaterialTheme.typography.headlineLarge, color = Color.White)
-                            Text(stringResource(R.string.spaces_hero_body), style = MaterialTheme.typography.bodyMedium, color = Color(0xffe1d9dd))
-                            TextButton(onClick = onCreate, enabled = state.ready && !state.working,
-                                contentPadding = PaddingValues(0.dp), modifier = Modifier.heightIn(min = 48.dp)) {
-                                Text(stringResource(R.string.spaces_hero_action), color = Color(0xffffb6c1))
-                            }
-                        }
                     }
                 }
                 item {
