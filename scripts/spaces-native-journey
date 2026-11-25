@@ -15,10 +15,11 @@ from spaces_visual_viewports import VisualViewports, verify_pairwise
 
 repo = Path(__file__).resolve().parent.parent
 mode = sys.argv[2] if len(sys.argv) == 3 else 'journey-v1'
-if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'voice-room-v1', 'catch-up-v1', 'visual-v1', 'moderation-v1', 'file-library-v1', 'article-channels-v1', 'protected-chat-v1', 'conversation-overlays-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
+if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'voice-room-v1', 'voice-room-crossed-v1', 'catch-up-v1', 'visual-v1', 'moderation-v1', 'file-library-v1', 'article-channels-v1', 'protected-chat-v1', 'conversation-overlays-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
     raise ValueError('Expected evidence directory and an optional supported Spaces journey mode')
 file_mode = mode == 'file-library-v1'
-room_mode = mode == 'voice-room-v1'
+crossed_room = mode == 'voice-room-crossed-v1'
+room_mode = mode == 'voice-room-v1' or crossed_room
 visual_mode = mode == 'visual-v1'
 catch_up_mode = mode == 'catch-up-v1' or visual_mode
 accessibility_mode = os.environ.get('SPACES_ACCESSIBILITY') == 'true'
@@ -40,8 +41,8 @@ private_management_mode = mode == 'private-management-v1'
 private_readiness_mode = mode == 'private-readiness-v1'
 management_mode = mode in ('management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1')
 community_mode = discovery_mode or management_mode
-label = 'visual' if visual_mode else 'catch-up' if catch_up_mode else 'moderation' if moderation_mode else 'rooms' if room_mode else 'files' if file_mode else 'articles' if article_mode else 'private-ownership' if private_ownership_mode else 'membership' if membership_mode else 'governance' if governance_mode else 'category-management' if category_management_mode else 'private-readiness' if private_readiness_mode else 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
-folder = 'spaces-catch-up-evidence' if visual_mode else f'spaces-{label}-evidence'
+label = 'visual' if visual_mode else 'catch-up' if catch_up_mode else 'moderation' if moderation_mode else 'room-crossed' if crossed_room else 'rooms' if room_mode else 'files' if file_mode else 'articles' if article_mode else 'private-ownership' if private_ownership_mode else 'membership' if membership_mode else 'governance' if governance_mode else 'category-management' if category_management_mode else 'private-readiness' if private_readiness_mode else 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
+folder = 'spaces-catch-up-evidence' if visual_mode else 'spaces-rooms-evidence' if crossed_room else f'spaces-{label}-evidence'
 checkpoint_name = f'spaces-{label}-checkpoint.json'
 classname = 'SpacesCatchUpJourneyTest' if catch_up_mode else 'SpaceModerationJourneyTest' if moderation_mode else 'SpaceRoomJourneyTest' if room_mode else 'SpaceFileJourneyTest' if file_mode else 'SpaceArticleJourneyTest' if article_mode else 'SpacesManagementJourneyTest' if management_mode else 'SpacesDiscoveryJourneyTest' if discovery_mode else 'SpacesJourneyTest'
 evidence = Path(sys.argv[1]).resolve() / f'spaces-{label}'
@@ -182,7 +183,7 @@ try:
         file_certificate = base64.b64encode(certificate.read_bytes()).decode('ascii')
     hostlog = (hostroot / 'host.log').open('wb')
     host = subprocess.Popen(['java', '-Xmx512m', f'-Djava.library.path={native}', '-cp', classpath,
-        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + (['catch-up-v1' if visual_mode else mode] if community_mode or conversation_overlays_mode or article_mode or file_mode or room_mode or moderation_mode or catch_up_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
+        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + (['catch-up-v1' if visual_mode else 'voice-room-v1' if crossed_room else mode] if community_mode or conversation_overlays_mode or article_mode or file_mode or room_mode or moderation_mode or catch_up_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
     children.append((host, hostlog))
     deadline = time.monotonic() + 30
     while not (hostroot / 'ready.json').exists():
@@ -1055,6 +1056,31 @@ try:
             'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
             'reporter': reported, 'reviewer': reviewed, 'nativeTerminalPasses': 2, 'compactViewport': compact_moderation,
             'productionNodeActivated': False, 'ordinaryBetaChanged': False,
+        }, indent=2))
+    elif crossed_room:
+        reset_disposable_baseline()
+        sdk = 17 if os.environ['TEST_DEVICE_API'].startswith('37') else 10
+        cases = json.loads((repo / 'test-fixtures/android/spaces-visual-viewports.json').read_text())
+        matrix_case = 'V03' if sdk == 17 else 'V02'
+        case = next(case for case in cases if case['id'] == matrix_case)
+        visual_settings = VisualViewports(adb, sdk, viewport_override, evidence)
+        visual_settings.prepare(case)
+        record(1)
+        native = instrument('anAttachedDraftAndTheKeyboardStayClearOfTheLiveCallBar',
+                            'room-attachment-ime.txt', peer_port, control_port)
+        native.wait(timeout=160)
+        if native.returncode or len(re.findall(r'^OK \(1 test\)\s*$', (evidence / 'room-attachment-ime.txt').read_text(), re.M)) != 1:
+            raise RuntimeError('The attached draft, live call and native IME did not complete together')
+        finish_record(*movies[-1])
+        payload = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/room-draft-attachment.json').stdout
+        command(control_port, 'stop')
+        host.wait(timeout=15)
+        if host.returncode:
+            raise RuntimeError('The owned host did not finish the crossed room journey')
+        (evidence / 'journey-outcome.json').write_text(json.dumps({
+            'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
+            'nativeTerminalPasses': 1, 'viewport': case, 'outcome': json.loads(payload),
+            'picker': 'controlled result with the real app attachment and actual Android IME',
         }, indent=2))
     elif room_mode:
         reset_disposable_baseline()

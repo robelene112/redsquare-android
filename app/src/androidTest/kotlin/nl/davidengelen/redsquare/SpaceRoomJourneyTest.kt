@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Process
@@ -55,6 +56,68 @@ class SpaceRoomJourneyTest {
     }
     private val device get() = UiDevice.getInstance(instrumentation)
     private val evidence get() = File(context.cacheDir, "spaces-rooms-evidence").apply { mkdirs() }
+
+    @Test fun anAttachedDraftAndTheKeyboardStayClearOfTheLiveCallBar() {
+        val fixture = request("room-config")
+        val draft = "Writing with an image while the room stays connected"
+        launch(fixture).use { activity ->
+            withFailureCapture({ capture("room-draft-attachment-failure") }) {
+                waitText("0 people here", 25_000)
+                activity.onActivity { assertEquals(Configuration.ORIENTATION_LANDSCAPE, it.resources.configuration.orientation) }
+                roomClick("Join room")
+                waitText("You’re in the room", 20_000)
+                val token = requireNotNull(TalkRuntime.call.value).token
+                assertEquals(token, observed().participants.single().session)
+
+                switchToRedSquare()
+                click("New post")
+                val editor = ui.onNode(hasSetTextAction() and isEnabled())
+                ui.waitUntil(12_000) { editor.isDisplayed() }
+                editor.performTextReplacement(draft)
+                ui.attachSyntheticImage()
+                editor.performScrollTo().performTouchInput { click() }
+                ui.waitUntil(10_000) {
+                    var visible = false
+                    activity.onActivity { native ->
+                        visible = ViewCompat.getRootWindowInsets(native.window.decorView)
+                            ?.isVisible(WindowInsetsCompat.Type.ime()) == true
+                    }
+                    visible && editor.isDisplayed()
+                }
+                editor.assertEditableTextEquals(draft)
+                val returnAction = ui.onNode(hasText("Return to Open lounge") and hasClickAction())
+                returnAction.assertIsDisplayed().assertIsEnabled()
+                ui.onNode(hasText("End call") and hasClickAction()).assertIsDisplayed().assertIsEnabled()
+                assertTrue("The call bar must not overlap the focused post editor",
+                    returnAction.getUnclippedBoundsInRoot().bottom <= editor.getUnclippedBoundsInRoot().top)
+                assertEquals(token, observed().participants.single().session)
+                capture("room-draft-attachment-ime")
+
+                androidx.test.espresso.Espresso.closeSoftKeyboard()
+                ui.assertSyntheticRedImage()
+                click("Return to Open lounge")
+                waitText("You’re in the room", 15_000)
+                assertEquals(token, observed().participants.single().session)
+                switchToRedSquare()
+                if (!editor.isDisplayed()) click("New post")
+                ui.waitUntil(12_000) { editor.isDisplayed() }
+                editor.assertEditableTextEquals(draft)
+                ui.assertSyntheticRedImage()
+                capture("room-draft-attachment-retained")
+                click("Return to Open lounge")
+                waitText("You’re in the room", 15_000)
+                roomClick("Leave room")
+                waitText("0 people here", 20_000)
+                assertTrue(observed().participants.isEmpty())
+                File(evidence, "room-draft-attachment.json").writeText(JsonObject().apply {
+                    addProperty("pid", Process.myPid())
+                    addProperty("roomSession", token)
+                    addProperty("actualIme", true)
+                    addProperty("exactDraftAndVisibleAttachment", true)
+                }.toString())
+            }
+        }
+    }
 
     @Test fun talkBackReadsTheQuietJoinAndActiveCallControls() {
         val fixture = request("room-config")
