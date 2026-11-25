@@ -67,7 +67,8 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, req
             raw = adb('exec-out', 'cat', '/sdcard/spaces-scale-view.xml')
             (evidence / f'{name}.xml').write_bytes(raw)
             nodes = [n for n in ElementTree.fromstring(raw).iter('node') if n.get('package') == package]
-            if result := until(nodes):
+            result = until(nodes)
+            if result is not None:
                 return result
             if time.monotonic() >= deadline:
                 raise RuntimeError(f'Expected native state was absent in {name}')
