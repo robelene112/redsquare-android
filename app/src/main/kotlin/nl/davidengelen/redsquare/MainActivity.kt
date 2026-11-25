@@ -752,7 +752,11 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                     val chrome: @Composable (Boolean) -> Unit = { isHome -> renderChrome(isHome, false, null, false) }
-                    Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(vertical = 4.dp)) {
+                    val shortSpaceIme = module == AppModule.SPACES && keyboardVisible &&
+                        androidx.compose.ui.platform.LocalConfiguration.current.screenHeightDp <
+                        nl.davidengelen.redsquare.spaces.SHORT_SPACES_WINDOW_DP
+                    Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)
+                        .padding(vertical = if (shortSpaceIme) 0.dp else 4.dp)) {
                         if (usernameOpen && wallet != null && backend != null) {
                             chrome(false)
                             key(wallet!!.publicKey, backend) {

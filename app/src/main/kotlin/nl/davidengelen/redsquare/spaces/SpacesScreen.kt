@@ -19,6 +19,9 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.selection.selectable
@@ -29,6 +32,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -40,6 +44,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -79,6 +84,8 @@ import nl.davidengelen.redsquare.ui.keyboardOccupiesWindow
 import java.text.DateFormat
 import java.util.Date
 import java.util.concurrent.atomic.AtomicReference
+
+internal const val SHORT_SPACES_WINDOW_DP = 420
 
 /** Production routes use only account-owned received/durable state. */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -325,7 +332,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             }
         }) {
         SpacesViewport { height ->
-            val shortWindow = height < 420.dp
+            val shortWindow = height < SHORT_SPACES_WINDOW_DP.dp
             // During the first IME frames the resized viewport can arrive
             // ahead of the inset signal. Compare to the actual configuration
             // so a short landscape or split-screen window keeps navigation.
@@ -366,7 +373,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 val title = channel?.profile?.name ?: stringResource(
                     if (selected?.articleReadDenied == true) R.string.spaces_kind_article else R.string.spaces_kind_chat)
                 val menu = stringResource(R.string.spaces_switch_channel)
-                if (!compactTyping) Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                if (!compactTyping) Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small,
+                    vertical = if (shortWindow) 4.dp else 8.dp), verticalAlignment = Alignment.CenterVertically) {
                     FrameIconButton(R.drawable.ic_back, stringResource(when {
                         activityReturn -> R.string.spaces_activity_back
                         searchResultOpen -> R.string.spaces_search_back
@@ -377,7 +385,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     Surface(onClick = { focusManager.clearFocus(); keyboardController?.hide(); scope.launch { drawer.open() } }, shape = RoundedCornerShape(14.dp),
                         color = MaterialTheme.colorScheme.surfaceContainerLow,
                         modifier = Modifier.weight(1f).semantics { contentDescription = menu; role = Role.Button; heading(); stateDescription = title }) {
-                        Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(12.dp), verticalAlignment = Alignment.CenterVertically,
+                        Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(horizontal = 12.dp,
+                            vertical = if (shortWindow) 6.dp else 12.dp), verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                             Column(Modifier.weight(1f)) {
                                 if (!compactRoom) Text(selected?.name ?: profile?.name.orEmpty(), style = MaterialTheme.typography.labelSmall,
@@ -704,12 +713,20 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp))
                         } else if (profile?.visibility != SpaceVisibility.PUBLIC || selected.joined) {
                             HorizontalDivider()
-                            Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp), verticalAlignment = Alignment.Bottom,
+                            Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen,
+                                vertical = if (compactTyping) 0.dp else 8.dp), verticalAlignment = Alignment.Bottom,
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                OutlinedTextField(state.draft, { account.editDraft(selected.id, selected.channel, it, target.thread) }, Modifier.weight(1f),
-                                    enabled = !state.savingNavigation && !state.loadingChannel, placeholder = { Text(stringResource(if (threadParent == null) R.string.spaces_message_channel_hint else R.string.spaces_reply_thread_hint, channel?.profile?.name ?: "general"),
-                                        maxLines = if (compactReading) 1 else Int.MAX_VALUE, overflow = TextOverflow.Ellipsis) },
-                                    shape = RoundedCornerShape(18.dp), minLines = 1, maxLines = if (compactConfiguration) 2 else 4)
+                                val edit = { draft: String -> account.editDraft(selected.id, selected.channel, draft, target.thread) }
+                                val enabled = !state.savingNavigation && !state.loadingChannel
+                                val hint = stringResource(if (threadParent == null) R.string.spaces_message_channel_hint
+                                    else R.string.spaces_reply_thread_hint, channel?.profile?.name ?: "general")
+                                // Keep the same field while the keyboard changes the available height.
+                                if (screenHeight < SHORT_SPACES_WINDOW_DP.dp)
+                                    CompactSpaceMessageField(state.draft, edit, enabled, hint, Modifier.weight(1f))
+                                else OutlinedTextField(state.draft, edit, Modifier.weight(1f),
+                                    enabled = enabled, placeholder = {
+                                        Text(hint, maxLines = if (compactReading) 1 else Int.MAX_VALUE, overflow = TextOverflow.Ellipsis)
+                                    }, shape = RoundedCornerShape(18.dp), minLines = 1, maxLines = if (compactConfiguration) 2 else 4)
                                 FilledIconButton(onClick = account::send, enabled = canWrite && state.draft.isNotBlank() && !state.working &&
                                     state.accessProblems[selected.id] == null, modifier = Modifier.size(48.dp)) {
                                     Icon(painterResource(R.drawable.ic_send), stringResource(R.string.spaces_send), Modifier.size(22.dp))
@@ -730,7 +747,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     }
                 }
             }
-            if (!keyboardInLayout && !compactRoom) SpacesBottomBar(tab) { selectTab(it) }
+            if (!keyboardInLayout && !compactRoom) SpacesBottomBar(tab, compactHeight = shortWindow) { selectTab(it) }
         }
     }
     val referenceUri = publicReference?.let(android.net.Uri::parse)
@@ -1040,6 +1057,28 @@ private data class ChannelViewport(val anchor: SpaceClient.ReadingAnchor?, val f
         Text(stringResource(if (problem == SpaceClient.ReadProblem.EXPIRED) R.string.spaces_invitation_expired else R.string.spaces_access_unavailable),
             Modifier.fillMaxWidth().padding(14.dp), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
+}
+
+/** Keep the editor's content padding small enough for a single large-text line. */
+@Composable
+private fun CompactSpaceMessageField(value: String, onChange: (String) -> Unit, enabled: Boolean, hint: String,
+    modifier: Modifier) {
+    val interactions = remember { MutableInteractionSource() }
+    val focused by interactions.collectIsFocusedAsState()
+    val colors = MaterialTheme.colorScheme
+    val style = MaterialTheme.typography.bodyLarge
+    BasicTextField(value, onChange, modifier.heightIn(min = 48.dp)
+        .border(if (focused) 2.dp else 1.dp, if (focused) colors.primary else colors.outline, RoundedCornerShape(18.dp))
+        .padding(horizontal = 14.dp), enabled = enabled, interactionSource = interactions,
+        textStyle = style.copy(color = if (enabled) colors.onSurface else colors.onSurfaceVariant),
+        cursorBrush = SolidColor(colors.primary), minLines = 1, maxLines = 1,
+        decorationBox = { input ->
+            Box(Modifier.fillMaxWidth().heightIn(min = 48.dp), contentAlignment = Alignment.CenterStart) {
+                if (value.isEmpty()) Text(hint, style = style, color = colors.onSurfaceVariant,
+                    maxLines = 1, overflow = TextOverflow.Ellipsis)
+                input()
+            }
+        })
 }
 
 /** Read the adjusted viewport before reserving space for the bottom bar.

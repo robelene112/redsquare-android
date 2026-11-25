@@ -231,11 +231,30 @@ private fun SpaceActivityCard(group: SpaceActivityGroup, space: String?, enabled
     }
 }
 
-@Composable internal fun SpacesBottomBar(tab: SpacesTab, onSelect: (SpacesTab) -> Unit) {
+@Composable internal fun SpacesBottomBar(tab: SpacesTab, compactHeight: Boolean, onSelect: (SpacesTab) -> Unit) {
     val entries = listOf(Triple(SpacesTab.MY_SPACES, R.string.spaces_my_spaces, R.drawable.ic_home),
         Triple(SpacesTab.DISCOVER, R.string.spaces_discover_title, R.drawable.ic_globe),
         Triple(SpacesTab.ACTIVITY, R.string.spaces_activity_title, R.drawable.ic_notifications))
-    if (LocalDensity.current.fontScale <= 1.3f) NavigationBar {
+    if (compactHeight) Surface(color = MaterialTheme.colorScheme.surfaceContainerLow) {
+        Row(Modifier.fillMaxWidth()) {
+            entries.forEach { (target, label, icon) ->
+                Row(Modifier.weight(1f).heightIn(min = 48.dp)
+                    .selectable(selected = tab == target, role = Role.Tab, onClick = { onSelect(target) })
+                    .padding(horizontal = 6.dp), horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically) {
+                    Surface(shape = RoundedCornerShape(24.dp),
+                        color = if (tab == target) MaterialTheme.colorScheme.secondaryContainer else Color.Transparent) {
+                        Box(Modifier.size(36.dp, 32.dp), contentAlignment = Alignment.Center) {
+                            Icon(painterResource(icon), null, Modifier.size(22.dp))
+                        }
+                    }
+                    Spacer(Modifier.width(4.dp))
+                    Text(stringResource(label), style = MaterialTheme.typography.labelSmall, maxLines = 1,
+                        overflow = TextOverflow.Ellipsis)
+                }
+            }
+        }
+    } else if (LocalDensity.current.fontScale <= 1.3f) NavigationBar {
         entries.forEach { (target, label, icon) -> NavigationBarItem(selected = tab == target, onClick = { onSelect(target) },
             icon = { Icon(painterResource(icon), null, Modifier.size(24.dp)) }, label = { Text(stringResource(label), style = MaterialTheme.typography.labelSmall) }) }
     } else Surface(color = MaterialTheme.colorScheme.surfaceContainerLow) {

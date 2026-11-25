@@ -253,6 +253,7 @@ class SpacesCatchUpJourneyTest {
                 assertTarget(hasText("Back to your communities") and hasClickAction() and
                     !hasAnyAncestor(hasScrollToNodeAction()))
                 assertTarget(hasText("Community information") and hasClickAction())
+                assertTarget(hasText("My Spaces") and hasClickAction())
                 val stableBounds = button.getUnclippedBoundsInRoot()
                 captureNativeScreen(observations.resolve("channel.png"))
                 button.performTouchInput { click() }
@@ -269,7 +270,7 @@ class SpacesCatchUpJourneyTest {
                     composer.performTouchInput { click() }
                     observeInsets(true, "keyboard")
                     composer.performTextInput("Viewport draft")
-                    composer.assertIsDisplayed().assertTextContains("Viewport draft")
+                    composer.assertIsDisplayed().assertHeightIsAtLeast(48.dp).assertTextContains("Viewport draft")
                     assertTarget(hasSetTextAction())
                     captureNativeScreen(observations.resolve("composer-ime.png"))
                     composer.performTextClearance()
