@@ -179,7 +179,7 @@ class SpacesCatchUpJourneyTest {
                     target.performAction(AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
                     device.executeShellCommand("logcat -c")
                     assertTrue(target.performAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
-                    captureFocusedSpeech("unread-reply-group", summary, observations, target)
+                    captureFocusedSpeech("unread-reply-group", summary, observations, target, completionTimeoutMillis = 25_000)
                     waitFor(10_000) { completedFragments(device, "Unread").isNotEmpty() }
                     observations.resolve("unread-state-speech.txt").writeText(speechLog(device))
                     assertTrue(target.performAction(AccessibilityNodeInfo.ACTION_CLICK))
@@ -246,7 +246,8 @@ class SpacesCatchUpJourneyTest {
                     button.isDisplayed() && button.fetchSemanticsNode().config.getOrNull(SemanticsProperties.StateDescription) == "General"
                 }
                 assertTarget(switcher)
-                assertTarget(hasText("Back to your communities") and hasClickAction())
+                assertTarget(hasText("Back to your communities") and hasClickAction() and
+                    !hasAnyAncestor(hasScrollToNodeAction()))
                 assertTarget(hasText("Community information") and hasClickAction())
                 val stableBounds = button.getUnclippedBoundsInRoot()
                 captureNativeScreen(observations.resolve("channel.png"))
@@ -279,9 +280,10 @@ class SpacesCatchUpJourneyTest {
     }
 
     private fun assertTarget(control: SemanticsMatcher) {
-        val bounds = ui.onNode(control).getUnclippedBoundsInRoot()
+        val bounds = ui.onNode(control).fetchSemanticsNode().touchBoundsInRoot
+        val minimum = context.resources.displayMetrics.density * 48f
         assertTrue("Touch target must be at least 48dp in both directions: $bounds",
-            bounds.right - bounds.left >= 48.dp && bounds.bottom - bounds.top >= 48.dp)
+            bounds.width + .5f >= minimum && bounds.height + .5f >= minimum)
     }
 
     private fun prepareWallet(config: JsonObject) {

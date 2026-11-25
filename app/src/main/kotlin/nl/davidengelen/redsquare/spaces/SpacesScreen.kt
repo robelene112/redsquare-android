@@ -953,12 +953,19 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_share_public_link)) }
                 if (publicShareFailed) Text(stringResource(R.string.spaces_share_failed), color = MaterialTheme.colorScheme.error)
             }
-            if (state.members.any { it.publicKey == account.ownerKey && it.role == SpaceRole.OWNER } && profile.visibility == SpaceVisibility.PUBLIC && !selected.dissolved)
+            if (state.members.any { it.publicKey == account.ownerKey && it.role == SpaceRole.OWNER } &&
+                profile.visibility == SpaceVisibility.PUBLIC && !selected.dissolved) {
+                val discoverable = stringResource(R.string.spaces_discoverable)
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Column(Modifier.weight(1f)) { Text(stringResource(R.string.spaces_discoverable)); Text(stringResource(R.string.spaces_unlisted_detail), style = MaterialTheme.typography.bodySmall) }
+                    Column(Modifier.weight(1f)) {
+                        Text(discoverable)
+                        Text(stringResource(R.string.spaces_unlisted_detail), style = MaterialTheme.typography.bodySmall)
+                    }
                     Switch(state.listingIntent ?: profile.listed, { account.setListed(selected.id, it) },
+                        modifier = Modifier.semantics { contentDescription = discoverable },
                         enabled = selected.canManage && !state.working && !state.savingNavigation)
                 }
+            }
             if (state.listingIntent != null) Text(stringResource(R.string.spaces_saving_listing), style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (selected.canInvite) OutlinedButton(onClick = { informationOpen = false; inviteOpen = true; if (state.invitation == null) account.invite(selected.id) },

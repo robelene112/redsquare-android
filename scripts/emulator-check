@@ -44,6 +44,13 @@ fi
 if [[ "$TEST_DEVICE_API" != 29 || "$runtime_attempt" == 1 ]]; then
     sed -i '/^[[:space:]]*disk[.]dataPartition[.]size[[:space:]]*=/d' "$avd_home/redsquare-proof.avd/config.ini"
     printf '%s\n' 'disk.dataPartition.size=2G' >> "$avd_home/redsquare-proof.avd/config.ini"
+    case "${TEST_SCOPE:-full}" in
+        spaces-journey-visual*|spaces-journey-room-crossed*)
+            # Android 10 clamps overrides to twice the emulated panel size.
+            sed -i '/^hw[.]lcd[.]\(width\|height\|density\)[[:space:]]*=/d' "$avd_home/redsquare-proof.avd/config.ini"
+            printf '%s\n' 'hw.lcd.width=1080' 'hw.lcd.height=2400' 'hw.lcd.density=480' >> "$avd_home/redsquare-proof.avd/config.ini"
+            ;;
+    esac
 fi
 acceleration=off
 [[ ! -r /dev/kvm ]] || acceleration=on

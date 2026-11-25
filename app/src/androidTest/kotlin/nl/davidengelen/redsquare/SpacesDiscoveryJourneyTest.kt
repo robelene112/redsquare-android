@@ -286,10 +286,11 @@ class SpacesDiscoveryJourneyTest {
             ui.onNodeWithContentDescription("Switch app: Spaces").assertIsDisplayed()
             ui.onNode(hasText("Community information") and hasClickAction() and onScreen).clickReady()
             waitUntil(5_000) { ui.onNode(hasText("Community information") and hasAnyAncestor(isDialog())).isDisplayed() }
-            ui.onNode(isToggleable() and hasAnyAncestor(isDialog())).performScrollTo().assertIsOn().clickReady()
+            val discoverable = ui.onNode(hasContentDescription("Discoverable") and isToggleable() and hasAnyAncestor(isDialog()))
+            discoverable.performScrollTo().assertIsOn().clickReady()
             waitUntil(20_000) { command("directory").getAsJsonArray("names").none { it.asString == "Native Created Space" } }
             capture("20a-owner-unlisted-community")
-            ui.onNode(isToggleable() and hasAnyAncestor(isDialog())).assertIsOff().clickReady()
+            discoverable.assertIsOff().clickReady()
             waitUntil(20_000) { command("directory").getAsJsonArray("names").any { it.asString == "Native Created Space" } }
             capture("20b-owner-listed-community")
             ui.onNode(hasText("Members") and hasClickAction()).performScrollTo().clickReady()
