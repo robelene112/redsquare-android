@@ -50,12 +50,14 @@ def open_address():
     return addresses[0]
 
 installed_fresh = False
+primary = None
 try:
     if args.fresh:
         if "package:" + package in adb("shell", "pm", "list", "packages", package).splitlines():
             raise AssertionError("Require an empty ordinary APK slot for the cold-install proof")
-        (args.evidence / "fresh-install.txt").write_text(adb("install", str(args.fresh)))
+        installed = adb("install", str(args.fresh))
         installed_fresh = True
+        (args.evidence / "fresh-install.txt").write_text(installed)
     if args.before:
         adb("install", "-r", str(args.before))
     adb("shell", "am", "force-stop", package)
@@ -87,10 +89,19 @@ try:
     (args.evidence / "continuity.txt").write_text(
         "PASS: same public identity after cold process launch" +
         (" and ordinary signed APK update" if args.after else "") + "\n" + address + "\n")
+except BaseException as failure:
+    primary = failure
+    raise
 finally:
     if installed_fresh:
-        (args.evidence / "fresh-removal.txt").write_text(adb("uninstall", package))
-        if "package:" + package in adb("shell", "pm", "list", "packages", package).splitlines():
-            raise AssertionError("The owned clean-install slot was not restored")
+        try:
+            removed = adb("uninstall", package)
+            if "package:" + package in adb("shell", "pm", "list", "packages", package).splitlines():
+                raise AssertionError("The owned clean-install slot was not restored")
+            (args.evidence / "fresh-removal.txt").write_text(removed)
+        except Exception as cleanup_failure:
+            if primary is None:
+                raise
+            primary.add_note(f"Fresh installation cleanup failed: {cleanup_failure}")
 
 print("PASS: wallet UI continuity")
