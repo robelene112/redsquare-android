@@ -198,11 +198,37 @@ The new authenticated client regression proves the write cursor remained at
 zero after two contiguous accepted sends. The fix advances it only one occupied
 slot at a time and preserves an independently written reply in a gap.
 
-The exact signed 0.1.143 candidate from `8928b2e4a` was staged before this
-cursor correction. The full public download matches its source, notes,
-application identity and established certificate. Both baseline versions and
-both emulators have separate in-place jobs. The candidate is a continuity
-checkpoint for that source and the ordinary release page still serves 0.1.142.
+The before-fix signed-service test observed cursor 0 where 2 was required.
+The fix passes all 31 tests in the client and message-thread classes. The
+[next frozen workload](https://github.com/robelene112/redsquare-android/actions/runs/45713058150)
+uses that fix and the early Spaces access screen. The
+[paired workload](https://github.com/robelene112/redsquare-android/actions/runs/45714810461)
+also keeps transient scroll offsets out of the whole-screen StateFlow and
+defers the full community projection during channel read updates.
+Both preserve the same workload, runner, deadlines and frame budgets.
+
+The exact signed 0.1.143 candidate from `8928b2e4a` was staged before these
+corrections. The full public 111720869-byte download matches the retained APK,
+notes, application identity and established certificate. Clean installation,
+cold recovery and signed in-place upgrades pass from 139 on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45711946374)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45711946802),
+and from 142 on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45711946712)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45711946774).
+The observers retain the ordinary wallet identity, draft, selected node and
+cached work, along with the same retained Fileshare and interrupted module
+history. The candidate is a checkpoint for that source. The ordinary release
+page still serves 0.1.142.
+
+The [Android 10 Social partition](https://github.com/robelene112/redsquare-android/actions/runs/45708852886)
+reaches all eight photo posts and records five oversized archive callbacks
+against the inherited maximum of four. The wire evidence shows two startup
+queries with limit 20, 30ms apart on the same connection, followed by the
+existing recovery queries. The failure remains open while the isolated
+[launch-owner diagnostic](https://github.com/robelene112/redsquare-android/actions/runs/45714718193)
+retains the native policy, effect and criteria timestamps. No observer limit
+or request assertion changed.
 
 ## Accepted #146, continue #147
 
