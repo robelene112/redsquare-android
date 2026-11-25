@@ -489,17 +489,31 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             checkedOverlayId = id
                         }
                         if (!compactTyping) threadParent?.let { parent ->
+                            val text = parent.text ?: stringResource(
+                                if (parent.deleted) R.string.spaces_message_deleted else R.string.spaces_message_unavailable)
+                            val back = stringResource(R.string.spaces_back_to_channel)
                             Surface(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp),
                                 shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                                Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                        FrameIconButton(R.drawable.ic_back, stringResource(R.string.spaces_back_to_channel), onClick = account::closeThread)
-                                        Text(stringResource(R.string.spaces_thread), style = MaterialTheme.typography.titleSmall)
+                                if (compactReading) {
+                                    Row(Modifier.padding(horizontal = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+                                        FrameIconButton(R.drawable.ic_back, back, onClick = account::closeThread)
+                                        Column(Modifier.weight(1f).padding(end = 8.dp, top = 4.dp, bottom = 4.dp)) {
+                                            Text(registeredIdentity(parent.author).name,
+                                                maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall)
+                                            Text(text, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
+                                        }
                                     }
-                                    Text(registeredIdentity(parent.author).name, style = MaterialTheme.typography.labelMedium)
-                                    Text(parent.text ?: stringResource(if (parent.deleted) R.string.spaces_message_deleted else R.string.spaces_message_unavailable),
-                                        maxLines = if (compactReading) 1 else 3, overflow = TextOverflow.Ellipsis,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
+                                } else {
+                                    Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                            FrameIconButton(R.drawable.ic_back, back, onClick = account::closeThread)
+                                            Text(stringResource(R.string.spaces_thread), style = MaterialTheme.typography.titleSmall)
+                                        }
+                                        Text(registeredIdentity(parent.author).name, style = MaterialTheme.typography.labelMedium)
+                                        Text(text, maxLines = 3, overflow = TextOverflow.Ellipsis,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
+                                    }
                                 }
                             }
                         }
@@ -517,6 +531,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         val latestWindow by rememberUpdatedState(state.windowFrom)
                         val latestHasLater by rememberUpdatedState(state.hasLater)
                         val latestFollowing by rememberUpdatedState(state.followingLatest)
+                        val exactDestination by rememberUpdatedState(state.exactDestination)
                         val keyboardBottom = WindowInsets.ime.getBottom(LocalDensity.current)
                         val viewportSize by remember(list) { derivedStateOf { list.layoutInfo.viewportSize } }
                         val messageBody = remember { BringIntoViewRequester() }
@@ -539,7 +554,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                     // the viewport without an intentional reading gesture.
                                     // Queued rows lack a durable position. A drag
                                     // through them still stops automatic following.
-                                    if (userScrolling || (viewport.anchor != null && !latestFollowing))
+                                    if (userScrolling || (!exactDestination && viewport.anchor != null && !latestFollowing))
                                         account.readingPosition(selected.id, selected.channel,
                                             viewport.followLatest && !latestHasLater, viewport.anchor, target.thread)
                                     if (!viewport.scrolling) userScrolling = false
@@ -658,7 +673,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             },
                             loadReactions = overlayMessage?.let { message -> { after -> account.loadReactionPage(target, message, after) } },
                             working = state.working)
-                        if ((state.hasLater || !state.followingLatest) && !compactTyping) {
+                        if ((state.hasLater || !state.followingLatest && !state.exactDestination) && !compactTyping) {
                             val newerActivity = stringResource(R.string.spaces_newer_messages_available)
                             OutlinedButton(onClick = account::latestMessages,
                                 modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).heightIn(min = 48.dp)

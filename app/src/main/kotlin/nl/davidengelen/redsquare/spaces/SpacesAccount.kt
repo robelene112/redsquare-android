@@ -63,6 +63,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val problem: Problem? = null, val working: Boolean = false, val refreshing: Boolean = false,
         val savedDestination: Boolean = false, val savedHistoryCheckedAt: Long? = null,
         val projectingDestination: Boolean = false, val destinationReadDenied: Boolean = false,
+        val exactDestination: Boolean = false,
         val accessRevision: Long = 0, val searchChannels: Set<String> = emptySet(),
         val ready: Boolean = false, val savingNavigation: Boolean = false, val loadingChannel: Boolean = false, val hasEarlier: Boolean = false, val hasLater: Boolean = false, val scrollToMessage: MessageScroll? = null, val windowFrom: Long = 0, val followingLatest: Boolean = true)
     private val appContext = context.applicationContext
@@ -482,7 +483,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 problem = null, listingIntent = null, publicLink = null, archiveChange = null, roleChange = null, channelEdit = null, channelCreation = null, categoryChange = null, visibilityChange = null, dissolutionChange = null, categories = emptyList(), channelAccessChange = null, membershipChange = null, ownershipOffer = null, ownershipChange = null, bannedMembers = emptySet(),
                 contentLoaded = false, loadingChannel = space != null, scrollToMessage = null, articleFocus = article,
                 savedDestination = savedDestination, savedHistoryCheckedAt = null, searchChannels = emptySet(),
-                projectingDestination = false, destinationReadDenied = false)
+                projectingDestination = false, destinationReadDenied = false, exactDestination = exact != null)
             mutable.update { if (exact == null) reset(it) else it.copy(projectingDestination = true) }
             scope.launch {
                 try {
@@ -1165,12 +1166,15 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     fun readingPosition(space: String, channel: String, followLatest: Boolean, anchor: SpaceClient.ReadingAnchor? = null, thread: String? = null) {
         val before = mutable.value; val target = Target(space, channel, thread)
         if (before.target() != target || before.loadingChannel) return
-        val latest = followLatest && !before.hasLater
+        // An exact link keeps its detached window until the reader explicitly
+        // asks for the latest page. Layout changes can alter canScrollForward.
+        val visiting = destinationVisit?.target == target
+        val latest = followLatest && !before.hasLater && (!visiting || before.followingLatest)
         if (fixtureTrace && latest != before.followingLatest)
             trace("reading followLatest=$latest windowFrom=${before.windowFrom} channel=${channel.take(10)} thread=${thread?.take(10)}")
         if (latest || windowFrom(target) == null) updateWindow(target, if (latest) null else before.windowFrom)
         mutable.update { if (it.target() == target) it.copy(followingLatest = latest, anchor = if (latest) null else anchor ?: it.anchor) else it }
-        if (destinationVisit?.target == target || !latest && anchor == null) return
+        if (visiting || !latest && anchor == null) return
         val snapshot = SavedViewport(if (latest) null else anchor)
         dirtyAnchors[target] = snapshot
         val version = anchorVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
@@ -1233,6 +1237,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val target = mutable.value.target() ?: return
         updateWindow(target, null)
         if (destinationVisit?.target == target) {
+            mutable.update { if (it.target() == target) it.copy(anchor = null, followingLatest = true) else it }
             scope.launch { publish() }
             return
         }
