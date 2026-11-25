@@ -93,7 +93,7 @@ class SpaceRoomJourneyTest {
                 editor.assertEditableTextEquals(draft)
                 val returnAction = ui.onNode(hasText("Call") and hasClickAction())
                 returnAction.assertIsDisplayed().assertIsEnabled()
-                ui.onNode(hasContentDescription("End call") and hasClickAction()).assertIsDisplayed().assertIsEnabled()
+                ui.onNode(hasText("End call") and hasClickAction()).assertIsDisplayed().assertIsEnabled()
                 assertTrue("The call bar must not overlap the focused post editor",
                     returnAction.getUnclippedBoundsInRoot().bottom <= editor.getUnclippedBoundsInRoot().top)
                 assertEquals(token, observed().participants.single().session)
