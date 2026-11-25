@@ -488,6 +488,12 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             mutable.update { if (selection.get() == token) it.copy(loadingChannel = false) else it }
                             return@withLock
                         }
+                        val exactAddress = exact?.let { SpaceDestination.parse(it.link) }
+                        if (exactAddress != null && current.cachedDestination(exactAddress) == null) {
+                            mutable.update { if (selection.get() == token) it.copy(
+                                previewIssue = SpaceClient.ReadProblem.UNAVAILABLE, loadingChannel = false) else it }
+                            return@withLock
+                        }
                         val restoredParent = restoreThread?.let { requireNotNull(current.message(space, it, channel)) }
                         if (exact == null) {
                             val selectedParent = thread ?: restoredParent
@@ -540,11 +546,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             notificationPolicy = current.notificationPolicy(space, target.channel), pinStatus = current.pinStatus(space, target.channel), scrollToMessage = jump?.let { MessageScroll(it.id, showBody = true) },
                             messages = messages, loadingChannel = false, contentLoaded = window.loaded, hasEarlier = window.hasEarlier,
                             hasLater = window.hasLater, windowFrom = window.from, followingLatest = windowFrom(target) == null) else it }
-                        if (exact != null) synchronized(navigationChanges) {
+                        if (exact != null && exactAddress != null) synchronized(navigationChanges) {
                             if (navigationVersion.get() == route && selection.get() == token && mutable.value.target() == target) {
-                                val address = SpaceDestination.parse(exact.link)
                                 if (exact.activity != null) current.markActivitySeen(exact.activity)
-                                else if (exact.fromNotification) current.markDestinationActivitySeen(address)
+                                else if (exact.fromNotification) current.markDestinationActivitySeen(exactAddress)
                                 markPublicReferenceOpened(exact.link, route)
                             }
                         }

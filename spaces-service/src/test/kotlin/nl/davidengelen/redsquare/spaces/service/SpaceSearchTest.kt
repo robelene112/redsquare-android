@@ -26,12 +26,13 @@ class SpaceSearchTest {
         SpacesServiceStore(files.newFolder().toPath(), authority, clock).use { service ->
             SqliteClientFixture(files.newFile().absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile().absolutePath).use { readerStore ->
-                    fun client(store: SqliteClientFixture) = SpaceClient(SaitoWallet.create(),
+                    fun client(store: SqliteClientFixture, wallet: SaitoWallet = SaitoWallet.create()) = SpaceClient(wallet,
                         "https://spaces.example.test", authority.publicKey, store, clock) {
                         service.exchange(it.envelope())
                     }
                     val owner = client(ownerStore)
-                    val reader = client(readerStore)
+                    val readerWallet = SaitoWallet.create()
+                    val reader = client(readerStore, readerWallet)
                     val space = owner.create(SpaceProfile("Searchable Space", visibility = SpaceVisibility.PUBLIC), listOf(
                         SpaceChannelProfile("General", SpaceChannelKind.CHAT),
                         SpaceChannelProfile("Articles", SpaceChannelKind.ARTICLE)))
@@ -72,6 +73,30 @@ class SpaceSearchTest {
                     assertTrue(find(reader, SpaceSearchFilter(channel = hidden)).isEmpty())
                     assertEquals(setOf(first, reply), find(reader, SpaceSearchFilter(channel = chat)).map { it.address.record }.toSet())
                     assertEquals(listOf(secret), find(owner, SpaceSearchFilter(channel = hidden)).map { it.address.record })
+
+                    reader.joinPublic(space)
+                    reader.flush(space)
+                    owner.refresh(space)
+                    owner.grantChannelAccess(space, hidden, readerWallet.publicKey)
+                    owner.flush(space)
+                    reader.refresh(space)
+                    reader.flush(space)
+                    owner.admitPending(space)
+                    owner.flush(space)
+                    reader.refresh(space, channel = hidden)
+                    val permitted = owner.send(space, "Needle shared with approved members", hidden)
+                    owner.flush(space)
+                    reader.refresh(space, channel = hidden)
+                    val saved = find(reader, SpaceSearchFilter(channel = hidden)).single { it.address.record == permitted }
+                    val beforeRevocation = reader.readScopeRevision
+                    assertNotNull(reader.cachedDestination(saved.address))
+                    owner.revokeChannelAccess(space, hidden, readerWallet.publicKey)
+                    owner.flush(space)
+                    assertTrue(runCatching { reader.openDestination(saved.address) }.exceptionOrNull() is SpaceClient.ReadDenied)
+                    assertTrue(reader.readScopeRevision > beforeRevocation)
+                    assertTrue(find(reader, SpaceSearchFilter(channel = hidden)).isEmpty())
+                    assertNull(reader.cachedDestination(saved.address))
+                    assertEquals(setOf(first, reply), find(reader, SpaceSearchFilter(channel = chat)).map { it.address.record }.toSet())
                 }
             }
         }

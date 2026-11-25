@@ -65,7 +65,7 @@ class SpacesCatchUpJourneyTest {
                 ui.waitUntil(25_000) {
                     ui.onNode(hasTestTag("spaces-message") and hasAnyDescendant(hasText("First proof Needle"))).isDisplayed()
                 }
-                device.pressBack()
+                click("Back to your communities")
                 waitText("Search saved history")
                 field.assertTextContains("Needle")
                 click("Back to your communities")
@@ -132,6 +132,15 @@ class SpacesCatchUpJourneyTest {
                 capture("restricted-link")
             }
         }
+        val otherWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "5").publicKey
+        for ((owner, node) in listOf(otherWallet to SaitoBackend.OWNER, config.get("nativeWallet").asString to SaitoBackend.OFFICIAL)) {
+            launch(observed.get("link").asString, owner, node).use {
+                withFailureCapture({ capture("wrong-scope-failure") }) {
+                    waitText("All posts")
+                    ui.onNodeWithText("Latest exact proof reply").assertDoesNotExist()
+                }
+            }
+        }
         save("cold-result", observed)
     }
 
@@ -144,11 +153,16 @@ class SpacesCatchUpJourneyTest {
         }.toString())
     }
 
-    private fun launch(link: String): ActivityScenario<MainActivity> {
+    private fun launch(link: String, owner: String? = null, backend: SaitoBackend? = null): ActivityScenario<MainActivity> {
         val peer = "ws://127.0.0.1:${argument("spacesPeerPort")}/wsopen"
-        return ActivityScenario.launch(Intent(Intent.ACTION_VIEW, Uri.parse(link)).setPackage(context.packageName)
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link)).setPackage(context.packageName)
             .putExtra("feedPeerUrl", peer).putExtra("feedOfficialPeerUrl", peer)
-            .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/"))
+            .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
+        if (owner != null && backend != null) {
+            intent.putExtra("spacesNotificationOwner", owner)
+            intent.putExtra("spacesNotificationBackend", backend.id)
+        }
+        return ActivityScenario.launch(intent)
     }
 
     private fun click(label: String, popup: Boolean = false) {
