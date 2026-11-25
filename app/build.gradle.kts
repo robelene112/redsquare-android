@@ -45,6 +45,7 @@ fun com.android.build.api.dsl.ApplicationBuildType.configureGiphy(variant: Strin
     }
 }
 val spacesScaleFixture = providers.gradleProperty("spacesScaleFixture").map(String::toBooleanStrict).orElse(false)
+val spacesScaleObserver = rootProject.file("test-fixtures/android/spaces-scale/observer")
 android {
     namespace = "nl.davidengelen.redsquare"
     compileSdk = 36
@@ -84,12 +85,15 @@ android {
     }
     if (spacesScaleFixture.get()) {
         testBuildType = "performance"
+        // The profileable app has its own observer and excludes debug-only Activities.
+        sourceSets.getByName("androidTest").setRoot(spacesScaleObserver.absolutePath)
         sourceSets.getByName("performance").apply {
             manifest.srcFile(rootProject.file("test-fixtures/android/spaces-scale/AndroidManifest.xml"))
             res.srcDir(rootProject.file("test-fixtures/android/spaces-scale/res"))
         }
+    } else {
+        sourceSets.getByName("androidTest").java.srcDir(rootProject.file("test-fixtures/kotlin"))
     }
-    sourceSets.getByName("androidTest").java.srcDir(rootProject.file("test-fixtures/kotlin"))
     sourceSets.getByName("main").jniLibs.srcDir(layout.buildDirectory.dir("generated/spaces-mls-jni"))
     packaging.resources.excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
     compileOptions {
@@ -97,6 +101,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions { jvmTarget = "17" }
+}
+
+if (spacesScaleFixture.get()) {
+    kotlin.sourceSets.named("androidTest") { kotlin.setSrcDirs(listOf(spacesScaleObserver.resolve("java"))) }
 }
 
 val prepareSpaceMlsAndroid by tasks.registering(Exec::class) {
