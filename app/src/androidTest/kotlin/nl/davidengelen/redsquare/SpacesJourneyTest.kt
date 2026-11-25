@@ -118,7 +118,7 @@ class SpacesJourneyTest {
         val saved = JsonParser.parseString(checkpoint.readText()).asJsonObject
         assertNotEquals(saved.get("pid").asInt, Process.myPid())
         assertEquals(saved.get("owner").asString, AndroidWalletStore(context).loadExisting().publicKey)
-        launch().use {
+        launch().use { activity ->
             withFailureCapture({ capture("protected-chat-recovery-failure") }) {
                 ui.waitUntil(15_000) { ui.onNode(hasText("Chat") and hasClickAction()).isDisplayed() }
                 ui.onNode(hasText("Chat") and hasClickAction()).performClick()
@@ -128,9 +128,9 @@ class SpacesJourneyTest {
                 if (skipAlerts.isDisplayed()) skipAlerts.performClick()
                 ui.waitUntil(10_000) { protectedChats.isDisplayed() }
                 protectedChats.performClick()
-                val destination = ui.onNode(hasText("Protected native conversation") and hasClickAction())
+                val destination = ui.onNode(hasContentDescription("Open Protected native conversation") and hasClickAction())
                 ui.waitUntil(15_000) { destination.isDisplayed() }
-                destination.performClick()
+                destination.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.OnClick) { action -> check(action()) }
                 ui.waitUntil(15_000) { ui.onNode(hasSetTextAction() and hasText(draft)).isDisplayed() }
                 command("release")
                 val parameters = JsonObject().apply { addProperty("space", saved.get("space").asString); addProperty("text", protectedReply) }
@@ -147,6 +147,21 @@ class SpacesJourneyTest {
                 ui.onNode(hasSetTextAction() and hasText(draft)).assertIsDisplayed()
                 capture("protected-chat-after-process-restart", protectedReply)
                 observation.addProperty("recoveredPid", Process.myPid())
+                val touchText = "Protected message sent by a screen tap"
+                val editor = ui.onNode(hasSetTextAction() and hasText("Message"))
+                editor.performTextReplacement(touchText)
+                closeKeyboard(activity)
+                editor.assertEditableTextEquals(touchText)
+                val device = UiDevice.getInstance(instrumentation)
+                val send = device.wait(androidx.test.uiautomator.Until.findObject(androidx.test.uiautomator.By.text("Send")), 5_000)
+                checkNotNull(send).visibleBounds.let { bounds -> check(device.click(bounds.centerX(), bounds.centerY())) }
+                val touchParameters = JsonObject().apply {
+                    addProperty("space", saved.get("space").asString)
+                    addProperty("text", touchText)
+                }
+                ui.waitUntil(15_000) { command("protected-chat-proof", touchParameters).get("readByIndependentPeer").asBoolean }
+                capture("protected-chat-screen-tap", touchText)
+                observation.addProperty("screenTapReceived", true)
                 File(evidence, "protected-chat-result.json").writeText(observation.toString())
             }
         }

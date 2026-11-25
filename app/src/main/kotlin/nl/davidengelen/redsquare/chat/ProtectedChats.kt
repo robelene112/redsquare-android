@@ -16,6 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
@@ -203,8 +205,10 @@ internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, starting
                     }
                 }
                 items(conversations, key = { it.id }) { chat ->
+                    val openLabel = stringResource(R.string.protected_chat_open, chat.name)
                     Surface(onClick = { selected = chat.id; account.select(chat.id) }, enabled = enabled,
-                        modifier = Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.medium) {
+                        modifier = Modifier.fillMaxWidth().semantics { contentDescription = openLabel },
+                        shape = MaterialTheme.shapes.medium) {
                         ListItem(headlineContent = { Text(chat.name) },
                             supportingContent = {
                                 Text(stringResource(when {

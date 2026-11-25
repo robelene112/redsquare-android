@@ -918,7 +918,7 @@ try:
             raise RuntimeError('Native protected Chat verification failed')
         proof = json.loads(adb('exec-out', 'run-as', pkg, 'cat',
             f'cache/{folder}/protected-chat-result.json').stdout)
-        if (not proof['readByIndependentPeer'] or not proof['exactOriginal'] or
+        if (not proof['readByIndependentPeer'] or not proof['exactOriginal'] or not proof['screenTapReceived'] or
                 proof['encryptedOriginals'] != proof['contentOriginals'] or proof['originalSubmissions'] < 2 or
                 proof['recoveredPid'] == pending['pid'] or proof['original'] != pending['original']):
             raise RuntimeError('Independent encrypted round trip did not satisfy the expected effects')
