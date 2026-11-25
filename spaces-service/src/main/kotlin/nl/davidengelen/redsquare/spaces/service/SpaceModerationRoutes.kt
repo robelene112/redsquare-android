@@ -179,21 +179,23 @@ internal class SpaceModerationRoutes(private val database: Connection) {
         val body = original.body
         val kind = body.get("kind").asString
         if (source == "join") return SpaceAdminEvent(cursor, actor, kind, body.get("channel_id").asString, actor)
+        val admission = body.get("join").takeIf { kind == "admit" }?.let { SaitoEnvelope.decode(it.asString) }
         val action = when (kind) {
-            "admit" -> "admitted-member"
+            "admit" -> if (admission?.body?.get("kind")?.asString == "replace-device")
+                "approved-device-replacement" else "approved-channel-access"
             "archive-channel" -> if (body.get("archived").asBoolean) "archived-channel" else "reopened-channel"
             "set-role" -> if (body.get("role").asString == "admin") "made-admin" else "removed-admin"
             "set-write-restriction" -> if (body.get("expires_at").asLong > 0) "paused-writing" else "resumed-writing"
             else -> kind
         }
         val channel = when (kind) {
-            "admit", "create-channel", "edit-channel", "archive-channel", "grant-channel-access",
+            "admit", "join-public", "create-channel", "edit-channel", "archive-channel", "grant-channel-access",
             "revoke-channel-access", "rotate-access" -> body.get("channel_id").asString
             "set-write-restriction" -> body.get("channel_id")?.asString
             else -> null
         }
         val member = when (kind) {
-            "admit" -> SaitoEnvelope.decode(body.get("join").asString).author
+            "admit" -> requireNotNull(admission).author
             "set-role", "set-write-restriction", "remove-member", "ban-member", "unban-member",
             "grant-channel-access", "revoke-channel-access", "propose-owner" -> body.get("member").asString
             "join-public", "leave", "complete-owner", "accept-owner" -> actor

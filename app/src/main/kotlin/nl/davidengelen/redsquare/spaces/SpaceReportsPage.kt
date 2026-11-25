@@ -83,16 +83,20 @@ import java.time.format.FormatStyle
     }
 }
 
-@Composable private fun ReviewReportSheet(report: SpaceMessageReport, load: suspend () -> SpaceClient.Message?,
+@Composable private fun ReviewReportSheet(report: SpaceMessageReport, load: suspend () -> SpaceReportedMessage?,
     onDenied: () -> Unit, onClose: () -> Unit) {
-    var message by remember { mutableStateOf<SpaceClient.Message?>(null) }
+    var message by remember { mutableStateOf<SpaceReportedMessage?>(null) }
     var loaded by remember { mutableStateOf(false) }
-    LaunchedEffect(report.id) {
+    var failed by remember { mutableStateOf(false) }
+    var attempt by remember { mutableIntStateOf(0) }
+    LaunchedEffect(report.id, attempt) {
+        loaded = false
+        failed = false
         try {
             message = load()
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: SpaceClient.ReadDenied) { onDenied() }
-        catch (_: Exception) { }
+        catch (_: Exception) { failed = true }
         finally { loaded = true }
     }
     DesignSheet(true, stringResource(R.string.spaces_review_report), onDismiss = onClose, contentKey = report.id,
@@ -106,8 +110,19 @@ import java.time.format.FormatStyle
         val entry = message
         when {
             !loaded -> LinearProgressIndicator(Modifier.fillMaxWidth())
-            entry?.deleted == true -> Text(stringResource(R.string.spaces_report_message_removed))
-            entry?.text != null -> Text(entry.text)
+            failed -> {
+                InlineStatus(stringResource(R.string.spaces_report_message_load_failed), StatusTone.WARNING)
+                TextButton(onClick = { attempt++ }, modifier = Modifier.heightIn(min = 48.dp)) {
+                    Text(stringResource(R.string.spaces_report_retry))
+                }
+            }
+            entry != null -> {
+                Text(entry.original ?: stringResource(R.string.spaces_report_message_unavailable))
+                if (entry.current.deleted) Text(stringResource(R.string.spaces_report_message_removed))
+                else if (entry.current.edited) HistoryCard(stringResource(R.string.spaces_report_message_edited),
+                    moderationDate(entry.current.editedAt ?: entry.current.createdAt),
+                    entry.current.text ?: stringResource(R.string.spaces_report_message_unavailable))
+            }
             else -> Text(stringResource(R.string.spaces_report_message_unavailable))
         }
     }
@@ -122,6 +137,7 @@ import java.time.format.FormatStyle
     var currentPage by remember { mutableStateOf<Cursor?>(null) }
     var loading by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
+    var failedPage by remember { mutableStateOf<Cursor?>(null) }
     suspend fun load(before: Cursor? = null) {
         if (loading) return
         loading = true
@@ -136,9 +152,13 @@ import java.time.format.FormatStyle
             rows = null
             cursor = null
             currentPage = null
+            failedPage = null
             onDenied()
         }
-        catch (_: Exception) { failed = true }
+        catch (_: Exception) {
+            failedPage = before
+            failed = true
+        }
         finally { loading = false }
     }
     LaunchedEffect(Unit) { load() }
@@ -147,7 +167,7 @@ import java.time.format.FormatStyle
         if (loading && rows == null) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
         if (failed) item {
             InlineStatus(stringResource(failure), StatusTone.WARNING)
-            TextButton(onClick = { scope.launch { load() } }, modifier = Modifier.heightIn(min = 48.dp)) {
+            TextButton(onClick = { scope.launch { load(failedPage) } }, modifier = Modifier.heightIn(min = 48.dp)) {
                 Text(stringResource(R.string.spaces_report_retry))
             }
         }
@@ -199,7 +219,9 @@ private fun adminAction(action: String): Int = when (action) {
     "grant-channel-access", "revoke-channel-access", "rotate-access" -> R.string.spaces_admin_changed_access
     "message-delete" -> R.string.spaces_admin_removed_content
     "message-pin" -> R.string.spaces_admin_changed_pin
-    "admitted-member", "join-public" -> R.string.spaces_admin_admitted_member
+    "approved-channel-access" -> R.string.spaces_admin_approved_channel_access
+    "approved-device-replacement" -> R.string.spaces_admin_approved_device_replacement
+    "join-public" -> R.string.spaces_admin_joined_public
     "muted-in-room" -> R.string.spaces_admin_muted_in_room
     "removed-from-room" -> R.string.spaces_admin_removed_from_room
     "join", "join-channel" -> R.string.spaces_admin_join_requested

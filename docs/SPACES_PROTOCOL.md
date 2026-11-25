@@ -650,8 +650,8 @@ table. Repeating a report by the same member for the same record returns its
 first receipt. A different reason for that same record is acknowledged as an
 existing report. The staff list, exact message review and admin log check the
 current owner or administrator role on each signed read. The node is the
-custodian of the report reason. Review fetches the exact original and its
-current edits or deletion using existing signed receipts. An encrypted
+custodian of the report reason. Review shows the signed original together
+with the current edit or removal status. An encrypted
 message still requires the appropriate device keys.
 
 The admin log pages accepted actions by node acceptance time and original

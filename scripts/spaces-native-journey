@@ -935,7 +935,7 @@ try:
             raise RuntimeError('Native administrator did not complete')
         reviewed = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/administrator-result.json').stdout)
         if reviewed['pid'] == reported['pid'] or reviewed['correctReport'] != reported['report'] or not all(
-            reviewed[flag] is True for flag in ('channelOnly', 'spaceWide', 'independentReading', 'staffAudit')
+            reviewed[flag] is True for flag in ('channelOnly', 'spaceWide', 'independentReading', 'staffAudit', 'staffRevocationHidReport')
         ):
             raise RuntimeError('Native moderation outcomes did not match the independent actor')
         finish_record(*movies[-1])

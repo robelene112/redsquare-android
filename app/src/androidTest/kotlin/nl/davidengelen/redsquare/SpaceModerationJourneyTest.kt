@@ -110,6 +110,16 @@ class SpaceModerationJourneyTest {
                 assertTrue(second.get("generalReadable").asBoolean)
                 assertTrue(second.get("actionsRecorded").asBoolean)
                 assertEquals(prior.get("report").asString, request("moderation-report-status").get("id").asString)
+                UiDevice.getInstance(instrumentation).pressBack()
+                UiDevice.getInstance(instrumentation).pressBack()
+                click("Reports and admin log")
+                click("Review report")
+                waitText("Moderation proof message", 15_000)
+                assertTrue(request("moderation-demote-reporter").get("reporterDeniedStaffRead").asBoolean)
+                waitText("Only the owner and administrators can see reports and the admin log.", 20_000)
+                ui.onNodeWithText("Promotion repeated in a discussion").assertDoesNotExist()
+                ui.onNodeWithText("Moderation proof message").assertDoesNotExist()
+                capture("report-access-revoked")
                 File(evidence, "administrator-result.json").writeText(JsonObject().apply {
                     addProperty("pid", Process.myPid())
                     addProperty("correctReport", prior.get("report").asString)
@@ -117,6 +127,7 @@ class SpaceModerationJourneyTest {
                     addProperty("spaceWide", true)
                     addProperty("independentReading", true)
                     addProperty("staffAudit", true)
+                    addProperty("staffRevocationHidReport", true)
                 }.toString())
             }
         }

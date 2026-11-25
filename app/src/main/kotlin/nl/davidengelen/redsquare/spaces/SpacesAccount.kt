@@ -1024,8 +1024,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
 
     suspend fun reviewReportedMessage(space: String, report: SpaceMessageReport) = withContext(Dispatchers.IO) {
-        requireModerationStaff(space)
-        requireNotNull(client).reviewReportedMessage(space, report).also { requireModerationStaff(space) }
+        network.withLock {
+            requireModerationStaff(space)
+            requireNotNull(client).reviewReportedMessage(space, report).also { requireModerationStaff(space) }
+        }
     }
 
     fun canReviewModeration(space: String, current: State): Boolean =

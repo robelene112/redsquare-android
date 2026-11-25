@@ -61,6 +61,12 @@ internal class SpacesModerationFixture(root: Path, node: SaitoWallet, private va
         return report
     }
 
+    suspend fun demoteReporter(): JsonObject {
+        owner.setAdministrator(space, wallets.first().publicKey, false)
+        owner.flush(space)
+        return observeReport()
+    }
+
     suspend fun observeRestrictions(): JsonObject {
         val member = actors.last()
         member.refresh(space, channel = general)

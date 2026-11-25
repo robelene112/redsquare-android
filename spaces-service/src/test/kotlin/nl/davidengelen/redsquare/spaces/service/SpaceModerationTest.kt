@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare.spaces.service
 
 import kotlinx.coroutines.runBlocking
+import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceArticleContent
 import nl.davidengelen.redsquare.spaces.SpaceChannelKind
@@ -82,7 +83,7 @@ class SpaceModerationTest {
             service = SpacesServiceStore(database, node, clock)
             assertEquals(listOf(receipt), admin.messageReports(space).reports)
             assertEquals(listOf(receipt), owner.messageReports(space).reports)
-            assertEquals("Original message", admin.reviewReportedMessage(space, receipt)?.text)
+            assertEquals("Original message", admin.reviewReportedMessage(space, receipt)?.original)
             assertTrue(runCatching { member.reviewReportedMessage(space, receipt) }.exceptionOrNull() is SpaceClient.ReadDenied)
             assertEquals(null, owner.messageReports(space).next)
             assertTrue(runCatching { member.adminLog(space) }.exceptionOrNull() is SpaceClient.ReadDenied)
@@ -105,7 +106,18 @@ class SpaceModerationTest {
             owner.flush(space)
             val reportedReply = member.reportMessage(space, channel, reply, "Report specifically about a reply")
             assertEquals(message, reportedReply.thread)
-            assertEquals("Reported reply", owner.reviewReportedMessage(space, reportedReply)?.text)
+            assertEquals("Reported reply", owner.reviewReportedMessage(space, reportedReply)?.original)
+            owner.editMessage(space, requireNotNull(owner.message(space, reply, channel)), "Updated reply", channel)
+            owner.flush(space)
+            val edited = requireNotNull(owner.reviewReportedMessage(space, reportedReply))
+            assertEquals("Reported reply", edited.original)
+            assertEquals("Updated reply", edited.current.text)
+            owner.deleteMessage(space, edited.current, channel)
+            owner.flush(space)
+            val removed = requireNotNull(owner.reviewReportedMessage(space, reportedReply))
+            assertEquals("Reported reply", removed.original)
+            assertTrue(removed.current.deleted)
+            assertEquals(null, requireNotNull(owner.message(space, reply, channel)).text)
 
             val actions = buildSet {
                 repeat(23) { index ->
@@ -124,6 +136,55 @@ class SpaceModerationTest {
         } finally {
             service.close()
             stores.forEach(SqliteClientFixture::close)
+        }
+    }
+
+    @Test fun privateReportReviewUsesTheDeviceKeysAndLeavesTheArchiveEncrypted() = runBlocking<Unit> {
+        val clock = Clock.fixed(Instant.parse("2026-11-25T11:30:00Z"), ZoneOffset.UTC)
+        val authority = SaitoWallet.create()
+        val ownerWallet = SaitoWallet.create()
+        val reporterWallet = SaitoWallet.create()
+        val wire = mutableListOf<String>()
+        SpacesServiceStore(files.newFolder().toPath(), authority, clock).use { service ->
+            SqliteClientFixture(files.newFile().absolutePath).use { ownerDevice ->
+                SqliteClientFixture(files.newFile().absolutePath).use { reporterDevice ->
+                    fun client(wallet: SaitoWallet, store: SqliteClientFixture) =
+                        SpaceClient(wallet, "https://spaces.example.test", authority.publicKey, store, clock) {
+                            service.exchange(it.envelope().also(wire::add))
+                        }
+                    val owner = client(ownerWallet, ownerDevice)
+                    val reporter = client(reporterWallet, reporterDevice)
+                    val space = owner.create(SpaceProfile("Restricted conversation"))
+                    owner.flush(space)
+                    owner.refresh(space)
+                    val channel = owner.channels(space).single().id
+                    val invite = owner.inviteFor(space, reporterWallet.publicKey)
+                    owner.flush(space)
+                    reporter.join(invite)
+                    reporter.flush(space)
+                    owner.admitPending(space)
+                    owner.flush(space)
+                    reporter.refresh(space)
+                    val parent = owner.send(space, "Private parent", channel)
+                    owner.flush(space)
+                    val root = requireNotNull(owner.message(space, parent, channel))
+                    val reply = owner.reply(space, root, "Private reply evidence", channel)
+                    owner.flush(space)
+                    reporter.refresh(space)
+                    reporter.refreshThread(space, requireNotNull(reporter.message(space, parent, channel)), channel)
+                    val report = reporter.reportMessage(space, channel, reply, "Escalated privately")
+                    assertEquals(parent, report.thread)
+                    val submitted = requireNotNull(owner.reviewReportedMessage(space, report))
+                    assertEquals("Private reply evidence", submitted.original)
+                    val signed = SaitoEnvelope.decode(wire.single { SaitoEnvelope.decode(it).id == reply }).body
+                    assertTrue(signed.has("ciphertext"))
+                    assertFalse(signed.toString().contains("Private reply evidence"))
+                    assertTrue(runCatching { reporter.reviewReportedMessage(space, report) }.exceptionOrNull() is SpaceClient.ReadDenied)
+                    val approved = owner.adminLog(space).events.single { it.action == "approved-channel-access" }
+                    assertEquals(reporterWallet.publicKey, approved.member)
+                    assertEquals(channel, approved.channel)
+                }
+            }
         }
     }
 
@@ -294,6 +355,14 @@ class SpaceModerationTest {
                         member.flush(space)
                         member.refresh(space, channel = chat)
                         owner.refresh(space)
+                        interruptUpload.set {
+                            owner.archiveChannel(space, filesChannel, true)
+                            owner.flush(space)
+                        }
+                        val archiveEncrypted = ByteArrayOutputStream()
+                        val archiveSealed = SpaceFileCipher.seal(SpaceFileCipher.Scope(authority.publicKey, space, filesChannel),
+                            bytes.size.toLong(), bytes.inputStream(), archiveEncrypted)
+                        assertInterruptedUpload(archiveSealed, archiveEncrypted.toByteArray())
                     }
 
                     val returning = SpaceVoiceSignalKey.create(SpaceVoiceSignalKey.Address(authority.publicKey, space, room), memberWallet)

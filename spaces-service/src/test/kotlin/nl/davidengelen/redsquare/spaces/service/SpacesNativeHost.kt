@@ -180,6 +180,7 @@ object SpacesNativeHost {
                                         "/moderation-config" -> requireNotNull(moderation).configuration()
                                         "/moderation-report-status" -> requireNotNull(moderation).observeReport()
                                         "/moderation-promote-reporter" -> requireNotNull(moderation).promoteReporter()
+                                        "/moderation-demote-reporter" -> requireNotNull(moderation).demoteReporter()
                                         "/moderation-restriction-status" -> requireNotNull(moderation).observeRestrictions()
                                         "/file-expiry-library" -> requireNotNull(fileLibrary).expiryLibrary()
                                         "/file-received" -> requireNotNull(fileLibrary).received()

@@ -718,20 +718,35 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
     }
 
-    suspend fun reviewReportedMessage(space: String, report: SpaceMessageReport): Message? = try {
+    suspend fun reviewReportedMessage(space: String, report: SpaceMessageReport): SpaceReportedMessage? = try {
         syncControls(space)
         val page = messagePage(space, report.channel, limit = 1, thread = report.thread, exactReport = report)
-        val current = if (page.count > 0) message(space, report.message, report.channel) else null
-        if (current?.missingKeys == true) {
+        val evidence = if (page.count > 0) reportedMessage(space, report) else null
+        if (evidence != null && (evidence.current.missingKeys || evidence.original == null)) {
             refreshKeys(space, report.channel)
-            messagePage(space, report.channel, limit = 1, thread = report.thread, exactReport = report)
-            message(space, report.message, report.channel)
-        } else current
+            val refreshed = messagePage(space, report.channel, limit = 1, thread = report.thread, exactReport = report)
+            if (refreshed.count > 0) reportedMessage(space, report) else null
+        } else evidence
     } catch (denied: ReadDenied) {
         // Staff may investigate the report even if this device was never given the channel keys.
         messageReports(space)
         null
     }
+
+    private fun reportedMessage(space: String, report: SpaceMessageReport): SpaceReportedMessage? = store.project { store.transaction {
+        owned()
+        val current = message(space, report.message, report.channel) ?: return@transaction null
+        val pointer = get(messageIdKey(space, report.channel, report.message)) ?: return@transaction null
+        val receipt = get(pointer.toString(Charsets.UTF_8)) ?: return@transaction null
+        val envelope = originalEnvelope(receipt)
+        val original = SaitoEnvelope.decode(envelope)
+        require(original.id == report.message && original.body.text("channel_id") == report.channel)
+        val text = if (original.body.text("kind") == "public-content") original.body.text("text") else try {
+            protectedHistoryReader(space, report.channel)(envelope, original)
+        } catch (_: SpaceCrypto.MissingKeys) { null }
+        catch (_: java.security.GeneralSecurityException) { null }
+        SpaceReportedMessage(text, current)
+    } }
 
     suspend fun messageReports(space: String, before: Long = Long.MAX_VALUE): SpaceReportPage {
         val result = readPage(JsonObject().apply {
@@ -3797,7 +3812,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 else -> throw IllegalArgumentException("Unknown community read disposition")
             }
             val space = scope.text("space_id")
-            if (scope.text("stream") != "message-report") {
+            if (scope.text("stream") != "message-report" && !scope.has("report_id")) {
                 scope.get("channel_id")?.asString?.let { rememberArticleReadDenial(space, it) }
             }
             throw ReadDenied(space, problem)

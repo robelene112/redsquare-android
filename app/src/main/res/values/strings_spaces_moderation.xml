@@ -58,7 +58,12 @@
     <string name="spaces_report_message_removed">This message was removed.</string>
     <string name="spaces_report_message_unavailable">This message isn’t available on this device.</string>
     <string name="spaces_moderation_latest">Back to latest entries</string>
-    <string name="spaces_admin_admitted_member">Admitted a member</string>
+    <string name="spaces_admin_approved_channel_access">Approved channel access</string>
+    <string name="spaces_admin_approved_device_replacement">Approved a device replacement</string>
+    <string name="spaces_admin_joined_public">Joined the Space</string>
+    <string name="spaces_report_message_load_failed">Couldn’t load the reported message.</string>
     <string name="spaces_admin_muted_in_room">Muted a room participant</string>
     <string name="spaces_admin_removed_from_room">Removed a room participant</string>
+    <string name="spaces_report_message_edited">Current edit</string>
+    <string name="spaces_restriction_unavailable_channel">Channel name unavailable</string>
 </resources>

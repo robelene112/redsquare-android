@@ -28,7 +28,9 @@ import nl.davidengelen.redsquare.ui.StatusTone
         var channel by remember { mutableStateOf<String?>(null) }
         var until by remember { mutableStateOf<Long?>(null) }
         val whole = stringResource(R.string.spaces_restriction_whole)
+        val unavailableChannel = stringResource(R.string.spaces_restriction_unavailable_channel)
         val names = state.channels.associate { it.id to it.profile.name }
+        fun scopeName(channelId: String?) = if (channelId == null) whole else names[channelId] ?: unavailableChannel
 
         suspend fun update(operation: suspend () -> SpaceRestrictionOptions) {
             if (working) return
@@ -55,7 +57,7 @@ import nl.davidengelen.redsquare.ui.StatusTone
             if (choices == null && working) LinearProgressIndicator(Modifier.fillMaxWidth())
             choices?.let { options ->
                 options.active.forEach { existing ->
-                    val target = existing.channel?.let(names::get) ?: whole
+                    val target = scopeName(existing.channel)
                     Text(stringResource(R.string.spaces_restriction_active, target, moderationDate(existing.expiresAt)),
                         style = MaterialTheme.typography.bodyMedium)
                     TextButton(onClick = { scope.launch {
@@ -67,7 +69,7 @@ import nl.davidengelen.redsquare.ui.StatusTone
                 Box {
                     OutlinedButton(onClick = { scopeMenu = true }, enabled = active && !working,
                         modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
-                        Text(stringResource(R.string.spaces_restriction_scope, channel?.let(names::get) ?: whole))
+                        Text(stringResource(R.string.spaces_restriction_scope, scopeName(channel)))
                     }
                     DropdownMenu(expanded = scopeMenu, onDismissRequest = { scopeMenu = false }) {
                         DropdownMenuItem(text = { Text(whole) }, onClick = { channel = null; scopeMenu = false })

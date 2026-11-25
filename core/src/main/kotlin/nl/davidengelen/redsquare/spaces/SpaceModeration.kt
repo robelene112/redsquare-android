@@ -41,6 +41,10 @@ data class SpaceMessageReport(val id: String, val channel: String, val message: 
 
 class SpaceReportAlreadyFiled : IllegalStateException("This message already has your report")
 
+data class SpaceReportedMessage(val original: String?, val current: SpaceClient.Message) {
+    override fun toString() = "Private reported community message"
+}
+
 data class SpaceReportPage(val reports: List<SpaceMessageReport>, val next: Long?)
 
 data class SpaceAdminCursor(val at: Long, val event: String) {
