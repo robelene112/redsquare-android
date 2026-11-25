@@ -1,0 +1,73 @@
+{
+  "ticket": 147,
+  "contractVersion": 1,
+  "qualityPlan": "../../quality/SPACES_QUALITY_PLAN.md",
+  "status": "frozen workload and thresholds before measurement",
+  "fixture": {
+    "seed": 147,
+    "spaces": 100,
+    "channelsPerSpace": {
+      "chat": 6,
+      "announcements": 1,
+      "article": 1,
+      "file": 1,
+      "voice": 1
+    },
+    "channels": 1000,
+    "messages": 100000,
+    "hotChannelMessages": 10000,
+    "otherTextChannelVolumes": {
+      "channelsWith129Records": 528,
+      "channelsWith128Records": 171
+    },
+    "files": 1000,
+    "fileEntriesPerLibrary": 10,
+    "mixedMediaViewport": "Fixed image, video and document descriptors and a bounded visible subset",
+    "control": "Independently accepted envelopes and file descriptors from owned signers. Frozen logical IDs, service identity, data count and fixture manifest hash before timed native interactions"
+  },
+  "referenceEnvironment": {
+    "targetBuild": "Nondebuggable shell-profileable release-equivalent optimization and dependency graph",
+    "device": "Owned Android 17 Google APIs x86_64 4 KB image under KVM",
+    "host": "Ubuntu 24.04 GitHub runner",
+    "guestCores": 2,
+    "guestMemoryMiB": 2048,
+    "orientation": "portrait",
+    "widthDp": 412,
+    "fontScale": 1.0,
+    "theme": "light",
+    "motion": "system default",
+    "physicalQualification": "Emulator timing is diagnostic. Measure physical midrange/OEM behavior separately"
+  },
+  "measurement": {
+    "expectedWarmups": 1,
+    "expectedWarmIterations": 5,
+    "idleReturnSwitchCycles": 100,
+    "allRunsRetained": true,
+    "script": [
+      "Cold launch with the authenticated cached fixture and open the saved hot channel",
+      "Open the hot channel after one explicit warm-up, scroll the same history span, react to a visible accepted row, and switch Space and channel",
+      "Check identity and scroll anchor while unrelated accepted content arrives",
+      "Return to the original view and repeat the same sequence five times",
+      "Complete one hundred open, switch and close cycles and observe post-settling retained heap, subscription and job counts"
+    ],
+    "rawEvidence": [
+      "Exact product source, package, APK digest, build inputs, dataset manifest digest, device fingerprint, actual refresh rate and frame budget",
+      "Actual frame timeline, independent input and UI feedback timestamps, native frames and frame-level anchor geometry",
+      "Heap and allocation trends, active subscription and job counts before and after the switch lifecycle",
+      "Every expected terminal case, every failure, and three-party controlled room capacity qualification"
+    ]
+  },
+  "thresholds": {
+    "tapFeedbackP95MsMaximum": 100,
+    "noFrameAtOrAboveMs": 700,
+    "scriptedWarmScrollBudgetMissShareMaximum": 0.05,
+    "anchorJumpAllowed": false,
+    "baselineRegressionPercentInvestigateAbove": 10,
+    "reportPercentiles": [
+      50,
+      95,
+      99
+    ],
+    "compareInSameEnvironment": true
+  }
+}
