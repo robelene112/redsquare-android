@@ -260,8 +260,22 @@ reuses the already verified original when applying unchanged historical
 authorization checks. All 491 local core and service checks pass. The public
 cache also verifies the same committed bytes in buffered chunks after a
 separate Android 17 large-photo run stopped before the eighth visible row.
-The two changes have fresh focused journeys and full runs on both Android
-versions. The staged 0.1.143 candidate predates these changes.
+The two changes pass their focused journeys on both Android versions,
+including the original Android 17 deadlines for
+[large photos](https://github.com/robelene112/redsquare-android/actions/runs/45717763616)
+and [Spaces recovery](https://github.com/robelene112/redsquare-android/actions/runs/45717763340).
+The new Chat route also passes both offline identity runs.
+
+The controlled full-Social trace again reproduces the extra large-photo
+request. The same feed owner, wallet object, policy, refresh counter and
+network state record a cancelled read followed by another limit-20 request
+53ms later. The product now observes normalized archive inputs inside one
+foreground job. Actual input changes still cancel stale work. Identical
+composition passes keep the current request. The
+[Social diagnostic](https://github.com/robelene112/redsquare-android/actions/runs/45721491880)
+repeats the original runtime sequence and original byte and row assertions.
+The signed local 0.1.144 build predates this last correction. Candidate 143
+remains an immutable historical test checkpoint and the live release is 142.
 
 ## Accepted #146, continue #147
 
