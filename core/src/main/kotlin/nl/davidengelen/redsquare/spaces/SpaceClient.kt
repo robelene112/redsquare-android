@@ -679,6 +679,29 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     suspend fun fileStorageUsagePermission(space: String, channel: String): SpaceFileGrant =
         providerGrant(readPage(fileScope(space, channel, "usage")), requireNotNull(fileStorage(space)), SpaceFileGrant.Action.STATUS)
 
+    suspend fun voiceRoom(space: String, channel: String): SpaceVoiceRoom =
+        voiceRoomCommand(space, channel, SpaceVoiceRoom.Command.OBSERVE)
+
+    suspend fun joinVoiceRoom(space: String, channel: String, session: String): SpaceVoiceRoom =
+        voiceRoomCommand(space, channel, SpaceVoiceRoom.Command.JOIN, session)
+
+    suspend fun renewVoiceRoom(space: String, channel: String, session: String): SpaceVoiceRoom =
+        voiceRoomCommand(space, channel, SpaceVoiceRoom.Command.RENEW, session)
+
+    suspend fun leaveVoiceRoom(space: String, channel: String, session: String): SpaceVoiceRoom =
+        voiceRoomCommand(space, channel, SpaceVoiceRoom.Command.LEAVE, session)
+
+    suspend fun moderateVoiceRoom(space: String, channel: String, session: String, remove: Boolean): SpaceVoiceRoom =
+        voiceRoomCommand(space, channel, if (remove) SpaceVoiceRoom.Command.REMOVE else SpaceVoiceRoom.Command.MUTE, session)
+
+    private suspend fun voiceRoomCommand(space: String, channel: String, command: SpaceVoiceRoom.Command,
+        session: String? = null): SpaceVoiceRoom {
+        val reply = readPage(SpaceVoiceRoom.scope(space, channel, command, session))
+        val room = SpaceVoiceRoom.read(reply.getAsJsonObject("voice_room"))
+        require(!room.admitted || room.participants.any { it.wallet == wallet.publicKey && it.session == session })
+        return room
+    }
+
     suspend fun fileRemovalPermission(space: String, channel: String, fileId: String): SpaceFileGrant =
         providerGrant(readPage(fileScope(space, channel, "remove").apply { addProperty("file", fileId) }),
             requireNotNull(fileStorage(space)), SpaceFileGrant.Action.DELETE)

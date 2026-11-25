@@ -15,6 +15,7 @@ import nl.davidengelen.redsquare.spaces.SpaceRole
 import nl.davidengelen.redsquare.spaces.SpaceProfile
 import nl.davidengelen.redsquare.spaces.SpaceVisibility
 import nl.davidengelen.redsquare.spaces.SpaceSnapshot
+import nl.davidengelen.redsquare.spaces.SpaceVoiceRoom
 import java.nio.file.Files
 import java.nio.file.Path
 import java.sql.Connection
@@ -28,11 +29,12 @@ import java.util.Locale
 class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, private val clock: Clock) : AutoCloseable {
     private val database: Connection
     private val fileRoutes: SpaceFileRoutes
+    private val voiceRooms = SpaceVoiceRooms()
     private data class Challenge(val caller: String, val scope: JsonObject, val expiresAt: Long)
     private val challenges = mutableMapOf<String, Challenge>()
-    private data class FileJournal(val head: String?, val journal: SpaceJournal)
-    private val recentFileJournals = object : LinkedHashMap<String, FileJournal>(16, 0.75f, true) {
-        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, FileJournal>?) = size > 16
+    private data class CommittedJournal(val head: String?, val journal: SpaceJournal)
+    private val recentCommittedJournals = object : LinkedHashMap<String, CommittedJournal>(16, 0.75f, true) {
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, CommittedJournal>?) = size > 16
     }
 
     /** Loopback operational metadata, not a signed write acknowledgment or a
@@ -67,7 +69,9 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val requestId = body.text("request_id").also { require(it.matches(ID)) }
         val scope = body.get("scope").also { require(it != null && it.isJsonObject) }.asJsonObject.deepCopy()
         val space = scope.text("space_id").also { require(it.matches(ID)) }
-        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation", "directory", "heads", "messages", "pins", "files")) }
+        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation", "directory", "heads", "messages", "pins", "files", "voice-room")) }
+        val roomCommand = if (stream == "voice-room") SpaceVoiceRoom.Command.read(scope.text("command")) else null
+        val roomSession = if (roomCommand?.requiresSession == true) scope.text("session").also { require(SpaceVoiceRoom.validSession(it)) } else null
         require(scope.keySet() == setOf("space_id", "stream", "cursor") + when (stream) {
             "messages" -> setOf("channel_id", "direction", "limit") + (if (scope.has("thread_id")) setOf("thread_id") else emptySet()) +
                 (if (scope.has("pin_history")) setOf("pin_history") else emptySet()) +
@@ -82,14 +86,15 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 "usage" -> emptySet()
                 else -> throw IllegalArgumentException("Unsupported file access")
             }
+            "voice-room" -> setOf("channel_id", "command") + if (roomSession == null) emptySet() else setOf("session")
             "content" -> setOf("channel_id"); "keys" -> setOf("channel_id", "recipient_credential")
             "invitation" -> setOf("invite_id"); "directory" -> setOf("query"); "heads" -> setOf("positions"); else -> emptySet()
         })
         if (stream == "directory") require(space == "0".repeat(64) && scope.text("query").let { it.codePointCount(0, it.length) <= 128 })
-        val channel = if (stream in setOf("content", "keys", "messages", "pins", "files")) scope.text("channel_id").also { require(it.matches(ID)) } else null
+        val channel = if (stream in setOf("content", "keys", "messages", "pins", "files", "voice-room")) scope.text("channel_id").also { require(it.matches(ID)) } else null
         val recipient = if (stream == "keys") scope.text("recipient_credential") else null
         val cursor = scope.number("cursor")
-        if (stream == "files") require(cursor == 0L)
+        if (stream in setOf("files", "voice-room")) require(cursor == 0L)
         if (stream == "messages") require(scope.text("direction") in setOf("before", "after") && scope.number("limit") in 1..50)
         val article = if (stream == "messages" && scope.has("article_id")) scope.text("article_id").also {
             require(it.matches(Regex("[0-9a-f]{128}")) && cursor == Long.MAX_VALUE && scope.text("direction") == "before" &&
@@ -138,7 +143,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 atomic {
                     if (stream == "directory") directoryPage(reply, scope.text("query"), cursor)
                     else {
-                    val journal = journal(space)
+                    val journal = if (roomCommand != null) committedJournal(space) else journal(space)
                     // A former member may authenticate their own departure.
                     // This does not authorize later private controls or content,
                     // and banning a never-member grants no read authority.
@@ -163,7 +168,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                             denied("unavailable"); return@atomic
                         }
                     } else if (!(journal.snapshot.visibility == SpaceVisibility.PUBLIC && stream == "control") &&
-                        !(stream in setOf("content", "messages", "pins") && journal.snapshot.channels[channel]?.visibility == SpaceVisibility.PUBLIC) &&
+                        !(stream in setOf("content", "messages", "pins", "voice-room") && journal.snapshot.channels[channel]?.visibility == SpaceVisibility.PUBLIC) &&
                         request.author !in journal.snapshot.members && departureEnd == null) { denied("unavailable"); return@atomic }
                     if (channel != null) {
                         val target = journal.snapshot.channels[channel]
@@ -174,6 +179,17 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         if (recipient != null && (recipient !in target.devices || recipient.split(':')[1] != request.author)) {
                             denied("unavailable"); return@atomic
                         }
+                    }
+                    if (roomCommand != null) {
+                        try {
+                            reply.add("voice_room", voiceRooms.exchange(space, requireNotNull(channel), request.author,
+                                roomCommand, roomSession, journal, now).json())
+                            reply.add("items", JsonArray())
+                            reply.addProperty("next_cursor", 0)
+                        } catch (_: IllegalArgumentException) {
+                            denied("unavailable")
+                        }
+                        return@atomic
                     }
                     if (stream == "heads") {
                         val positions = scope.getAsJsonObject("positions")
@@ -277,7 +293,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val now = clock.millis()
         val check = SpaceFileAccessCheck.read(request, wallet.publicKey, now)
         return atomic {
-            check.reply(wallet, fileRoutes.stillAllowed(check, fileJournal(check.permission.space), now), now)
+            check.reply(wallet, fileRoutes.stillAllowed(check, committedJournal(check.permission.space), now), now)
         }
     }
 
@@ -784,14 +800,14 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
     }
 
     /** This projection is only used for read-only checks on a committed control head. */
-    private fun fileJournal(space: String): SpaceJournal {
+    private fun committedJournal(space: String): SpaceJournal {
         val head = database.prepareStatement("SELECT event_id FROM controls WHERE space_id=? ORDER BY position DESC LIMIT 1").use { sql ->
             sql.setString(1, space)
             sql.executeQuery().use { row -> if (row.next()) row.getString(1) else null }
         }
-        val cached = recentFileJournals[space]
+        val cached = recentCommittedJournals[space]
         if (cached != null && cached.head == head) return cached.journal
-        return journal(space).also { recentFileJournals[space] = FileJournal(head, it) }
+        return journal(space).also { recentCommittedJournals[space] = CommittedJournal(head, it) }
     }
 
     private fun <T> atomic(action: () -> T): T {
