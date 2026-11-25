@@ -54,6 +54,7 @@ class SpaceDestinationTest {
                     val public = SpacePublicReference(node, authority.publicKey, space)
                     val roomLink = SpaceDestination(public, room, Kind.ROOM)
                     assertEquals(roomLink, browser.openDestination(roomLink)?.address)
+                    assertNull("Checking room access does not check its saved history", browser.savedContentCheckedAt(space, room))
                     assertFalse(browser.community(space, room).joined)
                     assertTrue(owner.voiceRoom(space, room).participants.isEmpty())
 

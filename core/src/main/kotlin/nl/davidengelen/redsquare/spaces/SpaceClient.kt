@@ -1143,13 +1143,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
     }
 
-    private fun SpaceClientStore.Transaction.confirmDestinationRead(space: String, channel: String) {
+    private fun SpaceClientStore.Transaction.confirmDestinationRead(space: String, channel: String, readContent: Boolean = true) {
         val denied = destinationDenialKey(space, channel)
         if (get(denied) != null) {
             remove(denied)
             readScope.incrementAndGet()
         }
-        put(lastCheckedKey(space, channel), clock.millis().toString().toByteArray(Charsets.UTF_8))
+        if (readContent) put(lastCheckedKey(space, channel), clock.millis().toString().toByteArray(Charsets.UTF_8))
     }
 
     private fun lastCheckedKey(space: String, channel: String) = "$space/channels/$channel/last-content-check"
@@ -1220,9 +1220,14 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             rememberDestinationDenial(space, channel)
             throw denied
         }
-        store.transaction { owned(); confirmDestinationRead(space, channel) }
+        store.transaction { owned(); confirmDestinationRead(space, channel, address.kind.requiresRecord()) }
         return cachedDestination(address)
     }
+
+    fun destinationAccessAllowed(address: SpaceDestination): Boolean = store.project { store.transaction {
+        owned()
+        canReadActivity(address)
+    } }
 
     fun cachedDestination(address: SpaceDestination): Destination? = store.project { store.transaction {
         requireDestinationService(address)
@@ -4500,14 +4505,14 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                     if (original.body.text("kind") in setOf("content", "public-content") && original.body.text("content_kind") == "message-edit") {
                         val editKey = messageEditKey(space, channel, original.body.text("target_message_id"), original.author)
                         val prior = get(editKey)?.let(::json)
-                        if (prior == null || prior.number("position") < body.number("position")) put(editKey, bytes(body))
+                        if (prior == null || prior.number("position") < body.number("position")) put(editKey, bytes(locallyAccepted))
                     }
                     if (original.body.text("kind") in setOf("content", "public-content") && original.body.text("content_kind") == "message-delete") {
                         val target = original.body.text("target_message_id")
                         val deletionKey = if (historic.hasCurrentAdministratorIntent(original.author, original.body.text("control_id")))
                             messageModerationKey(space, channel, target) else messageDeletionKey(space, channel, target, original.author)
                         val prior = get(deletionKey)?.let(::json)
-                        if (prior == null || prior.number("position") < body.number("position")) put(deletionKey, bytes(body))
+                        if (prior == null || prior.number("position") < body.number("position")) put(deletionKey, bytes(locallyAccepted))
                     }
                     if (original.body.text("kind") in setOf("content", "public-content") && original.body.text("content_kind") in ROOT_CONTENT_KINDS)
                         contentState.addProperty("last_content", maxOf(contentState.get("last_content")?.asLong ?: 0, body.number("position")))

@@ -95,6 +95,7 @@ class SpaceSearchTest {
                     assertTrue(runCatching { reader.openDestination(saved.address) }.exceptionOrNull() is SpaceClient.ReadDenied)
                     assertTrue(reader.readScopeRevision > beforeRevocation)
                     assertTrue(find(reader, SpaceSearchFilter(channel = hidden)).isEmpty())
+                    assertFalse(reader.destinationAccessAllowed(saved.address))
                     assertNull(reader.cachedDestination(saved.address))
                     assertEquals(setOf(first, reply, queued), find(reader, SpaceSearchFilter(channel = chat)).map { it.address.record }.toSet())
                 }
