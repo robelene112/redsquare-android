@@ -59,6 +59,7 @@ class QuoteRecyclingMotionTest {
                 fun moveTo(label: String, forward: Boolean, budgetMillis: Long,
                     requiredPostHeight: Int = 0, bodyOffset: Int? = null) {
                     val deadline = SystemClock.elapsedRealtime() + budgetMillis
+                    val waypoint = referenceNumber(label)
                     var previous: NativePostGeometry? = null
                     var stableSince = 0L
                     var primary: Throwable? = null
@@ -80,6 +81,7 @@ class QuoteRecyclingMotionTest {
                                 addProperty("viewport", bounds?.toShortString()); addProperty("body", target?.toShortString())
                                 addProperty("card", geometry.card?.toShortString()); addProperty("fitted", fitted)
                                 addProperty("requiredHeight", requiredPostHeight)
+                                addProperty("visibleReferencePosts", geometry.referencePosts?.toString())
                             })
                             if (fitted) {
                                 if (geometry != previous) { previous = geometry; stableSince = now }
@@ -90,7 +92,18 @@ class QuoteRecyclingMotionTest {
                             previous = null; stableSince = 0
                             if (bounds == null) { SystemClock.sleep(20); continue }
                             val touchSlop = android.view.ViewConfiguration.get(context).scaledTouchSlop
-                            val margin = maxOf(2 * touchSlop, bounds.height() / 8)
+                            val nearby = geometry.referencePosts
+                            val scrollForward = if (waypoint == null || nearby == null) forward else when {
+                                waypoint > nearby.last -> false
+                                waypoint < nearby.first -> true
+                                else -> forward
+                            }
+                            // If a large drag skipped the numbered waypoint, use
+                            // the rows actually visible to reverse and approach it.
+                            val nearWaypoint = waypoint != null && nearby != null &&
+                                waypoint in (nearby.first - 2)..(nearby.last + 2)
+                            val edgeDivisor = if (nearWaypoint) 3 else 8
+                            val margin = maxOf(2 * touchSlop, bounds.height() / edgeDivisor)
                             val high = bounds.top + margin
                             val low = bounds.bottom - margin
                             val correction = if (target != null && top != null && requiredPostHeight > 0) when {
@@ -98,10 +111,10 @@ class QuoteRecyclingMotionTest {
                                 top + requiredPostHeight > bounds.bottom -> bounds.bottom - top - requiredPostHeight
                                 else -> 0
                             } else 0
-                            val startY = if (correction != 0) bounds.centerY() else if (forward) low else high
+                            val startY = if (correction != 0) bounds.centerY() else if (scrollForward) low else high
                             val fittedDrag = correction + if (correction > 0) touchSlop + 1 else -touchSlop - 1
                             val endY = if (correction != 0) (startY + fittedDrag).coerceIn(high, low)
-                                else if (forward) high else low
+                                else if (scrollForward) high else low
                             val started = SystemClock.elapsedRealtime()
                             dragToRest(bounds.exactCenterX(), startY.toFloat(), endY.toFloat())
                             // Let the actual accessibility publication catch up
@@ -109,7 +122,7 @@ class QuoteRecyclingMotionTest {
                             // This remains inside the caller's original budget.
                             device.wait(Until.hasObject(By.text(label)), 75)
                             gestures.add(JsonObject().apply {
-                                addProperty("target", label); addProperty("forward", forward)
+                                addProperty("target", label); addProperty("forward", scrollForward)
                                 addProperty("started", started); addProperty("returned", SystemClock.elapsedRealtime())
                                 addProperty("startY", startY); addProperty("endY", endY)
                                 addProperty("bounds", bounds.toShortString()); addProperty("targetBounds", target?.toShortString())
@@ -204,7 +217,10 @@ class QuoteRecyclingMotionTest {
     }
 
     private data class NativePostGeometry(val viewport: Rect? = null, val body: Rect? = null,
-        val card: Rect? = null, val original: Rect? = null)
+        val card: Rect? = null, val original: Rect? = null, val referencePosts: IntRange? = null)
+
+    private fun referenceNumber(text: String?) = text?.removePrefix("Reference post ")
+        ?.takeIf { it != text }?.toIntOrNull()
 
     /** One native tree for coordinates; never mix UiObject2's clipped/cache-adjusted rectangles with it. */
     @Suppress("DEPRECATION")
@@ -225,20 +241,28 @@ class QuoteRecyclingMotionTest {
                 if (!refresh || node.refresh()) Rect().also(node::getBoundsInScreen) else null
             val viewport = nodes.firstOrNull { it.isScrollable && it.isVisibleToUser }?.let(::bounds)
                 ?: return NativePostGeometry()
+            val references = if (referenceNumber(label) == null) emptyList() else nodes.mapNotNull { node ->
+                referenceNumber(node.text?.toString())?.takeIf {
+                    node.isVisibleToUser && bounds(node)?.let { Rect.intersects(it, viewport) } == true
+                }
+            }
+            val range = references.minOrNull()?.let { it..requireNotNull(references.maxOrNull()) }
+            val geometry = NativePostGeometry(viewport, referencePosts = range)
             val bodyNode = nodes.firstOrNull { it.text?.toString() == label }
-                ?: return NativePostGeometry(viewport)
+                ?: return geometry
             val body = bounds(bodyNode)?.takeIf { bodyNode.isVisibleToUser && Rect.intersects(it, viewport) }
-                ?: return NativePostGeometry(viewport)
+                ?: return geometry
             val originalNode = original?.let { text -> nodes.firstOrNull { it.text?.toString() == text } }
             val quoted = originalNode?.let { node -> bounds(node)?.takeIf { node.isVisibleToUser } }
+            val visible = geometry.copy(body = body, original = quoted)
             var parent = bodyNode
             repeat(8) {
-                val box = bounds(parent) ?: return NativePostGeometry(viewport, body, original = quoted)
+                val box = bounds(parent) ?: return visible
                 if (parent.isClickable && box.width() >= device.displayWidth * 0.8 && box.contains(body))
-                    return NativePostGeometry(viewport, body, box, quoted)
-                parent = parent.parent?.also(nodes::add) ?: return NativePostGeometry(viewport, body, original = quoted)
+                    return visible.copy(card = box)
+                parent = parent.parent?.also(nodes::add) ?: return visible
             }
-            return NativePostGeometry(viewport, body, original = quoted)
+            return visible
         } finally { nodes.forEach { it.recycle() } }
     }
 
