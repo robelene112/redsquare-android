@@ -93,18 +93,17 @@ class SpaceModerationJourneyTest {
                 waitText("Promotion repeated in a discussion", 15_000)
                 UiDevice.getInstance(instrumentation).pressBack()
                 click("Members")
-                val manage = hasText("Manage member") and hasClickAction() and isEnabled()
-                ui.waitUntil(12_000) {
-                    ui.onNode(manage).isDisplayed() || runCatching {
-                        ui.onNode(hasScrollToNodeAction()).performScrollToNode(manage)
-                        ui.onNode(manage).isDisplayed()
-                    }.getOrDefault(false)
+                val manage = ui.onNode(hasText("Manage member") and hasClickAction() and isEnabled())
+                val memberList = ui.onNode(hasScrollToIndexAction())
+                ui.waitUntil(12_000) { memberList.isDisplayed() }
+                repeat(2) {
+                    if (!manage.isDisplayed()) memberList.performTouchInput { swipeUp(durationMillis = 350) }
                 }
                 click("Manage member")
                 click("Scope: Whole Space")
-                click("General")
+                click("General", popup = true)
                 click("Choose duration")
-                click("5 minutes")
+                click("5 minutes", popup = true)
                 click("Pause writing")
                 val scoped = ui.onNode(hasText("General · paused until", substring = true))
                 ui.waitUntil(15_000) { scoped.isDisplayed() || runCatching { scoped.performScrollTo().isDisplayed() }.getOrDefault(false) }
@@ -116,7 +115,7 @@ class SpaceModerationJourneyTest {
                 click("Restore writing in General")
                 ui.waitUntil(15_000) { !scoped.isDisplayed() }
                 click("Scope: General")
-                click("Whole Space")
+                click("Whole Space", popup = true)
                 click("Pause writing")
                 val whole = ui.onNode(hasText("Whole Space · paused until", substring = true))
                 ui.waitUntil(15_000) { whole.isDisplayed() || runCatching { whole.performScrollTo().isDisplayed() }.getOrDefault(false) }
@@ -152,8 +151,9 @@ class SpaceModerationJourneyTest {
 
     private fun waitText(text: String, millis: Long) = ui.waitUntil(millis) { ui.onNodeWithText(text).isDisplayed() }
 
-    private fun click(text: String) {
-        val target = ui.onNode(hasText(text) and hasClickAction() and isEnabled())
+    private fun click(text: String, popup: Boolean = false) {
+        val enabledAction = hasText(text) and hasClickAction() and isEnabled()
+        val target = ui.onNode(if (popup) enabledAction and hasAnyAncestor(isPopup()) else enabledAction)
         ui.waitUntil(12_000) { target.isDisplayed() || runCatching { target.performScrollTo().isDisplayed() }.getOrDefault(false) }
         target.performClick()
     }
