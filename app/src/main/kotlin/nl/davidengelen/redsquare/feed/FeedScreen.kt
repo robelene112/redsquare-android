@@ -38,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.platform.testTag
@@ -685,7 +686,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             else Spacer(Modifier.weight(1f))
         }
     }
-    val dockCompose = home && wallet != null && LocalDensity.current.fontScale > 1.3f
+    val compactHeight = LocalConfiguration.current.screenHeightDp.dp < 400.dp
+    val dockCompose = home && wallet != null && (compactHeight || LocalDensity.current.fontScale > 1.3f)
     Column(modifier.nestedScroll(header.connection).readingNavigation(header)) {
         ReadingHeader(header) { chrome(home) }
         AnimatedVisibility(pendingTap != null && tapFailed,

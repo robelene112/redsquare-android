@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.os.Process
 import android.os.SystemClock
 import android.provider.MediaStore
@@ -73,9 +74,11 @@ class SpaceFileJourneyTest {
                 val field = ui.onNode(hasText("Storage provider URL") and hasSetTextAction())
                 ui.waitUntil(8_000) { field.isDisplayed() }
                 focusAndHear("storage-address", "Storage provider URL", folder, textLabel = true)
-                field.performTextInput(fixture.get("origin").asString)
-                androidx.test.espresso.Espresso.closeSoftKeyboard()
-                ui.waitUntil(8_000) { ui.onNodeWithText("Review terms").isDisplayed() }
+                val address = actionNode("Storage provider URL", textLabel = true)
+                assertTrue(address.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, Bundle().apply {
+                    putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, fixture.get("origin").asString)
+                }))
+                ui.waitUntil(8_000) { ui.onNode(hasText("Review terms") and isEnabled()).isDisplayed() }
                 focusAndHear("review-storage-terms", "Review terms", folder, textLabel = true)
                 assertEquals(0, request("file-provider-downloads").get("nativeDownloads").asInt)
             }

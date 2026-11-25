@@ -70,7 +70,13 @@ class SpaceRoomJourneyTest {
                 assertEquals(token, observed().participants.single().session)
 
                 switchToRedSquare()
-                click("New post")
+                val createPost = ui.onNode(hasText("New post") and hasClickAction() and isEnabled())
+                ui.waitUntil(12_000) { createPost.isDisplayed() }
+                val touch = createPost.fetchSemanticsNode().touchBoundsInRoot
+                val minimum = context.resources.displayMetrics.density * 48f
+                assertTrue("New post must keep its full target with a call active",
+                    touch.height >= minimum && touch.width >= minimum)
+                createPost.performTouchInput { click() }
                 val editor = ui.onNode(hasSetTextAction() and isEnabled())
                 ui.waitUntil(12_000) { editor.isDisplayed() }
                 editor.performTextReplacement(draft)
@@ -85,9 +91,9 @@ class SpaceRoomJourneyTest {
                     visible && editor.isDisplayed()
                 }
                 editor.assertEditableTextEquals(draft)
-                val returnAction = ui.onNode(hasText("Return to Open lounge") and hasClickAction())
+                val returnAction = ui.onNode(hasText("Call") and hasClickAction())
                 returnAction.assertIsDisplayed().assertIsEnabled()
-                ui.onNode(hasText("End call") and hasClickAction()).assertIsDisplayed().assertIsEnabled()
+                ui.onNode(hasContentDescription("End call") and hasClickAction()).assertIsDisplayed().assertIsEnabled()
                 assertTrue("The call bar must not overlap the focused post editor",
                     returnAction.getUnclippedBoundsInRoot().bottom <= editor.getUnclippedBoundsInRoot().top)
                 assertEquals(token, observed().participants.single().session)

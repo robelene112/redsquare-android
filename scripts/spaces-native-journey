@@ -11,7 +11,7 @@ import subprocess
 import sys
 import time
 import urllib.request
-from spaces_visual_viewports import VisualViewports, verify_pairwise
+from spaces_visual_viewports import VisualViewports, recording_size, verify_pairwise
 
 repo = Path(__file__).resolve().parent.parent
 mode = sys.argv[2] if len(sys.argv) == 3 else 'journey-v1'
@@ -198,11 +198,12 @@ try:
         adb('reverse', f'tcp:{port}', f'tcp:{port}')
         reverses.append(port)
     # One unbroken movie per phase. Native goals stay bounded independently.
-    def record(phase):
+    def record(phase, size=None):
         remote = f'/sdcard/spaces-{label}-{phase}.mp4'
         logfile = (evidence / f'movie-{phase}.log').open('wb')
+        options = ['--size', size] if size else []
         process = subprocess.Popen(['adb', 'shell', '-n', 'screenrecord', '--time-limit', '180',
-            '--bit-rate', '2000000', remote], stdin=subprocess.DEVNULL, stdout=logfile, stderr=subprocess.STDOUT)
+            '--bit-rate', '2000000', *options, remote], stdin=subprocess.DEVNULL, stdout=logfile, stderr=subprocess.STDOUT)
         children.append((process, logfile)); movies.append((process, remote, phase))
         deadline = time.monotonic() + 5
         def provision_probe(*args):
@@ -224,6 +225,8 @@ try:
                 if process.poll() is not None or time.monotonic() >= deadline:
                     raise RuntimeError('Owned recorder ended or exceeded5s before readiness')
                 movie_owners[phase] = {'pid': matches[0], 'remote': remote, 'started': True}
+                if size:
+                    movie_owners[phase]['encodedSize'] = size
                 (evidence / f'recorder-{phase}.json').write_text(json.dumps(movie_owners[phase]))
                 return process
             if process.poll() is not None or time.monotonic() >= deadline:
@@ -930,7 +933,7 @@ try:
             name = case['id']
             extras = [value for field in ('id', 'font', 'orientation', 'theme', 'ime')
                       for value in ('-e', 'spacesVisual' + field.capitalize(), str(case[field]))]
-            record(index)
+            record(index, recording_size(case))
             proof = instrument('captureOptionBAndTheComposerInAnActualViewport', f'{name}-native.txt',
                                peer_port, control_port, extras)
             proof.wait(timeout=120)
@@ -1065,7 +1068,9 @@ try:
         case = next(case for case in cases if case['id'] == matrix_case)
         visual_settings = VisualViewports(adb, sdk, viewport_override, evidence)
         visual_settings.prepare(case)
-        record(1)
+        if sdk == 17:
+            adb('shell', 'pm', 'grant', pkg, 'android.permission.POST_NOTIFICATIONS')
+        record(1, recording_size(case))
         native = instrument('anAttachedDraftAndTheKeyboardStayClearOfTheLiveCallBar',
                             'room-attachment-ime.txt', peer_port, control_port)
         native.wait(timeout=160)

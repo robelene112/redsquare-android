@@ -156,6 +156,8 @@ class SpacesCatchUpJourneyTest {
                     waitText("Separate proof conversation")
                     val switcher = "Switch Space or channel"
                     assertTarget(hasContentDescription(switcher) and hasClickAction())
+                    val moduleSelector = "Switch app: Spaces"
+                    captureFocusedSpeech("initial-module-focus", moduleSelector, observations, actionNode(moduleSelector))
                     focusAndHear("option-b", switcher, observations)
                     assertTrue(actionNode(switcher).performAction(AccessibilityNodeInfo.ACTION_CLICK))
                     waitText("Your communities")

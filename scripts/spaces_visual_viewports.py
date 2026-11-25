@@ -2,6 +2,8 @@
 from itertools import combinations, product
 import json
 import re
+import struct
+import time
 
 
 def verify_pairwise(cases):
@@ -12,6 +14,11 @@ def verify_pairwise(cases):
         actual = {(case[axes[left]], case[axes[right]]) for case in cases}
         if actual != set(product(domains[left], domains[right])):
             raise RuntimeError(f'Missing viewport pairs for {axes[left]} and {axes[right]}')
+
+
+def recording_size(case):
+    """Scale the encoded video independently of the actual Android viewport."""
+    return '544x1216' if case['orientation'] == 'portrait' else '1216x544'
 
 
 class VisualViewports:
@@ -65,9 +72,12 @@ class VisualViewports:
         self.shell('wm', 'size', size)
         self.shell('wm', 'density', '320')
         self.shell('settings', 'put', 'system', 'font_scale', case['font'])
-        self.shell('settings', 'put', 'system', 'accelerometer_rotation', '0')
         rotation = '0' if case['orientation'] == 'portrait' else '1'
-        self.shell('settings', 'put', 'system', 'user_rotation', rotation)
+        if self.sdk == 17:
+            self.shell('wm', 'user-rotation', 'lock', rotation)
+        else:
+            self.shell('settings', 'put', 'system', 'accelerometer_rotation', '0')
+            self.shell('settings', 'put', 'system', 'user_rotation', rotation)
         motion = '1' if case['motion'] == 'normal' else '0'
         for name in self.motion:
             self.shell('settings', 'put', 'global', name, motion)
@@ -77,10 +87,19 @@ class VisualViewports:
         self.set_overlay(('enable-exclusive', '--category'), overlay)
         actual = self.observe(prefix)
         if (actual['size']['override'] != size or actual['density']['override'] != '320' or
-                float(actual['font_scale']) != case['font'] or actual['user_rotation'] != rotation or
+                float(actual['font_scale']) != case['font'] or actual['user_rotation'] != rotation or actual['accelerometer_rotation'] != '0' or
                 any(float(actual[name]) != float(motion) for name in self.motion) or
                 actual['overlay'] != overlay or actual['night'] != night):
             raise RuntimeError(f'Applied Android viewport differs from the frozen case {prefix}')
+        portrait = tuple(map(int, size.split('x')))
+        expected = portrait if rotation == '0' else portrait[::-1]
+        deadline = time.monotonic() + 10
+        while time.monotonic() < deadline:
+            screenshot = self.adb('exec-out', 'screencap', '-p', timeout=5).stdout
+            if screenshot.startswith(b'\x89PNG\r\n\x1a\n') and struct.unpack_from('>II', screenshot, 16) == expected:
+                return
+            time.sleep(.1)
+        raise RuntimeError(f'Actual Android display did not settle at {expected} for {prefix}')
 
     def restore(self):
         self.shell('wm', 'size', self.original['size']['override'] or 'reset')
