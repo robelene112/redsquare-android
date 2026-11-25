@@ -1,29 +1,22 @@
 # Development workflow
 
-## In progress #146
+## Accepted #146, continue #147
 
-Spaces searches accepted history saved on this device. Search, Activity and
-exact links use the current account, node and channel audience. Related
-replies move their existing group up and open the newest exact reply. The
-application can post a native Android notification after observing a signed
-event. Live push and physical-device behavior remain separate evidence gates.
+Spaces search, grouped Activity and exact links pass on Android 10 and
+compact Android 17 against product source `08480e245`. Both runs use a
+real Android notification and a second application process to open the
+same independently observed signed reply. The authorized local search
+history includes messages, articles and files. Scope checks exclude revoked
+channels and stale account or node routes. The compact exact reply keeps its
+reading position. Its visible body area at 200% text still needs the final
+#147 layout pass.
 
-The focused signed JVM cases and independent catch-up host passed during
-development. Initial Android 17 run 45648799067 waited for a message outside
-the compact viewport. Initial Android 10 run 45650010711 opened the search
-result and preserved the query, then encountered ambiguous Back labels.
-The complete JVM run exposed a test fixture that later flushed a message
-originally queued for the unsent-result assertion. The revised assertion
-accounts for both its pre-flush and accepted states. Run 45651694877 was
-superseded by the corrected source. Use [owned run 45653483734](https://github.com/robelene112/redsquare-android/actions/runs/45653483734)
-for both emulator profiles against pinned product source `3e9213c40`.
-A separate verification branch triggers the same build and emulator steps
-while manual workflow dispatch returns HTTP 500.
-
-Close #146 after the complete native search, actual notification tap,
-exact signed destination, private denial and cold-process paths pass on both
-profiles. Start #147 only after #146 acceptance. No beta was promoted by this
-ticket.
+The [#146 acceptance record](evidence/ticket146/final-acceptance.json)
+includes both terminal journeys, the 490 passing JVM tests per run, exact
+APK and evidence hashes, the retained diagnostic runs, and the separate
+live push, node, provider and physical-device qualifications. Continue with
+the integrated source, native fidelity, performance, upgrade and beta gates
+in #147. The ordinary beta has had no promotion from #146.
 
 ## Accepted #145, continue #146
 
