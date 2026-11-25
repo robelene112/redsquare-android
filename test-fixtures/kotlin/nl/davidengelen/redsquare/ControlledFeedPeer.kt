@@ -31,6 +31,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var spacesResponse: ((SaitoTransaction) -> String)? = null
     val spacesRequests = java.util.concurrent.CopyOnWriteArrayList<SaitoTransaction>()
     @Volatile var withholdSpacesReply = false
+    var withheldSpacesContentKind = "message"
     val withholdNextSpacesReadReply = java.util.concurrent.atomic.AtomicBoolean(false)
     val withheldSpacesReads = java.util.concurrent.CopyOnWriteArrayList<String>()
     val withholdNextSpacesControlReply = java.util.concurrent.atomic.AtomicReference<String?>(null)
@@ -365,7 +366,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                                 body.get("kind")?.asString == control && withholdNextSpacesControlReply.compareAndSet(control, null)
                             if (dropControl) withheldSpacesControls.add(original.id)
                             val holdContent = withholdSpacesReply && body.get("request")?.asString == "event" &&
-                                body.get("kind")?.asString == "content" && body.get("content_kind")?.asString == "message"
+                                body.get("kind")?.asString == "content" && body.get("content_kind")?.asString == withheldSpacesContentKind
                             if (!holdContent && !dropRead && !dropControl) check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
                             return
                         }

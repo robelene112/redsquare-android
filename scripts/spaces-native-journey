@@ -13,8 +13,9 @@ import urllib.request
 
 repo = Path(__file__).resolve().parent.parent
 mode = sys.argv[2] if len(sys.argv) == 3 else 'journey-v1'
-if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'protected-chat-v1', 'conversation-overlays-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
-    raise ValueError('Expected evidence directory and optional discovery-v1, management-v1, private-management-v1 or private-readiness-v1 or category-management-v1 or governance-v1')
+if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'article-channels-v1', 'protected-chat-v1', 'conversation-overlays-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
+    raise ValueError('Expected evidence directory and an optional supported Spaces journey mode')
+article_mode = mode == 'article-channels-v1'
 conversation_overlays_mode = mode == 'conversation-overlays-v1'
 private_ownership_mode = mode == 'private-ownership-v1'
 membership_mode = private_ownership_mode or mode == 'membership-v1'
@@ -29,10 +30,10 @@ private_management_mode = mode == 'private-management-v1'
 private_readiness_mode = mode == 'private-readiness-v1'
 management_mode = mode in ('management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1')
 community_mode = discovery_mode or management_mode
-label = 'private-ownership' if private_ownership_mode else 'membership' if membership_mode else 'governance' if governance_mode else 'category-management' if category_management_mode else 'private-readiness' if private_readiness_mode else 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
+label = 'articles' if article_mode else 'private-ownership' if private_ownership_mode else 'membership' if membership_mode else 'governance' if governance_mode else 'category-management' if category_management_mode else 'private-readiness' if private_readiness_mode else 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
 folder = f'spaces-{label}-evidence'
 checkpoint_name = f'spaces-{label}-checkpoint.json'
-classname = 'SpacesManagementJourneyTest' if management_mode else 'SpacesDiscoveryJourneyTest' if discovery_mode else 'SpacesJourneyTest'
+classname = 'SpaceArticleJourneyTest' if article_mode else 'SpacesManagementJourneyTest' if management_mode else 'SpacesDiscoveryJourneyTest' if discovery_mode else 'SpacesJourneyTest'
 evidence = Path(sys.argv[1]).resolve() / f'spaces-{label}'
 evidence.mkdir(parents=True, exist_ok=False)
 pkg = 'nl.davidengelen.redsquare.dev'
@@ -147,11 +148,11 @@ try:
         raise RuntimeError('Only a disposable emulator may run this fixture')
     classpath = (repo / 'spaces-service/build/host-fixture-classpath.txt').read_text().strip()
     native = repo / 'core/build/generated/spaces-mls-host'
-    hostroot = repo / '.scratch' / ((f'spaces-{label}-host-' if community_mode else 'spaces-native-host-') + os.environ['TEST_DEVICE_API'])
+    hostroot = repo / '.scratch' / ((f'spaces-{label}-host-' if community_mode or article_mode else 'spaces-native-host-') + os.environ['TEST_DEVICE_API'])
     hostroot.mkdir(parents=True, exist_ok=False)
     hostlog = (hostroot / 'host.log').open('wb')
     host = subprocess.Popen(['java', '-Xmx512m', f'-Djava.library.path={native}', '-cp', classpath,
-        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + ([mode] if community_mode or conversation_overlays_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
+        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + ([mode] if community_mode or conversation_overlays_mode or article_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
     children.append((host, hostlog))
     deadline = time.monotonic() + 30
     while not (hostroot / 'ready.json').exists():
@@ -885,6 +886,52 @@ try:
         (evidence / 'journey-outcome.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
             'phasePids': pids, 'nativeTerminalPasses': 2, 'deliberatelyInterruptedCases': 0 if private_readiness_mode or category_management_mode else 2,
             'productionNodeActivated': False, 'ordinaryBetaChanged': False}))
+    elif article_mode:
+        reset_disposable_baseline()
+        record(1)
+        first = instrument('reviewAndPublishArticleWithRealIme', 'articles-before-kill.txt', peer_port, control_port)
+        deadline = time.monotonic() + 180
+        while True:
+            observed = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{checkpoint_name}', check=False)
+            if time.monotonic() >= deadline or first.poll() is not None:
+                raise RuntimeError('Native article journey did not reach its durable draft and send checkpoint')
+            if observed.returncode == 0 and observed.stdout.lstrip().startswith(b'{'):
+                (evidence / 'articles-checkpoint.raw').write_bytes(observed.stdout)
+                pending = json.loads(observed.stdout)
+                if pending['phase'] == 'ready-for-process-kill':
+                    break
+            time.sleep(.25)
+        if adb('shell', 'pidof', pkg).stdout.decode().strip() != str(pending['pid']):
+            raise RuntimeError('Article checkpoint did not belong to the running process')
+        adb('shell', 'am', 'force-stop', pkg)
+        first.wait(timeout=15)
+        if adb('shell', 'pidof', pkg, check=False).stdout.strip():
+            raise RuntimeError('Article process survived force-stop')
+        finish_record(*movies[-1])
+        record(2)
+        recovery = instrument('recoverIndependentArticleAndNextDraft', 'articles-after-kill.txt', peer_port, control_port)
+        recovery.wait(timeout=120)
+        output = (evidence / 'articles-after-kill.txt').read_text()
+        if recovery.returncode or len(re.findall(r'^OK \(1 test\)\s*$', output, re.M)) != 1:
+            raise RuntimeError('Native article recovery failed')
+        proof = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/articles-result.json').stdout)
+        if (proof['receivedCount'] != 1 or not proof['exactOriginal'] or proof['originalSubmissions'] < 2 or
+                proof['originalSubmissions'] != proof['encryptedOriginals'] or proof['newPid'] == pending['pid'] or
+                proof['original'] != pending['original'] or not proof['newDraftRestored'] or not proof['exactDeepLinkRendered']):
+            raise RuntimeError('Article round trip did not satisfy its independent expected effects')
+        (evidence / 'articles-result.json').write_text(json.dumps(proof, indent=2))
+        finish_record(*movies[-1])
+        command(control_port, 'stop')
+        host.wait(timeout=15)
+        if host.returncode:
+            raise RuntimeError('Owned article host failed its effects or cleanup checks')
+        (evidence / 'journey-outcome.json').write_text(json.dumps({
+            'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
+            'oldPid': pending['pid'], 'newPid': proof['newPid'], 'nativeTerminalPasses': 1, 'deliberatelyInterruptedCases': 1,
+            'exactOriginal': proof['exactOriginal'], 'encryptedOriginals': proof['encryptedOriginals'],
+            'originalSubmissions': proof['originalSubmissions'], 'receivedCount': proof['receivedCount'],
+            'newDraftRestored': proof['newDraftRestored'], 'exactDeepLinkRendered': proof['exactDeepLinkRendered'],
+            'productionNodeActivated': False, 'ordinaryBetaChanged': False}, indent=2))
     elif mode == 'protected-chat-v1':
         reset_disposable_baseline()
         record(1)

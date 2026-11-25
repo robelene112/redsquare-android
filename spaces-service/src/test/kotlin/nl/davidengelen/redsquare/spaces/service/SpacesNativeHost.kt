@@ -9,6 +9,10 @@ import kotlinx.coroutines.sync.withLock
 import nl.davidengelen.redsquare.ControlledFeedPeer
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.spaces.SpaceArticleContent
+import nl.davidengelen.redsquare.spaces.SpaceChannelKind
+import nl.davidengelen.redsquare.spaces.SpaceChannelProfile
+import nl.davidengelen.redsquare.spaces.SpaceProfile
 import nl.davidengelen.redsquare.spaces.SpaceRole
 import nl.davidengelen.redsquare.spaces.SpaceClient
 import java.net.InetSocketAddress
@@ -23,7 +27,8 @@ import java.util.concurrent.atomic.AtomicBoolean
  * real service/SQLite/MLS and independent received effects; no public network. */
 object SpacesNativeHost {
     @JvmStatic fun main(args: Array<String>): Unit = runBlocking {
-        require(args.size in 1..2 && (args.size == 1 || args[1] in setOf("conversation-overlays-v1", "discovery-v1", "management-v1", "private-management-v1", "private-readiness-v1", "category-management-v1", "governance-v1", "membership-v1", "private-ownership-v1")))
+        require(args.size in 1..2 && (args.size == 1 || args[1] in setOf("article-channels-v1", "conversation-overlays-v1", "discovery-v1", "management-v1", "private-management-v1", "private-readiness-v1", "category-management-v1", "governance-v1", "membership-v1", "private-ownership-v1")))
+        val articleMode = args.getOrNull(1) == "article-channels-v1"
         val conversationMode = args.getOrNull(1) == "conversation-overlays-v1"
         val discoveryMode = args.getOrNull(1) == "discovery-v1"
         val privateOwnershipMode = args.getOrNull(1) == "private-ownership-v1"
@@ -85,6 +90,7 @@ object SpacesNativeHost {
                     peer.spacesResponse = { original ->
                         privateReadiness?.exchangeFromPeer(original) ?: remote.exchange(original.envelope()).also { discovery?.afterExchange(original) }
                     }
+                    if (articleMode) peer.withheldSpacesContentKind = "article"
                     peer.start().use { socket ->
                         val control = HttpServer.create(InetSocketAddress("127.0.0.1", 0), 8)
                         control.executor = workers
@@ -136,6 +142,51 @@ object SpacesNativeHost {
                                                 addProperty("original", confirmed?.id)
                                                 addProperty("originalSubmissions", matching.size)
                                                 addProperty("exactOriginal", matching.map { it.envelope() }.distinct().size == 1)
+                                            }
+                                        }
+                                        "/article-invitation" -> {
+                                            check(articleMode)
+                                            val space = client.create(SpaceProfile("Writing circle"), listOf(
+                                                SpaceChannelProfile("Reading room", SpaceChannelKind.ARTICLE),
+                                                SpaceChannelProfile("Other reading room", SpaceChannelKind.ARTICLE)))
+                                            client.flush(space); client.refresh(space)
+                                            val channel = client.community(space).channel
+                                            val link = client.inviteFor(space, body.get("recipient").asString)
+                                            client.flush(space)
+                                            JsonObject().apply {
+                                                addProperty("link", link); addProperty("space", space); addProperty("channel", channel)
+                                            }
+                                        }
+                                        "/article-proof" -> {
+                                            check(articleMode)
+                                            val space = body.get("space").asString
+                                            val channel = body.get("channel").asString
+                                            val author = body.get("author").asString
+                                            val expected = SpaceArticleContent.Original(body.get("title").asString,
+                                                body.get("subtitle").asString, body.get("markdown").asString)
+                                            client.refresh(space, channel)
+                                            val submissions = peer.spacesRequests.filter { transaction ->
+                                                val signed = SaitoEnvelope.decode(transaction.envelope())
+                                                signed.author == author && signed.body.get("space_id")?.asString == space &&
+                                                    signed.body.get("channel_id")?.asString == channel &&
+                                                    signed.body.get("content_kind")?.asString == "article"
+                                            }
+                                            val received = client.timeline(space, channel = channel).filter {
+                                                it.isArticle && !it.pending && it.author == author &&
+                                                    client.article(space, it.id, channel)?.content == expected
+                                            }
+                                            val publication = received.singleOrNull()
+                                            val matching = submissions.filter { it.id == publication?.id }
+                                            JsonObject().apply {
+                                                addProperty("receivedCount", received.size)
+                                                addProperty("original", publication?.id)
+                                                addProperty("link", publication?.let { client.articleLink(space, channel, it.id) })
+                                                addProperty("originalSubmissions", matching.size)
+                                                addProperty("exactOriginal", matching.map { it.envelope() }.distinct().size == 1)
+                                                addProperty("encryptedOriginals", matching.count {
+                                                    val wire = SaitoEnvelope.decode(it.envelope()).body
+                                                    wire.has("ciphertext") && !wire.has("text") && !wire.toString().contains(expected.title)
+                                                })
                                             }
                                         }
                                         "/attention-message" -> {
@@ -269,7 +320,7 @@ object SpacesNativeHost {
                                         if (client.community(community.id).joined) {
                                             client.admitPending(community.id)
                                             client.flush(community.id)
-                                            if (!managementMode && community.id !in sent && client.community(community.id).canSend) {
+                                            if (!managementMode && !articleMode && community.id !in sent && client.community(community.id).canSend) {
                                                 client.send(community.id, "Reply from independent member")
                                                 sent += community.id
                                             }

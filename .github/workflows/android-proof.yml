@@ -4,6 +4,10 @@ on:
     branches: [main]
   workflow_dispatch:
     inputs:
+      spaces_articles:
+        description: Focused Space article editor, exact link and encrypted process recovery
+        type: boolean
+        default: false
       spaces_protected_chat:
         description: Focused protected Chat invitation and independent encrypted round trip
         type: boolean
@@ -100,6 +104,7 @@ jobs:
         partition: ${{ fromJSON((inputs.diagnostic_partition && inputs.diagnostic_partition != 'all') && format('["{0}"]', inputs.diagnostic_partition) || (inputs.scope == 'full-android17' || inputs.scope == 'full-android10') && '["chat","social","wallet"]' || '["all"]') }}
     runs-on: ${{ inputs.runner_os || 'ubuntu-24.04' }}
     env:
+      SPACES_ARTICLES: ${{ inputs.spaces_articles && 'true' || 'false' }}
       SPACES_CONVERSATION_OVERLAYS: ${{ inputs.spaces_conversation_overlays && 'true' || 'false' }}
       SPACES_PROTECTED_CHAT: ${{ inputs.spaces_protected_chat && 'true' || 'false' }}
       SPACES_STARTUP_TRACE: ${{ inputs.spaces_startup_trace && 'true' || 'false' }}
