@@ -46,7 +46,11 @@ class SpaceModerationJourneyTest {
                 click("Report message")
                 val field = ui.onNode(hasSetTextAction() and hasText("Reason") and isEnabled())
                 ui.waitUntil(12_000) { field.isDisplayed() || runCatching { field.performScrollTo().isDisplayed() }.getOrDefault(false) }
-                field.performClick().performTextInput("Promotion repeated in a discussion")
+                val reason = "Promotion repeated in a discussion"
+                field.performTouchInput { click() }
+                field.performTextReplacement(reason)
+                field.assertTextContains(reason)
+                ui.onNode(hasText("Send report") and hasClickAction()).assertIsEnabled()
                 capture("report-composer")
                 UiDevice.getInstance(instrumentation).pressBack()
                 click("Send report")
