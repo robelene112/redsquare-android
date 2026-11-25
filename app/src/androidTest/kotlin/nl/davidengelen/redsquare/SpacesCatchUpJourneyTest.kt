@@ -192,12 +192,12 @@ class SpacesCatchUpJourneyTest {
     }
 
     @Test fun captureOptionBAndTheComposerInAnActualViewport() {
-        val viewportId = argument("spacesVisualId")
+        val viewportId = stringArgument("spacesVisualId")
         require(viewportId.matches(Regex("V(0[1-9]|1[0-4])")))
-        val expectedFont = argument("spacesVisualFont").toFloat()
-        val expectedLandscape = argument("spacesVisualOrientation") == "landscape"
-        val expectedDark = argument("spacesVisualTheme") == "dark"
-        val useKeyboard = argument("spacesVisualIme") == "open"
+        val expectedFont = stringArgument("spacesVisualFont").toFloat()
+        val expectedLandscape = stringArgument("spacesVisualOrientation") == "landscape"
+        val expectedDark = stringArgument("spacesVisualTheme") == "dark"
+        val useKeyboard = stringArgument("spacesVisualIme") == "open"
         val observations = evidence.resolve(viewportId).apply { mkdir() }
         val config = request("config")
         prepareWallet(config)
@@ -353,7 +353,9 @@ class SpacesCatchUpJourneyTest {
         } finally { connection.disconnect() }
     }
 
-    private fun argument(name: String) = requireNotNull(InstrumentationRegistry.getArguments().getString(name)).toInt()
+    private fun stringArgument(name: String) = requireNotNull(InstrumentationRegistry.getArguments().getString(name))
+
+    private fun argument(name: String) = stringArgument(name).toInt()
         .also { require(it in 1024..65535) }
 
     private fun capture(name: String) = captureNativeScreen(File(evidence, "$name.png"))
