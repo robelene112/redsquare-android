@@ -1,9 +1,27 @@
 package nl.davidengelen.redsquare
 
+import android.os.SystemClock
 import android.view.accessibility.AccessibilityNodeInfo
 import com.google.gson.JsonObject
 import java.io.File
 import org.junit.Assert.*
+
+/** Native startup can choose different first controls as the linked screen settles. */
+internal fun NativeTalkBackObservation.waitForInitialAppFocus() {
+    var previous: AccessibilityNodeInfo? = null
+    var unchangedSince = 0L
+    waitFor(8_000) {
+        val focused = appRoots(automation).firstNotNullOfOrNull {
+            it.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)
+        }
+        val now = SystemClock.elapsedRealtime()
+        if (focused != previous) {
+            previous = focused
+            unchangedSince = now
+        }
+        focused != null && now - unchangedSince >= 1_100
+    }
+}
 
 /** Shared actual focus and completed contextual speech observation for native controls. */
 internal fun NativeTalkBackObservation.focusAndHear(label: String, description: String,

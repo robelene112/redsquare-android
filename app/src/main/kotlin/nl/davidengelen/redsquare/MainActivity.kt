@@ -721,19 +721,20 @@ class MainActivity : ComponentActivity() {
                             nl.davidengelen.redsquare.ui.StatusTone.ERROR)
                     }
                     val appHeader: @Composable () -> Unit = { renderAppHeader(false, false) }
-                    val renderChrome: @Composable (Boolean, Boolean, nl.davidengelen.redsquare.spaces.SpacesAccount.Target?, Boolean) -> Unit = { isHome, hideForKeyboard, roomInView, compactRoom ->
-                        renderAppHeader(hideForKeyboard, compactRoom)
+                    val renderChrome: @Composable (Boolean, Boolean, nl.davidengelen.redsquare.spaces.SpacesAccount.Target?, Boolean) -> Unit = { isHome, hideModuleHeader, roomInView, compactRoom ->
+                        renderAppHeader(hideModuleHeader, compactRoom)
                         val active by TalkRuntime.call.collectAsState()
                         val room = active?.spaceRoom
                         val showingActiveRoom = roomInView != null && room != null && room.space == roomInView.space && room.channel == roomInView.channel
                         if (module != AppModule.TALK || room != null)
                             TalkActiveBar(address, backend, roomInView = showingActiveRoom,
-                                compactKeyboard = keyboardVisible || hideForKeyboard) {
+                                compactKeyboard = keyboardVisible || (module == AppModule.SPACES && hideModuleHeader)) {
                                 if (room == null) selectModule(AppModule.TALK) { talkDraft = null }
                                 else selectModule(AppModule.SPACES) { spacesAccount?.select(room.space, room.channel) }
                             }
                         InlineStatus(if (talkReturnExpired) stringResource(R.string.talk_return_expired) else null, StatusTone.INFO)
-                        nl.davidengelen.redsquare.ui.BetaUpdateNotice(updateAvailable && !keyboardVisible && !hideForKeyboard && !compactRoom) {
+                        nl.davidengelen.redsquare.ui.BetaUpdateNotice(
+                            updateAvailable && !keyboardVisible && !hideModuleHeader && !compactRoom) {
                             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PreviewUpdates.REVIEW_PAGE)))
                         }
                         if (publishingAgreement.savedNotice) Text(stringResource(R.string.publishing_saved),
@@ -979,7 +980,7 @@ class MainActivity : ComponentActivity() {
                                                             externalReturnDepth = spacesReturnDepth.takeIf { spacesReturnOwner == wallet?.publicKey && spacesReturnBackend == selected.id },
                                                             onExternalBack = { clearSpacesReturn(); module = AppModule.SPACES },
                                                             onExternalNavigate = ::clearSpacesReturn,
-                                                            chrome = chrome,
+                                                            chrome = { home, compactWriting -> renderChrome(home, compactWriting, null, false) },
                                                             canReportDrawn = featureUnobstructed && !postNavigation.transitioning,
                                                             onWalletMetadata = updateWalletMetadata
                                                         ) { reportFullyDrawn() }

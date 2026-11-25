@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.first
@@ -41,6 +42,9 @@ import android.net.Uri
 import nl.davidengelen.redsquare.media.GiphyPicker
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.FrameIconButton
+import nl.davidengelen.redsquare.ui.keyboardOccupiesWindow
+
+internal const val COMPACT_POST_HEIGHT_DP = 400
 
 @Composable
 internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
@@ -189,16 +193,20 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         }
     }
     with(state) {
+        val compactHeight = LocalConfiguration.current.screenHeightDp < COMPACT_POST_HEIGHT_DP
+        val compactTyping = compactHeight && keyboardOccupiesWindow()
+        val closeButton: @Composable () -> Unit = {
+            FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), !saving && !sending && !preparingImages) {
+                if (ready) saveAndClose(closeEditor) else closeEditor()
+            }
+        }
         BackHandler { if (!sending && !saving) { if (ready) saveAndClose(closeEditor) else closeEditor() } }
         Column(modifier.imePadding()) {
-            Row(Modifier.fillMaxWidth().padding(bottom = AppSpacing.small),
+            if (!compactTyping) Row(Modifier.fillMaxWidth().padding(bottom = AppSpacing.small),
                 verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), !saving && !sending && !preparingImages) {
-                    if (ready) saveAndClose(closeEditor) else closeEditor()
-                }
+                closeButton()
                 Text(stringResource(if (recovery != null) R.string.post_saved_title else if (quote != null) R.string.post_quote else if (parent == null) R.string.post_new else R.string.post_reply),
                     Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
-
             }
             val localStatus = if (transaction != null || !ready || error || saving || sending) null else when {
                 recoveryError -> R.string.post_unsaved_changes
@@ -206,11 +214,14 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 locallySaved -> R.string.post_saved_device
                 else -> R.string.post_unsaved_changes
             }
-            InlineStatus(localStatus?.let { stringResource(it) }, StatusTone.INFO,
-                details = listOf(stringResource(if (locallySaved && !recoveryError) R.string.post_draft_local else R.string.post_unsaved_detail)),
-                announce = false)
-            InlineStatus(if (localStatus != null && recoveryError) stringResource(R.string.unfinished_text_recovery_failed) else null,
-                StatusTone.WARNING, actionLabel = stringResource(R.string.retry), onAction = ::retryRecovery)
+            val draftNotices: @Composable () -> Unit = {
+                InlineStatus(localStatus?.let { stringResource(it) }, StatusTone.INFO,
+                    details = listOf(stringResource(if (locallySaved && !recoveryError) R.string.post_draft_local else R.string.post_unsaved_detail)),
+                    announce = false)
+                InlineStatus(if (localStatus != null && recoveryError) stringResource(R.string.unfinished_text_recovery_failed) else null,
+                    StatusTone.WARNING, actionLabel = stringResource(R.string.retry), onAction = ::retryRecovery)
+            }
+            if (!compactHeight) draftNotices()
             val deliveryStatus = when {
                 checking -> R.string.post_checking
                 preparingImages -> R.string.image_preparing
@@ -244,7 +255,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     InlineStatus(if (error) stringResource(R.string.post_draft_error) else null, StatusTone.ERROR)
                     if (error && !ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
                     InlineStatus(if (imageError) stringResource(R.string.image_prepare_failed) else null, StatusTone.ERROR)
-                    Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically,
+                    if (!compactTyping) Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                         ProfileAvatar(owner, Modifier.size(36.dp).clip(CircleShape))
                         Column(Modifier.weight(1f)) {
@@ -271,6 +282,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                         })
                     PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending && !preparingImages,
                         previewHeight = 120.dp, gifAttributions = gifAttributions, onOpenSource = ::openMediaSource)
+                    if (compactHeight) draftNotices()
                     quote?.let { QuotedPost(it, backend, onOpenSource = ::openMediaSource) }
                     if (transaction != null && !available)
                         nl.davidengelen.redsquare.policy.QueuedPublishingAgreement(!saving && !sending)
@@ -299,21 +311,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                         }
                 }
             }
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-            Row(Modifier.fillMaxWidth().padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                FrameIconButton(R.drawable.ic_image, stringResource(R.string.image_add),
-                    ready && !saving && !sending && !preparingImages && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor != session,
-                    launchImagePicker)
-                FrameIconButton(R.drawable.ic_gif, stringResource(R.string.giphy_add),
-                    ready && !saving && !sending && !preparingImages && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor == null) {
-                    openImagePicker { choosingGif = true }
-                }
-                Spacer(Modifier.weight(1f))
-                FrameIconButton(R.drawable.ic_save, stringResource(R.string.post_save_draft), ready && !saving && !sending && !preparingImages) {
-                    saveAndClose(closeEditor)
-                }
-            }
-                Button(modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+            val submit: @Composable (Modifier) -> Unit = { placement ->
+                Button(modifier = placement.heightIn(min = 48.dp),
                     shape = RoundedCornerShape(AppSpacing.controlRadius),
                     enabled = ready && !saving && !sending && !preparingImages && (available || text.isNotBlank() || images.isNotEmpty()), onClick = {
                     if (available) saveAndClose(closeEditor)
@@ -327,6 +326,24 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                         else -> R.string.post_check_status
                     }), Modifier.padding(vertical = 6.dp))
                 }
+            }
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            Row(Modifier.fillMaxWidth().padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                if (compactTyping) closeButton()
+                FrameIconButton(R.drawable.ic_image, stringResource(R.string.image_add),
+                    ready && !saving && !sending && !preparingImages && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor != session,
+                    launchImagePicker)
+                FrameIconButton(R.drawable.ic_gif, stringResource(R.string.giphy_add),
+                    ready && !saving && !sending && !preparingImages && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor == null) {
+                    openImagePicker { choosingGif = true }
+                }
+                Spacer(Modifier.weight(1f))
+                FrameIconButton(R.drawable.ic_save, stringResource(R.string.post_save_draft), ready && !saving && !sending && !preparingImages) {
+                    saveAndClose(closeEditor)
+                }
+                if (compactHeight) submit(Modifier.padding(start = AppSpacing.small))
+            }
+            if (!compactHeight) submit(Modifier.fillMaxWidth())
         }
         if (choosingGif) GiphyPicker(onClose = { choosingGif = false },
             onSelect = { item -> addGif(item) { choosingGif = false } },

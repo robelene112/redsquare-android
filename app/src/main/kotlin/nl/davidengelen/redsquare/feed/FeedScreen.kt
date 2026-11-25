@@ -81,7 +81,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     notificationRoutes: NotificationRoutes? = null, allowPushRoute: Boolean = true,
     initialProtectedInvitation: String? = null, onProtectedInvitationConsumed: () -> Unit = {},
     externalReturnDepth: Int? = null, onExternalBack: () -> Unit = {}, onExternalNavigate: () -> Unit = {},
-    chrome: @Composable (Boolean) -> Unit = {},
+    chrome: @Composable (home: Boolean, compactWriting: Boolean) -> Unit = { _, _ -> },
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit,
     onDrawn: () -> Unit) {
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
@@ -686,10 +686,12 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             else Spacer(Modifier.weight(1f))
         }
     }
-    val compactHeight = LocalConfiguration.current.screenHeightDp.dp < 400.dp
+    val compactHeight = LocalConfiguration.current.screenHeightDp < COMPACT_POST_HEIGHT_DP
     val dockCompose = home && wallet != null && (compactHeight || LocalDensity.current.fontScale > 1.3f)
     Column(modifier.nestedScroll(header.connection).readingNavigation(header)) {
-        ReadingHeader(header) { chrome(home) }
+        ReadingHeader(header) {
+            chrome(home, compactHeight && (composing || visibleNavigation.lastOrNull() is BrowseDestination.Quote))
+        }
         AnimatedVisibility(pendingTap != null && tapFailed,
             enter = fadeIn(tween(AppSpacing.transitionMillis)), exit = fadeOut(tween(AppSpacing.transitionMillis))) {
             Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {

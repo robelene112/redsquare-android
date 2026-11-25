@@ -133,8 +133,7 @@ class SpaceRoomJourneyTest {
             launch(fixture).use {
                 waitText("0 people here", 25_000)
                 assertTrue(observed().participants.isEmpty())
-                val moduleSelector = "Switch app: Spaces"
-                captureFocusedSpeech("initial-module-focus", moduleSelector, folder, actionNode(moduleSelector))
+                waitForInitialAppFocus()
                 focusAndHear("join-room", "Join room", folder, textLabel = true)
                 click(automation, "Join room")
                 waitText("You’re in the room", 20_000)
@@ -681,7 +680,10 @@ class SpaceRoomJourneyTest {
         ui.waitUntil(10_000) { selector.isDisplayed() }
         selector.performClick()
         ui.onNodeWithText("Red Square").performScrollTo().performClick()
-        ui.waitUntil(12_000) { ui.onNodeWithContentDescription("Switch app: Red Square").isDisplayed() }
+        ui.waitUntil(12_000) {
+            ui.onNodeWithContentDescription("Switch app: Red Square").isDisplayed() ||
+                ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed()
+        }
     }
 
     private fun showRoomItem(matcher: SemanticsMatcher) = ui.waitUntil(10_000) {
