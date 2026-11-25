@@ -17,6 +17,15 @@ import java.util.concurrent.atomic.AtomicBoolean
 internal object SharedRtcPeers {
     private val peers = ConcurrentHashMap<String, SharedRtcPeer>()
 
+    /** Owned emulator diagnostics carry codec identifiers and counters only. */
+    suspend fun roomVideoStatsForTest(session: String): Map<String, List<Map<String, Any?>>> = coroutineScope {
+        check(nl.davidengelen.redsquare.BuildConfig.DEBUG && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        require(session.matches(Regex("[a-f0-9]{32}")))
+        peers.entries.filter { ":$session:" in it.key }.map { (key, peer) ->
+            async { key.substringAfterLast(':') to withTimeoutOrNull(1_500) { peer.roomVideoStatsForTest() }.orEmpty() }
+        }.awaitAll().toMap()
+    }
+
     @Synchronized fun acquire(context: Context, wallet: SaitoWallet, nodeScope: String, peer: String,
         endpoint: String, traversal: Boolean, callbacks: RtcCallbacks, additionalEndpoints: List<String> = emptyList()): RtcLease {
         require(SaitoWallet.isPublicKey(peer) && peer != wallet.publicKey)
@@ -321,6 +330,21 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
             remoteTracks.forEach { it.setEnabled(playbackAllowed(lease, it)) }
         }
     } }
+
+    suspend fun roomVideoStatsForTest(): List<Map<String, Any?>> = suspendCancellableCoroutine { next ->
+        if (!post {
+            connection.getStats { report ->
+                val rows = report.statsMap.values.filter { it.type in setOf("inbound-rtp", "outbound-rtp") && it.members["kind"] == "video" }
+                    .map { stats ->
+                        val fields = setOf("mid", "ssrc", "bytesReceived", "bytesSent", "framesReceived", "framesDecoded",
+                            "framesEncoded", "frameWidth", "frameHeight", "decoderImplementation", "encoderImplementation", "pliCount")
+                        val codec = (stats.members["codecId"] as? String)?.let(report.statsMap::get)?.members?.get("mimeType")
+                        stats.members.filterKeys { it in fields } + mapOf("direction" to stats.type, "codec" to codec)
+                    }
+                if (next.isActive) next.resumeWith(Result.success(rows))
+            }
+        }) next.resumeWith(Result.success(emptyList()))
+    }
 
     private fun publishTrack(lease: RtcLease, track: MediaStreamTrack) {
         track.setEnabled(playbackAllowed(lease, track))

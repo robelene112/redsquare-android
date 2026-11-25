@@ -1002,10 +1002,11 @@ try:
         while True:
             if checkpoint_test.poll() is not None or time.monotonic() >= deadline:
                 raise RuntimeError('Native room did not author an active-camera checkpoint')
-            # The remote cat failure can still appear as a successful exec-out
-            # on older adb/device combinations. Check the published file in the shell.
-            if adb('shell', 'run-as', pkg, 'test', '-s', checkpoint_path, check=False).returncode == 0:
-                camera = json.loads(adb('exec-out', 'run-as', pkg, 'cat', checkpoint_path).stdout)
+            # An older exec-out can return zero for a missing file. The native
+            # test publishes this JSON by atomic rename, so match its content.
+            checkpoint = adb('exec-out', 'run-as', pkg, 'cat', checkpoint_path, check=False)
+            if checkpoint.returncode == 0 and checkpoint.stdout.lstrip().startswith(b'{'):
+                camera = json.loads(checkpoint.stdout)
                 break
             time.sleep(.2)
         (evidence / 'room-camera-checkpoint.json').write_text(json.dumps(camera, indent=2))
@@ -1022,7 +1023,8 @@ try:
             existing = adb('shell', 'pidof', pkg, check=False).stdout.decode().strip()
             if original_pid not in existing.split(): break
             if time.monotonic() >= deadline: raise RuntimeError('Camera permission revocation did not stop the active preview')
-            if adb('shell', 'run-as', pkg, 'test', '-s', f'cache/{folder}/room-camera-revoked-live.txt', check=False).returncode == 0:
+            observed = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/room-camera-revoked-live.txt', check=False)
+            if observed.returncode == 0 and observed.stdout == b'Camera turned off in the existing process\n':
                 revoked_in_process = True
                 adb('shell', 'am', 'force-stop', pkg)
                 break
@@ -1328,6 +1330,10 @@ finally:
         cleanup('failure-buffers', capture_crash)
         cleanup('fixture-account-diagnostics', lambda: (evidence / 'spaces-account.log').write_bytes(
             adb('logcat', '-d', '-v', 'threadtime', '-s', 'SpacesAccount138:D', 'SpaceFileProofViewer:E', 'SaitoTalk:D', '*:S', timeout=10).stdout))
+        if room_mode:
+            cleanup('room-codec-diagnostics', lambda: (evidence / 'room-codecs.log').write_bytes(
+                adb('logcat', '-d', '-v', 'threadtime', '-t', '10000', '-s', 'libjingle:V', 'org.webrtc.Logging:V',
+                    'MediaCodec:V', 'CCodec:V', 'Codec2Client:V', 'ACodec:V', 'HardwareVideoDecoder:V', '*:S', timeout=10).stdout))
     if primary is not None and control_port and host.poll() is None:
         def observe_host_failure():
             (evidence / 'failure-host-status.json').write_text(json.dumps(command(control_port, 'status'), indent=2))

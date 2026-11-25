@@ -204,6 +204,12 @@ setInterval(async () => {
       const reports = await pc.getStats(); let bytes = 0;
       for (const report of reports.values()) if (report.type === 'inbound-rtp' && report.kind === 'audio') bytes += report.bytesReceived || 0;
       Host.audioBytes(peer, bytes);
+      if (roomPeers.get(peer) === pc) {
+        const video = [...reports.values()].filter(r => r.kind === 'video' && ['outbound-rtp', 'inbound-rtp'].includes(r.type))
+          .map(r => ({direction:r.type, mid:r.mid, ssrc:r.ssrc, codec:reports.get(r.codecId)?.mimeType, received:r.bytesReceived,
+            sent:r.bytesSent, decoded:r.framesDecoded, encoded:r.framesEncoded, width:r.frameWidth, height:r.frameHeight}));
+        Host.diagnostic(`room-video ${peer} ${JSON.stringify(video)}`);
+      }
     } catch (error) { if (pc.connectionState !== 'closed') Host.failure(String(error)); }
   }
   for (const video of document.querySelectorAll('video')) {

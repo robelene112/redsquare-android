@@ -23,6 +23,7 @@ import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.RtcPlatform
+import nl.davidengelen.redsquare.saito.SharedRtcPeers
 import nl.davidengelen.redsquare.spaces.SpaceVoiceRoom
 import nl.davidengelen.redsquare.spaces.SpaceVoiceSignalKey
 import nl.davidengelen.redsquare.talk.CallPhase
@@ -32,6 +33,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.webrtc.AudioTrack
 import org.webrtc.AudioTrackSink
+import org.webrtc.Logging
 import org.webrtc.VideoSink
 import org.webrtc.VideoTrack
 import java.io.File
@@ -173,10 +175,15 @@ class SpaceRoomJourneyTest {
         try {
             launch(fixture).use {
                 withFailureCapture({
+                    val call = TalkRuntime.call.value
+                    val nativeVideo = call?.let { runCatching { runBlocking { SharedRtcPeers.roomVideoStatsForTest(it.token) } }.getOrNull() }
                     File(evidence, "room-media-failure.txt").writeText(
-                        "phase=${TalkRuntime.call.value?.phase} diagnostic=${TalkRuntime.diagnostic.value}\n" +
+                        "phase=${call?.phase} diagnostic=${TalkRuntime.diagnostic.value}\n" +
                             receiveEvidence.joinToString("\n", postfix = "\n") +
-                            guests.joinToString("\n") { "errors=${it.errors} chromium=${it.browser.errors} media=${it.browser.media}" })
+                            "nativeVideo=$nativeVideo\n" + guests.joinToString("\n") {
+                                "errors=${it.errors} chromium=${it.browser.errors} media=${it.browser.media}\n" +
+                                    it.browser.diagnostics.takeLast(8).joinToString("\n")
+                            })
                     capture("room-media-failure")
                 }) {
                     waitText("0 people here", 25_000)
@@ -190,6 +197,7 @@ class SpaceRoomJourneyTest {
                     guests += SpaceRoomBrowserFixture(address, 2, local, ::request)
                     guests.forEach(SpaceRoomBrowserFixture::start)
                     waitMedia(guests, 25_000) { TalkRuntime.call.value?.participants?.let { it.size == 2 && it.all { p -> p.connected } } == true }
+                    Logging.enableLogToDebugOutput(Logging.Severity.LS_INFO)
                     waitMedia(guests, 25_000) { guests.all { guest ->
                         val other = guests.single { it !== guest }
                         guest.browser.media[other.contact.key]?.let { it.width >= 320 && it.nonBlack > 500 && it.rms > 0.01 } == true
