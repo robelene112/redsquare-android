@@ -346,7 +346,10 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
             if (changed.isNotEmpty()) {
                 roomAudio = audio
                 roomVideo = video
-                attachRoomMedia(changed = changed)
+                if (attachRoomMedia(changed = changed)) {
+                    needsNegotiation = true
+                    negotiateIfNeeded()
+                }
             }
             return@post
         }
@@ -361,9 +364,10 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         }
     } }
 
-    private fun attachRoomMedia(answering: Boolean = false, changed: Set<MediaStreamTrack.MediaType>? = null) {
+    private fun attachRoomMedia(answering: Boolean = false, changed: Set<MediaStreamTrack.MediaType>? = null): Boolean {
         val stream = requireNotNull(roomSession)
         val seen = mutableSetOf<MediaStreamTrack.MediaType>()
+        var directionChanged = false
         connection.transceivers.filter { !it.isStopped }.forEach { transceiver ->
             if (changed != null && transceiver.mediaType !in changed) return@forEach
             if (!seen.add(transceiver.mediaType)) {
@@ -371,16 +375,22 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 return@forEach
             }
             val sender = transceiver.sender
-            if (answering) {
-                check(transceiver.setDirection(RtpTransceiver.RtpTransceiverDirection.SEND_RECV))
-                sender.setStreams(listOf(stream))
-            }
+            if (answering) sender.setStreams(listOf(stream))
             val track = when (transceiver.mediaType) {
                 MediaStreamTrack.MediaType.MEDIA_TYPE_AUDIO -> roomAudio
                 MediaStreamTrack.MediaType.MEDIA_TYPE_VIDEO -> roomVideo
             }
-            check(sender.setTrack(track, false))
+            // Advertising a sending audio section before permission can start
+            // AudioRecord in WebRTC even when that sender has no capture track.
+            val direction = if (transceiver.mediaType == MediaStreamTrack.MediaType.MEDIA_TYPE_AUDIO && track == null)
+                RtpTransceiver.RtpTransceiverDirection.RECV_ONLY else RtpTransceiver.RtpTransceiverDirection.SEND_RECV
+            if (transceiver.direction != direction) {
+                check(transceiver.setDirection(direction))
+                directionChanged = true
+            }
+            if (changed != null || sender.track()?.id() != track?.id()) check(sender.setTrack(track, false))
         }
+        return directionChanged
     }
 
     private fun reconcileRoomReceivers() {
@@ -506,9 +516,10 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         needsNegotiation = false; makingOffer = true
         try {
             if (roomSession != null && connection.localDescription == null && connection.remoteDescription == null) {
-                val init = RtpTransceiver.RtpTransceiverInit(RtpTransceiver.RtpTransceiverDirection.SEND_RECV, listOf(roomSession))
-                checkNotNull(connection.addTransceiver(MediaStreamTrack.MediaType.MEDIA_TYPE_AUDIO, init))
-                checkNotNull(connection.addTransceiver(MediaStreamTrack.MediaType.MEDIA_TYPE_VIDEO, init))
+                val audio = RtpTransceiver.RtpTransceiverInit(RtpTransceiver.RtpTransceiverDirection.RECV_ONLY, listOf(roomSession))
+                val video = RtpTransceiver.RtpTransceiverInit(RtpTransceiver.RtpTransceiverDirection.SEND_RECV, listOf(roomSession))
+                checkNotNull(connection.addTransceiver(MediaStreamTrack.MediaType.MEDIA_TYPE_AUDIO, audio))
+                checkNotNull(connection.addTransceiver(MediaStreamTrack.MediaType.MEDIA_TYPE_VIDEO, video))
                 attachRoomMedia()
             }
             val description = createDescription()
