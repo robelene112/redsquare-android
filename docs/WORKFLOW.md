@@ -40,9 +40,11 @@ another complete projection immediately before selecting the exact route.
 The route now projects only its authorized channel. Background synchronization
 uses the stored community IDs and projects the full list when it is needed.
 [The third full run](https://github.com/robelene112/redsquare-android/actions/runs/45687551951)
-retains the same fixture and deadlines. A separate local JVM probe opens a
-bounded 50-message page from the hot channel. That measurement excludes Android
-Keystore and drawing.
+retains the same fixture and deadlines. A separate one-core JVM probe on a
+disposable copy of the full fixture read the 100 registered IDs in 113ms.
+The selected-channel projection took 1.042s and the full projection took
+5.715s, with the same 50 rendered records returned by each. These local
+measurements exclude Android Keystore and drawing.
 
 The [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45677967252)
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45677967232)
@@ -59,6 +61,17 @@ complete on their recorded sources. The [Android 10 release tail](https://github
 stopped at emulator provisioning before running the wallet check. Discovery and
 membership pass on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45683428876)
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45683428889).
+On the new scoped projection, the complete protected Chat journey passes on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45687552792)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45687552619).
+The real notification and cold exact destination pass on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45687552402)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45687552105).
+The retried legacy [Android 10 release tail](https://github.com/robelene112/redsquare-android/actions/runs/45686974081)
+also passes. Both broad Chat partitions at the earlier integration source
+stopped while expecting the previous “Encrypted” label. The captured private
+conversation displays “Legacy encrypted chat” above the keyboard. The tests
+now require that exact visible privacy status on the legacy route.
 
 The first crossed landscape room check on Android 10 reached Red Square with
 an active call. The wallet reminder and app header left the floating New post
