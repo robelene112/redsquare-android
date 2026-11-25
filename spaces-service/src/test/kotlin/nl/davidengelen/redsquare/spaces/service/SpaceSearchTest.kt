@@ -49,7 +49,7 @@ class SpaceSearchTest {
                     val reply = owner.reply(space, requireNotNull(owner.message(space, first, chat)), "A Needle in a reply", chat)
                     val article = owner.publishArticle(space, SpaceArticleContent.Original("Needle guide", "", "An article body"), articles)
                     owner.flush(space)
-                    owner.send(space, "Unsent Needle should stay out of search", chat)
+                    val queued = owner.send(space, "Needle waiting to be sent", chat)
 
                     reader.openPublic(space)
                     reader.refresh(space, channel = chat)
@@ -96,7 +96,7 @@ class SpaceSearchTest {
                     assertTrue(reader.readScopeRevision > beforeRevocation)
                     assertTrue(find(reader, SpaceSearchFilter(channel = hidden)).isEmpty())
                     assertNull(reader.cachedDestination(saved.address))
-                    assertEquals(setOf(first, reply), find(reader, SpaceSearchFilter(channel = chat)).map { it.address.record }.toSet())
+                    assertEquals(setOf(first, reply, queued), find(reader, SpaceSearchFilter(channel = chat)).map { it.address.record }.toSet())
                 }
             }
         }

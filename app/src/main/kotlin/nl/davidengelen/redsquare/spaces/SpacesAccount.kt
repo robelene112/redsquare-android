@@ -1187,15 +1187,24 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     fun olderMessages() {
         val target = mutable.value.target() ?: return
-        localAction(Problem.CONNECTION) { network.withLock {
+        val selected = selection.get()
+        fun stillSelected() = selection.get() == selected && mutable.value.target() == target
+        localAction(Problem.CONNECTION, isCurrent = ::stillSelected) { network.withLock {
+            if (!stillSelected()) return@withLock
             val current = requireNotNull(client)
             val before = current.window(target)
             val parent = current.parent(target)
             val start = if (parent == null) current.older(target.space, channel = target.channel, before = before.from)
             else current.olderThread(target.space, parent, before.from, target.channel)
-            updateWindow(target, start)
+            synchronized(navigationChanges) {
+                if (!stillSelected()) return@withLock
+                updateWindow(target, start)
+            }
             publish()
-            mutable.update { if (it.target() == target) it.copy(scrollToMessage = it.messages.firstOrNull()?.let { message -> MessageScroll(message.id) }) else it }
+            mutable.update { state ->
+                if (stillSelected() && state.target() == target)
+                    state.copy(scrollToMessage = state.messages.firstOrNull()?.let { MessageScroll(it.id) }) else state
+            }
         } }
     }
     fun latestMessages() {

@@ -717,7 +717,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         val node = state.requiredNode
         val choice = nl.davidengelen.redsquare.saito.SaitoBackend.entries.firstOrNull { it.webUrl == node }
         when {
-            state.working -> {
+            state.working || openingDestination && state.loadingChannel -> {
                 Text(stringResource(when {
                     openingDestination -> R.string.spaces_destination_opening
                     openingArticle -> R.string.spaces_article_opening
