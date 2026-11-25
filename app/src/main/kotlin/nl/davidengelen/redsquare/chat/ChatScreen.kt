@@ -20,7 +20,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
@@ -477,8 +479,18 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), singleLine = true,
                 shape = RoundedCornerShape(AppSpacing.controlRadius),
                 label = { Text(stringResource(R.string.chat_search)) })
+            val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+            val compactActions = screenHeight <= 480.dp || screenHeight <= 700.dp && LocalDensity.current.fontScale >= 1.5f
+            val newLabel = stringResource(R.string.chat_new)
+            val canStartChat = !savingContact && personal?.ready == true && !navigation.transitioning
+            val startChat = { contactFailed = false; addingContact = true }
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text(stringResource(R.string.chat_messages), Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
+                if (compactActions) {
+                    TextButton(enabled = canStartChat, onClick = startChat) { Text(newLabel) }
+                    Spacer(Modifier.weight(1f))
+                } else {
+                    Text(stringResource(R.string.chat_messages), Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
+                }
                 TextButton(enabled = !savingContact && !navigation.transitioning, onClick = { reviewingGroups = true }) {
                     Text(stringResource(R.string.group_title))
                 }
@@ -521,9 +533,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 }
             }
             }
-            val newLabel = stringResource(R.string.chat_new)
-            if (!savingContact && personal?.ready == true && !navigation.transitioning)
-                FloatingActionButton(onClick = { contactFailed = false; addingContact = true },
+            if (!compactActions && canStartChat)
+                FloatingActionButton(onClick = startChat,
                     modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp).semantics { text = AnnotatedString(newLabel) },
                     containerColor = MaterialTheme.colorScheme.primary) {
                     Icon(painterResource(R.drawable.ic_compose), newLabel, Modifier.size(22.dp))

@@ -83,6 +83,12 @@ class SpacesDiscoveryJourneyTest {
             ui.onNode(hasText("Back to your communities") and hasClickAction() and onScreen).clickReady()
             ui.onNode(hasText("Discover") and hasClickAction()).clickReady()
             openRow("Saito Builders")
+            val original = hasText("Builders message 27")
+            waitUntil {
+                ui.onNode(original and onScreen).isDisplayed() ||
+                    ui.onNode(hasText("Reply from independent member") and onScreen).isDisplayed()
+            }
+            history().performScrollToNode(original)
             waitText("Builders message 27")
             ui.onNode(hasText("Join this Space") and hasClickAction()).assertIsDisplayed()
             assertFalse(members(fixtures, "public").contains(wallet.publicKey))
