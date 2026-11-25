@@ -187,9 +187,22 @@ The new early access path opens the precise notification and cold external
 reply in [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45706147784)
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45706147653).
 These focused runs verify the requested route and real notification. The
-[next profileable scale run](https://github.com/robelene112/redsquare-android/actions/runs/45705007818)
-uses the immediately earlier task-lifecycle source, before the light cold
-opening screen and deferred inventory. It supplies separate baseline evidence.
+[profileable scale run](https://github.com/robelene112/redsquare-android/actions/runs/45705007818)
+uses the earlier task-lifecycle source. It opens the signed 10,000th record, the
+mixed-media library and the warm channel in the same Activity. The service
+accepts the independent off-screen reply, but no selected-channel content page
+returns it before the warm-up deadline. The original result remains failed.
+The raw trace also records a 1496ms cold frame including its expected start,
+and the four warm-up swipes miss 50–67% of their observed frame budgets.
+The new authenticated client regression proves the write cursor remained at
+zero after two contiguous accepted sends. The fix advances it only one occupied
+slot at a time and preserves an independently written reply in a gap.
+
+The exact signed 0.1.143 candidate from `8928b2e4a` was staged before this
+cursor correction. The full public download matches its source, notes,
+application identity and established certificate. Both baseline versions and
+both emulators have separate in-place jobs. The candidate is a continuity
+checkpoint for that source and the ordinary release page still serves 0.1.142.
 
 ## Accepted #146, continue #147
 

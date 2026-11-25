@@ -24,6 +24,52 @@ class SpaceMessageThreadsTest {
     private val clock = Clock.fixed(Instant.ofEpochMilli(1_700_000_000_000), ZoneOffset.UTC)
     private fun wallet(value: Int) = SaitoWallet.fromPrivateKey(value.toString().padStart(64, '0'))
 
+    @Test fun acceptedSendsAdvanceTheReadCursorOnlyAcrossContiguousHistory() = runBlocking<Unit> {
+        val owner = wallet(1)
+        val service = wallet(2)
+        val member = wallet(3)
+        SpacesServiceStore(files.newFolder("message-cursor-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("message-cursor-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("message-cursor-member.sqlite").absolutePath).use { memberStore ->
+                    val rawReadCursors = mutableListOf<Long>()
+                    val author = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { operation ->
+                        val body = SaitoEnvelope.decode(operation.envelope()).body
+                        if (body.get("request")?.asString == "read") {
+                            val scope = body.getAsJsonObject("scope")
+                            if (scope.get("stream").asString == "content") rawReadCursors += scope.get("cursor").asLong
+                        }
+                        remote.exchange(operation.envelope())
+                    }
+                    val space = author.create(SpaceProfile("Contiguous history", visibility = SpaceVisibility.PUBLIC))
+                    author.flush(space)
+                    author.refresh(space)
+                    val root = author.send(space, "First confirmed message")
+                    author.send(space, "Second confirmed message")
+                    author.flush(space)
+
+                    val independent = SpaceClient(member, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                    independent.openPublic(space)
+                    independent.joinPublic(space)
+                    independent.flush(space)
+                    independent.refresh(space)
+                    val parent = requireNotNull(independent.message(space, root))
+                    val reply = independent.reply(space, parent, "Independent reply in the gap")
+                    independent.flush(space)
+                    author.send(space, "Own message after the gap")
+                    author.flush(space)
+
+                    rawReadCursors.clear()
+                    author.refresh(space)
+                    assertEquals(listOf(2L), rawReadCursors)
+                    assertEquals(reply, author.thread(space, requireNotNull(author.message(space, root))).single().id)
+                    rawReadCursors.clear()
+                    author.refresh(space)
+                    assertEquals(listOf(4L), rawReadCursors)
+                }
+            }
+        }
+    }
+
     @Test fun cancellingAQueuedEditOrDeletionKeepsItsRecoverableIntentAndCannotUndoAnAttemptedChange() = runBlocking<Unit> {
         val owner = wallet(1); val service = wallet(2)
         SpacesServiceStore(files.newFolder("cancel-change-service").toPath(), service, clock).use { remote ->

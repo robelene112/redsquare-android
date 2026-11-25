@@ -3245,6 +3245,17 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val received = SaitoEnvelope.decode(result)
                 require(received.body.text("event") == transaction.envelope()) { "Community service returned a different original" }
                 accept(space, result)
+                if (received.body.text("stream") == "content") {
+                    val channel = received.body.text("channel_id")
+                    val state = channelState(space, channel)
+                    val position = received.body.number("position")
+                    // This receipt fills exactly the next expected slot. An
+                    // intervening peer record still requires an authenticated read.
+                    if (state.get("content_loaded")?.asBoolean == true && state.number("content_cursor") == position) {
+                        state.addProperty("content_cursor", Math.addExact(position, 1))
+                        putChannelState(space, channel, state)
+                    }
+                }
                 messageChangeKey(space, outbound.body)?.let { key ->
                     if (get(key)?.toString(Charsets.UTF_8) == item.key) remove(key)
                 }
