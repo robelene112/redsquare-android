@@ -20,6 +20,7 @@ import java.security.MessageDigest
 import java.sql.Connection
 import java.sql.DriverManager
 import java.time.Clock
+import java.util.concurrent.TimeUnit
 
 /** Independent provider ledger. It does not run as part of the Spaces node. */
 class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, private val origin: String,
@@ -161,12 +162,13 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
      * Buffer to an opaque file without holding the ledger while the sender streams.
      * Receipt creation, reservation and retries all use the original object identity.
      */
-    fun put(grantEnvelope: String, source: InputStream, beforeCommit: () -> Unit = {}): String {
+    fun put(grantEnvelope: String, source: InputStream, verify: () -> Unit = {}): String {
         val grant = grant(grantEnvelope, SpaceFileGrant.Action.PUT)
         synchronized(this) { checkPut(grant)?.let { return it } }
         val pending = Files.createTempFile(objects, "incoming-", ".part")
         try {
             val digest = MessageDigest.getInstance("SHA-256")
+            val access = SpaceFileTransferAccess(verify)
             Files.newOutputStream(pending).use { sink ->
                 val hashing = DigestOutputStream(sink, digest)
                 val buffer = ByteArray(64 * 1024)
@@ -176,6 +178,7 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
                     require(count > 0) { "Incomplete encrypted file" }
                     hashing.write(buffer, 0, count)
                     remaining -= count
+                    if (remaining > 0) access.transferred(count)
                 }
                 require(source.read() == -1) { "Encrypted file exceeds its approved length" }
             }
@@ -183,7 +186,7 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
                 "Encrypted file does not match its approved digest"
             }
             FileChannel.open(pending, StandardOpenOption.WRITE).use { it.force(true) }
-            beforeCommit()
+            verify()
             return synchronized(this) { checkPut(grant) ?: storeObject(grant, pending) }
         } finally {
             Files.deleteIfExists(pending)
@@ -355,5 +358,20 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
     private companion object {
         val INCOMING = Regex("incoming-[0-9]+\\.part")
         val OBJECT_ID = Regex("[0-9a-f]{64}")
+    }
+}
+
+/** Check both slow and large streams while keeping the signed checks bounded. */
+internal class SpaceFileTransferAccess(private val verify: () -> Unit) {
+    private var bytes = 0
+    private var deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(1)
+
+    fun transferred(size: Int, final: Boolean = false) {
+        bytes += size
+        if (final || bytes >= 1024 * 1024 || System.nanoTime() >= deadline) {
+            verify()
+            bytes = 0
+            deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(1)
+        }
     }
 }

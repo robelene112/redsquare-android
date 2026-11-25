@@ -30,6 +30,10 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
     private val fileRoutes: SpaceFileRoutes
     private data class Challenge(val caller: String, val scope: JsonObject, val expiresAt: Long)
     private val challenges = mutableMapOf<String, Challenge>()
+    private data class FileJournal(val head: String?, val journal: SpaceJournal)
+    private val recentFileJournals = object : LinkedHashMap<String, FileJournal>(16, 0.75f, true) {
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, FileJournal>?) = size > 16
+    }
 
     /** Loopback operational metadata, not a signed write acknowledgment or a
      * promise of available disk space. The node also checks its own identity. */
@@ -273,7 +277,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val now = clock.millis()
         val check = SpaceFileAccessCheck.read(request, wallet.publicKey, now)
         return atomic {
-            check.reply(wallet, fileRoutes.stillAllowed(check, journal(check.permission.space), now), now)
+            check.reply(wallet, fileRoutes.stillAllowed(check, fileJournal(check.permission.space), now), now)
         }
     }
 
@@ -777,6 +781,17 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
             sql.executeQuery().use { rows -> while (rows.next()) journal.receive(rows.getString(1)) }
         }
         return journal
+    }
+
+    /** This projection is only used for read-only checks on a committed control head. */
+    private fun fileJournal(space: String): SpaceJournal {
+        val head = database.prepareStatement("SELECT event_id FROM controls WHERE space_id=? ORDER BY position DESC LIMIT 1").use { sql ->
+            sql.setString(1, space)
+            sql.executeQuery().use { row -> if (row.next()) row.getString(1) else null }
+        }
+        val cached = recentFileJournals[space]
+        if (cached != null && cached.head == head) return cached.journal
+        return journal(space).also { recentFileJournals[space] = FileJournal(head, it) }
     }
 
     private fun <T> atomic(action: () -> T): T {

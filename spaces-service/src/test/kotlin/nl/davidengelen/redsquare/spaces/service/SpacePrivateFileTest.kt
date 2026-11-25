@@ -7,6 +7,8 @@ import nl.davidengelen.redsquare.spaces.SpaceChannelKind
 import nl.davidengelen.redsquare.spaces.SpaceChannelProfile
 import nl.davidengelen.redsquare.spaces.SpaceClient
 import nl.davidengelen.redsquare.spaces.SpaceFileCipher
+import nl.davidengelen.redsquare.spaces.SpaceFileAccessCheck
+import nl.davidengelen.redsquare.spaces.SpaceFileGrant
 import nl.davidengelen.redsquare.spaces.SpaceFileDescriptor
 import nl.davidengelen.redsquare.spaces.SpaceFileStage
 import nl.davidengelen.redsquare.spaces.SpaceProfile
@@ -21,6 +23,7 @@ import java.net.URL
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneOffset
+import java.util.concurrent.atomic.AtomicInteger
 
 class SpacePrivateFileTest {
     @get:Rule val files = TemporaryFolder()
@@ -31,7 +34,7 @@ class SpacePrivateFileTest {
         val moderator = SaitoWallet.create()
         val member = SaitoWallet.create()
         val operator = SaitoWallet.create()
-        val payload = "Independent binary fixture with no public body.".toByteArray()
+        val payload = ByteArray(1_560_789) { (it % 251).toByte() }
         val name = "Private finance projection.txt"
         val wire = mutableListOf<String>()
         SpacesServiceStore(files.newFolder().toPath(), node, clock).use { service ->
@@ -51,8 +54,15 @@ class SpacePrivateFileTest {
                     receiver.join(invite); receiver.flush(space)
                     owner.admitPending(space); owner.flush(space); receiver.refresh(space)
                     val origin = "https://files.example.test"
+                    val revokeAfter = AtomicInteger(-1)
                     SpaceFileProviderServer(files.newFolder().toPath(), operator, origin, node.publicKey, clock,
-                        0, 262144, 600000, service::checkFileAccess).use { peer ->
+                        0, 4194304, 600000) { request ->
+                        if (revokeAfter.get() > 0 && SpaceFileAccessCheck.read(request, node.publicKey, clock.millis())
+                                .permission.action == SpaceFileGrant.Action.GET && revokeAfter.decrementAndGet() == 0) {
+                            runBlocking { receiver.leave(space); receiver.flush(space) }
+                        }
+                        service.checkFileAccess(request)
+                    }.use { peer ->
                         peer.start()
                         val provider = SpaceStorageProviderClient(origin) { base ->
                             URL("http://127.0.0.1:${peer.port}${base.file}").openConnection() as HttpURLConnection
@@ -88,8 +98,13 @@ class SpacePrivateFileTest {
                         provider.download(authorized.grant) { SpaceFileCipher.open(scope, received.sealed, it, checked) }
                         assertArrayEquals(payload, checked.toByteArray())
                         val permission = receiver.fileDownloadPermission(space, channel, original)
-                        receiver.leave(space)
-                        receiver.flush(space)
+                        val interrupted = receiver.fileDownloadPermission(space, channel, original)
+                        val partial = ByteArrayOutputStream()
+                        revokeAfter.set(2)
+                        assertTrue(runCatching {
+                            provider.download(interrupted.grant) { SpaceFileCipher.open(scope, received.sealed, it, partial) }
+                        }.isFailure)
+                        assertTrue("Only an already delivered prefix may be present", partial.size() in 1 until payload.size)
                         assertThrows(SpaceStorageProviderClient.Rejected::class.java) {
                             provider.download(permission.grant) { fail("Provider should reject before exposing any bytes") }
                         }

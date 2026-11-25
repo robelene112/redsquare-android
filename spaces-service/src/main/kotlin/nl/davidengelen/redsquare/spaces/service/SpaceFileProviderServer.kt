@@ -74,20 +74,14 @@ class SpaceFileProviderServer(directory: Path, private val wallet: SaitoWallet, 
                             exchange.sendResponseHeaders(200, grant.bytes)
                             exchange.responseBody.use { output ->
                                 val buffer = ByteArray(64 * 1024)
-                                var recheckAt = System.nanoTime() + TimeUnit.SECONDS.toNanos(1)
-                                var sinceCheck = 0
+                                val access = SpaceFileTransferAccess { requireLiveAccess(grant) }
                                 var sent = 0L
                                 while (true) {
                                     val count = ciphertext.read(buffer)
                                     if (count < 0) break
-                                    if (sent + count == grant.bytes || sinceCheck >= 1024 * 1024 || System.nanoTime() >= recheckAt) {
-                                        requireLiveAccess(grant)
-                                        sinceCheck = 0
-                                        recheckAt = System.nanoTime() + TimeUnit.SECONDS.toNanos(1)
-                                    }
+                                    access.transferred(count, final = sent + count == grant.bytes)
                                     output.write(buffer, 0, count)
                                     sent += count
-                                    sinceCheck += count
                                 }
                             }
                         }
