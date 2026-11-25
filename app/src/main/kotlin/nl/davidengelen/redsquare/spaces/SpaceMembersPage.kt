@@ -12,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -45,7 +46,7 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
         Box(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
             SpaceManagementProblem(state.problem, account::clearProblem, scrollIntoView = false)
         }
-        LazyColumn(Modifier.weight(1f).fillMaxWidth(), contentPadding = PaddingValues(AppSpacing.screen),
+        LazyColumn(Modifier.weight(1f).fillMaxWidth().testTag("spaces-member-list"), contentPadding = PaddingValues(AppSpacing.screen),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item { SpaceOwnershipOfferControls(account, state) }
             if (state.members.isEmpty()) item { Text(stringResource(R.string.spaces_loading_members), color = MaterialTheme.colorScheme.onSurfaceVariant) }

@@ -94,7 +94,7 @@ class SpaceModerationJourneyTest {
                 UiDevice.getInstance(instrumentation).pressBack()
                 click("Members")
                 val manage = ui.onNode(hasText("Manage member") and hasClickAction() and isEnabled())
-                val memberList = ui.onNode(hasScrollToIndexAction())
+                val memberList = ui.onNodeWithTag("spaces-member-list")
                 ui.waitUntil(12_000) { memberList.isDisplayed() }
                 repeat(2) {
                     if (!manage.isDisplayed()) memberList.performTouchInput { swipeUp(durationMillis = 350) }
