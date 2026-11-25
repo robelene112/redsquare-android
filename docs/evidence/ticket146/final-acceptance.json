@@ -1,0 +1,147 @@
+{
+  "ticket": 146,
+  "productSource": "08480e245e64b488e1aa156a0b48e88ebc418900",
+  "native": {
+    "android10": {
+      "run": 45664122537,
+      "source": "08480e245e64b488e1aa156a0b48e88ebc418900",
+      "notification": {
+        "pid": 3329,
+        "reply": "632e4d8bacea21e7a81fe2ea23e142e067ddbd790617b7b0838009b575cae512125044f2d4d5201225c560e595d6743f55a6c80c33e1acb79314d164c1fd924c",
+        "root": "86acaa851c2ebdc6d735d02aa68afc6fbb008fe06cf92e192942b1193a767c8a6c8522fde7d06e091a97d06839ad8b632c998fb9b6c282f34165cca171f78f32",
+        "privateDenied": true
+      },
+      "cold": {
+        "pid": 12378,
+        "reply": "632e4d8bacea21e7a81fe2ea23e142e067ddbd790617b7b0838009b575cae512125044f2d4d5201225c560e595d6743f55a6c80c33e1acb79314d164c1fd924c",
+        "root": "86acaa851c2ebdc6d735d02aa68afc6fbb008fe06cf92e192942b1193a767c8a6c8522fde7d06e091a97d06839ad8b632c998fb9b6c282f34165cca171f78f32",
+        "privateDenied": true
+      },
+      "nativeTerminalPasses": 2,
+      "compactViewport": false,
+      "transport": "owned local signed service; application-observed Android delivery",
+      "livePushOrOemVerified": false,
+      "productionNodeActivated": false,
+      "ordinaryBetaChanged": false,
+      "jvmTests": {
+        "core": 259,
+        "spaces-service": 231
+      },
+      "apkSha256": [
+        "2666c61c5ab9618b9fd6d7137993abc0623810491e28090f663f3e51be924597",
+        "52da35bb9c76e661c40a7823f98d27c6382567b33daf22807ae5fce3a1067ade"
+      ],
+      "evidenceSha256": {
+        "native-evidence.tar": "2b6be0f95c046a28781a5212b75b6399bff5cb3e3e24297966671563222b2c7a",
+        "phase-1.mp4": "4deb39102af74ab1c4b10017c874d4e93becf575d76da4457d0d014c017cae49",
+        "phase-2.mp4": "514fae4b07a32e637f1d7ebd18129bc1fc37044824936155a45b755c35636c14"
+      }
+    },
+    "compactAndroid17": {
+      "run": 45664123156,
+      "source": "08480e245e64b488e1aa156a0b48e88ebc418900",
+      "notification": {
+        "pid": 4042,
+        "reply": "914551a4b1681f0f944febba567a8e202635fc7b514ed4af1ac12b1cb11a197c3665e65aa83c58f1821a22e9a8d38a2ee71d8e58f125659809a34fbcee5d0cd7",
+        "root": "addb7940b37f0e1d05e115f705252a46f470d1bef5250ec4a610c6b24e87ef8f591d7d88ea330ce6b4cb5b08ff77bfb8856520e39437a6acbb394e9ad1a6de57",
+        "privateDenied": true
+      },
+      "cold": {
+        "pid": 4847,
+        "reply": "914551a4b1681f0f944febba567a8e202635fc7b514ed4af1ac12b1cb11a197c3665e65aa83c58f1821a22e9a8d38a2ee71d8e58f125659809a34fbcee5d0cd7",
+        "root": "addb7940b37f0e1d05e115f705252a46f470d1bef5250ec4a610c6b24e87ef8f591d7d88ea330ce6b4cb5b08ff77bfb8856520e39437a6acbb394e9ad1a6de57",
+        "privateDenied": true
+      },
+      "nativeTerminalPasses": 2,
+      "compactViewport": true,
+      "transport": "owned local signed service; application-observed Android delivery",
+      "livePushOrOemVerified": false,
+      "productionNodeActivated": false,
+      "ordinaryBetaChanged": false,
+      "jvmTests": {
+        "core": 259,
+        "spaces-service": 231
+      },
+      "apkSha256": [
+        "992b56b8467d57929b5e108e1ce4420905839f0ea3ab81119c8e9ea7c23f5458",
+        "49cb201fed0395426d740c84d891c0ffee4939d5d7f78cda63f6943d50dd425b"
+      ],
+      "evidenceSha256": {
+        "native-evidence.tar": "7a33118f4415b3029e3624b234269b8c6e045178dac1b0eb0a82f2113ed48b74",
+        "phase-1.mp4": "871ee1e334e40007dbafc50417f9cb34b4047e55928d10bf0a69222f82586537",
+        "phase-2.mp4": "59778c227ed688cd520de41b7317a716944fcf583220b1d2be15b2d7d36847a3"
+      },
+      "viewport": {
+        "package": "nl.davidengelen.redsquare.dev",
+        "stage": "prepared",
+        "pid": 3481,
+        "sdk": 37,
+        "fontScale": 2.0,
+        "screenWidthDp": 320,
+        "densityDpi": 320,
+        "fontSetting": "2.0"
+      }
+    }
+  },
+  "checks": [
+    "Search accepted local messages, replies, articles and files with channel/type filters and bounded pages",
+    "Previously authorized private results and exact links lose eligibility after a signed revocation",
+    "Group replies by their conversation and move the existing row to the latest signed activity",
+    "Deliver a native Android notification after local observation and read only the chosen exact destination",
+    "Open the same exact link after force-stop with the existing wallet and reject restricted, wrong-wallet and wrong-node routes",
+    "Open room metadata without enrolling, preserve separate drafts and read authorized cached history with its real check time"
+  ],
+  "operationalQualifications": [
+    "Native delivery uses an isolated signed test node and application-observed activity",
+    "Production node activation, live push/OEM behavior and provider operation require separate evidence",
+    "Search covers authorized history already saved on the device"
+  ],
+  "retainedDiagnosticRuns": [
+    {
+      "id": 45648799067,
+      "reason": "Initial compact test queried a message outside the viewport"
+    },
+    {
+      "id": 45650010711,
+      "reason": "Initial normal test hit ambiguous Back labels after search"
+    },
+    {
+      "id": 45651694877,
+      "reason": "Superseded after full JVM verification exposed the test fixture's queued-to-accepted transition"
+    },
+    {
+      "id": 45653483734,
+      "reason": "Pinned JVM build and test proof passed. A separate runner hit Maven HTTP 429 and push-triggered jobs did not launch the emulator"
+    },
+    {
+      "id": 45654950807,
+      "reason": "Compact test had required a UiDevice Back return flag instead of observing the result"
+    },
+    {
+      "id": 45655032416,
+      "reason": "Normal test attempted to scroll before the restored search list mounted"
+    },
+    {
+      "id": 45657904465,
+      "reason": "Compact test reached the same return-to-search timing issue"
+    },
+    {
+      "id": 45658613216,
+      "reason": "Normal test restored its search query and encountered an ambiguous extra Back action"
+    },
+    {
+      "id": 45659761385,
+      "reason": "Superseded after switching directly from restored search to Activity"
+    },
+    {
+      "id": 45660631306,
+      "reason": "Android 10 completed both phases on the product before the compact layout correction"
+    },
+    {
+      "id": 45660630744,
+      "reason": "Compact thread loop after successful system notification delivery. The trace recorded 1,524 reading-mode toggles"
+    }
+  ],
+  "nodeBridgeTests": 1,
+  "ordinaryBetaChanged": false
+}
