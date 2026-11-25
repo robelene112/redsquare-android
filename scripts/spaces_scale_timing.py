@@ -34,7 +34,8 @@ def frame_statistics(raw):
             })
     if not frames:
         raise RuntimeError('No completed framework UI frames were observed')
-    return frames, unavailable
+    total = int(re.search(r'Total frames rendered:\s*(\d+)', raw)[1])
+    return frames, unavailable, max(0, total - len(frames) - len(unavailable))
 
 
 def percentile(values, points):
@@ -96,7 +97,7 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, req
     (evidence / 'device-density.txt').write_text(shell('wm', 'density'))
     shell('am', 'force-stop', package)
     open_channel('hotLink', 'cold', hot)
-    cold, cold_missing = frames('cold')
+    cold, cold_missing, cold_unretained = frames('cold')
 
     def trace_text():
         return adb('logcat', '-d', '-s', f'{TAG}:I', '*:S', timeout=15).decode()
@@ -132,22 +133,39 @@ duration_ms: 1500000
         if not trace_pid.isdecimal():
             raise RuntimeError('Perfetto did not expose its owned daemon PID')
         trace_process = int(trace_pid)
+        open_channel('libraryLink', 'mixed-media-library', 'Reference image 9.png')
+        mixed_media = view('mixed-media-rows', lambda nodes: [
+            label(node) for node in nodes if re.search(r'Reference (image|audio|document) ', label(node))
+        ])
+        if len({next(part for part in ('image', 'audio', 'document') if f'Reference {part} ' in name)
+                for name in mixed_media}) != 3:
+            raise RuntimeError('The actual library viewport did not display all three signed media formats')
+        (evidence / 'mixed-media-library.png').write_bytes(adb('exec-out', 'screencap', '-p'))
         for trial in range(expected['expectedWarmups'] + expected['expectedWarmIterations']):
             name = 'warm-up' if trial == 0 else f'warm-{trial}'
             open_channel('hotLink', f'{name}-initial', hot)
-            reset_frames()
-            for _ in range(4):
+            observed, unavailable, unretained = [], [], 0
+            for swipe in range(1, 5):
+                reset_frames()
                 shell('input', 'swipe', 410, 620, 410, 1310, 350)
-            time.sleep(.15)
-            observed, unavailable = frames(name)
+                time.sleep(.15)
+                sample, invalid, unobserved = frames(f'{name}-swipe-{swipe}')
+                observed.extend(sample)
+                unavailable.extend(invalid)
+                unretained += unobserved
             if trial:
                 frame_measurements.extend(observed)
-                missing_warm += len(unavailable)
+                missing_warm += len(unavailable) + unretained
             body = re.compile(r'General • Benchmark Space 001 • record \d+\.')
             anchor = view(f'{name}-anchor', lambda nodes: next((n for n in nodes if body.search(label(n))), None))
             identity, before = label(anchor), bounds(anchor)
+            preceding_read_count = request('status')['readRequests']
             arrival = request('arrival')
-            time.sleep(5.5)
+            deadline = time.monotonic() + 35
+            while request('status')['readRequests'] <= preceding_read_count:
+                if time.monotonic() >= deadline:
+                    raise RuntimeError(f'No live refresh after the independent arrival in {name}')
+                time.sleep(.2)
             after = view(f'{name}-arrival', lambda nodes: next((n for n in nodes if label(n) == identity), None))
             (evidence / f'{name}-anchor.json').write_text(json.dumps({
                 'text': identity, 'before': before, 'after': bounds(after), 'accepted': arrival,
@@ -177,25 +195,52 @@ duration_ms: 1500000
             if trial:
                 feedback.append((end - start) / 1e6)
             (evidence / f'{name}-frames.json').write_text(json.dumps({
-                'frames': observed, 'unavailable': unavailable,
+                'frames': observed, 'unavailable': unavailable, 'unretained': unretained,
                 'reactionToCommittedFrameMs': (end - start) / 1e6,
             }, indent=2))
-            open_channel('unrelatedLink', f'{name}-switch', 'Benchmark Space 002')
+            open_channel('unrelatedLink', f'{name}-switch', arrival['text'])
 
+        def lifecycle_samples():
+            return [(int(at), visible == 'true', ticker == 'true', int(account), int(jobs))
+                    for at, visible, ticker, account, jobs in
+                    re.findall(r'foreground (\d+) (true|false) (true|false) (\d+) (\d+)', trace_text())]
+
+        initial_samples = lifecycle_samples()
+        mark = initial_samples[-1][0] if initial_samples else 0
+        shell('input', 'keyevent', 'KEYCODE_HOME')
+
+        def wait_stopped(after):
+            deadline = time.monotonic() + 12
+            while True:
+                stopped = [row for row in lifecycle_samples() if row[0] > after and not row[1] and not row[2]]
+                if stopped:
+                    return stopped[-1]
+                if time.monotonic() >= deadline:
+                    raise RuntimeError('Android backgrounding did not stop the actual Spaces polling job')
+                time.sleep(.15)
+
+        baseline = wait_stopped(mark)
+        profile = [baseline]
+        (evidence / 'heap-before-lifecycle.txt').write_text(shell('dumpsys', 'meminfo', '-d', package))
         for cycle in range(expected['idleReturnSwitchCycles']):
             key = 'hotLink' if cycle % 2 == 0 else 'unrelatedLink'
             channel = 'Benchmark Space 001' if cycle % 2 == 0 else 'Benchmark Space 002'
             open_channel(key, f'lifecycle-{cycle + 1:03d}', channel)
             shell('input', 'keyevent', 'KEYCODE_HOME')
+            profile.append(wait_stopped(profile[-1][0]))
             if cycle % 10 == 0 or cycle == expected['idleReturnSwitchCycles'] - 1:
                 time.sleep(2)
                 (evidence / f'heap-after-{cycle + 1:03d}.txt').write_text(shell('dumpsys', 'meminfo', '-d', package))
-        observed_lifecycle = trace_text()
-        (evidence / 'lifecycle.txt').write_text(observed_lifecycle)
-        stopped = re.findall(r'foreground \d+ false false', observed_lifecycle)
-        running = re.findall(r'foreground \d+ true true', observed_lifecycle)
-        if len(stopped) < expected['idleReturnSwitchCycles'] or len(running) < expected['idleReturnSwitchCycles']:
-            raise RuntimeError('Lifecycle traces did not witness the required foreground and stopped polling transitions')
+        (evidence / 'lifecycle.txt').write_text(trace_text())
+        samples = [row for row in lifecycle_samples() if row[0] > baseline[0]]
+        running = [row for row in samples if row[1] and row[2]]
+        lifecycle_settled = profile[-1][3] == baseline[3] and profile[-1][4] <= baseline[4]
+        (evidence / 'lifecycle-idle-jobs.json').write_text(json.dumps({
+            'fields': ['elapsedRealtimeNanos', 'visible', 'polling', 'accountInstance', 'activeChildren'],
+            'profiles': profile, 'sameAccountAtIdleBound': lifecycle_settled,
+        }, indent=2))
+        if len(running) < expected['idleReturnSwitchCycles'] or not lifecycle_settled:
+            raise RuntimeError('Lifecycle did not return to the same account and initial idle job bound')
 
         durations = [frame['durationMs'] for frame in frame_measurements]
         missed = sum(frame['missedBudget'] for frame in frame_measurements) / len(frame_measurements)
@@ -205,16 +250,17 @@ duration_ms: 1500000
             'warmFrameDurationMs': percentile(durations, thresholds['reportPercentiles']),
             'actualBudgetMs': percentile([frame['budgetMs'] for frame in frame_measurements], thresholds['reportPercentiles']),
             'coldFrameDurationMs': percentile([frame['durationMs'] for frame in cold], thresholds['reportPercentiles']),
-            'coldMissingFrames': len(cold_missing),
+            'coldMissingFrames': len(cold_missing) + cold_unretained,
             'warmMissingFrames': missing_warm,
             'warmBudgetMissShare': missed,
             'anchorFailures': anchor_failures,
             'observedForegroundTransitions': len(running),
-            'observedStoppedPollingTransitions': len(stopped),
+            'observedStoppedPollingTransitions': len(profile) - 1,
+            'sameAccountAtIdleJobBound': lifecycle_settled,
             'thresholdsPassed': taps[95] <= thresholds['tapFeedbackP95MsMaximum']
                 and max(durations + [frame['durationMs'] for frame in cold]) < thresholds['noFrameAtOrAboveMs']
                 and missed <= thresholds['scriptedWarmScrollBudgetMissShareMaximum']
-                and not anchor_failures and not cold_missing and not missing_warm,
+                and not anchor_failures and not cold_missing and not cold_unretained and not missing_warm,
         }
         (evidence / 'timing.json').write_text(json.dumps(result, indent=2) + '\n')
         if not result['thresholdsPassed']:

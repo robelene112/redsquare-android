@@ -453,7 +453,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             while (isActive) { wake.trySend(Unit); delay(5_000) }
         }
         if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE)
-            SpacesScaleMeasurement.visible(wasVisible.get(), ticker?.isActive == true)
+            SpacesScaleMeasurement.visible(wasVisible.get(), ticker?.isActive == true, System.identityHashCode(this),
+                scope.coroutineContext[Job]?.children?.count { it.isActive } ?: 0)
     }
     fun refresh() { wake.trySend(Unit) }
     fun select(space: String?, channel: String? = null) { selectRoute(space, channel) }

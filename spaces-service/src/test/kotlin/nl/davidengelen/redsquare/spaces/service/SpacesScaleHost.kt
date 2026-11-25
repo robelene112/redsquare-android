@@ -67,11 +67,16 @@ object SpacesScaleHost {
                             request.requestBody.use { require(it.readNBytes(9).size <= 8) }
                             val result = when (request.requestURI.path) {
                                 "/arrival" -> runBlocking {
-                                    val event = actor.send(unrelatedSpace, "Independent benchmark arrival ${++arrivals}", unrelatedChannel)
+                                    val body = "Independent benchmark arrival ${++arrivals}"
+                                    val event = actor.send(unrelatedSpace, body, unrelatedChannel)
                                     actor.flush(unrelatedSpace)
                                     val row = requireNotNull(actor.message(unrelatedSpace, event, unrelatedChannel))
                                     check(row.position != null && !row.pending && !row.rejected)
-                                    JsonObject().apply { addProperty("accepted", event); addProperty("channel", unrelatedChannel) }
+                                    JsonObject().apply {
+                                        addProperty("accepted", event)
+                                        addProperty("channel", unrelatedChannel)
+                                        addProperty("text", body)
+                                    }
                                 }
                                 "/status" -> JsonObject().apply {
                                     addProperty("acceptedReactions", reactions.get())
@@ -99,6 +104,7 @@ object SpacesScaleHost {
                             addProperty("controlPort", control.address.port)
                             addProperty("hotLink", channelLink(expectedHotSpace, expectedHotChannel))
                             addProperty("unrelatedLink", channelLink(unrelatedSpace, unrelatedChannel))
+                            addProperty("libraryLink", channelLink(expectedHotSpace, manifest.get("hotLibrary").asString))
                         }
                         Files.writeString(ready, config.toString())
                         val deadline = System.nanoTime() + Duration.ofHours(2).toNanos()

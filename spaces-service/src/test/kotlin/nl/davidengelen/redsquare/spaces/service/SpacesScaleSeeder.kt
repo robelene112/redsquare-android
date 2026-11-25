@@ -70,6 +70,7 @@ object SpacesScaleSeeder {
         val provider = wallet(5)
         val communities = mutableListOf<SpaceClient.Community>()
         var hotChannel = ""
+        var hotLibrary = ""
         val remotePath = root.resolve("service")
         var acceptedMessages = 0
         SpacesServiceStore(remotePath, authority, clock).use { service ->
@@ -108,6 +109,7 @@ object SpacesScaleSeeder {
                             ordinal++
                         }
                         val library = actualChannels.single { it.profile.kind == SpaceChannelKind.FILE }.id
+                        if (number == 1) hotLibrary = library
                         publishLibrary(writer, space, library, filesPerSpace, owner, authority, provider, storage)
                     }
                 }
@@ -141,6 +143,7 @@ object SpacesScaleSeeder {
             addProperty("acceptedFiles", expectedFiles)
             addProperty("hotSpace", communities.first().id)
             addProperty("hotChannel", hotChannel)
+            addProperty("hotLibrary", hotLibrary)
             addProperty("hotChannelMessages", hotCount)
             addProperty("unrelatedSpace", communities[1].id)
             addProperty("unrelatedChannel", communities[1].channel)

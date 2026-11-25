@@ -37,7 +37,7 @@ internal object SpacesScaleMeasurement {
         }
     }
 
-    fun visible(visible: Boolean, ticker: Boolean) {
-        Log.i(tag, "foreground ${SystemClock.elapsedRealtimeNanos()} $visible $ticker")
+    fun visible(visible: Boolean, ticker: Boolean, accountInstance: Int, activeJobs: Int) {
+        Log.i(tag, "foreground ${SystemClock.elapsedRealtimeNanos()} $visible $ticker $accountInstance $activeJobs")
     }
 }
