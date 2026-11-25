@@ -284,8 +284,18 @@ file_write_period_ms: 5000
             if before != bounds(after) or any(abs(top - baseline[1]) > 1 or abs(bottom - baseline[2]) > 1 for _, top, bottom in commits):
                 anchor_failures.append(name)
             other_sample(f'{name}-arrival', allow_empty=True)
-            reaction_button = view(f'{name}-reaction', lambda nodes: next(
-                (n for n in nodes if label(n) == 'Add reaction' and 400 < bounds(n)[1] < 1550), None))
+            def visible_reaction(nodes):
+                for node in nodes:
+                    if label(node) != 'Add reaction' or node.get('clickable') != 'true':
+                        continue
+                    left, top, right, bottom = bounds(node)
+                    # The frozen device is 2px/dp. A clipped row can expose an
+                    # accessibility rectangle underneath the Earlier messages control.
+                    if top >= before[3] and bottom <= 1550 and right - left >= 96 and bottom - top >= 96:
+                        return node
+                return None
+
+            reaction_button = view(f'{name}-reaction', visible_reaction)
             reset_frames()
             tap(reaction_button)
             choice = view(f'{name}-emoji', lambda nodes: next((n for n in nodes if label(n) == '👍'), None))
