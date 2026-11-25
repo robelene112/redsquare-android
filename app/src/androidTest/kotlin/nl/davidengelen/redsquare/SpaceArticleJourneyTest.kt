@@ -13,7 +13,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.uiautomator.UiDevice
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
@@ -167,7 +166,9 @@ class SpaceArticleJourneyTest {
                     heldRead = request("article-held-read")
                     heldRead.get("held").asBoolean
                 }
-                assertTrue(UiDevice.getInstance(instrumentation).pressBack())
+                val close = ui.onNode(hasContentDescription("Close sheet") and hasClickAction())
+                ui.waitUntil(5_000) { close.isDisplayed() }
+                close.performTouchInput { click() }
                 ui.waitUntil(5_000) { !ui.onNodeWithText("Open Space article").isDisplayed() }
                 switchChannel("Reading room")
                 assertTrue(request("article-release-read").get("released").asBoolean)
