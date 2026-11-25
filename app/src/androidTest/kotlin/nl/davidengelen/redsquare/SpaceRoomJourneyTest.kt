@@ -56,7 +56,10 @@ class SpaceRoomJourneyTest {
         val channel = fixture.get("channel").asString
         val space = fixture.get("space").asString
         launch(fixture).use { activity ->
-            withFailureCapture({ capture("room-failure") }) {
+            withFailureCapture({
+                File(evidence, "room-ui-failure.txt").writeText("phase=${TalkRuntime.call.value?.phase} diagnostic=${TalkRuntime.diagnostic.value}")
+                capture("room-failure")
+            }) {
                 waitText("0 people here", 25_000)
                 assertTrue(observed().participants.isEmpty())
                 assertTrue(TalkRuntime.call.value?.phase?.live != true)
@@ -86,8 +89,7 @@ class SpaceRoomJourneyTest {
                 click("Return to Open lounge")
                 waitText("You’re in the room", 15_000)
                 assertEquals(call.token, TalkRuntime.call.value?.token)
-                click("Spaces")
-                click("Red Square")
+                switchToRedSquare()
                 waitText("Return to Open lounge", 12_000)
                 capture("room-compact-bar")
                 assertEquals(call.token, observed().participants.single().session)
@@ -200,8 +202,7 @@ class SpaceRoomJourneyTest {
                     capture("room-three-peer-media")
                     val browserBefore = guests.map { requireNotNull(it.browser.audioBytes[local.key]) }
                     roomClick("Browse while in the room")
-                    click("Spaces")
-                    click("Red Square")
+                    switchToRedSquare()
                     waitText("Return to Open lounge", 12_000)
                     assertEquals(initial.token, TalkRuntime.call.value?.token)
                     waitMedia(guests, 10_000) { guests.withIndex().all { (index, guest) ->
@@ -269,6 +270,14 @@ class SpaceRoomJourneyTest {
         val node = ui.onNode(hasText(label) and hasClickAction() and isEnabled())
         ui.waitUntil(12_000) { node.isDisplayed() }
         node.performTouchInput { click() }
+    }
+
+    private fun switchToRedSquare() {
+        val selector = ui.onNodeWithContentDescription("Switch app: Spaces")
+        ui.waitUntil(10_000) { selector.isDisplayed() }
+        selector.performClick()
+        ui.onNodeWithText("Red Square").performScrollTo().performClick()
+        ui.waitUntil(12_000) { ui.onNodeWithContentDescription("Switch app: Red Square").isDisplayed() }
     }
 
     private fun showRoomItem(matcher: SemanticsMatcher) = ui.waitUntil(10_000) {

@@ -1242,7 +1242,7 @@ finally:
     if owned_emulator:
         cleanup('failure-buffers', capture_crash)
         cleanup('fixture-account-diagnostics', lambda: (evidence / 'spaces-account.log').write_bytes(
-            adb('logcat', '-d', '-v', 'threadtime', '-s', 'SpacesAccount138:D', 'SpaceFileProofViewer:E', '*:S', timeout=10).stdout))
+            adb('logcat', '-d', '-v', 'threadtime', '-s', 'SpacesAccount138:D', 'SpaceFileProofViewer:E', 'SaitoTalk:D', '*:S', timeout=10).stdout))
     if primary is not None and control_port and host.poll() is None:
         def observe_host_failure():
             (evidence / 'failure-host-status.json').write_text(json.dumps(command(control_port, 'status'), indent=2))
