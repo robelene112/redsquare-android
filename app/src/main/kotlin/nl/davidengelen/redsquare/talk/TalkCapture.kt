@@ -14,11 +14,12 @@ import java.util.UUID
  */
 internal class TalkCapture(private val context: Context, microphone: Boolean, camera: Boolean,
     private val authorize: () -> Unit, private val microphoneAllowed: () -> Boolean = { true },
-    private val cameraAllowed: () -> Boolean = { true }, val token: String) : Closeable {
+    private val cameraAllowed: () -> Boolean = { true }, val token: String, private val eagerAudio: Boolean = true) : Closeable {
     private val factory = RtcPlatform.factory(context)
     private val lock = Any()
-    private val audioSource: AudioSource
-    val audio: AudioTrack
+    private var audioSource: AudioSource? = null
+    var audio: AudioTrack? = null
+        private set
     var video: VideoTrack? = null
         private set
     private var videoSource: VideoSource? = null
@@ -38,24 +39,31 @@ internal class TalkCapture(private val context: Context, microphone: Boolean, ca
         private set
 
     init {
-        check(permitted(context, camera))
-        audioSource = factory.createAudioSource(MediaConstraints().apply {
-            optional.add(MediaConstraints.KeyValuePair("googEchoCancellation", "true"))
-            optional.add(MediaConstraints.KeyValuePair("googNoiseSuppression", "true"))
-        })
-        audio = factory.createAudioTrack("talk-audio-${UUID.randomUUID()}", audioSource)
+        check(permitted(context, camera, microphone || eagerAudio))
         try {
-            authorized { audio.setEnabled(microphone && microphoneAllowed()) }
+            prepareAudio(microphone)
+            authorized { audio?.setEnabled(microphone && microphoneAllowed()) }
             if (camera) camera(showing)
         }
         catch (failure: Exception) { close(); throw failure }
     }
 
+    private fun prepareAudio(microphone: Boolean) {
+        if (audio == null && (microphone || eagerAudio)) {
+            val source = factory.createAudioSource(MediaConstraints().apply {
+                optional.add(MediaConstraints.KeyValuePair("googEchoCancellation", "true"))
+                optional.add(MediaConstraints.KeyValuePair("googNoiseSuppression", "true"))
+            })
+            audioSource = source
+            audio = factory.createAudioTrack("talk-audio-${UUID.randomUUID()}", source).apply { setEnabled(false) }
+        }
+    }
+
     /** Only quick track enable/disable calls are made by a lifecycle/identity interruption. */
     fun silence() = synchronized(lock) {
-        if (!closed) { audio.setEnabled(false); video?.setEnabled(false) }
+        if (!closed) { audio?.setEnabled(false); video?.setEnabled(false) }
     }
-    fun silenceAudio() = synchronized(lock) { if (!closed) audio.setEnabled(false) }
+    fun silenceAudio() = synchronized(lock) { if (!closed) audio?.setEnabled(false) }
     fun silenceVideo() = synchronized(lock) { if (!closed) video?.setEnabled(false) }
 
     fun visible(value: Boolean) {
@@ -64,8 +72,9 @@ internal class TalkCapture(private val context: Context, microphone: Boolean, ca
         camera(value && cameraWanted)
     }
     fun controls(microphone: Boolean, camera: Boolean) {
-        check(permitted(context, camera))
-        authorized { audio.setEnabled(microphone && microphoneAllowed()); cameraWanted = camera }
+        check(permitted(context, camera, microphone || eagerAudio))
+        prepareAudio(microphone)
+        authorized { audio?.setEnabled(microphone && microphoneAllowed()); cameraWanted = camera }
         camera(camera && showing && cameraAllowed())
     }
     private fun camera(requested: Boolean) {
@@ -77,7 +86,7 @@ internal class TalkCapture(private val context: Context, microphone: Boolean, ca
             return
         }
         if (capturer == null) {
-            check(permitted(context, camera = true))
+            check(permitted(context, camera = true, microphone = eagerAudio))
             val enumerator: CameraEnumerator = if (Camera2Enumerator.isSupported(context)) Camera2Enumerator(context) else Camera1Enumerator(false)
             canSwitch = enumerator.deviceNames.size > 1
             val device = enumerator.deviceNames.firstOrNull { enumerator.isFrontFacing(it) }
@@ -113,20 +122,20 @@ internal class TalkCapture(private val context: Context, microphone: Boolean, ca
     override fun close() {
         synchronized(lock) {
             if (closed) return
-            audio.setEnabled(false); video?.setEnabled(false); closed = true
+            audio?.setEnabled(false); video?.setEnabled(false); closed = true
         }
         if (recording) runCatching { capturer?.stopCapture() }
         recording = false
         runCatching { capturer?.dispose() }; capturer = null
         synchronized(lock) {
-            video?.dispose(); video = null; audio.dispose(); audioSource.dispose()
+            video?.dispose(); video = null; audio?.dispose(); audio = null; audioSource?.dispose(); audioSource = null
             videoSource?.dispose(); videoSource = null
         }
         helper?.dispose(); helper = null
     }
     companion object {
-        fun permitted(context: Context, camera: Boolean): Boolean =
-            context.checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED &&
+        fun permitted(context: Context, camera: Boolean, microphone: Boolean = true): Boolean =
+            (!microphone || context.checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) &&
                 (!camera || context.checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
     }
 }

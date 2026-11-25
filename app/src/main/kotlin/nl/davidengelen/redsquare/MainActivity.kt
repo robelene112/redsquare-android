@@ -493,7 +493,7 @@ class MainActivity : ComponentActivity() {
                 moduleSwitchFailed = !moved
             }
             val pendingTalkDelivery by talkRoutes.pending.collectAsState()
-            LaunchedEffect(pendingTalkDelivery, address, talkBackend, savingBackend, walletImport.busy, walletExport.busy) {
+            LaunchedEffect(pendingTalkDelivery, address, talkBackend, spacesAccount, savingBackend, walletImport.busy, walletExport.busy) {
                 val delivery = pendingTalkDelivery ?: return@LaunchedEffect
                 if (savingBackend || walletImport.busy || walletExport.busy) return@LaunchedEffect
                 val uri = talkRoutes.uri(delivery) ?: run { talkRoutes.consume(delivery); return@LaunchedEffect }
@@ -507,11 +507,18 @@ class MainActivity : ComponentActivity() {
                     uri.pathSegments.singleOrNull() == active?.token && uri.getQueryParameter("owner") == owner &&
                     uri.getQueryParameter("backend") == node.id && active != null && active.owner == owner && active.savedBackend == node && active.phase.live
                 if (link == null && !exactCall) { talkReturnExpired = true; talkRoutes.consume(delivery); return@LaunchedEffect }
+                val room = active?.spaceRoom?.takeIf { exactCall }
+                if (room != null && spacesAccount == null) { spacesActivated = true; return@LaunchedEffect }
                 val moved = postNavigation.navigate {
                     if (!talkRoutes.current(delivery) || wallet?.publicKey != owner || backend != node || savingBackend || walletImport.busy || walletExport.busy) false
                     else {
                         talkDraft = link?.let { TalkDraft(it.url(), owner = owner, savedBackend = node) }
-                        stackLinkEntry = null; module = AppModule.TALK; talkReturnExpired = false
+                        stackLinkEntry = null
+                        if (room != null) {
+                            spacesAccount?.select(room.space, room.channel)
+                            module = AppModule.SPACES
+                        } else module = AppModule.TALK
+                        talkReturnExpired = false
                         talkRoutes.consume(delivery)
                         true
                     }
@@ -702,9 +709,16 @@ class MainActivity : ComponentActivity() {
                             nl.davidengelen.redsquare.ui.StatusTone.ERROR)
                     }
                     val appHeader: @Composable () -> Unit = { renderAppHeader(false) }
-                    val renderChrome: @Composable (Boolean, Boolean) -> Unit = { isHome, hideForKeyboard ->
+                    val renderChrome: @Composable (Boolean, Boolean, nl.davidengelen.redsquare.spaces.SpacesAccount.Target?) -> Unit = { isHome, hideForKeyboard, roomInView ->
                         renderAppHeader(hideForKeyboard)
-                        if (module != AppModule.TALK) TalkActiveBar(address, backend) { selectModule(AppModule.TALK) { talkDraft = null } }
+                        val active by TalkRuntime.call.collectAsState()
+                        val room = active?.spaceRoom
+                        val showingActiveRoom = roomInView != null && room != null && room.space == roomInView.space && room.channel == roomInView.channel
+                        if ((module != AppModule.TALK || room != null) && !(room != null && hideForKeyboard))
+                            TalkActiveBar(address, backend, roomInView = showingActiveRoom) {
+                                if (room == null) selectModule(AppModule.TALK) { talkDraft = null }
+                                else selectModule(AppModule.SPACES) { spacesAccount?.select(room.space, room.channel) }
+                            }
                         InlineStatus(if (talkReturnExpired) stringResource(R.string.talk_return_expired) else null, StatusTone.INFO)
                         nl.davidengelen.redsquare.ui.BetaUpdateNotice(updateAvailable && !keyboardVisible && !hideForKeyboard) {
                             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PreviewUpdates.REVIEW_PAGE)))
@@ -723,7 +737,7 @@ class MainActivity : ComponentActivity() {
                             Button(onClick = { failed = false; retry++ }) { Text(stringResource(R.string.retry)) }
                         }
                     }
-                    val chrome: @Composable (Boolean) -> Unit = { isHome -> renderChrome(isHome, false) }
+                    val chrome: @Composable (Boolean) -> Unit = { isHome -> renderChrome(isHome, false, null) }
                     Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(vertical = 4.dp)) {
                         if (usernameOpen && wallet != null && backend != null) {
                             chrome(false)
@@ -814,7 +828,7 @@ class MainActivity : ComponentActivity() {
                                                                 RegistryAuthority.directoryPeer(intent, endpoint).takeIf { nameDirectoryEnabled == true }) {
                                                                 spacesScreenStates.SaveableStateProvider("${currentWallet.publicKey}:${selected.id}") {
                                                                     nl.davidengelen.redsquare.spaces.SpacesScreen(account, Modifier.fillMaxSize(),
-                                                                        chrome = { keyboardInLayout -> renderChrome(false, keyboardInLayout) },
+                                                                        chrome = { keyboardInLayout, room -> renderChrome(false, keyboardInLayout, room) },
                                                                         onProfile = { openSpaceMember(it, false) }, onMessage = { openSpaceMember(it, true) },
                                                                         onOpenNode = ::openSpaceNode, initialInvitation = pendingSpaceInvitation,
                                                                         onInvitationConsumed = { pendingSpaceInvitation = null })

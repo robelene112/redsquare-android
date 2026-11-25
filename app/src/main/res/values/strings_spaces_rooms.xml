@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spaces_room_join">Join room</string>
+    <string name="spaces_room_joining">Joining room…</string>
+    <string name="spaces_room_joined">You’re in the room</string>
+    <string name="spaces_room_leave">Leave room</string>
+    <string name="spaces_room_return">Return to %1$s</string>
+    <string name="spaces_room_browse">Browse while in the room</string>
+    <string name="spaces_room_loading">Checking who’s here…</string>
+    <string name="spaces_room_full">This room is full.</string>
+    <string name="spaces_room_archived">This room is archived.</string>
+    <string name="spaces_room_members_only">Join this Space to enter the room.</string>
+    <string name="spaces_room_ended">Your session ended. You can join again.</string>
+    <string name="spaces_room_other_device">You already have a session in this room.</string>
+    <string name="spaces_room_another_call">You already have a call in progress.</string>
+    <string name="spaces_room_offline">Connect to your node to join.</string>
+    <string name="spaces_room_unavailable">Couldn’t connect to the room.</string>
+    <string name="spaces_room_capture_off">Your microphone and camera start off.</string>
+    <string name="spaces_room_speaking_paused">Your microphone is paused by a moderator.</string>
+    <string name="spaces_room_notification_permission">Allow call notifications to join the room.</string>
+    <string name="spaces_room_permission_denied">Permission wasn’t granted.</string>
+    <string name="spaces_room_moderate">Room actions for %1$s</string>
+    <string name="spaces_room_moderation_unavailable">Couldn’t update this participant.</string>
+    <string name="spaces_room_remove">Remove from room</string>
+    <string name="spaces_room_remove_title">Remove %1$s from the room?</string>
+    <string name="spaces_room_remove_description">They’ll leave this call.</string>
+    <plurals name="spaces_room_participants">
+        <item quantity="one">%1$d person here</item>
+        <item quantity="other">%1$d people here</item>
+    </plurals>
+</resources>

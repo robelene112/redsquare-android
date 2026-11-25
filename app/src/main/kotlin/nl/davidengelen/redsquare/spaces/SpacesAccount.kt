@@ -670,6 +670,30 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         }
     }
 
+    suspend fun observeVoiceRoom(target: Target): SpaceVoiceRoom = withContext(Dispatchers.IO) {
+        val current = requireNotNull(client)
+        requireRoomTarget(target)
+        current.voiceRoom(target.space, target.channel).also { requireRoomTarget(target) }
+    }
+
+    suspend fun roomAuthority(target: Target): SpaceRoomAuthority = withContext(Dispatchers.IO) {
+        requireRoomTarget(target)
+        SpaceRoomAuthority(appContext, wallet, backend, endpoint,
+            SpaceVoiceSignalKey.Address(requireNotNull(cachedService), target.space, target.channel))
+    }
+
+    suspend fun moderateVoiceRoom(target: Target, session: String, remove: Boolean): SpaceVoiceRoom = withContext(Dispatchers.IO) {
+        val current = requireNotNull(client)
+        requireRoomTarget(target)
+        current.moderateVoiceRoom(target.space, target.channel, session, remove).also { requireRoomTarget(target) }
+    }
+
+    private fun requireRoomTarget(target: Target) {
+        val current = mutable.value
+        require(!closed.get() && current.target() == target && target.thread == null &&
+            current.channels.any { it.id == target.channel && it.profile.kind == SpaceChannelKind.VOICE })
+    }
+
     suspend fun openSpaceFile(target: Target, record: String, keep: Boolean): OpenedSpaceFile? =
         fileAction(target) { current, disk, checkRoute ->
             fun descriptor(): SpaceFileDescriptor {

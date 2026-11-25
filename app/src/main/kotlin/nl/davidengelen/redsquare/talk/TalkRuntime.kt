@@ -14,6 +14,8 @@ import nl.davidengelen.redsquare.moderation.AndroidPersonalControls
 import nl.davidengelen.redsquare.saito.*
 import org.webrtc.MediaStreamTrack
 import org.webrtc.VideoTrack
+import nl.davidengelen.redsquare.spaces.SpaceRoomCallRuntime
+import nl.davidengelen.redsquare.spaces.SpaceRoomDestination
 import java.io.Closeable
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
@@ -27,14 +29,16 @@ internal enum class CallPhase {
 }
 internal data class TalkChoices(val token: String, val microphone: Boolean, val camera: Boolean)
 internal data class CallParticipant(val key: String, val connected: Boolean = false,
-    val microphone: Boolean = true, val camera: Boolean = true, val video: VideoTrack? = null, val audio: org.webrtc.AudioTrack? = null)
+    val microphone: Boolean = true, val camera: Boolean = true, val video: VideoTrack? = null, val audio: org.webrtc.AudioTrack? = null,
+    val roomSession: String? = null, val roomMaySpeak: Boolean = true)
 internal data class TalkCall(val token: String, val owner: String, val savedBackend: SaitoBackend,
     val link: TalkLink, val direct: String?, val incoming: Boolean, val phase: CallPhase,
     val participants: List<CallParticipant> = emptyList(), val microphone: Boolean = true,
     val camera: Boolean = false, val cameraPaused: Boolean = false, val localVideo: VideoTrack? = null,
     val since: Long = 0, val cameraUnavailable: Boolean = false, val frontCamera: Boolean = true,
     val invitationAt: Long = System.currentTimeMillis(), val canSwitchCamera: Boolean = false,
-    val cameraSwitchUnavailable: Boolean = false)
+    val cameraSwitchUnavailable: Boolean = false, val spaceRoom: SpaceRoomDestination? = null,
+    val microphoneAllowed: Boolean = true)
 
 /** Process ownership is independent of a screen. Only a user-started call holds background ownership. */
 internal object TalkRuntime {
@@ -56,13 +60,14 @@ internal object TalkRuntime {
             existing?.takeIf { it.reserveOwner() }
                 ?: TalkAccount(context.applicationContext, wallet, backend, endpoint, fallbackForTest).also { check(it.reserveOwner()) }
         })
-    fun end(token: String) { accounts.values.forEach { it.end(token) } }
-    fun visibility(value: Boolean) { visible = value; accounts.values.forEach { it.visibility() } }
-    fun interrupt(token: String? = null) { accounts.values.forEach { it.interrupt(token) } }
+    fun end(token: String) { SpaceRoomCallRuntime.end(token); accounts.values.forEach { it.end(token) } }
+    fun visibility(value: Boolean) { visible = value; SpaceRoomCallRuntime.visibility(value); accounts.values.forEach { it.visibility() } }
+    fun interrupt(token: String? = null) { SpaceRoomCallRuntime.interrupt(token); accounts.values.forEach { it.interrupt(token) } }
     fun controls(token: String, microphone: Boolean? = null, camera: Boolean? = null) {
+        SpaceRoomCallRuntime.controls(token, microphone, camera)
         accounts.values.forEach { it.controls(token, microphone, camera) }
     }
-    fun switchCamera(token: String) { accounts.values.forEach { it.switchCamera(token) } }
+    fun switchCamera(token: String) { SpaceRoomCallRuntime.switchCamera(token); accounts.values.forEach { it.switchCamera(token) } }
     internal fun remove(account: TalkAccount) { accounts.entries.removeIf { it.value === account } }
 }
 

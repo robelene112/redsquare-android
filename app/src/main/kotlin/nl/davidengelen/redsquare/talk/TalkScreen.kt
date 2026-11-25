@@ -146,10 +146,10 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
         })
 }
 
-@Composable internal fun TalkActiveBar(owner: String?, backend: SaitoBackend?, onOpen: () -> Unit) {
+@Composable internal fun TalkActiveBar(owner: String?, backend: SaitoBackend?, roomInView: Boolean = false, onOpen: () -> Unit) {
     val live by TalkRuntime.call.collectAsState()
     val call = live?.takeIf { it.owner == owner && it.savedBackend == backend }
-    AnimatedVisibility(visible = call?.phase?.started == true,
+    AnimatedVisibility(visible = call?.phase?.started == true && !(roomInView && call.spaceRoom != null),
         enter = expandVertically(tween(AppSpacing.transitionMillis), expandFrom = Alignment.Top),
         exit = shrinkVertically(tween(AppSpacing.transitionMillis), shrinkTowards = Alignment.Top)) {
     if (call != null) Surface(color = MaterialTheme.colorScheme.surfaceContainerHigh, shape = RoundedCornerShape(14.dp),
@@ -158,7 +158,17 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
             TextButton(onClick = onOpen, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) {
                 Icon(painterResource(R.drawable.ic_phone), null, Modifier.size(20.dp))
                 Spacer(Modifier.width(8.dp))
-                Text(stringResource(R.string.talk_return), maxLines = 2, overflow = TextOverflow.Ellipsis)
+                Text(call.spaceRoom?.let { stringResource(R.string.spaces_room_return, it.name) } ?: stringResource(R.string.talk_return),
+                    maxLines = 2, overflow = TextOverflow.Ellipsis)
+            }
+            if (call.spaceRoom != null) {
+                val permission = nl.davidengelen.redsquare.spaces.rememberRoomPermission()
+                FrameIconButton(if (call.microphone) R.drawable.ic_microphone else R.drawable.ic_microphone_off,
+                    stringResource(if (call.microphone) R.string.talk_mute else R.string.talk_unmute),
+                    enabled = call.microphoneAllowed && call.phase == CallPhase.ACTIVE) {
+                    if (call.microphone) TalkRuntime.controls(call.token, microphone = false)
+                    else permission.request(Manifest.permission.RECORD_AUDIO) { TalkRuntime.controls(call.token, microphone = true) }
+                }
             }
             FrameIconButton(R.drawable.ic_call_end, stringResource(R.string.talk_end), onClick = { TalkRuntime.end(call.token) })
         }
@@ -172,7 +182,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val live by TalkRuntime.call.collectAsState()
-    val call = live?.takeIf { it.owner == wallet.publicKey && it.savedBackend == backend }
+    val call = live?.takeIf { it.owner == wallet.publicKey && it.savedBackend == backend && it.spaceRoom == null }
     val requested by TalkRuntime.choices.collectAsState()
     val desired = requested?.takeIf { it.token == call?.token }
     val online by account.online.collectAsState()
@@ -478,7 +488,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
     }
 }
 
-@Composable private fun TalkVideo(track: VideoTrack, mirror: Boolean) {
+@Composable internal fun TalkVideo(track: VideoTrack, mirror: Boolean) {
     val context = LocalContext.current
     val renderer = remember(track) { SurfaceViewRenderer(context).apply {
         init(RtcPlatform.graphics(context), null); setMirror(mirror)

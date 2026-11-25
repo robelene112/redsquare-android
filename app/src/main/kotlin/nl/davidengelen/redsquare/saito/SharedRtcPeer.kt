@@ -40,7 +40,9 @@ internal data class RtcCallbacks(
     val stageData: ((String) -> Boolean)? = null,
     val otherData: (String) -> Boolean = { false },
     val track: (MediaStreamTrack) -> Unit = {},
-    val media: Boolean = false
+    val media: Boolean = false,
+    val scopedSignals: Boolean = false,
+    val remoteAudioAllowed: () -> Boolean = { true },
 )
 
 /** UI/media code owns its tracks; this lease owns only their attachment to this peer. */
@@ -56,6 +58,7 @@ internal class RtcLease internal constructor(internal val entry: SharedRtcPeer,
         check(callbacks.media && active.get())
         entry.media(this, audio, video, stream)
     }
+    fun refreshPlayback() { entry.refreshPlayback(this) }
     override fun close() {
         if (active.compareAndSet(true, false)) {
             network?.close(); network = null
@@ -150,7 +153,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 post {
                     remoteTracks.addIfAbsent(track)
                     if (authenticated) leases.filter { it.active.get() && it.callbacks.media }.forEach { lease ->
-                        withLease(lease) { track.setEnabled(true); lease.callbacks.track(track) }
+                        withLease(lease) { publishTrack(lease, track) }
                     }
                 }
             }
@@ -210,7 +213,8 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         val signal = Stun.read(text, remote, wallet.publicKey)
         val request = signal?.body?.get("request")?.asString
         if (signal != null && request in setOf("peer-joined", "peer-description", "peer-candidate")) {
-            if (remember(signal.id)) receiveSignal(requireNotNull(request), signal.body)
+            if (leases.any { !it.callbacks.scopedSignals && withLease(it) { true } == true } && remember(signal.id))
+                receiveSignal(requireNotNull(request), signal.body)
             return
         }
         // Registered feature receivers own their own admission. An expired call
@@ -232,7 +236,8 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         }
         val lease = RtcLease(this, endpoint, callbacks)
         leases.add(lease)
-        val registrations = (listOf(endpoint) + additionalEndpoints).distinct().map { route ->
+        val networkRoutes = if (callbacks.scopedSignals) emptyList() else (listOf(endpoint) + additionalEndpoints).distinct()
+        val registrations = networkRoutes.map { route ->
             RealtimeIncoming.register(wallet.publicKey, route) { bytes ->
                 val message = Stun.network(bytes, remote, wallet.publicKey) ?: return@register null
                 if (message.body.get("request").asString !in setOf("peer-joined", "peer-description", "peer-candidate")) return@register null
@@ -248,7 +253,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
             if (lease.active.get() && connected) {
                 withLease(lease) {
                     callbacks.opened()
-                    if (callbacks.media) remoteTracks.forEach { it.setEnabled(true); callbacks.track(it) }
+                    if (callbacks.media) remoteTracks.forEach { publishTrack(lease, it) }
                 }
             }
         }
@@ -282,7 +287,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         val addedTracks = desired.filter { it !in senders }
         removedTracks.forEach { track -> senders.remove(track)?.let { connection.removeTrack(it) } }
         addedTracks.forEach { track -> senders[track] = connection.addTrack(track, listOf(stream)) }
-        if (authenticated) withLease(lease) { remoteTracks.forEach { it.setEnabled(true); lease.callbacks.track(it) } }
+        if (authenticated) withLease(lease) { remoteTracks.forEach { publishTrack(lease, it) } }
         if (removedTracks.isNotEmpty() || addedTracks.isNotEmpty()) {
             needsNegotiation = true; negotiateIfNeeded()
         }
@@ -293,6 +298,17 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         check(!closing.get() && authenticated && channel.state() == DataChannel.State.OPEN)
         require(bytes.size <= SaitoTransaction.MAX_MESSAGE_BYTES * 3)
         check(channel.bufferedAmount() <= 512 * 1024 && channel.send(DataChannel.Buffer(ByteBuffer.wrap(bytes), false)))
+    }
+
+    fun refreshPlayback(lease: RtcLease) { post {
+        if (authenticated) withLease(lease) {
+            remoteTracks.filterIsInstance<AudioTrack>().forEach { it.setEnabled(lease.callbacks.remoteAudioAllowed()) }
+        }
+    } }
+
+    private fun publishTrack(lease: RtcLease, track: MediaStreamTrack) {
+        track.setEnabled(track !is AudioTrack || lease.callbacks.remoteAudioAllowed())
+        lease.callbacks.track(track)
     }
 
     fun release(lease: RtcLease) {

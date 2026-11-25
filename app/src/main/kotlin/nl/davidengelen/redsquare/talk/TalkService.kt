@@ -28,6 +28,7 @@ class TalkService : Service() {
     override fun onCreate() {
         super.onCreate()
         channel(this)
+        running = this
     }
     private var ownership: Job? = null
     private var audioOwned = false
@@ -50,8 +51,10 @@ class TalkService : Service() {
         val ownedToken = call.token
         try {
             val alert = notification(call)
-            if (Build.VERSION.SDK_INT >= 30) startForeground(ID, alert, ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE or
-                if (call.camera) ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA else 0)
+            if (Build.VERSION.SDK_INT >= 30) startForeground(ID, alert,
+                if (call.spaceRoom != null) ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
+                else ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE or
+                    if (call.camera) ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA else 0)
             else startForeground(ID, alert)
             val manager = getSystemService(AudioManager::class.java)
             oldMode = manager.mode; oldSpeaker = manager.isSpeakerphoneOn; audioOwned = true
@@ -87,7 +90,7 @@ class TalkService : Service() {
                         normal = true; stopForeground(STOP_FOREGROUND_REMOVE); stopSelf(startId)
                     } else try {
                         val notification = notification(updated)
-                        if (Build.VERSION.SDK_INT >= 30 && updated.camera && TalkRuntime.visible &&
+                        if (updated.spaceRoom == null && Build.VERSION.SDK_INT >= 30 && updated.camera && TalkRuntime.visible &&
                             getForegroundServiceType() and ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA == 0) {
                             startForeground(ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE or
                                 ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA)
@@ -104,6 +107,15 @@ class TalkService : Service() {
             TalkRuntime.interrupt(ownedToken); stopForeground(STOP_FOREGROUND_REMOVE); stopSelf(startId)
         }
         return START_NOT_STICKY
+    }
+
+    private fun allowRoomCapture(call: TalkCall, microphone: Boolean, camera: Boolean) {
+        check(call.spaceRoom != null && token == call.token && call.phase.started && TalkRuntime.visible)
+        if (Build.VERSION.SDK_INT < 30) return
+        val previous = foregroundServiceType
+        val requested = previous or (if (microphone) ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE else 0) or
+            (if (camera) ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA else 0)
+        if (requested != previous) startForeground(ID, notification(call), requested)
     }
     private fun releaseOwnership() {
         ownership?.cancel(); ownership = null
@@ -129,13 +141,14 @@ class TalkService : Service() {
         val hangup = PendingIntent.getService(this, call.token.hashCode(), end,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         return Notification.Builder(this, CHANNEL).setSmallIcon(R.drawable.ic_phone)
-            .setGroup(CHANNEL).setContentTitle(getString(R.string.talk_title))
+            .setGroup(CHANNEL).setContentTitle(call.spaceRoom?.name ?: getString(R.string.talk_title))
             .setContentText(getString(if (call.phase == CallPhase.ACTIVE) R.string.talk_in_call else R.string.talk_connecting))
             .setCategory(Notification.CATEGORY_CALL).setOngoing(true).setOnlyAlertOnce(true).setContentIntent(open)
             .addAction(Notification.Action.Builder(null, getString(R.string.talk_end), hangup).build()).build()
     }
     override fun onDestroy() {
         if (!normal) token?.let { TalkRuntime.interrupt(it) }
+        if (running === this) running = null
         releaseOwnership(); token = null; scope.cancel()
         super.onDestroy()
     }
@@ -144,6 +157,11 @@ class TalkService : Service() {
         const val ID = 9104
         private const val END = "nl.davidengelen.redsquare.talk.END"
         private val ready = java.util.concurrent.ConcurrentHashMap<String, CompletableDeferred<Unit>>()
+        private var running: TalkService? = null
+        suspend fun allowRoomCapture(token: String, microphone: Boolean, camera: Boolean) = withContext(Dispatchers.Main.immediate) {
+            val call = requireNotNull(TalkRuntime.call.value?.takeIf { it.token == token })
+            requireNotNull(running).allowRoomCapture(call, microphone, camera)
+        }
         fun available(context: android.content.Context): Boolean {
             channel(context)
             val manager = context.getSystemService(NotificationManager::class.java)

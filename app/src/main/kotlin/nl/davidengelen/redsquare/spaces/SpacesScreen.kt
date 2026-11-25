@@ -83,7 +83,7 @@ import java.util.concurrent.atomic.AtomicReference
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
-    chrome: @Composable (Boolean) -> Unit, onProfile: (String) -> Unit, onMessage: (String) -> Unit,
+    chrome: @Composable (Boolean, SpacesAccount.Target?) -> Unit, onProfile: (String) -> Unit, onMessage: (String) -> Unit,
     onOpenNode: (String, String) -> Unit, initialInvitation: String? = null, onInvitationConsumed: () -> Unit = {}) {
     val sharedState by account.state.collectAsState()
     val communities = remember(sharedState.communities) { sharedState.communities.filter { it.protectedChat == null } }
@@ -281,7 +281,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             val keyboardInLayout = imeVisible || (shortWindow && screenHeight - height >= 96.dp)
             val compactReading = compactConfiguration || shortWindow
             val compactTyping = state.selected != null && keyboardInLayout && height < 290.dp
-            chrome(keyboardInLayout)
+            val visibleRoom = if (!channelAccessOpen && !membersOpen && !state.loadingChannel && selected != null &&
+                channel?.profile?.kind == SpaceChannelKind.VOICE) SpacesAccount.Target(selected.id, channel.id) else null
+            chrome(keyboardInLayout, visibleRoom)
             if (channelAccessOpen && selected != null) Box(Modifier.weight(1f)) {
                 SpaceChannelAccessPage(account, state) { channelAccessRoute = null; informationOpen = true }
             }
@@ -366,6 +368,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         SpaceArticleChannel(account, state, channel, Modifier.weight(1f), articleEditorGuard::set)
                     } else if (channel?.profile?.kind == SpaceChannelKind.FILE) {
                         SpaceFileChannel(account, state, channel, Modifier.weight(1f))
+                    } else if (channel?.profile?.kind == SpaceChannelKind.VOICE) {
+                        SpaceRoomChannel(account, state, channel, onBrowse = { account.select(null) }, modifier = Modifier.weight(1f))
                     } else if (state.messages.any { it.isArticle }) {
                         Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
                             Text(stringResource(R.string.spaces_article_unavailable), color = MaterialTheme.colorScheme.onSurfaceVariant)
