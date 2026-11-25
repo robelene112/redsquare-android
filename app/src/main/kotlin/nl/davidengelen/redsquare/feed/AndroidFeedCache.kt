@@ -4,6 +4,7 @@ import android.content.Context
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.FeedPost
 import nl.davidengelen.redsquare.saito.RedSquareFeed
+import java.util.concurrent.atomic.AtomicReference
 
 /** Public post cache. It contains no wallet or private Chat state. */
 class AndroidFeedCache(context: Context, backend: SaitoBackend, private val threadId: String? = null,
@@ -17,18 +18,29 @@ class AndroidFeedCache(context: Context, backend: SaitoBackend, private val thre
         else -> "feed.${backend.id}.v1"
     }, MAX_POSTS)
     private val revisions = AndroidPostRevisions(context, backend)
+    private val verifiedEnvelopes = AtomicReference<Map<String, FeedPost>>(emptyMap())
     data class SavedPosts(val posts: List<FeedPost>, val unreadable: Boolean)
 
     fun load(): SavedPosts = decode(storage.load())
 
     private fun decode(saved: PublicStringStore.Loaded): SavedPosts {
         var unreadable = saved.unreadable
-        val posts = saved.values.mapNotNull { envelope ->
-            try { RedSquareFeed.decode(envelope).takeIf { post ->
-                if (threadId == null) post.parentId.isEmpty() else post.threadId == threadId
-            } } catch (_: Exception) { unreadable = true; null }
+        val previous = verifiedEnvelopes.get()
+        val verified = buildMap {
+            for (envelope in saved.values) {
+                try {
+                    // Reuse only byte-identical originals already verified by
+                    // this cache. Author edits and removals are applied afresh.
+                    val post = previous[envelope] ?: RedSquareFeed.decode(envelope)
+                    val inScope = if (threadId == null) post.parentId.isEmpty() else post.threadId == threadId
+                    if (inScope) put(envelope, post)
+                } catch (_: Exception) {
+                    unreadable = true
+                }
+            }
         }
-        val applied = revisions.apply(RedSquareFeed.newest(posts))
+        verifiedEnvelopes.set(verified)
+        val applied = revisions.apply(RedSquareFeed.newest(verified.values.toList()))
         return SavedPosts(applied.posts.sortedByDescending { it.createdAt }, unreadable || applied.unreadable)
     }
 
