@@ -18,7 +18,11 @@ data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>,
     val contributionStartedAt: Long = 0, val allowedMembers: Set<String>? = null,
     val accessStartedAt: Map<String, Long> = emptyMap(), val kind: SpaceChannelKind? = null,
     val initialMetadata: String? = metadata, val retiredDevices: Set<String> = emptySet(), val categoryId: String? = null, val metadataChannelId: String? = null) {
-    val rootContentKind: String get() = if ((kind ?: profile?.kind) == SpaceChannelKind.ARTICLE) "article" else "message"
+    val rootContentKind: String get() = when (kind ?: profile?.kind) {
+        SpaceChannelKind.ARTICLE -> "article"
+        SpaceChannelKind.FILE -> "file"
+        else -> "message"
+    }
 }
 data class SpaceOwnershipOffer(val id: String, val member: String, val proposedAt: Long,
     val acceptedId: String? = null, val acceptedAt: Long? = null)
@@ -44,7 +48,7 @@ data class SpaceSnapshot(val owner: String? = null, val members: Map<String, Spa
     val membershipReadThrough: Map<String, Long> = emptyMap(), val ownershipOffer: SpaceOwnershipOffer? = null,
     val categories: Map<String, SpaceCategoryRecord> = emptyMap(), val entryChannelId: String? = generalChannelId, val dissolved: Boolean = false, val protectedChat: ProtectedChat? = null,
     val writeRestrictions: Map<Pair<String, String?>, SpaceWriteRestriction> = emptyMap(),
-    val fileStorageOffers: Set<String> = emptySet())
+    val fileStorageOffers: Map<String, String> = emptyMap(), val fileStorage: SpaceFileLease? = null)
 
 /** Authenticated control history. Content pages have their own channel cursors. */
 class SpaceJournal(private val spaceId: String, private val serviceKey: String) {
@@ -414,8 +418,23 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 val offer = approval.offer
                 require(offer.costNolan.signum() == 0) { "This provider offer requires unsupported payment" }
                 require(offer.id !in current.fileStorageOffers) { "This storage offer was already confirmed" }
+                val previous = current.fileStorage?.offer
+                require(previous == null || previous.provider == offer.provider && previous.origin == offer.origin &&
+                    offer.expiresAt > previous.expiresAt) { "Renewal must retain the provider and extend the storage term" }
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
-                    fileStorageOffers = Collections.unmodifiableSet(current.fileStorageOffers + offer.id))
+                    fileStorageOffers = Collections.unmodifiableMap(current.fileStorageOffers + (offer.id to approval.operation)))
+            }
+            "activate-file-storage" -> {
+                require(current.protectedChat == null && current.owner == event.author && event.body.text("control_id") == current.controlId)
+                val approval = SpaceStorageApproval.read(event.body.text("approval"), serviceKey)
+                val lease = SpaceFileLease.read(approval, event.body.text("lease"))
+                val offer = lease.offer
+                val previous = current.fileStorage?.offer
+                require(offer.owner == event.author && offer.space == spaceId && current.fileStorageOffers[offer.id] == approval.operation)
+                require(signedReceipt.createdAt < offer.expiresAt)
+                require(previous == null || previous.provider == offer.provider && previous.origin == offer.origin &&
+                    offer.expiresAt > previous.expiresAt)
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1), fileStorage = lease)
             }
             "propose-owner" -> {
                 require(current.protectedChat?.directPeer == null)
@@ -878,9 +897,16 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             body.text("kind") == "content" && body.text("content_kind") == "history-keys"
         require(!channel.archived || keyDelivery) { "This channel is archived" }
         val contentKind = body.get("content_kind")?.asString
-        if (contentKind in setOf("article", "message")) require(contentKind == channel.rootContentKind)
+        if (contentKind in setOf("article", "message", "file")) require(contentKind == channel.rootContentKind ||
+            contentKind == "message" && channel.rootContentKind == "file") // Existing file channels accepted message records.
         if (channel.rootContentKind == "article")
             require(keyDelivery || contentKind in setOf("article", "message-edit", "message-delete"))
+        if (contentKind == "file") {
+            val storage = requireNotNull(current.fileStorage)
+            require(acceptedAt < storage.offer.expiresAt)
+            val stage = SpaceFileStage.read(body.text("storage_stage"), serviceKey, storage.offer.provider)
+            require(stage.space == spaceId && stage.lease == storage.id && stage.stagedAt <= acceptedAt)
+        } else require(!body.has("storage_stage"))
         if (body.has("thread_root_id")) require(contentKind in setOf("message-edit", "message-delete", "message-reaction", "message-pin") &&
             body.text("thread_root_id").matches(Regex("[0-9a-f]{128}")))
         val threadContribution = contentKind in setOf("thread-reply", "message-reaction", "message-pin") || contentKind in setOf("message-edit", "message-delete", "message-reaction", "message-pin") && body.has("thread_root_id")
@@ -911,12 +937,16 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             require(body.text("target_message_id").matches(Regex("[0-9a-f]{128}")) && body.number("target_position") >= 0)
         }
         if (channel.visibility == SpaceVisibility.PUBLIC) {
-            require(body.text("kind") == "public-content" && body.text("content_kind") in setOf("message", "article", "message-edit", "message-delete", "thread-reply", "message-reaction", "message-pin"))
+            require(body.text("kind") == "public-content" && body.text("content_kind") in setOf("message", "article", "file", "message-edit", "message-delete", "thread-reply", "message-reaction", "message-pin"))
             val text = body.text("text")
             require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
             if (contentKind == "message-reaction") SpaceReactionSelection.decode(text)
             if (contentKind == "message-pin") require(text in setOf("pinned", "unpinned"))
             if (contentKind == "article") SpaceArticleContent.decode(text)
+            if (contentKind == "file") {
+                val stage = SpaceFileStage.read(body.text("storage_stage"), serviceKey, requireNotNull(current.fileStorage).offer.provider)
+                stage.requireObject(SpaceFileDescriptor.read(text).sealed)
+            }
             if (contentKind == "message-edit" && channel.rootContentKind == "article")
                 require(SpaceArticleContent.decode(text) is SpaceArticleContent.Original)
             return
@@ -936,6 +966,18 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             }
             else -> throw IllegalArgumentException("Unsupported Spaces content kind")
         }
+    }
+
+    fun verifyFileUpload(actor: String, channel: String, control: String, at: Long) {
+        val record = requireNotNull(current.channels[channel])
+        require(record.rootContentKind == "file" && !record.archived && canContributeChannel(actor, channel))
+        require(writeRestrictedUntil(actor, channel, at) == null)
+        val reference = requireNotNull(controlPositions[control])
+        require(reference >= maxOf(record.epochStartedAt, record.contributionStartedAt,
+            current.membershipEndedAt[actor] ?: 0L, current.writeRestrictions[actor to null]?.changedAt ?: 0L,
+            current.writeRestrictions[actor to channel]?.changedAt ?: 0L))
+        if (record.visibility == SpaceVisibility.PRIVATE)
+            require(record.retiredDevices.isEmpty() && record.devices.keys.any { credentialWallet(it) == actor })
     }
 
     private fun devices(body: JsonObject): Map<String, String> {

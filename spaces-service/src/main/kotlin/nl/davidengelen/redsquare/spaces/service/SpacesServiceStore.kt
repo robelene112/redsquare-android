@@ -26,6 +26,7 @@ import java.util.Locale
 /** Server-owned signed ordering. No private community keys are accepted. */
 class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, private val clock: Clock) : AutoCloseable {
     private val database: Connection
+    private val fileRoutes: SpaceFileRoutes
     private data class Challenge(val caller: String, val scope: JsonObject, val expiresAt: Long)
     private val challenges = mutableMapOf<String, Challenge>()
 
@@ -43,6 +44,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         }
         database.createStatement().use { it.executeQuery("SELECT kind,recipient_credential,target_message_id FROM records LIMIT 0").close() }
         database.createStatement().use { it.executeQuery("SELECT space_id,listed,listing_receipt FROM public_spaces LIMIT 0").close() }
+        fileRoutes.ready()
         return JsonObject().apply {
             addProperty("capability", "spaces-v1"); addProperty("service_key", wallet.publicKey)
             addProperty("schema", version); addProperty("state", "ready"); addProperty("file_hosting", false)
@@ -60,7 +62,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val requestId = body.text("request_id").also { require(it.matches(ID)) }
         val scope = body.get("scope").also { require(it != null && it.isJsonObject) }.asJsonObject.deepCopy()
         val space = scope.text("space_id").also { require(it.matches(ID)) }
-        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation", "directory", "heads", "messages", "pins")) }
+        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation", "directory", "heads", "messages", "pins", "files")) }
         require(scope.keySet() == setOf("space_id", "stream", "cursor") + when (stream) {
             "messages" -> setOf("channel_id", "direction", "limit") + (if (scope.has("thread_id")) setOf("thread_id") else emptySet()) +
                 (if (scope.has("pin_history")) setOf("pin_history") else emptySet()) +
@@ -68,13 +70,19 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 (if (scope.has("reaction_cursors")) setOf("reaction_cursors") else emptySet()) +
                 (if (scope.has("article_id")) setOf("article_id") else emptySet())
             "pins" -> setOf("channel_id") + (if (scope.has("through")) setOf("through") else emptySet())
+            "files" -> setOf("channel_id", "access") + when (scope.text("access")) {
+                "upload" -> setOf("control", "object", "sha256", "bytes")
+                "download", "confirm" -> setOf("file")
+                else -> throw IllegalArgumentException("Unsupported file access")
+            }
             "content" -> setOf("channel_id"); "keys" -> setOf("channel_id", "recipient_credential")
             "invitation" -> setOf("invite_id"); "directory" -> setOf("query"); "heads" -> setOf("positions"); else -> emptySet()
         })
         if (stream == "directory") require(space == "0".repeat(64) && scope.text("query").let { it.codePointCount(0, it.length) <= 128 })
-        val channel = if (stream in setOf("content", "keys", "messages", "pins")) scope.text("channel_id").also { require(it.matches(ID)) } else null
+        val channel = if (stream in setOf("content", "keys", "messages", "pins", "files")) scope.text("channel_id").also { require(it.matches(ID)) } else null
         val recipient = if (stream == "keys") scope.text("recipient_credential") else null
         val cursor = scope.number("cursor")
+        if (stream == "files") require(cursor == 0L)
         if (stream == "messages") require(scope.text("direction") in setOf("before", "after") && scope.number("limit") in 1..50)
         val article = if (stream == "messages" && scope.has("article_id")) scope.text("article_id").also {
             require(it.matches(Regex("[0-9a-f]{128}")) && cursor == Long.MAX_VALUE && scope.text("direction") == "before" &&
@@ -171,6 +179,16 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     }
                     if (stream == "pins") {
                         pinPage(reply, space, requireNotNull(channel), request.author, cursor, scope.get("through")?.let { scope.number("through") })
+                        return@atomic
+                    }
+                    if (stream == "files") {
+                        try {
+                            fileRoutes.permit(reply, scope, request.author, journal, now)
+                            reply.add("items", JsonArray())
+                            reply.addProperty("next_cursor", 0)
+                        } catch (_: IllegalArgumentException) {
+                            denied("unavailable")
+                        }
                         return@atomic
                     }
                     if (stream == "messages") {
@@ -436,6 +454,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         Files.createDirectories(directory)
         database = DriverManager.getConnection("jdbc:sqlite:${directory.resolve("spaces.sqlite").toAbsolutePath()}",
             Properties().apply { setProperty("transaction_mode", "IMMEDIATE") })
+        fileRoutes = SpaceFileRoutes(database, wallet)
         try {
             // Reject incompatible/foreign state before journal_mode can change
             // an existing database header. Migration must preserve that state.
@@ -572,6 +591,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         sql.execute("PRAGMA user_version=5")
                     }
                 }
+                fileRoutes.createSchema()
             }
         } catch (failure: Throwable) {
             try { database.close() } catch (cleanup: Throwable) { failure.addSuppressed(cleanup) }
@@ -645,6 +665,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         content -> {
                             journal.verifyContent(envelope, acceptedAt)
                             verifyMessageMutation(event, journal)
+                            if (body.get("content_kind")?.asString == "file") fileRoutes.acceptPublication(event, journal, acceptedAt)
                         }
                         else -> journal.receive(receipt)
                     }
@@ -690,7 +711,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val target = body.text("target_message_id")
         val position = body.number("target_position")
         require(target.matches(Regex("[0-9a-f]{128}")) && position >= 0)
-        val original = database.prepareStatement("SELECT original FROM records WHERE space_id=? AND channel_id=? AND position=? AND event_id=? AND kind IN ('message','thread-reply','article')").use { sql ->
+        val original = database.prepareStatement("SELECT original FROM records WHERE space_id=? AND channel_id=? AND position=? AND event_id=? AND kind IN ('message','thread-reply','article','file')").use { sql ->
             sql.setString(1, body.text("space_id")); sql.setString(2, body.text("channel_id"))
             sql.setLong(3, position); sql.setString(4, target)
             sql.executeQuery().use { rows -> if (rows.next()) rows.getString(1) else null }
@@ -698,6 +719,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val accepted = SaitoEnvelope.decode(requireNotNull(original))
         val acceptedKind = accepted.body.text("content_kind")
         if (acceptedKind == "article") require(kind == "message-edit" || kind == "message-delete")
+        if (acceptedKind == "file") require(kind == "message-delete")
         if (acceptedKind == "article" && kind == "message-edit" && body.text("kind") == "public-content") {
             require(SpaceArticleContent.decode(accepted.body.text("text")) is SpaceArticleContent.Original)
         }

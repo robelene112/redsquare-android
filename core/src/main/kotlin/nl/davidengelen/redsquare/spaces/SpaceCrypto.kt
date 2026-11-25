@@ -145,14 +145,21 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
         publishRecord(wallet, "message-delete", operationId, controlId, "deleted", timestamp,
             targetMessageId = targetMessageId, targetPosition = targetPosition, threadRootId = threadRootId)
 
+    fun publishFile(wallet: SaitoWallet, operationId: String, controlId: String, text: String,
+        timestamp: Long, stage: SpaceFileStage): SaitoTransaction =
+        publishRecord(wallet, "file", operationId, controlId, text, timestamp, storageStage = stage.envelope)
+
     private fun publishRecord(wallet: SaitoWallet, kind: String, operationId: String, controlId: String,
         text: String, timestamp: Long, recipient: String? = null, targetChannelId: String? = null, targetCategoryId: String? = null,
-        targetMessageId: String? = null, targetPosition: Long? = null, threadRootId: String? = null): SaitoTransaction {
+        targetMessageId: String? = null, targetPosition: Long? = null, threadRootId: String? = null,
+        storageStage: String? = null): SaitoTransaction {
         require(text.isNotEmpty() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024 && kind.matches(Regex("[a-z][a-z-]{0,31}")))
         require((kind == "category-profile") == (targetCategoryId != null))
+        require((kind == "file") == (storageStage != null))
         require((kind in setOf("message-edit", "message-delete", "thread-reply", "message-reaction", "message-pin")) == (targetMessageId != null && targetPosition != null))
         val header = header(wallet, "content", operationId, controlId).apply {
             addProperty("content_kind", kind)
+            storageStage?.let { addProperty("storage_stage", it) }
             recipient?.let { addProperty("recipient_credential", it) }
             targetCategoryId?.let { require(it.matches(ID)); addProperty("target_category_id", it) }
             targetChannelId?.let {
@@ -335,6 +342,7 @@ class SpaceCrypto private constructor(private val native: JsonObject, val scope:
                 body.text("control_id"), body.number("epoch").toString(), body.text("content_kind"))
             // Ordinary archive ciphertext keeps its original AAD unchanged.
             val target = when (body.text("content_kind")) {
+                "file" -> listOf(sha(body.text("storage_stage").toByteArray(Charsets.UTF_8)))
                 "history-keys" -> listOf(body.text("recipient_credential"))
                 "category-profile" -> listOf(body.text("target_category_id").also { require(it.matches(ID)) })
                 "channel-profile-edit" -> if (body.has("target_channel_id"))

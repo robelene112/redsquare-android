@@ -597,6 +597,78 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         get("$space/file-storage/approvals/$operation")?.toString(Charsets.UTF_8)
     }
 
+    fun fileStorage(space: String): SpaceFileLease? = store.transaction {
+        owned(); state(space); journal(space).snapshot.fileStorage
+    }
+
+    fun activateFileStorage(space: String, approvalEnvelope: String, leaseEnvelope: String): String = store.transaction {
+        owned()
+        val state = state(space)
+        val snapshot = journal(space).snapshot
+        require(supportsFileStorage && state.get("joined").asBoolean && !snapshot.dissolved && snapshot.owner == wallet.publicKey)
+        val approval = SpaceStorageApproval.read(approvalEnvelope, service)
+        val lease = SpaceFileLease.read(approval, leaseEnvelope)
+        val offer = lease.offer
+        require(offer.space == space && offer.owner == wallet.publicKey && snapshot.fileStorageOffers[offer.id] == approval.operation)
+        val saved = "$space/file-storage/activations/${lease.id}"
+        get(saved)?.let { return@transaction it.toString(Charsets.UTF_8) }
+        require(clock.millis() < offer.expiresAt && !state.has("required_control"))
+        val original = event(space, "activate-file-storage") {
+            addProperty("control_id", requireNotNull(snapshot.controlId))
+            addProperty("approval", approvalEnvelope)
+            addProperty("lease", leaseEnvelope)
+        }
+        queue(space, state, original)
+        put(saved, original.id.toByteArray(Charsets.UTF_8))
+        original.id
+    }
+
+    suspend fun fileUploadPermission(space: String, channel: String, file: SpaceFileCipher.Sealed): SpaceFileGrant {
+        val control = store.transaction {
+            owned(); state(space)
+            val journal = journal(space)
+            val control = requireNotNull(journal.snapshot.controlId)
+            journal.verifyFileUpload(wallet.publicKey, channel, control, clock.millis())
+            control
+        }
+        val lease = requireNotNull(fileStorage(space))
+        val result = readPage(fileScope(space, channel, "upload").apply {
+            addProperty("control", control)
+            addProperty("object", file.id)
+            addProperty("sha256", file.sha256)
+            addProperty("bytes", file.bytes)
+        })
+        val grant = providerGrant(result, lease, SpaceFileGrant.Action.PUT)
+        require(grant.objectId == file.id && grant.sha256 == file.sha256 && grant.bytes == file.bytes)
+        return grant
+    }
+
+    data class FileDownload(val origin: String, val grant: SpaceFileGrant, val accessTerm: String)
+
+    suspend fun fileDownloadPermission(space: String, channel: String, fileId: String): FileDownload {
+        val lease = requireNotNull(fileStorage(space))
+        val result = readPage(fileScope(space, channel, "download").apply { addProperty("file", fileId) })
+        return FileDownload(lease.offer.origin, providerGrant(result, lease, SpaceFileGrant.Action.GET), result.text("access_term"))
+    }
+
+    suspend fun confirmFileDownload(space: String, channel: String, fileId: String, expected: FileDownload) {
+        val result = readPage(fileScope(space, channel, "confirm").apply { addProperty("file", fileId) })
+        require(result.text("access_term") == expected.accessTerm) { "File access changed during download" }
+    }
+
+    private fun fileScope(space: String, channel: String, access: String) = JsonObject().apply {
+        addProperty("space_id", space); addProperty("channel_id", channel)
+        addProperty("stream", "files"); addProperty("cursor", 0); addProperty("access", access)
+    }
+
+    private fun providerGrant(result: JsonObject, lease: SpaceFileLease, action: SpaceFileGrant.Action): SpaceFileGrant {
+        require(supportsFileStorage)
+        return SpaceFileGrant.read(result.text("permission"), service, lease.offer.provider).also {
+            require(it.action == action && it.space == lease.offer.space && it.lease == lease.id)
+            it.requireCurrent(clock.millis())
+        }
+    }
+
     /** Absence of an outbox entry is never treated as an accepted change. */
     fun archiveChange(space: String, channel: String): ArchiveChange? = store.transaction {
         owned()
@@ -883,7 +955,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     data class Message(val id: String, val author: String, val createdAt: Long, val text: String?,
         val pending: Boolean, val attempted: Boolean, val missingKeys: Boolean, val rejected: Boolean = false, val position: Long? = null,
         val edited: Boolean = false, val deleted: Boolean = false, val replyCount: Long = 0, val change: MessageChange? = null, val cancelled: Boolean = false, val reactions: List<Reaction> = emptyList(), val reactionsComplete: Boolean = true, val reactionsHaveMore: Boolean = false, val ownReactionsAvailable: Boolean = true, val pinned: Boolean = false, val pinPending: Boolean = false, val pinAvailable: Boolean = true, val pinChange: PinChange? = null,
-        val isArticle: Boolean = false, val editedAt: Long? = null) {
+        val isArticle: Boolean = false, val editedAt: Long? = null, val isFile: Boolean = false) {
         override fun toString() = "Private community message"
     }
     data class Invitation(val link: String, val confirmed: Boolean, val expiresAt: Long = 0, val expired: Boolean = false, val revoked: Boolean = false, val revocationPending: Boolean = false, val revocationFailed: Boolean = false) {
@@ -2047,8 +2119,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         return publishRoot(space, reference.encode(), channel, "article")
     }
 
+    fun publishFile(space: String, channel: String, file: SpaceFileDescriptor, stage: SpaceFileStage): String {
+        stage.requireObject(file.sealed)
+        return publishRoot(space, file.encode(), channel, "file", fileStage = stage)
+    }
+
     private fun publishRoot(space: String, text: String, channel: String?, contentKind: String,
-        reviewedDraft: SpaceArticleDraft? = null): String = store.transaction {
+        reviewedDraft: SpaceArticleDraft? = null, fileStage: SpaceFileStage? = null): String = store.transaction {
         owned()
         val state = state(space)
         require(state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control")) { "Community admission or key change is not confirmed" }
@@ -2056,7 +2133,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val data = channelState(space, channel ?: selectedChannel(state), state)
         val scope = SpaceCrypto.Scope.fromJson(data.getAsJsonObject("scope"))
         val record = requireNotNull(journal.snapshot.channels[scope.channelId])
-        require(record.rootContentKind == contentKind) { "This content belongs to a different channel type" }
+        require(record.rootContentKind == contentKind || contentKind == "message" && record.rootContentKind == "file") {
+            "This content belongs to a different channel type"
+        }
         if (contentKind == "article") require(supportsSpaceArticles || data.get("articles_supported")?.asBoolean == true) {
             "The authenticated node does not support Space articles"
         }
@@ -2067,20 +2146,30 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         if (record.adminPostsOnly || record.profile?.kind == SpaceChannelKind.ANNOUNCEMENT)
             require(journal.snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         val control = requireNotNull(journal.snapshot.controlId)
+        val fileIntent = fileStage?.let {
+            val lease = requireNotNull(journal.snapshot.fileStorage)
+            require(supportsFileStorage && it.space == space && it.lease == lease.id && clock.millis() < lease.offer.expiresAt)
+            val verified = SpaceFileStage.read(it.envelope, service, lease.offer.provider)
+            "$space/channels/${scope.channelId}/file-intents/${verified.objectId}"
+        }
+        fileIntent?.let { get(it)?.let { value -> return@transaction value.toString(Charsets.UTF_8) } }
         val original = if (record.visibility == SpaceVisibility.PUBLIC) {
             require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
             event(space, "public-content") {
                 addProperty("channel_id", scope.channelId); addProperty("control_id", control)
                 addProperty("epoch", record.epoch); addProperty("key_generation", record.generation)
                 addProperty("content_kind", contentKind); addProperty("text", text)
+                fileStage?.let { addProperty("storage_stage", it.envelope) }
             }
         } else {
             require(data.get("joined")?.asBoolean == true && record.retiredDevices.isEmpty()) { "Current channel keys are not available on this device" }
             val keys = SpaceCrypto.restore(decode(data.text("crypto")))
             require(keys.scope == scope && keys.epoch == record.epoch && keys.bindings == record.devices)
-            keys.publish(wallet, contentKind, id(), control, text, clock.millis())
+            if (fileStage == null) keys.publish(wallet, contentKind, id(), control, text, clock.millis())
+            else keys.publishFile(wallet, id(), control, text, clock.millis(), fileStage)
         }
         queue(space, state, original)
+        fileIntent?.let { put(it, original.id.toByteArray(Charsets.UTF_8)) }
         if (contentKind == "article") {
             if (reviewedDraft != null) consumeArticleDraft(space, scope.channelId, null, reviewedDraft)
         } else {
@@ -3152,7 +3241,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             if (original.body.text("kind") !in setOf("content", "public-content")) return null
             val contentKind = original.body.text("content_kind")
             if (contentKind !in (if (thread == null) ROOT_CONTENT_KINDS else setOf("thread-reply"))) return null
-            if (contentKind == "article" && !mayReadArticles) return null
+            if (contentKind in setOf("article", "file") && !mayReadArticles) return null
             if (thread != null && original.body.text("target_message_id") != thread) return null
             var missing = false
             fun read(source: String, signed: SignedSaitoMessage): String? =
@@ -3184,7 +3273,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val base = Message(original.id, original.author, original.createdAt, read(envelope, original),
                 pending, attempted, missing, rejected, position,
                 replyCount = if (thread == null) get(replyCountKey(space, targetChannel, original.id))?.let(::json)?.number("count") ?: 0 else 0, change = change, cancelled = cancelled, reactions = reactions.values, reactionsComplete = reactions.complete, reactionsHaveMore = reactions.more, ownReactionsAvailable = ownReactionAvailable(space, targetChannel, original.id), pinned = pin.pinned, pinPending = pin.pending, pinAvailable = pin.available, pinChange = pinChange,
-                isArticle = contentKind == "article")
+                isArticle = contentKind == "article", isFile = contentKind == "file")
             val removed = if (position == null) null else messageDeletion(space, targetChannel, original.id, original.author)
             if (removed != null && removed.number("target_position") == position && removed.get("thread_root_id")?.asString == thread) return base.copy(text = null, deleted = true, missingKeys = false, reactions = emptyList(), reactionsHaveMore = false, pinned = false, pinPending = false)
             val saved = if (position == null) null else get(messageEditKey(space, targetChannel, original.id, original.author))
@@ -3652,6 +3741,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                         "archive-channel" -> recordArchiveResult(space, state, original, ChangeStatus.ACCEPTED)
                         "set-write-restriction" -> Unit // The verified journal owns the restriction projection.
                         "approve-file-storage" -> put("$space/file-storage/approvals/${original.id}", envelope.toByteArray(Charsets.UTF_8))
+                        "activate-file-storage" -> Unit // The verified journal owns the active lease.
                         "set-role" -> recordRoleResult(state, original, ChangeStatus.ACCEPTED)
                         "leave", "remove-member", "ban-member", "unban-member" -> recordMembershipResult(state, original, ChangeStatus.ACCEPTED)
                         "edit-channel" -> recordChannelEditResult(space, state, original, ChangeStatus.ACCEPTED)
@@ -4258,10 +4348,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(it != null && it.isJsonPrimitive && it.asJsonPrimitive.isNumber && it.asString.matches(Regex("0|[1-9][0-9]{0,18}")))
     }.asLong.also { require(it >= 0) }
     private companion object {
-        val ROOT_CONTENT_KINDS = setOf("message", "article")
+        val ROOT_CONTENT_KINDS = setOf("message", "article", "file")
         val TIMELINE_CONTENT_KINDS = ROOT_CONTENT_KINDS + "thread-reply"
         val CONTROL_KINDS = setOf("create", "invite", "admit", "set-listed", "set-visibility", "dissolve", "join-public", "revoke-invite", "create-channel", "create-category", "edit-category",
-            "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access", "rotate-access", "leave", "remove-member", "ban-member", "unban-member", "propose-owner", "accept-owner", "cancel-owner", "decline-owner", "complete-owner", "set-write-restriction", "approve-file-storage")
+            "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access", "rotate-access", "leave", "remove-member", "ban-member", "unban-member", "propose-owner", "accept-owner", "cancel-owner", "decline-owner", "complete-owner", "set-write-restriction", "approve-file-storage", "activate-file-storage")
         const val DIRECTORY_CACHE_LIMIT = 200
         val ID = Regex("[0-9a-f]{64}")
         val GSON = GsonBuilder().setStrictness(Strictness.STRICT).create()
