@@ -44,8 +44,8 @@ class SpaceModerationJourneyTest {
                 ui.waitUntil(12_000) { actions.isDisplayed() }
                 actions.performClick()
                 click("Report message")
-                val field = ui.onNode(hasSetTextAction() and isEnabled())
-                ui.waitUntil(12_000) { field.isDisplayed() }
+                val field = ui.onNode(hasSetTextAction() and hasText("Reason") and isEnabled())
+                ui.waitUntil(12_000) { field.isDisplayed() || runCatching { field.performScrollTo().isDisplayed() }.getOrDefault(false) }
                 field.performClick().performTextInput("Promotion repeated in a discussion")
                 capture("report-composer")
                 UiDevice.getInstance(instrumentation).pressBack()
