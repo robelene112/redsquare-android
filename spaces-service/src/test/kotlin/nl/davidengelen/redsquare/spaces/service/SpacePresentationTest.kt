@@ -45,6 +45,10 @@ class SpacePresentationTest {
                     assertTrue(requireNotNull(first.window).loaded)
                     assertEquals("Keep writing through management changes", first.draft)
                     assertEquals(anchor, first.anchor)
+                    val unrelated = reader.create(SpaceProfile("Another community", visibility = SpaceVisibility.PUBLIC))
+                    assertEquals(setOf(space, unrelated), reader.communityIds().toSet())
+                    assertEquals(setOf(space, unrelated), reader.presentation(space).profiles.keys)
+                    assertEquals(first.copy(communities = emptyList()), reader.presentation(space, includeCommunities = false))
                     try { reader.presentation("f".repeat(64)); fail("An unknown Space cannot produce a presentation") }
                     catch (_: IllegalArgumentException) { }
                     creator.setAdministrator(space, member.publicKey, true); creator.flush(space); reader.refresh(space)
@@ -53,7 +57,7 @@ class SpacePresentationTest {
                     assertTrue(requireNotNull(promoted.current).canManage)
                     assertEquals(anchor, promoted.anchor)
                     creator.setAdministrator(space, member.publicKey, false); creator.flush(space); reader.refresh(space)
-                    val demoted = reader.presentation(space)
+                    val demoted = reader.presentation(space, includeCommunities = false)
                     assertFalse(requireNotNull(demoted.current).canManage)
                     assertFalse(demoted.channels.any { it.id == hidden })
                     assertEquals(SpaceRole.MEMBER, demoted.members.single { it.publicKey == member.publicKey }.role)

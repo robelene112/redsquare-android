@@ -210,7 +210,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     LaunchedEffect(account, state.ready, state.loading) {
         // A verified public visitor has local context without My Spaces membership.
-        if (state.ready && !state.loading && state.selected == null && savedSelection != null) account.select(savedSelection)
+        if (initialInvitation == null && state.ready && !state.loading && !state.working &&
+            !state.projectingDestination && state.selected == null &&
+            savedSelection != null) account.select(savedSelection)
     }
     LaunchedEffect(state.selected) {
         if (overlaySpace != state.selected) {
@@ -222,7 +224,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     LaunchedEffect(initialInvitation, fromNotification, state.ready, state.loading, state.working, state.savingNavigation) {
         val link = initialInvitation ?: return@LaunchedEffect
-        if (state.loading || !state.ready || state.working || state.savingNavigation) return@LaunchedEffect
+        val uri = android.net.Uri.parse(link)
+        val destination = SpacesLaunchRoutes.isDestination(uri)
+        if ((state.loading && !destination) || !state.ready || state.working || state.savingNavigation) return@LaunchedEffect
         categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false
         channelCreator.open = false; channelAccessRoute = null
         informationOpen = false; inviteOpen = false; membersOpen = false; reportsSpace = null; publicRulesOpen = false
@@ -230,12 +234,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         activityReturn = false; activityLink = null; activityGroup = null
         clearInvitationReview()
         replacingDevice = false
-        val uri = android.net.Uri.parse(link)
-        if (SpacesLaunchRoutes.isArticle(uri) || SpacesLaunchRoutes.isPublic(uri) || SpacesLaunchRoutes.isDestination(uri)) {
+        if (SpacesLaunchRoutes.isArticle(uri) || SpacesLaunchRoutes.isPublic(uri) || destination) {
             joinOpen = false; informationOpen = false; inviteOpen = false; membersOpen = false; channelAccessRoute = null
             publicReference = link
             when {
-                SpacesLaunchRoutes.isDestination(uri) -> {
+                destination -> {
                     if (fromNotification) activityLink = link
                     if (!account.openDestinationLink(link, fromNotification = fromNotification)) return@LaunchedEffect
                 }

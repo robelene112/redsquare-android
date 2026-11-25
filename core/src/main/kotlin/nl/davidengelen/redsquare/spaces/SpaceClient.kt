@@ -380,8 +380,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     /** A bounded, coherent read for native rendering. It authenticates control
      * history once per scope instead of independently rebuilding it for every
      * visible property. No cached authority survives this transaction. */
-    fun presentation(space: String? = null, channel: String? = null, from: Long? = null, thread: Message? = null): Presentation = store.project {
-        val communities = communities()
+    fun presentation(space: String? = null, channel: String? = null, from: Long? = null, thread: Message? = null,
+        includeCommunities: Boolean = true): Presentation = store.project {
+        val communities = if (includeCommunities) communities() else emptyList()
         val profiles = communities.associate { it.id to profile(it.id) }.toMutableMap()
         val current = space?.let { community(it, channel) }
         val selected = current?.channel
@@ -1422,18 +1423,16 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     data class Invitation(val link: String, val confirmed: Boolean, val expiresAt: Long = 0, val expired: Boolean = false, val revoked: Boolean = false, val revocationPending: Boolean = false, val revocationFailed: Boolean = false) {
         override fun toString() = "Private community invitation"
     }
-    fun communities(): List<Community> = store.transaction {
-        if (get("identity") == null) return@transaction emptyList()
+    fun communities(): List<Community> = store.transaction { registeredSpaceIds().map { communityFromStore(it) } }
+
+    /** The refresh scheduler needs IDs. Each selected Space still verifies its own authority. */
+    fun communityIds(): List<String> = store.transaction { registeredSpaceIds() }
+
+    private fun SpaceClientStore.Transaction.registeredSpaceIds(): List<String> {
+        if (get("identity") == null) return emptyList()
         owned()
-        buildList {
-            val prefix = "communities/"
-            var cursor = prefix
-            while (true) {
-                val rows = page(prefix, cursor)
-                rows.forEach { add(communityFromStore(it.value.toString(Charsets.UTF_8))) }
-                if (rows.size < 50) break
-                cursor = rows.last().key + '\u0000'
-            }
+        return buildList {
+            forEachRecoveryRow("communities/") { add(it.value.toString(Charsets.UTF_8)) }
         }
     }
     /** Export archive keys from this authenticated service partition, including

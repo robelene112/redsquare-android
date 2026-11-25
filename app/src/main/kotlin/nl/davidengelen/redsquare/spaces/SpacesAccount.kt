@@ -220,10 +220,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         flushUrgent(current)
                         current to ("spaces-unread-v1" in services)
                     }
-                    val communities = current.communities()
+                    val ids = current.communityIds()
                     val selectedSpace = network.withLock {
-                        mutable.value.target()?.let { target ->
-                            if (communities.any { it.id == target.space }) refreshBackground(current, target.space)
+                        mutable.value.takeUnless { it.openingDestination() }?.target()?.let { target ->
+                            if (target.space in ids) refreshBackground(current, target.space)
                             try {
                                 val selected = current.community(target.space, channel = target.channel)
                                 // A new local creation or public join can enter
@@ -247,14 +247,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         flushUrgent(current)
                         mutable.value.selected
                     }
-                    publish()
+                    if (!mutable.value.openingDestination()) publish(includeCommunities = canRefreshCommunityList())
                     trace("refresh projected")
                     // Only the on-screen Space is checked on every cycle. Keep
                     // membership and queued work rotating through the rest, and
                     // give an interactive read the network lock between Spaces.
-                    refreshOtherSpaces(current, communities, selectedSpace)
+                    refreshOtherSpaces(current, ids, selectedSpace)
                     if (unreadSupported && wasVisible.get()) {
-                        if (viewingSpaceLists()) refreshVisibleAttention(current, communities)
+                        if (viewingSpaceLists()) refreshVisibleAttention(current, mutable.value.communities)
                         deliverActivity(current)
                     }
                 } catch (cancelled: CancellationException) { throw cancelled }
@@ -274,7 +274,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val storage = AndroidSpaceClientStore(appContext, wallet.publicKey, "$backend:$endpoint", service)
         val installed = SpaceClient(wallet, backend.webUrl, service, storage, Clock.systemUTC(), onDeliveryAttempt = { delivery ->
             val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
-            if (delivery == SpaceClient.Delivery.CONTROL) publishManagement() else publish()
+            if (delivery == SpaceClient.Delivery.CONTROL) publishManagement() else publish(includeCommunities = canRefreshCommunityList())
             if (fixtureTrace) trace("delivery projectionMs=${android.os.SystemClock.elapsedRealtime() - started}")
         }) { original -> peerCall {
             val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
@@ -337,6 +337,13 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     private fun viewingSpaceLists() = wasVisible.get() && (mutable.value.selected == null || channelDrawerVisible.get())
 
+    private fun State.openingDestination() = working || projectingDestination || loadingChannel
+
+    private fun canRefreshCommunityList(): Boolean {
+        val state = mutable.value
+        return !state.openingDestination() && (state.selected == null || channelDrawerVisible.get() || !wasVisible.get())
+    }
+
     private suspend fun refreshBackground(current: SpaceClient, space: String) {
         try {
             trace("refresh background=${space.take(10)} flush-start")
@@ -352,20 +359,20 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         }
     }
 
-    private suspend fun refreshOtherSpaces(current: SpaceClient, communities: List<SpaceClient.Community>, selected: String?) {
-        val ids = communities.map { it.id }.filterNot { it == selected }.sorted()
+    private suspend fun refreshOtherSpaces(current: SpaceClient, communities: List<String>, selected: String?) {
+        val ids = communities.filterNot { it == selected }.sorted()
         if (ids.isEmpty()) return
         val previous = backgroundAfterSpace
         val start = ids.indexOfFirst { previous == null || it > previous }.coerceAtLeast(0)
         var refreshed = false
         for (offset in 0 until minOf(ids.size, 4)) {
-            if (mutable.value.working) break
+            if (mutable.value.openingDestination()) break
             val space = ids[(start + offset) % ids.size]
             network.withLock { refreshBackground(current, space) }
             backgroundAfterSpace = space
             refreshed = true
         }
-        if (refreshed && !mutable.value.working && (selected == null || !wasVisible.get())) publish()
+        if (refreshed && canRefreshCommunityList()) publish()
     }
 
     private suspend fun refreshVisibleAttention(current: SpaceClient, communities: List<SpaceClient.Community>) {
@@ -373,7 +380,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         if (joined.isEmpty()) return
         val checkedHeads = mutableSetOf<String>()
         val finished = mutableSetOf<String>()
-        fun canContinue() = viewingSpaceLists() && !mutable.value.working && urgentOutbox.isEmpty()
+        fun canContinue() = viewingSpaceLists() && !mutable.value.openingDestination() && urgentOutbox.isEmpty()
         // Return the network lock between Spaces and pages so an interactive
         // preview or queued send can take priority over the rest of the burst.
         var changed = false
@@ -426,13 +433,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         }
     }
 
-    private suspend fun publish() = localAccess.withLock { traceLocalWork("publish") {
+    private suspend fun publish(includeCommunities: Boolean = true) = localAccess.withLock { traceLocalWork("publish") {
         val current = client ?: return@withLock
         val before = mutable.value
         val target = before.target()
         val visit = destinationVisit?.takeIf { it.target == target }
         val deniedDestination = visit != null && !current.destinationAccessAllowed(visit.address)
-        val projection = current.presentation(target?.space, target?.channel, target?.let(::windowFrom), target?.let { current.parent(it) })
+        val projection = current.presentation(target?.space, target?.channel, target?.let(::windowFrom), target?.let { current.parent(it) },
+            includeCommunities = includeCommunities)
         val communities = projection.communities
         val profiles = projection.profiles
         val community = projection.current
@@ -456,15 +464,19 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         synchronized(managementChanges) {
             val changes = managementProjection(current, target)
             mutable.update { previous ->
-                if (previous.target() != target || previous.loadingChannel) previous.copy(communities = communities, profiles = profiles, accessRevision = revision)
-                else previous.copy(communities = communities, profiles = profiles, accessRevision = revision,
-                searchChannels = searchChannels, savedHistoryCheckedAt = checkedAt, destinationReadDenied = deniedDestination, current = community, channels = channels, categories = projection.categories, members = members, bannedMembers = bannedMembers,
-                notificationPolicy = notifications, pinStatus = pins, messages = messages, threadParent = projection.threadParent,
-                invitation = invitation, publicRulesToken = publicRulesToken, fileLeaseId = fileLease,
-                listingIntent = target?.let { dirtyListings[it.space] } ?: listingIntent, publicLink = publicLink,
-                contentLoaded = window?.loaded == true, hasEarlier = window?.hasEarlier == true,
-                hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0,
-                followingLatest = target == null || windowFrom(target) == null).withManagement(changes)
+                val updated = previous.copy(communities = if (includeCommunities) communities else previous.communities,
+                    profiles = if (includeCommunities) profiles else previous.profiles + profiles, accessRevision = revision)
+                if (updated.target() != target || updated.loadingChannel) updated
+                else updated.copy(
+                    searchChannels = searchChannels, savedHistoryCheckedAt = checkedAt, destinationReadDenied = deniedDestination,
+                    current = community, channels = channels, categories = projection.categories, members = members,
+                    bannedMembers = bannedMembers, notificationPolicy = notifications, pinStatus = pins,
+                    messages = messages, threadParent = projection.threadParent, invitation = invitation,
+                    publicRulesToken = publicRulesToken, fileLeaseId = fileLease,
+                    listingIntent = target?.let { dirtyListings[it.space] } ?: listingIntent, publicLink = publicLink,
+                    contentLoaded = window?.loaded == true, hasEarlier = window?.hasEarlier == true,
+                    hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0,
+                    followingLatest = target == null || windowFrom(target) == null).withManagement(changes)
             }
         }
     } }
@@ -548,7 +560,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             if (anchor != null) historyWindows.putIfAbsent(target, anchor.windowFrom)
                         }
                         val start = if (exactAddress != null) jump?.position else windowFrom(target)
-                        val projection = current.presentation(space, target.channel, start, parent)
+                        val projection = current.presentation(space, target.channel, start, parent, includeCommunities = false)
                         val community = requireNotNull(projection.current)
                         val window = requireNotNull(projection.window)
                         val draft = dirtyDrafts[target] ?: projection.draft
@@ -605,7 +617,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             }
                         }
                     } }
-                    publish(); wake.trySend(Unit)
+                    wake.trySend(Unit)
                 } catch (cancelled: CancellationException) { throw cancelled }
                 catch (_: Exception) { mutable.update { if (currentRoute())
                     it.copy(problem = Problem.SAVE, loadingChannel = false, projectingDestination = false) else it } }
@@ -1098,7 +1110,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 if (onSaved != null) withContext(Dispatchers.Main.immediate) {
                     if (mutable.value.target() == target) onSaved()
                 }
-                publish()
+                publish(includeCommunities = false)
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
         }
