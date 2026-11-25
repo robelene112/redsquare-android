@@ -1234,7 +1234,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     fun readingPosition(space: String, followLatest: Boolean) {
         mutable.value.target()?.takeIf { it.space == space }?.let { readingPosition(space, it.channel, followLatest, thread = it.thread) }
     }
-    fun readingPosition(space: String, channel: String, followLatest: Boolean, anchor: SpaceClient.ReadingAnchor? = null, thread: String? = null) {
+    fun readingPosition(space: String, channel: String, followLatest: Boolean, anchor: SpaceClient.ReadingAnchor? = null,
+        thread: String? = null, moving: Boolean = false) {
         val before = mutable.value; val target = Target(space, channel, thread)
         if (before.target() != target || before.loadingChannel) return
         // An exact link keeps its detached window until the reader explicitly
@@ -1244,7 +1245,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         if (fixtureTrace && latest != before.followingLatest)
             trace("reading followLatest=$latest windowFrom=${before.windowFrom} channel=${channel.take(10)} thread=${thread?.take(10)}")
         if (latest || windowFrom(target) == null) updateWindow(target, if (latest) null else before.windowFrom)
-        mutable.update { if (it.target() == target) it.copy(followingLatest = latest, anchor = if (latest) null else anchor ?: it.anchor) else it }
+        mutable.update {
+            if (it.target() != target) return@update it
+            // The list already renders its moving offset. Keep recording it
+            // for persistence without recomposing the whole Space per pixel.
+            val presented = if (latest) null else if (moving) it.anchor else anchor ?: it.anchor
+            if (it.followingLatest == latest && it.anchor == presented) it
+            else it.copy(followingLatest = latest, anchor = presented)
+        }
         if (visiting || !latest && anchor == null) return
         val snapshot = SavedViewport(if (latest) null else anchor)
         dirtyAnchors[target] = snapshot
@@ -1334,7 +1342,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 val current = requireNotNull(client)
                 if (thread == null) current.markRead(space, channel, position)
                 else current.markThreadRead(space, requireNotNull(current.message(space, thread, channel)), position, channel)
-            }; publish() }
+            }; publish(includeCommunities = canRefreshCommunityList()) }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
         }

@@ -554,7 +554,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         var initialPage by remember { mutableStateOf(true) }
                         var autoScrolling by remember { mutableStateOf(false) }
                         var lastRead by remember { mutableStateOf<Long?>(null) }
-                        val latestMessages by rememberUpdatedState(state.messages)
+                        val latestMessages by rememberUpdatedState(remember(state.messages) { state.messages.associateBy { it.id } })
                         val latestWindow by rememberUpdatedState(state.windowFrom)
                         val latestHasLater by rememberUpdatedState(state.hasLater)
                         val latestFollowing by rememberUpdatedState(state.followingLatest)
@@ -568,11 +568,12 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 val visible = list.layoutInfo.visibleItemsInfo
                                 // visibleItemsInfo may also include a prior item inside content padding.
                                 // The saved offset belongs to firstVisibleItemIndex, so pair its actual key.
-                                val first = visible.firstOrNull { it.index == list.firstVisibleItemIndex }?.let { item ->
-                                    latestMessages.firstOrNull { it.id == item.key && it.position != null }
+                                val first = visible.firstOrNull { it.index == list.firstVisibleItemIndex }
+                                    ?.let { latestMessages[it.key as? String] }
+                                val read = visible.mapNotNull { item -> latestMessages[item.key as? String]?.position }.maxOrNull()
+                                val anchor = first?.position?.let { position ->
+                                    SpaceClient.ReadingAnchor(first.id, position, list.firstVisibleItemScrollOffset, latestWindow)
                                 }
-                                val read = visible.mapNotNull { item -> latestMessages.firstOrNull { it.id == item.key }?.position }.maxOrNull()
-                                val anchor = first?.let { SpaceClient.ReadingAnchor(it.id, requireNotNull(it.position), list.firstVisibleItemScrollOffset, latestWindow) }
                                 ChannelViewport(anchor, !(list.canScrollForward || list.isScrollInProgress), autoScrolling || initialPage || overlayMode != null || pinsModal, list.isScrollInProgress, read)
                             }.collect { viewport ->
                                 if (viewport.automatic) userScrolling = false else {
@@ -583,7 +584,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                     // through them still stops automatic following.
                                     if (userScrolling || (!exactDestination && viewport.anchor != null && !latestFollowing))
                                         account.readingPosition(selected.id, selected.channel,
-                                            viewport.followLatest && !latestHasLater, viewport.anchor, target.thread)
+                                            viewport.followLatest && !latestHasLater, viewport.anchor, target.thread, moving = viewport.scrolling)
                                     if (!viewport.scrolling) userScrolling = false
                                     viewport.read?.let { position -> if (lastRead == null || position > requireNotNull(lastRead)) {
                                         lastRead = position; account.markRead(selected.id, selected.channel, position, target.thread)
