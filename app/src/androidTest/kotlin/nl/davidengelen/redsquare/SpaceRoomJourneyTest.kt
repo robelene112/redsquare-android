@@ -308,11 +308,29 @@ class SpaceRoomJourneyTest {
                     }
                     waitText("Return to Open lounge", 12_000)
 
+                    fun pauseWriting(paused: Boolean) = SpaceVoiceRoom.read(request("room-pause-native-writing",
+                        JsonObject().apply { addProperty("paused", paused) }))
+                    val timedPause = pauseWriting(true)
+                    assertFalse(timedPause.participants.single { it.session == initial.token }.canSpeak)
+                    waitMedia(guests, 10_000) {
+                        TalkRuntime.call.value?.let { it.token == initial.token && !it.microphoneAllowed && !it.microphone } == true &&
+                            guests.all { (it.browser.media[local.key]?.rms ?: 1.0) < 0.01 }
+                    }
+                    click("Return to Open lounge")
+                    showRoomItem(hasText("Your microphone is paused by a moderator."))
+                    capture("room-media-writing-pause")
+                    assertTrue(pauseWriting(false).participants.single { it.session == initial.token }.canSpeak)
+                    waitMedia(guests, 10_000) { TalkRuntime.call.value?.let { it.microphoneAllowed && !it.microphone } == true }
+                    roomClick("Unmute")
+                    waitMedia(guests, 10_000) {
+                        TalkRuntime.call.value?.let { it.token == initial.token && it.microphone } == true &&
+                            guests.all { (it.browser.media[local.key]?.rms ?: 0.0) > 0.01 }
+                    }
+
                     val muted = SpaceVoiceRoom.read(request("room-mute-native"))
                     assertFalse(muted.participants.single { it.session == initial.token }.canSpeak)
                     waitMedia(guests, 10_000) { TalkRuntime.call.value?.let { !it.microphoneAllowed && !it.microphone } == true }
                     waitMedia(guests, 10_000) { guests.all { it.browser.media[local.key]?.rms?.let { rms -> rms < 0.01 } == true } }
-                    click("Return to Open lounge")
                     showRoomItem(hasText("Your microphone is paused by a moderator."))
                     capture("room-media-moderation")
                     firstGuest.expectRemoval = true
@@ -339,6 +357,8 @@ class SpaceRoomJourneyTest {
                         addProperty("remainingPeerSurvivedRemoval", true)
                         addProperty("revokedSignalDenied", true)
                         addProperty("moderatorStoppedDecodedAudio", true)
+                        addProperty("timedPauseStoppedDecodedAudio", true)
+                        addProperty("explicitUnmuteRestoredDecodedAudio", true)
                         addProperty("audioInputBuffers", samples.get())
                     }.toString())
                     TalkRuntime.end(initial.token)

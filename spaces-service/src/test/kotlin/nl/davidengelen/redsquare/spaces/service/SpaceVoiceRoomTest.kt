@@ -103,7 +103,13 @@ class SpaceVoiceRoomTest {
                 assertFalse(member.renewVoiceRoom(room, channel, token(2)).participants.single { it.session == token(2) }.canSpeak)
                 assertFalse(member.joinVoiceRoom(room, channel, SpaceVoiceSignalKey.create(address, wallets[1], token(6)).contact).admitted)
                 assertFalse(member.renewVoiceRoom(room, channel, token(2)).participants.single { it.session == token(2) }.canSpeak)
+                owner.moderateVoiceRoom(room, channel, target.session, remove = false)
                 owner.moderateVoiceRoom(room, channel, target.session, remove = true)
+                val audit = owner.adminLog(room).events.filter { it.action in setOf("muted-in-room", "removed-from-room") }
+                assertEquals(setOf("muted-in-room", "removed-from-room"), audit.map { it.action }.toSet())
+                assertEquals(2, audit.size)
+                assertTrue(audit.all { it.actor == wallets[0].publicKey && it.member == target.wallet && it.channel == channel &&
+                    it.cursor.at == clock.millis() })
                 assertFalse(member.renewVoiceRoom(room, channel, token(2)).admitted)
                 assertTrue(visitor.joinVoiceRoom(room, channel, visitorMedia.contact).admitted)
                 assertTrue(runCatching { owner.relayVoiceSignal(room, channel, token(1), encrypted) }.exceptionOrNull() is SpaceClient.ReadDenied)

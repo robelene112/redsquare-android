@@ -1784,6 +1784,11 @@ class SpaceDiscoveryTest {
                 // actual accepted rows. This is not an old-binary rehearsal.
                 DriverManager.getConnection("jdbc:sqlite:${directory.resolve("spaces.sqlite")}").use { db ->
                     db.createStatement().use { sql ->
+                        sql.execute("DROP TABLE space_room_admin")
+                        sql.execute("DROP TABLE space_reports")
+                        sql.execute("DROP INDEX controls_admin_page")
+                        sql.execute("DROP INDEX joins_admin_page")
+                        sql.execute("DROP INDEX records_admin_page")
                         sql.execute("DROP INDEX records_message_versions")
                         sql.execute("DROP INDEX records_messages")
                         sql.execute("ALTER TABLE records DROP COLUMN target_message_id")

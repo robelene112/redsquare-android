@@ -46,6 +46,12 @@ internal class SpacesVoiceRoomFixture(root: Path, private val authority: SaitoWa
 
     suspend fun observe() = owner.voiceRoom(space, channel).json()
 
+    suspend fun pauseNativeWriting(paused: Boolean): JsonObject {
+        owner.setWriteRestriction(space, wallets.first().publicKey, channel, if (paused) clock.millis() + 60_000 else null)
+        owner.flush(space)
+        return observe()
+    }
+
     suspend fun moderateNative(remove: Boolean): JsonObject {
         val native = owner.voiceRoom(space, channel).participants.single { it.wallet == wallets.first().publicKey }
         return owner.moderateVoiceRoom(space, channel, native.session, remove).json()

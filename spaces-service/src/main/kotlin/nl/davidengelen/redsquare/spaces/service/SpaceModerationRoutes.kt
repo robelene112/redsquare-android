@@ -26,9 +26,33 @@ internal class SpaceModerationRoutes(private val database: Connection) {
         }
     }
 
+    fun ensureRoomAuditSchema() {
+        database.createStatement().use { sql ->
+            sql.execute("""CREATE TABLE IF NOT EXISTS space_room_admin (
+                space_id TEXT NOT NULL, event_id TEXT PRIMARY KEY, actor TEXT NOT NULL, action TEXT NOT NULL,
+                channel_id TEXT NOT NULL, member TEXT NOT NULL, accepted_at INTEGER NOT NULL CHECK(accepted_at>=0))""")
+            sql.execute("CREATE INDEX IF NOT EXISTS room_admin_page ON space_room_admin(space_id,accepted_at,event_id)")
+        }
+    }
+
+    fun recordRoomAction(space: String, event: SpaceAdminEvent) {
+        database.prepareStatement("""INSERT INTO space_room_admin
+            (space_id,event_id,actor,action,channel_id,member,accepted_at) VALUES(?,?,?,?,?,?,?)""").use { sql ->
+            sql.setString(1, space)
+            sql.setString(2, event.cursor.event)
+            sql.setString(3, event.actor)
+            sql.setString(4, event.action)
+            sql.setString(5, event.channel)
+            sql.setString(6, event.member)
+            sql.setLong(7, event.cursor.at)
+            check(sql.executeUpdate() == 1)
+        }
+    }
+
     fun ready() {
         database.createStatement().use { sql ->
             sql.executeQuery("SELECT position,reporter,reason FROM space_reports LIMIT 0").close()
+            sql.executeQuery("SELECT event_id,actor,action FROM space_room_admin LIMIT 0").close()
         }
     }
 
@@ -57,7 +81,7 @@ internal class SpaceModerationRoutes(private val database: Connection) {
             sql.executeUpdate()
         }
         return database.prepareStatement(
-            "SELECT * FROM space_reports WHERE space_id=? AND channel_id=? AND message_id=? AND reporter=?"
+            "$REPORTS WHERE report.space_id=? AND report.channel_id=? AND report.message_id=? AND report.reporter=?"
         ).use { sql ->
             sql.setString(1, space)
             sql.setString(2, report.channel)
@@ -67,13 +91,23 @@ internal class SpaceModerationRoutes(private val database: Connection) {
         }
     }
 
+    fun reportForReview(journal: SpaceJournal, space: String, actor: String, report: String, channel: String): SpaceMessageReport? {
+        if (!canReview(journal, actor)) return null
+        return database.prepareStatement("$REPORTS WHERE report.space_id=? AND report.report_id=? AND report.channel_id=?").use { sql ->
+            sql.setString(1, space)
+            sql.setString(2, report)
+            sql.setString(3, channel)
+            sql.executeQuery().use { if (it.next()) readReport(it) else null }
+        }
+    }
+
     fun reportPage(reply: JsonObject, journal: SpaceJournal, space: String, actor: String, before: Long): Boolean {
         if (!canReview(journal, actor)) return false
         val items = JsonArray()
         var cursor = 0L
         var more = false
         database.prepareStatement(
-            "SELECT * FROM space_reports WHERE space_id=? AND position<? ORDER BY position DESC LIMIT ?"
+            "$REPORTS WHERE report.space_id=? AND report.position<? ORDER BY report.position DESC LIMIT ?"
         ).use { sql ->
             sql.setString(1, space)
             sql.setLong(2, before)
@@ -98,38 +132,31 @@ internal class SpaceModerationRoutes(private val database: Connection) {
     fun auditPage(reply: JsonObject, journal: SpaceJournal, space: String, actor: String, before: SpaceAdminCursor): Boolean {
         if (!canReview(journal, actor)) return false
         val rows = database.prepareStatement("""
-            SELECT original,actor,accepted_at,event_id FROM controls WHERE space_id=? AND (accepted_at,event_id)<(?,?)
+            SELECT 'control' AS source, original,actor,accepted_at,event_id,NULL AS action,NULL AS channel_id,NULL AS member
+                FROM controls WHERE space_id=? AND (accepted_at,event_id)<(?,?)
             UNION ALL
-            SELECT original,actor,accepted_at,event_id FROM joins WHERE space_id=? AND (accepted_at,event_id)<(?,?)
+            SELECT 'join',original,actor,accepted_at,event_id,NULL,NULL,NULL
+                FROM joins WHERE space_id=? AND (accepted_at,event_id)<(?,?)
             UNION ALL
-            SELECT event.original,event.actor,event.accepted_at,event.event_id FROM records event
-            WHERE event.space_id=? AND (event.accepted_at,event.event_id)<(?,?) AND event.kind IN ('message-delete','message-pin')
-            AND (event.kind='message-pin' OR EXISTS (
-                SELECT 1 FROM records target WHERE target.space_id=event.space_id AND target.event_id=event.target_message_id AND target.actor<>event.actor))
+            SELECT 'content',event.original,event.actor,event.accepted_at,event.event_id,event.kind,event.channel_id,NULL
+                FROM records event
+                WHERE event.space_id=? AND (event.accepted_at,event.event_id)<(?,?) AND event.kind IN ('message-delete','message-pin')
+                AND (event.kind='message-pin' OR EXISTS (
+                    SELECT 1 FROM records target WHERE target.space_id=event.space_id AND target.event_id=event.target_message_id AND target.actor<>event.actor))
+            UNION ALL
+            SELECT 'room',NULL,actor,accepted_at,event_id,action,channel_id,member
+                FROM space_room_admin WHERE space_id=? AND (accepted_at,event_id)<(?,?)
             ORDER BY accepted_at DESC,event_id DESC LIMIT ?
         """.trimIndent()).use { sql ->
-            for (offset in listOf(1, 4, 7)) {
+            for (offset in listOf(1, 4, 7, 10)) {
                 sql.setString(offset, space)
                 sql.setLong(offset + 1, before.at)
                 sql.setString(offset + 2, before.event)
             }
-            sql.setInt(10, PAGE_SIZE + 1)
-            sql.executeQuery().use { result -> buildList {
-                while (result.next()) {
-                    val original = SaitoEnvelope.decode(result.getString("original"))
-                    val cursor = SpaceAdminCursor(result.getLong("accepted_at"), result.getString("event_id"))
-                    check(cursor.event == original.id && original.author == result.getString("actor"))
-                    val body = original.body
-                    fun metadata(field: String) = body.get(field)?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString
-                    val action = when (val kind = metadata("content_kind") ?: requireNotNull(metadata("kind"))) {
-                        "archive-channel" -> if (body.get("archived").asBoolean) "archived-channel" else "reopened-channel"
-                        "set-role" -> if (metadata("role") == "admin") "made-admin" else "removed-admin"
-                        "set-write-restriction" -> if (body.get("expires_at").asLong > 0) "paused-writing" else "resumed-writing"
-                        else -> kind
-                    }
-                    add(SpaceAdminEvent(cursor, original.author, action, metadata("channel_id"), metadata("member")))
-                }
-            } }
+            sql.setInt(13, PAGE_SIZE + 1)
+            sql.executeQuery().use { result ->
+                buildList { while (result.next()) add(readAdminEvent(result)) }
+            }
         }
         val page = rows.take(PAGE_SIZE)
         val next = page.lastOrNull()?.cursor?.takeIf { rows.size > PAGE_SIZE }
@@ -140,13 +167,53 @@ internal class SpaceModerationRoutes(private val database: Connection) {
         return true
     }
 
+    private fun readAdminEvent(row: ResultSet): SpaceAdminEvent {
+        val cursor = SpaceAdminCursor(row.getLong("accepted_at"), row.getString("event_id"))
+        val actor = row.getString("actor")
+        val source = row.getString("source")
+        if (source in setOf("room", "content"))
+            return SpaceAdminEvent(cursor, actor, row.getString("action"), row.getString("channel_id"), row.getString("member"))
+
+        val original = SaitoEnvelope.decode(row.getString("original"))
+        check(cursor.event == original.id && original.author == actor)
+        val body = original.body
+        val kind = body.get("kind").asString
+        if (source == "join") return SpaceAdminEvent(cursor, actor, kind, body.get("channel_id").asString, actor)
+        val action = when (kind) {
+            "admit" -> "admitted-member"
+            "archive-channel" -> if (body.get("archived").asBoolean) "archived-channel" else "reopened-channel"
+            "set-role" -> if (body.get("role").asString == "admin") "made-admin" else "removed-admin"
+            "set-write-restriction" -> if (body.get("expires_at").asLong > 0) "paused-writing" else "resumed-writing"
+            else -> kind
+        }
+        val channel = when (kind) {
+            "admit", "create-channel", "edit-channel", "archive-channel", "grant-channel-access",
+            "revoke-channel-access", "rotate-access" -> body.get("channel_id").asString
+            "set-write-restriction" -> body.get("channel_id")?.asString
+            else -> null
+        }
+        val member = when (kind) {
+            "admit" -> SaitoEnvelope.decode(body.get("join").asString).author
+            "set-role", "set-write-restriction", "remove-member", "ban-member", "unban-member",
+            "grant-channel-access", "revoke-channel-access", "propose-owner" -> body.get("member").asString
+            "join-public", "leave", "complete-owner", "accept-owner" -> actor
+            else -> null
+        }
+        return SpaceAdminEvent(cursor, actor, action, channel, member)
+    }
+
     private fun canReview(journal: SpaceJournal, actor: String): Boolean =
         !journal.snapshot.dissolved && journal.snapshot.protectedChat == null &&
             journal.snapshot.members[actor] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
 
     private fun readReport(rows: ResultSet) = SpaceMessageReport(rows.getString("report_id"),
         rows.getString("channel_id"), rows.getString("message_id"), rows.getString("reporter"),
-        rows.getString("reason"), rows.getLong("received_at"))
+        rows.getString("reason"), rows.getLong("received_at"), rows.getString("thread_id"))
 
-    private companion object { const val PAGE_SIZE = 20 }
+    private companion object {
+        const val PAGE_SIZE = 20
+        const val REPORTS = """SELECT report.*, CASE WHEN target.kind='thread-reply' THEN target.target_message_id END AS thread_id
+            FROM space_reports report JOIN records target ON target.space_id=report.space_id
+                AND target.channel_id=report.channel_id AND target.event_id=report.message_id"""
+    }
 }

@@ -4,11 +4,11 @@ import com.google.gson.JsonObject
 import nl.davidengelen.redsquare.saito.SaitoWallet
 
 data class SpaceMessageReport(val id: String, val channel: String, val message: String,
-    val reporter: String, val reason: String, val receivedAt: Long) {
+    val reporter: String, val reason: String, val receivedAt: Long, val thread: String? = null) {
     init {
         require(id.matches(EVENT_ID) && channel.matches(SCOPE_ID) && message.matches(EVENT_ID))
         require(SaitoWallet.isPublicKey(reporter) && receivedAt >= 0)
-        require(reason == cleanReason(reason))
+        require(reason == cleanReason(reason) && (thread == null || thread.matches(EVENT_ID)))
     }
 
     fun json() = JsonObject().apply {
@@ -18,6 +18,7 @@ data class SpaceMessageReport(val id: String, val channel: String, val message: 
         addProperty("reporter", reporter)
         addProperty("reason", reason)
         addProperty("received_at", receivedAt)
+        thread?.let { addProperty("thread_id", it) }
     }
 
     override fun toString() = "Private community report"
@@ -33,9 +34,12 @@ data class SpaceMessageReport(val id: String, val channel: String, val message: 
 
         fun read(json: JsonObject) = SpaceMessageReport(json.reportText("id"), json.reportText("channel_id"),
             json.reportText("message_id"), json.reportText("reporter"), json.reportText("reason"),
-            json.get("received_at").toString().toLong())
+            json.get("received_at").toString().toLong(),
+            if (json.has("thread_id")) json.reportText("thread_id") else null)
     }
 }
+
+class SpaceReportAlreadyFiled : IllegalStateException("This message already has your report")
 
 data class SpaceReportPage(val reports: List<SpaceMessageReport>, val next: Long?)
 

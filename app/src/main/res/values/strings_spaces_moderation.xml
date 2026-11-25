@@ -52,4 +52,13 @@
     <string name="spaces_restriction_confirm">Pause writing</string>
     <string name="spaces_writing_restricted_space">Writing paused across this Space until %1$s</string>
     <string name="spaces_writing_restricted_channel">Writing paused in this channel until %1$s</string>
+    <string name="spaces_report_already_filed">You already reported this message. Your original report is still on file.</string>
+    <string name="spaces_review_report">Review report</string>
+    <string name="spaces_reported_message">Reported message</string>
+    <string name="spaces_report_message_removed">This message was removed.</string>
+    <string name="spaces_report_message_unavailable">This message isn’t available on this device.</string>
+    <string name="spaces_moderation_latest">Back to latest entries</string>
+    <string name="spaces_admin_admitted_member">Admitted a member</string>
+    <string name="spaces_admin_muted_in_room">Muted a room participant</string>
+    <string name="spaces_admin_removed_from_room">Removed a room participant</string>
 </resources>

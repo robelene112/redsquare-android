@@ -1023,10 +1023,17 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         requireNotNull(client).adminLog(space, before).also { requireModerationStaff(space) }
     }
 
+    suspend fun reviewReportedMessage(space: String, report: SpaceMessageReport) = withContext(Dispatchers.IO) {
+        requireModerationStaff(space)
+        requireNotNull(client).reviewReportedMessage(space, report).also { requireModerationStaff(space) }
+    }
+
+    fun canReviewModeration(space: String, current: State): Boolean =
+        !closed.get() && current.selected == space && current.current?.dissolved != true &&
+            current.members.any { it.publicKey == ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) }
+
     private fun requireModerationStaff(space: String) {
-        val current = mutable.value
-        check(!closed.get() && current.selected == space && current.current?.dissolved != true &&
-            current.members.any { it.publicKey == ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) })
+        if (!canReviewModeration(space, mutable.value)) throw CancellationException("Moderation access changed")
     }
     fun cancelSend(target: Target, messageId: String, onFinished: (Boolean) -> Unit) = cancelOperation(target, messageId, false, onFinished)
     fun cancelChange(target: Target, operationId: String, onFinished: (Boolean) -> Unit) = cancelOperation(target, operationId, true, onFinished)

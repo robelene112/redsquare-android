@@ -63,7 +63,7 @@ internal class SpaceVoiceRooms {
     private val rooms = mutableMapOf<SpaceVoiceSignalKey.Address, Room>()
 
     fun exchange(address: SpaceVoiceSignalKey.Address, caller: String, device: String?, command: Command, args: CommandData,
-        journal: SpaceJournal, now: Long): SpaceVoiceRoom {
+        journal: SpaceJournal, now: Long, recordModeration: (String, () -> Unit) -> Unit): SpaceVoiceRoom {
         val channel = address.channel
         val sessionId = args.session
         val snapshot = journal.snapshot
@@ -87,6 +87,7 @@ internal class SpaceVoiceRooms {
         var admitted = false
         var status = Status.AVAILABLE
         var signals = emptyList<SignalDelivery>()
+        var moderated: Session? = null
         when (command) {
             Command.OBSERVE -> {
                 status = when {
@@ -129,8 +130,13 @@ internal class SpaceVoiceRooms {
             Command.MUTE, Command.REMOVE -> {
                 val target = requireNotNull(room.sessions.values.singleOrNull { it.id == sessionId })
                 require(journal.canRestrictWriting(caller, target.wallet, channel))
-                if (command == Command.REMOVE) retire(room, target)
-                else room.sessions[target.wallet] = target.copy(mutedByStaff = true)
+                if (command == Command.REMOVE || !target.mutedByStaff) {
+                    recordModeration(target.wallet) {
+                        if (command == Command.REMOVE) retire(room, target)
+                        else room.sessions[target.wallet] = target.copy(mutedByStaff = true)
+                    }
+                    moderated = target
+                }
             }
             Command.SIGNAL -> {
                 val sender = requireNotNull(own)
@@ -140,9 +146,10 @@ internal class SpaceVoiceRooms {
                 admitted = true
             }
         }
-        val participants = room.sessions.values.map {
-            SpaceVoiceRoom.Participant(it.contact, !it.mutedByStaff && journal.writeRestrictedUntil(it.wallet, channel, now) == null,
-                it.expiresAt)
+        val participants = room.sessions.values.mapNotNull {
+            if (it == moderated && command == Command.REMOVE) return@mapNotNull null
+            SpaceVoiceRoom.Participant(it.contact,
+                it != moderated && !it.mutedByStaff && journal.writeRestrictedUntil(it.wallet, channel, now) == null, it.expiresAt)
         }
         return SpaceVoiceRoom(status, admitted, SpaceVoiceRoom.CAPACITY, participants, now, signals)
     }

@@ -30,7 +30,7 @@ import nl.davidengelen.redsquare.ui.StatusTone
         var reason by remember { mutableStateOf("") }
         var pending by remember { mutableStateOf(false) }
         var submitted by remember { mutableStateOf(false) }
-        var failed by remember { mutableStateOf(false) }
+        var error by remember { mutableStateOf<Int?>(null) }
         DesignSheet(true, stringResource(if (submitted) R.string.spaces_report_sent else R.string.spaces_report_message),
             onDismiss = { if (!pending) onClose() }, contentKey = message,
             footer = { first ->
@@ -40,14 +40,15 @@ import nl.davidengelen.redsquare.ui.StatusTone
                     Button(onClick = {
                         if (!pending && submit != null) {
                             pending = true
-                            failed = false
+                            error = null
                             scope.launch {
                                 try {
                                     submit(reason)
                                     submitted = true
                                     reason = ""
                                 } catch (cancelled: CancellationException) { throw cancelled }
-                                catch (_: Exception) { failed = true }
+                                catch (_: SpaceReportAlreadyFiled) { error = R.string.spaces_report_already_filed }
+                                catch (_: Exception) { error = R.string.spaces_report_unavailable }
                                 finally { pending = false }
                             }
                         }
@@ -67,7 +68,8 @@ import nl.davidengelen.redsquare.ui.StatusTone
                     if (next.codePointCount(0, next.length) <= SpaceMessageReport.MAX_REASON) reason = next
                 }, first.fillMaxWidth(), enabled = submit != null && !pending,
                     label = { Text(stringResource(R.string.spaces_report_reason)) }, minLines = 2, maxLines = 5)
-                if (failed || submit == null) InlineStatus(stringResource(R.string.spaces_report_unavailable), StatusTone.WARNING)
+                val status = error ?: if (submit == null) R.string.spaces_report_unavailable else null
+                status?.let { InlineStatus(stringResource(it), StatusTone.WARNING) }
             }
         }
     }

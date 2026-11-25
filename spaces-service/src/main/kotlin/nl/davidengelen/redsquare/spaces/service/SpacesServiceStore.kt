@@ -10,6 +10,7 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SignedSaitoMessage
 import nl.davidengelen.redsquare.spaces.SpaceArticleContent
 import nl.davidengelen.redsquare.spaces.SpaceAdminCursor
+import nl.davidengelen.redsquare.spaces.SpaceAdminEvent
 import nl.davidengelen.redsquare.spaces.SpaceFileAccessCheck
 import nl.davidengelen.redsquare.spaces.SpaceJournal
 import nl.davidengelen.redsquare.spaces.SpaceMessageReport
@@ -82,7 +83,8 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 (if (scope.has("pin_history")) setOf("pin_history") else emptySet()) +
                 (if (scope.has("reaction_history")) setOf("reaction_history") else emptySet()) +
                 (if (scope.has("reaction_cursors")) setOf("reaction_cursors") else emptySet()) +
-                (if (scope.has("article_id")) setOf("article_id") else emptySet())
+                (if (scope.has("article_id")) setOf("article_id") else emptySet()) +
+                (if (scope.has("report_id")) setOf("report_id") else emptySet())
             "pins" -> setOf("channel_id") + (if (scope.has("through")) setOf("through") else emptySet())
             "files" -> setOf("channel_id", "access") + when (scope.text("access")) {
                 "upload" -> setOf("control", "object", "sha256", "bytes")
@@ -110,10 +112,14 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         if (stream in setOf("files", "voice-room", "message-report")) require(cursor == 0L)
         if (stream == "staff-reports") require(cursor > 0)
         if (stream == "messages") require(scope.text("direction") in setOf("before", "after") && scope.number("limit") in 1..50)
-        val article = if (stream == "messages" && scope.has("article_id")) scope.text("article_id").also {
-            require(it.matches(Regex("[0-9a-f]{128}")) && cursor == Long.MAX_VALUE && scope.text("direction") == "before" &&
-                scope.number("limit") == 1L && !scope.has("thread_id") && !scope.has("reaction_history") && !scope.has("pin_history"))
-        } else null
+        val article = if (stream == "messages" && scope.has("article_id")) scope.text("article_id") else null
+        val review = if (stream == "messages" && scope.has("report_id")) scope.text("report_id") else null
+        if (article != null || review != null) {
+            require(article == null || (review == null && !scope.has("thread_id")))
+            require((article ?: requireNotNull(review)).matches(Regex("[0-9a-f]{128}")) &&
+                cursor == Long.MAX_VALUE && scope.text("direction") == "before" && scope.number("limit") == 1L &&
+                !scope.has("reaction_history") && !scope.has("pin_history"))
+        }
         if (stream == "messages" && scope.has("pin_history")) require(scope.get("pin_history").let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean })
         if (stream == "messages" && scope.has("reaction_history")) require(scope.get("reaction_history").let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean })
         if (stream == "messages" && scope.has("reaction_cursors")) {
@@ -154,10 +160,11 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val challenge = requireNotNull(challenges[nonce]) { "Spaces read needs a fresh challenge" }
                 require(challenge.caller == request.author && challenge.scope == scope)
                 challenges.remove(nonce)
+                var publishRoomModeration: (() -> Unit)? = null
                 atomic {
                     if (stream == "directory") directoryPage(reply, scope.text("query"), cursor)
                     else {
-                    val journal = if (roomCommand != null || stream in setOf("message-report", "staff-reports", "admin-log")) committedJournal(space) else journal(space)
+                    val journal = if (roomCommand != null || review != null || stream in setOf("message-report", "staff-reports", "admin-log")) committedJournal(space) else journal(space)
                     // A former member may authenticate their own departure.
                     // This does not authorize later private controls or content,
                     // and banning a never-member grants no read authority.
@@ -215,7 +222,12 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                                 else -> SpaceVoiceRooms.CommandData(roomSession)
                             }
                             reply.add("voice_room", voiceRooms.exchange(SpaceVoiceSignalKey.Address(wallet.publicKey, space, roomChannel),
-                                request.author, credential, roomCommand, args, journal, now).json())
+                                request.author, credential, roomCommand, args, journal, now) { member, publish ->
+                                val action = if (roomCommand == SpaceVoiceRoom.Command.REMOVE) "removed-from-room" else "muted-in-room"
+                                moderation.recordRoomAction(space, SpaceAdminEvent(SpaceAdminCursor(now, request.id),
+                                    request.author, action, roomChannel, member))
+                                publishRoomModeration = publish
+                            }.json())
                             reply.add("items", JsonArray())
                             reply.addProperty("next_cursor", 0)
                         } catch (_: IllegalArgumentException) {
@@ -269,6 +281,10 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     }
                     if (stream == "messages") {
                         val thread = scope.get("thread_id")?.asString
+                        val report = review?.let { moderation.reportForReview(journal, space, request.author, it, requireNotNull(channel)) }
+                        if (review != null && (report == null || report.thread != thread)) {
+                            denied("unavailable"); return@atomic
+                        }
                         if (thread != null) {
                             val known = database.prepareStatement("SELECT 1 FROM records WHERE space_id=? AND channel_id=? AND kind='message' AND event_id=?").use { sql ->
                                 sql.setString(1, space); sql.setString(2, channel); sql.setString(3, thread)
@@ -277,12 +293,13 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                             if (!known) { denied("unavailable"); return@atomic }
                         }
                         val record = journal.snapshot.channels.getValue(requireNotNull(channel))
-                        if (article != null && record.rootContentKind != "article") {
+                        if ((article != null && record.rootContentKind != "article") ||
+                            (report != null && record.rootContentKind != "message")) {
                             denied("unavailable"); return@atomic
                         }
                         messagePage(reply, space, channel, request.author, cursor, scope.text("direction"), scope.number("limit").toInt(), thread,
                             scope.get("reaction_history")?.asBoolean == true, scope.getAsJsonObject("reaction_cursors"),
-                            scope.get("pin_history")?.asBoolean == true, record.rootContentKind, article)
+                            scope.get("pin_history")?.asBoolean == true, record.rootContentKind, article ?: report?.message)
                         return@atomic
                     }
                     val items = JsonArray()
@@ -323,6 +340,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     if (stream in setOf("keys", "content")) reply.addProperty("content_end", nextPosition("records", space, requireNotNull(channel)))
                     }
                 }
+                publishRoomModeration?.invoke()
                 if (!reply.has("request")) reply.addProperty("request", "page")
                 reply.addProperty("nonce", nonce)
                 reply.addProperty("message_history", true)
@@ -353,19 +371,19 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
 
     /** Message slots, independent of the number of immutable mutations. The
      * original receipt and its latest edit remain independently authenticated. */
-    private fun messagePage(reply: JsonObject, space: String, channel: String, reader: String, cursor: Long, direction: String, limit: Int, thread: String?, reactions: Boolean, reactionCursors: JsonObject?, pins: Boolean, rootContentKind: String = "message", article: String? = null) {
+    private fun messagePage(reply: JsonObject, space: String, channel: String, reader: String, cursor: Long, direction: String, limit: Int, thread: String?, reactions: Boolean, reactionCursors: JsonObject?, pins: Boolean, rootContentKind: String = "message", exactMessage: String? = null) {
         val before = direction == "before"
         val items = mutableListOf<JsonObject>()
         var size = 0
         var more = false
         database.prepareStatement("SELECT position,event_id,receipt FROM records WHERE space_id=? AND channel_id=? AND kind=?" +
             (if (thread == null) "" else " AND target_message_id=?") +
-            (if (article == null) "" else " AND event_id=?") + " AND position" +
+            (if (exactMessage == null) "" else " AND event_id=?") + " AND position" +
             (if (before) "<? ORDER BY position DESC" else ">=? ORDER BY position") + " LIMIT ?").use { sql ->
             sql.setString(1, space); sql.setString(2, channel); sql.setString(3, if (thread == null) rootContentKind else "thread-reply")
             var parameter = 4
             if (thread != null) sql.setString(parameter++, thread)
-            if (article != null) sql.setString(parameter++, article)
+            if (exactMessage != null) sql.setString(parameter++, exactMessage)
             sql.setLong(parameter++, cursor); sql.setInt(parameter, limit + 1)
             sql.executeQuery().use { rows ->
                 while (rows.next()) {
@@ -683,6 +701,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     moderation.createSchema()
                     database.createStatement().use { it.execute("PRAGMA user_version=6") }
                 }
+                moderation.ensureRoomAuditSchema()
                 fileRoutes.createSchema()
             }
         } catch (failure: Throwable) {

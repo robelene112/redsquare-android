@@ -31,7 +31,7 @@ class SpaceModerationJourneyTest {
 
     @Test fun memberReportsChosenMessagePrivately() {
         val fixture = request("moderation-config")
-        launch(fixture).use {
+        launch(fixture, seedIdentity = true).use {
             withFailureCapture({ capture("reporter-failure") }) {
                 waitText("Moderation proof message", 25_000)
                 val actions = ui.onNodeWithContentDescription("Message actions")
@@ -65,13 +65,16 @@ class SpaceModerationJourneyTest {
         val fixture = request("moderation-config")
         val prior = JsonParser.parseString(File(evidence, "reporter-result.json").readText()).asJsonObject
         assertNotEquals(prior.get("pid").asInt, Process.myPid())
-        launch(fixture).use {
+        launch(fixture, seedIdentity = false).use {
             withFailureCapture({ capture("administrator-failure") }) {
                 waitText("Moderation proof message", 25_000)
                 openInformation()
                 click("Reports and admin log")
                 waitText("Promotion repeated in a discussion", 15_000)
+                click("Review report")
+                waitText("Moderation proof message", 15_000)
                 capture("report-review")
+                click("Close")
                 click("View admin log")
                 val promoted = ui.onNodeWithText("Made a member an administrator")
                 ui.waitUntil(15_000) { runCatching { promoted.performScrollTo().isDisplayed() }.getOrDefault(false) }
@@ -133,13 +136,19 @@ class SpaceModerationJourneyTest {
         target.performClick()
     }
 
-    private fun launch(fixture: JsonObject): ActivityScenario<MainActivity> {
+    private fun launch(fixture: JsonObject, seedIdentity: Boolean): ActivityScenario<MainActivity> {
         val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
         assertEquals(fixture.get("nativeWallet").asString, wallet.publicKey)
         val wallets = AndroidWalletStore(context)
-        val current = wallets.loadOrCreate()
-        if (current.publicKey != wallet.publicKey) wallets.replace(current, wallet)
-        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val backends = AndroidBackendStore(context)
+        if (seedIdentity) {
+            val current = wallets.loadOrCreate()
+            if (current.publicKey != wallet.publicKey) wallets.replace(current, wallet)
+            backends.save(SaitoBackend.OWNER)
+        } else {
+            assertEquals(wallet.publicKey, wallets.loadExisting().publicKey)
+            assertEquals(SaitoBackend.OWNER, backends.load())
+        }
         val peer = argument("spacesPeerPort")
         return ActivityScenario.launch(Intent(Intent.ACTION_VIEW, Uri.parse(fixture.get("link").asString), context, MainActivity::class.java)
             .putExtra("feedPeerUrl", "ws://127.0.0.1:$peer/wsopen")

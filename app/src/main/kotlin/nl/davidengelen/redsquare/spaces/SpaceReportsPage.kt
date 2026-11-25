@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.DesignSheet
 import nl.davidengelen.redsquare.ui.FrameIconButton
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
@@ -29,10 +30,11 @@ import java.time.format.FormatStyle
 @Composable internal fun SpaceReportsPage(account: SpacesAccount, state: SpacesAccount.State,
     modifier: Modifier = Modifier, onBack: () -> Unit) {
     val space = state.selected ?: return
-    val staff = state.current?.dissolved != true && state.members.any {
-        it.publicKey == account.ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
-    }
+    val staff = account.canReviewModeration(space, state)
+    var denied by remember(account, space, staff) { mutableStateOf(false) }
     var logOpen by remember(account, space, staff) { mutableStateOf(false) }
+    var review by remember(account, space, staff) { mutableStateOf<SpaceMessageReport?>(null) }
+    val dropStaffHistory = { review = null; denied = true }
     BackHandler(logOpen) { logOpen = false }
     Column(modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 8.dp),
@@ -43,10 +45,10 @@ import java.time.format.FormatStyle
             Text(stringResource(if (logOpen) R.string.spaces_admin_log else R.string.spaces_reports), style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.padding(horizontal = 8.dp).semantics { heading() })
         }
-        if (staff) key(account, space, logOpen) {
+        if (staff && !denied) key(account, space, logOpen) {
             if (logOpen) StaffHistory(
                 loadPage = { before: SpaceAdminCursor? -> account.adminLog(space, before).let { it.events to it.next } },
-                rowKey = { it.cursor.event }, empty = R.string.spaces_admin_log_empty,
+                onDenied = dropStaffHistory, rowKey = { it.cursor.event }, empty = R.string.spaces_admin_log_empty,
                 failure = R.string.spaces_admin_log_failed, more = R.string.spaces_admin_log_more,
             ) { event ->
                 val actor = registeredIdentity(event.actor).name
@@ -56,7 +58,7 @@ import java.time.format.FormatStyle
                 HistoryCard(stringResource(adminAction(event.action)), listOfNotNull(actor, channel, time).joinToString(" · "), member)
             } else StaffHistory(
                 loadPage = { before: Long? -> account.messageReports(space, before ?: Long.MAX_VALUE).let { it.reports to it.next } },
-                rowKey = { it.id }, empty = R.string.spaces_reports_empty,
+                onDenied = dropStaffHistory, rowKey = { it.id }, empty = R.string.spaces_reports_empty,
                 failure = R.string.spaces_reports_load_failed, more = R.string.spaces_reports_more,
                 header = { OutlinedButton(onClick = { logOpen = true }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                     Text(stringResource(R.string.spaces_view_admin_log))
@@ -65,21 +67,59 @@ import java.time.format.FormatStyle
                 val name = registeredIdentity(report.reporter).name
                 val channel = state.channels.firstOrNull { it.id == report.channel }?.profile?.name
                 HistoryCard(stringResource(R.string.spaces_report_author, name),
-                    listOfNotNull(channel, moderationDate(report.receivedAt)).joinToString(" · "), report.reason)
+                    listOfNotNull(channel, moderationDate(report.receivedAt)).joinToString(" · "), report.reason,
+                    onReview = { review = report })
             }
         }
         else Box(Modifier.padding(AppSpacing.screen)) {
             InlineStatus(stringResource(R.string.spaces_reports_staff_only), StatusTone.INFO)
         }
     }
+    if (staff && !denied) review?.let { item ->
+        key(item.id) {
+            ReviewReportSheet(item, load = { account.reviewReportedMessage(space, item) },
+                onDenied = dropStaffHistory, onClose = { review = null })
+        }
+    }
+}
+
+@Composable private fun ReviewReportSheet(report: SpaceMessageReport, load: suspend () -> SpaceClient.Message?,
+    onDenied: () -> Unit, onClose: () -> Unit) {
+    var message by remember { mutableStateOf<SpaceClient.Message?>(null) }
+    var loaded by remember { mutableStateOf(false) }
+    LaunchedEffect(report.id) {
+        try {
+            message = load()
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: SpaceClient.ReadDenied) { onDenied() }
+        catch (_: Exception) { }
+        finally { loaded = true }
+    }
+    DesignSheet(true, stringResource(R.string.spaces_review_report), onDismiss = onClose, contentKey = report.id,
+        footer = { first ->
+            Button(onClick = onClose, modifier = first.fillMaxWidth().heightIn(min = 48.dp)) {
+                Text(stringResource(R.string.spaces_close))
+            }
+        }) { first ->
+        HistoryCard(stringResource(R.string.spaces_report_reason), moderationDate(report.receivedAt), report.reason)
+        Text(stringResource(R.string.spaces_reported_message), first, style = MaterialTheme.typography.titleMedium)
+        val entry = message
+        when {
+            !loaded -> LinearProgressIndicator(Modifier.fillMaxWidth())
+            entry?.deleted == true -> Text(stringResource(R.string.spaces_report_message_removed))
+            entry?.text != null -> Text(entry.text)
+            else -> Text(stringResource(R.string.spaces_report_message_unavailable))
+        }
+    }
 }
 
 @Composable private fun <T, Cursor> StaffHistory(loadPage: suspend (Cursor?) -> Pair<List<T>, Cursor?>,
-    rowKey: (T) -> String, empty: Int, failure: Int, more: Int, header: (@Composable () -> Unit)? = null,
+    onDenied: () -> Unit, rowKey: (T) -> String, empty: Int, failure: Int, more: Int, header: (@Composable () -> Unit)? = null,
     row: @Composable (T) -> Unit) {
     val scope = rememberCoroutineScope()
     var rows by remember { mutableStateOf<List<T>?>(null) }
     var cursor by remember { mutableStateOf<Cursor?>(null) }
+    var currentPage by remember { mutableStateOf<Cursor?>(null) }
     var loading by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
     suspend fun load(before: Cursor? = null) {
@@ -88,9 +128,16 @@ import java.time.format.FormatStyle
         failed = false
         try {
             val (page, next) = loadPage(before)
-            rows = if (before == null) page else (rows.orEmpty() + page).distinctBy(rowKey)
+            rows = page
             cursor = next
+            currentPage = before
         } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: SpaceClient.ReadDenied) {
+            rows = null
+            cursor = null
+            currentPage = null
+            onDenied()
+        }
         catch (_: Exception) { failed = true }
         finally { loading = false }
     }
@@ -105,6 +152,10 @@ import java.time.format.FormatStyle
             }
         }
         if (rows?.isEmpty() == true) item { Text(stringResource(empty)) }
+        if (currentPage != null) item {
+            OutlinedButton(onClick = { scope.launch { load() } }, enabled = !loading,
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_moderation_latest)) }
+        }
         items(rows.orEmpty(), key = rowKey) { row(it) }
         cursor?.let { next -> item {
             OutlinedButton(onClick = { scope.launch { load(next) } }, enabled = !loading,
@@ -113,12 +164,17 @@ import java.time.format.FormatStyle
     }
 }
 
-@Composable private fun HistoryCard(title: String, metadata: String, detail: String?) {
+@Composable private fun HistoryCard(title: String, metadata: String, detail: String?, onReview: (() -> Unit)? = null) {
     Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = RoundedCornerShape(16.dp)) {
         Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(title, style = MaterialTheme.typography.titleMedium)
             Text(metadata, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             detail?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
+            onReview?.let {
+                TextButton(onClick = it, modifier = Modifier.heightIn(min = 48.dp)) {
+                    Text(stringResource(R.string.spaces_review_report))
+                }
+            }
         }
     }
 }
@@ -143,6 +199,9 @@ private fun adminAction(action: String): Int = when (action) {
     "grant-channel-access", "revoke-channel-access", "rotate-access" -> R.string.spaces_admin_changed_access
     "message-delete" -> R.string.spaces_admin_removed_content
     "message-pin" -> R.string.spaces_admin_changed_pin
+    "admitted-member", "join-public" -> R.string.spaces_admin_admitted_member
+    "muted-in-room" -> R.string.spaces_admin_muted_in_room
+    "removed-from-room" -> R.string.spaces_admin_removed_from_room
     "join", "join-channel" -> R.string.spaces_admin_join_requested
     else -> R.string.spaces_admin_updated_space
 }

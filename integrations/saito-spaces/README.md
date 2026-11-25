@@ -35,7 +35,7 @@ the actual wallet signature, recipients, scope, role, control order, epoch and
 operation identity. Only its signed durable receipt confirms acceptance.
 
 The existing node peer key is the service identity. The adapter advertises
-its capabilities only after its local service reports that same key and a compatible schema4 or schema5.
+its capabilities only after its local service reports that same key and a compatible schema 4, 5 or 6.
 Provisioning that signing identity is a separate operator-authorized secret
 handoff. Do not copy node options, keys or private backups into this repository,
 command arguments, CI artifacts or logs. No fallback/new wallet is generated.
@@ -120,7 +120,7 @@ bytes. Unsupported versions, unversioned data and a different service identity
 fail before a destructive schema or journal-mode change. Upgrading4 to5 adds message and mutation-target indexes with bounded100-row
 metadata backfill. Reopening5 is idempotent; signed originals and receipts stay
 unchanged. A schema4 binary cannot open5 and must not replace it over later writes.
-Schema 6 adds the private report table. Opening an existing schema 5 store
+Schema 6 adds private reports and room moderation history. Opening an existing schema 5 store
 preserves the signed originals and receipts and adds the new table atomically.
 
 Only after readiness, migration preservation and isolated signed write/read pass,

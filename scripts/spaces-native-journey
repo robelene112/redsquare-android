@@ -1017,7 +1017,8 @@ try:
                 media_result[flag] is True for flag in ('fourthPeerRefused', 'decodedAudioAndVideoBothWays', 'audioAcrossModules',
                     'moderatorStoppedDecodedAudio', 'decodedAudioWithScreenOff', 'guestsDecodedEachOther', 'remoteCameraToggleObserved',
                     'nativeCameraResumedToBothGuests', 'remoteCameraResumedToNative',
-                    'receiverBlockedModeratedGuest', 'remainingPeerSurvivedRemoval', 'revokedSignalDenied')
+                    'receiverBlockedModeratedGuest', 'remainingPeerSurvivedRemoval', 'revokedSignalDenied',
+                    'timedPauseStoppedDecodedAudio', 'explicitUnmuteRestoredDecodedAudio')
             ):
                 raise RuntimeError('Recorded room effects do not establish measured media and the capacity boundary')
             finish_record(*movies[-1])

@@ -703,17 +703,34 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
 
     suspend fun reportMessage(space: String, channel: String, message: String, reason: String): SpaceMessageReport {
+        val requestedReason = SpaceMessageReport.cleanReason(reason)
         val result = readPage(JsonObject().apply {
             addProperty("space_id", space)
             addProperty("stream", "message-report")
             addProperty("cursor", 0)
             addProperty("channel_id", channel)
             addProperty("message_id", message)
-            addProperty("reason", SpaceMessageReport.cleanReason(reason))
+            addProperty("reason", requestedReason)
         })
         return SpaceMessageReport.read(result.getAsJsonArray("items").single().asJsonObject).also {
             require(it.channel == channel && it.message == message && it.reporter == wallet.publicKey)
+            if (it.reason != requestedReason) throw SpaceReportAlreadyFiled()
         }
+    }
+
+    suspend fun reviewReportedMessage(space: String, report: SpaceMessageReport): Message? = try {
+        syncControls(space)
+        val page = messagePage(space, report.channel, limit = 1, thread = report.thread, exactReport = report)
+        val current = if (page.count > 0) message(space, report.message, report.channel) else null
+        if (current?.missingKeys == true) {
+            refreshKeys(space, report.channel)
+            messagePage(space, report.channel, limit = 1, thread = report.thread, exactReport = report)
+            message(space, report.message, report.channel)
+        } else current
+    } catch (denied: ReadDenied) {
+        // Staff may investigate the report even if this device was never given the channel keys.
+        messageReports(space)
+        null
     }
 
     suspend fun messageReports(space: String, before: Long = Long.MAX_VALUE): SpaceReportPage {
@@ -3071,16 +3088,19 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
 
     private data class MessagePage(val start: Long, val end: Long, val next: Long, val count: Int, val more: Boolean)
-    private suspend fun messagePage(space: String, channel: String, cursor: Long = Long.MAX_VALUE, before: Boolean = true, limit: Int = 50, thread: String? = null, reactionRounds: Int = 2, exactArticle: String? = null): MessagePage {
+    private suspend fun messagePage(space: String, channel: String, cursor: Long = Long.MAX_VALUE, before: Boolean = true, limit: Int = 50, thread: String? = null, reactionRounds: Int = 2, exactArticle: String? = null, exactReport: SpaceMessageReport? = null): MessagePage {
         require(limit in 1..50)
-        require(exactArticle == null || (thread == null && limit == 1 && before && cursor == Long.MAX_VALUE))
+        require(exactArticle == null || (thread == null && exactReport == null))
+        val detached = exactArticle != null || exactReport != null
+        require(!detached || (limit == 1 && before && cursor == Long.MAX_VALUE))
         val result = readPage(JsonObject().apply {
             addProperty("space_id", space); addProperty("stream", "messages"); addProperty("channel_id", channel)
             addProperty("cursor", cursor); addProperty("direction", if (before) "before" else "after"); addProperty("limit", limit)
             thread?.let { addProperty("thread_id", it) }
             exactArticle?.let { addProperty("article_id", it) }
-            if (exactArticle == null && supportsMessagePins) addProperty("pin_history", true)
-            if (exactArticle == null && supportsMessageReactions) {
+            exactReport?.let { addProperty("report_id", it.id) }
+            if (!detached && supportsMessagePins) addProperty("pin_history", true)
+            if (!detached && supportsMessageReactions) {
                 addProperty("reaction_history", true)
                 add("reaction_cursors", store.transaction { reactionProgress(space, channel, cursor, before, thread) })
             }
@@ -3100,6 +3120,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val original = ensureAuthorization(space, item.text("message"), channel, controls)
             if (exactArticle != null)
                 require(original.original.id == exactArticle && original.original.body.text("content_kind") == "article")
+            if (exactReport != null)
+                require(original.original.id == exactReport.message &&
+                    original.original.body.text("content_kind") == if (thread == null) "message" else "thread-reply")
             val position = original.receipt.body.number("position")
             require(original.original.body.text("content_kind") in (if (thread == null) ROOT_CONTENT_KINDS else setOf("thread-reply")) &&
                 (thread == null || original.original.body.text("target_message_id") == thread) && position < end &&
@@ -3150,9 +3173,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             // projection. A malformed later entry rolls the whole page back.
             val decoder = reactionDecoder(space, channel)
             for (record in records) accept(space, record.envelope, controls, authenticated = record, reactionReader = decoder)
+            if (exactReport != null) return@transaction
             val denial = articleReadDeniedKey(space, channel)
             if (get(denial) != null) remove(denial)
-            if (exactArticle != null) return@transaction
+            if (detached) return@transaction
             retryUnavailableReactions(space, channel)
             recordReplyCounts(space, channel, replyCounts, end)
             for ((id, version) in ownReactionVersions) {

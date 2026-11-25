@@ -647,12 +647,17 @@ The reporting client signs a fresh request for an exact accepted message or
 reply, including the reason and its channel scope. The node checks current
 membership and channel access and stores the report in the dedicated staff
 table. Repeating a report by the same member for the same record returns its
-first receipt. The staff list and admin log check the current owner or
-administrator role on each signed read. The node is the custodian of the
-report reason.
+first receipt. A different reason for that same record is acknowledged as an
+existing report. The staff list, exact message review and admin log check the
+current owner or administrator role on each signed read. The node is the
+custodian of the report reason. Review fetches the exact original and its
+current edits or deletion using existing signed receipts. An encrypted
+message still requires the appropriate device keys.
 
 The admin log pages accepted actions by node acceptance time and original
 event identity. Each row carries the authenticated actor and the relevant
-channel or member when present. Writing pauses are signed control events
+channel or member when present. An effective staff removal or mute in a
+live room also records the authenticated moderator, target and time. The
+record is committed before the live roster changes. Writing pauses are signed control events
 with an explicit end time and either community or channel scope. Reading
 and listening use their existing permission checks.

@@ -823,9 +823,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     navigation?.navigate(commit) ?: account.guardNavigation(commit)
                 }
             }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_members)) }
-            if (account.moderationReportsSupported() && selected.joined && !selected.dissolved && state.members.any {
-                it.publicKey == account.ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
-            }) OutlinedButton(onClick = {
+            if (account.moderationReportsSupported() && selected.joined && account.canReviewModeration(selected.id, state)) OutlinedButton(onClick = {
                 scope.launch {
                     val commit: suspend () -> Boolean = { informationOpen = false; reportsSpace = selected.id; true }
                     navigation?.navigate(commit) ?: account.guardNavigation(commit)

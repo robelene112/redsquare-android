@@ -170,6 +170,7 @@ object SpacesNativeHost {
                                         "/room-config" -> requireNotNull(voiceRoom).configuration()
                                         "/room-observe" -> requireNotNull(voiceRoom).observe()
                                         "/room-remove-native" -> requireNotNull(voiceRoom).moderateNative(remove = true)
+                                        "/room-pause-native-writing" -> requireNotNull(voiceRoom).pauseNativeWriting(body.get("paused").asBoolean)
                                         "/room-mute-native" -> requireNotNull(voiceRoom).moderateNative(remove = false)
                                         "/room-moderate-guest" -> requireNotNull(voiceRoom).moderateGuest(body)
                                         "/room-join" -> requireNotNull(voiceRoom).join(body)
