@@ -1,0 +1,215 @@
+{
+  "ticket": 143,
+  "parent": 134,
+  "status": "accepted",
+  "approvedDesign": "Native prototype option B",
+  "recordedAt": "2026-11-25T07:31:39.295589+00:00",
+  "reviewBase": "e97bb4e40",
+  "measuredProductSource": "a2446d3c24d9713d662adf3dcc8d36403596e704",
+  "acceptanceMap": [
+    {
+      "requirement": "Native file library with explicit downloads",
+      "results": "The actual system document picker supplies a PNG. The accepted row displays its name, sender, size and date. Opening the list and its detail leaves the native download count at zero. Keeping an offline copy retrieves the payload once."
+    },
+    {
+      "requirement": "Explicit provider terms, capacity, renewal and no file bytes on the node",
+      "results": "The Android owner enters an independent HTTPS origin and reviews the exact signed terms before confirming. The operator process retains ciphertext and reports quota. The app shows full capacity, a forced provider outage, approaching expiry, current expiry and owner-confirmed renewal."
+    },
+    {
+      "requirement": "Byte-exact recovery and distinct removal effects",
+      "results": "A second identity downloads the original after the uploader is force-stopped and the operator restarts. While the operator is stopped, a separate Android viewer opens the real read grant, seeks and verifies the same SHA-256. Removing the offline copy leaves the quota unchanged. Confirmed shared removal clears the published entry and frees its provider capacity."
+    },
+    {
+      "requirement": "Scoped authorization and private metadata",
+      "results": "Independent service tests exercise archived channel uploads and departed-member downloads while bytes are in flight, exact staged upload recovery after renewal, approved owner terms and signed expiry, and ciphertext length padding. The provider rechecks committed authorization during transfer. File keys, original size, name, MIME and sender remain in the protected Space descriptor for private channels."
+    }
+  ],
+  "jvm": {
+    "measuredSource": "26356190a0a2ac6bfa9da4f6bfa828a661af8cbb",
+    "results": {
+      "core": {
+        "tests": 257,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "spaces-service": {
+        "tests": 222,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "diagnosticRuns": [
+    {
+      "runs": [
+        45558481524,
+        45558481511
+      ],
+      "result": "The app accepted a real file. The tests exposed an ambiguous status selector and a detail action below the compact fold."
+    },
+    {
+      "runs": [
+        45560533579,
+        45560533254
+      ],
+      "result": "The separate Android 10 test viewer lacked Kotlin classes. The compact picker remained open after a tap on the document text."
+    },
+    {
+      "runs": [
+        45562919765,
+        45564460804
+      ],
+      "result": "The Android 10 test could not select the Downloads grid tile. The terminal compact Android 17 journey passed at the same source in run 45562919815."
+    },
+    {
+      "runs": [
+        45565738376
+      ],
+      "result": "Android 10 reached its durable checkpoint. The screen recorder did not stop within its evidence window."
+    }
+  ],
+  "native": [
+    {
+      "run": 45567363227,
+      "api": "29",
+      "apkSha256": {
+        "app-debug.apk": "65142e9c381e3b19e7be58231e48c488b5b83bd118cfcd05014b81f3e6e6d70f",
+        "app-debug-androidTest.apk": "9c1e9ebb91d3e9331b21607787ffa37eb346cbbe948021b3ae1acae110fd5c2c"
+      },
+      "journey": {
+        "source": "a2446d3c24d9713d662adf3dcc8d36403596e704",
+        "oldPid": 3538,
+        "newPid": 9746,
+        "oldProviderPid": 4659,
+        "newProviderPid": 4836,
+        "bytesRecovered": 806,
+        "sha256": "4072acbe4720e5c7a93a7cf64528ad12bd3ea97d0ae18ae9e5a3e87e864ae9dd",
+        "nativeTerminalPasses": 1,
+        "deliberatelyInterruptedCases": 1,
+        "compactViewport": false,
+        "productionNodeActivated": false,
+        "ordinaryBetaChanged": false
+      },
+      "independentRecovery": {
+        "size": 806,
+        "sha256": "4072acbe4720e5c7a93a7cf64528ad12bd3ea97d0ae18ae9e5a3e87e864ae9dd",
+        "files": 1,
+        "nativeDownloads": 1,
+        "used": 65552
+      },
+      "afterSharedRemoval": {
+        "files": 0,
+        "used": 0,
+        "nativeDownloads": 1
+      },
+      "nativePhotosSha256": {
+        "file-terms": "d39ccf2f4252356d2c73c2fb23b6710c28294c70dabdb14b01437569cc197448",
+        "file-storage-full": "117bfbf52ca1e05602e5beed3b6a9a90d41d42a417e1153a9a90cafb6596b38d",
+        "file-library": "117bfbf52ca1e05602e5beed3b6a9a90d41d42a417e1153a9a90cafb6596b38d",
+        "file-keep-offline": "cf9ef5a930107769bef8e1ad16fbeb495ae0e93003dbdf9e120bcdf87f16aa43",
+        "file-provider-offline": "0907f2f46deb3709f10751ecf506905f25535308b84f7935bbbf48a292d09d73",
+        "file-viewer-bytes": "827bd10f9da7c6ee06008b5cb71cfaa159ada24f3ac70091d7420b7ec5e429d7",
+        "file-local-removal": "e97c263f67a2218bc2650a3f1290e8cce2627078711316d62532ce6f47cccb22",
+        "file-shared-removal": "db1b451c85d4ac413c92ffca5b5c820601696aacdb0dad24dbc9f88ab7721867",
+        "file-expiry-warning": "9a81e93852608e3ef1581d370a4663bf3834a790728689b4b1f620b56e86adb2",
+        "file-storage-expired": "581a2793be4d1288f4e915383fe0775b60c6a7b57a98b07a08cc706d068c7da7",
+        "file-storage-renewed": "96ef9d8d40b65679cb651f238cf36bb0b2d7b84ab7023c18e278ba2327e512b3"
+      },
+      "nativeEvidenceSha256": "d652bf205aa6e1064a57cafe56c61cce276e9b0afbdd4526040a041837ac3ed5",
+      "phaseVideosSha256": {
+        "phase-1": "0bb4efef8eb6529198f6c34b6b9d76138c3119bf4d124ed1aec743b504608edd",
+        "phase-2": "2b47ccb97ee2f3d008604c4b90c458d49ad01b68385a76a5902e629481ae1433"
+      },
+      "cleanup": {
+        "originalFailure": null,
+        "errors": []
+      }
+    },
+    {
+      "run": 45565738164,
+      "api": "37.0",
+      "apkSha256": {
+        "app-debug.apk": "abbac94a913f15f7eae195aafe3c2dcd86f11f05a38b4ac4688715253c474d40",
+        "app-debug-androidTest.apk": "13a2a7b2f017fcd3a70cee319d7933c8c03694c7f9a19b40724488a9ee3c0fb8"
+      },
+      "journey": {
+        "source": "a2446d3c24d9713d662adf3dcc8d36403596e704",
+        "oldPid": 4156,
+        "newPid": 5346,
+        "oldProviderPid": 4876,
+        "newProviderPid": 5193,
+        "bytesRecovered": 806,
+        "sha256": "4554e722b4f61245a0315f772eb5612005bd6063166ddd8158d99ccbc57ea164",
+        "nativeTerminalPasses": 1,
+        "deliberatelyInterruptedCases": 1,
+        "compactViewport": true,
+        "productionNodeActivated": false,
+        "ordinaryBetaChanged": false
+      },
+      "independentRecovery": {
+        "size": 806,
+        "sha256": "4554e722b4f61245a0315f772eb5612005bd6063166ddd8158d99ccbc57ea164",
+        "files": 1,
+        "nativeDownloads": 1,
+        "used": 65552
+      },
+      "afterSharedRemoval": {
+        "files": 0,
+        "used": 0,
+        "nativeDownloads": 1
+      },
+      "nativePhotosSha256": {
+        "file-terms": "4fbb1f3d5ee39f0f49a4bc9918e6e01efa41708574d37008194ddbef1840ffc7",
+        "file-storage-full": "9f90dcabaccd78b28e50afad742c5da75214986396b7b1ba7561a987283d3401",
+        "file-library": "82d417a4c176298791b7a3b578816327555a73705e9ae291f94ed62e6f7b4946",
+        "file-keep-offline": "b1010161b3c7f9db5df48efbdd817b53b9cedda21a47966777c10198c7a8c41d",
+        "file-provider-offline": "435f5ab3a92c62fa0955367b48147774a6989b32a5db45bfb419c681e1b3bcfa",
+        "file-viewer-bytes": "d97e65fbeb00f9e15a98cfa59b2ad39c352a0c7ac4b516a0b0848a87f2e9b004",
+        "file-local-removal": "90b3cee68c7f63c5e6cba04e799157503789143aa1c34e811df5e4c4b4fe8b91",
+        "file-shared-removal": "0ae12a186dde920f385ec50fd6a11d4697cc08fa5c8e4d62cb5ebf1b14e6d362",
+        "file-expiry-warning": "c6ff35930563599a2fe747b8955dc8bd642cfc324fb40b9ccbba566c62655146",
+        "file-storage-expired": "1464db2f861f38ead048330d06de9e0619dcc48a505cb5dc68f6a2e227aa1c90",
+        "file-storage-renewed": "d73e70ef6b4650137d6f8becdf43f15352d66c90cdd44549597ff4055940ed90"
+      },
+      "nativeEvidenceSha256": "e0bb0ce5ccc69455ffbc54a915e6a04d34a292d2d2085c4ac7e77441c20539be",
+      "phaseVideosSha256": {
+        "phase-1": "5d2e772f6758752225f9c4092d916f9c1acad032bd2f3e0573af317252cff7de",
+        "phase-2": "ae10c84c248c540e0bd8eb2721c29543bf7eff672bd2383b140c3723cf389a64"
+      },
+      "cleanup": {
+        "originalFailure": null,
+        "errors": []
+      },
+      "viewport": {
+        "package": "nl.davidengelen.redsquare.dev",
+        "stage": "prepared",
+        "pid": 3792,
+        "sdk": 37,
+        "fontScale": 2.0,
+        "screenWidthDp": 320,
+        "densityDpi": 320,
+        "fontSetting": "2.0"
+      },
+      "restoration": {
+        "size": {
+          "physical": "320x640",
+          "override": null
+        },
+        "density": {
+          "physical": "160",
+          "override": null
+        },
+        "fontSetting": "1.0",
+        "implicitAndroid10Default": false
+      }
+    }
+  ],
+  "qualifications": [
+    "Native evidence is from owned Android 10 and compact Android 17 emulators.",
+    "The provider is a separate compatible process in an isolated fixture. Production node and provider activation remain separate.",
+    "Explicit zero-cost offers are supported. Paid quotes have no activation or payment path.",
+    "The ordinary beta is unchanged by this ticket."
+  ]
+}

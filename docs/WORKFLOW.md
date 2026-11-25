@@ -1,5 +1,16 @@
 # Development workflow
 
+## Accepted #143, continue #144
+
+Spaces file channels use an independent storage provider selected by the
+owner. The [#143 evidence record](evidence/ticket143/final-acceptance.json)
+ties Android 10 and compact Android 17 to the exact source, real file picker,
+signed terms, capacity, expiry, byte-exact recovery across separate process
+restarts, and distinct local and shared removals. The supported activation
+path is a zero-cost offer. Live provider and node availability remain
+operational gates. Continue #144 through #147 sequentially. Public beta
+delivery stays in #147.
+
 ## Accepted #142, continue #143
 
 Article channels support real public Stack references, private encrypted
