@@ -145,6 +145,17 @@ async function connectRoomPeer(peer) {
   pc.ontrack = event => {
     if (!incoming.getTrackById(event.track.id)) incoming.addTrack(event.track);
     emit('videocall-stream', peer, incoming);
+    const video = document.getElementById('remote-' + peer);
+    if (event.track.kind === 'video' && video && video.freshPictures === undefined) {
+      video.style.width = '240px';
+      video.freshPictures = 0;
+      const observePicture = () => {
+        if (!video.isConnected) return;
+        if (sampleVideoPixels(video) > 500) video.freshPictures++;
+        video.requestVideoFrameCallback(observePicture);
+      };
+      video.requestVideoFrameCallback(observePicture);
+    }
   };
   if (!roomStream) roomStream = navigator.mediaDevices.getUserMedia({audio:true, video:true});
   const stream = await roomStream;
@@ -202,6 +213,16 @@ window.roomDisconnect = peer => {
 window.roomCamera = async enabled => {
   if (roomStream) (await roomStream).getVideoTracks().forEach(track => { track.enabled = enabled; });
 };
+const pixelSample = document.createElement('canvas'); pixelSample.width = 8; pixelSample.height = 8;
+const pixelContext = pixelSample.getContext('2d', {willReadFrequently:true});
+function sampleVideoPixels(video) {
+  if (video.readyState < 2 || video.videoWidth === 0) return 0;
+  pixelContext.drawImage(video,0,0,8,8);
+  const data = pixelContext.getImageData(0,0,8,8).data;
+  let total = 0;
+  for (let i=0;i<data.length;i+=4) total += data[i]+data[i+1]+data[i+2];
+  return total;
+}
 setInterval(async () => {
   for (const [peer, pc] of [...stun.peers, ...roomPeers]) {
     try {
@@ -212,19 +233,13 @@ setInterval(async () => {
         const video = [...reports.values()].filter(r => r.kind === 'video' && ['outbound-rtp', 'inbound-rtp'].includes(r.type))
           .map(r => ({direction:r.type, mid:r.mid, ssrc:r.ssrc, codec:reports.get(r.codecId)?.mimeType, received:r.bytesReceived,
             sent:r.bytesSent, decoded:r.framesDecoded, encoded:r.framesEncoded, width:r.frameWidth, height:r.frameHeight}));
-        Host.videoFrames(peer, video.reduce((count, report) => count + (report.decoded || 0), 0));
+        Host.videoFrames(peer, document.getElementById('remote-' + peer)?.freshPictures ?? 0);
         Host.diagnostic(`room-video ${peer} ${JSON.stringify(video)}`);
       }
     } catch (error) { if (pc.connectionState !== 'closed') Host.failure(String(error)); }
   }
   for (const video of document.querySelectorAll('video')) {
-    let nonBlack = 0;
-    if (video.readyState >= 2 && video.videoWidth > 0) {
-      const sample = document.createElement('canvas'); sample.width = 8; sample.height = 8;
-      const context = sample.getContext('2d'); context.drawImage(video,0,0,8,8);
-      const data = context.getImageData(0,0,8,8).data;
-      for (let i=0;i<data.length;i+=4) nonBlack += data[i]+data[i+1]+data[i+2];
-    }
+    const nonBlack = sampleVideoPixels(video);
     let rms = 0;
     if (video.analysis) { const pcm = new Float32Array(1024); video.analysis.getFloatTimeDomainData(pcm); rms = Math.sqrt(pcm.reduce((v,a) => v+a*a,0)/pcm.length); }
     Host.media(video.id.slice(7), video.videoWidth, video.videoHeight, nonBlack, rms);

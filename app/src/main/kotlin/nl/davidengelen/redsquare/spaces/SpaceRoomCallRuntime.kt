@@ -298,7 +298,7 @@ internal object SpaceRoomCallRuntime {
                     media = true, scopedSignals = true,
                     remoteAudioAllowed = { currentParticipant(id)?.canSpeak == true && remoteCapture[id]?.microphone == true },
                     remoteVideoAllowed = { currentParticipant(id) != null && remoteCapture[id]?.camera == true },
-                ))
+                ), roomSession = token)
             reference.set(lease)
             peers[id] = lease
             if (stopped.get()) {

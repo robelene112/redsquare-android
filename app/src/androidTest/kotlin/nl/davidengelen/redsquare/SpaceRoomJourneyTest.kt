@@ -241,27 +241,38 @@ class SpaceRoomJourneyTest {
                         tracks.forEach(IncomingRoomProbe::close)
                     }
                     capture("room-three-peer-media")
+                    val beforePauseAudio = guests.map { requireNotNull(it.browser.audioBytes[local.key]) }
                     roomClick("Camera off")
                     waitMedia(guests, 10_000) {
-                        TalkRuntime.call.value?.localVideo == null && guests.all { it.remoteCapture[local.session]?.camera == false }
+                        TalkRuntime.call.value?.localVideo == null && guests.withIndex().all { (index, guest) ->
+                            guest.remoteCapture[local.session]?.camera == false &&
+                                (guest.browser.audioBytes[local.key] ?: 0L) > beforePauseAudio[index] &&
+                                (guest.browser.media[local.key]?.rms ?: 0.0) > 0.01
+                        }
                     }
                     val beforeResume = guests.map { requireNotNull(it.browser.videoFrames[local.key]) }
                     roomClick("Camera on")
                     waitMedia(guests, 10_000) {
                         TalkRuntime.call.value?.localVideo != null && guests.withIndex().all { (index, guest) ->
                             guest.remoteCapture[local.session]?.camera == true &&
-                                (guest.browser.videoFrames[local.key] ?: 0L) > beforeResume[index] + 2 &&
-                                guest.browser.media[local.key]?.nonBlack?.let { it > 500 } == true
+                                (guest.browser.videoFrames[local.key] ?: 0L) > beforeResume[index] + 2
                         }
                     }
                     val firstGuest = guests.first()
                     val secondGuest = guests.last()
                     fun receivedFrom(guest: SpaceRoomBrowserFixture) =
                         TalkRuntime.call.value?.participants?.firstOrNull { it.roomSession == guest.contact.session }
-                    firstGuest.setCamera(false)
-                    waitMedia(guests, 10_000) { receivedFrom(firstGuest)?.camera == false && receivedFrom(secondGuest)?.camera == true }
-                    firstGuest.setCamera(true)
-                    waitMedia(guests, 10_000) { receivedFrom(firstGuest)?.camera == true }
+                    val incoming = requireNotNull(receivedFrom(firstGuest))
+                    IncomingRoomProbe(incoming.key, requireNotNull(incoming.video), requireNotNull(incoming.audio)).use { probe ->
+                        firstGuest.setCamera(false)
+                        waitMedia(guests, 10_000) { receivedFrom(firstGuest)?.camera == false && receivedFrom(secondGuest)?.camera == true }
+                        val beforeGuestResume = probe.visibleFrames()
+                        firstGuest.setCamera(true)
+                        waitMedia(guests, 10_000) {
+                            receivedFrom(firstGuest)?.let { it.camera && it.video === probe.video } == true &&
+                                probe.visibleFrames() > beforeGuestResume + 2
+                        }
+                    }
                     val guestModeration = JsonObject().apply { addProperty("peer", 1); addProperty("remove", false) }
                     val mutedGuest = SpaceVoiceRoom.read(request("room-moderate-guest", guestModeration))
                     assertFalse(mutedGuest.participants.single { it.session == firstGuest.contact.session }.canSpeak)
@@ -323,6 +334,7 @@ class SpaceRoomJourneyTest {
                         addProperty("guestsDecodedEachOther", true)
                         addProperty("remoteCameraToggleObserved", true)
                         addProperty("nativeCameraResumedToBothGuests", true)
+                        addProperty("remoteCameraResumedToNative", true)
                         addProperty("receiverBlockedModeratedGuest", true)
                         addProperty("remainingPeerSurvivedRemoval", true)
                         addProperty("revokedSignalDenied", true)
@@ -351,7 +363,13 @@ class SpaceRoomJourneyTest {
         @Volatile private var audioFormat = "none"
         private val videoSink = VideoSink { frame ->
             videoSize = "${frame.buffer.width}x${frame.buffer.height}"
-            if (frame.buffer.width >= 320 && frame.buffer.height >= 240) frames.incrementAndGet()
+            if (frame.buffer.width >= 320 && frame.buffer.height >= 240) {
+                val pixels = frame.buffer.toI420() ?: return@VideoSink
+                try {
+                    val center = pixels.height / 2 * pixels.strideY + pixels.width / 2
+                    if ((pixels.dataY.get(center).toInt() and 255) > 25) frames.incrementAndGet()
+                } finally { pixels.release() }
+            }
         }
         private val audioSink = AudioTrackSink { data, bits, rate, channels, count, _ ->
             audioBuffers.incrementAndGet()
@@ -371,6 +389,7 @@ class SpaceRoomJourneyTest {
         }
 
         fun decoded() = frames.get() >= 3 && audible.get()
+        fun visibleFrames() = frames.get()
 
         fun report() = "$key qualifyingFrames=${frames.get()} lastFrame=$videoSize audioBuffers=${audioBuffers.get()}" +
             " audioFormat=$audioFormat audible=${audible.get()} videoEnabled=${runCatching { video.enabled() }.getOrNull()}" +
