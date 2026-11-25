@@ -1,0 +1,18 @@
+{
+  "ticket": 147,
+  "fixtureSource": "da7d49943",
+  "fixtureManifestSha256": "8a58a7891e0908a489a8eb8c59c28e6b0a9deda51d6d5c722de08da0c0094b3e",
+  "fixtureAuthorDatabaseSha256": "56038b94a5bf8a3562ba9a41ac6f53067b9077be593e264129081578e5de1b04",
+  "serviceDatabaseSha256": "adaa4a0e5c265976fd45fc433d3e61e6862d7f354270e5e85ba6b2b8645c98aa",
+  "logicalContractSha256AtSeed": "1b6b514a28c69a893f5e8eb063b92f4fd29a35e78bd69f5b317082f2f585ddeb",
+  "scope": "Independent SQLite verification of the owned local dataset seeded through the signed Spaces client and service",
+  "spaceCount": 100,
+  "channelCountCheckedBySeeder": 1000,
+  "independentlyAcceptedMessageCount": 100000,
+  "independentlyAcceptedFileCount": 1000,
+  "messageVolumeByChannel": {"128": 171, "129": 528, "10000": 1},
+  "libraryVolumeByChannel": {"10": 100},
+  "profileableCalibration": "https://github.com/robelene112/redsquare-android/actions/runs/45673875882",
+  "fullNativeTiming": "https://github.com/robelene112/redsquare-android/actions/runs/45675758153",
+  "performanceAcceptanceFromThisReceipt": false
+}
