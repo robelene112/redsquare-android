@@ -267,6 +267,11 @@ verify_group_chat_native() {
 }
 if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
     journey_options=()
+    if [[ "${SPACES_ROOMS:-false}" == true ]]; then
+        [[ "$TEST_SCOPE" == spaces-journey || "$TEST_SCOPE" == spaces-journey-android17 ]] || { echo 'Rooms require the base Spaces journey scope' >&2; exit 2; }
+        [[ "${SPACES_FILES:-false}" != true && "${SPACES_ARTICLES:-false}" != true && "${SPACES_PROTECTED_CHAT:-false}" != true && "${SPACES_CONVERSATION_OVERLAYS:-false}" != true ]] || { echo 'Select one focused Spaces journey' >&2; exit 2; }
+        journey_options=(voice-room-v1)
+    fi
     if [[ "${SPACES_FILES:-false}" == true ]]; then
         [[ "$TEST_SCOPE" == spaces-journey || "$TEST_SCOPE" == spaces-journey-android17 ]] || { echo 'Files require the base Spaces journey scope' >&2; exit 2; }
         [[ "${SPACES_ARTICLES:-false}" != true && "${SPACES_PROTECTED_CHAT:-false}" != true && "${SPACES_CONVERSATION_OVERLAYS:-false}" != true ]] || { echo 'Select one focused Spaces journey' >&2; exit 2; }
@@ -302,7 +307,9 @@ if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
         else journey_options=(management-v1); fi
     elif [[ "${TEST_SCOPE:-full}" == spaces-journey-discovery* ]]; then journey_options=(discovery-v1); fi
     python3 "$repo_dir/scripts/spaces-native-journey" "$evidence" "${journey_options[@]}"
-    if [[ "${SPACES_FILES:-false}" == true ]]; then
+    if [[ "${SPACES_ROOMS:-false}" == true ]]; then
+        printf '%s\n' 'Native reusable room prejoin, real permission denial, module navigation, rotation and authoritative removal.' > "$evidence/scope.txt"
+    elif [[ "${SPACES_FILES:-false}" == true ]]; then
         printf '%s\n' 'Native file consent, DocumentsUI, offline copy and shared deletion with independent provider and app process recovery.' > "$evidence/scope.txt"
     elif [[ "${SPACES_ARTICLES:-false}" == true ]]; then
         printf '%s\n' 'Native private Space article review and publishing, real IME, exact deep link, process recovery and independent encrypted receipt.' > "$evidence/scope.txt"

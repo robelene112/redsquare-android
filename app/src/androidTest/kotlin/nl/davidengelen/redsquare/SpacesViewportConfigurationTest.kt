@@ -40,7 +40,7 @@ class SpacesViewportConfigurationTest {
             addProperty("fontSetting", device.executeShellCommand("settings get system font_scale").trim())
         }
         val name = arguments.getString("spacesViewportFolder") ?: "spaces-discovery-evidence"
-        require(name in setOf("spaces-files-evidence", "spaces-articles-evidence", "spaces-discovery-evidence",
+        require(name in setOf("spaces-rooms-evidence", "spaces-files-evidence", "spaces-articles-evidence", "spaces-discovery-evidence",
             "spaces-management-evidence", "spaces-private-management-evidence", "spaces-private-readiness-evidence",
             "spaces-category-management-evidence", "spaces-governance-evidence", "spaces-membership-evidence",
             "spaces-private-ownership-evidence"))

@@ -27,7 +27,8 @@ import java.util.concurrent.atomic.AtomicBoolean
  * real service/SQLite/MLS and independent received effects; no public network. */
 object SpacesNativeHost {
     @JvmStatic fun main(args: Array<String>): Unit = runBlocking {
-        require(args.size in 1..2 && (args.size == 1 || args[1] in setOf("file-library-v1", "article-channels-v1", "conversation-overlays-v1", "discovery-v1", "management-v1", "private-management-v1", "private-readiness-v1", "category-management-v1", "governance-v1", "membership-v1", "private-ownership-v1")))
+        require(args.size in 1..2 && (args.size == 1 || args[1] in setOf("voice-room-v1", "file-library-v1", "article-channels-v1", "conversation-overlays-v1", "discovery-v1", "management-v1", "private-management-v1", "private-readiness-v1", "category-management-v1", "governance-v1", "membership-v1", "private-ownership-v1")))
+        val roomMode = args.getOrNull(1) == "voice-room-v1"
         val fileMode = args.getOrNull(1) == "file-library-v1"
         val articleMode = args.getOrNull(1) == "article-channels-v1"
         val conversationMode = args.getOrNull(1) == "conversation-overlays-v1"
@@ -50,11 +51,17 @@ object SpacesNativeHost {
         val workers = Executors.newFixedThreadPool(2)
         val started = System.nanoTime()
         var fileLibrary: SpacesFileLibraryFixture? = null
+        var voiceRoom: SpacesVoiceRoomFixture? = null
         try { SpacesServiceStore(root.resolve("service"), service, clock).use { remote ->
             SqliteClientFixture(root.resolve("independent-client.sqlite").toString()).use { local ->
                 val managedLocal = if (managementMode || privateManagementMode || privateReadinessMode) SqliteClientFixture(root.resolve("management-member.sqlite").toString()) else null
                 managedLocal.use { memberStore ->
                     val client = SpaceClient(guest, "https://saito.davidengelen.nl", service.publicKey, local, clock) { remote.exchange(it.envelope()) }
+                    if (roomMode) {
+                        val fixture = SpacesVoiceRoomFixture(root, service, client, remote, clock)
+                        voiceRoom = fixture
+                        fixture.seed()
+                    }
                     if (fileMode) {
                         val files = SpacesFileLibraryFixture(root, service, client, remote)
                         fileLibrary = files
@@ -152,6 +159,13 @@ object SpacesNativeHost {
                                             }
                                         }
                                         "/file-library" -> requireNotNull(fileLibrary).configuration()
+                                        "/room-config" -> requireNotNull(voiceRoom).configuration()
+                                        "/room-observe" -> requireNotNull(voiceRoom).observe()
+                                        "/room-remove-native" -> requireNotNull(voiceRoom).removeNative()
+                                        "/room-join" -> requireNotNull(voiceRoom).join(body)
+                                        "/room-renew" -> requireNotNull(voiceRoom).renew(body)
+                                        "/room-signal" -> requireNotNull(voiceRoom).signal(body)
+                                        "/room-leave" -> requireNotNull(voiceRoom).leave(body)
                                         "/file-expiry-library" -> requireNotNull(fileLibrary).expiryLibrary()
                                         "/file-received" -> requireNotNull(fileLibrary).received()
                                         "/file-provider-downloads" -> requireNotNull(fileLibrary).downloadCount()
@@ -379,7 +393,7 @@ object SpacesNativeHost {
             }
         }
         } finally {
-            try { fileLibrary?.close() } finally {
+            try { fileLibrary?.close(); voiceRoom?.close() } finally {
                 workers.shutdownNow()
                 check(workers.awaitTermination(5, TimeUnit.SECONDS))
             }
