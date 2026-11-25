@@ -1,0 +1,143 @@
+{
+  "ticket": 141,
+  "parent": 134,
+  "approvedDesign": "Native prototype option B",
+  "status": "accepted",
+  "recordedAt": "2026-11-25T01:23:43.712464+00:00",
+  "reviewBase": "78b85026f4842e04e09659e3682765fb4cb754f7",
+  "measuredProductSource": "3a3a656589011ac93b62953885be41420fdebf37",
+  "acceptanceMap": [
+    {
+      "requirement": "Pinned authenticated E2E for direct and group Chat and explicit legacy continuity",
+      "evidence": [
+        "Independent SQLite clients and the maintained MLS binding exercise direct and three-member group exchange, recipient-bound invitations, node capabilities, plaintext exclusion, and received plaintext.",
+        "The signed protected client version and verified key package gate admission. The Android transition from a legacy conversation preserves its history, uses the same local association on return, and offers its current members as individual invitation choices.",
+        "PrivateChatTest and GroupChatTest read and compare the existing clients' signed direct and named-group formats. Native legacy process results keep the wallet, cached originals and separate drafts."
+      ]
+    },
+    {
+      "requirement": "Portable protected identity and archive keys",
+      "evidence": [
+        "AccountRecoveryBackupTest exercises wrong passphrase, altered bytes and an empty history archive. Android 10 and 17 use actual PIN authentication, native export and import, a rejected passphrase, explicit restore, and a restored key that decrypts an independently prepared record.",
+        "SpaceRecoveryBackupTest verifies archive-only restoration alongside fresh sender state. A separate solo-owner case opens signed saved history without an invitation or fresh Welcome."
+      ]
+    },
+    {
+      "requirement": "Fresh replacement and preservation of immutable operations",
+      "evidence": [
+        "In SpaceProtectedChatTest the previously accepted replacement request survives a lost acknowledgment and SQLite close/reopen, retries the identical original after device approval, and installs the new MLS credential. The previous device keeps its rejected queued original and lacks future plaintext; the replacement independently sends and receives.",
+        "Android 10 and Android 17 use distinct genuine processes. A later draft survives changing modules and force-stop. The independent fixture sees two exact submissions of the same signed ciphertext, a single received plaintext and a second separate message sent by a physical screen tap."
+      ]
+    }
+  ],
+  "protectedChatNative": [
+    {
+      "android": 10,
+      "run": 45523547091,
+      "conclusion": "success",
+      "source": "3a3a656589011ac93b62953885be41420fdebf37",
+      "oldPid": 3579,
+      "newPid": 6353,
+      "nativeTerminalPasses": 1,
+      "deliberatelyInterruptedCases": 1,
+      "exactOriginal": true,
+      "encryptedOriginals": 2,
+      "originalSubmissions": 2,
+      "readByIndependentPeer": true,
+      "screenTapReceived": true,
+      "productionNodeActivated": false,
+      "apkDigests": [
+        "deedb672ebd8ffd2065a47841c40e1aa966934a54d2acf79ac1d6be321035eee",
+        "22c660f22d00dbfdf8ed2cace091452114272152bf55ae6459242804b90d408f"
+      ]
+    },
+    {
+      "android": 17,
+      "run": 45523756722,
+      "conclusion": "success",
+      "source": "3a3a656589011ac93b62953885be41420fdebf37",
+      "oldPid": 3277,
+      "newPid": 4667,
+      "nativeTerminalPasses": 1,
+      "deliberatelyInterruptedCases": 1,
+      "exactOriginal": true,
+      "encryptedOriginals": 2,
+      "originalSubmissions": 2,
+      "readByIndependentPeer": true,
+      "screenTapReceived": true,
+      "productionNodeActivated": false,
+      "apkDigests": [
+        "7435cbdd1d9039e89384786d4ead4fb9c9bbe8d7d0dc79a734a94ed293d09fb9",
+        "2d405c95df2b22e2bedb5963dfa3af49d1b6d49db76702bdaafc89e58de900aa"
+      ]
+    }
+  ],
+  "protectedWalletNative": [
+    {
+      "android": 10,
+      "run": 45516283155
+    },
+    {
+      "android": 17,
+      "run": 45518301944
+    }
+  ],
+  "legacyNativeProcess": [
+    {
+      "kind": "private",
+      "android": 10,
+      "run": 45517454315
+    },
+    {
+      "kind": "group",
+      "android": 17,
+      "run": 45513403542
+    }
+  ],
+  "localFocusedTests": {
+    "service": 32,
+    "legacyCompatibilityAndBackup": 33
+  },
+  "reviews": [
+    "protected Chat and recovery specification",
+    "repository and native evidence standards"
+  ],
+  "earlierObservationsRetained": [
+    {
+      "android": 10,
+      "run": 45521753519,
+      "nativeTest": "passed",
+      "workflow": "report export failed after native assertions and cleanup",
+      "source": "57f470bfe7c153f572b821643d6a78193cc73757",
+      "apkDigests": [
+        "557b3c6db83099fab302dd923df3faa4bb0640672736c4d15346e9cabe34797a",
+        "992fc4ea1f5b4fa34722ab4e1c0c0d76def50b791029bf5908b75b731c17e7f9"
+      ],
+      "oldPid": 3575,
+      "newPid": 5909,
+      "sameOriginalSubmissions": 2,
+      "independentPeerReadOriginal": true,
+      "independentPeerReadScreenTap": true
+    },
+    {
+      "android": 17,
+      "run": 45521753532,
+      "nativeTest": "passed",
+      "workflow": "report export failed after native assertions and cleanup",
+      "source": "57f470bfe7c153f572b821643d6a78193cc73757",
+      "apkDigests": [
+        "41781aa20f2874882a0180093b997cbf89dbef67f0d300a54990c5713fffa72c",
+        "4338de767f68e46c6412cc7102f7363b0e90134aa58d84de97e4352ca7829575"
+      ],
+      "oldPid": 3239,
+      "newPid": 4833,
+      "sameOriginalSubmissions": 2,
+      "independentPeerReadOriginal": true,
+      "independentPeerReadScreenTap": true
+    }
+  ],
+  "evidenceBridge": "Wallet and legacy tests precede the last changes to protected send ownership, the secure conversation row accessibility label, and the protected journey evidence export. Those changes leave the wallet and legacy encryption and persistence paths intact.",
+  "releaseScope": "Owned emulator and source qualification. The integrated regression, physical device and production node qualifications belong to the release stage.",
+  "productionNodeActivated": false,
+  "publicBetaPromoted": false
+}

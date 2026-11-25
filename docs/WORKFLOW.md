@@ -1,5 +1,15 @@
 # Development workflow
 
+## Accepted #141, continue #142
+
+Protected direct and group Chat, explicit legacy transition, wallet and
+history backup, read-only archive access, and fresh device replacement are
+accepted. The [#141 evidence record](evidence/ticket141/final-acceptance.json)
+ties Android 10 and 17 force-stop and physical-send results to the exact
+source and connects the isolated service, legacy Chat and wallet proofs.
+Continue #142 through #147 sequentially. Integrated release verification and
+public beta delivery are in #147.
+
 ## Accepted #140, continue #141
 
 Native Spaces conversations and threads, edits and moderation placeholders,
