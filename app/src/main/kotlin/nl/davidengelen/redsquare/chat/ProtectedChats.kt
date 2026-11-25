@@ -479,9 +479,9 @@ private fun ProtectedConversation(account: SpacesAccount, state: SpacesAccount.S
                 modifier = Modifier.weight(1f), label = { Text(stringResource(R.string.protected_chat_message)) })
             val draft = state.draft
             Button(enabled = canSend && draft.isNotBlank(), onClick = {
+                val requested = account.state.value.takeIf { it.selected == current.id }?.draft ?: return@Button
                 scope.launch {
-                    if (publishing.beforePublishing() && account.state.value.selected == current.id &&
-                        account.state.value.draft == draft) account.send()
+                    if (publishing.beforePublishing()) account.sendProtected(current.id, requested)
                 }
             }) { Text(stringResource(R.string.protected_chat_send)) }
         }

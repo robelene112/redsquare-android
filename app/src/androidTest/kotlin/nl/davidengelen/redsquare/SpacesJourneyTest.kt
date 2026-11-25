@@ -69,7 +69,8 @@ class SpacesJourneyTest {
                     val editor = ui.onNode(hasSetTextAction() and hasText("Message"))
                     editor.performTextInput(text)
                     closeKeyboard(activity)
-                    ui.onNode(hasText("Send") and hasClickAction()).assertIsEnabled().performClick()
+                    editor.assertEditableTextEquals(text)
+                    ui.onNode(hasText("Send") and hasClickAction()).assertIsEnabled().performTouchInput { click() }
                     val parameters = JsonObject().apply { addProperty("space", invitation.get("space").asString); addProperty("text", text) }
                     var observation = JsonObject()
                     val deadline = SystemClock.uptimeMillis() + 15_000

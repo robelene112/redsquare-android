@@ -493,26 +493,34 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
         }
     }
-    fun send() {
+    fun send() = queueSend()
+
+    fun sendProtected(space: String, draft: String) = queueSend(space, draft)
+
+    private fun queueSend(space: String? = null, requestedDraft: String? = null) {
         val before = mutable.value
         val target = before.target() ?: return
+        if (space != null && (target.space != space || before.current?.protectedChat == null)) return
+        val text = requestedDraft ?: before.draft
+        if (text.isBlank()) return
+        trace("send protected=${space != null} draftChanged=${before.draft != text} working=${before.working}")
         localAction {
             localAccess.withLock {
                 val current = requireNotNull(client)
-                if (mutable.value.target() == target && mutable.value.draft == before.draft)
-                    current.saveDraft(target, before.draft)
+                if (mutable.value.target() == target && mutable.value.draft == text)
+                    current.saveDraft(target, text)
                 val parent = current.parent(target)
-                val queued = if (parent == null) current.send(target.space, before.draft, channel = target.channel)
-                else current.reply(target.space, parent, before.draft, target.channel)
+                val queued = if (parent == null) current.send(target.space, text, channel = target.channel)
+                else current.reply(target.space, parent, text, target.channel)
                 urgentOutbox.add(target.space)
                 wake.trySend(Unit)
                 historyWindows.remove(target)
                 anchorVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
                 dirtyAnchors.remove(target)
                 current.saveAnchor(target, null)
-                mutable.update { if (it.target() == target && it.draft == before.draft) {
+                mutable.update { if (it.target() == target && it.draft == text) {
                     draftVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
-                    dirtyDrafts.remove(target, before.draft)
+                    dirtyDrafts.remove(target, text)
                     it.copy(draft = "", anchor = null, followingLatest = true, scrollToMessage = MessageScroll(queued))
                 } else if (it.target() == target) it.copy(anchor = null, followingLatest = true, scrollToMessage = MessageScroll(queued)) else it }
             }
