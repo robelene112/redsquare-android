@@ -154,7 +154,8 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
         if (selected != null) return@LaunchedEffect
         val index = displayRows.indexOfFirst { it.id == requested.id }
         val slot = if (index >= 0) index + 1 else if (state.hasLater) displayRows.size else 0
-        listState.scrollToItem(slot)
+        if (requested.showBody && index >= 0) selected = requested.id
+        else listState.scrollToItem(slot)
         account.consumeScrollTarget(requested)
     }
 

@@ -999,7 +999,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             queue(space, state, original)
         }
     }
-    fun selectChannel(space: String, channel: String) = store.transaction {
+    fun selectChannel(space: String, channel: String, requestKeys: Boolean = true) = store.transaction {
         owned()
         val state = state(space)
         val journal = journal(space)
@@ -1007,12 +1007,12 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         // Returning from an already-open cached thread is local navigation,
         // including after access ended. It never requests fresh membership.
         require(canAccess || channel == selectedChannel(state))
-        if (canAccess) prepareChannelJoin(space, state, journal.snapshot, channel)
+        if (canAccess && requestKeys) prepareChannelJoin(space, state, journal.snapshot, channel)
         state.addProperty("selected_channel", channel); state.remove("selected_thread"); put(stateKey(space), bytes(state))
     }
 
     /** Persist only the accepted identity of the focus, never a stale copy of its text. */
-    fun selectThread(space: String, parent: Message, channel: String? = null) = store.transaction {
+    fun selectThread(space: String, parent: Message, channel: String? = null, requestKeys: Boolean = true) = store.transaction {
         owned()
         val state = state(space); val target = channel ?: selectedChannel(state)
         val journal = journal(space)
@@ -1020,7 +1020,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(canAccess || target == selectedChannel(state))
         threadParent(space, target, parent)
         indexConfirmedMessage(space, target, json(requireNotNull(get(contentPrefix(space, target) + positionKey(requireNotNull(parent.position))))))
-        if (canAccess) prepareChannelJoin(space, state, journal.snapshot, target)
+        if (canAccess && requestKeys) prepareChannelJoin(space, state, journal.snapshot, target)
         state.addProperty("selected_channel", target)
         state.add("selected_thread", JsonObject().apply {
             addProperty("version", 1); addProperty("channel_id", target)
@@ -1119,6 +1119,97 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         if (page.count == 0) return null
         return cachedArticleLink(link)
     }
+
+    data class Destination(val address: SpaceDestination, val record: Message? = null, val parent: Message? = null) {
+        override fun toString() = "Verified Space destination"
+    }
+
+    private fun requireDestinationService(address: SpaceDestination) {
+        if (address.community.node != node) throw DifferentNode(address.community.node)
+        require(address.community.serviceKey == service) { "This reference does not match the selected service" }
+    }
+
+    private fun destinationDenialKey(space: String, channel: String) = "$space/channels/$channel/destination-read-denied"
+
+    private fun rememberDestinationDenial(space: String, channel: String) = store.transaction {
+        owned()
+        put(destinationDenialKey(space, channel), byteArrayOf(1))
+    }
+
+    /** Reading a link does not select a channel, enroll a device or reserve a room seat. */
+    suspend fun openDestination(address: SpaceDestination): Destination? {
+        requireDestinationService(address)
+        val space = address.community.spaceId
+        val channel = address.channel
+        val known = store.transaction { get(stateKey(space)) != null }
+        try {
+            if (known) syncControls(space) else openPublic(space)
+        } catch (denied: ReadDenied) {
+            if (known) rememberDestinationDenial(space, channel)
+            throw denied
+        }
+        val refreshingKeys = store.project { store.transaction {
+            owned()
+            val journal = journal(space)
+            val target = journal.snapshot.channels[channel]
+            if (target == null || !address.kind.acceptsChannel(target.kind ?: target.profile?.kind) ||
+                !journal.canAccessChannel(wallet.publicKey, channel)) throw ReadDenied(space, ReadProblem.UNAVAILABLE)
+            target.visibility == SpaceVisibility.PRIVATE && channelState(space, channel).get("joined")?.asBoolean == true
+        } }
+        try {
+            if (!address.kind.requiresRecord()) {
+                val checked = readPage(JsonObject().apply {
+                    addProperty("space_id", space)
+                    addProperty("stream", "messages")
+                    addProperty("channel_id", channel)
+                    addProperty("cursor", Long.MAX_VALUE)
+                    addProperty("direction", "before")
+                    addProperty("limit", 1)
+                    addProperty("destination_kind", address.kind.wire)
+                })
+                require(checked.get("destination_authorized")?.asBoolean == true && checked.getAsJsonArray("items").size() == 0)
+            } else {
+                if (refreshingKeys) refreshKeys(space, channel)
+                val exact = messagePage(space, channel, limit = 1, thread = address.thread, exactDestination = address)
+                if (exact.count == 0) return null
+                address.thread?.let { parent ->
+                    val root = address.copy(kind = SpaceDestination.Kind.THREAD, record = parent, thread = null)
+                    if (messagePage(space, channel, limit = 1, exactDestination = root).count == 0) return null
+                }
+            }
+        } catch (denied: ReadDenied) {
+            rememberDestinationDenial(space, channel)
+            throw denied
+        }
+        store.transaction { owned(); remove(destinationDenialKey(space, channel)) }
+        return cachedDestination(address)
+    }
+
+    fun cachedDestination(address: SpaceDestination): Destination? = store.project { store.transaction {
+        requireDestinationService(address)
+        val space = address.community.spaceId
+        val channel = address.channel
+        if (get("identity") == null || get(stateKey(space)) == null || get(destinationDenialKey(space, channel)) != null)
+            return@transaction null
+        owned()
+        val journal = journal(space)
+        val target = journal.snapshot.channels[channel] ?: return@transaction null
+        if (!journal.canAccessChannel(wallet.publicKey, channel) || !address.kind.acceptsChannel(target.kind ?: target.profile?.kind))
+            return@transaction null
+        fun accepted(id: String, kind: String, thread: String?): Message? {
+            val receiptKey = get(messageIdKey(space, channel, id))?.toString(Charsets.UTF_8) ?: return null
+            val stored = get(receiptKey) ?: return null
+            val original = SaitoEnvelope.decode(originalEnvelope(stored))
+            require(original.id == id && original.body.text("channel_id") == channel)
+            if (original.body.text("content_kind") != kind || messageThread(original.body) != thread) return null
+            return message(space, id, channel)?.takeIf { it.position != null && !it.pending && !it.rejected && !it.cancelled }
+        }
+        val record = address.record?.let { accepted(it, requireNotNull(address.kind.expectedRecord(address.thread)), address.thread) ?: return@transaction null }
+        val parent = if (address.kind == SpaceDestination.Kind.THREAD) record else address.thread?.let {
+            accepted(it, "message", null) ?: return@transaction null
+        }
+        Destination(address, record.takeUnless { address.kind == SpaceDestination.Kind.THREAD }, parent)
+    } }
 
     private fun Message.asArticle(): Article? {
         if (!isArticle) return null
@@ -3103,10 +3194,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
 
     private data class MessagePage(val start: Long, val end: Long, val next: Long, val count: Int, val more: Boolean)
-    private suspend fun messagePage(space: String, channel: String, cursor: Long = Long.MAX_VALUE, before: Boolean = true, limit: Int = 50, thread: String? = null, reactionRounds: Int = 2, exactArticle: String? = null, exactReport: SpaceMessageReport? = null): MessagePage {
+    private suspend fun messagePage(space: String, channel: String, cursor: Long = Long.MAX_VALUE, before: Boolean = true, limit: Int = 50, thread: String? = null, reactionRounds: Int = 2, exactArticle: String? = null, exactReport: SpaceMessageReport? = null, exactDestination: SpaceDestination? = null): MessagePage {
         require(limit in 1..50)
-        require(exactArticle == null || (thread == null && exactReport == null))
-        val detached = exactArticle != null || exactReport != null
+        require(listOf(exactArticle, exactReport, exactDestination).count { it != null } <= 1)
+        require(exactArticle == null || thread == null)
+        require(exactDestination == null || exactDestination.channel == channel && exactDestination.thread == thread &&
+            exactDestination.community.spaceId == space && exactDestination.record != null)
+        val detached = exactArticle != null || exactReport != null || exactDestination != null
         require(!detached || (limit == 1 && before && cursor == Long.MAX_VALUE))
         val result = readPage(JsonObject().apply {
             addProperty("space_id", space); addProperty("stream", "messages"); addProperty("channel_id", channel)
@@ -3114,6 +3208,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             thread?.let { addProperty("thread_id", it) }
             exactArticle?.let { addProperty("article_id", it) }
             exactReport?.let { addProperty("report_id", it.id) }
+            exactDestination?.let {
+                addProperty("destination_kind", it.kind.wire)
+                addProperty("record_id", requireNotNull(it.record))
+            }
             if (!detached && supportsMessagePins) addProperty("pin_history", true)
             if (!detached && supportsMessageReactions) {
                 addProperty("reaction_history", true)
@@ -3121,6 +3219,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             }
         })
         if (exactArticle != null) require(result.get("space_articles_v1")?.asBoolean == true)
+        if (exactDestination != null) require(result.get("destination_authorized")?.asBoolean == true)
         require(result.getAsJsonArray("items").size() <= limit)
         val controls = mutableMapOf<String, SpaceJournal>()
         val records = mutableListOf<AuthenticatedContent>()
@@ -3138,6 +3237,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             if (exactReport != null)
                 require(original.original.id == exactReport.message &&
                     original.original.body.text("content_kind") == if (thread == null) "message" else "thread-reply")
+            if (exactDestination != null)
+                require(original.original.id == exactDestination.record &&
+                    original.original.body.text("content_kind") == exactDestination.kind.expectedRecord(thread))
             val position = original.receipt.body.number("position")
             require(original.original.body.text("content_kind") in (if (thread == null) ROOT_CONTENT_KINDS else setOf("thread-reply")) &&
                 (thread == null || original.original.body.text("target_message_id") == thread) && position < end &&
@@ -3189,6 +3291,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val decoder = reactionDecoder(space, channel)
             for (record in records) accept(space, record.envelope, controls, authenticated = record, reactionReader = decoder)
             if (exactReport != null) return@transaction
+            if (exactDestination != null && exactDestination.kind != SpaceDestination.Kind.ARTICLE) return@transaction
             val denial = articleReadDeniedKey(space, channel)
             if (get(denial) != null) remove(denial)
             if (detached) return@transaction

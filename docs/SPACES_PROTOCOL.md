@@ -641,6 +641,21 @@ necessary records or keys are unavailable. An ordinary unread dot can still use
 a positive top-level head. Channel preferences are local to the receiving account,
 node and device and do not change the unread counts.
 
+### Exact destinations
+
+A `saito://spaces/target#…` address names the authority, Space, channel and
+kind. An item address also carries the accepted original ID. A reply names
+its root message. The signed `messages` read uses `destination_kind` and,
+for an item, `record_id`. Each requested record is verified independently,
+including its channel, type and original signature. The authority checks
+that the channel exists and applies current access before returning receipts.
+An exact lookup leaves history cursors and drafts in place.
+
+Room addresses open the room page. File addresses open the named descriptor.
+The address carries neither an invitation nor a cryptographic key. Viewing it
+does not enroll a device, join a room or download file contents. A confirmed
+access denial takes precedence over a locally saved record.
+
 ### Moderation and private reports
 
 The reporting client signs a fresh request for an exact accepted message or

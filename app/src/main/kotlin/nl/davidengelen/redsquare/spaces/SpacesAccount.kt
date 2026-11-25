@@ -29,7 +29,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val endpoint: String, parent: CoroutineScope) {
     enum class Availability { CHECKING, ONLINE, OFFLINE, UNSUPPORTED, CHANGED_IDENTITY, STORAGE_UNAVAILABLE }
     enum class Problem { CONNECTION, SAVE, INVITATION, PROTECTED_CHAT_UNSUPPORTED, DEVICE_RECOVERY_UNSUPPORTED,
-        DEVICE_RECOVERY_NO_APPROVER, DEVICE_ALREADY_ACTIVE, RECOVERY_OTHER_MODULE, ARTICLE_MISSING }
+        DEVICE_RECOVERY_NO_APPROVER, DEVICE_ALREADY_ACTIVE, RECOVERY_OTHER_MODULE, ARTICLE_MISSING, DESTINATION_MISSING }
     data class Target(val space: String, val channel: String, val thread: String? = null)
     private data class ArticleDraftTarget(val channel: Target, val article: String?)
     data class MessageScroll(val id: String, val showBody: Boolean = false)
@@ -417,7 +417,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         selectRoute(target.space, target.channel, thread = reference.parent, jump = reference.message)
     }
     private fun selectRoute(space: String?, channel: String? = null, expected: Long? = null, thread: SpaceClient.Message? = null,
-        jump: SpaceClient.Message? = null, article: ArticleFocus? = null): Long? {
+        jump: SpaceClient.Message? = null, article: ArticleFocus? = null, requestChannelKeys: Boolean = true): Long? {
         if (closed.get()) return null
         return synchronized(navigationChanges) {
             if (expected != null && navigationVersion.get() != expected) return@synchronized null
@@ -437,8 +437,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             mutable.update { if (selection.get() == token) it.copy(loadingChannel = false) else it }
                             return@withLock
                         }
-                        if (thread != null) current.selectThread(space, thread, channel)
-                        else if (channel != null) current.selectChannel(space, channel)
+                        if (thread != null) current.selectThread(space, thread, channel, requestChannelKeys)
+                        else if (channel != null) current.selectChannel(space, channel, requestChannelKeys)
                         val selectedCommunity = current.community(space)
                         val parent = current.selectedThread(space, selectedCommunity.channel)
                         val target = Target(space, selectedCommunity.channel, parent?.id)
@@ -1366,6 +1366,39 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             markPublicReferenceOpened(link, accepted)
         }
     }
+    fun openDestinationLink(link: String) {
+        val route = navigationVersion.get()
+        var activeRoute = route
+        mutable.update { it.copy(previewIssue = null, requiredNode = null, problem = null) }
+        localAction(Problem.INVITATION, isCurrent = { navigationVersion.get() == activeRoute }) {
+            val address = SpaceDestination.parse(link)
+            val current = requireNotNull(client)
+            var cached = false
+            val opened = try { network.withLock { current.openDestination(address) } }
+            catch (denied: SpaceClient.ReadDenied) {
+                synchronized(navigationChanges) {
+                    if (navigationVersion.get() == route) mutable.update { it.copy(previewIssue = denied.problem) }
+                }
+                return@localAction
+            } catch (failure: IOException) {
+                if (failure is ChangedIdentity || failure is MissingService) throw failure
+                cached = true
+                localAccess.withLock { current.cachedDestination(address) } ?: throw failure
+            }
+            if (opened == null) {
+                synchronized(navigationChanges) {
+                    if (navigationVersion.get() == route) mutable.update { it.copy(problem = Problem.DESTINATION_MISSING) }
+                }
+                return@localAction
+            }
+            val article = opened.record?.takeIf { address.kind == SpaceDestination.Kind.ARTICLE }?.let { ArticleFocus(it.id, cached) }
+            val accepted = selectRoute(address.community.spaceId, address.channel, expected = route,
+                thread = opened.parent, jump = opened.record, article = article, requestChannelKeys = false) ?: return@localAction
+            activeRoute = accepted
+            markPublicReferenceOpened(link, accepted)
+        }
+    }
+
     fun consumeArticleFocus(focus: ArticleFocus) {
         mutable.update { if (it.articleFocus == focus) it.copy(articleFocus = null) else it }
     }

@@ -209,10 +209,14 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         clearInvitationReview()
         replacingDevice = false
         val uri = android.net.Uri.parse(link)
-        if (SpacesLaunchRoutes.isArticle(uri) || SpacesLaunchRoutes.isPublic(uri)) {
+        if (SpacesLaunchRoutes.isArticle(uri) || SpacesLaunchRoutes.isPublic(uri) || SpacesLaunchRoutes.isDestination(uri)) {
             joinOpen = false; informationOpen = false; inviteOpen = false; membersOpen = false; channelAccessRoute = null
             publicReference = link
-            if (SpacesLaunchRoutes.isArticle(uri)) account.openArticleLink(link) else account.openPublicLink(link)
+            when {
+                SpacesLaunchRoutes.isDestination(uri) -> account.openDestinationLink(link)
+                SpacesLaunchRoutes.isArticle(uri) -> account.openArticleLink(link)
+                else -> account.openPublicLink(link)
+            }
         } else { invitationText = link; joinOpen = true; account.preview(link) }
         onInvitationConsumed()
     }
@@ -626,14 +630,25 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             if (!keyboardInLayout && !compactRoom) SpacesBottomBar(tab) { selectTab(it) }
         }
     }
-    val openingArticle = publicReference?.let { SpacesLaunchRoutes.isArticle(android.net.Uri.parse(it)) } == true
-    DesignSheet(publicReference != null, stringResource(if (openingArticle) R.string.spaces_article_open else R.string.spaces_open_public_community),
+    val referenceUri = publicReference?.let(android.net.Uri::parse)
+    val openingArticle = SpacesLaunchRoutes.isArticle(referenceUri)
+    val openingDestination = SpacesLaunchRoutes.isDestination(referenceUri)
+    val referenceTitle = when {
+        openingDestination -> R.string.spaces_destination_open
+        openingArticle -> R.string.spaces_article_open
+        else -> R.string.spaces_open_public_community
+    }
+    DesignSheet(publicReference != null, stringResource(referenceTitle),
         { publicReference = null; account.dismissPublicReference() }) { first ->
         val node = state.requiredNode
         val choice = nl.davidengelen.redsquare.saito.SaitoBackend.entries.firstOrNull { it.webUrl == node }
         when {
             state.working -> {
-                Text(stringResource(if (openingArticle) R.string.spaces_article_opening else R.string.spaces_opening_community))
+                Text(stringResource(when {
+                    openingDestination -> R.string.spaces_destination_opening
+                    openingArticle -> R.string.spaces_article_opening
+                    else -> R.string.spaces_opening_community
+                }))
                 LinearProgressIndicator(Modifier.fillMaxWidth())
             }
             choice != null -> {
@@ -645,11 +660,20 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             state.previewIssue != null -> AccessNotice(requireNotNull(state.previewIssue))
             openingArticle && state.problem == SpacesAccount.Problem.ARTICLE_MISSING ->
                 Text(stringResource(R.string.spaces_article_missing), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            openingDestination && state.problem == SpacesAccount.Problem.DESTINATION_MISSING ->
+                Text(stringResource(R.string.spaces_destination_missing), color = MaterialTheme.colorScheme.onSurfaceVariant)
             else -> {
-                Text(stringResource(if (openingArticle) R.string.spaces_article_link_failed else R.string.spaces_public_link_failed),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(stringResource(when {
+                    openingDestination -> R.string.spaces_destination_failed
+                    openingArticle -> R.string.spaces_article_link_failed
+                    else -> R.string.spaces_public_link_failed
+                }), color = MaterialTheme.colorScheme.onSurfaceVariant)
                 OutlinedButton(onClick = { publicReference?.let { link ->
-                    if (openingArticle) account.openArticleLink(link) else account.openPublicLink(link)
+                    when {
+                        openingDestination -> account.openDestinationLink(link)
+                        openingArticle -> account.openArticleLink(link)
+                        else -> account.openPublicLink(link)
+                    }
                 } },
                     modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_retry)) }
             }
@@ -1323,6 +1347,7 @@ private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "�
         SpacesAccount.Problem.DEVICE_ALREADY_ACTIVE -> R.string.recovery_device_already_active
         SpacesAccount.Problem.RECOVERY_OTHER_MODULE -> R.string.recovery_archive_in_chat
         SpacesAccount.Problem.ARTICLE_MISSING -> R.string.spaces_article_missing
+        SpacesAccount.Problem.DESTINATION_MISSING -> R.string.spaces_destination_missing
     }
     Column {
         Text(stringResource(message), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
