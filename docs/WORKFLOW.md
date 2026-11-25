@@ -1,5 +1,38 @@
 # Development workflow
 
+## Integrating Spaces and the next ordinary beta in #147
+
+The [compact exact-reply run](https://github.com/robelene112/redsquare-android/actions/runs/45669562341)
+confirms that both lines of the reply body fit the 320dp conversation at
+200% text. The native proof opens the actual Android notification and the
+cold scoped link. [The visual matrix](evidence/ticket147/native-visual-matrix.md)
+records the original prototype comparisons and the remaining native checks.
+The prototype banner was removed from the functional overview. The empty
+state is now based on actual memberships.
+
+The small [profileable calibration](https://github.com/robelene112/redsquare-android/actions/runs/45673875882)
+imports 295 encrypted local rows from signed fixture data, cold-starts a
+different Android process, opens the real channel and checks the independent
+service. The [full scale run](https://github.com/robelene112/redsquare-android/actions/runs/45675758153)
+uses the [frozen measurement contract](quality/SPACES_SCALE_CONTRACT.json).
+The calibration supplies no performance pass. [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45673004957)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45673004523)
+complete the protected Chat journey against the owned service.
+
+The [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45670381166)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45670381106)
+integrated Chat partitions reproduced the missing New chat action at 200% text.
+The compact layout now places it next to Groups. Fresh targeted checks are
+running before the final complete catalogue. The original discovery runs also
+remain failed. At the failure the public channel was readable and showed an
+independently accepted newer reply. The fresh test explicitly opens the
+earlier saved fixture message and retains the original membership and pixel
+checks. The original failures supply no acceptance.
+
+The final visual, integrated regression, scale, signed upgrades from 139 and
+142, cold install and release review gates are tracked in #147. Ordinary
+beta142 is still current.
+
 ## Accepted #146, continue #147
 
 Spaces search, grouped Activity and exact links pass on Android 10 and
