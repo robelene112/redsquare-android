@@ -38,7 +38,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.platform.testTag
@@ -687,8 +686,9 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             else Spacer(Modifier.weight(1f))
         }
     }
-    val compactHeight = LocalConfiguration.current.screenHeightDp < COMPACT_POST_HEIGHT_DP
-    val compactWriting = compactHeight && (composing || visibleNavigation.lastOrNull() is BrowseDestination.Quote)
+    val composerActive = remember { mutableStateOf(false) }
+    val compactHeight = compactPostWindow()
+    val compactWriting = compactHeight && composerActive.value
     val dockCompose = home && wallet != null && (compactHeight || LocalDensity.current.fontScale > 1.3f)
     Column(modifier.nestedScroll(header.connection).readingNavigation(header)) {
         ReadingHeader(header) {
@@ -721,7 +721,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             SingleOwnerReveal(revealTarget, Modifier.fillMaxSize()) {
                 Row(Modifier.fillMaxSize(), verticalAlignment = Alignment.Bottom) {
                     Box(Modifier.weight(1f).fillMaxHeight()) {
-                        CompositionLocalProvider(LocalPostSubmissionNotice provides { submittedPosts++ }) { content() }
+                        CompositionLocalProvider(LocalPostSubmissionNotice provides { submittedPosts++ },
+                            LocalPostComposerActive provides composerActive) { content() }
                         if (home && wallet != null && !dockCompose) ComposePostButton(
                             Modifier.align(Alignment.BottomEnd).padding(bottom = AppSpacing.screen).size(56.dp)) { composing = true }
                     }

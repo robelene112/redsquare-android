@@ -92,6 +92,7 @@ class SpaceRoomJourneyTest {
                     visible && editor.isDisplayed()
                 }
                 editor.assertHeightIsAtLeast(48.dp).assertEditableTextEquals(draft)
+                editor.assert(hasContentDescription("Write a post"))
                 val writingBounds = editor.getUnclippedBoundsInRoot()
                 listOf("Return to Open lounge", "Unmute", "End call").forEach { label ->
                     val action = ui.onNode(hasText(label) and hasClickAction())
@@ -102,6 +103,14 @@ class SpaceRoomJourneyTest {
                     assertTrue("The $label action must stay beside the focused editor",
                         position.right <= writingBounds.left || position.left >= writingBounds.right)
                 }
+                val send = ui.onNode((hasText("Send") or hasContentDescription("Send")) and hasClickAction())
+                send.assertIsDisplayed().assertIsEnabled()
+                val sendHitArea = send.fetchSemanticsNode().touchBoundsInRoot
+                assertTrue("Send must keep its full target with the native keyboard open",
+                    sendHitArea.height >= minimum && sendHitArea.width >= minimum)
+                val sendBounds = send.getUnclippedBoundsInRoot()
+                assertTrue("Send must stay clear of the editor",
+                    sendBounds.right <= writingBounds.left || sendBounds.left >= writingBounds.right || sendBounds.top >= writingBounds.bottom)
                 assertEquals(token, observed().participants.single().session)
                 capture("room-draft-attachment-ime")
 

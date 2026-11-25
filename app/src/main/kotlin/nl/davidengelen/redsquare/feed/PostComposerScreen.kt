@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.first
@@ -44,7 +45,10 @@ import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.FrameIconButton
 import nl.davidengelen.redsquare.ui.keyboardOccupiesWindow
 
-internal const val COMPACT_POST_HEIGHT_DP = 400
+@Composable
+internal fun compactPostWindow(): Boolean = LocalConfiguration.current.screenHeightDp < 400
+
+internal val LocalPostComposerActive = staticCompositionLocalOf<MutableState<Boolean>?> { null }
 
 @Composable
 internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
@@ -67,7 +71,12 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         remember(store, memory) { PostComposerState(store, memory, wallet, endpoint, parent, scope, quote) }
     }
     val publishing = LocalPublishingAgreement.current
-    val compactHeight = LocalConfiguration.current.screenHeightDp < COMPACT_POST_HEIGHT_DP
+    val composerActive = LocalPostComposerActive.current
+    DisposableEffect(composerActive) {
+        composerActive?.value = true
+        onDispose { composerActive?.value = false }
+    }
+    val compactHeight = compactPostWindow()
     val compactTyping = compactHeight && keyboardOccupiesWindow()
     LaunchedEffect(state, state.ready, editorPlaced, compactTyping) {
         if ((parent != null || compactTyping) && state.ready && editorPlaced && state.transaction == null) {
@@ -198,6 +207,18 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 if (ready) saveAndClose(closeEditor) else closeEditor()
             }
         }
+        val submitEnabled = ready && !saving && !sending && !preparingImages && (available || text.isNotBlank() || images.isNotEmpty())
+        val submitLabel = stringResource(when {
+            available -> R.string.done
+            transaction == null -> R.string.post_send
+            networkError || error -> R.string.retry
+            else -> R.string.post_check_status
+        })
+        val submitPost: () -> Unit = {
+            if (available) saveAndClose(closeEditor)
+            else if (transaction == null || networkError || error) send(publishing::beforePublishing)
+            else checkStatus()
+        }
         BackHandler { if (!sending && !saving) { if (ready) saveAndClose(closeEditor) else closeEditor() } }
         BoxWithConstraints(modifier.imePadding()) {
             // Give the focused editor the remaining height when a call and
@@ -249,85 +270,82 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 })
                 BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
                     val writingHeight = maxHeight
-                    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
-                        verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
-                        InlineStatus(if (networkError) stringResource(R.string.post_network_error) else null, StatusTone.ERROR)
-                        InlineStatus(if (checkError) stringResource(R.string.post_check_failed) else null, StatusTone.INFO)
-                        InlineStatus(if (validationError) stringResource(R.string.post_invalid_text) else null, StatusTone.ERROR)
-                        InlineStatus(if (error) stringResource(R.string.post_draft_error) else null, StatusTone.ERROR)
-                        if (error && !ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
-                        InlineStatus(if (imageError) stringResource(R.string.image_prepare_failed) else null, StatusTone.ERROR)
-                        if (!compactTyping) Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                            ProfileAvatar(owner, Modifier.size(36.dp).clip(CircleShape))
-                            Column(Modifier.weight(1f)) {
-                                Text(stringResource(R.string.post_writing_as), style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                Text(registeredIdentity(owner).name, style = MaterialTheme.typography.titleSmall)
-                            }
-                        }
-                        parent?.let { target ->
-                            Surface(shape = RoundedCornerShape(AppSpacing.cardRadius), color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                                Column(Modifier.fillMaxWidth().padding(AppSpacing.small), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                    Text(stringResource(R.string.post_reply_to, registeredIdentity(target.author).name),
-                                        style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
-                                    Text(target.text, style = MaterialTheme.typography.bodyMedium,
-                                        maxLines = 3, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                    Row(Modifier.fillMaxSize(), verticalAlignment = Alignment.Bottom) {
+                        Column(Modifier.weight(1f).fillMaxHeight().verticalScroll(rememberScrollState()),
+                            verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+                            InlineStatus(if (networkError) stringResource(R.string.post_network_error) else null, StatusTone.ERROR)
+                            InlineStatus(if (checkError) stringResource(R.string.post_check_failed) else null, StatusTone.INFO)
+                            InlineStatus(if (validationError) stringResource(R.string.post_invalid_text) else null, StatusTone.ERROR)
+                            InlineStatus(if (error) stringResource(R.string.post_draft_error) else null, StatusTone.ERROR)
+                            if (error && !ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
+                            InlineStatus(if (imageError) stringResource(R.string.image_prepare_failed) else null, StatusTone.ERROR)
+                            if (!compactTyping) Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                                ProfileAvatar(owner, Modifier.size(36.dp).clip(CircleShape))
+                                Column(Modifier.weight(1f)) {
+                                    Text(stringResource(R.string.post_writing_as), style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                    Text(registeredIdentity(owner).name, style = MaterialTheme.typography.titleSmall)
                                 }
                             }
-                        }
-                        quote?.let { Text(stringResource(R.string.post_quoting, registeredIdentity(it.author).name),
-                            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                        PublishingEditor(text, ::edit, ready && !saving && !sending && transaction == null, maximumHeight = writingHeight,
-                            compact = compactHeight,
-                            modifier = Modifier.bringIntoViewRequester(editorView).onGloballyPositioned {
-                                editorPlaced = it.size.height > 0
-                            })
-                        PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending && !preparingImages,
-                            previewHeight = 120.dp, gifAttributions = gifAttributions, onOpenSource = ::openMediaSource)
-                        if (compactHeight) draftNotices()
-                        quote?.let { QuotedPost(it, backend, onOpenSource = ::openMediaSource) }
-                        if (transaction != null && !available)
-                            nl.davidengelen.redsquare.policy.QueuedPublishingAgreement(!saving && !sending)
-                        if (queued && queueSaved) TextButton(enabled = !saving && !sending, onClick = ::cancelQueued) {
-                            Text(stringResource(R.string.post_cancel_queued))
-                        }
-                        if (transaction != null && !available && !queued && recovery == null) {
-                            TextButton(enabled = !saving && !sending,
-                                onClick = { startAnotherDraft {
-                                    observedTransaction = null
-                                    try { withContext(Dispatchers.IO) { PostQueueScheduling.enqueue(context, owner, backend, endpoint) } }
-                                    catch (cancelled: CancellationException) { throw cancelled }
-                                    catch (_: Exception) { android.util.Log.w("PostRecovery", "Availability check scheduling deferred") }
-                                } }) {
-                                Text(stringResource(R.string.post_start_another))
+                            parent?.let { target ->
+                                Surface(shape = RoundedCornerShape(AppSpacing.cardRadius), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                                    Column(Modifier.fillMaxWidth().padding(AppSpacing.small), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                        Text(stringResource(R.string.post_reply_to, registeredIdentity(target.author).name),
+                                            style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
+                                        Text(target.text, style = MaterialTheme.typography.bodyMedium,
+                                            maxLines = 3, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                                    }
+                                }
                             }
-                            Text(stringResource(R.string.post_retained_detail), style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            TextButton(enabled = !saving && !sending, onClick = { confirmClear = true }) {
-                                Text(stringResource(R.string.post_remove_record))
+                            quote?.let { Text(stringResource(R.string.post_quoting, registeredIdentity(it.author).name),
+                                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                            PublishingEditor(text, ::edit, ready && !saving && !sending && transaction == null, maximumHeight = writingHeight,
+                                compact = compactHeight,
+                                modifier = Modifier.bringIntoViewRequester(editorView).onGloballyPositioned {
+                                    editorPlaced = it.size.height > 0
+                                })
+                            PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending && !preparingImages,
+                                previewHeight = 120.dp, gifAttributions = gifAttributions, onOpenSource = ::openMediaSource)
+                            if (compactHeight) draftNotices()
+                            quote?.let { QuotedPost(it, backend, onOpenSource = ::openMediaSource) }
+                            if (transaction != null && !available)
+                                nl.davidengelen.redsquare.policy.QueuedPublishingAgreement(!saving && !sending)
+                            if (queued && queueSaved) TextButton(enabled = !saving && !sending, onClick = ::cancelQueued) {
+                                Text(stringResource(R.string.post_cancel_queued))
                             }
+                            if (transaction != null && !available && !queued && recovery == null) {
+                                TextButton(enabled = !saving && !sending,
+                                    onClick = { startAnotherDraft {
+                                        observedTransaction = null
+                                        try { withContext(Dispatchers.IO) { PostQueueScheduling.enqueue(context, owner, backend, endpoint) } }
+                                        catch (cancelled: CancellationException) { throw cancelled }
+                                        catch (_: Exception) { android.util.Log.w("PostRecovery", "Availability check scheduling deferred") }
+                                    } }) {
+                                    Text(stringResource(R.string.post_start_another))
+                                }
+                                Text(stringResource(R.string.post_retained_detail), style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                TextButton(enabled = !saving && !sending, onClick = { confirmClear = true }) {
+                                    Text(stringResource(R.string.post_remove_record))
+                                }
+                            }
+                            if (transaction != null && !available && !queued && !submitted && !networkError && !error)
+                                TextButton(enabled = !saving && !sending, onClick = { send(publishing::beforePublishing) }) {
+                                    Text(stringResource(R.string.post_send_saved))
+                                }
                         }
-                        if (transaction != null && !available && !queued && !submitted && !networkError && !error)
-                            TextButton(enabled = !saving && !sending, onClick = { send(publishing::beforePublishing) }) {
-                                Text(stringResource(R.string.post_send_saved))
-                            }
+                        if (!showActions) FilledIconButton(onClick = submitPost, enabled = submitEnabled,
+                            modifier = Modifier.padding(start = AppSpacing.small).size(48.dp)) {
+                            Icon(painterResource(R.drawable.ic_send), submitLabel, Modifier.size(22.dp))
+                        }
                     }
                 }
                 val submit: @Composable (Modifier) -> Unit = { placement ->
                     Button(modifier = placement.heightIn(min = 48.dp),
                         shape = RoundedCornerShape(AppSpacing.controlRadius),
-                        enabled = ready && !saving && !sending && !preparingImages && (available || text.isNotBlank() || images.isNotEmpty()), onClick = {
-                        if (available) saveAndClose(closeEditor)
-                        else if (transaction == null || networkError || error) send(publishing::beforePublishing)
-                        else checkStatus()
-                    }) {
-                        Text(stringResource(when {
-                            available -> R.string.done
-                            transaction == null -> R.string.post_send
-                            networkError || error -> R.string.retry
-                            else -> R.string.post_check_status
-                        }), Modifier.padding(vertical = 6.dp))
+                        enabled = submitEnabled, onClick = submitPost) {
+                        Text(submitLabel, Modifier.padding(vertical = 6.dp))
                     }
                 }
                 if (showActions) HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)

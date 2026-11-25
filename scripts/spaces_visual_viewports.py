@@ -3,6 +3,7 @@ from itertools import combinations, product
 import json
 import re
 import struct
+import subprocess
 
 
 def verify_pairwise(cases):
@@ -115,33 +116,45 @@ class VisualViewports:
             raise RuntimeError(f'Applied Android viewport differs from the frozen case {prefix}')
 
     def restore(self):
-        self.shell('wm', 'size', self.original['size']['override'] or 'reset')
-        self.shell('wm', 'density', self.original['density']['override'] or 'reset')
-        for namespace, key in self.settings:
-            if key == 'font_scale':
-                continue
+        errors = []
+
+        def attempt(action):
+            try:
+                return action()
+            except (OSError, RuntimeError, subprocess.SubprocessError) as failure:
+                errors.append(failure)
+
+        def restore_setting(namespace, key):
             value = self.original[key]
             if value == 'null':
                 self.shell('settings', 'delete', namespace, key)
             else:
                 self.shell('settings', 'put', namespace, key, value)
+
+        def restore_navigation():
+            if self.original['overlay']:
+                self.set_overlay(('enable-exclusive', '--category'), self.original['overlay'])
+            elif active := self.observe('before-navigation-reset')['overlay']:
+                self.set_overlay(('disable',), active)
+
+        attempt(lambda: self.shell('wm', 'size', self.original['size']['override'] or 'reset'))
+        attempt(lambda: self.shell('wm', 'density', self.original['density']['override'] or 'reset'))
+        for namespace, key in self.settings:
+            if key != 'font_scale':
+                attempt(lambda: restore_setting(namespace, key))
         if self.sdk == 17:
-            self.shell('wm', 'fixed-to-user-rotation', self.original['fixedRotation'])
-        self.night(self.original['night'])
-        if self.original['overlay']:
-            self.set_overlay(('enable-exclusive', '--category'), self.original['overlay'])
-        elif active := self.observe('before-navigation-reset')['overlay']:
-            self.set_overlay(('disable',), active)
+            attempt(lambda: self.shell('wm', 'fixed-to-user-rotation', self.original['fixedRotation']))
+        attempt(lambda: self.night(self.original['night']))
+        attempt(restore_navigation)
         # Android 10 can materialize its default font value during configuration updates.
         # Restore the original setting after changing display density, rotation and overlays.
-        font = self.original['font_scale']
-        if font == 'null':
-            self.shell('settings', 'delete', 'system', 'font_scale')
-        else:
-            self.shell('settings', 'put', 'system', 'font_scale', font)
-        restored = self.observe('restored')
-        if self.sdk == 10 and font == 'null' and restored == dict(self.original, font_scale='1.0'):
-            self.shell('settings', 'delete', 'system', 'font_scale')
-            restored = self.observe('restored')
-        if restored != self.original:
-            raise RuntimeError('The original Android viewport settings were not restored')
+        attempt(lambda: restore_setting('system', 'font_scale'))
+        restored = attempt(lambda: self.observe('restored'))
+        if self.sdk == 10 and self.original['font_scale'] == 'null' and restored == dict(self.original, font_scale='1.0'):
+            attempt(lambda: restore_setting('system', 'font_scale'))
+            restored = attempt(lambda: self.observe('restored'))
+        if restored is not None and restored != self.original:
+            errors.append(RuntimeError('The original Android viewport settings were not restored'))
+        if errors:
+            (self.folder / 'viewport-cleanup-errors.json').write_text(json.dumps([str(error) for error in errors], indent=2))
+            raise ExceptionGroup('Android viewport restoration failed', errors)

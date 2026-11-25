@@ -758,7 +758,7 @@ class MainActivity : ComponentActivity() {
                     val screenHeight = androidx.compose.ui.platform.LocalConfiguration.current.screenHeightDp
                     val shortIme = keyboardVisible && when (module) {
                         AppModule.SPACES -> screenHeight < nl.davidengelen.redsquare.spaces.SHORT_SPACES_WINDOW_DP
-                        AppModule.RED_SQUARE -> screenHeight < nl.davidengelen.redsquare.feed.COMPACT_POST_HEIGHT_DP
+                        AppModule.RED_SQUARE -> nl.davidengelen.redsquare.feed.compactPostWindow()
                         else -> false
                     }
                     Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)

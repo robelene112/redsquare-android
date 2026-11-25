@@ -17,6 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
@@ -30,6 +32,7 @@ internal fun CompactWritingField(value: String, onChange: (String) -> Unit, enab
     val style = MaterialTheme.typography.bodyLarge
     BasicTextField(value, onChange, modifier.heightIn(min = 48.dp)
         .border(if (focused) 2.dp else 1.dp, if (focused) colors.primary else colors.outline, RoundedCornerShape(18.dp))
+        .semantics { if (value.isNotEmpty()) contentDescription = hint }
         .padding(horizontal = 14.dp), enabled = enabled, interactionSource = interactions,
         textStyle = style.copy(color = if (enabled) colors.onSurface else colors.onSurfaceVariant),
         cursorBrush = SolidColor(colors.primary), minLines = 1, maxLines = maxLines,
