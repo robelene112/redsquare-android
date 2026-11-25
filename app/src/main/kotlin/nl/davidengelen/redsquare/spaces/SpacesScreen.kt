@@ -236,7 +236,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             when {
                 SpacesLaunchRoutes.isDestination(uri) -> {
                     if (fromNotification) activityLink = link
-                    account.openDestinationLink(link, fromNotification = fromNotification)
+                    if (!account.openDestinationLink(link, fromNotification = fromNotification)) return@LaunchedEffect
                 }
                 SpacesLaunchRoutes.isArticle(uri) -> account.openArticleLink(link)
                 else -> account.openPublicLink(link)
@@ -385,7 +385,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     }
                     if (!state.loadingChannel && state.pinStatus?.supported == true && channel?.profile?.kind in setOf(SpaceChannelKind.CHAT, SpaceChannelKind.ANNOUNCEMENT))
                         FrameIconButton(R.drawable.ic_pin, stringResource(R.string.spaces_pinned_messages)) { focusManager.clearFocus(); keyboardController?.hide(); pinsRoute = pinConversationRoute }
-                    FrameIconButton(R.drawable.ic_info, stringResource(R.string.spaces_information)) { focusManager.clearFocus(); keyboardController?.hide(); informationOpen = true }
+                    FrameIconButton(R.drawable.ic_info, stringResource(R.string.spaces_information), enabled = !state.destinationReadDenied) { focusManager.clearFocus(); keyboardController?.hide(); informationOpen = true }
                 }
                 if (!compactTyping) Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     AvailabilityNotice(state.availability, state.refreshing, account::refresh)
@@ -397,7 +397,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                     android.text.format.DateUtils.FORMAT_SHOW_DATE or android.text.format.DateUtils.FORMAT_SHOW_TIME))
                         InlineStatus(detail, StatusTone.INFO)
                     }
-                    state.selected?.let { state.accessProblems[it] }?.let { AccessNotice(it) }
+                    if (!state.destinationReadDenied) state.selected?.let { state.accessProblems[it] }?.let { AccessNotice(it) }
                     if (state.ownershipSupported && state.ownershipOffer?.member == account.ownerKey) {
                         TextButton(onClick = { focusManager.clearFocus(); keyboardController?.hide(); informationOpen = true },
                             modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_review_ownership_offer)) }
@@ -427,7 +427,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         InlineStatus(stringResource(label, time), StatusTone.INFO)
                     }
                 }
-                if (state.loadingChannel || selected == null) Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                if (state.destinationReadDenied) Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen),
+                    contentAlignment = Alignment.Center) { AccessNotice(SpaceClient.ReadProblem.UNAVAILABLE) }
+                else if (state.loadingChannel || selected == null) Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                     if (state.problem == null) CircularProgressIndicator(Modifier.size(28.dp)) else ProblemNotice(requireNotNull(state.problem), account::clearProblem)
                 } else key(selected.id, selected.channel, state.threadParent?.id) {
                     when {
@@ -717,7 +719,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         val node = state.requiredNode
         val choice = nl.davidengelen.redsquare.saito.SaitoBackend.entries.firstOrNull { it.webUrl == node }
         when {
-            state.working -> {
+            state.working || openingDestination && state.projectingDestination -> {
                 Text(stringResource(when {
                     openingDestination -> R.string.spaces_destination_opening
                     openingArticle -> R.string.spaces_article_opening
@@ -865,7 +867,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             }
         }
     }
-    DesignSheet(informationOpen && selected != null, stringResource(R.string.spaces_information), { informationOpen = false }, onHidden = {
+    DesignSheet(informationOpen && selected != null && !state.destinationReadDenied, stringResource(R.string.spaces_information), { informationOpen = false }, onHidden = {
         informationHidden = true
     }) { first ->
         if (selected != null && profile != null) {

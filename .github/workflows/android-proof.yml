@@ -172,7 +172,7 @@ jobs:
           esac
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: c2a5e39856dc56ee085d72dbb15fb651d1b9d2a5
+          ref: 3e9213c4085241f675bdadc19e27f2a4ff463bca
           persist-credentials: false
           # Retained native evidence is not a build or test input.
           sparse-checkout-cone-mode: false
