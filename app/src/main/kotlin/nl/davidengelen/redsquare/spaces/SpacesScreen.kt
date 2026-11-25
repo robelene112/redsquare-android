@@ -518,6 +518,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 }
                             }
                         }
+                        val reportingAvailable = selected.joined && !selected.dissolved && account.moderationReportsSupported()
                         if (state.messages.isEmpty() && !state.contentLoaded) Box(Modifier.weight(1f).fillMaxWidth().clipToBounds().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
                             if (state.refreshing) CircularProgressIndicator(Modifier.size(28.dp))
                             else Text(stringResource(R.string.spaces_history_not_loaded), color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -538,6 +539,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                         ({ account.openThread(message) }) else null,
                                     canEdit = accepted && !message.deleted && own && canWrite,
                                     canRemove = accepted && !message.deleted && canWrite && (own || selected.canManage),
+                                    canReport = accepted && !message.deleted && reportingAvailable,
                                     canCancel = message.pending && !message.attempted,
                                     openOverlay = { mode ->
                                         retainedMessage = message; overlayId = message.id
@@ -563,7 +565,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             edit = if (editableOverlay) ({ text, done -> account.editMessage(target, requireNotNull(overlayMessage), text, done) }) else null,
                             remove = if (acceptedOverlay && overlayMessage?.deleted == false && canWrite && (overlayMessage.author == account.ownerKey || selected.canManage))
                                 ({ done -> account.deleteMessage(target, overlayMessage, done) }) else null,
-                            report = if (acceptedOverlay && overlayMessage?.deleted == false && selected.joined && !selected.dissolved && account.moderationReportsSupported())
+                            report = if (acceptedOverlay && overlayMessage?.deleted == false && reportingAvailable)
                                 ({ reason -> account.reportMessage(target, overlayMessage.id, reason) }) else null,
                             cancel = if (overlayMessage?.pending == true && !overlayMessage.attempted)
                                 ({ done -> account.cancelSend(target, overlayMessage.id, done) }) else null,
@@ -900,7 +902,7 @@ private fun SpacesViewport(content: @Composable ColumnScope.(height: Dp) -> Unit
 private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANCEL, REACTIONS, REPORT }
 
 @Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, bodyModifier: Modifier, restore: () -> Unit,
-    reply: (() -> Unit)?, canEdit: Boolean, canRemove: Boolean, canCancel: Boolean, openOverlay: (MessageOverlay) -> Unit,
+    reply: (() -> Unit)?, canEdit: Boolean, canRemove: Boolean, canReport: Boolean, canCancel: Boolean, openOverlay: (MessageOverlay) -> Unit,
     cancelChange: ((String, (Boolean) -> Unit) -> Unit)?, react: ((String) -> Unit)?, working: Boolean) {
     val savedEdit = message.change?.takeIf { it.kind == SpaceClient.MessageChangeKind.EDIT }?.text
     val name = registeredIdentity(message.author).name
@@ -911,7 +913,7 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Text(name, Modifier.weight(1f), style = MaterialTheme.typography.titleSmall)
-                if (canEdit || canRemove || savedEdit != null || message.pinChange != null)
+                if (canEdit || canRemove || canReport || savedEdit != null || message.pinChange != null)
                     FrameIconButton(R.drawable.ic_more, stringResource(R.string.spaces_message_actions)) { openOverlay(MessageOverlay.ACTIONS) }
             }
             Text(message.text ?: stringResource(if (message.deleted) R.string.spaces_message_deleted else if (message.missingKeys) R.string.spaces_missing_keys else R.string.spaces_message_unavailable),
