@@ -29,9 +29,32 @@ independently accepted newer reply. The fresh test explicitly opens the
 earlier saved fixture message and retains the original membership and pixel
 checks. The original failures supply no acceptance.
 
-The final visual, integrated regression, scale, signed upgrades from 139 and
-142, cold install and release review gates are tracked in #147. Ordinary
-beta142 is still current.
+The [first full scale run](https://github.com/robelene112/redsquare-android/actions/runs/45675758153)
+authenticated 608,701 local cache rows. Cold launch exceeded the existing
+opening deadline at “Checking access”. No timed scroll result was produced.
+The product now gives the selected Space priority, rotates other membership
+refreshes in bounded batches, and reuses the Android Keystore handle within
+each local transaction. [The new full run](https://github.com/robelene112/redsquare-android/actions/runs/45681925461)
+retains the original deadline and timing thresholds. A separate local
+JVM probe opens a bounded 50-message page from the frozen hot channel. That
+measurement excludes Android Keystore and drawing.
+
+The [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45677967252)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45677967232)
+keyboard cases both pass after the compact Chat action change. Files,
+articles and rooms also have separate complete native journeys on both
+versions. The original broad Android 17 quote observer missed a transient
+composer title while checking cold reconciliation. The original broad
+Android 10 wallet observer opened the legacy beta's update page while trying
+to tap Wallet. Both runs remain failed. Tighter observers preserve the
+submission/identity checks and retain the original captures.
+
+Signed upgrades from 139 and 142 and the ordinary clean install still
+require the exact release APK. The established 139 and 142 public downloads
+match their recorded full-body hashes. A dedicated signed instrumentation
+APK is prepared locally. The final visual, integrated regression, scale,
+migration and release review gates remain in #147. Ordinary beta142 is
+still current.
 
 ## Accepted #146, continue #147
 
