@@ -11,14 +11,16 @@ import subprocess
 import sys
 import time
 import urllib.request
+from spaces_visual_viewports import VisualViewports, verify_pairwise
 
 repo = Path(__file__).resolve().parent.parent
 mode = sys.argv[2] if len(sys.argv) == 3 else 'journey-v1'
-if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'voice-room-v1', 'catch-up-v1', 'moderation-v1', 'file-library-v1', 'article-channels-v1', 'protected-chat-v1', 'conversation-overlays-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
+if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'voice-room-v1', 'catch-up-v1', 'visual-v1', 'moderation-v1', 'file-library-v1', 'article-channels-v1', 'protected-chat-v1', 'conversation-overlays-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
     raise ValueError('Expected evidence directory and an optional supported Spaces journey mode')
 file_mode = mode == 'file-library-v1'
 room_mode = mode == 'voice-room-v1'
-catch_up_mode = mode == 'catch-up-v1'
+visual_mode = mode == 'visual-v1'
+catch_up_mode = mode == 'catch-up-v1' or visual_mode
 accessibility_mode = catch_up_mode and os.environ.get('SPACES_ACCESSIBILITY') == 'true'
 moderation_mode = mode == 'moderation-v1'
 article_mode = mode == 'article-channels-v1'
@@ -36,8 +38,8 @@ private_management_mode = mode == 'private-management-v1'
 private_readiness_mode = mode == 'private-readiness-v1'
 management_mode = mode in ('management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1')
 community_mode = discovery_mode or management_mode
-label = 'catch-up' if catch_up_mode else 'moderation' if moderation_mode else 'rooms' if room_mode else 'files' if file_mode else 'articles' if article_mode else 'private-ownership' if private_ownership_mode else 'membership' if membership_mode else 'governance' if governance_mode else 'category-management' if category_management_mode else 'private-readiness' if private_readiness_mode else 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
-folder = f'spaces-{label}-evidence'
+label = 'visual' if visual_mode else 'catch-up' if catch_up_mode else 'moderation' if moderation_mode else 'rooms' if room_mode else 'files' if file_mode else 'articles' if article_mode else 'private-ownership' if private_ownership_mode else 'membership' if membership_mode else 'governance' if governance_mode else 'category-management' if category_management_mode else 'private-readiness' if private_readiness_mode else 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
+folder = 'spaces-catch-up-evidence' if visual_mode else f'spaces-{label}-evidence'
 checkpoint_name = f'spaces-{label}-checkpoint.json'
 classname = 'SpacesCatchUpJourneyTest' if catch_up_mode else 'SpaceModerationJourneyTest' if moderation_mode else 'SpaceRoomJourneyTest' if room_mode else 'SpaceFileJourneyTest' if file_mode else 'SpaceArticleJourneyTest' if article_mode else 'SpacesManagementJourneyTest' if management_mode else 'SpacesDiscoveryJourneyTest' if discovery_mode else 'SpacesJourneyTest'
 evidence = Path(sys.argv[1]).resolve() / f'spaces-{label}'
@@ -54,7 +56,7 @@ def command(port, action, payload=None):
     with urllib.request.urlopen(request, timeout=5) as response:
         return json.load(response)
 
-def instrument(method, filename, peer, control):
+def instrument(method, filename, peer, control, extra=()):
     log = (evidence / filename).open('wb')
     process = subprocess.Popen(['adb', 'shell', 'am', 'instrument', '-w', '-r',
         '-e', 'class', f'nl.davidengelen.redsquare.{classname}#{method}',
@@ -68,7 +70,7 @@ def instrument(method, filename, peer, control):
         (['-e', 'spacesPrivateOwnership', 'true'] if private_ownership_mode else []) +
         (['-e', 'spacesGovernance', 'true'] if governance_mode else []) +
         (['-e', 'spacesCategoryAccess', 'true'] if category_access_mode else []) +
-        (['-e', 'spacesStartupTrace', 'true'] if startup_trace else []) + [runner],
+        (['-e', 'spacesStartupTrace', 'true'] if startup_trace else []) + [*extra, runner],
         stdout=log, stderr=subprocess.STDOUT)
     children.append((process, log))
     return process
@@ -79,6 +81,7 @@ file_certificate = None
 movies = []
 movie_owners = {}
 viewport_original = None
+visual_settings = None
 room_rotation_original = None
 owned_emulator = False
 article_agreement_owned = False
@@ -177,7 +180,7 @@ try:
         file_certificate = base64.b64encode(certificate.read_bytes()).decode('ascii')
     hostlog = (hostroot / 'host.log').open('wb')
     host = subprocess.Popen(['java', '-Xmx512m', f'-Djava.library.path={native}', '-cp', classpath,
-        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + ([mode] if community_mode or conversation_overlays_mode or article_mode or file_mode or room_mode or moderation_mode or catch_up_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
+        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + (['catch-up-v1' if visual_mode else mode] if community_mode or conversation_overlays_mode or article_mode or file_mode or room_mode or moderation_mode or catch_up_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
     children.append((host, hostlog))
     deadline = time.monotonic() + 30
     while not (hostroot / 'ready.json').exists():
@@ -912,6 +915,37 @@ try:
         (evidence / 'journey-outcome.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
             'phasePids': pids, 'nativeTerminalPasses': 2, 'deliberatelyInterruptedCases': 0 if private_readiness_mode or category_management_mode else 2,
             'productionNodeActivated': False, 'ordinaryBetaChanged': False}))
+    elif visual_mode:
+        reset_disposable_baseline()
+        sdk = 17 if os.environ['TEST_DEVICE_API'].startswith('37') else 10
+        profiles = json.loads((repo / 'test-fixtures/android/spaces-visual-viewports.json').read_text())
+        verify_pairwise(profiles)
+        visual_settings = VisualViewports(adb, sdk, viewport_override, evidence)
+        observations = {}
+        for index, case in enumerate((case for case in profiles if case['android'] == sdk), start=1):
+            visual_settings.prepare(case)
+            name = case['id']
+            extras = [value for field in ('id', 'font', 'orientation', 'theme', 'ime')
+                      for value in ('-e', 'spacesVisual' + field.capitalize(), str(case[field]))]
+            record(index)
+            proof = instrument('captureOptionBAndTheComposerInAnActualViewport', f'{name}-native.txt',
+                               peer_port, control_port, extras)
+            proof.wait(timeout=120)
+            if proof.returncode or len(re.findall(r'^OK \(1 test\)\s*$', (evidence / f'{name}-native.txt').read_text(), re.M)) != 1:
+                raise RuntimeError(f'Native Option B viewport did not complete for {name}')
+            finish_record(*movies[-1])
+            captured = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{name}/native-configuration.json').stdout
+            observations[name] = {'requested': case, 'native': json.loads(captured)}
+            adb('shell', 'am', 'force-stop', pkg)
+        command(control_port, 'stop')
+        host.wait(timeout=15)
+        if host.returncode:
+            raise RuntimeError('Owned viewport host did not finish')
+        (evidence / 'journey-outcome.json').write_text(json.dumps({
+            'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
+            'nativeTerminalPasses': len(observations), 'viewports': observations,
+            'scope': 'Option B switcher and conversation composition geometry with actual Android settings',
+        }, indent=2))
     elif accessibility_mode:
         reset_disposable_baseline()
         if os.environ['TEST_DEVICE_API'].startswith('37'):
@@ -1481,6 +1515,8 @@ finally:
         cleanup('native-archive', archive)
     # Resizing a running recorder crops its projection. Restore only after all
     # recordings and native originals have been stopped, pulled and retained.
+    if visual_settings is not None:
+        cleanup('restore-visual-viewports', visual_settings.restore)
     if room_rotation_original is not None:
         def restore_rotation():
             for key, value in room_rotation_original.items():

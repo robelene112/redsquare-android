@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare
 
 import android.app.NotificationManager
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Process
@@ -11,6 +12,8 @@ import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.compose.ui.unit.dp
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
 import androidx.test.platform.app.InstrumentationRegistry
@@ -154,9 +157,9 @@ class SpacesCatchUpJourneyTest {
                 assertTarget(hasContentDescription(switcher) and hasClickAction())
                 focusAndHear("option-b", switcher, observations)
                 assertTrue(actionNode(switcher).performAction(AccessibilityNodeInfo.ACTION_CLICK))
-                waitText("Space and channel navigation")
+                waitText("Your communities")
                 assertTrue(device.pressBack())
-                ui.waitUntil(12_000) { !ui.onNodeWithText("Space and channel navigation").isDisplayed() }
+                ui.waitUntil(12_000) { !ui.onNodeWithText("Your communities").isDisplayed() }
 
                 click("Activity")
                 assertEquals(2, request("initial").get("delivered").asInt)
@@ -184,6 +187,91 @@ class SpacesCatchUpJourneyTest {
                 val field = "Reply in this thread"
                 assertTarget(hasText(field) and hasSetTextAction())
                 focusAndHear("thread-composer", field, observations, textLabel = true)
+            }
+        }
+    }
+
+    @Test fun captureOptionBAndTheComposerInAnActualViewport() {
+        val viewportId = argument("spacesVisualId")
+        require(viewportId.matches(Regex("V(0[1-9]|1[0-4])")))
+        val expectedFont = argument("spacesVisualFont").toFloat()
+        val expectedLandscape = argument("spacesVisualOrientation") == "landscape"
+        val expectedDark = argument("spacesVisualTheme") == "dark"
+        val useKeyboard = argument("spacesVisualIme") == "open"
+        val observations = evidence.resolve(viewportId).apply { mkdir() }
+        val config = request("config")
+        prepareWallet(config)
+        launch(config.get("link").asString).use { activity ->
+            withFailureCapture({ captureNativeScreen(observations.resolve("failure.png")) }) {
+                val checked = JsonObject()
+                activity.onActivity { native ->
+                    val actual = native.resources.configuration
+                    assertEquals(expectedFont, actual.fontScale, 0.01f)
+                    assertEquals(320, actual.densityDpi)
+                    assertEquals(
+                        if (expectedLandscape) Configuration.ORIENTATION_LANDSCAPE else Configuration.ORIENTATION_PORTRAIT,
+                        actual.orientation,
+                    )
+                    assertEquals(expectedDark, actual.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
+                    checked.addProperty("widthDp", actual.screenWidthDp)
+                    checked.addProperty("heightDp", actual.screenHeightDp)
+                    checked.addProperty("fontScale", actual.fontScale)
+                    checked.addProperty("landscape", expectedLandscape)
+                    checked.addProperty("night", expectedDark)
+                }
+                fun observeInsets(expectedIme: Boolean, stage: String) {
+                    ui.waitUntil(10_000) {
+                        var matches = false
+                        activity.onActivity { native ->
+                            val insets = ViewCompat.getRootWindowInsets(native.window.decorView) ?: return@onActivity
+                            matches = insets.isVisible(WindowInsetsCompat.Type.ime()) == expectedIme
+                            if (matches) for ((label, type) in listOf("ime" to WindowInsetsCompat.Type.ime(),
+                                "navigation" to WindowInsetsCompat.Type.navigationBars(), "status" to WindowInsetsCompat.Type.statusBars())) {
+                                val bounds = insets.getInsets(type)
+                                checked.add("$stage-$label", JsonObject().apply {
+                                    addProperty("left", bounds.left); addProperty("top", bounds.top)
+                                    addProperty("right", bounds.right); addProperty("bottom", bounds.bottom)
+                                })
+                            }
+                        }
+                        matches
+                    }
+                }
+                observeInsets(false, "initial")
+                val switcher = hasContentDescription("Switch Space or channel") and hasClickAction()
+                val button = ui.onNode(switcher)
+                ui.waitUntil(25_000) {
+                    button.isDisplayed() && button.fetchSemanticsNode().config.getOrNull(SemanticsProperties.StateDescription) == "General"
+                }
+                assertTarget(switcher)
+                assertTarget(hasText("Back to your communities") and hasClickAction())
+                assertTarget(hasText("Community information") and hasClickAction())
+                val stableBounds = button.getUnclippedBoundsInRoot()
+                captureNativeScreen(observations.resolve("channel.png"))
+                button.performTouchInput { click() }
+                waitText("Your communities")
+                captureNativeScreen(observations.resolve("drawer.png"))
+                assertTrue(device.pressBack())
+                ui.waitUntil(12_000) {
+                    !ui.onNodeWithText("Your communities").isDisplayed() && button.isDisplayed()
+                }
+                assertEquals(stableBounds, button.getUnclippedBoundsInRoot())
+                val composer = ui.onNode(hasSetTextAction())
+                composer.assertIsDisplayed()
+                if (useKeyboard) {
+                    composer.performTouchInput { click() }
+                    observeInsets(true, "keyboard")
+                    composer.performTextInput("Viewport draft")
+                    composer.assertIsDisplayed().assertTextContains("Viewport draft")
+                    assertTarget(hasSetTextAction())
+                    captureNativeScreen(observations.resolve("composer-ime.png"))
+                    composer.performTextClearance()
+                    Espresso.closeSoftKeyboard()
+                    observeInsets(false, "dismissed")
+                    ui.waitUntil(12_000) { button.isDisplayed() }
+                    assertEquals(stableBounds, button.getUnclippedBoundsInRoot())
+                }
+                observations.resolve("native-configuration.json").writeText(checked.toString())
             }
         }
     }
