@@ -78,7 +78,7 @@ class SpaceModerationJourneyTest {
         launch(fixture, seedIdentity = false).use {
             withFailureCapture({ capture("administrator-failure") }) {
                 waitText("Moderation proof message", 25_000)
-                openInformation()
+                click("Community information")
                 click("Reports and admin log")
                 waitText("Promotion repeated in a discussion", 15_000)
                 click("Review report")
@@ -87,12 +87,19 @@ class SpaceModerationJourneyTest {
                 click("Close")
                 click("View admin log")
                 val promoted = ui.onNodeWithText("Made a member an administrator")
-                ui.waitUntil(15_000) { runCatching { promoted.performScrollTo().isDisplayed() }.getOrDefault(false) }
+                ui.waitUntil(15_000) { promoted.isDisplayed() || runCatching { promoted.performScrollTo().isDisplayed() }.getOrDefault(false) }
                 capture("admin-log")
                 UiDevice.getInstance(instrumentation).pressBack()
                 waitText("Promotion repeated in a discussion", 15_000)
                 UiDevice.getInstance(instrumentation).pressBack()
                 click("Members")
+                val manage = hasText("Manage member") and hasClickAction() and isEnabled()
+                ui.waitUntil(12_000) {
+                    ui.onNode(manage).isDisplayed() || runCatching {
+                        ui.onNode(hasScrollToNodeAction()).performScrollToNode(manage)
+                        ui.onNode(manage).isDisplayed()
+                    }.getOrDefault(false)
+                }
                 click("Manage member")
                 click("Scope: Whole Space")
                 click("General")
@@ -100,7 +107,7 @@ class SpaceModerationJourneyTest {
                 click("5 minutes")
                 click("Pause writing")
                 val scoped = ui.onNode(hasText("General · paused until", substring = true))
-                ui.waitUntil(15_000) { runCatching { scoped.performScrollTo().isDisplayed() }.getOrDefault(false) }
+                ui.waitUntil(15_000) { scoped.isDisplayed() || runCatching { scoped.performScrollTo().isDisplayed() }.getOrDefault(false) }
                 capture("channel-restriction")
                 val first = request("moderation-restriction-status")
                 assertFalse(first.get("generalWritable").asBoolean)
@@ -112,7 +119,7 @@ class SpaceModerationJourneyTest {
                 click("Whole Space")
                 click("Pause writing")
                 val whole = ui.onNode(hasText("Whole Space · paused until", substring = true))
-                ui.waitUntil(15_000) { runCatching { whole.performScrollTo().isDisplayed() }.getOrDefault(false) }
+                ui.waitUntil(15_000) { whole.isDisplayed() || runCatching { whole.performScrollTo().isDisplayed() }.getOrDefault(false) }
                 capture("space-restriction")
                 val second = request("moderation-restriction-status")
                 assertFalse(second.get("generalWritable").asBoolean)
@@ -141,12 +148,6 @@ class SpaceModerationJourneyTest {
                 }.toString())
             }
         }
-    }
-
-    private fun openInformation() {
-        val button = ui.onNodeWithContentDescription("Community information")
-        ui.waitUntil(12_000) { button.isDisplayed() }
-        button.performClick()
     }
 
     private fun waitText(text: String, millis: Long) = ui.waitUntil(millis) { ui.onNodeWithText(text).isDisplayed() }
