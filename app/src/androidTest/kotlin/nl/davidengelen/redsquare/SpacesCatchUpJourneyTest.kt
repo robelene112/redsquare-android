@@ -71,7 +71,8 @@ class SpacesCatchUpJourneyTest {
                     ui.onNode(hasTestTag("spaces-message") and hasAnyDescendant(hasText("First proof Needle"))).isDisplayed()
                 }
                 click("Back to search")
-                ui.onNodeWithTag("spaces-search-list").performScrollToIndex(0)
+                ui.waitUntil(25_000) { results.isDisplayed() }
+                results.performScrollToIndex(0)
                 waitText("Search saved history")
                 field.assertTextContains("Needle")
                 click("Back to community information")
