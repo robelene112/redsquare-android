@@ -45,7 +45,7 @@ class SpacesCatchUpJourneyTest {
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
         launch(config.get("link").asString).use {
             withFailureCapture({ capture("search-and-activity-failure") }) {
-                waitText("First proof Needle")
+                waitText("Separate proof conversation")
                 click("Community information")
                 click("Search this Space")
                 val field = ui.onNode(hasSetTextAction() and hasText("Search saved history"))
@@ -60,15 +60,20 @@ class SpacesCatchUpJourneyTest {
                 click("All content types")
                 click("Messages", popup = true)
                 ui.onNodeWithText("Needle that must stay private").assertDoesNotExist()
+                val results = ui.onNodeWithTag("spaces-search-list")
+                ui.waitUntil(18_000) {
+                    runCatching { results.performScrollToNode(hasText("First proof Needle")).isDisplayed() }.getOrDefault(false)
+                }
                 capture("search-filtered")
                 click("First proof Needle")
                 ui.waitUntil(25_000) {
                     ui.onNode(hasTestTag("spaces-message") and hasAnyDescendant(hasText("First proof Needle"))).isDisplayed()
                 }
-                click("Back to your communities")
+                click("Back to search")
+                ui.onNodeWithTag("spaces-search-list").performScrollToIndex(0)
                 waitText("Search saved history")
                 field.assertTextContains("Needle")
-                click("Back to your communities")
+                click("Back to community information")
                 waitText("Community information")
                 device.pressBack()
                 ui.waitUntil(12_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }

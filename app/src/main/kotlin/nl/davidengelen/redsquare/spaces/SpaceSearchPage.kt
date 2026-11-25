@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -57,11 +58,11 @@ internal fun SpaceSearchPage(account: SpacesAccount, state: SpacesAccount.State,
     Column(modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically) {
-            FrameIconButton(R.drawable.ic_back, stringResource(R.string.spaces_back)) { onBack() }
+            FrameIconButton(R.drawable.ic_back, stringResource(R.string.spaces_search_back_to_info)) { onBack() }
             Text(stringResource(R.string.spaces_search_title), Modifier.padding(horizontal = 8.dp).semantics { heading() },
                 style = MaterialTheme.typography.headlineSmall)
         }
-        LazyColumn(contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        LazyColumn(Modifier.testTag("spaces-search-list"), contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item {
                 OutlinedTextField(query, { query = it.take(128) }, Modifier.fillMaxWidth(), singleLine = true,
                     label = { Text(stringResource(R.string.spaces_search_query)) },

@@ -363,7 +363,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     if (selected?.articleReadDenied == true) R.string.spaces_kind_article else R.string.spaces_kind_chat)
                 val menu = stringResource(R.string.spaces_switch_channel)
                 if (!compactTyping) Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                    FrameIconButton(R.drawable.ic_back, stringResource(if (activityReturn) R.string.spaces_activity_back else R.string.spaces_back)) {
+                    FrameIconButton(R.drawable.ic_back, stringResource(when {
+                        activityReturn -> R.string.spaces_activity_back
+                        searchResultOpen -> R.string.spaces_search_back
+                        else -> R.string.spaces_back
+                    })) {
                         backFromConversation()
                     }
                     Surface(onClick = { focusManager.clearFocus(); keyboardController?.hide(); scope.launch { drawer.open() } }, shape = RoundedCornerShape(14.dp),
