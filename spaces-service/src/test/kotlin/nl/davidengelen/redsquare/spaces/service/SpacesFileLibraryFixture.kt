@@ -13,8 +13,10 @@ import nl.davidengelen.redsquare.spaces.SpaceFileCipher
 import nl.davidengelen.redsquare.spaces.SpaceFileDescriptor
 import nl.davidengelen.redsquare.spaces.SpaceProfile
 import nl.davidengelen.redsquare.spaces.SpaceStorageProviderClient
+import nl.davidengelen.redsquare.spaces.SpaceStorageOffer
 import nl.davidengelen.redsquare.spaces.SpaceVisibility
 import java.io.ByteArrayOutputStream
+import java.math.BigInteger
 import java.net.HttpURLConnection
 import java.net.InetSocketAddress
 import java.net.URL
@@ -100,6 +102,27 @@ internal class SpacesFileLibraryFixture(private val root: Path, private val auth
         addProperty("link", owner.publicLink(space))
     }
 
+    /** A second actual lease with a short, signed wall-clock term for the native expiry journey. */
+    suspend fun expiryLibrary(): JsonObject {
+        val expired = owner.create(SpaceProfile("Expiring file storage", visibility = SpaceVisibility.PUBLIC),
+            listOf(SpaceChannelProfile("Short-term library", SpaceChannelKind.FILE)))
+        owner.flush(expired)
+        owner.refresh(expired)
+        val at = clock.millis()
+        val terms = SpaceStorageOffer.create(operator, origin, authority.publicKey, expired,
+            owner.members(expired).single { it.role == nl.davidengelen.redsquare.spaces.SpaceRole.OWNER }.publicKey,
+            SpaceFileCipher.MIN_CIPHERTEXT_BYTES, at + 35_000L, at + 20_000L, BigInteger.ZERO, at)
+        val consent = owner.approveFileStorage(expired, terms)
+        owner.flush(expired)
+        val approval = requireNotNull(owner.fileStorageApproval(expired, consent))
+        owner.activateFileStorage(expired, approval, provider().commit(approval))
+        owner.flush(expired)
+        return JsonObject().apply {
+            addProperty("link", owner.publicLink(expired))
+            addProperty("expiresAt", terms.expiresAt)
+        }
+    }
+
     fun downloadCount() = JsonObject().apply { addProperty("nativeDownloads", downloads.get()) }
 
     suspend fun received(): JsonObject {
@@ -153,7 +176,8 @@ internal class SpacesFileLibraryFixture(private val root: Path, private val auth
                 mapOf("IDENTITY_FILE" to identity.toString(), "STATE_DIR" to root.resolve("file-storage").toString(),
                     "ORIGIN" to origin, "AUTHORITY" to authority.publicKey, "LISTEN_PORT" to "0",
                     "AUTHORITY_URL" to "http://127.0.0.1:${accessAuthority.address.port}",
-                    "CAPACITY_BYTES" to "1048576", "TERM_MILLIS" to "600000").forEach { (key, value) ->
+                    "CAPACITY_BYTES" to SpaceFileCipher.MIN_CIPHERTEXT_BYTES.toString(),
+                    "TERM_MILLIS" to "600000").forEach { (key, value) ->
                     environment()["SPACES_FILE_PROVIDER_$key"] = value
                 }
             }.start()

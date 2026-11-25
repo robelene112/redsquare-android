@@ -81,6 +81,7 @@ class SpaceFileJourneyTest {
                     capture("file-terms")
                     assertEquals(0, request("file-provider-downloads").get("nativeDownloads").asInt)
                     click("Confirm storage terms")
+                    waitForStorageDialogToClose()
                     click("Upload a file", timeout = 25_000, lazy = true)
                     val source = device.wait(Until.findObject(By.text(name)), 10000)
                     if (source == null) {
@@ -90,8 +91,16 @@ class SpaceFileJourneyTest {
                     val selected = source ?: device.wait(Until.findObject(By.text(name)), 10_000)
                     assertNotNull("System DocumentsUI must expose the created document", selected)
                     selected!!.click()
-                    val published = ui.onNode(hasText(name) and hasClickAction())
+                    val publishedRow = hasText(name) and hasClickAction()
+                    showFileItem(publishedRow, 30_000)
+                    val published = ui.onNode(publishedRow)
                     ui.waitUntil(35_000) { published.isDisplayed() }
+                    showFileItem(hasText("Shared library"))
+                    ui.waitUntil(20_000) { ui.onNodeWithText("Storage is full.", substring = true).isDisplayed() }
+                    capture("file-storage-full")
+                    showFileItem(hasText("Upload a file"))
+                    ui.onNode(hasText("Upload a file") and hasClickAction()).assertIsNotEnabled()
+                    showFileItem(hasText(name))
                     assertEquals(0, request("file-provider-downloads").get("nativeDownloads").asInt)
                     capture("file-library")
                     click(name)
@@ -131,9 +140,16 @@ class SpaceFileJourneyTest {
         launch(before.get("link").asString).use {
             capturing("file-recovery-failure") {
                 waitVisible(name, 25_000)
+                request("file-provider-stop")
+                showFileItem(hasText("Shared library"))
+                click("Shared library")
+                click("Refresh storage")
+                waitVisible("Could not reach the storage provider.")
+                capture("file-provider-offline")
+                click("Cancel")
+                showFileItem(hasText(name))
                 click(name)
                 waitVisible("Remove offline copy")
-                request("file-provider-stop")
                 click("Open file")
                 val receiver = device.wait(Until.findObject(By.text("Spaces file verifier")), 10_000)
                 assertNotNull("A separate Android file consumer must be offered", receiver)
@@ -171,11 +187,39 @@ class SpaceFileJourneyTest {
                 }.toString())
             }
         }
+        val expiry = request("file-expiry-library")
+        launch(expiry.get("link").asString).use {
+            capturing("file-expiry-failure") {
+                val warning = ui.onNodeWithText("Expires soon", substring = true)
+                ui.waitUntil(20_000) { warning.isDisplayed() }
+                capture("file-expiry-warning")
+                waitVisible("Storage expired. The owner can renew it.", 45_000)
+                capture("file-storage-expired")
+                showFileItem(hasText("Upload a file"))
+                ui.onNode(hasText("Upload a file") and hasClickAction()).assertIsNotEnabled()
+                showFileItem(hasText("Shared library"))
+                click("Shared library")
+                click("Review terms")
+                val price = text("Price is 0 SAITO for this term.")
+                ui.waitUntil(15000) { runCatching { price.fetchSemanticsNode() }.isSuccess }
+                price.performScrollTo().assertIsDisplayed()
+                click("Confirm storage terms")
+                waitForStorageDialogToClose()
+                showFileItem(hasText("Upload a file"))
+                val upload = ui.onNode(hasText("Upload a file") and hasClickAction() and isEnabled())
+                ui.waitUntil(25_000) { upload.isDisplayed() }
+                capture("file-storage-renewed")
+            }
+        }
     }
 
     private fun clickDialog(button: String, description: String) {
         ui.waitUntil(8000) { ui.onNodeWithText(description, substring = true).isDisplayed() }
         ui.onNode(hasText(button) and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+    }
+
+    private fun waitForStorageDialogToClose() = ui.waitUntil(35_000) {
+        ui.onAllNodes(isDialog()).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
     }
 
     private fun insertDocument(): Uri = requireNotNull(context.contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI,
@@ -193,11 +237,15 @@ class SpaceFileJourneyTest {
 
     private fun click(label: String, timeout: Long = 13000, lazy: Boolean = false) {
         val button = ui.onNode(hasText(label) and hasClickAction() and isEnabled())
-        if (lazy) {
-            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(label))
-        }
+        if (lazy) showFileItem(hasText(label), timeout)
         ui.waitUntil(timeout) { button.isDisplayed() }
         button.performTouchInput { click() }
+    }
+
+    private fun showFileItem(matcher: SemanticsMatcher, timeout: Long = 12_000) {
+        ui.waitUntil(timeout) {
+            runCatching { ui.onNodeWithTag("spaces-file-list").performScrollToNode(matcher) }.isSuccess
+        }
     }
 
     private fun capture(name: String) {

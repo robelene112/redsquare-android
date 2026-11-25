@@ -17,6 +17,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -76,10 +77,15 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
         }
     }
     val lease = library?.lease
-    LaunchedEffect(target, lease?.id) {
-        lease?.offer?.expiresAt?.let {
-            val wait = it - System.currentTimeMillis()
-            if (wait > 0) { delay(wait); revision++ }
+    LaunchedEffect(target, lease?.id, online, joined) {
+        val end = lease?.offer?.expiresAt ?: return@LaunchedEffect
+        while (true) {
+            val remaining = end - System.currentTimeMillis()
+            if (remaining <= 0) break
+            val warning = remaining - FILE_STORAGE_WARNING_MILLIS
+            val poll = if (online && joined) 60_000L else Long.MAX_VALUE
+            delay(minOf(remaining, poll, warning.takeIf { it > 0 } ?: Long.MAX_VALUE))
+            revision++
         }
     }
 
@@ -144,10 +150,9 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
         val requested = state.scrollToMessage ?: return@LaunchedEffect
         if (selected != null) return@LaunchedEffect
         val index = displayRows.indexOfFirst { it.id == requested.id }
-        if (index >= 0) {
-            listState.scrollToItem(index + 1)
-            account.consumeScrollTarget(requested)
-        }
+        val slot = if (index >= 0) index + 1 else if (state.hasLater) displayRows.size else 0
+        listState.scrollToItem(slot)
+        account.consumeScrollTarget(requested)
     }
 
     val canConfigure = online && library?.supported == true && account.mayManageFileStorage(target)
@@ -197,7 +202,7 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
             }
         }
     } else {
-        LazyColumn(modifier.fillMaxWidth(), state = listState, contentPadding = PaddingValues(AppSpacing.screen),
+        LazyColumn(modifier.fillMaxWidth().testTag("spaces-file-list"), state = listState, contentPadding = PaddingValues(AppSpacing.screen),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item("library") {
                 FilePanel(stringResource(R.string.spaces_files_library), storageLabel(library, online, joined), R.drawable.ic_vault,
@@ -396,7 +401,9 @@ private fun storageLabel(library: SpacesAccount.FileLibrary?, online: Boolean, j
             Formatter.formatShortFileSize(context, used.used), Formatter.formatShortFileSize(context, used.capacity))
         else -> stringResource(R.string.spaces_files_usage_and_expiry,
             Formatter.formatShortFileSize(context, used.used), Formatter.formatShortFileSize(context, used.capacity),
-            fileDate(used.expiresAt))
+            if (used.expiresAt - System.currentTimeMillis() <= FILE_STORAGE_WARNING_MILLIS)
+                stringResource(R.string.spaces_files_expiry_soon, fileDate(used.expiresAt))
+            else stringResource(R.string.spaces_files_expiry, fileDate(used.expiresAt)))
     }
 }
 
@@ -404,3 +411,5 @@ private fun storageLabel(library: SpacesAccount.FileLibrary?, online: Boolean, j
 private fun fileDate(time: Long): String = remember(time) {
     DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(time))
 }
+
+private const val FILE_STORAGE_WARNING_MILLIS = 24 * 60 * 60_000L

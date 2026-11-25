@@ -1341,7 +1341,7 @@
     <string name="spaces_files_node_unavailable">Shared storage is unavailable on this node.</string>
     <string name="spaces_files_provider_unavailable">Could not reach the storage provider.</string>
     <string name="spaces_files_unconfigured">No storage provider selected.</string>
-    <string name="spaces_files_usage_and_expiry">%1$s of %2$s used · Expires %3$s</string>
+    <string name="spaces_files_usage_and_expiry">%1$s of %2$s used · %3$s</string>
     <string name="spaces_files_refresh_storage">Refresh storage</string>
     <string name="spaces_files_join_for_download">Join this Space to download shared files.</string>
     <string name="spaces_files_latest">Back to latest files</string>
@@ -1370,6 +1370,7 @@
     <string name="spaces_files_discard_terms">Dismiss saved setup</string>
     <string name="spaces_files_terms_pending">Your approved terms are saved. Finish setup to use this provider.</string>
     <string name="spaces_files_expiry">Expires %1$s</string>
+    <string name="spaces_files_expiry_soon">Expires soon · %1$s</string>
     <string name="spaces_files_review_capacity">Storage capacity is %1$s.</string>
     <string name="spaces_files_review_deadline">Confirm before %1$s</string>
     <string name="spaces_files_price_free">Price is 0 SAITO for this term.</string>

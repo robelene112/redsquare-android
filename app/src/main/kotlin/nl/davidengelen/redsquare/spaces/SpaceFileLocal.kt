@@ -15,6 +15,8 @@ import java.io.OutputStream
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import java.security.MessageDigest
+import java.util.concurrent.ConcurrentHashMap
+import kotlinx.coroutines.sync.Mutex
 
 /** Original encrypted upload and opt-in offline copies. Provider keys never enter a filename. */
 internal class SpaceFileLocal(private val context: Context, owner: String, backend: String, private val service: String) {
@@ -55,6 +57,8 @@ internal class SpaceFileLocal(private val context: Context, owner: String, backe
         val fields = JsonParser.parseString(saved.text).asJsonObject
         if (!fields.has("consent")) null else Setup(fields.get("terms").asString, fields.get("consent").asString)
     }
+
+    fun setupGate(space: String): Mutex = setupGates.computeIfAbsent("$namespace:$space") { Mutex() }
 
     fun saveSetup(space: String, setup: Setup?) {
         val fields = JsonObject().apply {
@@ -233,6 +237,7 @@ internal class SpaceFileLocal(private val context: Context, owner: String, backe
     }
 
     private companion object {
+        val setupGates = ConcurrentHashMap<String, Mutex>()
         const val PREFIX = "spaces-file."
         const val STAGING_MAX_AGE = 2 * 60 * 60_000L
         val TEMPORARY = Regex("(upload|download)-[0-9]+\\.part")

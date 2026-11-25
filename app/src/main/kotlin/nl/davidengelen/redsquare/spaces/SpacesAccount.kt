@@ -563,19 +563,19 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         }
 
     suspend fun confirmFileStorage(target: Target, offer: SpaceStorageOffer) =
-        fileAction(target) { current, disk, checkRoute ->
+        fileAction(target, setup = true) { current, disk, checkRoute ->
             require(mayManageFileStorage(target) && disk.setup(target.space) == null)
             checkRoute()
             disk.saveSetup(target.space, SpaceFileLocal.Setup(offer.envelope, ""))
             finishFileStorage(target, current, disk, checkRoute)
         }
 
-    suspend fun resumeFileStorage(target: Target) = fileAction(target) { current, disk, checkRoute ->
+    suspend fun resumeFileStorage(target: Target) = fileAction(target, setup = true) { current, disk, checkRoute ->
         require(mayManageFileStorage(target))
         finishFileStorage(target, current, disk, checkRoute)
     }
 
-    suspend fun discardFileStorageReview(target: Target) = fileAction(target) { _, disk, _ ->
+    suspend fun discardFileStorageReview(target: Target) = fileAction(target, setup = true) { _, disk, _ ->
         require(mayManageFileStorage(target))
         disk.saveSetup(target.space, null)
     }
@@ -738,7 +738,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
 
     private fun provider(origin: String) = SpaceStorageProviderClient(origin)
 
-    private suspend fun <T> fileAction(target: Target, exclusive: Boolean = true,
+    private suspend fun <T> fileAction(target: Target, exclusive: Boolean = true, setup: Boolean = false,
         action: suspend (SpaceClient, SpaceFileLocal, () -> Unit) -> T): T =
         withContext(Dispatchers.IO) {
             val version = navigationVersion.get()
@@ -751,7 +751,11 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 checkRoute()
                 return action(requireNotNull(client), requireNotNull(fileStore), ::checkRoute).also { checkRoute() }
             }
-            if (exclusive) fileGates.computeIfAbsent(target) { Mutex() }.withLock { run() } else run()
+            when {
+                setup -> requireNotNull(fileStore).setupGate(target.space).withLock { run() }
+                exclusive -> fileGates.computeIfAbsent(target) { Mutex() }.withLock { run() }
+                else -> run()
+            }
         }
 
     suspend fun readArticle(target: Target, article: String): SpaceClient.Message? = withContext(Dispatchers.IO) {

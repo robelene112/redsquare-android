@@ -942,7 +942,7 @@ try:
             raise RuntimeError('A restarted storage operator did not return the original bytes to the independent reader')
         record(2)
         recovery = instrument('restoreOfflineCopyAndSeparateLocalFromSharedRemoval', 'files-after-kill.txt', peer_port, control_port)
-        recovery.wait(timeout=140)
+        recovery.wait(timeout=180)
         output = (evidence / 'files-after-kill.txt').read_text()
         if recovery.returncode or len(re.findall(r'^OK \(1 test\)\s*$', output, re.M)) != 1:
             raise RuntimeError('Native file-library recovery failed')
