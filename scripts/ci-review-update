@@ -26,6 +26,8 @@ accepted_baseline_hashes = {
     139: "a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3",
     142: "f4d82bd79445a48e337a1aa63a87005869594fcc3c9fc7a9e6e399e1036c43a6",
 }
+# The ordinary universal APK carries WebRTC and Spaces MLS for four ABIs.
+max_preview_bytes = 128 * 1024 * 1024
 apks = []
 for version in [args.older, args.newer]:
     root = f"https://davidengelen.nl/redsquare/releases/{version}/"
@@ -47,7 +49,7 @@ for version in [args.older, args.newer]:
                 ("Content-Length", "Content-Range", "Content-Encoding", "Content-Type", "ETag")}}
         while chunk := response.read(1024 * 1024):
             output.write(chunk)
-            if output.tell() > 100 * 1024 * 1024:
+            if output.tell() > max_preview_bytes:
                 raise SystemExit("Preview APK exceeded the download limit")
     actual_hash = hashlib.sha256(path.read_bytes()).hexdigest()
     observation.update(bytes=path.stat().st_size, sha256=actual_hash, expectedSha256=manifest["sha256"])
