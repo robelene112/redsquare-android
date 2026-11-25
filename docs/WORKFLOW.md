@@ -64,6 +64,13 @@ polling session. The retained trace also exposed native heap buffer overruns.
 The next trace uses a larger heap sampler buffer, explicit process metadata
 and checks the full timeline against the original ceiling.
 [Android activity launch modes](https://developer.android.com/guide/components/activities/tasks-and-back-stack)
+The trace's app surface contains 2,139 completed frames. Two cold frames
+exceeded the 700ms ceiling from their expected timeline start. The slowest
+took 945ms, during startup composition and shader compilation before the
+Spaces account was available. A cold exact link now opens a lightweight
+access-check screen and loads the requested channel before projecting the
+full community list. The next same-environment cold measurement will
+determine the effect.
 A separate one-core JVM probe on a
 disposable copy of the full fixture read the 100 registered IDs in 113ms.
 The selected-channel projection took 1.042s and the full projection took

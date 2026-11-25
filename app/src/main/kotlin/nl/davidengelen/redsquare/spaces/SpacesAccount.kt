@@ -26,7 +26,8 @@ import java.time.Clock
 /** Account-owned work survives navigation. Local writes never wait for a held
  * read callback; only network work is serialized. Every snapshot keeps its scope. */
 internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, val backend: SaitoBackend,
-    private val endpoint: String, parent: CoroutineScope) {
+    private val endpoint: String, parent: CoroutineScope, prioritiseInitialDestination: Boolean = false) {
+    private val initialDestinationPending = AtomicBoolean(prioritiseInitialDestination)
     enum class Availability { CHECKING, ONLINE, OFFLINE, UNSUPPORTED, CHANGED_IDENTITY, STORAGE_UNAVAILABLE }
     enum class Problem { CONNECTION, SAVE, INVITATION, PROTECTED_CHAT_UNSUPPORTED, DEVICE_RECOVERY_UNSUPPORTED,
         DEVICE_RECOVERY_NO_APPROVER, DEVICE_ALREADY_ACTIVE, RECOVERY_OTHER_MODULE, ARTICLE_MISSING, DESTINATION_MISSING }
@@ -184,7 +185,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     require(saved.version == 1.toByte() && SaitoWallet.isPublicKey(saved.text))
                     cachedService = saved.text
                     installClient(saved.text)
-                    publish()
+                    if (!initialDestinationPending.get()) publish()
                 }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) {
@@ -345,7 +346,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
 
     private fun canRefreshCommunityList(): Boolean {
         val state = mutable.value
-        return !state.openingDestination() && (state.selected == null || channelDrawerVisible.get() || !wasVisible.get())
+        return !initialDestinationPending.get() && !state.openingDestination() &&
+            (state.selected == null || channelDrawerVisible.get() || !wasVisible.get())
     }
 
     private suspend fun refreshBackground(current: SpaceClient, space: String) {
@@ -491,7 +493,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
 
     fun visible(active: Boolean) {
         if (wasVisible.getAndSet(active) == active) return
-        if (!active) synchronized(navigationChanges) { navigationVersion.incrementAndGet() }
+        if (!active) synchronized(navigationChanges) {
+            initialDestinationPending.set(false)
+            navigationVersion.incrementAndGet()
+        }
         ticker?.cancel(); ticker = null
         if (active) ticker = scope.launch {
             while (isActive) { wake.trySend(Unit); delay(5_000) }
@@ -511,7 +516,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         }
     }
     fun refresh() { wake.trySend(Unit) }
-    fun select(space: String?, channel: String? = null) { selectRoute(space, channel) }
+    fun select(space: String?, channel: String? = null) {
+        initialDestinationPending.set(false)
+        selectRoute(space, channel)
+    }
     fun openThread(message: SpaceClient.Message) {
         val target = mutable.value.target() ?: return
         if (target.thread != null) return
@@ -1581,6 +1589,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         var activeRoute = route
         mutable.update { it.copy(previewIssue = null, requiredNode = null, problem = null) }
         return localAction(Problem.INVITATION, isCurrent = { navigationVersion.get() == activeRoute }) {
+            initialDestinationPending.set(false)
             val address = SpaceDestination.parse(link)
             require(activity == null || activity.target == address)
             val current = requireNotNull(client)

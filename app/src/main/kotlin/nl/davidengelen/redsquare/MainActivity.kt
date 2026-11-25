@@ -176,6 +176,11 @@ class MainActivity : ComponentActivity() {
         } else if (!nl.davidengelen.redsquare.talk.TalkLaunchRoutes.accepts(intent.data)) notificationRoutes.initialize(intent.data)
         videoDiagnostics = VideoDiagnostics.fromIntent(this, intent)
         setContent {
+            var openingInitialSpace by remember {
+                mutableStateOf(savedInstanceState == null && initialSpace?.uri?.let {
+                    nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.isDestination(it)
+                } == true)
+            }
             val appearanceStore = remember { AndroidAppearanceStore(applicationContext) }
             var appearance by remember { mutableStateOf(Appearance.SYSTEM) }
             var appearanceReady by remember { mutableStateOf(false) }
@@ -282,8 +287,13 @@ class MainActivity : ComponentActivity() {
                 val current = wallet
                 val node = backend
                 if (!spacesActivated || current == null || node == null) null
-                else nl.davidengelen.redsquare.spaces.SpacesAccount(applicationContext, current, node,
-                    FeedEndpoints.fromIntent(intent, node), scope)
+                else {
+                    val initialRoute = scopedSpaceNotification?.uri ?: pendingSpaceInvitation?.let(Uri::parse)
+                    nl.davidengelen.redsquare.spaces.SpacesAccount(applicationContext, current, node,
+                        FeedEndpoints.fromIntent(intent, node), scope, prioritiseInitialDestination = initialRoute?.let {
+                            nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.isDestination(it)
+                        } == true)
+                }
             }
             DisposableEffect(spacesAccount, module) {
                 val account = spacesAccount
@@ -302,6 +312,7 @@ class MainActivity : ComponentActivity() {
                 val node = backend ?: return@LaunchedEffect
                 if (!incoming.matches(owner, node)) {
                     if (spaceUris.value == incoming) spaceUris.value = null
+                    openingInitialSpace = false
                     return@LaunchedEffect
                 }
                 val moved = postNavigation.navigate {
@@ -322,6 +333,7 @@ class MainActivity : ComponentActivity() {
                         true
                     }
                 }
+                openingInitialSpace = false
                 moduleSwitchFailed = !moved
             }
             LaunchedEffect(address, backend) {
@@ -763,7 +775,11 @@ class MainActivity : ComponentActivity() {
                     }
                     Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)
                         .padding(vertical = if (shortWindow) 0.dp else 4.dp)) {
-                        if (usernameOpen && wallet != null && backend != null) {
+                        if (openingInitialSpace && !failed && (!backendReady || backend != null)) {
+                            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                                Text(stringResource(R.string.spaces_destination_opening))
+                            }
+                        } else if (usernameOpen && wallet != null && backend != null) {
                             chrome(false)
                             key(wallet!!.publicKey, backend) {
                                 CompositionLocalProvider(LocalPostNavigation provides postNavigation) {
