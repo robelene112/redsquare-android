@@ -2,9 +2,9 @@ package nl.davidengelen.redsquare
 
 import android.os.Build
 import android.os.Bundle
+import android.view.accessibility.AccessibilityNodeInfo
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
-import androidx.test.uiautomator.StaleObjectException
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import org.junit.Test
@@ -23,25 +23,33 @@ class WalletDeviceUiObserver {
         withFailureCapture({ captureNativeScreen(capture) }) {
             device.executeShellCommand("am start -W -n $application/nl.davidengelen.redsquare.MainActivity" +
                 if (application.endsWith(".dev")) " --ez feedDisabled true --es balanceApiUrl http://127.0.0.1:1/balance/" else "")
-            // UiObject2 resolves the live object's bounds at click time, rather than using
-            // coordinates from an earlier host-side hierarchy dump during startup.
-            var action: androidx.test.uiautomator.UiObject2? = null
+            // Use the currently visible named accessibility action itself.
+            // An older beta can insert its update banner and move the Wallet
+            // button between hierarchy lookup and delivery of a screen tap.
+            fun activate(node: AccessibilityNodeInfo, label: String, description: Boolean): Boolean {
+                if (node.packageName?.toString() != application || !node.isVisibleToUser) return false
+                val actual = if (description) node.contentDescription else node.text
+                if (actual?.toString() == label) {
+                    val target = generateSequence(node) { it.parent }.firstOrNull { it.isClickable && it.isEnabled }
+                    return target?.performAction(AccessibilityNodeInfo.ACTION_CLICK) == true
+                }
+                return (0 until node.childCount).any { node.getChild(it)?.let { child -> activate(child, label, description) } == true }
+            }
+            fun activate(label: String, description: Boolean = false): Boolean =
+                instrumentation.uiAutomation.rootInActiveWindow?.let { activate(it, label, description) } == true
+
+            var opened = false
             repeat(20) {
-                if (action == null) {
-                    // Legacy signed previews have a direct Wallet control. Newer
-                    // builds expose the same public address through Account.
-                    try {
-                        device.findObject(By.pkg(application).desc("Account").enabled(true))?.click()
-                    } catch (_: StaleObjectException) {
-                        // Startup can replace the accessibility node before its click.
-                        // Re-query in the existing bounded loop, never reuse that node.
-                    }
-                    if (device.hasObject(By.text("System UI isn't responding")))
-                        device.findObject(By.text("Wait"))?.click()
-                    action = device.wait(Until.findObject(By.pkg(application).text("Wallet").enabled(true)), 1_000)
+                if (opened) return@repeat
+                if (device.hasObject(By.text("System UI isn't responding"))) device.findObject(By.text("Wait"))?.click()
+                opened = activate("Wallet")
+                if (!opened) {
+                    activate("Account", description = true)
+                    device.wait(Until.hasObject(By.pkg(application).text("Wallet").enabled(true)), 1_000)
+                    opened = activate("Wallet")
                 }
             }
-            requireNotNull(action).click()
+            check(opened) { "The native Wallet action could not be opened" }
             val address = requireNotNull(device.wait(Until.findObject(By.pkg(application).desc("Wallet address")), 20_000)).text
             check(address != null && address.matches(Regex("[1-9A-HJ-NP-Za-km-z]{44}")))
             captureNativeScreen(capture)
