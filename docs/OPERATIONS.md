@@ -373,6 +373,47 @@ next monotonic signed review version through [review operations](REVIEW_BUILDS.m
 The [data-flow inventory](research/GIPHY_DATA_FLOW_2026_10_17.md) describes
 the implemented direct API and media requests and remaining release facts.
 
+## Independent Spaces file storage
+
+The Spaces service orders consent, publication and removal. It issues signed
+permissions for an independent provider, while the Android device transfers
+encrypted file bytes directly to that provider. The Spaces service never starts
+the provider or receives its file bytes.
+
+An operator prepares a separate directory and an owner-only JSON signing
+identity with the fields `version`, `publicKey` and `privateKey`, using version
+1. The provider key must differ from the Spaces authority key. From the JVM
+service distribution, the operator can launch
+`java -cp 'lib/*' nl.davidengelen.redsquare.spaces.service.SpaceFileProviderMain`
+with these explicit environment settings.
+
+| Setting | Required value |
+| --- | --- |
+| `SPACES_FILE_PROVIDER_STATE_DIR` | Durable provider directory for both the ledger and ciphertext |
+| `SPACES_FILE_PROVIDER_IDENTITY_FILE` | Provider signing identity path |
+| `SPACES_FILE_PROVIDER_AUTHORITY` | Exact pinned Spaces service public key |
+| `SPACES_FILE_PROVIDER_ORIGIN` | Independent HTTPS origin that serves the provider |
+| `SPACES_FILE_PROVIDER_LISTEN_PORT` | Loopback port behind the HTTPS reverse proxy |
+| `SPACES_FILE_PROVIDER_CAPACITY_BYTES` | Exact quoted bytes, up to 1 TiB per Space |
+| `SPACES_FILE_PROVIDER_TERM_MILLIS` | Quoted term, from 10 minutes to 365 days |
+
+The HTTPS reverse proxy forwards only the `/v1/spaces-storage/` routes to the
+provider's loopback listener. Preserve authorization and content-length headers,
+allow binary streaming, and omit grant and body data from logs. Keep the
+provider ledger and ciphertext directory together when backing up or restoring.
+A Space owner enters the provider origin and explicitly confirms its signed
+terms. This implementation supports zero-cost offers. Paid offers have no
+activation or payment path. A file may be up to 128 MiB.
+
+An expired term stops new transfers. Renewal keeps the same provider and data
+pool. If the pool is full, new objects wait for explicitly freed or increased
+capacity. Unpublishing and removal are separate verified effects. Offline
+copies already obtained by participants remain under their control.
+
+Operational readiness is specific to the selected authority, provider identity
+and HTTPS route. An isolated fixture or source checkout does not establish
+availability on a live node.
+
 ## Agent workflow provenance
 
 Matt Pocock's skills are pinned to commit

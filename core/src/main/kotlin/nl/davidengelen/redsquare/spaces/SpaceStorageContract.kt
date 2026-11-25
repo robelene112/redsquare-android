@@ -106,7 +106,7 @@ fun verifySpaceStorageOrigin(value: String) {
     require(value.length <= 512)
     val uri = URI.create(value)
     require(uri.scheme == "https" && uri.host != null && uri.userInfo == null && uri.rawQuery == null &&
-        uri.rawFragment == null && uri.rawPath in setOf("", "/") && (uri.port == -1 || uri.port == 443))
+        uri.rawFragment == null && uri.rawPath in setOf("", "/") && (uri.port == -1 || uri.port in 1..65535))
 }
 
 internal fun JsonObject.storageText(name: String): String = get(name).also {

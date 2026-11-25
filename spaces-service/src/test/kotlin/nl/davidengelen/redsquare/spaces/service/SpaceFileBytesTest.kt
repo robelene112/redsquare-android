@@ -14,6 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import java.io.ByteArrayOutputStream
+import java.io.RandomAccessFile
 import java.nio.file.Files
 import java.time.Clock
 import java.time.Instant
@@ -85,6 +86,18 @@ class SpaceFileBytesTest {
                 SpaceFileCipher.open(scope, sealed, raw.inputStream(), ByteArrayOutputStream())
             }
             assertEquals(1L, Files.list(storage.resolve("objects")).use { it.count() })
+            val path = storage.resolve("objects").resolve(sealed.id)
+            SpaceFileCipher.Reader(scope, sealed, RandomAccessFile(path.toFile(), "r")).use { reader ->
+                val offset = 256 * 1024L - 5
+                val crossing = ByteArray(33)
+                assertEquals(crossing.size, reader.read(offset, crossing.size, crossing))
+                assertArrayEquals(plain.copyOfRange(offset.toInt(), offset.toInt() + crossing.size), crossing)
+                assertEquals(4, reader.read(plain.size - 4L, crossing.size, crossing))
+                assertArrayEquals(plain.takeLast(4).toByteArray(), crossing.copyOf(4))
+                assertEquals(0, reader.read(plain.size.toLong(), crossing.size, crossing))
+                assertEquals(crossing.size, reader.read(0L, crossing.size, crossing))
+                assertArrayEquals(plain.copyOf(crossing.size), crossing)
+            }
         }
     }
 }

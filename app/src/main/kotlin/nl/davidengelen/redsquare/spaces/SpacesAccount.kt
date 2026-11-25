@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare.spaces
 
 import android.content.Context
+import android.net.Uri
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -80,6 +81,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val wake = Channel<Unit>(Channel.CONFLATED)
     private val network = Mutex()
     private val localAccess = Mutex()
+    private val fileGate = Mutex()
     private val managementChanges = Any()
     private val urgentOutbox = ConcurrentHashMap.newKeySet<String>()
     private val closed = AtomicBoolean()
@@ -125,6 +127,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     @Volatile private var peer: SaitoPeer? = null
     @Volatile private var client: SpaceClient? = null
     private var local: AndroidSpaceClientStore? = null
+    @Volatile private var fileStore: SpaceFileLocal? = null
     private var cachedService: String? = null
     private var cacheFailed = false
     private var ticker: Job? = null
@@ -254,6 +257,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             received
         } }
         local = storage
+        fileStore = SpaceFileLocal(appContext, wallet.publicKey, "$backend:$endpoint", service)
         client = installed
         mutable.update { it.copy(ready = true) }
         scope.launch {
@@ -497,6 +501,234 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         }
     }
     fun send() = queueSend()
+
+    internal data class FileLibrary(
+        val supported: Boolean,
+        val lease: SpaceFileLease?,
+        val usage: SpaceStorageUsage?,
+        val upload: SpaceFileLocal.Upload?,
+        val setup: SpaceFileLocal.Setup?,
+        val awaitingRemoval: String?,
+        val offline: Map<String, SpaceFileDescriptor>,
+        val expired: Boolean,
+        val checkedProvider: Boolean,
+    )
+
+    fun mayManageFileStorage(target: Target): Boolean = state.value.target() == target &&
+        state.value.members.any { it.publicKey == wallet.publicKey && it.role == SpaceRole.OWNER }
+
+    fun mayRemoveFile(target: Target, file: SpaceClient.Message): Boolean =
+        state.value.target() == target && state.value.current?.canSend == true && file.position != null &&
+            !file.pending && !file.deleted && !file.rejected &&
+            (file.author == wallet.publicKey || state.value.current?.canManage == true)
+
+    suspend fun fileLibrary(target: Target, records: List<SpaceClient.Message>, observeProvider: Boolean): FileLibrary =
+        fileAction(target) { current, disk, checkRoute ->
+            val lease = current.fileStorage(target.space)
+            val expired = lease != null && System.currentTimeMillis() >= lease.offer.expiresAt
+            val online = mutable.value.availability == Availability.ONLINE
+            val usage = if (lease == null || expired || !online || !observeProvider) null else try {
+                val permission = network.withLock { current.fileStorageUsagePermission(target.space, target.channel) }
+                checkRoute()
+                provider(lease.offer.origin).usage(lease, permission, System::currentTimeMillis)
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) {
+                null
+            }
+            checkRoute()
+            FileLibrary(current.fileStorageSupported(), lease, usage, disk.pending(target), disk.setup(target.space),
+                disk.removal(target), records.mapNotNull { item ->
+                    val file = disk.offlineDescriptor(target, item.id) ?: return@mapNotNull null
+                    if (disk.offlineCopy(target, item.id, file) == null) null else item.id to file
+                }.toMap(), expired, checkedProvider = online && observeProvider)
+        }
+
+    suspend fun reviewFileStorage(target: Target, origin: String): SpaceStorageOffer =
+        fileAction(target) { current, _, _ ->
+            require(mayManageFileStorage(target) && current.fileStorageSupported())
+            verifySpaceStorageOrigin(origin)
+            require(!java.net.URI.create(origin).host.equals(java.net.URI.create(backend.webUrl).host, ignoreCase = true))
+            val offer = provider(origin).offer(target.space, wallet.publicKey)
+            offer.verifyScope(target.space, requireNotNull(cachedService), wallet.publicKey, System.currentTimeMillis())
+            offer
+        }
+
+    suspend fun confirmFileStorage(target: Target, offer: SpaceStorageOffer) =
+        fileAction(target) { current, disk, checkRoute ->
+            require(mayManageFileStorage(target) && disk.setup(target.space) == null)
+            checkRoute()
+            disk.saveSetup(target.space, SpaceFileLocal.Setup(offer.envelope, ""))
+            finishFileStorage(target, current, disk, checkRoute)
+        }
+
+    suspend fun resumeFileStorage(target: Target) = fileAction(target) { current, disk, checkRoute ->
+        require(mayManageFileStorage(target))
+        finishFileStorage(target, current, disk, checkRoute)
+    }
+
+    suspend fun discardFileStorageReview(target: Target) = fileAction(target) { _, disk, _ ->
+        require(mayManageFileStorage(target))
+        disk.saveSetup(target.space, null)
+    }
+
+    private suspend fun finishFileStorage(target: Target, current: SpaceClient, disk: SpaceFileLocal, checkRoute: () -> Unit) {
+        val pending = requireNotNull(disk.setup(target.space))
+        val terms = SpaceStorageOffer.read(pending.terms)
+        if (current.fileStorage(target.space)?.offer?.id == terms.id) {
+            disk.saveSetup(target.space, null)
+            return
+        }
+        val consent = network.withLock {
+            checkRoute()
+            if (pending.operation.isNotEmpty()) current.flush(target.space)
+            val operation = pending.operation.ifEmpty {
+                current.approveFileStorage(target.space, terms).also {
+                    disk.saveSetup(target.space, pending.copy(operation = it))
+                    urgentOutbox.add(target.space)
+                }
+            }
+            current.flush(target.space)
+            requireNotNull(current.fileStorageApproval(target.space, operation)) { "Storage consent is awaiting the node" }
+        }
+        checkRoute()
+        val committed = provider(terms.origin).commit(consent)
+        network.withLock {
+            checkRoute()
+            current.activateFileStorage(target.space, consent, committed)
+            current.flush(target.space)
+        }
+        require(current.fileStorage(target.space)?.offer?.id == terms.id)
+        disk.saveSetup(target.space, null)
+    }
+
+    suspend fun prepareFileUpload(target: Target, uri: Uri) = fileAction(target) { current, disk, checkRoute ->
+        checkRoute()
+        require(current.fileStorageSupported() && mutable.value.current?.canSend == true)
+        disk.prepare(target, uri)
+    }
+
+    suspend fun sendPreparedFile(target: Target) = fileAction(target) { current, disk, checkRoute ->
+        val pending = requireNotNull(disk.pending(target))
+        val lease = requireNotNull(current.fileStorage(target.space))
+        val sealed = pending.file.sealed
+        val existing = pending.operation ?: current.filePublication(target.space, target.channel, sealed.id)
+        val original = existing ?: run {
+            val permission = network.withLock { current.fileUploadPermission(target.space, target.channel, sealed) }
+            checkRoute()
+            val proof = disk.upload(target, pending).inputStream().use { provider(lease.offer.origin).put(permission, it) }
+            checkRoute()
+            val stage = SpaceFileStage.read(proof, requireNotNull(cachedService), lease.offer.provider)
+            localAccess.withLock { checkRoute(); current.publishFile(target.space, target.channel, pending.file, stage) }
+        }
+        if (pending.operation == null) disk.notePublication(target, pending, original)
+        urgentOutbox.add(target.space)
+        wake.trySend(Unit)
+        network.withLock {
+            checkRoute()
+            current.flush(target.space)
+        }
+        val accepted = current.message(target.space, original, target.channel)
+        require(accepted?.position != null && !accepted.rejected && !accepted.pending) { "File sharing was not accepted" }
+        disk.clearPending(target, pending)
+    }
+
+    suspend fun discardFileUpload(target: Target) = fileAction(target) { current, disk, checkRoute ->
+        val pending = requireNotNull(disk.pending(target))
+        val existing = pending.operation ?: current.filePublication(target.space, target.channel, pending.file.sealed.id)
+        require(existing == null || current.fileOperation(target.space, existing) == SpaceClient.ChangeStatus.REJECTED)
+        val lease = requireNotNull(current.fileStorage(target.space))
+        val permission = network.withLock { current.fileAbandonPermission(target.space, target.channel, pending.file.sealed.id) }
+        if (permission != null) provider(lease.offer.origin).remove(permission)
+        checkRoute()
+        disk.clearPending(target, pending)
+    }
+
+    data class OpenedSpaceFile(val uri: Uri, val mime: String)
+    suspend fun openSpaceFile(target: Target, record: String, keep: Boolean): OpenedSpaceFile? =
+        fileAction(target) { current, disk, checkRoute ->
+            fun descriptor(): SpaceFileDescriptor {
+                val row = requireNotNull(current.message(target.space, record, target.channel))
+                require(row.isFile && !row.rejected && !row.pending)
+                if (row.deleted) return requireNotNull(disk.offlineDescriptor(target, record))
+                return SpaceFileDescriptor.read(requireNotNull(row.text))
+            }
+            val file = descriptor()
+            val offline = disk.offlineCopy(target, record, file)
+            if (offline != null) {
+                disk.verify(offline)
+                checkRoute()
+                descriptor()
+                if (keep) null else OpenedSpaceFile(SpaceFileContentProvider.share(appContext, offline, false), file.mime)
+            } else {
+                val grant = network.withLock { current.fileDownloadPermission(target.space, target.channel, record) }
+                require(grant.grant.objectId == file.sealed.id && grant.grant.sha256 == file.sealed.sha256 &&
+                    grant.grant.bytes == file.sealed.bytes)
+                checkRoute()
+                val copy = provider(grant.origin).download(grant.grant) { disk.stageDownload(target, file, it) }
+                try {
+                    network.withLock { current.confirmFileDownload(target.space, target.channel, record, grant) }
+                    checkRoute()
+                    descriptor()
+                    if (keep) {
+                        disk.saveOffline(target, record, copy)
+                        null
+                    } else OpenedSpaceFile(SpaceFileContentProvider.share(appContext, copy, true), file.mime)
+                } catch (failure: Exception) {
+                    copy.path.delete()
+                    throw failure
+                }
+            }
+        }
+
+    suspend fun removeFileOffline(target: Target, record: String) = fileAction(target) { _, disk, _ ->
+        disk.removeOffline(target, record)
+    }
+
+    suspend fun removeFileFromSpace(target: Target, record: SpaceClient.Message) =
+        fileAction(target) { current, disk, checkRoute ->
+            require(mayRemoveFile(target, record) && disk.removal(target) == null)
+            disk.saveRemoval(target, record.id)
+            finishFileRemoval(target, current, disk, checkRoute)
+        }
+
+    suspend fun resumeFileRemoval(target: Target) = fileAction(target) { current, disk, checkRoute ->
+        finishFileRemoval(target, current, disk, checkRoute)
+    }
+
+    private suspend fun finishFileRemoval(target: Target, current: SpaceClient, disk: SpaceFileLocal, checkRoute: () -> Unit) {
+        val id = requireNotNull(disk.removal(target))
+        val permission = network.withLock {
+            checkRoute()
+            current.flush(target.space)
+            val file = requireNotNull(current.message(target.space, id, target.channel))
+            if (!file.deleted) {
+                require(mayRemoveFile(target, file))
+                current.deleteMessage(target.space, file, target.channel)
+                current.flush(target.space)
+            }
+            current.fileRemovalPermission(target.space, target.channel, id)
+        }
+        val lease = requireNotNull(current.fileStorage(target.space))
+        provider(lease.offer.origin).remove(permission)
+        disk.saveRemoval(target, null)
+    }
+
+    private fun provider(origin: String) = SpaceStorageProviderClient(origin)
+
+    private suspend fun <T> fileAction(target: Target, action: suspend (SpaceClient, SpaceFileLocal, () -> Unit) -> T): T =
+        withContext(Dispatchers.IO) {
+            val version = navigationVersion.get()
+            fun checkRoute() {
+                if (closed.get() || navigationVersion.get() != version || mutable.value.target() != target ||
+                    mutable.value.channels.none { it.id == target.channel && it.profile.kind == SpaceChannelKind.FILE })
+                    throw CancellationException("File channel changed")
+            }
+            fileGate.withLock {
+                checkRoute()
+                action(requireNotNull(client), requireNotNull(fileStore), ::checkRoute).also { checkRoute() }
+            }
+        }
 
     suspend fun readArticle(target: Target, article: String): SpaceClient.Message? = withContext(Dispatchers.IO) {
         localAccess.withLock {

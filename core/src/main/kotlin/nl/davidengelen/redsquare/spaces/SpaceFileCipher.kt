@@ -4,6 +4,8 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.io.DataInputStream
 import java.io.InputStream
 import java.io.OutputStream
+import java.io.RandomAccessFile
+import java.io.Closeable
 import java.nio.ByteBuffer
 import java.security.DigestInputStream
 import java.security.DigestOutputStream
@@ -70,26 +72,82 @@ object SpaceFileCipher {
         val input = DataInputStream(source)
         val overhead = if (mode == Cipher.DECRYPT_MODE) TAG_BYTES else 0
         val buffer = ByteArray(CHUNK_BYTES + overhead)
-        val associatedData = "SaitoSpaceFile/v1:${scope.service}:${scope.space}:${scope.channel}:$id:$size"
-            .toByteArray(Charsets.US_ASCII)
+        val associatedData = associatedData(scope, id, size)
         var remaining = size
         var index = 0L
         do {
             val count = minOf(CHUNK_BYTES.toLong(), remaining).toInt()
             input.readFully(buffer, 0, count + overhead)
-            val nonce = ByteBuffer.allocate(12).putInt(0).putLong(index).array()
-            chunkCipher.init(mode, secret, GCMParameterSpec(TAG_BYTES * 8, nonce))
-            chunkCipher.updateAAD(associatedData)
-            val result = try {
-                chunkCipher.doFinal(buffer, 0, count + overhead)
-            } catch (failure: AEADBadTagException) {
-                throw IllegalArgumentException("File bytes failed authentication", failure)
-            }
+            val result = crypt(chunkCipher, secret, mode, associatedData, index, buffer, count + overhead)
             destination.write(result)
             remaining -= count
             index++
         } while (remaining > 0)
         require(input.read() == -1) { "File length changed during transfer" }
+    }
+
+    /**
+     * A native document viewer may seek. Read one authenticated chunk at a time
+     * from an already verified encrypted local copy.
+     */
+    class Reader(scope: Scope, private val file: Sealed, private val source: RandomAccessFile) : Closeable {
+        private val cipher = Cipher.getInstance("AES/GCM/NoPadding")
+        private val secret = SecretKeySpec(file.keyBytes(), "AES")
+        private val aad = associatedData(scope, file.id, file.size)
+        private var index = -1L
+        private var plaintext = ByteArray(0)
+        val size get() = file.size
+
+        init {
+            require(source.length() == file.bytes)
+        }
+
+        fun read(offset: Long, length: Int, into: ByteArray): Int {
+            require(offset >= 0 && length in 0..into.size)
+            val requested = minOf(length.toLong(), (size - offset).coerceAtLeast(0)).toInt()
+            var copied = 0
+            while (copied < requested) {
+                val at = offset + copied
+                val chunk = at / CHUNK_BYTES
+                val from = (at % CHUNK_BYTES).toInt()
+                if (chunk != index) load(chunk)
+                val count = minOf(requested - copied, plaintext.size - from)
+                plaintext.copyInto(into, copied, from, from + count)
+                copied += count
+            }
+            return copied
+        }
+
+        private fun load(chunk: Long) {
+            val count = minOf(CHUNK_BYTES.toLong(), size - chunk * CHUNK_BYTES).toInt()
+            val encrypted = ByteArray(count + TAG_BYTES)
+            source.seek(chunk * (CHUNK_BYTES + TAG_BYTES))
+            source.readFully(encrypted)
+            val decoded = crypt(cipher, secret, Cipher.DECRYPT_MODE, aad, chunk, encrypted, encrypted.size)
+            plaintext.fill(0)
+            plaintext = decoded
+            index = chunk
+        }
+
+        override fun close() {
+            plaintext.fill(0)
+            source.close()
+        }
+    }
+
+    private fun associatedData(scope: Scope, id: String, size: Long) =
+        "SaitoSpaceFile/v1:${scope.service}:${scope.space}:${scope.channel}:$id:$size".toByteArray(Charsets.US_ASCII)
+
+    private fun crypt(cipher: Cipher, secret: SecretKeySpec, mode: Int, aad: ByteArray, index: Long,
+        buffer: ByteArray, count: Int): ByteArray {
+        val nonce = ByteBuffer.allocate(12).putInt(0).putLong(index).array()
+        cipher.init(mode, secret, GCMParameterSpec(TAG_BYTES * 8, nonce))
+        cipher.updateAAD(aad)
+        return try {
+            cipher.doFinal(buffer, 0, count)
+        } catch (failure: AEADBadTagException) {
+            throw IllegalArgumentException("File bytes failed authentication", failure)
+        }
     }
 }
 

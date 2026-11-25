@@ -613,6 +613,12 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
     }
 
+    fun filePublication(space: String, channel: String, objectId: String): String? = store.transaction {
+        owned(); state(space)
+        require(channel.matches(ID) && objectId.matches(ID))
+        get("$space/channels/$channel/file-intents/$objectId")?.toString(Charsets.UTF_8)
+    }
+
     fun activateFileStorage(space: String, approvalEnvelope: String, leaseEnvelope: String): String = store.transaction {
         owned()
         val state = state(space)

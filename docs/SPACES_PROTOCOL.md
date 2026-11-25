@@ -566,6 +566,31 @@ activation. Do not mutate the running Saito node, advertise a service it does no
 provide, start file hosting or claim deployed compatibility from source tests.
 Message storage does not automatically select a community file provider.
 
+## File channels and provider leases
+
+The pinned Spaces authority signs the storage capability and accepts an
+owner's approval of a provider's signed origin, identity, byte quota, price
+and deadline. The provider idempotently commits those exact terms in a
+separate durable ledger. A separate owner control introduces the provider
+lease to authenticated peers. Renewal extends the term at the same provider
+and counts existing files against the renewed quota.
+
+Each object has a random identity and a fresh AES-256-GCM key. A bounded
+sequence of authenticated chunks binds the payload to the Spaces authority,
+Space, channel, object and length. The channel record carries the filename,
+media type, file key and plaintext length. A private channel uses its existing
+encrypted archive record for the descriptor. Provider permissions contain the
+opaque object identity, ciphertext length and digest. They carry no participant
+identity, filename, media type or key.
+
+The node issues upload permissions after a fresh signed challenge and checks
+the upload's original contribution term again when accepting publication.
+Only an accepted, undeleted file is eligible for a download permission.
+Devices verify the complete ciphertext and recheck the download's membership
+and channel key term before keeping or exposing a remote copy. Deleting a
+shared record authorizes separate idempotent removal at the provider. Removing
+a device copy changes local storage alone.
+
 ## Executable acceptance at the agreed seams
 
 The owned Spaces application interface is the principal seam. Independently
