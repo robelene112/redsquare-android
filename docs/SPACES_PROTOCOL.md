@@ -656,6 +656,15 @@ The address carries neither an invitation nor a cryptographic key. Viewing it
 does not enroll a device, join a room or download file contents. A confirmed
 access denial takes precedence over a locally saved record.
 
+### Search in saved history
+
+Search works on accepted records already held by the current wallet and node.
+The application selects only accessible channels and reads up to 40 recent
+records across at most four channels per page using the ordered local store.
+Matches use the latest accepted edit. Deleted records, unsent drafts and
+records without their device keys are excluded. Search terms remain on the
+device. A result carries an exact Space destination for a fresh access check.
+
 ### Moderation and private reports
 
 The reporting client signs a fresh request for an exact accepted message or

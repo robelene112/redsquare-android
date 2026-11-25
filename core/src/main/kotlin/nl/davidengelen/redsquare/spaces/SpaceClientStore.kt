@@ -11,6 +11,8 @@ interface SpaceClientStore {
         fun remove(key: String)
         /** Lexicographic, inclusive cursor and bounded result. */
         fun page(prefix: String, cursor: String = prefix, limit: Int = 50): List<Entry>
+        /** Reverse lexicographic order, with an exclusive upper cursor. */
+        fun pageBefore(prefix: String, before: String = prefix + '\uffff', limit: Int = 50): List<Entry>
     }
     data class Entry(val key: String, val value: ByteArray)
 }

@@ -79,6 +79,9 @@ class SpaceAttentionIndexTest {
                 override fun page(prefix: String, cursor: String, limit: Int): List<SpaceClientStore.Entry> =
                     candidate.entries.asSequence().filter { it.key.startsWith(prefix) && it.key >= cursor }.take(limit)
                         .map { SpaceClientStore.Entry(it.key, it.value.copyOf()) }.toList().also { readRows += it.size }
+                override fun pageBefore(prefix: String, before: String, limit: Int) = candidate.entries
+                    .filter { it.key.startsWith(prefix) && it.key < before }.sortedByDescending { it.key }.take(limit)
+                    .map { SpaceClientStore.Entry(it.key, it.value.copyOf()) }
             })
             data = candidate
             return result

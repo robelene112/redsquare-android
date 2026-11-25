@@ -679,6 +679,13 @@ internal class SqliteClientFixture(path: String) : SpaceClientStore, AutoCloseab
                         sql.executeQuery().use { rows -> buildList { while (rows.next()) add(SpaceClientStore.Entry(rows.getString(1), rows.getBytes(2))) } }
                     }
                 }
+                override fun pageBefore(prefix: String, before: String, limit: Int): List<SpaceClientStore.Entry> {
+                    require(limit in 1..100)
+                    return db.prepareStatement("SELECT key,value FROM entries WHERE key>=? AND key<? AND key<? ORDER BY key DESC LIMIT ?").use { sql ->
+                        sql.setString(1, prefix); sql.setString(2, prefix + '\uffff'); sql.setString(3, before); sql.setInt(4, limit)
+                        sql.executeQuery().use { rows -> buildList { while (rows.next()) add(SpaceClientStore.Entry(rows.getString(1), rows.getBytes(2))) } }
+                    }
+                }
             })
             db.commit(); return value
         } catch (failure: Throwable) { db.rollback(); throw failure }

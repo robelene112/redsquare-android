@@ -90,6 +90,9 @@ class SpacePresentationStoreTest {
                 override fun page(prefix: String, cursor: String, limit: Int) = working.entries
                     .filter { it.key.startsWith(prefix) && it.key >= cursor }.sortedBy { it.key }.take(limit)
                     .map { SpaceClientStore.Entry(it.key, it.value.copyOf()) }
+                override fun pageBefore(prefix: String, before: String, limit: Int) = working.entries
+                    .filter { it.key.startsWith(prefix) && it.key < before }.sortedByDescending { it.key }.take(limit)
+                    .map { SpaceClientStore.Entry(it.key, it.value.copyOf()) }
             })
             committed = working
             return result

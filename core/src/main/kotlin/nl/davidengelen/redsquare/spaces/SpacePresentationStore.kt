@@ -52,6 +52,9 @@ internal class SpacePresentationStore(private val backing: SpaceClientStore) : S
         override fun page(prefix: String, cursor: String, limit: Int): List<SpaceClientStore.Entry> =
             backing.page(prefix, cursor, limit).also { rows -> rows.forEach { remember(it.key, it.value) } }
 
+        override fun pageBefore(prefix: String, before: String, limit: Int): List<SpaceClientStore.Entry> =
+            backing.pageBefore(prefix, before, limit).also { rows -> rows.forEach { remember(it.key, it.value) } }
+
         private fun forget(key: String) { bytes -= values.remove(key)?.size ?: 0 }
 
         private fun remember(key: String, value: ByteArray?) {

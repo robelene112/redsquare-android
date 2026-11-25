@@ -61,6 +61,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val notificationPolicy: SpaceNotificationPolicy? = null, val pinStatus: SpaceClient.PinStatus? = null, val messages: List<SpaceClient.Message> = emptyList(), val draft: String = "",
         val invitation: SpaceClient.Invitation? = null, val preview: SpaceClient.InvitationPreview? = null,
         val problem: Problem? = null, val working: Boolean = false, val refreshing: Boolean = false,
+        val savedDestination: Boolean = false,
         val ready: Boolean = false, val savingNavigation: Boolean = false, val loadingChannel: Boolean = false, val hasEarlier: Boolean = false, val hasLater: Boolean = false, val scrollToMessage: MessageScroll? = null, val windowFrom: Long = 0, val followingLatest: Boolean = true)
     private val appContext = context.applicationContext
     private val fixtureTrace = nl.davidengelen.redsquare.BuildConfig.DEBUG && endpoint.startsWith("ws://127.0.0.1:") &&
@@ -417,7 +418,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         selectRoute(target.space, target.channel, thread = reference.parent, jump = reference.message)
     }
     private fun selectRoute(space: String?, channel: String? = null, expected: Long? = null, thread: SpaceClient.Message? = null,
-        jump: SpaceClient.Message? = null, article: ArticleFocus? = null, requestChannelKeys: Boolean = true): Long? {
+        jump: SpaceClient.Message? = null, article: ArticleFocus? = null, requestChannelKeys: Boolean = true, savedDestination: Boolean = false): Long? {
         if (closed.get()) return null
         return synchronized(navigationChanges) {
             if (expected != null && navigationVersion.get() != expected) return@synchronized null
@@ -426,7 +427,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             mutable.update { it.copy(selected = space, selectedChannel = channel, threadParent = null, current = null,
                 notificationPolicy = null, pinStatus = null, messages = emptyList(), channels = emptyList(), members = emptyList(), draft = "", invitation = null, anchor = null,
                 problem = null, listingIntent = null, publicLink = null, archiveChange = null, roleChange = null, channelEdit = null, channelCreation = null, categoryChange = null, visibilityChange = null, dissolutionChange = null, categories = emptyList(), channelAccessChange = null, membershipChange = null, ownershipOffer = null, ownershipChange = null, bannedMembers = emptySet(),
-                contentLoaded = false, loadingChannel = space != null, scrollToMessage = null, articleFocus = article) }
+                contentLoaded = false, loadingChannel = space != null, scrollToMessage = null, articleFocus = article, savedDestination = savedDestination) }
             scope.launch {
                 try {
                     val current = client ?: return@launch
@@ -1366,6 +1367,16 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             markPublicReferenceOpened(link, accepted)
         }
     }
+    suspend fun searchCached(space: String, query: String, filter: SpaceSearchFilter, after: SpaceSearchCursor?): SpaceSearchPage =
+        withContext(Dispatchers.IO) {
+            localAccess.withLock {
+                if (closed.get() || mutable.value.selected != space) throw CancellationException("Space changed")
+                val page = requireNotNull(client).searchCached(space, query, filter, after)
+                if (closed.get() || mutable.value.selected != space) throw CancellationException("Space changed")
+                page
+            }
+        }
+
     fun openDestinationLink(link: String) {
         val route = navigationVersion.get()
         var activeRoute = route
@@ -1393,7 +1404,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             }
             val article = opened.record?.takeIf { address.kind == SpaceDestination.Kind.ARTICLE }?.let { ArticleFocus(it.id, cached) }
             val accepted = selectRoute(address.community.spaceId, address.channel, expected = route,
-                thread = opened.parent, jump = opened.record, article = article, requestChannelKeys = false) ?: return@localAction
+                thread = opened.parent, jump = opened.record, article = article, requestChannelKeys = false, savedDestination = cached) ?: return@localAction
             activeRoute = accepted
             markPublicReferenceOpened(link, accepted)
         }

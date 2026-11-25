@@ -1211,6 +1211,73 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         Destination(address, record.takeUnless { address.kind == SpaceDestination.Kind.THREAD }, parent)
     } }
 
+    /** A bounded page of previously accepted records. The current signed
+     * channel audience, local keys and accepted edits decide what may appear. */
+    fun searchCached(space: String, query: String, filter: SpaceSearchFilter = SpaceSearchFilter(),
+        after: SpaceSearchCursor? = null, limit: Int = 15): SpaceSearchPage = store.project { store.transaction {
+        owned()
+        require(limit in 1..20)
+        val needle = query.trim().also { require(it.length <= 128) }
+        if (needle.isEmpty()) return@transaction SpaceSearchPage(emptyList(), null)
+        val journal = journal(space)
+        val channels = channels(space).filter { channel ->
+            (filter.channel == null || channel.id == filter.channel) &&
+                (after == null || channel.id >= after.channel) &&
+                channel.profile.kind != SpaceChannelKind.VOICE &&
+                (filter.kind == null || filter.kind.acceptsChannel(channel.profile.kind)) &&
+                get(destinationDenialKey(space, channel.id)) == null && journal.canAccessChannel(wallet.publicKey, channel.id)
+        }.sortedBy { it.id }
+        val hits = ArrayList<SpaceSearchHit>(limit)
+        val community = SpacePublicReference(node, service, space)
+        var remaining = 40
+        for ((index, channel) in channels.take(4).withIndex()) {
+            val prefix = contentPrefix(space, channel.id)
+            val before = after?.takeIf { it.channel == channel.id }?.before?.let { prefix + positionKey(it) }
+            val rows = pageBefore(prefix, before ?: prefix + '\uffff', remaining + 1)
+            var examined = 0
+            for (row in rows.take(remaining)) {
+                examined++
+                val receipt = json(row.value)
+                val original = SaitoEnvelope.decode(receipt.text("event"))
+                val kind = when (original.body.get("content_kind")?.asString) {
+                    "message", "thread-reply" -> SpaceDestination.Kind.MESSAGE
+                    "article" -> SpaceDestination.Kind.ARTICLE
+                    "file" -> SpaceDestination.Kind.FILE
+                    else -> continue
+                }
+                if (filter.kind != null && kind != filter.kind) continue
+                val content = message(space, original.id, channel.id)?.takeIf { !it.deleted && !it.missingKeys }?.text ?: continue
+                val matching = searchText(kind, content, needle) ?: continue
+                val address = SpaceDestination(community, channel.id, kind, original.id, messageThread(original.body))
+                hits.add(SpaceSearchHit(address, channel.profile.name, original.author, matching))
+                if (hits.size == limit) break
+            }
+            remaining -= examined
+            if (examined < rows.size) {
+                val position = rows[examined - 1].key.removePrefix(prefix).toLong()
+                return@transaction SpaceSearchPage(hits, SpaceSearchCursor(channel.id, position))
+            }
+            if (remaining == 0 || hits.size == limit || index == 3)
+                return@transaction SpaceSearchPage(hits, channels.getOrNull(index + 1)?.let { SpaceSearchCursor(it.id) })
+        }
+        SpaceSearchPage(hits, null)
+    } }
+
+    private fun searchText(kind: SpaceDestination.Kind, content: String, needle: String): String? {
+        val candidates = when (kind) {
+            SpaceDestination.Kind.ARTICLE -> when (val article = runCatching { SpaceArticleContent.decode(content) }.getOrNull()) {
+                is SpaceArticleContent.Original -> listOf(article.title, article.subtitle, article.markdown)
+                is SpaceArticleContent.PublicStack -> listOf(article.url)
+                null -> emptyList()
+            }
+            SpaceDestination.Kind.FILE -> runCatching { listOf(SpaceFileDescriptor.read(content).name) }.getOrDefault(emptyList())
+            else -> listOf(content)
+        }
+        val match = candidates.firstOrNull { it.contains(needle, ignoreCase = true) } ?: return null
+        val start = (match.indexOf(needle, ignoreCase = true) - 30).coerceAtLeast(0)
+        return match.drop(start).take(170).trim()
+    }
+
     private fun Message.asArticle(): Article? {
         if (!isArticle) return null
         return Article(id, author, text?.let { runCatching { SpaceArticleContent.decode(it) }.getOrNull() },

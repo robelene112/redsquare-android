@@ -81,6 +81,16 @@ internal class AndroidSpaceClientStore(context: Context, owner: String, node: St
                             } }
                         }
                     }
+                    override fun pageBefore(prefix: String, before: String, limit: Int): List<SpaceClientStore.Entry> {
+                        validateKey(prefix); require(before.length <= 512 && limit in 1..100)
+                        return db.rawQuery("SELECT key,value FROM entries WHERE key>=? AND key<? AND key<? ORDER BY key DESC LIMIT ?",
+                            arrayOf(prefix, prefix + '\uffff', before, limit.toString())).use { rows ->
+                            buildList { while (rows.moveToNext()) {
+                                val key = rows.getString(0)
+                                add(SpaceClientStore.Entry(key, decrypt(key, rows.getBlob(1))))
+                            } }
+                        }
+                    }
                 })
                 db.setTransactionSuccessful()
                 value

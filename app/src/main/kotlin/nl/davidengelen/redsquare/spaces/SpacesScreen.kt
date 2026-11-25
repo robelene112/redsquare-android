@@ -129,6 +129,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     var membersOpen by rememberSaveable { mutableStateOf(false) }
     var reportsSpace by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf<String?>(null) }
     val reportsOpen = reportsSpace != null && reportsSpace == state.selected
+    var searchSpace by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf<String?>(null) }
+    var searchResultOpen by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf(false) }
+    var searchLink by remember { mutableStateOf<String?>(null) }
+    val searchStates = rememberSaveableStateHolder()
+    val searchOpen = searchSpace != null && searchSpace == state.selected && !searchResultOpen
     var channelAccessRoute by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf<String?>(null) }
     val channelAccessOpen = channelAccessRoute == "${state.selected}:${state.selectedChannel}"
     LaunchedEffect(state.selected, state.selectedChannel, state.loadingChannel) {
@@ -171,6 +176,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     LaunchedEffect(state.openedPublicReference) {
         state.openedPublicReference?.let { opened ->
             if (opened == publicReference) publicReference = null
+            if (opened == searchLink) {
+                searchResultOpen = true
+                searchLink = null
+            }
             account.consumePublicReference(opened)
         }
     }
@@ -196,6 +205,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     LaunchedEffect(state.selected) {
         if (overlaySpace != state.selected) {
             informationOpen = false; inviteOpen = false; membersOpen = false; reportsSpace = null; publicRulesOpen = false
+            searchSpace = null; searchResultOpen = false; searchLink = null
             overlaySpace = state.selected
         }
         state.selected?.let { savedSelection = it; tab = SpacesTab.MY_SPACES }
@@ -206,6 +216,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false
         channelCreator.open = false; channelAccessRoute = null
         informationOpen = false; inviteOpen = false; membersOpen = false; reportsSpace = null; publicRulesOpen = false
+        searchSpace = null; searchResultOpen = false; searchLink = null
         clearInvitationReview()
         replacingDevice = false
         val uri = android.net.Uri.parse(link)
@@ -238,7 +249,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     BackHandler(channelAccessRoute != null) { channelAccessRoute = null; informationOpen = selected != null }
     BackHandler(membersOpen) { membersOpen = false; informationOpen = true }
     BackHandler(reportsOpen) { reportsSpace = null; informationOpen = true }
-    BackHandler(!membersOpen && !reportsOpen && !channelAccessOpen && state.selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !channelCreator.open && !publicRulesOpen) { if (state.threadParent != null) account.closeThread() else choose(null) }
+    BackHandler(searchOpen) { searchSpace = null; informationOpen = true }
+    BackHandler(!membersOpen && !reportsOpen && !searchOpen && !channelAccessOpen && state.selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !channelCreator.open && !publicRulesOpen) { if (state.threadParent != null) account.closeThread() else choose(null) }
+    BackHandler(searchResultOpen && searchSpace == state.selected && drawer.isClosed && !informationOpen && publicReference == null) {
+        searchResultOpen = false
+    }
     BackHandler(drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed || drawer.isAnimationRunning) {
         scope.launch { drawer.close() }
     }
@@ -288,7 +303,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             val keyboardInLayout = imeVisible || (shortWindow && screenHeight - height >= 96.dp)
             val compactReading = compactConfiguration || shortWindow
             val compactTyping = state.selected != null && keyboardInLayout && height < 290.dp
-            val visibleRoom = if (!channelAccessOpen && !membersOpen && !reportsOpen && !state.loadingChannel && selected != null &&
+            val visibleRoom = if (!channelAccessOpen && !membersOpen && !reportsOpen && !searchOpen && !state.loadingChannel && selected != null &&
                 channel?.profile?.kind == SpaceChannelKind.VOICE) SpacesAccount.Target(selected.id, channel.id) else null
             val compactRoom = visibleRoom != null && shortWindow
             chrome(keyboardInLayout, visibleRoom, compactRoom)
@@ -299,6 +314,17 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 onBack = { membersOpen = false; informationOpen = true }, onProfile = onProfile, onMessage = onMessage)
             else if (reportsOpen && selected != null) SpaceReportsPage(account, state, Modifier.weight(1f),
                 onBack = { reportsSpace = null; informationOpen = true })
+            else if (searchOpen && selected != null) searchStates.SaveableStateProvider(selected.id) {
+                SpaceSearchPage(account, state, selected.id, Modifier.weight(1f),
+                    onBack = { searchSpace = null; informationOpen = true }, onOpen = { destination ->
+                        focusManager.clearFocus()
+                        keyboardController?.hide()
+                        val link = destination.link()
+                        searchLink = link
+                        publicReference = link
+                        account.openDestinationLink(link)
+                    })
+            }
             else if (state.selected == null) SpacesOverview(account, state, tab, { choose(it) }, { createOpen = true },
                 { clearInvitationReview(); joinOpen = true }, Modifier.weight(1f)) { AvailabilityNotice(state.availability, state.refreshing, account::refresh) }
             else {
@@ -326,6 +352,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 }
                 if (!compactTyping) Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     AvailabilityNotice(state.availability, state.refreshing, account::refresh)
+                    if (state.savedDestination && state.availability == SpacesAccount.Availability.ONLINE)
+                        InlineStatus(stringResource(R.string.spaces_destination_saved), StatusTone.INFO)
                     state.selected?.let { state.accessProblems[it] }?.let { AccessNotice(it) }
                     if (state.ownershipSupported && state.ownershipOffer?.member == account.ownerKey) {
                         TextButton(onClick = { focusManager.clearFocus(); keyboardController?.hide(); informationOpen = true },
@@ -814,6 +842,15 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     enabled = !state.working && !state.savingNavigation,
                     chooseMode = { account.setNotificationPolicy(target, mode = it) },
                     allowEveryone = { account.setNotificationPolicy(target, allowEveryone = it) })
+            }
+            OutlinedButton(onClick = {
+                informationOpen = false
+                searchSpace = selected.id
+                searchResultOpen = false
+            }, enabled = state.ready && !state.working, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                Icon(painterResource(R.drawable.ic_search), null, Modifier.size(20.dp))
+                Spacer(Modifier.width(8.dp))
+                Text(stringResource(R.string.spaces_search_title))
             }
             if (profile.houseRules.isNotEmpty()) { Text(stringResource(R.string.spaces_house_rules), style = MaterialTheme.typography.titleMedium); Text(profile.houseRules) }
             state.publicLink?.takeUnless { selected.dissolved }?.let { link ->
