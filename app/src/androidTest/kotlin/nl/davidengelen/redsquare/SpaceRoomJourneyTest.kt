@@ -294,6 +294,8 @@ class SpaceRoomJourneyTest {
                     firstGuest.expectRemoval = true
                     guestModeration.addProperty("remove", true)
                     assertEquals(2, SpaceVoiceRoom.read(request("room-moderate-guest", guestModeration)).participants.size)
+                    firstGuest.assertRelayRejected(secondGuest.contact, "sender-retired")
+                    secondGuest.assertRelayRejected(firstGuest.contact, "recipient-retired")
                     waitMedia(guests, 12_000) {
                         firstGuest.removed && receivedFrom(firstGuest) == null && receivedFrom(secondGuest)?.connected == true &&
                             TalkRuntime.call.value?.let { it.token == initial.token && it.phase == CallPhase.ACTIVE } == true
@@ -309,6 +311,7 @@ class SpaceRoomJourneyTest {
                         addProperty("remoteCameraToggleObserved", true)
                         addProperty("receiverBlockedModeratedGuest", true)
                         addProperty("remainingPeerSurvivedRemoval", true)
+                        addProperty("revokedSignalDenied", true)
                         addProperty("moderatorStoppedDecodedAudio", true)
                         addProperty("audioInputBuffers", samples.get())
                     }.toString())
@@ -552,7 +555,7 @@ class SpaceRoomJourneyTest {
             connection.connectTimeout = 5000
             connection.readTimeout = 8000
             connection.outputStream.use { it.write(body.toString().toByteArray(Charsets.UTF_8)) }
-            require(connection.responseCode == 200)
+            require(connection.responseCode == 200) { "Owned fixture $action returned HTTP ${connection.responseCode}" }
             return connection.inputStream.use { source -> JsonParser.parseString(source.bufferedReader().readText()).asJsonObject }
         } finally { connection.disconnect() }
     }

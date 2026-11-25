@@ -977,7 +977,7 @@ try:
             if media_result['pid'] == result.get('pid') or media_result['admittedParticipants'] != 3 or media_result['audioInputBuffers'] <= 0 or not all(
                 media_result[flag] is True for flag in ('fourthPeerRefused', 'decodedAudioAndVideoBothWays', 'audioAcrossModules',
                     'moderatorStoppedDecodedAudio', 'decodedAudioWithScreenOff', 'guestsDecodedEachOther', 'remoteCameraToggleObserved',
-                    'receiverBlockedModeratedGuest', 'remainingPeerSurvivedRemoval')
+                    'receiverBlockedModeratedGuest', 'remainingPeerSurvivedRemoval', 'revokedSignalDenied')
             ):
                 raise RuntimeError('Recorded room effects do not establish measured media and the capacity boundary')
             finish_record(*movies[-1])

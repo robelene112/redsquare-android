@@ -44,7 +44,7 @@ internal class SpaceRoomBrowserFixture(address: SpaceVoiceSignalKey.Address, pri
         run = scope.launch {
             try {
                 var cursor = 0L
-                while (isActive) {
+                lease@ while (isActive) {
                     val room = SpaceVoiceRoom.read(call("room-renew") { addProperty("receivedThrough", cursor) })
                     if (!room.admitted && expectRemoval) { removed = true; break }
                     check(room.admitted)
@@ -66,14 +66,23 @@ internal class SpaceRoomBrowserFixture(address: SpaceVoiceSignalKey.Address, pri
                         else browser.spaceSignal(sender.key, signed.body)
                         cursor = delivery.sequence
                     }
-                    repeat(12) {
-                        val packet = outgoing.tryReceive().getOrNull() ?: return@repeat
-                        if (contacts.containsKey(packet.to)) check(SpaceVoiceRoom.read(call("room-signal") { add("packet", packet.json()) }).admitted)
+                    for (attempt in 1..12) {
+                        val packet = outgoing.tryReceive().getOrNull() ?: break
+                        if (!contacts.containsKey(packet.to)) continue
+                        when (relay(packet)) {
+                            "relayed", "recipient-retired" -> Unit // The next signed roster drops the retired recipient.
+                            "sender-retired" -> {
+                                check(expectRemoval) { "Chromium room admission ended unexpectedly" }
+                                removed = true
+                                break@lease
+                            }
+                            else -> error("Unknown owned fixture relay outcome")
+                        }
                     }
                     delay(350)
                 }
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (failure: Throwable) { errors += "${failure.javaClass.simpleName} ${failure.message.orEmpty()}" }
+            catch (failure: Throwable) { errors += failure.stackTraceToString() }
         }
     }
 
@@ -86,6 +95,14 @@ internal class SpaceRoomBrowserFixture(address: SpaceVoiceSignalKey.Address, pri
     private fun sendCapture(recipient: SpaceVoiceSignalKey.Contact) {
         check(outgoing.trySend(keys.sealCapture(recipient, localCapture, System.currentTimeMillis())).isSuccess)
     }
+
+    fun assertRelayRejected(recipient: SpaceVoiceSignalKey.Contact, outcome: String) {
+        val packet = keys.sealCapture(recipient, localCapture, System.currentTimeMillis())
+        check(relay(packet) == outcome)
+    }
+
+    private fun relay(packet: SpaceVoiceSignalKey.Packet): String =
+        call("room-signal") { add("packet", packet.json()) }.get("outcome").asString
 
     private fun call(action: String, fields: JsonObject.() -> Unit = {}) = request(action, JsonObject().apply {
         addProperty("peer", peer)

@@ -65,8 +65,23 @@ internal class SpacesVoiceRoomFixture(root: Path, private val authority: SaitoWa
     suspend fun renew(body: JsonObject) = actor(body).renewVoiceRoom(space, channel,
         body.get("session").asString, body.get("receivedThrough").asLong).json()
 
-    suspend fun signal(body: JsonObject) = actor(body).relayVoiceSignal(space, channel,
-        body.get("session").asString, SpaceVoiceSignalKey.Packet.read(body.getAsJsonObject("packet"))).json()
+    suspend fun signal(body: JsonObject): JsonObject {
+        val client = actor(body)
+        val session = body.get("session").asString
+        val packet = SpaceVoiceSignalKey.Packet.read(body.getAsJsonObject("packet"))
+        val outcome = try {
+            check(client.relayVoiceSignal(space, channel, session, packet).admitted)
+            "relayed"
+        } catch (denied: SpaceClient.ReadDenied) {
+            val active = client.voiceRoom(space, channel).participants
+            when {
+                active.none { it.session == session } -> "sender-retired"
+                active.none { it.session == packet.to } -> "recipient-retired"
+                else -> throw denied
+            }
+        }
+        return JsonObject().apply { addProperty("outcome", outcome) }
+    }
 
     suspend fun leave(body: JsonObject) = actor(body).leaveVoiceRoom(space, channel, body.get("session").asString).json()
 
