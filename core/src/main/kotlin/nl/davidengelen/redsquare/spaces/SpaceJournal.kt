@@ -17,7 +17,9 @@ data class SpaceChannelRecord(val epoch: Long, val devices: Map<String, String>,
     val metadata: String? = null, val adminPostsOnly: Boolean = false, val archived: Boolean = false,
     val contributionStartedAt: Long = 0, val allowedMembers: Set<String>? = null,
     val accessStartedAt: Map<String, Long> = emptyMap(), val kind: SpaceChannelKind? = null,
-    val initialMetadata: String? = metadata, val retiredDevices: Set<String> = emptySet(), val categoryId: String? = null, val metadataChannelId: String? = null)
+    val initialMetadata: String? = metadata, val retiredDevices: Set<String> = emptySet(), val categoryId: String? = null, val metadataChannelId: String? = null) {
+    val rootContentKind: String get() = if ((kind ?: profile?.kind) == SpaceChannelKind.ARTICLE) "article" else "message"
+}
 data class SpaceOwnershipOffer(val id: String, val member: String, val proposedAt: Long,
     val acceptedId: String? = null, val acceptedAt: Long? = null)
 
@@ -838,6 +840,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             body.text("kind") == "content" && body.text("content_kind") == "history-keys"
         require(!channel.archived || keyDelivery) { "This channel is archived" }
         val contentKind = body.get("content_kind")?.asString
+        if (contentKind in setOf("article", "message")) require(contentKind == channel.rootContentKind)
         if (body.has("thread_root_id")) require(contentKind in setOf("message-edit", "message-delete", "message-reaction", "message-pin") &&
             body.text("thread_root_id").matches(Regex("[0-9a-f]{128}")))
         val threadContribution = contentKind in setOf("thread-reply", "message-reaction", "message-pin") || contentKind in setOf("message-edit", "message-delete", "message-reaction", "message-pin") && body.has("thread_root_id")
@@ -861,11 +864,12 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             require(body.text("target_message_id").matches(Regex("[0-9a-f]{128}")) && body.number("target_position") >= 0)
         }
         if (channel.visibility == SpaceVisibility.PUBLIC) {
-            require(body.text("kind") == "public-content" && body.text("content_kind") in setOf("message", "message-edit", "message-delete", "thread-reply", "message-reaction", "message-pin"))
+            require(body.text("kind") == "public-content" && body.text("content_kind") in setOf("message", "article", "message-edit", "message-delete", "thread-reply", "message-reaction", "message-pin"))
             val text = body.text("text")
             require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
             if (contentKind == "message-reaction") SpaceReactionSelection.decode(text)
             if (contentKind == "message-pin") require(text in setOf("pinned", "unpinned"))
+            if (contentKind == "article") SpaceArticleContent.decode(text)
             return
         }
         require(channel.retiredDevices.isEmpty()) { "Private content must wait for current membership keys" }

@@ -176,7 +176,8 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                             }
                             if (!known) { denied("unavailable"); return@atomic }
                         }
-                        messagePage(reply, space, requireNotNull(channel), request.author, cursor, scope.text("direction"), scope.number("limit").toInt(), thread, scope.get("reaction_history")?.asBoolean == true, scope.getAsJsonObject("reaction_cursors"), scope.get("pin_history")?.asBoolean == true)
+                        val record = journal.snapshot.channels.getValue(requireNotNull(channel))
+                        messagePage(reply, space, channel, request.author, cursor, scope.text("direction"), scope.number("limit").toInt(), thread, scope.get("reaction_history")?.asBoolean == true, scope.getAsJsonObject("reaction_cursors"), scope.get("pin_history")?.asBoolean == true, record.rootContentKind)
                         return@atomic
                     }
                     val items = JsonArray()
@@ -224,6 +225,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 reply.addProperty("message_pins", true)
                 reply.addProperty("addressed_invitations", true)
                 reply.addProperty("device_replacement_v1", true)
+                reply.addProperty("space_articles_v1", true)
                 reply.addProperty("protected_chat_v1", true)
             }
             else -> throw IllegalArgumentException("Unsupported Spaces read request")
@@ -233,7 +235,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
 
     /** Message slots, independent of the number of immutable mutations. The
      * original receipt and its latest edit remain independently authenticated. */
-    private fun messagePage(reply: JsonObject, space: String, channel: String, reader: String, cursor: Long, direction: String, limit: Int, thread: String?, reactions: Boolean, reactionCursors: JsonObject?, pins: Boolean) {
+    private fun messagePage(reply: JsonObject, space: String, channel: String, reader: String, cursor: Long, direction: String, limit: Int, thread: String?, reactions: Boolean, reactionCursors: JsonObject?, pins: Boolean, rootContentKind: String = "message") {
         val before = direction == "before"
         val items = mutableListOf<JsonObject>()
         var size = 0
@@ -241,7 +243,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         database.prepareStatement("SELECT position,event_id,receipt FROM records WHERE space_id=? AND channel_id=? AND kind=?" +
             (if (thread == null) "" else " AND target_message_id=?") + " AND position" +
             (if (before) "<? ORDER BY position DESC" else ">=? ORDER BY position") + " LIMIT ?").use { sql ->
-            sql.setString(1, space); sql.setString(2, channel); sql.setString(3, if (thread == null) "message" else "thread-reply")
+            sql.setString(1, space); sql.setString(2, channel); sql.setString(3, if (thread == null) rootContentKind else "thread-reply")
             var parameter = 4
             if (thread != null) sql.setString(parameter++, thread)
             sql.setLong(parameter++, cursor); sql.setInt(parameter, limit + 1)

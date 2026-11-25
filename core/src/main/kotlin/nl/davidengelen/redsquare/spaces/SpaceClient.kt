@@ -27,6 +27,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     @Volatile private var supportsAddressedInvitations = false
     @Volatile private var supportsProtectedChat = false
     @Volatile private var supportsDeviceReplacement = false
+    @Volatile private var supportsSpaceArticles = false
 
     enum class Delivery { CONTROL, CONTENT }
     enum class ReadProblem { EXPIRED, UNAVAILABLE }
@@ -732,6 +733,20 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         conversationTimeline(space, body.number("position"), 1, target, messageThread(original.body)).firstOrNull { it.id == messageId }
     } }
 
+    data class Article(val id: String, val author: String, val content: SpaceArticleContent?, val createdAt: Long,
+        val pending: Boolean, val attempted: Boolean, val rejected: Boolean, val missingKeys: Boolean, val edited: Boolean, val deleted: Boolean) {
+        override fun toString() = "Space article"
+    }
+
+    fun article(space: String, articleId: String, channel: String? = null): Article? =
+        message(space, articleId, channel)?.asArticle()
+
+    private fun Message.asArticle(): Article? {
+        if (!isArticle) return null
+        return Article(id, author, text?.let { runCatching { SpaceArticleContent.decode(it) }.getOrNull() },
+            createdAt, pending, attempted, rejected, missingKeys, edited, deleted)
+    }
+
     data class Community(val id: String, val name: String, val channel: String, val joined: Boolean,
         val canInvite: Boolean, val pending: Boolean, val canSend: Boolean, val membershipRequested: Boolean = false, val unread: Long? = null, val hasUnread: Boolean? = null,
         val canManage: Boolean = false, val dissolved: Boolean = false, val canReply: Boolean = false, val canReact: Boolean = false, val canPin: Boolean = false, val personalUnread: Long? = null, val protectedChat: ProtectedChat? = null,
@@ -750,7 +765,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
     data class Message(val id: String, val author: String, val createdAt: Long, val text: String?,
         val pending: Boolean, val attempted: Boolean, val missingKeys: Boolean, val rejected: Boolean = false, val position: Long? = null,
-        val edited: Boolean = false, val deleted: Boolean = false, val replyCount: Long = 0, val change: MessageChange? = null, val cancelled: Boolean = false, val reactions: List<Reaction> = emptyList(), val reactionsComplete: Boolean = true, val reactionsHaveMore: Boolean = false, val ownReactionsAvailable: Boolean = true, val pinned: Boolean = false, val pinPending: Boolean = false, val pinAvailable: Boolean = true, val pinChange: PinChange? = null) {
+        val edited: Boolean = false, val deleted: Boolean = false, val replyCount: Long = 0, val change: MessageChange? = null, val cancelled: Boolean = false, val reactions: List<Reaction> = emptyList(), val reactionsComplete: Boolean = true, val reactionsHaveMore: Boolean = false, val ownReactionsAvailable: Boolean = true, val pinned: Boolean = false, val pinPending: Boolean = false, val pinAvailable: Boolean = true, val pinChange: PinChange? = null,
+        val isArticle: Boolean = false) {
         override fun toString() = "Private community message"
     }
     data class Invitation(val link: String, val confirmed: Boolean, val expiresAt: Long = 0, val expired: Boolean = false, val revoked: Boolean = false, val revocationPending: Boolean = false, val revocationFailed: Boolean = false) {
@@ -1885,7 +1901,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
 
     /** A local durable queue is not a remote sent/encrypted confirmation. */
-    fun send(space: String, text: String, channel: String? = null): String = store.transaction {
+    fun send(space: String, text: String, channel: String? = null): String =
+        publishRoot(space, text, channel, "message")
+
+    fun publishArticle(space: String, article: SpaceArticleContent, channel: String? = null): String =
+        publishRoot(space, article.encode(), channel, "article")
+
+    private fun publishRoot(space: String, text: String, channel: String?, contentKind: String): String = store.transaction {
         owned()
         val state = state(space)
         require(state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control")) { "Community admission or key change is not confirmed" }
@@ -1893,6 +1915,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val data = channelState(space, channel ?: selectedChannel(state), state)
         val scope = SpaceCrypto.Scope.fromJson(data.getAsJsonObject("scope"))
         val record = requireNotNull(journal.snapshot.channels[scope.channelId])
+        require(record.rootContentKind == contentKind) { "This content belongs to a different channel type" }
+        if (contentKind == "article") require(supportsSpaceArticles || data.get("articles_supported")?.asBoolean == true) {
+            "The authenticated node does not support Space articles"
+        }
         require(journal.canContributeChannel(wallet.publicKey, scope.channelId)) { "Private access is still being prepared" }
         require(!record.archived) { "This channel is archived" }
         if (record.adminPostsOnly || record.profile?.kind == SpaceChannelKind.ANNOUNCEMENT)
@@ -1903,13 +1929,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             event(space, "public-content") {
                 addProperty("channel_id", scope.channelId); addProperty("control_id", control)
                 addProperty("epoch", record.epoch); addProperty("key_generation", record.generation)
-                addProperty("content_kind", "message"); addProperty("text", text)
+                addProperty("content_kind", contentKind); addProperty("text", text)
             }
         } else {
             require(data.get("joined")?.asBoolean == true && record.retiredDevices.isEmpty()) { "Current channel keys are not available on this device" }
             val keys = SpaceCrypto.restore(decode(data.text("crypto")))
             require(keys.scope == scope && keys.epoch == record.epoch && keys.bindings == record.devices)
-            keys.publish(wallet, "message", id(), control, text, clock.millis())
+            keys.publish(wallet, contentKind, id(), control, text, clock.millis())
         }
         queue(space, state, original)
         val draft = draftKey(space, scope.channelId)
@@ -2640,7 +2666,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             require(item.has("message") && item.keySet().all { it in setOf("message", "edit", "deletion", "reply_count", "reactions", "reactions_complete", "reaction_version", "reaction_next_cursor", "own_reaction", "pin") })
             val original = ensureAuthorization(space, item.text("message"), channel, controls)
             val position = original.receipt.body.number("position")
-            require(original.original.body.text("content_kind") == (if (thread == null) "message" else "thread-reply") &&
+            require(original.original.body.text("content_kind") in (if (thread == null) ROOT_CONTENT_KINDS else setOf("thread-reply")) &&
                 (thread == null || original.original.body.text("target_message_id") == thread) && position < end &&
                 (if (before) position < cursor else position >= cursor) && (positions.lastOrNull()?.let { position > it } ?: true))
             positions.add(position); records.add(original)
@@ -2863,6 +2889,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 // Retain verified immutable records without replacing its progress.
                 if (current.number("content_cursor") != before.number("content_cursor")) return@transaction
                 current.addProperty("content_cursor", next); current.addProperty("content_loaded", true)
+                if (currentChannel.rootContentKind == "article") current.addProperty("articles_supported", supportsSpaceArticles)
                 putChannelState(space, targetChannel, current)
             }
             if (supportsMessagePins && !archiveOnly) refreshPins(space, targetChannel)
@@ -2933,7 +2960,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         fun message(envelope: String, pending: Boolean, attempted: Boolean, rejected: Boolean = false, position: Long? = null, cancelled: Boolean = false): Message? {
             val original = SaitoEnvelope.decode(envelope)
             if (original.body.get("channel_id")?.asString != targetChannel) return null
-            if (original.body.text("kind") !in setOf("content", "public-content") || original.body.text("content_kind") != (if (thread == null) "message" else "thread-reply")) return null
+            if (original.body.text("kind") !in setOf("content", "public-content")) return null
+            val contentKind = original.body.text("content_kind")
+            if (contentKind !in (if (thread == null) ROOT_CONTENT_KINDS else setOf("thread-reply"))) return null
             if (thread != null && original.body.text("target_message_id") != thread) return null
             var missing = false
             fun read(source: String, signed: SignedSaitoMessage): String? =
@@ -2964,7 +2993,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             }
             val base = Message(original.id, original.author, original.createdAt, read(envelope, original),
                 pending, attempted, missing, rejected, position,
-                replyCount = if (thread == null) get(replyCountKey(space, targetChannel, original.id))?.let(::json)?.number("count") ?: 0 else 0, change = change, cancelled = cancelled, reactions = reactions.values, reactionsComplete = reactions.complete, reactionsHaveMore = reactions.more, ownReactionsAvailable = ownReactionAvailable(space, targetChannel, original.id), pinned = pin.pinned, pinPending = pin.pending, pinAvailable = pin.available, pinChange = pinChange)
+                replyCount = if (thread == null) get(replyCountKey(space, targetChannel, original.id))?.let(::json)?.number("count") ?: 0 else 0, change = change, cancelled = cancelled, reactions = reactions.values, reactionsComplete = reactions.complete, reactionsHaveMore = reactions.more, ownReactionsAvailable = ownReactionAvailable(space, targetChannel, original.id), pinned = pin.pinned, pinPending = pin.pending, pinAvailable = pin.available, pinChange = pinChange,
+                isArticle = contentKind == "article")
             val removed = if (position == null) null else messageDeletion(space, targetChannel, original.id, original.author)
             if (removed != null && removed.number("target_position") == position && removed.get("thread_root_id")?.asString == thread) return base.copy(text = null, deleted = true, missingKeys = false, reactions = emptyList(), reactionsHaveMore = false, pinned = false, pinPending = false)
             val saved = if (position == null) null else get(messageEditKey(space, targetChannel, original.id, original.author))
@@ -3304,6 +3334,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean
         } == true
         supportsDeviceReplacement = result.get("device_replacement_v1")?.let {
+            it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean
+        } == true
+        supportsSpaceArticles = result.get("space_articles_v1")?.let {
             it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean
         } == true
         return result
@@ -3655,7 +3688,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                         val prior = get(deletionKey)?.let(::json)
                         if (prior == null || prior.number("position") < body.number("position")) put(deletionKey, bytes(body))
                     }
-                    if (original.body.text("kind") in setOf("content", "public-content") && original.body.text("content_kind") == "message")
+                    if (original.body.text("kind") in setOf("content", "public-content") && original.body.text("content_kind") in ROOT_CONTENT_KINDS)
                         contentState.addProperty("last_content", maxOf(contentState.get("last_content")?.asLong ?: 0, body.number("position")))
                     val kind = original.body.get("content_kind")?.asString
                     if (kind in setOf("message", "thread-reply", "message-edit", "message-delete")) {
@@ -3808,7 +3841,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         put("communities/$space", space.toByteArray(Charsets.UTF_8))
     }
     private fun messageChannel(body: JsonObject): String? {
-        if (body.text("kind") !in setOf("content", "public-content") || body.text("content_kind") !in setOf("message", "thread-reply")) return null
+        if (body.text("kind") !in setOf("content", "public-content") || body.text("content_kind") !in TIMELINE_CONTENT_KINDS) return null
         return body.text("channel_id").also { require(it.matches(ID)) }
     }
     private fun messageThread(body: JsonObject): String? =
@@ -3829,7 +3862,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
     private fun SpaceClientStore.Transaction.indexConfirmedMessage(space: String, channel: String, receipt: JsonObject,
         original: SignedSaitoMessage = SaitoEnvelope.decode(receipt.text("event"))) {
-        if (original.body.get("content_kind")?.asString !in setOf("message", "thread-reply")) return
+        if (original.body.get("content_kind")?.asString !in TIMELINE_CONTENT_KINDS) return
         val thread = messageThread(original.body)
         val position = receipt.number("position")
         val pointer = (contentPrefix(space, channel) + positionKey(position)).toByteArray(Charsets.UTF_8)
@@ -4019,6 +4052,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(it != null && it.isJsonPrimitive && it.asJsonPrimitive.isNumber && it.asString.matches(Regex("0|[1-9][0-9]{0,18}")))
     }.asLong.also { require(it >= 0) }
     private companion object {
+        val ROOT_CONTENT_KINDS = setOf("message", "article")
+        val TIMELINE_CONTENT_KINDS = ROOT_CONTENT_KINDS + "thread-reply"
         val CONTROL_KINDS = setOf("create", "invite", "admit", "set-listed", "set-visibility", "dissolve", "join-public", "revoke-invite", "create-channel", "create-category", "edit-category",
             "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access", "rotate-access", "leave", "remove-member", "ban-member", "unban-member", "propose-owner", "accept-owner", "cancel-owner", "decline-owner", "complete-owner")
         const val DIRECTORY_CACHE_LIMIT = 200
