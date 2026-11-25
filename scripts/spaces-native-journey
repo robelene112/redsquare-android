@@ -19,6 +19,7 @@ if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'voice-room-v1', 'c
 file_mode = mode == 'file-library-v1'
 room_mode = mode == 'voice-room-v1'
 catch_up_mode = mode == 'catch-up-v1'
+accessibility_mode = catch_up_mode and os.environ.get('SPACES_ACCESSIBILITY') == 'true'
 moderation_mode = mode == 'moderation-v1'
 article_mode = mode == 'article-channels-v1'
 conversation_overlays_mode = mode == 'conversation-overlays-v1'
@@ -911,6 +912,26 @@ try:
         (evidence / 'journey-outcome.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
             'phasePids': pids, 'nativeTerminalPasses': 2, 'deliberatelyInterruptedCases': 0 if private_readiness_mode or category_management_mode else 2,
             'productionNodeActivated': False, 'ordinaryBetaChanged': False}))
+    elif accessibility_mode:
+        reset_disposable_baseline()
+        if os.environ['TEST_DEVICE_API'].startswith('37'):
+            adb('shell', 'pm', 'grant', pkg, 'android.permission.POST_NOTIFICATIONS')
+        record(1)
+        proof = instrument('talkBackReadsTheOptionBControlUnreadReplyAndComposer',
+                           'talkback.txt', peer_port, control_port)
+        proof.wait(timeout=160)
+        if proof.returncode or len(re.findall(r'^OK \(1 test\)\s*$', (evidence / 'talkback.txt').read_text(), re.M)) != 1:
+            raise RuntimeError('Real Spaces TalkBack journey did not complete')
+        finish_record(*movies[-1])
+        observed = command(control_port, 'catch-up-observe')
+        command(control_port, 'stop')
+        host.wait(timeout=15)
+        if host.returncode or not observed['privateDenied']:
+            raise RuntimeError('Owned TalkBack fixture did not retain its scoped terminal effect')
+        (evidence / 'journey-outcome.json').write_text(json.dumps({
+            'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
+            'nativeTerminalPasses': 1, 'reader': 'TalkBack with completed TTS', 'received': observed,
+        }, indent=2))
     elif catch_up_mode:
         reset_disposable_baseline()
         compact = os.environ['TEST_DEVICE_API'].startswith('37')

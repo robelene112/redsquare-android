@@ -277,7 +277,7 @@ verify_group_chat_native() {
     [[ "$native_passed" == true ]] && return 0
     return 1
 }
-if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
+if [[ "${TEST_SCOPE:-full}" == spaces-journey* && "$TEST_SCOPE" != spaces-journey-talkback* ]]; then
     journey_options=()
     if [[ "${SPACES_ROOMS:-false}" == true ]]; then
         [[ "$TEST_SCOPE" == spaces-journey || "$TEST_SCOPE" == spaces-journey-android17 ]] || { echo 'Rooms require the base Spaces journey scope' >&2; exit 2; }
@@ -688,6 +688,10 @@ PREFS
     adb shell settings put secure enabled_accessibility_services \
         com.android.talkback/com.google.android.marvin.talkback.TalkBackService
     adb shell settings put secure accessibility_enabled 1
+    if [[ "${1:-}" == "spaces" ]]; then
+        SPACES_ACCESSIBILITY=true python3 "$repo_dir/scripts/spaces-native-journey" "$evidence" catch-up-v1
+        exit
+    fi
     if [[ "${1:-}" == "wallet-only" ]]; then
         verify_group_chat_native WalletTalkBackPreviewTest 180 wallet-talkback wallet-talkback-evidence
         exit
@@ -719,6 +723,11 @@ PREFS
     verify_group_chat_native WalletTalkBackPreviewTest 180 wallet-talkback wallet-talkback-evidence
     verify_group_chat_native VaultStoreTalkBackPreviewTest 180 vault-store-talkback vault-store-talkback-evidence
 )
+if [[ "${TEST_SCOPE:-full}" == spaces-journey-talkback* ]]; then
+    verify_status_talkback spaces
+    printf '%s\n' 'Real TalkBack and 48dp control geometry for the Spaces switcher, unread group and thread composer.' > "$evidence/scope.txt"
+    exit 0
+fi
 verify_status_ui() {
     local kind=$1 class_name bound status_exit=0
     case "$kind" in

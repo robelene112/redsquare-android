@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Process
+import android.view.accessibility.AccessibilityNodeInfo
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
@@ -39,12 +40,7 @@ class SpacesCatchUpJourneyTest {
 
     @Test fun searchAndOpenRealSystemNotification() {
         val config = request("config")
-        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
-        assertEquals(config.get("nativeWallet").asString, wallet.publicKey)
-        val store = AndroidWalletStore(context)
-        val previous = store.loadOrCreate()
-        if (previous.publicKey != wallet.publicKey) store.replace(previous, wallet)
-        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        prepareWallet(config)
         launch(config.get("link").asString).use {
             withFailureCapture({ capture("search-and-activity-failure") }) {
                 waitText("Separate proof conversation")
@@ -145,6 +141,66 @@ class SpacesCatchUpJourneyTest {
             }
         }
         save("cold-result", observed)
+    }
+
+    @Test fun talkBackReadsTheOptionBControlUnreadReplyAndComposer() {
+        val config = request("config")
+        prepareWallet(config)
+        val observations = evidence.resolve("talkback").apply { mkdir() }
+        NativeTalkBackObservation(observations).observe {
+            launch(config.get("link").asString).use {
+                waitText("Separate proof conversation")
+                val switcher = "Switch Space or channel"
+                assertTarget(hasContentDescription(switcher) and hasClickAction())
+                focusAndHear("option-b", switcher, observations)
+                assertTrue(actionNode(switcher).performAction(AccessibilityNodeInfo.ACTION_CLICK))
+                waitText("Space and channel navigation")
+                assertTrue(device.pressBack())
+                ui.waitUntil(12_000) { !ui.onNodeWithText("Space and channel navigation").isDisplayed() }
+
+                click("Activity")
+                assertEquals(2, request("initial").get("delivered").asInt)
+                request("latest")
+                val group = hasText("and 1 more replied to your message", substring = true) and hasClickAction()
+                ui.waitUntil(25_000) { ui.onNode(group).isDisplayed() }
+                assertTarget(group)
+                val summary = "and 1 more replied to your message"
+                fun findGroup(node: AccessibilityNodeInfo): AccessibilityNodeInfo? {
+                    if (node.isVisibleToUser && node.text?.contains(summary) == true) {
+                        return generateSequence(node) { it.parent }.firstOrNull { it.isVisibleToUser && it.isClickable }
+                    }
+                    return (0 until node.childCount).firstNotNullOfOrNull { node.getChild(it)?.let(::findGroup) }
+                }
+                val target = requireNotNull(appRoots(automation).firstNotNullOfOrNull(::findGroup))
+                target.performAction(AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
+                device.executeShellCommand("logcat -c")
+                assertTrue(target.performAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
+                captureFocusedSpeech("unread-reply-group", summary, observations, target)
+                waitFor(10_000) { completedFragments(device, "Unread").isNotEmpty() }
+                observations.resolve("unread-state-speech.txt").writeText(speechLog(device))
+                assertTrue(target.performAction(AccessibilityNodeInfo.ACTION_CLICK))
+                waitForWholeMessage("Latest exact proof reply")
+                waitText("First proof Needle")
+                val field = "Reply in this thread"
+                assertTarget(hasText(field) and hasSetTextAction())
+                focusAndHear("thread-composer", field, observations, textLabel = true)
+            }
+        }
+    }
+
+    private fun assertTarget(control: SemanticsMatcher) {
+        val bounds = ui.onNode(control).getUnclippedBoundsInRoot()
+        assertTrue("Touch target must be at least 48dp in both directions: $bounds",
+            bounds.width >= 48.dp && bounds.height >= 48.dp)
+    }
+
+    private fun prepareWallet(config: JsonObject) {
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        assertEquals(config.get("nativeWallet").asString, wallet.publicKey)
+        val store = AndroidWalletStore(context)
+        val previous = store.loadOrCreate()
+        if (previous.publicKey != wallet.publicKey) store.replace(previous, wallet)
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
     }
 
     private fun save(name: String, observed: JsonObject) {
