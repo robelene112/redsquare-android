@@ -1,17 +1,24 @@
 """Collect raw OS frames, committed reaction frames and owned effects."""
 import csv
+import hashlib
 import io
 import json
 import math
+import os
 import re
 import shlex
 import subprocess
 import sys
+import tempfile
 import time
+import urllib.request
 from xml.etree import ElementTree
+from zipfile import ZipFile
 
 PROFILE = '---PROFILEDATA---'
 TAG = 'SpacesScaleProof'
+PERFETTO_RELEASE = 'https://github.com/google/perfetto/releases/download/v59.1/linux-amd64.zip'
+PERFETTO_SHA256 = '7deb8c2572c6ae7ec80cd719d388041079827b0c44a1659694d5d88faa4f501e'
 
 
 def frame_statistics(raw, allow_empty=False):
@@ -42,6 +49,46 @@ def frame_statistics(raw, allow_empty=False):
 def percentile(values, points):
     ordered = sorted(values)
     return {p: ordered[math.ceil(len(ordered) * p / 100) - 1] for p in points}
+
+
+def analyse_trace(evidence):
+    sql = """
+WITH app AS (
+  SELECT upid FROM process WHERE name = 'nl.davidengelen.redsquare.performance'
+  UNION SELECT upid FROM actual_frame_timeline_slice
+    WHERE layer_name GLOB '*nl.davidengelen.redsquare.performance/*'
+), frames AS (
+  SELECT a.ts,a.dur,max(a.dur,a.ts+a.dur-coalesce((
+    SELECT min(e.ts) FROM expected_frame_timeline_slice e
+      WHERE e.upid=a.upid AND e.surface_frame_token=a.surface_frame_token
+  ),a.ts)) AS duration
+  FROM actual_frame_timeline_slice a WHERE a.upid IN app AND a.dur >= 0
+)
+SELECT hex(CAST(json_object(
+  'completedFrames', (SELECT count(*) FROM frames),
+  'lastFrameNs', (SELECT max(ts+dur) FROM frames),
+  'maximumFrameMs', (SELECT max(duration)/1000000.0 FROM frames),
+  'allocationProfiles', (SELECT count(DISTINCT ts) FROM heap_profile_allocation WHERE upid IN app),
+  'diagnostics', (SELECT json_group_array(json_object('name',name,'index',idx,'value',value))
+    FROM stats WHERE value > 0 AND (name GLOB 'heapprofd_*' OR name GLOB 'frame_timeline_*'
+      OR name = 'traced_buf_chunks_overwritten'))
+) AS BLOB)) AS result
+"""
+    (evidence / 'perfetto-validation.sql').write_text(sql.strip() + '\n')
+    with urllib.request.urlopen(PERFETTO_RELEASE, timeout=60) as response:
+        payload = response.read(16 * 1024 * 1024 + 1)
+    if hashlib.sha256(payload).hexdigest() != PERFETTO_SHA256:
+        raise RuntimeError('Perfetto release archive differs from its pinned checksum')
+    with tempfile.TemporaryDirectory(prefix='spaces-perfetto-') as directory, ZipFile(io.BytesIO(payload)) as archive:
+        member = next(name for name in archive.namelist() if name.endswith('/trace_processor_shell'))
+        binary = archive.extract(member, directory)
+        os.chmod(binary, 0o700)
+        query = subprocess.run([binary, '--quiet', '--no-agent', 'query', '-f', str(evidence / 'perfetto-validation.sql'),
+                                str(evidence / 'native-scale.pftrace')], capture_output=True, text=True, timeout=120)
+    (evidence / 'perfetto-validation.log').write_text(query.stdout + query.stderr)
+    query.check_returncode()
+    (row,) = csv.DictReader(io.StringIO(query.stdout))
+    return json.loads(bytes.fromhex(row['result']))
 
 
 def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, request):
@@ -125,13 +172,18 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, req
 buffers { size_kb: 32768 fill_policy: RING_BUFFER }
 buffers { size_kb: 32768 fill_policy: RING_BUFFER }
 data_sources { config { name: "android.surfaceflinger.frametimeline" target_buffer: 0 } }
+data_sources { config { name: "linux.process_stats" target_buffer: 1 process_stats_config {
+  scan_all_processes_on_start: true
+  proc_stats_poll_ms: 5000
+} } }
 data_sources { config { name: "linux.ftrace" target_buffer: 0 ftrace_config {
   atrace_categories: "gfx"
   atrace_categories: "view"
   atrace_apps: "nl.davidengelen.redsquare.performance"
 } } }
 data_sources { config { name: "android.heapprofd" target_buffer: 1 heapprofd_config {
-  sampling_interval_bytes: 4096
+  sampling_interval_bytes: 32768
+  shmem_size_bytes: 16777216
   process_cmdline: "nl.davidengelen.redsquare.performance"
   continuous_dump_config { dump_interval_ms: 15000 }
 } } }
@@ -325,15 +377,12 @@ file_write_period_ms: 5000
             'observedForegroundTransitions': len(running),
             'observedStoppedPollingTransitions': len(profile) - 1,
             'sameAccountAtIdleJobBound': lifecycle_settled,
-            'thresholdsPassed': taps[95] <= thresholds['tapFeedbackP95MsMaximum']
+            'sampleThresholdsPassed': taps[95] <= thresholds['tapFeedbackP95MsMaximum']
                 and max(durations + [frame['durationMs'] for frame in cold + other_frames]) < thresholds['noFrameAtOrAboveMs']
                 and missed <= thresholds['scriptedWarmScrollBudgetMissShareMaximum']
-                and not anchor_failures and not cold_missing and not cold_unretained and not missing_warm and not missing_other,
+                and not anchor_failures and not missing_warm,
         }
         (evidence / 'timing.json').write_text(json.dumps(result, indent=2) + '\n')
-        if not result['thresholdsPassed']:
-            raise RuntimeError('Observed native timings exceeded the frozen thresholds')
-        return result
     finally:
         original_failure = sys.exception()
         try:
@@ -348,3 +397,14 @@ file_write_period_ms: 5000
             (evidence / 'perfetto-finish-error.txt').write_text(str(failure) + '\n')
             if original_failure is None:
                 raise
+    summary = analyse_trace(evidence)
+    result['nativeTrace'] = summary
+    lost_profile = any(item['name'] in {'heapprofd_buffer_overran', 'heapprofd_client_error', 'traced_buf_chunks_overwritten'}
+                       for item in summary['diagnostics'])
+    result['thresholdsPassed'] = result['sampleThresholdsPassed'] and summary['completedFrames'] > 0 and (
+        summary['maximumFrameMs'] < thresholds['noFrameAtOrAboveMs'] and summary['lastFrameNs'] >= running[-1][0] and
+        summary['allocationProfiles'] >= 2 and not lost_profile)
+    (evidence / 'timing.json').write_text(json.dumps(result, indent=2) + '\n')
+    if not result['thresholdsPassed']:
+        raise RuntimeError('The native evidence is incomplete or exceeds the frozen thresholds')
+    return result

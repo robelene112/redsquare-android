@@ -490,7 +490,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
 
     fun visible(active: Boolean) {
-        if (wasVisible.getAndSet(active) && !active) synchronized(navigationChanges) { navigationVersion.incrementAndGet() }
+        if (wasVisible.getAndSet(active) == active) return
+        if (!active) synchronized(navigationChanges) { navigationVersion.incrementAndGet() }
         ticker?.cancel(); ticker = null
         if (active) ticker = scope.launch {
             while (isActive) { wake.trySend(Unit); delay(5_000) }

@@ -54,6 +54,16 @@ stderr. The next run sends the configuration over stdin, waits for the trace
 producers and retains the diagnostics and APK receipt if measurement stops.
 The rerun uses the frozen workload and thresholds.
 [Perfetto Android trace instructions](https://perfetto.dev/docs/learning-more/android)
+A [fifth run](https://github.com/robelene112/redsquare-android/actions/runs/45699480323)
+recorded both cold routes and the actual mixed image, document and audio
+library. Its warm return stopped with the Library still selected. The native
+log identified two Spaces accounts in the same process after Android created
+another launcher Activity. The launcher now receives new links in its
+existing top Activity, and duplicate lifecycle notifications reuse one
+polling session. The retained trace also exposed native heap buffer overruns.
+The next trace uses a larger heap sampler buffer, explicit process metadata
+and checks the full timeline against the original ceiling.
+[Android activity launch modes](https://developer.android.com/guide/components/activities/tasks-and-back-stack)
 A separate one-core JVM probe on a
 disposable copy of the full fixture read the 100 registered IDs in 113ms.
 The selected-channel projection took 1.042s and the full projection took
