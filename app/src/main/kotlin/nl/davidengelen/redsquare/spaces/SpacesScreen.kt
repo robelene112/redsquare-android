@@ -77,6 +77,7 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
 import nl.davidengelen.redsquare.ui.keyboardOccupiesWindow
 import java.text.DateFormat
 import java.util.Date
+import java.util.concurrent.atomic.AtomicReference
 
 /** Production routes use only account-owned received/durable state. */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -90,11 +91,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     val scope = rememberCoroutineScope()
     val publishing = nl.davidengelen.redsquare.policy.LocalPublishingAgreement.current
     val navigation = LocalPostNavigation.current
-    var articleEditorGuard by remember(account) { mutableStateOf<(() -> Boolean)?>(null) }
+    val articleEditorGuard = remember(account) { AtomicReference<(() -> Boolean)?>(null) }
     DisposableEffect(navigation, account) {
-        val save: suspend () -> Boolean = { articleEditorGuard?.invoke() != false && account.guardNavigation { true } }
+        val save: suspend () -> Boolean = { articleEditorGuard.get()?.invoke() != false && account.guardNavigation { true } }
         val guard: suspend (suspend () -> Boolean) -> Boolean = { commit ->
-            articleEditorGuard?.invoke() != false && account.guardNavigation(commit)
+            articleEditorGuard.get()?.invoke() != false && account.guardNavigation(commit)
         }
         navigation?.saveCurrent = save; navigation?.guardedCurrent = guard
         onDispose {
@@ -173,7 +174,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     val imeVisible = keyboardOccupiesWindow()
     fun choose(space: String?, channel: String? = null) {
-        if (articleEditorGuard?.invoke() == false) return
+        if (articleEditorGuard.get()?.invoke() == false) return
         // Selection is immediate; the panel keeps its rows until its exit ends.
         if (drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed)
             closingDrawerContent = closingDrawerContent ?: state
@@ -182,7 +183,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         scope.launch { drawer.close() }
     }
     fun selectTab(target: SpacesTab) {
-        if (articleEditorGuard?.invoke() == false) return
+        if (articleEditorGuard.get()?.invoke() == false) return
         categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false
         channelCreator.open = false; channelAccessRoute = null; account.select(null); savedSelection = null; tab = target
     }
@@ -362,7 +363,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             AccessNotice(SpaceClient.ReadProblem.UNAVAILABLE)
                         }
                     } else if (channel?.profile?.kind == SpaceChannelKind.ARTICLE) {
-                        SpaceArticleChannel(account, state, channel, Modifier.weight(1f)) { articleEditorGuard = it }
+                        SpaceArticleChannel(account, state, channel, Modifier.weight(1f), articleEditorGuard::set)
                     } else if (state.messages.any { it.isArticle }) {
                         Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
                             Text(stringResource(R.string.spaces_article_unavailable), color = MaterialTheme.colorScheme.onSurfaceVariant)
