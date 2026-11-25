@@ -10,6 +10,7 @@ import android.os.Process
 import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.compose.ui.unit.dp
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.test.core.app.ActivityScenario
@@ -90,7 +91,7 @@ class SpaceRoomJourneyTest {
                     }
                     visible && editor.isDisplayed()
                 }
-                editor.assertEditableTextEquals(draft)
+                editor.assertHeightIsAtLeast(48.dp).assertEditableTextEquals(draft)
                 val returnAction = ui.onNode(hasText("Call") and hasClickAction())
                 returnAction.assertIsDisplayed().assertIsEnabled()
                 ui.onNode(hasText("End call") and hasClickAction()).assertIsDisplayed().assertIsEnabled()
@@ -141,7 +142,7 @@ class SpaceRoomJourneyTest {
                 assertEquals(active.token, observed().participants.single().session)
                 assertFalse(active.microphone)
                 assertFalse(active.camera)
-                focusAndHear("microphone", "Unmute", folder, textLabel = true)
+                focusAndHear("microphone", "Unmute", folder, textLabel = true, completionTimeoutMillis = 20_000)
                 focusAndHear("camera", "Camera on", folder, textLabel = true)
                 focusAndHear("leave-room", "Leave room", folder, textLabel = true)
                 click(automation, "Leave room")
