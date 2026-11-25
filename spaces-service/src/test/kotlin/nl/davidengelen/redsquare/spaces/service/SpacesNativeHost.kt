@@ -27,7 +27,8 @@ import java.util.concurrent.atomic.AtomicBoolean
  * real service/SQLite/MLS and independent received effects; no public network. */
 object SpacesNativeHost {
     @JvmStatic fun main(args: Array<String>): Unit = runBlocking {
-        require(args.size in 1..2 && (args.size == 1 || args[1] in setOf("article-channels-v1", "conversation-overlays-v1", "discovery-v1", "management-v1", "private-management-v1", "private-readiness-v1", "category-management-v1", "governance-v1", "membership-v1", "private-ownership-v1")))
+        require(args.size in 1..2 && (args.size == 1 || args[1] in setOf("file-library-v1", "article-channels-v1", "conversation-overlays-v1", "discovery-v1", "management-v1", "private-management-v1", "private-readiness-v1", "category-management-v1", "governance-v1", "membership-v1", "private-ownership-v1")))
+        val fileMode = args.getOrNull(1) == "file-library-v1"
         val articleMode = args.getOrNull(1) == "article-channels-v1"
         val conversationMode = args.getOrNull(1) == "conversation-overlays-v1"
         val discoveryMode = args.getOrNull(1) == "discovery-v1"
@@ -48,11 +49,17 @@ object SpacesNativeHost {
         val lock = Mutex()
         val workers = Executors.newFixedThreadPool(2)
         val started = System.nanoTime()
+        var fileLibrary: SpacesFileLibraryFixture? = null
         try { SpacesServiceStore(root.resolve("service"), service, clock).use { remote ->
             SqliteClientFixture(root.resolve("independent-client.sqlite").toString()).use { local ->
                 val managedLocal = if (managementMode || privateManagementMode || privateReadinessMode) SqliteClientFixture(root.resolve("management-member.sqlite").toString()) else null
                 managedLocal.use { memberStore ->
                     val client = SpaceClient(guest, "https://saito.davidengelen.nl", service.publicKey, local, clock) { remote.exchange(it.envelope()) }
+                    if (fileMode) {
+                        val files = SpacesFileLibraryFixture(root, service, client, remote)
+                        fileLibrary = files
+                        files.seed()
+                    }
                     val discovery = if (discoveryMode) SpacesDiscoveryFixture(client, clock as SpacesDiscoveryFixture.AdvancingClock).also { it.seed() } else null
                     val sent = mutableSetOf<String>()
                     var membership: SpacesMembershipFixture? = null
@@ -143,6 +150,12 @@ object SpacesNativeHost {
                                                 addProperty("originalSubmissions", matching.size)
                                                 addProperty("exactOriginal", matching.map { it.envelope() }.distinct().size == 1)
                                             }
+                                        }
+                                        "/file-library" -> requireNotNull(fileLibrary).configuration()
+                                        "/file-received" -> requireNotNull(fileLibrary).received()
+                                        "/file-provider-downloads" -> requireNotNull(fileLibrary).downloadCount()
+                                        "/file-provider-restart" -> requireNotNull(fileLibrary).let {
+                                            it.stopProvider(); it.startProvider(); JsonObject()
                                         }
                                         "/article-invitation" -> {
                                             check(articleMode)
@@ -326,6 +339,7 @@ object SpacesNativeHost {
                             Files.writeString(root.resolve("ready.json"), JsonObject().apply {
                                 addProperty("peerPort", socket.port); addProperty("controlPort", control.address.port)
                                 addProperty("service", service.publicKey); addProperty("guest", guest.publicKey)
+                                fileLibrary?.let { addProperty("providerPort", it.port) }
                             }.toString())
                             while (!stopping.get()) {
                                 check(System.nanoTime() - started < TimeUnit.MINUTES.toNanos(15)) { "Owned host lifetime exceeded" }
@@ -362,8 +376,10 @@ object SpacesNativeHost {
             }
         }
         } finally {
-            workers.shutdownNow()
-            check(workers.awaitTermination(5, TimeUnit.SECONDS))
+            try { fileLibrary?.close() } finally {
+                workers.shutdownNow()
+                check(workers.awaitTermination(5, TimeUnit.SECONDS))
+            }
         }
     }
 

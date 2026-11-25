@@ -4,6 +4,10 @@ on:
     branches: [main]
   workflow_dispatch:
     inputs:
+      spaces_files:
+        description: Focused shared file library with real DocumentsUI and independent storage process recovery
+        type: boolean
+        default: false
       spaces_articles:
         description: Focused Space article editor, exact link and encrypted process recovery
         type: boolean
@@ -104,6 +108,7 @@ jobs:
         partition: ${{ fromJSON((inputs.diagnostic_partition && inputs.diagnostic_partition != 'all') && format('["{0}"]', inputs.diagnostic_partition) || (inputs.scope == 'full-android17' || inputs.scope == 'full-android10') && '["chat","social","wallet"]' || '["all"]') }}
     runs-on: ${{ inputs.runner_os || 'ubuntu-24.04' }}
     env:
+      SPACES_FILES: ${{ inputs.spaces_files && 'true' || 'false' }}
       SPACES_ARTICLES: ${{ inputs.spaces_articles && 'true' || 'false' }}
       SPACES_CONVERSATION_OVERLAYS: ${{ inputs.spaces_conversation_overlays && 'true' || 'false' }}
       SPACES_PROTECTED_CHAT: ${{ inputs.spaces_protected_chat && 'true' || 'false' }}

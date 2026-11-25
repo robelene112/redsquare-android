@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Owned emulator only: real host peer plus distinct Android PID recovery."""
+import base64
 import hashlib
 import json
 import os
@@ -13,8 +14,9 @@ import urllib.request
 
 repo = Path(__file__).resolve().parent.parent
 mode = sys.argv[2] if len(sys.argv) == 3 else 'journey-v1'
-if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'article-channels-v1', 'protected-chat-v1', 'conversation-overlays-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
+if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'file-library-v1', 'article-channels-v1', 'protected-chat-v1', 'conversation-overlays-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
     raise ValueError('Expected evidence directory and an optional supported Spaces journey mode')
+file_mode = mode == 'file-library-v1'
 article_mode = mode == 'article-channels-v1'
 conversation_overlays_mode = mode == 'conversation-overlays-v1'
 private_ownership_mode = mode == 'private-ownership-v1'
@@ -30,10 +32,10 @@ private_management_mode = mode == 'private-management-v1'
 private_readiness_mode = mode == 'private-readiness-v1'
 management_mode = mode in ('management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1')
 community_mode = discovery_mode or management_mode
-label = 'articles' if article_mode else 'private-ownership' if private_ownership_mode else 'membership' if membership_mode else 'governance' if governance_mode else 'category-management' if category_management_mode else 'private-readiness' if private_readiness_mode else 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
+label = 'files' if file_mode else 'articles' if article_mode else 'private-ownership' if private_ownership_mode else 'membership' if membership_mode else 'governance' if governance_mode else 'category-management' if category_management_mode else 'private-readiness' if private_readiness_mode else 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
 folder = f'spaces-{label}-evidence'
 checkpoint_name = f'spaces-{label}-checkpoint.json'
-classname = 'SpaceArticleJourneyTest' if article_mode else 'SpacesManagementJourneyTest' if management_mode else 'SpacesDiscoveryJourneyTest' if discovery_mode else 'SpacesJourneyTest'
+classname = 'SpaceFileJourneyTest' if file_mode else 'SpaceArticleJourneyTest' if article_mode else 'SpacesManagementJourneyTest' if management_mode else 'SpacesDiscoveryJourneyTest' if discovery_mode else 'SpacesJourneyTest'
 evidence = Path(sys.argv[1]).resolve() / f'spaces-{label}'
 evidence.mkdir(parents=True, exist_ok=False)
 pkg = 'nl.davidengelen.redsquare.dev'
@@ -53,6 +55,7 @@ def instrument(method, filename, peer, control):
     process = subprocess.Popen(['adb', 'shell', 'am', 'instrument', '-w', '-r',
         '-e', 'class', f'nl.davidengelen.redsquare.{classname}#{method}',
         '-e', 'spacesPeerPort', str(peer), '-e', 'spacesControlPort', str(control)] +
+        (['-e', 'spacesFileCertificate', file_certificate] if file_mode else []) +
         (['-e', 'spacesDisposableBaseline', 'true'] if management_mode else []) +
         (['-e', 'spacesPrivateManagement', 'true'] if private_management_mode else []) +
         (['-e', 'spacesPrivateReadiness', 'true'] if private_readiness_mode else []) +
@@ -67,6 +70,8 @@ def instrument(method, filename, peer, control):
     return process
 
 control_port = None
+reverses = []
+file_certificate = None
 movies = []
 movie_owners = {}
 viewport_original = None
@@ -79,7 +84,7 @@ def viewport_observation(stage, expected=None):
         '-e', 'spacesViewportStage', stage]
     for name, value in (expected or {}).items():
         args += ['-e', name, str(value)]
-    if management_mode or article_mode:
+    if management_mode or article_mode or file_mode:
         args += ['-e', 'spacesViewportFolder', folder]
     observed = adb(*args, runner, timeout=30, check=False)
     text = observed.stdout.decode(errors='replace')
@@ -152,11 +157,22 @@ try:
     owned_emulator = True
     classpath = (repo / 'spaces-service/build/host-fixture-classpath.txt').read_text().strip()
     native = repo / 'core/build/generated/spaces-mls-host'
-    hostroot = repo / '.scratch' / ((f'spaces-{label}-host-' if community_mode or article_mode else 'spaces-native-host-') + os.environ['TEST_DEVICE_API'])
+    hostroot = repo / '.scratch' / ((f'spaces-{label}-host-' if community_mode or article_mode or file_mode else 'spaces-native-host-') + os.environ['TEST_DEVICE_API'])
     hostroot.mkdir(parents=True, exist_ok=False)
+    if file_mode:
+        store = hostroot / 'files-fixture.p12'
+        certificate = hostroot / 'files-fixture.cer'
+        subprocess.run(['keytool', '-genkeypair', '-keyalg', 'RSA', '-keysize', '2048',
+            '-validity', '1', '-dname', 'CN=127.0.0.1', '-ext', 'SAN=IP:127.0.0.1', '-alias', 'owned-provider',
+            '-storetype', 'PKCS12', '-storepass', 'owned-fixture', '-keystore', str(store)],
+            check=True, capture_output=True, timeout=20)
+        subprocess.run(['keytool', '-exportcert', '-alias', 'owned-provider', '-storepass',
+            'owned-fixture', '-keystore', str(store), '-file', str(certificate)],
+            check=True, capture_output=True, timeout=10)
+        file_certificate = base64.b64encode(certificate.read_bytes()).decode('ascii')
     hostlog = (hostroot / 'host.log').open('wb')
     host = subprocess.Popen(['java', '-Xmx512m', f'-Djava.library.path={native}', '-cp', classpath,
-        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + ([mode] if community_mode or conversation_overlays_mode or article_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
+        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + ([mode] if community_mode or conversation_overlays_mode or article_mode or file_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
     children.append((host, hostlog))
     deadline = time.monotonic() + 30
     while not (hostroot / 'ready.json').exists():
@@ -167,8 +183,9 @@ try:
         time.sleep(.1)
     ready = json.loads((hostroot / 'ready.json').read_text())
     peer_port, control_port = ready['peerPort'], ready['controlPort']
-    for port in (peer_port, control_port):
+    for port in [peer_port, control_port] + ([ready['providerPort']] if file_mode else []):
         adb('reverse', f'tcp:{port}', f'tcp:{port}')
+        reverses.append(port)
     # One unbroken movie per phase. Native goals stay bounded independently.
     def record(phase):
         remote = f'/sdcard/spaces-{label}-{phase}.mp4'
@@ -890,6 +907,60 @@ try:
         (evidence / 'journey-outcome.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
             'phasePids': pids, 'nativeTerminalPasses': 2, 'deliberatelyInterruptedCases': 0 if private_readiness_mode or category_management_mode else 2,
             'productionNodeActivated': False, 'ordinaryBetaChanged': False}))
+    elif file_mode:
+        reset_disposable_baseline()
+        article_agreement_owned = True
+        compact_files = os.environ['TEST_DEVICE_API'].startswith('37')
+        if compact_files:
+            prepare_viewport()
+        record(1)
+        first = instrument('chooseProviderAndUploadFromTheAndroidDocumentPicker', 'files-before-kill.txt', peer_port, control_port)
+        deadline = time.monotonic() + 160
+        while True:
+            observed = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{checkpoint_name}', check=False)
+            if time.monotonic() >= deadline or first.poll() is not None:
+                raise RuntimeError('Native file library did not reach its durable offline copy')
+            if observed.returncode == 0 and observed.stdout.lstrip().startswith(b'{'):
+                pending = json.loads(observed.stdout)
+                if pending['phase'] == 'ready-for-process-kill':
+                    (evidence / 'files-checkpoint.json').write_bytes(observed.stdout)
+                    break
+            time.sleep(.25)
+        if adb('shell', 'pidof', pkg).stdout.decode().strip() != str(pending['pid']):
+            raise RuntimeError('File checkpoint did not belong to the running process')
+        adb('shell', 'am', 'force-stop', pkg)
+        first.wait(timeout=15)
+        if adb('shell', 'pidof', pkg, check=False).stdout.strip():
+            raise RuntimeError('Original file application process survived force-stop')
+        finish_record(*movies[-1])
+        command(control_port, 'file-provider-restart')
+        recovered_storage = command(control_port, 'file-received')
+        (evidence / 'files-independent-after-restart.json').write_text(json.dumps(recovered_storage, indent=2))
+        if (recovered_storage['providerPid'] == pending['providerPid'] or recovered_storage['sha256'] != pending['sha256'] or
+                recovered_storage['lease'] != pending['lease'] or recovered_storage['record'] != pending['record'] or
+                recovered_storage['files'] != 1 or recovered_storage['nativeDownloads'] != 1):
+            raise RuntimeError('A restarted storage operator did not return the original bytes to the independent reader')
+        record(2)
+        recovery = instrument('restoreOfflineCopyAndSeparateLocalFromSharedRemoval', 'files-after-kill.txt', peer_port, control_port)
+        recovery.wait(timeout=140)
+        output = (evidence / 'files-after-kill.txt').read_text()
+        if recovery.returncode or len(re.findall(r'^OK \(1 test\)\s*$', output, re.M)) != 1:
+            raise RuntimeError('Native file-library recovery failed')
+        final = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/file-final.json').stdout)
+        if final['files'] != 0 or final['used'] != 0 or final['recoveredPid'] == pending['pid'] or final['nativeDownloads'] != 1:
+            raise RuntimeError('File-reader effects did not match the observed native journey')
+        finish_record(*movies[-1])
+        command(control_port, 'stop')
+        host.wait(timeout=15)
+        if host.returncode:
+            raise RuntimeError('Owned file host did not finish cleanly')
+        (evidence / 'journey-outcome.json').write_text(json.dumps({
+            'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
+            'oldPid': pending['pid'], 'newPid': final['recoveredPid'], 'oldProviderPid': pending['providerPid'],
+            'newProviderPid': recovered_storage['providerPid'], 'bytesRecovered': recovered_storage['size'],
+            'sha256': recovered_storage['sha256'], 'nativeTerminalPasses': 1, 'deliberatelyInterruptedCases': 1,
+            'compactViewport': compact_files, 'productionNodeActivated': False, 'ordinaryBetaChanged': False,
+        }, indent=2))
     elif article_mode:
         reset_disposable_baseline()
         article_agreement_owned = True
@@ -1170,10 +1241,10 @@ finally:
             finally: log.close()
         cleanup('owned-child', stop_child)
     if control_port:
-        for port in (peer_port, control_port):
+        for port in reverses:
             cleanup(f'reverse-{port}', lambda port=port: adb('reverse', '--remove', f'tcp:{port}'))
     if 'hostroot' in globals():
-        for name in ('ready.json', 'result.json', 'host.log'):
+        for name in ('ready.json', 'result.json', 'host.log', *(path.name for path in hostroot.glob('file-provider-*.log'))):
             def copy_host(name=name):
                 path = hostroot / name
                 if path.exists(): (evidence / ('host-' + name)).write_bytes(path.read_bytes())

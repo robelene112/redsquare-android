@@ -23,12 +23,26 @@ class SpacesNativeHostTest {
     @Test(timeout = 45_000) fun theManagementHostSeedsIndependentRolesAndNonemptyChannelHistoryBeforeReadiness() = runHost("management-v1")
     @Test(timeout = 45_000) fun thePrivateManagementHostSeedsARealLongRosterAndAnIndependentReader() = runHost("private-management-v1")
     @Test(timeout = 45_000) fun theReadinessHostUsesARealIndependentKeyHolderBeforeNativeAdmission() = runHost("private-readiness-v1")
+    @Test(timeout = 55_000) fun theFileLibraryStartsAndRestartsAnIndependentOperatorBehindTls() = runHost("file-library-v1")
     private fun runHost(mode: String?) {
         val discovery = mode == "discovery-v1"
         val management = mode == "management-v1"
         val privateManagement = mode == "private-management-v1"
         val privateReadiness = mode == "private-readiness-v1"
+        val fileLibrary = mode == "file-library-v1"
         val root = files.newFolder(mode ?: "host-start").toPath()
+        if (fileLibrary) {
+            val keytool = Path.of(System.getProperty("java.home"), "bin/keytool")
+            val certificate = ProcessBuilder(keytool.toString(), "-genkeypair", "-keyalg", "RSA", "-keysize", "2048",
+                "-validity", "1", "-dname", "CN=127.0.0.1", "-ext", "SAN=IP:127.0.0.1", "-alias", "owned-provider",
+                "-storetype", "PKCS12", "-storepass", "owned-fixture", "-keystore", root.resolve("files-fixture.p12").toString())
+                .redirectErrorStream(true).redirectOutput(root.resolve("certificate.log").toFile()).start()
+            try {
+                check(certificate.waitFor(12, TimeUnit.SECONDS) && certificate.exitValue() == 0) {
+                    "Could not issue an ephemeral test certificate"
+                }
+            } finally { if (certificate.isAlive) certificate.destroyForcibly() }
+        }
         val process = ProcessBuilder(Path.of(System.getProperty("java.home"), "bin/java").toString(),
             "-Djava.library.path=" + System.getProperty("java.library.path"),
             "-cp", System.getProperty("spaces.native.fixtureClasspath"), SpacesNativeHost::class.java.name, root.toString(),
@@ -56,7 +70,14 @@ class SpacesNativeHostTest {
                 return response.body()
             }
             val status = JsonParser.parseString(command("status")).asJsonObject
-            assertEquals(if (discovery) 5 else if (management || privateManagement || privateReadiness) 1 else 0, status.getAsJsonArray("communities").size())
+            assertEquals(if (discovery) 5 else if (management || privateManagement || privateReadiness || fileLibrary) 1 else 0, status.getAsJsonArray("communities").size())
+            if (fileLibrary) {
+                val configuration = JsonParser.parseString(command("file-library")).asJsonObject
+                assertEquals("https://127.0.0.1:${metadata.get("providerPort").asInt}", configuration.get("origin").asString)
+                assertEquals(0, JsonParser.parseString(command("file-provider-downloads")).asJsonObject.get("nativeDownloads").asInt)
+                command("file-provider-restart")
+                assertEquals(2L, Files.list(root).use { entries -> entries.filter { it.fileName.toString().startsWith("file-provider-") }.count() })
+            }
             if (discovery) {
                 val fixtures = JsonParser.parseString(command("fixtures")).asJsonObject
                 assertEquals(setOf("public", "unlisted", "nonchat", "private", "expiring"), fixtures.keySet())
