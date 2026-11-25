@@ -16,25 +16,67 @@ data class SpaceActivityPage(val groups: List<SpaceActivityGroup>, val next: Str
 internal class SpaceActivityIndex(private val store: SpaceClientStore.Transaction, private val node: String, private val authority: String) {
     private val indexPrefix = "activity/recent/"
 
-    fun observe(address: SpaceDestination, kind: SpaceActivityKind, actor: String, acceptedAt: Long, position: Long) {
+    fun reconcile(address: SpaceDestination, source: String, kind: SpaceActivityKind?, actor: String, acceptedAt: Long, position: Long) {
         require(address.community.node == node && address.community.serviceKey == authority)
         require(SaitoWallet.isPublicKey(actor) && position >= 0 && acceptedAt >= 0)
-        val id = keyOf(address, kind)
-        val actorKey = "activity/actors/$id/$actor"
-        val previousActor = store.get(actorKey)?.toString(Charsets.UTF_8)?.toLong()
-        if (previousActor != null && previousActor >= position) return
-        val old = group(id)
-        val count = (old?.actorCount ?: 0) + if (previousActor == null) 1 else 0
-        val updated = if (old == null || position > old.position) {
-            old?.let { store.remove(orderKey(it)) }
-            SpaceActivityGroup(id, address, kind, actor, count, acceptedAt, position, true)
-        } else old.copy(actorCount = count)
-        store.put(actorKey, position.toString().toByteArray(Charsets.UTF_8))
-        store.put(groupKey(id), encode(updated))
-        store.put(orderKey(updated), id.toByteArray(Charsets.UTF_8))
+        val slot = "activity/source/${address.community.spaceId}/${address.channel}/$source"
+        val previous = store.get(slot)?.let(::json)
+        val revision = previous?.get("revision")?.asLong ?: -1
+        if (revision >= position) return
+        val previousId = previous?.get("group")?.asString
+        val groupId = kind?.let { keyOf(address, it) }
+        if (groupId == null && previous == null) return
+        val observedAt = if (groupId != null && groupId == previousId) requireNotNull(previous).get("position").asLong else position
+        if (previousId != null && previousId != groupId) removeObservation(previousId, actor, requireNotNull(previous).get("position").asLong, source)
+        if (groupId != null && groupId != previousId) {
+            val current = group(groupId)
+            val actorKey = actorKey(groupId, actor)
+            val actorEvents = count(actorKey)
+            store.put(actorKey, (actorEvents + 1).toString().toByteArray(Charsets.UTF_8))
+            val actorCount = (current?.actorCount ?: 0) + if (actorEvents == 0L) 1 else 0
+            val observation = SpaceActivityGroup(groupId, address, requireNotNull(kind), actor, 0, acceptedAt, position, true)
+            store.put(eventKey(groupId, position, source), encode(observation))
+            saveGroup(current, (if (current == null || position > current.position) observation else current).copy(actorCount = actorCount))
+        }
+        store.put(slot, JsonObject().apply {
+            addProperty("revision", position)
+            if (groupId != null) {
+                addProperty("group", groupId)
+                addProperty("position", observedAt)
+            }
+        }.toString().toByteArray(Charsets.UTF_8))
     }
 
-    fun page(after: String?, limit: Int, accessible: (SpaceActivityGroup) -> Boolean): SpaceActivityPage {
+    private fun removeObservation(id: String, actor: String, position: Long, source: String) {
+        val current = requireNotNull(group(id))
+        val actorKey = actorKey(id, actor)
+        val remaining = count(actorKey) - 1
+        require(remaining >= 0)
+        if (remaining == 0L) store.remove(actorKey) else store.put(actorKey, remaining.toString().toByteArray(Charsets.UTF_8))
+        store.remove(eventKey(id, position, source))
+        val count = current.actorCount - if (remaining == 0L) 1 else 0
+        val latest = if (current.position != position) current else store.page(eventPrefix(id), limit = 1).firstOrNull()
+            ?.let { decode(id, json(it.value)) }
+        saveGroup(current, latest?.copy(actorCount = count))
+    }
+
+    private fun saveGroup(old: SpaceActivityGroup?, updated: SpaceActivityGroup?) {
+        old?.let { store.remove(orderKey(it)) }
+        if (updated == null) old?.let { store.remove(groupKey(it.id)) }
+        else {
+            store.put(groupKey(updated.id), encode(updated))
+            store.put(orderKey(updated), updated.id.toByteArray(Charsets.UTF_8))
+        }
+    }
+
+    private fun eventPrefix(id: String) = "activity/events/$id/"
+    private fun eventKey(id: String, position: Long, source: String) =
+        eventPrefix(id) + ((Long.MAX_VALUE - position).toString().padStart(20, '0')) + "/$source"
+    private fun actorKey(id: String, actor: String) = "activity/actors/$id/$actor"
+    private fun count(key: String) = store.get(key)?.toString(Charsets.UTF_8)?.toLong() ?: 0L
+    private fun json(bytes: ByteArray) = JsonParser.parseString(bytes.toString(Charsets.UTF_8)).asJsonObject
+
+    fun page(after: String?, limit: Int, since: Long?, accessible: (SpaceActivityGroup) -> Boolean): SpaceActivityPage {
         require(limit in 1..20 && (after == null || after.startsWith(indexPrefix) && after.length <= 512))
         val rows = store.page(indexPrefix, after?.plus('\u0000') ?: indexPrefix, 61)
         val groups = ArrayList<SpaceActivityGroup>(limit)
@@ -42,6 +84,7 @@ internal class SpaceActivityIndex(private val store: SpaceClientStore.Transactio
         for (row in rows.take(60)) {
             examined++
             val group = requireNotNull(group(row.value.toString(Charsets.UTF_8)))
+            if (since != null && group.acceptedAt < since) return SpaceActivityPage(groups, null)
             if (accessible(group)) groups.add(group)
             if (groups.size == limit) break
         }
@@ -84,8 +127,10 @@ internal class SpaceActivityIndex(private val store: SpaceClientStore.Transactio
         (Long.MAX_VALUE - group.position).toString().padStart(20, '0') + "/" + group.id
 
     private fun group(id: String): SpaceActivityGroup? {
-        val saved = store.get(groupKey(id)) ?: return null
-        val body = JsonParser.parseString(saved.toString(Charsets.UTF_8)).asJsonObject
+        return store.get(groupKey(id))?.let { decode(id, json(it)) }
+    }
+
+    private fun decode(id: String, body: JsonObject): SpaceActivityGroup {
         val position = body.get("position").asLong
         val through = store.get("activity/seen/$id")?.toString(Charsets.UTF_8)?.toLong() ?: -1L
         val address = SpaceDestination(

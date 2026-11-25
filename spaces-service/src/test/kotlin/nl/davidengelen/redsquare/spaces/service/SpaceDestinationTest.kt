@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.spaces.service
 
 import kotlinx.coroutines.runBlocking
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.spaces.SpaceArticleContent
 import nl.davidengelen.redsquare.spaces.SpaceChannelKind
 import nl.davidengelen.redsquare.spaces.SpaceChannelProfile
 import nl.davidengelen.redsquare.spaces.SpaceClient
@@ -14,6 +15,7 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
+import java.io.IOException
 import java.time.Clock
 
 class SpaceDestinationTest {
@@ -26,22 +28,28 @@ class SpaceDestinationTest {
         SpacesServiceStore(files.newFolder().toPath(), authority, clock).use { service ->
             SqliteClientFixture(files.newFile().absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile().absolutePath).use { browserStore ->
-                    fun client(store: SqliteClientFixture) = SpaceClient(SaitoWallet.create(), node, authority.publicKey, store, clock) {
-                        service.exchange(it.envelope())
-                    }
+                    var offline = false
+                    fun client(store: SqliteClientFixture, mayDisconnect: Boolean = false) =
+                        SpaceClient(SaitoWallet.create(), node, authority.publicKey, store, clock) {
+                            if (offline && mayDisconnect) throw IOException("Owned transport unavailable")
+                            service.exchange(it.envelope())
+                        }
                     val owner = client(ownerStore)
-                    val browser = client(browserStore)
+                    val browser = client(browserStore, mayDisconnect = true)
                     val space = owner.create(SpaceProfile("Reading without joining", visibility = SpaceVisibility.PUBLIC), listOf(
                         SpaceChannelProfile("General", SpaceChannelKind.CHAT),
-                        SpaceChannelProfile("Lounge", SpaceChannelKind.VOICE)))
+                        SpaceChannelProfile("Lounge", SpaceChannelKind.VOICE),
+                        SpaceChannelProfile("Articles", SpaceChannelKind.ARTICLE)))
                     owner.flush(space)
                     owner.refresh(space)
                     val chat = owner.channels(space).single { it.profile.kind == SpaceChannelKind.CHAT }.id
                     val room = owner.channels(space).single { it.profile.kind == SpaceChannelKind.VOICE }.id
+                    val articles = owner.channels(space).single { it.profile.kind == SpaceChannelKind.ARTICLE }.id
                     val parent = owner.send(space, "First subject", chat)
                     val other = owner.send(space, "Another subject", chat)
                     owner.flush(space)
                     val reply = owner.reply(space, requireNotNull(owner.message(space, parent, chat)), "The exact reply", chat)
+                    val article = owner.publishArticle(space, SpaceArticleContent.Original("Exact field notes", "", "Full article"), articles)
                     owner.flush(space)
                     val public = SpacePublicReference(node, authority.publicKey, space)
                     val roomLink = SpaceDestination(public, room, Kind.ROOM)
@@ -55,6 +63,16 @@ class SpaceDestinationTest {
                     assertEquals(parent, opened.parent?.id)
                     assertEquals(reply, opened.record?.id)
                     assertEquals("The exact reply", opened.record?.text)
+                    val articleTarget = SpaceDestination(public, articles, Kind.ARTICLE, article)
+                    assertEquals(article, browser.openDestination(articleTarget)?.record?.id)
+                    assertEquals(target, SpaceDestination.parse(owner.destinationLink(space, chat, Kind.MESSAGE, reply, parent)))
+                    val lastChecked = requireNotNull(browser.savedContentCheckedAt(space, chat))
+                    offline = true
+                    assertTrue(runCatching { browser.openDestination(target) }.exceptionOrNull() is IOException)
+                    assertEquals(opened, browser.cachedDestination(target))
+                    assertEquals(article, browser.cachedDestination(articleTarget)?.record?.id)
+                    assertEquals(lastChecked, browser.savedContentCheckedAt(space, chat))
+                    offline = false
                     assertEquals("Existing independent draft", browser.draft(space, chat))
                     assertNull(browser.openDestination(SpaceDestination(public, chat, Kind.MESSAGE, reply, other)))
                     assertTrue(runCatching { browser.openDestination(SpaceDestination(public, chat, Kind.ROOM)) }

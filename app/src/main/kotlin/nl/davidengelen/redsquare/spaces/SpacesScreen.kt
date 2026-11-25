@@ -135,7 +135,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     var activityLink by remember(account) { mutableStateOf<String?>(null) }
     var activityGroup by remember(account) { mutableStateOf<SpaceActivityGroup?>(null) }
     var activityReturn by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf(false) }
-    val searchStates = rememberSaveableStateHolder()
+    val routeStates = rememberSaveableStateHolder()
+    val routeScope = "${account.ownerKey}/${account.backend.id}"
     val searchOpen = searchSpace != null && searchSpace == state.selected && !searchResultOpen
     var channelAccessRoute by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf<String?>(null) }
     val channelAccessOpen = channelAccessRoute == "${state.selected}:${state.selectedChannel}"
@@ -218,9 +219,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         }
         state.selected?.let { savedSelection = it; tab = SpacesTab.MY_SPACES }
     }
-    LaunchedEffect(initialInvitation, fromNotification, state.ready, state.loading, state.working) {
+    LaunchedEffect(initialInvitation, fromNotification, state.ready, state.loading, state.working, state.savingNavigation) {
         val link = initialInvitation ?: return@LaunchedEffect
-        if (state.loading || !state.ready || state.working) return@LaunchedEffect
+        if (state.loading || !state.ready || state.working || state.savingNavigation) return@LaunchedEffect
         categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false
         channelCreator.open = false; channelAccessRoute = null
         informationOpen = false; inviteOpen = false; membersOpen = false; reportsSpace = null; publicRulesOpen = false
@@ -258,16 +259,25 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     LaunchedEffect(joinOpen) { if (!joinOpen) replacingDevice = false }
     LaunchedEffect(selected?.joined) { if (selected?.joined == true) publicRulesOpen = false }
+    fun backFromConversation() {
+        when {
+            searchResultOpen && searchSpace == state.selected -> {
+                account.returnFromDestination()
+                searchResultOpen = false
+            }
+            activityReturn -> selectTab(SpacesTab.ACTIVITY)
+            account.returnFromDestination() -> Unit
+            state.threadParent != null -> account.closeThread()
+            else -> choose(null)
+        }
+    }
     BackHandler(channelAccessRoute != null) { channelAccessRoute = null; informationOpen = selected != null }
     BackHandler(membersOpen) { membersOpen = false; informationOpen = true }
     BackHandler(reportsOpen) { reportsSpace = null; informationOpen = true }
     BackHandler(searchOpen) { searchSpace = null; informationOpen = true }
-    BackHandler(!membersOpen && !reportsOpen && !searchOpen && !channelAccessOpen && state.selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !channelCreator.open && !publicRulesOpen) { if (state.threadParent != null) account.closeThread() else choose(null) }
-    BackHandler(searchResultOpen && searchSpace == state.selected && drawer.isClosed && !informationOpen && publicReference == null) {
-        searchResultOpen = false
-    }
-    BackHandler(activityReturn && state.selected != null && drawer.isClosed && !informationOpen && publicReference == null) {
-        selectTab(SpacesTab.ACTIVITY)
+    BackHandler(!membersOpen && !reportsOpen && !searchOpen && !channelAccessOpen && state.selected != null && drawer.isClosed &&
+        !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !channelCreator.open && !publicRulesOpen) {
+        backFromConversation()
     }
     BackHandler(drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed || drawer.isAnimationRunning) {
         scope.launch { drawer.close() }
@@ -329,7 +339,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 onBack = { membersOpen = false; informationOpen = true }, onProfile = onProfile, onMessage = onMessage)
             else if (reportsOpen && selected != null) SpaceReportsPage(account, state, Modifier.weight(1f),
                 onBack = { reportsSpace = null; informationOpen = true })
-            else if (searchOpen && selected != null) searchStates.SaveableStateProvider(selected.id) {
+            else if (searchOpen && selected != null) routeStates.SaveableStateProvider("$routeScope/search/${selected.id}") {
                 SpaceSearchPage(account, state, selected.id, Modifier.weight(1f),
                     onBack = { searchSpace = null; informationOpen = true }, onOpen = { destination ->
                         focusManager.clearFocus()
@@ -340,20 +350,21 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         account.openDestinationLink(link)
                     })
             }
-            else if (state.selected == null) SpacesOverview(account, state, tab, { choose(it) }, { createOpen = true },
-                { clearInvitationReview(); joinOpen = true }, onActivity = { group ->
-                    val link = group.target.link()
-                    activityLink = link; activityGroup = group
-                    publicReference = link
-                    account.openDestinationLink(link, group)
-                }, modifier = Modifier.weight(1f)) { AvailabilityNotice(state.availability, state.refreshing, account::refresh) }
-            else {
+            else if (state.selected == null) routeStates.SaveableStateProvider("$routeScope/overview/${tab.name}") {
+                SpacesOverview(account, state, tab, { choose(it) }, { createOpen = true },
+                    { clearInvitationReview(); joinOpen = true }, onActivity = { group ->
+                        val link = group.target.link()
+                        activityLink = link; activityGroup = group
+                        publicReference = link
+                        account.openDestinationLink(link, group)
+                    }, modifier = Modifier.weight(1f)) { AvailabilityNotice(state.availability, state.refreshing, account::refresh) }
+            } else {
                 val title = channel?.profile?.name ?: stringResource(
                     if (selected?.articleReadDenied == true) R.string.spaces_kind_article else R.string.spaces_kind_chat)
                 val menu = stringResource(R.string.spaces_switch_channel)
                 if (!compactTyping) Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                     FrameIconButton(R.drawable.ic_back, stringResource(if (activityReturn) R.string.spaces_activity_back else R.string.spaces_back)) {
-                        if (activityReturn) selectTab(SpacesTab.ACTIVITY) else choose(null)
+                        backFromConversation()
                     }
                     Surface(onClick = { focusManager.clearFocus(); keyboardController?.hide(); scope.launch { drawer.open() } }, shape = RoundedCornerShape(14.dp),
                         color = MaterialTheme.colorScheme.surfaceContainerLow,
@@ -374,8 +385,14 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 }
                 if (!compactTyping) Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     AvailabilityNotice(state.availability, state.refreshing, account::refresh)
-                    if (state.savedDestination && state.availability == SpacesAccount.Availability.ONLINE)
-                        InlineStatus(stringResource(R.string.spaces_destination_saved), StatusTone.INFO)
+                    if (state.savedDestination || state.availability == SpacesAccount.Availability.OFFLINE && state.contentLoaded) {
+                        val checked = state.savedHistoryCheckedAt
+                        val detail = if (checked == null) stringResource(R.string.spaces_destination_saved) else
+                            stringResource(R.string.spaces_saved_last_checked,
+                                android.text.format.DateUtils.formatDateTime(context, checked,
+                                    android.text.format.DateUtils.FORMAT_SHOW_DATE or android.text.format.DateUtils.FORMAT_SHOW_TIME))
+                        InlineStatus(detail, StatusTone.INFO)
+                    }
                     state.selected?.let { state.accessProblems[it] }?.let { AccessNotice(it) }
                     if (state.ownershipSupported && state.ownershipOffer?.member == account.ownerKey) {
                         TextButton(onClick = { focusManager.clearFocus(); keyboardController?.hide(); informationOpen = true },
@@ -594,6 +611,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                     canEdit = accepted && !message.deleted && own && canWrite,
                                     canRemove = accepted && !message.deleted && canWrite && (own || selected.canManage),
                                     canReport = accepted && !message.deleted && reportingAvailable,
+                                    canCopyLink = accepted && !message.deleted && message.position != null,
                                     canCancel = message.pending && !message.attempted,
                                     openOverlay = { mode ->
                                         retainedMessage = message; overlayId = message.id
@@ -621,6 +639,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 ({ done -> account.deleteMessage(target, overlayMessage, done) }) else null,
                             report = if (acceptedOverlay && overlayMessage?.deleted == false && reportingAvailable)
                                 ({ reason -> account.reportMessage(target, overlayMessage.id, reason) }) else null,
+                            copyLink = if (acceptedOverlay && overlayMessage?.deleted == false && overlayMessage.position != null)
+                                ({ account.destinationLink(target, SpaceDestination.Kind.MESSAGE, overlayMessage.id) }) else null,
                             cancel = if (overlayMessage?.pending == true && !overlayMessage.attempted)
                                 ({ done -> account.cancelSend(target, overlayMessage.id, done) }) else null,
                             react = if (acceptedOverlay && overlayMessage?.deleted == false && selected.canReact && overlayMessage.ownReactionsAvailable)
@@ -875,6 +895,13 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 Spacer(Modifier.width(8.dp))
                 Text(stringResource(R.string.spaces_search_title))
             }
+            if (channel != null && !state.loadingChannel) {
+                val target = SpacesAccount.Target(selected.id, selected.channel, state.threadParent?.id)
+                val kind = if (channel.profile.kind == SpaceChannelKind.VOICE) SpaceDestination.Kind.ROOM else SpaceDestination.Kind.CHANNEL
+                SpaceDestinationCopyButton(
+                    if (kind == SpaceDestination.Kind.ROOM) R.string.spaces_copy_room_link else R.string.spaces_copy_channel_link,
+                    enabled = !state.working && !state.savingNavigation) { account.destinationLink(target, kind) }
+            }
             if (profile.houseRules.isNotEmpty()) { Text(stringResource(R.string.spaces_house_rules), style = MaterialTheme.typography.titleMedium); Text(profile.houseRules) }
             state.publicLink?.takeUnless { selected.dissolved }?.let { link ->
                 OutlinedButton(onClick = {
@@ -986,7 +1013,7 @@ private fun SpacesViewport(content: @Composable ColumnScope.(height: Dp) -> Unit
 private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANCEL, REACTIONS, REPORT }
 
 @Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, bodyModifier: Modifier, restore: () -> Unit,
-    reply: (() -> Unit)?, canEdit: Boolean, canRemove: Boolean, canReport: Boolean, canCancel: Boolean, openOverlay: (MessageOverlay) -> Unit,
+    reply: (() -> Unit)?, canEdit: Boolean, canRemove: Boolean, canReport: Boolean, canCopyLink: Boolean, canCancel: Boolean, openOverlay: (MessageOverlay) -> Unit,
     cancelChange: ((String, (Boolean) -> Unit) -> Unit)?, react: ((String) -> Unit)?, working: Boolean) {
     val savedEdit = message.change?.takeIf { it.kind == SpaceClient.MessageChangeKind.EDIT }?.text
     val name = registeredIdentity(message.author).name
@@ -997,7 +1024,7 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Text(name, Modifier.weight(1f), style = MaterialTheme.typography.titleSmall)
-                if (canEdit || canRemove || canReport || savedEdit != null || message.pinChange != null)
+                if (canEdit || canRemove || canReport || canCopyLink || savedEdit != null || message.pinChange != null)
                     FrameIconButton(R.drawable.ic_more, stringResource(R.string.spaces_message_actions)) { openOverlay(MessageOverlay.ACTIONS) }
             }
             Text(message.text ?: stringResource(if (message.deleted) R.string.spaces_message_deleted else if (message.missingKeys) R.string.spaces_missing_keys else R.string.spaces_message_unavailable),
@@ -1050,7 +1077,7 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
  * owns this input session or the paged reaction sheet. */
 @Composable private fun MessageOverlays(message: SpaceClient.Message?, mode: MessageOverlay?, editedText: String,
     onText: (String) -> Unit, dismiss: () -> Unit, loadingTarget: Boolean, selectMode: (MessageOverlay) -> Unit, edit: ((String, () -> Unit) -> Unit)?,
-    remove: ((() -> Unit) -> Unit)?, report: (suspend (String) -> Unit)?, cancel: (((Boolean) -> Unit) -> Unit)?,
+    remove: ((() -> Unit) -> Unit)?, report: (suspend (String) -> Unit)?, copyLink: (suspend () -> String)?, cancel: (((Boolean) -> Unit) -> Unit)?,
     react: ((String, () -> Unit) -> Unit)?, pin: ((() -> Unit) -> Unit)?, cancelPin: (((Boolean) -> Unit) -> Unit)?,
     loadReactions: (suspend (String?) -> SpaceClient.ReactionPage)?, working: Boolean) {
     val context = LocalContext.current
@@ -1124,6 +1151,7 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
                     modifier = first.fillMaxWidth().heightIn(min = 48.dp)) {
                     Text(stringResource(if (message?.pinned == true) R.string.spaces_unpin_message else R.string.spaces_pin_message))
                 }
+                if (copyLink != null) SpaceDestinationCopyButton(R.string.spaces_copy_message_link, enabled = !working, link = copyLink)
                 val savedEdit = message?.change?.takeIf { it.kind == SpaceClient.MessageChangeKind.EDIT }?.text
                 if (edit != null || savedEdit != null) TextButton(onClick = { selectMode(MessageOverlay.EDIT) }, enabled = !working,
                     modifier = first.fillMaxWidth().heightIn(min = 48.dp)) {

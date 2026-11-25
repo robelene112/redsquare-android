@@ -199,6 +199,11 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
                     }
                 }
             }
+            if (!row.deleted && row.position != null) item {
+                SpaceDestinationCopyButton(R.string.spaces_copy_file_link, enabled = !busy && !state.savingNavigation) {
+                    account.destinationLink(target, SpaceDestination.Kind.FILE, row.id)
+                }
+            }
             if (account.mayRemoveFile(target, row)) item {
                 TextButton(onClick = { removeShared = row }, enabled = !busy) {
                     Text(stringResource(R.string.spaces_files_remove_shared), color = MaterialTheme.colorScheme.error)

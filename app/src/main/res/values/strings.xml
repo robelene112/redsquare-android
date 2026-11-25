@@ -1426,6 +1426,12 @@
     <string name="spaces_destination_open">Open Space link</string>
     <string name="spaces_destination_opening">Checking access…</string>
     <string name="spaces_destination_missing">This link points to content that is no longer available.</string>
+    <string name="spaces_saved_last_checked">Showing saved history. Last checked %1$s.</string>
+    <string name="spaces_copy_room_link">Copy room link</string>
+    <string name="spaces_copy_channel_link">Copy channel link</string>
+    <string name="spaces_copy_message_link">Copy message link</string>
+    <string name="spaces_copy_file_link">Copy file link</string>
+    <string name="spaces_copy_destination_failed">Couldn’t copy link</string>
     <string name="spaces_destination_saved">Showing a saved copy. Couldn’t check for changes.</string>
     <string name="spaces_destination_failed">Couldn’t open this Space link.</string>
     <string name="spaces_activity_notification_title">Spaces</string>

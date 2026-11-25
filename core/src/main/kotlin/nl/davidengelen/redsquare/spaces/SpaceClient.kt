@@ -14,6 +14,7 @@ import nl.davidengelen.redsquare.saito.StackLink
 import java.security.SecureRandom
 import java.time.Clock
 import java.util.Base64
+import java.util.concurrent.atomic.AtomicLong
 
 /** Application-owned community operations. Call from a serialized IO worker.
  * Signed originals and replacement key state commit before transport is called. */
@@ -24,6 +25,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     init { require(node.isNotBlank() && node.length <= 2048 && SaitoWallet.isPublicKey(service)) }
 
     private val store = SpacePresentationStore(store)
+    private val readScope = AtomicLong()
+    val readScopeRevision: Long get() = readScope.get()
     private var supportsMessageHistory = false
     private var supportsMessageReactions = false
     private var supportsMessagePins = false
@@ -1133,7 +1136,43 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     private fun rememberDestinationDenial(space: String, channel: String) = store.transaction {
         owned()
-        put(destinationDenialKey(space, channel), byteArrayOf(1))
+        val key = destinationDenialKey(space, channel)
+        if (get(key) == null) {
+            put(key, byteArrayOf(1))
+            readScope.incrementAndGet()
+        }
+    }
+
+    private fun SpaceClientStore.Transaction.confirmDestinationRead(space: String, channel: String) {
+        val denied = destinationDenialKey(space, channel)
+        if (get(denied) != null) {
+            remove(denied)
+            readScope.incrementAndGet()
+        }
+        put(lastCheckedKey(space, channel), clock.millis().toString().toByteArray(Charsets.UTF_8))
+    }
+
+    private fun lastCheckedKey(space: String, channel: String) = "$space/channels/$channel/last-content-check"
+
+    fun savedContentCheckedAt(space: String, channel: String): Long? = store.transaction {
+        owned()
+        get(lastCheckedKey(space, channel))?.toString(Charsets.UTF_8)?.toLong()
+    }
+
+    fun searchAvailableChannels(space: String, candidates: List<Channel>): Set<String> = store.project { store.transaction {
+        owned()
+        val journal = journal(space)
+        candidates.filter { channel ->
+            channel.profile.kind != SpaceChannelKind.VOICE && get(destinationDenialKey(space, channel.id)) == null &&
+                journal.canAccessChannel(wallet.publicKey, channel.id)
+        }.mapTo(linkedSetOf()) { it.id }
+    } }
+
+    fun destinationLink(space: String, channel: String, kind: SpaceDestination.Kind, record: String? = null, thread: String? = null): String {
+        val address = SpaceDestination(SpacePublicReference(node, service, space), channel, kind, record, thread)
+        val opened = requireNotNull(cachedDestination(address))
+        require(opened.record?.let { !it.deleted } != false)
+        return address.link()
     }
 
     /** Reading a link does not select a channel, enroll a device or reserve a room seat. */
@@ -1181,7 +1220,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             rememberDestinationDenial(space, channel)
             throw denied
         }
-        store.transaction { owned(); remove(destinationDenialKey(space, channel)) }
+        store.transaction { owned(); confirmDestinationRead(space, channel) }
         return cachedDestination(address)
     }
 
@@ -1278,18 +1317,25 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         return match.drop(start).take(170).trim()
     }
 
-    fun activityPage(after: String? = null, limit: Int = 15, notificationsOnly: Boolean = false): SpaceActivityPage =
+    fun activityPage(after: String? = null, limit: Int = 15): SpaceActivityPage = activityPage(after, limit, null)
+
+    fun pendingActivityNotifications(after: String?, since: Long, limit: Int = 5): SpaceActivityPage =
+        activityPage(after, limit, since)
+
+    private fun activityPage(after: String?, limit: Int, since: Long?): SpaceActivityPage =
         store.project { store.transaction {
             if (get("identity") == null) return@transaction SpaceActivityPage(emptyList(), null)
             owned()
-            SpaceActivityIndex(this, node, service).page(after, limit) { group ->
+            val index = SpaceActivityIndex(this, node, service)
+            index.page(after, limit, since) { group ->
                 val address = group.target
                 val space = address.community.spaceId
                 val channel = address.channel
-                if (!canReadActivity(address)) false else {
+                if (!canReadActivity(address) || !activityTargetExists(group) ||
+                    since != null && (!group.unread || index.wasNotified(group))) false else {
                     val policy = channelNotificationPolicy(space, channel)
                     policy.mode != SpaceNotificationMode.SILENT && (
-                        !notificationsOnly && group.kind == SpaceActivityKind.REACTION ||
+                        since == null && group.kind == SpaceActivityKind.REACTION ||
                             policy.shouldNotify(ownMessage = false, mentioned = group.kind == SpaceActivityKind.MENTION,
                                 repliedToMe = group.kind == SpaceActivityKind.REPLY, everyone = group.kind == SpaceActivityKind.EVERYONE))
                 }
@@ -1306,11 +1352,6 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         if (canReadActivity(address)) SpaceActivityIndex(this, node, service).markDestinationSeen(address)
     } }
 
-    fun activityWasNotified(group: SpaceActivityGroup): Boolean = store.project { store.transaction {
-        owned()
-        !canReadActivity(group.target) || SpaceActivityIndex(this, node, service).wasNotified(group)
-    } }
-
     fun markActivityNotified(group: SpaceActivityGroup) = store.project { store.transaction {
         owned()
         if (canReadActivity(group.target)) SpaceActivityIndex(this, node, service).markNotified(group)
@@ -1322,8 +1363,16 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             get(destinationDenialKey(space, address.channel)) == null && journal(space).canAccessChannel(wallet.publicKey, address.channel)
     }
 
+    private fun SpaceClientStore.Transaction.activityTargetExists(group: SpaceActivityGroup): Boolean {
+        if (group.kind != SpaceActivityKind.REACTION) return true
+        val address = group.target
+        val space = address.community.spaceId
+        val record = requireNotNull(address.record)
+        return messageDeletionReceipt(space, address.channel, record, wallet.publicKey) == null
+    }
+
     private fun SpaceClientStore.Transaction.indexReactionActivity(space: String, channel: String,
-        receipt: JsonObject, reaction: SignedSaitoMessage) {
+        receipt: JsonObject, reaction: SignedSaitoMessage, active: Boolean) {
         val target = reaction.body.text("target_message_id")
         val pointer = get(messageIdKey(space, channel, target))?.toString(Charsets.UTF_8) ?: return
         val original = get(pointer)?.let(::originalEnvelope)?.let(SaitoEnvelope::decode) ?: return
@@ -1331,7 +1380,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             original.body.text("content_kind") !in setOf("message", "thread-reply")) return
         val address = SpaceDestination(SpacePublicReference(node, service, space), channel, SpaceDestination.Kind.MESSAGE,
             original.id, messageThread(original.body))
-        SpaceActivityIndex(this, node, service).observe(address, SpaceActivityKind.REACTION, reaction.author,
+        SpaceActivityIndex(this, node, service).reconcile(address, "reaction:$target:${reaction.author}",
+            SpaceActivityKind.REACTION.takeIf { active }, reaction.author,
             receipt.get("local_accepted_at")?.asLong ?: reaction.createdAt, receipt.number("position"))
     }
 
@@ -2972,7 +3022,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
         put(appliedKey, bytes(JsonObject().apply { addProperty("position", latest.number("position")); addProperty("selection", SpaceReactionSelection.encode(choices)) }))
         remove(invalidKey)
-        if ((choices - previous).isNotEmpty()) indexReactionActivity(space, channel, latest, SaitoEnvelope.decode(latest.text("event")))
+        indexReactionActivity(space, channel, latest, SaitoEnvelope.decode(latest.text("event")), choices.isNotEmpty())
     }
 
     data class ReactionPage(val choices: List<Reaction>, val nextEmoji: String?, val complete: Boolean)
@@ -3314,6 +3364,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 accept(space, item, pageControls, authenticated = verified); next = Math.addExact(next, 1)
             }
             require(next == minOf(result.number("next_cursor"), until ?: Long.MAX_VALUE))
+            confirmDestinationRead(space, channel)
             next
         }
     }
@@ -3416,7 +3467,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val decoder = reactionDecoder(space, channel)
             for (record in records) accept(space, record.envelope, controls, authenticated = record, reactionReader = decoder)
             if (exactReport != null) return@transaction
-            remove(destinationDenialKey(space, channel))
+            confirmDestinationRead(space, channel)
             if (exactDestination != null && exactDestination.kind != SpaceDestination.Kind.ARTICLE) return@transaction
             val denial = articleReadDeniedKey(space, channel)
             if (get(denial) != null) remove(denial)
@@ -3797,7 +3848,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     private fun SpaceClientStore.Transaction.cachedAttention(space: String, target: String): Attention {
         val data = channelState(space, target)
         val counts = SpaceAttentionIndex(this, "$space/channels/$target").counts()
-        val complete = data.get("attention_observed")?.asBoolean == true && data.get("attention_projection_version")?.asLong == 2L &&
+        val complete = data.get("attention_observed")?.asBoolean == true && data.get("attention_projection_version")?.asLong == ATTENTION_PROJECTION_VERSION &&
             (data.get("attention_cursor")?.asLong ?: 0) >= (data.get("attention_goal")?.asLong ?: 0) &&
             page("$space/channels/$target/attention-dirty/", limit = 1).isEmpty()
         return Attention(if (complete) counts.personal else null, when {
@@ -3867,45 +3918,50 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val personal = if (own || deletion != null) false else if (mentioned == true || replied == true) true else
             if (mentioned == null || replied == null) null else false
         val index = SpaceAttentionIndex(this, "$space/channels/$channel")
-        index.observe(message, position, thread, personal, maxOf(position, edit?.number("position") ?: position, deletion?.number("position") ?: position), deletion != null, own)
+        val revision = maxOf(position, edit?.number("position") ?: position, deletion?.number("position") ?: position)
+        index.observe(message, position, thread, personal, revision, deletion != null, own)
         val key = "$space/channels/$channel/message-attention/$message"
+        var activity: SpaceActivityKind? = null
         if (deletion != null || text == null || replied == null) remove(key) else {
             val event = SaitoEnvelope.decode(latest.text("event"))
             val control = latest.get("authorized_control")?.asString ?: event.body.text("control_id")
             val everyone = SpaceMessageAttention.everyone(text) &&
                 journal(space, through = control).hasCurrentAdministratorIntent(event.author, event.body.text("control_id"))
             put(key, bytes(JsonObject().apply {
-                addProperty("mentioned", mentioned == true); addProperty("replied", replied == true)
+                addProperty("mentioned", mentioned == true); addProperty("replied", replied)
                 addProperty("everyone", everyone); addProperty("own", own)
             }))
-            if (!own && original.body.text("content_kind") in setOf("message", "thread-reply")) {
-                val activity = when {
-                    replied -> SpaceActivityKind.REPLY
-                    mentioned == true -> SpaceActivityKind.MENTION
-                    everyone -> SpaceActivityKind.EVERYONE
-                    channelNotificationPolicy(space, channel).mode == SpaceNotificationMode.ALL -> SpaceActivityKind.MESSAGE
-                    else -> null
-                }
-                activity?.let {
-                    val address = SpaceDestination(SpacePublicReference(node, service, space), channel,
-                        SpaceDestination.Kind.MESSAGE, original.id, thread)
-                    SpaceActivityIndex(this, node, service).observe(address, it, original.author,
-                        receipt.get("local_accepted_at")?.asLong ?: original.createdAt, position)
-                }
+            activity = when {
+                replied -> SpaceActivityKind.REPLY
+                mentioned == true -> SpaceActivityKind.MENTION
+                everyone -> SpaceActivityKind.EVERYONE
+                else -> SpaceActivityKind.MESSAGE
             }
+        }
+        // Missing plaintext or parent can be retried without recording a destructive revision.
+        if (!own && original.body.text("content_kind") in setOf("message", "thread-reply") &&
+            (activity != null || deletion != null)) {
+            val address = SpaceDestination(SpacePublicReference(node, service, space), channel,
+                SpaceDestination.Kind.MESSAGE, original.id, thread)
+            val classified = activity?.takeUnless {
+                it == SpaceActivityKind.MESSAGE && channelNotificationPolicy(space, channel).mode != SpaceNotificationMode.ALL
+            }
+            val effective = deletion ?: latest
+            SpaceActivityIndex(this, node, service).reconcile(address, "message:$message", classified, original.author,
+                effective.get("local_accepted_at")?.asLong ?: SaitoEnvelope.decode(effective.text("event")).createdAt, revision)
         }
         return true
     }
     private fun SpaceClientStore.Transaction.ensureAttentionProjection(space: String, channel: String) {
         val data = channelState(space, channel)
-        if (data.get("attention_projection_version")?.asLong == 2L) return
+        if (data.get("attention_projection_version")?.asLong == ATTENTION_PROJECTION_VERSION) return
         val prefix = messageIdKey(space, channel, "")
         val index = SpaceAttentionIndex(this, "$space/channels/$channel")
         (data.get("read_cursor")?.asLong ?: 0).takeIf { it > 0 }?.let { index.markRead(null, it - 1) }
         val rows = page(prefix, data.get("attention_projection_after")?.asString ?: prefix, 50)
         val read = attentionReader(space, channel)
         rows.forEach { reconcileAttention(space, channel, it.key.removePrefix(prefix), read) }
-        if (rows.size < 50) { data.addProperty("attention_projection_version", 2); data.remove("attention_projection_after") }
+        if (rows.size < 50) { data.addProperty("attention_projection_version", ATTENTION_PROJECTION_VERSION); data.remove("attention_projection_after") }
         else data.addProperty("attention_projection_after", rows.last().key + '\u0000')
         putChannelState(space, channel, data)
     }
@@ -4015,7 +4071,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                     return@mapNotNull null
                 val needsPage = data.get("attention_observed")?.asBoolean != true ||
                     (data.get("attention_cursor")?.asLong ?: 0) < (data.get("attention_goal")?.asLong ?: 0)
-                val needsProjection = data.get("attention_projection_version")?.asLong != 1L ||
+                val needsProjection = data.get("attention_projection_version")?.asLong != ATTENTION_PROJECTION_VERSION ||
                     page("$space/channels/$channel/attention-dirty/", limit = 1).isNotEmpty()
                 if (needsPage || needsProjection) channel to needsPage else null
             }.sortedBy { it.first }
@@ -4121,6 +4177,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val existing = get(key)
                 if (existing != null) require(SaitoEnvelope.decode(existing.toString(Charsets.UTF_8)).body.text("event") == body.text("event"))
                 else {
+                    if (original.body.text("kind") in ACCESS_CHANGING_CONTROLS) readScope.incrementAndGet()
                     when (original.body.text("kind")) {
                         "create-category", "edit-category" -> recordCategoryResult(state, original, ChangeStatus.ACCEPTED)
                         "create" -> {
@@ -4816,6 +4873,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(it != null && it.isJsonPrimitive && it.asJsonPrimitive.isNumber && it.asString.matches(Regex("0|[1-9][0-9]{0,18}")))
     }.asLong.also { require(it >= 0) }
     private companion object {
+        const val ATTENTION_PROJECTION_VERSION = 2L
+        val ACCESS_CHANGING_CONTROLS = setOf("create-channel", "admit", "join-public", "set-visibility", "dissolve",
+            "archive-channel", "set-role", "grant-channel-access", "revoke-channel-access", "rotate-access",
+            "leave", "remove-member", "ban-member", "unban-member", "complete-owner")
         val ROOT_CONTENT_KINDS = setOf("message", "article", "file")
         val TIMELINE_CONTENT_KINDS = ROOT_CONTENT_KINDS + "thread-reply"
         val CONTROL_KINDS = setOf("create", "invite", "admit", "set-listed", "set-visibility", "dissolve", "join-public", "revoke-invite", "create-channel", "create-category", "edit-category",

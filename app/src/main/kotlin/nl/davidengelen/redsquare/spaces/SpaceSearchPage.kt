@@ -29,21 +29,27 @@ internal fun SpaceSearchPage(account: SpacesAccount, state: SpacesAccount.State,
     var query by rememberSaveable(space) { mutableStateOf("") }
     var channelFilter by rememberSaveable(space) { mutableStateOf<String?>(null) }
     var kindFilter by rememberSaveable(space) { mutableStateOf<String?>(null) }
-    val channels = state.channels.filter { it.profile.kind != SpaceChannelKind.VOICE }
+    val channels = state.channels.filter { it.id in state.searchChannels }
     val access = channels.map { it.id }
     val channel = channelFilter?.takeIf { it in access }
     val kind = kindFilter?.let(SpaceDestination.Kind::read)
     val term = query.trim()
     val filter = SpaceSearchFilter(channel, kind)
-    var cursor by remember(account, space, term, filter, access) { mutableStateOf<SpaceSearchCursor?>(null) }
+    var cursorChannel by rememberSaveable(space, term, channelFilter, kindFilter) { mutableStateOf<String?>(null) }
+    var cursorBefore by rememberSaveable(space, term, channelFilter, kindFilter) { mutableStateOf<Long?>(null) }
+    val cursor = cursorChannel?.takeIf { it in access }?.let { SpaceSearchCursor(it, cursorBefore) }
+    fun selectPage(page: SpaceSearchCursor?) {
+        cursorChannel = page?.channel
+        cursorBefore = page?.before
+    }
     var attempt by remember(account, space, term, filter, access) { mutableIntStateOf(0) }
-    var result by remember(account, space, term, filter, access, cursor) { mutableStateOf<SpaceSearchPage?>(null) }
-    var failed by remember(account, space, term, filter, access, cursor) { mutableStateOf(false) }
-    LaunchedEffect(account, space, term, filter, access, cursor, attempt) {
+    var result by remember(account, space, term, filter, access, cursor, state.accessRevision) { mutableStateOf<SpaceSearchPage?>(null) }
+    var failed by remember(account, space, term, filter, access, cursor, state.accessRevision) { mutableStateOf(false) }
+    LaunchedEffect(account, space, term, filter, access, cursor, attempt, state.accessRevision) {
         if (term.isBlank()) return@LaunchedEffect
         failed = false
         delay(200)
-        try { result = account.searchCached(space, term, filter, cursor) }
+        try { result = account.searchCached(space, term, filter, cursor, state.accessRevision) }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
     }
@@ -84,12 +90,12 @@ internal fun SpaceSearchPage(account: SpacesAccount, state: SpacesAccount.State,
             val page = result
             if (page != null) {
                 if (cursor != null) item {
-                    TextButton(onClick = { cursor = null }, modifier = Modifier.heightIn(min = 48.dp)) {
+                    TextButton(onClick = { selectPage(null) }, modifier = Modifier.heightIn(min = 48.dp)) {
                         Text(stringResource(R.string.spaces_search_first_page))
                     }
                 }
                 items(page.hits.filter { it.address.channel in access }, key = { it.address.record.orEmpty() }) { hit ->
-                    Surface(onClick = { onOpen(hit.address) }, enabled = !state.working,
+                    Surface(onClick = { onOpen(hit.address) }, enabled = !state.working && !state.savingNavigation,
                         color = MaterialTheme.colorScheme.surfaceContainerLow, shape = RoundedCornerShape(16.dp),
                         modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -102,7 +108,7 @@ internal fun SpaceSearchPage(account: SpacesAccount, state: SpacesAccount.State,
                     Text(stringResource(R.string.spaces_search_no_matches), style = MaterialTheme.typography.bodyMedium)
                 }
                 page.next?.let { next -> item {
-                    OutlinedButton(onClick = { cursor = next }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                    OutlinedButton(onClick = { selectPage(next) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                         Text(stringResource(R.string.spaces_search_next_page))
                     }
                 } }

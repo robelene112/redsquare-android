@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
@@ -43,19 +44,20 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
         if (tab == SpacesTab.DISCOVER && state.ready) { delay(250); account.discover(query) }
     }
     val memberships = state.communities.filter { it.joined }.map { it.id }
-    var activityCursor by remember(account, memberships) { mutableStateOf<String?>(null) }
-    var activity by remember(account, memberships, activityCursor) { mutableStateOf<SpaceActivityPage?>(null) }
+    var activityCursor by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf<String?>(null) }
+    val list = rememberLazyListState()
+    var activity by remember(account, memberships, activityCursor, state.accessRevision) { mutableStateOf<SpaceActivityPage?>(null) }
     var activityFailed by remember(account, activityCursor) { mutableStateOf(false) }
     var activityRetry by remember(account, activityCursor) { mutableIntStateOf(0) }
-    LaunchedEffect(tab, account, memberships, activityCursor, activityRetry, state.ready, state.refreshing) {
+    LaunchedEffect(tab, account, memberships, activityCursor, activityRetry, state.ready, state.refreshing, state.accessRevision) {
         if (tab == SpacesTab.ACTIVITY && state.ready && !state.refreshing) {
             activityFailed = false
-            try { activity = account.activityPage(activityCursor) }
+            try { activity = account.activityPage(activityCursor, state.accessRevision) }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { activityFailed = true }
         }
     }
-    LazyColumn(modifier.fillMaxSize(), contentPadding = PaddingValues(AppSpacing.screen),
+    LazyColumn(modifier.fillMaxSize(), state = list, contentPadding = PaddingValues(AppSpacing.screen),
         verticalArrangement = Arrangement.spacedBy(16.dp)) {
         item {
             Text(stringResource(when (tab) {
@@ -156,7 +158,7 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
                 if (page != null) {
                     items(page.groups, key = { it.id }) { group ->
                         SpaceActivityCard(group, state.profiles[group.target.community.spaceId]?.name,
-                            enabled = !state.working, onClick = { onActivity(group) })
+                            enabled = !state.working && !state.savingNavigation, onClick = { onActivity(group) })
                     }
                     page.next?.let { next -> item {
                         OutlinedButton(onClick = { activityCursor = next }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {

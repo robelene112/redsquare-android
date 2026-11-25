@@ -61,7 +61,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val notificationPolicy: SpaceNotificationPolicy? = null, val pinStatus: SpaceClient.PinStatus? = null, val messages: List<SpaceClient.Message> = emptyList(), val draft: String = "",
         val invitation: SpaceClient.Invitation? = null, val preview: SpaceClient.InvitationPreview? = null,
         val problem: Problem? = null, val working: Boolean = false, val refreshing: Boolean = false,
-        val savedDestination: Boolean = false,
+        val savedDestination: Boolean = false, val savedHistoryCheckedAt: Long? = null,
+        val accessRevision: Long = 0, val searchChannels: Set<String> = emptySet(),
         val ready: Boolean = false, val savingNavigation: Boolean = false, val loadingChannel: Boolean = false, val hasEarlier: Boolean = false, val hasLater: Boolean = false, val scrollToMessage: MessageScroll? = null, val windowFrom: Long = 0, val followingLatest: Boolean = true)
     private val appContext = context.applicationContext
     private val fixtureTrace = nl.davidengelen.redsquare.BuildConfig.DEBUG && endpoint.startsWith("ws://127.0.0.1:") &&
@@ -112,10 +113,31 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     private fun SpaceClient.window(target: Target): SpaceClient.HistoryWindow {
         val parent = parent(target)
-        return if (parent == null) historyWindow(target.space, historyWindows[target], target.channel)
-        else threadHistoryWindow(target.space, parent, historyWindows[target], target.channel)
+        return if (parent == null) historyWindow(target.space, windowFrom(target), target.channel)
+        else threadHistoryWindow(target.space, parent, windowFrom(target), target.channel)
     }
     private val historyWindows = ConcurrentHashMap<Target, Long>()
+    private data class DestinationVisit(val origin: Target?, val target: Target, val windowFrom: Long?)
+    private data class ExactRoute(val link: String, val activity: SpaceActivityGroup?, val fromNotification: Boolean)
+    @Volatile private var destinationVisit: DestinationVisit? = null
+
+    private fun windowFrom(target: Target): Long? {
+        val visit = destinationVisit
+        return if (visit?.target == target) visit.windowFrom else historyWindows[target]
+    }
+
+    private fun updateWindow(target: Target, start: Long?) = synchronized(navigationChanges) {
+        val visit = destinationVisit
+        if (visit?.target == target) destinationVisit = visit.copy(windowFrom = start)
+        else if (start == null) historyWindows.remove(target) else historyWindows[target] = start
+    }
+
+    fun returnFromDestination(): Boolean {
+        val visit = destinationVisit ?: return false
+        val origin = visit.origin
+        selectRoute(origin?.space, origin?.channel, restoreThread = origin?.thread)
+        return true
+    }
     val ownerKey: String get() = wallet.publicKey
     val avatarImages = SpaceAvatarImages(wallet.publicKey, backend)
     private val draftVersions = ConcurrentHashMap<Target, AtomicLong>()
@@ -217,9 +239,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                                 if (!selected.joined && selected.pending && !selected.membershipRequested) return@let
                                 flushUrgent(current)
                                 trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} start")
-                                current.refresh(target.space, channel = target.channel, from = if (target.thread == null) historyWindows[target] else null)
+                                current.refresh(target.space, channel = target.channel, from = if (target.thread == null) windowFrom(target) else null)
                                 flushUrgent(current)
-                                current.parent(target)?.let { current.refreshThread(target.space, it, target.channel, historyWindows[target]) }
+                                current.parent(target)?.let { current.refreshThread(target.space, it, target.channel, windowFrom(target)) }
+                                if ("spaces-unread-v1" in services && selected.joined) current.attention(target.space, target.channel)
                                 trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} complete")
                                 mutable.update { it.copy(accessProblems = it.accessProblems - target.space,
                                     savedDestination = it.savedDestination && it.target() != target) }
@@ -230,9 +253,12 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         flushUrgent(current)
                         publish()
                         trace("refresh projected")
-                        (current to communities).takeIf { "spaces-unread-v1" in services && viewingSpaceLists() }
+                        (current to communities).takeIf { "spaces-unread-v1" in services && wasVisible.get() }
                     }
-                    attention?.let { (current, communities) -> refreshVisibleAttention(current, communities) }
+                    attention?.let { (current, communities) ->
+                        if (viewingSpaceLists()) refreshVisibleAttention(current, communities)
+                        deliverActivity(current)
+                    }
                 } catch (cancelled: CancellationException) { throw cancelled }
                 catch (_: MissingService) { mutable.update { it.copy(availability = Availability.UNSUPPORTED) } }
                 catch (_: ChangedIdentity) { mutable.update { it.copy(availability = Availability.CHANGED_IDENTITY) } }
@@ -347,19 +373,21 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 finished.add(next)
             }
         }
-        if (changed && canContinue()) {
-            publish()
-            val cutoff = System.currentTimeMillis() - 30 * 60_000L
-            val candidates = localAccess.withLock { current.activityPage(notificationsOnly = true).groups }
-            for (group in candidates.filter { it.unread && it.acceptedAt >= cutoff }.take(5)) {
-                if (!canContinue() || closed.get()) break
-                localAccess.withLock {
-                    if (!closed.get() && !current.activityWasNotified(group) &&
-                        runCatching { SpaceActivityNotifications.post(appContext, ownerKey, backend, endpoint, group) }.getOrDefault(false))
-                        current.markActivityNotified(group)
-                }
-            }
+        if (changed && canContinue()) publish()
+    }
+
+    private var notificationCursor: String? = null
+
+    private suspend fun deliverActivity(current: SpaceClient) = localAccess.withLock {
+        if (!wasVisible.get() || closed.get() || mutable.value.working) return@withLock
+        val since = System.currentTimeMillis() - 30 * 60_000L
+        val candidates = current.pendingActivityNotifications(notificationCursor, since)
+        for (group in candidates.groups) {
+            if (!wasVisible.get() || closed.get() || mutable.value.working) return@withLock
+            val posted = runCatching { SpaceActivityNotifications.post(appContext, ownerKey, backend, endpoint, group) }.getOrDefault(false)
+            if (posted) current.markActivityNotified(group)
         }
+        notificationCursor = candidates.next
     }
 
     private suspend fun flushUrgent(current: SpaceClient) {
@@ -373,12 +401,15 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val current = client ?: return@withLock
         val before = mutable.value
         val target = before.target()
-        val projection = current.presentation(target?.space, target?.channel, target?.let { historyWindows[it] }, target?.let { current.parent(it) })
+        val projection = current.presentation(target?.space, target?.channel, target?.let(::windowFrom), target?.let { current.parent(it) })
         val communities = projection.communities
         val profiles = projection.profiles
         val community = projection.current
         val channels = projection.channels
         val members = projection.members
+        val revision = current.readScopeRevision
+        val searchChannels = target?.let { current.searchAvailableChannels(it.space, channels) }.orEmpty()
+        val checkedAt = target?.let { current.savedContentCheckedAt(it.space, it.channel) }
         val bannedMembers = projection.bannedMembers
         val window = projection.window
         val messages = projection.messages
@@ -394,14 +425,15 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         synchronized(managementChanges) {
             val changes = managementProjection(current, target)
             mutable.update { previous ->
-                if (previous.target() != target || previous.loadingChannel) previous.copy(communities = communities, profiles = profiles)
-                else previous.copy(communities = communities, profiles = profiles, current = community, channels = channels, categories = projection.categories, members = members, bannedMembers = bannedMembers,
+                if (previous.target() != target || previous.loadingChannel) previous.copy(communities = communities, profiles = profiles, accessRevision = revision)
+                else previous.copy(communities = communities, profiles = profiles, accessRevision = revision,
+                searchChannels = searchChannels, savedHistoryCheckedAt = checkedAt, current = community, channels = channels, categories = projection.categories, members = members, bannedMembers = bannedMembers,
                 notificationPolicy = notifications, pinStatus = pins, messages = messages, threadParent = projection.threadParent,
                 invitation = invitation, publicRulesToken = publicRulesToken, fileLeaseId = fileLease,
                 listingIntent = target?.let { dirtyListings[it.space] } ?: listingIntent, publicLink = publicLink,
                 contentLoaded = window?.loaded == true, hasEarlier = window?.hasEarlier == true,
                 hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0,
-                followingLatest = target == null || historyWindows[target] == null).withManagement(changes)
+                followingLatest = target == null || windowFrom(target) == null).withManagement(changes)
             }
         }
     } }
@@ -431,16 +463,21 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         selectRoute(target.space, target.channel, thread = reference.parent, jump = reference.message)
     }
     private fun selectRoute(space: String?, channel: String? = null, expected: Long? = null, thread: SpaceClient.Message? = null,
-        jump: SpaceClient.Message? = null, article: ArticleFocus? = null, requestChannelKeys: Boolean = true, savedDestination: Boolean = false): Long? {
+        jump: SpaceClient.Message? = null, article: ArticleFocus? = null, requestChannelKeys: Boolean = true, savedDestination: Boolean = false, exact: ExactRoute? = null,
+        restoreThread: String? = null): Long? {
         if (closed.get()) return null
         return synchronized(navigationChanges) {
             if (expected != null && navigationVersion.get() != expected) return@synchronized null
             val route = navigationVersion.incrementAndGet()
             val token = selection.incrementAndGet()
+            val visit = destinationVisit
+            val origin = if (exact == null) null else if (visit != null) visit.origin else mutable.value.target()
+            if (exact == null) destinationVisit = null
             mutable.update { it.copy(selected = space, selectedChannel = channel, threadParent = null, current = null,
                 notificationPolicy = null, pinStatus = null, messages = emptyList(), channels = emptyList(), members = emptyList(), draft = "", invitation = null, anchor = null,
                 problem = null, listingIntent = null, publicLink = null, archiveChange = null, roleChange = null, channelEdit = null, channelCreation = null, categoryChange = null, visibilityChange = null, dissolutionChange = null, categories = emptyList(), channelAccessChange = null, membershipChange = null, ownershipOffer = null, ownershipChange = null, bannedMembers = emptySet(),
-                contentLoaded = false, loadingChannel = space != null, scrollToMessage = null, articleFocus = article, savedDestination = savedDestination) }
+                contentLoaded = false, loadingChannel = space != null, scrollToMessage = null, articleFocus = article,
+                savedDestination = savedDestination, savedHistoryCheckedAt = null, searchChannels = emptySet()) }
             scope.launch {
                 try {
                     val current = client ?: return@launch
@@ -451,16 +488,26 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             mutable.update { if (selection.get() == token) it.copy(loadingChannel = false) else it }
                             return@withLock
                         }
-                        if (thread != null) current.selectThread(space, thread, channel, requestChannelKeys)
-                        else if (channel != null) current.selectChannel(space, channel, requestChannelKeys)
-                        val selectedCommunity = current.community(space)
-                        val parent = current.selectedThread(space, selectedCommunity.channel)
+                        val restoredParent = restoreThread?.let { requireNotNull(current.message(space, it, channel)) }
+                        if (exact == null) {
+                            val selectedParent = thread ?: restoredParent
+                            if (selectedParent != null) current.selectThread(space, selectedParent, channel, requestChannelKeys)
+                            else if (channel != null) current.selectChannel(space, channel, requestChannelKeys)
+                        }
+                        val selectedCommunity = current.community(space, channel.takeIf { exact != null })
+                        val parent = if (exact != null) thread else current.selectedThread(space, selectedCommunity.channel)
                         val target = Target(space, selectedCommunity.channel, parent?.id)
                         val version = draftVersions.getOrPut(target) { AtomicLong() }.get()
-                        val anchor = if (jump == null) current.anchor(target) else null
-                        jump?.position?.let { historyWindows[target] = it }
-                        if (anchor != null) historyWindows.putIfAbsent(target, anchor.windowFrom)
-                        val projection = current.presentation(space, target.channel, historyWindows[target], parent)
+                        val anchor = if (jump == null && exact == null) current.anchor(target) else null
+                        synchronized(navigationChanges) {
+                            if (selection.get() != token) return@withLock
+                            if (exact != null) destinationVisit = DestinationVisit(origin, target, jump?.position)
+                            else {
+                                jump?.position?.let { historyWindows[target] = it }
+                                if (anchor != null) historyWindows.putIfAbsent(target, anchor.windowFrom)
+                            }
+                        }
+                        val projection = current.presentation(space, target.channel, windowFrom(target), parent)
                         val community = requireNotNull(projection.current)
                         val window = requireNotNull(projection.window)
                         val draft = dirtyDrafts[target] ?: projection.draft
@@ -481,15 +528,26 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         val channelEdit = projection.management.edit
                         val channelCreation = projection.management.creation
                         val channelAccessChange = projection.management.access
+                        val searchChannels = current.searchAvailableChannels(space, channels)
+                        val checkedAt = current.savedContentCheckedAt(space, target.channel)
                         mutable.update { if (it.selected == space && selection.get() == token) it.copy(
-                            selectedChannel = target.channel, threadParent = projection.threadParent, current = community, channels = channels, categories = projection.categories, categoryChange = projection.management.category, visibilityChange = projection.management.visibility, dissolutionChange = projection.management.dissolution, members = members, anchor = anchor,
+                            selectedChannel = target.channel, threadParent = projection.threadParent, current = community, channels = channels,
+                            accessRevision = current.readScopeRevision, searchChannels = searchChannels, savedHistoryCheckedAt = checkedAt, categories = projection.categories, categoryChange = projection.management.category, visibilityChange = projection.management.visibility, dissolutionChange = projection.management.dissolution, members = members, anchor = anchor,
                             archiveChange = archiveChange, roleChange = roleChange, membershipChange = membershipChange, ownershipOffer = ownershipOffer, ownershipChange = ownershipChange, bannedMembers = bannedMembers, channelEdit = channelEdit, channelCreation = channelCreation, channelAccessChange = channelAccessChange,
                             profiles = it.profiles + (space to profile), publicRulesToken = rulesToken, publicLink = publicLink, invitation = invitation,
                             listingIntent = dirtyListings[space] ?: listingIntent,
                             draft = if (draftVersions[target]?.get() == version) draft else it.draft,
                             notificationPolicy = current.notificationPolicy(space, target.channel), pinStatus = current.pinStatus(space, target.channel), scrollToMessage = jump?.let { MessageScroll(it.id, showBody = true) },
                             messages = messages, loadingChannel = false, contentLoaded = window.loaded, hasEarlier = window.hasEarlier,
-                            hasLater = window.hasLater, windowFrom = window.from, followingLatest = historyWindows[target] == null) else it }
+                            hasLater = window.hasLater, windowFrom = window.from, followingLatest = windowFrom(target) == null) else it }
+                        if (exact != null) synchronized(navigationChanges) {
+                            if (navigationVersion.get() == route && selection.get() == token && mutable.value.target() == target) {
+                                val address = SpaceDestination.parse(exact.link)
+                                if (exact.activity != null) current.markActivitySeen(exact.activity)
+                                else if (exact.fromNotification) current.markDestinationActivitySeen(address)
+                                markPublicReferenceOpened(exact.link, route)
+                            }
+                        }
                     } }
                     publish(); wake.trySend(Unit)
                 } catch (cancelled: CancellationException) { throw cancelled }
@@ -906,7 +964,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 if (!onOriginalRoute()) return@localAction
                 requireNotNull(client).queue().also {
                     urgentOutbox.add(target.space)
-                    historyWindows.remove(target)
+                    updateWindow(target, null)
                 }
             }
             wake.trySend(Unit)
@@ -1083,9 +1141,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val latest = followLatest && !before.hasLater
         if (fixtureTrace && latest != before.followingLatest)
             trace("reading followLatest=$latest windowFrom=${before.windowFrom} channel=${channel.take(10)} thread=${thread?.take(10)}")
-        if (latest) historyWindows.remove(target) else historyWindows.putIfAbsent(target, before.windowFrom)
+        if (latest || windowFrom(target) == null) updateWindow(target, if (latest) null else before.windowFrom)
         mutable.update { if (it.target() == target) it.copy(followingLatest = latest, anchor = if (latest) null else anchor ?: it.anchor) else it }
-        if (!latest && anchor == null) return
+        if (destinationVisit?.target == target || !latest && anchor == null) return
         val snapshot = SavedViewport(if (latest) null else anchor)
         dirtyAnchors[target] = snapshot
         val version = anchorVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
@@ -1130,14 +1188,18 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             val parent = current.parent(target)
             val start = if (parent == null) current.older(target.space, channel = target.channel, before = before.from)
             else current.olderThread(target.space, parent, before.from, target.channel)
-            historyWindows[target] = start
+            updateWindow(target, start)
             publish()
             mutable.update { if (it.target() == target) it.copy(scrollToMessage = it.messages.firstOrNull()?.let { message -> MessageScroll(message.id) }) else it }
         } }
     }
     fun latestMessages() {
         val target = mutable.value.target() ?: return
-        historyWindows.remove(target)
+        updateWindow(target, null)
+        if (destinationVisit?.target == target) {
+            scope.launch { publish() }
+            return
+        }
         val snapshot = SavedViewport(null)
         dirtyAnchors[target] = snapshot
         val version = anchorVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
@@ -1380,22 +1442,36 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             markPublicReferenceOpened(link, accepted)
         }
     }
-    suspend fun searchCached(space: String, query: String, filter: SpaceSearchFilter, after: SpaceSearchCursor?): SpaceSearchPage =
+    suspend fun searchCached(space: String, query: String, filter: SpaceSearchFilter, after: SpaceSearchCursor?, accessRevision: Long): SpaceSearchPage =
         withContext(Dispatchers.IO) {
             localAccess.withLock {
                 if (closed.get() || mutable.value.selected != space) throw CancellationException("Space changed")
-                val page = requireNotNull(client).searchCached(space, query, filter, after)
-                if (closed.get() || mutable.value.selected != space) throw CancellationException("Space changed")
+                val current = requireNotNull(client)
+                val page = current.searchCached(space, query, filter, after)
+                if (closed.get() || mutable.value.selected != space || current.readScopeRevision != accessRevision)
+                    throw CancellationException("Search scope changed")
                 page
             }
         }
 
-    suspend fun activityPage(after: String? = null): SpaceActivityPage = withContext(Dispatchers.IO) {
+    suspend fun activityPage(after: String?, accessRevision: Long): SpaceActivityPage = withContext(Dispatchers.IO) {
         localAccess.withLock {
             if (closed.get()) throw CancellationException("Account changed")
-            requireNotNull(client).activityPage(after)
+            val current = requireNotNull(client)
+            val page = current.activityPage(after)
+            if (closed.get() || current.readScopeRevision != accessRevision) throw CancellationException("Activity scope changed")
+            page
         }
     }
+
+    suspend fun destinationLink(target: Target, kind: SpaceDestination.Kind, record: String? = null): String =
+        withContext(Dispatchers.IO) {
+            localAccess.withLock {
+                if (closed.get() || mutable.value.target() != target) throw CancellationException("Space changed")
+                requireNotNull(client).destinationLink(target.space, target.channel, kind, record,
+                    target.thread.takeIf { kind == SpaceDestination.Kind.MESSAGE })
+            }
+        }
 
     fun openDestinationLink(link: String, activity: SpaceActivityGroup? = null, fromNotification: Boolean = false) {
         val route = navigationVersion.get()
@@ -1408,6 +1484,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             var cached = false
             val opened = try { network.withLock { current.openDestination(address) } }
             catch (denied: SpaceClient.ReadDenied) {
+                publish()
                 synchronized(navigationChanges) {
                     if (navigationVersion.get() == route) mutable.update { it.copy(previewIssue = denied.problem) }
                 }
@@ -1424,13 +1501,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 return@localAction
             }
             val article = opened.record?.takeIf { address.kind == SpaceDestination.Kind.ARTICLE }?.let { ArticleFocus(it.id, cached) }
-            val accepted = selectRoute(address.community.spaceId, address.channel, expected = route,
-                thread = opened.parent, jump = opened.record, article = article, requestChannelKeys = false, savedDestination = cached) ?: return@localAction
-            activeRoute = accepted
-            if (activity != null || fromNotification) localAccess.withLock {
-                if (activity != null) current.markActivitySeen(activity) else current.markDestinationActivitySeen(address)
-            }
-            markPublicReferenceOpened(link, accepted)
+            activeRoute = selectRoute(address.community.spaceId, address.channel, expected = route,
+                thread = opened.parent, jump = opened.record, article = article, requestChannelKeys = false, savedDestination = cached,
+                exact = ExactRoute(link, activity, fromNotification)) ?: return@localAction
         }
     }
 
@@ -1479,7 +1552,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         localAction(Problem.CONNECTION, isCurrent = { navigationVersion.get() == route && mutable.value.target() == target }) {
             network.withLock {
                 if (navigationVersion.get() != route || mutable.value.target() != target) return@withLock
-                requireNotNull(client).refresh(space, channel, from = historyWindows[target.copy(thread = null)])
+                requireNotNull(client).refresh(space, channel, from = windowFrom(target.copy(thread = null)))
                 publish()
                 if (navigationVersion.get() == route && mutable.value.target() == target) {
                     mutable.update { it.copy(availability = Availability.ONLINE) }

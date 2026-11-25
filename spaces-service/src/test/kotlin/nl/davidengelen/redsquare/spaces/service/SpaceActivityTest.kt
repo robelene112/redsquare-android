@@ -23,8 +23,9 @@ class SpaceActivityTest {
         val stores = List(3) { SqliteClientFixture(files.newFile().absolutePath) }
         try {
             SpacesServiceStore(files.newFolder().toPath(), serviceKey, clock).use { service ->
-                val (owner, first, second) = stores.map { store ->
-                    SpaceClient(SaitoWallet.create(), "https://spaces.example.test", serviceKey.publicKey, store, clock) {
+                val wallets = stores.map { SaitoWallet.create() }
+                val (owner, first, second) = stores.zip(wallets).map { (store, wallet) ->
+                    SpaceClient(wallet, "https://spaces.example.test", serviceKey.publicKey, store, clock) {
                         service.exchange(it.envelope())
                     }
                 }
@@ -50,6 +51,12 @@ class SpaceActivityTest {
                 assertEquals(listOf(threadB, threadA), originalPage.map { it.target.thread })
                 assertEquals(replyB, originalPage.first().target.record)
                 assertTrue(originalPage.all { it.unread })
+                val delivery = owner.pendingActivityNotifications(null, 0, limit = 1).groups.single()
+                assertEquals(originalPage.first(), delivery)
+                owner.markActivityNotified(delivery)
+                assertEquals(originalPage.last(), owner.pendingActivityNotifications(null, 0, limit = 1).groups.single())
+                owner.markActivityNotified(originalPage.last())
+                assertTrue(owner.pendingActivityNotifications(null, 0, limit = 1).groups.isEmpty())
                 val firstGroup = originalPage.single { it.target.thread == threadA }
                 owner.markActivitySeen(firstGroup)
                 assertFalse(owner.activityPage().groups.single { it.id == firstGroup.id }.unread)
@@ -62,11 +69,33 @@ class SpaceActivityTest {
                 val group = updated.first()
                 assertEquals(2L, group.actorCount)
                 assertTrue(group.unread)
+                assertEquals(group, owner.pendingActivityNotifications(null, 0, limit = 1).groups.single())
                 assertEquals(SpaceDestination.Kind.MESSAGE, group.target.kind)
                 assertEquals(latestReply, group.target.record)
                 assertEquals("Latest reply", owner.openDestination(group.target)?.record?.text)
+
+                second.deleteMessage(space, requireNotNull(second.message(space, latestReply, channel)), channel)
+                second.flush(space)
+                owner.refreshAttention(space, channel)
+                val remaining = owner.activityPage().groups.single { it.id == firstGroup.id }
+                assertEquals("First reply", owner.openDestination(remaining.target)?.record?.text)
+                assertEquals(1L, remaining.actorCount)
+                assertFalse(remaining.unread)
+                val mention = second.send(space, "For @${wallets.first().publicKey}", channel)
+                second.flush(space)
+                owner.refreshAttention(space, channel)
+                assertTrue(owner.activityPage().groups.any { it.target.record == mention })
+                second.editMessage(space, requireNotNull(second.message(space, mention, channel)), "General note", channel)
+                second.flush(space)
+                owner.refreshAttention(space, channel)
+                assertTrue(owner.activityPage().groups.none { it.target.record == mention })
+
                 owner.setNotificationPolicy(space, SpaceNotificationPolicy(SpaceNotificationMode.SILENT), channel)
                 assertTrue(owner.activityPage().groups.isEmpty())
+                assertTrue(owner.pendingActivityNotifications(null, 0).groups.isEmpty())
+                owner.refreshUnread(space)
+                repeat(5) { owner.refreshNextAttention(space) }
+                assertFalse("The current attention projection must leave the catch-up queue", owner.refreshNextAttention(space))
                 assertTrue(owner.attention(space, channel).hasUnread == true)
             }
         } finally { stores.forEach(SqliteClientFixture::close) }

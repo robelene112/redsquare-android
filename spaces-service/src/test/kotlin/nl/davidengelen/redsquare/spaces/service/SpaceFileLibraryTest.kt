@@ -5,6 +5,9 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceChannelKind
 import nl.davidengelen.redsquare.spaces.SpaceChannelProfile
 import nl.davidengelen.redsquare.spaces.SpaceClient
+import nl.davidengelen.redsquare.spaces.SpaceDestination
+import nl.davidengelen.redsquare.spaces.SpaceSearchFilter
+import nl.davidengelen.redsquare.spaces.SpacePublicReference
 import nl.davidengelen.redsquare.spaces.SpaceFileCipher
 import nl.davidengelen.redsquare.spaces.SpaceFileAccessCheck
 import nl.davidengelen.redsquare.spaces.SpaceFileGrant
@@ -149,6 +152,12 @@ class SpaceFileLibraryTest {
                     val file = SpaceFileDescriptor.read(requireNotNull(row.text))
                     assertEquals("Meeting notes.txt", file.name)
                     assertEquals(owner.publicKey, row.author)
+                    val target = SpaceDestination(SpacePublicReference("https://community.example.test", authority.publicKey, space),
+                        channel, SpaceDestination.Kind.FILE, accepted)
+                    assertEquals(target, receiving.searchCached(space, "meeting notes",
+                        SpaceSearchFilter(channel, SpaceDestination.Kind.FILE)).hits.single().address)
+                    assertEquals(row.id, receiving.openDestination(target)?.record?.id)
+                    assertEquals(target, SpaceDestination.parse(receiving.destinationLink(space, channel, SpaceDestination.Kind.FILE, row.id)))
                     val download = receiving.fileDownloadPermission(space, channel, row.id)
                     val recovered = ByteArrayOutputStream()
                     http(peer.port).download(download.grant) {
