@@ -71,6 +71,11 @@ class VisualViewports:
             raise RuntimeError('Unexpected original Android emulator settings')
         result = dict(values, size=self.viewport_override('size'), density=self.viewport_override('density'),
                       night=self.night(), overlay=next(iter(selected), None))
+        if self.sdk == 17:
+            fixed_rotation = self.shell('wm', 'fixed-to-user-rotation')
+            if fixed_rotation not in ('default', 'disabled', 'enabled', 'enabled_if_no_auto_rotation'):
+                raise RuntimeError('Unexpected Android display rotation mode')
+            result['fixedRotation'] = fixed_rotation
         (self.folder / f'{name}-settings.json').write_text(json.dumps(result, indent=2))
         return result
 
@@ -87,6 +92,9 @@ class VisualViewports:
         self.shell('settings', 'put', 'system', 'font_scale', case['font'])
         rotation = '0' if case['orientation'] == 'portrait' else '1'
         if self.sdk == 17:
+            # Force the disposable display itself. A portrait launcher can
+            # otherwise override a locked preference between two phases.
+            self.shell('wm', 'fixed-to-user-rotation', 'enabled')
             self.shell('wm', 'user-rotation', 'lock', rotation)
         else:
             self.shell('settings', 'put', 'system', 'accelerometer_rotation', '0')
@@ -101,6 +109,7 @@ class VisualViewports:
         actual = self.observe(prefix)
         if (actual['size']['override'] != size or actual['density']['override'] != '320' or
                 float(actual['font_scale']) != case['font'] or actual['user_rotation'] != rotation or actual['accelerometer_rotation'] != '0' or
+                (self.sdk == 17 and actual['fixedRotation'] != 'enabled') or
                 any(float(actual[name]) != float(motion) for name in self.motion) or
                 actual['overlay'] != overlay or actual['night'] != night):
             raise RuntimeError(f'Applied Android viewport differs from the frozen case {prefix}')
@@ -114,6 +123,8 @@ class VisualViewports:
                 self.shell('settings', 'delete', namespace, key)
             else:
                 self.shell('settings', 'put', namespace, key, value)
+        if self.sdk == 17:
+            self.shell('wm', 'fixed-to-user-rotation', self.original['fixedRotation'])
         self.night(self.original['night'])
         if self.original['overlay']:
             self.set_overlay(('enable-exclusive', '--category'), self.original['overlay'])
