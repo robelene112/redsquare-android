@@ -2932,6 +2932,14 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         PinStatus(supported, if (any) true else if (complete) false else null, complete)
     } }
 
+    /** Queue the toggle and return its local projection under one authenticated transaction. */
+    fun toggleReaction(space: String, channel: String, messageId: String, emoji: String): Message = store.project {
+        val current = requireNotNull(message(space, messageId, channel))
+        val selected = current.reactions.any { it.emoji == emoji && it.selected }
+        setReaction(space, current, emoji, !selected, channel)
+        requireNotNull(message(space, messageId, channel))
+    }
+
     /** The exact desired author selection is signed before transport, including rapid changes. */
     fun setReaction(space: String, message: Message, emoji: String, selected: Boolean, channel: String? = null): String? = store.transaction {
         owned()

@@ -1101,16 +1101,19 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             try {
                 localAccess.withLock {
                     val current = requireNotNull(client)
-                    val actual = requireNotNull(current.message(target.space, message.id, target.channel))
-                    val selected = actual.reactions.any { it.emoji == emoji && it.selected }
-                    current.setReaction(target.space, actual, emoji, !selected, target.channel)
+                    val updated = current.toggleReaction(target.space, target.channel, message.id, emoji)
+                    mutable.update { view ->
+                        if (view.target() != target || view.destinationReadDenied) view else view.copy(
+                            messages = view.messages.map { if (it.id == updated.id) updated else it },
+                            threadParent = view.threadParent?.let { if (it.id == updated.id) updated else it }
+                        )
+                    }
                 }
                 urgentOutbox.add(target.space)
                 wake.trySend(Unit)
                 if (onSaved != null) withContext(Dispatchers.Main.immediate) {
                     if (mutable.value.target() == target) onSaved()
                 }
-                publish(includeCommunities = false)
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
         }
