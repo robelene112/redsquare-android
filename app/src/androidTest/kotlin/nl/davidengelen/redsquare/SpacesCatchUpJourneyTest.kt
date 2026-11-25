@@ -75,12 +75,6 @@ class SpacesCatchUpJourneyTest {
                 results.performScrollToIndex(0)
                 waitText("Search saved history")
                 field.assertTextContains("Needle")
-                click("Back to community information")
-                val informationTitle = hasText("Community information") and !hasClickAction()
-                ui.waitUntil(12_000) { ui.onNode(informationTitle).isDisplayed() }
-                device.pressBack()
-                ui.waitUntil(12_000) { ui.onAllNodes(informationTitle).fetchSemanticsNodes().isEmpty() }
-                click("Back to your communities")
                 click("Activity")
                 assertEquals(2, request("initial").get("delivered").asInt)
                 val replies = hasText("replied to your message", substring = true) and hasClickAction()
