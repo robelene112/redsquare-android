@@ -81,7 +81,8 @@ def module_observe(prepare):
     if not module_hash:
         return
     if not module_installed:
-        url = "https://davidengelen.nl/redsquare/qa/" + module_hash + ".apk"
+        # A stale pre-staging 404 must not hide the content-addressed observer.
+        url = f"https://davidengelen.nl/redsquare/qa/{module_hash}.apk?check={module_hash}"
         apk = evidence / "module-update-observer.apk"
         request = urllib.request.Request(url, headers={"User-Agent": "redsquare-review-check/1"})
         with urllib.request.urlopen(request, timeout=30) as response, apk.open("wb") as output:
