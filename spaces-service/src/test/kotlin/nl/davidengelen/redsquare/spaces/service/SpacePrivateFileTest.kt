@@ -10,11 +10,14 @@ import nl.davidengelen.redsquare.spaces.SpaceFileCipher
 import nl.davidengelen.redsquare.spaces.SpaceFileDescriptor
 import nl.davidengelen.redsquare.spaces.SpaceFileStage
 import nl.davidengelen.redsquare.spaces.SpaceProfile
+import nl.davidengelen.redsquare.spaces.SpaceStorageProviderClient
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import java.io.ByteArrayOutputStream
+import java.net.HttpURLConnection
+import java.net.URL
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneOffset
@@ -47,18 +50,24 @@ class SpacePrivateFileTest {
                     owner.flush(space)
                     receiver.join(invite); receiver.flush(space)
                     owner.admitPending(space); owner.flush(space); receiver.refresh(space)
-                    SpaceFileProviderStore(files.newFolder().toPath(), operator, "https://files.example.test", node.publicKey, clock).use { peer ->
-                        val quote = peer.offer(space, moderator.publicKey, 32768, clock.millis() + 600000)
+                    val origin = "https://files.example.test"
+                    SpaceFileProviderServer(files.newFolder().toPath(), operator, origin, node.publicKey, clock,
+                        0, 262144, 600000, service::checkFileAccess).use { peer ->
+                        peer.start()
+                        val provider = SpaceStorageProviderClient(origin) { base ->
+                            URL("http://127.0.0.1:${peer.port}${base.file}").openConnection() as HttpURLConnection
+                        }
+                        val quote = provider.offer(space, moderator.publicKey)
                         val consent = owner.approveFileStorage(space, quote)
                         owner.flush(space)
                         val receipt = requireNotNull(owner.fileStorageApproval(space, consent))
-                        owner.activateFileStorage(space, receipt, peer.commit(receipt).envelope)
+                        owner.activateFileStorage(space, receipt, provider.commit(receipt))
                         owner.flush(space)
                         val ciphertext = ByteArrayOutputStream()
                         val scope = SpaceFileCipher.Scope(node.publicKey, space, channel)
                         val file = SpaceFileCipher.seal(scope, payload.size.toLong(), payload.inputStream(), ciphertext)
                         val grant = owner.fileUploadPermission(space, channel, file)
-                        val staged = SpaceFileStage.read(peer.put(grant.envelope, ciphertext.toByteArray().inputStream()),
+                        val staged = SpaceFileStage.read(provider.put(grant, ciphertext.toByteArray().inputStream()),
                             node.publicKey, operator.publicKey)
                         val original = owner.publishFile(space, channel, SpaceFileDescriptor(name, "text/plain", file), staged)
                         owner.flush(space); receiver.refresh(space)
@@ -74,12 +83,16 @@ class SpacePrivateFileTest {
                         }
                         val received = SpaceFileDescriptor.read(requireNotNull(receiver.message(space, original)?.text))
                         assertEquals(name, received.name)
+                        val authorized = receiver.fileDownloadPermission(space, channel, original)
+                        val checked = ByteArrayOutputStream()
+                        provider.download(authorized.grant) { SpaceFileCipher.open(scope, received.sealed, it, checked) }
+                        assertArrayEquals(payload, checked.toByteArray())
                         val permission = receiver.fileDownloadPermission(space, channel, original)
                         receiver.leave(space)
                         receiver.flush(space)
-                        val checked = ByteArrayOutputStream()
-                        peer.open(permission.grant.envelope).use { SpaceFileCipher.open(scope, received.sealed, it, checked) }
-                        assertArrayEquals(payload, checked.toByteArray())
+                        assertThrows(SpaceStorageProviderClient.Rejected::class.java) {
+                            provider.download(permission.grant) { fail("Provider should reject before exposing any bytes") }
+                        }
                         assertTrue(runCatching { receiver.confirmFileDownload(space, channel, original, permission) }.isFailure)
                         assertTrue(runCatching { receiver.fileDownloadPermission(space, channel, original) }.isFailure)
                     }

@@ -24,6 +24,20 @@ class SpaceFileBytesTest {
     @get:Rule val files = TemporaryFolder()
     private val clock = Clock.fixed(Instant.ofEpochMilli(1_800_000_000_000), ZoneOffset.UTC)
 
+    @Test fun nearbySizesHaveTheSameObservableTransferLength() {
+        val scope = SpaceFileCipher.Scope(SaitoWallet.create().publicKey, "a".repeat(64), "b".repeat(64))
+        val lengths = listOf(0, 1, 7, 27011).map { size ->
+            val input = ByteArray(size) { 42 }
+            val encrypted = ByteArrayOutputStream()
+            val file = SpaceFileCipher.seal(scope, size.toLong(), input.inputStream(), encrypted)
+            val decoded = ByteArrayOutputStream()
+            SpaceFileCipher.open(scope, file, encrypted.toByteArray().inputStream(), decoded)
+            assertArrayEquals(input, decoded.toByteArray())
+            encrypted.size()
+        }
+        assertEquals(1, lengths.distinct().size)
+    }
+
     @Test fun interruptedTransferCanRetryAndIndependentReaderRecoversExactBytesAfterProviderRestart() = runBlocking<Unit> {
         val node = SaitoWallet.create()
         val owner = SaitoWallet.create()

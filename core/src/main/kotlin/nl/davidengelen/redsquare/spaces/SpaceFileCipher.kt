@@ -37,14 +37,21 @@ object SpaceFileCipher {
     }
 
     const val MAX_FILE_BYTES = 128L * 1024 * 1024
+    private const val LENGTH_BUCKET = 64 * 1024
     private const val CHUNK_BYTES = 256 * 1024
     private const val TAG_BYTES = 16
+    const val MIN_CIPHERTEXT_BYTES = (LENGTH_BUCKET + TAG_BYTES).toLong()
     const val MAX_CIPHERTEXT_BYTES = MAX_FILE_BYTES + MAX_FILE_BYTES / CHUNK_BYTES * TAG_BYTES
 
     fun ciphertextSize(size: Long): Long {
+        val padded = paddedSize(size)
+        val chunks = (padded + CHUNK_BYTES - 1) / CHUNK_BYTES
+        return padded + chunks * TAG_BYTES
+    }
+
+    private fun paddedSize(size: Long): Long {
         require(size in 0..MAX_FILE_BYTES)
-        val chunks = maxOf(1, (size + CHUNK_BYTES - 1) / CHUNK_BYTES)
-        return size + chunks * TAG_BYTES
+        return maxOf(1L, (size + LENGTH_BUCKET - 1) / LENGTH_BUCKET) * LENGTH_BUCKET
     }
 
     fun seal(scope: Scope, size: Long, source: InputStream, destination: OutputStream): Sealed {
@@ -74,15 +81,23 @@ object SpaceFileCipher {
         val buffer = ByteArray(CHUNK_BYTES + overhead)
         val associatedData = associatedData(scope, id, size)
         var remaining = size
+        var padded = paddedSize(size)
         var index = 0L
-        do {
-            val count = minOf(CHUNK_BYTES.toLong(), remaining).toInt()
-            input.readFully(buffer, 0, count + overhead)
+        while (padded > 0) {
+            val count = minOf(CHUNK_BYTES.toLong(), padded).toInt()
+            val meaningful = minOf(count.toLong(), remaining).toInt()
+            if (mode == Cipher.ENCRYPT_MODE) {
+                input.readFully(buffer, 0, meaningful)
+                buffer.fill(0, meaningful, count)
+            } else {
+                input.readFully(buffer, 0, count + overhead)
+            }
             val result = crypt(chunkCipher, secret, mode, associatedData, index, buffer, count + overhead)
-            destination.write(result)
-            remaining -= count
+            destination.write(result, 0, if (mode == Cipher.ENCRYPT_MODE) result.size else meaningful)
+            remaining -= meaningful
+            padded -= count
             index++
-        } while (remaining > 0)
+        }
         require(input.read() == -1) { "File length changed during transfer" }
     }
 
@@ -119,7 +134,7 @@ object SpaceFileCipher {
         }
 
         private fun load(chunk: Long) {
-            val count = minOf(CHUNK_BYTES.toLong(), size - chunk * CHUNK_BYTES).toInt()
+            val count = minOf(CHUNK_BYTES.toLong(), paddedSize(size) - chunk * CHUNK_BYTES).toInt()
             val encrypted = ByteArray(count + TAG_BYTES)
             source.seek(chunk * (CHUNK_BYTES + TAG_BYTES))
             source.readFully(encrypted)

@@ -1,9 +1,11 @@
 package nl.davidengelen.redsquare.spaces.service
 
 import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SignedSaitoMessage
 import nl.davidengelen.redsquare.spaces.SpaceFileCipher
+import nl.davidengelen.redsquare.spaces.SpaceFileAccessCheck
 import nl.davidengelen.redsquare.spaces.SpaceFileGrant
 import nl.davidengelen.redsquare.spaces.SpaceFileLease
 import nl.davidengelen.redsquare.spaces.SpaceFileStage
@@ -24,13 +26,19 @@ internal class SpaceFileRoutes(private val database: Connection, private val wal
             accepted_id TEXT, PRIMARY KEY(space_id, object_id), UNIQUE(space_id, accepted_id))""")
         sql.execute("""CREATE TABLE IF NOT EXISTS file_upload_cancellations (
             space_id TEXT NOT NULL, object_id TEXT NOT NULL, PRIMARY KEY(space_id, object_id))""")
+        sql.execute("""CREATE TABLE IF NOT EXISTS file_permissions (
+            id TEXT PRIMARY KEY, actor TEXT NOT NULL, scope TEXT NOT NULL, access_term TEXT,
+            expires_at INTEGER NOT NULL)""")
+        sql.execute("CREATE INDEX IF NOT EXISTS file_permissions_expiry ON file_permissions(expires_at)")
     }
 
     fun ready() = database.createStatement().use { sql ->
         sql.executeQuery("SELECT object_id, actor, control_id, accepted_id FROM file_uploads LIMIT 0").close()
+        sql.executeQuery("SELECT id, actor, scope, access_term FROM file_permissions LIMIT 0").close()
     }
 
-    fun permit(reply: JsonObject, scope: JsonObject, actor: String, journal: SpaceJournal, now: Long) {
+    fun permit(reply: JsonObject, scope: JsonObject, actor: String, journal: SpaceJournal, now: Long,
+        checkOnly: Boolean = false) {
         val space = scope.fileText("space_id")
         val channel = scope.fileText("channel_id")
         val record = requireNotNull(journal.snapshot.channels[channel])
@@ -51,6 +59,7 @@ internal class SpaceFileRoutes(private val database: Connection, private val wal
                 require(!cancelled(space, objectId))
                 val prior = upload(space, objectId)
                 if (prior == null) {
+                    require(!checkOnly)
                     database.prepareStatement("INSERT INTO file_uploads VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL)").use { sql ->
                         sql.setString(1, space)
                         sql.setString(2, objectId)
@@ -66,7 +75,7 @@ internal class SpaceFileRoutes(private val database: Connection, private val wal
                     require(prior == Upload(actor, channel, prior.control, prior.lease, sha256, bytes, null))
                     journal.verifyFileUpload(actor, channel, prior.control, now)
                 }
-                reply.addProperty("permission", grant(lease, objectId, sha256, bytes, SpaceFileGrant.Action.PUT, now))
+                if (!checkOnly) reply.addProperty("permission", grant(lease, objectId, sha256, bytes, SpaceFileGrant.Action.PUT, now))
             }
             "usage" -> reply.addProperty("permission", grant(lease, "", "", 0, SpaceFileGrant.Action.STATUS, now))
             "abandon" -> {
@@ -101,7 +110,7 @@ internal class SpaceFileRoutes(private val database: Connection, private val wal
                         Triple(row.getString(1), row.getString(2), row.getLong(3))
                     }
                 }
-                if (scope.fileText("access") != "confirm") {
+                if (!checkOnly && scope.fileText("access") != "confirm") {
                     reply.addProperty("permission", grant(lease, upload.first, upload.second, upload.third,
                         if (remove) SpaceFileGrant.Action.DELETE else SpaceFileGrant.Action.GET, now))
                 }
@@ -109,6 +118,42 @@ internal class SpaceFileRoutes(private val database: Connection, private val wal
                     journal.snapshot.membershipEndedAt[actor] ?: 0, record.accessStartedAt[actor] ?: 0).joinToString(":"))
             }
         }
+    }
+
+    fun recordPermission(reply: JsonObject, scope: JsonObject, actor: String, journal: SpaceJournal, now: Long) {
+        if (scope.fileText("access") !in setOf("upload", "download")) return
+        val lease = requireNotNull(journal.snapshot.fileStorage)
+        val grant = SpaceFileGrant.read(reply.fileText("permission"), wallet.publicKey, lease.offer.provider)
+        database.prepareStatement("DELETE FROM file_permissions WHERE expires_at<=?").use { sql ->
+            sql.setLong(1, now); sql.executeUpdate()
+        }
+        database.prepareStatement("INSERT INTO file_permissions VALUES (?, ?, ?, ?, ?)").use { sql ->
+            sql.setString(1, grant.id)
+            sql.setString(2, actor)
+            sql.setString(3, scope.toString())
+            sql.setString(4, reply.get("access_term")?.asString)
+            sql.setLong(5, grant.expiresAt)
+            check(sql.executeUpdate() == 1)
+        }
+    }
+
+    fun stillAllowed(check: SpaceFileAccessCheck, journal: SpaceJournal, now: Long): Boolean {
+        val grant = check.permission
+        if (now < grant.issuedAt || now >= grant.expiresAt) return false
+        val active = journal.snapshot.fileStorage ?: return false
+        if (active.offer.provider != check.provider || active.id != grant.lease || now >= active.offer.expiresAt) return false
+        val (actor, scope, term) = database.prepareStatement("SELECT actor, scope, access_term FROM file_permissions WHERE id=?").use { sql ->
+            sql.setString(1, grant.id)
+            sql.executeQuery().use { row ->
+                if (!row.next()) return false
+                Triple(row.getString(1), JsonParser.parseString(row.getString(2)).asJsonObject, row.getString(3))
+            }
+        }
+        val observed = JsonObject()
+        return try {
+            permit(observed, scope, actor, journal, now, checkOnly = true)
+            term == observed.get("access_term")?.asString
+        } catch (_: IllegalArgumentException) { false }
     }
 
     fun acceptPublication(event: SignedSaitoMessage, journal: SpaceJournal, now: Long) {
@@ -156,7 +201,7 @@ internal class SpaceFileRoutes(private val database: Connection, private val wal
     private fun JsonObject.requireFileBytes(): Long = get("bytes").also {
         require(it != null && it.isJsonPrimitive && it.asJsonPrimitive.isNumber)
     }.asString.toLongOrNull()?.also {
-        require(it in 16..SpaceFileCipher.MAX_CIPHERTEXT_BYTES)
+        require(it in SpaceFileCipher.MIN_CIPHERTEXT_BYTES..SpaceFileCipher.MAX_CIPHERTEXT_BYTES)
     } ?: throw IllegalArgumentException("Encrypted file length is invalid")
 
     private companion object {

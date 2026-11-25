@@ -161,7 +161,7 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
      * Buffer to an opaque file without holding the ledger while the sender streams.
      * Receipt creation, reservation and retries all use the original object identity.
      */
-    fun put(grantEnvelope: String, source: InputStream): String {
+    fun put(grantEnvelope: String, source: InputStream, beforeCommit: () -> Unit = {}): String {
         val grant = grant(grantEnvelope, SpaceFileGrant.Action.PUT)
         synchronized(this) { checkPut(grant)?.let { return it } }
         val pending = Files.createTempFile(objects, "incoming-", ".part")
@@ -183,6 +183,7 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
                 "Encrypted file does not match its approved digest"
             }
             FileChannel.open(pending, StandardOpenOption.WRITE).use { it.force(true) }
+            beforeCommit()
             return synchronized(this) { checkPut(grant) ?: storeObject(grant, pending) }
         } finally {
             Files.deleteIfExists(pending)

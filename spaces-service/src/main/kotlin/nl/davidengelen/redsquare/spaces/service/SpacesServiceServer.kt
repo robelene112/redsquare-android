@@ -33,6 +33,11 @@ class SpacesServiceServer(directory: Path, wallet: SaitoWallet, clock: Clock, re
                 require(exchange.requestURI.rawQuery == null)
                 when {
                     exchange.requestMethod == "GET" && exchange.requestURI.rawPath == "/v1/readiness" -> store.readiness()
+                    exchange.requestMethod == "POST" && exchange.requestURI.rawPath == "/v1/file-permission" -> {
+                        val bytes = exchange.requestBody.use { it.readNBytes(16 * 1024 + 1) }
+                        require(bytes.size in 1..16 * 1024)
+                        store.checkFileAccess(bytes.decodeToString(throwOnInvalidSequence = true))
+                    }
                     exchange.requestMethod == "POST" && exchange.requestURI.rawPath == "/v1/exchange" -> {
                         val bytes = exchange.requestBody.use { it.readNBytes(MAX_INPUT + 1) }
                         require(bytes.size in 1..MAX_INPUT)

@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.spaces.service
 
 import com.google.gson.JsonObject
 import com.sun.net.httpserver.HttpExchange
+import com.sun.net.httpserver.HttpServer
 import com.sun.net.httpserver.HttpsConfigurator
 import com.sun.net.httpserver.HttpsServer
 import nl.davidengelen.redsquare.saito.SaitoWallet
@@ -40,6 +41,8 @@ internal class SpacesFileLibraryFixture(private val root: Path, private val auth
     }
     private val bridge = HttpsServer.create(InetSocketAddress("127.0.0.1", 0), 8)
     private val executor = Executors.newFixedThreadPool(3)
+    private val accessAuthority = HttpServer.create(InetSocketAddress("127.0.0.1", 0), 8)
+    private val accessWorkers = Executors.newFixedThreadPool(2)
     private val downloads = AtomicInteger()
     @Volatile private var providerPort = 0
     private var child: Process? = null
@@ -64,10 +67,24 @@ internal class SpacesFileLibraryFixture(private val root: Path, private val auth
         bridge.httpsConfigurator = HttpsConfigurator(ssl)
         bridge.executor = executor
         bridge.createContext("/v1/spaces-storage", ::relay)
+        accessAuthority.executor = accessWorkers
+        accessAuthority.createContext("/v1/file-permission") { exchange ->
+            try {
+                require(exchange.requestMethod == "POST" && exchange.requestURI.path == "/v1/file-permission")
+                val source = exchange.requestBody.use { it.readNBytes(16 * 1024 + 1) }
+                require(source.size in 1..16 * 1024)
+                val reply = remote.checkFileAccess(source.decodeToString(throwOnInvalidSequence = true)).encodeToByteArray()
+                exchange.sendResponseHeaders(200, reply.size.toLong())
+                exchange.responseBody.use { it.write(reply) }
+            } catch (_: Exception) {
+                if (exchange.responseCode < 0) exchange.sendResponseHeaders(409, -1)
+            } finally { exchange.close() }
+        }
     }
 
     suspend fun seed() {
         bridge.start()
+        accessAuthority.start()
         startProvider()
         space = owner.create(SpaceProfile("Files proof library", visibility = SpaceVisibility.PUBLIC),
             listOf(SpaceChannelProfile("Shared resources", SpaceChannelKind.FILE)))
@@ -135,6 +152,7 @@ internal class SpacesFileLibraryFixture(private val root: Path, private val auth
             .apply {
                 mapOf("IDENTITY_FILE" to identity.toString(), "STATE_DIR" to root.resolve("file-storage").toString(),
                     "ORIGIN" to origin, "AUTHORITY" to authority.publicKey, "LISTEN_PORT" to "0",
+                    "AUTHORITY_URL" to "http://127.0.0.1:${accessAuthority.address.port}",
                     "CAPACITY_BYTES" to "1048576", "TERM_MILLIS" to "600000").forEach { (key, value) ->
                     environment()["SPACES_FILE_PROVIDER_$key"] = value
                 }
@@ -191,7 +209,9 @@ internal class SpacesFileLibraryFixture(private val root: Path, private val auth
     override fun close() {
         try { stopProvider() } finally {
             bridge.stop(0)
+            accessAuthority.stop(0)
             executor.shutdownNow()
+            accessWorkers.shutdownNow()
             local.close()
         }
     }

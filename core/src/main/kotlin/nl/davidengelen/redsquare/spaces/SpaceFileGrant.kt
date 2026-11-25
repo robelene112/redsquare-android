@@ -67,7 +67,9 @@ class SpaceFileGrant private constructor(
                 body.storageText("lease").also { require(it.matches(FILE_SIGNATURE)) }, action,
                 if (hasObject) body.storageText("object").also { require(it.matches(FILE_ID)) } else "",
                 if (hasObject) body.storageText("sha256").also { require(it.matches(FILE_ID)) } else "",
-                if (hasObject) body.storageNumber("bytes").also { require(it in 16..SpaceFileCipher.MAX_CIPHERTEXT_BYTES) } else 0L,
+                if (hasObject) body.storageNumber("bytes").also {
+                    require(it in SpaceFileCipher.MIN_CIPHERTEXT_BYTES..SpaceFileCipher.MAX_CIPHERTEXT_BYTES)
+                } else 0L,
                 signed.createdAt, expiresAt)
         }
 

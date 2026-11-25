@@ -32,7 +32,9 @@ class SpaceFileStage private constructor(
                 body.storageText("lease").also { require(it.matches(FILE_SIGNATURE)) },
                 body.storageText("object").also { require(it.matches(FILE_ID)) },
                 body.storageText("sha256").also { require(it.matches(FILE_ID)) },
-                body.storageNumber("bytes").also { require(it in 16..SpaceFileCipher.MAX_CIPHERTEXT_BYTES) }, signed.createdAt)
+                body.storageNumber("bytes").also {
+                    require(it in SpaceFileCipher.MIN_CIPHERTEXT_BYTES..SpaceFileCipher.MAX_CIPHERTEXT_BYTES)
+                }, signed.createdAt)
         }
     }
 }

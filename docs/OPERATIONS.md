@@ -392,6 +392,7 @@ with these explicit environment settings.
 | `SPACES_FILE_PROVIDER_STATE_DIR` | Durable provider directory for both the ledger and ciphertext |
 | `SPACES_FILE_PROVIDER_IDENTITY_FILE` | Provider signing identity path |
 | `SPACES_FILE_PROVIDER_AUTHORITY` | Exact pinned Spaces service public key |
+| `SPACES_FILE_PROVIDER_AUTHORITY_URL` | HTTPS origin for the authority's permission checks. A same-host fixture may use HTTP on 127.0.0.1. |
 | `SPACES_FILE_PROVIDER_ORIGIN` | Independent HTTPS origin that serves the provider |
 | `SPACES_FILE_PROVIDER_LISTEN_PORT` | Loopback port behind the HTTPS reverse proxy |
 | `SPACES_FILE_PROVIDER_CAPACITY_BYTES` | Exact quoted bytes, up to 1 TiB per Space |
@@ -401,9 +402,13 @@ The HTTPS reverse proxy forwards only the `/v1/spaces-storage/` routes to the
 provider's loopback listener. Preserve authorization and content-length headers,
 allow binary streaming, and omit grant and body data from logs. Keep the
 provider ledger and ciphertext directory together when backing up or restoring.
+The authority's configured origin exposes `POST /v1/file-permission` through
+its Spaces sidecar. This route returns a signed access decision and carries
+no file payload. Provider transfers depend on a reachable authority.
 A Space owner enters the provider origin and explicitly confirms its signed
 terms. This implementation supports zero-cost offers. Paid offers have no
-activation or payment path. A file may be up to 128 MiB.
+activation or payment path. A file may be up to 128 MiB. Quota counts
+ciphertext, including the padding that conceals the exact file size.
 
 An expired term stops new transfers. Renewal keeps the same provider and data
 pool. If the pool is full, new objects wait for explicitly freed or increased

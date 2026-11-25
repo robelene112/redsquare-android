@@ -581,11 +581,15 @@ Space, channel, object and length. The channel record carries the filename,
 media type, file key and plaintext length. A private channel uses its existing
 encrypted archive record for the descriptor. Provider permissions contain the
 opaque object identity, ciphertext length and digest. They carry no participant
-identity, filename, media type or key.
+identity, filename, media type or key. The payload uses 64 KiB length buckets,
+so the provider sees a range of possible plaintext lengths.
 
 The node issues upload permissions after a fresh signed challenge and checks
 the upload's original contribution term again when accepting publication.
 Only an accepted, undeleted file is eligible for a download permission.
+The provider asks the pinned authority to recheck its permission before
+streaming, again during long transfers, and before the upload is committed.
+These signed exchanges identify the permission without identifying its holder.
 Devices verify the complete ciphertext and recheck the download's membership
 and channel key term before keeping or exposing a remote copy. Deleting a
 shared record authorizes separate idempotent removal at the provider. Removing

@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpServer
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceFileGrant
+import nl.davidengelen.redsquare.spaces.SpaceFileAccessCheck
 import java.net.InetSocketAddress
 import java.nio.file.Path
 import java.time.Clock
@@ -14,8 +15,9 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 
 /** Independent loopback provider behind an explicitly configured HTTPS origin. */
-class SpaceFileProviderServer(directory: Path, wallet: SaitoWallet, origin: String, authority: String,
-    private val clock: Clock, requestedPort: Int, private val capacityBytes: Long, private val termMillis: Long) : AutoCloseable {
+class SpaceFileProviderServer(directory: Path, private val wallet: SaitoWallet, origin: String, private val authority: String,
+    private val clock: Clock, requestedPort: Int, private val capacityBytes: Long, private val termMillis: Long,
+    private val authorize: (String) -> String) : AutoCloseable {
     init {
         require(capacityBytes in 1..(1L shl 40))
         require(termMillis in 600_000L..31_536_000_000L)
@@ -55,18 +57,39 @@ class SpaceFileProviderServer(directory: Path, wallet: SaitoWallet, origin: Stri
                     "POST" to "/upload" -> {
                         val authorization = exchange.authorization()
                         val grant = SpaceFileGrant.read(authorization, authority, wallet.publicKey)
+                        require(grant.action == SpaceFileGrant.Action.PUT)
                         require(exchange.requestHeaders.getFirst("Content-Length")?.toLongOrNull() == grant.bytes)
-                        val receipt = exchange.requestBody.use { store.put(authorization, it) }
+                        requireLiveAccess(grant)
+                        val receipt = exchange.requestBody.use { store.put(authorization, it) { requireLiveAccess(grant) } }
                         exchange.reply(200, receipt)
                     }
                     "GET" to "/download" -> {
                         val authorization = exchange.authorization()
                         val grant = SpaceFileGrant.read(authorization, authority, wallet.publicKey)
+                        require(grant.action == SpaceFileGrant.Action.GET)
+                        requireLiveAccess(grant)
                         store.open(authorization).use { ciphertext ->
                             exchange.responseHeaders.set("Content-Type", "application/octet-stream")
                             exchange.responseHeaders.set("Cache-Control", "no-store")
                             exchange.sendResponseHeaders(200, grant.bytes)
-                            exchange.responseBody.use { output -> ciphertext.copyTo(output, 64 * 1024) }
+                            exchange.responseBody.use { output ->
+                                val buffer = ByteArray(64 * 1024)
+                                var recheckAt = System.nanoTime() + TimeUnit.SECONDS.toNanos(1)
+                                var sinceCheck = 0
+                                var sent = 0L
+                                while (true) {
+                                    val count = ciphertext.read(buffer)
+                                    if (count < 0) break
+                                    if (sent + count == grant.bytes || sinceCheck >= 1024 * 1024 || System.nanoTime() >= recheckAt) {
+                                        requireLiveAccess(grant)
+                                        sinceCheck = 0
+                                        recheckAt = System.nanoTime() + TimeUnit.SECONDS.toNanos(1)
+                                    }
+                                    output.write(buffer, 0, count)
+                                    sent += count
+                                    sinceCheck += count
+                                }
+                            }
                         }
                     }
                     else -> exchange.reply(404, "{}")
@@ -77,6 +100,12 @@ class SpaceFileProviderServer(directory: Path, wallet: SaitoWallet, origin: Stri
                 if (exchange.responseCode < 0) exchange.reply(503, "{\"state\":\"unavailable\"}")
             } finally { exchange.close() }
         }
+    }
+
+    private fun requireLiveAccess(grant: SpaceFileGrant) {
+        val original = SpaceFileAccessCheck.request(wallet, authority, grant, clock.millis()).envelope()
+        val check = SpaceFileAccessCheck.read(original, authority, clock.millis())
+        check.requireAllowed(authorize(original), authority, clock.millis())
     }
 
     fun start() {

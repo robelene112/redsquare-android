@@ -154,6 +154,8 @@ object SpacesNativeHost {
                                         "/file-library" -> requireNotNull(fileLibrary).configuration()
                                         "/file-received" -> requireNotNull(fileLibrary).received()
                                         "/file-provider-downloads" -> requireNotNull(fileLibrary).downloadCount()
+                                        "/file-provider-stop" -> requireNotNull(fileLibrary).let { it.stopProvider(); JsonObject() }
+                                        "/file-provider-start" -> requireNotNull(fileLibrary).let { it.startProvider(); JsonObject() }
                                         "/file-provider-restart" -> requireNotNull(fileLibrary).let {
                                             it.stopProvider(); it.startProvider(); JsonObject()
                                         }

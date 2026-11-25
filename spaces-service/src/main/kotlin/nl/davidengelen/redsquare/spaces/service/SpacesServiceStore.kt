@@ -9,6 +9,7 @@ import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SignedSaitoMessage
 import nl.davidengelen.redsquare.spaces.SpaceArticleContent
+import nl.davidengelen.redsquare.spaces.SpaceFileAccessCheck
 import nl.davidengelen.redsquare.spaces.SpaceJournal
 import nl.davidengelen.redsquare.spaces.SpaceRole
 import nl.davidengelen.redsquare.spaces.SpaceProfile
@@ -186,6 +187,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     if (stream == "files") {
                         try {
                             fileRoutes.permit(reply, scope, request.author, journal, now)
+                            fileRoutes.recordPermission(reply, scope, request.author, journal, now)
                             reply.add("items", JsonArray())
                             reply.addProperty("next_cursor", 0)
                         } catch (_: IllegalArgumentException) {
@@ -264,6 +266,15 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
             else -> throw IllegalArgumentException("Unsupported Spaces read request")
         }
         return SaitoTransaction.createSpaceReply(wallet, reply, now, request.author).envelope()
+    }
+
+    @Synchronized
+    fun checkFileAccess(request: String): String {
+        val now = clock.millis()
+        val check = SpaceFileAccessCheck.read(request, wallet.publicKey, now)
+        return atomic {
+            check.reply(wallet, fileRoutes.stillAllowed(check, journal(check.permission.space), now), now)
+        }
     }
 
     /** Message slots, independent of the number of immutable mutations. The

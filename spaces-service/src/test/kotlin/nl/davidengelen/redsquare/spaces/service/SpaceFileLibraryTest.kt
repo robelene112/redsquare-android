@@ -33,7 +33,8 @@ class SpaceFileLibraryTest {
         val provider = SaitoWallet.create()
         val endpoint = "https://files.example.test"
         val directory = files.newFolder().toPath()
-        fun server() = SpaceFileProviderServer(directory, provider, endpoint, authority.publicKey, clock, 0, 4194304, 600000)
+        fun server(node: SpacesServiceStore) = SpaceFileProviderServer(directory, provider, endpoint, authority.publicKey,
+            clock, 0, 4194304, 600000, node::checkFileAccess)
             .also(SpaceFileProviderServer::start)
         fun http(port: Int) = SpaceStorageProviderClient(endpoint) { url ->
             assertEquals("files.example.test", url.host)
@@ -48,7 +49,7 @@ class SpaceFileLibraryTest {
             val space: String
             val channel: String
             val accepted: String
-            server().use { peer ->
+            server(node).use { peer ->
                 SqliteClientFixture(sourceStore).use { store ->
                     val author = client(owner, store)
                     space = author.create(SpaceProfile("Library", visibility = SpaceVisibility.PUBLIC),
@@ -95,7 +96,7 @@ class SpaceFileLibraryTest {
                 }
             }
             // Independently reload the signed file record and decrypt through a restarted HTTP provider.
-            server().use { peer ->
+            server(node).use { peer ->
                 SqliteClientFixture(files.newFile().absolutePath).use { readerStore ->
                     val receiving = client(reader, readerStore)
                     receiving.openPublic(space); receiving.joinPublic(space); receiving.flush(space); receiving.refresh(space)

@@ -11,8 +11,10 @@ object SpaceFileProviderMain {
             require(args.isEmpty())
             fun setting(name: String): String = requireNotNull(System.getenv("SPACES_FILE_PROVIDER_$name"))
             val wallet = readSpacesServiceIdentity(Path.of(setting("IDENTITY_FILE")))
+            val authority = SpaceFileAuthorityClient(setting("AUTHORITY_URL"))
             val server = SpaceFileProviderServer(Path.of(setting("STATE_DIR")), wallet, setting("ORIGIN"), setting("AUTHORITY"),
-                Clock.systemUTC(), setting("LISTEN_PORT").toInt(), setting("CAPACITY_BYTES").toLong(), setting("TERM_MILLIS").toLong())
+                Clock.systemUTC(), setting("LISTEN_PORT").toInt(), setting("CAPACITY_BYTES").toLong(),
+                setting("TERM_MILLIS").toLong(), authority::check)
             try {
                 Runtime.getRuntime().addShutdownHook(Thread({
                     try { server.close() } catch (_: Exception) {
