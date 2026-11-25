@@ -90,7 +90,8 @@ internal const val SHORT_SPACES_WINDOW_DP = 420
 @Composable
 internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     chrome: @Composable (Boolean, SpacesAccount.Target?, Boolean) -> Unit, onProfile: (String) -> Unit, onMessage: (String) -> Unit,
-    onOpenNode: (String, String) -> Unit, initialInvitation: String? = null, fromNotification: Boolean = false, onInvitationConsumed: () -> Unit = {}) {
+    onOpenNode: (String, String) -> Unit, initialInvitation: String? = null, coldStartDestination: Boolean = false,
+    fromNotification: Boolean = false, onInvitationConsumed: () -> Unit = {}) {
     val sharedState by account.state.collectAsState()
     val communities = remember(sharedState.communities) { sharedState.communities.filter { it.protectedChat == null } }
     val state = sharedState.copy(communities = communities)
@@ -262,6 +263,24 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             }
         } else { invitationText = link; joinOpen = true; account.preview(link) }
         onInvitationConsumed()
+    }
+    var waitingForColdDestination by remember(account) { mutableStateOf(coldStartDestination) }
+    if (waitingForColdDestination) {
+        val projected = state.exactDestination && state.current != null && !state.loadingChannel && !state.projectingDestination
+        val blocked = state.problem != null || state.previewIssue != null || state.requiredNode != null ||
+            state.availability == SpacesAccount.Availability.UNSUPPORTED ||
+            state.availability == SpacesAccount.Availability.CHANGED_IDENTITY ||
+            state.availability == SpacesAccount.Availability.STORAGE_UNAVAILABLE ||
+            !state.ready && state.availability == SpacesAccount.Availability.OFFLINE
+        if (projected || blocked) SideEffect { waitingForColdDestination = false }
+        else {
+            // A direct launch has no previous screen to preserve. Keep the existing
+            // loading view until the destination or a recovery action can render.
+            Box(modifier, contentAlignment = Alignment.Center) {
+                Text(stringResource(R.string.spaces_destination_opening))
+            }
+            return
+        }
     }
     LaunchedEffect(state.joinedInvitation) {
         state.joinedInvitation?.let { joined ->
@@ -502,6 +521,15 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         var overlayId by rememberSaveable { mutableStateOf<String?>(null) }
                         var overlayMode by rememberSaveable { mutableStateOf<MessageOverlay?>(null) }
                         var overlayText by rememberSaveable { mutableStateOf("") }
+                        val savingReactions = remember(account, target) { mutableStateMapOf<String, String>() }
+                        fun react(message: SpaceClient.Message, emoji: String, onFinished: (Boolean) -> Unit = {}) {
+                            if (savingReactions.containsKey(message.id)) return
+                            savingReactions[message.id] = emoji
+                            account.toggleReaction(target, message, emoji) { saved ->
+                                savingReactions.remove(message.id)
+                                onFinished(saved)
+                            }
+                        }
                         var retainedMessage by remember { mutableStateOf<SpaceClient.Message?>(null) }
                         var checkedOverlayId by remember { mutableStateOf<String?>(null) }
                         val overlayMessage = state.messages.firstOrNull { it.id == overlayId } ?: retainedMessage?.takeIf { it.id == overlayId }
@@ -672,7 +700,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                         overlayText = message.change?.text ?: message.text.orEmpty()
                                         overlayMode = mode
                                     },
-                                    react = if (accepted && !message.deleted && selected.canReact && message.ownReactionsAvailable) ({ emoji -> account.toggleReaction(target, message, emoji) }) else null,
+                                    react = if (accepted && !message.deleted && selected.canReact && message.ownReactionsAvailable)
+                                        ({ emoji -> react(message, emoji) }) else null,
+                                    savingReaction = savingReactions[message.id],
                                     cancelChange = { id, done -> account.cancelChange(target, id, done) },
                                     working = state.working)
                             }
@@ -698,7 +728,13 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             cancel = if (overlayMessage?.pending == true && !overlayMessage.attempted)
                                 ({ done -> account.cancelSend(target, overlayMessage.id, done) }) else null,
                             react = if (acceptedOverlay && overlayMessage?.deleted == false && selected.canReact && overlayMessage.ownReactionsAvailable)
-                                ({ emoji, onSaved -> account.toggleReaction(target, overlayMessage, emoji, onSaved) }) else null,
+                                ({ emoji, onFinished ->
+                                    val mode = overlayMode
+                                    react(overlayMessage, emoji) { saved ->
+                                        if (overlayId == overlayMessage.id && overlayMode == mode) onFinished(saved)
+                                    }
+                                }) else null,
+                            savingReaction = overlayMessage?.id?.let(savingReactions::get),
                             pin = if (acceptedOverlay && overlayMessage?.deleted == false && overlayMessage.pinAvailable && selected.canPin && !overlayMessage.pinPending)
                                 ({ done -> account.pinMessage(target, overlayMessage, !overlayMessage.pinned, done) }) else null,
                             cancelPin = overlayMessage?.pinChange?.takeIf { !it.attempted && !it.rejected && !it.cancelled }?.let { change ->
@@ -770,7 +806,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         openingArticle -> R.string.spaces_article_open
         else -> R.string.spaces_open_public_community
     }
-    DesignSheet(publicReference != null, stringResource(referenceTitle),
+    DesignSheet(publicReference != null && publicReference != state.openedPublicReference, stringResource(referenceTitle),
         { publicReference = null; account.dismissPublicReference() }) { first ->
         val node = state.requiredNode
         val choice = nl.davidengelen.redsquare.saito.SaitoBackend.entries.firstOrNull { it.webUrl == node }
@@ -1111,7 +1147,7 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
 
 @Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, bodyModifier: Modifier, restore: () -> Unit,
     reply: (() -> Unit)?, canEdit: Boolean, canRemove: Boolean, canReport: Boolean, canCopyLink: Boolean, canCancel: Boolean, openOverlay: (MessageOverlay) -> Unit,
-    cancelChange: ((String, (Boolean) -> Unit) -> Unit)?, react: ((String) -> Unit)?, working: Boolean) {
+    cancelChange: ((String, (Boolean) -> Unit) -> Unit)?, react: ((String) -> Unit)?, savingReaction: String?, working: Boolean) {
     val savedEdit = message.change?.takeIf { it.kind == SpaceClient.MessageChangeKind.EDIT }?.text
     val name = registeredIdentity(message.author).name
     val time = remember(message.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(message.createdAt)) }
@@ -1166,7 +1202,7 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
             if (message.deleted) {
                 if (reply != null) ThreadReplyButton(message.replyCount, reply)
             } else if (reply != null || react != null || message.reactions.isNotEmpty() || message.reactionsHaveMore)
-                MessageReactions(message, react, reply,
+                MessageReactions(message, react, savingReaction, reply,
                     openPicker = { openOverlay(MessageOverlay.REACTION_PICKER) }, openDetails = { openOverlay(MessageOverlay.REACTIONS) })
             if (canCancel) TextButton(onClick = { openOverlay(MessageOverlay.CANCEL) }, enabled = !working,
                 modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_cancel_send)) }
@@ -1181,13 +1217,14 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
 @Composable private fun MessageOverlays(message: SpaceClient.Message?, mode: MessageOverlay?, editedText: String,
     onText: (String) -> Unit, dismiss: () -> Unit, loadingTarget: Boolean, selectMode: (MessageOverlay) -> Unit, edit: ((String, () -> Unit) -> Unit)?,
     remove: ((() -> Unit) -> Unit)?, report: (suspend (String) -> Unit)?, copyLink: (suspend () -> String)?, cancel: (((Boolean) -> Unit) -> Unit)?,
-    react: ((String, () -> Unit) -> Unit)?, pin: ((() -> Unit) -> Unit)?, cancelPin: (((Boolean) -> Unit) -> Unit)?,
+    react: ((String, (Boolean) -> Unit) -> Unit)?, savingReaction: String?, pin: ((() -> Unit) -> Unit)?, cancelPin: (((Boolean) -> Unit) -> Unit)?,
     loadReactions: (suspend (String?) -> SpaceClient.ReactionPage)?, working: Boolean) {
     val context = LocalContext.current
     var editCopied by remember(message?.id) { mutableStateOf(false) }
     var editCopyFailed by remember(message?.id) { mutableStateOf(false) }
     var cancelTooLate by remember(message?.id) { mutableStateOf(false) }
     var pinCancelTooLate by remember(message?.pinChange?.operationId) { mutableStateOf(false) }
+    var reactionSaveFailed by remember(message?.id, mode) { mutableStateOf(false) }
     val savedEditLabel = stringResource(R.string.spaces_saved_edit)
     LaunchedEffect(editedText) { editCopied = false; editCopyFailed = false }
     LaunchedEffect(mode) { if (mode != MessageOverlay.CANCEL) cancelTooLate = false }
@@ -1265,18 +1302,31 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
                     modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_report_message)) }
             }
             MessageOverlay.REACTION_PICKER -> {
+                val saving = stringResource(R.string.spaces_saving_reaction)
                 spaceReactionChoices.chunked(if (LocalDensity.current.fontScale >= 1.5f) 2 else 4).forEach { choices ->
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                         choices.forEach { emoji ->
                             val input = if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE && message != null)
                                 SpacesScaleMeasurement.inputObserver(message.id, emoji) else Modifier
-                            TextButton(onClick = { react?.invoke(emoji) {}; dismiss() }, enabled = react != null,
-                                modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp).then(input)) {
-                                Text(emoji, style = MaterialTheme.typography.headlineSmall)
+                            val pending = savingReaction == emoji
+                            TextButton(onClick = {
+                                reactionSaveFailed = false
+                                react?.invoke(emoji) { saved -> if (saved) dismiss() else reactionSaveFailed = true }
+                            }, enabled = react != null && savingReaction == null,
+                                modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp).then(input)
+                                    .semantics { if (pending) stateDescription = saving }) {
+                                if (pending) {
+                                    if (sheetMode == MessageOverlay.REACTION_PICKER && message != null && nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE) {
+                                        val view = LocalView.current
+                                        SideEffect { SpacesScaleMeasurement.reactionPendingDrawn(message.id, emoji, view) }
+                                    }
+                                    CircularProgressIndicator(Modifier.size(24.dp), strokeWidth = 2.dp)
+                                } else Text(emoji, style = MaterialTheme.typography.headlineSmall)
                             }
                         }
                     }
                 }
+                if (reactionSaveFailed) ReactionSaveError()
             }
             else -> Unit
         }
@@ -1287,7 +1337,7 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
         confirmButton = { if (remove != null) TextButton(onClick = { remove(dismiss) }, enabled = !working) {
             Text(stringResource(R.string.spaces_delete_message), color = MaterialTheme.colorScheme.error) } },
         dismissButton = { TextButton(onClick = dismiss, enabled = !working) { Text(stringResource(R.string.spaces_cancel)) } })
-    key(message?.id) { MessageReactionDetails(message, mode == MessageOverlay.REACTIONS, dismiss, react, loadReactions) }
+    key(message?.id) { MessageReactionDetails(message, mode == MessageOverlay.REACTIONS, dismiss, react, savingReaction, loadReactions) }
 }
 
 @Composable private fun ChannelNotificationPreferences(channel: String, policy: SpaceNotificationPolicy, enabled: Boolean,
@@ -1406,7 +1456,7 @@ private fun pinChangeLabel(change: SpaceClient.PinChange): Int = when {
 private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "🚀", "😂", "🤔", "👀")
 
 @OptIn(ExperimentalLayoutApi::class)
-@Composable private fun MessageReactions(message: SpaceClient.Message, react: ((String) -> Unit)?, reply: (() -> Unit)?,
+@Composable private fun MessageReactions(message: SpaceClient.Message, react: ((String) -> Unit)?, savingReaction: String?, reply: (() -> Unit)?,
     openPicker: () -> Unit, openDetails: () -> Unit) {
     if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE) {
         val view = LocalView.current
@@ -1417,13 +1467,24 @@ private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "�
     val available = message.reactions.associateBy { it.emoji }
     val ordered = (knownOrder.filter { it in available } + available.keys.filter { it !in knownOrder }).distinct()
     SideEffect { knownOrder = ordered }
-    val shown = (ordered.take(6) + ordered.filter { available[it]?.selected == true || it == lastChoice }).distinct().mapNotNull(available::get)
+    val visible = ordered.take(6) + ordered.filter { available[it]?.selected == true || it == lastChoice }
+    val shown = (visible + listOfNotNull(savingReaction?.takeIf { it in available })).distinct().mapNotNull(available::get)
     val hasMore = message.reactionsHaveMore || shown.size < message.reactions.size
     val choose: ((String) -> Unit)? = react?.let { action -> { emoji -> lastChoice = emoji; action(emoji) } }
     FlowRow(Modifier.fillMaxWidth().animateContentSize(tween(AppSpacing.transitionMillis)),
         horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        shown.forEach { reaction -> key(reaction.emoji) { ReactionChip(reaction, choose) } }
-        if (react != null) FrameIconButton(R.drawable.ic_reaction_add, stringResource(R.string.spaces_add_reaction), onClick = openPicker)
+        shown.forEach { reaction -> key(reaction.emoji) {
+            ReactionChip(reaction, choose.takeIf { savingReaction == null }, pending = savingReaction == reaction.emoji)
+        } }
+        if (react != null) {
+            if (savingReaction != null && savingReaction !in available) {
+                val saving = stringResource(R.string.spaces_saving_reaction)
+                Box(Modifier.size(48.dp).semantics { stateDescription = saving }, contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
+                }
+            } else FrameIconButton(R.drawable.ic_reaction_add, stringResource(R.string.spaces_add_reaction),
+                enabled = savingReaction == null, onClick = openPicker)
+        }
         if (reply != null) ThreadReplyButton(message.replyCount, reply)
         if (hasMore) TextButton(onClick = openDetails,
             modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_all_reactions)) }
@@ -1446,7 +1507,7 @@ private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "�
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable private fun MessageReactionDetails(message: SpaceClient.Message?, allOpen: Boolean, dismiss: () -> Unit,
-    react: ((String, () -> Unit) -> Unit)?, loadPage: (suspend (String?) -> SpaceClient.ReactionPage)?) {
+    react: ((String, (Boolean) -> Unit) -> Unit)?, savingReaction: String?, loadPage: (suspend (String?) -> SpaceClient.ReactionPage)?) {
     var cursor by rememberSaveable { mutableStateOf<String?>(null) }
     var previousCursors by rememberSaveable { mutableStateOf<List<String?>>(emptyList()) }
     var page by remember { mutableStateOf<SpaceClient.ReactionPage?>(null) }
@@ -1454,7 +1515,11 @@ private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "�
     var pageReady by remember { mutableStateOf(false) }
     var pageFailed by remember { mutableStateOf(false) }
     var refreshVersion by remember { mutableIntStateOf(0) }
-    val reactAndRefresh = react?.let { send -> { emoji: String -> send(emoji) { refreshVersion++ } } }
+    var reactionSaveFailed by remember(allOpen) { mutableStateOf(false) }
+    val reactAndRefresh = react?.let { send -> { emoji: String ->
+        reactionSaveFailed = false
+        send(emoji) { saved -> if (saved) refreshVersion++ else reactionSaveFailed = true }
+    } }
     LaunchedEffect(allOpen) { if (allOpen) { cursor = null; previousCursors = emptyList(); page = null; pageReady = false } }
     val pageLoading = (!pageReady || pageCursor != cursor) && !pageFailed
     LaunchedEffect(allOpen, cursor, message?.reactions, message?.reactionsComplete, refreshVersion) {
@@ -1487,21 +1552,31 @@ private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "�
         if (pageLoading) CircularProgressIndicator(Modifier.size(24.dp))
         page?.let { received ->
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                received.choices.forEach { reaction -> key(reaction.emoji) { ReactionChip(reaction, reactAndRefresh) } }
+                received.choices.forEach { reaction -> key(reaction.emoji) {
+                    ReactionChip(reaction, reactAndRefresh.takeIf { savingReaction == null }, pending = savingReaction == reaction.emoji)
+                } }
             }
             if (received.choices.isEmpty()) Text(stringResource(R.string.spaces_no_reactions_page), color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (!received.complete) Text(stringResource(R.string.spaces_reactions_not_complete), color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
+        if (reactionSaveFailed) ReactionSaveError()
         if (pageFailed) TextButton(onClick = { refreshVersion++ }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_retry_reactions)) }
     }
 }
 
-@Composable private fun ReactionChip(reaction: SpaceClient.Reaction, react: ((String) -> Unit)?) {
+@Composable private fun ReactionSaveError() {
+    Text(stringResource(R.string.spaces_save_failed), color = MaterialTheme.colorScheme.error,
+        style = MaterialTheme.typography.bodySmall)
+}
+
+@Composable private fun ReactionChip(reaction: SpaceClient.Reaction, react: ((String) -> Unit)?, pending: Boolean) {
+    val saving = stringResource(R.string.spaces_saving_reaction)
     FilterChip(selected = reaction.selected, onClick = { react?.invoke(reaction.emoji) }, enabled = react != null,
-        modifier = Modifier.heightIn(min = 48.dp),
+        modifier = Modifier.heightIn(min = 48.dp).semantics { if (pending) stateDescription = saving },
         leadingIcon = {
             Box(Modifier.size(16.dp), contentAlignment = Alignment.Center) {
-                AnimatedVisibility(reaction.selected, enter = fadeIn(tween(AppSpacing.transitionMillis)), exit = fadeOut(tween(AppSpacing.transitionMillis))) {
+                if (pending) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
+                else AnimatedVisibility(reaction.selected, enter = fadeIn(tween(AppSpacing.transitionMillis)), exit = fadeOut(tween(AppSpacing.transitionMillis))) {
                     Icon(painterResource(R.drawable.ic_check), null, Modifier.size(16.dp))
                 }
             }

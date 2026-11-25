@@ -869,10 +869,14 @@ class MainActivity : ComponentActivity() {
                                                             RegisteredIdentityScope(currentWallet, endpoint, selected,
                                                                 RegistryAuthority.directoryPeer(intent, endpoint).takeIf { nameDirectoryEnabled == true }) {
                                                                 spacesScreenStates.SaveableStateProvider("${currentWallet.publicKey}:${selected.id}") {
+                                                                    val spaceLink = scopedSpaceNotification?.uri?.toString() ?: pendingSpaceInvitation
                                                                     nl.davidengelen.redsquare.spaces.SpacesScreen(account, Modifier.fillMaxSize(),
                                                                         chrome = { keyboardInLayout, room, compactRoom -> renderChrome(false, keyboardInLayout, room, compactRoom, false) },
                                                                         onProfile = { openSpaceMember(it, false) }, onMessage = { openSpaceMember(it, true) },
-                                                                        onOpenNode = ::openSpaceNode, initialInvitation = scopedSpaceNotification?.uri?.toString() ?: pendingSpaceInvitation,
+                                                                        onOpenNode = ::openSpaceNode, initialInvitation = spaceLink,
+                                                                        coldStartDestination = savedInstanceState == null && spaceLink != null &&
+                                                                            initialSpace?.uri?.toString() == spaceLink &&
+                                                                            nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.isDestination(initialSpace?.uri),
                                                                         fromNotification = scopedSpaceNotification != null,
                                                                         onInvitationConsumed = { pendingSpaceInvitation = null; pendingSpaceNotification = null })
                                                                 }

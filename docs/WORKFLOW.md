@@ -207,6 +207,26 @@ also keeps transient scroll offsets out of the whole-screen StateFlow and
 defers the full community projection during channel read updates.
 Both preserve the same workload, runner, deadlines and frame budgets.
 
+The paired workload completed the warm-up, five measured iterations and all
+100 lifecycle switches on the same account. The independently accepted reply
+left the visible signed record and its bounds in place. It still failed the
+frozen performance gate. The five local reaction commits had a 1528ms p95,
+6.50% of matched warm scroll frames missed their real budget, 33 framework frame
+records were unmatched or incomplete, and Perfetto retained a 905ms cold frame.
+The two longest cold frames coincided with the first Compose measure, recording
+and Skia shader work. The framework dump also showed completed frames counted
+after a reset whose intended vsync preceded that reset, plus still-rendering
+rows whose completion field belonged to an earlier buffer entry.
+
+The next measurement retains all five durable reaction commits and independent
+signed acceptances and independently records the first drawn user feedback.
+The picker and existing reaction chip show a pending state until the local
+operation completes. A direct cold link holds the lightweight opening view until
+the signed destination or its recovery action can render. Warm frame capture
+keeps the real deadline of queued frames drawn after a reset and preserves all
+raw snapshots while bounded retries let in-flight frames settle. The same
+thresholds, whole-trace maximum and independent effects remain release gates.
+
 The exact signed 0.1.143 candidate from `8928b2e4a` was staged before these
 corrections. The full public 111720869-byte download matches the retained APK,
 notes, application identity and established certificate. Clean installation,

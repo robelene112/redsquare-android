@@ -30,7 +30,10 @@ def frame_statistics(raw, allow_empty=False):
             if row.get('Flags') != '0' or not row.get('FrameCompleted'):
                 continue
             intended, deadline, completed = (int(row[k]) for k in ('IntendedVsync', 'FrameDeadline', 'FrameCompleted'))
-            if intended < since:
+            # A queued vsync can precede reset even when the work is started and
+            # counted by HWUI after reset. Its original deadline still applies.
+            started = int(row.get('FrameStartTime') or intended)
+            if max(intended, started) < since:
                 continue
             if not (0 < intended <= completed < 2**63 - 1 and intended < deadline < 2**63 - 1):
                 unavailable.append(row)
@@ -103,10 +106,19 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, req
     def reset_frames():
         shell('dumpsys', 'gfxinfo', package, 'reset')
 
-    def frames(name, allow_empty=False):
-        output = shell('dumpsys', 'gfxinfo', package, 'framestats')
-        (evidence / f'{name}-framestats.txt').write_text(output)
-        return frame_statistics(output, allow_empty)
+    def frames(name, allow_empty=False, verify_complete=False):
+        for attempt in range(1, 6 if verify_complete else 2):
+            output = shell('dumpsys', 'gfxinfo', package, 'framestats')
+            (evidence / f'{name}-framestats.txt').write_text(output)
+            sample, invalid, unretained = frame_statistics(output, allow_empty)
+            if not (invalid or unretained) or not verify_complete:
+                return sample, invalid, unretained
+            # The currently submitted frame can temporarily contain completion
+            # fields from the previous ring entry. Preserve the raw snapshot and
+            # sample after the renderer has time to complete it, without resetting.
+            (evidence / f'{name}-unsettled-framestats-{attempt}.txt').write_text(output)
+            time.sleep(.15)
+        return sample, invalid, unretained
 
     def view(name, until, seconds=45):
         deadline = time.monotonic() + seconds
@@ -226,8 +238,10 @@ file_write_period_ms: 5000
         (evidence / 'mixed-media-library.png').write_bytes(adb('exec-out', 'screencap', '-p'))
         other_sample('mixed-media')
         reaction_frames = re.compile(r'reaction-frame (\d+) (\d+) (\d+) (\d+)')
+        feedback_frames = re.compile(r'reaction-feedback-frame (\d+) (\d+) (\d+) (\d+) (saving|selected)')
         geometry = re.compile(r'anchor-frame (\d+) (\d+) (-?[\d.]+) (-?[\d.]+)')
         body = re.compile(r'General • Benchmark Space 001 • record (\d+)\.')
+        durable_reactions = []
         for trial in range(expected['expectedWarmups'] + expected['expectedWarmIterations']):
             name = 'warm-up' if trial == 0 else f'warm-{trial}'
             reset_frames()
@@ -238,7 +252,7 @@ file_write_period_ms: 5000
                 reset_frames()
                 shell('input', 'swipe', 410, 620, 410, 1310, 350)
                 time.sleep(.15)
-                sample, invalid, unobserved = frames(f'{name}-swipe-{swipe}')
+                sample, invalid, unobserved = frames(f'{name}-swipe-{swipe}', verify_complete=True)
                 observed.extend(sample)
                 unavailable.extend(invalid)
                 unretained += unobserved
@@ -299,27 +313,35 @@ file_write_period_ms: 5000
             reset_frames()
             tap(reaction_button)
             choice = view(f'{name}-emoji', lambda nodes: next((n for n in nodes if label(n) == '👍'), None))
-            previous = len(reaction_frames.findall(trace_text()))
+            prior_log = trace_text()
+            previous = len(reaction_frames.findall(prior_log))
+            previous_feedback = len(feedback_frames.findall(prior_log))
             accepted_before = request('status')['acceptedReactions']
             tap(choice)
             deadline = time.monotonic() + 35
             while True:
                 log = trace_text()
                 observed_reactions = reaction_frames.findall(log)
+                observed_feedback = feedback_frames.findall(log)
                 (evidence / 'application-observations.txt').write_text(log)
-                if len(observed_reactions) == previous + 1 and request('status')['acceptedReactions'] == accepted_before + 1:
+                if (len(observed_reactions) == previous + 1 and len(observed_feedback) == previous_feedback + 1
+                        and request('status')['acceptedReactions'] == accepted_before + 1):
                     break
                 if time.monotonic() >= deadline:
-                    raise RuntimeError(f'Signed native reaction or committed UI frame was absent in {name}')
+                    raise RuntimeError(f'Signed native reaction or committed feedback and selected frames were absent in {name}')
                 time.sleep(.2)
-            _, start, handler, end = map(int, observed_reactions[-1])
-            if not start <= handler <= end:
+            sequence, start, handler, end = map(int, observed_reactions[-1])
+            feedback_sequence, feedback_input, feedback_handler, feedback_end = map(int, observed_feedback[-1][:4])
+            if (feedback_sequence, feedback_input, feedback_handler) != (sequence, start, handler) or not start <= handler <= feedback_end <= end:
                 raise RuntimeError(f'Native reaction input, handler and frame clocks are inconsistent in {name}')
             if trial:
-                feedback.append((end - start) / 1e6)
+                feedback.append((feedback_end - start) / 1e6)
+                durable_reactions.append((end - start) / 1e6)
             (evidence / f'{name}-frames.json').write_text(json.dumps({
                 'frames': observed, 'unavailable': unavailable, 'unretained': unretained,
-                'nativeInputNs': start, 'handlerNs': handler, 'frameCommitNs': end,
+                'nativeInputNs': start, 'handlerNs': handler, 'feedbackFrameCommitNs': feedback_end, 'frameCommitNs': end,
+                'feedbackState': observed_feedback[-1][4],
+                'reactionToFeedbackFrameMs': (feedback_end - start) / 1e6,
                 'reactionToCommittedFrameMs': (end - start) / 1e6,
             }, indent=2))
             other_sample(f'{name}-reaction')
@@ -374,7 +396,8 @@ file_write_period_ms: 5000
         missed = sum(frame['missedBudget'] for frame in frame_measurements) / len(frame_measurements)
         taps = percentile(feedback, thresholds['reportPercentiles'])
         result = {
-            'reactionCommittedFrameMs': taps,
+            'reactionFeedbackFrameMs': taps,
+            'reactionCommittedFrameMs': percentile(durable_reactions, thresholds['reportPercentiles']),
             'warmFrameDurationMs': percentile(durations, thresholds['reportPercentiles']),
             'actualBudgetMs': percentile([frame['budgetMs'] for frame in frame_measurements], thresholds['reportPercentiles']),
             'coldFrameDurationMs': percentile([frame['durationMs'] for frame in cold], thresholds['reportPercentiles']),

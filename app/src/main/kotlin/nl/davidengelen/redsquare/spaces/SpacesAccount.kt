@@ -1117,11 +1117,15 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             publish(); wake.trySend(Unit)
         }
     }
-    fun toggleReaction(target: Target, message: SpaceClient.Message, emoji: String, onSaved: (() -> Unit)? = null) {
-        if (closed.get() || navigationSaving.get() || mutable.value.target() != target) return
+    fun toggleReaction(target: Target, message: SpaceClient.Message, emoji: String, onFinished: (Boolean) -> Unit) {
+        if (closed.get() || navigationSaving.get() || mutable.value.target() != target) {
+            onFinished(false)
+            return
+        }
         if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE)
             SpacesScaleMeasurement.reactionPressed(message, emoji)
         scope.launch {
+            var saved = false
             try {
                 localAccess.withLock {
                     val current = requireNotNull(client)
@@ -1135,11 +1139,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 }
                 urgentOutbox.add(target.space)
                 wake.trySend(Unit)
-                if (onSaved != null) withContext(Dispatchers.Main.immediate) {
-                    if (mutable.value.target() == target) onSaved()
-                }
+                saved = true
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
+            finally {
+                withContext(NonCancellable + Dispatchers.Main.immediate) {
+                    onFinished(saved && mutable.value.target() == target)
+                }
+            }
         }
     }
     suspend fun loadReactionPage(target: Target, message: SpaceClient.Message, afterEmoji: String?): SpaceClient.ReactionPage = withContext(Dispatchers.IO) {

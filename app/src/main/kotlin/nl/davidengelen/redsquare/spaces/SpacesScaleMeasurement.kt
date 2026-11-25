@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
 
@@ -18,7 +19,7 @@ import java.util.concurrent.atomic.AtomicReference
 internal object SpacesScaleMeasurement {
     private data class Input(val message: String, val emoji: String, val uptimeNanos: Long)
     private data class Reaction(val sequence: Int, val message: String, val emoji: String, val selected: Boolean,
-        val input: Long, val handler: Long)
+        val input: Long, val handler: Long, val feedbackRegistered: AtomicBoolean = AtomicBoolean())
     private val sequence = AtomicInteger()
     private val input = AtomicReference<Input?>()
     private val pending = AtomicReference<Reaction?>()
@@ -51,10 +52,24 @@ internal object SpacesScaleMeasurement {
         if (message.id != event.message || !view.isHardwareAccelerated || !view.viewTreeObserver.isAlive ||
             message.reactions.any { it.emoji == event.emoji && it.selected } != event.selected) return
         if (!pending.compareAndSet(event, null)) return
+        registerFeedback(event, view, "selected")
         view.viewTreeObserver.registerFrameCommitCallback {
             val drawnAt = System.nanoTime()
             Trace.endAsyncSection("Spaces fixture reaction", event.sequence)
             Log.i(tag, "reaction-frame ${event.sequence} ${event.input} ${event.handler} $drawnAt")
+        }
+    }
+
+    fun reactionPendingDrawn(message: String, emoji: String, view: View) {
+        val event = pending.get()?.takeIf { it.message == message && it.emoji == emoji } ?: return
+        registerFeedback(event, view, "saving")
+    }
+
+    private fun registerFeedback(event: Reaction, view: View, state: String) {
+        if (!view.isShown || !view.isHardwareAccelerated || !view.viewTreeObserver.isAlive ||
+            !event.feedbackRegistered.compareAndSet(false, true)) return
+        view.viewTreeObserver.registerFrameCommitCallback {
+            Log.i(tag, "reaction-feedback-frame ${event.sequence} ${event.input} ${event.handler} ${System.nanoTime()} $state")
         }
     }
 
