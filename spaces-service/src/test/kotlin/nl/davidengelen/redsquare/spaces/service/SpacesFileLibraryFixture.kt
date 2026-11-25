@@ -217,6 +217,7 @@ internal class SpacesFileLibraryFixture(private val root: Path, private val auth
                     exchange.requestBody.use { input -> connection.outputStream.use { input.copyTo(it) } }
                 }
                 val status = connection.responseCode
+                println("OWNED_FILE_PROVIDER route=${path.substringAfterLast('/')} status=$status")
                 val body = if (status < 400) connection.inputStream else connection.errorStream
                 val responseLength = connection.getHeaderFieldLong("Content-Length", 0L)
                 connection.getHeaderField("Content-Type")?.let { exchange.responseHeaders.set("Content-Type", it) }

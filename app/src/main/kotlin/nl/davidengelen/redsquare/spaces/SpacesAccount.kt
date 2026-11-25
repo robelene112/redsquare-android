@@ -533,13 +533,16 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             val lease = current.fileStorage(target.space)
             val expired = lease != null && System.currentTimeMillis() >= lease.offer.expiresAt
             val online = mutable.value.availability == Availability.ONLINE && mutable.value.current?.joined == true
+            var probe = "authority"
             val usage = if (lease == null || expired || !online || !observeProvider) null else try {
                 val permission = current.fileStorageUsagePermission(target.space, target.channel)
                 checkRoute()
+                probe = "provider"
                 provider(lease.offer.origin).usage(lease, permission, System::currentTimeMillis)
             } catch (cancelled: CancellationException) {
                 throw cancelled
-            } catch (_: Exception) {
+            } catch (failure: Exception) {
+                trace("file-storage-probe phase=$probe result=${failure.javaClass.simpleName}")
                 null
             }
             checkRoute()

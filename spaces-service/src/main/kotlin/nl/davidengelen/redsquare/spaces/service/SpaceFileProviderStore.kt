@@ -258,12 +258,12 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
     private fun grant(envelope: String, action: SpaceFileGrant.Action): SpaceFileGrant =
         SpaceFileGrant.read(envelope, authority, wallet.publicKey).also {
             require(it.action == action)
-            it.requireCurrent(clock.millis())
+            it.requireCurrent(clock.millis(), allowClockSkew = true)
         }
 
     private fun requireActiveLease(grant: SpaceFileGrant): Lease {
         val now = clock.millis()
-        grant.requireCurrent(now)
+        grant.requireCurrent(now, allowClockSkew = true)
         return database.prepareStatement("SELECT capacity_bytes, expires_at, envelope FROM leases WHERE lease_id=? AND space_id=? AND expires_at>?").use { sql ->
             sql.setString(1, grant.lease)
             sql.setString(2, grant.space)

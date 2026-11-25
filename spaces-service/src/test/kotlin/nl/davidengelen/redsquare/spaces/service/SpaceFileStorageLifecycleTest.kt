@@ -17,6 +17,7 @@ import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import java.io.ByteArrayOutputStream
 import java.time.Clock
+import java.time.Duration
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -33,7 +34,8 @@ class SpaceFileStorageLifecycleTest {
         val initialExpiry = clock.millis() + 600_000
         SpacesServiceStore(files.newFolder().toPath(), node, clock).use { service ->
             SqliteClientFixture(files.newFile().absolutePath).use { local ->
-                val owner = SpaceClient(wallet, "https://community.example.test", node.publicKey, local, clock) { service.exchange(it.envelope()) }
+                val deviceClock = Clock.offset(clock, Duration.ofMillis(-500))
+                val owner = SpaceClient(wallet, "https://community.example.test", node.publicKey, local, deviceClock) { service.exchange(it.envelope()) }
                 val space = owner.create(SpaceProfile("Library", visibility = SpaceVisibility.PUBLIC),
                     listOf(SpaceChannelProfile("Files", SpaceChannelKind.FILE)))
                 owner.flush(space); owner.refresh(space)
@@ -62,7 +64,7 @@ class SpaceFileStorageLifecycleTest {
                     suspend fun used(): Long {
                         val grant = owner.fileStorageUsagePermission(space, channel)
                         val current = requireNotNull(owner.fileStorage(space))
-                        return SpaceStorageUsage.read(peer.usage(grant.envelope), current, grant, clock.millis()).used
+                        return SpaceStorageUsage.read(peer.usage(grant.envelope), current, grant, deviceClock.millis()).used
                     }
                     val originalLease = activate(lease(initialExpiry))
                     assertEquals(0L, used())

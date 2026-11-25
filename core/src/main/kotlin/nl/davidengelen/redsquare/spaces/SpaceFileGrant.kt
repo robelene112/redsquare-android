@@ -21,8 +21,9 @@ class SpaceFileGrant private constructor(
 ) {
     enum class Action(val wire: String) { PUT("put"), GET("get"), DELETE("delete"), STATUS("status") }
 
-    fun requireCurrent(at: Long) {
-        require(at in issuedAt until expiresAt) { "File transfer permission expired" }
+    fun requireCurrent(at: Long, allowClockSkew: Boolean = false) {
+        val earliest = if (allowClockSkew) issuedAt - CLOCK_SKEW_MILLIS else issuedAt
+        require(at in earliest until expiresAt) { "File transfer permission is outside its time window" }
     }
 
     override fun toString() = "Signed Space file transfer permission"
@@ -74,5 +75,6 @@ class SpaceFileGrant private constructor(
         }
 
         const val MAX_GRANT_MILLIS = 5 * 60_000L
+        const val CLOCK_SKEW_MILLIS = 30_000L
     }
 }

@@ -30,7 +30,7 @@ class SpaceStorageUsage private constructor(val used: Long, val capacity: Long, 
 
         fun read(envelope: String, lease: SpaceFileLease, grant: SpaceFileGrant, now: Long): SpaceStorageUsage {
             require(envelope.length <= 8192 && grant.action == SpaceFileGrant.Action.STATUS && grant.lease == lease.id)
-            grant.requireCurrent(now)
+            grant.requireCurrent(now, allowClockSkew = true)
             val offer = lease.offer
             val signed = SaitoEnvelope.decode(envelope)
             val body = signed.body
@@ -41,7 +41,8 @@ class SpaceStorageUsage private constructor(val used: Long, val capacity: Long, 
                 body.storageText("request") == "usage" && body.storageText("permission") == grant.id &&
                 body.storageText("lease") == lease.id && body.storageText("space") == offer.space &&
                 body.storageNumber("capacity") == offer.capacityBytes && body.storageNumber("expires_at") == offer.expiresAt)
-            require(signed.createdAt in grant.issuedAt until grant.expiresAt && now < offer.expiresAt)
+            require(signed.createdAt in (grant.issuedAt - SpaceFileGrant.CLOCK_SKEW_MILLIS) until grant.expiresAt &&
+                signed.createdAt <= now + SpaceFileGrant.CLOCK_SKEW_MILLIS && now < offer.expiresAt)
             return SpaceStorageUsage(body.storageNumber("used"), offer.capacityBytes, offer.expiresAt, signed.createdAt)
         }
     }

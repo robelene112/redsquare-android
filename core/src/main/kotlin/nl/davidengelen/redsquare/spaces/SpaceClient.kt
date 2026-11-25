@@ -698,7 +698,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(supportsFileStorage)
         return SpaceFileGrant.read(result.text("permission"), service, lease.offer.provider).also {
             require(it.action == action && it.space == lease.offer.space && it.lease == lease.id)
-            it.requireCurrent(clock.millis())
+            it.requireCurrent(clock.millis(), allowClockSkew = true)
         }
     }
 
