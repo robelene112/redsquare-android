@@ -43,8 +43,8 @@ The [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/4
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45677967232)
 keyboard cases both pass after the compact Chat action change. Files,
 articles and rooms also have separate complete native journeys on both
-versions. The original broad Android 17 quote observer missed a transient
-composer title while checking cold reconciliation. The original broad
+versions. The original broad Android 17 quote observer timed out waiting
+for the composer title while checking cold reconciliation. The original broad
 Android 10 wallet observer opened the legacy beta's update page while trying
 to tap Wallet. Both runs remain failed. Tighter observers preserve the
 submission/identity checks and retain the original captures.
