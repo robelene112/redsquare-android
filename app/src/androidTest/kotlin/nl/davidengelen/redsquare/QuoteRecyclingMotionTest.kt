@@ -89,15 +89,16 @@ class QuoteRecyclingMotionTest {
                             }
                             previous = null; stableSince = 0
                             if (bounds == null) { SystemClock.sleep(20); continue }
-                            val high = bounds.top + bounds.height() / 5
-                            val low = bounds.bottom - bounds.height() / 5
+                            val touchSlop = android.view.ViewConfiguration.get(context).scaledTouchSlop
+                            val margin = maxOf(2 * touchSlop, bounds.height() / 8)
+                            val high = bounds.top + margin
+                            val low = bounds.bottom - margin
                             val correction = if (target != null && top != null && requiredPostHeight > 0) when {
                                 top < bounds.top -> bounds.top - top
                                 top + requiredPostHeight > bounds.bottom -> bounds.bottom - top - requiredPostHeight
                                 else -> 0
                             } else 0
                             val startY = if (correction != 0) bounds.centerY() else if (forward) low else high
-                            val touchSlop = android.view.ViewConfiguration.get(context).scaledTouchSlop
                             val fittedDrag = correction + if (correction > 0) touchSlop + 1 else -touchSlop - 1
                             val endY = if (correction != 0) (startY + fittedDrag).coerceIn(high, low)
                                 else if (forward) high else low

@@ -2483,6 +2483,11 @@ verify_quotes() {
     verify_group_chat_native QuoteRecyclingMotionTest 180 quote-recycling-motion quote-motion-evidence
     python3 "$repo_dir/scripts/post-process-check" --quote --evidence "$evidence/quote-process"
 }
+if [[ "${TEST_SCOPE:-full}" == quote-process* ]]; then
+    python3 "$repo_dir/scripts/post-process-check" --quote --evidence "$evidence/quote-process"
+    printf '%s\n' 'Focused quote reconciliation across two genuine Android processes.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == quotes* ]]; then
     verify_quotes
     printf '%s\n' 'Focused quote check only; full acceptance not run.' > "$evidence/scope.txt"
