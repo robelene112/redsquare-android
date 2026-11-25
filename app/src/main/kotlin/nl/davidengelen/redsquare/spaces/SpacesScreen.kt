@@ -83,7 +83,7 @@ import java.util.concurrent.atomic.AtomicReference
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
-    chrome: @Composable (Boolean, SpacesAccount.Target?) -> Unit, onProfile: (String) -> Unit, onMessage: (String) -> Unit,
+    chrome: @Composable (Boolean, SpacesAccount.Target?, Boolean) -> Unit, onProfile: (String) -> Unit, onMessage: (String) -> Unit,
     onOpenNode: (String, String) -> Unit, initialInvitation: String? = null, onInvitationConsumed: () -> Unit = {}) {
     val sharedState by account.state.collectAsState()
     val communities = remember(sharedState.communities) { sharedState.communities.filter { it.protectedChat == null } }
@@ -283,7 +283,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             val compactTyping = state.selected != null && keyboardInLayout && height < 290.dp
             val visibleRoom = if (!channelAccessOpen && !membersOpen && !state.loadingChannel && selected != null &&
                 channel?.profile?.kind == SpaceChannelKind.VOICE) SpacesAccount.Target(selected.id, channel.id) else null
-            chrome(keyboardInLayout, visibleRoom)
+            val compactRoom = visibleRoom != null && shortWindow
+            chrome(keyboardInLayout, visibleRoom, compactRoom)
             if (channelAccessOpen && selected != null) Box(Modifier.weight(1f)) {
                 SpaceChannelAccessPage(account, state) { channelAccessRoute = null; informationOpen = true }
             }
@@ -303,8 +304,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(12.dp), verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                             Column(Modifier.weight(1f)) {
-                                Text(selected?.name ?: profile?.name.orEmpty(), style = MaterialTheme.typography.labelSmall, maxLines = if (compactReading) 1 else 2,
-                                    overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                if (!compactRoom) Text(selected?.name ?: profile?.name.orEmpty(), style = MaterialTheme.typography.labelSmall,
+                                    maxLines = if (compactReading) 1 else 2, overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 Text(title, style = MaterialTheme.typography.titleMedium, maxLines = if (compactReading) 1 else 2, overflow = TextOverflow.Ellipsis)
                             }
                             Icon(painterResource(R.drawable.ic_chevron_down), null, Modifier.size(20.dp))
@@ -612,7 +613,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     }
                 }
             }
-            if (!keyboardInLayout) SpacesBottomBar(tab) { selectTab(it) }
+            if (!keyboardInLayout && !compactRoom) SpacesBottomBar(tab) { selectTab(it) }
         }
     }
     val openingArticle = publicReference?.let { SpacesLaunchRoutes.isArticle(android.net.Uri.parse(it)) } == true

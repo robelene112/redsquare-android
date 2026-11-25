@@ -146,7 +146,8 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
         })
 }
 
-@Composable internal fun TalkActiveBar(owner: String?, backend: SaitoBackend?, roomInView: Boolean = false, onOpen: () -> Unit) {
+@Composable internal fun TalkActiveBar(owner: String?, backend: SaitoBackend?, roomInView: Boolean = false,
+    compactKeyboard: Boolean = false, onOpen: () -> Unit) {
     val live by TalkRuntime.call.collectAsState()
     val call = live?.takeIf { it.owner == owner && it.savedBackend == backend }
     AnimatedVisibility(visible = call?.phase?.started == true && !(roomInView && call.spaceRoom != null),
@@ -158,7 +159,10 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
             TextButton(onClick = onOpen, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) {
                 Icon(painterResource(R.drawable.ic_phone), null, Modifier.size(20.dp))
                 Spacer(Modifier.width(8.dp))
-                Text(call.spaceRoom?.let { stringResource(R.string.spaces_room_return, it.name) } ?: stringResource(R.string.talk_return),
+                Text(call.spaceRoom?.let {
+                    if (compactKeyboard) stringResource(R.string.spaces_room_return_compact)
+                    else stringResource(R.string.spaces_room_return, it.name)
+                } ?: stringResource(R.string.talk_return),
                     maxLines = 2, overflow = TextOverflow.Ellipsis)
             }
             if (call.spaceRoom != null) {

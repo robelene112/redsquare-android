@@ -679,7 +679,7 @@ class MainActivity : ComponentActivity() {
                     fun closeWallet() {
                         walletExport.cancel(); walletImport.cancel(); walletOpen = false
                     }
-                    val renderAppHeader: @Composable (Boolean) -> Unit = { hideForKeyboard ->
+                    val renderAppHeader: @Composable (Boolean, Boolean) -> Unit = { hideForKeyboard, compactRoom ->
                         val navigationEnabled = !postNavigation.transitioning && !savingBackend &&
                             !walletImport.busy && !walletExport.busy
                         if (!hideForKeyboard && !keyboardVisible) AppHeader(visibleBackend?.domain, address, module,
@@ -701,26 +701,27 @@ class MainActivity : ComponentActivity() {
                                 if (walletOpen) closeWallet()
                                 settingsOpen = false; settingsCategory = null
                             } },
-                            onConnectionDetails = { connectionDetailsOpen = true }, blocks = nodeBlock,
+                            onConnectionDetails = { connectionDetailsOpen = true }, blocks = nodeBlock, showNodeStatus = !compactRoom,
                             registryAuthority = visibleBackend?.let { RegistryAuthority.fromIntent(intent, FeedEndpoints.fromIntent(intent, it)) }
                                 ?: nl.davidengelen.redsquare.saito.SaitoRegistry.REGISTRAR)
                         nl.davidengelen.redsquare.ui.InlineStatus(
                             if (moduleSwitchFailed) stringResource(R.string.navigation_save_failed) else null,
                             nl.davidengelen.redsquare.ui.StatusTone.ERROR)
                     }
-                    val appHeader: @Composable () -> Unit = { renderAppHeader(false) }
-                    val renderChrome: @Composable (Boolean, Boolean, nl.davidengelen.redsquare.spaces.SpacesAccount.Target?) -> Unit = { isHome, hideForKeyboard, roomInView ->
-                        renderAppHeader(hideForKeyboard)
+                    val appHeader: @Composable () -> Unit = { renderAppHeader(false, false) }
+                    val renderChrome: @Composable (Boolean, Boolean, nl.davidengelen.redsquare.spaces.SpacesAccount.Target?, Boolean) -> Unit = { isHome, hideForKeyboard, roomInView, compactRoom ->
+                        renderAppHeader(hideForKeyboard, compactRoom)
                         val active by TalkRuntime.call.collectAsState()
                         val room = active?.spaceRoom
                         val showingActiveRoom = roomInView != null && room != null && room.space == roomInView.space && room.channel == roomInView.channel
-                        if ((module != AppModule.TALK || room != null) && !(room != null && hideForKeyboard))
-                            TalkActiveBar(address, backend, roomInView = showingActiveRoom) {
+                        if (module != AppModule.TALK || room != null)
+                            TalkActiveBar(address, backend, roomInView = showingActiveRoom,
+                                compactKeyboard = keyboardVisible || hideForKeyboard) {
                                 if (room == null) selectModule(AppModule.TALK) { talkDraft = null }
                                 else selectModule(AppModule.SPACES) { spacesAccount?.select(room.space, room.channel) }
                             }
                         InlineStatus(if (talkReturnExpired) stringResource(R.string.talk_return_expired) else null, StatusTone.INFO)
-                        nl.davidengelen.redsquare.ui.BetaUpdateNotice(updateAvailable && !keyboardVisible && !hideForKeyboard) {
+                        nl.davidengelen.redsquare.ui.BetaUpdateNotice(updateAvailable && !keyboardVisible && !hideForKeyboard && !compactRoom) {
                             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PreviewUpdates.REVIEW_PAGE)))
                         }
                         if (publishingAgreement.savedNotice) Text(stringResource(R.string.publishing_saved),
@@ -737,7 +738,7 @@ class MainActivity : ComponentActivity() {
                             Button(onClick = { failed = false; retry++ }) { Text(stringResource(R.string.retry)) }
                         }
                     }
-                    val chrome: @Composable (Boolean) -> Unit = { isHome -> renderChrome(isHome, false, null) }
+                    val chrome: @Composable (Boolean) -> Unit = { isHome -> renderChrome(isHome, false, null, false) }
                     Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(vertical = 4.dp)) {
                         if (usernameOpen && wallet != null && backend != null) {
                             chrome(false)
@@ -828,7 +829,7 @@ class MainActivity : ComponentActivity() {
                                                                 RegistryAuthority.directoryPeer(intent, endpoint).takeIf { nameDirectoryEnabled == true }) {
                                                                 spacesScreenStates.SaveableStateProvider("${currentWallet.publicKey}:${selected.id}") {
                                                                     nl.davidengelen.redsquare.spaces.SpacesScreen(account, Modifier.fillMaxSize(),
-                                                                        chrome = { keyboardInLayout, room -> renderChrome(false, keyboardInLayout, room) },
+                                                                        chrome = { keyboardInLayout, room, compactRoom -> renderChrome(false, keyboardInLayout, room, compactRoom) },
                                                                         onProfile = { openSpaceMember(it, false) }, onMessage = { openSpaceMember(it, true) },
                                                                         onOpenNode = ::openSpaceNode, initialInvitation = pendingSpaceInvitation,
                                                                         onInvitationConsumed = { pendingSpaceInvitation = null })

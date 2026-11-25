@@ -5,6 +5,7 @@
     <string name="spaces_room_joined">You’re in the room</string>
     <string name="spaces_room_leave">Leave room</string>
     <string name="spaces_room_return">Return to %1$s</string>
+    <string name="spaces_room_return_compact">Call</string>
     <string name="spaces_room_browse">Browse while in the room</string>
     <string name="spaces_room_loading">Checking who’s here…</string>
     <string name="spaces_room_full">This room is full.</string>
@@ -18,6 +19,10 @@
     <string name="spaces_room_unsupported">This node doesn’t support Spaces rooms.</string>
     <string name="spaces_room_capture_off">Your microphone and camera start off.</string>
     <string name="spaces_room_speaking_paused">Your microphone is paused by a moderator.</string>
+    <string name="spaces_room_pause_speaking">Pause speaking</string>
+    <string name="spaces_room_pause_description">How long should %1$s be muted in this room?</string>
+    <string name="spaces_room_pause_five">5 minutes</string>
+    <string name="spaces_room_pause_hour">1 hour</string>
     <string name="spaces_room_notification_permission">Allow call notifications to join the room.</string>
     <string name="spaces_room_permission_denied">Permission wasn’t granted.</string>
     <string name="spaces_room_moderate">Room actions for %1$s</string>

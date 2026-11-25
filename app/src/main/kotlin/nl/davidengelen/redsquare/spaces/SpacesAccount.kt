@@ -689,6 +689,18 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         current.moderateVoiceRoom(target.space, target.channel, session, remove).also { requireRoomTarget(target) }
     }
 
+    suspend fun pauseSpeaking(target: Target, member: String, durationMillis: Long): SpaceVoiceRoom = withContext(Dispatchers.IO) {
+        requireRoomTarget(target)
+        val current = requireNotNull(client)
+        network.withLock {
+            val expiry = Math.addExact(System.currentTimeMillis(), durationMillis)
+            current.setWriteRestriction(target.space, member, target.channel, expiry)
+            current.flush(target.space)
+            require(current.scopedWriteRestriction(target.space, member, target.channel) == expiry)
+        }
+        current.voiceRoom(target.space, target.channel).also { requireRoomTarget(target) }
+    }
+
     private fun requireRoomTarget(target: Target) {
         val current = mutable.value
         require(!closed.get() && current.target() == target && target.thread == null &&

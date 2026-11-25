@@ -74,6 +74,9 @@ internal object SpaceRoomCallRuntime {
         @Volatile private var receivedThrough = 0L
         private var observer: Closeable? = null
         private val peers = ConcurrentHashMap<String, RtcLease>()
+        private val remoteCapture = ConcurrentHashMap<String, SpaceVoiceSignalKey.CaptureState>()
+        private val pendingCapture = ConcurrentHashMap<String, SpaceVoiceSignalKey.Packet>()
+        private var localCapture = SpaceVoiceSignalKey.CaptureState(1, microphone = false, camera = false)
 
         fun reserve(): Boolean {
             val link = TalkLink(backend, TalkRoom(keys.contact.key, owner))
@@ -158,6 +161,8 @@ internal object SpaceRoomCallRuntime {
                 try {
                     val next = withTimeout(3_500) { authority.renew(token, receivedThrough) }
                     if (!next.admitted) { end(CallPhase.INTERRUPTED); return }
+                    presence = Presence(next, at)
+                    if (currentParticipant(token)?.canSpeak != true && wantMicrophone.getAndSet(false)) capture?.silenceAudio()
                     post { applyPresence(next, at) }
                 } catch (denied: SpaceClient.ReadDenied) {
                     end(CallPhase.INTERRUPTED)
@@ -175,6 +180,7 @@ internal object SpaceRoomCallRuntime {
                     try {
                         guardPeer(packet.to)
                         withTimeout(2_500) { authority.signal(token, packet) }
+                        pendingCapture.remove(packet.to, packet)
                         break
                     } catch (_: SpaceClient.ReadDenied) { break }
                     catch (_: TimeoutCancellationException) { currentCoroutineContext().ensureActive() }
@@ -202,69 +208,111 @@ internal object SpaceRoomCallRuntime {
 
         private suspend fun applyPresence(room: SpaceVoiceRoom, requestedAt: Long) {
             requireAccount()
-            if (requestedAt < (presence?.requestedAt ?: 0)) return
-            presence = Presence(room, requestedAt)
+            if (requestedAt != presence?.requestedAt) return
             val own = currentParticipant(token) ?: error("Room lease expired")
             if (!own.canSpeak && wantMicrophone.getAndSet(false)) capture?.silenceAudio()
             val remote = room.participants.filter { it.session != token }
             peers.entries.filter { row -> remote.none { it.session == row.key } }.forEach { row ->
                 if (peers.remove(row.key, row.value)) row.value.close()
             }
+            remoteCapture.keys.removeIf { session -> remote.none { it.session == session } }
+            pendingCapture.keys.removeIf { session -> remote.none { it.session == session } }
             publish { call ->
                 call.copy(phase = CallPhase.ACTIVE, since = call.since.takeIf { it > 0 } ?: System.currentTimeMillis(),
                     microphoneAllowed = own.canSpeak, participants = remote.map { participant ->
-                        val previous = call.participants.firstOrNull { it.key == participant.wallet }?.takeIf { peers.containsKey(participant.session) }
-                        previous?.copy(microphone = previous.audio != null && participant.canSpeak, roomMaySpeak = participant.canSpeak)
+                        val previous = call.participants.firstOrNull { it.roomSession == participant.session }?.takeIf { peers.containsKey(participant.session) }
+                        val media = remoteCapture[participant.session]
+                        previous?.copy(microphone = media?.microphone == true && previous.audio != null && participant.canSpeak,
+                            camera = media?.camera == true && previous.video != null, roomMaySpeak = participant.canSpeak)
                             ?: CallParticipant(participant.wallet, microphone = false, camera = false,
                                 roomSession = participant.session, roomMaySpeak = participant.canSpeak)
                     })
             }
             remote.forEach { participant ->
-                if (peers[participant.session] == null) attach(participant)
-                else peers[participant.session]?.refreshPlayback()
+                if (peers[participant.session] == null) {
+                    try { attach(participant) }
+                    catch (failure: Exception) {
+                        peers.remove(participant.session)?.close()
+                        TalkRuntime.record("space-room-peer", failure)
+                    }
+                }
+                else {
+                    peers[participant.session]?.refreshPlayback()
+                    pendingCapture[participant.session]?.let { outgoing.trySend(it) }
+                }
             }
             room.signals.filter { it.sequence > receivedThrough }.forEach { delivery ->
                 val sender = remote.firstOrNull { it.session == delivery.packet.from }
                 val lease = sender?.let { peers[it.session] }
                 if (sender != null && lease != null) {
                     val signed = runCatching { keys.open(sender.contact, delivery.packet) }.getOrNull()
-                    if (signed != null) lease.receive(signed.body.get("request").asString, signed.body, signed.id)
+                    if (signed != null) {
+                        val media = SpaceVoiceSignalKey.captureState(signed)
+                        if (media != null) receiveCapture(sender.session, lease, media)
+                        else if (!lease.enqueueSignal(signed.body.get("request").asString, signed.body, signed.id)) {
+                            if (peers.remove(sender.session, lease)) lease.close()
+                        }
+                    }
                 }
                 receivedThrough = delivery.sequence
             }
             applyCapture()
         }
 
-        private suspend fun attach(participant: SpaceVoiceRoom.Participant) {
+        private fun attach(participant: SpaceVoiceRoom.Participant) {
             val id = participant.session
             guardPeer(id)
             val contact = participant.contact
+            val reference = AtomicReference<RtcLease>()
+            fun current() = reference.get()?.let { peers[id] === it } == true && currentParticipant(id) != null
             val lease = SharedRtcPeers.acquire(context, keys.rtcWallet, token, contact.key, backend.peerUrl,
                 authority.traversalAvailable, RtcCallbacks(
                     validate = { guardPeer(id) },
                     signal = { original -> check(outgoing.trySend(keys.seal(contact, original.envelope())).isSuccess) },
-                    opened = { post { updateParticipant(participant.wallet) { it.copy(connected = true) } } },
+                    opened = { post { if (current()) updateParticipant(id) { it.copy(connected = true) } } },
                     failed = { post {
-                        peers.remove(id)?.close()
-                        updateParticipant(participant.wallet) { it.copy(connected = false, video = null, audio = null, camera = false) }
+                        reference.get()?.let { previous ->
+                            if (peers.remove(id, previous)) {
+                                previous.close()
+                                updateParticipant(id) { it.copy(connected = false, video = null, audio = null, camera = false, microphone = false) }
+                            }
+                        }
                     } },
                     track = { track -> post {
-                        guardPeer(id)
-                        updateParticipant(participant.wallet) { item -> when (track) {
-                            is VideoTrack -> item.copy(video = track, camera = true)
-                            is AudioTrack -> item.copy(audio = track, microphone = item.roomMaySpeak)
+                        if (!current()) return@post
+                        val media = remoteCapture[id]
+                        updateParticipant(id) { item -> when (track) {
+                            is VideoTrack -> item.copy(video = track, camera = media?.camera == true)
+                            is AudioTrack -> item.copy(audio = track, microphone = item.roomMaySpeak && media?.microphone == true)
                             else -> item
                         } }
                     } },
                     media = true, scopedSignals = true,
-                    remoteAudioAllowed = { currentParticipant(id)?.canSpeak == true },
+                    remoteAudioAllowed = { currentParticipant(id)?.canSpeak == true && remoteCapture[id]?.microphone == true },
+                    remoteVideoAllowed = { currentParticipant(id) != null && remoteCapture[id]?.camera == true },
                 ))
+            reference.set(lease)
             peers[id] = lease
             if (stopped.get()) {
                 if (peers.remove(id, lease)) lease.close()
                 return
             }
-            lease.offer()
+            if (!lease.enqueueOffer() && peers.remove(id, lease)) lease.close()
+            sendCapture(contact)
+        }
+
+        private fun receiveCapture(session: String, lease: RtcLease, media: SpaceVoiceSignalKey.CaptureState) {
+            if (currentParticipant(session) == null || peers[session] !== lease || media.sequence <= (remoteCapture[session]?.sequence ?: 0)) return
+            remoteCapture[session] = media
+            lease.refreshPlayback()
+            updateParticipant(session) { it.copy(microphone = it.roomMaySpeak && media.microphone && it.audio != null,
+                camera = media.camera && it.video != null) }
+        }
+
+        private fun sendCapture(contact: SpaceVoiceSignalKey.Contact) {
+            val packet = keys.sealCapture(contact, localCapture, System.currentTimeMillis())
+            pendingCapture[contact.session] = packet
+            outgoing.trySend(packet)
         }
 
         fun controls(microphone: Boolean?, camera: Boolean?) {
@@ -294,6 +342,7 @@ internal object SpaceRoomCallRuntime {
                 if (needsAudio || needsVideo) TalkService.allowRoomCapture(token, needsAudio, needsVideo)
                 if (capture == null && (wantMicrophone.get() || wantCamera.get())) {
                     capture = TalkCapture(context, false, false, authorize = {
+                        requireAccount()
                         check(!stopped.get() && currentParticipant(token) != null)
                     }, microphoneAllowed = { wantMicrophone.get() && currentParticipant(token)?.canSpeak == true },
                         cameraAllowed = { wantCamera.get() && TalkRuntime.visible }, token = token, eagerAudio = false)
@@ -307,16 +356,22 @@ internal object SpaceRoomCallRuntime {
                 TalkRuntime.record("space-room-capture", failure)
             }
             val source = capture
+            val microphone = wantMicrophone.get() && source?.audio != null
+            val camera = wantCamera.get() && source?.video != null
             peers.values.forEach { lease ->
-                lease.media(source?.audio?.takeIf { wantMicrophone.get() }, source?.video?.takeIf { wantCamera.get() }, token)
+                lease.media(source?.audio?.takeIf { microphone }, source?.video?.takeIf { camera }, token)
             }
-            publish { call -> call.copy(microphone = wantMicrophone.get() && source?.audio != null,
-                camera = wantCamera.get() && source?.video != null, localVideo = source?.video?.takeIf { wantCamera.get() },
+            if (localCapture.microphone != microphone || localCapture.camera != camera) {
+                localCapture = SpaceVoiceSignalKey.CaptureState(localCapture.sequence + 1, microphone, camera)
+                presence?.room?.participants?.filter { peers.containsKey(it.session) }?.forEach { sendCapture(it.contact) }
+            }
+            publish { call -> call.copy(microphone = microphone,
+                camera = camera, localVideo = source?.video?.takeIf { camera },
                 microphoneAllowed = canSpeak, canSwitchCamera = source?.canSwitch == true) }
         }
 
-        private fun updateParticipant(wallet: String, change: (CallParticipant) -> CallParticipant) = publish { call ->
-            call.copy(participants = call.participants.map { if (it.key == wallet) change(it) else it })
+        private fun updateParticipant(session: String, change: (CallParticipant) -> CallParticipant) = publish { call ->
+            call.copy(participants = call.participants.map { if (it.roomSession == session) change(it) else it })
         }
 
         private fun publish(change: (TalkCall) -> TalkCall) = TalkRuntime.call.update { call ->

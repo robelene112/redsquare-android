@@ -568,6 +568,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         original.id
     }
 
+    fun scopedWriteRestriction(space: String, member: String, channel: String): Long? = store.transaction {
+        owned()
+        journal(space).snapshot.writeRestrictions[member to channel]?.expiresAt
+    }
+
     /** The owner explicitly approves the exact provider-signed terms. */
     fun approveFileStorage(space: String, reviewed: SpaceStorageOffer): String = store.transaction {
         owned()

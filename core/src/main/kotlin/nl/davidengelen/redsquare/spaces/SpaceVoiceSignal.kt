@@ -1,9 +1,10 @@
 package nl.davidengelen.redsquare.spaces
 
 import com.google.gson.JsonObject
+import nl.davidengelen.redsquare.saito.SaitoEnvelope
+import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SignedSaitoMessage
-import nl.davidengelen.redsquare.saito.Stun
 import org.bouncycastle.crypto.digests.SHA256Digest
 import org.bouncycastle.crypto.generators.HKDFBytesGenerator
 import org.bouncycastle.crypto.params.HKDFParameters
@@ -74,12 +75,26 @@ class SpaceVoiceSignalKey private constructor(
         }
     }
 
+    data class CaptureState(val sequence: Long, val microphone: Boolean, val camera: Boolean) {
+        init { require(sequence > 0) }
+    }
+
+    fun sealCapture(recipient: Contact, state: CaptureState, now: Long): Packet {
+        val transaction = SaitoTransaction.create(rtcWallet, JsonObject().apply {
+            addProperty("module", "SpacesRoomMedia")
+            addProperty("version", 1)
+            addProperty("sequence", state.sequence)
+            addProperty("microphone", state.microphone)
+            addProperty("camera", state.camera)
+        }, now, listOf(recipient.key))
+        return seal(recipient, transaction.envelope())
+    }
+
     fun seal(recipient: Contact, envelope: String): Packet {
         require(recipient.verify(address) && recipient.wallet != contact.wallet)
         val plain = envelope.toByteArray(Charsets.UTF_8)
         require(plain.size in 1..MAX_PLAIN)
-        val signed = requireNotNull(Stun.read(envelope, contact.key, recipient.key))
-        require(signed.body.get("request").asString in SIGNALS)
+        verify(envelope, contact.key, recipient.key)
         val nonce = ByteArray(12).also(SecureRandom()::nextBytes)
         val encrypted = cipher(Cipher.ENCRYPT_MODE, recipient.key, contact, recipient, nonce).doFinal(plain)
         return Packet(contact.session, recipient.session, Base64.getEncoder().encodeToString(nonce + encrypted))
@@ -92,9 +107,7 @@ class SpaceVoiceSignalKey private constructor(
         require(encoded.size in 29..MAX_PLAIN + 28)
         val nonce = encoded.copyOfRange(0, 12)
         val plain = cipher(Cipher.DECRYPT_MODE, sender.key, sender, contact, nonce).doFinal(encoded, 12, encoded.size - 12)
-        val signed = requireNotNull(Stun.read(plain.decodeToString(throwOnInvalidSequence = true), sender.key, contact.key))
-        require(signed.body.get("request").asString in SIGNALS)
-        return signed
+        return verify(plain.decodeToString(throwOnInvalidSequence = true), sender.key, contact.key)
     }
 
     private fun cipher(mode: Int, counterparty: String, sender: Contact, recipient: Contact, nonce: ByteArray): Cipher {
@@ -124,6 +137,25 @@ class SpaceVoiceSignalKey private constructor(
         private val ROOM_ID = Regex("[0-9a-f]{64}")
         private val SIGNATURE = Regex("[0-9a-f]{128}")
         private val SIGNALS = setOf("peer-joined", "peer-description", "peer-candidate")
+
+        fun captureState(message: SignedSaitoMessage): CaptureState? {
+            val body = message.body
+            if (body.get("module")?.asString != "SpacesRoomMedia") return null
+            require(body.keySet() == setOf("module", "version", "sequence", "microphone", "camera") && body.get("version").toString() == "1")
+            val sequence = body.getAsJsonPrimitive("sequence")
+            val mic = body.getAsJsonPrimitive("microphone")
+            val cam = body.getAsJsonPrimitive("camera")
+            require(sequence.isNumber && sequence.asString.matches(Regex("[1-9][0-9]{0,18}")) && mic.isBoolean && cam.isBoolean)
+            return CaptureState(sequence.asLong, mic.asBoolean, cam.asBoolean)
+        }
+
+        private fun verify(envelope: String, from: String, to: String): SignedSaitoMessage {
+            val signed = SaitoEnvelope.decode(envelope)
+            require(signed.author == from && signed.recipients == listOf(from, to))
+            require(captureState(signed) != null || signed.body.get("module")?.asString == "Stun" &&
+                signed.body.get("request")?.asString in SIGNALS)
+            return signed
+        }
 
         fun create(address: Address, wallet: SaitoWallet, session: String = UUID.randomUUID().toString().replace("-", "")): SpaceVoiceSignalKey {
             require(SpaceVoiceRoom.validSession(session))

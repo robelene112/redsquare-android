@@ -67,6 +67,8 @@ internal fun SpaceRoomChannel(account: SpacesAccount, state: SpacesAccount.State
         while (true) {
             try {
                 room = account.observeVoiceRoom(target)
+                if (failureMessage in setOf(R.string.spaces_room_full, R.string.spaces_room_other_device,
+                        R.string.spaces_room_members_only, R.string.spaces_room_archived, R.string.spaces_room_ended)) failureMessage = 0
                 failed = false
                 unsupported = false
             } catch (cancelled: CancellationException) { throw cancelled }
@@ -96,13 +98,13 @@ internal fun SpaceRoomChannel(account: SpacesAccount, state: SpacesAccount.State
     val participantCount = participants.size + if (call?.phase == CallPhase.ACTIVE) 1 else 0
     val role = state.members.firstOrNull { it.publicKey == account.ownerKey }?.role
     var remove by remember(target) { mutableStateOf<CallParticipant?>(null) }
-    fun moderate(participant: CallParticipant, removeFromRoom: Boolean) {
-        val id = participant.roomSession ?: return
+    var pause by remember(target) { mutableStateOf<CallParticipant?>(null) }
+    fun moderate(action: suspend () -> SpaceVoiceRoom) {
         if (activity) return
         activity = true
         failureMessage = 0
         scope.launch {
-            try { room = account.moderateVoiceRoom(target, id, removeFromRoom) }
+            try { room = action() }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { failureMessage = R.string.spaces_room_moderation_unavailable }
             finally { activity = false }
@@ -149,7 +151,11 @@ internal fun SpaceRoomChannel(account: SpacesAccount, state: SpacesAccount.State
                         FrameIconButton(R.drawable.ic_more, stringResource(R.string.spaces_room_moderate, name), enabled = !activity) { open = true }
                         DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
                             if (participant.roomMaySpeak) DropdownMenuItem(text = { Text(stringResource(R.string.talk_mute)) }, onClick = {
-                                open = false; moderate(participant, false)
+                                open = false
+                                participant.roomSession?.let { id -> moderate { account.moderateVoiceRoom(target, id, false) } }
+                            })
+                            DropdownMenuItem(text = { Text(stringResource(R.string.spaces_room_pause_speaking)) }, onClick = {
+                                open = false; pause = participant
                             })
                             DropdownMenuItem(text = { Text(stringResource(R.string.spaces_room_remove)) }, onClick = {
                                 open = false; remove = participant
@@ -219,8 +225,26 @@ internal fun SpaceRoomChannel(account: SpacesAccount, state: SpacesAccount.State
         val name = registeredIdentity(participant.key).name
         AlertDialog(onDismissRequest = { remove = null }, title = { Text(stringResource(R.string.spaces_room_remove_title, name)) },
             text = { Text(stringResource(R.string.spaces_room_remove_description)) },
-            confirmButton = { TextButton(onClick = { remove = null; moderate(participant, true) }) { Text(stringResource(R.string.spaces_room_remove)) } },
+            confirmButton = { TextButton(onClick = {
+                remove = null
+                participant.roomSession?.let { id -> moderate { account.moderateVoiceRoom(target, id, true) } }
+            }) { Text(stringResource(R.string.spaces_room_remove)) } },
             dismissButton = { TextButton(onClick = { remove = null }) { Text(stringResource(android.R.string.cancel)) } })
+    }
+    pause?.let { participant ->
+        val name = registeredIdentity(participant.key).name
+        AlertDialog(onDismissRequest = { pause = null }, title = { Text(stringResource(R.string.spaces_room_pause_speaking)) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(stringResource(R.string.spaces_room_pause_description, name))
+                    TextButton(onClick = {
+                        pause = null; moderate { account.pauseSpeaking(target, participant.key, 5 * 60_000L) }
+                    }) { Text(stringResource(R.string.spaces_room_pause_five)) }
+                    TextButton(onClick = {
+                        pause = null; moderate { account.pauseSpeaking(target, participant.key, 60 * 60_000L) }
+                    }) { Text(stringResource(R.string.spaces_room_pause_hour)) }
+                }
+            }, confirmButton = { TextButton(onClick = { pause = null }) { Text(stringResource(android.R.string.cancel)) } })
     }
 }
 

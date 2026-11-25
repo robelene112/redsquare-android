@@ -91,7 +91,8 @@ internal class SpaceVoiceRooms {
             Command.OBSERVE -> {
                 status = when {
                     !canJoin(journal, record, channel, caller, device) -> Status.MEMBERS_ONLY
-                    room.sessions.size == SpaceVoiceRoom.CAPACITY && previous == null -> Status.FULL
+                    previous != null -> Status.ALREADY_JOINED
+                    room.sessions.size == SpaceVoiceRoom.CAPACITY -> Status.FULL
                     else -> Status.AVAILABLE
                 }
             }

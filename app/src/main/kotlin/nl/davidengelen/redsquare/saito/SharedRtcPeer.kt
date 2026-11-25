@@ -43,6 +43,7 @@ internal data class RtcCallbacks(
     val media: Boolean = false,
     val scopedSignals: Boolean = false,
     val remoteAudioAllowed: () -> Boolean = { true },
+    val remoteVideoAllowed: () -> Boolean = { true },
 )
 
 /** UI/media code owns its tracks; this lease owns only their attachment to this peer. */
@@ -53,6 +54,9 @@ internal class RtcLease internal constructor(internal val entry: SharedRtcPeer,
     val connected get() = active.get() && entry.connected
     suspend fun offer() = entry.offer(this)
     suspend fun receive(request: String, body: com.google.gson.JsonObject, signature: String? = null) = entry.receive(this, request, body, signature)
+    fun enqueueOffer(): Boolean = entry.enqueueOffer(this)
+    fun enqueueSignal(request: String, body: com.google.gson.JsonObject, signature: String): Boolean =
+        entry.enqueueSignal(this, request, body, signature)
     fun send(envelope: String) { check(active.get()); callbacks.validate(); entry.send(envelope) }
     fun media(audio: AudioTrack?, video: VideoTrack?, stream: String) {
         check(callbacks.media && active.get())
@@ -267,6 +271,18 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         if (signature == null || remember(signature)) receiveSignal(request, body)
     }
 
+    fun enqueueOffer(lease: RtcLease): Boolean = post {
+        if (withLease(lease) { Unit } != null) {
+            started = true
+            needsNegotiation = true
+            negotiateIfNeeded()
+        }
+    }
+
+    fun enqueueSignal(lease: RtcLease, request: String, body: com.google.gson.JsonObject, signature: String): Boolean = post {
+        if (withLease(lease) { Unit } != null && remember(signature)) receiveSignal(request, body)
+    }
+
     private suspend fun command(lease: RtcLease, operation: suspend () -> Unit) {
         val done = CompletableDeferred<Unit>()
         check(post {
@@ -302,13 +318,19 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
 
     fun refreshPlayback(lease: RtcLease) { post {
         if (authenticated) withLease(lease) {
-            remoteTracks.filterIsInstance<AudioTrack>().forEach { it.setEnabled(lease.callbacks.remoteAudioAllowed()) }
+            remoteTracks.forEach { it.setEnabled(playbackAllowed(lease, it)) }
         }
     } }
 
     private fun publishTrack(lease: RtcLease, track: MediaStreamTrack) {
-        track.setEnabled(track !is AudioTrack || lease.callbacks.remoteAudioAllowed())
+        track.setEnabled(playbackAllowed(lease, track))
         lease.callbacks.track(track)
+    }
+
+    private fun playbackAllowed(lease: RtcLease, track: MediaStreamTrack): Boolean = when (track) {
+        is AudioTrack -> lease.callbacks.remoteAudioAllowed()
+        is VideoTrack -> lease.callbacks.remoteVideoAllowed()
+        else -> true
     }
 
     fun release(lease: RtcLease) {

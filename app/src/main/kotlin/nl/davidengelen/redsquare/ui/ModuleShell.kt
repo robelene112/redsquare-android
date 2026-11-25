@@ -46,7 +46,7 @@ internal enum class AppModule(val title: Int, val icon: Int, val summary: Int) {
 @Composable
 internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletEnabled: Boolean, settingsEnabled: Boolean,
     onWallet: () -> Unit, onSettings: () -> Unit, onModule: (AppModule) -> Unit, onConnectionDetails: () -> Unit,
-    blocks: NodeBlockState? = null, registryAuthority: String = SaitoRegistry.REGISTRAR) {
+    blocks: NodeBlockState? = null, registryAuthority: String = SaitoRegistry.REGISTRAR, showNodeStatus: Boolean = true) {
     val switchLabel = stringResource(R.string.switch_app, stringResource(module.title))
     val accountLabel = stringResource(R.string.account)
     var appsOpen by remember { mutableStateOf(false) }
@@ -133,7 +133,7 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                 }
             }
         }
-        if (node != null) TextButton(onClick = onConnectionDetails,
+        if (node != null && showNodeStatus) TextButton(onClick = onConnectionDetails,
             modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
             contentPadding = PaddingValues(horizontal = 4.dp)) {
             val report = blocks?.takeIf { it.backend?.domain == node }
