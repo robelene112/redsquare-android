@@ -905,7 +905,9 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             val storage = requireNotNull(current.fileStorage)
             require(acceptedAt < storage.offer.expiresAt)
             val stage = SpaceFileStage.read(body.text("storage_stage"), serviceKey, storage.offer.provider)
-            require(stage.space == spaceId && stage.lease == storage.id && stage.stagedAt <= acceptedAt)
+            // An already staged object survives renewal at the same authorized
+            // provider. The service separately binds it to its original upload.
+            require(stage.space == spaceId && stage.stagedAt <= acceptedAt)
         } else require(!body.has("storage_stage"))
         if (body.has("thread_root_id")) require(contentKind in setOf("message-edit", "message-delete", "message-reaction", "message-pin") &&
             body.text("thread_root_id").matches(Regex("[0-9a-f]{128}")))

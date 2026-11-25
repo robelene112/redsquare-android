@@ -283,7 +283,6 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
             sql.executeQuery().use { row ->
                 if (!row.next()) null else {
                     require(row.getString(1) == grant.space && row.getString(3) == grant.sha256 && row.getLong(4) == grant.bytes)
-                    if (grant.action == SpaceFileGrant.Action.PUT) require(row.getString(2) == grant.lease)
                     row.getString(5)
                 }
             }
@@ -293,7 +292,6 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
         val lease = requireActiveLease(grant)
         require(!wasRemoved(grant)) { "The shared object was removed" }
         val existing = existingObject(grant)
-        if (existing == null) require(leaseFor(grant.space)?.id == lease.id) { "The storage term changed" }
         require(existing != null || lease.capacityBytes - lease.usedBytes >= grant.bytes) { "Space storage is full" }
         return existing
     }

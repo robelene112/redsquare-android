@@ -2152,13 +2152,15 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         return publishRoot(space, reference.encode(), channel, "article")
     }
 
-    fun publishFile(space: String, channel: String, file: SpaceFileDescriptor, stage: SpaceFileStage): String {
+    fun publishFile(space: String, channel: String, file: SpaceFileDescriptor, stage: SpaceFileStage,
+        retryRejected: Boolean = false): String {
         stage.requireObject(file.sealed)
-        return publishRoot(space, file.encode(), channel, "file", fileStage = stage)
+        return publishRoot(space, file.encode(), channel, "file", fileStage = stage, retryRejectedFile = retryRejected)
     }
 
     private fun publishRoot(space: String, text: String, channel: String?, contentKind: String,
-        reviewedDraft: SpaceArticleDraft? = null, fileStage: SpaceFileStage? = null): String = store.transaction {
+        reviewedDraft: SpaceArticleDraft? = null, fileStage: SpaceFileStage? = null,
+        retryRejectedFile: Boolean = false): String = store.transaction {
         owned()
         val state = state(space)
         require(state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control")) { "Community admission or key change is not confirmed" }
@@ -2181,11 +2183,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val control = requireNotNull(journal.snapshot.controlId)
         val fileIntent = fileStage?.let {
             val lease = requireNotNull(journal.snapshot.fileStorage)
-            require(supportsFileStorage && it.space == space && it.lease == lease.id && clock.millis() < lease.offer.expiresAt)
+            require(supportsFileStorage && it.space == space && clock.millis() < lease.offer.expiresAt)
             val verified = SpaceFileStage.read(it.envelope, service, lease.offer.provider)
             "$space/channels/${scope.channelId}/file-intents/${verified.objectId}"
         }
-        fileIntent?.let { get(it)?.let { value -> return@transaction value.toString(Charsets.UTF_8) } }
+        fileIntent?.let { get(it)?.toString(Charsets.UTF_8)?.let { original ->
+            if (!retryRejectedFile || get("$space/rejected/$original") == null) return@transaction original
+        } }
         val original = if (record.visibility == SpaceVisibility.PUBLIC) {
             require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
             event(space, "public-content") {

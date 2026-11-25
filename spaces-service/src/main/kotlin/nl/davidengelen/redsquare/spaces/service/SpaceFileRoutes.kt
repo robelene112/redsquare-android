@@ -63,7 +63,7 @@ internal class SpaceFileRoutes(private val database: Connection, private val wal
                         check(sql.executeUpdate() == 1)
                     }
                 } else {
-                    require(prior == Upload(actor, channel, prior.control, lease.id, sha256, bytes, null))
+                    require(prior == Upload(actor, channel, prior.control, prior.lease, sha256, bytes, null))
                     journal.verifyFileUpload(actor, channel, prior.control, now)
                 }
                 reply.addProperty("permission", grant(lease, objectId, sha256, bytes, SpaceFileGrant.Action.PUT, now))
@@ -118,7 +118,7 @@ internal class SpaceFileRoutes(private val database: Connection, private val wal
         val prior = requireNotNull(upload(stage.space, stage.objectId))
         require(!cancelled(stage.space, stage.objectId))
         val channel = body.fileText("channel_id")
-        require(prior == Upload(event.author, channel, prior.control, stage.lease, stage.sha256, stage.bytes, null))
+        require(prior == Upload(event.author, channel, prior.control, prior.lease, stage.sha256, stage.bytes, null))
         journal.verifyFileUpload(event.author, channel, prior.control, now)
         database.prepareStatement("UPDATE file_uploads SET accepted_id=? WHERE space_id=? AND object_id=?").use { sql ->
             sql.setString(1, event.id)

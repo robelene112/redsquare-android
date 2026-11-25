@@ -44,13 +44,17 @@ class SpaceFileStorageLifecycleTest {
                 val file = SpaceFileCipher.seal(scope, source.size.toLong(), source.inputStream(), ciphertext)
                 val storage = files.newFolder().toPath()
                 SpaceFileProviderStore(storage, provider, origin, node.publicKey, clock).use { peer ->
-                    suspend fun activate(expiry: Long): String {
-                        val offer = peer.offer(space, wallet.publicKey, file.bytes, expiry)
+                    suspend fun lease(expiry: Long): Pair<String, SpaceFileProviderStore.Lease> {
+                        val offer = peer.offer(space, wallet.publicKey, file.bytes * 2, expiry)
                         val approval = owner.approveFileStorage(space, offer)
                         owner.flush(space)
                         val receipt = requireNotNull(owner.fileStorageApproval(space, approval))
                         val lease = peer.commit(receipt)
                         assertEquals(lease.id, peer.commit(receipt).id)
+                        return receipt to lease
+                    }
+                    suspend fun activate(reviewed: Pair<String, SpaceFileProviderStore.Lease>): String {
+                        val (receipt, lease) = reviewed
                         owner.activateFileStorage(space, receipt, lease.envelope)
                         owner.flush(space)
                         return lease.id
@@ -60,7 +64,7 @@ class SpaceFileStorageLifecycleTest {
                         val current = requireNotNull(owner.fileStorage(space))
                         return SpaceStorageUsage.read(peer.usage(grant.envelope), current, grant, clock.millis()).used
                     }
-                    val originalLease = activate(initialExpiry)
+                    val originalLease = activate(lease(initialExpiry))
                     assertEquals(0L, used())
                     val upload = owner.fileUploadPermission(space, channel, file)
                     val stage = SpaceFileStage.read(peer.put(upload.envelope, ciphertext.toByteArray().inputStream()),
@@ -69,10 +73,24 @@ class SpaceFileStorageLifecycleTest {
                     owner.flush(space)
                     assertEquals(file.bytes, used())
 
+                    val renewed = lease(initialExpiry + 600_000)
+                    val heldCiphertext = ByteArrayOutputStream()
+                    val held = SpaceFileCipher.seal(scope, source.size.toLong(), source.inputStream(), heldCiphertext)
+                    val hold = owner.fileUploadPermission(space, channel, held)
+                    assertEquals(originalLease, hold.lease)
+                    val heldStage = peer.put(hold.envelope, heldCiphertext.toByteArray().inputStream())
+
                     clock.now = initialExpiry
                     assertTrue(runCatching { owner.fileDownloadPermission(space, channel, recordId) }.isFailure)
-                    assertNotEquals(originalLease, activate(initialExpiry + 600_000))
-                    assertEquals(file.bytes, used())
+                    assertNotEquals(originalLease, activate(renewed))
+                    val again = owner.fileUploadPermission(space, channel, held)
+                    assertNotEquals(hold.lease, again.lease)
+                    assertEquals(heldStage, peer.put(again.envelope, heldCiphertext.toByteArray().inputStream()))
+                    val heldProof = SpaceFileStage.read(heldStage, node.publicKey, provider.publicKey)
+                    val heldId = owner.publishFile(space, channel, SpaceFileDescriptor("held.txt", "text/plain", held), heldProof)
+                    owner.flush(space)
+                    assertNotNull(owner.message(space, heldId, channel)?.position)
+                    assertEquals(file.bytes * 2, used())
                     val download = owner.fileDownloadPermission(space, channel, recordId)
                     peer.open(download.grant.envelope).use { assertArrayEquals(ciphertext.toByteArray(), it.readBytes()) }
 
@@ -82,6 +100,10 @@ class SpaceFileStorageLifecycleTest {
                     val removal = owner.fileRemovalPermission(space, channel, recordId)
                     peer.remove(removal.envelope)
                     peer.remove(removal.envelope) // dropped response retries exact original
+                    assertEquals(file.bytes, used())
+                    owner.deleteMessage(space, requireNotNull(owner.message(space, heldId, channel)), channel)
+                    owner.flush(space)
+                    peer.remove(owner.fileRemovalPermission(space, channel, heldId).envelope)
                     assertEquals(0L, used())
                     assertTrue(runCatching { owner.fileDownloadPermission(space, channel, recordId) }.isFailure)
                     assertThrows(IllegalArgumentException::class.java) { peer.open(download.grant.envelope) }
