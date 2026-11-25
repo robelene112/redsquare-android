@@ -288,6 +288,13 @@ internal object SpaceRoomCallRuntime {
                             else -> item
                         } }
                     } },
+                    trackRemoved = { track -> post {
+                        if (current()) updateParticipant(id) { item -> when {
+                            item.video === track -> item.copy(video = null, camera = false)
+                            item.audio === track -> item.copy(audio = null, microphone = false)
+                            else -> item
+                        } }
+                    } },
                     media = true, scopedSignals = true,
                     remoteAudioAllowed = { currentParticipant(id)?.canSpeak == true && remoteCapture[id]?.microphone == true },
                     remoteVideoAllowed = { currentParticipant(id) != null && remoteCapture[id]?.camera == true },

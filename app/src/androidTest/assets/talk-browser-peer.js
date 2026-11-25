@@ -141,7 +141,11 @@ async function connectRoomPeer(peer) {
   pc.onicecandidate = event => {
     if (event.candidate) relay('peer-candidate', {iceCandidate:event.candidate.toJSON()}).catch(e => Host.failure(String(e)));
   };
-  pc.ontrack = event => { if (event.streams[0]) emit('videocall-stream', peer, event.streams[0]); };
+  const incoming = new MediaStream();
+  pc.ontrack = event => {
+    if (!incoming.getTrackById(event.track.id)) incoming.addTrack(event.track);
+    emit('videocall-stream', peer, incoming);
+  };
   if (!roomStream) roomStream = navigator.mediaDevices.getUserMedia({audio:true, video:true});
   const stream = await roomStream;
   pc.onnegotiationneeded = async () => {
@@ -208,6 +212,7 @@ setInterval(async () => {
         const video = [...reports.values()].filter(r => r.kind === 'video' && ['outbound-rtp', 'inbound-rtp'].includes(r.type))
           .map(r => ({direction:r.type, mid:r.mid, ssrc:r.ssrc, codec:reports.get(r.codecId)?.mimeType, received:r.bytesReceived,
             sent:r.bytesSent, decoded:r.framesDecoded, encoded:r.framesEncoded, width:r.frameWidth, height:r.frameHeight}));
+        Host.videoFrames(peer, video.reduce((count, report) => count + (report.decoded || 0), 0));
         Host.diagnostic(`room-video ${peer} ${JSON.stringify(video)}`);
       }
     } catch (error) { if (pc.connectionState !== 'closed') Host.failure(String(error)); }

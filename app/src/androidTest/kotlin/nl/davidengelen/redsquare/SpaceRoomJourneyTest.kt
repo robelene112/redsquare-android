@@ -241,6 +241,19 @@ class SpaceRoomJourneyTest {
                         tracks.forEach(IncomingRoomProbe::close)
                     }
                     capture("room-three-peer-media")
+                    roomClick("Camera off")
+                    waitMedia(guests, 10_000) {
+                        TalkRuntime.call.value?.localVideo == null && guests.all { it.remoteCapture[local.session]?.camera == false }
+                    }
+                    val beforeResume = guests.map { requireNotNull(it.browser.videoFrames[local.key]) }
+                    roomClick("Camera on")
+                    waitMedia(guests, 10_000) {
+                        TalkRuntime.call.value?.localVideo != null && guests.withIndex().all { (index, guest) ->
+                            guest.remoteCapture[local.session]?.camera == true &&
+                                (guest.browser.videoFrames[local.key] ?: 0L) > beforeResume[index] + 2 &&
+                                guest.browser.media[local.key]?.nonBlack?.let { it > 500 } == true
+                        }
+                    }
                     val firstGuest = guests.first()
                     val secondGuest = guests.last()
                     fun receivedFrom(guest: SpaceRoomBrowserFixture) =
@@ -309,6 +322,7 @@ class SpaceRoomJourneyTest {
                         addProperty("decodedAudioWithScreenOff", true)
                         addProperty("guestsDecodedEachOther", true)
                         addProperty("remoteCameraToggleObserved", true)
+                        addProperty("nativeCameraResumedToBothGuests", true)
                         addProperty("receiverBlockedModeratedGuest", true)
                         addProperty("remainingPeerSurvivedRemoval", true)
                         addProperty("revokedSignalDenied", true)

@@ -32,7 +32,8 @@ internal object SharedRtcPeers {
         val key = "${context.packageName}:${wallet.publicKey}:$nodeScope:$peer"
         while (true) {
             val entry = peers.computeIfAbsent(key) {
-                SharedRtcPeer(context.applicationContext, wallet, peer, traversal) { closed -> peers.remove(key, closed) }
+                SharedRtcPeer(context.applicationContext, wallet, peer, traversal,
+                    roomStream = nodeScope.takeIf { callbacks.scopedSignals && callbacks.media }) { closed -> peers.remove(key, closed) }
             }
             entry.acquire(endpoint, callbacks, additionalEndpoints)?.let { return it }
             peers.remove(key, entry)
@@ -49,6 +50,7 @@ internal data class RtcCallbacks(
     val stageData: ((String) -> Boolean)? = null,
     val otherData: (String) -> Boolean = { false },
     val track: (MediaStreamTrack) -> Unit = {},
+    val trackRemoved: (MediaStreamTrack) -> Unit = {},
     val media: Boolean = false,
     val scopedSignals: Boolean = false,
     val remoteAudioAllowed: () -> Boolean = { true },
@@ -116,7 +118,7 @@ internal object RtcPlatform {
 }
 
 internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, private val remote: String,
-    traversal: Boolean, private val removed: (SharedRtcPeer) -> Unit) {
+    traversal: Boolean, private val roomStream: String?, private val removed: (SharedRtcPeer) -> Unit) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val events = Channel<suspend () -> Unit>(128)
     private val leases = CopyOnWriteArrayList<RtcLease>()
@@ -132,6 +134,9 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
     private val seen = LinkedHashSet<String>()
     private val senders = mutableMapOf<MediaStreamTrack, RtpSender>()
     private val remoteTracks = CopyOnWriteArrayList<MediaStreamTrack>()
+    private val roomReceivers = linkedMapOf<String, MediaStreamTrack>()
+    private var roomAudio: AudioTrack? = null
+    private var roomVideo: VideoTrack? = null
     private val queuedDataBytes = java.util.concurrent.atomic.AtomicInteger()
     @Volatile private var authenticated = false
     @Volatile var connected = false
@@ -157,17 +162,35 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 if (state in setOf(PeerConnection.PeerConnectionState.FAILED, PeerConnection.PeerConnectionState.CLOSED)) post { fail() }
             }
             override fun onSignalingChange(state: PeerConnection.SignalingState) {
-                if (state == PeerConnection.SignalingState.STABLE) post { negotiateIfNeeded() }
+                if (state == PeerConnection.SignalingState.STABLE) post {
+                    if (roomStream != null) reconcileRoomReceivers()
+                    negotiateIfNeeded()
+                }
             }
             override fun onRenegotiationNeeded() { post { needsNegotiation = true; negotiateIfNeeded() } }
             override fun onTrack(transceiver: RtpTransceiver) {
-                val track = transceiver.receiver.track() ?: return
+                val receiver = transceiver.receiver
+                val track = receiver.track() ?: return
+                val id = receiver.id()
                 track.setEnabled(false)
                 post {
-                    remoteTracks.addIfAbsent(track)
-                    if (authenticated) leases.filter { it.active.get() && it.callbacks.media }.forEach { lease ->
-                        withLease(lease) { publishTrack(lease, track) }
+                    if (roomStream != null) {
+                        roomReceivers.putIfAbsent(id, track)
+                        reconcileRoomReceivers()
+                    } else {
+                        remoteTracks.addIfAbsent(track)
+                        if (authenticated) leases.filter { it.active.get() && it.callbacks.media }.forEach { lease ->
+                            withLease(lease) { publishTrack(lease, track) }
+                        }
                     }
+                }
+            }
+            override fun onRemoveTrack(receiver: RtpReceiver) {
+                if (roomStream == null) return
+                val id = receiver.id()
+                post {
+                    roomReceivers.remove(id)?.setEnabled(false)
+                    reconcileRoomReceivers()
                 }
             }
             override fun onIceConnectionChange(state: PeerConnection.IceConnectionState) {}
@@ -307,6 +330,14 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
     fun media(lease: RtcLease, audio: AudioTrack?, video: VideoTrack?, stream: String) { post {
         if (!lease.active.get()) return@post
         if (withLease(lease) { Unit } == null) return@post
+        if (roomStream != null) {
+            if (roomAudio !== audio || roomVideo !== video) {
+                roomAudio = audio
+                roomVideo = video
+                attachRoomMedia()
+            }
+            return@post
+        }
         val desired = listOfNotNull(audio, video)
         val removedTracks = senders.keys.filter { it !in desired }
         val addedTracks = desired.filter { it !in senders }
@@ -317,6 +348,49 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
             needsNegotiation = true; negotiateIfNeeded()
         }
     } }
+
+    private fun attachRoomMedia(answering: Boolean = false) {
+        val stream = requireNotNull(roomStream)
+        val seen = mutableSetOf<MediaStreamTrack.MediaType>()
+        connection.transceivers.filter { !it.isStopped }.forEach { transceiver ->
+            if (!seen.add(transceiver.mediaType)) {
+                if (answering) check(transceiver.setDirection(RtpTransceiver.RtpTransceiverDirection.INACTIVE))
+                return@forEach
+            }
+            val sender = transceiver.sender
+            if (answering) {
+                check(transceiver.setDirection(RtpTransceiver.RtpTransceiverDirection.SEND_RECV))
+                sender.setStreams(listOf(stream))
+            }
+            val track = when (transceiver.mediaType) {
+                MediaStreamTrack.MediaType.MEDIA_TYPE_AUDIO -> roomAudio
+                MediaStreamTrack.MediaType.MEDIA_TYPE_VIDEO -> roomVideo
+            }
+            check(sender.setTrack(track, false))
+        }
+    }
+
+    private fun reconcileRoomReceivers() {
+        if (!authenticated || connection.signalingState() != PeerConnection.SignalingState.STABLE) return
+        val seen = mutableSetOf<MediaStreamTrack.MediaType>()
+        val negotiated = connection.transceivers.mapNotNull { transceiver ->
+            val direction = transceiver.currentDirection
+            if (transceiver.isStopped || direction != RtpTransceiver.RtpTransceiverDirection.RECV_ONLY &&
+                direction != RtpTransceiver.RtpTransceiverDirection.SEND_RECV || !seen.add(transceiver.mediaType)) null
+            else roomReceivers[transceiver.receiver.id()]
+        }
+        val removedTracks = remoteTracks.filter { it !in negotiated }
+        removedTracks.forEach { it.setEnabled(false); remoteTracks.remove(it) }
+        leases.filter { it.active.get() && it.callbacks.media }.forEach { lease ->
+            withLease(lease) {
+                removedTracks.forEach(lease.callbacks.trackRemoved)
+                negotiated.forEach { track ->
+                    remoteTracks.addIfAbsent(track)
+                    publishTrack(lease, track)
+                }
+            }
+        }
+    }
 
     fun send(envelope: String) {
         val bytes = envelope.toByteArray(Charsets.UTF_8)
@@ -361,7 +435,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         if (lease.callbacks.media) remoteTracks.forEach { runCatching { it.setEnabled(false) } }
         leases.remove(lease)
         post {
-            if (lease.callbacks.media) {
+            if (lease.callbacks.media && roomStream == null) {
                 senders.values.forEach { connection.removeTrack(it) }; senders.clear()
                 needsNegotiation = true
             }
@@ -386,9 +460,11 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 authenticated = true // Callers admit only the exact counterparty's signed Stun description.
                 pendingCandidates.forEach { connection.addIceCandidate(it) }; pendingCandidates.clear()
                 if (type == "offer") {
+                    if (roomStream != null) attachRoomMedia(answering = true)
                     val answer = createDescription(answer = true)
                     setDescription(answer, true); sendDescription(answer)
                 }
+                if (roomStream != null) reconcileRoomReceivers()
                 publishOpen()
             }
             "peer-candidate" -> {
@@ -416,6 +492,12 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         if (wallet.publicKey > remote && connection.remoteDescription == null) return
         needsNegotiation = false; makingOffer = true
         try {
+            if (roomStream != null && connection.localDescription == null && connection.remoteDescription == null) {
+                val init = RtpTransceiver.RtpTransceiverInit(RtpTransceiver.RtpTransceiverDirection.SEND_RECV, listOf(roomStream))
+                checkNotNull(connection.addTransceiver(MediaStreamTrack.MediaType.MEDIA_TYPE_AUDIO, init))
+                checkNotNull(connection.addTransceiver(MediaStreamTrack.MediaType.MEDIA_TYPE_VIDEO, init))
+                attachRoomMedia()
+            }
             val description = createDescription()
             setDescription(description, true); sendDescription(description)
         } finally { makingOffer = false }
