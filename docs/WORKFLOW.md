@@ -40,7 +40,15 @@ another complete projection immediately before selecting the exact route.
 The route now projects only its authorized channel. Background synchronization
 uses the stored community IDs and projects the full list when it is needed.
 [The third full run](https://github.com/robelene112/redsquare-android/actions/runs/45687551951)
-retains the same fixture and deadlines. A separate one-core JVM probe on a
+opened the actual latest signed record, number 10,000, in both cold processes.
+The second exact route projection took 1.220s on Android. The run still failed
+before measuring scroll. Its Python observer treated the real visible XML leaf
+as false because it had no child nodes. The observer now distinguishes a found
+element from an absent result. Reaction taps also update the one affected row
+from the durable transaction rather than rebuilding the timeline.
+[The fourth full run](https://github.com/robelene112/redsquare-android/actions/runs/45694129054)
+keeps the same fixture, measurement schedule and thresholds.
+A separate one-core JVM probe on a
 disposable copy of the full fixture read the 100 registered IDs in 113ms.
 The selected-channel projection took 1.042s and the full projection took
 5.715s, with the same 50 rendered records returned by each. These local
@@ -76,10 +84,20 @@ now require that exact visible privacy status on the legacy route.
 The first crossed landscape room check on Android 10 reached Red Square with
 an active call. The wallet reminder and app header left the floating New post
 control clipped below its full target. Short windows now dock the existing
-action in the navigation row. The equivalent Android 17 journey stopped at
-the system notification consent dialog, before opening the editor. The scoped
-rerun pregrants that permission on its disposable emulator, preserves the live
-room session, and checks the actual editor and keyboard bounds.
+action in the navigation row. After the button became reachable, both Android
+versions showed the new post screen with no room for its editor. Compact
+writing now gives that space to the editor and keeps one row of actions.
+The next [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45692971966)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45692969315)
+journeys check the live room, keyboard and exact retained attachment.
+
+All eight [Android 10 native viewports](https://github.com/robelene112/redsquare-android/actions/runs/45689003144)
+pass, including protected wallet recovery from a backup without message keys
+in the 600dp landscape case. The real pre-confirmation screenshot shows the
+missing-keys notice and disabled restore action. The eight viewport movies and
+the separate recovery movie decoded with ordered native presentation timestamps.
+The fixed display rotation rerun is
+[Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45691984919).
 
 Signed upgrades from 139 and 142 and the ordinary clean install still
 require the exact release APK. The established 139 and 142 public downloads
