@@ -74,9 +74,10 @@ class SpacesCatchUpJourneyTest {
                 waitText("Search saved history")
                 field.assertTextContains("Needle")
                 click("Back to community information")
-                waitText("Community information")
+                val informationTitle = hasText("Community information") and !hasClickAction()
+                ui.waitUntil(12_000) { ui.onNode(informationTitle).isDisplayed() }
                 device.pressBack()
-                ui.waitUntil(12_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
+                ui.waitUntil(12_000) { ui.onAllNodes(informationTitle).fetchSemanticsNodes().isEmpty() }
                 click("Back to your communities")
                 click("Activity")
                 assertEquals(2, request("initial").get("delivered").asInt)
