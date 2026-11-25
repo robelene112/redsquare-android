@@ -1050,8 +1050,13 @@ try:
         host.wait(timeout=15)
         if host.returncode:
             raise RuntimeError('Owned room host did not finish cleanly')
-        (evidence / 'room-journey-outcome.json').write_text(json.dumps({'lifecycle': result, 'media': media_result,
-            'camera': camera, 'cameraStoppedInOldProcess': revoked_in_process, 'recovery': recovery}, indent=2))
+        (evidence / 'journey-outcome.json').write_text(json.dumps({
+            'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
+            'lifecycle': result, 'media': media_result, 'chromiumPids': [int(pid) for pid in browser_pids],
+            'camera': camera, 'cameraStoppedInOldProcess': revoked_in_process, 'recovery': recovery,
+            'nativeTerminalPasses': 3, 'deliberatelyInterruptedCases': 1, 'compactViewport': compact_room,
+            'productionNodeActivated': False, 'ordinaryBetaChanged': False,
+        }, indent=2))
     elif file_mode:
         reset_disposable_baseline()
         article_agreement_owned = True
