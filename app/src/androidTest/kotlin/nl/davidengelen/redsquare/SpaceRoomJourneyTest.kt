@@ -30,8 +30,10 @@ import nl.davidengelen.redsquare.talk.TalkRuntime
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
+import org.webrtc.AudioTrack
 import org.webrtc.AudioTrackSink
 import org.webrtc.VideoSink
+import org.webrtc.VideoTrack
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
@@ -166,12 +168,14 @@ class SpaceRoomJourneyTest {
             }
         }
         val guests = mutableListOf<SpaceRoomBrowserFixture>()
+        var receiveEvidence: List<String> = emptyList()
         var primary: Throwable? = null
         try {
             launch(fixture).use {
                 withFailureCapture({
                     File(evidence, "room-media-failure.txt").writeText(
                         "phase=${TalkRuntime.call.value?.phase} diagnostic=${TalkRuntime.diagnostic.value}\n" +
+                            receiveEvidence.joinToString("\n", postfix = "\n") +
                             guests.joinToString("\n") { "errors=${it.errors} chromium=${it.browser.errors} media=${it.browser.media}" })
                     capture("room-media-failure")
                 }) {
@@ -214,25 +218,20 @@ class SpaceRoomJourneyTest {
 
                     val received = requireNotNull(TalkRuntime.call.value).participants
                     val tracks = received.map { participant ->
-                        val video = requireNotNull(participant.video)
-                        val audio = requireNotNull(participant.audio)
-                        val frames = AtomicInteger()
-                        val audible = AtomicBoolean()
-                        val videoSink = VideoSink { frame -> if (frame.buffer.width >= 320 && frame.buffer.height >= 240) frames.incrementAndGet() }
-                        val audioSink = AudioTrackSink { data, bits, _, channels, count, _ ->
-                            val pcm = data.duplicate().order(ByteOrder.LITTLE_ENDIAN)
-                            var energy = 0.0
-                            if (bits == 16) for (offset in 0 until min(pcm.remaining(), count * channels * 2) step 2) {
-                                val value = pcm.getShort(offset).toDouble() / 32768
-                                energy += value * value
-                            }
-                            if (energy > 0.01) audible.set(true)
-                        }
-                        video.addSink(videoSink); audio.addSink(audioSink)
-                        Triple(frames, audible, { runCatching { video.removeSink(videoSink) }; runCatching { audio.removeSink(audioSink) }; Unit })
+                        IncomingRoomProbe(participant.key, requireNotNull(participant.video), requireNotNull(participant.audio))
                     }
-                    try { waitMedia(guests, 10_000) { tracks.all { it.first.get() >= 3 && it.second.get() } } }
-                    finally { tracks.forEach { it.third() } }
+                    try {
+                        waitMedia(guests, 10_000) { tracks.all(IncomingRoomProbe::decoded) }
+                    } finally {
+                        val current = TalkRuntime.call.value?.participants.orEmpty()
+                        receiveEvidence = tracks.map { probe ->
+                            val participant = current.firstOrNull { it.key == probe.key }
+                            probe.report() + " camera=${participant?.camera} microphone=${participant?.microphone}" +
+                                " videoStillCurrent=${participant?.video === probe.video} audioStillCurrent=${participant?.audio === probe.audio}"
+                        }
+                        File(evidence, "room-decoded-receive.txt").writeText(receiveEvidence.joinToString("\n", postfix = "\n"))
+                        tracks.forEach(IncomingRoomProbe::close)
+                    }
                     capture("room-three-peer-media")
                     val firstGuest = guests.first()
                     val secondGuest = guests.last()
@@ -316,6 +315,45 @@ class SpaceRoomJourneyTest {
                 { TalkRuntime.call.value?.takeIf { it.spaceRoom != null }?.let { TalkRuntime.end(it.token) } },
                 *guests.asReversed().map { guest -> { guest.close() } }.toTypedArray(),
                 { RtcPlatform.audioInputForTest(null) })
+        }
+    }
+
+    private class IncomingRoomProbe(val key: String, val video: VideoTrack, val audio: AudioTrack) : AutoCloseable {
+        private val frames = AtomicInteger()
+        private val audioBuffers = AtomicInteger()
+        private val audible = AtomicBoolean()
+        @Volatile private var videoSize = "none"
+        @Volatile private var audioFormat = "none"
+        private val videoSink = VideoSink { frame ->
+            videoSize = "${frame.buffer.width}x${frame.buffer.height}"
+            if (frame.buffer.width >= 320 && frame.buffer.height >= 240) frames.incrementAndGet()
+        }
+        private val audioSink = AudioTrackSink { data, bits, rate, channels, count, _ ->
+            audioBuffers.incrementAndGet()
+            audioFormat = "$bits bits, $rate Hz, $channels channels, $count samples, ${data.remaining()} bytes"
+            val pcm = data.duplicate().order(ByteOrder.LITTLE_ENDIAN)
+            var energy = 0.0
+            if (bits == 16) for (offset in 0 until min(pcm.remaining(), count * channels * 2) step 2) {
+                val value = pcm.getShort(offset).toDouble() / 32768
+                energy += value * value
+            }
+            if (energy > 0.01) audible.set(true)
+        }
+
+        init {
+            video.addSink(videoSink)
+            audio.addSink(audioSink)
+        }
+
+        fun decoded() = frames.get() >= 3 && audible.get()
+
+        fun report() = "$key qualifyingFrames=${frames.get()} lastFrame=$videoSize audioBuffers=${audioBuffers.get()}" +
+            " audioFormat=$audioFormat audible=${audible.get()} videoEnabled=${runCatching { video.enabled() }.getOrNull()}" +
+            " audioEnabled=${runCatching { audio.enabled() }.getOrNull()}"
+
+        override fun close() {
+            runCatching { video.removeSink(videoSink) }
+            runCatching { audio.removeSink(audioSink) }
         }
     }
 

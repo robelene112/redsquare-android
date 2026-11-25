@@ -1002,11 +1002,13 @@ try:
         while True:
             if checkpoint_test.poll() is not None or time.monotonic() >= deadline:
                 raise RuntimeError('Native room did not author an active-camera checkpoint')
-            checkpoint = adb('exec-out', 'run-as', pkg, 'cat', checkpoint_path, check=False)
-            if checkpoint.returncode == 0:
-                camera = json.loads(checkpoint.stdout)
+            # The remote cat failure can still appear as a successful exec-out
+            # on older adb/device combinations. Check the published file in the shell.
+            if adb('shell', 'run-as', pkg, 'test', '-s', checkpoint_path, check=False).returncode == 0:
+                camera = json.loads(adb('exec-out', 'run-as', pkg, 'cat', checkpoint_path).stdout)
                 break
             time.sleep(.2)
+        (evidence / 'room-camera-checkpoint.json').write_text(json.dumps(camera, indent=2))
         original_pid = str(camera['pid'])
         if adb('shell', 'pidof', pkg).stdout.decode().strip() != original_pid or camera['resumedCameraFrames'] < 3:
             raise RuntimeError('The active camera checkpoint is not from the running Android process')
@@ -1020,8 +1022,7 @@ try:
             existing = adb('shell', 'pidof', pkg, check=False).stdout.decode().strip()
             if original_pid not in existing.split(): break
             if time.monotonic() >= deadline: raise RuntimeError('Camera permission revocation did not stop the active preview')
-            observed = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/room-camera-revoked-live.txt', check=False)
-            if observed.returncode == 0:
+            if adb('shell', 'run-as', pkg, 'test', '-s', f'cache/{folder}/room-camera-revoked-live.txt', check=False).returncode == 0:
                 revoked_in_process = True
                 adb('shell', 'am', 'force-stop', pkg)
                 break
