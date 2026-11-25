@@ -4,10 +4,13 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.JsonArray
 import com.google.gson.Strictness
+import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
+import nl.davidengelen.redsquare.saito.SaitoStack
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SignedSaitoMessage
+import nl.davidengelen.redsquare.saito.StackLink
 import java.security.SecureRandom
 import java.time.Clock
 import java.util.Base64
@@ -1904,8 +1907,14 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     fun send(space: String, text: String, channel: String? = null): String =
         publishRoot(space, text, channel, "message")
 
-    fun publishArticle(space: String, article: SpaceArticleContent, channel: String? = null): String =
+    fun publishArticle(space: String, article: SpaceArticleContent.Original, channel: String? = null): String =
         publishRoot(space, article.encode(), channel, "article")
+
+    fun shareStackArticle(space: String, backend: SaitoBackend, signedEnvelope: String, channel: String? = null): String {
+        val article = SaitoStack.decode(signedEnvelope)
+        val reference = SpaceArticleContent.PublicStack(StackLink(backend, article.author, article.revision))
+        return publishRoot(space, reference.encode(), channel, "article")
+    }
 
     private fun publishRoot(space: String, text: String, channel: String?, contentKind: String): String = store.transaction {
         owned()

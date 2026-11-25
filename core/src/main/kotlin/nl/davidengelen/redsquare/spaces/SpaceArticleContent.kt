@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.spaces
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import nl.davidengelen.redsquare.saito.StackLink
 
 sealed interface SpaceArticleContent {
     data class Original(val title: String, val subtitle: String, val markdown: String) : SpaceArticleContent {
@@ -14,6 +15,14 @@ sealed interface SpaceArticleContent {
         override fun toString() = "Space article"
     }
 
+    data class PublicStack(val link: StackLink) : SpaceArticleContent {
+        val url: String = "${link.backend.webUrl}/stack/${requireNotNull(link.author)}/${requireNotNull(link.signature)}"
+
+        init { require(StackLink.parse(url) == link) }
+
+        override fun toString() = "Shared public Stack article"
+    }
+
     fun encode(): String = when (this) {
         is Original -> JsonObject().apply {
             addProperty("version", 1)
@@ -21,6 +30,11 @@ sealed interface SpaceArticleContent {
             addProperty("title", title)
             addProperty("subtitle", subtitle)
             addProperty("markdown", markdown)
+        }.toString()
+        is PublicStack -> JsonObject().apply {
+            addProperty("version", 1)
+            addProperty("type", "stack")
+            addProperty("url", url)
         }.toString()
     }
 
@@ -37,9 +51,19 @@ sealed interface SpaceArticleContent {
                 require(value != null && value.isJsonPrimitive && value.asJsonPrimitive.isString)
                 return value.asString
             }
-            require(fields.get("version")?.toString() == "1" && string("type") == "original")
-            require(fields.keySet() == setOf("version", "type", "title", "subtitle", "markdown"))
-            return Original(string("title"), string("subtitle"), string("markdown"))
+            require(fields.get("version")?.toString() == "1")
+            return when (string("type")) {
+                "original" -> {
+                    require(fields.keySet() == setOf("version", "type", "title", "subtitle", "markdown"))
+                    Original(string("title"), string("subtitle"), string("markdown"))
+                }
+                "stack" -> {
+                    require(fields.keySet() == setOf("version", "type", "url"))
+                    val url = string("url")
+                    PublicStack(requireNotNull(StackLink.parse(url))).also { require(it.url == url) }
+                }
+                else -> throw IllegalArgumentException("Unknown article format")
+            }
         }
     }
 }
