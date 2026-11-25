@@ -47,7 +47,8 @@ private enum class GroupStatusSection { HISTORY, MANAGEMENT }
 @Composable
 internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
     onWalletMetadata: suspend (SaitoWallet,SaitoWallet) -> Unit, initialGroup: String? = null,
-    onInitialDestinationClosed: () -> Unit = {}, onProtectedGroup: ((String, String, List<String>) -> Unit)? = null, onBack: () -> Unit) {
+    onInitialDestinationClosed: () -> Unit = {}, onProtectedGroup: ((String, String, List<String>) -> Unit)? = null,
+    groupSelection: MutableState<String?>, onBack: () -> Unit) {
     val gifCredits = nl.davidengelen.redsquare.media.LocalGiphyAttributions.current
     val context = LocalContext.current.applicationContext
     val publishing = nl.davidengelen.redsquare.policy.LocalPublishingAgreement.current
@@ -57,7 +58,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     val personal = LocalPersonalControls.current
     val store = remember(wallet,backend) { GroupChatStore(context,wallet,backend) }
     var entries by remember(wallet.publicKey,backend) { mutableStateOf<List<GroupChatStore.Entry>>(emptyList()) }
-    var selected by androidx.compose.runtime.saveable.rememberSaveable(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
+    var selected by groupSelection
     var identityAuthor by remember(wallet.publicKey,backend) { mutableStateOf<String?>(null) }
     var loaded by remember(store) { mutableStateOf(false) }
     val publication = remember(wallet.publicKey,backend) { Mutex() }

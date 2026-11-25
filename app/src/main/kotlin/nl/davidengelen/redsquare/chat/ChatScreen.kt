@@ -49,17 +49,38 @@ import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.identity.IdentityDetailsDialog
 import nl.davidengelen.redsquare.saito.*
 
+@Stable
+internal class ChatSelection(
+    val contact: MutableState<String?>,
+    val group: MutableState<String?>,
+    val showingGroups: MutableState<Boolean>,
+) {
+    fun clear() {
+        contact.value = null
+        group.value = null
+        showingGroups.value = false
+    }
+}
+
+@Composable
+internal fun rememberChatSelection(owner: String?, backend: SaitoBackend, contact: String?, group: String?,
+    generation: Long = 0L): ChatSelection {
+    val selectedContact = rememberSaveable(owner, backend, generation) { mutableStateOf(contact) }
+    val selectedGroup = rememberSaveable(owner, backend, generation) { mutableStateOf(group) }
+    val showingGroups = rememberSaveable(owner, backend, generation) { mutableStateOf(group != null) }
+    return remember(selectedContact, selectedGroup, showingGroups) { ChatSelection(selectedContact, selectedGroup, showingGroups) }
+}
+
 /** Private Chat has its own navigation and verified history, sharing only the active Saito foundation. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, initialContact: String? = null, initialGroup: String? = null, initialDraft: String? = null, onInitialDestinationClosed: () -> Unit = {},
     initialProtectedInvitation: String? = null, onProtectedInvitationConsumed: () -> Unit = {},
-    contactSelection: MutableState<String?>? = null, onBack: () -> Unit) {
-    var groupDestination by rememberSaveable(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
-    var reviewingGroups by rememberSaveable(wallet.publicKey,backend) { mutableStateOf(initialGroup != null) }
-    val localContact = rememberSaveable(wallet.publicKey, backend) { mutableStateOf(initialContact) }
-    var counterparty by (contactSelection ?: localContact)
+    chatSelection: ChatSelection? = null, onBack: () -> Unit) {
+    val selection = chatSelection ?: rememberChatSelection(wallet.publicKey, backend, initialContact, initialGroup)
+    var reviewingGroups by selection.showingGroups
+    var counterparty by selection.contact
     val protectedChats = LocalProtectedChats.current
     var reviewingProtected by rememberSaveable(wallet.publicKey, backend) { mutableStateOf(false) }
     var protectedName by rememberSaveable(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
@@ -94,12 +115,12 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         return@SingleOwnerReveal
     }
     if (reviewingGroups) {
-        GroupChatScreen(wallet,endpoint,backend,Modifier.fillMaxSize(),onWalletMetadata,groupDestination, onInitialDestinationClosed,
+        GroupChatScreen(wallet, endpoint, backend, Modifier.fillMaxSize(), onWalletMetadata, initialGroup, onInitialDestinationClosed,
             onProtectedGroup = if (protectedChats == null) null else { id, name, members ->
-                groupDestination = id
                 openProtected(name, legacyId = id, candidates = members)
-            }) {
-            reviewingGroups=false; groupDestination=null
+            }, groupSelection = selection.group) {
+            reviewingGroups = false
+            selection.group.value = null
         }
         return@SingleOwnerReveal
     }

@@ -136,9 +136,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     val fileAlert = nl.davidengelen.redsquare.fileshare.FileTransferReference.parse(fileAlertUri?.let(android.net.Uri::parse))
         ?.takeIf { it.owner == wallet?.publicKey && it.backend == backend }
     // The module owns this route while the conversation layout is detached.
-    val chatContact = rememberSaveable(wallet?.publicKey, backend, chatAlertGeneration) {
-        mutableStateOf(fileAlert?.contact ?: chatAlert?.privateContact)
-    }
+    val chatSelection = nl.davidengelen.redsquare.chat.rememberChatSelection(wallet?.publicKey, backend,
+        fileAlert?.contact ?: chatAlert?.privateContact, chatAlert?.groupId, chatAlertGeneration)
     LaunchedEffect(wallet?.publicKey, backend, fileAlertUri) {
         if (wallet != null && fileAlertUri != null && fileAlert == null) fileAlertUri = null
     }
@@ -316,7 +315,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     else {
                         abandonSpaceReturn()
                         composing = false; reviewingChat = false; chatAlertUri = null; reviewingQueue = false; reviewingChanges = false
-                        chatContact.value = null
+                        chatSelection.clear()
                         navigation.add(BrowseDestination.Conversation(target))
                         routes.consume(delivery)
                         true
@@ -510,10 +509,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, childModifier, onWalletMetadata,
                         initialContact = fileAlert?.contact ?: chatAlert?.privateContact, initialGroup = chatAlert?.groupId,
                         initialProtectedInvitation = initialProtectedInvitation,
-                        onProtectedInvitationConsumed = onProtectedInvitationConsumed, contactSelection = chatContact,
+                        onProtectedInvitationConsumed = onProtectedInvitationConsumed, chatSelection = chatSelection,
                         onInitialDestinationClosed = { chatAlertUri = null; fileAlertUri = null }) {
                             reviewingChat = false; chatAlertUri = null; fileAlertUri = null
-                            chatContact.value = null
+                            chatSelection.clear()
                         }
                 }
             }
@@ -764,7 +763,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                             onExternalNavigate()
                             reviewingChat = false; reviewingQueue = false; reviewingChanges = false
                             chatAlertUri = null
-                            chatContact.value = null
+                            chatSelection.clear()
                             navigation.clear()
                             when (destination) {
                                 PrimaryDestination.HOME -> Unit
