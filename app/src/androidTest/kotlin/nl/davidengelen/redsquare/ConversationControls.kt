@@ -148,7 +148,9 @@ internal fun ComposeTestRule.inspectConversationControls(activity: ActivityScena
         return visible
     }
     onNodeWithText("Message").performClick()
-    waitUntil(10_000) { keyboardVisible() }
+    waitUntil(10_000) {
+        keyboardVisible() && !onNodeWithContentDescription("Switch app: Red Square").isDisplayed()
+    }
     val context = InstrumentationRegistry.getInstrumentation().targetContext
     val scale = context.resources.configuration.fontScale
     onNodeWithContentDescription(if (group) "Group messages" else "Private messages")

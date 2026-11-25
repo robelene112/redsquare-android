@@ -391,6 +391,12 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     val statusMaxHeight = minOf(maxHeight / 4, 80.dp)
     Column(Modifier.fillMaxSize()) {
         val callAction = nl.davidengelen.redsquare.talk.LocalTalkLaunch.current
+        val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+        val compactActions = screenHeight <= 480.dp || screenHeight <= 700.dp && LocalDensity.current.fontScale >= 1.5f
+        val privateChatGuidance: @Composable () -> Unit = {
+            Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
         var callOptions by remember(wallet.publicKey, backend, counterparty) { mutableStateOf(false) }
         Row(verticalAlignment = Alignment.CenterVertically) {
             FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back),
@@ -422,8 +428,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 }
             }
         }
-        if (counterparty == null) Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (counterparty == null && !compactActions) privateChatGuidance()
         val statusLabel = stringResource(R.string.chat_status)
         // Keep full recovery guidance reachable without consuming the message viewport.
         val statusContent: @Composable (Boolean) -> Unit = { expanded ->
@@ -479,8 +484,6 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), singleLine = true,
                 shape = RoundedCornerShape(AppSpacing.controlRadius),
                 label = { Text(stringResource(R.string.chat_search)) })
-            val screenHeight = LocalConfiguration.current.screenHeightDp.dp
-            val compactActions = screenHeight <= 480.dp || screenHeight <= 700.dp && LocalDensity.current.fontScale >= 1.5f
             val newLabel = stringResource(R.string.chat_new)
             val canStartChat = !savingContact && personal?.ready == true && !navigation.transitioning
             val startChat = { contactFailed = false; addingContact = true }
@@ -507,6 +510,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     if (!contactsReady) Text(stringResource(R.string.chat_contacts_loading))
                     else if (!contactsFailed) Text(stringResource(R.string.chat_empty))
+                    if (compactActions && !keyboardVisible) privateChatGuidance()
                     if (contactsReady && !keyboardVisible) availableHistory()
                 }
             } else {
@@ -529,6 +533,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                             }
                         }
                     }
+                    if (compactActions && !keyboardVisible) item(key = "private-chat-guidance") { privateChatGuidance() }
                     if (!keyboardVisible) item(key = "available-history-guidance") { availableHistory() }
                 }
             }
