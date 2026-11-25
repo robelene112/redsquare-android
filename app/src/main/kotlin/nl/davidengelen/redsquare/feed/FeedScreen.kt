@@ -82,6 +82,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     initialProtectedInvitation: String? = null, onProtectedInvitationConsumed: () -> Unit = {},
     externalReturnDepth: Int? = null, onExternalBack: () -> Unit = {}, onExternalNavigate: () -> Unit = {},
     chrome: @Composable (home: Boolean, compactWriting: Boolean) -> Unit = { _, _ -> },
+    inlineWritingCall: @Composable () -> Unit = {},
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit,
     onDrawn: () -> Unit) {
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
@@ -687,10 +688,11 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         }
     }
     val compactHeight = LocalConfiguration.current.screenHeightDp < COMPACT_POST_HEIGHT_DP
+    val compactWriting = compactHeight && (composing || visibleNavigation.lastOrNull() is BrowseDestination.Quote)
     val dockCompose = home && wallet != null && (compactHeight || LocalDensity.current.fontScale > 1.3f)
     Column(modifier.nestedScroll(header.connection).readingNavigation(header)) {
         ReadingHeader(header) {
-            chrome(home, compactHeight && (composing || visibleNavigation.lastOrNull() is BrowseDestination.Quote))
+            chrome(home, compactWriting)
         }
         AnimatedVisibility(pendingTap != null && tapFailed,
             enter = fadeIn(tween(AppSpacing.transitionMillis)), exit = fadeOut(tween(AppSpacing.transitionMillis))) {
@@ -717,10 +719,13 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         }
         Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
             SingleOwnerReveal(revealTarget, Modifier.fillMaxSize()) {
-                Box(Modifier.fillMaxSize()) {
-                    CompositionLocalProvider(LocalPostSubmissionNotice provides { submittedPosts++ }) { content() }
-                    if (home && wallet != null && !dockCompose) ComposePostButton(
-                        Modifier.align(Alignment.BottomEnd).padding(bottom = AppSpacing.screen).size(56.dp)) { composing = true }
+                Row(Modifier.fillMaxSize(), verticalAlignment = Alignment.Bottom) {
+                    Box(Modifier.weight(1f).fillMaxHeight()) {
+                        CompositionLocalProvider(LocalPostSubmissionNotice provides { submittedPosts++ }) { content() }
+                        if (home && wallet != null && !dockCompose) ComposePostButton(
+                            Modifier.align(Alignment.BottomEnd).padding(bottom = AppSpacing.screen).size(56.dp)) { composing = true }
+                    }
+                    if (compactWriting && keyboardVisible) inlineWritingCall()
                 }
             }
         }

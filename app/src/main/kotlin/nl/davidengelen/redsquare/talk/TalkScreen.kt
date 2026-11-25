@@ -147,22 +147,23 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
 }
 
 @Composable internal fun TalkActiveBar(owner: String?, backend: SaitoBackend?, roomInView: Boolean = false,
-    compactKeyboard: Boolean = false, onOpen: () -> Unit) {
+    compactKeyboard: Boolean = false, inline: Boolean = false, onOpen: () -> Unit) {
     val live by TalkRuntime.call.collectAsState()
     val call = live?.takeIf { it.owner == owner && it.savedBackend == backend }
     AnimatedVisibility(visible = call?.phase?.started == true && !(roomInView && call.spaceRoom != null),
         enter = expandVertically(tween(AppSpacing.transitionMillis), expandFrom = Alignment.Top),
         exit = shrinkVertically(tween(AppSpacing.transitionMillis), shrinkTowards = Alignment.Top)) {
     if (call != null) Surface(color = MaterialTheme.colorScheme.surfaceContainerHigh, shape = RoundedCornerShape(14.dp),
-        modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 4.dp)) {
-        Row(Modifier.padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-            TextButton(onClick = onOpen, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) {
+        modifier = if (inline) Modifier.padding(start = AppSpacing.small)
+            else Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 4.dp)) {
+        val returnLabel = call.spaceRoom?.let { stringResource(R.string.spaces_room_return, it.name) }
+            ?: stringResource(R.string.talk_return)
+        Row(Modifier.padding(horizontal = if (inline) 0.dp else 8.dp), verticalAlignment = Alignment.CenterVertically) {
+            if (inline) FrameIconButton(R.drawable.ic_phone, returnLabel, onClick = onOpen)
+            else TextButton(onClick = onOpen, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) {
                 Icon(painterResource(R.drawable.ic_phone), null, Modifier.size(20.dp))
                 Spacer(Modifier.width(8.dp))
-                Text(call.spaceRoom?.let {
-                    if (compactKeyboard) stringResource(R.string.spaces_room_return_compact)
-                    else stringResource(R.string.spaces_room_return, it.name)
-                } ?: stringResource(R.string.talk_return),
+                Text(if (call.spaceRoom != null && compactKeyboard) stringResource(R.string.spaces_room_return_compact) else returnLabel,
                     maxLines = 2, overflow = TextOverflow.Ellipsis)
             }
             if (call.spaceRoom != null) {

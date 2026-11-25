@@ -118,6 +118,8 @@ class VisualViewports:
         self.shell('wm', 'size', self.original['size']['override'] or 'reset')
         self.shell('wm', 'density', self.original['density']['override'] or 'reset')
         for namespace, key in self.settings:
+            if key == 'font_scale':
+                continue
             value = self.original[key]
             if value == 'null':
                 self.shell('settings', 'delete', namespace, key)
@@ -130,5 +132,16 @@ class VisualViewports:
             self.set_overlay(('enable-exclusive', '--category'), self.original['overlay'])
         elif active := self.observe('before-navigation-reset')['overlay']:
             self.set_overlay(('disable',), active)
-        if self.observe('restored') != self.original:
+        # Android 10 can materialize its default font value during configuration updates.
+        # Restore the original setting after changing display density, rotation and overlays.
+        font = self.original['font_scale']
+        if font == 'null':
+            self.shell('settings', 'delete', 'system', 'font_scale')
+        else:
+            self.shell('settings', 'put', 'system', 'font_scale', font)
+        restored = self.observe('restored')
+        if self.sdk == 10 and font == 'null' and restored == dict(self.original, font_scale='1.0'):
+            self.shell('settings', 'delete', 'system', 'font_scale')
+            restored = self.observe('restored')
+        if restored != self.original:
             raise RuntimeError('The original Android viewport settings were not restored')

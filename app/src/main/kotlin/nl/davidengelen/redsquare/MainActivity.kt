@@ -721,17 +721,20 @@ class MainActivity : ComponentActivity() {
                             nl.davidengelen.redsquare.ui.StatusTone.ERROR)
                     }
                     val appHeader: @Composable () -> Unit = { renderAppHeader(false, false) }
-                    val renderChrome: @Composable (Boolean, Boolean, nl.davidengelen.redsquare.spaces.SpacesAccount.Target?, Boolean) -> Unit = { isHome, hideModuleHeader, roomInView, compactRoom ->
-                        renderAppHeader(hideModuleHeader, compactRoom)
+                    val activeCall: @Composable (nl.davidengelen.redsquare.spaces.SpacesAccount.Target?, Boolean, Boolean) -> Unit = { roomInView, compact, inline ->
                         val active by TalkRuntime.call.collectAsState()
                         val room = active?.spaceRoom
                         val showingActiveRoom = roomInView != null && room != null && room.space == roomInView.space && room.channel == roomInView.channel
                         if (module != AppModule.TALK || room != null)
-                            TalkActiveBar(address, backend, roomInView = showingActiveRoom,
-                                compactKeyboard = keyboardVisible || (module == AppModule.SPACES && hideModuleHeader)) {
+                            TalkActiveBar(address, backend, roomInView = showingActiveRoom, compactKeyboard = compact, inline = inline) {
                                 if (room == null) selectModule(AppModule.TALK) { talkDraft = null }
                                 else selectModule(AppModule.SPACES) { spacesAccount?.select(room.space, room.channel) }
                             }
+                    }
+                    val renderChrome: @Composable (Boolean, Boolean, nl.davidengelen.redsquare.spaces.SpacesAccount.Target?, Boolean) -> Unit = { isHome, hideModuleHeader, roomInView, compactRoom ->
+                        renderAppHeader(hideModuleHeader, compactRoom)
+                        if (module != AppModule.RED_SQUARE || !hideModuleHeader || !keyboardVisible)
+                            activeCall(roomInView, keyboardVisible || (module == AppModule.SPACES && hideModuleHeader), false)
                         InlineStatus(if (talkReturnExpired) stringResource(R.string.talk_return_expired) else null, StatusTone.INFO)
                         nl.davidengelen.redsquare.ui.BetaUpdateNotice(
                             updateAvailable && !keyboardVisible && !hideModuleHeader && !compactRoom) {
@@ -752,11 +755,14 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                     val chrome: @Composable (Boolean) -> Unit = { isHome -> renderChrome(isHome, false, null, false) }
-                    val shortSpaceIme = module == AppModule.SPACES && keyboardVisible &&
-                        androidx.compose.ui.platform.LocalConfiguration.current.screenHeightDp <
-                        nl.davidengelen.redsquare.spaces.SHORT_SPACES_WINDOW_DP
+                    val screenHeight = androidx.compose.ui.platform.LocalConfiguration.current.screenHeightDp
+                    val shortIme = keyboardVisible && when (module) {
+                        AppModule.SPACES -> screenHeight < nl.davidengelen.redsquare.spaces.SHORT_SPACES_WINDOW_DP
+                        AppModule.RED_SQUARE -> screenHeight < nl.davidengelen.redsquare.feed.COMPACT_POST_HEIGHT_DP
+                        else -> false
+                    }
                     Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)
-                        .padding(vertical = if (shortSpaceIme) 0.dp else 4.dp)) {
+                        .padding(vertical = if (shortIme) 0.dp else 4.dp)) {
                         if (usernameOpen && wallet != null && backend != null) {
                             chrome(false)
                             key(wallet!!.publicKey, backend) {
@@ -985,6 +991,7 @@ class MainActivity : ComponentActivity() {
                                                             onExternalBack = { clearSpacesReturn(); module = AppModule.SPACES },
                                                             onExternalNavigate = ::clearSpacesReturn,
                                                             chrome = { home, compactWriting -> renderChrome(home, compactWriting, null, false) },
+                                                            inlineWritingCall = { activeCall(null, true, true) },
                                                             canReportDrawn = featureUnobstructed && !postNavigation.transitioning,
                                                             onWalletMetadata = updateWalletMetadata
                                                         ) { reportFullyDrawn() }

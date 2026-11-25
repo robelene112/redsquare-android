@@ -279,6 +279,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                         quote?.let { Text(stringResource(R.string.post_quoting, registeredIdentity(it.author).name),
                             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                         PublishingEditor(text, ::edit, ready && !saving && !sending && transaction == null, maximumHeight = writingHeight,
+                            compact = compactHeight,
                             modifier = Modifier.bringIntoViewRequester(editorView).onGloballyPositioned {
                                 editorPlaced = it.size.height > 0
                             })

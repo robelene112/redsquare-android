@@ -19,9 +19,6 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.selection.selectable
@@ -32,7 +29,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -44,7 +40,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -78,6 +73,7 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.feed.ProfileAvatar
 import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.CompactWritingField
 import nl.davidengelen.redsquare.ui.DesignSheet
 import nl.davidengelen.redsquare.ui.FrameIconButton
 import nl.davidengelen.redsquare.ui.keyboardOccupiesWindow
@@ -734,7 +730,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                     else R.string.spaces_reply_thread_hint, channel?.profile?.name ?: "general")
                                 // Keep the same field while the keyboard changes the available height.
                                 if (screenHeight < SHORT_SPACES_WINDOW_DP.dp)
-                                    CompactSpaceMessageField(state.draft, edit, enabled, hint, Modifier.weight(1f))
+                                    CompactWritingField(state.draft, edit, enabled, hint, Modifier.weight(1f), maxLines = 1)
                                 else OutlinedTextField(state.draft, edit, Modifier.weight(1f),
                                     enabled = enabled, placeholder = {
                                         Text(hint, maxLines = if (compactReading) 1 else Int.MAX_VALUE, overflow = TextOverflow.Ellipsis)
@@ -1078,28 +1074,6 @@ private data class ChannelViewport(val anchor: SpaceClient.ReadingAnchor?, val f
         Text(stringResource(if (problem == SpaceClient.ReadProblem.EXPIRED) R.string.spaces_invitation_expired else R.string.spaces_access_unavailable),
             Modifier.fillMaxWidth().padding(14.dp), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
-}
-
-/** Keep the editor's content padding small enough for a single large-text line. */
-@Composable
-private fun CompactSpaceMessageField(value: String, onChange: (String) -> Unit, enabled: Boolean, hint: String,
-    modifier: Modifier) {
-    val interactions = remember { MutableInteractionSource() }
-    val focused by interactions.collectIsFocusedAsState()
-    val colors = MaterialTheme.colorScheme
-    val style = MaterialTheme.typography.bodyLarge
-    BasicTextField(value, onChange, modifier.heightIn(min = 48.dp)
-        .border(if (focused) 2.dp else 1.dp, if (focused) colors.primary else colors.outline, RoundedCornerShape(18.dp))
-        .padding(horizontal = 14.dp), enabled = enabled, interactionSource = interactions,
-        textStyle = style.copy(color = if (enabled) colors.onSurface else colors.onSurfaceVariant),
-        cursorBrush = SolidColor(colors.primary), minLines = 1, maxLines = 1,
-        decorationBox = { input ->
-            Box(Modifier.fillMaxWidth().heightIn(min = 48.dp), contentAlignment = Alignment.CenterStart) {
-                if (value.isEmpty()) Text(hint, style = style, color = colors.onSurfaceVariant,
-                    maxLines = 1, overflow = TextOverflow.Ellipsis)
-                input()
-            }
-        })
 }
 
 /** Read the adjusted viewport before reserving space for the bottom bar.

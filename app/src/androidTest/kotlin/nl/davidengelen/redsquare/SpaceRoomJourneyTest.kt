@@ -92,11 +92,16 @@ class SpaceRoomJourneyTest {
                     visible && editor.isDisplayed()
                 }
                 editor.assertHeightIsAtLeast(48.dp).assertEditableTextEquals(draft)
-                val returnAction = ui.onNode(hasText("Call") and hasClickAction())
-                returnAction.assertIsDisplayed().assertIsEnabled()
-                ui.onNode(hasText("End call") and hasClickAction()).assertIsDisplayed().assertIsEnabled()
-                assertTrue("The call bar must not overlap the focused post editor",
-                    returnAction.getUnclippedBoundsInRoot().bottom <= editor.getUnclippedBoundsInRoot().top)
+                val writingBounds = editor.getUnclippedBoundsInRoot()
+                listOf("Return to Open lounge", "Unmute", "End call").forEach { label ->
+                    val action = ui.onNode(hasText(label) and hasClickAction())
+                    action.assertIsDisplayed().assertIsEnabled()
+                    val bounds = action.fetchSemanticsNode().touchBoundsInRoot
+                    val position = action.getUnclippedBoundsInRoot()
+                    assertTrue("The $label target must be at least 48dp", bounds.height >= minimum && bounds.width >= minimum)
+                    assertTrue("The $label action must stay beside the focused editor",
+                        position.right <= writingBounds.left || position.left >= writingBounds.right)
+                }
                 assertEquals(token, observed().participants.single().session)
                 capture("room-draft-attachment-ime")
 
