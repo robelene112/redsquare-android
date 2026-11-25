@@ -35,7 +35,7 @@ class SpaceModerationJourneyTest {
             withFailureCapture({ capture("reporter-failure") }) {
                 val message = hasText("Moderation proof message")
                 val row = hasTestTag("spaces-message") and hasAnyDescendant(message)
-                val actions = ui.onNode(hasContentDescription("Message actions") and hasAnyAncestor(row))
+                val actions = ui.onNode(hasText("Message actions") and hasClickAction() and hasAnyAncestor(row))
                 ui.waitUntil(25_000) { ui.onNode(message).isDisplayed() }
                 if (!actions.isDisplayed()) {
                     val conversation = ui.onNode(hasScrollToIndexAction() and hasAnyDescendant(message))
