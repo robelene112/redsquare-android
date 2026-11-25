@@ -48,6 +48,8 @@ class SpacesDiscoveryJourneyTest {
         val fixtures = command("fixtures")
         launch().use { activity -> withFailureCapture({ capture("visitor-failure") }) {
             switchModule("Red Square", "Spaces")
+            ui.onNodeWithText("Make room for your community").assertDoesNotExist()
+            waitText("You haven’t joined any Spaces yet.")
             capture("01-my-spaces-b")
             waitUntil { ui.onNode(hasText("Create a Space") and hasClickAction() and isEnabled()).isDisplayed() }
             ui.onNode(hasText("Create a Space") and hasClickAction()).clickReady(15_000)
@@ -68,6 +70,7 @@ class SpacesDiscoveryJourneyTest {
             waitUntil(5_000) { command("held-public").get("entered").asBoolean }
             ui.onNode(hasText("My Spaces") and hasClickAction()).clickReady()
             openRow("Navigation origin")
+            ui.onNodeWithText("You haven’t joined any Spaces yet.").assertDoesNotExist()
             waitUntil(5_000) { ui.onNode(hasSetTextAction() and hasText("Keep the chosen origin draft")).isDisplayed() }
             command("release-public")
             // Send is disabled by the held operation. Its re-enablement proves
