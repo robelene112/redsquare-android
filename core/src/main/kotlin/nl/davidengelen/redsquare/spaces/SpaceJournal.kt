@@ -867,8 +867,10 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
     }
 
     /** The service checks accepted membership and routing, never community plaintext. */
-    fun verifyContent(envelope: String, acceptedAt: Long) {
-        val event = SaitoEnvelope.decode(envelope)
+    fun verifyContent(envelope: String, acceptedAt: Long) = verifyContent(SaitoEnvelope.decode(envelope), acceptedAt)
+
+    /** The caller has already verified the signature on these exact original bytes. */
+    internal fun verifyContent(event: SignedSaitoMessage, acceptedAt: Long) {
         val body = event.body
         header(body, "event")
         require(body.text("space_id") == spaceId && event.recipients == listOf(event.author, serviceKey).distinct())

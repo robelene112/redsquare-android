@@ -4493,7 +4493,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val control = body.get("authorized_control")?.asString ?: original.body.text("control_id")
                 val historic = pageControls[control] ?: journal(space, through = control)
                 require(historic.snapshot.controlId == control)
-                historic.verifyContent(body.text("event"), receipt.createdAt)
+                historic.verifyContent(original, receipt.createdAt)
                 val key = contentPrefix(space, channel) + positionKey(body.number("position"))
                 val locallyAccepted = body.deepCopy().apply { addProperty("local_accepted_at", receipt.createdAt) }
                 val existing = get(key)

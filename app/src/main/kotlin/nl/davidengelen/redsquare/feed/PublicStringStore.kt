@@ -64,10 +64,15 @@ internal class PublicStringStore(context: Context, name: String, private val max
         // AtomicFile logs some failures instead of throwing. Verify committed bytes.
         file.openRead().buffered().use { input ->
             if (input.read() != '['.code) throw IOException("Public cache commit failed")
+            val buffer = ByteArray(8192)
             encoded.forEachIndexed { index, bytes ->
                 if (index > 0 && input.read() != ','.code) throw IOException("Public cache commit failed")
-                for (byte in bytes) {
-                    if (input.read() != (byte.toInt() and 255)) throw IOException("Public cache commit failed")
+                var offset = 0
+                while (offset < bytes.size) {
+                    val count = input.read(buffer, 0, minOf(buffer.size, bytes.size - offset))
+                    if (count <= 0 || (0 until count).any { buffer[it] != bytes[offset + it] })
+                        throw IOException("Public cache commit failed")
+                    offset += count
                 }
             }
             if (input.read() != ']'.code || input.read() != -1) throw IOException("Public cache commit failed")
