@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.UiDevice
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
@@ -71,6 +72,16 @@ class SpaceArticleJourneyTest {
                     .text.contains(visualLine))
                 source.performTextReplacement(body)
                 closeKeyboard(activity)
+                switchChannel("Other reading room")
+                clickWhenVisible("Write article", timeout = 25_000)
+                ui.waitUntil(8_000) { editField("Title").isDisplayed() }
+                editField("Title").performTextInput(otherDraft)
+                closeKeyboard(activity)
+                switchChannel("Reading room")
+                clickWhenVisible("Write article")
+                ui.waitUntil(10_000) { editField("Title").isDisplayed() }
+                editField("Title").assertEditableTextEquals(title)
+                editField("Markdown source").assertEditableTextEquals(body)
                 button("Review article").performScrollTo().performClick()
                 val publish = button("Publish in this channel")
                 ui.waitUntil(8_000) { publish.isDisplayed() }
@@ -93,12 +104,7 @@ class SpaceArticleJourneyTest {
                 ui.waitUntil(8_000) { editField("Title").isDisplayed() }
                 editField("Title").performTextInput(sequel)
                 closeKeyboard(activity)
-                switchChannel("Other reading room")
-                clickWhenVisible("Write article", timeout = 25_000)
-                ui.waitUntil(8_000) { editField("Title").isDisplayed() }
-                editField("Title").performTextInput(otherDraft)
-                closeKeyboard(activity)
-                switchChannel("Reading room")
+                articleBack()
                 clickWhenVisible("Write article")
                 ui.waitUntil(10_000) { ui.onNode(hasText(sequel) and hasSetTextAction()).isDisplayed() }
                 val saved = JsonObject().apply {
@@ -143,13 +149,35 @@ class SpaceArticleJourneyTest {
                 clickWhenVisible("Write article")
                 ui.waitUntil(10_000) { ui.onNode(hasText(sequel) and hasSetTextAction()).isDisplayed() }
                 capture("articles-recovered-draft", sequel)
+                switchChannel("Other reading room")
+                clickWhenVisible("Write article")
+                ui.waitUntil(10_000) { ui.onNode(hasText(otherDraft) and hasSetTextAction()).isDisplayed() }
+                capture("articles-recovered-other-draft", otherDraft)
+                request("article-hold-read")
+                val follow = Intent(Intent.ACTION_VIEW, Uri.parse(saved.get("link").asString))
+                    .setPackage(context.packageName).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                assertEquals(MainActivity::class.java.name, follow.resolveActivity(context.packageManager)?.className)
+                context.startActivity(follow)
+                ui.waitUntil(8_000) { request("article-held-read").get("held").asBoolean }
+                assertTrue(UiDevice.getInstance(instrumentation).pressBack())
+                ui.waitUntil(5_000) { !ui.onNodeWithText("Open Space article").isDisplayed() }
+                assertTrue(request("article-release-read").get("released").asBoolean)
+                articleBack()
+                clickWhenVisible("Write article")
+                ui.waitUntil(10_000) { ui.onNode(hasText(otherDraft) and hasSetTextAction()).isDisplayed() }
+                ui.onNodeWithText(title).assertDoesNotExist()
+                proof = request("article-proof", pending)
+                assertEquals(saved.get("original").asString, proof.get("original").asString)
+                assertEquals(1, proof.get("receivedCount").asInt)
+                assertTrue(proof.get("exactOriginal").asBoolean)
                 proof.addProperty("newPid", Process.myPid())
                 proof.addProperty("newDraftRestored", true)
                 proof.addProperty("exactDeepLinkRendered", true)
+                proof.addProperty("channelDraftsStayedSeparate", true)
+                proof.addProperty("lateLinkStayedInOriginalScope", true)
                 File(evidence, "articles-result.json").writeText(proof.toString())
             }
         }
-        agreement.delete()
     }
 
     private fun expected(scope: JsonObject, author: String) = JsonObject().apply {

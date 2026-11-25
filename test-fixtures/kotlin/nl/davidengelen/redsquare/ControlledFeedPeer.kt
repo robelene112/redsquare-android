@@ -32,6 +32,13 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     val spacesRequests = java.util.concurrent.CopyOnWriteArrayList<SaitoTransaction>()
     @Volatile var withholdSpacesReply = false
     var withheldSpacesContentKind = "message"
+    private val holdNextArticleRead = java.util.concurrent.atomic.AtomicBoolean()
+    private val heldArticleReply = java.util.concurrent.atomic.AtomicReference<(() -> Boolean)?>(null)
+    fun holdNextSpacesArticleRead() {
+        check(heldArticleReply.get() == null && holdNextArticleRead.compareAndSet(false, true))
+    }
+    fun isSpacesArticleReadHeld(): Boolean = heldArticleReply.get() != null
+    fun releaseSpacesArticleRead(): Boolean = heldArticleReply.getAndSet(null)?.invoke() == true
     val withholdNextSpacesReadReply = java.util.concurrent.atomic.AtomicBoolean(false)
     val withheldSpacesReads = java.util.concurrent.CopyOnWriteArrayList<String>()
     val withholdNextSpacesControlReply = java.util.concurrent.atomic.AtomicReference<String?>(null)
@@ -359,6 +366,12 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             require(SaitoEnvelope.decode(original.envelope()).author == authenticatedKey)
                             spacesRequests.add(original)
                             val response = requireNotNull(spacesResponse)(original)
+                            if (body.get("request")?.asString == "read" && body.getAsJsonObject("scope")?.has("article_id") == true &&
+                                holdNextArticleRead.compareAndSet(true, false)) {
+                                val frameBytes = (byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()
+                                check(heldArticleReply.compareAndSet(null, { webSocket.send(frameBytes) }))
+                                return
+                            }
                             val dropRead = body.get("request")?.asString == "read" && withholdNextSpacesReadReply.compareAndSet(true, false)
                             if (dropRead) withheldSpacesReads.add(original.id)
                             val control = withholdNextSpacesControlReply.get()

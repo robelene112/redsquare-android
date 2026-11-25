@@ -77,7 +77,7 @@ def viewport_observation(stage, expected=None):
         '-e', 'spacesViewportStage', stage]
     for name, value in (expected or {}).items():
         args += ['-e', name, str(value)]
-    if management_mode:
+    if management_mode or article_mode:
         args += ['-e', 'spacesViewportFolder', folder]
     observed = adb(*args, runner, timeout=30, check=False)
     text = observed.stdout.decode(errors='replace')
@@ -888,6 +888,9 @@ try:
             'productionNodeActivated': False, 'ordinaryBetaChanged': False}))
     elif article_mode:
         reset_disposable_baseline()
+        compact_articles = os.environ['TEST_DEVICE_API'].startswith('37')
+        if compact_articles:
+            prepare_viewport()
         record(1)
         first = instrument('reviewAndPublishArticleWithRealIme', 'articles-before-kill.txt', peer_port, control_port)
         deadline = time.monotonic() + 180
@@ -917,7 +920,9 @@ try:
         proof = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/articles-result.json').stdout)
         if (proof['receivedCount'] != 1 or not proof['exactOriginal'] or proof['originalSubmissions'] < 2 or
                 proof['originalSubmissions'] != proof['encryptedOriginals'] or proof['newPid'] == pending['pid'] or
-                proof['original'] != pending['original'] or not proof['newDraftRestored'] or not proof['exactDeepLinkRendered']):
+                proof['original'] != pending['original'] or not proof['newDraftRestored'] or
+                not proof['exactDeepLinkRendered'] or not proof['channelDraftsStayedSeparate'] or
+                not proof['lateLinkStayedInOriginalScope']):
             raise RuntimeError('Article round trip did not satisfy its independent expected effects')
         (evidence / 'articles-result.json').write_text(json.dumps(proof, indent=2))
         finish_record(*movies[-1])
@@ -931,6 +936,9 @@ try:
             'exactOriginal': proof['exactOriginal'], 'encryptedOriginals': proof['encryptedOriginals'],
             'originalSubmissions': proof['originalSubmissions'], 'receivedCount': proof['receivedCount'],
             'newDraftRestored': proof['newDraftRestored'], 'exactDeepLinkRendered': proof['exactDeepLinkRendered'],
+            'channelDraftsStayedSeparate': proof['channelDraftsStayedSeparate'],
+            'lateLinkStayedInOriginalScope': proof['lateLinkStayedInOriginalScope'],
+            'compactViewport': compact_articles,
             'productionNodeActivated': False, 'ordinaryBetaChanged': False}, indent=2))
     elif mode == 'protected-chat-v1':
         reset_disposable_baseline()
@@ -1100,6 +1108,9 @@ finally:
             cleanup('selected-mode-failure-observation', lambda: (evidence / ('failure-host-' + selected_status + '.json')).write_text(
                 json.dumps(command(control_port, selected_status), indent=2)))
     cleanup('stop-owned-android-process', lambda: adb('shell', 'am', 'force-stop', pkg))
+    if article_mode:
+        cleanup('remove-owned-article-agreement-fixture',
+                lambda: adb('shell', 'run-as', pkg, 'rm', '-f', 'no_backup/publishing-policy-fixture.json'))
     for process, remote, phase in movies:
         def stop_movie(process=process, remote=remote, phase=phase):
             try:

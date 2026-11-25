@@ -172,20 +172,23 @@ object SpacesNativeHost {
                                                     signed.body.get("content_kind")?.asString == "article"
                                             }
                                             val received = client.timeline(space, channel = channel).filter {
-                                                it.isArticle && !it.pending && it.author == author &&
-                                                    client.article(space, it.id, channel)?.content == expected
+                                                it.isArticle && !it.pending && !it.rejected && it.author == author
                                             }
-                                            val publication = received.singleOrNull()
+                                            val publication = received.singleOrNull()?.takeIf { client.article(space, it.id, channel)?.content == expected }
                                             val matching = submissions.filter { it.id == publication?.id }
                                             JsonObject().apply {
                                                 addProperty("receivedCount", received.size)
                                                 addProperty("original", publication?.id)
                                                 addProperty("link", publication?.let { client.articleLink(space, channel, it.id) })
                                                 addProperty("originalSubmissions", matching.size)
-                                                addProperty("exactOriginal", matching.map { it.envelope() }.distinct().size == 1)
-                                                addProperty("encryptedOriginals", matching.count {
+                                                addProperty("exactOriginal", matching.isNotEmpty() && matching.size == submissions.size &&
+                                                    submissions.map { it.envelope() }.distinct().size == 1)
+                                                addProperty("encryptedOriginals", submissions.count {
                                                     val wire = SaitoEnvelope.decode(it.envelope()).body
-                                                    wire.has("ciphertext") && !wire.has("text") && !wire.toString().contains(expected.title)
+                                                    val serialized = wire.toString()
+                                                    wire.has("ciphertext") && !wire.has("text") && !wire.has("markdown") &&
+                                                        !serialized.contains(expected.title) && !serialized.contains(expected.subtitle) &&
+                                                        !serialized.contains(expected.markdown.lineSequence().first())
                                                 })
                                             }
                                         }
@@ -264,6 +267,19 @@ object SpacesNativeHost {
                                         }
                                         "/hold" -> { peer.withholdSpacesReply = true; JsonObject() }
                                         "/release" -> { peer.withholdSpacesReply = false; JsonObject() }
+                                        "/article-hold-read" -> {
+                                            check(articleMode)
+                                            peer.holdNextSpacesArticleRead()
+                                            JsonObject()
+                                        }
+                                        "/article-held-read" -> {
+                                            check(articleMode)
+                                            JsonObject().apply { addProperty("held", peer.isSpacesArticleReadHeld()) }
+                                        }
+                                        "/article-release-read" -> {
+                                            check(articleMode)
+                                            JsonObject().apply { addProperty("released", peer.releaseSpacesArticleRead()) }
+                                        }
                                         "/drop-next-read" -> {
                                             check(discoveryMode && peer.withheldSpacesReads.isEmpty())
                                             peer.withholdNextSpacesReadReply.set(true); JsonObject()
@@ -320,7 +336,11 @@ object SpacesNativeHost {
                                         if (client.community(community.id).joined) {
                                             client.admitPending(community.id)
                                             client.flush(community.id)
-                                            if (!managementMode && !articleMode && community.id !in sent && client.community(community.id).canSend) {
+                                            val conversation = client.channels(community.id).any { channel ->
+                                                channel.id == community.channel &&
+                                                    channel.profile.kind in setOf(SpaceChannelKind.CHAT, SpaceChannelKind.ANNOUNCEMENT)
+                                            }
+                                            if (!managementMode && !articleMode && conversation && community.id !in sent && client.community(community.id).canSend) {
                                                 client.send(community.id, "Reply from independent member")
                                                 sent += community.id
                                             }
