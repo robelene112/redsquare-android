@@ -14,6 +14,7 @@ import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
+import androidx.test.uiautomator.StaleObjectException
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import com.google.gson.JsonObject
@@ -220,13 +221,18 @@ class SpaceFileJourneyTest {
     }
 
     private fun chooseDocument() {
+        val picker = "com.android.documentsui"
+        if (Build.VERSION.SDK_INT == 29) {
+            chooseAndroid10Document(picker)
+            return
+        }
         if (!device.wait(Until.hasObject(By.text(name)), 10_000)) {
             device.findObject(By.descContains("Show roots"))?.click()
             device.wait(Until.findObject(By.text("Downloads")), 5000)?.click()
         }
         // The filename is a text leaf. At 200% fonts a coordinate tap on the leaf
         // can miss the document row. Use the actual clickable DocumentsUI ancestor.
-        val packages = setOf("com.android.documentsui", "com.google.android.documentsui")
+        val packages = setOf(picker, "com.google.android.documentsui")
         val deadline = SystemClock.uptimeMillis() + 10_000
         var requested = false
         while (SystemClock.uptimeMillis() < deadline) {
@@ -247,6 +253,34 @@ class SpaceFileJourneyTest {
             }
             SystemClock.sleep(100)
         }
+        documentSelectionFailed()
+    }
+
+    private fun chooseAndroid10Document(picker: String) {
+        val title = By.text(name).pkg(picker)
+        val card = By.descStartsWith("$name,").pkg(picker)
+        if (!device.wait(Until.hasObject(title), 2000) && !device.hasObject(card)) {
+            device.wait(Until.findObject(By.desc("Show roots").pkg(picker)), 5000)?.click()
+            device.wait(Until.findObject(By.text("Downloads").pkg(picker)), 5000)?.click()
+            device.wait(Until.gone(By.res(picker, "roots_list")), 5000)
+        }
+        // Android 10 draws the file in a truncated grid card in Downloads.
+        // Prefer its explicit list control and use a physical tap on the named item.
+        device.findObject(By.res(picker, "sub_menu_list"))?.click()
+        val deadline = SystemClock.uptimeMillis() + 10_000
+        while (SystemClock.uptimeMillis() < deadline) {
+            if (device.currentPackageName == context.packageName) return
+            if (device.currentPackageName == picker) {
+                try { (device.findObject(title) ?: device.findObject(card))?.click() }
+                catch (_: StaleObjectException) { /* Reacquire while the layout changes. */ }
+                if (device.wait(Until.hasObject(By.pkg(context.packageName)), 1000)) return
+            }
+        }
+        documentSelectionFailed()
+    }
+
+    private fun documentSelectionFailed(): Nothing {
+        runCatching { device.dumpWindowHierarchy(File(evidence, "file-picker-failure.xml")) }
         error("DocumentsUI did not return the selected file to Spaces")
     }
 
