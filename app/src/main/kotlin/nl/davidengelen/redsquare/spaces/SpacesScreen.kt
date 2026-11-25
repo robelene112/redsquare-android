@@ -891,9 +891,12 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             }
         }
     }
-    DesignSheet(informationOpen && selected != null && !state.destinationReadDenied, stringResource(R.string.spaces_information), { informationOpen = false }, onHidden = {
-        informationHidden = true
-    }) { first ->
+    DesignSheet(informationOpen && selected != null && !state.destinationReadDenied, stringResource(R.string.spaces_information), { informationOpen = false },
+        footer = { first ->
+            TextButton(onClick = { informationOpen = false }, modifier = first.fillMaxWidth().heightIn(min = 48.dp)) {
+                Text(stringResource(R.string.spaces_close))
+            }
+        }, onHidden = { informationHidden = true }) {
         if (selected != null && profile != null) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 SpaceAvatar(profile, selected.id, account.avatarImages, Modifier.size(64.dp))
@@ -1001,7 +1004,6 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             SpaceLeaveControls(account, state)
             SpaceDissolutionControls(account, state)
             SpaceManagementProblem(state.problem, account::clearProblem, scrollIntoView = true)
-            TextButton(onClick = { informationOpen = false }, modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_close)) }
         }
     }
     SpaceCategorySheet(categoryEditor, account, state) { informationOpen = true }
