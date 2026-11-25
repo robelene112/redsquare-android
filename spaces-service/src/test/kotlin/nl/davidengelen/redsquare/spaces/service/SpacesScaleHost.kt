@@ -18,9 +18,12 @@ import java.time.Clock
 import java.time.Duration
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicReference
 
 /** Serves the frozen fixture and independently witnesses timed native writes. */
 object SpacesScaleHost {
+    private data class Arrival(val id: String, val readRequest: String? = null)
+
     @JvmStatic fun main(args: Array<String>) = runBlocking<Unit> {
         require(args.size == 1)
         val root = Path.of(args.single())
@@ -38,6 +41,8 @@ object SpacesScaleHost {
         val expectedHotChannel = manifest.get("hotChannel").asString
         val clock = Clock.systemUTC()
         val reactions = AtomicInteger()
+        val reads = AtomicInteger()
+        val watchedReply = AtomicReference<Arrival>()
         val stopping = AtomicBoolean()
         SpacesServiceStore(root.resolve("service"), service, clock).use { remote ->
             SqliteClientFixture(root.resolve("independent-scale.sqlite").toString()).use { local ->
@@ -47,6 +52,16 @@ object SpacesScaleHost {
                 actor.flush(unrelatedSpace)
                 actor.refresh(unrelatedSpace, unrelatedChannel)
                 check(actor.community(unrelatedSpace, unrelatedChannel).canSend)
+                val hotRoot = if (manifest.get("qualifiesForTimedRuns").asBoolean) {
+                    actor.openPublic(expectedHotSpace)
+                    actor.joinPublic(expectedHotSpace)
+                    actor.flush(expectedHotSpace)
+                    actor.refresh(expectedHotSpace, expectedHotChannel)
+                    val record = manifest.get("hotChannelMessages").asInt
+                    actor.timeline(expectedHotSpace, channel = expectedHotChannel).single {
+                        it.text == "General • Benchmark Space 001 • record $record." && it.position != null && !it.pending
+                    }
+                } else null
                 val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;spaces-v1||;spaces-unread-v1||",
                     peer = service, archiveResponse = { "[]" })
                 peer.spacesResponse = { request ->
@@ -56,6 +71,17 @@ object SpacesScaleHost {
                         if (original.author == nativeOwner && original.body.get("content_kind")?.asString == "message-reaction" &&
                             original.body.get("channel_id")?.asString == expectedHotChannel &&
                             observed.body.get("stream")?.asString == "content") reactions.incrementAndGet()
+                        if (original.author == nativeOwner && original.body.get("request")?.asString == "read") {
+                            reads.incrementAndGet()
+                            val scope = original.body.getAsJsonObject("scope")
+                            val arrival = watchedReply.get()
+                            if (arrival != null && arrival.readRequest == null && scope?.get("stream")?.asString == "content" &&
+                                scope.get("channel_id")?.asString == expectedHotChannel &&
+                                observed.body.getAsJsonArray("items")?.any { item ->
+                                    val receipt = SaitoEnvelope.decode(item.asString)
+                                    SaitoEnvelope.decode(receipt.body.get("event").asString).id == arrival.id
+                                } == true) watchedReply.compareAndSet(arrival, arrival.copy(readRequest = original.id))
+                        }
                     }
                 }
                 peer.start().use { socket ->
@@ -72,16 +98,27 @@ object SpacesScaleHost {
                                     actor.flush(unrelatedSpace)
                                     val row = requireNotNull(actor.message(unrelatedSpace, event, unrelatedChannel))
                                     check(row.position != null && !row.pending && !row.rejected)
+                                    val reply = hotRoot?.let { parent ->
+                                        val id = actor.reply(expectedHotSpace, parent, "Independent offscreen thread activity $arrivals", expectedHotChannel)
+                                        watchedReply.set(Arrival(id))
+                                        actor.flush(expectedHotSpace)
+                                        check(actor.thread(expectedHotSpace, parent, channel = expectedHotChannel).any {
+                                            it.id == id && it.position != null && !it.pending && !it.rejected
+                                        })
+                                        id
+                                    }
                                     JsonObject().apply {
                                         addProperty("accepted", event)
                                         addProperty("channel", unrelatedChannel)
                                         addProperty("text", body)
+                                        reply?.let { addProperty("offscreenReply", it) }
                                     }
                                 }
                                 "/status" -> JsonObject().apply {
                                     addProperty("acceptedReactions", reactions.get())
-                                    addProperty("readRequests", peer.spacesRequests.size)
+                                    addProperty("readRequests", reads.get())
                                     addProperty("independentArrivals", arrivals)
+                                    watchedReply.get()?.readRequest?.let { addProperty("offscreenReplyRead", it) }
                                 }
                                 "/stop" -> JsonObject().apply { stopping.set(true) }
                                 else -> error("Unknown owned scale action")

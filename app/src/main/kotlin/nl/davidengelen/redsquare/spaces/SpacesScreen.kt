@@ -39,6 +39,8 @@ import nl.davidengelen.redsquare.feed.LocalPostNavigation
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
@@ -810,8 +812,17 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     SpaceCreationSheet(createOpen, account, state) { createOpen = false }
     var acceptedInvitation by remember(invitationReview?.spaceId, invitationReview?.rulesToken) { mutableStateOf(false) }
+    val expiresAt = invitationReview?.expiresAt ?: 0
+    var invitationExpired by remember(expiresAt) { mutableStateOf(expiresAt in 1L..System.currentTimeMillis()) }
+    LaunchedEffect(joinOpen, expiresAt) {
+        while (joinOpen && expiresAt > 0 && !invitationExpired) {
+            val remaining = expiresAt - System.currentTimeMillis()
+            if (remaining <= 0) invitationExpired = true else delay(minOf(remaining, 60_000L))
+        }
+    }
+    val invitationIssue = if (invitationExpired) SpaceClient.ReadProblem.EXPIRED else state.previewIssue
     DesignSheet(joinOpen, stringResource(if (replacingDevice) R.string.recovery_replace_device else R.string.spaces_join_invitation),
-        { joinOpen = false; account.dismissPreview() },
+        { joinOpen = false; clearInvitationReview() },
         contentKey = invitationReview?.spaceId, footer = { first ->
             val focus = LocalFocusManager.current; val keyboard = LocalSoftwareKeyboardController.current
             val rulesAccepted = invitationReview?.profile?.houseRules.isNullOrEmpty() || acceptedInvitation
@@ -823,7 +834,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     }
                 }
                 else if (invitationReview == null) account.preview(invitationText.trim()) else account.join(invitationText.trim(), invitationReview?.rulesToken)
-            }, enabled = joinOpen && invitationText.isNotBlank() && !state.working && rulesAccepted && (invitationReview == null || state.preview != null),
+            }, enabled = joinOpen && invitationText.isNotBlank() && !state.working && rulesAccepted &&
+                (invitationReview == null || state.preview != null && invitationIssue == null),
                 modifier = (if (invitationReview != null) first else Modifier).fillMaxWidth().heightIn(min = 48.dp)) {
                 Text(stringResource(when {
                     replacingDevice -> R.string.recovery_replace_confirm
@@ -862,7 +874,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 TextButton(onClick = ::clearInvitationReview, enabled = !state.working) { Text(stringResource(R.string.spaces_change_invitation)) }
             }
         }
-        state.previewIssue?.let { issue -> Text(stringResource(if (issue == SpaceClient.ReadProblem.EXPIRED)
+        invitationIssue?.let { issue -> Text(stringResource(if (issue == SpaceClient.ReadProblem.EXPIRED)
             R.string.spaces_invitation_expired else R.string.spaces_expiry_unavailable), color = MaterialTheme.colorScheme.onSurfaceVariant) }
         if (invitationReview == null && !replacingDevice) TextButton(onClick = {
             clearInvitationReview()
@@ -1101,6 +1113,12 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
     val savedEdit = message.change?.takeIf { it.kind == SpaceClient.MessageChangeKind.EDIT }?.text
     val name = registeredIdentity(message.author).name
     val time = remember(message.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(message.createdAt)) }
+    val measuredBody = if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE) {
+        val hostView = LocalView.current
+        bodyModifier.onGloballyPositioned { position ->
+            SpacesScaleMeasurement.rowGeometry(hostView, message.text, position.boundsInWindow())
+        }
+    } else bodyModifier
     var changeCancelTooLate by remember(message.change?.operationId) { mutableStateOf(false) }
     Row(Modifier.fillMaxWidth().testTag("spaces-message"), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         ProfileAvatar(message.author, Modifier.size(38.dp))
@@ -1111,7 +1129,7 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
                     FrameIconButton(R.drawable.ic_more, stringResource(R.string.spaces_message_actions)) { openOverlay(MessageOverlay.ACTIONS) }
             }
             Text(message.text ?: stringResource(if (message.deleted) R.string.spaces_message_deleted else if (message.missingKeys) R.string.spaces_missing_keys else R.string.spaces_message_unavailable),
-                modifier = if (message.deleted) bodyModifier.testTag("spaces-deleted-${message.id}") else bodyModifier,
+                modifier = if (message.deleted) measuredBody.testTag("spaces-deleted-${message.id}") else measuredBody,
                 style = if (message.deleted) MaterialTheme.typography.bodySmall else MaterialTheme.typography.bodyLarge,
                 color = if (message.text != null) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant)
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -1247,10 +1265,14 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
             MessageOverlay.REACTION_PICKER -> {
                 spaceReactionChoices.chunked(if (LocalDensity.current.fontScale >= 1.5f) 2 else 4).forEach { choices ->
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                        choices.forEach { emoji -> TextButton(onClick = { react?.invoke(emoji) {}; dismiss() }, enabled = react != null,
-                            modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp)) {
-                            Text(emoji, style = MaterialTheme.typography.headlineSmall)
-                        } }
+                        choices.forEach { emoji ->
+                            val input = if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE && message != null)
+                                SpacesScaleMeasurement.inputObserver(message.id, emoji) else Modifier
+                            TextButton(onClick = { react?.invoke(emoji) {}; dismiss() }, enabled = react != null,
+                                modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp).then(input)) {
+                                Text(emoji, style = MaterialTheme.typography.headlineSmall)
+                            }
+                        }
                     }
                 }
             }

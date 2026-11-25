@@ -217,7 +217,19 @@ class SpacesDiscoveryJourneyTest {
             capture("13-private-rules-preview")
             ui.onNode(hasText("Use another invitation") and hasClickAction()).performScrollTo().clickReady()
             waitUntil(5_000) { ui.onNode(hasSetTextAction() and hasAnyAncestor(isDialog())).isDisplayed() }
+            val fresh = command("fresh-expiring-invitation").get("link").asString
+            ui.onNode(hasSetTextAction() and hasAnyAncestor(isDialog())).performTextReplacement(fresh)
+            ui.onNode(hasText("View invitation") and hasClickAction()).clickReady()
+            waitText("Short Invitation")
+            ui.onNode(join).assertIsEnabled()
             command("expire")
+            ui.onNode(join).clickReady()
+            waitText("This invitation has expired. Create a new one to invite people.")
+            ui.onNode(join).assertIsNotEnabled()
+            assertTrue(saved.get("owner").asString !in members(fixtures, "expiring"))
+            capture("13a-invitation-expired-during-review")
+            ui.onNode(hasText("Use another invitation") and hasClickAction()).performScrollTo().clickReady()
+            waitUntil(5_000) { ui.onNode(hasSetTextAction() and hasAnyAncestor(isDialog())).isDisplayed() }
             ui.onNode(hasSetTextAction() and hasAnyAncestor(isDialog())).performTextReplacement(fixtures.getAsJsonObject("expiring").get("link").asString)
             ui.onNode(hasText("View invitation") and hasClickAction()).clickReady()
             waitText("This invitation has expired. Create a new one to invite people.")

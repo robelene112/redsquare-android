@@ -14,7 +14,7 @@ PROFILE = '---PROFILEDATA---'
 TAG = 'SpacesScaleProof'
 
 
-def frame_statistics(raw):
+def frame_statistics(raw, allow_empty=False):
     since = int(re.search(r'Stats since: (\d+)ns', raw)[1])
     frames = []
     unavailable = []
@@ -33,9 +33,9 @@ def frame_statistics(raw):
                 'budgetMs': (deadline - intended) / 1e6,
                 'missedBudget': completed > deadline,
             })
-    if not frames:
-        raise RuntimeError('No completed framework UI frames were observed')
     total = int(re.search(r'Total frames rendered:\s*(\d+)', raw)[1])
+    if not frames and (not allow_empty or total != 0):
+        raise RuntimeError('No completed framework UI frames were observed')
     return frames, unavailable, max(0, total - len(frames) - len(unavailable))
 
 
@@ -56,10 +56,10 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, req
     def reset_frames():
         shell('dumpsys', 'gfxinfo', package, 'reset')
 
-    def frames(name):
+    def frames(name, allow_empty=False):
         output = shell('dumpsys', 'gfxinfo', package, 'framestats')
         (evidence / f'{name}-framestats.txt').write_text(output)
-        return frame_statistics(output)
+        return frame_statistics(output, allow_empty)
 
     def view(name, until, seconds=45):
         deadline = time.monotonic() + seconds
@@ -101,8 +101,23 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, req
     def trace_text():
         return adb('logcat', '-d', '-s', f'{TAG}:I', '*:S', timeout=15).decode()
 
+    def device_elapsed_ns():
+        seconds, milliseconds = shell('cat', '/proc/uptime').split()[0].split('.')
+        return int(seconds) * 10**9 + int(milliseconds.ljust(9, '0'))
+
+    def heap_sample(name):
+        raw = shell('dumpsys', 'meminfo', '-d', package)
+        (evidence / f'{name}.txt').write_text(raw)
+        values = {label: int(amount.replace(',', '')) for label, amount in
+                  re.findall(r'^\s*(Java Heap|Native Heap|TOTAL PSS):\s*([\d,]+)', raw, re.M)}
+        if values.keys() != {'Java Heap', 'Native Heap', 'TOTAL PSS'}:
+            raise RuntimeError('Android did not report the retained process heap')
+        return values
+
     frame_measurements = []
     missing_warm = 0
+    other_frames = []
+    missing_other = []
     feedback = []
     anchor_failures = []
     trace_target = '/data/misc/perfetto-traces/spaces-scale.pftrace'
@@ -142,6 +157,13 @@ file_write_period_ms: 5000
         reset_frames()
         open_channel('hotLink', 'cold', hot)
         cold, cold_missing, cold_unretained = frames('cold')
+        def other_sample(name, allow_empty=False):
+            observed, unavailable, unretained = frames(name, allow_empty)
+            other_frames.extend(observed)
+            if unavailable or unretained:
+                missing_other.append({'stage': name, 'invalid': len(unavailable), 'unretained': unretained})
+
+        reset_frames()
         open_channel('libraryLink', 'mixed-media-library', 'Reference image 9.png')
         mixed_media = view('mixed-media-rows', lambda nodes: [
             label(node) for node in nodes if re.search(r'Reference (image|audio|document) ', label(node))
@@ -150,9 +172,15 @@ file_write_period_ms: 5000
                 for name in mixed_media}) != 3:
             raise RuntimeError('The actual library viewport did not display all three signed media formats')
         (evidence / 'mixed-media-library.png').write_bytes(adb('exec-out', 'screencap', '-p'))
+        other_sample('mixed-media')
+        reaction_frames = re.compile(r'reaction-frame (\d+) (\d+) (\d+) (\d+)')
+        geometry = re.compile(r'anchor-frame (\d+) (\d+) (-?[\d.]+) (-?[\d.]+)')
+        body = re.compile(r'General • Benchmark Space 001 • record (\d+)\.')
         for trial in range(expected['expectedWarmups'] + expected['expectedWarmIterations']):
             name = 'warm-up' if trial == 0 else f'warm-{trial}'
+            reset_frames()
             open_channel('hotLink', f'{name}-initial', hot)
+            other_sample(f'{name}-initial')
             observed, unavailable, unretained = [], [], 0
             for swipe in range(1, 5):
                 reset_frames()
@@ -165,63 +193,87 @@ file_write_period_ms: 5000
             if trial:
                 frame_measurements.extend(observed)
                 missing_warm += len(unavailable) + unretained
-            body = re.compile(r'General • Benchmark Space 001 • record \d+\.')
-            anchor = view(f'{name}-anchor', lambda nodes: next((n for n in nodes if body.search(label(n))), None))
+            anchor = view(f'{name}-anchor', lambda nodes: next((n for n in nodes
+                if body.fullmatch(label(n)) and 200 < bounds(n)[1] < 1400 and hot not in label(n)), None))
             identity, before = label(anchor), bounds(anchor)
-            preceding_read_count = request('status')['readRequests']
+            record = body.fullmatch(identity)[1]
+            if any(hot in label(node) for node in ElementTree.parse(evidence / f'{name}-anchor.xml').iter('node')):
+                raise RuntimeError('The independently updated thread is still visible before its arrival')
+            reset_frames()
+            arrival_started = device_elapsed_ns()
             arrival = request('arrival')
             deadline = time.monotonic() + 35
-            while request('status')['readRequests'] <= preceding_read_count:
+            applied = None
+            while applied is None:
+                read = request('status').get('offscreenReplyRead')
+                log = trace_text()
+                received = re.search(rf'received (\d+) {re.escape(read)}\b', log) if read else None
+                if received:
+                    limit = int(received[1])
+                    applied = next((stamp for stamp in map(int, re.findall(r'projected (\d+)', log)) if stamp > limit), None)
                 if time.monotonic() >= deadline:
-                    raise RuntimeError(f'No live refresh after the independent arrival in {name}')
-                time.sleep(.2)
+                    raise RuntimeError(f'The native client did not apply the independently signed offscreen reply in {name}')
+                if applied is None:
+                    time.sleep(.2)
             after = view(f'{name}-arrival', lambda nodes: next((n for n in nodes if label(n) == identity), None))
+            finished = device_elapsed_ns()
+            log = trace_text()
+            layouts = [(int(at), float(top), float(bottom)) for at, key, top, bottom in geometry.findall(log) if key == record]
+            prior = [layout for layout in layouts if layout[0] <= arrival_started]
+            if not prior:
+                raise RuntimeError(f'The native frame containing {identity} was not observed before the arrival')
+            baseline = prior[-1]
+            commits = [layout for layout in layouts if arrival_started < layout[0] <= finished]
             (evidence / f'{name}-anchor.json').write_text(json.dumps({
                 'text': identity, 'before': before, 'after': bounds(after), 'accepted': arrival,
+                'arrivalStartedNs': arrival_started, 'nativeReadRequest': read, 'replyProjectedNs': applied,
+                'checkedThroughNs': finished, 'baselineFrameBounds': baseline, 'changedFrameBounds': commits,
             }, indent=2))
-            if abs(before[1] - bounds(after)[1]) > 1:
+            if before != bounds(after) or any(abs(top - baseline[1]) > 1 or abs(bottom - baseline[2]) > 1 for _, top, bottom in commits):
                 anchor_failures.append(name)
+            other_sample(f'{name}-arrival', allow_empty=True)
             reaction_button = view(f'{name}-reaction', lambda nodes: next(
                 (n for n in nodes if label(n) == 'Add reaction' and 400 < bounds(n)[1] < 1550), None))
+            reset_frames()
             tap(reaction_button)
             choice = view(f'{name}-emoji', lambda nodes: next((n for n in nodes if label(n) == '👍'), None))
-            previous = len(re.findall(r'reaction-frame \d+ \d+ \d+', trace_text()))
+            previous = len(reaction_frames.findall(trace_text()))
             accepted_before = request('status')['acceptedReactions']
             tap(choice)
             deadline = time.monotonic() + 35
             while True:
                 log = trace_text()
-                observed_reactions = re.findall(r'reaction-frame (\d+) (\d+) (\d+)', log)
+                observed_reactions = reaction_frames.findall(log)
                 (evidence / 'application-observations.txt').write_text(log)
                 if len(observed_reactions) == previous + 1 and request('status')['acceptedReactions'] == accepted_before + 1:
                     break
                 if time.monotonic() >= deadline:
                     raise RuntimeError(f'Signed native reaction or committed UI frame was absent in {name}')
                 time.sleep(.2)
-            _, start, end = map(int, observed_reactions[-1])
-            if end < start:
-                raise RuntimeError(f'Reaction frame preceded its action in {name}')
+            _, start, handler, end = map(int, observed_reactions[-1])
+            if not start <= handler <= end:
+                raise RuntimeError(f'Native reaction input, handler and frame clocks are inconsistent in {name}')
             if trial:
                 feedback.append((end - start) / 1e6)
             (evidence / f'{name}-frames.json').write_text(json.dumps({
                 'frames': observed, 'unavailable': unavailable, 'unretained': unretained,
+                'nativeInputNs': start, 'handlerNs': handler, 'frameCommitNs': end,
                 'reactionToCommittedFrameMs': (end - start) / 1e6,
             }, indent=2))
+            other_sample(f'{name}-reaction')
+            reset_frames()
             open_channel('unrelatedLink', f'{name}-switch', arrival['text'])
+            other_sample(f'{name}-switch')
 
-        def lifecycle_samples():
-            return [(int(at), visible == 'true', ticker == 'true', int(account), int(jobs))
-                    for at, visible, ticker, account, jobs in
-                    re.findall(r'foreground (\d+) (true|false) (true|false) (\d+) (\d+)', trace_text())]
-
-        initial_samples = lifecycle_samples()
-        mark = initial_samples[-1][0] if initial_samples else 0
+        started_cycles = re.compile(r'foreground (\d+) true true (-?\d+) (\d+) (\d+)')
+        idle_samples = re.compile(r'idle (\d+) (-?\d+) (\d+) (\d+)')
+        mark = device_elapsed_ns()
         shell('input', 'keyevent', 'KEYCODE_HOME')
 
         def wait_stopped(after):
             deadline = time.monotonic() + 12
             while True:
-                stopped = [row for row in lifecycle_samples() if row[0] > after and not row[1] and not row[2]]
+                stopped = [tuple(map(int, row)) for row in idle_samples.findall(trace_text()) if int(row[0]) > after]
                 if stopped:
                     return stopped[-1]
                 if time.monotonic() >= deadline:
@@ -230,24 +282,29 @@ file_write_period_ms: 5000
 
         baseline = wait_stopped(mark)
         profile = [baseline]
-        (evidence / 'heap-before-lifecycle.txt').write_text(shell('dumpsys', 'meminfo', '-d', package))
+        heap = [{'cycle': 0, 'kilobytes': heap_sample('heap-before-lifecycle')}]
+        running = []
         for cycle in range(expected['idleReturnSwitchCycles']):
             key = 'hotLink' if cycle % 2 == 0 else 'unrelatedLink'
             channel = 'Benchmark Space 001' if cycle % 2 == 0 else 'Benchmark Space 002'
             open_channel(key, f'lifecycle-{cycle + 1:03d}', channel)
+            opened = [tuple(map(int, row)) for row in started_cycles.findall(trace_text()) if int(row[0]) > profile[-1][0]]
+            if len(opened) != 1:
+                raise RuntimeError(f'Expected one foreground subscription interval for lifecycle cycle {cycle + 1}')
+            running.extend(opened)
             shell('input', 'keyevent', 'KEYCODE_HOME')
             profile.append(wait_stopped(profile[-1][0]))
             if cycle % 10 == 0 or cycle == expected['idleReturnSwitchCycles'] - 1:
                 time.sleep(2)
-                (evidence / f'heap-after-{cycle + 1:03d}.txt').write_text(shell('dumpsys', 'meminfo', '-d', package))
+                heap.append({'cycle': cycle + 1, 'kilobytes': heap_sample(f'heap-after-{cycle + 1:03d}')})
         (evidence / 'lifecycle.txt').write_text(trace_text())
-        samples = [row for row in lifecycle_samples() if row[0] > baseline[0]]
-        running = [row for row in samples if row[1] and row[2]]
-        lifecycle_settled = profile[-1][3] == baseline[3] and profile[-1][4] <= baseline[4]
+        lifecycle_settled = all(account == baseline[1] and jobs <= baseline[2] and subscribers <= baseline[3]
+                                for _, account, jobs, subscribers in profile)
         (evidence / 'lifecycle-idle-jobs.json').write_text(json.dumps({
-            'fields': ['elapsedRealtimeNanos', 'visible', 'polling', 'accountInstance', 'activeChildren'],
-            'profiles': profile, 'sameAccountAtIdleBound': lifecycle_settled,
+            'fields': ['elapsedRealtimeNanos', 'accountInstance', 'activeChildren', 'stateSubscribers'],
+            'profiles': profile, 'foreground': running, 'sameAccountAtIdleBound': lifecycle_settled,
         }, indent=2))
+        (evidence / 'retained-heap-trend.json').write_text(json.dumps(heap, indent=2) + '\n')
         if len(running) < expected['idleReturnSwitchCycles'] or not lifecycle_settled:
             raise RuntimeError('Lifecycle did not return to the same account and initial idle job bound')
 
@@ -261,15 +318,17 @@ file_write_period_ms: 5000
             'coldFrameDurationMs': percentile([frame['durationMs'] for frame in cold], thresholds['reportPercentiles']),
             'coldMissingFrames': len(cold_missing) + cold_unretained,
             'warmMissingFrames': missing_warm,
+            'otherFrameSamples': len(other_frames),
+            'otherMissingFrames': missing_other,
             'warmBudgetMissShare': missed,
             'anchorFailures': anchor_failures,
             'observedForegroundTransitions': len(running),
             'observedStoppedPollingTransitions': len(profile) - 1,
             'sameAccountAtIdleJobBound': lifecycle_settled,
             'thresholdsPassed': taps[95] <= thresholds['tapFeedbackP95MsMaximum']
-                and max(durations + [frame['durationMs'] for frame in cold]) < thresholds['noFrameAtOrAboveMs']
+                and max(durations + [frame['durationMs'] for frame in cold + other_frames]) < thresholds['noFrameAtOrAboveMs']
                 and missed <= thresholds['scriptedWarmScrollBudgetMissShareMaximum']
-                and not anchor_failures and not cold_missing and not cold_unretained and not missing_warm,
+                and not anchor_failures and not cold_missing and not cold_unretained and not missing_warm and not missing_other,
         }
         (evidence / 'timing.json').write_text(json.dumps(result, indent=2) + '\n')
         if not result['thresholdsPassed']:

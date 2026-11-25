@@ -47,6 +47,26 @@ Prototype filenames refer to the original [owned native run](https://github.com/
 
 [Normative quality plan](../../quality/SPACES_QUALITY_PLAN.md)
 
+## Route states and test identities
+
+The methods below identify the native route checks and their state changes.
+Use each run's recorded viewport settings for comparison with V01–V14.
+The matching geometry and timestamp inspections apply to the named transition.
+
+| Native route and states | Test identity | Observation |
+| --- | --- | --- |
+| Module entry, empty My Spaces, public discovery, joined room | `SpacesDiscoveryJourneyTest#publicDiscoveryReadsWithoutJoiningAndCheckpointsTheActualVisitorPixel`, `#coldPublicReferenceReviewsRulesAndKeepsPerChannelDraftsAndMemberReturns` | Access loading and visitor read; public rules before consent; exact saved pixel and separate channel drafts after membership. |
+| Option B, drawer, normal and reduced-motion keyboard entry | `SpacesCatchUpJourneyTest#captureOptionBAndTheComposerInAnActualViewport` | Physical device profiles, drawer open/close recording and measured channel/editor targets. |
+| Invitation review, required rules, expired and unavailable destinations | `SpacesDiscoveryJourneyTest#coldMemberReturnCreatesAndReviewsInvitationsAndReadsUnlistedLinks`, `SpacesCatchUpJourneyTest#coldExactLinkAndRestrictedLink` | The native invitation records real consent, expiry with a review visible, and absence of membership on refusal. Cold exact and blocked links have separate visible states. |
+| Conversation, thread, pending and confirmed pins, edits, reactions, announcements | `SpacesJourneyTest#messageMenusAndEditSurviveIncomingMessagesAndRealIme`, `#pinsOpenTheirExactRootAndThreadWhilePreservingWriting`, `SpacesManagementJourneyTest#coldArchiveRecoveryAndRealReopeningKeepHistoryAndLocalErrorsReachable` | Independently accepted arrivals and an anchored message, exact parent/reply identification, retained channel and thread writing, archived history and disabled controls. |
+| Activity and search, grouped replies, filter, actual notification | `SpacesCatchUpJourneyTest#searchAndOpenRealSystemNotification` | Filtered result and grouped row remain tied to their signed source; the notification opens the exact reply through the OS. |
+| Article writing, Markdown source, preview, private review and reader recovery | `SpaceArticleJourneyTest#reviewAndPublishArticleWithRealIme`, `#recoverIndependentArticleAndNextDraft` | Native keyboard, author decision before publishing, independently received article and recovered next draft. |
+| File library, intake, provider terms, offline copies and shared removals | `SpaceFileJourneyTest#chooseProviderAndUploadFromTheAndroidDocumentPicker`, `#restoreOfflineCopyAndSeparateLocalFromSharedRemoval` | Actual picker, original byte receipt, retained metadata, download or offline recovery and separate removal paths. |
+| Quiet prejoin, active room, minimized call, permission refusal and landscape writing | `SpaceRoomJourneyTest#prejoinIsQuietAndTheCallReturnsFromAnotherModule`, `#anAttachedDraftAndTheKeyboardStayClearOfTheLiveCallBar` | Real signed session, notice and active controls; original attachment and text after returning from the call; measured IME, Send and call control bounds. |
+| Long identities, membership roles, permissions, report, management and archive | `SpacesManagementJourneyTest#compactLargeTypeShowsActualRoleErrorsAndArchiveControlsWithoutClipping`, `#compactOwnershipAndFormerOwnerDepartureUseTheActualMembershipControls`, `SpaceModerationJourneyTest#promotedAdministratorReviewsReportAndChangesWritingScope` | Named role and action states before and after ownership, scoped refusal/control changes, staff queue and signed log. |
+| Protected history, native backup picker, review, missing history keys and restore | `ProtectedWalletRecoveryTest#actualFilePickerUnlocksProtectedHistoryOnlyAfterExplicitReview` at V14 | Real document and PIN flow, review before restore, missing-keys notice and retention of the existing wallet during review. |
+| TalkBack, unread replies and active controls | `SpacesCatchUpJourneyTest#talkBackReadsTheOptionBControlUnreadReplyAndComposer`, `SpaceFileJourneyTest#talkBackReadsRealLibraryAndStorageControls`, `SpaceRoomJourneyTest#talkBackReadsTheQuietJoinAndActiveCallControls` | Actual accessibility focus and completed audible rendering, with native keyboard and geometry captured by the corresponding route checks. |
+
 ## Initial direct comparisons
 
 Inspected the original native prototype3 captures beside the functional captures listed below. Reference captures outside the Option B trial include the shared design. These comparisons identify concrete differences on the recorded source and do not stand in for the final integrated build, event traces or the complete viewport matrix.

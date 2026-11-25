@@ -96,6 +96,12 @@ internal class SpacesDiscoveryFixture(private val client: SpaceClient, private v
         }
         "/hold-public" -> { released = CountDownLatch(1); entered = false; coldPublicObservation = null; held = true; JsonObject() }
         "/release-public" -> { held = false; released.countDown(); JsonObject() }
+        "/fresh-expiring-invitation" -> {
+            val expiring = fixtures.getAsJsonObject("expiring").get("space").asString
+            val link = client.invite(expiring, expiresAfterMillis = 60_000)
+            client.flush(expiring)
+            JsonObject().apply { addProperty("link", link) }
+        }
         "/expire" -> { clock.offset = 120_000; JsonObject() }
         "/reset-clock" -> { clock.offset = 0; JsonObject() }
         "/revoke-private" -> {

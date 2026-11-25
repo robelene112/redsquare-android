@@ -247,7 +247,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         flushUrgent(current)
                         mutable.value.selected
                     }
-                    if (!mutable.value.openingDestination()) publish(includeCommunities = canRefreshCommunityList())
+                    if (!mutable.value.openingDestination()) {
+                        publish(includeCommunities = canRefreshCommunityList())
+                        if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE) SpacesScaleMeasurement.projected()
+                    }
                     trace("refresh projected")
                     // Only the on-screen Space is checked on every cycle. Keep
                     // membership and queued work rotating through the rest, and
@@ -281,6 +284,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             val connection = authenticatedPeer()
             if (connection.servicePublicKey("spaces-v1") != service) throw ChangedIdentity()
             val received = connection.request(original) { check(!closed.get()) }.toString(Charsets.UTF_8)
+            if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE) SpacesScaleMeasurement.received(original.id)
             if (fixtureTrace) trace("request=${original.id.take(10)} returnedMs=${android.os.SystemClock.elapsedRealtime() - started}")
             received
         } }
@@ -491,9 +495,19 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         if (active) ticker = scope.launch {
             while (isActive) { wake.trySend(Unit); delay(5_000) }
         }
-        if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE)
+        if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE) {
+            val job = scope.coroutineContext[Job]
             SpacesScaleMeasurement.visible(wasVisible.get(), ticker?.isActive == true, System.identityHashCode(this),
-                scope.coroutineContext[Job]?.children?.count { it.isActive } ?: 0)
+                job?.children?.count { it.isActive } ?: 0, mutable.subscriptionCount.value)
+            if (!active) scope.launch {
+                delay(750)
+                if (!wasVisible.get() && ticker?.isActive != true) {
+                    val sample = currentCoroutineContext()[Job]
+                    SpacesScaleMeasurement.idle(System.identityHashCode(this@SpacesAccount),
+                        job?.children?.count { it !== sample && it.isActive } ?: 0, mutable.subscriptionCount.value)
+                }
+            }
+        }
     }
     fun refresh() { wake.trySend(Unit) }
     fun select(space: String?, channel: String? = null) { selectRoute(space, channel) }
