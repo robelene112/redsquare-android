@@ -6,6 +6,7 @@ import math
 import re
 import shlex
 import subprocess
+import sys
 import time
 from xml.etree import ElementTree
 
@@ -96,9 +97,6 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, req
     (evidence / 'display.txt').write_text(shell('dumpsys', 'display'))
     (evidence / 'device-width.txt').write_text(shell('wm', 'size'))
     (evidence / 'device-density.txt').write_text(shell('wm', 'density'))
-    shell('am', 'force-stop', package)
-    open_channel('hotLink', 'cold', hot)
-    cold, cold_missing, cold_unretained = frames('cold')
 
     def trace_text():
         return adb('logcat', '-d', '-s', f'{TAG}:I', '*:S', timeout=15).decode()
@@ -107,7 +105,6 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, req
     missing_warm = 0
     feedback = []
     anchor_failures = []
-    trace_process = None
     trace_target = '/data/misc/perfetto-traces/spaces-scale.pftrace'
     config = '''
 buffers { size_kb: 32768 fill_policy: RING_BUFFER }
@@ -124,16 +121,27 @@ data_sources { config { name: "android.heapprofd" target_buffer: 1 heapprofd_con
   continuous_dump_config { dump_interval_ms: 15000 }
 } } }
 duration_ms: 1500000
+write_into_file: true
+file_write_period_ms: 5000
 '''
     trace_config = evidence / 'perfetto-config.pbtxt'
     trace_config.write_text(config.strip() + '\n')
-    adb('push', str(trace_config), '/data/local/tmp/spaces-scale.pbtxt')
+    # Read via stdin. Android's perfetto domain need not have access to /data/local/tmp.
+    # Wait for the actual producers, and keep the command diagnostics even on failure.
+    launch = subprocess.run(['adb', 'shell', 'perfetto', '--background-wait', '--txt',
+                             '-c', '-', '-o', trace_target], input=trace_config.read_bytes(),
+                            capture_output=True, timeout=45)
+    (evidence / 'perfetto-start.txt').write_bytes(launch.stdout + launch.stderr)
+    launch.check_returncode()
+    trace_pid = launch.stdout.decode().strip()
+    if not trace_pid.isdecimal():
+        raise RuntimeError('Perfetto did not expose its owned daemon PID')
+    trace_process = int(trace_pid)
     try:
-        trace_pid = shell('perfetto', '--background', '--txt', '-c', '/data/local/tmp/spaces-scale.pbtxt',
-                          '-o', trace_target).strip()
-        if not trace_pid.isdecimal():
-            raise RuntimeError('Perfetto did not expose its owned daemon PID')
-        trace_process = int(trace_pid)
+        shell('am', 'force-stop', package)
+        reset_frames()
+        open_channel('hotLink', 'cold', hot)
+        cold, cold_missing, cold_unretained = frames('cold')
         open_channel('libraryLink', 'mixed-media-library', 'Reference image 9.png')
         mixed_media = view('mixed-media-rows', lambda nodes: [
             label(node) for node in nodes if re.search(r'Reference (image|audio|document) ', label(node))
@@ -268,7 +276,16 @@ duration_ms: 1500000
             raise RuntimeError('Observed native timings exceeded the frozen thresholds')
         return result
     finally:
-        if trace_process is not None:
+        original_failure = sys.exception()
+        try:
             subprocess.run(['adb', 'shell', 'kill', '-INT', str(trace_process)], check=False, timeout=10)
-            time.sleep(2)
-            subprocess.run(['adb', 'pull', trace_target, str(evidence / 'native-scale.pftrace')], check=True, timeout=60)
+            await_exit = f'while kill -0 {trace_process} 2>/dev/null; do sleep 0.2; done'
+            subprocess.run(['adb', 'shell', await_exit], check=True, timeout=20)
+            trace = evidence / 'native-scale.pftrace'
+            adb('pull', trace_target, str(trace), timeout=60)
+            if trace.stat().st_size == 0:
+                raise RuntimeError('Perfetto returned an empty trace')
+        except (OSError, RuntimeError, subprocess.SubprocessError) as failure:
+            (evidence / 'perfetto-finish-error.txt').write_text(str(failure) + '\n')
+            if original_failure is None:
+                raise

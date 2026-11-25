@@ -130,6 +130,7 @@ with (evidence / 'host.log').open('wb') as host_log:
             'qualifiesForTimedRuns': full,
         }
         if full:
+            (evidence / 'timing-inputs.json').write_text(json.dumps(summary, indent=2) + '\n')
             summary['timing'] = measure(adb, evidence, package, f'ws://127.0.0.1:{local_port}/wsopen',
                                         endpoints, manifest, json.loads(contract.read_text()), request)
         stopping()
