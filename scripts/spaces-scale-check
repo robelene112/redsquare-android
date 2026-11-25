@@ -137,6 +137,20 @@ with (evidence / 'host.log').open('wb') as host_log:
         if host.wait(timeout=15) != 0:
             raise RuntimeError('Owned scale peer terminated with errors')
         (evidence / ('scale-result.json' if full else 'calibration.json')).write_text(json.dumps(summary, indent=2) + '\n')
+    except Exception:
+        captures = {
+            'failure-logcat.txt': lambda: adb('logcat', '-d', '-v', 'threadtime', '-s',
+                'SpacesAccount138:D', 'SpacesScaleProof:I', 'AndroidRuntime:E', '*:S'),
+            'failure-screen.png': lambda: adb('exec-out', 'screencap', '-p'),
+        }
+        if stopping is not None:
+            captures['failure-service.json'] = lambda: json.dumps(request('status'), indent=2).encode()
+        for name, collect in captures.items():
+            try:
+                (evidence / name).write_bytes(collect())
+            except (OSError, subprocess.SubprocessError) as observer_error:
+                (evidence / (name + '.error')).write_text(str(observer_error))
+        raise
     finally:
         if stopping is not None and host.poll() is None:
             try:

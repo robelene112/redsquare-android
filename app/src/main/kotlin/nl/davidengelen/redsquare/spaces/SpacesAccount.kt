@@ -67,7 +67,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val accessRevision: Long = 0, val searchChannels: Set<String> = emptySet(),
         val ready: Boolean = false, val savingNavigation: Boolean = false, val loadingChannel: Boolean = false, val hasEarlier: Boolean = false, val hasLater: Boolean = false, val scrollToMessage: MessageScroll? = null, val windowFrom: Long = 0, val followingLatest: Boolean = true)
     private val appContext = context.applicationContext
-    private val fixtureTrace = nl.davidengelen.redsquare.BuildConfig.DEBUG && endpoint.startsWith("ws://127.0.0.1:") &&
+    private val fixtureTrace = (nl.davidengelen.redsquare.BuildConfig.DEBUG ||
+        nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE) && endpoint.startsWith("ws://127.0.0.1:") &&
         android.os.Build.HARDWARE in listOf("ranchu", "goldfish")
     private fun trace(message: String) { if (fixtureTrace) android.util.Log.d("SpacesAccount138", message) }
     private inline fun <T> traceLocalWork(operation: String, action: () -> T): T {
@@ -82,6 +83,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val mutable = MutableStateFlow(State())
     val state = mutable.asStateFlow()
     private var attentionAfterSpace: String? = null
+    private var backgroundAfterSpace: String? = null
     private val channelDrawerVisible = AtomicBoolean()
     private val wake = Channel<Unit>(Channel.CONFLATED)
     private val network = Mutex()
@@ -194,7 +196,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 if (cacheFailed) continue
                 mutable.update { it.copy(refreshing = true) }
                 try {
-                    val attention = network.withLock {
+                    val (current, unreadSupported) = network.withLock {
                         val service = peerCall { authenticatedPeer().servicePublicKey("spaces-v1") }
                         if (cachedService != null && cachedService != service) throw ChangedIdentity()
                         if (client == null) {
@@ -216,22 +218,12 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             privateChannelEditSupported = "spaces-private-channel-edit-v1" in services) }
                         val current = requireNotNull(client)
                         flushUrgent(current)
-                        val communities = current.communities()
-                        for (community in communities) {
-                            try {
-                                trace("refresh background=${community.id.take(10)} flush-start")
-                                current.flush(community.id)
-                                trace("refresh background=${community.id.take(10)} admit-start")
-                                current.admitPending(community.id)
-                                current.flush(community.id)
-                                flushUrgent(current)
-                                trace("refresh background=${community.id.take(10)} complete")
-                                mutable.update { it.copy(accessProblems = it.accessProblems - community.id) }
-                            } catch (denied: SpaceClient.ReadDenied) {
-                                mutable.update { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem)) }
-                            }
-                        }
+                        current to ("spaces-unread-v1" in services)
+                    }
+                    val communities = current.communities()
+                    val selectedSpace = network.withLock {
                         mutable.value.target()?.let { target ->
+                            if (communities.any { it.id == target.space }) refreshBackground(current, target.space)
                             try {
                                 val selected = current.community(target.space, channel = target.channel)
                                 // A new local creation or public join can enter
@@ -244,7 +236,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                                 current.refresh(target.space, channel = target.channel, from = if (target.thread == null) windowFrom(target) else null)
                                 flushUrgent(current)
                                 current.parent(target)?.let { current.refreshThread(target.space, it, target.channel, windowFrom(target)) }
-                                if ("spaces-unread-v1" in services && selected.joined) current.attention(target.space, target.channel)
+                                if (unreadSupported && selected.joined) current.attention(target.space, target.channel)
                                 trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} complete")
                                 mutable.update { it.copy(accessProblems = it.accessProblems - target.space,
                                     savedDestination = it.savedDestination && it.target() != target) }
@@ -253,11 +245,15 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             }
                         }
                         flushUrgent(current)
-                        publish()
-                        trace("refresh projected")
-                        (current to communities).takeIf { "spaces-unread-v1" in services && wasVisible.get() }
+                        mutable.value.selected
                     }
-                    attention?.let { (current, communities) ->
+                    publish()
+                    trace("refresh projected")
+                    // Only the on-screen Space is checked on every cycle. Keep
+                    // membership and queued work rotating through the rest, and
+                    // give an interactive read the network lock between Spaces.
+                    refreshOtherSpaces(current, communities, selectedSpace)
+                    if (unreadSupported && wasVisible.get()) {
                         if (viewingSpaceLists()) refreshVisibleAttention(current, communities)
                         deliverActivity(current)
                     }
@@ -340,6 +336,37 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         }
     }
     private fun viewingSpaceLists() = wasVisible.get() && (mutable.value.selected == null || channelDrawerVisible.get())
+
+    private suspend fun refreshBackground(current: SpaceClient, space: String) {
+        try {
+            trace("refresh background=${space.take(10)} flush-start")
+            current.flush(space)
+            trace("refresh background=${space.take(10)} admit-start")
+            current.admitPending(space)
+            current.flush(space)
+            flushUrgent(current)
+            trace("refresh background=${space.take(10)} complete")
+            mutable.update { it.copy(accessProblems = it.accessProblems - space) }
+        } catch (denied: SpaceClient.ReadDenied) {
+            mutable.update { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem)) }
+        }
+    }
+
+    private suspend fun refreshOtherSpaces(current: SpaceClient, communities: List<SpaceClient.Community>, selected: String?) {
+        val ids = communities.map { it.id }.filterNot { it == selected }.sorted()
+        if (ids.isEmpty()) return
+        val previous = backgroundAfterSpace
+        val start = ids.indexOfFirst { previous == null || it > previous }.coerceAtLeast(0)
+        var refreshed = false
+        for (offset in 0 until minOf(ids.size, 4)) {
+            if (mutable.value.working) break
+            val space = ids[(start + offset) % ids.size]
+            network.withLock { refreshBackground(current, space) }
+            backgroundAfterSpace = space
+            refreshed = true
+        }
+        if (refreshed && !mutable.value.working && (selected == null || !wasVisible.get())) publish()
+    }
 
     private suspend fun refreshVisibleAttention(current: SpaceClient, communities: List<SpaceClient.Community>) {
         val joined = communities.filter { it.joined && !it.dissolved }.map { it.id }.sorted()
