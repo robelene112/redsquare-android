@@ -47,7 +47,13 @@ as false because it had no child nodes. The observer now distinguishes a found
 element from an absent result. Reaction taps update the affected row directly
 from the durable transaction.
 [The fourth full run](https://github.com/robelene112/redsquare-android/actions/runs/45694129054)
-keeps the same fixture, measurement schedule and thresholds.
+again displayed signed record 10,000 in the native view, then stopped when
+the Perfetto command exited with status 1 before the warm measurements. The
+observer had passed a file in `/data/local/tmp` and omitted the command's
+stderr. The next run sends the configuration over stdin, waits for the trace
+producers and retains the diagnostics and APK receipt if measurement stops.
+The rerun uses the frozen workload and thresholds.
+[Perfetto Android trace instructions](https://perfetto.dev/docs/learning-more/android)
 A separate one-core JVM probe on a
 disposable copy of the full fixture read the 100 registered IDs in 113ms.
 The selected-channel projection took 1.042s and the full projection took
@@ -91,11 +97,16 @@ The [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/4
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45692969315)
 journeys reached the editor and attached an image. With the real keyboard
 visible, the second capture still showed the remaining editor space consumed
-by the action row. The editor now reserves that space when the call and IME
-leave a short writing region. The new crossed journeys require a 48dp editor,
-the same signed room session, and the actual saved attachment on
+by the action row. Hiding the toolbar allowed the full Android 10 exercise.
+Cleanup then failed because Android rewrote the previously unset font setting
+to its default 1.0. On Android 17 the keyboard's font-size notice left one
+48dp row and kept the editor out of view. Original outcomes and captures are in
 [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45695831329)
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45695831280).
+The editor and call actions now share that row. The new native checks on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45699144527)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45699144348)
+measure all four targets and retain the original signed session and attachment checks.
 
 All eight [Android 10 native viewports](https://github.com/robelene112/redsquare-android/actions/runs/45689003144)
 pass, including protected wallet recovery from a backup without message keys
@@ -105,18 +116,18 @@ the separate recovery movie decoded with ordered native presentation timestamps.
 All six [Android 17 native viewports](https://github.com/robelene112/redsquare-android/actions/runs/45691984919)
 pass on the fixed-display-rotation observer. The captures exposed a remaining
 visual issue at 200% with a system keyboard notice. The earlier test checked
-the accessible target and draft, and the rendered field itself was too short
-to show the text. Short Spaces windows now use a more compact input and a
-horizontal bar with 48dp tab targets. The [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45695431019)
+the accessible target and draft while the text itself was clipped. The
+corrected [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45695431019)
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45695431485)
-reruns measure the actual field height as well.
+captures show the written draft with the keyboard present. Both reruns pass
+the stricter check for a 48dp editor and bottom-tab targets.
 
 [Android 10 TalkBack](https://github.com/robelene112/redsquare-android/actions/runs/45692969642)
 completes grouped replies, the storage controls and the quiet room controls
 with actual speech. In the Android 17 run, the engine produced and completed
 the Unmute narration after the reader queued the system call announcement.
 The [new Android 17 run](https://github.com/robelene112/redsquare-android/actions/runs/45695830858)
-retains the audio and completion requirement.
+passes the audio and completion requirements.
 
 Signed upgrades from 139 and 142 and the ordinary clean install still
 require the exact release APK. The established 139 and 142 public downloads
