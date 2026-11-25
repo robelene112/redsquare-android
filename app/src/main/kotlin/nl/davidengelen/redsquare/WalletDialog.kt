@@ -202,9 +202,10 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
                 // Authentication and document providers may return to a different scroll
                 // position. Keep the operation result visible above the task footer.
                 InlineStatus(if (walletExport.busy) stringResource(R.string.wallet_export_in_progress) else null, StatusTone.WORKING)
-                InlineStatus(if (walletImport.busy) stringResource(R.string.wallet_import_in_progress) else null, StatusTone.WORKING)
+                InlineStatus(if (walletImport.busy && !walletImport.needsPassphrase) stringResource(R.string.wallet_import_in_progress) else null, StatusTone.WORKING)
                 WalletResultStatus(walletExport.message, R.string.wallet_export_saved, R.string.wallet_export_cancelled)
-                WalletResultStatus(walletImport.message, R.string.wallet_import_saved, R.string.wallet_import_cancelled)
+                if (!walletImport.needsPassphrase)
+                    WalletResultStatus(walletImport.message, R.string.wallet_import_saved, R.string.wallet_import_cancelled)
             }
         },
         confirmButton = if (walletImport.preview != null) ({

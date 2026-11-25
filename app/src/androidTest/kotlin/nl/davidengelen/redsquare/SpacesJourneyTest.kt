@@ -121,7 +121,10 @@ class SpacesJourneyTest {
                 ui.waitUntil(15_000) { ui.onNode(hasText("Chat") and hasClickAction()).isDisplayed() }
                 ui.onNode(hasText("Chat") and hasClickAction()).performClick()
                 val protectedChats = ui.onNode(hasText("Protected chats") and hasClickAction())
-                ui.waitUntil(15_000) { protectedChats.isDisplayed() }
+                val skipAlerts = ui.onNode(hasText("Not now") and hasClickAction() and hasAnyAncestor(isDialog()))
+                ui.waitUntil(15_000) { skipAlerts.isDisplayed() || protectedChats.isDisplayed() }
+                if (skipAlerts.isDisplayed()) skipAlerts.performClick()
+                ui.waitUntil(10_000) { protectedChats.isDisplayed() }
                 protectedChats.performClick()
                 val destination = ui.onNode(hasText("Protected native conversation") and hasClickAction())
                 ui.waitUntil(15_000) { destination.isDisplayed() }

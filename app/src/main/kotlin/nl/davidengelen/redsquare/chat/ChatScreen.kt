@@ -54,11 +54,6 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, initialContact: String? = null, initialGroup: String? = null, initialDraft: String? = null, onInitialDestinationClosed: () -> Unit = {},
     initialProtectedInvitation: String? = null, onProtectedInvitationConsumed: () -> Unit = {},
     onBack: () -> Unit) {
-    val promptContext = LocalContext.current.applicationContext
-    nl.davidengelen.redsquare.NotificationPermissionPrompt(detail = R.string.chat_background_offer_detail,
-        onEnable = { withContext(Dispatchers.IO) {
-            nl.davidengelen.redsquare.notifications.ChatPushSettings(promptContext, wallet.publicKey).setEnabled(true)
-        } })
     var groupDestination by rememberSaveable(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
     var reviewingGroups by rememberSaveable(wallet.publicKey,backend) { mutableStateOf(initialGroup != null) }
     var counterparty by rememberSaveable(wallet.publicKey, backend) { mutableStateOf(initialContact) }
@@ -75,6 +70,13 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     }
     LaunchedEffect(initialProtectedInvitation) {
         if (initialProtectedInvitation != null && protectedChats != null) openProtected()
+    }
+    if (!reviewingProtected && initialProtectedInvitation == null) {
+        val promptContext = LocalContext.current.applicationContext
+        nl.davidengelen.redsquare.NotificationPermissionPrompt(detail = R.string.chat_background_offer_detail,
+            onEnable = { withContext(Dispatchers.IO) {
+                nl.davidengelen.redsquare.notifications.ChatPushSettings(promptContext, wallet.publicKey).setEnabled(true)
+            } })
     }
     SingleOwnerReveal(if (reviewingProtected) "protected" else if (reviewingGroups) "groups" else "direct", modifier) {
     if (reviewingProtected && protectedChats != null) {
