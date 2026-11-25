@@ -85,7 +85,11 @@ class SpaceArticleJourneyTest {
                 button("Review article").performScrollTo().performClick()
                 val publish = button("Publish in this channel")
                 ui.waitUntil(8_000) { publish.isDisplayed() }
-                ui.onNodeWithText("Only members with access to this channel can read this article.").assertIsDisplayed()
+                val audience = "Only members with access to this channel can read this article."
+                ui.onNodeWithText(audience).assertIsDisplayed()
+                capture("articles-private-audience", audience)
+                ui.onNodeWithText(title).performScrollTo().assertIsDisplayed()
+                publish.assertIsDisplayed()
                 capture("articles-private-review", title)
                 request("hold")
                 publish.performTouchInput { click() }

@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -372,6 +373,7 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
 private fun SpaceArticleReview(article: SpaceArticleContent.Original?, channel: SpaceClient.Channel,
     editing: Boolean, draftFailed: Boolean, draftReady: Boolean, canWrite: Boolean,
     onRetry: () -> Unit, onPublish: () -> Unit, modifier: Modifier = Modifier) {
+    val scrollAudience = LocalDensity.current.fontScale > 1.3f
     Column(modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         when {
             draftFailed -> InlineStatus(stringResource(R.string.stack_draft_load_failed), StatusTone.ERROR,
@@ -381,26 +383,32 @@ private fun SpaceArticleReview(article: SpaceArticleContent.Original?, channel: 
             else -> {
                 Column(Modifier.fillMaxWidth().weight(1f).verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    if (scrollAudience) ArticleAudience(channel)
                     ArticleBody(article)
                 }
-                val privateChannel = channel.visibility == SpaceVisibility.PRIVATE
-                Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                    Row(Modifier.padding(12.dp), horizontalArrangement = Arrangement.spacedBy(10.dp),
-                        verticalAlignment = Alignment.Top) {
-                        Icon(painterResource(if (privateChannel) R.drawable.ic_lock else R.drawable.ic_article),
-                            null, Modifier.size(22.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text(stringResource(R.string.spaces_article_review_scope, channel.profile.name),
-                                style = MaterialTheme.typography.titleSmall)
-                            Text(stringResource(if (privateChannel) R.string.spaces_article_private_scope
-                                else R.string.spaces_article_public_scope), color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                style = MaterialTheme.typography.bodySmall)
-                        }
-                    }
-                }
+                if (!scrollAudience) ArticleAudience(channel)
                 Button(onClick = onPublish, enabled = canWrite, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                     Text(stringResource(if (editing) R.string.spaces_article_publish_edit else R.string.spaces_article_publish))
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ArticleAudience(channel: SpaceClient.Channel) {
+    val privateChannel = channel.visibility == SpaceVisibility.PRIVATE
+    Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
+        Row(Modifier.padding(12.dp), horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.Top) {
+            Icon(painterResource(if (privateChannel) R.drawable.ic_lock else R.drawable.ic_article),
+                null, Modifier.size(22.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(stringResource(R.string.spaces_article_review_scope, channel.profile.name),
+                    style = MaterialTheme.typography.titleSmall)
+                Text(stringResource(if (privateChannel) R.string.spaces_article_private_scope
+                    else R.string.spaces_article_public_scope), color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall)
             }
         }
     }
