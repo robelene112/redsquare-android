@@ -44,7 +44,15 @@ internal fun chooseTestBackup(device: UiDevice, name: String) {
     clickTestBackupRoot()
     // The selected provider remains in the toolbar after the drawer closes.
     check(device.wait(Until.gone(rootsDrawer), 10_000))
-    operateSystemControl(device, By.res("android", "title").clazz("android.widget.EditText")) { text = name }
+    val filename = By.res("android", "title").clazz("android.widget.EditText")
+    if (!device.hasObject(filename) && device.currentPackageName in
+        setOf("com.android.documentsui", "com.google.android.documentsui") &&
+        device.hasObject(By.pkg("com.google.android.inputmethod.latin").desc("Open features menu"))) {
+        // On the small Android 17 viewport, the visible IME can cover the
+        // DocumentsUI filename footer. Only dismiss it while verified visible.
+        device.pressBack()
+    }
+    operateSystemControl(device, filename) { text = name }
     operateSystemControl(device, By.res("android", "button1")
         .pkg(Pattern.compile("com\\.(?:android|google\\.android)\\.documentsui")).enabled(true)) { click() }
 }
