@@ -731,9 +731,9 @@ class MainActivity : ComponentActivity() {
                                 else selectModule(AppModule.SPACES) { spacesAccount?.select(room.space, room.channel) }
                             }
                     }
-                    val renderChrome: @Composable (Boolean, Boolean, nl.davidengelen.redsquare.spaces.SpacesAccount.Target?, Boolean) -> Unit = { isHome, hideModuleHeader, roomInView, compactRoom ->
+                    val renderChrome: @Composable (Boolean, Boolean, nl.davidengelen.redsquare.spaces.SpacesAccount.Target?, Boolean, Boolean) -> Unit = { isHome, hideModuleHeader, roomInView, compactRoom, inlineWritingCall ->
                         renderAppHeader(hideModuleHeader, compactRoom)
-                        if (module != AppModule.RED_SQUARE || !hideModuleHeader || !keyboardVisible)
+                        if (!inlineWritingCall)
                             activeCall(roomInView, keyboardVisible || (module == AppModule.SPACES && hideModuleHeader), false)
                         InlineStatus(if (talkReturnExpired) stringResource(R.string.talk_return_expired) else null, StatusTone.INFO)
                         nl.davidengelen.redsquare.ui.BetaUpdateNotice(
@@ -754,15 +754,15 @@ class MainActivity : ComponentActivity() {
                             Button(onClick = { failed = false; retry++ }) { Text(stringResource(R.string.retry)) }
                         }
                     }
-                    val chrome: @Composable (Boolean) -> Unit = { isHome -> renderChrome(isHome, false, null, false) }
+                    val chrome: @Composable (Boolean) -> Unit = { isHome -> renderChrome(isHome, false, null, false, false) }
                     val screenHeight = androidx.compose.ui.platform.LocalConfiguration.current.screenHeightDp
-                    val shortIme = keyboardVisible && when (module) {
-                        AppModule.SPACES -> screenHeight < nl.davidengelen.redsquare.spaces.SHORT_SPACES_WINDOW_DP
+                    val shortWindow = when (module) {
+                        AppModule.SPACES -> keyboardVisible && screenHeight < nl.davidengelen.redsquare.spaces.SHORT_SPACES_WINDOW_DP
                         AppModule.RED_SQUARE -> nl.davidengelen.redsquare.feed.compactPostWindow()
                         else -> false
                     }
                     Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)
-                        .padding(vertical = if (shortIme) 0.dp else 4.dp)) {
+                        .padding(vertical = if (shortWindow) 0.dp else 4.dp)) {
                         if (usernameOpen && wallet != null && backend != null) {
                             chrome(false)
                             key(wallet!!.publicKey, backend) {
@@ -853,7 +853,7 @@ class MainActivity : ComponentActivity() {
                                                                 RegistryAuthority.directoryPeer(intent, endpoint).takeIf { nameDirectoryEnabled == true }) {
                                                                 spacesScreenStates.SaveableStateProvider("${currentWallet.publicKey}:${selected.id}") {
                                                                     nl.davidengelen.redsquare.spaces.SpacesScreen(account, Modifier.fillMaxSize(),
-                                                                        chrome = { keyboardInLayout, room, compactRoom -> renderChrome(false, keyboardInLayout, room, compactRoom) },
+                                                                        chrome = { keyboardInLayout, room, compactRoom -> renderChrome(false, keyboardInLayout, room, compactRoom, false) },
                                                                         onProfile = { openSpaceMember(it, false) }, onMessage = { openSpaceMember(it, true) },
                                                                         onOpenNode = ::openSpaceNode, initialInvitation = scopedSpaceNotification?.uri?.toString() ?: pendingSpaceInvitation,
                                                                         fromNotification = scopedSpaceNotification != null,
@@ -990,7 +990,7 @@ class MainActivity : ComponentActivity() {
                                                             externalReturnDepth = spacesReturnDepth.takeIf { spacesReturnOwner == wallet?.publicKey && spacesReturnBackend == selected.id },
                                                             onExternalBack = { clearSpacesReturn(); module = AppModule.SPACES },
                                                             onExternalNavigate = ::clearSpacesReturn,
-                                                            chrome = { home, compactWriting -> renderChrome(home, compactWriting, null, false) },
+                                                            chrome = { home, compactWriting, inlineCall -> renderChrome(home, compactWriting, null, false, inlineCall) },
                                                             inlineWritingCall = { activeCall(null, true, true) },
                                                             canReportDrawn = featureUnobstructed && !postNavigation.transitioning,
                                                             onWalletMetadata = updateWalletMetadata

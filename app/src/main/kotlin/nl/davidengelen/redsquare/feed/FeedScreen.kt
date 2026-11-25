@@ -80,7 +80,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     notificationRoutes: NotificationRoutes? = null, allowPushRoute: Boolean = true,
     initialProtectedInvitation: String? = null, onProtectedInvitationConsumed: () -> Unit = {},
     externalReturnDepth: Int? = null, onExternalBack: () -> Unit = {}, onExternalNavigate: () -> Unit = {},
-    chrome: @Composable (home: Boolean, compactWriting: Boolean) -> Unit = { _, _ -> },
+    chrome: @Composable (home: Boolean, compactWriting: Boolean, inlineCall: Boolean) -> Unit = { _, _, _ -> },
     inlineWritingCall: @Composable () -> Unit = {},
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit,
     onDrawn: () -> Unit) {
@@ -690,87 +690,90 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     val compactHeight = compactPostWindow()
     val compactWriting = compactHeight && composerActive.value
     val dockCompose = home && wallet != null && (compactHeight || LocalDensity.current.fontScale > 1.3f)
-    Column(modifier.nestedScroll(header.connection).readingNavigation(header)) {
-        ReadingHeader(header) {
-            chrome(home, compactWriting)
-        }
-        AnimatedVisibility(pendingTap != null && tapFailed,
-            enter = fadeIn(tween(AppSpacing.transitionMillis)), exit = fadeOut(tween(AppSpacing.transitionMillis))) {
-            Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
-                Text(stringResource(R.string.social_push_open_failed), style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.error)
-                Row {
-                    TextButton(enabled = pendingTap != null && tapFailed && !formNavigation.transitioning,
-                        onClick = { tapRetry++ }) { Text(stringResource(R.string.retry)) }
-                    TextButton(enabled = pendingTap != null && tapFailed && !formNavigation.transitioning,
-                        onClick = { pendingTap?.let { notificationRoutes?.consume(it) } }) {
-                        Text(stringResource(R.string.social_push_dismiss))
-                    }
-                }
+    BoxWithConstraints(modifier.nestedScroll(header.connection).readingNavigation(header)) {
+        val inlineCall = compactWriting && compactTypingViewport(maxHeight, keyboardVisible)
+        Column(Modifier.fillMaxSize()) {
+            ReadingHeader(header) {
+                chrome(home, compactWriting, inlineCall)
             }
-        }
-        val revealTarget: Any = when {
-            externalRoute -> requireNotNull(navigation.lastOrNull())
-            reviewingChat -> PrimaryDestination.CHAT to chatAlertGeneration
-            reviewingQueue -> FeedOverlay.QUEUE
-            reviewingChanges -> FeedOverlay.AUTHOR_CHANGES
-            composing -> FeedOverlay.COMPOSER
-            else -> navigation.lastOrNull() ?: PrimaryDestination.HOME
-        }
-        Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
-            SingleOwnerReveal(revealTarget, Modifier.fillMaxSize()) {
-                Row(Modifier.fillMaxSize(), verticalAlignment = Alignment.Bottom) {
-                    Box(Modifier.weight(1f).fillMaxHeight()) {
-                        CompositionLocalProvider(LocalPostSubmissionNotice provides { submittedPosts++ },
-                            LocalPostComposerActive provides composerActive) { content() }
-                        if (home && wallet != null && !dockCompose) ComposePostButton(
-                            Modifier.align(Alignment.BottomEnd).padding(bottom = AppSpacing.screen).size(56.dp)) { composing = true }
-                    }
-                    if (compactWriting && keyboardVisible) inlineWritingCall()
-                }
-            }
-        }
-
-        val destination = navigation.lastOrNull()
-        val writingReply = destination is BrowseDestination.Conversation && formNavigation.saveCurrent != null
-        if (!keyboardVisible && (externalRoute || (!composing && !reviewingQueue && !reviewingChanges)) && !writingReply &&
-            destination !is BrowseDestination.Quote && destination !is BrowseDestination.Author) {
-            SnackbarHost(navigationNotice, Modifier.padding(horizontal = AppSpacing.screen))
-            HorizontalDivider()
-            ModuleNavigation(PrimaryDestination.entries, primary, wallet != null && !formNavigation.transitioning,
-                trailingAction = if (dockCompose) { { ComposePostButton(Modifier.size(48.dp)) { composing = true } } } else null,
-                onSelect = select@{ destination ->
-                val rootDestination = visibleNavigation.singleOrNull()
-                val atPrimaryRoot = when (destination) {
-                    PrimaryDestination.HOME -> home
-                    PrimaryDestination.CHAT -> !externalRoute && reviewingChat
-                    PrimaryDestination.SEARCH -> rootDestination is BrowseDestination.Search
-                    PrimaryDestination.NOTIFICATIONS -> rootDestination is BrowseDestination.Notifications
-                    PrimaryDestination.PROFILE -> (rootDestination as? BrowseDestination.Profile)?.author == wallet?.publicKey
-                }
-                if (destination == primary && atPrimaryRoot) return@select
-                val owner = wallet?.publicKey ?: return@select
-                scope.launch {
-                    val moved = formNavigation.navigate {
-                        if (owner != currentWalletKey) return@navigate false
-                        onExternalNavigate()
-                        reviewingChat = false; reviewingQueue = false; reviewingChanges = false
-                        chatAlertUri = null
-                        navigation.clear()
-                        when (destination) {
-                            PrimaryDestination.HOME -> Unit
-                            PrimaryDestination.SEARCH -> navigation.add(BrowseDestination.Search(navigationMemory.searchView))
-                            PrimaryDestination.NOTIFICATIONS -> navigation.add(BrowseDestination.Notifications)
-                            PrimaryDestination.CHAT -> reviewingChat = true
-                            PrimaryDestination.PROFILE -> navigation.add(BrowseDestination.Profile(owner, navigationMemory.ownProfileView))
+            AnimatedVisibility(pendingTap != null && tapFailed,
+                enter = fadeIn(tween(AppSpacing.transitionMillis)), exit = fadeOut(tween(AppSpacing.transitionMillis))) {
+                Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
+                    Text(stringResource(R.string.social_push_open_failed), style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.error)
+                    Row {
+                        TextButton(enabled = pendingTap != null && tapFailed && !formNavigation.transitioning,
+                            onClick = { tapRetry++ }) { Text(stringResource(R.string.retry)) }
+                        TextButton(enabled = pendingTap != null && tapFailed && !formNavigation.transitioning,
+                            onClick = { pendingTap?.let { notificationRoutes?.consume(it) } }) {
+                            Text(stringResource(R.string.social_push_dismiss))
                         }
-                        true
                     }
-                    if (moved) navigationNotice.currentSnackbarData?.dismiss()
-                    else if (owner == currentWalletKey && navigationNotice.currentSnackbarData == null)
-                        navigationNotice.showSnackbar(navigationFailureMessage)
                 }
-            })
+            }
+            val revealTarget: Any = when {
+                externalRoute -> requireNotNull(navigation.lastOrNull())
+                reviewingChat -> PrimaryDestination.CHAT to chatAlertGeneration
+                reviewingQueue -> FeedOverlay.QUEUE
+                reviewingChanges -> FeedOverlay.AUTHOR_CHANGES
+                composing -> FeedOverlay.COMPOSER
+                else -> navigation.lastOrNull() ?: PrimaryDestination.HOME
+            }
+            Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
+                SingleOwnerReveal(revealTarget, Modifier.fillMaxSize()) {
+                    Row(Modifier.fillMaxSize(), verticalAlignment = Alignment.Bottom) {
+                        Box(Modifier.weight(1f).fillMaxHeight()) {
+                            CompositionLocalProvider(LocalPostSubmissionNotice provides { submittedPosts++ },
+                                LocalPostComposerActive provides composerActive) { content() }
+                            if (home && wallet != null && !dockCompose) ComposePostButton(
+                                Modifier.align(Alignment.BottomEnd).padding(bottom = AppSpacing.screen).size(56.dp)) { composing = true }
+                        }
+                        if (inlineCall) inlineWritingCall()
+                    }
+                }
+            }
+
+            val destination = navigation.lastOrNull()
+            val writingReply = destination is BrowseDestination.Conversation && formNavigation.saveCurrent != null
+            if (!keyboardVisible && !inlineCall && (externalRoute || (!composing && !reviewingQueue && !reviewingChanges)) && !writingReply &&
+                destination !is BrowseDestination.Quote && destination !is BrowseDestination.Author) {
+                SnackbarHost(navigationNotice, Modifier.padding(horizontal = AppSpacing.screen))
+                HorizontalDivider()
+                ModuleNavigation(PrimaryDestination.entries, primary, wallet != null && !formNavigation.transitioning,
+                    trailingAction = if (dockCompose) { { ComposePostButton(Modifier.size(48.dp)) { composing = true } } } else null,
+                    onSelect = select@{ destination ->
+                    val rootDestination = visibleNavigation.singleOrNull()
+                    val atPrimaryRoot = when (destination) {
+                        PrimaryDestination.HOME -> home
+                        PrimaryDestination.CHAT -> !externalRoute && reviewingChat
+                        PrimaryDestination.SEARCH -> rootDestination is BrowseDestination.Search
+                        PrimaryDestination.NOTIFICATIONS -> rootDestination is BrowseDestination.Notifications
+                        PrimaryDestination.PROFILE -> (rootDestination as? BrowseDestination.Profile)?.author == wallet?.publicKey
+                    }
+                    if (destination == primary && atPrimaryRoot) return@select
+                    val owner = wallet?.publicKey ?: return@select
+                    scope.launch {
+                        val moved = formNavigation.navigate {
+                            if (owner != currentWalletKey) return@navigate false
+                            onExternalNavigate()
+                            reviewingChat = false; reviewingQueue = false; reviewingChanges = false
+                            chatAlertUri = null
+                            navigation.clear()
+                            when (destination) {
+                                PrimaryDestination.HOME -> Unit
+                                PrimaryDestination.SEARCH -> navigation.add(BrowseDestination.Search(navigationMemory.searchView))
+                                PrimaryDestination.NOTIFICATIONS -> navigation.add(BrowseDestination.Notifications)
+                                PrimaryDestination.CHAT -> reviewingChat = true
+                                PrimaryDestination.PROFILE -> navigation.add(BrowseDestination.Profile(owner, navigationMemory.ownProfileView))
+                            }
+                            true
+                        }
+                        if (moved) navigationNotice.currentSnackbarData?.dismiss()
+                        else if (owner == currentWalletKey && navigationNotice.currentSnackbarData == null)
+                            navigationNotice.showSnackbar(navigationFailureMessage)
+                    }
+                })
+            }
         }
     }
 }

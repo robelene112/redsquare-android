@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.Dispatchers
@@ -47,6 +48,9 @@ import nl.davidengelen.redsquare.ui.keyboardOccupiesWindow
 
 @Composable
 internal fun compactPostWindow(): Boolean = LocalConfiguration.current.screenHeightDp < 400
+
+/** Android can resize the activity before publishing the keyboard's visibility. */
+internal fun compactTypingViewport(height: Dp, keyboardVisible: Boolean): Boolean = keyboardVisible || height < 160.dp
 
 internal val LocalPostComposerActive = staticCompositionLocalOf<MutableState<Boolean>?> { null }
 
@@ -77,12 +81,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         onDispose { composerActive?.value = false }
     }
     val compactHeight = compactPostWindow()
-    val compactTyping = compactHeight && keyboardOccupiesWindow()
-    LaunchedEffect(state, state.ready, editorPlaced, compactTyping) {
-        if ((parent != null || compactTyping) && state.ready && editorPlaced && state.transaction == null) {
-            editorView.bringIntoView()
-        }
-    }
+    val keyboardVisible = keyboardOccupiesWindow()
     var observedTransaction by rememberSaveable(session) { mutableStateOf<String?>(null) }
     val closeEditor = { observedTransaction = null; onClose() }
     LaunchedEffect(state.transaction?.id) {
@@ -221,6 +220,12 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         }
         BackHandler { if (!sending && !saving) { if (ready) saveAndClose(closeEditor) else closeEditor() } }
         BoxWithConstraints(modifier.imePadding()) {
+            val compactTyping = compactHeight && compactTypingViewport(maxHeight, keyboardVisible)
+            LaunchedEffect(state, state.ready, editorPlaced, compactTyping) {
+                if ((parent != null || compactTyping) && state.ready && editorPlaced && state.transaction == null) {
+                    editorView.bringIntoView()
+                }
+            }
             // Give the focused editor the remaining height when a call and
             // the keyboard leave too little room for the secondary toolbar.
             val showActions = !compactTyping || maxHeight >= 120.dp

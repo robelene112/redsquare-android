@@ -81,3 +81,15 @@ Inspected the original native prototype3 captures beside the functional captures
 | Prejoin, active and minimized room | Prejoin communicates the quiet default next to the join action. The active room shows the participant, separate camera and microphone, browse and leave controls. The compact return bar is above the conversation when the keyboard is open. Its production location differs from the prototype's above-composer bar and keeps the actual editor above the keyboard. Full call-bar, pending attachment and IME crossing remains to be verified. | [Room and keyboard](https://github.com/robelene112/redsquare-android/actions/runs/45601189802) |
 | Members, administration and archive | Member name, role, profile entry and private chat remain visible. Signed changes are readable in a dedicated admin log. The archived announcement stays readable with a disabled composer and an explanation. These screens extend the prototype's shared layout for real membership and channel status. | [Members](https://github.com/robelene112/redsquare-android/actions/runs/44617057656), [admin log](https://github.com/robelene112/redsquare-android/actions/runs/45638013335), [archive](https://github.com/robelene112/redsquare-android/actions/runs/44832654787) |
 | Backup and restore | The prototype shows a dedicated Backup page with separate recovery actions and a warning about history keys. The real app uses the shared Wallet and native file flow. Its import review shows the active and restored identity, whether message keys are present, and the limits of chat recovery. The confirmation requires scrolling to acknowledge the limits. The captures show successful export and import. The signed upgrade and landscape V14 still have their own checks. | [Protected wallet backup and restore](https://github.com/robelene112/redsquare-android/actions/runs/45516283155) |
+
+## Landscape typing transition
+
+The [V03 Android 17 crossed recording](https://github.com/robelene112/redsquare-android/actions/runs/45699144348)
+contains 299 decodable frames with strictly ordered native presentation timestamps.
+Between 22.091s and 22.384s the Gboard font notice is visible while the call bar
+still uses its vertical position and clips the writing field. The recorded
+frame at 22.946s shows the editor and all three call controls side by side.
+The settled screenshots and native action test had passed. Compact writing
+now uses the actual available height to place the controls before Android's
+IME visibility signal arrives. The settled text, attachment and exact room
+session checks remain part of the crossed journey.
