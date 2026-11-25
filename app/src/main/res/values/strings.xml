@@ -1341,7 +1341,10 @@
     <string name="spaces_files_node_unavailable">Shared storage is unavailable on this node.</string>
     <string name="spaces_files_provider_unavailable">Could not reach the storage provider.</string>
     <string name="spaces_files_unconfigured">No storage provider selected.</string>
-    <string name="spaces_files_usage">%1$s of %2$s used</string>
+    <string name="spaces_files_usage_and_expiry">%1$s of %2$s used · Expires %3$s</string>
+    <string name="spaces_files_refresh_storage">Refresh storage</string>
+    <string name="spaces_files_join_for_download">Join this Space to download shared files.</string>
+    <string name="spaces_files_latest">Back to latest files</string>
     <string name="spaces_files_full">%1$s of %2$s used. Storage is full.</string>
     <string name="spaces_files_upload">Upload a file</string>
     <string name="spaces_files_empty">No shared files yet</string>

@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
@@ -41,9 +40,9 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
     modifier: Modifier) {
     val target = SpacesAccount.Target(requireNotNull(state.selected), channel.id)
     val context = LocalContext.current
-    val worker = rememberCoroutineScope()
     val publishing = LocalPublishingAgreement.current
     val online = state.availability == SpacesAccount.Availability.ONLINE
+    val joined = state.current?.joined == true
     val records = remember(state.messages) { state.messages.filter { it.isFile }.asReversed() }
     val descriptors by produceState<Map<String, SpaceFileDescriptor>>(emptyMap(), target, records) {
         value = withContext(Dispatchers.Default) {
@@ -62,14 +61,14 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
     var terms by remember(target) { mutableStateOf<SpaceStorageOffer?>(null) }
     var removeShared by remember(target) { mutableStateOf<SpaceClient.Message?>(null) }
     var removeLocal by remember(target) { mutableStateOf<String?>(null) }
-    val library by produceState<SpacesAccount.FileLibrary?>(null, target, revision, online, records, state.contentLoaded) {
+    val library by produceState<SpacesAccount.FileLibrary?>(null, target, revision, online, joined, state.fileLeaseId, records, state.contentLoaded) {
         if (state.contentLoaded || records.isNotEmpty() || online) {
             try {
                 val local = account.fileLibrary(target, records, observeProvider = false)
                 val previous = value
                 value = if (previous?.lease?.id == local.lease?.id && online && previous?.usage != null && !local.expired)
                     local.copy(usage = previous.usage, checkedProvider = true) else local
-                if (online && local.lease != null && !local.expired)
+                if (online && joined && local.lease != null && !local.expired)
                     value = account.fileLibrary(target, records, observeProvider = true)
             }
             catch (cancelled: CancellationException) { throw cancelled }
@@ -88,7 +87,7 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
         if (busy) return
         problem = 0
         busy = true
-        worker.launch {
+        account.launchFileOperation(target) {
             try { action() }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { problem = failure }
@@ -115,10 +114,11 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
         selected = null
         problem = 0
     }
+    val displayRows = records.filter { !it.pending && !it.rejected && (!it.deleted || it.id in library?.offline.orEmpty()) }
     val anchor = state.anchor
     val listState = rememberLazyListState(
         initialFirstVisibleItemIndex = anchor?.let { saved ->
-            records.filterNot { it.deleted && it.id !in library?.offline.orEmpty() }.indexOfFirst { it.id == saved.messageId }
+            displayRows.indexOfFirst { it.id == saved.messageId }
                 .takeIf { it >= 0 }?.plus(1)
         } ?: 0,
         initialFirstVisibleItemScrollOffset = anchor?.offset ?: 0,
@@ -140,11 +140,20 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
         }
     }
 
+    LaunchedEffect(target, state.scrollToMessage, displayRows, selected) {
+        val requested = state.scrollToMessage ?: return@LaunchedEffect
+        if (selected != null) return@LaunchedEffect
+        val index = displayRows.indexOfFirst { it.id == requested.id }
+        if (index >= 0) {
+            listState.scrollToItem(index + 1)
+            account.consumeScrollTarget(requested)
+        }
+    }
+
     val canConfigure = online && library?.supported == true && account.mayManageFileStorage(target)
-    val canDownload = online && library?.usage != null && library?.expired == false
-    val canUpload = canDownload && library?.usage?.available?.let { it >= 16 } == true &&
+    val canDownload = online && joined && library?.usage != null && library?.expired == false
+    val canUpload = canDownload && library?.usage?.available?.let { it >= SpaceFileCipher.MIN_CIPHERTEXT_BYTES } == true &&
         state.current?.canSend == true && library?.upload == null
-    val displayRows = records.filterNot { it.deleted && it.id !in library?.offline.orEmpty() }
     if (selectedRecord != null && selection != null) {
         val row = selectedRecord
         LazyColumn(modifier.fillMaxWidth(), contentPadding = PaddingValues(AppSpacing.screen),
@@ -191,8 +200,17 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
         LazyColumn(modifier.fillMaxWidth(), state = listState, contentPadding = PaddingValues(AppSpacing.screen),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item("library") {
-                FilePanel(stringResource(R.string.spaces_files_library), storageLabel(library, online), R.drawable.ic_vault,
+                FilePanel(stringResource(R.string.spaces_files_library), storageLabel(library, online, joined), R.drawable.ic_vault,
                     onClick = { settings = true; providerOrigin = lease?.offer?.origin.orEmpty(); problem = 0 })
+            }
+            items(displayRows, key = { it.id }) { row ->
+                val file = descriptors[row.id] ?: library?.offline?.get(row.id)
+                if (file != null && !row.pending && !row.rejected) {
+                    FilePanel(file.name, FileAttribution(row, file.sealed.size), R.drawable.ic_file,
+                        onClick = { selected = row.id; problem = 0 })
+                } else if (!row.pending && !row.rejected && row.missingKeys) {
+                    FilePanel(stringResource(R.string.spaces_files_hidden), FileAttribution(row, null), R.drawable.ic_file)
+                }
             }
             if (problem != 0 && !settings) item("file-problem") { InlineStatus(stringResource(problem), StatusTone.WARNING) }
             if (busy && !settings) item("file-progress") { LinearProgressIndicator(Modifier.fillMaxWidth()) }
@@ -218,17 +236,13 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
                     } }, enabled = !busy && online) { Text(stringResource(R.string.spaces_files_discard_upload)) }
                 }
             }
-            items(displayRows, key = { it.id }) { row ->
-                val file = descriptors[row.id] ?: library?.offline?.get(row.id)
-                if (file != null && !row.pending && !row.rejected) {
-                    FilePanel(file.name, FileAttribution(row, file.sealed.size), R.drawable.ic_file,
-                        onClick = { selected = row.id; problem = 0 })
-                } else if (!row.pending && !row.rejected && row.missingKeys) {
-                    FilePanel(stringResource(R.string.spaces_files_hidden), FileAttribution(row, null), R.drawable.ic_file)
-                }
-            }
             if (displayRows.isEmpty() && state.contentLoaded) item("empty") {
                 Text(stringResource(R.string.spaces_files_empty), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            if (state.hasLater) item("latest") {
+                TextButton(onClick = account::latestMessages, enabled = !state.refreshing && !busy) {
+                    Text(stringResource(R.string.spaces_files_latest))
+                }
             }
             if (state.hasEarlier) item("older") {
                 TextButton(onClick = account::olderMessages, enabled = !state.refreshing && !busy) {
@@ -249,7 +263,12 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
         title = { Text(stringResource(R.string.spaces_files_storage)) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text(storageLabel(library, online))
+                Text(storageLabel(library, online, joined))
+                if (online && joined && lease != null && library?.expired == false && terms == null) {
+                    TextButton(onClick = { revision++ }, enabled = !busy) {
+                        Text(stringResource(R.string.spaces_files_refresh_storage))
+                    }
+                }
                 lease?.offer?.let {
                     Text(it.origin)
                     Text(stringResource(R.string.spaces_files_expiry, fileDate(it.expiresAt)))
@@ -361,7 +380,7 @@ private fun FileAttribution(row: SpaceClient.Message, bytes: Long?): String {
 }
 
 @Composable
-private fun storageLabel(library: SpacesAccount.FileLibrary?, online: Boolean): String {
+private fun storageLabel(library: SpacesAccount.FileLibrary?, online: Boolean, joined: Boolean): String {
     val context = LocalContext.current
     val used = library?.usage
     return when {
@@ -370,12 +389,14 @@ private fun storageLabel(library: SpacesAccount.FileLibrary?, online: Boolean): 
         !online -> stringResource(R.string.spaces_files_offline)
         !library.supported -> stringResource(R.string.spaces_files_node_unavailable)
         library.lease == null -> stringResource(R.string.spaces_files_unconfigured)
+        !joined -> stringResource(R.string.spaces_files_join_for_download)
         !library.checkedProvider -> stringResource(R.string.spaces_files_checking)
         used == null -> stringResource(R.string.spaces_files_provider_unavailable)
-        used.available < 16 -> stringResource(R.string.spaces_files_full,
+        used.available < SpaceFileCipher.MIN_CIPHERTEXT_BYTES -> stringResource(R.string.spaces_files_full,
             Formatter.formatShortFileSize(context, used.used), Formatter.formatShortFileSize(context, used.capacity))
-        else -> stringResource(R.string.spaces_files_usage,
-            Formatter.formatShortFileSize(context, used.used), Formatter.formatShortFileSize(context, used.capacity))
+        else -> stringResource(R.string.spaces_files_usage_and_expiry,
+            Formatter.formatShortFileSize(context, used.used), Formatter.formatShortFileSize(context, used.capacity),
+            fileDate(used.expiresAt))
     }
 }
 

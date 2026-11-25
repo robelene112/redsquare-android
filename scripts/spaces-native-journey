@@ -1195,6 +1195,8 @@ finally:
                 json.dumps(command(control_port, selected_status), indent=2)))
     if owned_emulator:
         cleanup('stop-owned-android-process', lambda: adb('shell', 'am', 'force-stop', pkg))
+        if file_mode:
+            cleanup('stop-owned-file-viewer', lambda: adb('shell', 'am', 'force-stop', pkg + '.test'))
     if article_agreement_owned:
         cleanup('remove-owned-article-agreement-fixture',
                 lambda: adb('shell', 'run-as', pkg, 'rm', '-f', 'no_backup/publishing-policy-fixture.json'))

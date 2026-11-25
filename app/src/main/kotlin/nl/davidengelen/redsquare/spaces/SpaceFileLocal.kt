@@ -124,6 +124,22 @@ internal class SpaceFileLocal(private val context: Context, owner: String, backe
         return if (saved.text == "{}") null else SpaceFileDescriptor.read(saved.text)
     }
 
+    /** Prune orphaned staging after a killed process without touching indexed copies. */
+    fun removeAbandonedStaging(target: SpacesAccount.Target, current: Upload?, now: Long) {
+        val directory = directory(target)
+        directory.listFiles().orEmpty().forEach { file ->
+            if (!file.isFile || file.lastModified() > now - STAGING_MAX_AGE) return@forEach
+            val candidate = file.name
+            val untracked = when {
+                TEMPORARY.matches(candidate) -> true
+                OUTGOING.matches(candidate) -> candidate.substringBefore('.') != current?.file?.sealed?.id
+                OFFLINE.matches(candidate) -> offlineDescriptor(target, candidate.substringBefore('.')) == null
+                else -> false
+            }
+            if (untracked) file.delete()
+        }
+    }
+
     fun removal(target: SpacesAccount.Target): String? = record(target, "remove").load()?.text?.takeIf { it.isNotEmpty() }
 
     fun saveRemoval(target: SpacesAccount.Target, id: String?) {
@@ -218,6 +234,10 @@ internal class SpaceFileLocal(private val context: Context, owner: String, backe
 
     private companion object {
         const val PREFIX = "spaces-file."
+        const val STAGING_MAX_AGE = 2 * 60 * 60_000L
+        val TEMPORARY = Regex("(upload|download)-[0-9]+\\.part")
+        val OUTGOING = Regex("[0-9a-f]{64}\\.outgoing")
+        val OFFLINE = Regex("[0-9a-f]{128}\\.offline")
         val MIME = Regex("[a-z0-9!#$&^_.+-]+/[a-z0-9!#$&^_.+-]+")
         fun hash(value: String) = MessageDigest.getInstance("SHA-256").digest(value.toByteArray(Charsets.UTF_8))
             .joinToString("") { "%02x".format(it.toInt() and 255) }

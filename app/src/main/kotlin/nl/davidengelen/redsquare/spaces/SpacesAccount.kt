@@ -48,6 +48,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val membershipChange: SpaceClient.MembershipChange? = null, val bannedMembers: Set<String> = emptySet(),
         val joinedInvitation: String? = null, val openedPublicReference: String? = null, val openedRecovery: SpaceCrypto.Scope? = null,
         val contentLoaded: Boolean = false, val requiredNode: String? = null, val articleFocus: ArticleFocus? = null,
+        val fileLeaseId: String? = null,
         val profiles: Map<String, SpaceProfile> = emptyMap(), val channels: List<SpaceClient.Channel> = emptyList(),
         val members: List<SpaceClient.Member> = emptyList(), val accessProblems: Map<String, SpaceClient.ReadProblem> = emptyMap(),
         val discoverySupported: Boolean? = null, val unreadSupported: Boolean = false,
@@ -81,7 +82,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val wake = Channel<Unit>(Channel.CONFLATED)
     private val network = Mutex()
     private val localAccess = Mutex()
-    private val fileGate = Mutex()
+    private val fileGates = ConcurrentHashMap<Target, Mutex>()
+    private val sweptFileChannels = ConcurrentHashMap.newKeySet<Target>()
     private val managementChanges = Any()
     private val urgentOutbox = ConcurrentHashMap.newKeySet<String>()
     private val closed = AtomicBoolean()
@@ -372,12 +374,16 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val publicRulesToken = target?.let { profiles[it.space] }?.takeIf { it.visibility == SpaceVisibility.PUBLIC }?.publicRulesToken
         val listingIntent = projection.listingIntent
         val publicLink = projection.publicLink
+        val fileLease = target?.takeIf { route ->
+            channels.any { it.id == route.channel && it.profile.kind == SpaceChannelKind.FILE }
+        }?.let { current.fileStorage(it.space)?.id }
         synchronized(managementChanges) {
             val changes = managementProjection(current, target)
             mutable.update { previous ->
                 if (previous.target() != target || previous.loadingChannel) previous.copy(communities = communities, profiles = profiles)
                 else previous.copy(communities = communities, profiles = profiles, current = community, channels = channels, categories = projection.categories, members = members, bannedMembers = bannedMembers,
-                notificationPolicy = notifications, pinStatus = pins, messages = messages, threadParent = projection.threadParent, invitation = invitation, publicRulesToken = publicRulesToken,
+                notificationPolicy = notifications, pinStatus = pins, messages = messages, threadParent = projection.threadParent,
+                invitation = invitation, publicRulesToken = publicRulesToken, fileLeaseId = fileLease,
                 listingIntent = target?.let { dirtyListings[it.space] } ?: listingIntent, publicLink = publicLink,
                 contentLoaded = window?.loaded == true, hasEarlier = window?.hasEarlier == true,
                 hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0,
@@ -523,12 +529,12 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             (file.author == wallet.publicKey || state.value.current?.canManage == true)
 
     suspend fun fileLibrary(target: Target, records: List<SpaceClient.Message>, observeProvider: Boolean): FileLibrary =
-        fileAction(target) { current, disk, checkRoute ->
+        fileAction(target, exclusive = false) { current, disk, checkRoute ->
             val lease = current.fileStorage(target.space)
             val expired = lease != null && System.currentTimeMillis() >= lease.offer.expiresAt
-            val online = mutable.value.availability == Availability.ONLINE
+            val online = mutable.value.availability == Availability.ONLINE && mutable.value.current?.joined == true
             val usage = if (lease == null || expired || !online || !observeProvider) null else try {
-                val permission = network.withLock { current.fileStorageUsagePermission(target.space, target.channel) }
+                val permission = current.fileStorageUsagePermission(target.space, target.channel)
                 checkRoute()
                 provider(lease.offer.origin).usage(lease, permission, System::currentTimeMillis)
             } catch (cancelled: CancellationException) {
@@ -537,7 +543,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 null
             }
             checkRoute()
-            FileLibrary(current.fileStorageSupported(), lease, usage, disk.pending(target), disk.setup(target.space),
+            val pending = disk.pending(target)
+            if (!observeProvider && sweptFileChannels.add(target)) disk.removeAbandonedStaging(target, pending, System.currentTimeMillis())
+            FileLibrary(current.fileStorageSupported(), lease, usage, pending, disk.setup(target.space),
                 disk.removal(target), records.mapNotNull { item ->
                     val file = disk.offlineDescriptor(target, item.id) ?: return@mapNotNull null
                     if (disk.offlineCopy(target, item.id, file) == null) null else item.id to file
@@ -612,16 +620,21 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val pending = requireNotNull(disk.pending(target))
         val lease = requireNotNull(current.fileStorage(target.space))
         val sealed = pending.file.sealed
-        val existing = pending.operation ?: current.filePublication(target.space, target.channel, sealed.id)
+        val prior = current.filePublication(target.space, target.channel, sealed.id) ?: pending.operation
+        val retryRejected = prior != null && current.fileOperation(target.space, prior) == SpaceClient.ChangeStatus.REJECTED
+        val existing = prior.takeUnless { retryRejected }
         val original = existing ?: run {
             val permission = network.withLock { current.fileUploadPermission(target.space, target.channel, sealed) }
             checkRoute()
             val proof = disk.upload(target, pending).inputStream().use { provider(lease.offer.origin).put(permission, it) }
             checkRoute()
             val stage = SpaceFileStage.read(proof, requireNotNull(cachedService), lease.offer.provider)
-            localAccess.withLock { checkRoute(); current.publishFile(target.space, target.channel, pending.file, stage) }
+            localAccess.withLock {
+                checkRoute()
+                current.publishFile(target.space, target.channel, pending.file, stage, retryRejected)
+            }
         }
-        if (pending.operation == null) disk.notePublication(target, pending, original)
+        if (pending.operation != original) disk.notePublication(target, pending, original)
         urgentOutbox.add(target.space)
         wake.trySend(Unit)
         network.withLock {
@@ -645,6 +658,15 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
 
     data class OpenedSpaceFile(val uri: Uri, val mime: String)
+
+    /** Keep a file action attached to the account while its route can change. */
+    fun launchFileOperation(target: Target, action: suspend () -> Unit) {
+        val route = navigationVersion.get()
+        scope.launch(Dispatchers.Main.immediate) {
+            if (!closed.get() && navigationVersion.get() == route && mutable.value.target() == target) action()
+        }
+    }
+
     suspend fun openSpaceFile(target: Target, record: String, keep: Boolean): OpenedSpaceFile? =
         fileAction(target) { current, disk, checkRoute ->
             fun descriptor(): SpaceFileDescriptor {
@@ -716,7 +738,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
 
     private fun provider(origin: String) = SpaceStorageProviderClient(origin)
 
-    private suspend fun <T> fileAction(target: Target, action: suspend (SpaceClient, SpaceFileLocal, () -> Unit) -> T): T =
+    private suspend fun <T> fileAction(target: Target, exclusive: Boolean = true,
+        action: suspend (SpaceClient, SpaceFileLocal, () -> Unit) -> T): T =
         withContext(Dispatchers.IO) {
             val version = navigationVersion.get()
             fun checkRoute() {
@@ -724,10 +747,11 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     mutable.value.channels.none { it.id == target.channel && it.profile.kind == SpaceChannelKind.FILE })
                     throw CancellationException("File channel changed")
             }
-            fileGate.withLock {
+            suspend fun run(): T {
                 checkRoute()
-                action(requireNotNull(client), requireNotNull(fileStore), ::checkRoute).also { checkRoute() }
+                return action(requireNotNull(client), requireNotNull(fileStore), ::checkRoute).also { checkRoute() }
             }
+            if (exclusive) fileGates.computeIfAbsent(target) { Mutex() }.withLock { run() } else run()
         }
 
     suspend fun readArticle(target: Target, article: String): SpaceClient.Message? = withContext(Dispatchers.IO) {
