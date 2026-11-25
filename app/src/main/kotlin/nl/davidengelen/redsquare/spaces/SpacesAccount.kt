@@ -673,6 +673,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     suspend fun observeVoiceRoom(target: Target): SpaceVoiceRoom = withContext(Dispatchers.IO) {
         val current = requireNotNull(client)
         requireRoomTarget(target)
+        if (!current.voiceRoomsSupported()) throw UnsupportedOperationException("Node has no signed room capability")
         current.voiceRoom(target.space, target.channel).also { requireRoomTarget(target) }
     }
 

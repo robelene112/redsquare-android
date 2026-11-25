@@ -32,7 +32,8 @@ internal object SpaceRoomCallRuntime {
     private val active = AtomicReference<RoomCall?>()
 
     suspend fun join(context: Context, authority: SpaceRoomAuthority, destination: SpaceRoomDestination): SpaceVoiceRoom.Status? {
-        val call = withContext(Dispatchers.IO) { RoomCall(context.applicationContext, authority, destination) }
+        val call = try { withContext(Dispatchers.IO) { RoomCall(context.applicationContext, authority, destination) } }
+        catch (failure: Exception) { authority.close(); throw failure }
         if (!TalkRuntime.visible || !TalkService.available(context) || !active.compareAndSet(null, call)) {
             call.discard()
             return null
@@ -105,6 +106,7 @@ internal object SpaceRoomCallRuntime {
                         capture?.silence()
                         post { requireAccount(); applyCapture() }
                     }
+                    if (stopped.get()) { observer?.close(); return@launch }
                     TalkService.prepare(token)
                     withContext(Dispatchers.Main.immediate) {
                         check(!stopped.get() && TalkRuntime.visible)
@@ -169,12 +171,17 @@ internal object SpaceRoomCallRuntime {
         private suspend fun deliverSignals() {
             for (packet in outgoing) {
                 if (stopped.get()) return
-                try {
-                    guardPeer(packet.to)
-                    withTimeout(3_500) { authority.signal(token, packet) }
-                } catch (timeout: TimeoutCancellationException) { currentCoroutineContext().ensureActive() }
-                catch (cancelled: CancellationException) { throw cancelled }
-                catch (_: Exception) { /* A departed peer loses its mailbox and its local lease. */ }
+                for (attempt in 0..1) {
+                    try {
+                        guardPeer(packet.to)
+                        withTimeout(2_500) { authority.signal(token, packet) }
+                        break
+                    } catch (_: SpaceClient.ReadDenied) { break }
+                    catch (_: TimeoutCancellationException) { currentCoroutineContext().ensureActive() }
+                    catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { if (currentParticipant(packet.to) == null) break }
+                    if (attempt == 0) delay(150)
+                }
             }
         }
 
@@ -253,6 +260,10 @@ internal object SpaceRoomCallRuntime {
                     remoteAudioAllowed = { currentParticipant(id)?.canSpeak == true },
                 ))
             peers[id] = lease
+            if (stopped.get()) {
+                if (peers.remove(id, lease)) lease.close()
+                return
+            }
             lease.offer()
         }
 

@@ -58,6 +58,7 @@ internal fun SpaceRoomChannel(account: SpacesAccount, state: SpacesAccount.State
     var room by remember(target) { mutableStateOf<SpaceVoiceRoom?>(null) }
     var loading by remember(target) { mutableStateOf(true) }
     var failed by remember(target) { mutableStateOf(false) }
+    var unsupported by remember(target) { mutableStateOf(false) }
     var activity by remember(target) { mutableStateOf(false) }
     var failureMessage by remember(target) { mutableIntStateOf(0) }
     val online = state.availability == SpacesAccount.Availability.ONLINE
@@ -67,8 +68,10 @@ internal fun SpaceRoomChannel(account: SpacesAccount, state: SpacesAccount.State
             try {
                 room = account.observeVoiceRoom(target)
                 failed = false
+                unsupported = false
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { room = null; failed = true }
+            catch (_: UnsupportedOperationException) { room = null; failed = false; unsupported = true }
+            catch (_: Exception) { room = null; failed = true; unsupported = false }
             finally { loading = false }
             delay(2_500)
         }
@@ -79,6 +82,7 @@ internal fun SpaceRoomChannel(account: SpacesAccount, state: SpacesAccount.State
         joining -> R.string.spaces_room_joining
         call != null -> R.string.spaces_room_joined
         !online -> R.string.spaces_room_offline
+        unsupported -> R.string.spaces_room_unsupported
         failureMessage != 0 -> failureMessage
         failed -> R.string.spaces_room_unavailable
         room == null -> R.string.spaces_room_loading
@@ -127,6 +131,10 @@ internal fun SpaceRoomChannel(account: SpacesAccount, state: SpacesAccount.State
         }
         if (call != null && failureMessage != 0) item {
             InlineStatus(stringResource(failureMessage), StatusTone.WARNING)
+        }
+        if (call == null && global?.spaceRoom?.let { it.space == target.space && it.channel == target.channel } == true &&
+            global?.phase == CallPhase.INTERRUPTED) item {
+            InlineStatus(stringResource(R.string.spaces_room_ended), StatusTone.INFO)
         }
         items(participants, key = { it.key }) { participant ->
             val name = registeredIdentity(participant.key).name

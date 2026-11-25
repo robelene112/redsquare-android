@@ -306,6 +306,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 reply.addProperty("space_articles_v1", true)
                 reply.addProperty("space_write_restrictions_v1", true)
                 reply.addProperty("space_file_storage_v1", true)
+                reply.addProperty("space_voice_rooms_v1", true)
                 reply.addProperty("protected_chat_v1", true)
             }
             else -> throw IllegalArgumentException("Unsupported Spaces read request")

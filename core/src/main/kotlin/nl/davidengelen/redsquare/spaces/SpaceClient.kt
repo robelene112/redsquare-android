@@ -33,6 +33,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     @Volatile private var supportsSpaceArticles = false
     @Volatile private var supportsWriteRestrictions = false
     @Volatile private var supportsFileStorage = false
+    @Volatile private var supportsVoiceRooms = false
 
     enum class Delivery { CONTROL, CONTENT }
     enum class ReadProblem { EXPIRED, UNAVAILABLE }
@@ -602,6 +603,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
 
     fun fileStorageSupported(): Boolean = supportsFileStorage
+    fun voiceRoomsSupported(): Boolean = supportsVoiceRooms
 
     fun fileOperation(space: String, originalId: String): ChangeStatus? = store.transaction {
         owned(); state(space)
@@ -3725,6 +3727,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean
         } == true
         supportsFileStorage = result.get("space_file_storage_v1")?.let {
+            it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean
+        } == true
+        supportsVoiceRooms = result.get("space_voice_rooms_v1")?.let {
             it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean
         } == true
         return result
