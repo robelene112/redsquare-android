@@ -1,0 +1,175 @@
+{
+  "ticket": 142,
+  "parent": 134,
+  "status": "accepted",
+  "approvedDesign": "Native prototype option B",
+  "recordedAt": "2026-11-25T04:12:49.428562+00:00",
+  "reviewBase": "11d0828f2d102959853fd49fc50176e4e20ed213",
+  "measuredProductSource": "1f573cddf75fda5db0b9de23e93291c62869e20c",
+  "acceptanceMap": [
+    {
+      "requirement": "Article channel, real Stack integration, editable Markdown and review",
+      "results": "The Android editor and reviewer share the native Stack editor and reader. The native journeys use the visual editor, editable Markdown, real IME, a long article, audience review and a tap on Publish. The second Android viewport is 320dp with 200% font scale. Independent signed Stack fixtures verify a public reference, refuse a restricted Stack revision, and show that sharing stores the reference without duplicating the original document."
+    },
+    {
+      "requirement": "Scoped drafts, editing and exact links",
+      "results": "The SQLite article suites verify separate new, existing-article and per-channel drafts. Queuing consumes only the reviewed draft. Replacement retains the original publication ID. Older links read the exact signed article without replacing the normal reading window. Both native runs use a new Android PID, then reopen the exact article and the independent drafts in both channels."
+    },
+    {
+      "requirement": "Real receiving authority and truthful cache states",
+      "results": "A separate recipient sees the private plaintext only after admission. Publication is ciphertext on the service wire. A write restriction and archive reject the queued original at the receiver. The article tests preserve separate draft data and reading. Independent exact and ordinary refresh tests revoke access between control sync and content read, verify that an offline retry cannot reopen the saved copy, and deny a later publication."
+    },
+    {
+      "requirement": "Delayed acknowledgement and scoped native recovery",
+      "results": "The isolated service observes two byte-identical encrypted submissions and one received article in both runs. The recovering Android process dismisses a held exact link, switches channels, receives the delayed response and stays in its selected draft. The receipt line is uniquely correlated by the signed request prefix and the recovered PID."
+    }
+  ],
+  "native": [
+    {
+      "run": 45543613078,
+      "api": "29",
+      "apkSha256": {
+        "app-debug.apk": "9aad768ed24c18031b3116fdbc18aac9b32dd652d8867dd4db2c614481fa3ff4",
+        "app-debug-androidTest.apk": "dc2ad8ebe945b67ca0977c70d453b31492914b196b16741702259420da5c3aa2"
+      },
+      "jvmTests": {
+        "core": 257,
+        "spaces-service": 215
+      },
+      "journey": {
+        "source": "1f573cddf75fda5db0b9de23e93291c62869e20c",
+        "oldPid": 3502,
+        "newPid": 10092,
+        "nativeTerminalPasses": 1,
+        "deliberatelyInterruptedCases": 1,
+        "exactOriginal": true,
+        "encryptedOriginals": 2,
+        "originalSubmissions": 2,
+        "receivedCount": 1,
+        "newDraftRestored": true,
+        "exactDeepLinkRendered": true,
+        "channelDraftsStayedSeparate": true,
+        "lateLinkStayedInOriginalScope": true,
+        "lateReplyReachedRecoveredProcess": true,
+        "compactViewport": false,
+        "productionNodeActivated": false,
+        "ordinaryBetaChanged": false
+      },
+      "nativePhotosSha256": {
+        "articles-private-audience": "3cbe15fdd1e4f534febce010f7613b196c02b4ddf5cbc1a420c41cdb87fb7616",
+        "articles-private-review": "3cbe15fdd1e4f534febce010f7613b196c02b4ddf5cbc1a420c41cdb87fb7616",
+        "articles-waiting": "fd3e79315b0b29b6744186825f5aef48c15a491146e984b9fbbbcb46b81220c5",
+        "articles-recovered-exact-reader": "01c520ac1397a66cd962364cd95663179d5d8b98d2b9a0c48c3eb05dbb2ddfb9",
+        "articles-recovered-draft": "ec1b620d87ca3d0365693e4249819aa3db16bb1d3dbd0fd9f2f9440d5f4c4eb5",
+        "articles-recovered-other-draft": "d93dcff0d747cfaee1951ef26dc876a556f4a90baca99982ff68a8f28e08cb06"
+      },
+      "nativeEvidenceSha256": "f8d94f04f0529ac38f7643ab83f88aab967171a53b43c04aa0dd400b3e672de9",
+      "phaseVideosSha256": {
+        "phase-1": "0b91a6f4a14621f5a993cbafdd2de6de4fbb1fb35ebda9bc44ad89fe2e5478f4",
+        "phase-2": "f35c305a5ebb884f4f469e123888d47c30c22652f57028431e3bc4748f60b01e"
+      },
+      "lateReadDeviceReturn": "11-25 04:07:19.270 10092 10111 D SpacesAccount138: request=2203c1c074 returnedMs=428",
+      "cleanup": {
+        "originalFailure": null,
+        "errors": []
+      }
+    },
+    {
+      "run": 45543753158,
+      "api": "37.0",
+      "apkSha256": {
+        "app-debug.apk": "ec2bf8335287fee1503a73ae2bdaa386deac69b76a6dc45e18123f349520c959",
+        "app-debug-androidTest.apk": "bf560adc8c2dfdc51f0010ae7424e1ba84bbd7b9aea44548ebc6a0f855e6e82a"
+      },
+      "jvmTests": {
+        "core": 257,
+        "spaces-service": 215
+      },
+      "journey": {
+        "source": "1f573cddf75fda5db0b9de23e93291c62869e20c",
+        "oldPid": 4098,
+        "newPid": 5275,
+        "nativeTerminalPasses": 1,
+        "deliberatelyInterruptedCases": 1,
+        "exactOriginal": true,
+        "encryptedOriginals": 2,
+        "originalSubmissions": 2,
+        "receivedCount": 1,
+        "newDraftRestored": true,
+        "exactDeepLinkRendered": true,
+        "channelDraftsStayedSeparate": true,
+        "lateLinkStayedInOriginalScope": true,
+        "lateReplyReachedRecoveredProcess": true,
+        "compactViewport": true,
+        "productionNodeActivated": false,
+        "ordinaryBetaChanged": false
+      },
+      "nativePhotosSha256": {
+        "articles-private-audience": "daea9bc3c5cf3471227e5b84a3482f10cd030b2e26c479e6417c269248027df2",
+        "articles-private-review": "903af7f75771c28c71001ef82219c7ec28216db7650dea2ff4eb2ae6e5b17ad8",
+        "articles-waiting": "986d1987ce25f0270ec2fedb7b1ab8cf0b4bf9a1896fdf4ce17dac9314184e5e",
+        "articles-recovered-exact-reader": "1973392be1ee72f45a8a2b5fba0185c42d1e7b1387f92439dd7d00abbf6a8f32",
+        "articles-recovered-draft": "0a55f800b74d87ca4e970601d51ae533dda0deb11f59a27767a41765af3ac079",
+        "articles-recovered-other-draft": "228cd1f282a4709c4d2143869b73c47b07eafb2000a130dfd6f4e65226cd9f95"
+      },
+      "nativeEvidenceSha256": "12e15ba10c4320a4c32c179532e20a3608eb0ccdd354e9a823ea64c5628188a3",
+      "phaseVideosSha256": {
+        "phase-1": "a6c5ad187c19f12cfcbc46041bd774af91c99786a937726561040977d7c07b52",
+        "phase-2": "d5fb547741018112fda6c475749702790ed5570f86f1b6c8f73dd0c751f3b618"
+      },
+      "lateReadDeviceReturn": "11-25 04:11:18.378  5275  5289 D SpacesAccount138: request=fe7ad4d292 returnedMs=762",
+      "cleanup": {
+        "originalFailure": null,
+        "errors": []
+      },
+      "viewport": {
+        "package": "nl.davidengelen.redsquare.dev",
+        "stage": "prepared",
+        "pid": 3580,
+        "sdk": 37,
+        "fontScale": 2.0,
+        "screenWidthDp": 320,
+        "densityDpi": 320,
+        "fontSetting": "2.0"
+      },
+      "restoredViewport": {
+        "package": "nl.davidengelen.redsquare.dev",
+        "stage": "restored",
+        "pid": 5501,
+        "sdk": 37,
+        "fontScale": 1.0,
+        "screenWidthDp": 320,
+        "densityDpi": 160,
+        "fontSetting": "1.0"
+      }
+    }
+  ],
+  "retainedEarlierRuns": {
+    "sourceFixtureSetup": [
+      45537131670,
+      45537134634
+    ],
+    "reviewActionMissingAndDisposalCrash": [
+      45538590214
+    ],
+    "viewportProbeNamespace": [
+      45538593819
+    ],
+    "backSelector": [
+      45540446006
+    ],
+    "largeTextReviewFooter": [
+      45540450702
+    ],
+    "systemBackObserver": [
+      45542110288,
+      45542291164
+    ]
+  },
+  "review": {
+    "standards": "Independent reviewer checked scoped authority/callbacks, action layout, fixture ownership, whole-channel draft effects and test diagnostics. Both native runs reached the new channel after sheet dismissal. The device trace pairs the ten-character hexadecimal request prefix with the exact recovered PID.",
+    "specification": "Independent reviewer verified signed denial precedence, exact late request return, stable reading position, offline dates, prototype navigation and large-text review. Both runs use a real channel change. Account/node-change and physical-device load qualification belong to the integrated release evidence."
+  },
+  "productionNodeActivated": false,
+  "ordinaryBetaChanged": false
+}

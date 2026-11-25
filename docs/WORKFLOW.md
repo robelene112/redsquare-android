@@ -1,5 +1,15 @@
 # Development workflow
 
+## Accepted #142, continue #143
+
+Article channels support real public Stack references, private encrypted
+publications, editable Markdown, scoped drafts and native publication
+review. The [#142 evidence record](evidence/ticket142/final-acceptance.json)
+ties the actual Android 10 and compact Android 17 journeys to the signed
+original, the independent recipient and the recovered Android processes.
+Continue #143 through #147 sequentially. Integrated release verification and
+public beta delivery are in #147.
+
 ## Accepted #141, continue #142
 
 Protected direct and group Chat, explicit legacy transition, wallet and
