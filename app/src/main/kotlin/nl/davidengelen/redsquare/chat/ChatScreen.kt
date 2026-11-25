@@ -55,10 +55,11 @@ import nl.davidengelen.redsquare.saito.*
 internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, initialContact: String? = null, initialGroup: String? = null, initialDraft: String? = null, onInitialDestinationClosed: () -> Unit = {},
     initialProtectedInvitation: String? = null, onProtectedInvitationConsumed: () -> Unit = {},
-    onBack: () -> Unit) {
+    contactSelection: MutableState<String?>? = null, onBack: () -> Unit) {
     var groupDestination by rememberSaveable(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
     var reviewingGroups by rememberSaveable(wallet.publicKey,backend) { mutableStateOf(initialGroup != null) }
-    var counterparty by rememberSaveable(wallet.publicKey, backend) { mutableStateOf(initialContact) }
+    val localContact = rememberSaveable(wallet.publicKey, backend) { mutableStateOf(initialContact) }
+    var counterparty by (contactSelection ?: localContact)
     val protectedChats = LocalProtectedChats.current
     var reviewingProtected by rememberSaveable(wallet.publicKey, backend) { mutableStateOf(false) }
     var protectedName by rememberSaveable(wallet.publicKey, backend) { mutableStateOf<String?>(null) }

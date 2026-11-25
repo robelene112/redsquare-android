@@ -230,6 +230,15 @@ existing recovery queries. The failure remains open while the isolated
 retains the native policy, effect and criteria timestamps. No observer limit
 or request assertion changed.
 
+Both complete Chat partitions reach the native audio/video and End call
+checks before failing at return to the unsent private conversation on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45708852886)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45708853241).
+The Android 10 Wallet partition similarly opens the genuine linked Store
+listing and returns to the Chat contact list. The direct contact selection now
+lives with the saved Red Square route through either module detour. The durable
+composer and its original 15-second return assertions remain in place.
+
 ## Accepted #146, continue #147
 
 Spaces search, grouped Activity and exact links pass on Android 10 and
