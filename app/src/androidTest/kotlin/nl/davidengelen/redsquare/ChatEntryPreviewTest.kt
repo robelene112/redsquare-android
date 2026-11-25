@@ -113,7 +113,7 @@ class ChatEntryPreviewTest {
                     val message = hasText("Message") and hasClickAction()
                     ui.onNode(hasVerticalScrollAction()).performScrollToNode(message)
                     ui.onNode(message).assertIsDisplayed().performClick()
-                    waitFor("Encrypted")
+                    waitFor(context.getString(R.string.protected_chat_legacy_direct))
                     inspectIdentity(profileContact, File(folder, "profile-origin-chat-identity.png"))
                     val draft = "A profile-origin chat draft stays discoverable."
                     val editor = hasSetTextAction() and isEnabled()

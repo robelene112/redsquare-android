@@ -149,10 +149,12 @@ internal fun ComposeTestRule.inspectConversationControls(activity: ActivityScena
     }
     onNodeWithText("Message").performClick()
     waitUntil(10_000) { keyboardVisible() }
-    val scale = InstrumentationRegistry.getInstrumentation().targetContext.resources.configuration.fontScale
+    val context = InstrumentationRegistry.getInstrumentation().targetContext
+    val scale = context.resources.configuration.fontScale
     onNodeWithContentDescription(if (group) "Group messages" else "Private messages")
         .assertHeightIsAtLeast(if (scale <= 1.3f) 96.dp else 48.dp)
-    onNodeWithText(if (group) "Unencrypted" else "Encrypted").assertIsDisplayed()
+    val privacyLabel = if (group) R.string.chat_unencrypted else R.string.protected_chat_legacy_direct
+    onNodeWithText(context.getString(privacyLabel)).assertIsDisplayed()
     onNodeWithText("Send").assertIsDisplayed()
     captureNativeScreen(File(folder, "$label-history-with-ime.png"))
     onImeVisible?.invoke()
