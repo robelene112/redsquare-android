@@ -31,13 +31,18 @@ checks. The original failures supply no acceptance.
 
 The [first full scale run](https://github.com/robelene112/redsquare-android/actions/runs/45675758153)
 authenticated 608,701 local cache rows. Cold launch exceeded the existing
-opening deadline at “Checking access”. No timed scroll result was produced.
-The product now gives the selected Space priority, rotates other membership
-refreshes in bounded batches, and reuses the Android Keystore handle within
-each local transaction. [The new full run](https://github.com/robelene112/redsquare-android/actions/runs/45681925461)
-retains the original deadline and timing thresholds. A separate local
-JVM probe opens a bounded 50-message page from the frozen hot channel. That
-measurement excludes Android Keystore and drawing.
+opening deadline at “Checking access”. The product prioritizes the selected
+Space, rotates other membership refreshes in bounded batches, and reuses the
+Android Keystore handle within each local transaction. [The second full run](https://github.com/robelene112/redsquare-android/actions/runs/45681925461)
+also timed out before scroll measurement. The service received four authenticated
+reads. The native log measured 11.542s for the initial inventory and 9.131s for
+another complete projection immediately before selecting the exact route.
+The route now projects only its authorized channel. Background synchronization
+uses the stored community IDs and projects the full list when it is needed.
+[The third full run](https://github.com/robelene112/redsquare-android/actions/runs/45687551951)
+retains the same fixture and deadlines. A separate local JVM probe opens a
+bounded 50-message page from the hot channel. That measurement excludes Android
+Keystore and drawing.
 
 The [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45677967252)
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45677967232)
@@ -47,14 +52,30 @@ versions. The original broad Android 17 quote observer timed out waiting
 for the composer title while checking cold reconciliation. The original broad
 Android 10 wallet observer opened the legacy beta's update page while trying
 to tap Wallet. Both runs remain failed. Tighter observers preserve the
-submission/identity checks and retain the original captures.
+submission/identity checks and retain the original captures. The isolated
+[Android 17 quote recovery](https://github.com/robelene112/redsquare-android/actions/runs/45685173322)
+and [Android 17 release tail](https://github.com/robelene112/redsquare-android/actions/runs/45682643738)
+complete on their recorded sources. The [Android 10 release tail](https://github.com/robelene112/redsquare-android/actions/runs/45682644254)
+stopped at emulator provisioning before running the wallet check. Discovery and
+membership pass on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45683428876)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45683428889).
+
+The first crossed landscape room check on Android 10 reached Red Square with
+an active call. The wallet reminder and app header left the floating New post
+control clipped below its full target. Short windows now dock the existing
+action in the navigation row. The equivalent Android 17 journey stopped at
+the system notification consent dialog, before opening the editor. The scoped
+rerun pregrants that permission on its disposable emulator, preserves the live
+room session, and checks the actual editor and keyboard bounds.
 
 Signed upgrades from 139 and 142 and the ordinary clean install still
 require the exact release APK. The established 139 and 142 public downloads
-match their recorded full-body hashes. A dedicated signed instrumentation
-APK is prepared locally. The final visual, integrated regression, scale,
-migration and release review gates remain in #147. Ordinary beta142 is
-still current.
+match their recorded full-body hashes. A dedicated signed instrumentation APK
+is prepared locally. The complete regression reruns on the new projection
+source for [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45688288738)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45688289388).
+The final visual, integrated regression, scale, migration and release review
+gates remain in #147. Ordinary beta142 is still current.
 
 ## Accepted #146, continue #147
 
