@@ -165,6 +165,7 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
         state.current?.canSend == true && library?.upload == null
     if (selectedRecord != null && selection != null) {
         val row = selectedRecord
+        val fileChooserTitle = stringResource(R.string.spaces_files_open)
         LazyColumn(modifier.fillMaxWidth().testTag("spaces-file-detail"), contentPadding = PaddingValues(AppSpacing.screen),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item {
@@ -180,7 +181,7 @@ internal fun SpaceFileChannel(account: SpacesAccount, state: SpacesAccount.State
                         val opened = requireNotNull(account.openSpaceFile(target, row.id, keep = false))
                         val intent = Intent(Intent.ACTION_VIEW).setDataAndType(opened.uri, opened.mime)
                             .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                        context.startActivity(Intent.createChooser(intent, context.getString(R.string.spaces_files_open)))
+                        context.startActivity(Intent.createChooser(intent, fileChooserTitle))
                     }
                 }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                     enabled = !busy && (rowHasOffline || !row.deleted && canDownload)) {

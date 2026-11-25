@@ -27,6 +27,7 @@ import nl.davidengelen.redsquare.R
 @Composable
 internal fun SpaceDestinationCopyButton(@StringRes label: Int, enabled: Boolean, link: suspend () -> String) {
     val context = LocalContext.current
+    val copyLabel = stringResource(label)
     val scope = rememberCoroutineScope()
     var copying by remember { mutableStateOf(false) }
     var result by remember { mutableIntStateOf(label) }
@@ -34,7 +35,7 @@ internal fun SpaceDestinationCopyButton(@StringRes label: Int, enabled: Boolean,
         copying = true
         scope.launch {
             try {
-                val clip = ClipData.newPlainText(context.getString(label), link()).apply {
+                val clip = ClipData.newPlainText(copyLabel, link()).apply {
                     description.extras = PersistableBundle().apply { putBoolean("android.content.extra.IS_SENSITIVE", true) }
                 }
                 (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
