@@ -136,10 +136,11 @@ internal object SpaceRoomCallRuntime {
         }
 
         private fun requireAccount() {
-            check(!stopped.get() && TalkRuntime.call.value?.token == token)
-            synchronized(SaitoLocalState.lock) {
-                check(AndroidWalletStore(context).loadExisting().publicKey == owner && AndroidBackendStore(context).load() == backend)
+            if (stopped.get() || TalkRuntime.call.value?.token != token) throw CancellationException("Room was superseded")
+            val current = synchronized(SaitoLocalState.lock) {
+                AndroidWalletStore(context).loadExisting().publicKey == owner && AndroidBackendStore(context).load() == backend
             }
+            if (!current) throw CancellationException("Room account or node changed")
         }
 
         private fun currentParticipant(session: String): SpaceVoiceRoom.Participant? {
@@ -209,7 +210,7 @@ internal object SpaceRoomCallRuntime {
         private suspend fun applyPresence(room: SpaceVoiceRoom, requestedAt: Long) {
             requireAccount()
             if (requestedAt != presence?.requestedAt) return
-            val own = currentParticipant(token) ?: error("Room lease expired")
+            val own = currentParticipant(token) ?: throw CancellationException("Room lease expired")
             if (!own.canSpeak && wantMicrophone.getAndSet(false)) capture?.silenceAudio()
             val remote = room.participants.filter { it.session != token }
             peers.entries.filter { row -> remote.none { it.session == row.key } }.forEach { row ->
