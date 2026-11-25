@@ -152,41 +152,43 @@ class SpacesCatchUpJourneyTest {
         val observations = evidence.resolve("talkback").apply { mkdir() }
         NativeTalkBackObservation(observations).observe {
             launch(config.get("link").asString).use {
-                waitText("Separate proof conversation")
-                val switcher = "Switch Space or channel"
-                assertTarget(hasContentDescription(switcher) and hasClickAction())
-                focusAndHear("option-b", switcher, observations)
-                assertTrue(actionNode(switcher).performAction(AccessibilityNodeInfo.ACTION_CLICK))
-                waitText("Your communities")
-                device.pressBack()
-                ui.waitUntil(12_000) { !ui.onNodeWithText("Your communities").isDisplayed() }
+                withFailureCapture({ captureNativeScreen(observations.resolve("route-failure.png")) }) {
+                    waitText("Separate proof conversation")
+                    val switcher = "Switch Space or channel"
+                    assertTarget(hasContentDescription(switcher) and hasClickAction())
+                    focusAndHear("option-b", switcher, observations)
+                    assertTrue(actionNode(switcher).performAction(AccessibilityNodeInfo.ACTION_CLICK))
+                    waitText("Your communities")
+                    device.pressBack()
+                    ui.waitUntil(12_000) { !ui.onNodeWithText("Your communities").isDisplayed() }
 
-                click("Activity")
-                assertEquals(2, request("initial").get("delivered").asInt)
-                request("latest")
-                val group = hasText("and 1 more replied to your message", substring = true) and hasClickAction()
-                ui.waitUntil(25_000) { ui.onNode(group).isDisplayed() }
-                assertTarget(group)
-                val summary = "and 1 more replied to your message"
-                fun findGroup(node: AccessibilityNodeInfo): AccessibilityNodeInfo? {
-                    if (node.isVisibleToUser && node.text?.contains(summary) == true) {
-                        return generateSequence(node) { it.parent }.firstOrNull { it.isVisibleToUser && it.isClickable }
+                    click("Activity")
+                    assertEquals(2, request("initial").get("delivered").asInt)
+                    request("latest")
+                    val group = hasText("and 1 more replied to your message", substring = true) and hasClickAction()
+                    ui.waitUntil(25_000) { ui.onNode(group).isDisplayed() }
+                    assertTarget(group)
+                    val summary = "and 1 more replied to your message"
+                    fun findGroup(node: AccessibilityNodeInfo): AccessibilityNodeInfo? {
+                        if (node.isVisibleToUser && node.text?.contains(summary) == true) {
+                            return generateSequence(node) { it.parent }.firstOrNull { it.isVisibleToUser && it.isClickable }
+                        }
+                        return (0 until node.childCount).firstNotNullOfOrNull { node.getChild(it)?.let(::findGroup) }
                     }
-                    return (0 until node.childCount).firstNotNullOfOrNull { node.getChild(it)?.let(::findGroup) }
+                    val target = requireNotNull(appRoots(automation).firstNotNullOfOrNull(::findGroup))
+                    target.performAction(AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
+                    device.executeShellCommand("logcat -c")
+                    assertTrue(target.performAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
+                    captureFocusedSpeech("unread-reply-group", summary, observations, target)
+                    waitFor(10_000) { completedFragments(device, "Unread").isNotEmpty() }
+                    observations.resolve("unread-state-speech.txt").writeText(speechLog(device))
+                    assertTrue(target.performAction(AccessibilityNodeInfo.ACTION_CLICK))
+                    waitForWholeMessage("Latest exact proof reply")
+                    waitText("First proof Needle")
+                    val field = "Reply in this thread"
+                    assertTarget(hasText(field) and hasSetTextAction())
+                    focusAndHear("thread-composer", field, observations, textLabel = true)
                 }
-                val target = requireNotNull(appRoots(automation).firstNotNullOfOrNull(::findGroup))
-                target.performAction(AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
-                device.executeShellCommand("logcat -c")
-                assertTrue(target.performAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
-                captureFocusedSpeech("unread-reply-group", summary, observations, target)
-                waitFor(10_000) { completedFragments(device, "Unread").isNotEmpty() }
-                observations.resolve("unread-state-speech.txt").writeText(speechLog(device))
-                assertTrue(target.performAction(AccessibilityNodeInfo.ACTION_CLICK))
-                waitForWholeMessage("Latest exact proof reply")
-                waitText("First proof Needle")
-                val field = "Reply in this thread"
-                assertTarget(hasText(field) and hasSetTextAction())
-                focusAndHear("thread-composer", field, observations, textLabel = true)
             }
         }
     }
