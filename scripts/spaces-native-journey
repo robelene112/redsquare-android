@@ -929,6 +929,14 @@ try:
                 not proof['exactDeepLinkRendered'] or not proof['channelDraftsStayedSeparate'] or
                 not proof['lateLinkStayedInOriginalScope']):
             raise RuntimeError('Article round trip did not satisfy its independent expected effects')
+        held_read = proof['heldReadRequest']
+        if not re.fullmatch(r'[0-9a-f]{128}', held_read):
+            raise RuntimeError('Held article read was missing its exact observed request')
+        log = adb('logcat', '-d', '-v', 'threadtime', '-s', 'SpacesAccount138:D', '*:S', timeout=10).stdout.decode(errors='replace')
+        receipt = re.findall(rf'^.*?\s+{proof["newPid"]}\s+\d+\s+D\s+SpacesAccount138:\s+request={held_read[:10]} returnedMs=\d+\s*$', log, re.M)
+        if len(receipt) != 1:
+            raise RuntimeError('Android did not observe the held signed reply in the recovered process')
+        (evidence / 'held-article-read-device-return.txt').write_text(receipt[0] + '\n')
         (evidence / 'articles-result.json').write_text(json.dumps(proof, indent=2))
         finish_record(*movies[-1])
         command(control_port, 'stop')
@@ -943,6 +951,7 @@ try:
             'newDraftRestored': proof['newDraftRestored'], 'exactDeepLinkRendered': proof['exactDeepLinkRendered'],
             'channelDraftsStayedSeparate': proof['channelDraftsStayedSeparate'],
             'lateLinkStayedInOriginalScope': proof['lateLinkStayedInOriginalScope'],
+            'lateReplyReachedRecoveredProcess': True,
             'compactViewport': compact_articles,
             'productionNodeActivated': False, 'ordinaryBetaChanged': False}, indent=2))
     elif mode == 'protected-chat-v1':

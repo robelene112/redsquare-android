@@ -274,7 +274,11 @@ object SpacesNativeHost {
                                         }
                                         "/article-held-read" -> {
                                             check(articleMode)
-                                            JsonObject().apply { addProperty("held", peer.isSpacesArticleReadHeld()) }
+                                            JsonObject().apply {
+                                                val id = peer.heldSpacesArticleReadId()
+                                                addProperty("held", id != null)
+                                                addProperty("request", id)
+                                            }
                                         }
                                         "/article-release-read" -> {
                                             check(articleMode)

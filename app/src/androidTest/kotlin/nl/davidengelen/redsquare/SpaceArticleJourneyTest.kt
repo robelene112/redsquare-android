@@ -158,7 +158,11 @@ class SpaceArticleJourneyTest {
                     .setPackage(context.packageName).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                 assertEquals(MainActivity::class.java.name, follow.resolveActivity(context.packageManager)?.className)
                 context.startActivity(follow)
-                ui.waitUntil(8_000) { request("article-held-read").get("held").asBoolean }
+                var heldRead = JsonObject()
+                ui.waitUntil(8_000) {
+                    heldRead = request("article-held-read")
+                    heldRead.get("held").asBoolean
+                }
                 assertTrue(UiDevice.getInstance(instrumentation).pressBack())
                 ui.waitUntil(5_000) { !ui.onNodeWithText("Open Space article").isDisplayed() }
                 switchChannel("Reading room")
@@ -175,6 +179,7 @@ class SpaceArticleJourneyTest {
                 proof.addProperty("exactDeepLinkRendered", true)
                 proof.addProperty("channelDraftsStayedSeparate", true)
                 proof.addProperty("lateLinkStayedInOriginalScope", true)
+                proof.addProperty("heldReadRequest", heldRead.get("request").asString)
                 File(evidence, "articles-result.json").writeText(proof.toString())
             }
         }
@@ -202,8 +207,7 @@ class SpaceArticleJourneyTest {
         button.performClick()
     }
     private fun articleBack() {
-        val back = ui.onNode(hasContentDescription(context.getString(R.string.browse_back)) and hasClickAction())
-        back.assertIsDisplayed().performClick()
+        clickWhenVisible(context.getString(R.string.browse_back))
     }
     private fun switchChannel(name: String) {
         val switch = ui.onNodeWithContentDescription("Switch Space or channel")
@@ -229,7 +233,8 @@ class SpaceArticleJourneyTest {
         withFailureCapture({ capture(name) }) {
             try { journey() }
             catch (failure: Throwable) {
-                File(evidence, "$name.txt").writeText(failure.stackTraceToString())
+                runCatching { File(evidence, "$name.txt").writeText(failure.stackTraceToString()) }
+                    .onFailure(failure::addSuppressed)
                 throw failure
             }
         }
