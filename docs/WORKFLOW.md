@@ -44,8 +44,8 @@ opened the actual latest signed record, number 10,000, in both cold processes.
 The second exact route projection took 1.220s on Android. The run still failed
 before measuring scroll. Its Python observer treated the real visible XML leaf
 as false because it had no child nodes. The observer now distinguishes a found
-element from an absent result. Reaction taps also update the one affected row
-from the durable transaction rather than rebuilding the timeline.
+element from an absent result. Reaction taps update the affected row directly
+from the durable transaction.
 [The fourth full run](https://github.com/robelene112/redsquare-android/actions/runs/45694129054)
 keeps the same fixture, measurement schedule and thresholds.
 A separate one-core JVM probe on a
@@ -87,17 +87,36 @@ control clipped below its full target. Short windows now dock the existing
 action in the navigation row. After the button became reachable, both Android
 versions showed the new post screen with no room for its editor. Compact
 writing now gives that space to the editor and keeps one row of actions.
-The next [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45692971966)
+The [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45692971966)
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45692969315)
-journeys check the live room, keyboard and exact retained attachment.
+journeys reached the editor and attached an image. With the real keyboard
+visible, the second capture still showed the remaining editor space consumed
+by the action row. The editor now reserves that space when the call and IME
+leave a short writing region. The new crossed journeys require a 48dp editor,
+the same signed room session, and the actual saved attachment on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45695831329)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45695831280).
 
 All eight [Android 10 native viewports](https://github.com/robelene112/redsquare-android/actions/runs/45689003144)
 pass, including protected wallet recovery from a backup without message keys
 in the 600dp landscape case. The real pre-confirmation screenshot shows the
 missing-keys notice and disabled restore action. The eight viewport movies and
 the separate recovery movie decoded with ordered native presentation timestamps.
-The fixed display rotation rerun is
-[Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45691984919).
+All six [Android 17 native viewports](https://github.com/robelene112/redsquare-android/actions/runs/45691984919)
+pass on the fixed-display-rotation observer. The captures exposed a remaining
+visual issue at 200% with a system keyboard notice. The earlier test checked
+the accessible target and draft, and the rendered field itself was too short
+to show the text. Short Spaces windows now use a more compact input and a
+horizontal bar with 48dp tab targets. The [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45695431019)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45695431485)
+reruns measure the actual field height as well.
+
+[Android 10 TalkBack](https://github.com/robelene112/redsquare-android/actions/runs/45692969642)
+completes grouped replies, the storage controls and the quiet room controls
+with actual speech. In the Android 17 run, the engine produced and completed
+the Unmute narration after the reader queued the system call announcement.
+The [new Android 17 run](https://github.com/robelene112/redsquare-android/actions/runs/45695830858)
+retains the audio and completion requirement.
 
 Signed upgrades from 139 and 142 and the ordinary clean install still
 require the exact release APK. The established 139 and 142 public downloads
