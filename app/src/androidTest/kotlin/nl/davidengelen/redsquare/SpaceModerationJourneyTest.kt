@@ -57,7 +57,7 @@ class SpaceModerationJourneyTest {
                 waitText("Report sent", 15_000)
                 capture("report-confirmation")
                 val independent = request("moderation-report-status")
-                assertEquals(fixture.get("message").asString, independent.get("message").asString)
+                assertEquals(fixture.get("message").asString, independent.get("message_id").asString)
                 assertEquals(fixture.get("nativeWallet").asString, independent.get("reporter").asString)
                 assertEquals("Promotion repeated in a discussion", independent.get("reason").asString)
                 assertTrue(independent.get("reporterDeniedStaffRead").asBoolean)
