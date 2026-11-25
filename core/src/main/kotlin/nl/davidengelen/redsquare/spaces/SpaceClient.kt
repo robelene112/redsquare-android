@@ -680,23 +680,39 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         providerGrant(readPage(fileScope(space, channel, "usage")), requireNotNull(fileStorage(space)), SpaceFileGrant.Action.STATUS)
 
     suspend fun voiceRoom(space: String, channel: String): SpaceVoiceRoom =
-        voiceRoomCommand(space, channel, SpaceVoiceRoom.Command.OBSERVE)
+        voiceRoomCommand(SpaceVoiceRoom.scope(space, channel, SpaceVoiceRoom.Command.OBSERVE, null))
 
-    suspend fun joinVoiceRoom(space: String, channel: String, session: String): SpaceVoiceRoom =
-        voiceRoomCommand(space, channel, SpaceVoiceRoom.Command.JOIN, session)
+    suspend fun joinVoiceRoom(space: String, channel: String, contact: SpaceVoiceSignalKey.Contact): SpaceVoiceRoom {
+        require(contact.wallet == wallet.publicKey && contact.verify(SpaceVoiceSignalKey.Address(service, space, channel)))
+        return voiceRoomCommand(SpaceVoiceRoom.scope(space, channel, SpaceVoiceRoom.Command.JOIN, contact.session).apply {
+            add("contact", contact.json())
+        })
+    }
 
-    suspend fun renewVoiceRoom(space: String, channel: String, session: String): SpaceVoiceRoom =
-        voiceRoomCommand(space, channel, SpaceVoiceRoom.Command.RENEW, session)
+    suspend fun renewVoiceRoom(space: String, channel: String, session: String, receivedThrough: Long = 0): SpaceVoiceRoom {
+        require(receivedThrough >= 0)
+        return voiceRoomCommand(SpaceVoiceRoom.scope(space, channel, SpaceVoiceRoom.Command.RENEW, session).apply {
+            addProperty("received_through", receivedThrough)
+        })
+    }
 
     suspend fun leaveVoiceRoom(space: String, channel: String, session: String): SpaceVoiceRoom =
-        voiceRoomCommand(space, channel, SpaceVoiceRoom.Command.LEAVE, session)
+        voiceRoomCommand(SpaceVoiceRoom.scope(space, channel, SpaceVoiceRoom.Command.LEAVE, session))
 
     suspend fun moderateVoiceRoom(space: String, channel: String, session: String, remove: Boolean): SpaceVoiceRoom =
-        voiceRoomCommand(space, channel, if (remove) SpaceVoiceRoom.Command.REMOVE else SpaceVoiceRoom.Command.MUTE, session)
+        voiceRoomCommand(SpaceVoiceRoom.scope(space, channel, if (remove) SpaceVoiceRoom.Command.REMOVE else SpaceVoiceRoom.Command.MUTE, session))
 
-    private suspend fun voiceRoomCommand(space: String, channel: String, command: SpaceVoiceRoom.Command,
-        session: String? = null): SpaceVoiceRoom {
-        val scope = SpaceVoiceRoom.scope(space, channel, command, session)
+    suspend fun relayVoiceSignal(space: String, channel: String, session: String, packet: SpaceVoiceSignalKey.Packet): SpaceVoiceRoom {
+        require(packet.from == session)
+        return voiceRoomCommand(SpaceVoiceRoom.scope(space, channel, SpaceVoiceRoom.Command.SIGNAL, session).apply {
+            add("packet", packet.json())
+        })
+    }
+
+    private suspend fun voiceRoomCommand(scope: JsonObject): SpaceVoiceRoom {
+        val space = scope.text("space_id")
+        val channel = scope.text("channel_id")
+        val session = scope.get("session")?.asString
         val device = store.transaction {
             if (get(stateKey(space)) == null) return@transaction null
             owned()
@@ -713,6 +729,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         })
         val room = SpaceVoiceRoom.read(reply.getAsJsonObject("voice_room"))
         require(!room.admitted || room.participants.any { it.wallet == wallet.publicKey && it.session == session })
+        val address = SpaceVoiceSignalKey.Address(service, space, channel)
+        require(room.participants.all { it.contact.verify(address) })
+        require(room.signals.all { delivery -> delivery.packet.to == session && room.participants.any { it.session == delivery.packet.from } })
         return room
     }
 

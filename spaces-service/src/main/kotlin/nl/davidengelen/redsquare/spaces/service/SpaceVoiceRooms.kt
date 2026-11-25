@@ -7,31 +7,72 @@ import nl.davidengelen.redsquare.spaces.SpaceVisibility
 import nl.davidengelen.redsquare.spaces.SpaceVoiceRoom
 import nl.davidengelen.redsquare.spaces.SpaceVoiceRoom.Command
 import nl.davidengelen.redsquare.spaces.SpaceVoiceRoom.Status
+import nl.davidengelen.redsquare.spaces.SpaceVoiceRoom.SignalDelivery
+import nl.davidengelen.redsquare.spaces.SpaceVoiceSignalKey
+import java.security.MessageDigest
 
 /** Called inside the service's serialized exchange. Active calls have no persistent presence. */
 internal class SpaceVoiceRooms {
-    private data class Key(val space: String, val channel: String)
+    data class CommandData(val session: String?, val contact: SpaceVoiceSignalKey.Contact? = null,
+        val packet: SpaceVoiceSignalKey.Packet? = null, val receivedThrough: Long = 0)
+
     private data class AccessTerm(val generation: String, val epoch: Long, val reopenedAt: Long,
         val channelAccess: Long?, val previousDeparture: Long?)
-    private data class Session(val wallet: String, val device: String?, val id: String, val term: AccessTerm, val expiresAt: Long,
-        val mutedByStaff: Boolean = false)
+    private data class Session(val contact: SpaceVoiceSignalKey.Contact, val device: String?, val term: AccessTerm,
+        val expiresAt: Long, val mutedByStaff: Boolean = false) {
+        val wallet get() = contact.wallet
+        val id get() = contact.session
+    }
+
+    private class Inbox {
+        private val seen = linkedSetOf<List<Byte>>()
+        private val pending = mutableListOf<SignalDelivery>()
+        private var next = 1L
+        private var offeredThrough = 0L
+
+        fun receive(receivedThrough: Long): List<SignalDelivery> {
+            require(receivedThrough in 0..offeredThrough)
+            pending.removeIf { it.sequence <= receivedThrough }
+            return pending.take(SpaceVoiceRoom.SIGNALS_PER_PAGE).also { page ->
+                page.lastOrNull()?.let { offeredThrough = maxOf(offeredThrough, it.sequence) }
+            }
+        }
+
+        fun add(packet: SpaceVoiceSignalKey.Packet) {
+            val fingerprint = MessageDigest.getInstance("SHA-256").digest(packet.json().toString().toByteArray(Charsets.UTF_8)).toList()
+            if (fingerprint in seen) return
+            require(pending.size < MAX_QUEUED_SIGNALS) { "Room peer signal queue is full" }
+            require(pending.sumOf { it.packet.ciphertext.length } + packet.ciphertext.length <= MAX_QUEUED_BYTES) {
+                "Room peer signal bytes are at capacity"
+            }
+            pending += SignalDelivery(next, packet)
+            next = Math.addExact(next, 1)
+            seen += fingerprint
+            if (seen.size > MAX_RECENT_SIGNALS) seen.remove(seen.first())
+        }
+
+        fun removeFrom(session: String) { pending.removeIf { it.packet.from == session } }
+    }
+
     private class Room {
         val sessions = linkedMapOf<String, Session>()
         val retired = mutableMapOf<String, Long>()
+        val inboxes = mutableMapOf<String, Inbox>()
     }
 
-    private val rooms = mutableMapOf<Key, Room>()
+    private val rooms = mutableMapOf<SpaceVoiceSignalKey.Address, Room>()
 
-    fun exchange(space: String, channel: String, caller: String, device: String?, command: Command, sessionId: String?,
+    fun exchange(address: SpaceVoiceSignalKey.Address, caller: String, device: String?, command: Command, args: CommandData,
         journal: SpaceJournal, now: Long): SpaceVoiceRoom {
+        val channel = address.channel
+        val sessionId = args.session
         val snapshot = journal.snapshot
         val record = requireNotNull(snapshot.channels[channel])
         require(!snapshot.dissolved && snapshot.protectedChat == null && caller !in snapshot.bannedMembers)
         require((record.kind ?: record.profile?.kind) == SpaceChannelKind.VOICE && journal.canAccessChannel(caller, channel))
 
-        val key = Key(space, channel)
         pruneExpired(now)
-        val existing = rooms[key]
+        val existing = rooms[address]
         if (record.archived) {
             if (existing != null) existing.sessions.values.toList().forEach { retire(existing, it) }
             return SpaceVoiceRoom(Status.ARCHIVED, false, SpaceVoiceRoom.CAPACITY, emptyList(), now)
@@ -42,8 +83,10 @@ internal class SpaceVoiceRooms {
                 retire(room, entry)
         }
         val previous = room.sessions[caller]
+        val own = previous?.takeIf { it.id == sessionId && it.device == device }
         var admitted = false
         var status = Status.AVAILABLE
+        var signals = emptyList<SignalDelivery>()
         when (command) {
             Command.OBSERVE -> {
                 status = when {
@@ -53,32 +96,34 @@ internal class SpaceVoiceRooms {
                 }
             }
             Command.JOIN -> {
-                val id = requireNotNull(sessionId)
+                val contact = requireNotNull(args.contact)
+                require(contact.session == sessionId && contact.wallet == caller && contact.verify(address))
                 status = when {
                     !canJoin(journal, record, channel, caller, device) -> Status.MEMBERS_ONLY
-                    previous != null && (previous.id != id || previous.device != device) -> Status.ALREADY_JOINED
-                    id in room.retired || room.sessions.values.any { it.id == id && it.wallet != caller } -> Status.SESSION_ENDED
+                    previous != null && (own == null || previous.contact != contact) -> Status.ALREADY_JOINED
+                    contact.session in room.retired || room.sessions.values.any { it.id == contact.session && it.wallet != caller } -> Status.SESSION_ENDED
                     previous == null && room.sessions.size == SpaceVoiceRoom.CAPACITY -> Status.FULL
                     else -> {
                         require(existing != null || rooms.size < MAX_ACTIVE_ROOMS) { "Room service is at capacity" }
                         require(room.retired.size < MAX_RECENT_SESSIONS) { "Room has too many recent sessions" }
-                        room.sessions[caller] = Session(caller, device, id, term(journal, record, caller),
+                        room.sessions[caller] = Session(contact, device, term(journal, record, caller),
                             Math.addExact(now, SpaceVoiceRoom.LEASE_MILLIS),
-                            mutedByStaff = previous?.takeIf { it.id == id }?.mutedByStaff == true)
-                        rooms[key] = room
+                            mutedByStaff = own?.mutedByStaff == true)
+                        rooms[address] = room
                         admitted = true
                         Status.AVAILABLE
                     }
                 }
             }
             Command.RENEW -> {
-                if (previous != null && previous.id == sessionId && previous.device == device) {
-                    room.sessions[caller] = previous.copy(expiresAt = Math.addExact(now, SpaceVoiceRoom.LEASE_MILLIS))
+                if (own != null) {
+                    signals = room.inboxes.getOrPut(own.id, ::Inbox).receive(args.receivedThrough)
+                    room.sessions[caller] = own.copy(expiresAt = Math.addExact(now, SpaceVoiceRoom.LEASE_MILLIS))
                     admitted = true
                 } else status = Status.SESSION_ENDED
             }
             Command.LEAVE -> {
-                if (previous != null && previous.id == sessionId && previous.device == device) retire(room, previous)
+                if (own != null) retire(room, own)
             }
             Command.MUTE, Command.REMOVE -> {
                 val target = requireNotNull(room.sessions.values.singleOrNull { it.id == sessionId })
@@ -86,12 +131,19 @@ internal class SpaceVoiceRooms {
                 if (command == Command.REMOVE) retire(room, target)
                 else room.sessions[target.wallet] = target.copy(mutedByStaff = true)
             }
+            Command.SIGNAL -> {
+                val sender = requireNotNull(own)
+                val packet = requireNotNull(args.packet)
+                require(sender.id == packet.from && room.sessions.values.any { it.id == packet.to })
+                room.inboxes.getOrPut(packet.to, ::Inbox).add(packet)
+                admitted = true
+            }
         }
         val participants = room.sessions.values.map {
-            SpaceVoiceRoom.Participant(it.wallet, it.id, !it.mutedByStaff && journal.writeRestrictedUntil(it.wallet, channel, now) == null,
+            SpaceVoiceRoom.Participant(it.contact, !it.mutedByStaff && journal.writeRestrictedUntil(it.wallet, channel, now) == null,
                 it.expiresAt)
         }
-        return SpaceVoiceRoom(status, admitted, SpaceVoiceRoom.CAPACITY, participants, now)
+        return SpaceVoiceRoom(status, admitted, SpaceVoiceRoom.CAPACITY, participants, now, signals)
     }
 
     private fun canJoin(journal: SpaceJournal, record: SpaceChannelRecord, channel: String, wallet: String, device: String?): Boolean =
@@ -105,11 +157,13 @@ internal class SpaceVoiceRooms {
     private fun retire(room: Room, session: Session) {
         room.sessions.remove(session.wallet)
         room.retired[session.id] = session.expiresAt
+        room.inboxes.remove(session.id)
+        room.inboxes.values.forEach { it.removeFrom(session.id) }
     }
 
     private fun pruneExpired(now: Long) {
         rooms.values.forEach { room ->
-            room.sessions.entries.removeIf { it.value.expiresAt <= now }
+            room.sessions.values.filter { it.expiresAt <= now }.forEach { retire(room, it) }
             room.retired.entries.removeIf { it.value <= now }
         }
         rooms.entries.removeIf { it.value.sessions.isEmpty() && it.value.retired.isEmpty() }
@@ -118,5 +172,8 @@ internal class SpaceVoiceRooms {
     companion object {
         private const val MAX_ACTIVE_ROOMS = 512
         private const val MAX_RECENT_SESSIONS = 24
+        private const val MAX_QUEUED_SIGNALS = 48
+        private const val MAX_QUEUED_BYTES = 256 * 1024
+        private const val MAX_RECENT_SIGNALS = 128
     }
 }

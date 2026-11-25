@@ -16,6 +16,7 @@ import nl.davidengelen.redsquare.spaces.SpaceProfile
 import nl.davidengelen.redsquare.spaces.SpaceVisibility
 import nl.davidengelen.redsquare.spaces.SpaceSnapshot
 import nl.davidengelen.redsquare.spaces.SpaceVoiceRoom
+import nl.davidengelen.redsquare.spaces.SpaceVoiceSignalKey
 import java.nio.file.Files
 import java.nio.file.Path
 import java.sql.Connection
@@ -86,7 +87,13 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 "usage" -> emptySet()
                 else -> throw IllegalArgumentException("Unsupported file access")
             }
-            "voice-room" -> setOf("channel_id", "command") + if (roomSession == null) emptySet() else setOf("session")
+            "voice-room" -> setOf("channel_id", "command") + when (roomCommand) {
+                SpaceVoiceRoom.Command.JOIN -> setOf("session", "contact")
+                SpaceVoiceRoom.Command.RENEW -> setOf("session", "received_through")
+                SpaceVoiceRoom.Command.SIGNAL -> setOf("session", "packet")
+                SpaceVoiceRoom.Command.LEAVE, SpaceVoiceRoom.Command.MUTE, SpaceVoiceRoom.Command.REMOVE -> setOf("session")
+                else -> emptySet()
+            }
             "content" -> setOf("channel_id"); "keys" -> setOf("channel_id", "recipient_credential")
             "invitation" -> setOf("invite_id"); "directory" -> setOf("query"); "heads" -> setOf("positions"); else -> emptySet()
         })
@@ -192,8 +199,16 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                                         SpaceVoiceRoom.deviceChallenge(wallet.publicKey, request.author, scope, nonce)))
                                 }
                             } else null
-                            reply.add("voice_room", voiceRooms.exchange(space, roomChannel, request.author, credential,
-                                roomCommand, roomSession, journal, now).json())
+                            val args = when (roomCommand) {
+                                SpaceVoiceRoom.Command.JOIN -> SpaceVoiceRooms.CommandData(roomSession,
+                                    contact = SpaceVoiceSignalKey.Contact.read(requireNotNull(scope.getAsJsonObject("contact"))))
+                                SpaceVoiceRoom.Command.RENEW -> SpaceVoiceRooms.CommandData(roomSession, receivedThrough = scope.number("received_through"))
+                                SpaceVoiceRoom.Command.SIGNAL -> SpaceVoiceRooms.CommandData(roomSession,
+                                    packet = SpaceVoiceSignalKey.Packet.read(requireNotNull(scope.getAsJsonObject("packet"))))
+                                else -> SpaceVoiceRooms.CommandData(roomSession)
+                            }
+                            reply.add("voice_room", voiceRooms.exchange(SpaceVoiceSignalKey.Address(wallet.publicKey, space, roomChannel),
+                                request.author, credential, roomCommand, args, journal, now).json())
                             reply.add("items", JsonArray())
                             reply.addProperty("next_cursor", 0)
                         } catch (_: IllegalArgumentException) {

@@ -15,11 +15,18 @@ data class SpaceVoiceRoom(
     val capacity: Int,
     val participants: List<Participant>,
     val observedAt: Long,
+    val signals: List<SignalDelivery> = emptyList(),
 ) {
     enum class Status { AVAILABLE, FULL, ARCHIVED, MEMBERS_ONLY, SESSION_ENDED, ALREADY_JOINED }
 
-    data class Participant(val wallet: String, val session: String, val canSpeak: Boolean, val expiresAt: Long) {
-        init { require(SaitoWallet.isPublicKey(wallet) && session.matches(SESSION) && expiresAt > 0) }
+    data class Participant(val contact: SpaceVoiceSignalKey.Contact, val canSpeak: Boolean, val expiresAt: Long) {
+        val wallet get() = contact.wallet
+        val session get() = contact.session
+        init { require(expiresAt > 0) }
+    }
+
+    data class SignalDelivery(val sequence: Long, val packet: SpaceVoiceSignalKey.Packet) {
+        init { require(sequence > 0) }
     }
 
     init {
@@ -29,6 +36,8 @@ data class SpaceVoiceRoom(
         require(participants.all { it.expiresAt > observedAt && it.expiresAt - observedAt <= LEASE_MILLIS })
         require(status != Status.ARCHIVED || participants.isEmpty() && !admitted)
         require(!admitted || status == Status.AVAILABLE)
+        require(signals.size <= SIGNALS_PER_PAGE && (signals.isEmpty() || admitted))
+        require(signals.zipWithNext().all { (previous, next) -> previous.sequence < next.sequence })
     }
 
     fun json() = JsonObject().apply {
@@ -39,10 +48,17 @@ data class SpaceVoiceRoom(
         add("participants", JsonArray().apply {
             participants.forEach { participant ->
                 add(JsonObject().apply {
-                    addProperty("wallet", participant.wallet)
-                    addProperty("session", participant.session)
+                    add("contact", participant.contact.json())
                     addProperty("can_speak", participant.canSpeak)
                     addProperty("expires_at", participant.expiresAt)
+                })
+            }
+        })
+        add("signals", JsonArray().apply {
+            signals.forEach { delivery ->
+                add(JsonObject().apply {
+                    addProperty("sequence", delivery.sequence)
+                    add("packet", delivery.packet.json())
                 })
             }
         })
@@ -50,7 +66,7 @@ data class SpaceVoiceRoom(
 
     enum class Command(val wire: String, val requiresSession: Boolean) {
         OBSERVE("observe", false), JOIN("join", true), RENEW("renew", true), LEAVE("leave", true),
-        MUTE("mute", true), REMOVE("remove", true);
+        MUTE("mute", true), REMOVE("remove", true), SIGNAL("signal", true);
 
         companion object {
             fun read(wire: String): Command = entries.singleOrNull { it.wire == wire }
@@ -61,6 +77,7 @@ data class SpaceVoiceRoom(
     companion object {
         const val CAPACITY = 3
         const val LEASE_MILLIS = 12_000L
+        const val SIGNALS_PER_PAGE = 4
         private val ID = Regex("[0-9a-f]{64}")
         private val SESSION = Regex("[0-9a-f]{32}")
 
@@ -101,19 +118,26 @@ data class SpaceVoiceRoom(
         }
 
         fun read(json: JsonObject): SpaceVoiceRoom {
-            require(json.keySet() == setOf("status", "admitted", "capacity", "observed_at", "participants"))
+            require(json.keySet() == setOf("status", "admitted", "capacity", "observed_at", "participants", "signals"))
             val rows = json.getAsJsonArray("participants")
+            val signals = json.getAsJsonArray("signals")
             require(rows.size() <= CAPACITY)
+            require(signals.size() <= SIGNALS_PER_PAGE)
             return SpaceVoiceRoom(
                 Status.valueOf(json.get("status").asString.uppercase(java.util.Locale.ROOT)),
                 json.boolean("admitted"), json.get("capacity").asInt,
                 rows.map { item ->
                     val row = item.asJsonObject
-                    require(row.keySet() == setOf("wallet", "session", "can_speak", "expires_at"))
-                    Participant(row.get("wallet").asString, row.get("session").asString,
+                    require(row.keySet() == setOf("contact", "can_speak", "expires_at"))
+                    Participant(SpaceVoiceSignalKey.Contact.read(row.getAsJsonObject("contact")),
                         row.boolean("can_speak"), row.get("expires_at").asLong)
                 },
                 json.get("observed_at").asLong,
+                signals.map { item ->
+                    val row = item.asJsonObject
+                    require(row.keySet() == setOf("sequence", "packet"))
+                    SignalDelivery(row.get("sequence").asLong, SpaceVoiceSignalKey.Packet.read(row.getAsJsonObject("packet")))
+                },
             )
         }
 

@@ -4,6 +4,7 @@ import kotlinx.coroutines.runBlocking
 import com.google.gson.JsonObject
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoTransaction
+import nl.davidengelen.redsquare.saito.Stun
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceChannelKind
 import nl.davidengelen.redsquare.spaces.SpaceChannelProfile
@@ -11,6 +12,7 @@ import nl.davidengelen.redsquare.spaces.SpaceClient
 import nl.davidengelen.redsquare.spaces.SpaceProfile
 import nl.davidengelen.redsquare.spaces.SpaceVisibility
 import nl.davidengelen.redsquare.spaces.SpaceVoiceRoom
+import nl.davidengelen.redsquare.spaces.SpaceVoiceSignalKey
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -49,32 +51,55 @@ class SpaceVoiceRoomTest {
                 visitor.openPublic(room)
                 assertTrue(owner.voiceRoom(room, channel).participants.isEmpty())
                 assertTrue(visitor.voiceRoom(room, channel).participants.isEmpty())
-                assertFalse(visitor.joinVoiceRoom(room, channel, token(4)).admitted)
+                val address = SpaceVoiceSignalKey.Address(node.publicKey, room, channel)
+                val signalKeys = wallets.mapIndexed { index, wallet -> SpaceVoiceSignalKey.create(address, wallet, token(index + 1)) }
+                val (ownerMedia, memberMedia, secondMedia, visitorMedia) = signalKeys
+                assertFalse(visitor.joinVoiceRoom(room, channel, visitorMedia.contact).admitted)
                 assertTrue(runCatching { owner.voiceRoom(room, chat) }.exceptionOrNull() is SpaceClient.ReadDenied)
 
                 joinSpace(member)
                 joinSpace(secondMember)
                 joinSpace(visitor)
-                val opened = owner.joinVoiceRoom(room, channel, token(1))
+                val opened = owner.joinVoiceRoom(room, channel, ownerMedia.contact)
                 assertTrue(opened.admitted)
                 assertEquals(wallets.first().publicKey, member.voiceRoom(room, channel).participants.single().wallet)
-                assertTrue(member.joinVoiceRoom(room, channel, token(2)).admitted)
-                assertTrue(secondMember.joinVoiceRoom(room, channel, token(3)).admitted)
-                val full = visitor.joinVoiceRoom(room, channel, token(4))
+                assertTrue(member.joinVoiceRoom(room, channel, memberMedia.contact).admitted)
+                assertTrue(secondMember.joinVoiceRoom(room, channel, secondMedia.contact).admitted)
+                val full = visitor.joinVoiceRoom(room, channel, visitorMedia.contact)
                 assertFalse(full.admitted)
                 assertEquals(SpaceVoiceRoom.Status.FULL, full.status)
                 assertEquals(3, full.participants.size)
+
+                val privateDescription = "v=0\r\na=fingerprint:sha-256 owned-isolated-description"
+                val description = Stun.signal(ownerMedia.rtcWallet, memberMedia.contact.key, "peer-description", JsonObject().apply {
+                    addProperty("type", "offer"); addProperty("sdp", privateDescription)
+                }, clock.millis())
+                val encrypted = ownerMedia.seal(memberMedia.contact, description.envelope())
+                assertFalse(encrypted.json().toString().contains(privateDescription))
+                assertTrue(owner.relayVoiceSignal(room, channel, token(1), encrypted).admitted)
+                assertTrue(owner.relayVoiceSignal(room, channel, token(1), encrypted).admitted)
+                assertTrue(secondMember.renewVoiceRoom(room, channel, token(3)).signals.isEmpty())
+                assertTrue(visitor.voiceRoom(room, channel).signals.isEmpty())
+                val received = member.renewVoiceRoom(room, channel, token(2)).signals.single()
+                assertEquals(encrypted, received.packet)
+                assertEquals(description.id, memberMedia.open(ownerMedia.contact, received.packet).id)
+                assertEquals(privateDescription, memberMedia.open(ownerMedia.contact, received.packet).body.get("sdp").asString)
+                assertTrue(runCatching { secondMedia.open(ownerMedia.contact, received.packet.copy(to = token(3))) }.isFailure)
+                assertTrue(member.renewVoiceRoom(room, channel, token(2), received.sequence).signals.isEmpty())
+                assertTrue(owner.relayVoiceSignal(room, channel, token(1), encrypted).admitted)
+                assertTrue(member.renewVoiceRoom(room, channel, token(2), received.sequence).signals.isEmpty())
 
                 val target = full.participants.single { it.wallet == wallets[1].publicKey }
                 assertTrue(runCatching { visitor.moderateVoiceRoom(room, channel, target.session, remove = true) }
                     .exceptionOrNull() is SpaceClient.ReadDenied)
                 owner.moderateVoiceRoom(room, channel, target.session, remove = false)
                 assertFalse(member.renewVoiceRoom(room, channel, token(2)).participants.single { it.session == token(2) }.canSpeak)
-                assertFalse(member.joinVoiceRoom(room, channel, token(6)).admitted)
+                assertFalse(member.joinVoiceRoom(room, channel, SpaceVoiceSignalKey.create(address, wallets[1], token(6)).contact).admitted)
                 assertFalse(member.renewVoiceRoom(room, channel, token(2)).participants.single { it.session == token(2) }.canSpeak)
                 owner.moderateVoiceRoom(room, channel, target.session, remove = true)
                 assertFalse(member.renewVoiceRoom(room, channel, token(2)).admitted)
-                assertTrue(visitor.joinVoiceRoom(room, channel, token(4)).admitted)
+                assertTrue(visitor.joinVoiceRoom(room, channel, visitorMedia.contact).admitted)
+                assertTrue(runCatching { owner.relayVoiceSignal(room, channel, token(1), encrypted) }.exceptionOrNull() is SpaceClient.ReadDenied)
 
                 owner.refresh(room)
                 owner.setWriteRestriction(room, wallets[3].publicKey, channel, clock.millis() + 60_000)
@@ -84,7 +109,7 @@ class SpaceVoiceRoomTest {
                 clock.advance(60_001)
                 assertTrue(owner.voiceRoom(room, channel).participants.isEmpty())
                 assertFalse(secondMember.renewVoiceRoom(room, channel, token(3)).admitted)
-                assertTrue(owner.joinVoiceRoom(room, channel, token(5)).admitted)
+                assertTrue(owner.joinVoiceRoom(room, channel, SpaceVoiceSignalKey.create(address, wallets[0], token(5)).contact).admitted)
                 owner.refresh(room)
                 owner.archiveChannel(room, channel, true)
                 owner.flush(room)
@@ -114,7 +139,10 @@ class SpaceVoiceRoomTest {
                     owner.flush(room)
                     member.join(invite); member.flush(room)
                     owner.admitPending(room); owner.flush(room); member.refresh(room)
-                    val scope = SpaceVoiceRoom.scope(room, channel, SpaceVoiceRoom.Command.JOIN, token(2))
+                    val media = SpaceVoiceSignalKey.create(SpaceVoiceSignalKey.Address(node.publicKey, room, channel), memberWallet, token(2))
+                    val scope = SpaceVoiceRoom.scope(room, channel, SpaceVoiceRoom.Command.JOIN, token(2)).apply {
+                        add("contact", media.contact.json())
+                    }
                     fun raw(kind: String, nonce: String? = null): JsonObject {
                         val request = SaitoTransaction.create(memberWallet, JsonObject().apply {
                             addProperty("module", "Spaces"); addProperty("version", 1); addProperty("request", kind)
@@ -126,7 +154,7 @@ class SpaceVoiceRoomTest {
                     val nonce = raw("challenge").get("nonce").asString
                     assertEquals("denied", raw("read", nonce).get("request").asString)
                     assertTrue(owner.voiceRoom(room, channel).participants.isEmpty())
-                    assertTrue(member.joinVoiceRoom(room, channel, token(2)).admitted)
+                    assertTrue(member.joinVoiceRoom(room, channel, media.contact).admitted)
                     assertEquals(memberWallet.publicKey, owner.voiceRoom(room, channel).participants.single().wallet)
                     member.leave(room); member.flush(room)
                     assertTrue(owner.voiceRoom(room, channel).participants.isEmpty())
