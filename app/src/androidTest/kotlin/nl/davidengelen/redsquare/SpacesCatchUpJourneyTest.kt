@@ -279,7 +279,7 @@ class SpacesCatchUpJourneyTest {
     private fun assertTarget(control: SemanticsMatcher) {
         val bounds = ui.onNode(control).getUnclippedBoundsInRoot()
         assertTrue("Touch target must be at least 48dp in both directions: $bounds",
-            bounds.width >= 48.dp && bounds.height >= 48.dp)
+            bounds.right - bounds.left >= 48.dp && bounds.bottom - bounds.top >= 48.dp)
     }
 
     private fun prepareWallet(config: JsonObject) {
