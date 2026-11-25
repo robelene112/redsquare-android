@@ -59,6 +59,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import nl.davidengelen.redsquare.notifications.SocialPush
 import nl.davidengelen.redsquare.notifications.NotificationRoutes
 import nl.davidengelen.redsquare.ui.InlineStatus
@@ -72,6 +73,16 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
 
 private enum class FeedOverlay { QUEUE, AUTHOR_CHANGES, COMPOSER }
+
+private data class FeedArchiveRead(
+    val wallet: SaitoWallet?,
+    val cacheReady: Boolean,
+    val refresh: Int,
+    val internet: InternetStatus,
+    val followingView: Boolean,
+    val followingReady: Boolean,
+    val followingAccounts: Set<String>,
+)
 
 @Composable
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
@@ -332,154 +343,163 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         cacheWarning = saved.unreadable
         cacheReady = true
     }
-    LaunchedEffect(wallet, cacheReady, refresh, internet, followingView,
-        following?.accounts.takeIf { followingView }, following?.ready.takeIf { followingView }) {
-        if (!internet.available) { hadOutage = true; recovered = false }
-        if (wallet == null || !cacheReady) return@LaunchedEffect
-        if (followingView && following?.ready != true) { loading = false; pullRefreshing = false; manualPullPending = false; pulledTopPost = null; return@LaunchedEffect }
-        if (followingView && following?.accounts?.isEmpty() == true) { loading = false; pullRefreshing = false; manualPullPending = false; pulledTopPost = null; return@LaunchedEffect }
-        lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            while (currentCoroutineContext().isActive) {
-                if (!internet.available) {
-                    loading = false
-                    pullRefreshing = false
-                    manualPullPending = false
-                    pulledTopPost = null
-                    hadOutage = true
-                    recovered = false
-                    delay(1000)
-                    continue
-                }
-                loading = true
-                try {
-                    var authorFailure = false
-                    var readSucceeded = false
-                    withContext(Dispatchers.IO) {
-                        if (manualPullPending) archivePolicy.retryContinuations()
-                        val authors = if (followingView) following!!.accounts.sorted() else listOf<String?>(null)
-                        var rowCount = 0
-                        var validCount = 0
-                        var continuationUnavailable = false
-                        for (author in authors) {
-                            try {
-                                BoundedArchiveReader(wallet, endpoint, archivePolicy).use { archive ->
-                                    val criteria = com.google.gson.JsonObject().apply {
-                                        addProperty("request", "load"); addProperty("field1", "RedSquare")
-                                        addProperty("field4", ""); addProperty("flagged_ne", 1); addProperty("limit", 20)
-                                        addProperty("created_earlier_than", System.currentTimeMillis())
-                                        if (author != null) addProperty("field2", author)
-                                    }
-                                    suspend fun publish(page: ArchiveFeedPage) {
-                                        val accepted = if (author == null) page else page.copy(posts = page.posts.filter { it.author == author })
-                                        rowCount += accepted.rowCount
-                                        validCount += accepted.posts.size
-                                        if (accepted.posts.isEmpty() && accepted.deletions.isEmpty()) {
-                                            withContext(Dispatchers.Main.immediate) { unreadablePage = continuationUnavailable || (rowCount > 0 && validCount == 0) }
-                                            return
-                                        }
-                                        val known = withContext(Dispatchers.Main.immediate) { posts.toList() }
-                                        revisions.reconcileDeletions(archive.peer, accepted.deletions, accepted.posts + known)
-                                        withContext(Dispatchers.Main.immediate) {
-                                            social?.observe(accepted.posts)
-                                            val applied = withContext(Dispatchers.IO) {
-                                                accepted.posts.forEach(revisions::observe)
-                                                revisions.apply(RedSquareFeed.newest(accepted.posts + posts))
-                                            }
-                                            val merged = applied.posts
-                                                .filter { !followingView || it.author in following!!.accounts }
-                                                .sortedWith(compareByDescending<FeedPost> { it.createdAt }.thenByDescending { it.id })
-                                                .take(AndroidFeedCache.MAX_POSTS)
-                                            cacheWarning = withContext(Dispatchers.IO) {
-                                                try { cache.save(merged); applied.unreadable } catch (_: Exception) { true }
-                                            }
-                                            if (merged.size > posts.size && !position.isScrollInProgress &&
-                                                !position.canScrollBackward && !position.canScrollForward) {
-                                                val layout = position.layoutInfo
-                                                val last = layout.visibleItemsInfo.lastOrNull()
-                                                if (last != null) {
-                                                    // A short cache has unused viewport space. Preserve
-                                                    // that space in the same measure as prepended posts,
-                                                    // so LazyColumn does not clamp the old key downward.
-                                                    val required = (layout.viewportEndOffset - last.offset -
-                                                        last.size - baseEndPaddingPx).coerceIn(0, layout.viewportSize.height)
-                                                    // Repeated pages may see the same not-yet-measured
-                                                    // layout. Set a bounded target instead of adding it.
-                                                    readingEndSpace = maxOf(readingEndSpace, required)
-                                                        .coerceAtMost(layout.viewportSize.height)
-                                                }
-                                            }
-                                            posts = merged
-                                            unreadablePage = continuationUnavailable || (rowCount > 0 && validCount == 0)
-                                        }
-                                    }
-                                    suspend fun readStream(base: com.google.gson.JsonObject, decode: (String) -> ArchiveFeedPage) {
-                                        val key = base.get("field1").asString + ":" + author.orEmpty()
-                                        val retained = archiveContinuations[key]
-                                        val query = retained?.first ?: base
-                                        var cursor = retained?.second
-                                        val seen = mutableSetOf<String>()
-                                        // Bound each foreground turn; an unfinished tie resumes on the
-                                        // next poll without losing the node, verified cards or viewport.
-                                        repeat(16) {
-                                            val page = archive.next(query, cursor)
-                                            val decoded = decode(page.response)
-                                            publish(decoded)
-                                            if (page.pagingUnavailable && page.adapted) {
-                                                archiveContinuations.remove(key)
-                                                withContext(Dispatchers.Main.immediate) { continuationUnavailable = true; unreadablePage = true }
-                                                return
-                                            }
-                                            seen.addAll(decoded.posts.map { it.id })
-                                            cursor = page.next
-                                            if (cursor == null || (cursor is ArchiveReadCursor.Before &&
-                                                    (!page.adapted || seen.size >= 20))) {
-                                                archiveContinuations.remove(key)
-                                                return
-                                            }
-                                            archiveContinuations[key] = query to requireNotNull(cursor)
-                                        }
-                                    }
-                                    readStream(criteria, RedSquareFeed::readArchive)
-                                    readSucceeded = true
-                                    val quoteCriteria = criteria.deepCopy().apply {
-                                        addProperty("field1", "RedSquareRetweet"); remove("field4")
-                                    }
-                                    readStream(quoteCriteria, RedSquareFeed::readCurrentQuotes)
-                                }
-                            } catch (failure: TimeoutCancellationException) {
-                                currentCoroutineContext().ensureActive()
-                                if (author == null) throw failure
-                                authorFailure = true
-                            } catch (cancelled: CancellationException) { throw cancelled }
-                            catch (failure: Exception) {
-                                if (author == null) throw failure
-                                authorFailure = true
-                            }
-                        }
-                    }
-                    failed = authorFailure
-                    followingPartial = authorFailure && readSucceeded
-                    if (manualPullPending) {
-                        // A pull from the top asks to see the new leading posts. Stable lazy
-                        // keys otherwise keep the former first post in view, leaving new posts above it.
-                        // If the reader moved while waiting, retain their chosen position.
-                        if (pulledTopPost != null && position.firstVisibleItemScrollOffset == 0 &&
-                            position.layoutInfo.visibleItemsInfo.firstOrNull()?.key == pulledTopPost)
-                            position.requestScrollToItem(0)
+    val archiveRead by rememberUpdatedState(FeedArchiveRead(wallet, cacheReady, refresh, internet, followingView,
+        followingView && following?.ready == true, if (followingView) following?.accounts.orEmpty() else emptySet()))
+    val activeSocial by rememberUpdatedState(social)
+    LaunchedEffect(lifecycle, archivePolicy, cache) {
+        // One owner watches actual input changes. A repeated Compose pass with the
+        // same network, wallet and refresh request leaves its read in progress.
+        snapshotFlow { archiveRead }.collectLatest { request ->
+            if (!request.internet.available) { hadOutage = true; recovered = false }
+            val readWallet = request.wallet ?: return@collectLatest
+            if (!request.cacheReady) return@collectLatest
+            if (request.followingView && (!request.followingReady || request.followingAccounts.isEmpty())) {
+                loading = false; pullRefreshing = false; manualPullPending = false; pulledTopPost = null
+                return@collectLatest
+            }
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                while (currentCoroutineContext().isActive) {
+                    if (!request.internet.available) {
+                        loading = false
+                        pullRefreshing = false
                         manualPullPending = false
                         pulledTopPost = null
-                        pullRefreshSucceeded = !authorFailure
+                        hadOutage = true
+                        recovered = false
+                        delay(1000)
+                        continue
                     }
-                    if (authorFailure) { recovered = false; hadOutage = !readSucceeded }
-                    else if (hadOutage) { recovered = true; hadOutage = false }
-                } catch (_: TimeoutCancellationException) {
-                    // The request's own deadline must not cancel the foreground polling loop.
-                    currentCoroutineContext().ensureActive()
-                    manualPullPending = false; pulledTopPost = null; failed = true; followingPartial = false; hadOutage = true; recovered = false
-                } catch (cancelled: CancellationException) { throw cancelled }
-                catch (_: Exception) { manualPullPending = false; pulledTopPost = null; failed = true; followingPartial = false; hadOutage = true; recovered = false }
-                finally { if (currentCoroutineContext().isActive) { loading = false; pullRefreshing = false } }
-                delay(if (failed) 5_000 else 30_000)
+                    loading = true
+                    try {
+                        var authorFailure = false
+                        var readSucceeded = false
+                        withContext(Dispatchers.IO) {
+                            if (manualPullPending) archivePolicy.retryContinuations()
+                            val authors = if (request.followingView) request.followingAccounts.sorted() else listOf<String?>(null)
+                            var rowCount = 0
+                            var validCount = 0
+                            var continuationUnavailable = false
+                            for (author in authors) {
+                                try {
+                                    BoundedArchiveReader(readWallet, endpoint, archivePolicy).use { archive ->
+                                        val criteria = com.google.gson.JsonObject().apply {
+                                            addProperty("request", "load"); addProperty("field1", "RedSquare")
+                                            addProperty("field4", ""); addProperty("flagged_ne", 1); addProperty("limit", 20)
+                                            addProperty("created_earlier_than", System.currentTimeMillis())
+                                            if (author != null) addProperty("field2", author)
+                                        }
+                                        suspend fun publish(page: ArchiveFeedPage) {
+                                            val accepted = if (author == null) page else page.copy(posts = page.posts.filter { it.author == author })
+                                            rowCount += accepted.rowCount
+                                            validCount += accepted.posts.size
+                                            if (accepted.posts.isEmpty() && accepted.deletions.isEmpty()) {
+                                                withContext(Dispatchers.Main.immediate) { unreadablePage = continuationUnavailable || (rowCount > 0 && validCount == 0) }
+                                                return
+                                            }
+                                            val known = withContext(Dispatchers.Main.immediate) { posts.toList() }
+                                            revisions.reconcileDeletions(archive.peer, accepted.deletions, accepted.posts + known)
+                                            withContext(Dispatchers.Main.immediate) {
+                                                activeSocial?.observe(accepted.posts)
+                                                val applied = withContext(Dispatchers.IO) {
+                                                    accepted.posts.forEach(revisions::observe)
+                                                    revisions.apply(RedSquareFeed.newest(accepted.posts + posts))
+                                                }
+                                                val merged = applied.posts
+                                                    .filter { !request.followingView || it.author in request.followingAccounts }
+                                                    .sortedWith(compareByDescending<FeedPost> { it.createdAt }.thenByDescending { it.id })
+                                                    .take(AndroidFeedCache.MAX_POSTS)
+                                                cacheWarning = withContext(Dispatchers.IO) {
+                                                    try { cache.save(merged); applied.unreadable } catch (_: Exception) { true }
+                                                }
+                                                if (merged.size > posts.size && !position.isScrollInProgress &&
+                                                    !position.canScrollBackward && !position.canScrollForward) {
+                                                    val layout = position.layoutInfo
+                                                    val last = layout.visibleItemsInfo.lastOrNull()
+                                                    if (last != null) {
+                                                        // A short cache has unused viewport space. Preserve
+                                                        // that space in the same measure as prepended posts,
+                                                        // so LazyColumn does not clamp the old key downward.
+                                                        val required = (layout.viewportEndOffset - last.offset -
+                                                            last.size - baseEndPaddingPx).coerceIn(0, layout.viewportSize.height)
+                                                        // Repeated pages may see the same not-yet-measured
+                                                        // layout. Set a bounded target instead of adding it.
+                                                        readingEndSpace = maxOf(readingEndSpace, required)
+                                                            .coerceAtMost(layout.viewportSize.height)
+                                                    }
+                                                }
+                                                posts = merged
+                                                unreadablePage = continuationUnavailable || (rowCount > 0 && validCount == 0)
+                                            }
+                                        }
+                                        suspend fun readStream(base: com.google.gson.JsonObject, decode: (String) -> ArchiveFeedPage) {
+                                            val key = base.get("field1").asString + ":" + author.orEmpty()
+                                            val retained = archiveContinuations[key]
+                                            val query = retained?.first ?: base
+                                            var cursor = retained?.second
+                                            val seen = mutableSetOf<String>()
+                                            // Bound each foreground turn; an unfinished tie resumes on the
+                                            // next poll without losing the node, verified cards or viewport.
+                                            repeat(16) {
+                                                val page = archive.next(query, cursor)
+                                                val decoded = decode(page.response)
+                                                publish(decoded)
+                                                if (page.pagingUnavailable && page.adapted) {
+                                                    archiveContinuations.remove(key)
+                                                    withContext(Dispatchers.Main.immediate) { continuationUnavailable = true; unreadablePage = true }
+                                                    return
+                                                }
+                                                seen.addAll(decoded.posts.map { it.id })
+                                                cursor = page.next
+                                                if (cursor == null || (cursor is ArchiveReadCursor.Before &&
+                                                        (!page.adapted || seen.size >= 20))) {
+                                                    archiveContinuations.remove(key)
+                                                    return
+                                                }
+                                                archiveContinuations[key] = query to requireNotNull(cursor)
+                                            }
+                                        }
+                                        readStream(criteria, RedSquareFeed::readArchive)
+                                        readSucceeded = true
+                                        val quoteCriteria = criteria.deepCopy().apply {
+                                            addProperty("field1", "RedSquareRetweet"); remove("field4")
+                                        }
+                                        readStream(quoteCriteria, RedSquareFeed::readCurrentQuotes)
+                                    }
+                                } catch (failure: TimeoutCancellationException) {
+                                    currentCoroutineContext().ensureActive()
+                                    if (author == null) throw failure
+                                    authorFailure = true
+                                } catch (cancelled: CancellationException) { throw cancelled }
+                                catch (failure: Exception) {
+                                    if (author == null) throw failure
+                                    authorFailure = true
+                                }
+                            }
+                        }
+                        failed = authorFailure
+                        followingPartial = authorFailure && readSucceeded
+                        if (manualPullPending) {
+                            // A pull from the top asks to see the new leading posts. Stable lazy
+                            // keys otherwise keep the former first post in view, leaving new posts above it.
+                            // If the reader moved while waiting, retain their chosen position.
+                            if (pulledTopPost != null && position.firstVisibleItemScrollOffset == 0 &&
+                                position.layoutInfo.visibleItemsInfo.firstOrNull()?.key == pulledTopPost)
+                                position.requestScrollToItem(0)
+                            manualPullPending = false
+                            pulledTopPost = null
+                            pullRefreshSucceeded = !authorFailure
+                        }
+                        if (authorFailure) { recovered = false; hadOutage = !readSucceeded }
+                        else if (hadOutage) { recovered = true; hadOutage = false }
+                    } catch (_: TimeoutCancellationException) {
+                        // The request's own deadline must not cancel the foreground polling loop.
+                        currentCoroutineContext().ensureActive()
+                        manualPullPending = false; pulledTopPost = null; failed = true; followingPartial = false; hadOutage = true; recovered = false
+                    } catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { manualPullPending = false; pulledTopPost = null; failed = true; followingPartial = false; hadOutage = true; recovered = false }
+                    finally { if (currentCoroutineContext().isActive) { loading = false; pullRefreshing = false } }
+                    delay(if (failed) 5_000 else 30_000)
+                }
             }
         }
     }
