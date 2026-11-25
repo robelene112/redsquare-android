@@ -1,5 +1,16 @@
 # Development workflow
 
+## Accepted #145, continue #146
+
+Android 10 and compact Android 17 complete private message reporting and
+review, the signed admin log, and channel or Space writing pauses. A running
+report review closes when the administrator's access is revoked. Owned browser
+peers measure the microphone becoming silent under a timed pause and resuming
+only after explicit unmute. The [#145 evidence record](evidence/ticket145/final-acceptance.json)
+retains the provider, room, migration and Android results. Report reasons are
+held by the Spaces authority. Encrypted content still needs the device keys.
+Continue #146 and then the integrated beta acceptance in #147.
+
 ## Accepted #144, continue #145
 
 Reusable Spaces voice and video rooms start with both capture devices off.

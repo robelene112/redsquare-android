@@ -1,0 +1,156 @@
+{
+  "ticket": 145,
+  "parent": 134,
+  "approvedDesign": "Native prototype option B",
+  "reviewBase": "b8a401c526acb51308a44d7c100ffe0f447fc1d2",
+  "coreAndServiceProof": {
+    "source": "83628a954180515d62c6a44aa0074207335a25a6",
+    "coreTests": 257,
+    "serviceTests": 228,
+    "bridgeTests": 1,
+    "failures": 0,
+    "skipped": 0,
+    "observations": [
+      "Exact member report idempotency and truthful handling of a changed reason",
+      "Staff-only reads, denial after demotion, correct original reply after edit or deletion",
+      "Current private device keys required and independently observed ciphertext",
+      "Authenticated role, channel and room audit, equal-time page boundaries and no repeated staff mute",
+      "Populated schema 5 migration to 6 with byte-identical original and receipt rows after two opens",
+      "Timeout, membership removal and archive stop ongoing provider uploads after a nonempty prefix and commit no file bytes",
+      "Queued chat and article outcomes and retired room session independently confirmed"
+    ]
+  },
+  "roomProof": {
+    "source": "83628a954180515d62c6a44aa0074207335a25a6",
+    "android10": "https://github.com/robelene112/redsquare-android/actions/runs/45612440534",
+    "compactAndroid17": "https://github.com/robelene112/redsquare-android/actions/runs/45612441397",
+    "observations": "One native client and two separate Chromium processes measure decoded audio. The timed pause makes both receivers silent with the participant still admitted. Ending the pause alone leaves capture off. Explicit unmute restores measured audio. Direct staff mute and removal preserve the other participants."
+  },
+  "retainedFailures": [
+    [
+      45609158193,
+      "Obsolete schema downgrade fixture retained schema 6 tables"
+    ],
+    [
+      45611067530,
+      "Cross-module Kotlin smart cast"
+    ],
+    [
+      45611067589,
+      "Cross-module Kotlin smart cast"
+    ],
+    [
+      45611982657,
+      "Ordinary member received the target message but had no accessible actions menu"
+    ],
+    [
+      45611982673,
+      "Compact proof instrumentation omitted its moderation evidence folder"
+    ],
+    [
+      45615031119,
+      "Invalid provisioned Android 10 VM heap before application checks"
+    ],
+    [
+      45615031788,
+      "Compact report control clipped until user scroll"
+    ],
+    [
+      45618139764,
+      "Report action matched by the wrong Android semantics property"
+    ],
+    [
+      45618103396,
+      "Report action matched by the wrong Android semantics property"
+    ],
+    [
+      45620102919,
+      "Report input locator also matched the background chat composer"
+    ],
+    [
+      45621770045,
+      "Instrumented text was not entered in the report field"
+    ],
+    [
+      45621800180,
+      "Instrumented text was not entered in the report field"
+    ],
+    [
+      45624077076,
+      "Native submission confirmed and read by staff, then test misread the observer field"
+    ],
+    [
+      45626227310,
+      "Reporter journey passed; admin information action matched by the wrong semantics property"
+    ],
+    [
+      45626227331,
+      "Reporter journey passed; admin information action matched by the wrong semantics property"
+    ],
+    [
+      45628268539,
+      "Reporter, signed review and audit passed; member controls were below the compact viewport"
+    ],
+    [
+      45628520785,
+      "Reporter, signed review and audit passed; scope picker matched both background and popup"
+    ],
+    [
+      45630602434,
+      "Member-list test matched two scrollable surfaces during navigation"
+    ],
+    [
+      45630602585,
+      "Member-list test matched two scrollable surfaces during navigation"
+    ],
+    [
+      45633012153,
+      "Channel, restoration and whole-Space outcomes passed; the test pressed Back again during role sheet exit"
+    ],
+    [
+      45633012475,
+      "Channel, restoration and whole-Space outcomes passed; the test pressed Back again during role sheet exit"
+    ],
+    [
+      45636037635,
+      "A duplicate Back matcher in Compose after the member sheet closed; all writing restrictions were independently confirmed"
+    ]
+  ],
+  "qualifications": [
+    "The Spaces authority is the custodian of report reasons. Protected message content remains encrypted at the node and can be reviewed only with the corresponding device keys.",
+    "The provider and Chromium peers were owned test fixtures. Public node, independent live provider, OEM, device, integrated beta and release acceptance belong to their own gates."
+  ],
+  "ordinaryBetaChanged": false,
+  "productionNodeActivated": false,
+  "status": "accepted",
+  "recordedAt": "2026-11-25T14:59:36.673638+00:00",
+  "nativeModerationProof": [
+    {
+      "run": "https://github.com/robelene112/redsquare-android/actions/runs/45638013335",
+      "source": "43713c1d77f1b39f873d4037f5796d05c2eca331",
+      "compact200Percent": false,
+      "nativeTerminalPasses": 2,
+      "separateReporterAndAdministratorProcesses": true,
+      "sameExactReport": true,
+      "channelOnly": true,
+      "spaceWide": true,
+      "independentReading": true,
+      "staffAudit": true,
+      "staffRevocationHidReport": true
+    },
+    {
+      "run": "https://github.com/robelene112/redsquare-android/actions/runs/45636037698",
+      "source": "d78835d554282b47cf6dd10f5e416bfb049e4fe6",
+      "compact200Percent": true,
+      "nativeTerminalPasses": 2,
+      "separateReporterAndAdministratorProcesses": true,
+      "sameExactReport": true,
+      "channelOnly": true,
+      "spaceWide": true,
+      "independentReading": true,
+      "staffAudit": true,
+      "staffRevocationHidReport": true
+    }
+  ],
+  "nativeSourceDifference": "Only the instrumented test’s navigation back from Members changed between the passing sources. The Android application and Spaces service implementation are identical."
+}
