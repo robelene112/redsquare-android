@@ -23,6 +23,7 @@ downloads = repo / ".scratch/update-artifacts"
 downloads.mkdir(parents=True, exist_ok=True)
 certificate = "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2"
 accepted_baseline_hashes = {
+    139: "a436cb35038734912de204e76dde3115200902f34ecc904cfe963b3478e2cca3",
     142: "f4d82bd79445a48e337a1aa63a87005869594fcc3c9fc7a9e6e399e1036c43a6",
 }
 apks = []
@@ -69,4 +70,7 @@ if args.retain_local_work and args.older in (131, 139, 142):
     observed = continuity["observations"]
     assert len(observed) == 3 and observed[0]["sourceVersion"] == args.older and observed[0]["fileshareLegacyFormatSeed"] is True
     assert all(row["exactRetainedFileshareAndInterruptedHistory"] is True for row in observed[1:])
+if args.retain_local_work and args.older in (139, 142):
+    subprocess.run(["python3", str(repo / "scripts" / "wallet-device-check"),
+        "--fresh", str(apks[1]), "--evidence", str(args.evidence / "ordinary-cold-install")], check=True)
 args.evidence.joinpath("versions.txt").write_text(f"{args.older} -> {args.newer}\nCertificate SHA-256: {certificate}\n")

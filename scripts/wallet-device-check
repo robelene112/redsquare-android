@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Observe wallet identity through the UI, across cold process launches/updates."""
 import argparse
+import json
 from pathlib import Path
 import re
 import subprocess
@@ -9,7 +10,10 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--evidence", type=Path, required=True)
 parser.add_argument("--before", type=Path)
 parser.add_argument("--after", type=Path)
+parser.add_argument("--fresh", type=Path, help="Install an ordinary APK into an empty slot and observe both launches")
 args = parser.parse_args()
+if args.fresh and (args.before or args.after):
+    parser.error("A fresh installation is separate from an update check")
 if bool(args.before) != bool(args.after):
     parser.error("An update check requires both APKs")
 
@@ -20,7 +24,7 @@ def adb(*arguments):
 # owner's app. Physical acceptance is the documented manual check.
 if not adb("get-serialno").strip().startswith("emulator-"):
     raise SystemExit("Run this check only on an isolated emulator")
-package = "nl.davidengelen.redsquare" if args.before else "nl.davidengelen.redsquare.dev"
+package = "nl.davidengelen.redsquare" if args.before or args.fresh else "nl.davidengelen.redsquare.dev"
 args.evidence.mkdir(parents=True, exist_ok=True)
 
 observations = 0
@@ -45,26 +49,48 @@ def open_address():
         raise AssertionError("Wallet did not open through the native UI observer")
     return addresses[0]
 
-if args.before:
-    adb("install", "-r", str(args.before))
-adb("shell", "am", "force-stop", package)
-address = open_address()
-adb("shell", "am", "force-stop", package)
-cold_address = open_address()
-if cold_address != address:
-    raise AssertionError("Wallet identity changed after process termination")
-if args.after:
+installed_fresh = False
+try:
+    if args.fresh:
+        if "package:" + package in adb("shell", "pm", "list", "packages", package).splitlines():
+            raise AssertionError("Require an empty ordinary APK slot for the cold-install proof")
+        (args.evidence / "fresh-install.txt").write_text(adb("install", str(args.fresh)))
+        installed_fresh = True
+    if args.before:
+        adb("install", "-r", str(args.before))
     adb("shell", "am", "force-stop", package)
-    adb("install", "-r", str(args.after))
-    updated_address = open_address()
-    if updated_address != address:
-        raise AssertionError("Wallet identity changed after ordinary APK update")
+    address = open_address()
+    first_pid = int(adb("shell", "pidof", package).strip()) if args.fresh else None
     adb("shell", "am", "force-stop", package)
-    if open_address() != address:
-        raise AssertionError("Updated wallet identity changed after another cold launch")
-with (args.evidence / "wallet.png").open("wb") as output:
-    subprocess.run(["adb", "exec-out", "screencap", "-p"], stdout=output, check=True, timeout=60)
-(args.evidence / "continuity.txt").write_text(
-    "PASS: same public identity after cold process launch" +
-    (" and ordinary signed APK update" if args.after else "") + "\n" + address + "\n")
+    cold_address = open_address()
+    if args.fresh:
+        second_pid = int(adb("shell", "pidof", package).strip())
+        if first_pid == second_pid:
+            raise AssertionError("The fresh installation observer did not restart the ordinary application process")
+        (args.evidence / "fresh-processes.json").write_text(json.dumps({
+            "package": package, "installedFromEmptySlot": True,
+            "initialPid": first_pid, "coldPid": second_pid,
+        }, indent=2) + "\n")
+    if cold_address != address:
+        raise AssertionError("Wallet identity changed after process termination")
+    if args.after:
+        adb("shell", "am", "force-stop", package)
+        adb("install", "-r", str(args.after))
+        updated_address = open_address()
+        if updated_address != address:
+            raise AssertionError("Wallet identity changed after ordinary APK update")
+        adb("shell", "am", "force-stop", package)
+        if open_address() != address:
+            raise AssertionError("Updated wallet identity changed after another cold launch")
+    with (args.evidence / "wallet.png").open("wb") as output:
+        subprocess.run(["adb", "exec-out", "screencap", "-p"], stdout=output, check=True, timeout=60)
+    (args.evidence / "continuity.txt").write_text(
+        "PASS: same public identity after cold process launch" +
+        (" and ordinary signed APK update" if args.after else "") + "\n" + address + "\n")
+finally:
+    if installed_fresh:
+        (args.evidence / "fresh-removal.txt").write_text(adb("uninstall", package))
+        if "package:" + package in adb("shell", "pm", "list", "packages", package).splitlines():
+            raise AssertionError("The owned clean-install slot was not restored")
+
 print("PASS: wallet UI continuity")
