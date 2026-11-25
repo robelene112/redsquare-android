@@ -55,6 +55,10 @@ test('the local bridge advertises only the matching service and preserves the re
   assert.equal(bridge.supportsUnread, true);
   assert.equal(bridge.supportsDissolution, true);
   schema = 6;
+  assert.equal(await bridge.ready(), true);
+  assert.equal(bridge.supportsUnread, true);
+  assert.equal(bridge.supportsDissolution, true);
+  schema = 7;
   assert.equal(await bridge.ready(), false);
   assert.equal(bridge.supportsUnread, false);
   assert.equal(bridge.supportsDissolution, false);

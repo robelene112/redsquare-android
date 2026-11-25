@@ -120,6 +120,8 @@ bytes. Unsupported versions, unversioned data and a different service identity
 fail before a destructive schema or journal-mode change. Upgrading4 to5 adds message and mutation-target indexes with bounded100-row
 metadata backfill. Reopening5 is idempotent; signed originals and receipts stay
 unchanged. A schema4 binary cannot open5 and must not replace it over later writes.
+Schema 6 adds the private report table. Opening an existing schema 5 store
+preserves the signed originals and receipts and adds the new table atomically.
 
 Only after readiness, migration preservation and isolated signed write/read pass,
 configure `SAITO_SPACES_SERVICE_URL=http://127.0.0.1:<chosen-port>` for the node,

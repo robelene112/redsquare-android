@@ -692,13 +692,37 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     suspend fun pauseSpeaking(target: Target, member: String, durationMillis: Long): SpaceVoiceRoom = withContext(Dispatchers.IO) {
         requireRoomTarget(target)
         val current = requireNotNull(client)
-        network.withLock {
-            val expiry = Math.addExact(System.currentTimeMillis(), durationMillis)
-            current.setWriteRestriction(target.space, member, target.channel, expiry)
-            current.flush(target.space)
-            require(current.scopedWriteRestriction(target.space, member, target.channel) == expiry)
-        }
+        applyWritingRestriction(current, target.space, member, target.channel, Math.addExact(System.currentTimeMillis(), durationMillis))
         current.voiceRoom(target.space, target.channel).also { requireRoomTarget(target) }
+    }
+
+    fun writeRestrictionsSupported(): Boolean = client?.writeRestrictionsSupported() == true
+
+    suspend fun restrictionOptions(space: String, member: String): SpaceRestrictionOptions = withContext(Dispatchers.IO) {
+        requireModerationStaff(space)
+        localAccess.withLock { requireNotNull(client).restrictionOptions(space, member) }
+    }
+
+    suspend fun setMemberWritingRestriction(space: String, member: String, channel: String?, until: Long?): SpaceRestrictionOptions =
+        withContext(Dispatchers.IO) {
+            requireModerationStaff(space)
+            val current = requireNotNull(client)
+            applyWritingRestriction(current, space, member, channel, until)
+            publish()
+            requireModerationStaff(space)
+            localAccess.withLock { current.restrictionOptions(space, member) }
+        }
+
+    private suspend fun applyWritingRestriction(current: SpaceClient, space: String, member: String, channel: String?, until: Long?) {
+        network.withLock {
+            current.flush(space)
+            fun activeExpiry() = current.scopedWriteRestriction(space, member, channel)?.takeIf { it > System.currentTimeMillis() }
+            if (activeExpiry() != until) {
+                current.setWriteRestriction(space, member, channel, until)
+                current.flush(space)
+            }
+            require(activeExpiry() == until)
+        }
     }
 
     private fun requireRoomTarget(target: Target) {
@@ -979,6 +1003,30 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             requireNotNull(client).message(target.space, messageId, target.channel)
         } } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { null }
+    }
+
+    fun moderationReportsSupported(): Boolean = client?.moderationReportsSupported() == true
+
+    suspend fun reportMessage(target: Target, message: String, reason: String): Unit = withContext(Dispatchers.IO) {
+        check(!closed.get() && mutable.value.target() == target && moderationReportsSupported())
+        requireNotNull(client).reportMessage(target.space, target.channel, message, reason)
+        if (closed.get() || mutable.value.target() != target) throw CancellationException("Conversation changed")
+    }
+
+    suspend fun messageReports(space: String, before: Long) = withContext(Dispatchers.IO) {
+        requireModerationStaff(space)
+        requireNotNull(client).messageReports(space, before).also { requireModerationStaff(space) }
+    }
+
+    suspend fun adminLog(space: String, before: SpaceAdminCursor?) = withContext(Dispatchers.IO) {
+        requireModerationStaff(space)
+        requireNotNull(client).adminLog(space, before).also { requireModerationStaff(space) }
+    }
+
+    private fun requireModerationStaff(space: String) {
+        val current = mutable.value
+        check(!closed.get() && current.selected == space && current.current?.dissolved != true &&
+            current.members.any { it.publicKey == ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) })
     }
     fun cancelSend(target: Target, messageId: String, onFinished: (Boolean) -> Unit) = cancelOperation(target, messageId, false, onFinished)
     fun cancelChange(target: Target, operationId: String, onFinished: (Boolean) -> Unit) = cancelOperation(target, operationId, true, onFinished)

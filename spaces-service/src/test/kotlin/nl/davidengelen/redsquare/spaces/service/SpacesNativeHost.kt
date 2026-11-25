@@ -27,8 +27,9 @@ import java.util.concurrent.atomic.AtomicBoolean
  * real service/SQLite/MLS and independent received effects; no public network. */
 object SpacesNativeHost {
     @JvmStatic fun main(args: Array<String>): Unit = runBlocking {
-        require(args.size in 1..2 && (args.size == 1 || args[1] in setOf("voice-room-v1", "file-library-v1", "article-channels-v1", "conversation-overlays-v1", "discovery-v1", "management-v1", "private-management-v1", "private-readiness-v1", "category-management-v1", "governance-v1", "membership-v1", "private-ownership-v1")))
+        require(args.size in 1..2 && (args.size == 1 || args[1] in setOf("voice-room-v1", "moderation-v1", "file-library-v1", "article-channels-v1", "conversation-overlays-v1", "discovery-v1", "management-v1", "private-management-v1", "private-readiness-v1", "category-management-v1", "governance-v1", "membership-v1", "private-ownership-v1")))
         val roomMode = args.getOrNull(1) == "voice-room-v1"
+        val moderationMode = args.getOrNull(1) == "moderation-v1"
         val fileMode = args.getOrNull(1) == "file-library-v1"
         val articleMode = args.getOrNull(1) == "article-channels-v1"
         val conversationMode = args.getOrNull(1) == "conversation-overlays-v1"
@@ -52,6 +53,7 @@ object SpacesNativeHost {
         val started = System.nanoTime()
         var fileLibrary: SpacesFileLibraryFixture? = null
         var voiceRoom: SpacesVoiceRoomFixture? = null
+        var moderation: SpacesModerationFixture? = null
         try { SpacesServiceStore(root.resolve("service"), service, clock).use { remote ->
             SqliteClientFixture(root.resolve("independent-client.sqlite").toString()).use { local ->
                 val managedLocal = if (managementMode || privateManagementMode || privateReadinessMode) SqliteClientFixture(root.resolve("management-member.sqlite").toString()) else null
@@ -60,6 +62,11 @@ object SpacesNativeHost {
                     if (roomMode) {
                         val fixture = SpacesVoiceRoomFixture(root, service, client, remote, clock)
                         voiceRoom = fixture
+                        fixture.seed()
+                    }
+                    if (moderationMode) {
+                        val fixture = SpacesModerationFixture(root, service, client, remote, clock)
+                        moderation = fixture
                         fixture.seed()
                     }
                     if (fileMode) {
@@ -72,7 +79,8 @@ object SpacesNativeHost {
                     var membership: SpacesMembershipFixture? = null
                     var privateManagement: SpacesPrivateManagementFixture? = null
                     var privateReadiness: SpacesPrivateReadinessFixture? = null
-                    val peer = ControlledFeedPeer("[]", advertisedServices = if (discoveryMode || managementMode || privateManagementMode || privateReadinessMode) "archive||;spaces-v1||;spaces-directory-v1||;spaces-unread-v1||;spaces-channel-archive-v1||;spaces-role-management-v1||;spaces-public-channel-edit-v1||" + (if (privateManagementMode || privateReadinessMode || governanceMode || privateOwnershipMode) ";spaces-private-channel-access-v1||;spaces-private-channel-edit-v1||" else "") + (if (categoryMode || governanceMode) ";spaces-category-management-v1||" else "") + (if (governanceMode || membershipMode) ";spaces-membership-management-v1||;spaces-ownership-management-v1||;spaces-visibility-management-v1||;spaces-dissolution-v1||" else "") else if (conversationMode) "archive||;spaces-v1||;spaces-unread-v1||" else "archive||;spaces-v1||", peer = service,
+                    val moderationServices = "archive||;spaces-v1||;spaces-role-management-v1||;spaces-membership-management-v1||"
+                    val peer = ControlledFeedPeer("[]", advertisedServices = if (moderationMode) moderationServices else if (discoveryMode || managementMode || privateManagementMode || privateReadinessMode) "archive||;spaces-v1||;spaces-directory-v1||;spaces-unread-v1||;spaces-channel-archive-v1||;spaces-role-management-v1||;spaces-public-channel-edit-v1||" + (if (privateManagementMode || privateReadinessMode || governanceMode || privateOwnershipMode) ";spaces-private-channel-access-v1||;spaces-private-channel-edit-v1||" else "") + (if (categoryMode || governanceMode) ";spaces-category-management-v1||" else "") + (if (governanceMode || membershipMode) ";spaces-membership-management-v1||;spaces-ownership-management-v1||;spaces-visibility-management-v1||;spaces-dissolution-v1||" else "") else if (conversationMode) "archive||;spaces-v1||;spaces-unread-v1||" else "archive||;spaces-v1||", peer = service,
                         archiveResponse = { "[]" }, registryResponse = if (discoveryMode || managementMode || privateManagementMode || privateReadinessMode) ({ criteria ->
                             JsonObject().apply {
                                 if (criteria.get("request")?.asString == "registry query" &&
@@ -168,6 +176,10 @@ object SpacesNativeHost {
                                         "/room-renew" -> requireNotNull(voiceRoom).renew(body)
                                         "/room-signal" -> requireNotNull(voiceRoom).signal(body)
                                         "/room-leave" -> requireNotNull(voiceRoom).leave(body)
+                                        "/moderation-config" -> requireNotNull(moderation).configuration()
+                                        "/moderation-report-status" -> requireNotNull(moderation).observeReport()
+                                        "/moderation-promote-reporter" -> requireNotNull(moderation).promoteReporter()
+                                        "/moderation-restriction-status" -> requireNotNull(moderation).observeRestrictions()
                                         "/file-expiry-library" -> requireNotNull(fileLibrary).expiryLibrary()
                                         "/file-received" -> requireNotNull(fileLibrary).received()
                                         "/file-provider-downloads" -> requireNotNull(fileLibrary).downloadCount()
@@ -395,7 +407,7 @@ object SpacesNativeHost {
             }
         }
         } finally {
-            try { fileLibrary?.close(); voiceRoom?.close() } finally {
+            try { fileLibrary?.close(); voiceRoom?.close(); moderation?.close() } finally {
                 workers.shutdownNow()
                 check(workers.awaitTermination(5, TimeUnit.SECONDS))
             }

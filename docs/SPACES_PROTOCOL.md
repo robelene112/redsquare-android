@@ -2,7 +2,7 @@
 
 ## Accepted #140 conversations
 
-The client and owned service use envelope version 1 and persistent schema 5.
+The client and owned service use envelope version 1 and persistent schema 6.
 Native conversations, edits, reactions, pins, and attention passed on Android 10
 and 17. The independent-peer and process evidence is in the
 [#140 acceptance record](evidence/ticket140/final-acceptance.json).
@@ -640,3 +640,19 @@ bounded authenticated content pages, leaving unread counts unknown when the
 necessary records or keys are unavailable. An ordinary unread dot can still use
 a positive top-level head. Channel preferences are local to the receiving account,
 node and device and do not change the unread counts.
+
+### Moderation and private reports
+
+The reporting client signs a fresh request for an exact accepted message or
+reply, including the reason and its channel scope. The node checks current
+membership and channel access and stores the report in the dedicated staff
+table. Repeating a report by the same member for the same record returns its
+first receipt. The staff list and admin log check the current owner or
+administrator role on each signed read. The node is the custodian of the
+report reason.
+
+The admin log pages accepted actions by node acceptance time and original
+event identity. Each row carries the authenticated actor and the relevant
+channel or member when present. Writing pauses are signed control events
+with an explicit end time and either community or channel scope. Reading
+and listening use their existing permission checks.

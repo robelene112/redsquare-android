@@ -14,10 +14,11 @@ import urllib.request
 
 repo = Path(__file__).resolve().parent.parent
 mode = sys.argv[2] if len(sys.argv) == 3 else 'journey-v1'
-if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'voice-room-v1', 'file-library-v1', 'article-channels-v1', 'protected-chat-v1', 'conversation-overlays-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
+if len(sys.argv) not in (2, 3) or mode not in ('journey-v1', 'voice-room-v1', 'moderation-v1', 'file-library-v1', 'article-channels-v1', 'protected-chat-v1', 'conversation-overlays-v1', 'discovery-v1', 'management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1') or (len(sys.argv) == 3 and mode == 'journey-v1'):
     raise ValueError('Expected evidence directory and an optional supported Spaces journey mode')
 file_mode = mode == 'file-library-v1'
 room_mode = mode == 'voice-room-v1'
+moderation_mode = mode == 'moderation-v1'
 article_mode = mode == 'article-channels-v1'
 conversation_overlays_mode = mode == 'conversation-overlays-v1'
 private_ownership_mode = mode == 'private-ownership-v1'
@@ -33,10 +34,10 @@ private_management_mode = mode == 'private-management-v1'
 private_readiness_mode = mode == 'private-readiness-v1'
 management_mode = mode in ('management-v1', 'private-management-v1', 'private-readiness-v1', 'category-management-v1', 'governance-v1', 'membership-v1', 'private-ownership-v1')
 community_mode = discovery_mode or management_mode
-label = 'rooms' if room_mode else 'files' if file_mode else 'articles' if article_mode else 'private-ownership' if private_ownership_mode else 'membership' if membership_mode else 'governance' if governance_mode else 'category-management' if category_management_mode else 'private-readiness' if private_readiness_mode else 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
+label = 'moderation' if moderation_mode else 'rooms' if room_mode else 'files' if file_mode else 'articles' if article_mode else 'private-ownership' if private_ownership_mode else 'membership' if membership_mode else 'governance' if governance_mode else 'category-management' if category_management_mode else 'private-readiness' if private_readiness_mode else 'private-management' if private_management_mode else 'management' if management_mode else 'discovery' if discovery_mode else 'journey'
 folder = f'spaces-{label}-evidence'
 checkpoint_name = f'spaces-{label}-checkpoint.json'
-classname = 'SpaceRoomJourneyTest' if room_mode else 'SpaceFileJourneyTest' if file_mode else 'SpaceArticleJourneyTest' if article_mode else 'SpacesManagementJourneyTest' if management_mode else 'SpacesDiscoveryJourneyTest' if discovery_mode else 'SpacesJourneyTest'
+classname = 'SpaceModerationJourneyTest' if moderation_mode else 'SpaceRoomJourneyTest' if room_mode else 'SpaceFileJourneyTest' if file_mode else 'SpaceArticleJourneyTest' if article_mode else 'SpacesManagementJourneyTest' if management_mode else 'SpacesDiscoveryJourneyTest' if discovery_mode else 'SpacesJourneyTest'
 evidence = Path(sys.argv[1]).resolve() / f'spaces-{label}'
 evidence.mkdir(parents=True, exist_ok=False)
 pkg = 'nl.davidengelen.redsquare.dev'
@@ -86,7 +87,7 @@ def viewport_observation(stage, expected=None):
         '-e', 'spacesViewportStage', stage]
     for name, value in (expected or {}).items():
         args += ['-e', name, str(value)]
-    if management_mode or article_mode or file_mode or room_mode:
+    if management_mode or article_mode or file_mode or room_mode or moderation_mode:
         args += ['-e', 'spacesViewportFolder', folder]
     observed = adb(*args, runner, timeout=30, check=False)
     text = observed.stdout.decode(errors='replace')
@@ -159,7 +160,7 @@ try:
     owned_emulator = True
     classpath = (repo / 'spaces-service/build/host-fixture-classpath.txt').read_text().strip()
     native = repo / 'core/build/generated/spaces-mls-host'
-    hostroot = repo / '.scratch' / ((f'spaces-{label}-host-' if community_mode or article_mode or file_mode or room_mode else 'spaces-native-host-') + os.environ['TEST_DEVICE_API'])
+    hostroot = repo / '.scratch' / ((f'spaces-{label}-host-' if community_mode or article_mode or file_mode or room_mode or moderation_mode else 'spaces-native-host-') + os.environ['TEST_DEVICE_API'])
     hostroot.mkdir(parents=True, exist_ok=False)
     if file_mode:
         store = hostroot / 'files-fixture.p12'
@@ -174,7 +175,7 @@ try:
         file_certificate = base64.b64encode(certificate.read_bytes()).decode('ascii')
     hostlog = (hostroot / 'host.log').open('wb')
     host = subprocess.Popen(['java', '-Xmx512m', f'-Djava.library.path={native}', '-cp', classpath,
-        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + ([mode] if community_mode or conversation_overlays_mode or article_mode or file_mode or room_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
+        'nl.davidengelen.redsquare.spaces.service.SpacesNativeHost', str(hostroot)] + ([mode] if community_mode or conversation_overlays_mode or article_mode or file_mode or room_mode or moderation_mode else []), stdout=hostlog, stderr=subprocess.STDOUT)
     children.append((host, hostlog))
     deadline = time.monotonic() + 30
     while not (hostroot / 'ready.json').exists():
@@ -909,6 +910,44 @@ try:
         (evidence / 'journey-outcome.json').write_text(json.dumps({'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
             'phasePids': pids, 'nativeTerminalPasses': 2, 'deliberatelyInterruptedCases': 0 if private_readiness_mode or category_management_mode else 2,
             'productionNodeActivated': False, 'ordinaryBetaChanged': False}))
+    elif moderation_mode:
+        reset_disposable_baseline()
+        compact_moderation = os.environ['TEST_DEVICE_API'].startswith('37')
+        if compact_moderation:
+            prepare_viewport()
+        record(1)
+        first = instrument('memberReportsChosenMessagePrivately', 'reporter.txt', peer_port, control_port)
+        first.wait(timeout=145)
+        if first.returncode or len(re.findall(r'^OK \(1 test\)\s*$', (evidence / 'reporter.txt').read_text(), re.M)) != 1:
+            raise RuntimeError('Native reporter did not complete')
+        reported = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/reporter-result.json').stdout)
+        independent = command(control_port, 'moderation-promote-reporter')
+        if reported['report'] != independent['id'] or independent['reporterDeniedStaffRead'] is not True:
+            raise RuntimeError('Independent report or staff-denial receipt was inconsistent')
+        finish_record(*movies[-1])
+        adb('shell', 'am', 'force-stop', pkg)
+        if adb('shell', 'pidof', pkg, check=False).stdout.strip():
+            raise RuntimeError('The reporter process survived force-stop')
+        record(2)
+        second = instrument('promotedAdministratorReviewsReportAndChangesWritingScope', 'administrator.txt', peer_port, control_port)
+        second.wait(timeout=190)
+        if second.returncode or len(re.findall(r'^OK \(1 test\)\s*$', (evidence / 'administrator.txt').read_text(), re.M)) != 1:
+            raise RuntimeError('Native administrator did not complete')
+        reviewed = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/administrator-result.json').stdout)
+        if reviewed['pid'] == reported['pid'] or reviewed['correctReport'] != reported['report'] or not all(
+            reviewed[flag] is True for flag in ('channelOnly', 'spaceWide', 'independentReading', 'staffAudit')
+        ):
+            raise RuntimeError('Native moderation outcomes did not match the independent actor')
+        finish_record(*movies[-1])
+        command(control_port, 'stop')
+        host.wait(timeout=15)
+        if host.returncode:
+            raise RuntimeError('Owned moderation host failed to finish')
+        (evidence / 'journey-outcome.json').write_text(json.dumps({
+            'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
+            'reporter': reported, 'reviewer': reviewed, 'nativeTerminalPasses': 2, 'compactViewport': compact_moderation,
+            'productionNodeActivated': False, 'ordinaryBetaChanged': False,
+        }, indent=2))
     elif room_mode:
         reset_disposable_baseline()
         compact_room = os.environ['TEST_DEVICE_API'].startswith('37')

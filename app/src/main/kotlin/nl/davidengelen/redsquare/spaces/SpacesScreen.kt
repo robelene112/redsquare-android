@@ -127,6 +127,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     val channelEditor = rememberSaveable(saver = SpaceChannelEditorState.Saver) { SpaceChannelEditorState() }
     val channelCreator = rememberSaveable(saver = SpaceChannelCreatorState.Saver) { SpaceChannelCreatorState() }
     var membersOpen by rememberSaveable { mutableStateOf(false) }
+    var reportsSpace by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf<String?>(null) }
+    val reportsOpen = reportsSpace != null && reportsSpace == state.selected
     var channelAccessRoute by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf<String?>(null) }
     val channelAccessOpen = channelAccessRoute == "${state.selected}:${state.selectedChannel}"
     LaunchedEffect(state.selected, state.selectedChannel, state.loadingChannel) {
@@ -193,7 +195,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     LaunchedEffect(state.selected) {
         if (overlaySpace != state.selected) {
-            informationOpen = false; inviteOpen = false; membersOpen = false; publicRulesOpen = false
+            informationOpen = false; inviteOpen = false; membersOpen = false; reportsSpace = null; publicRulesOpen = false
             overlaySpace = state.selected
         }
         state.selected?.let { savedSelection = it; tab = SpacesTab.MY_SPACES }
@@ -203,7 +205,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         if (state.loading || !state.ready || state.working) return@LaunchedEffect
         categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false
         channelCreator.open = false; channelAccessRoute = null
-        informationOpen = false; inviteOpen = false; membersOpen = false; publicRulesOpen = false
+        informationOpen = false; inviteOpen = false; membersOpen = false; reportsSpace = null; publicRulesOpen = false
         clearInvitationReview()
         replacingDevice = false
         val uri = android.net.Uri.parse(link)
@@ -231,7 +233,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     LaunchedEffect(selected?.joined) { if (selected?.joined == true) publicRulesOpen = false }
     BackHandler(channelAccessRoute != null) { channelAccessRoute = null; informationOpen = selected != null }
     BackHandler(membersOpen) { membersOpen = false; informationOpen = true }
-    BackHandler(!membersOpen && !channelAccessOpen && state.selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !channelCreator.open && !publicRulesOpen) { if (state.threadParent != null) account.closeThread() else choose(null) }
+    BackHandler(reportsOpen) { reportsSpace = null; informationOpen = true }
+    BackHandler(!membersOpen && !reportsOpen && !channelAccessOpen && state.selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !channelCreator.open && !publicRulesOpen) { if (state.threadParent != null) account.closeThread() else choose(null) }
     BackHandler(drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed || drawer.isAnimationRunning) {
         scope.launch { drawer.close() }
     }
@@ -281,7 +284,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             val keyboardInLayout = imeVisible || (shortWindow && screenHeight - height >= 96.dp)
             val compactReading = compactConfiguration || shortWindow
             val compactTyping = state.selected != null && keyboardInLayout && height < 290.dp
-            val visibleRoom = if (!channelAccessOpen && !membersOpen && !state.loadingChannel && selected != null &&
+            val visibleRoom = if (!channelAccessOpen && !membersOpen && !reportsOpen && !state.loadingChannel && selected != null &&
                 channel?.profile?.kind == SpaceChannelKind.VOICE) SpacesAccount.Target(selected.id, channel.id) else null
             val compactRoom = visibleRoom != null && shortWindow
             chrome(keyboardInLayout, visibleRoom, compactRoom)
@@ -290,6 +293,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             }
             else if (membersOpen && selected != null) SpaceMembersPage(account, state, Modifier.weight(1f),
                 onBack = { membersOpen = false; informationOpen = true }, onProfile = onProfile, onMessage = onMessage)
+            else if (reportsOpen && selected != null) SpaceReportsPage(account, state, Modifier.weight(1f),
+                onBack = { reportsSpace = null; informationOpen = true })
             else if (state.selected == null) SpacesOverview(account, state, tab, { choose(it) }, { createOpen = true },
                 { clearInvitationReview(); joinOpen = true }, Modifier.weight(1f)) { AvailabilityNotice(state.availability, state.refreshing, account::refresh) }
             else {
@@ -343,7 +348,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             style = MaterialTheme.typography.bodySmall)
                     selected?.writeRestrictedUntil?.let { end ->
                         val time = remember(end) { DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(end)) }
-                        InlineStatus(stringResource(R.string.spaces_writing_restricted_until, time), StatusTone.INFO)
+                        val label = if (selected.writeRestrictedSpaceWide) R.string.spaces_writing_restricted_space else R.string.spaces_writing_restricted_channel
+                        InlineStatus(stringResource(label, time), StatusTone.INFO)
                     }
                 }
                 if (state.loadingChannel || selected == null) Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
@@ -557,6 +563,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             edit = if (editableOverlay) ({ text, done -> account.editMessage(target, requireNotNull(overlayMessage), text, done) }) else null,
                             remove = if (acceptedOverlay && overlayMessage?.deleted == false && canWrite && (overlayMessage.author == account.ownerKey || selected.canManage))
                                 ({ done -> account.deleteMessage(target, overlayMessage, done) }) else null,
+                            report = if (acceptedOverlay && overlayMessage?.deleted == false && selected.joined && !selected.dissolved && account.moderationReportsSupported())
+                                ({ reason -> account.reportMessage(target, overlayMessage.id, reason) }) else null,
                             cancel = if (overlayMessage?.pending == true && !overlayMessage.attempted)
                                 ({ done -> account.cancelSend(target, overlayMessage.id, done) }) else null,
                             react = if (acceptedOverlay && overlayMessage?.deleted == false && selected.canReact && overlayMessage.ownReactionsAvailable)
@@ -815,6 +823,14 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     navigation?.navigate(commit) ?: account.guardNavigation(commit)
                 }
             }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_members)) }
+            if (account.moderationReportsSupported() && selected.joined && !selected.dissolved && state.members.any {
+                it.publicKey == account.ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)
+            }) OutlinedButton(onClick = {
+                scope.launch {
+                    val commit: suspend () -> Boolean = { informationOpen = false; reportsSpace = selected.id; true }
+                    navigation?.navigate(commit) ?: account.guardNavigation(commit)
+                }
+            }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_reports_and_log)) }
             if (selected.joined && !selected.dissolved && state.discoverySupported == true &&
                 state.members.any { it.publicKey == account.ownerKey && it.role in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) })
                 OutlinedButton(onClick = {
@@ -883,7 +899,7 @@ private fun SpacesViewport(content: @Composable ColumnScope.(height: Dp) -> Unit
     }
 }
 
-private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANCEL, REACTIONS }
+private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANCEL, REACTIONS, REPORT }
 
 @Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, bodyModifier: Modifier, restore: () -> Unit,
     reply: (() -> Unit)?, canEdit: Boolean, canRemove: Boolean, canCancel: Boolean, openOverlay: (MessageOverlay) -> Unit,
@@ -950,7 +966,7 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
  * owns this input session or the paged reaction sheet. */
 @Composable private fun MessageOverlays(message: SpaceClient.Message?, mode: MessageOverlay?, editedText: String,
     onText: (String) -> Unit, dismiss: () -> Unit, loadingTarget: Boolean, selectMode: (MessageOverlay) -> Unit, edit: ((String, () -> Unit) -> Unit)?,
-    remove: ((() -> Unit) -> Unit)?, cancel: (((Boolean) -> Unit) -> Unit)?,
+    remove: ((() -> Unit) -> Unit)?, report: (suspend (String) -> Unit)?, cancel: (((Boolean) -> Unit) -> Unit)?,
     react: ((String, () -> Unit) -> Unit)?, pin: ((() -> Unit) -> Unit)?, cancelPin: (((Boolean) -> Unit) -> Unit)?,
     loadReactions: (suspend (String?) -> SpaceClient.ReactionPage)?, working: Boolean) {
     val context = LocalContext.current
@@ -961,6 +977,7 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
     val savedEditLabel = stringResource(R.string.spaces_saved_edit)
     LaunchedEffect(editedText) { editCopied = false; editCopyFailed = false }
     LaunchedEffect(mode) { if (mode != MessageOverlay.CANCEL) cancelTooLate = false }
+    if (mode == MessageOverlay.REPORT) SpaceReportSheet(message?.id, report, dismiss)
     if (mode == MessageOverlay.CANCEL) AlertDialog(onDismissRequest = { if (!working) dismiss() },
         title = { Text(stringResource(R.string.spaces_cancel_send)) },
         text = { Text(stringResource(if (cancelTooLate || cancel == null) {
@@ -1029,6 +1046,8 @@ private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANC
                     Text(stringResource(if (edit == null) R.string.spaces_view_saved_edit else R.string.spaces_edit_message)) }
                 if (remove != null) TextButton(onClick = { selectMode(MessageOverlay.DELETE) }, enabled = !working,
                     modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_delete_message)) }
+                if (report != null) TextButton(onClick = { selectMode(MessageOverlay.REPORT) }, enabled = !working,
+                    modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_report_message)) }
             }
             MessageOverlay.REACTION_PICKER -> {
                 spaceReactionChoices.chunked(if (LocalDensity.current.fontScale >= 1.5f) 2 else 4).forEach { choices ->

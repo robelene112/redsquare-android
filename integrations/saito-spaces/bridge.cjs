@@ -43,7 +43,7 @@ module.exports = class SpacesBridge {
     try {
       const body = await this.request('/v1/readiness', {method: 'GET'}, 4096, 2000);
       const ready = body.capability === 'spaces-v1' && body.service_key === this.serviceKey &&
-        [4, 5].includes(body.schema) && body.state === 'ready' && body.file_hosting === false;
+        [4, 5, 6].includes(body.schema) && body.state === 'ready' && body.file_hosting === false;
       this.supportsUnread = ready && Array.isArray(body.features) && body.features.includes('unread-v1');
       this.supportsArchive = ready && Array.isArray(body.features) && body.features.includes('channel-archive-v1');
       this.supportsRoles = ready && Array.isArray(body.features) && body.features.includes('role-management-v1');

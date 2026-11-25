@@ -157,7 +157,7 @@ class SpaceContentTest {
         SpacesServiceStore(directory, service, clock).close()
         DriverManager.getConnection("jdbc:sqlite:${directory.resolve("spaces.sqlite")}").use { db ->
             db.createStatement().use { sql ->
-                sql.executeQuery("PRAGMA user_version").use { rows -> assertTrue(rows.next()); assertEquals(5, rows.getInt(1)) }
+                sql.executeQuery("PRAGMA user_version").use { rows -> assertTrue(rows.next()); assertEquals(6, rows.getInt(1)) }
                 // Old controls and joins remain readable. No destructive down-migration is performed.
                 for (table in listOf("controls", "joins", "records", "rejections", "public_spaces")) sql.executeQuery("SELECT count(*) FROM $table").use { rows ->
                     assertTrue(rows.next()); assertEquals(0, rows.getInt(1))

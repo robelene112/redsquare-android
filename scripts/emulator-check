@@ -302,6 +302,7 @@ if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
                 governance|category-access) journey_options=(governance-v1) ;;
                 membership) journey_options=(membership-v1) ;;
                 private-ownership) journey_options=(private-ownership-v1) ;;
+                moderation) journey_options=(moderation-v1) ;;
                 *) echo 'Unknown private management case' >&2; exit 2 ;;
             esac
         else journey_options=(management-v1); fi
@@ -319,6 +320,8 @@ if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
         printf '%s\n' 'Focused message overlays, real IME and Activity recreation only; no distinct-PID, full140, regression or deployed-node acceptance.' > "$evidence/scope.txt"
     elif [[ "${SPACES_CATEGORY_MANAGEMENT:-false}" == true ]]; then
         printf '%s\n' 'Public category editor first feedback only; no pending-process, private-category, full139 or deployed-node acceptance.' > "$evidence/scope.txt"
+    elif [[ "${SPACES_PRIVATE_MANAGEMENT:-false}" == true && "${SPACES_PRIVATE_MANAGEMENT_CASE:-process}" == moderation ]]; then
+        echo 'Private reports, promoted administrator review, signed admin history and channel/Space writing restrictions with independent reader and process recovery.' > "$evidence/scope.txt"
     elif [[ "${SPACES_PRIVATE_MANAGEMENT:-false}" == true && "${SPACES_PRIVATE_MANAGEMENT_CASE:-process}" == private-ownership ]]; then
         echo 'Public community member management with private-channel ownership handover and actual successor private reading; whole139 acceptance remains separate.' > "$evidence/scope.txt"
     elif [[ "${SPACES_PRIVATE_MANAGEMENT:-false}" == true && "${SPACES_PRIVATE_MANAGEMENT_CASE:-process}" == membership ]]; then

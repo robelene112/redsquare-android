@@ -1794,7 +1794,7 @@ class SpaceDiscoveryTest {
                 var firstCursor: Long? = null
                 repeat(2) {
                     SpacesServiceStore(directory, service, clock).use { reopened ->
-                        assertEquals(5, com.google.gson.JsonParser.parseString(reopened.readiness()).asJsonObject.get("schema").asInt)
+                        assertEquals(6, com.google.gson.JsonParser.parseString(reopened.readiness()).asJsonObject.get("schema").asInt)
                         val reader = SpaceClient(visitor, "fixture-node", service.publicKey, visitorStore, clock) { reopened.exchange(it.envelope()) }
                         val page = reader.discover()
                         assertEquals(listOf(publicSpace), page.items.map { it.id })

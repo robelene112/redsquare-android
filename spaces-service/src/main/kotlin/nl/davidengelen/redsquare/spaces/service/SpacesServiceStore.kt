@@ -9,8 +9,10 @@ import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SignedSaitoMessage
 import nl.davidengelen.redsquare.spaces.SpaceArticleContent
+import nl.davidengelen.redsquare.spaces.SpaceAdminCursor
 import nl.davidengelen.redsquare.spaces.SpaceFileAccessCheck
 import nl.davidengelen.redsquare.spaces.SpaceJournal
+import nl.davidengelen.redsquare.spaces.SpaceMessageReport
 import nl.davidengelen.redsquare.spaces.SpaceRole
 import nl.davidengelen.redsquare.spaces.SpaceProfile
 import nl.davidengelen.redsquare.spaces.SpaceVisibility
@@ -30,6 +32,7 @@ import java.util.Locale
 class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, private val clock: Clock) : AutoCloseable {
     private val database: Connection
     private val fileRoutes: SpaceFileRoutes
+    private val moderation: SpaceModerationRoutes
     private val voiceRooms = SpaceVoiceRooms()
     private data class Challenge(val caller: String, val scope: JsonObject, val expiresAt: Long)
     private val challenges = mutableMapOf<String, Challenge>()
@@ -44,7 +47,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val version = database.createStatement().use { sql ->
             sql.executeQuery("PRAGMA user_version").use { rows -> check(rows.next()); rows.getInt(1) }
         }
-        check(version == 5)
+        check(version == SCHEMA_VERSION)
         database.createStatement().use { sql ->
             sql.executeQuery("SELECT service_key FROM service_metadata WHERE id=1").use { rows ->
                 check(rows.next() && rows.getString(1) == wallet.publicKey)
@@ -53,10 +56,11 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         database.createStatement().use { it.executeQuery("SELECT kind,recipient_credential,target_message_id FROM records LIMIT 0").close() }
         database.createStatement().use { it.executeQuery("SELECT space_id,listed,listing_receipt FROM public_spaces LIMIT 0").close() }
         fileRoutes.ready()
+        moderation.ready()
         return JsonObject().apply {
             addProperty("capability", "spaces-v1"); addProperty("service_key", wallet.publicKey)
             addProperty("schema", version); addProperty("state", "ready"); addProperty("file_hosting", false)
-            add("features", JsonArray().apply { add("message-history-v1"); add("unread-v1"); add("channel-archive-v1"); add("role-management-v1"); add("public-channel-edit-v1"); add("private-channel-access-v1"); add("private-channel-edit-v1"); add("membership-management-v1"); add("ownership-management-v1"); add("category-management-v1"); add("visibility-management-v1"); add("dissolution-v1") })
+            add("features", JsonArray().apply { add("message-history-v1"); add("unread-v1"); add("channel-archive-v1"); add("role-management-v1"); add("public-channel-edit-v1"); add("private-channel-access-v1"); add("private-channel-edit-v1"); add("membership-management-v1"); add("ownership-management-v1"); add("category-management-v1"); add("visibility-management-v1"); add("dissolution-v1"); add("moderation-reports-v1") })
         }.toString()
     }
 
@@ -70,7 +74,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val requestId = body.text("request_id").also { require(it.matches(ID)) }
         val scope = body.get("scope").also { require(it != null && it.isJsonObject) }.asJsonObject.deepCopy()
         val space = scope.text("space_id").also { require(it.matches(ID)) }
-        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation", "directory", "heads", "messages", "pins", "files", "voice-room")) }
+        val stream = scope.text("stream").also { require(it in setOf("control", "join", "content", "keys", "invitation", "directory", "heads", "messages", "pins", "files", "voice-room", "message-report", "staff-reports", "admin-log")) }
         val roomCommand = if (stream == "voice-room") SpaceVoiceRoom.Command.read(scope.text("command")) else null
         val roomSession = if (roomCommand?.requiresSession == true) scope.text("session").also { require(SpaceVoiceRoom.validSession(it)) } else null
         require(scope.keySet() == setOf("space_id", "stream", "cursor") + when (stream) {
@@ -94,14 +98,17 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 SpaceVoiceRoom.Command.LEAVE, SpaceVoiceRoom.Command.MUTE, SpaceVoiceRoom.Command.REMOVE -> setOf("session")
                 else -> emptySet()
             }
+            "message-report" -> setOf("channel_id", "message_id", "reason")
+            "admin-log" -> setOf("before_id")
             "content" -> setOf("channel_id"); "keys" -> setOf("channel_id", "recipient_credential")
             "invitation" -> setOf("invite_id"); "directory" -> setOf("query"); "heads" -> setOf("positions"); else -> emptySet()
         })
         if (stream == "directory") require(space == "0".repeat(64) && scope.text("query").let { it.codePointCount(0, it.length) <= 128 })
-        val channel = if (stream in setOf("content", "keys", "messages", "pins", "files", "voice-room")) scope.text("channel_id").also { require(it.matches(ID)) } else null
+        val channel = if (stream in setOf("content", "keys", "messages", "pins", "files", "voice-room", "message-report")) scope.text("channel_id").also { require(it.matches(ID)) } else null
         val recipient = if (stream == "keys") scope.text("recipient_credential") else null
         val cursor = scope.number("cursor")
-        if (stream in setOf("files", "voice-room")) require(cursor == 0L)
+        if (stream in setOf("files", "voice-room", "message-report")) require(cursor == 0L)
+        if (stream == "staff-reports") require(cursor > 0)
         if (stream == "messages") require(scope.text("direction") in setOf("before", "after") && scope.number("limit") in 1..50)
         val article = if (stream == "messages" && scope.has("article_id")) scope.text("article_id").also {
             require(it.matches(Regex("[0-9a-f]{128}")) && cursor == Long.MAX_VALUE && scope.text("direction") == "before" &&
@@ -150,7 +157,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 atomic {
                     if (stream == "directory") directoryPage(reply, scope.text("query"), cursor)
                     else {
-                    val journal = if (roomCommand != null) committedJournal(space) else journal(space)
+                    val journal = if (roomCommand != null || stream in setOf("message-report", "staff-reports", "admin-log")) committedJournal(space) else journal(space)
                     // A former member may authenticate their own departure.
                     // This does not authorize later private controls or content,
                     // and banning a never-member grants no read authority.
@@ -240,6 +247,26 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         }
                         return@atomic
                     }
+                    if (stream == "message-report") {
+                        val submitted = SpaceMessageReport(request.id, requireNotNull(channel), scope.text("message_id"),
+                            request.author, scope.text("reason"), now)
+                        val report = moderation.report(space, submitted, journal)
+                        if (report == null) denied("unavailable") else {
+                            reply.addProperty("request", "page")
+                            reply.add("items", JsonArray().apply { add(report.json()) })
+                            reply.addProperty("next_cursor", 0)
+                        }
+                        return@atomic
+                    }
+                    if (stream == "staff-reports") {
+                        if (!moderation.reportPage(reply, journal, space, request.author, cursor)) denied("unavailable")
+                        return@atomic
+                    }
+                    if (stream == "admin-log") {
+                        val before = SpaceAdminCursor(cursor, scope.text("before_id"))
+                        if (!moderation.auditPage(reply, journal, space, request.author, before)) denied("unavailable")
+                        return@atomic
+                    }
                     if (stream == "messages") {
                         val thread = scope.get("thread_id")?.asString
                         if (thread != null) {
@@ -307,6 +334,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 reply.addProperty("space_write_restrictions_v1", true)
                 reply.addProperty("space_file_storage_v1", true)
                 reply.addProperty("space_voice_rooms_v1", true)
+                reply.addProperty("space_moderation_reports_v1", true)
                 reply.addProperty("protected_chat_v1", true)
             }
             else -> throw IllegalArgumentException("Unsupported Spaces read request")
@@ -514,6 +542,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         database = DriverManager.getConnection("jdbc:sqlite:${directory.resolve("spaces.sqlite").toAbsolutePath()}",
             Properties().apply { setProperty("transaction_mode", "IMMEDIATE") })
         fileRoutes = SpaceFileRoutes(database, wallet)
+        moderation = SpaceModerationRoutes(database)
         try {
             // Reject incompatible/foreign state before journal_mode can change
             // an existing database header. Migration must preserve that state.
@@ -521,7 +550,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val existingVersion = sql.executeQuery("PRAGMA user_version").use { rows ->
                     check(rows.next()); rows.getInt(1)
                 }
-                check(existingVersion in 0..5) { "Spaces storage version needs a compatible service" }
+                check(existingVersion in 0..SCHEMA_VERSION) { "Spaces storage version needs a compatible service" }
                 if (existingVersion == 0) sql.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").use { rows ->
                     check(!rows.next()) { "Existing unversioned Spaces storage needs recovery" }
                 }
@@ -539,7 +568,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 val version = database.createStatement().use { sql ->
                     sql.executeQuery("PRAGMA user_version").use { rows -> check(rows.next()); rows.getInt(1) }
                 }
-                check(version in 0..5) { "Spaces storage version needs a compatible service" }
+                check(version in 0..SCHEMA_VERSION) { "Spaces storage version needs a compatible service" }
                 if (version == 0) {
                     database.createStatement().use { sql ->
                         sql.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").use {
@@ -649,6 +678,10 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                         sql.execute("CREATE INDEX records_message_versions ON records(space_id,channel_id,kind,target_message_id,position)")
                         sql.execute("PRAGMA user_version=5")
                     }
+                }
+                if (version < 6) {
+                    moderation.createSchema()
+                    database.createStatement().use { it.execute("PRAGMA user_version=6") }
                 }
                 fileRoutes.createSchema()
             }
@@ -870,6 +903,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
     }
 
     private companion object {
+        const val SCHEMA_VERSION = 6
         val ID = Regex("[0-9a-f]{64}")
         const val PAGE_BYTES = 2 * 1024 * 1024
     }

@@ -34,6 +34,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     @Volatile private var supportsWriteRestrictions = false
     @Volatile private var supportsFileStorage = false
     @Volatile private var supportsVoiceRooms = false
+    @Volatile private var supportsModerationReports = false
 
     enum class Delivery { CONTROL, CONTENT }
     enum class ReadProblem { EXPIRED, UNAVAILABLE }
@@ -568,9 +569,25 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         original.id
     }
 
-    fun scopedWriteRestriction(space: String, member: String, channel: String): Long? = store.transaction {
+    fun scopedWriteRestriction(space: String, member: String, channel: String?): Long? = store.transaction {
         owned()
         journal(space).snapshot.writeRestrictions[member to channel]?.expiresAt
+    }
+
+    fun restrictionOptions(space: String, member: String): SpaceRestrictionOptions = store.transaction {
+        owned()
+        val journal = journal(space)
+        require(supportsWriteRestrictions && journal.canRestrictWriting(wallet.publicKey, member, null))
+        val channels = journal.snapshot.channels.keys.filterTo(linkedSetOf()) { channel ->
+            journal.canRestrictWriting(wallet.publicKey, member, channel)
+        }
+        val now = clock.millis()
+        val active = journal.snapshot.writeRestrictions.entries.mapNotNull { (target, value) ->
+            val (key, channel) = target
+            if (key == member && value.expiresAt > now && (channel == null || channel in channels))
+                SpaceScopedWriteRestriction(channel, value.expiresAt) else null
+        }
+        SpaceRestrictionOptions(channels, active)
     }
 
     /** The owner explicitly approves the exact provider-signed terms. */
@@ -609,6 +626,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     fun fileStorageSupported(): Boolean = supportsFileStorage
     fun voiceRoomsSupported(): Boolean = supportsVoiceRooms
+    fun moderationReportsSupported(): Boolean = supportsModerationReports
+    fun writeRestrictionsSupported(): Boolean = supportsWriteRestrictions
 
     fun fileOperation(space: String, originalId: String): ChangeStatus? = store.transaction {
         owned(); state(space)
@@ -682,6 +701,50 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val result = readPage(fileScope(space, channel, "confirm").apply { addProperty("file", fileId) })
         require(result.text("access_term") == expected.accessTerm) { "File access changed during download" }
     }
+
+    suspend fun reportMessage(space: String, channel: String, message: String, reason: String): SpaceMessageReport {
+        val result = readPage(JsonObject().apply {
+            addProperty("space_id", space)
+            addProperty("stream", "message-report")
+            addProperty("cursor", 0)
+            addProperty("channel_id", channel)
+            addProperty("message_id", message)
+            addProperty("reason", SpaceMessageReport.cleanReason(reason))
+        })
+        return SpaceMessageReport.read(result.getAsJsonArray("items").single().asJsonObject).also {
+            require(it.channel == channel && it.message == message && it.reporter == wallet.publicKey)
+        }
+    }
+
+    suspend fun messageReports(space: String, before: Long = Long.MAX_VALUE): SpaceReportPage {
+        val result = readPage(JsonObject().apply {
+            addProperty("space_id", space)
+            addProperty("stream", "staff-reports")
+            addProperty("cursor", before)
+        })
+        val next = result.number("next_cursor")
+        require(next in 0 until before)
+        return SpaceReportPage(result.getAsJsonArray("items").map { SpaceMessageReport.read(it.asJsonObject) },
+            next.takeIf { it > 0 })
+    }
+
+    suspend fun adminLog(space: String, before: SpaceAdminCursor? = null): SpaceAdminPage {
+        val result = readPage(JsonObject().apply {
+            addProperty("space_id", space)
+            addProperty("stream", "admin-log")
+            addProperty("cursor", before?.at ?: Long.MAX_VALUE)
+            addProperty("before_id", before?.event ?: "f".repeat(128))
+        })
+        val events = result.getAsJsonArray("items").map { SpaceAdminEvent.read(it.asJsonObject) }
+        val next = result.get("next_event")?.let { SpaceAdminCursor(result.number("next_cursor"), it.asString) }
+        require(events.zipWithNext().all { (newer, older) -> older.cursor < newer.cursor })
+        require(before == null || events.all { it.cursor < before })
+        require(next == null || next == events.lastOrNull()?.cursor)
+        return SpaceAdminPage(events, next)
+    }
+
+    private operator fun SpaceAdminCursor.compareTo(other: SpaceAdminCursor): Int =
+        compareValuesBy(this, other, SpaceAdminCursor::at, SpaceAdminCursor::event)
 
     suspend fun fileStorageUsagePermission(space: String, channel: String): SpaceFileGrant =
         providerGrant(readPage(fileScope(space, channel, "usage")), requireNotNull(fileStorage(space)), SpaceFileGrant.Action.STATUS)
@@ -1036,7 +1099,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val canManage: Boolean = false, val dissolved: Boolean = false, val canReply: Boolean = false, val canReact: Boolean = false, val canPin: Boolean = false, val personalUnread: Long? = null, val protectedChat: ProtectedChat? = null,
         val deviceReplaced: Boolean = false, val replacingDevice: Boolean = false, val replacementRejected: Boolean = false,
         val archiveScope: SpaceCrypto.Scope? = null, val legacyChat: String? = null, val writeRestrictedUntil: Long? = null,
-        val articleReadDenied: Boolean = false)
+        val articleReadDenied: Boolean = false, val writeRestrictedSpaceWide: Boolean = false)
     enum class MessageChangeKind { EDIT, DELETE }
     data class MessageChange(val operationId: String, val kind: MessageChangeKind, val attempted: Boolean,
         val rejected: Boolean, val text: String?, val cancelled: Boolean = false) {
@@ -1257,6 +1320,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 (supportsMessagePins || data.get("pins_supported")?.asBoolean == true), personalUnread = personal,
             protectedChat = snapshot.protectedChat ?: state.getAsJsonObject("new_protected_chat")?.let { ProtectedChat(it.get("direct_peer")?.asString) },
             writeRestrictedUntil = restrictedUntil, articleReadDenied = articleReadDenied,
+            writeRestrictedSpaceWide = restrictedUntil != null && snapshot.writeRestrictions[wallet.publicKey to null]?.expiresAt == restrictedUntil,
             deviceReplaced = data.get("device_replaced")?.asBoolean == true, replacingDevice = data.has("replacement_request"),
             replacementRejected = data.get("replacement_rejected")?.asBoolean == true,
             archiveScope = scope.takeIf { data.get("archive_only")?.asBoolean == true }, legacyChat = state.get("legacy_chat")?.asString)
@@ -3709,7 +3773,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 else -> throw IllegalArgumentException("Unknown community read disposition")
             }
             val space = scope.text("space_id")
-            scope.get("channel_id")?.asString?.let { rememberArticleReadDenial(space, it) }
+            if (scope.text("stream") != "message-report") {
+                scope.get("channel_id")?.asString?.let { rememberArticleReadDenial(space, it) }
+            }
             throw ReadDenied(space, problem)
         }
         require(result.text("request") == "page" && result.getAsJsonArray("items").size() <= 50)
@@ -3735,6 +3801,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean
         } == true
         supportsVoiceRooms = result.get("space_voice_rooms_v1")?.let {
+            it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean
+        } == true
+        supportsModerationReports = result.get("space_moderation_reports_v1")?.let {
             it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean
         } == true
         return result
