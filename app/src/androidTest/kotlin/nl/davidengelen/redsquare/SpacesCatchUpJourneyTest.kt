@@ -158,7 +158,7 @@ class SpacesCatchUpJourneyTest {
                 focusAndHear("option-b", switcher, observations)
                 assertTrue(actionNode(switcher).performAction(AccessibilityNodeInfo.ACTION_CLICK))
                 waitText("Your communities")
-                assertTrue(device.pressBack())
+                device.pressBack()
                 ui.waitUntil(12_000) { !ui.onNodeWithText("Your communities").isDisplayed() }
 
                 click("Activity")
@@ -251,7 +251,7 @@ class SpacesCatchUpJourneyTest {
                 button.performTouchInput { click() }
                 waitText("Your communities")
                 captureNativeScreen(observations.resolve("drawer.png"))
-                assertTrue(device.pressBack())
+                device.pressBack()
                 ui.waitUntil(12_000) {
                     !ui.onNodeWithText("Your communities").isDisplayed() && button.isDisplayed()
                 }

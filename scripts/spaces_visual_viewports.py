@@ -43,15 +43,20 @@ class VisualViewports:
         overlay = self.shell('cmd', 'overlay', 'list', '--user', '0')
         (self.folder / f'{name}-overlays.txt').write_text(overlay)
         selected = [line[4:] for line in overlay.splitlines() if line.startswith('[x] com.android.internal.systemui.navbar.')]
-        if len(selected) != 1 or not re.fullmatch(r'com\.android\.internal\.systemui\.navbar\.[a-z0-9_]+', selected[0]):
+        if len(selected) > 1 or any(not re.fullmatch(r'com\.android\.internal\.systemui\.navbar\.[a-z0-9_]+', item)
+                                    for item in selected):
             raise RuntimeError('Could not establish the active Android navigation overlay')
         values = {key: self.shell('settings', 'get', namespace, key) for namespace, key in self.settings}
         if any(not re.fullmatch(r'null|[0-9]+(?:\.[0-9]+)?', value) for value in values.values()):
             raise RuntimeError('Unexpected original Android emulator settings')
         result = dict(values, size=self.viewport_override('size'), density=self.viewport_override('density'),
-                      night=self.night(), overlay=selected[0])
+                      night=self.night(), overlay=next(iter(selected), None))
         (self.folder / f'{name}-settings.json').write_text(json.dumps(result, indent=2))
         return result
+
+    def set_overlay(self, operation, name):
+        command = ['su', '0'] if self.sdk == 10 else []
+        self.shell(*command, 'cmd', 'overlay', *operation, '--user', '0', name)
 
     def prepare(self, case):
         prefix = case['id']
@@ -69,7 +74,7 @@ class VisualViewports:
         night = 'yes' if case['theme'] == 'dark' else 'no'
         self.night(night)
         overlay = self.overlays[case['navigation']]
-        self.shell('cmd', 'overlay', 'enable-exclusive', '--category', '--user', '0', overlay)
+        self.set_overlay(('enable-exclusive', '--category'), overlay)
         actual = self.observe(prefix)
         if (actual['size']['override'] != size or actual['density']['override'] != '320' or
                 float(actual['font_scale']) != case['font'] or actual['user_rotation'] != rotation or
@@ -87,6 +92,9 @@ class VisualViewports:
             else:
                 self.shell('settings', 'put', namespace, key, value)
         self.night(self.original['night'])
-        self.shell('cmd', 'overlay', 'enable-exclusive', '--category', '--user', '0', self.original['overlay'])
+        if self.original['overlay']:
+            self.set_overlay(('enable-exclusive', '--category'), self.original['overlay'])
+        elif active := self.observe('before-navigation-reset')['overlay']:
+            self.set_overlay(('disable',), active)
         if self.observe('restored') != self.original:
             raise RuntimeError('The original Android viewport settings were not restored')
