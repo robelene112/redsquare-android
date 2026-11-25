@@ -62,9 +62,10 @@ internal class SpacesModerationFixture(root: Path, node: SaitoWallet, private va
     }
 
     suspend fun demoteReporter(): JsonObject {
+        owner.refresh(space)
         owner.setAdministrator(space, wallets.first().publicKey, false)
         owner.flush(space)
-        return observeReport()
+        return observeReport().also { check(it.get("reporterDeniedStaffRead").asBoolean) }
     }
 
     suspend fun observeRestrictions(): JsonObject {
