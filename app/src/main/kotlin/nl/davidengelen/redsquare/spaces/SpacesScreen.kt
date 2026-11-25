@@ -517,12 +517,15 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 }
                             }
                         }
-                        if (state.hasEarlier && !compactTyping) OutlinedButton(onClick = account::olderMessages, enabled = !state.working,
-                            modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).heightIn(min = 48.dp)) {
-                            Text(stringResource(R.string.spaces_earlier_messages))
+                        val showEarlier = state.hasEarlier && !compactTyping
+                        val earlierInList = showEarlier && compactReading && state.exactDestination && state.messages.isNotEmpty()
+                        if (showEarlier && !earlierInList) {
+                            EarlierSpaceMessages(account::olderMessages, !state.working,
+                                Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen))
                         }
+                        val leadingItems = if (earlierInList) 1 else 0
                         val anchorIndex = state.anchor?.let { anchor -> state.messages.indexOfFirst { it.id == anchor.messageId } } ?: -1
-                        val initialIndex = if (anchorIndex >= 0) anchorIndex else state.messages.size
+                        val initialIndex = leadingItems + if (anchorIndex >= 0) anchorIndex else state.messages.size
                         val list = remember { androidx.compose.foundation.lazy.LazyListState(initialIndex, if (anchorIndex >= 0) state.anchor?.offset?.coerceAtLeast(0) ?: 0 else 0) }
                         var initialPage by remember { mutableStateOf(true) }
                         var autoScrolling by remember { mutableStateOf(false) }
@@ -564,13 +567,14 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 }
                             }
                         }
-                        LaunchedEffect(state.messages.map { it.id }, state.messages.lastOrNull(), state.scrollToMessage, state.followingLatest, keyboardBottom, viewportSize, overlayMode, pinsOpen) {
+                        LaunchedEffect(state.messages.map { it.id }, state.messages.lastOrNull(), state.scrollToMessage, state.followingLatest, keyboardBottom, viewportSize, overlayMode, pinsOpen, leadingItems) {
                             if (overlayMode != null || pinsOpen) return@LaunchedEffect
                             val requested = state.scrollToMessage
                             val requestedIndex = state.messages.indexOfFirst { it.id == requested?.id }
                             if (requestedIndex >= 0) {
                                 autoScrolling = true
-                                val destinationIndex = if (state.followingLatest && requestedIndex == state.messages.lastIndex) state.messages.size else requestedIndex
+                                val destinationIndex = leadingItems +
+                                    if (state.followingLatest && requestedIndex == state.messages.lastIndex) state.messages.size else requestedIndex
                                 try {
                                     list.animateScrollToItem(destinationIndex)
                                     if (requested?.showBody == true) messageBody.bringIntoView()
@@ -582,7 +586,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             if (state.messages.isNotEmpty() && initialPage) {
                                 val index = state.anchor?.let { anchor -> state.messages.indexOfFirst { it.id == anchor.messageId } } ?: -1
                                 autoScrolling = true
-                                try { list.scrollToItem(if (index >= 0) index else state.messages.size, if (index >= 0) state.anchor?.offset ?: 0 else 0) }
+                                try { list.scrollToItem(leadingItems + if (index >= 0) index else state.messages.size,
+                                    if (index >= 0) state.anchor?.offset ?: 0 else 0) }
                                 finally { autoScrolling = false }
                                 initialPage = false
                             } else if (state.messages.isNotEmpty() && state.followingLatest) {
@@ -592,7 +597,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 snapshotFlow { list.isScrollInProgress }.first { !it }
                                 if (!latestFollowing || overlayMode != null || pinsModal) return@LaunchedEffect
                                 autoScrolling = true
-                                try { list.animateScrollToItem(state.messages.size) } finally { autoScrolling = false }
+                                try { list.animateScrollToItem(leadingItems + state.messages.size) } finally { autoScrolling = false }
                             }
                             if (state.messages.isNotEmpty() && latestFollowing) {
                                 // Reaction chips can still be expanding after a message
@@ -605,7 +610,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 }.filterNotNull().collect {
                                     if (latestFollowing && overlayMode == null && !pinsModal && !list.isScrollInProgress) {
                                         autoScrolling = true
-                                        try { list.scrollToItem(state.messages.size) } finally { autoScrolling = false }
+                                        try { list.scrollToItem(leadingItems + state.messages.size) } finally { autoScrolling = false }
                                     }
                                 }
                             }
@@ -620,6 +625,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         } else LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = list,
                             contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = 8.dp),
                             verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                            if (earlierInList) item(key = "spaces-earlier-messages") {
+                                EarlierSpaceMessages(account::olderMessages, !state.working, Modifier.fillMaxWidth())
+                            }
                             items(state.messages, key = { it.id }) { message ->
                                 val accepted = !message.pending && !message.rejected && !message.cancelled
                                 val own = message.author == account.ownerKey
@@ -1032,6 +1040,13 @@ private fun SpacesViewport(content: @Composable ColumnScope.(height: Dp) -> Unit
 }
 
 private enum class MessageOverlay { ACTIONS, REACTION_PICKER, EDIT, DELETE, CANCEL, REACTIONS, REPORT }
+
+@Composable
+private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier: Modifier) {
+    OutlinedButton(onClick = onClick, enabled = enabled, modifier = modifier.heightIn(min = 48.dp)) {
+        Text(stringResource(R.string.spaces_earlier_messages))
+    }
+}
 
 @Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, bodyModifier: Modifier, restore: () -> Unit,
     reply: (() -> Unit)?, canEdit: Boolean, canRemove: Boolean, canReport: Boolean, canCopyLink: Boolean, canCancel: Boolean, openOverlay: (MessageOverlay) -> Unit,
