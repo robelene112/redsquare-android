@@ -1,5 +1,8 @@
 package nl.davidengelen.redsquare.spaces
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,6 +15,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -44,9 +48,12 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
     val scope = rememberCoroutineScope()
     val publishing = LocalPublishingAgreement.current
     val focus = LocalFocusManager.current
+    val context = LocalContext.current
     val keyboard = LocalSoftwareKeyboardController.current
     var page by rememberSaveable(target.space, target.channel) { mutableStateOf(ArticlePage.LIST) }
     var selected by rememberSaveable(target.space, target.channel) { mutableStateOf<String?>(null) }
+    var editing by rememberSaveable(target.space, target.channel) { mutableStateOf<String?>(null) }
+    var fromCache by rememberSaveable(target.space, target.channel) { mutableStateOf(false) }
     var draft by remember(target) { mutableStateOf(StackDraft("", "", "")) }
     var draftReady by remember(target) { mutableStateOf(false) }
     var draftFailed by remember(target) { mutableStateOf(false) }
@@ -55,11 +62,40 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
     var tooLong by remember(target) { mutableStateOf(false) }
     var linkText by rememberSaveable(target.space, target.channel) { mutableStateOf("") }
     var stackReference by remember(target) { mutableStateOf<StackLink?>(null) }
-    val articles by produceState(emptyMap<String, SpaceArticleContent>(), target, state.messages) {
+    val listedRecord = state.messages.firstOrNull { it.isArticle && it.id == selected }
+    val cachedLookup by produceState<Pair<String, SpaceClient.Message?>?>(null, target, selected, listedRecord, state.refreshing, state.working) {
+        value = if (listedRecord == null) selected?.let { id ->
+            id to try { account.readArticle(target, id) }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { null }
+        } else null
+    }
+    val readerRecord = listedRecord ?: cachedLookup?.takeIf { it.first == selected }?.second
+    val readerDocument by produceState<Pair<SpaceClient.Message, SpaceArticleContent?>?>(null, target, readerRecord) {
+        value = withContext(Dispatchers.Default) {
+            readerRecord?.let { record ->
+                record to record.text?.let { runCatching { SpaceArticleContent.decode(it) }.getOrNull() }
+            }
+        }
+    }
+    var copied by remember(target, selected) { mutableStateOf(false) }
+    var copyFailed by remember(target, selected) { mutableStateOf(false) }
+    var confirmRemoval by remember(target, selected) { mutableStateOf(false) }
+    LaunchedEffect(state.articleFocus) {
+        state.articleFocus?.let { requested ->
+            selected = requested.id
+            editing = null
+            fromCache = requested.fromCache
+            page = ArticlePage.READER
+            account.consumeArticleFocus(requested)
+        }
+    }
+    val articles by produceState(emptyMap<String, SpaceArticleContent?>(), target, state.messages) {
         value = withContext(Dispatchers.Default) {
             state.messages.mapNotNull { record ->
+                if (!record.isArticle) return@mapNotNull null
                 val content = record.text?.let { runCatching { SpaceArticleContent.decode(it) }.getOrNull() }
-                if (record.isArticle && content != null) record.id to content else null
+                record.id to content
             }.toMap()
         }
     }
@@ -67,25 +103,35 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
     fun save(value: StackDraft): Boolean {
         val saved = value.asArticleDraft()
         tooLong = !saved.fitsStorage()
-        if (!tooLong) account.editArticleDraft(target, null, saved)
+        if (!tooLong) account.editArticleDraft(target, editing, saved)
         draft = value
         return !tooLong
     }
     fun returnToChannel() {
         if (page == ArticlePage.EDITOR && draftReady && !save(visual.snapshot(draft))) return
         focus.clearFocus(); keyboard?.hide()
-        page = ArticlePage.LIST
-        selected = null
+        page = if (editing == null) ArticlePage.LIST else ArticlePage.READER
+        if (editing == null) {
+            selected = null
+            fromCache = false
+        }
+        editing = null
     }
     BackHandler(page != ArticlePage.LIST && !state.working) {
         if (page == ArticlePage.REVIEW) page = ArticlePage.EDITOR else returnToChannel()
     }
     val inEditor = page == ArticlePage.EDITOR || page == ArticlePage.REVIEW
-    LaunchedEffect(target, inEditor, retryDraft) {
+    LaunchedEffect(target, inEditor, editing, retryDraft) {
         if (!inEditor) return@LaunchedEffect
         draftFailed = false
         try {
-            draft = (account.articleDraft(target, null) ?: SpaceArticleDraft()).asStackDraft()
+            val saved = account.articleDraft(target, editing)
+            val original = if (saved == null) editing?.let { account.readArticle(target, it) } else null
+            val prior = original?.change?.takeIf { it.rejected || it.cancelled }?.text ?: original?.text
+            val content = withContext(Dispatchers.Default) { prior?.let { SpaceArticleContent.decode(it) } }
+            val initial = if (content is SpaceArticleContent.Original)
+                SpaceArticleDraft(content.title, content.subtitle, content.markdown) else SpaceArticleDraft()
+            draft = (saved ?: initial).asStackDraft()
             draftReady = true
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { draftFailed = true }
@@ -96,8 +142,13 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
         if (active) onEditorGuard { storeEditor() }
         onDispose { if (active) onEditorGuard(null) }
     }
+    val reviewed = remember(page, draft, draftReady) {
+        if (page == ArticlePage.REVIEW && draftReady) draft.asArticleDraft() else null
+    }
+    val reviewedArticle = remember(reviewed) { runCatching { reviewed?.content() }.getOrNull() }
     Column(modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen),
         verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        if (state.problem != null && state.articleFocus == null) ProblemNotice(state.problem, account::clearProblem)
         if (page == ArticlePage.LIST) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Button(onClick = { draftReady = false; page = ArticlePage.EDITOR },
@@ -139,30 +190,83 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
                 onClick = { if (page == ArticlePage.REVIEW) page = ArticlePage.EDITOR else returnToChannel() })
             val title = when (page) {
                 ArticlePage.LIST, ArticlePage.READER -> R.string.spaces_kind_article
-                ArticlePage.EDITOR -> R.string.spaces_article_write
+                ArticlePage.EDITOR -> if (editing == null) R.string.spaces_article_write else R.string.spaces_article_edit
                 ArticlePage.REVIEW -> R.string.stack_review_article
                 ArticlePage.SHARE -> R.string.spaces_article_share_stack
             }
             Text(stringResource(title), style = MaterialTheme.typography.titleLarge)
         }
-        Column(Modifier.fillMaxWidth().weight(1f).verticalScroll(rememberScrollState()),
+        val pageScroll = key(page, selected, editing) { rememberScrollState() }
+        Column(Modifier.fillMaxWidth().weight(1f).verticalScroll(pageScroll),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             when (page) {
                 ArticlePage.LIST -> Unit
                 ArticlePage.READER -> {
-                    val record = state.messages.firstOrNull { it.id == selected }
-                    val content = selected?.let(articles::get)
+                    val record = readerRecord
+                    val content = if (listedRecord != null) articles[listedRecord.id]
+                        else readerDocument?.takeIf { it.first == record }?.second
                     if (record != null) {
+                        if (fromCache && state.availability != SpacesAccount.Availability.ONLINE)
+                            Text(stringResource(R.string.spaces_article_cached), color = MaterialTheme.colorScheme.onSurfaceVariant)
                         articleStatus(record)?.let { Text(stringResource(it), style = MaterialTheme.typography.labelMedium) }
                         when (content) {
                             is SpaceArticleContent.Original -> {
                                 ArticleBody(content)
                                 Text(registeredIdentity(record.author).name, style = MaterialTheme.typography.labelMedium)
+                                if (record.edited) Text(stringResource(R.string.spaces_article_edited),
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                if (canWrite && account.canEditArticle(record)) {
+                                    OutlinedButton(onClick = {
+                                        editing = record.id
+                                        draftReady = false
+                                        page = ArticlePage.EDITOR
+                                    }) { Text(stringResource(R.string.spaces_article_edit)) }
+                                }
                             }
                             is SpaceArticleContent.PublicStack -> SharedStackArticle(account, content.link)
-                            null -> Text(articleTitle(null, record))
+                            null -> {
+                                val loaded = if (listedRecord != null) listedRecord.id in articles else readerDocument?.first == record
+                                if (loaded || record.text == null) Text(articleTitle(null, record))
+                                else LinearProgressIndicator(Modifier.fillMaxWidth())
+                            }
                         }
-                    } else Text(stringResource(R.string.spaces_article_unavailable))
+                        if (record.position != null && !record.deleted && content != null) {
+                            val label = stringResource(R.string.spaces_article_copy_link)
+                            TextButton(onClick = {
+                                scope.launch {
+                                    try {
+                                        val link = account.articleLink(target, record.id)
+                                        (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
+                                            .setPrimaryClip(ClipData.newPlainText(label, link))
+                                        copied = true
+                                        copyFailed = false
+                                    } catch (cancelled: CancellationException) { throw cancelled }
+                                    catch (_: Exception) { copyFailed = true }
+                                }
+                            }) { Text(if (copied) stringResource(R.string.spaces_copied) else label) }
+                            if (copyFailed) Text(stringResource(R.string.spaces_article_copy_failed),
+                                color = MaterialTheme.colorScheme.error)
+                            if (canWrite && record.change?.let { it.rejected || it.cancelled } != false &&
+                                (record.author == account.ownerKey || state.current?.canManage == true)) {
+                                TextButton(onClick = { confirmRemoval = true }) {
+                                    Text(stringResource(R.string.spaces_article_remove), color = MaterialTheme.colorScheme.error)
+                                }
+                            }
+                            if (confirmRemoval) AlertDialog(onDismissRequest = { confirmRemoval = false },
+                                title = { Text(stringResource(R.string.spaces_article_remove)) },
+                                text = { Text(stringResource(R.string.spaces_article_remove_detail)) },
+                                confirmButton = { TextButton(onClick = {
+                                    confirmRemoval = false
+                                    account.deleteMessage(target, record) {}
+                                }, enabled = canWrite) {
+                                    Text(stringResource(R.string.spaces_article_remove), color = MaterialTheme.colorScheme.error)
+                                } },
+                                dismissButton = { TextButton(onClick = { confirmRemoval = false }) {
+                                    Text(stringResource(R.string.spaces_close))
+                                } })
+                        }
+                    } else if (cachedLookup?.first == selected) Text(stringResource(R.string.spaces_article_unavailable))
+                    else LinearProgressIndicator(Modifier.fillMaxWidth())
                 }
                 ArticlePage.EDITOR -> {
                     if (draftFailed) InlineStatus(stringResource(R.string.stack_draft_load_failed), StatusTone.ERROR,
@@ -174,25 +278,19 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
                             if (save(snapshot) && snapshot.title.isNotBlank() && snapshot.body.isNotBlank()) {
                                 focus.clearFocus(); keyboard?.hide(); page = ArticlePage.REVIEW
                             }
-                        }, sampleMedia = false, enabled = !state.working && !state.savingNavigation)
+                        }, sampleMedia = false, enabled = !state.working && !state.savingNavigation,
+                        privateSource = channel.visibility == SpaceVisibility.PRIVATE)
                     if (tooLong) InlineStatus(stringResource(R.string.spaces_article_too_long), StatusTone.ERROR)
                 }
                 ArticlePage.REVIEW -> {
-                    val reviewed = remember(draft, draftReady) { draft.takeIf { draftReady }?.asArticleDraft() }
-                    val article = remember(reviewed) { runCatching { reviewed?.content() }.getOrNull() }
-                    if (article != null) ArticleBody(article)
+                    if (draftFailed || !draftReady) {
+                        if (draftFailed) InlineStatus(stringResource(R.string.stack_draft_load_failed), StatusTone.ERROR,
+                            actionLabel = stringResource(R.string.retry), onAction = { retryDraft++ })
+                        else LinearProgressIndicator(Modifier.fillMaxWidth())
+                        return@Column
+                    }
+                    if (reviewedArticle != null) ArticleBody(reviewedArticle)
                     else InlineStatus(stringResource(R.string.spaces_article_review_invalid), StatusTone.ERROR)
-                    Text(stringResource(if (channel.visibility == SpaceVisibility.PRIVATE) R.string.spaces_article_private_scope
-                        else R.string.spaces_article_public_scope), color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Button(onClick = {
-                        val approved = reviewed ?: return@Button
-                        scope.launch {
-                            if (publishing.beforePublishing()) account.publishArticle(target, approved) { id ->
-                                selected = id
-                                page = ArticlePage.READER
-                            }
-                        }
-                    }, enabled = article != null && canWrite) { Text(stringResource(R.string.spaces_article_publish)) }
                 }
                 ArticlePage.SHARE -> {
                     OutlinedTextField(linkText, { linkText = it.take(4096); stackReference = null }, Modifier.fillMaxWidth(),
@@ -214,6 +312,24 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
                         }
                     }
                 }
+            }
+        }
+        if (page == ArticlePage.REVIEW && reviewed != null) {
+            HorizontalDivider()
+            Text(stringResource(if (channel.visibility == SpaceVisibility.PRIVATE) R.string.spaces_article_private_scope
+                else R.string.spaces_article_public_scope), color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.bodySmall)
+            Button(onClick = {
+                val articleId = editing
+                scope.launch {
+                    if (publishing.beforePublishing()) account.publishArticle(target, reviewed, articleId) { id ->
+                        selected = id
+                        editing = null
+                        page = ArticlePage.READER
+                    }
+                }
+            }, enabled = reviewedArticle != null && canWrite, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                Text(stringResource(if (editing == null) R.string.spaces_article_publish else R.string.spaces_article_publish_edit))
             }
         }
     }
@@ -261,12 +377,22 @@ private fun articleTitle(content: SpaceArticleContent?, record: SpaceClient.Mess
     })
 }
 
-private fun articleStatus(record: SpaceClient.Message): Int? = when {
-    record.rejected -> R.string.protected_chat_send_rejected
-    record.cancelled -> R.string.spaces_send_cancelled
-    record.pending && record.attempted -> R.string.protected_chat_send_waiting
-    record.pending -> R.string.protected_chat_send_queued
-    else -> null
+private fun articleStatus(record: SpaceClient.Message): Int? {
+    val change = record.change
+    return when {
+        change?.cancelled == true -> R.string.spaces_send_cancelled
+        change?.kind == SpaceClient.MessageChangeKind.DELETE && change.rejected -> R.string.spaces_article_remove_failed
+        change?.kind == SpaceClient.MessageChangeKind.DELETE && change.attempted -> R.string.spaces_delete_waiting_connection
+        change?.kind == SpaceClient.MessageChangeKind.DELETE -> R.string.spaces_article_remove_queued
+        change?.rejected == true -> R.string.spaces_article_edit_rejected
+        change?.attempted == true -> R.string.protected_chat_send_waiting
+        change != null -> R.string.protected_chat_send_queued
+        record.rejected -> R.string.spaces_article_send_rejected
+        record.cancelled -> R.string.spaces_send_cancelled
+        record.pending && record.attempted -> R.string.protected_chat_send_waiting
+        record.pending -> R.string.protected_chat_send_queued
+        else -> null
+    }
 }
 
 private fun StackDraft.asArticleDraft() = SpaceArticleDraft(title, subtitle, body, sourceMode)

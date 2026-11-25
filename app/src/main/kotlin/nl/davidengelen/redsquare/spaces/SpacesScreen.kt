@@ -205,9 +205,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         informationOpen = false; inviteOpen = false; membersOpen = false; publicRulesOpen = false
         clearInvitationReview()
         replacingDevice = false
-        if (SpacesLaunchRoutes.isPublic(android.net.Uri.parse(link))) {
+        val uri = android.net.Uri.parse(link)
+        if (SpacesLaunchRoutes.isArticle(uri) || SpacesLaunchRoutes.isPublic(uri)) {
             joinOpen = false; informationOpen = false; inviteOpen = false; membersOpen = false; channelAccessRoute = null
-            publicReference = link; account.openPublicLink(link)
+            publicReference = link
+            if (SpacesLaunchRoutes.isArticle(uri)) account.openArticleLink(link) else account.openPublicLink(link)
         } else { invitationText = link; joinOpen = true; account.preview(link) }
         onInvitationConsumed()
     }
@@ -334,6 +336,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         state.members.firstOrNull { it.publicKey == account.ownerKey }?.role !in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
                         Text(stringResource(R.string.spaces_announcements_read_only), color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.bodySmall)
+                    selected?.writeRestrictedUntil?.let { end ->
+                        val time = remember(end) { DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(end)) }
+                        InlineStatus(stringResource(R.string.spaces_writing_restricted_until, time), StatusTone.INFO)
+                    }
                 }
                 if (state.loadingChannel || selected == null) Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                     if (state.problem == null) CircularProgressIndicator(Modifier.size(28.dp)) else ProblemNotice(requireNotNull(state.problem), account::clearProblem)
@@ -352,6 +358,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     val conversation = channel?.profile?.kind in setOf(SpaceChannelKind.CHAT, SpaceChannelKind.ANNOUNCEMENT) || channel == null
                     if (channel?.profile?.kind == SpaceChannelKind.ARTICLE) {
                         SpaceArticleChannel(account, state, channel, Modifier.weight(1f)) { articleEditorGuard = it }
+                    } else if (state.messages.any { it.isArticle }) {
+                        Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
+                            Text(stringResource(R.string.spaces_article_unavailable), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
                     } else if (!conversation) Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(16.dp)) {
                             Icon(painterResource(channelKindIcon(requireNotNull(channel).profile.kind)), null, Modifier.size(40.dp), tint = MaterialTheme.colorScheme.primary)
@@ -593,11 +603,16 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             if (!keyboardInLayout) SpacesBottomBar(tab) { selectTab(it) }
         }
     }
-    DesignSheet(publicReference != null, stringResource(R.string.spaces_open_public_community), { publicReference = null; account.dismissPublicReference() }) { first ->
+    val openingArticle = publicReference?.let { SpacesLaunchRoutes.isArticle(android.net.Uri.parse(it)) } == true
+    DesignSheet(publicReference != null, stringResource(if (openingArticle) R.string.spaces_article_open else R.string.spaces_open_public_community),
+        { publicReference = null; account.dismissPublicReference() }) { first ->
         val node = state.requiredNode
         val choice = nl.davidengelen.redsquare.saito.SaitoBackend.entries.firstOrNull { it.webUrl == node }
         when {
-            state.working -> { Text(stringResource(R.string.spaces_opening_community)); LinearProgressIndicator(Modifier.fillMaxWidth()) }
+            state.working -> {
+                Text(stringResource(if (openingArticle) R.string.spaces_article_opening else R.string.spaces_opening_community))
+                LinearProgressIndicator(Modifier.fillMaxWidth())
+            }
             choice != null -> {
                 Text(stringResource(R.string.spaces_different_node, choice.domain))
                 Button(onClick = { publicReference?.let { onOpenNode(choice.webUrl, it) } }, enabled = !state.savingNavigation,
@@ -605,9 +620,14 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             }
             node != null -> Text(stringResource(R.string.spaces_unknown_reference_node), color = MaterialTheme.colorScheme.onSurfaceVariant)
             state.previewIssue != null -> AccessNotice(requireNotNull(state.previewIssue))
+            openingArticle && state.problem == SpacesAccount.Problem.ARTICLE_MISSING ->
+                Text(stringResource(R.string.spaces_article_missing), color = MaterialTheme.colorScheme.onSurfaceVariant)
             else -> {
-                Text(stringResource(R.string.spaces_public_link_failed), color = MaterialTheme.colorScheme.onSurfaceVariant)
-                OutlinedButton(onClick = { publicReference?.let(account::openPublicLink) },
+                Text(stringResource(if (openingArticle) R.string.spaces_article_link_failed else R.string.spaces_public_link_failed),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                OutlinedButton(onClick = { publicReference?.let { link ->
+                    if (openingArticle) account.openArticleLink(link) else account.openPublicLink(link)
+                } },
                     modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_retry)) }
             }
         }
@@ -1270,6 +1290,7 @@ private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "�
         SpacesAccount.Problem.DEVICE_RECOVERY_NO_APPROVER -> R.string.recovery_device_no_approver
         SpacesAccount.Problem.DEVICE_ALREADY_ACTIVE -> R.string.recovery_device_already_active
         SpacesAccount.Problem.RECOVERY_OTHER_MODULE -> R.string.recovery_archive_in_chat
+        SpacesAccount.Problem.ARTICLE_MISSING -> R.string.spaces_article_missing
     }
     Column {
         Text(stringResource(message), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)

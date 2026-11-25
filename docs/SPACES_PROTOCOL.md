@@ -356,6 +356,33 @@ article, file and reaction contents are never public transaction plaintext.
 Private channel names and descriptions are encrypted metadata; an unauthorized
 client cannot get their plaintext from the channel list.
 
+Article channels accept `content_kind=article` at the root. The versioned
+document holds either a title, subtitle and Markdown body or an exact public
+Stack author and signed revision address. A public Stack share is verified at
+the source before it is queued. The channel stores the reference. Native
+private articles use the same authenticated channel encryption as private
+messages. They have no Stack publication side effect.
+
+An accepted edit is a new signed event addressed to the original publication
+position and ID. Only its author can replace a native article. Removal uses
+the normal author or current administrator authority. The reader verifies both
+receipts and keeps the original publication address. New and per-article edit
+drafts occupy separate encrypted device records. Queuing consumes only the
+reviewed draft bytes in the same transaction that stores the original.
+
+An article link identifies the node, service, Space, channel and publication.
+The exact signed read uses `stream=messages` with `article_id` and returns up
+to one root and its current changes. This lookup leaves the channel timeline
+cursor alone. Cached results use the last verified read scope. An authenticated
+denial takes precedence over the cache.
+
+A write restriction is a signed owner or administrator control scoped to a
+member and optionally one channel. The service checks the restriction at
+receipt time. Clients replay that check using the signed acceptance timestamp
+and control position. Reading and key delivery remain available. A previously
+queued original that references an earlier contribution term cannot become
+accepted after expiry or lift.
+
 ### Initial creation and invitation control fields
 
 Creation has `kind=create`, `visibility`, `channel_id`, `epoch=0`, encrypted

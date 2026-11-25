@@ -256,7 +256,7 @@ class MainActivity : ComponentActivity() {
             }
             val address = wallet?.publicKey
             var spacesActivated by rememberSaveable { mutableStateOf(false) }
-            var pendingSpaceInvitation by remember { mutableStateOf<String?>(null) }
+            var pendingSpaceInvitation by rememberSaveable { mutableStateOf<String?>(null) }
             var pendingProtectedInvitation by remember { mutableStateOf<ProtectedInvitationRoute?>(null) }
             LaunchedEffect(address, backend) {
                 val pending = pendingProtectedInvitation

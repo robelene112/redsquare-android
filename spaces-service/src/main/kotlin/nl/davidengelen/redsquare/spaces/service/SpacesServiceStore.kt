@@ -8,6 +8,7 @@ import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SignedSaitoMessage
+import nl.davidengelen.redsquare.spaces.SpaceArticleContent
 import nl.davidengelen.redsquare.spaces.SpaceJournal
 import nl.davidengelen.redsquare.spaces.SpaceRole
 import nl.davidengelen.redsquare.spaces.SpaceProfile
@@ -64,7 +65,8 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
             "messages" -> setOf("channel_id", "direction", "limit") + (if (scope.has("thread_id")) setOf("thread_id") else emptySet()) +
                 (if (scope.has("pin_history")) setOf("pin_history") else emptySet()) +
                 (if (scope.has("reaction_history")) setOf("reaction_history") else emptySet()) +
-                (if (scope.has("reaction_cursors")) setOf("reaction_cursors") else emptySet())
+                (if (scope.has("reaction_cursors")) setOf("reaction_cursors") else emptySet()) +
+                (if (scope.has("article_id")) setOf("article_id") else emptySet())
             "pins" -> setOf("channel_id") + (if (scope.has("through")) setOf("through") else emptySet())
             "content" -> setOf("channel_id"); "keys" -> setOf("channel_id", "recipient_credential")
             "invitation" -> setOf("invite_id"); "directory" -> setOf("query"); "heads" -> setOf("positions"); else -> emptySet()
@@ -74,6 +76,10 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val recipient = if (stream == "keys") scope.text("recipient_credential") else null
         val cursor = scope.number("cursor")
         if (stream == "messages") require(scope.text("direction") in setOf("before", "after") && scope.number("limit") in 1..50)
+        val article = if (stream == "messages" && scope.has("article_id")) scope.text("article_id").also {
+            require(it.matches(Regex("[0-9a-f]{128}")) && cursor == Long.MAX_VALUE && scope.text("direction") == "before" &&
+                scope.number("limit") == 1L && !scope.has("thread_id") && !scope.has("reaction_history") && !scope.has("pin_history"))
+        } else null
         if (stream == "messages" && scope.has("pin_history")) require(scope.get("pin_history").let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean })
         if (stream == "messages" && scope.has("reaction_history")) require(scope.get("reaction_history").let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean })
         if (stream == "messages" && scope.has("reaction_cursors")) {
@@ -177,7 +183,12 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                             if (!known) { denied("unavailable"); return@atomic }
                         }
                         val record = journal.snapshot.channels.getValue(requireNotNull(channel))
-                        messagePage(reply, space, channel, request.author, cursor, scope.text("direction"), scope.number("limit").toInt(), thread, scope.get("reaction_history")?.asBoolean == true, scope.getAsJsonObject("reaction_cursors"), scope.get("pin_history")?.asBoolean == true, record.rootContentKind)
+                        if (article != null && record.rootContentKind != "article") {
+                            denied("unavailable"); return@atomic
+                        }
+                        messagePage(reply, space, channel, request.author, cursor, scope.text("direction"), scope.number("limit").toInt(), thread,
+                            scope.get("reaction_history")?.asBoolean == true, scope.getAsJsonObject("reaction_cursors"),
+                            scope.get("pin_history")?.asBoolean == true, record.rootContentKind, article)
                         return@atomic
                     }
                     val items = JsonArray()
@@ -226,6 +237,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                 reply.addProperty("addressed_invitations", true)
                 reply.addProperty("device_replacement_v1", true)
                 reply.addProperty("space_articles_v1", true)
+                reply.addProperty("space_write_restrictions_v1", true)
                 reply.addProperty("protected_chat_v1", true)
             }
             else -> throw IllegalArgumentException("Unsupported Spaces read request")
@@ -235,22 +247,24 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
 
     /** Message slots, independent of the number of immutable mutations. The
      * original receipt and its latest edit remain independently authenticated. */
-    private fun messagePage(reply: JsonObject, space: String, channel: String, reader: String, cursor: Long, direction: String, limit: Int, thread: String?, reactions: Boolean, reactionCursors: JsonObject?, pins: Boolean, rootContentKind: String = "message") {
+    private fun messagePage(reply: JsonObject, space: String, channel: String, reader: String, cursor: Long, direction: String, limit: Int, thread: String?, reactions: Boolean, reactionCursors: JsonObject?, pins: Boolean, rootContentKind: String = "message", article: String? = null) {
         val before = direction == "before"
         val items = mutableListOf<JsonObject>()
         var size = 0
         var more = false
         database.prepareStatement("SELECT position,event_id,receipt FROM records WHERE space_id=? AND channel_id=? AND kind=?" +
-            (if (thread == null) "" else " AND target_message_id=?") + " AND position" +
+            (if (thread == null) "" else " AND target_message_id=?") +
+            (if (article == null) "" else " AND event_id=?") + " AND position" +
             (if (before) "<? ORDER BY position DESC" else ">=? ORDER BY position") + " LIMIT ?").use { sql ->
             sql.setString(1, space); sql.setString(2, channel); sql.setString(3, if (thread == null) rootContentKind else "thread-reply")
             var parameter = 4
             if (thread != null) sql.setString(parameter++, thread)
+            if (article != null) sql.setString(parameter++, article)
             sql.setLong(parameter++, cursor); sql.setInt(parameter, limit + 1)
             sql.executeQuery().use { rows ->
                 while (rows.next()) {
                     val item = JsonObject().apply { addProperty("message", rows.getString(3)) }
-                    if (thread == null) database.prepareStatement("SELECT COUNT(*) FROM records WHERE space_id=? AND channel_id=? AND kind='thread-reply' AND target_message_id=?").use { count ->
+                    if (thread == null && rootContentKind == "message") database.prepareStatement("SELECT COUNT(*) FROM records WHERE space_id=? AND channel_id=? AND kind='thread-reply' AND target_message_id=?").use { count ->
                         count.setString(1, space); count.setString(2, channel); count.setString(3, rows.getString(2))
                         count.executeQuery().use { summary -> check(summary.next()); item.addProperty("reply_count", summary.getLong(1)) }
                     }
@@ -628,7 +642,7 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
                     when {
                         joining -> journal.verifyJoin(envelope, acceptedAt)
                         content -> {
-                            journal.verifyContent(envelope)
+                            journal.verifyContent(envelope, acceptedAt)
                             verifyMessageMutation(event, journal)
                         }
                         else -> journal.receive(receipt)
@@ -675,13 +689,17 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
         val target = body.text("target_message_id")
         val position = body.number("target_position")
         require(target.matches(Regex("[0-9a-f]{128}")) && position >= 0)
-        val original = database.prepareStatement("SELECT original FROM records WHERE space_id=? AND channel_id=? AND position=? AND event_id=? AND kind IN ('message','thread-reply')").use { sql ->
+        val original = database.prepareStatement("SELECT original FROM records WHERE space_id=? AND channel_id=? AND position=? AND event_id=? AND kind IN ('message','thread-reply','article')").use { sql ->
             sql.setString(1, body.text("space_id")); sql.setString(2, body.text("channel_id"))
             sql.setLong(3, position); sql.setString(4, target)
             sql.executeQuery().use { rows -> if (rows.next()) rows.getString(1) else null }
         }
         val accepted = SaitoEnvelope.decode(requireNotNull(original))
         val acceptedKind = accepted.body.text("content_kind")
+        if (acceptedKind == "article") require(kind == "message-edit" || kind == "message-delete")
+        if (acceptedKind == "article" && kind == "message-edit" && body.text("kind") == "public-content") {
+            require(SpaceArticleContent.decode(accepted.body.text("text")) is SpaceArticleContent.Original)
+        }
         if (kind == "thread-reply") {
             require(acceptedKind == "message") { "Replies belong to a top-level message" }
             return

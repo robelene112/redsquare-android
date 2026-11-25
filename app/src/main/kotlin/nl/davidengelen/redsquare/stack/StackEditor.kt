@@ -1,5 +1,9 @@
 package nl.davidengelen.redsquare.stack
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.os.PersistableBundle
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.text.selection.SelectionContainer
@@ -10,6 +14,7 @@ import androidx.compose.runtime.saveable.Saver
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -60,14 +65,15 @@ private fun sourceOnly(source: String): Boolean = source.contains(Regex(
 
 @Composable
 internal fun StackEditorForm(draft: StackDraft, visual: StackVisualBuffer, onChange: (StackDraft) -> Unit,
-    onVisualBody: (String) -> Unit, onReview: () -> Unit, sampleMedia: Boolean = true, enabled: Boolean = true) {
+    onVisualBody: (String) -> Unit, onReview: () -> Unit, sampleMedia: Boolean = true, enabled: Boolean = true,
+    privateSource: Boolean = false) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         OutlinedTextField(draft.title, { onChange(draft.copy(title = it)) }, Modifier.fillMaxWidth(),
             label = { Text(stringResource(R.string.stack_title_field)) }, enabled = enabled, singleLine = true, shape = StackControlShape)
         OutlinedTextField(draft.subtitle, { onChange(draft.copy(subtitle = it)) }, Modifier.fillMaxWidth(),
             label = { Text(stringResource(R.string.stack_subtitle_field)) }, enabled = enabled, singleLine = true, shape = StackControlShape)
         if (sampleMedia) CoverPicker(draft.cover) { onChange(draft.copy(cover = it)) }
-        StackArticleEditor(draft, visual, onChange, onVisualBody, sampleMedia, enabled)
+        StackArticleEditor(draft, visual, onChange, onVisualBody, sampleMedia, enabled, privateSource)
         StackBlockButton(onReview, Modifier.fillMaxWidth(), enabled = enabled) { Text(stringResource(R.string.stack_review_article)) }
     }
 }
@@ -88,7 +94,7 @@ private fun CoverPicker(selected: Boolean, onSelect: (Boolean) -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun StackArticleEditor(draft: StackDraft, visual: StackVisualBuffer, onChange: (StackDraft) -> Unit, onVisualBody: (String) -> Unit,
-    sampleMedia: Boolean = true, enabled: Boolean = true) {
+    sampleMedia: Boolean = true, enabled: Boolean = true, privateSource: Boolean = false) {
     // Lazy reading may dispose the editor item. Keep its last input/undo state in
     // the screen-owned buffer until navigation/save synchronises canonical source.
     val rich = remember { visual.rich ?: RichTextState().setMarkdown(draft.body).also {
@@ -105,6 +111,7 @@ private fun StackArticleEditor(draft: StackDraft, visual: StackVisualBuffer, onC
     val unsupported = sourceOnly(draft.body)
     val sourceMode = draft.sourceMode || unsupported
     val clipboard = LocalClipboardManager.current
+    val context = LocalContext.current
     var copied by remember { mutableStateOf(false) }
     var formatting by remember { mutableStateOf(false) }
     var imagePreview by remember { mutableStateOf(false) }
@@ -121,9 +128,17 @@ private fun StackArticleEditor(draft: StackDraft, visual: StackVisualBuffer, onC
             }, label = { Text(stringResource(R.string.stack_markdown)) })
         }
         val copy: @Composable () -> Unit = {
+            val sourceLabel = stringResource(R.string.stack_markdown_source)
             FrameIconButton(if (copied) R.drawable.ic_check else R.drawable.ic_copy,
                 stringResource(if (copied) R.string.stack_copied else R.string.stack_copy_markdown)) {
-                clipboard.setText(AnnotatedString(visual.snapshot(draft).body)); copied = true
+                val source = visual.snapshot(draft).body
+                if (privateSource) {
+                    val clip = ClipData.newPlainText(sourceLabel, source).apply {
+                        description.extras = PersistableBundle().apply { putBoolean("android.content.extra.IS_SENSITIVE", true) }
+                    }
+                    (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
+                } else clipboard.setText(AnnotatedString(source))
+                copied = true
             }
         }
         if (LocalDensity.current.fontScale > 1.3f) FlowRow(Modifier.fillMaxWidth(),

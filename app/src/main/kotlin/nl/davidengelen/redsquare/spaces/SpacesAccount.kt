@@ -28,10 +28,11 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val endpoint: String, parent: CoroutineScope) {
     enum class Availability { CHECKING, ONLINE, OFFLINE, UNSUPPORTED, CHANGED_IDENTITY, STORAGE_UNAVAILABLE }
     enum class Problem { CONNECTION, SAVE, INVITATION, PROTECTED_CHAT_UNSUPPORTED, DEVICE_RECOVERY_UNSUPPORTED,
-        DEVICE_RECOVERY_NO_APPROVER, DEVICE_ALREADY_ACTIVE, RECOVERY_OTHER_MODULE }
+        DEVICE_RECOVERY_NO_APPROVER, DEVICE_ALREADY_ACTIVE, RECOVERY_OTHER_MODULE, ARTICLE_MISSING }
     data class Target(val space: String, val channel: String, val thread: String? = null)
     private data class ArticleDraftTarget(val channel: Target, val article: String?)
     data class MessageScroll(val id: String, val showBody: Boolean = false)
+    data class ArticleFocus(val id: String, val fromCache: Boolean)
 
     data class State(val loading: Boolean = true, val availability: Availability = Availability.CHECKING,
         val communities: List<SpaceClient.Community> = emptyList(), val selected: String? = null,
@@ -45,7 +46,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val ownershipOffer: SpaceOwnershipOffer? = null, val ownershipChange: SpaceClient.OwnershipChange? = null,
         val membershipChange: SpaceClient.MembershipChange? = null, val bannedMembers: Set<String> = emptySet(),
         val joinedInvitation: String? = null, val openedPublicReference: String? = null, val openedRecovery: SpaceCrypto.Scope? = null,
-        val contentLoaded: Boolean = false, val requiredNode: String? = null,
+        val contentLoaded: Boolean = false, val requiredNode: String? = null, val articleFocus: ArticleFocus? = null,
         val profiles: Map<String, SpaceProfile> = emptyMap(), val channels: List<SpaceClient.Channel> = emptyList(),
         val members: List<SpaceClient.Member> = emptyList(), val accessProblems: Map<String, SpaceClient.ReadProblem> = emptyMap(),
         val discoverySupported: Boolean? = null, val unreadSupported: Boolean = false,
@@ -406,7 +407,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         selectRoute(target.space, target.channel, thread = reference.parent, jump = reference.message)
     }
     private fun selectRoute(space: String?, channel: String? = null, expected: Long? = null, thread: SpaceClient.Message? = null,
-        jump: SpaceClient.Message? = null): Long? {
+        jump: SpaceClient.Message? = null, article: ArticleFocus? = null): Long? {
         if (closed.get()) return null
         return synchronized(navigationChanges) {
             if (expected != null && navigationVersion.get() != expected) return@synchronized null
@@ -415,7 +416,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             mutable.update { it.copy(selected = space, selectedChannel = channel, threadParent = null, current = null,
                 notificationPolicy = null, pinStatus = null, messages = emptyList(), channels = emptyList(), members = emptyList(), draft = "", invitation = null, anchor = null,
                 problem = null, listingIntent = null, publicLink = null, archiveChange = null, roleChange = null, channelEdit = null, channelCreation = null, categoryChange = null, visibilityChange = null, dissolutionChange = null, categories = emptyList(), channelAccessChange = null, membershipChange = null, ownershipOffer = null, ownershipChange = null, bannedMembers = emptySet(),
-                contentLoaded = false, loadingChannel = space != null, scrollToMessage = null) }
+                contentLoaded = false, loadingChannel = space != null, scrollToMessage = null, articleFocus = article) }
             scope.launch {
                 try {
                     val current = client ?: return@launch
@@ -497,9 +498,18 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     fun send() = queueSend()
 
+    suspend fun readArticle(target: Target, article: String): SpaceClient.Message? = withContext(Dispatchers.IO) {
+        localAccess.withLock {
+            if (closed.get() || mutable.value.target() != target) throw CancellationException("Article channel changed")
+            if (mutable.value.channels.none { it.id == target.channel && it.profile.kind == SpaceChannelKind.ARTICLE }) return@withLock null
+            requireNotNull(client).message(target.space, article, target.channel)?.takeIf { it.isArticle }
+        }
+    }
+
     suspend fun articleDraft(target: Target, article: String?): SpaceArticleDraft? = withContext(Dispatchers.IO) {
         val slot = ArticleDraftTarget(target, article)
         localAccess.withLock {
+            if (closed.get() || mutable.value.target() != target) throw CancellationException("Article channel changed")
             dirtyArticleDrafts[slot] ?: requireNotNull(client).articleDraft(target.space, target.channel, article)
         }
     }
@@ -519,11 +529,27 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         }
     }
 
-    fun publishArticle(target: Target, reviewed: SpaceArticleDraft, onQueued: (String) -> Unit) {
-        val slot = ArticleDraftTarget(target, null)
+    fun canEditArticle(record: SpaceClient.Message): Boolean =
+        record.author == wallet.publicKey && !record.pending && !record.rejected && !record.deleted &&
+            record.position != null && record.change?.let { it.rejected || it.cancelled } != false
+
+    suspend fun articleLink(target: Target, article: String): String = withContext(Dispatchers.IO) {
+        localAccess.withLock {
+            if (closed.get() || mutable.value.target() != target) throw CancellationException("Article channel changed")
+            requireNotNull(client).articleLink(target.space, target.channel, article)
+        }
+    }
+
+    fun publishArticle(target: Target, reviewed: SpaceArticleDraft, articleId: String?, onQueued: (String) -> Unit) {
+        val slot = ArticleDraftTarget(target, articleId)
         queueArticle(target, onQueued) {
             dirtyArticleDrafts[slot]?.let { saveArticleDraft(this, slot, it) }
-            publishArticle(target.space, reviewed.content(), target.channel, reviewed)
+            val content = reviewed.content()
+            if (articleId == null) publishArticle(target.space, content, target.channel, reviewed)
+            else {
+                editArticle(target.space, articleId, content, target.channel, reviewed)
+                articleId
+            }
         }
     }
 
@@ -953,6 +979,35 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 }
             }
         }
+    }
+    fun openArticleLink(link: String) {
+        val route = navigationVersion.get()
+        var activeRoute = route
+        mutable.update { it.copy(previewIssue = null, requiredNode = null, problem = null) }
+        localAction(Problem.INVITATION, isCurrent = { navigationVersion.get() == activeRoute }) {
+            val address = SpaceArticleReference.parse(link)
+            val current = requireNotNull(client)
+            var cached = false
+            val opened = try { network.withLock { current.openArticleLink(link) } }
+            catch (denied: SpaceClient.ReadDenied) { publish(); throw denied }
+            catch (failure: IOException) {
+                cached = true
+                localAccess.withLock { current.cachedArticleLink(link) } ?: throw failure
+            }
+            if (opened == null) {
+                synchronized(navigationChanges) {
+                    if (navigationVersion.get() == route) mutable.update { it.copy(problem = Problem.ARTICLE_MISSING) }
+                }
+                return@localAction
+            }
+            val accepted = selectRoute(address.community.spaceId, address.channel, expected = route,
+                article = ArticleFocus(opened.id, cached)) ?: return@localAction
+            activeRoute = accepted
+            markPublicReferenceOpened(link, accepted)
+        }
+    }
+    fun consumeArticleFocus(focus: ArticleFocus) {
+        mutable.update { if (it.articleFocus == focus) it.copy(articleFocus = null) else it }
     }
     private fun markPublicReferenceOpened(link: String, route: Long) = synchronized(navigationChanges) {
         if (navigationVersion.get() == route) mutable.update { it.copy(openedPublicReference = link) }

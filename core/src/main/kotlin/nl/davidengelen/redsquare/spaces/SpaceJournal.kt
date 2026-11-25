@@ -32,6 +32,8 @@ data class SpaceJoinRequest(val envelope: String, val id: String, val actor: Str
     val operationId: String, val channelId: String, val keyPackage: SpaceCrypto.BoundPackage,
     val replacedDevice: String? = null)
 
+data class SpaceWriteRestriction(val expiresAt: Long, val changedAt: Long)
+
 data class SpaceSnapshot(val owner: String? = null, val members: Map<String, SpaceRole> = emptyMap(),
     val controlId: String? = null, val nextPosition: Long = 0,
     val invitations: Map<String, SpaceInvitationRecord> = emptyMap(),
@@ -40,7 +42,8 @@ data class SpaceSnapshot(val owner: String? = null, val members: Map<String, Spa
     val administratorStartedAt: Map<String, Long> = emptyMap(), val generalChannelId: String? = null,
     val membershipEndedAt: Map<String, Long> = emptyMap(), val bannedMembers: Set<String> = emptySet(),
     val membershipReadThrough: Map<String, Long> = emptyMap(), val ownershipOffer: SpaceOwnershipOffer? = null,
-    val categories: Map<String, SpaceCategoryRecord> = emptyMap(), val entryChannelId: String? = generalChannelId, val dissolved: Boolean = false, val protectedChat: ProtectedChat? = null)
+    val categories: Map<String, SpaceCategoryRecord> = emptyMap(), val entryChannelId: String? = generalChannelId, val dissolved: Boolean = false, val protectedChat: ProtectedChat? = null,
+    val writeRestrictions: Map<Pair<String, String?>, SpaceWriteRestriction> = emptyMap())
 
 /** Authenticated control history. Content pages have their own channel cursors. */
 class SpaceJournal(private val spaceId: String, private val serviceKey: String) {
@@ -68,6 +71,18 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         !current.dissolved && current.channels[channel]?.let {
             hasChannelAudience(current, actor, it) && (current.protectedChat == null || it.devices.size >= 2)
         } == true
+
+    fun writeRestrictedUntil(member: String, channel: String, now: Long): Long? =
+        maxOf(current.writeRestrictions[member to null]?.expiresAt ?: 0,
+            current.writeRestrictions[member to channel]?.expiresAt ?: 0).takeIf { it > now }
+
+    fun canRestrictWriting(actor: String, member: String, channel: String?): Boolean {
+        val role = current.members[member]
+        return !current.dissolved && current.protectedChat == null && actor != member &&
+            (channel == null || canAccessChannel(member, channel)) &&
+            role in setOf(SpaceRole.MEMBER, SpaceRole.ADMIN) &&
+            (actor == current.owner || current.members[actor] == SpaceRole.ADMIN && role == SpaceRole.MEMBER)
+    }
 
     private fun hasChannelAudience(snapshot: SpaceSnapshot, actor: String, channel: SpaceChannelRecord): Boolean {
         val role = snapshot.members[actor] ?: return false
@@ -378,6 +393,18 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
                 current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
                     bannedMembers = Collections.unmodifiableSet(current.bannedMembers - member),
                     membershipEndedAt = Collections.unmodifiableMap(current.membershipEndedAt + (member to position)))
+            }
+            "set-write-restriction" -> {
+                require(event.body.text("control_id") == current.controlId)
+                val member = event.body.text("member")
+                val channel = event.body.get("channel_id")?.let { event.body.text("channel_id") }
+                require(canRestrictWriting(event.author, member, channel))
+                val scope = member to channel
+                val expiry = event.body.number("expires_at")
+                require(if (expiry == 0L) (current.writeRestrictions[scope]?.expiresAt ?: 0) > signedReceipt.createdAt
+                    else expiry > signedReceipt.createdAt)
+                current.copy(controlId = event.id, nextPosition = Math.addExact(position, 1),
+                    writeRestrictions = Collections.unmodifiableMap(current.writeRestrictions + (scope to SpaceWriteRestriction(expiry, position))))
             }
             "propose-owner" -> {
                 require(current.protectedChat?.directPeer == null)
@@ -810,7 +837,7 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
     }
 
     /** The service checks accepted membership and routing, never community plaintext. */
-    fun verifyContent(envelope: String) {
+    fun verifyContent(envelope: String, acceptedAt: Long) {
         val event = SaitoEnvelope.decode(envelope)
         val body = event.body
         header(body, "event")
@@ -841,6 +868,8 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         require(!channel.archived || keyDelivery) { "This channel is archived" }
         val contentKind = body.get("content_kind")?.asString
         if (contentKind in setOf("article", "message")) require(contentKind == channel.rootContentKind)
+        if (channel.rootContentKind == "article")
+            require(keyDelivery || contentKind in setOf("article", "message-edit", "message-delete"))
         if (body.has("thread_root_id")) require(contentKind in setOf("message-edit", "message-delete", "message-reaction", "message-pin") &&
             body.text("thread_root_id").matches(Regex("[0-9a-f]{128}")))
         val threadContribution = contentKind in setOf("thread-reply", "message-reaction", "message-pin") || contentKind in setOf("message-edit", "message-delete", "message-reaction", "message-pin") && body.has("thread_root_id")
@@ -851,6 +880,13 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
         if (administratorOnly)
             require(current.members[event.author] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
         val reference = requireNotNull(controlPositions[body.text("control_id")])
+        if (!keyDelivery) {
+            val channelId = body.text("channel_id")
+            require(writeRestrictedUntil(event.author, channelId, acceptedAt) == null) { "Writing is temporarily restricted" }
+            val restrictionChange = maxOf(current.writeRestrictions[event.author to null]?.changedAt ?: 0,
+                current.writeRestrictions[event.author to channelId]?.changedAt ?: 0)
+            require(reference >= restrictionChange) { "Writing belongs to an earlier contribution term" }
+        }
         require(reference >= (current.membershipEndedAt[event.author] ?: 0L)) { "Writing belongs to a previous membership term" }
         require(keyDelivery || !administratorOnly || reference >= (current.administratorStartedAt[event.author] ?: 0)) {
             "Administrator writing belongs to a previous role term"
@@ -870,6 +906,8 @@ class SpaceJournal(private val spaceId: String, private val serviceKey: String) 
             if (contentKind == "message-reaction") SpaceReactionSelection.decode(text)
             if (contentKind == "message-pin") require(text in setOf("pinned", "unpinned"))
             if (contentKind == "article") SpaceArticleContent.decode(text)
+            if (contentKind == "message-edit" && channel.rootContentKind == "article")
+                require(SpaceArticleContent.decode(text) is SpaceArticleContent.Original)
             return
         }
         require(channel.retiredDevices.isEmpty()) { "Private content must wait for current membership keys" }

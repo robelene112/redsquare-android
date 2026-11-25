@@ -6,8 +6,9 @@ import android.net.Uri
  * following a link never performs membership or key activation. */
 internal object SpacesLaunchRoutes {
     fun isPublic(uri: Uri?): Boolean = accepts(uri) && uri?.path == "/community"
+    fun isArticle(uri: Uri?): Boolean = accepts(uri) && uri?.path == "/article"
     fun isProtectedChat(uri: Uri?): Boolean = accepts(uri) && uri?.path == "/chat"
     fun accepts(uri: Uri?): Boolean = uri != null && uri.toString().length <= 8192 &&
-        uri.scheme == "saito" && uri.host == "spaces" && uri.path in setOf("/join", "/community", "/chat") &&
+        uri.scheme == "saito" && uri.host == "spaces" && uri.path in setOf("/join", "/community", "/chat", "/article") &&
         uri.query == null && uri.userInfo == null && uri.port == -1 && !uri.fragment.isNullOrEmpty()
 }

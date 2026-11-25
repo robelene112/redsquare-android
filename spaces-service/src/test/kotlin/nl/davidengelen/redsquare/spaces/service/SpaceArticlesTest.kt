@@ -26,6 +26,47 @@ class SpaceArticlesTest {
     @get:Rule val files = TemporaryFolder()
     private val clock = Clock.fixed(Instant.ofEpochMilli(1_700_000_000_000), ZoneOffset.UTC)
 
+    @Test fun acceptedAuthorEditRetainsPublicationIdentityAndCannotBeMadeByAnotherMember() = runBlocking<Unit> {
+        val authority = SaitoWallet.create()
+        val author = SaitoWallet.create()
+        val member = SaitoWallet.create()
+        val updated = SpaceArticleDraft("Reviewed correction", "New subtitle", "A genuinely revised document.", true)
+        SpacesServiceStore(files.newFolder().toPath(), authority, clock).use { service ->
+            SqliteClientFixture(files.newFile().absolutePath).use { writerStore ->
+                SqliteClientFixture(files.newFile().absolutePath).use { memberStore ->
+                    val writer = SpaceClient(author, "fixture-node", authority.publicKey, writerStore, clock) {
+                        service.exchange(it.envelope())
+                    }
+                    val reader = SpaceClient(member, "fixture-node", authority.publicKey, memberStore, clock) {
+                        service.exchange(it.envelope())
+                    }
+                    val space = writer.create(SpaceProfile("Editorial room"),
+                        listOf(SpaceChannelProfile("Articles", SpaceChannelKind.ARTICLE)))
+                    writer.flush(space)
+                    val link = writer.invite(space)
+                    writer.flush(space)
+                    reader.join(link); reader.flush(space); writer.admitPending(space); writer.flush(space); reader.refresh(space)
+                    val original = writer.publishArticle(space, SpaceArticleContent.Original("First version", "", "Original body."))
+                    writer.flush(space); reader.refresh(space)
+                    val channel = writer.community(space).channel
+                    assertThrows(IllegalArgumentException::class.java) {
+                        reader.editArticle(space, original, updated.content(), channel)
+                    }
+                    writer.saveArticleDraft(space, channel, original, updated)
+                    val edit = writer.editArticle(space, original, updated.content(), channel, updated)
+                    assertNotEquals(original, edit)
+                    assertNull(writer.articleDraft(space, channel, original))
+                    assertFalse(requireNotNull(reader.article(space, original)).edited)
+                    writer.flush(space); reader.refresh(space)
+                    val revised = requireNotNull(reader.article(space, original))
+                    assertEquals(original, revised.id)
+                    assertEquals(updated.content(), revised.content)
+                    assertTrue(revised.edited)
+                }
+            }
+        }
+    }
+
     @Test fun queuingAnArticleConsumesOnlyItsReviewedDraftAndPreservesOtherWriting() = runBlocking<Unit> {
         val authority = SaitoWallet.create()
         val author = SaitoWallet.create()

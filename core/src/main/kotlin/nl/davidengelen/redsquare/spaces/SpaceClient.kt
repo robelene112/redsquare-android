@@ -31,6 +31,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     @Volatile private var supportsProtectedChat = false
     @Volatile private var supportsDeviceReplacement = false
     @Volatile private var supportsSpaceArticles = false
+    @Volatile private var supportsWriteRestrictions = false
 
     enum class Delivery { CONTROL, CONTENT }
     enum class ReadProblem { EXPIRED, UNAVAILABLE }
@@ -547,6 +548,24 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         original.id
     }
 
+    fun setWriteRestriction(space: String, member: String, channel: String?, expiresAt: Long?): String = store.transaction {
+        owned()
+        val state = state(space)
+        require(supportsWriteRestrictions && state.get("joined").asBoolean && !state.has("required_control"))
+        val journal = journal(space)
+        require(journal.canRestrictWriting(wallet.publicKey, member, channel))
+        if (expiresAt != null) require(expiresAt > clock.millis())
+        else require((journal.snapshot.writeRestrictions[member to channel]?.expiresAt ?: 0) > clock.millis())
+        val original = event(space, "set-write-restriction") {
+            addProperty("control_id", requireNotNull(journal.snapshot.controlId))
+            addProperty("member", member)
+            channel?.let { addProperty("channel_id", it) }
+            addProperty("expires_at", expiresAt ?: 0)
+        }
+        queue(space, state, original)
+        original.id
+    }
+
     /** Absence of an outbox entry is never treated as an accepted change. */
     fun archiveChange(space: String, channel: String): ArchiveChange? = store.transaction {
         owned()
@@ -744,6 +763,50 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     fun article(space: String, articleId: String, channel: String? = null): Article? =
         message(space, articleId, channel)?.asArticle()
 
+    fun articleLink(space: String, channel: String, articleId: String): String = store.project {
+        val reference = SpaceArticleReference(SpacePublicReference(node, service, space), channel, articleId)
+        require(cachedArticle(reference)?.let { !it.deleted && it.content != null } == true)
+        reference.link()
+    }
+
+    fun cachedArticleLink(link: String): Article? = store.project { cachedArticle(articleReference(link)) }
+
+    private fun cachedArticle(reference: SpaceArticleReference): Article? {
+        val available = store.transaction {
+            val space = reference.community.spaceId
+            if (get("identity") == null || get(stateKey(space)) == null) return@transaction false
+            owned()
+            val journal = journal(space)
+            journal.snapshot.channels[reference.channel]?.rootContentKind == "article" &&
+                journal.canAccessChannel(wallet.publicKey, reference.channel)
+        }
+        return if (available) article(reference.community.spaceId, reference.article, reference.channel) else null
+    }
+
+    private fun articleReference(link: String): SpaceArticleReference = SpaceArticleReference.parse(link).also {
+        if (it.community.node != node) throw DifferentNode(it.community.node)
+        require(it.community.serviceKey == service) { "This reference does not match the selected service" }
+    }
+
+    suspend fun openArticleLink(link: String): Article? {
+        val reference = articleReference(link)
+        val space = reference.community.spaceId
+        val channel = reference.channel
+        val known = store.transaction { get(stateKey(space)) != null }
+        if (known) syncControls(space) else openPublic(space)
+        val hasActiveKeys = store.transaction {
+            owned()
+            val journal = journal(space)
+            val record = journal.snapshot.channels[channel]
+            if (record?.rootContentKind != "article" || !journal.canAccessChannel(wallet.publicKey, channel))
+                throw ReadDenied(space, ReadProblem.UNAVAILABLE)
+            record.visibility == SpaceVisibility.PRIVATE && channelState(space, channel).get("joined")?.asBoolean == true
+        }
+        if (hasActiveKeys) refreshKeys(space, channel)
+        if (messagePage(space, channel, limit = 1, exactArticle = reference.article).count == 0) return null
+        return cachedArticleLink(link)
+    }
+
     private fun Message.asArticle(): Article? {
         if (!isArticle) return null
         return Article(id, author, text?.let { runCatching { SpaceArticleContent.decode(it) }.getOrNull() },
@@ -754,7 +817,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val canInvite: Boolean, val pending: Boolean, val canSend: Boolean, val membershipRequested: Boolean = false, val unread: Long? = null, val hasUnread: Boolean? = null,
         val canManage: Boolean = false, val dissolved: Boolean = false, val canReply: Boolean = false, val canReact: Boolean = false, val canPin: Boolean = false, val personalUnread: Long? = null, val protectedChat: ProtectedChat? = null,
         val deviceReplaced: Boolean = false, val replacingDevice: Boolean = false, val replacementRejected: Boolean = false,
-        val archiveScope: SpaceCrypto.Scope? = null, val legacyChat: String? = null)
+        val archiveScope: SpaceCrypto.Scope? = null, val legacyChat: String? = null, val writeRestrictedUntil: Long? = null)
     enum class MessageChangeKind { EDIT, DELETE }
     data class MessageChange(val operationId: String, val kind: MessageChangeKind, val attempted: Boolean,
         val rejected: Boolean, val text: String?, val cancelled: Boolean = false) {
@@ -956,7 +1019,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             activity.isNotEmpty() && activity.all { it == false } -> false
             else -> null
         }
-        val canReply = state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
+        val restrictedUntil = journal.writeRestrictedUntil(wallet.publicKey, scope.channelId, clock.millis())
+        val canReply = restrictedUntil == null && state.get("joined").asBoolean && !state.has("control_pending") && !state.has("required_control") &&
             journal.canContributeChannel(wallet.publicKey, scope.channelId) &&
             (data.get("joined")?.asBoolean == true || channel?.visibility == SpaceVisibility.PUBLIC) &&
             channel?.retiredDevices?.isEmpty() == true && channel.archived != true
@@ -971,6 +1035,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             canPin = canReply && snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN) &&
                 (supportsMessagePins || data.get("pins_supported")?.asBoolean == true), personalUnread = personal,
             protectedChat = snapshot.protectedChat ?: state.getAsJsonObject("new_protected_chat")?.let { ProtectedChat(it.get("direct_peer")?.asString) },
+            writeRestrictedUntil = restrictedUntil,
             deviceReplaced = data.get("device_replaced")?.asBoolean == true, replacingDevice = data.has("replacement_request"),
             replacementRejected = data.get("replacement_rejected")?.asBoolean == true,
             archiveScope = scope.takeIf { data.get("archive_only")?.asBoolean == true }, legacyChat = state.get("legacy_chat")?.asString)
@@ -1943,6 +2008,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             "The authenticated node does not support Space articles"
         }
         require(journal.canContributeChannel(wallet.publicKey, scope.channelId)) { "Private access is still being prepared" }
+        require(journal.writeRestrictedUntil(wallet.publicKey, scope.channelId, clock.millis()) == null) { "Writing is temporarily restricted" }
         require(!record.archived) { "This channel is archived" }
         if (record.adminPostsOnly || record.profile?.kind == SpaceChannelKind.ANNOUNCEMENT)
             require(journal.snapshot.members[wallet.publicKey] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
@@ -1981,7 +2047,23 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         if (get(key)?.contentEquals(reviewed.bytes()) == true) remove(key)
     }
 
-    fun editMessage(space: String, message: Message, text: String, channel: String? = null): String = store.transaction {
+    fun editMessage(space: String, message: Message, text: String, channel: String? = null): String {
+        require(!message.isArticle)
+        return replaceContent(space, message, text, channel)
+    }
+
+    fun editArticle(space: String, articleId: String, article: SpaceArticleContent.Original,
+        channel: String? = null, reviewedDraft: SpaceArticleDraft? = null): String = store.project {
+        val target = channel ?: store.transaction { selectedChannel(state(space)) }
+        val original = requireNotNull(message(space, articleId, target))
+        require(original.asArticle()?.content is SpaceArticleContent.Original)
+        require(original.change?.let { it.rejected || it.cancelled } != false) { "An edit is already pending" }
+        require(reviewedDraft == null || reviewedDraft.content() == article)
+        replaceContent(space, original, article.encode(), target, reviewedDraft)
+    }
+
+    private fun replaceContent(space: String, message: Message, text: String, channel: String?,
+        reviewedDraft: SpaceArticleDraft? = null): String = store.transaction {
         owned()
         val state = state(space)
         val targetChannel = channel ?: selectedChannel(state)
@@ -2010,6 +2092,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             keys.publishMessageEdit(wallet, id(), control, text, clock.millis(), original.id, position, thread)
         }
         queue(space, state, replacement)
+        if (reviewedDraft != null) consumeArticleDraft(space, targetChannel, original.id, reviewedDraft)
         replacement.id
     }
 
@@ -2017,7 +2100,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         require(!message.pending && !message.rejected && message.position != null)
         val original = SaitoEnvelope.decode(originalEnvelope(requireNotNull(get(contentPrefix(space, channel) + positionKey(message.position)))))
         require(original.id == message.id && original.body.text("space_id") == space && original.body.text("channel_id") == channel &&
-            original.body.text("content_kind") in setOf("message", "thread-reply"))
+            original.body.text("content_kind") in TIMELINE_CONTENT_KINDS)
         return original
     }
     private fun SpaceClientStore.Transaction.threadParent(space: String, channel: String, parent: Message): SignedSaitoMessage =
@@ -2117,6 +2200,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         ensurePinProjection(space, target)
         require(!messagePin(space, target, message.id).pending) { "A pin change is already waiting for this message" }
         val original = acceptedMessage(space, target, message)
+        require(original.body.text("content_kind") != "article")
         require(messageDeletion(space, target, original.id, original.author) == null)
         val journal = journal(space); val accepted = journal.snapshot.channels.getValue(target)
         val control = requireNotNull(journal.snapshot.controlId)
@@ -2248,6 +2332,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val data = channelState(space, target, state)
         require(supportsMessageReactions || data.get("reactions_supported")?.asBoolean == true)
         val original = acceptedMessage(space, target, message)
+        require(original.body.text("content_kind") != "article")
         require(messageDeletion(space, target, message.id, original.author) == null)
         get(reactionActorsPrefix(space, target, message.id) + wallet.publicKey)?.let { reconcileReaction(space, target, json(it)) }
         require(get(reactionInvalidPrefix(space, target, message.id) + wallet.publicKey) == null) { "Earlier reaction choices are not available yet" }
@@ -2679,18 +2764,21 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     }
 
     private data class MessagePage(val start: Long, val end: Long, val next: Long, val count: Int, val more: Boolean)
-    private suspend fun messagePage(space: String, channel: String, cursor: Long = Long.MAX_VALUE, before: Boolean = true, limit: Int = 50, thread: String? = null, reactionRounds: Int = 2): MessagePage {
+    private suspend fun messagePage(space: String, channel: String, cursor: Long = Long.MAX_VALUE, before: Boolean = true, limit: Int = 50, thread: String? = null, reactionRounds: Int = 2, exactArticle: String? = null): MessagePage {
         require(limit in 1..50)
+        require(exactArticle == null || (thread == null && limit == 1 && before && cursor == Long.MAX_VALUE))
         val result = readPage(JsonObject().apply {
             addProperty("space_id", space); addProperty("stream", "messages"); addProperty("channel_id", channel)
             addProperty("cursor", cursor); addProperty("direction", if (before) "before" else "after"); addProperty("limit", limit)
             thread?.let { addProperty("thread_id", it) }
-            if (supportsMessagePins) addProperty("pin_history", true)
-            if (supportsMessageReactions) {
+            exactArticle?.let { addProperty("article_id", it) }
+            if (exactArticle == null && supportsMessagePins) addProperty("pin_history", true)
+            if (exactArticle == null && supportsMessageReactions) {
                 addProperty("reaction_history", true)
                 add("reaction_cursors", store.transaction { reactionProgress(space, channel, cursor, before, thread) })
             }
         })
+        if (exactArticle != null) require(result.get("space_articles_v1")?.asBoolean == true)
         require(result.getAsJsonArray("items").size() <= limit)
         val controls = mutableMapOf<String, SpaceJournal>()
         val records = mutableListOf<AuthenticatedContent>()
@@ -2703,6 +2791,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val item = value.asJsonObject
             require(item.has("message") && item.keySet().all { it in setOf("message", "edit", "deletion", "reply_count", "reactions", "reactions_complete", "reaction_version", "reaction_next_cursor", "own_reaction", "pin") })
             val original = ensureAuthorization(space, item.text("message"), channel, controls)
+            if (exactArticle != null)
+                require(original.original.id == exactArticle && original.original.body.text("content_kind") == "article")
             val position = original.receipt.body.number("position")
             require(original.original.body.text("content_kind") in (if (thread == null) ROOT_CONTENT_KINDS else setOf("thread-reply")) &&
                 (thread == null || original.original.body.text("target_message_id") == thread) && position < end &&
@@ -2753,6 +2843,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             // projection. A malformed later entry rolls the whole page back.
             val decoder = reactionDecoder(space, channel)
             for (record in records) accept(space, record.envelope, controls, authenticated = record, reactionReader = decoder)
+            if (exactArticle != null) return@transaction
             retryUnavailableReactions(space, channel)
             recordReplyCounts(space, channel, replyCounts, end)
             for ((id, version) in ownReactionVersions) {
@@ -3039,8 +3130,14 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val editEnvelope = saved?.let(::originalEnvelope)
             val edit = editEnvelope?.let(SaitoEnvelope::decode)
             return if (edit != null && edit.author == original.author && edit.body.number("target_position") == position && edit.body.get("thread_root_id")?.asString == thread) {
+                if (base.isArticle && base.text?.let {
+                        runCatching { SpaceArticleContent.decode(it) }.getOrNull()
+                    } is SpaceArticleContent.PublicStack) return base
                 missing = false
                 val replacement = read(requireNotNull(editEnvelope), edit)
+                if (base.isArticle && replacement != null && runCatching {
+                        SpaceArticleContent.decode(replacement)
+                    }.getOrNull() !is SpaceArticleContent.Original) return base
                 base.copy(text = replacement, edited = true, missingKeys = missing)
             } else base
         }
@@ -3377,6 +3474,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         supportsSpaceArticles = result.get("space_articles_v1")?.let {
             it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean
         } == true
+        supportsWriteRestrictions = result.get("space_write_restrictions_v1")?.let {
+            it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean
+        } == true
         return result
     }
 
@@ -3484,6 +3584,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                             state.remove("access_rotation_rejected_head")
                         }
                         "archive-channel" -> recordArchiveResult(space, state, original, ChangeStatus.ACCEPTED)
+                        "set-write-restriction" -> Unit // The verified journal owns the restriction projection.
                         "set-role" -> recordRoleResult(state, original, ChangeStatus.ACCEPTED)
                         "leave", "remove-member", "ban-member", "unban-member" -> recordMembershipResult(state, original, ChangeStatus.ACCEPTED)
                         "edit-channel" -> recordChannelEditResult(space, state, original, ChangeStatus.ACCEPTED)
@@ -3688,7 +3789,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val control = body.get("authorized_control")?.asString ?: original.body.text("control_id")
                 val historic = pageControls[control] ?: journal(space, through = control)
                 require(historic.snapshot.controlId == control)
-                historic.verifyContent(body.text("event"))
+                historic.verifyContent(body.text("event"), receipt.createdAt)
                 val key = contentPrefix(space, channel) + positionKey(body.number("position"))
                 val existing = get(key)
                 if (existing != null) require(json(existing).text("event") == body.text("event"))
@@ -4093,7 +4194,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val ROOT_CONTENT_KINDS = setOf("message", "article")
         val TIMELINE_CONTENT_KINDS = ROOT_CONTENT_KINDS + "thread-reply"
         val CONTROL_KINDS = setOf("create", "invite", "admit", "set-listed", "set-visibility", "dissolve", "join-public", "revoke-invite", "create-channel", "create-category", "edit-category",
-            "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access", "rotate-access", "leave", "remove-member", "ban-member", "unban-member", "propose-owner", "accept-owner", "cancel-owner", "decline-owner", "complete-owner")
+            "archive-channel", "set-role", "edit-channel", "revoke-channel-access", "grant-channel-access", "rotate-access", "leave", "remove-member", "ban-member", "unban-member", "propose-owner", "accept-owner", "cancel-owner", "decline-owner", "complete-owner", "set-write-restriction")
         const val DIRECTORY_CACHE_LIMIT = 200
         val ID = Regex("[0-9a-f]{64}")
         val GSON = GsonBuilder().setStrictness(Strictness.STRICT).create()
