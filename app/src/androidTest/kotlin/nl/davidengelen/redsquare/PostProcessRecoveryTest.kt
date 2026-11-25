@@ -39,16 +39,17 @@ class PostProcessRecoveryTest {
             JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
         }
 
-    private fun openComposer() {
+    private fun openComposer(mayCloseOnReconciliation: Boolean = false) {
         if (quote) {
             waitFor("Native Red Square reference post")
             ui.clickVisiblePostContent("Quote")
-            waitFor("Quote post")
+            if (mayCloseOnReconciliation) waitFor("Quote post", "Post submitted")
+            else waitFor("Quote post")
         } else ui.onNodeWithText("New post").performClick()
     }
 
-    private fun waitFor(text: String) = ui.waitUntil(20_000) {
-        ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty()
+    private fun waitFor(vararg labels: String) = ui.waitUntil(20_000) {
+        labels.any { ui.onAllNodesWithText(it).fetchSemanticsNodes().isNotEmpty() }
     }
 
     @Test fun terminateAfterOriginalPostTransmission() {
@@ -167,8 +168,12 @@ class PostProcessRecoveryTest {
                 ui.closeWalletOverview()
                 waitFor("New post")
                 if (!committedReceipt) {
-                    openComposer()
-                    waitFor("Post submitted")
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir, "post-process-evidence/cold-reconciliation-failure.png")) }) {
+                        // The startup reconcile may confirm the original and close
+                        // its editor before Compose can observe the editor title.
+                        openComposer(mayCloseOnReconciliation = true)
+                        waitFor("Post submitted")
+                    }
                 }
                 assertTrue(nl.davidengelen.redsquare.feed.PostDraftStore(context,
                     row.get("field2").asString, SaitoBackend.OWNER).hasSubmission(row.get("sig").asString))

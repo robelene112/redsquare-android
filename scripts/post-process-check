@@ -52,6 +52,11 @@ for committed_receipt in (False, True):
                     timeout=120)
     (evidence / "recovered-instrumentation.txt").write_text(recovered.stdout)
     if "OK (1 test)" not in recovered.stdout:
+        for suffix in ("png", "xml"):
+            capture = subprocess.run(["adb", "exec-out", "run-as", package, "cat",
+                f"cache/post-process-evidence/cold-reconciliation-failure.{suffix}"], capture_output=True, timeout=20)
+            if capture.returncode == 0:
+                (evidence / f"cold-reconciliation-failure.{suffix}").write_bytes(capture.stdout)
         raise AssertionError("Cold posting reconciliation did not pass")
     with (evidence / "reconciled-without-rebroadcast.png").open("wb") as output:
         subprocess.run(["adb", "exec-out", "run-as", package, "cat",
