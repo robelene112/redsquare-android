@@ -59,6 +59,29 @@ class SpaceFileJourneyTest {
         }
     }
 
+    @Test fun talkBackReadsRealLibraryAndStorageControls() = withProviderCertificate {
+        val wallet = AndroidWalletStore(context)
+        wallet.replace(wallet.loadOrCreate(), SaitoWallet.fromPrivateKey("0".repeat(63) + "3"))
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val fixture = request("file-library")
+        val folder = evidence.resolve("talkback").apply { mkdir() }
+        NativeTalkBackObservation(folder).observe {
+            launch(fixture.get("link").asString).use {
+                waitVisible("No storage provider selected.", 30_000)
+                focusAndHear("shared-library", "Shared library", folder, textLabel = true)
+                click(automation, "Shared library")
+                val field = ui.onNode(hasText("Storage provider URL") and hasSetTextAction())
+                ui.waitUntil(8_000) { field.isDisplayed() }
+                focusAndHear("storage-address", "Storage provider URL", folder, textLabel = true)
+                field.performTextInput(fixture.get("origin").asString)
+                androidx.test.espresso.Espresso.closeSoftKeyboard()
+                ui.waitUntil(8_000) { ui.onNodeWithText("Review terms").isDisplayed() }
+                focusAndHear("review-storage-terms", "Review terms", folder, textLabel = true)
+                assertEquals(0, request("file-provider-downloads").get("nativeDownloads").asInt)
+            }
+        }
+    }
+
     @Test fun chooseProviderAndUploadFromTheAndroidDocumentPicker() = withProviderCertificate {
         val wallet = AndroidWalletStore(context)
         wallet.replace(wallet.loadOrCreate(), SaitoWallet.fromPrivateKey("0".repeat(63) + "3"))

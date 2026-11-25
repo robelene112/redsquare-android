@@ -21,7 +21,9 @@ file_mode = mode == 'file-library-v1'
 room_mode = mode == 'voice-room-v1'
 visual_mode = mode == 'visual-v1'
 catch_up_mode = mode == 'catch-up-v1' or visual_mode
-accessibility_mode = catch_up_mode and os.environ.get('SPACES_ACCESSIBILITY') == 'true'
+accessibility_mode = os.environ.get('SPACES_ACCESSIBILITY') == 'true'
+if accessibility_mode and mode not in ('catch-up-v1', 'file-library-v1', 'voice-room-v1'):
+    raise ValueError('TalkBack requires an owned catch-up, library or room fixture')
 moderation_mode = mode == 'moderation-v1'
 article_mode = mode == 'article-channels-v1'
 conversation_overlays_mode = mode == 'conversation-overlays-v1'
@@ -948,20 +950,27 @@ try:
         }, indent=2))
     elif accessibility_mode:
         reset_disposable_baseline()
-        if os.environ['TEST_DEVICE_API'].startswith('37'):
+        if catch_up_mode and os.environ['TEST_DEVICE_API'].startswith('37'):
             adb('shell', 'pm', 'grant', pkg, 'android.permission.POST_NOTIFICATIONS')
+        method = {'catch-up-v1': 'talkBackReadsTheOptionBControlUnreadReplyAndComposer',
+                  'file-library-v1': 'talkBackReadsRealLibraryAndStorageControls',
+                  'voice-room-v1': 'talkBackReadsTheQuietJoinAndActiveCallControls'}[mode]
         record(1)
-        proof = instrument('talkBackReadsTheOptionBControlUnreadReplyAndComposer',
-                           'talkback.txt', peer_port, control_port)
+        proof = instrument(method, 'talkback.txt', peer_port, control_port)
         proof.wait(timeout=160)
         if proof.returncode or len(re.findall(r'^OK \(1 test\)\s*$', (evidence / 'talkback.txt').read_text(), re.M)) != 1:
             raise RuntimeError('Real Spaces TalkBack journey did not complete')
         finish_record(*movies[-1])
-        observed = command(control_port, 'catch-up-observe')
+        observed = command(control_port, {'catch-up-v1': 'catch-up-observe',
+                                         'file-library-v1': 'file-provider-downloads',
+                                         'voice-room-v1': 'room-observe'}[mode])
+        if (catch_up_mode and observed['privateDenied'] is not True or file_mode and observed['nativeDownloads'] != 0
+                or room_mode and observed['participants']):
+            raise RuntimeError('Owned TalkBack fixture did not retain its scoped terminal effect')
         command(control_port, 'stop')
         host.wait(timeout=15)
-        if host.returncode or not observed['privateDenied']:
-            raise RuntimeError('Owned TalkBack fixture did not retain its scoped terminal effect')
+        if host.returncode:
+            raise RuntimeError('Owned TalkBack host did not finish')
         (evidence / 'journey-outcome.json').write_text(json.dumps({
             'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
             'nativeTerminalPasses': 1, 'reader': 'TalkBack with completed TTS', 'received': observed,

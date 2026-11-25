@@ -56,6 +56,30 @@ class SpaceRoomJourneyTest {
     private val device get() = UiDevice.getInstance(instrumentation)
     private val evidence get() = File(context.cacheDir, "spaces-rooms-evidence").apply { mkdirs() }
 
+    @Test fun talkBackReadsTheQuietJoinAndActiveCallControls() {
+        val fixture = request("room-config")
+        val folder = evidence.resolve("talkback").apply { mkdir() }
+        NativeTalkBackObservation(folder).observe {
+            launch(fixture).use {
+                waitText("0 people here", 25_000)
+                assertTrue(observed().participants.isEmpty())
+                focusAndHear("join-room", "Join room", folder, textLabel = true)
+                click(automation, "Join room")
+                waitText("You’re in the room", 20_000)
+                val active = requireNotNull(TalkRuntime.call.value)
+                assertEquals(active.token, observed().participants.single().session)
+                assertFalse(active.microphone)
+                assertFalse(active.camera)
+                focusAndHear("microphone", "Unmute", folder, textLabel = true)
+                focusAndHear("camera", "Camera on", folder, textLabel = true)
+                focusAndHear("leave-room", "Leave room", folder, textLabel = true)
+                click(automation, "Leave room")
+                waitText("0 people here", 20_000)
+                assertTrue(observed().participants.isEmpty())
+            }
+        }
+    }
+
     @Test fun prejoinIsQuietAndTheCallReturnsFromAnotherModule() {
         val fixture = request("room-config")
         assertPermissionAbsent(Manifest.permission.RECORD_AUDIO)

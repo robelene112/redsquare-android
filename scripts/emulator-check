@@ -692,7 +692,9 @@ PREFS
         com.android.talkback/com.google.android.marvin.talkback.TalkBackService
     adb shell settings put secure accessibility_enabled 1
     if [[ "${1:-}" == "spaces" ]]; then
-        SPACES_ACCESSIBILITY=true python3 "$repo_dir/scripts/spaces-native-journey" "$evidence" catch-up-v1
+        for mode in catch-up-v1 file-library-v1 voice-room-v1; do
+            SPACES_ACCESSIBILITY=true python3 "$repo_dir/scripts/spaces-native-journey" "$evidence" "$mode"
+        done
         exit
     fi
     if [[ "${1:-}" == "wallet-only" ]]; then
@@ -728,7 +730,7 @@ PREFS
 )
 if [[ "${TEST_SCOPE:-full}" == spaces-journey-talkback* ]]; then
     verify_status_talkback spaces
-    printf '%s\n' 'Real TalkBack and 48dp control geometry for the Spaces switcher, unread group and thread composer.' > "$evidence/scope.txt"
+    printf '%s\n' 'Real TalkBack for the Spaces switcher, unread group, thread composer, file controls and quiet call.' > "$evidence/scope.txt"
     exit 0
 fi
 verify_status_ui() {
