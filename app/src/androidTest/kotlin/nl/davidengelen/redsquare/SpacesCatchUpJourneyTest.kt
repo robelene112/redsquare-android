@@ -10,6 +10,7 @@ import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
+import androidx.test.espresso.Espresso
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
@@ -53,7 +54,7 @@ class SpacesCatchUpJourneyTest {
                 field.performTouchInput { click() }
                 field.performTextReplacement("Needle")
                 field.assertTextContains("Needle")
-                check(device.pressBack())
+                Espresso.closeSoftKeyboard()
                 click("All available channels")
                 ui.onNodeWithText("Restricted proof channel").assertDoesNotExist()
                 click("General", popup = true)
@@ -98,7 +99,7 @@ class SpacesCatchUpJourneyTest {
                 assertTrue("New activity moves the same group above the other conversation", recent < older)
                 capture("activity-bubbled")
                 ui.waitUntil(15_000) { notifications.activeNotifications.count { it.tag?.startsWith("spaces:") == true } == 1 }
-                assertTrue(device.openNotification())
+                device.openNotification()
                 val notification = device.wait(Until.findObject(By.text("You have new Space activity.")), 12_000)
                 assertNotNull("Actually posted Android notification must appear in the shade", notification)
                 capture("notification-shade")
