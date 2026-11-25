@@ -127,7 +127,9 @@ class SpaceModerationJourneyTest {
                 assertTrue(second.get("actionsRecorded").asBoolean)
                 assertEquals(prior.get("report").asString, request("moderation-report-status").get("id").asString)
                 UiDevice.getInstance(instrumentation).pressBack()
-                UiDevice.getInstance(instrumentation).pressBack()
+                val manageDialog = hasText("Manage member") and hasAnyAncestor(isDialog()) and !hasClickAction()
+                ui.waitUntil(12_000) { ui.onAllNodes(manageDialog).fetchSemanticsNodes().isEmpty() }
+                click("Back to your communities")
                 click("Reports and admin log")
                 click("Review report")
                 waitText("Moderation proof message", 15_000)
