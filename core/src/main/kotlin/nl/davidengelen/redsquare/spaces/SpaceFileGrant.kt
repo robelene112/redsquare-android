@@ -4,10 +4,12 @@ import com.google.gson.JsonObject
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import java.security.SecureRandom
 
 /** Short-lived provider permission. It carries no account, filename, mime type, or file key. */
 class SpaceFileGrant private constructor(
     val envelope: String,
+    val id: String,
     val space: String,
     val lease: String,
     val action: Action,
@@ -17,7 +19,7 @@ class SpaceFileGrant private constructor(
     val issuedAt: Long,
     val expiresAt: Long,
 ) {
-    enum class Action(val wire: String) { PUT("put"), GET("get") }
+    enum class Action(val wire: String) { PUT("put"), GET("get"), DELETE("delete"), STATUS("status") }
 
     fun requireCurrent(at: Long) {
         require(at in issuedAt until expiresAt) { "File transfer permission expired" }
@@ -35,10 +37,13 @@ class SpaceFileGrant private constructor(
                 addProperty("space", space)
                 addProperty("lease", lease)
                 addProperty("action", action.wire)
-                addProperty("object", objectId)
-                addProperty("sha256", sha256)
-                addProperty("bytes", bytes)
+                if (action != Action.STATUS) {
+                    addProperty("object", objectId)
+                    addProperty("sha256", sha256)
+                    addProperty("bytes", bytes)
+                } else require(objectId.isEmpty() && sha256.isEmpty() && bytes == 0L)
                 addProperty("expires_at", expiresAt)
+                addProperty("nonce", ByteArray(32).also(SecureRandom()::nextBytes).fileHex())
             }
             return read(SaitoTransaction.create(authority, body, now, listOf(provider)).envelope(),
                 authority.publicKey, provider)
@@ -49,18 +54,20 @@ class SpaceFileGrant private constructor(
             val signed = SaitoEnvelope.decode(envelope)
             require(signed.author == authority && signed.recipients == listOf(authority, provider))
             val body = signed.body
-            require(body.keySet() == setOf("module", "version", "request", "space", "lease", "action", "object",
-                "sha256", "bytes", "expires_at"))
             require(body.storageText("module") == "SpacesStorage" && body.get("version").toString() == "1" &&
                 body.storageText("request") == "file")
-            val action = Action.entries.singleOrNull { it.wire == body.storageText("action") }
+            val action = requireNotNull(Action.entries.singleOrNull { it.wire == body.storageText("action") })
+            val hasObject = action != Action.STATUS
+            require(body.keySet() == setOf("module", "version", "request", "space", "lease", "action", "expires_at", "nonce") +
+                if (hasObject) setOf("object", "sha256", "bytes") else emptySet())
+            require(body.storageText("nonce").matches(FILE_ID))
             val expiresAt = body.storageNumber("expires_at")
             require(expiresAt - signed.createdAt in 1..MAX_GRANT_MILLIS)
-            return SpaceFileGrant(envelope, body.storageText("space").also { require(it.matches(FILE_ID)) },
-                body.storageText("lease").also { require(it.matches(FILE_SIGNATURE)) }, requireNotNull(action),
-                body.storageText("object").also { require(it.matches(FILE_ID)) },
-                body.storageText("sha256").also { require(it.matches(FILE_ID)) },
-                body.storageNumber("bytes").also { require(it in 16..SpaceFileCipher.MAX_CIPHERTEXT_BYTES) },
+            return SpaceFileGrant(envelope, signed.id, body.storageText("space").also { require(it.matches(FILE_ID)) },
+                body.storageText("lease").also { require(it.matches(FILE_SIGNATURE)) }, action,
+                if (hasObject) body.storageText("object").also { require(it.matches(FILE_ID)) } else "",
+                if (hasObject) body.storageText("sha256").also { require(it.matches(FILE_ID)) } else "",
+                if (hasObject) body.storageNumber("bytes").also { require(it in 16..SpaceFileCipher.MAX_CIPHERTEXT_BYTES) } else 0L,
                 signed.createdAt, expiresAt)
         }
 

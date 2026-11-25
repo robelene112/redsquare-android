@@ -25,6 +25,22 @@ class SpaceStorageProviderClient(private val origin: String,
 
     fun commit(approval: String): String = post("/lease", approval)
 
+    fun usage(lease: SpaceFileLease, grant: SpaceFileGrant, now: () -> Long): SpaceStorageUsage {
+        require(grant.action == SpaceFileGrant.Action.STATUS && lease.offer.origin == origin)
+        return request("/status", grant.envelope) { connection ->
+            val reply = response(connection).use(::readReply)
+            SpaceStorageUsage.read(reply, lease, grant, now())
+        }
+    }
+
+    fun remove(grant: SpaceFileGrant) {
+        require(grant.action == SpaceFileGrant.Action.DELETE)
+        request("/object", grant.envelope) { connection ->
+            connection.requestMethod = "DELETE"
+            require(response(connection).use(::readReply) == "{\"state\":\"removed\"}")
+        }
+    }
+
     fun put(grant: SpaceFileGrant, encrypted: InputStream): String {
         require(grant.action == SpaceFileGrant.Action.PUT)
         return request("/upload", grant.envelope) { connection ->

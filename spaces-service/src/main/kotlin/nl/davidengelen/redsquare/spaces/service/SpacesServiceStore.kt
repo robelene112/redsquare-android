@@ -72,7 +72,9 @@ class SpacesServiceStore(directory: Path, private val wallet: SaitoWallet, priva
             "pins" -> setOf("channel_id") + (if (scope.has("through")) setOf("through") else emptySet())
             "files" -> setOf("channel_id", "access") + when (scope.text("access")) {
                 "upload" -> setOf("control", "object", "sha256", "bytes")
-                "download", "confirm" -> setOf("file")
+                "download", "confirm", "remove" -> setOf("file")
+                "abandon" -> setOf("object")
+                "usage" -> emptySet()
                 else -> throw IllegalArgumentException("Unsupported file access")
             }
             "content" -> setOf("channel_id"); "keys" -> setOf("channel_id", "recipient_credential")

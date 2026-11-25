@@ -8,6 +8,7 @@ import nl.davidengelen.redsquare.spaces.SpaceFileGrant
 import nl.davidengelen.redsquare.spaces.SpaceFileLease
 import nl.davidengelen.redsquare.spaces.SpaceFileStage
 import nl.davidengelen.redsquare.spaces.SpaceJournal
+import nl.davidengelen.redsquare.spaces.SpaceRole
 import nl.davidengelen.redsquare.spaces.SpaceVisibility
 import java.sql.Connection
 
@@ -21,6 +22,8 @@ internal class SpaceFileRoutes(private val database: Connection, private val wal
             space_id TEXT NOT NULL, object_id TEXT NOT NULL, actor TEXT NOT NULL, channel_id TEXT NOT NULL,
             control_id TEXT NOT NULL, lease_id TEXT NOT NULL, sha256 TEXT NOT NULL, bytes INTEGER NOT NULL,
             accepted_id TEXT, PRIMARY KEY(space_id, object_id), UNIQUE(space_id, accepted_id))""")
+        sql.execute("""CREATE TABLE IF NOT EXISTS file_upload_cancellations (
+            space_id TEXT NOT NULL, object_id TEXT NOT NULL, PRIMARY KEY(space_id, object_id))""")
     }
 
     fun ready() = database.createStatement().use { sql ->
@@ -45,6 +48,7 @@ internal class SpaceFileRoutes(private val database: Connection, private val wal
                 val bytes = scope.requireFileBytes()
                 journal.verifyFileUpload(actor, channel, control, now)
                 require(bytes <= lease.offer.capacityBytes)
+                require(!cancelled(space, objectId))
                 val prior = upload(space, objectId)
                 if (prior == null) {
                     database.prepareStatement("INSERT INTO file_uploads VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL)").use { sql ->
@@ -64,10 +68,25 @@ internal class SpaceFileRoutes(private val database: Connection, private val wal
                 }
                 reply.addProperty("permission", grant(lease, objectId, sha256, bytes, SpaceFileGrant.Action.PUT, now))
             }
-            "download", "confirm" -> {
+            "usage" -> reply.addProperty("permission", grant(lease, "", "", 0, SpaceFileGrant.Action.STATUS, now))
+            "abandon" -> {
+                val objectId = scope.fileText("object").also { require(it.matches(ID)) }
+                val upload = upload(space, objectId) ?: return
+                require(upload.channel == channel && upload.accepted == null &&
+                    (upload.actor == actor || journal.snapshot.members[actor] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN)))
+                database.prepareStatement("INSERT OR IGNORE INTO file_upload_cancellations VALUES (?, ?)").use { sql ->
+                    sql.setString(1, space)
+                    sql.setString(2, objectId)
+                    sql.executeUpdate()
+                }
+                reply.addProperty("permission", grant(lease, objectId, upload.sha256, upload.bytes, SpaceFileGrant.Action.DELETE, now))
+            }
+            "download", "confirm", "remove" -> {
                 val file = scope.fileText("file").also { require(it.matches(SIGNATURE)) }
-                val upload = database.prepareStatement("""SELECT object_id, sha256, bytes FROM file_uploads
-                    WHERE space_id=? AND channel_id=? AND accepted_id=? AND NOT EXISTS (
+                val remove = scope.fileText("access") == "remove"
+                val deleted = if (remove) "EXISTS" else "NOT EXISTS"
+                val upload = database.prepareStatement("""SELECT object_id, sha256, bytes, actor FROM file_uploads
+                    WHERE space_id=? AND channel_id=? AND accepted_id=? AND $deleted (
                     SELECT 1 FROM records WHERE space_id=? AND channel_id=? AND kind='message-delete' AND target_message_id=?)""").use { sql ->
                     sql.setString(1, space)
                     sql.setString(2, channel)
@@ -77,12 +96,14 @@ internal class SpaceFileRoutes(private val database: Connection, private val wal
                     sql.setString(6, file)
                     sql.executeQuery().use { row ->
                         require(row.next()) { "The shared file is unavailable" }
+                        if (remove) require(row.getString(4) == actor ||
+                            journal.snapshot.members[actor] in setOf(SpaceRole.OWNER, SpaceRole.ADMIN))
                         Triple(row.getString(1), row.getString(2), row.getLong(3))
                     }
                 }
-                if (scope.fileText("access") == "download") {
+                if (scope.fileText("access") != "confirm") {
                     reply.addProperty("permission", grant(lease, upload.first, upload.second, upload.third,
-                        SpaceFileGrant.Action.GET, now))
+                        if (remove) SpaceFileGrant.Action.DELETE else SpaceFileGrant.Action.GET, now))
                 }
                 reply.addProperty("access_term", listOf(lease.id, record.generation, record.epoch,
                     journal.snapshot.membershipEndedAt[actor] ?: 0, record.accessStartedAt[actor] ?: 0).joinToString(":"))
@@ -95,6 +116,7 @@ internal class SpaceFileRoutes(private val database: Connection, private val wal
         val storage = requireNotNull(journal.snapshot.fileStorage)
         val stage = SpaceFileStage.read(body.fileText("storage_stage"), wallet.publicKey, storage.offer.provider)
         val prior = requireNotNull(upload(stage.space, stage.objectId))
+        require(!cancelled(stage.space, stage.objectId))
         val channel = body.fileText("channel_id")
         require(prior == Upload(event.author, channel, prior.control, stage.lease, stage.sha256, stage.bytes, null))
         journal.verifyFileUpload(event.author, channel, prior.control, now)
@@ -105,6 +127,12 @@ internal class SpaceFileRoutes(private val database: Connection, private val wal
             check(sql.executeUpdate() == 1)
         }
     }
+
+    private fun cancelled(space: String, id: String): Boolean =
+        database.prepareStatement("SELECT 1 FROM file_upload_cancellations WHERE space_id=? AND object_id=?").use { sql ->
+            sql.setString(1, space); sql.setString(2, id)
+            sql.executeQuery().use { it.next() }
+        }
 
     private fun grant(lease: SpaceFileLease, id: String, digest: String, bytes: Long,
         action: SpaceFileGrant.Action, now: Long): String = SpaceFileGrant.create(wallet, lease.offer.provider,

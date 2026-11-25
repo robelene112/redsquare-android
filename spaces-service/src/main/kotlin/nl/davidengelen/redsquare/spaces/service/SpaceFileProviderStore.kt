@@ -6,6 +6,7 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceFileGrant
 import nl.davidengelen.redsquare.spaces.SpaceStorageApproval
 import nl.davidengelen.redsquare.spaces.SpaceStorageOffer
+import nl.davidengelen.redsquare.spaces.SpaceStorageUsage
 import nl.davidengelen.redsquare.spaces.verifySpaceStorageOrigin
 import java.math.BigInteger
 import java.io.InputStream
@@ -49,11 +50,14 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
                 sql.execute("""CREATE TABLE IF NOT EXISTS leases (
                     approval_id TEXT PRIMARY KEY, approval TEXT NOT NULL, offer_id TEXT NOT NULL UNIQUE,
                     space_id TEXT NOT NULL, lease_id TEXT NOT NULL UNIQUE, expires_at INTEGER NOT NULL,
-                    envelope TEXT NOT NULL, capacity_bytes INTEGER NOT NULL, used_bytes INTEGER NOT NULL DEFAULT 0)""")
+                    envelope TEXT NOT NULL, capacity_bytes INTEGER NOT NULL)""")
                 sql.execute("CREATE INDEX IF NOT EXISTS leases_space ON leases(space_id, expires_at)")
                 sql.execute("""CREATE TABLE IF NOT EXISTS file_objects (
                     object_id TEXT PRIMARY KEY, lease_id TEXT NOT NULL, sha256 TEXT NOT NULL,
                     bytes INTEGER NOT NULL, stage TEXT NOT NULL)""")
+                sql.execute("""CREATE TABLE IF NOT EXISTS removed_files (
+                    object_id TEXT PRIMARY KEY, space_id TEXT NOT NULL,
+                    sha256 TEXT NOT NULL, bytes INTEGER NOT NULL)""")
             }
             database.prepareStatement("INSERT OR IGNORE INTO provider_identity VALUES (1, ?, ?, ?)").use { sql ->
                 sql.setString(1, wallet.publicKey)
@@ -90,13 +94,13 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
         require(offer.provider == wallet.publicKey && offer.origin == origin && offer.costNolan.signum() == 0)
         database.autoCommit = false
         try {
-            val existing = database.prepareStatement("SELECT approval, lease_id, capacity_bytes, expires_at, used_bytes, envelope FROM leases WHERE approval_id=?").use { sql ->
+            val existing = database.prepareStatement("SELECT approval, lease_id, capacity_bytes, expires_at, envelope FROM leases WHERE approval_id=?").use { sql ->
                 sql.setString(1, approval.operation)
                 sql.executeQuery().use { row ->
                     if (!row.next()) null else {
                         require(row.getString("approval") == approvalEnvelope)
                         Lease(row.getString("lease_id"), row.getLong("capacity_bytes"), row.getLong("expires_at"),
-                            row.getLong("used_bytes"), row.getString("envelope"))
+                            usedInSpace(offer.space), row.getString("envelope"))
                     }
                 }
             }
@@ -114,7 +118,8 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
     private fun createLease(approvalEnvelope: String, approval: SpaceStorageApproval): Lease {
         val offer = approval.offer
         val now = clock.millis()
-        offer.verifyScope(offer.space, authority, offer.owner, now)
+        require(now < offer.expiresAt) { "The approved storage term expired" }
+        val used = usedInSpace(offer.space)
         val signed = SaitoTransaction.create(wallet, JsonObject().apply {
             addProperty("module", "SpacesStorage")
             addProperty("version", 1)
@@ -125,7 +130,7 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
             addProperty("capacity_bytes", offer.capacityBytes)
             addProperty("expires_at", offer.expiresAt)
         }, now, listOf(offer.owner, authority))
-        val lease = Lease(signed.id, offer.capacityBytes, offer.expiresAt, 0, signed.envelope())
+        val lease = Lease(signed.id, offer.capacityBytes, offer.expiresAt, used, signed.envelope())
         database.prepareStatement("INSERT INTO leases (approval_id, approval, offer_id, space_id, lease_id, expires_at, envelope, capacity_bytes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)").use { sql ->
             sql.setString(1, approval.operation)
             sql.setString(2, approvalEnvelope)
@@ -143,11 +148,11 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
     @Synchronized
     fun leaseFor(space: String): Lease? {
         require(space.matches(Regex("[0-9a-f]{64}")))
-        return database.prepareStatement("SELECT lease_id, capacity_bytes, expires_at, used_bytes, envelope FROM leases WHERE space_id=? ORDER BY expires_at DESC, rowid DESC LIMIT 1").use { sql ->
+        return database.prepareStatement("SELECT lease_id, capacity_bytes, expires_at, envelope FROM leases WHERE space_id=? ORDER BY expires_at DESC, rowid DESC LIMIT 1").use { sql ->
             sql.setString(1, space)
             sql.executeQuery().use { row ->
                 if (!row.next()) null else Lease(row.getString("lease_id"), row.getLong("capacity_bytes"), row.getLong("expires_at"),
-                    row.getLong("used_bytes"), row.getString("envelope"))
+                    usedInSpace(space), row.getString("envelope"))
             }
         }
     }
@@ -192,41 +197,104 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
         return Files.newInputStream(objects.resolve(grant.objectId))
     }
 
+    @Synchronized
+    fun usage(grantEnvelope: String): String {
+        val grant = grant(grantEnvelope, SpaceFileGrant.Action.STATUS)
+        val lease = requireActiveLease(grant)
+        return SpaceStorageUsage.sign(wallet, authority, grant, lease.usedBytes, lease.capacityBytes,
+            lease.expiresAt, clock.millis())
+    }
+
+    @Synchronized
+    fun remove(grantEnvelope: String) {
+        val grant = grant(grantEnvelope, SpaceFileGrant.Action.DELETE)
+        requireActiveLease(grant)
+        val existing = existingObject(grant)
+        if (existing == null) {
+            // A valid cancellation may reach storage before the first upload.
+            // Recording its identity also prevents that in-flight PUT landing later.
+            recordRemoval(grant)
+        } else {
+            database.autoCommit = false
+            try {
+                recordRemoval(grant)
+                database.prepareStatement("DELETE FROM file_objects WHERE object_id=?").use { sql ->
+                    sql.setString(1, grant.objectId)
+                    check(sql.executeUpdate() == 1)
+                }
+                database.commit()
+            } catch (failure: Exception) {
+                runCatching { database.rollback() }.onFailure(failure::addSuppressed)
+                throw failure
+            } finally { database.autoCommit = true }
+        }
+        Files.deleteIfExists(objects.resolve(grant.objectId))
+    }
+
+    private fun recordRemoval(grant: SpaceFileGrant) {
+        if (wasRemoved(grant)) return
+        database.prepareStatement("INSERT INTO removed_files VALUES (?, ?, ?, ?)").use { sql ->
+            sql.setString(1, grant.objectId); sql.setString(2, grant.space)
+            sql.setString(3, grant.sha256); sql.setLong(4, grant.bytes)
+            check(sql.executeUpdate() == 1)
+        }
+    }
+
+    private fun wasRemoved(grant: SpaceFileGrant): Boolean =
+        database.prepareStatement("SELECT space_id,sha256,bytes FROM removed_files WHERE object_id=?").use { sql ->
+            sql.setString(1, grant.objectId)
+            sql.executeQuery().use { row ->
+                if (!row.next()) false else {
+                    require(row.getString(1) == grant.space && row.getString(2) == grant.sha256 && row.getLong(3) == grant.bytes)
+                    true
+                }
+            }
+        }
+
     private fun grant(envelope: String, action: SpaceFileGrant.Action): SpaceFileGrant =
         SpaceFileGrant.read(envelope, authority, wallet.publicKey).also {
             require(it.action == action)
             it.requireCurrent(clock.millis())
         }
 
-    private fun requireActiveLease(grant: SpaceFileGrant): Long {
+    private fun requireActiveLease(grant: SpaceFileGrant): Lease {
         val now = clock.millis()
         grant.requireCurrent(now)
-        return database.prepareStatement("SELECT capacity_bytes - used_bytes FROM leases WHERE lease_id=? AND space_id=? AND expires_at>?").use { sql ->
+        return database.prepareStatement("SELECT capacity_bytes, expires_at, envelope FROM leases WHERE lease_id=? AND space_id=? AND expires_at>?").use { sql ->
             sql.setString(1, grant.lease)
             sql.setString(2, grant.space)
             sql.setLong(3, now)
             sql.executeQuery().use { row ->
                 require(row.next()) { "Space storage has expired or is unavailable" }
-                row.getLong(1)
+                Lease(grant.lease, row.getLong(1), row.getLong(2), usedInSpace(grant.space), row.getString(3))
             }
         }
     }
 
+    private fun usedInSpace(space: String): Long =
+        database.prepareStatement("SELECT COALESCE(SUM(o.bytes),0) FROM file_objects o JOIN leases l ON l.lease_id=o.lease_id WHERE l.space_id=?").use { sql ->
+            sql.setString(1, space)
+            sql.executeQuery().use { row -> check(row.next()); row.getLong(1) }
+        }
+
     private fun existingObject(grant: SpaceFileGrant): String? =
-        database.prepareStatement("SELECT lease_id, sha256, bytes, stage FROM file_objects WHERE object_id=?").use { sql ->
+        database.prepareStatement("SELECT l.space_id, o.lease_id, o.sha256, o.bytes, o.stage FROM file_objects o JOIN leases l ON l.lease_id=o.lease_id WHERE o.object_id=?").use { sql ->
             sql.setString(1, grant.objectId)
             sql.executeQuery().use { row ->
                 if (!row.next()) null else {
-                    require(row.getString(1) == grant.lease && row.getString(2) == grant.sha256 && row.getLong(3) == grant.bytes)
-                    row.getString(4)
+                    require(row.getString(1) == grant.space && row.getString(3) == grant.sha256 && row.getLong(4) == grant.bytes)
+                    if (grant.action == SpaceFileGrant.Action.PUT) require(row.getString(2) == grant.lease)
+                    row.getString(5)
                 }
             }
         }
 
     private fun checkPut(grant: SpaceFileGrant): String? {
-        val available = requireActiveLease(grant)
+        val lease = requireActiveLease(grant)
+        require(!wasRemoved(grant)) { "The shared object was removed" }
         val existing = existingObject(grant)
-        require(existing != null || available >= grant.bytes) { "Space storage is full" }
+        if (existing == null) require(leaseFor(grant.space)?.id == lease.id) { "The storage term changed" }
+        require(existing != null || lease.capacityBytes - lease.usedBytes >= grant.bytes) { "Space storage is full" }
         return existing
     }
 
@@ -252,11 +320,6 @@ class SpaceFileProviderStore(root: Path, private val wallet: SaitoWallet, privat
                 sql.setString(3, grant.sha256)
                 sql.setLong(4, grant.bytes)
                 sql.setString(5, receipt)
-                check(sql.executeUpdate() == 1)
-            }
-            database.prepareStatement("UPDATE leases SET used_bytes=used_bytes+? WHERE lease_id=?").use { sql ->
-                sql.setLong(1, grant.bytes)
-                sql.setString(2, grant.lease)
                 check(sql.executeUpdate() == 1)
             }
             database.commit()

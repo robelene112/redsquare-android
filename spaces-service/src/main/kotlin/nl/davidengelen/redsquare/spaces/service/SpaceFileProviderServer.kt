@@ -47,6 +47,11 @@ class SpaceFileProviderServer(directory: Path, wallet: SaitoWallet, origin: Stri
                         exchange.reply(200, offer.envelope)
                     }
                     "POST" to "/lease" -> exchange.reply(200, store.commit(exchange.textBody()).envelope)
+                    "GET" to "/status" -> exchange.reply(200, store.usage(exchange.authorization()))
+                    "DELETE" to "/object" -> {
+                        store.remove(exchange.authorization())
+                        exchange.reply(200, "{\"state\":\"removed\"}")
+                    }
                     "POST" to "/upload" -> {
                         val authorization = exchange.authorization()
                         val grant = SpaceFileGrant.read(authorization, authority, wallet.publicKey)

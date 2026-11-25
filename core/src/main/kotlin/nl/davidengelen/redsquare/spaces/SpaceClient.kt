@@ -601,6 +601,18 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         owned(); state(space); journal(space).snapshot.fileStorage
     }
 
+    fun fileStorageSupported(): Boolean = supportsFileStorage
+
+    fun fileOperation(space: String, originalId: String): ChangeStatus? = store.transaction {
+        owned(); state(space)
+        require(originalId.matches(FILE_SIGNATURE))
+        when {
+            get("$space/rejected/$originalId") != null -> ChangeStatus.REJECTED
+            get("$space/operation/$originalId") != null -> ChangeStatus.QUEUED
+            else -> null
+        }
+    }
+
     fun activateFileStorage(space: String, approvalEnvelope: String, leaseEnvelope: String): String = store.transaction {
         owned()
         val state = state(space)
@@ -611,7 +623,9 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val offer = lease.offer
         require(offer.space == space && offer.owner == wallet.publicKey && snapshot.fileStorageOffers[offer.id] == approval.operation)
         val saved = "$space/file-storage/activations/${lease.id}"
-        get(saved)?.let { return@transaction it.toString(Charsets.UTF_8) }
+        get(saved)?.toString(Charsets.UTF_8)?.let {
+            if (get("$space/rejected/$it") == null) return@transaction it
+        }
         require(clock.millis() < offer.expiresAt && !state.has("required_control"))
         val original = event(space, "activate-file-storage") {
             addProperty("control_id", requireNotNull(snapshot.controlId))
@@ -654,6 +668,19 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     suspend fun confirmFileDownload(space: String, channel: String, fileId: String, expected: FileDownload) {
         val result = readPage(fileScope(space, channel, "confirm").apply { addProperty("file", fileId) })
         require(result.text("access_term") == expected.accessTerm) { "File access changed during download" }
+    }
+
+    suspend fun fileStorageUsagePermission(space: String, channel: String): SpaceFileGrant =
+        providerGrant(readPage(fileScope(space, channel, "usage")), requireNotNull(fileStorage(space)), SpaceFileGrant.Action.STATUS)
+
+    suspend fun fileRemovalPermission(space: String, channel: String, fileId: String): SpaceFileGrant =
+        providerGrant(readPage(fileScope(space, channel, "remove").apply { addProperty("file", fileId) }),
+            requireNotNull(fileStorage(space)), SpaceFileGrant.Action.DELETE)
+
+    suspend fun fileAbandonPermission(space: String, channel: String, objectId: String): SpaceFileGrant? {
+        val result = readPage(fileScope(space, channel, "abandon").apply { addProperty("object", objectId) })
+        if (!result.has("permission")) return null
+        return providerGrant(result, requireNotNull(fileStorage(space)), SpaceFileGrant.Action.DELETE)
     }
 
     private fun fileScope(space: String, channel: String, access: String) = JsonObject().apply {
