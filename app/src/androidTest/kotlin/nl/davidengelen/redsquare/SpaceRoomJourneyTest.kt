@@ -129,9 +129,12 @@ class SpaceRoomJourneyTest {
         val fixture = request("room-config")
         val folder = evidence.resolve("talkback").apply { mkdir() }
         NativeTalkBackObservation(folder).observe {
+            device.executeShellCommand("logcat -c")
             launch(fixture).use {
                 waitText("0 people here", 25_000)
                 assertTrue(observed().participants.isEmpty())
+                val moduleSelector = "Switch app: Spaces"
+                captureFocusedSpeech("initial-module-focus", moduleSelector, folder, actionNode(moduleSelector))
                 focusAndHear("join-room", "Join room", folder, textLabel = true)
                 click(automation, "Join room")
                 waitText("You’re in the room", 20_000)

@@ -156,7 +156,9 @@ def verify_restored_viewport():
         raise RuntimeError('Original viewport configuration was not restored')
 
 def reset_disposable_baseline():
-    reset = adb('shell', 'pm', 'clear', pkg)
+    # Android 10 can finish package-manager cleanup after the old process exits.
+    # This is provisioning, before any journey or interaction deadline starts.
+    reset = adb('shell', 'pm', 'clear', pkg, timeout=30)
     if reset.stdout.strip() != b'Success': raise RuntimeError('Disposable dev baseline was not cleared')
     (evidence / 'disposable-baseline.json').write_text(json.dumps({'package': pkg, 'serial': serial,
         'clearExit': reset.returncode, 'ordinaryPackageTouched': False}))
@@ -973,7 +975,7 @@ try:
         }, indent=2))
     elif accessibility_mode:
         reset_disposable_baseline()
-        if catch_up_mode and os.environ['TEST_DEVICE_API'].startswith('37'):
+        if (catch_up_mode or room_mode) and os.environ['TEST_DEVICE_API'].startswith('37'):
             adb('shell', 'pm', 'grant', pkg, 'android.permission.POST_NOTIFICATIONS')
         method = {'catch-up-v1': 'talkBackReadsTheOptionBControlUnreadReplyAndComposer',
                   'file-library-v1': 'talkBackReadsRealLibraryAndStorageControls',
