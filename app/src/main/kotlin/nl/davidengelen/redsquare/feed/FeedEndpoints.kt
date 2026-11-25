@@ -1,13 +1,15 @@
 package nl.davidengelen.redsquare.feed
 
 import android.content.Intent
+import android.os.Build
 import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import java.net.URI
 
 object FeedEndpoints {
     fun fromIntent(intent: Intent, backend: SaitoBackend): String {
-        if (!BuildConfig.DEBUG) return backend.peerUrl
+        val ownedScaleEmulator = BuildConfig.SPACES_SCALE_FIXTURE && Build.HARDWARE in setOf("ranchu", "goldfish")
+        if (!BuildConfig.DEBUG && !ownedScaleEmulator) return backend.peerUrl
         val extra = if (backend == SaitoBackend.OWNER) "feedPeerUrl" else "feedOfficialPeerUrl"
         val fixture = intent.getStringExtra(extra) ?: return backend.peerUrl
         return try {

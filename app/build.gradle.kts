@@ -44,6 +44,7 @@ fun com.android.build.api.dsl.ApplicationBuildType.configureGiphy(variant: Strin
         buildConfigField("String", "GIPHY_${section.uppercase()}_API_KEY", literal)
     }
 }
+val spacesScaleFixture = providers.gradleProperty("spacesScaleFixture").map(String::toBooleanStrict).orElse(false)
 android {
     namespace = "nl.davidengelen.redsquare"
     compileSdk = 36
@@ -54,6 +55,7 @@ android {
         versionCode = providers.gradleProperty("reviewVersionCode").orElse("1").get().toInt()
         versionName = providers.gradleProperty("reviewVersionName").orElse("0.1.0").get()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("boolean", "SPACES_SCALE_FIXTURE", "false")
         buildConfigField("boolean", "REVIEW_BUILD", providers.gradleProperty("reviewBuild").orElse("false").get().toBooleanStrict().toString())
     }
     buildFeatures { compose = true; buildConfig = true }
@@ -73,10 +75,18 @@ android {
             matchingFallbacks += listOf("release")
             isDebuggable = false
             isProfileable = true
-            signingConfig = null
+            signingConfig = if (spacesScaleFixture.get()) signingConfigs.getByName("debug") else null
+            buildConfigField("boolean", "SPACES_SCALE_FIXTURE", spacesScaleFixture.get().toString())
             configurePush("Performance", "nl.davidengelen.redsquare.performance")
             configureGiphy("Performance")
             buildConfigField("boolean", "REVIEW_BUILD", "false")
+        }
+    }
+    if (spacesScaleFixture.get()) {
+        testBuildType = "performance"
+        sourceSets.getByName("performance").apply {
+            manifest.srcFile(rootProject.file("test-fixtures/android/spaces-scale/AndroidManifest.xml"))
+            res.srcDir(rootProject.file("test-fixtures/android/spaces-scale/res"))
         }
     }
     sourceSets.getByName("androidTest").java.srcDir(rootProject.file("test-fixtures/kotlin"))
