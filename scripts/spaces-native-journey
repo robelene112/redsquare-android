@@ -11,7 +11,7 @@ import subprocess
 import sys
 import time
 import urllib.request
-from spaces_visual_viewports import VisualViewports, recording_size, verify_pairwise
+from spaces_visual_viewports import VisualViewports, recording_size, verify_native_screenshot, verify_pairwise
 
 repo = Path(__file__).resolve().parent.parent
 mode = sys.argv[2] if len(sys.argv) == 3 else 'journey-v1'
@@ -59,10 +59,10 @@ def command(port, action, payload=None):
     with urllib.request.urlopen(request, timeout=5) as response:
         return json.load(response)
 
-def instrument(method, filename, peer, control, extra=()):
+def instrument(method, filename, peer, control, extra=(), test_class=classname):
     log = (evidence / filename).open('wb')
     process = subprocess.Popen(['adb', 'shell', 'am', 'instrument', '-w', '-r',
-        '-e', 'class', f'nl.davidengelen.redsquare.{classname}#{method}',
+        '-e', 'class', f'nl.davidengelen.redsquare.{test_class}#{method}',
         '-e', 'spacesPeerPort', str(peer), '-e', 'spacesControlPort', str(control)] +
         (['-e', 'spacesFileCertificate', file_certificate] if file_mode else []) +
         (['-e', 'spacesDisposableBaseline', 'true'] if management_mode else []) +
@@ -941,7 +941,26 @@ try:
                 raise RuntimeError(f'Native Option B viewport did not complete for {name}')
             finish_record(*movies[-1])
             captured = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{name}/native-configuration.json').stdout
-            observations[name] = {'requested': case, 'native': json.loads(captured)}
+            frame = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/{name}/channel.png').stdout
+            observations[name] = {'requested': case, 'native': json.loads(captured),
+                                  'screenshotPixels': verify_native_screenshot(case, frame)}
+        if 'V14' in observations:
+            case = observations['V14']['requested']
+            record('V14-recovery', recording_size(case))
+            try:
+                recovery = instrument('actualFilePickerUnlocksProtectedHistoryOnlyAfterExplicitReview', 'V14-recovery.txt',
+                                      peer_port, control_port, ['-e', 'spacesVisualRecovery', 'missing-keys'],
+                                      test_class='ProtectedWalletRecoveryTest')
+                recovery.wait(timeout=180)
+                if recovery.returncode or len(re.findall(r'^OK \(1 test\)\s*$', (evidence / 'V14-recovery.txt').read_text(), re.M)) != 1:
+                    raise RuntimeError('Native landscape restore with missing keys did not complete')
+                finish_record(*movies[-1])
+                observations['V14']['missingKeyRestorePassed'] = True
+            finally:
+                backup = adb('exec-out', 'run-as', pkg, 'tar', '-C', 'cache', '-cf', '-',
+                             'protected-recovery-evidence', check=False, timeout=30)
+                if backup.returncode == 0:
+                    (evidence / 'V14-recovery-evidence.tar').write_bytes(backup.stdout)
             adb('shell', 'am', 'force-stop', pkg)
         command(control_port, 'stop')
         host.wait(timeout=15)
@@ -1077,6 +1096,8 @@ try:
         if native.returncode or len(re.findall(r'^OK \(1 test\)\s*$', (evidence / 'room-attachment-ime.txt').read_text(), re.M)) != 1:
             raise RuntimeError('The attached draft, live call and native IME did not complete together')
         finish_record(*movies[-1])
+        frame = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/room-draft-attachment-ime.png').stdout
+        pixels = verify_native_screenshot(case, frame)
         payload = adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/room-draft-attachment.json').stdout
         command(control_port, 'stop')
         host.wait(timeout=15)
@@ -1084,7 +1105,7 @@ try:
             raise RuntimeError('The owned host did not finish the crossed room journey')
         (evidence / 'journey-outcome.json').write_text(json.dumps({
             'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
-            'nativeTerminalPasses': 1, 'viewport': case, 'outcome': json.loads(payload),
+            'nativeTerminalPasses': 1, 'viewport': case, 'screenshotPixels': pixels, 'outcome': json.loads(payload),
             'picker': 'controlled result with the real app attachment and actual Android IME',
         }, indent=2))
     elif room_mode:

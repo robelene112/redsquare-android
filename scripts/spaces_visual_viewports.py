@@ -3,7 +3,6 @@ from itertools import combinations, product
 import json
 import re
 import struct
-import time
 
 
 def verify_pairwise(cases):
@@ -19,6 +18,20 @@ def verify_pairwise(cases):
 def recording_size(case):
     """Scale the encoded video independently of the actual Android viewport."""
     return '544x1216' if case['orientation'] == 'portrait' else '1216x544'
+
+
+def portrait_size(case):
+    width = case['width'] * 2
+    return width, round(width * 2.225)
+
+
+def verify_native_screenshot(case, screenshot):
+    portrait = portrait_size(case)
+    expected = portrait if case['orientation'] == 'portrait' else portrait[::-1]
+    if (len(screenshot) < 24 or not screenshot.startswith(b'\x89PNG\r\n\x1a\n') or
+            struct.unpack_from('>II', screenshot, 16) != expected):
+        raise RuntimeError(f'Actual app screenshot differs from {expected} for {case["id"]}')
+    return expected
 
 
 class VisualViewports:
@@ -67,8 +80,8 @@ class VisualViewports:
 
     def prepare(self, case):
         prefix = case['id']
-        width = case['width'] * 2
-        size = f'{width}x{round(width * 2.225)}'
+        width, height = portrait_size(case)
+        size = f'{width}x{height}'
         self.shell('wm', 'size', size)
         self.shell('wm', 'density', '320')
         self.shell('settings', 'put', 'system', 'font_scale', case['font'])
@@ -91,15 +104,6 @@ class VisualViewports:
                 any(float(actual[name]) != float(motion) for name in self.motion) or
                 actual['overlay'] != overlay or actual['night'] != night):
             raise RuntimeError(f'Applied Android viewport differs from the frozen case {prefix}')
-        portrait = tuple(map(int, size.split('x')))
-        expected = portrait if rotation == '0' else portrait[::-1]
-        deadline = time.monotonic() + 10
-        while time.monotonic() < deadline:
-            screenshot = self.adb('exec-out', 'screencap', '-p', timeout=5).stdout
-            if screenshot.startswith(b'\x89PNG\r\n\x1a\n') and struct.unpack_from('>II', screenshot, 16) == expected:
-                return
-            time.sleep(.1)
-        raise RuntimeError(f'Actual Android display did not settle at {expected} for {prefix}')
 
     def restore(self):
         self.shell('wm', 'size', self.original['size']['override'] or 'reset')

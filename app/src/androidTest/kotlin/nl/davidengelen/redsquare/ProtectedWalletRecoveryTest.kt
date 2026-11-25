@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
@@ -33,6 +34,7 @@ class ProtectedWalletRecoveryTest {
     @Test fun actualFilePickerUnlocksProtectedHistoryOnlyAfterExplicitReview() {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val missingHistory = InstrumentationRegistry.getArguments().getString("spacesVisualRecovery") == "missing-keys"
         val device = UiDevice.getInstance(instrumentation)
         val wallet = AndroidWalletStore(context).loadOrCreate()
         val service = SaitoWallet.create()
@@ -60,12 +62,16 @@ class ProtectedWalletRecoveryTest {
                 }
             }
         }
-        AndroidSpacesRecovery(context) { error("The recovery fixture uses only locally staged archives") }.retain(wallet, listOf(archive))
+        if (!missingHistory)
+            AndroidSpacesRecovery(context) { error("The recovery fixture uses only locally staged archives") }.retain(wallet, listOf(archive))
         device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
         try {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
-            ActivityScenario.launch<MainActivity>(intent).use {
+            ActivityScenario.launch<MainActivity>(intent).use { activity ->
                 withFailureCapture({ captureNativeScreen(File(evidence, "export-failure.png")) }) {
+                    if (missingHistory) activity.onActivity {
+                        assertEquals(Configuration.ORIENTATION_LANDSCAPE, it.resources.configuration.orientation)
+                    }
                     ui.waitForAccountMenu(15_000)
                     ui.openWallet()
                     ui.onNode(hasText("Back up identity and history") and hasClickAction()).performScrollTo().performClick()
@@ -81,7 +87,8 @@ class ProtectedWalletRecoveryTest {
                         assertTrue(AccountRecoveryBackup.recognizes(saved))
                         val decoded = AccountRecoveryBackup.open(saved, phrase.toCharArray())
                         assertEquals(wallet.publicKey, decoded.wallet.publicKey)
-                        assertEquals("Recovered native history", decoded.history.single { key -> key.scope == scope }.read(message.envelope()).text)
+                        if (missingHistory) assertTrue(decoded.history.isEmpty())
+                        else assertEquals("Recovered native history", decoded.history.single { key -> key.scope == scope }.read(message.envelope()).text)
                     } finally { saved.fill(0) }
                     captureNativeScreen(File(evidence, "00-verified-protected-export.png"), "Wallet backup saved")
                 }
@@ -102,7 +109,8 @@ class ProtectedWalletRecoveryTest {
                     assertTrue(retainedSpaceArchives(context, wallet.publicKey, service.publicKey).isEmpty())
                     field.performTextReplacement(phrase)
                     confirm.assertIsEnabled().performClick()
-                    val historyHint = context.getString(R.string.wallet_protected_history_available)
+                    val historyHint = context.getString(if (missingHistory) R.string.wallet_protected_history_empty
+                        else R.string.wallet_protected_history_available)
                     ui.waitUntil(10_000) { ui.onAllNodesWithText(historyHint).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText(historyHint).performScrollTo().assertIsDisplayed()
                     captureNativeScreen(File(evidence, "01-reviewed-archive.png"), historyHint)
@@ -113,9 +121,12 @@ class ProtectedWalletRecoveryTest {
                     finish.performScrollTo().assertIsEnabled().performClick()
                     ui.waitUntil(15_000) { ui.onNodeWithText("Wallet imported").isDisplayed() }
                     assertEquals(wallet.publicKey, AndroidWalletStore(context).loadExisting().publicKey)
-                    val keys = retainedSpaceArchives(context, wallet.publicKey, service.publicKey).single()
-                    assertEquals(scope, keys.scope)
-                    assertEquals("Recovered native history", keys.read(message.envelope()).text)
+                    val keys = retainedSpaceArchives(context, wallet.publicKey, service.publicKey)
+                    if (missingHistory) assertTrue(keys.isEmpty())
+                    else {
+                        assertEquals(scope, keys.single().scope)
+                        assertEquals("Recovered native history", keys.single().read(message.envelope()).text)
+                    }
                     captureNativeScreen(File(evidence, "02-retained-archive.png"), "Wallet imported")
                 }
             }

@@ -208,14 +208,17 @@ class SpacesCatchUpJourneyTest {
         launch(config.get("link").asString).use { activity ->
             withFailureCapture({ captureNativeScreen(observations.resolve("failure.png")) }) {
                 val checked = JsonObject()
+                val orientation = if (expectedLandscape) Configuration.ORIENTATION_LANDSCAPE else Configuration.ORIENTATION_PORTRAIT
+                ui.waitUntil(8_000) {
+                    var matches = false
+                    activity.onActivity { matches = it.resources.configuration.orientation == orientation }
+                    matches
+                }
                 activity.onActivity { native ->
                     val actual = native.resources.configuration
                     assertEquals(expectedFont, actual.fontScale, 0.01f)
                     assertEquals(320, actual.densityDpi)
-                    assertEquals(
-                        if (expectedLandscape) Configuration.ORIENTATION_LANDSCAPE else Configuration.ORIENTATION_PORTRAIT,
-                        actual.orientation,
-                    )
+                    assertEquals(orientation, actual.orientation)
                     assertEquals(expectedDark, actual.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
                     checked.addProperty("widthDp", actual.screenWidthDp)
                     checked.addProperty("heightDp", actual.screenHeightDp)
