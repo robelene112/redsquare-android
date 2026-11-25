@@ -78,23 +78,28 @@ class ModuleMenuKeyboardMotionTest {
                 check(device.wait(Until.hasObject(By.text("Stack")), 5_000))
                 check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_TAB))
                 await(5_000, "Tab must reach a real clickable menu row") {
-                    focusedMenuText() in setOf("Red Square", "Stack")
+                    focusedMenuText() in setOf("Red Square", "Spaces")
                 }
                 val first = requireNotNull(focusedMenuText())
-                val next = if (first == "Red Square") "Stack" else "Red Square"
-                // Retain the actual starting row even if directional navigation fails.
-                File(folder, "scale-$scale-menu-focus.txt").writeText("start=$first expected=$next\n")
-                check(if (first == "Red Square") device.pressDPadDown() else device.pressDPadUp())
-                withFailureCapture({
-                    File(folder, "scale-$scale-menu-focus.txt").appendText("observed=${focusedMenuText()}\n")
-                }) {
-                    await(5_000, "Directional navigation moves focus without activating a module") { focusedMenuText() == next }
+                val focusLog = File(folder, "scale-$scale-menu-focus.txt").apply { writeText("start=$first\n") }
+                fun moveFocus(target: String, down: Boolean) {
+                    focusLog.appendText("expected=$target\n")
+                    check(if (down) device.pressDPadDown() else device.pressDPadUp())
+                    withFailureCapture({ focusLog.appendText("observed=${focusedMenuText()}\n") }) {
+                        await(5_000, "Directional navigation moves focus to $target without activating a module") {
+                            focusedMenuText() == target
+                        }
+                    }
+                    focusLog.appendText("observed=$target\n")
+                    if (target != "Red Square") assertFalse(device.hasObject(By.desc("Switch app: $target")))
                 }
-                assertFalse(device.hasObject(By.desc("Switch app: Stack")))
-                File(folder, "scale-$scale-menu-focus.txt").writeText("$first -> $next\n")
+                if (first == "Spaces") moveFocus("Red Square", down = false)
+                moveFocus("Spaces", down = true)
+                moveFocus("Stack", down = true)
                 check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_ESCAPE))
                 await(5_000, "Escape returns ownership to the actual Account control") {
-                    !device.hasObject(By.text("Stack")) && foregroundHas(description = "Account")
+                    !device.hasObject(By.text("Stack")) && foregroundHas(description = "Switch app: Red Square") &&
+                        foregroundHas(description = "Account")
                 }
                 requireNotNull(device.findObject(By.desc("Account"))).click()
                 check(device.wait(Until.hasObject(By.text("Wallet")), 5_000))

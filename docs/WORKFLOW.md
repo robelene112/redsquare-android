@@ -155,6 +155,16 @@ and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/4
 The final visual, integrated regression, scale, migration and release review
 gates remain in #147. Ordinary beta142 is still current.
 
+The [integrated Android 17 run](https://github.com/robelene112/redsquare-android/actions/runs/45700136594)
+recorded focus moving from Red Square to Spaces with one D-pad press.
+The older observer still expected Stack directly below Red Square. The new
+observer checks both Spaces and Stack in order, preserves the five-second
+action deadlines, and verifies Escape returns focus to Red Square's controls.
+The original Chat partition remains failed. The Android 10 Chat partition of
+[the next source run](https://github.com/robelene112/redsquare-android/actions/runs/45702935713)
+stopped during dependency resolution after Maven Central returned HTTP 429.
+The repeat uses the alternate configured runner pool.
+
 ## Accepted #146, continue #147
 
 Spaces search, grouped Activity and exact links pass on Android 10 and
