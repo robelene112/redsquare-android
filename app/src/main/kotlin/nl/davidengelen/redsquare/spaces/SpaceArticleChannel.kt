@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -185,11 +186,11 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
         verticalArrangement = Arrangement.spacedBy(8.dp)) {
         if (state.problem != null && state.articleFocus == null) ProblemNotice(state.problem, account::clearProblem)
         if (page == ArticlePage.LIST) {
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (state.current?.joined == true) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Button(onClick = { draftReady = false; page = ArticlePage.EDITOR },
-                    enabled = canWrite, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.spaces_article_write)) }
+                    enabled = canWrite, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_article_write)) }
                 OutlinedButton(onClick = { linkText = ""; stackReference = null; page = ArticlePage.SHARE },
-                    enabled = canWrite, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.spaces_article_share_stack)) }
+                    enabled = canWrite, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_article_share_stack)) }
             }
             if (!state.contentLoaded && state.refreshing) LinearProgressIndicator(Modifier.fillMaxWidth())
             if (records.isEmpty() && state.contentLoaded) Text(stringResource(R.string.spaces_article_empty),
@@ -197,8 +198,11 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
             LazyColumn(Modifier.fillMaxWidth().weight(1f), state = list, verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 items(records, key = { it.id }) { record ->
                     val content = articles[record]
-                    Card(onClick = { selected = record.id; page = ArticlePage.READER }, enabled = !record.deleted) {
-                        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Card(onClick = { selected = record.id; page = ArticlePage.READER }, enabled = !record.deleted,
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) {
+                        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Icon(painterResource(R.drawable.ic_article), null, Modifier.size(22.dp),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant)
                             val title = if (record.text != null && record !in articles) stringResource(R.string.spaces_article_opening)
                                 else articleTitle(content, record)
                             Text(title, style = MaterialTheme.typography.titleLarge, maxLines = 3,
@@ -356,10 +360,21 @@ internal fun SpaceArticleChannel(account: SpacesAccount, state: SpacesAccount.St
             }
         }
         if (page == ArticlePage.REVIEW && reviewed != null) {
-            HorizontalDivider()
-            Text(stringResource(if (channel.visibility == SpaceVisibility.PRIVATE) R.string.spaces_article_private_scope
-                else R.string.spaces_article_public_scope), color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.bodySmall)
+            val privateChannel = channel.visibility == SpaceVisibility.PRIVATE
+            Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                Row(Modifier.padding(12.dp), horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    verticalAlignment = Alignment.Top) {
+                    Icon(painterResource(if (privateChannel) R.drawable.ic_lock else R.drawable.ic_article),
+                        null, Modifier.size(22.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Text(stringResource(R.string.spaces_article_review_scope, channel.profile.name),
+                            style = MaterialTheme.typography.titleSmall)
+                        Text(stringResource(if (privateChannel) R.string.spaces_article_private_scope
+                            else R.string.spaces_article_public_scope), color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodySmall)
+                    }
+                }
+            }
             Button(onClick = {
                 val articleId = editing
                 scope.launch {
