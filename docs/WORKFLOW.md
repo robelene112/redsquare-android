@@ -234,10 +234,34 @@ Both complete Chat partitions reach the native audio/video and End call
 checks before failing at return to the unsent private conversation on
 [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45708852886)
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45708853241).
-The Android 10 Wallet partition similarly opens the genuine linked Store
-listing and returns to the Chat contact list. The direct contact selection now
-lives with the saved Red Square route through either module detour. The durable
-composer and its original 15-second return assertions remain in place.
+Both Wallet partitions similarly open the genuine linked Store listing and
+return to the Chat contact list. The saved Red Square route now owns the direct
+contact selection. Native Store and Talk pass that return and the original
+15-second draft assertions on both Android versions. The Android 17 Social
+partition also exposes lost private and group selection on offline Activity
+recreation. The saved route now retains the selected group as well. The fresh
+identity runs are
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45719464948)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45719464745).
+
+The first cursor-corrected scale run independently returns the new signed
+off-screen reply and preserves the reading body at [136,695][788,829] in every
+observed frame. It later stops at the reaction observer because the tap
+landed on the earlier-history button over a clipped reaction. The original
+Android hierarchy replays to a full 48dp reaction below that same reading
+body. The raw trace still contains a 788ms cold frame and that run remains
+failed. The [new frozen workload](https://github.com/robelene112/redsquare-android/actions/runs/45719465413)
+uses the corrected target, with the original frame and tap budgets.
+
+A focused Android 17 Spaces journey also hit its existing 20-second incoming
+history deadline. In the retained trace, selected-channel refresh took
+18.4 seconds, with individual peer responses under 100ms. The receiver now
+reuses the already verified original when applying unchanged historical
+authorization checks. All 491 local core and service checks pass. The public
+cache also verifies the same committed bytes in buffered chunks after a
+separate Android 17 large-photo run stopped before the eighth visible row.
+The two changes have fresh focused journeys and full runs on both Android
+versions. The staged 0.1.143 candidate predates these changes.
 
 ## Accepted #146, continue #147
 
