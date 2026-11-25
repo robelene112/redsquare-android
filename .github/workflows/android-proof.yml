@@ -113,7 +113,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'source' }}${{ inputs.android17_16kb && '-16kb' || '' }}${{ inputs.spaces_private_management && format('-private-{0}', inputs.spaces_private_management_case || 'process') || '' }}${{ inputs.spaces_category_management && '-categories' || '' }}${{ inputs.spaces_conversation_overlays && '-conversation' || '' }}${{ inputs.spaces_catch_up && '-catch-up' || '' }}${{ inputs.spaces_scale_smoke && '-scale-calibration' || '' }}${{ inputs.spaces_scale_full && '-scale-full' || '' }}
+  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'source' }}${{ inputs.android17_16kb && '-16kb' || '' }}${{ inputs.spaces_private_management && format('-private-{0}', inputs.spaces_private_management_case || 'process') || '' }}${{ inputs.spaces_category_management && '-categories' || '' }}${{ inputs.spaces_conversation_overlays && '-conversation' || '' }}${{ inputs.spaces_rooms && '-rooms' || '' }}${{ inputs.spaces_files && '-files' || '' }}${{ inputs.spaces_articles && '-articles' || '' }}${{ inputs.spaces_protected_chat && '-protected-chat' || '' }}${{ inputs.spaces_catch_up && '-catch-up' || '' }}${{ inputs.spaces_scale_smoke && '-scale-calibration' || '' }}${{ inputs.spaces_scale_full && '-scale-full' || '' }}
   cancel-in-progress: true
 jobs:
   native-proof:
