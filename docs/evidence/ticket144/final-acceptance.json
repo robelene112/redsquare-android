@@ -1,0 +1,306 @@
+{
+  "ticket": 144,
+  "parent": 134,
+  "status": "accepted",
+  "approvedDesign": "Native prototype option B",
+  "recordedAt": "2026-11-25T11:24:01.542153+00:00",
+  "reviewBase": "eb40f47ed082298130adf28b73cbc3c6426a4c91",
+  "measuredProductSource": "6ca629bf58c958a6713a7817b6ef8c74906a1f80",
+  "acceptanceMap": [
+    {
+      "requirement": "Persistent channel, admitted roster and intentional quiet join",
+      "results": "Android 10 and compact Android 17 show an empty roster before joining. Actual microphone permission denial preserves the same active lease. The channel remains reusable after the participant leaves or is removed. The real camera permission is revoked during capture. A new Android process can explicitly join with both capture devices off."
+    },
+    {
+      "requirement": "Measured group media and call-scoped control",
+      "results": "One native application and two separately running Chromium processes read decoded camera frames and nonzero PCM on all media paths. The authority admitted three seats and refused a fourth. Both Chromium peers show fresh nonblack frames when Android resumes the camera, while audio continues through the pause. Android measures fresh nonblack frames from the same native VideoTrack after a Chromium peer resumes its camera. Signed scoped membership and the authenticated encrypted signalling relay are covered by the service suite, including private device and key changes."
+    },
+    {
+      "requirement": "Staff controls and receiving boundary",
+      "results": "A scoped staff mute stops playback of the selected sender on the receiver and stops native capture when the native seat is muted. Explicit removal leaves the other peer connected. The service refuses a subsequent signal from the retired session and a signal addressed to it. Capture is controlled by the device user."
+    },
+    {
+      "requirement": "Concurrent navigation, OS controls and terminal scope",
+      "results": "The real IME coexists with the call return, mute and hang-up actions. The compact shelf returns to the same room across modules. Rotation, Activity recreation and background screen-off retain the room, with confirmed audio continuing and camera pausing. Wallet and node switches end the original scoped call."
+    },
+    {
+      "requirement": "Preserve ordinary Talk and File Share",
+      "results": "Native direct Talk, multi-peer Talk media and Talk with File Share all passed focused runs on Android 10 and 17 on the shared RTC implementation with negotiated room receiver selection."
+    }
+  ],
+  "jvm": {
+    "measuredSource": "6ca629bf58c958a6713a7817b6ef8c74906a1f80",
+    "results": {
+      "core": {
+        "tests": 257,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "spaces-service": {
+        "tests": 224,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "focusedRoomServiceAndAndroidInstrumentationCompilePassedAt": "6ca629bf58c958a6713a7817b6ef8c74906a1f80"
+  },
+  "existingNativeRegression": {
+    "source": "6ca629bf58c958a6713a7817b6ef8c74906a1f80",
+    "groupTalkMedia": [
+      45601703549,
+      45601703756
+    ],
+    "talkFileShare": [
+      45601703920,
+      45601703948
+    ],
+    "directTalk": [
+      45601703926,
+      45601703786
+    ]
+  },
+  "diagnosticRuns": [
+    {
+      "runs": [
+        45574011116,
+        45574011368
+      ],
+      "result": "The steps reached a quiet native join and actual system permission denial. The test selected an obsolete App picker label."
+    },
+    {
+      "runs": [
+        45576452066,
+        45576451892
+      ],
+      "result": "The exact room returned from Red Square. A short landscape layout clipped the room panel. The activity layout was corrected."
+    },
+    {
+      "runs": [
+        45579311251,
+        45579311112,
+        45582451477,
+        45582451519
+      ],
+      "result": "The native lifecycle was accepted by instrument output. API 29 observed the full three-way media path and exposed an early camera checkpoint read. An API 37 test received audio on both connections but its second video track produced no measured frames within the test deadline. Later compact runs directly measured both decoders."
+    },
+    {
+      "runs": [
+        45585028641,
+        45585029635
+      ],
+      "result": "Both devices measured all media paths and a distinct-process quiet return after camera permission revocation. A saved backend change closed the room with the generic unavailable phase. The runtime now classifies loss of the original authority as an interruption."
+    },
+    {
+      "runs": [
+        45587817231,
+        45587817387
+      ],
+      "result": "All native app and Chromium phases reached their expected terminal effects. Outer acceptance failed because the aggregate filename was inconsistent. The primary artifacts remain attached to their individual runs."
+    },
+    {
+      "runs": [
+        45590224946,
+        45590500992
+      ],
+      "result": "Android 10 completed all cases and produced a source-pinned evidence packet. Android 17 verified two concurrent functioning VP8 decoders. The node rejected a queued signal during staff removal and the browser test treated the expected denial as a generic error. The owned fixture now checks the authoritative retired session and tests both rejection directions deterministically."
+    },
+    {
+      "runs": [
+        45592828587,
+        45592828574
+      ],
+      "result": "The signed service refused retired sender and recipient traffic. In the compact run both RTP VP8 video decoders produced frames, while the second active Java VideoTrack did not deliver them. The room path now holds stable media sections and selects only negotiated receiving tracks."
+    },
+    {
+      "runs": [
+        45596186497,
+        45596186369
+      ],
+      "result": "After introducing stable room video, both platform logs exposed a WebRTC AudioRecord startup without a permitted microphone while the audio section was ready to send. Room audio now negotiates receive-only until a user-controlled, permission-gated audio track exists."
+    },
+    {
+      "runs": [
+        45598782176,
+        45598782211
+      ],
+      "result": "Both runs measured fresh frames after camera changes and continuous audio during camera pause. Android 17 completed the whole path. The Android 10 process recovered after camera permission revocation and exposed a stale prejoin roster during asynchronous leave. The roster now resets at account or active call changes and is refreshed from the signed room authority."
+    }
+  ],
+  "native": [
+    {
+      "run": 45601189802,
+      "api": "29",
+      "apkSha256": {
+        "app-debug.apk": "ecb95b008e94cae89740d0ffdad5dcb97a3dad8a3679647b1a65331ce21232e6",
+        "app-debug-androidTest.apk": "6bda074914629103461dc8ad0d23d1702e333de14ddeb7bcb970b7a1944d7c9d"
+      },
+      "journey": {
+        "source": "6ca629bf58c958a6713a7817b6ef8c74906a1f80",
+        "lifecycle": {
+          "pid": 3573,
+          "participantRemoved": true,
+          "nativePermissionDenied": true,
+          "roomControlsWithRealKeyboard": true,
+          "roomSurvives": true
+        },
+        "media": {
+          "pid": 11809,
+          "admittedParticipants": 3,
+          "fourthPeerRefused": true,
+          "decodedAudioAndVideoBothWays": true,
+          "audioAcrossModules": true,
+          "decodedAudioWithScreenOff": true,
+          "guestsDecodedEachOther": true,
+          "remoteCameraToggleObserved": true,
+          "nativeCameraResumedToBothGuests": true,
+          "remoteCameraResumedToNative": true,
+          "receiverBlockedModeratedGuest": true,
+          "remainingPeerSurvivedRemoval": true,
+          "revokedSignalDenied": true,
+          "moderatorStoppedDecodedAudio": true,
+          "audioInputBuffers": 1500
+        },
+        "chromiumPids": [
+          4864,
+          5015
+        ],
+        "camera": {
+          "pid": 19709,
+          "session": "8580b03028e34cb4938e0f5e5e010f35",
+          "cameraFrames": 3,
+          "resumedCameraFrames": 3,
+          "screenOffPausedVideo": true
+        },
+        "cameraStoppedInOldProcess": false,
+        "recovery": {
+          "pid": 22433,
+          "explicitFreshSession": true,
+          "cameraPermissionStillRevoked": true,
+          "nodeChangeEndedOriginalScope": true,
+          "walletChangeEndedOriginalScope": true,
+          "roomSurvived": true
+        },
+        "nativeTerminalPasses": 3,
+        "deliberatelyInterruptedCases": 1,
+        "compactViewport": false,
+        "productionNodeActivated": false,
+        "ordinaryBetaChanged": false
+      },
+      "nativePhotosSha256": {
+        "room-prejoin": "f83daf94f7e8db6a707fbc63ea02c5ca340eb85c5ba6c1c5e0ea258ef6dabfd4",
+        "room-joined-muted": "4185597b3719fbacaf9f489383ec88da978414bdc43c185fd68c4cacbb212a8a",
+        "room-permission-denied": "7df404d6f4cc3cf4896383da822f3d20d903961244d88d6512ba1feb87cf1c9a",
+        "room-bar-with-keyboard": "fafc8a9e4748bcb6a129d436a7faf9c392e38685a161d26f8609f90a6dd10e54",
+        "room-compact-bar": "ad3f1121693545091e5fa6fcab638d4d79ec4fbae9da4c643821abe8acba27d5",
+        "room-landscape": "9060131249bf7b58796ba6ad0eb422f3e8ad4cfa9a032b4a61fdb91eb0d42d62",
+        "room-after-removal": "82bcea9b06612bc2e021a1b4872518521132e0ebb78685a95cb873e42bf4ed02",
+        "room-three-peer-media": "a6489d098a85007b0486332ebc1a1a84087dfbaf7c93000a3b2a8cd375c634e8",
+        "room-media-across-module": "9b22638d57aa7d54df6d4e19e86349b2804c67f453bdeb1f3fa305499dab19a3",
+        "room-media-moderation": "b95cac240b73f7240f61cfe91653ef58522f81c94d9045e77da428bbd63aa003",
+        "room-camera-without-microphone": "3ad2fe7d975609ae1316d7fb118d188ac141a12c753974f0b7e7b989957a007d",
+        "room-camera-before-revoke": "3ad2fe7d975609ae1316d7fb118d188ac141a12c753974f0b7e7b989957a007d",
+        "room-recovered-quiet": "2500ff6729371e339663462456e910d33d0a1ea71a09e833c2677acffee495b3",
+        "room-rejoined-quiet": "e27ae1df97893596d8abd2a2890198782311b5cac1ff9bc546e76a501858981e"
+      },
+      "archiveSha256": {
+        "room-prejoin-native.tar": "2b42b335583a592fc55ebb2e6b0f60f1c4404febe852f5dfbda03b63f6a7e3c2",
+        "room-media-native.tar": "8dccb131985af0a6e65276f7b8bb3134f39ab6429715780ffaafa6b5138e5af8",
+        "native-evidence.tar": "15f77de27569b78ddb4d01a557105f4236e3bac176eab54c894a5b46b747053c"
+      },
+      "evidenceManifestSha256": "3499040d48954b47b3579b95383d0f27e1a1ff08876dc09f16402b54296fb01f"
+    },
+    {
+      "run": 45601655243,
+      "api": "37.0",
+      "apkSha256": {
+        "app-debug.apk": "19850e3cc366667310c23b68d257fd5241d249c200d117cc22daefabecad6ab3",
+        "app-debug-androidTest.apk": "ef4ec91e66eae8af5726ee8f6421d206517755d765961199cb6e3eaf252d0788"
+      },
+      "journey": {
+        "source": "6ca629bf58c958a6713a7817b6ef8c74906a1f80",
+        "lifecycle": {
+          "pid": 4207,
+          "participantRemoved": true,
+          "nativePermissionDenied": true,
+          "roomControlsWithRealKeyboard": true,
+          "roomSurvives": true
+        },
+        "media": {
+          "pid": 5087,
+          "admittedParticipants": 3,
+          "fourthPeerRefused": true,
+          "decodedAudioAndVideoBothWays": true,
+          "audioAcrossModules": true,
+          "decodedAudioWithScreenOff": true,
+          "guestsDecodedEachOther": true,
+          "remoteCameraToggleObserved": true,
+          "nativeCameraResumedToBothGuests": true,
+          "remoteCameraResumedToNative": true,
+          "receiverBlockedModeratedGuest": true,
+          "remainingPeerSurvivedRemoval": true,
+          "revokedSignalDenied": true,
+          "moderatorStoppedDecodedAudio": true,
+          "audioInputBuffers": 2757
+        },
+        "chromiumPids": [
+          5249,
+          5401
+        ],
+        "camera": {
+          "pid": 5535,
+          "session": "5b1104c1aeb54f3390790ff0a974e521",
+          "cameraFrames": 3,
+          "resumedCameraFrames": 3,
+          "screenOffPausedVideo": true
+        },
+        "cameraStoppedInOldProcess": false,
+        "recovery": {
+          "pid": 5889,
+          "explicitFreshSession": true,
+          "cameraPermissionStillRevoked": true,
+          "nodeChangeEndedOriginalScope": true,
+          "walletChangeEndedOriginalScope": true,
+          "roomSurvived": true
+        },
+        "nativeTerminalPasses": 3,
+        "deliberatelyInterruptedCases": 1,
+        "compactViewport": true,
+        "productionNodeActivated": false,
+        "ordinaryBetaChanged": false
+      },
+      "nativePhotosSha256": {
+        "room-prejoin": "62d08fee15610a7127b8fe7ece0c912bc3bb05beea1fe07f4952fff8435c4d3e",
+        "room-joined-muted": "c76d8287f6a8b3c74dea3687f200ed446a7b0df470e80c0c5096322b3cf09f2b",
+        "room-permission-denied": "4ba63700b929b8a37155d09b47961cf36fa8b2380d59e81922a19c7f410d38aa",
+        "room-bar-with-keyboard": "0eb4bcaf6ee6c4cfc1c707fa7afdf011282460e438cc8b1ecfcea6336bab15bc",
+        "room-compact-bar": "89549ab06d4d25bcff23bf2fda52f83737133d026d41e75411fe763adf001a79",
+        "room-landscape": "a412a603fb26cdd1d0dc4a2950a84b08c7426b30f1895b73488a7b516c127bec",
+        "room-after-removal": "0bf7f301537a3e9fe06150d996114e0e6354da1a68d1b2d99e9c43672e4e183f",
+        "room-three-peer-media": "060fdb2de4292516ccd734a594df23c6cd2168e037e523b15dbe0d4fa9dae540",
+        "room-media-across-module": "586c515b1252e5c71cdafe585b61c97a3c5ad82ff51480864c4783346c729f93",
+        "room-media-moderation": "a0efde8621bff7997f8379757e3f0a4959a32c27269fea1e35c68e6e9f62f07b",
+        "room-camera-without-microphone": "d9c5508f514b1ca8c3ce7142e881021a492f5ab01929a2b2551b74e5ee675ed3",
+        "room-camera-before-revoke": "b4dd29bc6426260e1beae60db5bcf6795ac465f6c4ab9cfecca46d24267282a3",
+        "room-recovered-quiet": "bc72525e604a29abc9ec054363c0165c67cf6731f2813c8ddd30c2063ac9a277",
+        "room-rejoined-quiet": "e70ba8482bc447a4320c1ea1a59c322483bc4c385e6b72582c98f08e180f87f9"
+      },
+      "archiveSha256": {
+        "room-prejoin-native.tar": "fa5e94f44d08906ccea968b5069d6508654caeaaa5e87ba209912ccfe9aa53f7",
+        "room-media-native.tar": "13fe8868e2a0a3f18e4ca35052dfc50fc364d8ba1d37bdc8ae5aaa5a555b0204",
+        "native-evidence.tar": "173b0c47a1181eb20513622974f4141562a7fe0a76e2612040fee9a7c081fa1f"
+      },
+      "evidenceManifestSha256": "8a6872a650f8d2245592db628d94677d57471d0e96ba878e1c0b73e0da899612"
+    }
+  ],
+  "visualComparison": {
+    "prototypeSource": "4dae92cdf",
+    "result": "Native screens preserve the approved channel switcher, optional quiet entry, prioritized capture controls, clear leave action and return shelf. The 320dp large-font captures exercise stacked controls, the actual keyboard and short landscape. The operational node status in the test is from the isolated test endpoint."
+  },
+  "qualification": "Capacity is three participants in owned KVM runs with an Android emulator and two Chromium processes. Camera and microphone sources in the proof are controlled synthetic inputs through actual capture and codecs. Physical devices, OEM routing and reachability on production nodes are separate release qualifications.",
+  "operations": {
+    "productionNodeActivated": false,
+    "ordinaryBetaPromoted": false
+  }
+}

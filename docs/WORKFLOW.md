@@ -1,5 +1,16 @@
 # Development workflow
 
+## Accepted #144, continue #145
+
+Reusable Spaces voice and video rooms start with both capture devices off.
+Android 10 and compact Android 17 verify the same exact source against real
+three-party audio and video, permission denial and revocation, keyboard and
+landscape layout, cross-module audio, staff moderation and wallet/node changes.
+The [#144 evidence record](evidence/ticket144/final-acceptance.json) includes
+the six passing ordinary Talk and File Share runs and the earlier diagnostic
+captures. Capacity is three participants in the measured environment. Continue
+#145 through #147 sequentially. Integrated beta delivery is in #147.
+
 ## Accepted #143, continue #144
 
 Spaces file channels use an independent storage provider selected by the
