@@ -184,7 +184,7 @@ if [[ "${TEST_SCOPE:-full}" == candidate-update* ]]; then
         echo 'Require an immutable signed candidate newer than beta83' >&2; exit 2;
     }
     reference_version="${TEST_CANDIDATE_REFERENCE_VERSION:-83}"
-    [[ "$reference_version" == 83 || "$reference_version" == 127 || "$reference_version" == 131 || "$reference_version" == 139 ]] || { echo "Unsupported signed-update baseline" >&2; exit 2; }
+    [[ "$reference_version" == 83 || "$reference_version" == 127 || "$reference_version" == 131 || "$reference_version" == 139 || "$reference_version" == 142 ]] || { echo "Unsupported signed-update baseline" >&2; exit 2; }
     python3 "$repo_dir/scripts/ci-review-update" "$reference_version" "$TEST_CANDIDATE_VERSION" \
         --retain-local-work --evidence "$evidence/candidate-update"
     printf '%s\n' "Actual signed beta$reference_version-to-$TEST_CANDIDATE_VERSION update, retained local work and package isolation only; not full application acceptance." > "$evidence/scope.txt"

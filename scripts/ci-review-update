@@ -22,6 +22,9 @@ repo = Path(__file__).resolve().parent.parent
 downloads = repo / ".scratch/update-artifacts"
 downloads.mkdir(parents=True, exist_ok=True)
 certificate = "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2"
+accepted_baseline_hashes = {
+    142: "f4d82bd79445a48e337a1aa63a87005869594fcc3c9fc7a9e6e399e1036c43a6",
+}
 apks = []
 for version in [args.older, args.newer]:
     root = f"https://davidengelen.nl/redsquare/releases/{version}/"
@@ -32,6 +35,8 @@ for version in [args.older, args.newer]:
     if (manifest["applicationId"] != "nl.davidengelen.redsquare"
             or manifest["versionCode"] != version or manifest["certificateSha256"] != certificate):
         raise SystemExit("Preview manifest identity does not match the established application")
+    if version == args.older and version in accepted_baseline_hashes and manifest["sha256"] != accepted_baseline_hashes[version]:
+        raise SystemExit("The older APK does not match its accepted immutable baseline")
     path = downloads / f"{version}.apk"
     apk_request = urllib.request.Request(root + "redsquare.apk",
         headers={"User-Agent": "redsquare-review-check/1"})
@@ -59,7 +64,7 @@ for version in [args.older, args.newer]:
 observer = "review-update-work-check" if args.retain_local_work else "wallet-device-check"
 subprocess.run(["python3", str(repo / "scripts" / observer), "--before", str(apks[0]),
     "--after", str(apks[1]), "--evidence", str(args.evidence)], check=True)
-if args.retain_local_work and args.older in (131, 139):
+if args.retain_local_work and args.older in (131, 139, 142):
     continuity = json.loads((args.evidence / "module-continuity.json").read_text())
     observed = continuity["observations"]
     assert len(observed) == 3 and observed[0]["sourceVersion"] == args.older and observed[0]["fileshareLegacyFormatSeed"] is True
