@@ -46,9 +46,9 @@ internal class SpacesVoiceRoomFixture(root: Path, private val authority: SaitoWa
 
     suspend fun observe() = owner.voiceRoom(space, channel).json()
 
-    suspend fun removeNative(): JsonObject {
+    suspend fun moderateNative(remove: Boolean): JsonObject {
         val native = owner.voiceRoom(space, channel).participants.single { it.wallet == wallets.first().publicKey }
-        return owner.moderateVoiceRoom(space, channel, native.session, remove = true).json()
+        return owner.moderateVoiceRoom(space, channel, native.session, remove).json()
     }
 
     private fun actor(body: JsonObject): SpaceClient = actors[body.get("peer").asInt.also { require(it in 1..3) }]

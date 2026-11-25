@@ -308,7 +308,7 @@ if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
     elif [[ "${TEST_SCOPE:-full}" == spaces-journey-discovery* ]]; then journey_options=(discovery-v1); fi
     python3 "$repo_dir/scripts/spaces-native-journey" "$evidence" "${journey_options[@]}"
     if [[ "${SPACES_ROOMS:-false}" == true ]]; then
-        printf '%s\n' 'Native reusable room prejoin, real permission denial, module navigation, rotation and authoritative removal.' > "$evidence/scope.txt"
+        printf '%s\n' 'Native reusable room controls and independent Chromium audio/video, actual permission denial, navigation, rotation, capacity and authoritative moderation.' > "$evidence/scope.txt"
     elif [[ "${SPACES_FILES:-false}" == true ]]; then
         printf '%s\n' 'Native file consent, DocumentsUI, offline copy and shared deletion with independent provider and app process recovery.' > "$evidence/scope.txt"
     elif [[ "${SPACES_ARTICLES:-false}" == true ]]; then

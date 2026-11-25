@@ -11,8 +11,10 @@ import java.util.concurrent.*
 import java.util.concurrent.atomic.*
 
 /** Exact official module bodies in a separate real Chromium, with owned Relay and controlled inputs. */
-internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: SaitoWallet,
+internal class TalkBrowserPeer(val wallet: SaitoWallet, private val ownerKey: String,
     private val colour: String, private val frequency: Int, private val send: (String) -> Unit) : Closeable {
+    constructor(wallet: SaitoWallet, owner: SaitoWallet, colour: String, frequency: Int, send: (String) -> Unit) :
+        this(wallet, owner.publicKey, colour, frequency, send)
     val errors = CopyOnWriteArrayList<String>()
     val diagnostics = CopyOnWriteArrayList<String>()
     val captures = AtomicInteger()
@@ -65,6 +67,9 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
     fun leave() = evaluate("leave()")
     fun toggleAudio() = evaluate("toggleAudio()")
     fun toggleVideo() = evaluate("toggleVideo()")
+    fun connectSpacePeer(peer: String) = evaluate("roomConnect(${JsonPrimitive(peer)})")
+    fun spaceSignal(peer: String, message: JsonObject) = evaluate("roomMessage(${JsonPrimitive(peer)},$message)")
+    fun removeSpacePeer(peer: String) = evaluate("roomDisconnect(${JsonPrimitive(peer)})")
     private fun evaluate(script: String) = devtools.evaluate(script)
     fun response(request: RecordedRequest): MockResponse {
         if (request.url.encodedPath == "/p/$id") return MockResponse.Builder().code(200)
@@ -97,7 +102,7 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
     }
     inner class Bridge {
         fun publicKey() = wallet.publicKey
-        fun nativeKey() = owner.publicKey
+        fun nativeKey() = ownerKey
         fun relayKey() = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey
         fun colour() = colour
         fun frequency() = frequency
@@ -113,7 +118,7 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
         fun inspect(envelope: String): String {
             val value = SaitoEnvelope.decodePayload(envelope)
             check(wallet.publicKey in value.recipients || value.author == wallet.publicKey)
-            if (value.author == owner.publicKey && value.body.isJsonObject) {
+            if (value.author == ownerKey && value.body.isJsonObject) {
                 val body = value.body.asJsonObject
                 if (body.get("module") == JsonPrimitive("Fileshare") && body.get("request") == JsonPrimitive("read receipt")) {
                     val data = body.getAsJsonObject("data")

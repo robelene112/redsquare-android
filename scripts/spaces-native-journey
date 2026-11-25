@@ -924,11 +924,47 @@ try:
         if not all(result[flag] is True for flag in ('participantRemoved', 'nativePermissionDenied', 'roomSurvives')):
             raise RuntimeError('Native room lifecycle did not match independently observed effects')
         finish_record(*movies[-1])
+        (evidence / 'room-prejoin-native.tar').write_bytes(
+            adb('exec-out', 'run-as', pkg, 'tar', '-C', 'cache', '-cf', '-', folder, timeout=30).stdout)
+        adb('shell', 'am', 'force-stop', pkg)
+        if adb('shell', 'pidof', pkg, check=False).stdout.strip():
+            raise RuntimeError('The room lifecycle process survived force-stop')
+        reset_disposable_baseline()
+        if compact_room:
+            adb('shell', 'pm', 'grant', pkg, 'android.permission.POST_NOTIFICATIONS')
+        browser_evidence = evidence / 'chromium'
+        browser_log = (evidence / 'chromium-launch.log').open('wb')
+        browser = subprocess.Popen([str(repo / 'scripts/talk-browser-reference'), str(browser_evidence)],
+            stdout=browser_log, stderr=subprocess.STDOUT)
+        children.append((browser, browser_log))
+        marker = browser_evidence / 'ready'
+        try:
+            ready_by = time.monotonic() + 30
+            while not marker.exists():
+                if browser.poll() is not None or time.monotonic() >= ready_by:
+                    raise RuntimeError('Independent Chromium room clients did not become ready')
+                time.sleep(.1)
+            record(2)
+            media = instrument('threeAdmittedPeersExchangeDecodedAudioAndVideo', 'room-media.txt', peer_port, control_port)
+            media.wait(timeout=180)
+            media_output = (evidence / 'room-media.txt').read_text()
+            if media.returncode or len(re.findall(r'^OK \(1 test\)\s*$', media_output, re.M)) != 1:
+                raise RuntimeError('Native and Chromium did not finish the three-peer media journey')
+            media_result = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/room-media-result.json').stdout)
+            if media_result['pid'] == result['pid'] or media_result['admittedParticipants'] != 3 or media_result['audioInputBuffers'] <= 0 or not all(
+                media_result[flag] is True for flag in ('fourthPeerRefused', 'decodedAudioAndVideoBothWays', 'audioAcrossModules', 'moderatorStoppedDecodedAudio')
+            ):
+                raise RuntimeError('Recorded room effects do not establish measured media and the capacity boundary')
+            finish_record(*movies[-1])
+        finally:
+            if marker.exists(): marker.unlink()
+        browser.wait(timeout=15)
+        if browser.returncode: raise RuntimeError('Owned Chromium processes did not finish cleanly')
         command(control_port, 'stop')
         host.wait(timeout=15)
         if host.returncode:
             raise RuntimeError('Owned room host did not finish cleanly')
-        (evidence / 'room-journey-outcome.json').write_text(json.dumps(result, indent=2))
+        (evidence / 'room-journey-outcome.json').write_text(json.dumps({'lifecycle': result, 'media': media_result}, indent=2))
     elif file_mode:
         reset_disposable_baseline()
         article_agreement_owned = True

@@ -125,8 +125,78 @@ window.leave = () => emit('stun-disconnect');
 window.toggleAudio = () => emit('stun-toggle-audio');
 window.toggleVideo = () => emit('stun-toggle-video');
 window.closeFixture = () => { if (talk.streams) talk.streams.leaveCall(); for (const pc of stun.peers.values()) pc.close(); audioContext.close(); };
+// Spaces has a distinct authenticated signalling envelope. Plain RTC remains independent
+// Chromium and shares the same controlled audio/video inputs and decoded media probes.
+const roomPeers = new Map();
+const roomConnecting = new Map();
+const roomOperations = new Map();
+let roomStream;
+async function connectRoomPeer(peer) {
+  if (roomPeers.has(peer)) return roomPeers.get(peer);
+  const pc = new RTCPeerConnection({iceServers: []});
+  pc.roomCandidates = [];
+  pc.roomMakingOffer = false;
+  pc.roomIgnoreOffer = false;
+  const relay = async (request, content) => Host.relay(Host.sign(JSON.stringify({module:'Stun', request, ...content}), JSON.stringify([peer]), Date.now()));
+  pc.onicecandidate = event => {
+    if (event.candidate) relay('peer-candidate', {iceCandidate:event.candidate.toJSON()}).catch(e => Host.failure(String(e)));
+  };
+  pc.ontrack = event => { if (event.streams[0]) emit('videocall-stream', peer, event.streams[0]); };
+  if (!roomStream) roomStream = navigator.mediaDevices.getUserMedia({audio:true, video:true});
+  const stream = await roomStream;
+  pc.onnegotiationneeded = async () => {
+    if (pc.signalingState !== 'stable' || !pc.remoteDescription && Host.publicKey() > peer) return;
+    try {
+      pc.roomMakingOffer = true;
+      await pc.setLocalDescription();
+      await relay('peer-description', {description:pc.localDescription.toJSON()});
+    } catch (e) { if (pc.signalingState !== 'closed') Host.failure(String(e)); }
+    finally { pc.roomMakingOffer = false; }
+  };
+  pc.createDataChannel('data-channel', {negotiated:true, id:42, ordered:true});
+  stream.getTracks().forEach(track => pc.addTrack(track, stream));
+  pc.roomRelay = relay;
+  roomPeers.set(peer, pc);
+  return pc;
+}
+function resolveRoomPeer(peer) {
+  if (!roomConnecting.has(peer)) roomConnecting.set(peer, connectRoomPeer(peer));
+  return roomConnecting.get(peer);
+}
+window.roomConnect = peer => resolveRoomPeer(peer).catch(e => Host.failure(String(e)));
+async function receiveRoomMessage(peer, message) {
+  try {
+    const pc = await resolveRoomPeer(peer);
+    if (message.request === 'peer-candidate') {
+      if (pc.roomIgnoreOffer) return;
+      if (!pc.remoteDescription) pc.roomCandidates.push(message.iceCandidate);
+      else await pc.addIceCandidate(message.iceCandidate);
+    } else if (message.request === 'peer-description') {
+      const incoming = message.description;
+      const collision = incoming.type === 'offer' && (pc.roomMakingOffer || pc.signalingState !== 'stable');
+      pc.roomIgnoreOffer = collision && Host.publicKey() < peer;
+      if (pc.roomIgnoreOffer) return;
+      await pc.setRemoteDescription(incoming);
+      for (const candidate of pc.roomCandidates.splice(0)) await pc.addIceCandidate(candidate);
+      if (incoming.type === 'offer') {
+        await pc.setLocalDescription();
+        await pc.roomRelay('peer-description', {description:pc.localDescription.toJSON()});
+      }
+    }
+  } catch (e) { if (roomPeers.get(peer)?.signalingState !== 'closed') Host.failure(String(e)); }
+}
+window.roomMessage = (peer, message) => {
+  const next = (roomOperations.get(peer) || Promise.resolve()).then(() => receiveRoomMessage(peer, message));
+  roomOperations.set(peer, next);
+  return next;
+};
+window.roomDisconnect = peer => {
+  roomPeers.get(peer)?.close(); roomPeers.delete(peer); roomConnecting.delete(peer);
+  roomOperations.delete(peer);
+  document.getElementById('remote-' + peer)?.remove();
+};
 setInterval(async () => {
-  for (const [peer, pc] of stun.peers) {
+  for (const [peer, pc] of [...stun.peers, ...roomPeers]) {
     try {
       const reports = await pc.getStats(); let bytes = 0;
       for (const report of reports.values()) if (report.type === 'inbound-rtp' && report.kind === 'audio') bytes += report.bytesReceived || 0;
