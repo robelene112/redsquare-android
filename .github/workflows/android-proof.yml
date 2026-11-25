@@ -4,6 +4,10 @@ on:
     branches: [main]
   workflow_dispatch:
     inputs:
+      spaces_catch_up:
+        description: Focused Spaces search, activity, Android notification and cold link journey
+        type: boolean
+        default: false
       spaces_rooms:
         description: Focused Spaces room lifecycle and owned media checks
         type: boolean
@@ -101,7 +105,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'source' }}${{ inputs.android17_16kb && '-16kb' || '' }}${{ inputs.spaces_private_management && format('-private-{0}', inputs.spaces_private_management_case || 'process') || '' }}${{ inputs.spaces_category_management && '-categories' || '' }}${{ inputs.spaces_conversation_overlays && '-conversation' || '' }}
+  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'source' }}${{ inputs.android17_16kb && '-16kb' || '' }}${{ inputs.spaces_private_management && format('-private-{0}', inputs.spaces_private_management_case || 'process') || '' }}${{ inputs.spaces_category_management && '-categories' || '' }}${{ inputs.spaces_conversation_overlays && '-conversation' || '' }}${{ inputs.spaces_catch_up && '-catch-up' || '' }}
   cancel-in-progress: true
 jobs:
   native-proof:
@@ -112,6 +116,7 @@ jobs:
         partition: ${{ fromJSON((inputs.diagnostic_partition && inputs.diagnostic_partition != 'all') && format('["{0}"]', inputs.diagnostic_partition) || (inputs.scope == 'full-android17' || inputs.scope == 'full-android10') && '["chat","social","wallet"]' || '["all"]') }}
     runs-on: ${{ inputs.runner_os || 'ubuntu-24.04' }}
     env:
+      SPACES_CATCH_UP: ${{ inputs.spaces_catch_up && 'true' || 'false' }}
       SPACES_ROOMS: ${{ inputs.spaces_rooms && 'true' || 'false' }}
       SPACES_FILES: ${{ inputs.spaces_files && 'true' || 'false' }}
       SPACES_ARTICLES: ${{ inputs.spaces_articles && 'true' || 'false' }}

@@ -84,7 +84,7 @@ import java.util.concurrent.atomic.AtomicReference
 @Composable
 internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     chrome: @Composable (Boolean, SpacesAccount.Target?, Boolean) -> Unit, onProfile: (String) -> Unit, onMessage: (String) -> Unit,
-    onOpenNode: (String, String) -> Unit, initialInvitation: String? = null, onInvitationConsumed: () -> Unit = {}) {
+    onOpenNode: (String, String) -> Unit, initialInvitation: String? = null, fromNotification: Boolean = false, onInvitationConsumed: () -> Unit = {}) {
     val sharedState by account.state.collectAsState()
     val communities = remember(sharedState.communities) { sharedState.communities.filter { it.protectedChat == null } }
     val state = sharedState.copy(communities = communities)
@@ -132,6 +132,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     var searchSpace by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf<String?>(null) }
     var searchResultOpen by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf(false) }
     var searchLink by remember { mutableStateOf<String?>(null) }
+    var activityLink by remember(account) { mutableStateOf<String?>(null) }
+    var activityGroup by remember(account) { mutableStateOf<SpaceActivityGroup?>(null) }
+    var activityReturn by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf(false) }
     val searchStates = rememberSaveableStateHolder()
     val searchOpen = searchSpace != null && searchSpace == state.selected && !searchResultOpen
     var channelAccessRoute by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf<String?>(null) }
@@ -180,6 +183,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 searchResultOpen = true
                 searchLink = null
             }
+            if (opened == activityLink) {
+                activityReturn = true
+                activityLink = null; activityGroup = null
+            }
             account.consumePublicReference(opened)
         }
     }
@@ -195,6 +202,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     fun selectTab(target: SpacesTab) {
         if (articleEditorGuard.get()?.invoke() == false) return
+        activityReturn = false
         categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false
         channelCreator.open = false; channelAccessRoute = null; account.select(null); savedSelection = null; tab = target
     }
@@ -210,13 +218,14 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         }
         state.selected?.let { savedSelection = it; tab = SpacesTab.MY_SPACES }
     }
-    LaunchedEffect(initialInvitation, state.ready, state.loading, state.working) {
+    LaunchedEffect(initialInvitation, fromNotification, state.ready, state.loading, state.working) {
         val link = initialInvitation ?: return@LaunchedEffect
         if (state.loading || !state.ready || state.working) return@LaunchedEffect
         categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false
         channelCreator.open = false; channelAccessRoute = null
         informationOpen = false; inviteOpen = false; membersOpen = false; reportsSpace = null; publicRulesOpen = false
         searchSpace = null; searchResultOpen = false; searchLink = null
+        activityReturn = false; activityLink = null; activityGroup = null
         clearInvitationReview()
         replacingDevice = false
         val uri = android.net.Uri.parse(link)
@@ -224,7 +233,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             joinOpen = false; informationOpen = false; inviteOpen = false; membersOpen = false; channelAccessRoute = null
             publicReference = link
             when {
-                SpacesLaunchRoutes.isDestination(uri) -> account.openDestinationLink(link)
+                SpacesLaunchRoutes.isDestination(uri) -> {
+                    if (fromNotification) activityLink = link
+                    account.openDestinationLink(link, fromNotification = fromNotification)
+                }
                 SpacesLaunchRoutes.isArticle(uri) -> account.openArticleLink(link)
                 else -> account.openPublicLink(link)
             }
@@ -253,6 +265,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     BackHandler(!membersOpen && !reportsOpen && !searchOpen && !channelAccessOpen && state.selected != null && drawer.isClosed && !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !channelCreator.open && !publicRulesOpen) { if (state.threadParent != null) account.closeThread() else choose(null) }
     BackHandler(searchResultOpen && searchSpace == state.selected && drawer.isClosed && !informationOpen && publicReference == null) {
         searchResultOpen = false
+    }
+    BackHandler(activityReturn && state.selected != null && drawer.isClosed && !informationOpen && publicReference == null) {
+        selectTab(SpacesTab.ACTIVITY)
     }
     BackHandler(drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed || drawer.isAnimationRunning) {
         scope.launch { drawer.close() }
@@ -326,13 +341,20 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     })
             }
             else if (state.selected == null) SpacesOverview(account, state, tab, { choose(it) }, { createOpen = true },
-                { clearInvitationReview(); joinOpen = true }, Modifier.weight(1f)) { AvailabilityNotice(state.availability, state.refreshing, account::refresh) }
+                { clearInvitationReview(); joinOpen = true }, onActivity = { group ->
+                    val link = group.target.link()
+                    activityLink = link; activityGroup = group
+                    publicReference = link
+                    account.openDestinationLink(link, group)
+                }, modifier = Modifier.weight(1f)) { AvailabilityNotice(state.availability, state.refreshing, account::refresh) }
             else {
                 val title = channel?.profile?.name ?: stringResource(
                     if (selected?.articleReadDenied == true) R.string.spaces_kind_article else R.string.spaces_kind_chat)
                 val menu = stringResource(R.string.spaces_switch_channel)
                 if (!compactTyping) Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                    FrameIconButton(R.drawable.ic_back, stringResource(R.string.spaces_back)) { choose(null) }
+                    FrameIconButton(R.drawable.ic_back, stringResource(if (activityReturn) R.string.spaces_activity_back else R.string.spaces_back)) {
+                        if (activityReturn) selectTab(SpacesTab.ACTIVITY) else choose(null)
+                    }
                     Surface(onClick = { focusManager.clearFocus(); keyboardController?.hide(); scope.launch { drawer.open() } }, shape = RoundedCornerShape(14.dp),
                         color = MaterialTheme.colorScheme.surfaceContainerLow,
                         modifier = Modifier.weight(1f).semantics { contentDescription = menu; role = Role.Button; heading(); stateDescription = title }) {
@@ -698,7 +720,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 }), color = MaterialTheme.colorScheme.onSurfaceVariant)
                 OutlinedButton(onClick = { publicReference?.let { link ->
                     when {
-                        openingDestination -> account.openDestinationLink(link)
+                        openingDestination -> account.openDestinationLink(link, activityGroup?.takeIf { activityLink == link },
+                            fromNotification = activityLink == link && activityGroup == null)
                         openingArticle -> account.openArticleLink(link)
                         else -> account.openPublicLink(link)
                     }

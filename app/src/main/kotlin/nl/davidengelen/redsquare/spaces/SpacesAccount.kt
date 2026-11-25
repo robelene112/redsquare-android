@@ -221,7 +221,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                                 flushUrgent(current)
                                 current.parent(target)?.let { current.refreshThread(target.space, it, target.channel, historyWindows[target]) }
                                 trace("refresh selected=${target.space.take(10)} channel=${target.channel.take(10)} complete")
-                                mutable.update { it.copy(accessProblems = it.accessProblems - target.space) }
+                                mutable.update { it.copy(accessProblems = it.accessProblems - target.space,
+                                    savedDestination = it.savedDestination && it.target() != target) }
                             } catch (denied: SpaceClient.ReadDenied) {
                                 mutable.update { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem)) }
                             }
@@ -346,7 +347,19 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 finished.add(next)
             }
         }
-        if (changed && canContinue()) publish()
+        if (changed && canContinue()) {
+            publish()
+            val cutoff = System.currentTimeMillis() - 30 * 60_000L
+            val candidates = localAccess.withLock { current.activityPage(notificationsOnly = true).groups }
+            for (group in candidates.filter { it.unread && it.acceptedAt >= cutoff }.take(5)) {
+                if (!canContinue() || closed.get()) break
+                localAccess.withLock {
+                    if (!closed.get() && !current.activityWasNotified(group) &&
+                        runCatching { SpaceActivityNotifications.post(appContext, ownerKey, backend, endpoint, group) }.getOrDefault(false))
+                        current.markActivityNotified(group)
+                }
+            }
+        }
     }
 
     private suspend fun flushUrgent(current: SpaceClient) {
@@ -1377,12 +1390,20 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             }
         }
 
-    fun openDestinationLink(link: String) {
+    suspend fun activityPage(after: String? = null): SpaceActivityPage = withContext(Dispatchers.IO) {
+        localAccess.withLock {
+            if (closed.get()) throw CancellationException("Account changed")
+            requireNotNull(client).activityPage(after)
+        }
+    }
+
+    fun openDestinationLink(link: String, activity: SpaceActivityGroup? = null, fromNotification: Boolean = false) {
         val route = navigationVersion.get()
         var activeRoute = route
         mutable.update { it.copy(previewIssue = null, requiredNode = null, problem = null) }
         localAction(Problem.INVITATION, isCurrent = { navigationVersion.get() == activeRoute }) {
             val address = SpaceDestination.parse(link)
+            require(activity == null || activity.target == address)
             val current = requireNotNull(client)
             var cached = false
             val opened = try { network.withLock { current.openDestination(address) } }
@@ -1406,6 +1427,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             val accepted = selectRoute(address.community.spaceId, address.channel, expected = route,
                 thread = opened.parent, jump = opened.record, article = article, requestChannelKeys = false, savedDestination = cached) ?: return@localAction
             activeRoute = accepted
+            if (activity != null || fromNotification) localAccess.withLock {
+                if (activity != null) current.markActivitySeen(activity) else current.markDestinationActivitySeen(address)
+            }
             markPublicReferenceOpened(link, accepted)
         }
     }

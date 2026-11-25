@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import nl.davidengelen.redsquare.R
+import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.ui.AppSpacing
 
 internal enum class SpacesTab { MY_SPACES, DISCOVER, ACTIVITY }
@@ -35,10 +36,24 @@ internal enum class SpacesTab { MY_SPACES, DISCOVER, ACTIVITY }
 @Composable
 internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, tab: SpacesTab,
     onOpen: (String) -> Unit, onCreate: () -> Unit, onInvitation: () -> Unit,
+    onActivity: (SpaceActivityGroup) -> Unit,
     modifier: Modifier = Modifier, status: @Composable () -> Unit) {
     var query by rememberSaveable { mutableStateOf(state.directoryQuery) }
     LaunchedEffect(tab, query, state.ready) {
         if (tab == SpacesTab.DISCOVER && state.ready) { delay(250); account.discover(query) }
+    }
+    val memberships = state.communities.filter { it.joined }.map { it.id }
+    var activityCursor by remember(account, memberships) { mutableStateOf<String?>(null) }
+    var activity by remember(account, memberships, activityCursor) { mutableStateOf<SpaceActivityPage?>(null) }
+    var activityFailed by remember(account, activityCursor) { mutableStateOf(false) }
+    var activityRetry by remember(account, activityCursor) { mutableIntStateOf(0) }
+    LaunchedEffect(tab, account, memberships, activityCursor, activityRetry, state.ready, state.refreshing) {
+        if (tab == SpacesTab.ACTIVITY && state.ready && !state.refreshing) {
+            activityFailed = false
+            try { activity = account.activityPage(activityCursor) }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { activityFailed = true }
+        }
     }
     LazyColumn(modifier.fillMaxSize(), contentPadding = PaddingValues(AppSpacing.screen),
         verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -121,7 +136,66 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
                 item { Text(stringResource(R.string.spaces_public_listing_detail), style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant) }
             }
-            SpacesTab.ACTIVITY -> item { OverviewNotice(R.string.spaces_no_personal_activity, R.drawable.ic_notifications) }
+            SpacesTab.ACTIVITY -> {
+                if (activityCursor != null) item {
+                    TextButton(onClick = { activityCursor = null }, modifier = Modifier.heightIn(min = 48.dp)) {
+                        Text(stringResource(R.string.spaces_activity_latest))
+                    }
+                }
+                if (activityFailed) item {
+                    OverviewNotice(R.string.spaces_activity_failed, R.drawable.ic_notifications)
+                    TextButton(onClick = { activityRetry++ }, modifier = Modifier.heightIn(min = 48.dp)) {
+                        Text(stringResource(R.string.spaces_retry))
+                    }
+                }
+                val page = activity
+                if (page == null && state.ready && !activityFailed) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
+                if (page?.groups?.isEmpty() == true && page.next == null) item {
+                    OverviewNotice(R.string.spaces_no_personal_activity, R.drawable.ic_notifications)
+                }
+                if (page != null) {
+                    items(page.groups, key = { it.id }) { group ->
+                        SpaceActivityCard(group, state.profiles[group.target.community.spaceId]?.name,
+                            enabled = !state.working, onClick = { onActivity(group) })
+                    }
+                    page.next?.let { next -> item {
+                        OutlinedButton(onClick = { activityCursor = next }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                            Text(stringResource(R.string.spaces_activity_older))
+                        }
+                    } }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SpaceActivityCard(group: SpaceActivityGroup, space: String?, enabled: Boolean, onClick: () -> Unit) {
+    val actor = registeredIdentity(group.latestActor).name
+    val title = when (group.kind) {
+        SpaceActivityKind.MENTION -> stringResource(R.string.spaces_activity_mention, actor)
+        SpaceActivityKind.REPLY -> if (group.actorCount == 1L) stringResource(R.string.spaces_activity_reply, actor)
+            else stringResource(R.string.spaces_activity_replies, actor, group.actorCount - 1)
+        SpaceActivityKind.REACTION -> if (group.actorCount == 1L) stringResource(R.string.spaces_activity_reaction, actor)
+            else stringResource(R.string.spaces_activity_reactions, actor, group.actorCount - 1)
+        SpaceActivityKind.EVERYONE -> stringResource(R.string.spaces_activity_everyone, actor)
+        SpaceActivityKind.MESSAGE -> stringResource(R.string.spaces_activity_message, actor)
+    }
+    val time = android.text.format.DateUtils.getRelativeTimeSpanString(group.acceptedAt)
+    val unread = stringResource(R.string.spaces_activity_unread)
+    Surface(onClick = onClick, enabled = enabled, shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).semantics {
+            if (group.unread) stateDescription = unread
+        }) {
+        Row(Modifier.padding(16.dp), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Icon(painterResource(R.drawable.ic_notifications), null, Modifier.size(22.dp),
+                tint = if (group.unread) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                Text(title, style = MaterialTheme.typography.titleSmall)
+                Text(listOfNotNull(space, time.toString()).joinToString(" · "), style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
         }
     }
 }

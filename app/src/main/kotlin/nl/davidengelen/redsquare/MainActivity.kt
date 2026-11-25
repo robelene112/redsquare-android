@@ -127,14 +127,15 @@ class MainActivity : ComponentActivity() {
     private val incomingVaultFiles by lazy {
         androidx.lifecycle.ViewModelProvider(this)[nl.davidengelen.redsquare.vault.VaultIncomingFiles::class.java]
     }
-    private val spaceUris = kotlinx.coroutines.flow.MutableStateFlow<Uri?>(null)
+    private val spaceUris = kotlinx.coroutines.flow.MutableStateFlow<nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.Open?>(null)
     private val storeUris = kotlinx.coroutines.flow.MutableStateFlow<Uri?>(null)
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         // Preserve the original launch configuration, including controlled peer endpoints.
         if (incomingVaultFiles.receive(this, intent)) return
-        if (nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.accepts(intent.data)) spaceUris.value = intent.data
+        val space = nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.from(intent)
+        if (space != null) spaceUris.value = space
         else if (nl.davidengelen.redsquare.saito.StoreLink.parse(intent.data?.toString().orEmpty()) != null) storeUris.value = intent.data
         else if (nl.davidengelen.redsquare.talk.TalkLaunchRoutes.accepts(intent.data)) talkRoutes.enqueue(intent.data) else notificationRoutes.enqueue(intent.data)
     }
@@ -167,8 +168,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) incomingVaultFiles.receive(this, intent)
         talkRoutes.initialize(intent.data)
-        if (nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.accepts(intent.data)) {
-            if (savedInstanceState == null) spaceUris.value = intent.data
+        val initialSpace = nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.from(intent)
+        if (initialSpace != null) {
+            if (savedInstanceState == null) spaceUris.value = initialSpace
         } else if (nl.davidengelen.redsquare.saito.StoreLink.parse(intent.data?.toString().orEmpty()) != null) {
             if (savedInstanceState == null) storeUris.value = intent.data
         } else if (!nl.davidengelen.redsquare.talk.TalkLaunchRoutes.accepts(intent.data)) notificationRoutes.initialize(intent.data)
@@ -264,10 +266,15 @@ class MainActivity : ComponentActivity() {
                 )
             }
             var pendingSpaceInvitation by rememberSaveable(stateSaver = articleRouteSaver) { mutableStateOf<String?>(null) }
+            var pendingSpaceNotification by remember { mutableStateOf<nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.Open?>(null) }
+            val scopedSpaceNotification = pendingSpaceNotification?.takeIf {
+                address != null && backend != null && it.matches(address, requireNotNull(backend))
+            }
             var pendingProtectedInvitation by remember { mutableStateOf<ProtectedInvitationRoute?>(null) }
             LaunchedEffect(address, backend) {
                 val pending = pendingProtectedInvitation
                 if (pending != null && (pending.owner != address || pending.backend != backend)) pendingProtectedInvitation = null
+                if (scopedSpaceNotification == null) pendingSpaceNotification = null
             }
             val incomingSpaceUri by spaceUris.collectAsState()
             LaunchedEffect(module) { if (module == AppModule.SPACES) spacesActivated = true }
@@ -293,17 +300,22 @@ class MainActivity : ComponentActivity() {
                 val incoming = incomingSpaceUri ?: return@LaunchedEffect
                 val owner = address ?: return@LaunchedEffect
                 val node = backend ?: return@LaunchedEffect
+                if (!incoming.matches(owner, node)) {
+                    if (spaceUris.value == incoming) spaceUris.value = null
+                    return@LaunchedEffect
+                }
                 val moved = postNavigation.navigate {
                     if (wallet?.publicKey != owner || backend != node || spaceUris.value != incoming) false
                     else {
                         spacesActivated = true
                         stackLinkEntry = null; storeLinkEntry = null; vaultRentalEntry = null
                         clearSpacesReturn()
-                        if (nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.isProtectedChat(incoming)) {
-                            pendingProtectedInvitation = ProtectedInvitationRoute(owner, node, incoming.toString())
+                        if (nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.isProtectedChat(incoming.uri)) {
+                            pendingProtectedInvitation = ProtectedInvitationRoute(owner, node, incoming.uri.toString())
                             module = AppModule.RED_SQUARE
                         } else {
-                            pendingSpaceInvitation = incoming.toString()
+                            pendingSpaceInvitation = incoming.uri.toString().takeUnless { incoming.fromNotification }
+                            pendingSpaceNotification = incoming.takeIf { it.fromNotification }
                             module = AppModule.SPACES
                         }
                         spaceUris.value = null
@@ -808,7 +820,8 @@ class MainActivity : ComponentActivity() {
                                                                 backendSaveError = true; false
                                                             } else {
                                                                 clearSpacesReturn(); backend = choice; spacesActivated = true
-                                                                pendingSpaceInvitation = link; module = AppModule.SPACES; true
+                                                                pendingSpaceInvitation = link; pendingSpaceNotification = null
+                                                                module = AppModule.SPACES; true
                                                             }
                                                         }
                                                     }
@@ -831,8 +844,9 @@ class MainActivity : ComponentActivity() {
                                                                     nl.davidengelen.redsquare.spaces.SpacesScreen(account, Modifier.fillMaxSize(),
                                                                         chrome = { keyboardInLayout, room, compactRoom -> renderChrome(false, keyboardInLayout, room, compactRoom) },
                                                                         onProfile = { openSpaceMember(it, false) }, onMessage = { openSpaceMember(it, true) },
-                                                                        onOpenNode = ::openSpaceNode, initialInvitation = pendingSpaceInvitation,
-                                                                        onInvitationConsumed = { pendingSpaceInvitation = null })
+                                                                        onOpenNode = ::openSpaceNode, initialInvitation = scopedSpaceNotification?.uri?.toString() ?: pendingSpaceInvitation,
+                                                                        fromNotification = scopedSpaceNotification != null,
+                                                                        onInvitationConsumed = { pendingSpaceInvitation = null; pendingSpaceNotification = null })
                                                                 }
                                                             }
                                                         }

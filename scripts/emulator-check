@@ -291,6 +291,11 @@ if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
         [[ "${TEST_SCOPE:-full}" == spaces-journey || "${TEST_SCOPE:-full}" == spaces-journey-android17 ]] || { echo 'Conversation overlays require the base journey scope' >&2; exit 2; }
         journey_options=(conversation-overlays-v1)
     fi
+    if [[ "${SPACES_CATCH_UP:-false}" == true ]]; then
+        [[ "$TEST_SCOPE" == spaces-journey || "$TEST_SCOPE" == spaces-journey-android17 ]] || { echo 'Catch-up requires the base Spaces journey scope' >&2; exit 2; }
+        [[ "${#journey_options[@]}" == 0 ]] || { echo 'Select one focused Spaces journey' >&2; exit 2; }
+        journey_options=(catch-up-v1)
+    fi
     if [[ "${TEST_SCOPE:-full}" == spaces-journey-management* ]]; then
         if [[ "${SPACES_CATEGORY_MANAGEMENT:-false}" == true ]]; then
             [[ "${SPACES_PRIVATE_MANAGEMENT:-false}" != true ]] || { echo 'Select one Spaces management journey' >&2; exit 2; }
@@ -308,7 +313,9 @@ if [[ "${TEST_SCOPE:-full}" == spaces-journey* ]]; then
         else journey_options=(management-v1); fi
     elif [[ "${TEST_SCOPE:-full}" == spaces-journey-discovery* ]]; then journey_options=(discovery-v1); fi
     python3 "$repo_dir/scripts/spaces-native-journey" "$evidence" "${journey_options[@]}"
-    if [[ "${SPACES_ROOMS:-false}" == true ]]; then
+    if [[ "${SPACES_CATCH_UP:-false}" == true ]]; then
+        printf '%s\n' 'Search, grouped Spaces Activity, actual Android notification tap and independently verified exact link across application processes.' > "$evidence/scope.txt"
+    elif [[ "${SPACES_ROOMS:-false}" == true ]]; then
         printf '%s\n' 'Native reusable room controls and independent Chromium audio/video, actual permission denial, navigation, rotation, capacity and authoritative moderation.' > "$evidence/scope.txt"
     elif [[ "${SPACES_FILES:-false}" == true ]]; then
         printf '%s\n' 'Native file consent, DocumentsUI, offline copy and shared deletion with independent provider and app process recovery.' > "$evidence/scope.txt"

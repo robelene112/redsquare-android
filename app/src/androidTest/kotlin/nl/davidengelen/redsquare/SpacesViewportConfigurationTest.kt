@@ -43,7 +43,7 @@ class SpacesViewportConfigurationTest {
         require(name in setOf("spaces-rooms-evidence", "spaces-files-evidence", "spaces-articles-evidence", "spaces-discovery-evidence",
             "spaces-management-evidence", "spaces-private-management-evidence", "spaces-private-readiness-evidence",
             "spaces-category-management-evidence", "spaces-governance-evidence", "spaces-membership-evidence",
-            "spaces-private-ownership-evidence", "spaces-moderation-evidence"))
+            "spaces-private-ownership-evidence", "spaces-moderation-evidence", "spaces-catch-up-evidence"))
         val folder = File(context.cacheDir, name).apply { mkdirs() }
         File(folder, "viewport-$stage.json").writeText(value.toString())
         assertTrue("Actual resource configuration must match the owned viewport", matches())
