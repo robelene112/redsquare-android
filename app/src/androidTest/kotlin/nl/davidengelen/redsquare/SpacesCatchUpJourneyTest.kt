@@ -9,6 +9,7 @@ import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.compose.ui.unit.dp
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
 import androidx.test.platform.app.InstrumentationRegistry
@@ -99,7 +100,7 @@ class SpacesCatchUpJourneyTest {
                 assertNotNull("Actually posted Android notification must appear in the shade", notification)
                 capture("notification-shade")
                 notification.click()
-                waitText("Latest exact proof reply")
+                waitForWholeMessage("Latest exact proof reply")
                 waitText("First proof Needle")
                 ui.onNodeWithText("Unrelated proof reply").assertDoesNotExist()
                 capture("notification-exact-reply")
@@ -120,7 +121,7 @@ class SpacesCatchUpJourneyTest {
         assertEquals(config.get("nativeWallet").asString, AndroidWalletStore(context).loadExisting().publicKey)
         launch(observed.get("link").asString).use {
             withFailureCapture({ capture("cold-exact-failure") }) {
-                waitText("Latest exact proof reply")
+                waitForWholeMessage("Latest exact proof reply")
                 waitText("First proof Needle")
                 ui.onNodeWithText("Unrelated proof reply").assertDoesNotExist()
                 capture("cold-exact-reply")
@@ -174,6 +175,19 @@ class SpacesCatchUpJourneyTest {
             target.isDisplayed() || runCatching { target.performScrollTo().isDisplayed() }.getOrDefault(false)
         }
         target.performClick()
+    }
+
+    private fun waitForWholeMessage(label: String) {
+        val messageText = hasText(label)
+        val body = ui.onNode(messageText)
+        val list = ui.onNode(hasScrollToIndexAction() and hasAnyDescendant(messageText))
+        ui.waitUntil(25_000) {
+            if (!body.isDisplayed() || !list.isDisplayed()) false else {
+                val message = body.getUnclippedBoundsInRoot()
+                val viewport = list.getUnclippedBoundsInRoot()
+                message.top >= viewport.top - 1.dp && message.bottom <= viewport.bottom + 1.dp
+            }
+        }
     }
 
     private fun waitText(label: String) = ui.waitUntil(25_000) {
