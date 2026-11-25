@@ -70,7 +70,10 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
         when (tab) {
             SpacesTab.MY_SPACES -> {
                 if (state.communities.isNotEmpty()) item { SectionLabel(stringResource(R.string.spaces_your_communities)) }
-                if (state.ready && !state.loading && state.communities.isEmpty()) {
+                if (state.ready && !state.loading && !state.communityListLoaded) {
+                    item { LoadingCommunities() }
+                }
+                if (state.communityListLoaded && state.communities.isEmpty()) {
                     item { OverviewNotice(R.string.spaces_no_memberships, R.drawable.ic_spaces) }
                 }
                 items(state.communities, key = { it.id }) { community ->
@@ -156,6 +159,14 @@ internal fun SpacesOverview(account: SpacesAccount, state: SpacesAccount.State, 
                 }
             }
         }
+    }
+}
+
+@Composable
+internal fun LoadingCommunities() {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(stringResource(R.string.spaces_loading_communities), style = MaterialTheme.typography.bodySmall)
+        LinearProgressIndicator(Modifier.fillMaxWidth())
     }
 }
 

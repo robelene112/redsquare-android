@@ -309,6 +309,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 LazyColumn(contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     item { Text(stringResource(R.string.spaces_your_communities), style = MaterialTheme.typography.headlineSmall,
                         modifier = Modifier.semantics { heading() }) }
+                    if (menuState.ready && !menuState.communityListLoaded) item { LoadingCommunities() }
                     items(menuState.communities, key = { "space:${it.id}" }) { community ->
                         SpaceCommunityRow(menuState.profiles[community.id] ?: SpaceProfile(community.name), community.id, account.avatarImages,
                             summary = stringResource(if (community.id == menuState.selected) R.string.spaces_current_community else R.string.spaces_open_saved_channel),

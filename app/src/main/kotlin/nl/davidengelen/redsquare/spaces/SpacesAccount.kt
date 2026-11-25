@@ -37,7 +37,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     data class ArticleFocus(val id: String, val fromCache: Boolean)
 
     data class State(val loading: Boolean = true, val availability: Availability = Availability.CHECKING,
-        val communities: List<SpaceClient.Community> = emptyList(), val selected: String? = null,
+        val communities: List<SpaceClient.Community> = emptyList(), val communityListLoaded: Boolean = false, val selected: String? = null,
         val selectedChannel: String? = null, val threadParent: SpaceClient.Message? = null, val current: SpaceClient.Community? = null, val publicRulesToken: String? = null,
         val anchor: SpaceClient.ReadingAnchor? = null, val created: String? = null,
         val listingIntent: Boolean? = null, val previewIssue: SpaceClient.ReadProblem? = null, val publicLink: String? = null,
@@ -471,6 +471,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             val changes = managementProjection(current, target)
             mutable.update { previous ->
                 val updated = previous.copy(communities = if (includeCommunities) communities else previous.communities,
+                    communityListLoaded = includeCommunities || previous.communityListLoaded,
                     profiles = if (includeCommunities) profiles else previous.profiles + profiles, accessRevision = revision)
                 if (updated.target() != target || updated.loadingChannel) updated
                 else updated.copy(
