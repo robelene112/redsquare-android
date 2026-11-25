@@ -121,6 +121,7 @@ class SpacesDiscoveryJourneyTest {
                 waitText("Be kind. Share ideas, never private keys.", 5_000)
                 val join = hasText("Join this Space") and hasClickAction() and hasAnyAncestor(isDialog())
                 ui.onNode(join).assertIsNotEnabled()
+                capture("06a-real-public-rules-before-consent")
                 ui.onNodeWithText("I have read and accept these community rules").clickReady()
                 ui.onNode(join).clickReady()
                 waitUntil { members(fixtures, "public").contains(saved.get("owner").asString) }
