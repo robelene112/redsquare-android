@@ -24,7 +24,7 @@ test_package = package + '.test'
 android = '{http://schemas.android.com/apk/res/android}'
 classpath = (repo / 'spaces-service/build/host-fixture-classpath.txt').read_text().strip()
 native = repo / 'core/build/generated/spaces-mls-host'
-contract = repo / 'docs/evidence/ticket147/performance-contract.json'
+contract = repo / 'docs/quality/SPACES_SCALE_CONTRACT.json'
 
 def adb(*parts, timeout=25):
     return subprocess.run(['adb', *parts], check=True, capture_output=True, timeout=timeout).stdout

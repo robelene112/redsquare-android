@@ -99,3 +99,5 @@ Each row follows the exact story number in the [accepted specification](https://
 - Controlled room evidence covers three participants. Live node compatibility, physical handsets, OEM behavior and background push require their own observations.
 - File expiry, consent and capacity use an independent owned provider. Live provider availability and paid renewal need explicit operational authorization and evidence.
 - Ordinary beta promotion requires the exact qualified candidate, verified full download, certificate, manifest, release page and rollback-compatible prior version.
+
+[Pre-measurement scale contract](../../quality/SPACES_SCALE_CONTRACT.json)
