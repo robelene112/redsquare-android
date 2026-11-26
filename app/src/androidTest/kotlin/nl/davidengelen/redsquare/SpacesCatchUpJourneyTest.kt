@@ -373,7 +373,8 @@ class SpacesCatchUpJourneyTest {
                 assertTarget(hasText("My Spaces") and hasClickAction())
                 val stableBounds = button.getUnclippedBoundsInRoot()
                 captureNativeScreen(observations.resolve("channel.png"))
-                button.performTouchInput { click() }
+                val nativeSwitcher = device.wait(Until.findObject(By.desc("Switch Space or channel")), 5_000)
+                requireNotNull(nativeSwitcher).click()
                 waitText("Your communities")
                 val drawerClose = hasText(context.getString(R.string.spaces_navigation_close)) and hasClickAction()
                 assertTarget(drawerClose)
@@ -436,6 +437,24 @@ class SpacesCatchUpJourneyTest {
     private fun observeSystemDrawerBack(activity: ActivityScenario<MainActivity>, observations: File, closed: () -> Boolean) {
         val events = StringBuilder()
         var callback: Window.Callback? = null
+        var originalActivity: MainActivity? = null
+        fun currentWindowIsFocused(): Boolean {
+            var focused = false
+            activity.onActivity { native ->
+                check(originalActivity == null || originalActivity === native)
+                originalActivity = native
+                focused = native.hasWindowFocus()
+            }
+            return focused
+        }
+        if (!currentWindowIsFocused()) {
+            val windows = device.executeShellCommand("dumpsys window")
+            events.appendLine(windows.lineSequence().filter { "mCurrentFocus" in it || "mFocusedApp" in it }.joinToString("\n"))
+            events.appendLine(device.executeShellCommand("am start -W --activity-single-top " +
+                "-n ${context.packageName}/${MainActivity::class.java.name}"))
+            // Sending a real key requires the original Activity to own focus.
+            // Viewport configuration changes can leave the emulator's system window focused.
+        }
         activity.onActivity { native ->
             events.appendLine("focus=${native.hasWindowFocus()} enabled=${native.onBackPressedDispatcher.hasEnabledCallbacks()}")
             val original = native.window.callback
@@ -449,6 +468,7 @@ class SpacesCatchUpJourneyTest {
             }
         }
         try {
+            ui.waitUntil(8_000) { currentWindowIsFocused() }
             Espresso.pressBack()
             ui.waitUntil(12_000, closed)
         } catch (failure: Throwable) {
