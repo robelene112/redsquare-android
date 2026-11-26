@@ -41,6 +41,7 @@ class SpacesScaleSeedObserver {
         fun hex(value: ByteArray) = value.joinToString("") { "%02x".format(it) }
         val sourceHash = hex(digest.digest())
         check(sourceHash == requireNotNull(arguments.getString("spacesScaleDatabaseSha256")))
+        val expectedRows = requireNotNull(arguments.getString("spacesScaleDatabaseRows")).toLong().also { require(it > 0) }
         val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
         val authority = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey
         check(manifest.get("owner").asString == owner.publicKey && manifest.get("authority").asString == authority)
@@ -67,11 +68,15 @@ class SpacesScaleSeedObserver {
                                 imported++
                             } while (imported % 256 != 0L && rows.moveToNext())
                         }
+                        if (imported % 8192 == 0L) instrumentation.sendStatus(2, Bundle().apply {
+                            putLong("spacesScaleImportedRows", imported)
+                            putLong("spacesScaleExpectedRows", expectedRows)
+                        })
                     }
                 }
             }
         }
-        check(imported > 0)
+        check(imported == expectedRows)
         spaceServiceDirectory(context, owner.publicKey, endpoint).save(EncryptedLocalFile.Contents(1, authority))
         instrumentation.sendStatus(0, Bundle().apply {
             putString("spacesScaleSeed", JsonObject().apply {

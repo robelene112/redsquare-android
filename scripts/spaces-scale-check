@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 import shlex
+import sqlite3
 import subprocess
 import sys
 import time
@@ -88,18 +89,27 @@ with (evidence / 'host.log').open('wb') as host_log:
         adb('shell', 'mkdir', '-p', transfer)
         for name in ('fixture.json', 'fixture-author.sqlite'):
             adb('push', str(fixture / name), f'{transfer}/{name}', timeout=180 if full else 45)
+        fixture_database = fixture / 'fixture-author.sqlite'
+        with sqlite3.connect(fixture_database.as_uri() + '?mode=ro', uri=True) as database:
+            expected_rows = database.execute('SELECT count(*) FROM entries').fetchone()[0]
         arguments = ['am', 'instrument', '-w', '-r',
                      '-e', 'class', 'nl.davidengelen.redsquare.SpacesScaleSeedObserver#importReleaseScaleFixture',
                      '-e', 'spacesScalePort', str(local_port),
-                     '-e', 'spacesScaleDatabaseSha256', sha(fixture / 'fixture-author.sqlite'),
+                     '-e', 'spacesScaleDatabaseSha256', sha(fixture_database),
+                     '-e', 'spacesScaleDatabaseRows', str(expected_rows),
                      f'{test_package}/androidx.test.runner.AndroidJUnitRunner']
-        imported = adb('shell', shlex.join(arguments), timeout=2400 if full else 180).decode()
-        (evidence / 'seed-native.txt').write_text(imported)
+        # Provisioning writes the full encrypted cache through Android Keystore
+        # before the timed cold launch. Retain its progress even if setup expires.
+        seed_output = evidence / 'seed-native.txt'
+        with seed_output.open('wb') as seed_log:
+            subprocess.run(['adb', 'shell', shlex.join(arguments)], check=True,
+                           stdout=seed_log, stderr=subprocess.STDOUT, timeout=3000 if full else 180)
+        imported = seed_output.read_text()
         observed = re.findall(r'^INSTRUMENTATION_STATUS: spacesScaleSeed=(.*)$', imported, re.M)
         if len(observed) != 1 or not re.search(r'^OK \(1 test\)\s*$', imported, re.M):
             raise RuntimeError('The profileable application did not import the signed fixture')
         receipt = json.loads(observed[0])
-        if receipt['manifestSha256'] != sha(fixture / 'fixture.json'):
+        if receipt['manifestSha256'] != sha(fixture / 'fixture.json') or receipt['authenticatedLocalRows'] != expected_rows:
             raise RuntimeError('Android imported a different fixture')
         adb('shell', 'am', 'force-stop', package)
         launch = ['am', 'start', '-W', '-a', 'android.intent.action.VIEW', '-d', endpoints['hotLink'],
