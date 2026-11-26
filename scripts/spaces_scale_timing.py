@@ -160,6 +160,11 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, req
     def trace_text():
         return adb('logcat', '-d', '-s', f'{TAG}:I', '*:S', timeout=15).decode()
 
+    def anchor_command(operation, *extras):
+        return shell('am', 'start', '-W', '--activity-single-top', '-n',
+                     f'{package}/nl.davidengelen.redsquare.MainActivity', '-a',
+                     'nl.davidengelen.redsquare.performance.OBSERVE_ANCHOR', '--es', 'operation', operation, *extras)
+
     def device_elapsed_ns():
         seconds, milliseconds = shell('cat', '/proc/uptime').split()[0].split('.')
         return int(seconds) * 10**9 + int(milliseconds.ljust(9, '0'))
@@ -239,7 +244,12 @@ file_write_period_ms: 5000
         other_sample('mixed-media')
         reaction_frames = re.compile(r'reaction-frame (\d+) (\d+) (\d+) (\d+)')
         feedback_frames = re.compile(r'reaction-feedback-frame (\d+) (\d+) (\d+) (\d+) (saving|selected)')
-        geometry = re.compile(r'anchor-frame (\d+) (\d+) (-?[\d.]+) (-?[\d.]+)')
+        geometry = re.compile(r'anchor-frame (\d+) (\d+) (\d+) (\d+) (true|false) (missing|-?[\d.]+ -?[\d.]+ -?[\d.]+ -?[\d.]+)')
+        def anchor_frames(log, trial):
+            return [(int(serial), int(started), int(committed), checkpoint == 'true',
+                     None if bounds == 'missing' else tuple(map(float, bounds.split())))
+                    for number, serial, started, committed, checkpoint, bounds in geometry.findall(log)
+                    if int(number) == trial]
         body = re.compile(r'General • Benchmark Space 001 • record (\d+)\.')
         durable_reactions = []
         for trial in range(expected['expectedWarmups'] + expected['expectedWarmIterations']):
@@ -265,9 +275,17 @@ file_write_period_ms: 5000
             record = body.match(identity)[1]
             if any(hot in label(node) for node in ElementTree.parse(evidence / f'{name}-anchor.xml').iter('node')):
                 raise RuntimeError('The independently updated thread is still visible before its arrival')
+            anchor_command('arm', '--ei', 'trial', trial, '--ei', 'record', record)
+            anchor_deadline = time.monotonic() + 10
+            while not anchor_frames(trace_text(), trial):
+                if time.monotonic() >= anchor_deadline:
+                    raise RuntimeError(f'The native anchor probe did not commit before {name}')
+                time.sleep(.1)
             reset_frames()
             arrival_started = device_elapsed_ns()
             arrival = request('arrival')
+            reply = arrival['offscreenReply']
+            anchor_command('receipt', '--es', 'reply', reply)
             deadline = time.monotonic() + 35
             applied = None
             while applied is None:
@@ -275,27 +293,40 @@ file_write_period_ms: 5000
                 log = trace_text()
                 received = re.search(rf'received (\d+) {re.escape(read)}\b', log) if read else None
                 if received:
-                    limit = int(received[1])
-                    applied = next((stamp for stamp in map(int, re.findall(r'projected (\d+)', log)) if stamp > limit), None)
+                    projected = re.search(rf'reply-projected (\d+) {re.escape(reply)}\b', log)
+                    if projected and int(projected[1]) >= int(received[1]):
+                        applied = int(projected[1])
                 if time.monotonic() >= deadline:
                     raise RuntimeError(f'The native client did not apply the independently signed offscreen reply in {name}')
                 if applied is None:
                     time.sleep(.2)
             after = view(f'{name}-arrival', lambda nodes: next((n for n in nodes if label(n) == identity), None))
-            finished = device_elapsed_ns()
-            log = trace_text()
-            layouts = [(int(at), float(top), float(bottom)) for at, key, top, bottom in geometry.findall(log) if key == record]
-            prior = [layout for layout in layouts if layout[0] <= arrival_started]
-            if not prior:
-                raise RuntimeError(f'The native frame containing {identity} was not observed before the arrival')
-            baseline = prior[-1]
-            commits = [layout for layout in layouts if arrival_started < layout[0] <= finished]
+            anchor_command('checkpoint')
+            anchor_deadline = time.monotonic() + 10
+            while True:
+                log = trace_text()
+                layouts = sorted(anchor_frames(log, trial))
+                checkpoint = next((layout for layout in layouts if layout[3] and layout[2] >= applied), None)
+                if checkpoint is not None:
+                    break
+                if time.monotonic() >= anchor_deadline:
+                    raise RuntimeError(f'The native anchor probe did not commit after {name}')
+                time.sleep(.1)
+            anchor_command('stop')
+            prior = [layout for layout in layouts if layout[2] <= arrival_started]
+            # /proc/uptime is rounded down to 10ms. Use the already committed
+            # probe frame determined before requesting the arrival when needed.
+            baseline = prior[-1] if prior else layouts[0]
+            commits = [layout for layout in layouts if baseline[0] < layout[0] <= checkpoint[0]]
             (evidence / f'{name}-anchor.json').write_text(json.dumps({
                 'text': identity, 'before': before, 'after': bounds(after), 'accepted': arrival,
                 'arrivalStartedNs': arrival_started, 'nativeReadRequest': read, 'replyProjectedNs': applied,
-                'checkedThroughNs': finished, 'baselineFrameBounds': baseline, 'changedFrameBounds': commits,
+                'checkedThroughNs': checkpoint[2], 'baselineFrame': baseline, 'committedFrames': commits,
             }, indent=2))
-            if before != bounds(after) or any(abs(top - baseline[1]) > 1 or abs(bottom - baseline[2]) > 1 for _, top, bottom in commits):
+            baseline_bounds = baseline[4]
+            if (before != bounds(after) or baseline_bounds is None or not commits or
+                    [frame[0] for frame in commits] != list(range(baseline[0] + 1, checkpoint[0] + 1)) or
+                    any(frame[4] is None or any(abs(a - b) > 1 for a, b in zip(baseline_bounds, frame[4])) for frame in commits)):
                 anchor_failures.append(name)
             other_sample(f'{name}-arrival', allow_empty=True)
             def visible_reaction(nodes):

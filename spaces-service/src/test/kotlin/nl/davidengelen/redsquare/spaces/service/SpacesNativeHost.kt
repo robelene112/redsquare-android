@@ -188,6 +188,19 @@ object SpacesNativeHost {
                                         "/catch-up-initial" -> requireNotNull(catchUp).initialReplies()
                                         "/catch-up-latest" -> requireNotNull(catchUp).latestReply()
                                         "/catch-up-observe" -> requireNotNull(catchUp).observe()
+                                        "/catch-up-hold-destination" -> {
+                                            check(catchUpMode)
+                                            peer.holdNextSpacesDestinationRead()
+                                            JsonObject()
+                                        }
+                                        "/catch-up-held-destination" -> {
+                                            check(catchUpMode)
+                                            JsonObject().apply { addProperty("id", peer.heldSpacesDestinationReadId()) }
+                                        }
+                                        "/catch-up-release-destination" -> {
+                                            check(catchUpMode)
+                                            JsonObject().apply { addProperty("released", peer.releaseSpacesDestinationRead()) }
+                                        }
                                         "/moderation-config" -> requireNotNull(moderation).configuration()
                                         "/moderation-report-status" -> requireNotNull(moderation).observeReport()
                                         "/moderation-promote-reporter" -> requireNotNull(moderation).promoteReporter()

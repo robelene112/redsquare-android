@@ -133,6 +133,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        if (BuildConfig.SPACES_SCALE_FIXTURE &&
+            nl.davidengelen.redsquare.spaces.SpacesScaleMeasurement.anchorIntent(intent, window.decorView)) return
         // Preserve the original launch configuration, including controlled peer endpoints.
         if (incomingVaultFiles.receive(this, intent)) return
         val space = nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.from(intent)
@@ -157,6 +159,8 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onDestroy() {
+        if (BuildConfig.SPACES_SCALE_FIXTURE)
+            nl.davidengelen.redsquare.spaces.SpacesScaleMeasurement.stopAnchorProbe(window.decorView)
         walletExports?.cancel()
         walletExports = null
         walletImports?.cancel()
@@ -297,14 +301,14 @@ class MainActivity : ComponentActivity() {
                 }
             }
             DisposableEffect(spacesAccount, module) {
-                val account = spacesAccount
+                val account = spacesAccount.takeIf { module == AppModule.SPACES }
                 val observer = LifecycleEventObserver { _, event ->
-                    if (event == Lifecycle.Event.ON_START) account?.visible(module == AppModule.SPACES)
+                    if (event == Lifecycle.Event.ON_START) account?.visible(true)
                     if (event == Lifecycle.Event.ON_STOP) account?.visible(false)
                 }
                 lifecycle.addObserver(observer)
-                account?.visible(module == AppModule.SPACES && lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
-                onDispose { lifecycle.removeObserver(observer); account?.visible(false) }
+                account?.visible(lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
+                onDispose { lifecycle.removeObserver(observer); account?.detachScreen() }
             }
             DisposableEffect(spacesAccount) { onDispose { spacesAccount?.close() } }
             LaunchedEffect(incomingSpaceUri, address, backend) {
@@ -874,7 +878,7 @@ class MainActivity : ComponentActivity() {
                                                                         chrome = { keyboardInLayout, room, compactRoom -> renderChrome(false, keyboardInLayout, room, compactRoom, false) },
                                                                         onProfile = { openSpaceMember(it, false) }, onMessage = { openSpaceMember(it, true) },
                                                                         onOpenNode = ::openSpaceNode, initialInvitation = spaceLink,
-                                                                        coldStartDestination = savedInstanceState == null && spaceLink != null &&
+                                                                        coldStartDestination = spaceLink != null &&
                                                                             initialSpace?.uri?.toString() == spaceLink &&
                                                                             nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.isDestination(initialSpace?.uri),
                                                                         fromNotification = scopedSpaceNotification != null,

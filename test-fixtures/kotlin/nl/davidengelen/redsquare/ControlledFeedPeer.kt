@@ -33,13 +33,20 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var withholdSpacesReply = false
     var withheldSpacesContentKind = "message"
     private val holdNextArticleRead = java.util.concurrent.atomic.AtomicBoolean()
-    private data class HeldArticleReply(val request: String, val send: () -> Boolean)
-    private val heldArticleReply = java.util.concurrent.atomic.AtomicReference<HeldArticleReply?>(null)
+    private val holdNextDestinationRead = java.util.concurrent.atomic.AtomicBoolean()
+    private data class HeldSpacesReply(val request: String, val send: () -> Boolean)
+    private val heldArticleReply = java.util.concurrent.atomic.AtomicReference<HeldSpacesReply?>(null)
+    private val heldDestinationReply = java.util.concurrent.atomic.AtomicReference<HeldSpacesReply?>(null)
     fun holdNextSpacesArticleRead() {
         check(heldArticleReply.get() == null && holdNextArticleRead.compareAndSet(false, true))
     }
     fun heldSpacesArticleReadId(): String? = heldArticleReply.get()?.request
     fun releaseSpacesArticleRead(): Boolean = heldArticleReply.getAndSet(null)?.send?.invoke() == true
+    fun holdNextSpacesDestinationRead() {
+        check(heldDestinationReply.get() == null && holdNextDestinationRead.compareAndSet(false, true))
+    }
+    fun heldSpacesDestinationReadId(): String? = heldDestinationReply.get()?.request
+    fun releaseSpacesDestinationRead(): Boolean = heldDestinationReply.getAndSet(null)?.send?.invoke() == true
     val withholdNextSpacesReadReply = java.util.concurrent.atomic.AtomicBoolean(false)
     val withheldSpacesReads = java.util.concurrent.CopyOnWriteArrayList<String>()
     val withholdNextSpacesControlReply = java.util.concurrent.atomic.AtomicReference<String?>(null)
@@ -367,10 +374,17 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             require(SaitoEnvelope.decode(original.envelope()).author == authenticatedKey)
                             spacesRequests.add(original)
                             val response = requireNotNull(spacesResponse)(original)
-                            if (body.get("request")?.asString == "read" && body.getAsJsonObject("scope")?.has("article_id") == true &&
-                                holdNextArticleRead.compareAndSet(true, false)) {
+                            val heldReply = if (body.get("request")?.asString == "read") {
+                                val scope = body.getAsJsonObject("scope")
+                                when {
+                                    scope?.has("article_id") == true && holdNextArticleRead.compareAndSet(true, false) -> heldArticleReply
+                                    scope?.has("destination_kind") == true && holdNextDestinationRead.compareAndSet(true, false) -> heldDestinationReply
+                                    else -> null
+                                }
+                            } else null
+                            if (heldReply != null) {
                                 val frameBytes = (byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()
-                                check(heldArticleReply.compareAndSet(null, HeldArticleReply(original.id) { webSocket.send(frameBytes) }))
+                                check(heldReply.compareAndSet(null, HeldSpacesReply(original.id) { webSocket.send(frameBytes) }))
                                 return
                             }
                             val dropRead = body.get("request")?.asString == "read" && withholdNextSpacesReadReply.compareAndSet(true, false)

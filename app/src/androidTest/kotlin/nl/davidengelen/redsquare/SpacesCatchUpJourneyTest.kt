@@ -118,11 +118,22 @@ class SpacesCatchUpJourneyTest {
         assertNotEquals(prior.get("pid").asInt, Process.myPid())
         assertEquals(prior.get("reply").asString, observed.get("reply").asString)
         assertEquals(config.get("nativeWallet").asString, AndroidWalletStore(context).loadExisting().publicKey)
+        request("hold-destination")
         launch(observed.get("link").asString).use {
             withFailureCapture({ capture("cold-exact-failure") }) {
+                var held: String? = null
+                ui.waitUntil(10_000) {
+                    held = request("held-destination").get("id")?.takeUnless { it.isJsonNull }?.asString
+                    held != null && ui.onNodeWithText(context.getString(R.string.spaces_destination_opening)).isDisplayed()
+                }
+                assertTrue(device.pressHome())
+                assertTrue(device.wait(Until.gone(By.pkg(context.packageName).depth(0)), 5_000))
+                assertTrue(request("release-destination").get("released").asBoolean)
+                device.executeShellCommand("am start -W --activity-single-top -n ${context.packageName}/${MainActivity::class.java.name}")
                 waitForWholeMessage("Latest exact proof reply")
                 waitText("First proof Needle")
                 ui.onNodeWithText("Unrelated proof reply").assertDoesNotExist()
+                observed.addProperty("heldReadResumedAfterHome", held)
                 capture("cold-exact-reply")
             }
         }

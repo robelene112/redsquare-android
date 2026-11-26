@@ -1,14 +1,17 @@
 package nl.davidengelen.redsquare.spaces
 
+import android.content.Intent
 import android.os.SystemClock
 import android.os.Trace
 import android.util.Log
 import android.view.View
+import android.view.ViewTreeObserver
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.layout.LayoutCoordinates
+import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import java.util.concurrent.atomic.AtomicBoolean
@@ -25,6 +28,77 @@ internal object SpacesScaleMeasurement {
     private val pending = AtomicReference<Reaction?>()
     private const val tag = "SpacesScaleProof"
     private val hotRecord = Regex("""^General • Benchmark Space 001 • record (\d+)\.""")
+    private const val anchorAction = "nl.davidengelen.redsquare.performance.OBSERVE_ANCHOR"
+    private val visibleRows = mutableMapOf<Int, AnchorRow>()
+    private var anchorProbe: AnchorProbe? = null
+    private val watchedReply = AtomicReference<String?>()
+
+    class AnchorRow(val record: Int) {
+        var coordinates: LayoutCoordinates? = null
+    }
+
+    fun anchorRow(body: String?): AnchorRow? = body?.let(hotRecord::find)?.groupValues?.get(1)?.toIntOrNull()?.let(::AnchorRow)
+
+    fun attachAnchorRow(row: AnchorRow) { visibleRows[row.record] = row }
+
+    fun detachAnchorRow(row: AnchorRow) { if (visibleRows[row.record] === row) visibleRows.remove(row.record) }
+
+    private class AnchorProbe(val trial: Int, val record: Int, val view: View) : ViewTreeObserver.OnPreDrawListener {
+        private var sequence = 0
+        var checkpoint = false
+
+        override fun onPreDraw(): Boolean {
+            val observer = view.viewTreeObserver
+            if (!view.isHardwareAccelerated || !observer.isAlive || !view.isShown) return true
+            val current = visibleRows[record]?.coordinates?.takeIf { it.isAttached }?.boundsInWindow()
+                ?.takeUnless { it.isEmpty }
+            val bounds = current?.let { "${it.left} ${it.top} ${it.right} ${it.bottom}" } ?: "missing"
+            val started = SystemClock.elapsedRealtimeNanos()
+            val last = checkpoint
+            checkpoint = false
+            val frame = ++sequence
+            observer.registerFrameCommitCallback {
+                Log.i(tag, "anchor-frame $trial $frame $started ${SystemClock.elapsedRealtimeNanos()} $last $bounds")
+            }
+            return true
+        }
+    }
+
+    fun anchorIntent(intent: Intent, view: View): Boolean {
+        if (intent.action != anchorAction) return false
+        when (intent.getStringExtra("operation")) {
+            "arm" -> {
+                val trial = intent.getIntExtra("trial", -1)
+                val record = intent.getIntExtra("record", -1)
+                if (trial in 0..5 && record in 1..10_000) {
+                    stopAnchorProbe(view)
+                    AnchorProbe(trial, record, view).also {
+                        anchorProbe = it
+                        view.viewTreeObserver.addOnPreDrawListener(it)
+                    }
+                    view.invalidate()
+                }
+            }
+            "receipt" -> intent.getStringExtra("reply")?.takeIf { it.length == 128 && anchorProbe?.view === view }
+                ?.let(watchedReply::set)
+            "checkpoint" -> anchorProbe?.takeIf { it.view === view }?.let { it.checkpoint = true; view.invalidate() }
+            "stop" -> stopAnchorProbe(view)
+        }
+        return true
+    }
+
+    fun stopAnchorProbe(view: View) {
+        val probe = anchorProbe?.takeIf { it.view === view } ?: return
+        view.viewTreeObserver.removeOnPreDrawListener(probe)
+        watchedReply.set(null)
+        anchorProbe = null
+    }
+
+    fun expectedReply(): String? = watchedReply.get()
+
+    fun projectedReply(id: String) {
+        if (watchedReply.compareAndSet(id, null)) Log.i(tag, "reply-projected ${SystemClock.elapsedRealtimeNanos()} $id")
+    }
 
     fun inputObserver(message: String, emoji: String): Modifier = Modifier.pointerInput(message, emoji) {
         awaitEachGesture {
@@ -73,14 +147,6 @@ internal object SpacesScaleMeasurement {
         }
     }
 
-    fun rowGeometry(view: View, body: String?, bounds: Rect) {
-        val record = body?.let(hotRecord::find)?.groupValues?.get(1) ?: return
-        if (!view.isHardwareAccelerated || !view.viewTreeObserver.isAlive) return
-        view.viewTreeObserver.registerFrameCommitCallback {
-            Log.i(tag, "anchor-frame ${SystemClock.elapsedRealtimeNanos()} $record ${bounds.top} ${bounds.bottom}")
-        }
-    }
-
     fun visible(visible: Boolean, ticker: Boolean, accountInstance: Int, activeJobs: Int, subscribers: Int) {
         Log.i(tag, "foreground ${SystemClock.elapsedRealtimeNanos()} $visible $ticker $accountInstance $activeJobs $subscribers")
     }
@@ -93,7 +159,4 @@ internal object SpacesScaleMeasurement {
         Log.i(tag, "received ${SystemClock.elapsedRealtimeNanos()} $request")
     }
 
-    fun projected() {
-        Log.i(tag, "projected ${SystemClock.elapsedRealtimeNanos()}")
-    }
 }

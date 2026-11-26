@@ -1032,6 +1032,8 @@ try:
         cold = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/cold-result.json').stdout)
         if cold['pid'] == notified['pid'] or any(cold[field] != observed[field] for field in ('reply', 'root', 'privateDenied')):
             raise RuntimeError('Cold identity or destination diverged from the independent observer')
+        if not re.fullmatch(r'[0-9a-f]{128}', cold.get('heldReadResumedAfterHome') or ''):
+            raise RuntimeError('Cold link did not resume the held native read after the real Home transition')
         finish_record(*movies[-1])
         command(control_port, 'stop')
         host.wait(timeout=15)

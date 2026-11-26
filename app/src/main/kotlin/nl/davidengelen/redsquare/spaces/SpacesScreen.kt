@@ -39,7 +39,6 @@ import nl.davidengelen.redsquare.feed.LocalPostNavigation
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
@@ -237,10 +236,22 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         }
         state.selected?.let { savedSelection = it; tab = SpacesTab.MY_SPACES }
     }
-    LaunchedEffect(initialInvitation, fromNotification, state.ready, state.loading, state.working, state.savingNavigation) {
+    var requestedColdLink by remember(account, initialInvitation) { mutableStateOf(false) }
+    val coldDestinationReady = state.exactDestination && state.current != null && !state.loadingChannel && !state.projectingDestination
+    val coldDestinationBlocked = state.problem != null || state.previewIssue != null || state.requiredNode != null ||
+        state.availability == SpacesAccount.Availability.UNSUPPORTED ||
+        state.availability == SpacesAccount.Availability.CHANGED_IDENTITY ||
+        state.availability == SpacesAccount.Availability.STORAGE_UNAVAILABLE ||
+        !state.ready && state.availability == SpacesAccount.Availability.OFFLINE
+    LaunchedEffect(initialInvitation, fromNotification, state.ready, state.loading, state.working, state.savingNavigation,
+        requestedColdLink, coldDestinationReady, coldDestinationBlocked) {
         val link = initialInvitation ?: return@LaunchedEffect
         val uri = android.net.Uri.parse(link)
         val destination = SpacesLaunchRoutes.isDestination(uri)
+        if (requestedColdLink) {
+            if (coldDestinationReady || coldDestinationBlocked) onInvitationConsumed()
+            return@LaunchedEffect
+        }
         if ((state.loading && !destination) || !state.ready || state.working || state.savingNavigation) return@LaunchedEffect
         categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false
         channelCreator.open = false; channelAccessRoute = null
@@ -257,6 +268,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 destination -> {
                     if (fromNotification) activityLink = link
                     if (!account.openDestinationLink(link, fromNotification = fromNotification)) return@LaunchedEffect
+                    if (coldStartDestination) {
+                        requestedColdLink = true
+                        return@LaunchedEffect
+                    }
                 }
                 SpacesLaunchRoutes.isArticle(uri) -> account.openArticleLink(link)
                 else -> account.openPublicLink(link)
@@ -266,13 +281,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     var waitingForColdDestination by remember(account) { mutableStateOf(coldStartDestination) }
     if (waitingForColdDestination) {
-        val projected = state.exactDestination && state.current != null && !state.loadingChannel && !state.projectingDestination
-        val blocked = state.problem != null || state.previewIssue != null || state.requiredNode != null ||
-            state.availability == SpacesAccount.Availability.UNSUPPORTED ||
-            state.availability == SpacesAccount.Availability.CHANGED_IDENTITY ||
-            state.availability == SpacesAccount.Availability.STORAGE_UNAVAILABLE ||
-            !state.ready && state.availability == SpacesAccount.Availability.OFFLINE
-        if (projected || blocked) SideEffect { waitingForColdDestination = false }
+        if (coldDestinationReady || coldDestinationBlocked) SideEffect { waitingForColdDestination = false }
         else {
             // A direct launch has no previous screen to preserve. Keep the existing
             // loading view until the destination or a recovery action can render.
@@ -1152,10 +1161,14 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
     val name = registeredIdentity(message.author).name
     val time = remember(message.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(message.createdAt)) }
     val measuredBody = if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE) {
-        val hostView = LocalView.current
-        bodyModifier.onGloballyPositioned { position ->
-            SpacesScaleMeasurement.rowGeometry(hostView, message.text, position.boundsInWindow())
-        }
+        val anchor = remember(message.text) { SpacesScaleMeasurement.anchorRow(message.text) }
+        if (anchor != null) {
+            DisposableEffect(anchor) {
+                SpacesScaleMeasurement.attachAnchorRow(anchor)
+                onDispose { SpacesScaleMeasurement.detachAnchorRow(anchor) }
+            }
+            bodyModifier.onGloballyPositioned { anchor.coordinates = it }
+        } else bodyModifier
     } else bodyModifier
     var changeCancelTooLate by remember(message.change?.operationId) { mutableStateOf(false) }
     Row(Modifier.fillMaxWidth().testTag("spaces-message"), horizontalArrangement = Arrangement.spacedBy(12.dp)) {

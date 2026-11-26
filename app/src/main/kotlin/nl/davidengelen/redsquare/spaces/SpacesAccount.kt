@@ -250,7 +250,15 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     }
                     if (!mutable.value.openingDestination()) {
                         publish(includeCommunities = canRefreshCommunityList())
-                        if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE) SpacesScaleMeasurement.projected()
+                        if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE) {
+                            val reply = SpacesScaleMeasurement.expectedReply()
+                            val target = mutable.value.target()
+                            if (reply != null && target != null) localAccess.withLock {
+                                val lookedUp = current.message(target.space, reply, target.channel)
+                                if (lookedUp?.position != null && !lookedUp.pending && !lookedUp.rejected && !lookedUp.deleted)
+                                    SpacesScaleMeasurement.projectedReply(reply)
+                            }
+                        }
                     }
                     trace("refresh projected")
                     // Only the on-screen Space is checked on every cycle. Keep
@@ -492,12 +500,17 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         if (channelDrawerVisible.getAndSet(visible) != visible && visible) wake.trySend(Unit)
     }
 
-    fun visible(active: Boolean) {
-        if (wasVisible.getAndSet(active) == active) return
-        if (!active) synchronized(navigationChanges) {
+    fun detachScreen() {
+        synchronized(navigationChanges) {
             initialDestinationPending.set(false)
             navigationVersion.incrementAndGet()
+            mutable.update { if (it.projectingDestination) it.copy(projectingDestination = false) else it }
         }
+        visible(false)
+    }
+
+    fun visible(active: Boolean) {
+        if (wasVisible.getAndSet(active) == active) return
         ticker?.cancel(); ticker = null
         if (active) ticker = scope.launch {
             while (isActive) { wake.trySend(Unit); delay(5_000) }
