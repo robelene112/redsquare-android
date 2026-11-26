@@ -5,11 +5,15 @@
 Signed 0.1.155 is staged at product source `b8c332de1`. The complete HTTP
 response matched the rebuilt 111,806,885-byte APK and the established signing
 certificate. Its SHA256 is `a9f3c53f217f4f46c56dcd84cc9122e3ccb9832be7e8531eb9901b0867e690fb`.
-Fresh signed upgrades from 139 and 142 and cold installs are running on both
-Android versions. Whole-catalogue parents preserve the recorded case inventory
-on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45764683719)
-and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45764683534).
-The ordinary beta channel serves 0.1.142 while these checks run.
+Signed upgrades from 139 pass on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45766540642)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45766540656).
+The upgrades from 142 also pass on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45766540668)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45766540470).
+Each run verifies the complete HTTPS APK, a clean cold install, a signed update,
+and recovery of identity, writing and saved module work in a fresh process.
+The ordinary beta channel serves 0.1.142 during release verification.
 
 The held Search and Activity reads re-open the same exact target after native
 recreation on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45763478050)
@@ -24,6 +28,17 @@ and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/4
 show the Space name above its channel and the complete Join room control in
 landscape, including 200% text on Android 17. The crossed test also retains the
 independent live room session, attachment and actual keyboard.
+
+The original [Android 17 Chat partition](https://github.com/robelene112/redsquare-android/actions/runs/45764683534)
+shows the restored first-use draft with the editor focused, then reaches the
+ten-second IME deadline after a semantic click. The
+[targeted real touchscreen test](https://github.com/robelene112/redsquare-android/actions/runs/45769385315)
+completes both widths, including the restored large-text draft and actual IME,
+with the same deadline. Keep the original failed outcome. The complete
+[Android 10 catalogue](https://github.com/robelene112/redsquare-android/actions/runs/45764683719)
+and the fresh product-equivalent
+[Android 17 catalogue](https://github.com/robelene112/redsquare-android/actions/runs/45770548373)
+each require all three original partitions in one successful parent.
 
 Full scale measurements [18](https://github.com/robelene112/redsquare-android/actions/runs/45753375523),
 [19](https://github.com/robelene112/redsquare-android/actions/runs/45757606956)

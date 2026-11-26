@@ -93,3 +93,30 @@ The settled screenshots and native action test had passed. Compact writing
 now uses the actual available height to place the controls before Android's
 IME visibility signal arrives. The settled text, attachment and exact room
 session checks remain part of the crossed journey.
+
+## Candidate 0.1.155
+
+The `b8c332de1` viewport parents complete all eight
+[Android 10 cases](https://github.com/robelene112/redsquare-android/actions/runs/45764628196)
+and all six [Android 17 cases](https://github.com/robelene112/redsquare-android/actions/runs/45764628203).
+The V04 and V05 native captures show 25dp of the opening drawer covering the
+channel before Android Back. Both keep the original channel in view after
+dismissal and reopen the drawer through a real edge swipe. V14 reaches the
+native backup picker and the missing-keys restore review. The viewport and
+crossed landscape artifacts contain 17 decodable videos and 2,581 frames with
+strictly increasing presentation timestamps.
+
+The separate crossed room videos show the Option B Space name above the
+channel and the whole Join room control on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45764628360)
+and [Android 17 at 200% text](https://github.com/robelene112/redsquare-android/actions/runs/45764628043).
+Both exercise the signed room, returning from Red Square with the actual
+keyboard and the written draft and image still present. Real TalkBack and
+completed engine audio cover the selector, unread reply, composer, files and
+call controls in [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45767110401)
+and the [Android 17 retest](https://github.com/robelene112/redsquare-android/actions/runs/45768391332).
+The original [Android 17 failure](https://github.com/robelene112/redsquare-android/actions/runs/45767110650)
+shows TalkBack generating the correct unread card narration before its Activity
+tab focus restoration superseded that utterance. The retest waits for the
+reader's real focus to settle and verifies actual completed speech within the
+existing utterance deadline.
