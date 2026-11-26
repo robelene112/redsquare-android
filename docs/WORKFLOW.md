@@ -48,10 +48,26 @@ Their conservative warm miss bounds were 17.16%, 13.68% and 8.75%, above the
 original 5% limit. Slowest cold samples were 672.78ms, 771.82ms and 613.66ms.
 In run 19 the main thread waits 575.14ms for a frame whose render thread
 spends 500.17ms flushing Skia commands, including shader compilation.
-The [candidate run](https://github.com/robelene112/redsquare-android/actions/runs/45764628265)
-and [isolated avatar render comparison](https://github.com/robelene112/redsquare-android/actions/runs/45765669722)
-use the same frozen workload and thresholds. The release gate requires a
-passing complete run on the selected source.
+The [exact 0.1.155 run](https://github.com/robelene112/redsquare-android/actions/runs/45764628265)
+completes all 100 switches and measures a 12.10% warm miss bound, a 657.59ms
+maximum cold sample and 60.21ms reaction feedback at p95. During warm scroll
+the render thread spends 11.09ms on average in DrawFrames and 8.92ms in EGL
+swap. The main thread averages 0.54ms for Compose measurement and layout.
+
+The [isolated avatar render comparison](https://github.com/robelene112/redsquare-android/actions/runs/45765669722)
+stops on the second background return. Its retained warm snapshots measure a
+21.33% miss bound and its slowest cold sample reaches 847.64ms. The alternate
+renderer remains on the diagnostic branch. The native failure shows the old
+channel and the navigation warning. A background inventory projection held the
+local lock for 10.49 seconds. The first lifecycle observation could match the
+old channel name while the navigation save was still pending. The next inbound
+link reached that transition before the previous coroutine released it.
+
+Source `eb848d099` waits for the active navigation guard before admitting the
+latest signed route and defers full list projection when the overview and drawer
+are hidden. The updated lifecycle observer requires the exact linked message
+on each return to the hot channel. [The complete retest](https://github.com/robelene112/redsquare-android/actions/runs/45772264500)
+uses the original workload and budgets.
 
 The [compact exact-reply run](https://github.com/robelene112/redsquare-android/actions/runs/45669562341)
 confirms that both lines of the reply body fit the 320dp conversation at
