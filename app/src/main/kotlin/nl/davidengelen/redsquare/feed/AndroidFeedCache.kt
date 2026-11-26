@@ -33,7 +33,7 @@ class AndroidFeedCache(context: Context, backend: SaitoBackend, private val thre
                     // this cache. Author edits and removals are applied afresh.
                     val post = previous[envelope] ?: RedSquareFeed.decode(envelope)
                     val inScope = if (threadId == null) post.parentId.isEmpty() else post.threadId == threadId
-                    if (inScope) put(envelope, post)
+                    if (inScope) put(post.envelope, post)
                 } catch (_: Exception) {
                     unreadable = true
                 }

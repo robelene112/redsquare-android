@@ -5,8 +5,8 @@ import android.system.Os
 import android.system.OsConstants
 import android.util.AtomicFile
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonArray
 import com.google.gson.Strictness
+import com.google.gson.stream.JsonToken
 import java.io.File
 import java.io.IOException
 
@@ -22,25 +22,28 @@ internal class PublicStringStore(context: Context, name: String, private val max
             return@synchronized Loaded(emptyList(), false)
         }
         try {
-            val bytes = file.openRead().use { input ->
-                val collected = java.io.ByteArrayOutputStream()
-                val buffer = ByteArray(8192)
-                while (true) {
-                    val count = input.read(buffer)
-                    if (count < 0) break
-                    require(collected.size() + count <= MAX_BYTES)
-                    collected.write(buffer, 0, count)
+            file.openRead().use { input ->
+                // AtomicFile publishes by rename. Bound the opened file before
+                // decoding it without allocating a second copy of the archive.
+                require(input.channel.size() <= MAX_BYTES)
+                gson.newJsonReader(input.bufferedReader(Charsets.UTF_8)).use { reader ->
+                    val values = mutableListOf<String>()
+                    var read = 0
+                    var unreadable = false
+                    reader.beginArray()
+                    while (reader.hasNext()) {
+                        require(read++ < maxEntries)
+                        if (reader.peek() == JsonToken.STRING) values.add(reader.nextString())
+                        else {
+                            unreadable = true
+                            reader.skipValue()
+                        }
+                    }
+                    reader.endArray()
+                    require(reader.peek() == JsonToken.END_DOCUMENT)
+                    Loaded(values, unreadable)
                 }
-                collected.toByteArray()
             }
-            val entries = gson.fromJson(bytes.toString(Charsets.UTF_8), JsonArray::class.java)
-            require(entries.size() <= maxEntries)
-            var unreadable = false
-            val values = entries.mapNotNull { entry ->
-                if (entry.isJsonPrimitive && entry.asJsonPrimitive.isString) entry.asString
-                else { unreadable = true; null }
-            }
-            Loaded(values, unreadable)
         } catch (_: Exception) { Loaded(emptyList(), true) }
     }
 
