@@ -902,18 +902,23 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         openingArticle -> R.string.spaces_article_open
         else -> R.string.spaces_open_public_community
     }
-    DesignSheet(publicReference != null && publicReference != state.openedPublicReference, stringResource(referenceTitle), {
-        val dismissed = publicReference
-        publicReference = null
-        account.dismissPublicReference()
-        if (dismissed != null && dismissed == initialInvitation) onInvitationConsumed()
-        if (dismissed == activityLink) { activityLink = null; activityGroup = null }
-        if (dismissed == searchLink) searchLink = null
+    val referenceOpen = publicReference != null && publicReference != state.openedPublicReference
+    DesignSheet(referenceOpen, stringResource(referenceTitle), {
+        publicReference?.takeUnless { it == state.openedPublicReference }?.let { dismissed ->
+            publicReference = null
+            account.dismissPublicReference()
+            if (dismissed == initialInvitation) onInvitationConsumed()
+            if (dismissed == activityLink) { activityLink = null; activityGroup = null }
+            if (dismissed == searchLink) searchLink = null
+        }
     }) { first ->
+        if (!referenceOpen) return@DesignSheet
         val node = state.requiredNode
         val choice = nl.davidengelen.redsquare.saito.SaitoBackend.entries.firstOrNull { it.webUrl == node }
+        val awaitingResult = state.problem == null && node == null && state.previewIssue == null &&
+            (state.availability == SpacesAccount.Availability.ONLINE || state.availability == SpacesAccount.Availability.CHECKING)
         when {
-            state.working || openingDestination && state.projectingDestination -> {
+            state.working || openingDestination && state.projectingDestination || awaitingResult -> {
                 Text(stringResource(when {
                     openingDestination -> R.string.spaces_destination_opening
                     openingArticle -> R.string.spaces_article_opening
