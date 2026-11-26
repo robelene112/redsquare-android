@@ -11,7 +11,7 @@ import sys
 import time
 import urllib.request
 from xml.etree import ElementTree
-from spaces_scale_timing import (FRAME_TIMELINE_TRACE, TRACE_TARGET, analyse_trace, anchor_command_args, anchor_frames,
+from spaces_scale_timing import (FRAME_TIMELINE_TRACE, analyse_trace, anchor_command_args, anchor_frames,
                                 capture_trace, complete_anchor_coverage, measure, moving_frames, unexplained_displacement)
 
 repo = Path(__file__).resolve().parent.parent
@@ -78,13 +78,12 @@ with (evidence / 'host.log').open('wb') as host_log:
         if f'package:{package}' in adb('shell', 'pm', 'list', 'packages', package).decode().splitlines():
             raise RuntimeError('Scale fixture requires a clean isolated package')
         adb('reverse', f'tcp:{local_port}', f'tcp:{local_port}')
-        if full:
-            for setting in ('window_animation_scale', 'transition_animation_scale', 'animator_duration_scale'):
-                adb('shell', 'settings', 'put', 'global', setting, '1')
-            adb('shell', 'wm', 'size', '824x1836')
-            adb('shell', 'wm', 'density', '320')
-            adb('shell', 'settings', 'put', 'system', 'font_scale', '1.0')
-            adb('shell', 'cmd', 'uimode', 'night', 'no')
+        for setting in ('window_animation_scale', 'transition_animation_scale', 'animator_duration_scale'):
+            adb('shell', 'settings', 'put', 'global', setting, '1')
+        adb('shell', 'wm', 'size', '824x1836')
+        adb('shell', 'wm', 'density', '320')
+        adb('shell', 'settings', 'put', 'system', 'font_scale', '1.0')
+        adb('shell', 'cmd', 'uimode', 'night', 'no')
         adb('install', str(apk), timeout=100)
         adb('install', str(tests), timeout=100)
         transfer = f'/sdcard/Android/media/{package}/spaces-scale'
@@ -113,21 +112,26 @@ with (evidence / 'host.log').open('wb') as host_log:
         receipt = json.loads(observed[0])
         if receipt['manifestSha256'] != sha(fixture / 'fixture.json') or receipt['authenticatedLocalRows'] != expected_rows:
             raise RuntimeError('Android imported a different fixture')
-        adb('shell', 'am', 'force-stop', package)
         launch = ['am', 'start', '-W', '-a', 'android.intent.action.VIEW', '-d', endpoints['hotLink'],
                   '-p', package, '--es', 'feedPeerUrl', f'ws://127.0.0.1:{local_port}/wsopen']
-        (evidence / 'external-open.txt').write_bytes(adb('shell', shlex.join(launch), timeout=45))
-        deadline = time.monotonic() + 40
-        while True:
-            adb('shell', 'uiautomator', 'dump', '/sdcard/spaces-scale-smoke.xml', timeout=10)
-            document = adb('exec-out', 'cat', '/sdcard/spaces-scale-smoke.xml')
-            (evidence / 'actual-screen.xml').write_bytes(document)
+        def open_fixture(open_log, screen_log, seconds):
+            adb('shell', 'am', 'force-stop', package)
+            reads_before_open = request('status')['readRequests']
+            (evidence / open_log).write_bytes(adb('shell', shlex.join(launch), timeout=seconds))
+            deadline = time.monotonic() + seconds
             latest = f"record {manifest['hotChannelMessages']}.".encode()
-            if b'Benchmark Space 001' in document and latest in document and request('status')['readRequests'] > 0:
-                break
-            if time.monotonic() >= deadline:
-                raise RuntimeError('Cold launch did not render the signed latest fixture message')
-            time.sleep(.2)
+            while True:
+                adb('shell', 'uiautomator', 'dump', '/sdcard/spaces-scale-smoke.xml', timeout=10)
+                document = adb('exec-out', 'cat', '/sdcard/spaces-scale-smoke.xml')
+                (evidence / screen_log).write_bytes(document)
+                if (b'Benchmark Space 001' in document and latest in document and
+                        request('status')['readRequests'] > reads_before_open):
+                    return
+                if time.monotonic() >= deadline:
+                    raise RuntimeError('Cold launch did not render the signed latest fixture message')
+                time.sleep(.2)
+
+        open_fixture('external-open.txt', 'actual-screen.xml', 40)
         pid = int(adb('shell', 'pidof', package).decode().strip())
         if pid == receipt['pid']:
             raise RuntimeError('The seed process survived the cold launch')
@@ -165,8 +169,12 @@ with (evidence / 'host.log').open('wb') as host_log:
                         raise RuntimeError('Calibration did not observe the actual anchor frame commit')
                     time.sleep(.1)
 
-            config = FRAME_TIMELINE_TRACE + 'duration_ms: 30000\nwrite_into_file: true\nfile_write_period_ms: 1000\n'
-            with capture_trace(adb, evidence, config):
+            config = FRAME_TIMELINE_TRACE + 'duration_ms: 45000\nwrite_into_file: true\nfile_write_period_ms: 1000\n'
+            # Capture the app's surface creation and let Perfetto flush the
+            # terminal presented frames before the trace file is pulled.
+            with capture_trace(adb, evidence, config, wait_for_duration=True):
+                open_fixture('traced-external-open.txt', 'traced-screen.xml', 15)
+
                 def fixed(checkpoint):
                     return observe_anchor('anchor-observations.txt', lambda raw: next(
                         (row for row in anchor_frames(raw, 0) if row[3] == checkpoint and row[4] is not None), None))
@@ -192,11 +200,6 @@ with (evidence / 'host.log').open('wb') as host_log:
 
                 moving = observe_anchor('scroll-observations.txt', through_checkpoint)
                 observer('stop')
-                deadline = time.monotonic() + 12
-                while int(adb('shell', f'stat -c %s {TRACE_TARGET}').strip()) == 0:
-                    if time.monotonic() >= deadline:
-                        raise RuntimeError('Calibration trace did not flush after the native checkpoints')
-                    time.sleep(.2)
             native = analyse_trace(evidence, {}, [('calibration', 0, first[0], last[0]),
                 ('moving-calibration', 6, moving[0]['sequence'], moving[-1]['sequence'])])
             if not complete_anchor_coverage(native, 2):

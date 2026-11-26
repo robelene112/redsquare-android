@@ -76,7 +76,7 @@ def unexplained_displacement(frames):
 
 
 @contextmanager
-def capture_trace(adb, evidence, config):
+def capture_trace(adb, evidence, config, wait_for_duration=False):
     trace_config = evidence / 'perfetto-config.pbtxt'
     trace_config.write_text(config.strip() + '\n')
     # Perfetto reads stdin because its Android service need not have access to /data/local/tmp.
@@ -92,8 +92,10 @@ def capture_trace(adb, evidence, config):
     finally:
         original_failure = sys.exception()
         try:
-            subprocess.run(['adb', 'shell', 'kill', '-INT', pid], check=False, timeout=10)
-            adb('shell', f'while kill -0 {pid} 2>/dev/null; do sleep 0.2; done', timeout=20)
+            if not wait_for_duration or original_failure is not None:
+                subprocess.run(['adb', 'shell', 'kill', '-INT', pid], check=False, timeout=10)
+            adb('shell', f'while kill -0 {pid} 2>/dev/null; do sleep 0.2; done',
+                timeout=55 if wait_for_duration and original_failure is None else 20)
             trace = evidence / 'native-scale.pftrace'
             adb('pull', TRACE_TARGET, str(trace), timeout=60)
             if trace.stat().st_size == 0:
