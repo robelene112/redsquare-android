@@ -242,6 +242,27 @@ the original test checks that entry succeeds before recreating the Activity.
 The focused oversized photo and cached revision checks pass on both SDKs at
 `2fd263336`, including the Android 17 original photo deadline.
 
+The [next full scale trace](https://github.com/robelene112/redsquare-android/actions/runs/45719465413)
+also finished all five measured trials and 100 foreground and idle switches.
+The exact visible anchor stayed fixed. The frame maximum dropped to 731ms, the
+first sampled warm miss rate was 5.12%, and original GfxInfo snapshots retained
+36 incomplete or unmatched rows. Re-reading those same snapshots with the
+correct frame-start boundary yields 5.56% and 25 still missing. The durable
+reaction frame p95 was 1740ms. This source predates the visible Saving reaction
+state and the deferred cold opening view. Its result stays failed. The
+[updated source](https://github.com/robelene112/redsquare-android/actions/runs/45725543910)
+and the [isolated background-priority experiment](https://github.com/robelene112/redsquare-android/actions/runs/45729001512)
+use the same fixture, bounds and actual frame thresholds.
+
+Signed candidate 0.1.145 from `19cf1a039` is staged for installation proof.
+The full immutable public download has 111737253 bytes and SHA256
+`df1ee061cb47e2d8908d78812ee3ec8308ae34f3961b0f724241534e555937a8`.
+It matches the local release APK, ordinary application identity and certificate.
+The ordinary page's manifest still selects 0.1.142. The next complete [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45728608885)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45728609610)
+parents use the frozen [inherited catalogue plus native Spaces additions](evidence/ticket147/native-regression-contract.json).
+The signed product and those parents differ only in test and evidence files.
+
 The exact signed 0.1.143 candidate from `8928b2e4a` was staged before these
 corrections. The full public 111720869-byte download matches the retained APK,
 notes, application identity and established certificate. Clean installation,
