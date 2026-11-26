@@ -1046,6 +1046,9 @@ try:
         if notified.get('discardedWarmReadAfterBack') != notified.get('heldRestoredWarmReadBeforeBack'):
             raise RuntimeError('The cancelled native read was not discarded after its independently held reply arrived')
         warm_recreation, warm_back, restored_back, channel_return = (exact_reads.index(value) for value in warm_held)
+        held_activity = notified.get('heldActivityReadBeforeRecreation')
+        if held_activity not in exact_reads or exact_reads.index(held_activity) + 2 != warm_recreation:
+            raise RuntimeError('Activity Retry did not issue a fresh read for the same independently held result')
         home_index, recreation_index, back_index = (exact_reads.index(value) for value in held)
         if not warm_recreation < warm_back < restored_back < channel_return < home_index < recreation_index < back_index:
             raise RuntimeError('The independently verified exact reads departed from the native journey order')

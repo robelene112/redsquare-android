@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare.saito
 
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.selects.select
 import kotlinx.coroutines.withTimeout
@@ -111,6 +113,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         }
         val response = CompletableDeferred<ByteArray>()
         val request = Connection.PendingRequest(this@SaitoPeer, response, awaitRegistryCallback, archiveRead)
+        var cancelled = false
         try {
             val job = currentCoroutineContext().job
             // Authority mutations precede pool operations everywhere. Never call a feature
@@ -127,11 +130,16 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                 }
             }
             await(response)
+        } catch (failure: CancellationException) {
+            cancelled = failure !is TimeoutCancellationException
+            throw failure
         } catch (failure: IOException) {
             currentCoroutineContext().ensureActive()
             throw (request.oversized ?: failure)
         } finally {
-            connection.retirePending(index, request)
+            if (connection.retirePending(index, request) && cancelled && BuildConfig.DEBUG) {
+                connection.observeProofCallback(index) { it.copy(cancelled = true) }
+            }
         }
     }
 
@@ -233,12 +241,14 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
             if (!pending.remove(index, request)) return@synchronized false
             retiredReplies.add(index)
             if (retiredReplies.size > 128) retiredReplies.iterator().run { next(); remove() }
+            true
+        }
+        fun observeProofCallback(index: Int, observe: (ProofCallback) -> ProofCallback) {
             if (BuildConfig.DEBUG && address.endpoint.startsWith("ws://127.0.0.1:")) {
                 ownedProofCallback.get()?.takeIf { it.index == index }?.let { watch ->
-                    ownedProofCallback.compareAndSet(watch, watch.copy(retired = true))
+                    ownedProofCallback.compareAndSet(watch, observe(watch))
                 }
             }
-            true
         }
         private val challenges = mutableListOf(randomNonce())
         var identifiedKey: String? = null
@@ -259,11 +269,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                         // known callback before it can interrupt another shared reader.
                         // Active and unknown responses retain the original receive bound.
                         if (synchronized(retiredReplies) { retiredReplies.remove(index) }) {
-                            if (BuildConfig.DEBUG && address.endpoint.startsWith("ws://127.0.0.1:")) {
-                                ownedProofCallback.get()?.takeIf { it.index == index && !it.discarded }?.let { watch ->
-                                    ownedProofCallback.compareAndSet(watch, watch.copy(discarded = true))
-                                }
-                            }
+                            if (BuildConfig.DEBUG) observeProofCallback(index) { it.copy(discarded = true) }
                             return
                         }
                         if (bytes.size > MAX_RESPONSE_BYTES && bytes[0] == 13.toByte()) {
@@ -504,7 +510,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         // Never reuse an index during this process; a random seed also reduces, but
         // cannot eliminate, stale-callback collisions across separate process starts.
         private val nextRequestIndex = AtomicInteger(SecureRandom().nextInt(1 shl 30))
-        private data class ProofCallback(val index: Int, val retired: Boolean = false, val discarded: Boolean = false)
+        private data class ProofCallback(val index: Int, val cancelled: Boolean = false, val discarded: Boolean = false)
         private val ownedProofCallback = java.util.concurrent.atomic.AtomicReference<ProofCallback?>(null)
 
         /** Observe the discard of one exact loopback reply whose waiter was cancelled. */
@@ -513,8 +519,8 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
             ownedProofCallback.set(ProofCallback(index))
         }
 
-        internal fun retiredOwnedProofCallback(index: Int): Boolean =
-            ownedProofCallback.get()?.let { it.index == index && it.retired } == true
+        internal fun cancelledOwnedProofCallback(index: Int): Boolean =
+            ownedProofCallback.get()?.let { it.index == index && it.cancelled } == true
 
         internal fun discardedOwnedProofCallback(index: Int): Boolean =
             ownedProofCallback.get()?.let { it.index == index && it.discarded } == true

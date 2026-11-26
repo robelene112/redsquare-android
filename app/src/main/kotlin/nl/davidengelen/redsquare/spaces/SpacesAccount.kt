@@ -655,6 +655,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         val channelAccessChange = projection.management.access
                         val searchChannels = current.searchAvailableChannels(space, channels)
                         val checkedAt = current.savedContentCheckedAt(space, target.channel)
+                        val notificationPolicy = current.notificationPolicy(space, target.channel)
+                        val pinStatus = current.pinStatus(space, target.channel)
                         synchronized(navigationChanges) {
                             if (!currentRoute()) return@withLock
                             if (exactAddress != null && !current.destinationAccessAllowed(exactAddress)) {
@@ -680,8 +682,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                                     publicRulesToken = rulesToken, publicLink = publicLink, invitation = invitation,
                                     listingIntent = dirtyListings[space] ?: listingIntent,
                                     draft = if (draftVersions[target]?.get() == version) draft else view.draft,
-                                    notificationPolicy = current.notificationPolicy(space, target.channel),
-                                    pinStatus = current.pinStatus(space, target.channel),
+                                    notificationPolicy = notificationPolicy, pinStatus = pinStatus,
                                     scrollToMessage = jump?.let { MessageScroll(it.id, showBody = true) },
                                     openedPublicReference = exact?.link ?: next.openedPublicReference,
                                     messages = messages, loadingChannel = false, contentLoaded = window.loaded, hasEarlier = window.hasEarlier,
@@ -1687,10 +1688,12 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private fun markPublicReferenceOpened(link: String, route: Long) = synchronized(navigationChanges) {
         if (navigationVersion.get() == route) mutable.update { it.copy(openedPublicReference = link) }
     }
-    fun dismissPublicReference() = synchronized(navigationChanges) {
+    fun dismissPublicReference(link: String? = null): Boolean = synchronized(navigationChanges) {
+        if (link != null && mutable.value.openedPublicReference == link) return@synchronized false
         navigationVersion.incrementAndGet()
         referenceRequest?.cancel()
         mutable.update { it.copy(projectingDestination = false) }
+        true
     }
     fun consumePublicReference(link: String) { mutable.update { if (it.openedPublicReference == link) it.copy(openedPublicReference = null) else it } }
     fun joinPublic(acceptedRulesToken: String? = null) {

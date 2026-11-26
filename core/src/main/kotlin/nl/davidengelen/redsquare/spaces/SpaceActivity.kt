@@ -93,10 +93,13 @@ internal class SpaceActivityIndex(private val store: SpaceClientStore.Transactio
 
     fun markSeen(id: String, through: Long) {
         val current = group(id) ?: return
-        require(through in 0..current.position)
+        require(through >= 0)
+        // A retraction can move a group back while its captured row is open.
+        // Mark only the remaining observations through the captured position.
+        val observed = minOf(through, current.position)
         val seenKey = "activity/seen/$id"
         val previous = store.get(seenKey)?.toString(Charsets.UTF_8)?.toLong() ?: -1L
-        if (previous < through) store.put(seenKey, through.toString().toByteArray(Charsets.UTF_8))
+        if (previous < observed) store.put(seenKey, observed.toString().toByteArray(Charsets.UTF_8))
     }
 
     fun markDestinationSeen(address: SpaceDestination) {

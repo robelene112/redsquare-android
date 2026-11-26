@@ -119,6 +119,19 @@ class SpacesCatchUpJourneyTest {
                 click("Back to Activity")
                 ui.waitUntil(15_000) { ui.onNode(grouped).isDisplayed() }
                 assertNotEquals("Unread", ui.onNode(grouped).fetchSemanticsNode().config.getOrNull(SemanticsProperties.StateDescription))
+
+                request("hold-destination")
+                ui.onNode(grouped).performClick()
+                observed.addProperty("heldActivityReadBeforeRecreation", awaitHeldDestination())
+                scenario.recreate()
+                ui.waitUntil(10_000) { ui.onNode(retry).isDisplayed() }
+                capture("activity-recreated-retry")
+                request("release-destination")
+                ui.onNode(retry).performClick()
+                waitForWholeMessage("Latest exact proof reply")
+                click("Back to Activity")
+                ui.waitUntil(15_000) { ui.onNode(grouped).isDisplayed() }
+
                 click("My Spaces")
                 val community = ui.onNode(hasContentDescription("Open Catch up proof Space") and
                     SemanticsMatcher("on-screen community") {
@@ -159,14 +172,19 @@ class SpacesCatchUpJourneyTest {
                 assertEquals(dismissedRead, heldReply.get("id").asString)
                 val cancelledCallback = heldReply.get("index").asInt
                 SaitoPeer.watchOwnedProofCallback(cancelledCallback)
-                device.executeShellCommand("input keyevent KEYCODE_BACK")
+                val opening = By.text(context.getString(R.string.spaces_destination_opening))
+                ui.waitUntil(8_000) { device.findObject(opening) != null }
+                ui.mainClock.autoAdvance = false
+                try {
+                    instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
+                    ui.waitUntil(2_500) { SaitoPeer.cancelledOwnedProofCallback(cancelledCallback) }
+                    // The exit animation cannot advance while the independently held response arrives.
+                    assertTrue(request("release-destination").get("released").asBoolean)
+                    ui.waitUntil(10_000) { SaitoPeer.discardedOwnedProofCallback(cancelledCallback) }
+                } finally { ui.mainClock.autoAdvance = true }
                 ui.waitUntil(10_000) {
                     !ui.onNodeWithText(context.getString(R.string.spaces_destination_opening)).isDisplayed()
                 }
-                ui.waitUntil(2_500) { SaitoPeer.retiredOwnedProofCallback(cancelledCallback) }
-                waitForWholeMessage("Unrelated proof reply")
-                assertTrue(request("release-destination").get("released").asBoolean)
-                ui.waitUntil(10_000) { SaitoPeer.discardedOwnedProofCallback(cancelledCallback) }
                 observed.addProperty("discardedWarmReadAfterBack", dismissedRead)
                 waitForWholeMessage("Unrelated proof reply")
                 ui.onNodeWithText("Latest exact proof reply").assertDoesNotExist()
@@ -536,7 +554,7 @@ class SpacesCatchUpJourneyTest {
             addProperty("reply", observed.get("reply").asString)
             addProperty("root", observed.get("root").asString)
             addProperty("privateDenied", observed.get("privateDenied").asBoolean)
-            for (field in listOf("heldSearchReadBeforeRecreation", "heldReadResumedAfterHome", "heldReadBeforeRecreation", "heldReadBeforeBack",
+            for (field in listOf("heldSearchReadBeforeRecreation", "heldActivityReadBeforeRecreation", "heldReadResumedAfterHome", "heldReadBeforeRecreation", "heldReadBeforeBack",
                 "heldWarmReadBeforeRecreation", "heldWarmReadBeforeBack", "heldRestoredWarmReadBeforeBack", "discardedWarmReadAfterBack",
                 "heldWarmReadBeforeChannelReturn"))
                 observed.get(field)?.let { add(field, it) }

@@ -21,11 +21,17 @@ import androidx.compose.ui.unit.dp
 @Composable
 internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit, contentKey: Any? = null,
     footer: (@Composable ColumnScope.(Modifier) -> Unit)? = null, onHidden: () -> Unit = {},
+    onDismissStarted: (() -> Unit)? = null,
     content: @Composable ColumnScope.(Modifier) -> Unit) {
     val firstAction = remember { FocusRequester() }
     val hidden by rememberUpdatedState(onHidden)
+    val dismissStarted by rememberUpdatedState(onDismissStarted)
     val requestedOpen by rememberUpdatedState(expanded)
-    val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val state = rememberModalBottomSheetState(skipPartiallyExpanded = true, confirmValueChange = { target ->
+        // A committed Back or swipe must retire pending work before Material animates the sheet out.
+        if (target == SheetValue.Hidden && requestedOpen) dismissStarted?.invoke()
+        true
+    })
     var mounted by remember { mutableStateOf(false) }
     var dismissalRequest by remember { mutableIntStateOf(0) }
     val requestDismiss: () -> Unit = { onDismiss(); dismissalRequest++ }

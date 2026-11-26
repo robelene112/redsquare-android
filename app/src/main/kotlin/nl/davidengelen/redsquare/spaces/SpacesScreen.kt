@@ -910,15 +910,17 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         else -> R.string.spaces_open_public_community
     }
     val referenceOpen = publicReference != null && publicReference != state.openedPublicReference
-    DesignSheet(referenceOpen, stringResource(referenceTitle), {
-        publicReference?.takeUnless { it == state.openedPublicReference }?.let { dismissed ->
-            publicReference = null
-            account.dismissPublicReference()
-            if (dismissed == initialInvitation) onInvitationConsumed()
-            if (dismissed == activityLink) { activityLink = null; activityGroup = null }
-            if (dismissed == searchLink) searchLink = null
+    val dismissReference: () -> Unit = {
+        publicReference?.let { dismissed ->
+            if (account.dismissPublicReference(dismissed)) {
+                publicReference = null
+                if (dismissed == initialInvitation) onInvitationConsumed()
+                if (dismissed == activityLink) { activityLink = null; activityGroup = null }
+                if (dismissed == searchLink) searchLink = null
+            }
         }
-    }) { first ->
+    }
+    DesignSheet(referenceOpen, stringResource(referenceTitle), dismissReference, onDismissStarted = dismissReference) { first ->
         if (!referenceOpen) return@DesignSheet
         val node = state.requiredNode
         val choice = nl.davidengelen.redsquare.saito.SaitoBackend.entries.firstOrNull { it.webUrl == node }

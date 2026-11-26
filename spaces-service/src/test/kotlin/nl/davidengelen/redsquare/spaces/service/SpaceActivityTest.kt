@@ -73,6 +73,9 @@ class SpaceActivityTest {
                 assertEquals(SpaceDestination.Kind.MESSAGE, group.target.kind)
                 assertEquals(latestReply, group.target.record)
                 assertEquals("Latest reply", owner.openDestination(group.target)?.record?.text)
+                owner.markActivitySeen(firstGroup)
+                assertTrue("Opening the captured earlier row must leave the new reply unread",
+                    owner.activityPage().groups.single { it.id == group.id }.unread)
 
                 second.deleteMessage(space, requireNotNull(second.message(space, latestReply, channel)), channel)
                 second.flush(space)
@@ -80,6 +83,8 @@ class SpaceActivityTest {
                 val remaining = owner.activityPage().groups.single { it.id == firstGroup.id }
                 assertEquals("First reply", owner.openDestination(remaining.target)?.record?.text)
                 assertEquals(1L, remaining.actorCount)
+                assertTrue(remaining.position < group.position)
+                owner.markActivitySeen(group)
                 assertFalse(remaining.unread)
                 val mention = second.send(space, "For @${wallets.first().publicKey}", channel)
                 second.flush(space)
