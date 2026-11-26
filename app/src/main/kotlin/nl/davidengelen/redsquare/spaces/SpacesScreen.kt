@@ -25,7 +25,6 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -39,7 +38,6 @@ import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import nl.davidengelen.redsquare.feed.LocalPostNavigation
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
@@ -271,7 +269,6 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         }
     }
     var requestedDestination by remember(account, initialInvitation, fromNotification) { mutableStateOf(false) }
-    var openedDestination by remember(account, initialInvitation, fromNotification) { mutableStateOf(false) }
     val coldDestinationReady = state.exactDestination && state.current != null &&
         !state.working && !state.loadingChannel && !state.projectingDestination
     val coldDestinationBlocked = state.problem != null || state.previewIssue != null || state.requiredNode != null ||
@@ -280,15 +277,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         state.availability == SpacesAccount.Availability.STORAGE_UNAVAILABLE ||
         !state.ready && state.availability == SpacesAccount.Availability.OFFLINE
     LaunchedEffect(initialInvitation, fromNotification, state.ready, state.loading, state.working, state.savingNavigation,
-        requestedDestination, openedDestination, coldDestinationReady, coldDestinationBlocked) {
+        requestedDestination) {
         val link = initialInvitation ?: return@LaunchedEffect
         val uri = android.net.Uri.parse(link)
         val destination = SpacesLaunchRoutes.isDestination(uri)
-        if (requestedDestination) {
-            if (!openedDestination && coldDestinationBlocked) onInvitationConsumed()
-            else if (coldDestinationReady) openedDestination = true
-            return@LaunchedEffect
-        }
+        if (requestedDestination) return@LaunchedEffect
         if ((state.loading && !destination) || !state.ready || state.working || state.savingNavigation) return@LaunchedEffect
         categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false
         channelCreator.open = false; channelAccessRoute = null
@@ -367,13 +360,20 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             else -> choose(null)
         }
     }
+    fun backToChannel() {
+        leaveExternalDestination()
+        account.closeThread()
+    }
     BackHandler(channelAccessRoute != null) { channelAccessRoute = null; informationOpen = selected != null }
     BackHandler(membersOpen) { membersOpen = false; informationOpen = true }
     BackHandler(reportsOpen) { reportsSpace = null; informationOpen = true }
     BackHandler(searchOpen) { searchSpace = null; informationOpen = true }
-    BackHandler(!membersOpen && !reportsOpen && !searchOpen && !channelAccessOpen && state.selected != null && drawer.isClosed &&
+    BackHandler(!membersOpen && !reportsOpen && !searchOpen && !channelAccessOpen && state.selected != null && !showDrawerRows &&
         !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !channelCreator.open && !publicRulesOpen) {
         backFromConversation()
+    }
+    BackHandler(showDrawerRows && !drawer.isOpen) {
+        scope.launch { drawer.close() }
     }
     ModalNavigationDrawer(drawerState = drawer, gesturesEnabled = state.selected != null, modifier = modifier,
         drawerContent = {
@@ -565,7 +565,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     } else if (channel?.profile?.kind == SpaceChannelKind.FILE) {
                         SpaceFileChannel(account, state, channel, Modifier.weight(1f))
                     } else if (channel?.profile?.kind == SpaceChannelKind.VOICE) {
-                        SpaceRoomChannel(account, state, channel, onBrowse = { account.select(null) }, modifier = Modifier.weight(1f))
+                        SpaceRoomChannel(account, state, channel, onBrowse = { choose(null) }, modifier = Modifier.weight(1f))
                     } else if (state.messages.any { it.isArticle }) {
                         Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
                             Text(stringResource(R.string.spaces_article_unavailable), color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -584,7 +584,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         PinnedMessagesSheet(pinsOpen, state.availability, { pinsRoute = null },
                             { after -> account.loadPinnedPage(target, after) }, { reference ->
                                 scope.launch { account.guardNavigation {
-                                    account.openPinned(target, reference); pinsRoute = null; true
+                                    if (!account.openPinned(target, reference)) return@guardNavigation false
+                                    leaveExternalDestination()
+                                    pinsRoute = null
+                                    true
                                 } }
                             }, account::refresh)
                         var overlayId by rememberSaveable { mutableStateOf<String?>(null) }
@@ -617,7 +620,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
                                 if (compactReading) {
                                     Row(Modifier.padding(horizontal = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-                                        FrameIconButton(R.drawable.ic_back, back, onClick = account::closeThread)
+                                        FrameIconButton(R.drawable.ic_back, back, onClick = ::backToChannel)
                                         Column(Modifier.weight(1f).padding(end = 8.dp, top = 4.dp, bottom = 4.dp)) {
                                             Text(registeredIdentity(parent.author).name,
                                                 maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall)
@@ -628,7 +631,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 } else {
                                     Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                         Row(verticalAlignment = Alignment.CenterVertically) {
-                                            FrameIconButton(R.drawable.ic_back, back, onClick = account::closeThread)
+                                            FrameIconButton(R.drawable.ic_back, back, onClick = ::backToChannel)
                                             Text(stringResource(R.string.spaces_thread), style = MaterialTheme.typography.titleSmall)
                                         }
                                         Text(registeredIdentity(parent.author).name, style = MaterialTheme.typography.labelMedium)
@@ -649,6 +652,12 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         val initialIndex = leadingItems + if (anchorIndex >= 0) anchorIndex else state.messages.size
                         val list = remember { androidx.compose.foundation.lazy.LazyListState(initialIndex, if (anchorIndex >= 0) state.anchor?.offset?.coerceAtLeast(0) ?: 0 else 0) }
                         var initialPage by remember { mutableStateOf(true) }
+                        var focusedThreadBody by remember { mutableStateOf<String?>(null) }
+                        val latestMessage = state.messages.lastOrNull()
+                        val initialThreadBody = latestMessage?.id?.takeIf {
+                            compactReading && threadParent != null && !state.exactDestination && state.anchor == null
+                        }
+                        val holdThreadBody = focusedThreadBody != null && focusedThreadBody == latestMessage?.id
                         var autoScrolling by remember { mutableStateOf(false) }
                         var lastRead by remember { mutableStateOf<Long?>(null) }
                         val latestMessages by rememberUpdatedState(remember(state.messages) { state.messages.associateBy { it.id } })
@@ -701,6 +710,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             val requested = state.scrollToMessage
                             val requestedIndex = state.messages.indexOfFirst { it.id == requested?.id }
                             if (requestedIndex >= 0) {
+                                focusedThreadBody = null
                                 autoScrolling = true
                                 val destinationIndex = leadingItems +
                                     if (state.followingLatest && requestedIndex == state.messages.lastIndex) state.messages.size else requestedIndex
@@ -715,11 +725,18 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             if (state.messages.isNotEmpty() && initialPage) {
                                 val index = state.anchor?.let { anchor -> state.messages.indexOfFirst { it.id == anchor.messageId } } ?: -1
                                 autoScrolling = true
-                                try { list.scrollToItem(leadingItems + if (index >= 0) index else state.messages.size,
-                                    if (index >= 0) state.anchor?.offset ?: 0 else 0) }
+                                try {
+                                    list.scrollToItem(leadingItems + if (index >= 0) index else state.messages.size,
+                                        if (index >= 0) state.anchor?.offset ?: 0 else 0)
+                                    if (initialThreadBody != null) {
+                                        messageBody.bringIntoView()
+                                        focusedThreadBody = initialThreadBody
+                                    }
+                                }
                                 finally { autoScrolling = false }
                                 initialPage = false
-                            } else if (state.messages.isNotEmpty() && state.followingLatest) {
+                                if (initialThreadBody != null) return@LaunchedEffect
+                            } else if (state.messages.isNotEmpty() && state.followingLatest && !holdThreadBody) {
                                 // A replaced automatic animation may still be unwinding.
                                 // Keep the follow request until idle; a deliberate scroll
                                 // changes followingLatest and cancels this keyed effect.
@@ -728,7 +745,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 autoScrolling = true
                                 try { list.animateScrollToItem(leadingItems + state.messages.size) } finally { autoScrolling = false }
                             }
-                            if (state.messages.isNotEmpty() && latestFollowing) {
+                            if (state.messages.isNotEmpty() && latestFollowing && !holdThreadBody) {
                                 // Reaction chips can still be expanding after a message
                                 // update has settled. Follow the rendered bottom as its
                                 // geometry changes, even when the message ID is unchanged.
@@ -753,10 +770,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant)
                         } else LazyColumn(Modifier.weight(1f).fillMaxWidth().then(
                             if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE)
-                                Modifier.nestedScroll(SpacesScaleMeasurement.scrollObserver).drawWithContent {
-                                    drawContent()
-                                    SpacesScaleMeasurement.scrollViewportDrawn()
-                                } else Modifier), state = list,
+                                SpacesScaleMeasurement.viewportModifier else Modifier), state = list,
                             contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = 8.dp),
                             verticalArrangement = Arrangement.spacedBy(16.dp)) {
                             if (earlierInList) item(key = "spaces-earlier-messages") {
@@ -765,7 +779,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             items(state.messages, key = { it.id }) { message ->
                                 val accepted = !message.pending && !message.rejected && !message.cancelled
                                 val own = message.author == account.ownerKey
-                                val showBody = state.scrollToMessage?.let { it.id == message.id && it.showBody } == true
+                                val requestedBody = state.scrollToMessage?.takeIf { it.showBody }?.id
+                                val showBody = message.id == (requestedBody ?: initialThreadBody?.takeIf { initialPage })
                                 MessageRow(message, state.draft.isEmpty() && !state.working,
                                     bodyModifier = if (showBody) Modifier.bringIntoViewRequester(messageBody) else Modifier,
                                     restore = { account.restoreUnsentDraft(message.id) },
@@ -925,8 +940,12 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 }), color = MaterialTheme.colorScheme.onSurfaceVariant)
                 OutlinedButton(onClick = { publicReference?.let { link ->
                     when {
-                        openingDestination -> account.openDestinationLink(link, activityGroup?.takeIf { activityLink == link },
-                            fromNotification = activityLink == link && activityGroup == null)
+                        openingDestination -> {
+                            val external = externalDestination?.takeIf { it.link == link }
+                            account.openDestinationLink(link, activityGroup?.takeIf { activityLink == link },
+                                fromNotification = external?.fromNotification ?: (activityLink == link && activityGroup == null),
+                                origin = external?.origin ?: savedConversation?.takeIf { external?.cold == false })
+                        }
                         openingArticle -> account.openArticleLink(link)
                         else -> account.openPublicLink(link)
                     }

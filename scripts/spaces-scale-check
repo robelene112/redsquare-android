@@ -12,7 +12,8 @@ import time
 import urllib.request
 from xml.etree import ElementTree
 from spaces_scale_timing import (FRAME_TIMELINE_TRACE, analyse_trace, anchor_command_args, anchor_frames,
-                                capture_trace, complete_anchor_coverage, measure, moving_frames, unexplained_displacement)
+                                capture_trace, complete_anchor_coverage, fresh_hierarchy, measure, moving_frames,
+                                unexplained_displacement)
 
 repo = Path(__file__).resolve().parent.parent
 evidence = Path(sys.argv[1]).resolve()
@@ -121,10 +122,8 @@ with (evidence / 'host.log').open('wb') as host_log:
             deadline = time.monotonic() + seconds
             latest = f"record {manifest['hotChannelMessages']}.".encode()
             while True:
-                adb('shell', 'uiautomator', 'dump', '/sdcard/spaces-scale-smoke.xml', timeout=10)
-                document = adb('exec-out', 'cat', '/sdcard/spaces-scale-smoke.xml')
-                (evidence / screen_log).write_bytes(document)
-                if (b'Benchmark Space 001' in document and latest in document and
+                document = fresh_hierarchy(adb, '/sdcard/spaces-scale-smoke.xml', evidence / screen_log)
+                if (document is not None and b'Benchmark Space 001' in document and latest in document and
                         request('status')['readRequests'] > reads_before_open):
                     return
                 if time.monotonic() >= deadline:

@@ -140,17 +140,39 @@ class SpacesCatchUpJourneyTest {
                 observed.addProperty("heldWarmReadBeforeBack", awaitHeldDestination())
                 request("hold-recreated-destination")
                 scenario.recreate()
-                observed.addProperty("heldRestoredWarmReadBeforeBack", awaitHeldDestination())
+                val dismissedRead = awaitHeldDestination()
+                observed.addProperty("heldRestoredWarmReadBeforeBack", dismissedRead)
                 device.executeShellCommand("input keyevent KEYCODE_BACK")
                 ui.waitUntil(10_000) {
                     !ui.onNodeWithText(context.getString(R.string.spaces_destination_opening)).isDisplayed()
                 }
                 waitForWholeMessage("Unrelated proof reply")
-                request("release-destination")
+                assertTrue(request("release-destination").get("released").asBoolean)
+                ui.waitUntil(10_000) {
+                    device.executeShellCommand("logcat -d -s SpacesAccount138:D")
+                        .contains("request=${dismissedRead.take(10)} returnedMs=")
+                }
+                waitForWholeMessage("Unrelated proof reply")
+                ui.onNodeWithText("Latest exact proof reply").assertDoesNotExist()
                 scenario.recreate()
                 waitForWholeMessage("Unrelated proof reply")
                 ui.onNodeWithText("Latest exact proof reply").assertDoesNotExist()
                 capture("warm-dismissed-recreated-origin")
+
+                request("hold-destination")
+                openWarmLink(link)
+                observed.addProperty("heldWarmReadBeforeChannelReturn", awaitHeldDestination())
+                assertTrue(request("release-destination").get("released").asBoolean)
+                waitForWholeMessage("Latest exact proof reply")
+                val backToChannel = context.getString(R.string.spaces_back_to_channel)
+                click(backToChannel)
+                waitText("Separate proof conversation")
+                ui.onNodeWithText(backToChannel).assertDoesNotExist()
+                scenario.recreate()
+                waitText("Separate proof conversation")
+                ui.onNodeWithText(backToChannel).assertDoesNotExist()
+                ui.onNodeWithText("Latest exact proof reply").assertDoesNotExist()
+                capture("explicit-channel-return-restored")
                 save("notification-result", observed)
             }
         }
@@ -412,7 +434,8 @@ class SpacesCatchUpJourneyTest {
             addProperty("root", observed.get("root").asString)
             addProperty("privateDenied", observed.get("privateDenied").asBoolean)
             for (field in listOf("heldReadResumedAfterHome", "heldReadBeforeRecreation", "heldReadBeforeBack",
-                "heldWarmReadBeforeRecreation", "heldWarmReadBeforeBack", "heldRestoredWarmReadBeforeBack"))
+                "heldWarmReadBeforeRecreation", "heldWarmReadBeforeBack", "heldRestoredWarmReadBeforeBack",
+                "heldWarmReadBeforeChannelReturn"))
                 observed.get(field)?.let { add(field, it) }
         }.toString())
     }

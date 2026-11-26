@@ -10,14 +10,20 @@ import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.positionInWindow
+import androidx.compose.ui.node.DrawModifierNode
+import androidx.compose.ui.node.ModifierNodeElement
+import androidx.compose.ui.node.invalidateDraw
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.InspectorInfo
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
@@ -35,11 +41,28 @@ internal object SpacesScaleMeasurement {
     private const val anchorAction = "nl.davidengelen.redsquare.performance.OBSERVE_ANCHOR"
     private val visibleRows = mutableMapOf<Int, AnchorRow>()
     private var anchorProbe: AnchorProbe? = null
+    private var viewportNode: ViewportNode? = null
     private val watchedReply = AtomicReference<String?>()
-    val scrollObserver = object : NestedScrollConnection {
+    private val scrollObserver = object : NestedScrollConnection {
         override fun onPostScroll(consumed: Offset, available: Offset, source: NestedScrollSource): Offset {
             anchorProbe?.let { if (it.record == 0) it.scrollDisplacement += consumed.y.toDouble() }
             return Offset.Zero
+        }
+    }
+    val viewportModifier: Modifier = Modifier.nestedScroll(scrollObserver).then(ViewportElement)
+
+    private data object ViewportElement : ModifierNodeElement<ViewportNode>() {
+        override fun create() = ViewportNode()
+        override fun update(node: ViewportNode) = Unit
+        override fun InspectorInfo.inspectableProperties() { name = "spacesProofViewport" }
+    }
+
+    private class ViewportNode : Modifier.Node(), DrawModifierNode {
+        override fun onAttach() { viewportNode = this }
+        override fun onDetach() { if (viewportNode === this) viewportNode = null }
+        override fun ContentDrawScope.draw() {
+            drawContent()
+            anchorProbe?.viewportDrawn()
         }
     }
 
@@ -53,13 +76,10 @@ internal object SpacesScaleMeasurement {
 
     fun detachAnchorRow(row: AnchorRow) { if (visibleRows[row.record] === row) visibleRows.remove(row.record) }
 
-    fun scrollViewportDrawn() { anchorProbe?.viewportDrawn() }
-
     private class AnchorProbe(val trial: Int, val record: Int, val view: View) : ViewTreeObserver.OnPreDrawListener {
-        private class DrawnScroll(var geometry: String)
+        private class DrawnGeometry(var value: String? = null)
         private var sequence = 0
-        private var currentDraw: DrawnScroll? = null
-        private var lastDrawnScroll: String? = null
+        private var currentDraw: DrawnGeometry? = null
         var checkpoint = false
         var scrollDisplacement = 0.0
 
@@ -71,12 +91,10 @@ internal object SpacesScaleMeasurement {
         }
 
         fun viewportDrawn() {
-            if (record != 0) return
             // Lazy placement can finish within Compose's drawing pass after
             // ViewRoot's pre-draw callback. Sample the positions actually drawn.
-            val actual = scrollGeometry()
-            lastDrawnScroll = actual
-            currentDraw?.geometry = actual
+            currentDraw?.value = if (record == 0) scrollGeometry() else visibleRows[record]?.let(::bounds)
+                ?.let { "${it.left} ${it.top} ${it.right} ${it.bottom}" } ?: "missing"
         }
 
         override fun onPreDraw(): Boolean {
@@ -88,15 +106,16 @@ internal object SpacesScaleMeasurement {
             Trace.beginSection("SpacesAnchor $trial $frame")
             try {
                 val mode = if (record == 0) "scroll-frame" else "anchor-frame"
-                val scrolling = if (record == 0) DrawnScroll(lastDrawnScroll ?: scrollGeometry()) else null
-                currentDraw = scrolling
-                val anchored = visibleRows[record]?.let(::bounds)
-                    ?.let { "${it.left} ${it.top} ${it.right} ${it.bottom}" } ?: "missing"
+                val missing = if (record == 0) "$scrollDisplacement missing" else "missing"
+                val draw = DrawnGeometry()
+                currentDraw = draw
+                // Never attribute the previous frame's geometry to this draw.
+                viewportNode?.invalidateDraw()
                 val started = SystemClock.elapsedRealtimeNanos()
                 val last = checkpoint
                 checkpoint = false
                 observer.registerFrameCommitCallback {
-                    val geometry = scrolling?.geometry ?: anchored
+                    val geometry = draw.value ?: missing
                     Log.i(tag, "$mode $trial $frame $started ${SystemClock.elapsedRealtimeNanos()} $last $geometry")
                 }
             } finally {

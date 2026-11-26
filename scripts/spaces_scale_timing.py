@@ -43,6 +43,16 @@ def anchor_command_args(package, operation, *extras):
             '-a', 'nl.davidengelen.redsquare.performance.OBSERVE_ANCHOR', '--es', 'operation', operation, *extras)
 
 
+def fresh_hierarchy(adb, remote_path, evidence_path):
+    result = adb('shell', 'uiautomator', 'dump', remote_path, timeout=12)
+    evidence_path.with_suffix('.dump.txt').write_bytes(result)
+    if b'dumped to' not in result:
+        return None
+    raw = adb('exec-out', 'cat', remote_path)
+    evidence_path.write_bytes(raw)
+    return raw
+
+
 def anchor_frames(log, trial):
     geometry = re.compile(r'anchor-frame (\d+) (\d+) (\d+) (\d+) (true|false) (missing|-?[\d.]+ -?[\d.]+ -?[\d.]+ -?[\d.]+)')
     return [(int(serial), int(started), int(committed), checkpoint == 'true',
@@ -200,19 +210,21 @@ app AS (
       WHERE EXISTS(SELECT 1 FROM frames f WHERE f.surface_frame_token=k.value
         AND f.ts <= s.end_ns AND f.ts+f.dur >= s.start_ns)) AS matched
   FROM stages s
-), anchor_marks AS (
+), anchor_markers AS MATERIALIZED (
+  SELECT id,name,track_id FROM slice WHERE name GLOB 'SpacesAnchor [0-9]*'
+), anchor_marks AS MATERIALIZED (
   SELECT w.trial, p.upid, cast(substr(m.name, length('SpacesAnchor ' || w.ordinal || ' ') + 1) AS int) AS serial,
     -- RenderThread sends the original doFrame token with the surface buffer.
     (SELECT cast(substr(f.name, length('Choreographer#doFrame ') + 1) AS int)
       FROM ancestor_slice(m.id) f WHERE f.name GLOB 'Choreographer#doFrame [0-9]*' ORDER BY f.depth DESC LIMIT 1) AS token
-  FROM anchor_windows w JOIN slice m ON m.name GLOB 'SpacesAnchor ' || w.ordinal || ' [0-9]*'
+  FROM anchor_windows w JOIN anchor_markers m ON m.name GLOB 'SpacesAnchor ' || w.ordinal || ' [0-9]*'
   JOIN thread_track tt ON tt.id=m.track_id JOIN thread t ON t.utid=tt.utid JOIN process p ON p.upid=t.upid
   WHERE p.name='nl.davidengelen.redsquare.performance' AND t.is_main_thread=1
-), anchor_limits AS (
+), anchor_limits AS MATERIALIZED (
   SELECT w.*, b.upid, b.token AS first_token, e.token AS last_token
   FROM anchor_windows w LEFT JOIN anchor_marks b ON b.trial=w.trial AND b.serial=w.first_commit
   LEFT JOIN anchor_marks e ON e.trial=w.trial AND e.serial=w.last_commit AND e.upid=b.upid
-), anchor_frames AS (
+), anchor_frames AS MATERIALIZED (
   SELECT DISTINCT w.trial, f.surface_frame_token AS token
   FROM anchor_limits w JOIN frames f ON f.upid=w.upid AND f.surface_frame_token BETWEEN w.first_token AND w.last_token
   WHERE f.layer_name GLOB '*MainActivity#*'
@@ -304,13 +316,12 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, ref
     def view(name, until, seconds=45):
         deadline = time.monotonic() + seconds
         while True:
-            shell('uiautomator', 'dump', '/sdcard/spaces-scale-view.xml', timeout=12)
-            raw = adb('exec-out', 'cat', '/sdcard/spaces-scale-view.xml')
-            (evidence / f'{name}.xml').write_bytes(raw)
-            nodes = [n for n in ElementTree.fromstring(raw).iter('node') if n.get('package') == package]
-            result = until(nodes)
-            if result is not None:
-                return result
+            raw = fresh_hierarchy(adb, '/sdcard/spaces-scale-view.xml', evidence / f'{name}.xml')
+            if raw is not None:
+                nodes = [n for n in ElementTree.fromstring(raw).iter('node') if n.get('package') == package]
+                result = until(nodes)
+                if result is not None:
+                    return result
             if time.monotonic() >= deadline:
                 raise RuntimeError(f'Expected native state was absent in {name}')
             time.sleep(.15)

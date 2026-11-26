@@ -1035,19 +1035,20 @@ try:
         exact_reads = command(control_port, 'catch-up-destination-reads')['ids']
         held = [cold.get(field) for field in ('heldReadResumedAfterHome', 'heldReadBeforeRecreation', 'heldReadBeforeBack')]
         warm_held = [notified.get(field) for field in ('heldWarmReadBeforeRecreation', 'heldWarmReadBeforeBack',
-                                                     'heldRestoredWarmReadBeforeBack')]
+                                                     'heldRestoredWarmReadBeforeBack', 'heldWarmReadBeforeChannelReturn')]
         all_held = warm_held + held
         if any(not value or value not in exact_reads for value in all_held) or len(set(all_held)) != len(all_held):
             raise RuntimeError('The held native exact reads did not match the independently verified destinations')
-        warm_recreation, warm_back, restored_back = (exact_reads.index(value) for value in warm_held)
+        warm_recreation, warm_back, restored_back, channel_return = (exact_reads.index(value) for value in warm_held)
         home_index, recreation_index, back_index = (exact_reads.index(value) for value in held)
-        if not warm_recreation < warm_back < restored_back < home_index < recreation_index < back_index:
+        if not warm_recreation < warm_back < restored_back < channel_return < home_index < recreation_index < back_index:
             raise RuntimeError('The independently verified exact reads departed from the native journey order')
         if len(set(exact_reads[warm_recreation + 1:warm_back]) - set(all_held)) < 2 or \
                 not set(exact_reads[recreation_index + 1:back_index]) - set(all_held):
             raise RuntimeError('The recreated Activity did not revalidate the exact destination')
-        if warm_back + 1 != restored_back or restored_back + 1 != home_index or home_index + 1 != recreation_index:
-            raise RuntimeError('Warm Back or Home caused a replacement exact read')
+        if (warm_back + 1 != restored_back or restored_back + 1 != channel_return or
+                channel_return + 1 != home_index or home_index + 1 != recreation_index):
+            raise RuntimeError('Returning to the channel, Warm Back or Home caused a replacement exact read')
         home_log = adb('logcat', '-d', '-s', 'SpacesAccount138:D', '*:S').stdout
         if f'request={held[0][:10]} returnedMs='.encode() not in home_log:
             raise RuntimeError('The exact signed response did not complete the native Home waiter')

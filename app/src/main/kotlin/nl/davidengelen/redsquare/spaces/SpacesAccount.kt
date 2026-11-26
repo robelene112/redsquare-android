@@ -573,10 +573,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         selectRoute(target.space, target.channel, thread = message)
     }
     fun closeThread() { mutable.value.target()?.let { select(it.space, it.channel) } }
-    fun openPinned(target: Target, reference: SpaceClient.PinnedMessage) {
+    fun openPinned(target: Target, reference: SpaceClient.PinnedMessage): Boolean {
         if (mutable.value.target() != target || reference.message.deleted || reference.message.missingKeys ||
-            (reference.threadId != null && reference.parent == null)) return
-        selectRoute(target.space, target.channel, thread = reference.parent, jump = reference.message)
+            (reference.threadId != null && reference.parent == null)) return false
+        return selectRoute(target.space, target.channel, thread = reference.parent, jump = reference.message) != null
     }
     private fun selectRoute(space: String?, channel: String? = null, expected: Long? = null, thread: SpaceClient.Message? = null,
         jump: SpaceClient.Message? = null, article: ArticleFocus? = null, requestChannelKeys: Boolean = true, savedDestination: Boolean = false, exact: ExactRoute? = null,
