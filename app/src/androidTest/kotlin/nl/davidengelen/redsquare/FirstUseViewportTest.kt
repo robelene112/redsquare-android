@@ -68,7 +68,7 @@ class FirstUseViewportTest {
                     ui.onNode(hasText("New post") and hasClickAction()).performClick()
                     ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
                     ui.onNode(editor).performTextReplacement(draft)
-                    ui.onNode(editor).performClick()
+                    ui.onNode(editor).performTouchInput { click() }
                     ui.waitUntil(10_000) { imeVisible() == true }
                     ui.onNode(editor).assertTextContains(draft)
                     captureNativeScreen(File(folder, "$name-writing-ime.png"))
@@ -80,7 +80,7 @@ class FirstUseViewportTest {
                     ui.onNode(hasText("New post") and hasClickAction()).performClick()
                     ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
                     ui.onNode(editor).assertTextContains(draft)
-                    ui.onNode(editor).performClick()
+                    ui.onNode(editor).performTouchInput { click() }
                     ui.waitUntil(10_000) { imeVisible() == true }
                     device.pressBack()
                     ui.waitUntil(10_000) { imeVisible() == false }
