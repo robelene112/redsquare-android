@@ -278,6 +278,17 @@ and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/4
 photo results for the change are pending. Candidate 145 remains an installation
 checkpoint for the earlier signed source.
 
+The protected Chat journeys on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45727410644)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45727411114)
+join the addressed chat, read the independent encrypted message and deliver the
+native encrypted original to the remote test peer. Both then lose the selected
+conversation after returning from Spaces, before the durable process checkpoint.
+The protected route and its selected conversation now belong to the same wallet
+and node scoped navigation owner as direct and group Chat. Reopening selects the
+actual conversation, so its encrypted local draft can load. [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45731989835)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45731989963)
+retain the same process, content and time goals and require the restored title.
+
 The exact signed 0.1.143 candidate from `8928b2e4a` was staged before these
 corrections. The full public 111720869-byte download matches the retained APK,
 notes, application identity and established certificate. Clean installation,
