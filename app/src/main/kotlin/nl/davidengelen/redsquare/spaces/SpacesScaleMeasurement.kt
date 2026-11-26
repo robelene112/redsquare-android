@@ -10,8 +10,12 @@ import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import java.util.concurrent.atomic.AtomicBoolean
@@ -32,6 +36,12 @@ internal object SpacesScaleMeasurement {
     private val visibleRows = mutableMapOf<Int, AnchorRow>()
     private var anchorProbe: AnchorProbe? = null
     private val watchedReply = AtomicReference<String?>()
+    val scrollObserver = object : NestedScrollConnection {
+        override fun onPostScroll(consumed: Offset, available: Offset, source: NestedScrollSource): Offset {
+            anchorProbe?.let { if (it.record == 0) it.scrollDisplacement += consumed.y.toDouble() }
+            return Offset.Zero
+        }
+    }
 
     class AnchorRow(val record: Int) {
         var coordinates: LayoutCoordinates? = null
@@ -46,6 +56,7 @@ internal object SpacesScaleMeasurement {
     private class AnchorProbe(val trial: Int, val record: Int, val view: View) : ViewTreeObserver.OnPreDrawListener {
         private var sequence = 0
         var checkpoint = false
+        var scrollDisplacement = 0.0
 
         override fun onPreDraw(): Boolean {
             val observer = view.viewTreeObserver
@@ -59,8 +70,11 @@ internal object SpacesScaleMeasurement {
                 val geometry: String
                 if (record == 0) {
                     mode = "scroll-frame"
-                    geometry = visibleRows.values.filter { bounds(it) != null }.map { it.record }.sorted()
-                        .joinToString(",").ifEmpty { "missing" }
+                    val positions = visibleRows.values.mapNotNull { row ->
+                        row.coordinates?.takeIf { bounds(row) != null }?.let { row.record to it.positionInWindow().y }
+                    }.sortedBy { it.second }
+                    geometry = "$scrollDisplacement " + positions.joinToString(",") { "${it.first}:${it.second}" }
+                        .ifEmpty { "missing" }
                 } else {
                     mode = "anchor-frame"
                     geometry = visibleRows[record]?.let(::bounds)

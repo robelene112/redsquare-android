@@ -5,8 +5,13 @@ set -euo pipefail
 sdk_manager=$1
 shift
 : "${ANDROID_HOME:?An explicit hosted SDK root is required}"
+install_timeout=180s
+for sdk_package in "$@"; do
+    # Android 17 can take longer to unpack on a busy hosted disk.
+    if [[ "$sdk_package" == 'system-images;android-37'* ]]; then install_timeout=300s; fi
+done
 for attempt in 1 2 3; do
-    if timeout --kill-after=10s 180s "$sdk_manager" --sdk_root="$ANDROID_HOME" "$@"; then
+    if timeout --kill-after=10s "$install_timeout" "$sdk_manager" --sdk_root="$ANDROID_HOME" "$@"; then
         exit 0
     else
         install_status=$?

@@ -11,7 +11,7 @@ import sys
 import time
 import urllib.request
 from xml.etree import ElementTree
-from spaces_scale_timing import (FRAME_TIMELINE_TRACE, analyse_trace, anchor_command_args, anchor_frames,
+from spaces_scale_timing import (FRAME_TIMELINE_TRACE, TRACE_TARGET, analyse_trace, anchor_command_args, anchor_frames,
                                 capture_trace, complete_anchor_coverage, measure)
 
 repo = Path(__file__).resolve().parent.parent
@@ -165,7 +165,8 @@ with (evidence / 'host.log').open('wb') as host_log:
                         raise RuntimeError('Calibration did not observe the actual anchor frame commit')
                     time.sleep(.1)
 
-            with capture_trace(adb, evidence, FRAME_TIMELINE_TRACE + 'duration_ms: 30000\n'):
+            config = FRAME_TIMELINE_TRACE + 'duration_ms: 30000\nwrite_into_file: true\nfile_write_period_ms: 1000\n'
+            with capture_trace(adb, evidence, config):
                 observer('arm', '--ei', 'trial', '0', '--ei', 'record', str(manifest['hotChannelMessages']))
                 try:
                     first = observe_checkpoint(False)
@@ -173,6 +174,11 @@ with (evidence / 'host.log').open('wb') as host_log:
                     last = observe_checkpoint(True)
                 finally:
                     observer('stop')
+                deadline = time.monotonic() + 12
+                while int(adb('shell', f'stat -c %s {TRACE_TARGET}').strip()) == 0:
+                    if time.monotonic() >= deadline:
+                        raise RuntimeError('Calibration trace did not flush after the native checkpoints')
+                    time.sleep(.2)
             native = analyse_trace(evidence, {}, [('calibration', 0, first[0], last[0])])
             if not complete_anchor_coverage(native, 1):
                 raise RuntimeError('Calibration could not match all presented anchor frames to their geometry')

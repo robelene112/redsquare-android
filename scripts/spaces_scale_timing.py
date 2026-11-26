@@ -21,6 +21,7 @@ PROFILE = '---PROFILEDATA---'
 TAG = 'SpacesScaleProof'
 PERFETTO_RELEASE = 'https://github.com/google/perfetto/releases/download/v59.1/linux-amd64.zip'
 PERFETTO_SHA256 = '7deb8c2572c6ae7ec80cd719d388041079827b0c44a1659694d5d88faa4f501e'
+TRACE_TARGET = '/data/misc/perfetto-traces/spaces-scale.pftrace'
 FRAME_TIMELINE_TRACE = '''
 buffers { size_kb: 32768 fill_policy: RING_BUFFER }
 buffers { size_kb: 32768 fill_policy: RING_BUFFER }
@@ -51,11 +52,10 @@ def anchor_frames(log, trial):
 
 @contextmanager
 def capture_trace(adb, evidence, config):
-    target = '/data/misc/perfetto-traces/spaces-scale.pftrace'
     trace_config = evidence / 'perfetto-config.pbtxt'
     trace_config.write_text(config.strip() + '\n')
     # Perfetto reads stdin because its Android service need not have access to /data/local/tmp.
-    launch = subprocess.run(['adb', 'shell', 'perfetto', '--background-wait', '--txt', '-c', '-', '-o', target],
+    launch = subprocess.run(['adb', 'shell', 'perfetto', '--background-wait', '--txt', '-c', '-', '-o', TRACE_TARGET],
                             input=trace_config.read_bytes(), capture_output=True, timeout=45)
     (evidence / 'perfetto-start.txt').write_bytes(launch.stdout + launch.stderr)
     launch.check_returncode()
@@ -70,7 +70,7 @@ def capture_trace(adb, evidence, config):
             subprocess.run(['adb', 'shell', 'kill', '-INT', pid], check=False, timeout=10)
             adb('shell', f'while kill -0 {pid} 2>/dev/null; do sleep 0.2; done', timeout=20)
             trace = evidence / 'native-scale.pftrace'
-            adb('pull', target, str(trace), timeout=60)
+            adb('pull', TRACE_TARGET, str(trace), timeout=60)
             if trace.stat().st_size == 0:
                 raise RuntimeError('Perfetto returned an empty trace')
         except (OSError, RuntimeError, subprocess.SubprocessError) as failure:
@@ -502,11 +502,13 @@ file_write_period_ms: 5000
              all(hot not in label(node) for node in nodes) else None)
         reply = request('prepare-scroll-arrival')['offscreenReply']
         motion = re.compile(r'user-scroll (\d+) (true|false)')
-        scroll_frame = re.compile(r'scroll-frame 6 (\d+) (\d+) (\d+) (true|false) (missing|[\d,]+)')
+        scroll_frame = re.compile(r'scroll-frame 6 (\d+) (\d+) (\d+) (true|false) (\S+) (\S+)')
         def scroll_frames(log):
-            return [(int(serial), int(started), int(committed), checkpoint == 'true',
-                     [] if rows == 'missing' else list(map(int, rows.split(','))))
-                    for serial, started, committed, checkpoint, rows in scroll_frame.findall(log)]
+            return [{'sequence': int(serial), 'startNs': int(started), 'commitNs': int(committed),
+                     'checkpoint': checkpoint == 'true', 'scrollPx': float(displacement),
+                     'visibleTopsPx': {int(record): float(top) for record, top in
+                                      (row.split(':') for row in rows.split(',') if row != 'missing')}}
+                    for serial, started, committed, checkpoint, displacement, rows in scroll_frame.findall(log)]
 
         def scroll_transitions(log, start):
             return [(int(ns), status == 'true') for ns, status in motion.findall(log) if int(ns) >= start]
@@ -552,7 +554,7 @@ file_write_period_ms: 5000
                         while time.monotonic() < anchor_deadline:
                             log = trace_text()
                             checkpoint = next((frame for frame in scroll_frames(log)
-                                               if frame[3] and frame[1] >= observed_reply['projectedNs']), None)
+                                               if frame['checkpoint'] and frame['startNs'] >= observed_reply['projectedNs']), None)
                             if checkpoint is not None:
                                 break
                             time.sleep(.1)
@@ -564,7 +566,7 @@ file_write_period_ms: 5000
         log = trace_text()
         (evidence / 'scroll-arrival-observations.txt').write_text(log)
         transitions = scroll_transitions(log, mark)
-        layouts = sorted(scroll_frames(log))
+        layouts = sorted(scroll_frames(log), key=lambda frame: frame['sequence'])
         crossing = {'reply': reply, 'independentAccepted': True, 'releasedDuringScroll': released, 'application': observed_reply,
                     'scrollTransitions': transitions, 'committedFrames': layouts, 'checkpoint': checkpoint}
         (evidence / 'scroll-arrival.json').write_text(json.dumps(crossing, indent=2) + '\n')
@@ -572,16 +574,29 @@ file_write_period_ms: 5000
                 not next((moving for ns, moving in reversed(transitions) if ns <= observed_reply[event]), False)
                 for event in ('receivedNs', 'projectedNs')):
             raise RuntimeError('The exact signed history was not received and applied while the reader was scrolling')
-        before_receipt = [frame for frame in layouts if frame[2] <= observed_reply['receivedNs']]
+        before_receipt = [frame for frame in layouts if frame['commitNs'] <= observed_reply['receivedNs']]
         if not before_receipt:
             raise RuntimeError('The scrolling viewport before the signed arrival was not recorded')
         baseline = before_receipt[-1]
-        during_arrival = [frame for frame in layouts if baseline[0] <= frame[0] <= checkpoint[0]]
-        if ([frame[0] for frame in during_arrival] != list(range(baseline[0], checkpoint[0] + 1)) or
-                any(not (set(previous[4]) & set(current[4])) for previous, current in zip(during_arrival, during_arrival[1:])) or
-                any(manifest['hotChannelMessages'] in frame[4] for frame in during_arrival)):
-            raise RuntimeError('The moving channel viewport jumped or lost its reading context during the signed arrival')
-        anchor_windows.append(('scroll-arrival', 6, baseline[0], checkpoint[0]))
+        first, last = baseline['sequence'], checkpoint['sequence']
+        during_arrival = [frame for frame in layouts if first <= frame['sequence'] <= last]
+        if ([frame['sequence'] for frame in during_arrival] != list(range(first, last + 1)) or
+                any(manifest['hotChannelMessages'] in frame['visibleTopsPx'] for frame in during_arrival)):
+            raise RuntimeError('The moving channel interrupted its frame sequence or returned to latest')
+        errors = []
+        for previous, current in zip(during_arrival, during_arrival[1:]):
+            old_rows, new_rows = previous['visibleTopsPx'], current['visibleTopsPx']
+            shared = old_rows.keys() & new_rows.keys()
+            if not shared:
+                raise RuntimeError('The moving viewport lost all visible row identities between frames')
+            movement = current['scrollPx'] - previous['scrollPx']
+            errors.extend(abs(new_rows[record] - old_rows[record] - movement) for record in shared)
+        crossing['maximumUnexplainedDisplacementPx'] = max(errors)
+        (evidence / 'scroll-arrival.json').write_text(json.dumps(crossing, indent=2) + '\n')
+        # Allow one pixel of integer rounding at either end of a native frame.
+        if not all(math.isfinite(error) and error <= 2 for error in errors):
+            raise RuntimeError('The visible rows moved independently of the consumed native scroll')
+        anchor_windows.append(('scroll-arrival', 6, first, last))
         view('scroll-arrival-after', lambda nodes: True if any(body.match(label(n)) for n in nodes) and
              all(hot not in label(node) for node in nodes) else None)
         other_sample('scroll-arrival')
