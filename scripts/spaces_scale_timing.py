@@ -39,6 +39,7 @@ def frame_statistics(raw, allow_empty=False):
                 unavailable.append(row)
                 continue
             frames.append({
+                'timelineId': int(row.get('FrameTimelineVsyncId') or -1),
                 'durationMs': (completed - intended) / 1e6,
                 'budgetMs': (deadline - intended) / 1e6,
                 'missedBudget': completed > deadline,
@@ -49,32 +50,63 @@ def frame_statistics(raw, allow_empty=False):
     return frames, unavailable, max(0, total - len(frames) - len(unavailable))
 
 
+def framework_coverage(raw, frames, limit):
+    total = int(re.search(r'Total frames rendered:\s*(\d+)', raw)[1])
+    samples = re.search(r'^HISTOGRAM:(.*)$', raw, re.M)[1]
+    histogram = [(int(lower), int(count)) for lower, count in re.findall(r'(\d+)ms=(\d+)', samples)]
+    if len(histogram) < 100 or sum(count for _, count in histogram) != total:
+        raise RuntimeError('HWUI did not account for every completed frame in its cumulative histogram')
+    if limit not in {lower for lower, _ in histogram}:
+        raise RuntimeError('HWUI lacks an exact lower bucket boundary for the frozen ceiling')
+    return {
+        'startNs': int(re.search(r'Stats since: (\d+)ns', raw)[1]),
+        'sampleUptimeNs': int(re.search(r'Uptime: (\d+)', raw)[1]) * 1_000_000,
+        'completedFrames': total,
+        'unmatchedFrameworkFrames': max(0, total - len(frames)),
+        'framesAtOrAboveCeiling': sum(count for lower, count in histogram if lower >= limit),
+        'timelineIds': sorted({frame['timelineId'] for frame in frames if frame['timelineId'] > 0}),
+    }
+
+
 def percentile(values, points):
     ordered = sorted(values)
     return {p: ordered[math.ceil(len(ordered) * p / 100) - 1] for p in points}
 
 
-def analyse_trace(evidence):
-    sql = """
-WITH app AS (
+def analyse_trace(evidence, stages):
+    values = ',\n'.join(f"('{name}',{row['startNs']},{row['sampleUptimeNs']},{row['completedFrames']},'{json.dumps(row['timelineIds'])}')"
+                       for name, row in stages.items())
+    sql = f"""
+WITH stages(name, start_ns, end_ns, framework_count, known_tokens) AS (VALUES {values}),
+app AS (
   SELECT upid FROM process WHERE name = 'nl.davidengelen.redsquare.performance'
   UNION SELECT upid FROM actual_frame_timeline_slice
     WHERE layer_name GLOB '*nl.davidengelen.redsquare.performance/*'
 ), frames AS (
-  SELECT a.ts,a.dur,max(a.dur,a.ts+a.dur-coalesce((
-    SELECT min(e.ts) FROM expected_frame_timeline_slice e
+  SELECT a.ts,a.dur,a.surface_frame_token,(SELECT min(e.ts) FROM expected_frame_timeline_slice e
       WHERE e.upid=a.upid AND e.surface_frame_token=a.surface_frame_token
-  ),a.ts)) AS duration
+  ) AS expected
   FROM actual_frame_timeline_slice a WHERE a.upid IN app AND a.dur >= 0
+), coverage AS (
+  SELECT s.name, s.framework_count,
+    (SELECT count(*) FROM frames f WHERE f.ts <= s.end_ns AND f.ts+f.dur >= s.start_ns) AS trace_count,
+    json_array_length(s.known_tokens) AS known,
+    (SELECT count(*) FROM json_each(s.known_tokens) k
+      WHERE EXISTS(SELECT 1 FROM frames f WHERE f.surface_frame_token=k.value)) AS matched
+  FROM stages s
 )
 SELECT hex(CAST(json_object(
   'completedFrames', (SELECT count(*) FROM frames),
   'lastFrameNs', (SELECT max(ts+dur) FROM frames),
-  'maximumFrameMs', (SELECT max(duration)/1000000.0 FROM frames),
+  'maximumFrameMs', (SELECT max(max(dur,ts+dur-coalesce(expected,ts)))/1000000.0 FROM frames),
+  'unmatchedExpectedOutsideFramework', (SELECT count(*) FROM frames f WHERE f.expected IS NULL AND NOT EXISTS(
+    SELECT 1 FROM stages s WHERE s.framework_count>0 AND f.ts <= s.end_ns AND f.ts+f.dur >= s.start_ns)),
+  'stageCoverage', (SELECT json_group_array(json_object('stage',name,'frameworkCount',framework_count,
+     'traceCount',trace_count,'knownTokens',known,'matchedTokens',matched)) FROM coverage),
   'allocationProfiles', (SELECT count(DISTINCT ts) FROM heap_profile_allocation WHERE upid IN app),
   'diagnostics', (SELECT json_group_array(json_object('name',name,'index',idx,'value',value))
     FROM stats WHERE value > 0 AND (name GLOB 'heapprofd_*' OR name GLOB 'frame_timeline_*'
-      OR name = 'traced_buf_chunks_overwritten'))
+      OR name GLOB 'ftrace_*overrun*' OR name = 'traced_buf_chunks_overwritten'))
 ) AS BLOB)) AS result
 """
     (evidence / 'perfetto-validation.sql').write_text(sql.strip() + '\n')
@@ -94,11 +126,12 @@ SELECT hex(CAST(json_object(
     return json.loads(bytes.fromhex(row['result']))
 
 
-def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, request):
+def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, reference, request):
     expected = contract['measurement']
     thresholds = contract['thresholds']
     if manifest['acceptedMessages'] != 100000 or manifest['acceptedFiles'] != 1000:
         raise RuntimeError('The full timing path requires the frozen dataset')
+    stages = {}
 
     def shell(*parts, timeout=30):
         return adb('shell', shlex.join([str(p) for p in parts]), timeout=timeout).decode()
@@ -111,13 +144,15 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, req
             output = shell('dumpsys', 'gfxinfo', package, 'framestats')
             (evidence / f'{name}-framestats.txt').write_text(output)
             sample, invalid, unretained = frame_statistics(output, allow_empty)
-            if not (invalid or unretained) or not verify_complete:
-                return sample, invalid, unretained
+            coverage = framework_coverage(output, sample, thresholds['noFrameAtOrAboveMs'])
+            if not coverage['unmatchedFrameworkFrames'] or not verify_complete:
+                break
             # The currently submitted frame can temporarily contain completion
             # fields from the previous ring entry. Preserve the raw snapshot and
             # sample after the renderer has time to complete it, without resetting.
             (evidence / f'{name}-unsettled-framestats-{attempt}.txt').write_text(output)
             time.sleep(.15)
+        stages[name] = coverage
         return sample, invalid, unretained
 
     def view(name, until, seconds=45):
@@ -268,7 +303,7 @@ file_write_period_ms: 5000
                 unretained += unobserved
             if trial:
                 frame_measurements.extend(observed)
-                missing_warm += len(unavailable) + unretained
+                missing_warm += sum(stages[f'{name}-swipe-{swipe}']['unmatchedFrameworkFrames'] for swipe in range(1, 5))
             anchor = view(f'{name}-anchor', lambda nodes: next((n for n in nodes
                 if body.match(label(n)) and 200 < bounds(n)[1] < 1400 and hot not in label(n)), None))
             identity, before = label(anchor), bounds(anchor)
@@ -382,6 +417,7 @@ file_write_period_ms: 5000
 
         started_cycles = re.compile(r'foreground (\d+) true true (-?\d+) (\d+) (\d+)')
         idle_samples = re.compile(r'idle (\d+) (-?\d+) (\d+) (\d+)')
+        reset_frames()
         mark = device_elapsed_ns()
         shell('input', 'keyevent', 'KEYCODE_HOME')
 
@@ -422,9 +458,17 @@ file_write_period_ms: 5000
         (evidence / 'retained-heap-trend.json').write_text(json.dumps(heap, indent=2) + '\n')
         if len(running) < expected['idleReturnSwitchCycles'] or not lifecycle_settled:
             raise RuntimeError('Lifecycle did not return to the same account and initial idle job bound')
+        other_sample('lifecycle')
 
         durations = [frame['durationMs'] for frame in frame_measurements]
-        missed = sum(frame['missedBudget'] for frame in frame_measurements) / len(frame_measurements)
+        missed_frames = sum(frame['missedBudget'] for frame in frame_measurements)
+        warm_total = sum(value['completedFrames'] for name, value in stages.items()
+                         if re.fullmatch(r'warm-[1-5]-swipe-[1-4]', name))
+        missed = missed_frames / len(frame_measurements)
+        # Completion counts and the full duration histogram are cumulative HWUI
+        # data, even when the individual-row ring is missing samples. Count every
+        # such warm frame as a deadline miss for a conservative admission bound.
+        missed_upper_bound = min(1, (missed_frames + missing_warm) / warm_total)
         taps = percentile(feedback, thresholds['reportPercentiles'])
         result = {
             'reactionFeedbackFrameMs': taps,
@@ -437,14 +481,17 @@ file_write_period_ms: 5000
             'otherFrameSamples': len(other_frames),
             'otherMissingFrames': missing_other,
             'warmBudgetMissShare': missed,
+            'warmBudgetMissShareUpperBound': missed_upper_bound,
+            'frameworkFramesByStage': stages,
             'anchorFailures': anchor_failures,
             'observedForegroundTransitions': len(running),
             'observedStoppedPollingTransitions': len(profile) - 1,
             'sameAccountAtIdleJobBound': lifecycle_settled,
             'sampleThresholdsPassed': taps[95] <= thresholds['tapFeedbackP95MsMaximum']
                 and max(durations + [frame['durationMs'] for frame in cold + other_frames]) < thresholds['noFrameAtOrAboveMs']
-                and missed <= thresholds['scriptedWarmScrollBudgetMissShareMaximum']
-                and not anchor_failures and not missing_warm,
+                and missed_upper_bound <= thresholds['scriptedWarmScrollBudgetMissShareMaximum']
+                and not any(row['framesAtOrAboveCeiling'] for row in stages.values())
+                and not anchor_failures,
         }
         (evidence / 'timing.json').write_text(json.dumps(result, indent=2) + '\n')
     finally:
@@ -461,13 +508,29 @@ file_write_period_ms: 5000
             (evidence / 'perfetto-finish-error.txt').write_text(str(failure) + '\n')
             if original_failure is None:
                 raise
-    summary = analyse_trace(evidence)
+    summary = analyse_trace(evidence, stages)
     result['nativeTrace'] = summary
+    comparable = {
+        'reactionCommittedFrameP95Ms': result['reactionCommittedFrameMs'][95],
+        'warmFrameP95Ms': result['warmFrameDurationMs'][95],
+        'observedWarmBudgetMissShare': result['warmBudgetMissShare'],
+        'maximumTraceFrameMs': summary['maximumFrameMs'],
+    }
+    changes = {name: (value / reference['metrics'][name] - 1) * 100 for name, value in comparable.items()}
+    result['referenceComparison'] = {
+        'run': reference['run'], 'source': reference['source'], 'timingSha256': reference['timingSha256'],
+        'percentChange': changes,
+        'investigate': [name for name, delta in changes.items() if delta > thresholds['baselineRegressionPercentInvestigateAbove']],
+    }
     lost_profile = any(item['name'] in {'heapprofd_buffer_overran', 'heapprofd_client_error', 'traced_buf_chunks_overwritten'}
                        for item in summary['diagnostics'])
+    trace_coverage = all(row['traceCount'] > 0 and row['knownTokens'] > 0 and row['knownTokens'] == row['matchedTokens']
+                         for row in summary['stageCoverage'] if row['frameworkCount'] > 0)
+    lost_frames = any(item['name'].startswith('ftrace_') and 'overrun' in item['name'] for item in summary['diagnostics'])
     result['thresholdsPassed'] = result['sampleThresholdsPassed'] and summary['completedFrames'] > 0 and (
         summary['maximumFrameMs'] < thresholds['noFrameAtOrAboveMs'] and summary['lastFrameNs'] >= running[-1][0] and
-        summary['allocationProfiles'] >= 2 and not lost_profile)
+        summary['allocationProfiles'] >= 2 and not lost_profile and trace_coverage and not lost_frames and
+        not summary['unmatchedExpectedOutsideFramework'])
     (evidence / 'timing.json').write_text(json.dumps(result, indent=2) + '\n')
     if not result['thresholdsPassed']:
         raise RuntimeError('The native evidence is incomplete or exceeds the frozen thresholds')

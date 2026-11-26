@@ -26,6 +26,7 @@ android = '{http://schemas.android.com/apk/res/android}'
 classpath = (repo / 'spaces-service/build/host-fixture-classpath.txt').read_text().strip()
 native = repo / 'core/build/generated/spaces-mls-host'
 contract = repo / 'docs/quality/SPACES_SCALE_CONTRACT.json'
+baseline = repo / 'docs/quality/SPACES_SCALE_REFERENCE.json'
 
 def adb(*parts, timeout=25):
     return subprocess.run(['adb', *parts], check=True, capture_output=True, timeout=timeout).stdout
@@ -140,9 +141,33 @@ with (evidence / 'host.log').open('wb') as host_log:
             'qualifiesForTimedRuns': full,
         }
         if full:
+            reference = json.loads(baseline.read_text())
+            if reference['device'] != summary['device'] or reference['fixtureContractSha256'] != sha(contract):
+                raise RuntimeError('The paced workload does not match the recorded reference environment')
+            (evidence / 'scale-reference.json').write_bytes(baseline.read_bytes())
             (evidence / 'timing-inputs.json').write_text(json.dumps(summary, indent=2) + '\n')
             summary['timing'] = measure(adb, evidence, package, f'ws://127.0.0.1:{local_port}/wsopen',
-                                        endpoints, manifest, json.loads(contract.read_text()), request)
+                                        endpoints, manifest, json.loads(contract.read_text()), reference, request)
+        else:
+            observer = ['am', 'start', '-W', '--activity-single-top', '-n',
+                        f'{package}/nl.davidengelen.redsquare.MainActivity', '-a',
+                        'nl.davidengelen.redsquare.performance.OBSERVE_ANCHOR', '--es', 'operation']
+            adb('shell', shlex.join(observer + ['arm', '--ei', 'trial', '0', '--ei', 'record', str(manifest['hotChannelMessages'])]))
+            try:
+                adb('shell', shlex.join(observer + ['checkpoint']))
+                deadline = time.monotonic() + 12
+                while True:
+                    observed = adb('logcat', '-d', '-s', 'SpacesScaleProof:I', '*:S').decode()
+                    (evidence / 'anchor-observations.txt').write_text(observed)
+                    held = re.search(r'anchor-frame 0 \d+ \d+ \d+ true ((?:-?[\d.]+ ){3}-?[\d.]+)', observed)
+                    if held:
+                        summary['committedAnchorBounds'] = [float(value) for value in held[1].split()]
+                        break
+                    if time.monotonic() >= deadline:
+                        raise RuntimeError('Calibration did not observe the actual anchor frame commit')
+                    time.sleep(.1)
+            finally:
+                adb('shell', shlex.join(observer + ['stop']))
         stopping()
         stopping = None
         if host.wait(timeout=15) != 0:

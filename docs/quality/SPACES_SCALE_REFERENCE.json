@@ -1,0 +1,13 @@
+{
+  "run": 45714810461,
+  "source": "4ffce999196b4c5601757edda96361d3a4b2b785",
+  "timingSha256": "49cd5569438e241305fc1c6a1e53a9530de8016e48bc7b8f53da278912c8406b",
+  "fixtureContractSha256": "6da724907bb0d869bf5fe8d689489de277e78539f871ec13d5f0f7aa1759943d",
+  "device": "google/sdk_gphone64_x86_64/emu64xa:17/CE2A.260420.051.A3/16571990:userdebug/dev-keys",
+  "metrics": {
+    "reactionCommittedFrameP95Ms": 1527.925628,
+    "warmFrameP95Ms": 46.282916,
+    "observedWarmBudgetMissShare": 0.06502890173410404,
+    "maximumTraceFrameMs": 905.396583
+  }
+}

@@ -70,6 +70,7 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.onCompletion
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.feed.ProfileAvatar
 import nl.davidengelen.redsquare.registry.registeredIdentity
@@ -599,8 +600,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         val keyboardBottom = WindowInsets.ime.getBottom(LocalDensity.current)
                         val viewportSize by remember(list) { derivedStateOf { list.layoutInfo.viewportSize } }
                         val messageBody = remember { BringIntoViewRequester() }
-                        LaunchedEffect(list, account) {
+                        LaunchedEffect(list, account, target) {
                             var userScrolling = false
+                            var foregroundScroll = false
                             snapshotFlow {
                                 val visible = list.layoutInfo.visibleItemsInfo
                                 // visibleItemsInfo may also include a prior item inside content padding.
@@ -612,7 +614,12 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                     SpaceClient.ReadingAnchor(first.id, position, list.firstVisibleItemScrollOffset, latestWindow)
                                 }
                                 ChannelViewport(anchor, !(list.canScrollForward || list.isScrollInProgress), autoScrolling || initialPage || overlayMode != null || pinsModal, list.isScrollInProgress, read)
-                            }.collect { viewport ->
+                            }.onCompletion { account.conversationScrolling(target, false) }.collect { viewport ->
+                                val moving = viewport.scrolling && !viewport.automatic
+                                if (moving != foregroundScroll) {
+                                    foregroundScroll = moving
+                                    account.conversationScrolling(target, moving)
+                                }
                                 if (viewport.automatic) userScrolling = false else {
                                     if (viewport.scrolling) userScrolling = true
                                     // Row acceptance, reactions and IME resizing can move
