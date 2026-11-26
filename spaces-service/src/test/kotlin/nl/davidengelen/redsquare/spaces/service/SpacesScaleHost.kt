@@ -16,6 +16,8 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.time.Clock
 import java.time.Duration
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
@@ -43,6 +45,7 @@ object SpacesScaleHost {
         val reactions = AtomicInteger()
         val reads = AtomicInteger()
         val watchedReply = AtomicReference<Arrival>()
+        val scrollArrivalGate = AtomicReference<CountDownLatch?>()
         val stopping = AtomicBoolean()
         SpacesServiceStore(root.resolve("service"), service, clock).use { remote ->
             SqliteClientFixture(root.resolve("independent-scale.sqlite").toString()).use { local ->
@@ -80,7 +83,9 @@ object SpacesScaleHost {
                                 observed.body.getAsJsonArray("items")?.any { item ->
                                     val receipt = SaitoEnvelope.decode(item.asString)
                                     SaitoEnvelope.decode(receipt.body.get("event").asString).id == arrival.id
-                                } == true) watchedReply.compareAndSet(arrival, arrival.copy(readRequest = original.id))
+                                } == true && watchedReply.compareAndSet(arrival, arrival.copy(readRequest = original.id))) {
+                                scrollArrivalGate.get()?.let { check(it.await(8, TimeUnit.SECONDS)) }
+                            }
                         }
                     }
                 }
@@ -117,6 +122,7 @@ object SpacesScaleHost {
                                 }
                                 "/prepare-scroll-arrival" -> runBlocking {
                                     check(crossing == null)
+                                    check(scrollArrivalGate.compareAndSet(null, CountDownLatch(1)))
                                     val parent = requireNotNull(hotRoot)
                                     val id = actor.reply(expectedHotSpace, parent, "Independent reply during scroll", expectedHotChannel)
                                     watchedReply.set(Arrival(id))
@@ -132,6 +138,10 @@ object SpacesScaleHost {
                                     })
                                     crossing = null
                                     JsonObject().apply { addProperty("offscreenReply", id) }
+                                }
+                                "/release-scroll-arrival" -> {
+                                    requireNotNull(scrollArrivalGate.getAndSet(null)).countDown()
+                                    JsonObject().apply { addProperty("released", true) }
                                 }
                                 "/status" -> JsonObject().apply {
                                     addProperty("acceptedReactions", reactions.get())

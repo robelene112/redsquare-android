@@ -55,20 +55,31 @@ internal object SpacesScaleMeasurement {
             // measured these bounds, so the host can join its exact vsync ID.
             Trace.beginSection("SpacesAnchor $trial $frame")
             try {
-                val current = visibleRows[record]?.coordinates?.takeIf { it.isAttached }?.boundsInWindow()
-                    ?.takeUnless { it.isEmpty }
-                val bounds = current?.let { "${it.left} ${it.top} ${it.right} ${it.bottom}" } ?: "missing"
+                val mode: String
+                val geometry: String
+                if (record == 0) {
+                    mode = "scroll-frame"
+                    geometry = visibleRows.values.filter { bounds(it) != null }.map { it.record }.sorted()
+                        .joinToString(",").ifEmpty { "missing" }
+                } else {
+                    mode = "anchor-frame"
+                    geometry = visibleRows[record]?.let(::bounds)
+                        ?.let { "${it.left} ${it.top} ${it.right} ${it.bottom}" } ?: "missing"
+                }
                 val started = SystemClock.elapsedRealtimeNanos()
                 val last = checkpoint
                 checkpoint = false
                 observer.registerFrameCommitCallback {
-                    Log.i(tag, "anchor-frame $trial $frame $started ${SystemClock.elapsedRealtimeNanos()} $last $bounds")
+                    Log.i(tag, "$mode $trial $frame $started ${SystemClock.elapsedRealtimeNanos()} $last $geometry")
                 }
             } finally {
                 Trace.endSection()
             }
             return true
         }
+
+        private fun bounds(row: AnchorRow) = row.coordinates?.takeIf { it.isAttached }?.boundsInWindow()
+            ?.takeUnless { it.isEmpty }
     }
 
     fun anchorIntent(intent: Intent, view: View): Boolean {
@@ -77,7 +88,7 @@ internal object SpacesScaleMeasurement {
             "arm" -> {
                 val trial = intent.getIntExtra("trial", -1)
                 val record = intent.getIntExtra("record", -1)
-                if (trial in 0..5 && record in 1..10_000) {
+                if (trial in 0..5 && record in 1..10_000 || trial == 6 && record == 0) {
                     stopAnchorProbe(view)
                     AnchorProbe(trial, record, view).also {
                         anchorProbe = it

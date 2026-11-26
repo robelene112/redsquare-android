@@ -315,7 +315,7 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, ref
         received = re.search(rf'received (\d+) {re.escape(read)}\b', log) if read else None
         projected = re.search(rf'reply-projected (\d+) {re.escape(reply)}\b', log)
         if received and projected and int(received[1]) <= int(projected[1]):
-            return read, int(received[1]), int(projected[1])
+            return {'request': read, 'receivedNs': int(received[1]), 'projectedNs': int(projected[1])}
         return None
 
     def heap_sample(name):
@@ -411,7 +411,7 @@ file_write_period_ms: 5000
                     raise RuntimeError(f'The native client did not apply the independently signed offscreen reply in {name}')
                 time.sleep(.2)
                 observed_reply = applied_reply(reply, trace_text())
-            read, _, applied = observed_reply
+            read, applied = observed_reply['request'], observed_reply['projectedNs']
             after = view(f'{name}-arrival', lambda nodes: next((n for n in nodes if label(n) == identity), None))
             anchor_command('checkpoint')
             anchor_deadline = time.monotonic() + 10
@@ -501,39 +501,89 @@ file_write_period_ms: 5000
         view('scroll-arrival-before', lambda nodes: True if any(body.match(label(n)) for n in nodes) and
              all(hot not in label(node) for node in nodes) else None)
         reply = request('prepare-scroll-arrival')['offscreenReply']
-        anchor_command('receipt', '--es', 'reply', reply)
-        mark = device_elapsed_ns()
         motion = re.compile(r'user-scroll (\d+) (true|false)')
+        scroll_frame = re.compile(r'scroll-frame 6 (\d+) (\d+) (\d+) (true|false) (missing|[\d,]+)')
+        def scroll_frames(log):
+            return [(int(serial), int(started), int(committed), checkpoint == 'true',
+                     [] if rows == 'missing' else list(map(int, rows.split(','))))
+                    for serial, started, committed, checkpoint, rows in scroll_frame.findall(log)]
+
+        def scroll_transitions(log, start):
+            return [(int(ns), status == 'true') for ns, status in motion.findall(log) if int(ns) >= start]
+
+        anchor_command('arm', '--ei', 'trial', 6, '--ei', 'record', 0)
+        anchor_deadline = time.monotonic() + 10
+        while not scroll_frames(trace_text()):
+            if time.monotonic() >= anchor_deadline:
+                raise RuntimeError('The native scrolling probe did not commit before starting the crossed case')
+            time.sleep(.1)
+        anchor_command('receipt', '--es', 'reply', reply)
+        deadline = time.monotonic() + 35
+        if request('commit-scroll-arrival')['offscreenReply'] != reply:
+            raise RuntimeError('The crossed arrival was not independently accepted')
+        while not request('status').get('offscreenReplyRead'):
+            if time.monotonic() >= deadline:
+                raise RuntimeError('The selected channel did not request the signed crossed arrival')
+            time.sleep(.1)
+        mark = device_elapsed_ns()
         gestures = ('for i in $(seq 1 18); do input swipe 410 620 410 1310 350 && '
                     'input swipe 410 1310 410 620 350 || exit; done')
-        with subprocess.Popen(['adb', 'shell', gestures], stdout=subprocess.DEVNULL) as gesture:
-            deadline = time.monotonic() + 35
-            observed_reply = None
-            accepted = False
-            while time.monotonic() < deadline:
-                log = trace_text()
-                transitions = [(int(ns), status == 'true') for ns, status in motion.findall(log) if int(ns) >= mark]
-                if not accepted and transitions and transitions[-1][1]:
-                    if request('commit-scroll-arrival')['offscreenReply'] != reply:
-                        raise RuntimeError('The crossed arrival was not independently accepted')
-                    accepted = True
-                if accepted:
-                    observed_reply = applied_reply(reply, log)
+        released = False
+        observed_reply = None
+        checkpoint = None
+        try:
+            with subprocess.Popen(['adb', 'shell', gestures], stdout=subprocess.DEVNULL) as gesture:
+                try:
+                    while time.monotonic() < deadline:
+                        log = trace_text()
+                        transitions = scroll_transitions(log, mark)
+                        if not released and transitions and transitions[-1][1]:
+                            released = request('release-scroll-arrival')['released']
+                        if released:
+                            observed_reply = applied_reply(reply, log)
+                            if observed_reply is not None:
+                                break
+                        if gesture.poll() is not None and not released:
+                            break
+                        time.sleep(.15)
                     if observed_reply is not None:
-                        break
-                if gesture.poll() is not None and not accepted:
-                    break
-                time.sleep(.15)
-            if gesture.poll() is None:
-                gesture.terminate()
+                        anchor_command('checkpoint')
+                        anchor_deadline = time.monotonic() + 10
+                        while time.monotonic() < anchor_deadline:
+                            log = trace_text()
+                            checkpoint = next((frame for frame in scroll_frames(log)
+                                               if frame[3] and frame[1] >= observed_reply['projectedNs']), None)
+                            if checkpoint is not None:
+                                break
+                            time.sleep(.1)
+                finally:
+                    if gesture.poll() is None:
+                        gesture.terminate()
+        finally:
+            anchor_command('stop')
         log = trace_text()
         (evidence / 'scroll-arrival-observations.txt').write_text(log)
-        transitions = [(int(ns), status == 'true') for ns, status in motion.findall(log) if int(ns) >= mark]
-        crossing = {'reply': reply, 'independentAccepted': accepted, 'application': observed_reply, 'scrollTransitions': transitions}
+        transitions = scroll_transitions(log, mark)
+        layouts = sorted(scroll_frames(log))
+        crossing = {'reply': reply, 'independentAccepted': True, 'releasedDuringScroll': released, 'application': observed_reply,
+                    'scrollTransitions': transitions, 'committedFrames': layouts, 'checkpoint': checkpoint}
         (evidence / 'scroll-arrival.json').write_text(json.dumps(crossing, indent=2) + '\n')
-        if observed_reply is None or not next((moving for ns, moving in reversed(transitions)
-                                                if ns <= observed_reply[1]), False):
-            raise RuntimeError('The exact signed history response did not arrive while the reader was scrolling')
+        if observed_reply is None or checkpoint is None or any(
+                not next((moving for ns, moving in reversed(transitions) if ns <= observed_reply[event]), False)
+                for event in ('receivedNs', 'projectedNs')):
+            raise RuntimeError('The exact signed history was not received and applied while the reader was scrolling')
+        before_receipt = [frame for frame in layouts if frame[2] <= observed_reply['receivedNs']]
+        if not before_receipt:
+            raise RuntimeError('The scrolling viewport before the signed arrival was not recorded')
+        baseline = before_receipt[-1]
+        during_arrival = [frame for frame in layouts if baseline[0] <= frame[0] <= checkpoint[0]]
+        if ([frame[0] for frame in during_arrival] != list(range(baseline[0], checkpoint[0] + 1)) or
+                any(not (set(previous[4]) & set(current[4])) for previous, current in zip(during_arrival, during_arrival[1:])) or
+                any(manifest['hotChannelMessages'] in frame[4] for frame in during_arrival)):
+            raise RuntimeError('The moving channel viewport jumped or lost its reading context during the signed arrival')
+        anchor_windows.append(('scroll-arrival', 6, baseline[0], checkpoint[0]))
+        view('scroll-arrival-after', lambda nodes: True if any(body.match(label(n)) for n in nodes) and
+             all(hot not in label(node) for node in nodes) else None)
         other_sample('scroll-arrival')
 
         started_cycles = re.compile(r'foreground (\d+) true true (-?\d+) (\d+) (\d+)')
