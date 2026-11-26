@@ -289,6 +289,27 @@ actual conversation, so its encrypted local draft can load. [Android 10](https:/
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45731989963)
 retain the same process, content and time goals and require the restored title.
 
+Signed 145 passed actual clean launch and in-place updates from 139 on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45728439532)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45728439182),
+and from 142 on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45728439404)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45728439625).
+Each receipt includes the exact binary and the ordinary wallet/draft and module
+continuity observations. Those checks apply to candidate 145 only. The whole
+prospective SDK parents were superseded while queued by the incremental cache
+reader runs on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45730662196)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45730662545).
+
+The [updated timed-source attempt](https://github.com/robelene112/redsquare-android/actions/runs/45725543910)
+reached the 40-minute Android Keystore import bound during fixture provisioning.
+It observed no timed application frames. The [next full attempt](https://github.com/robelene112/redsquare-android/actions/runs/45733560721)
+keeps output on setup failure, reports progress for each 8192 encrypted rows
+and compares the imported row count with the independently counted source
+database. The premeasurement import ceiling is 50 minutes. The fixture hash,
+KVM device, measured paths, frame/tap/anchor limits and app deadlines stay fixed.
+The corresponding [short calibration](https://github.com/robelene112/redsquare-android/actions/runs/45733560749)
+covers setup only.
+
 The exact signed 0.1.143 candidate from `8928b2e4a` was staged before these
 corrections. The full public 111720869-byte download matches the retained APK,
 notes, application identity and established certificate. Clean installation,
