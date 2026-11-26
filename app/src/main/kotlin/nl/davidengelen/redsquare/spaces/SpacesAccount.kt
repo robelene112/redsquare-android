@@ -48,7 +48,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val dissolutionChange: SpaceClient.DissolutionChange? = null, val visibilityChange: SpaceClient.VisibilityChange? = null, val categoryChange: SpaceClient.CategoryChange? = null, val categories: List<SpaceClient.Category> = emptyList(),
         val ownershipOffer: SpaceOwnershipOffer? = null, val ownershipChange: SpaceClient.OwnershipChange? = null,
         val membershipChange: SpaceClient.MembershipChange? = null, val bannedMembers: Set<String> = emptySet(),
-        val joinedInvitation: String? = null, val openedPublicReference: String? = null, val openedRecovery: SpaceCrypto.Scope? = null,
+        val joinedInvitation: String? = null, val openingPublicReference: String? = null, val openedPublicReference: String? = null,
+        val openedRecovery: SpaceCrypto.Scope? = null,
         val contentLoaded: Boolean = false, val requiredNode: String? = null, val articleFocus: ArticleFocus? = null,
         val fileLeaseId: String? = null,
         val profiles: Map<String, SpaceProfile> = emptyMap(), val channels: List<SpaceClient.Channel> = emptyList(),
@@ -658,7 +659,11 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                                 mutable.update { it.copy(previewIssue = SpaceClient.ReadProblem.UNAVAILABLE, projectingDestination = false) }
                                 return@withLock
                             }
-                            if (exactAddress != null) destinationVisit = DestinationVisit(origin, target, exactAddress, start)
+                            if (exact != null && exactAddress != null) {
+                                if (exact.activity != null) current.markActivitySeen(exact.activity)
+                                else if (exact.fromNotification) current.markDestinationActivitySeen(exactAddress)
+                                destinationVisit = DestinationVisit(origin, target, exactAddress, start)
+                            }
                             mutable.update { view ->
                                 val next = if (exactAddress == null) view else reset(view)
                                 if (next.selected != space) view else next.copy(
@@ -676,13 +681,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                                     notificationPolicy = current.notificationPolicy(space, target.channel),
                                     pinStatus = current.pinStatus(space, target.channel),
                                     scrollToMessage = jump?.let { MessageScroll(it.id, showBody = true) },
+                                    openedPublicReference = exact?.link ?: next.openedPublicReference,
                                     messages = messages, loadingChannel = false, contentLoaded = window.loaded, hasEarlier = window.hasEarlier,
                                     hasLater = window.hasLater, windowFrom = window.from, followingLatest = start == null)
-                            }
-                            if (exact != null && exactAddress != null && mutable.value.target() == target) {
-                                if (exact.activity != null) current.markActivitySeen(exact.activity)
-                                else if (exact.fromNotification) current.markDestinationActivitySeen(exactAddress)
-                                markPublicReferenceOpened(exact.link, route)
                             }
                         }
                     } }
@@ -1555,8 +1556,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     fun openPublicLink(link: String) {
         val route = navigationVersion.get()
         var activeRoute = route
-        mutable.update { it.copy(previewIssue = null, requiredNode = null, problem = null) }
-        localAction(Problem.INVITATION, isCurrent = { navigationVersion.get() == activeRoute }) {
+        localAction(Problem.INVITATION, isCurrent = { navigationVersion.get() == activeRoute }, reference = link) {
             val current = requireNotNull(client)
             val cached = localAccess.withLock { current.cachedPublicLink(link) }
             if (cached != null) {
@@ -1590,8 +1590,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     fun openArticleLink(link: String) {
         val route = navigationVersion.get()
         var activeRoute = route
-        mutable.update { it.copy(previewIssue = null, requiredNode = null, problem = null) }
-        localAction(Problem.INVITATION, isCurrent = { navigationVersion.get() == activeRoute }) {
+        localAction(Problem.INVITATION, isCurrent = { navigationVersion.get() == activeRoute }, reference = link) {
             val address = SpaceArticleReference.parse(link)
             val current = requireNotNull(client)
             var cached = false
@@ -1649,8 +1648,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         origin: Target? = null): Boolean {
         val route = navigationVersion.get()
         var activeRoute = route
-        mutable.update { it.copy(previewIssue = null, requiredNode = null, problem = null) }
-        return localAction(Problem.INVITATION, isCurrent = { navigationVersion.get() == activeRoute }) {
+        return localAction(Problem.INVITATION, isCurrent = { navigationVersion.get() == activeRoute }, reference = link) {
             initialDestinationPending.set(false)
             val address = SpaceDestination.parse(link)
             require(activity == null || activity.target == address)
@@ -1920,9 +1918,13 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             problem = it.problem.takeUnless { problem -> problem == Problem.INVITATION })
     } }
     fun clearProblem() { mutable.update { it.copy(problem = null) } }
-    private fun localAction(problem: Problem = Problem.SAVE, isCurrent: () -> Boolean = { true }, action: suspend () -> Unit): Boolean {
+    private fun localAction(problem: Problem = Problem.SAVE, isCurrent: () -> Boolean = { true }, reference: String? = null,
+        action: suspend () -> Unit): Boolean {
         if (closed.get() || navigationSaving.get() || mutable.value.working || mutable.value.loading) return false
-        mutable.update { it.copy(working = true, problem = null) }
+        mutable.update { state ->
+            val working = state.copy(working = true, problem = null)
+            if (reference == null) working else working.copy(openingPublicReference = reference, previewIssue = null, requiredNode = null)
+        }
         fun report(update: (State) -> State) = synchronized(navigationChanges) {
             if (isCurrent()) mutable.update(update)
         }
@@ -1942,7 +1944,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             catch (_: SpaceClient.ActiveDeviceAlreadyPresent) { report { it.copy(problem = Problem.DEVICE_ALREADY_ACTIVE) } }
             catch (_: SpaceClient.RecoveredHistoryOtherModule) { report { it.copy(problem = Problem.RECOVERY_OTHER_MODULE) } }
             catch (_: Exception) { report { it.copy(problem = problem) } }
-            finally { mutable.update { it.copy(working = false) } }
+            finally { mutable.update { it.copy(working = false, openingPublicReference = null) } }
         }
         return true
     }

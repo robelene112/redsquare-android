@@ -152,9 +152,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     val reportsOpen = reportsSpace != null && reportsSpace == state.selected
     var searchSpace by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf<String?>(null) }
     var searchResultOpen by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf(false) }
-    var searchLink by remember { mutableStateOf<String?>(null) }
-    var activityLink by remember(account) { mutableStateOf<String?>(null) }
-    var activityGroup by remember(account) { mutableStateOf<SpaceActivityGroup?>(null) }
+    var searchLink by rememberSaveable { mutableStateOf<String?>(null) }
+    var activityLink by rememberSaveable { mutableStateOf<String?>(null) }
+    var activityGroup by rememberSaveable(stateSaver = SpacesLaunchRoutes.activityGroupSaver) {
+        mutableStateOf<SpaceActivityGroup?>(null)
+    }
     var activityReturn by rememberSaveable(account.ownerKey, account.backend.webUrl) { mutableStateOf(false) }
     val routeStates = rememberSaveableStateHolder()
     val routeScope = "${account.ownerKey}/${account.backend.id}"
@@ -257,7 +259,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         if (overlaySpace != state.selected) {
             informationOpen = false; invitationSpace = null; invitationAfterInformation = null
             membersOpen = false; reportsSpace = null; publicRulesOpen = false
-            searchSpace = null; searchResultOpen = false; searchLink = null
+            if (searchSpace != state.selected && searchLink == null) {
+                searchSpace = null; searchResultOpen = false
+            }
             overlaySpace = state.selected
         }
         state.selected?.let { space ->
@@ -454,9 +458,12 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         focusManager.clearFocus()
                         keyboardController?.hide()
                         val link = destination.link()
+                        val origin = state.selectedChannel?.let { SpacesAccount.Target(selected.id, it, state.threadParent?.id) }
+                        savedSelection = selected.id
+                        savedConversation = origin
                         searchLink = link
                         publicReference = link
-                        account.openDestinationLink(link)
+                        account.openDestinationLink(link, origin = origin)
                     })
             }
             else if (state.selected == null) routeStates.SaveableStateProvider("$routeScope/overview/${tab.name}") {
@@ -485,10 +492,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         color = MaterialTheme.colorScheme.surfaceContainerLow,
                         modifier = Modifier.weight(1f).semantics { contentDescription = menu; role = Role.Button; heading(); stateDescription = title }) {
                         Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(horizontal = 12.dp,
-                            vertical = if (shortWindow) 6.dp else 12.dp), verticalAlignment = Alignment.CenterVertically,
+                            vertical = if (compactRoom) 2.dp else if (shortWindow) 6.dp else 12.dp), verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                             Column(Modifier.weight(1f)) {
-                                if (!compactRoom) Text(selected?.name ?: profile?.name.orEmpty(), style = MaterialTheme.typography.labelSmall,
+                                Text(selected?.name ?: profile?.name.orEmpty(), style = MaterialTheme.typography.labelSmall,
                                     maxLines = if (compactReading) 1 else 2, overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 Text(title, style = MaterialTheme.typography.titleMedium, maxLines = if (compactReading) 1 else 2, overflow = TextOverflow.Ellipsis)
                             }
@@ -915,10 +922,11 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         if (!referenceOpen) return@DesignSheet
         val node = state.requiredNode
         val choice = nl.davidengelen.redsquare.saito.SaitoBackend.entries.firstOrNull { it.webUrl == node }
-        val awaitingResult = state.problem == null && node == null && state.previewIssue == null &&
+        val resumingExternalDestination = externalDestination?.link == publicReference && !requestedDestination &&
+            state.problem == null && node == null && state.previewIssue == null &&
             (state.availability == SpacesAccount.Availability.ONLINE || state.availability == SpacesAccount.Availability.CHECKING)
         when {
-            state.working || openingDestination && state.projectingDestination || awaitingResult -> {
+            state.openingPublicReference == publicReference || openingDestination && state.projectingDestination || resumingExternalDestination -> {
                 Text(stringResource(when {
                     openingDestination -> R.string.spaces_destination_opening
                     openingArticle -> R.string.spaces_article_opening
@@ -949,12 +957,12 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             val external = externalDestination?.takeIf { it.link == link }
                             account.openDestinationLink(link, activityGroup?.takeIf { activityLink == link },
                                 fromNotification = external?.fromNotification ?: (activityLink == link && activityGroup == null),
-                                origin = external?.origin ?: savedConversation?.takeIf { external?.cold == false })
+                                origin = external?.origin ?: savedConversation?.takeIf { external?.cold == false || searchLink == link })
                         }
                         openingArticle -> account.openArticleLink(link)
                         else -> account.openPublicLink(link)
                     }
-                } },
+                } }, enabled = state.ready && !state.loading && !state.working && !state.savingNavigation,
                     modifier = first.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_retry)) }
             }
         }

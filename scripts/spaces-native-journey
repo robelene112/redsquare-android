@@ -1032,13 +1032,19 @@ try:
         cold = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/cold-result.json').stdout)
         if cold['pid'] == notified['pid'] or any(cold[field] != observed[field] for field in ('reply', 'root', 'privateDenied')):
             raise RuntimeError('Cold identity or destination diverged from the independent observer')
-        exact_reads = command(control_port, 'catch-up-destination-reads')['ids']
+        destination_reads = command(control_port, 'catch-up-destination-reads')
+        exact_reads = destination_reads['ids']
+        search_reads = destination_reads['searchIds']
+        if len(search_reads) != 2 or search_reads[0] != notified.get('heldSearchReadBeforeRecreation') or len(set(search_reads)) != 2:
+            raise RuntimeError('Search Retry did not read the same independently held exact result after recreation')
         held = [cold.get(field) for field in ('heldReadResumedAfterHome', 'heldReadBeforeRecreation', 'heldReadBeforeBack')]
         warm_held = [notified.get(field) for field in ('heldWarmReadBeforeRecreation', 'heldWarmReadBeforeBack',
                                                      'heldRestoredWarmReadBeforeBack', 'heldWarmReadBeforeChannelReturn')]
         all_held = warm_held + held
         if any(not value or value not in exact_reads for value in all_held) or len(set(all_held)) != len(all_held):
             raise RuntimeError('The held native exact reads did not match the independently verified destinations')
+        if notified.get('discardedWarmReadAfterBack') != notified.get('heldRestoredWarmReadBeforeBack'):
+            raise RuntimeError('The cancelled native read was not discarded after its independently held reply arrived')
         warm_recreation, warm_back, restored_back, channel_return = (exact_reads.index(value) for value in warm_held)
         home_index, recreation_index, back_index = (exact_reads.index(value) for value in held)
         if not warm_recreation < warm_back < restored_back < channel_return < home_index < recreation_index < back_index:
@@ -1061,7 +1067,7 @@ try:
             raise RuntimeError('Owned catch-up host did not finish')
         (evidence / 'journey-outcome.json').write_text(json.dumps({
             'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
-            'notification': notified, 'cold': cold, 'independentExactReads': exact_reads,
+            'notification': notified, 'cold': cold, 'independentExactReads': exact_reads, 'independentSearchReads': search_reads,
             'nativeTerminalPasses': 2, 'compactViewport': compact,
             'transport': 'owned local signed service; application-observed Android delivery',
             'livePushOrOemVerified': False, 'productionNodeActivated': False, 'ordinaryBetaChanged': False,

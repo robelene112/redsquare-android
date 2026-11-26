@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare
 import android.app.NotificationManager
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Process
@@ -69,7 +70,15 @@ class SpacesCatchUpJourneyTest {
                     runCatching { results.performScrollToNode(hasText("First proof Needle")).isDisplayed() }.getOrDefault(false)
                 }
                 capture("search-filtered")
+                request("hold-destination")
                 click("First proof Needle")
+                val pendingSearchRead = awaitHeldDestination()
+                scenario.recreate()
+                val retry = hasText(context.getString(R.string.spaces_retry)) and hasClickAction() and isEnabled()
+                ui.waitUntil(10_000) { ui.onNode(retry).isDisplayed() }
+                capture("search-recreated-retry")
+                request("release-destination")
+                ui.onNode(retry).performClick()
                 ui.waitUntil(25_000) {
                     ui.onNode(hasTestTag("spaces-message") and hasAnyDescendant(hasText("First proof Needle"))).isDisplayed()
                 }
@@ -88,6 +97,7 @@ class SpacesCatchUpJourneyTest {
                     notifications.cancel(it.tag, it.id)
                 }
                 val observed = request("latest")
+                observed.addProperty("heldSearchReadBeforeRecreation", pendingSearchRead)
                 val grouped = hasText("and 1 more replied to your message", substring = true) and hasClickAction()
                 ui.waitUntil(25_000) {
                     ui.onNode(grouped).isDisplayed() && ui.onAllNodes(replies).fetchSemanticsNodes().size == 2
@@ -155,7 +165,8 @@ class SpacesCatchUpJourneyTest {
                 }
                 waitForWholeMessage("Unrelated proof reply")
                 assertTrue(request("release-destination").get("released").asBoolean)
-                ui.waitUntil(10_000) { SaitoPeer.receivedOwnedProofCallback(cancelledCallback) }
+                ui.waitUntil(10_000) { SaitoPeer.discardedOwnedProofCallback(cancelledCallback) }
+                observed.addProperty("discardedWarmReadAfterBack", dismissedRead)
                 waitForWholeMessage("Unrelated proof reply")
                 ui.onNodeWithText("Latest exact proof reply").assertDoesNotExist()
                 scenario.recreate()
@@ -379,6 +390,9 @@ class SpacesCatchUpJourneyTest {
                 requireNotNull(device.findObject(switcherDescription)).click()
                 waitText("Your communities")
                 val drawerClose = hasText(context.getString(R.string.spaces_navigation_close)) and hasClickAction()
+                val drawerPanel = ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.PaneTitle,
+                    context.getString(R.string.spaces_navigation_panel)), useUnmergedTree = true)
+                val openPanel = drawerPanel.getUnclippedBoundsInRoot()
                 assertTarget(drawerClose)
                 captureNativeScreen(observations.resolve("drawer.png"))
                 observeSystemDrawerBack(activity, observations) {
@@ -388,9 +402,25 @@ class SpacesCatchUpJourneyTest {
                 if (viewportId == "V04" || viewportId == "V05") {
                     ui.mainClock.autoAdvance = false
                     try {
-                        button.performClick()
-                        repeat(3) { ui.mainClock.advanceTimeByFrame() }
-                        activity.onActivity { it.onBackPressedDispatcher.onBackPressed() }
+                        button.performTouchInput { click() }
+                        var entering = false
+                        for (frame in 1..12) {
+                            ui.mainClock.advanceTimeByFrame()
+                            val bounds = drawerPanel.getUnclippedBoundsInRoot()
+                            if (bounds.right > 8.dp && bounds.left < openPanel.left - 8.dp) {
+                                entering = true
+                                checked.addProperty("drawerEnteringVisibleRightDp", bounds.right.value)
+                                break
+                            }
+                        }
+                        assertTrue("The rendered drawer must enter only partway before Back", entering)
+                        val frame = requireNotNull(instrumentation.uiAutomation.takeScreenshot())
+                        try {
+                            observations.resolve("drawer-interrupted-before-back.png").outputStream().use {
+                                check(frame.compress(Bitmap.CompressFormat.PNG, 100, it))
+                            }
+                        } finally { frame.recycle() }
+                        instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
                     } finally { ui.mainClock.autoAdvance = true }
                     ui.waitUntil(12_000) {
                         !ui.onNodeWithText("Your communities").isDisplayed() && button.isDisplayed()
@@ -469,22 +499,24 @@ class SpacesCatchUpJourneyTest {
                 }
             }
         }
+        var failure: Throwable? = null
         try {
             ui.waitUntil(8_000) { currentWindowIsFocused() }
             Espresso.pressBack()
             ui.waitUntil(12_000, closed)
-        } catch (failure: Throwable) {
-            runCatching {
+        } catch (problem: Throwable) {
+            failure = problem
+            withFailureCapture({
                 captureNativeScreen(observations.resolve("before-dispatcher-diagnostic.png"))
                 activity.onActivity { it.onBackPressedDispatcher.onBackPressed() }
                 ui.waitForIdle()
                 events.appendLine("closedAfterDispatcher=${closed()}")
                 captureNativeScreen(observations.resolve("after-dispatcher-diagnostic.png"))
-            }
-            throw failure
+            }) { throw problem }
         } finally {
-            activity.onActivity { native -> callback?.let { native.window.callback = it } }
-            observations.resolve("native-back-dispatch.txt").writeText(events.toString())
+            cleanupAfterTest(failure,
+                { activity.onActivity { native -> callback?.let { native.window.callback = it } } },
+                { observations.resolve("native-back-dispatch.txt").writeText(events.toString()) })
         }
     }
 
@@ -503,8 +535,8 @@ class SpacesCatchUpJourneyTest {
             addProperty("reply", observed.get("reply").asString)
             addProperty("root", observed.get("root").asString)
             addProperty("privateDenied", observed.get("privateDenied").asBoolean)
-            for (field in listOf("heldReadResumedAfterHome", "heldReadBeforeRecreation", "heldReadBeforeBack",
-                "heldWarmReadBeforeRecreation", "heldWarmReadBeforeBack", "heldRestoredWarmReadBeforeBack",
+            for (field in listOf("heldSearchReadBeforeRecreation", "heldReadResumedAfterHome", "heldReadBeforeRecreation", "heldReadBeforeBack",
+                "heldWarmReadBeforeRecreation", "heldWarmReadBeforeBack", "heldRestoredWarmReadBeforeBack", "discardedWarmReadAfterBack",
                 "heldWarmReadBeforeChannelReturn"))
                 observed.get(field)?.let { add(field, it) }
         }.toString())
@@ -512,13 +544,17 @@ class SpacesCatchUpJourneyTest {
 
     private fun awaitHeldDestination(): String {
         var held: String? = null
+        var failure: Throwable? = null
         try {
             ui.waitUntil(10_000) {
                 held = request("held-destination").get("id")?.takeUnless { it.isJsonNull }?.asString
                 held != null && ui.onNodeWithText(context.getString(R.string.spaces_destination_opening)).isDisplayed()
             }
+        } catch (problem: Throwable) {
+            failure = problem
+            throw problem
         } finally {
-            File(evidence, "held-destination-observations.txt").appendText("held=$held\n")
+            cleanupAfterTest(failure, { File(evidence, "held-destination-observations.txt").appendText("held=$held\n") })
         }
         return requireNotNull(held)
     }

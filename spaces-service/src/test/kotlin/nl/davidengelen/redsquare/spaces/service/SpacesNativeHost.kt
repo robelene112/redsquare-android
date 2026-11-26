@@ -216,19 +216,23 @@ object SpacesNativeHost {
                                             val expected = requireNotNull(catchUp).observe()
                                             val target = SpaceDestination.parse(expected.get("link").asString)
                                             val owner = catchUp.config().get("nativeWallet").asString
-                                            val ids = peer.spacesRequests.mapNotNull { original ->
+                                            fun reads(destination: SpaceDestination) = peer.spacesRequests.mapNotNull { original ->
                                                 val signed = SaitoEnvelope.decode(original.envelope())
                                                 val scope = signed.body.getAsJsonObject("scope") ?: return@mapNotNull null
                                                 signed.id.takeIf {
                                                     signed.author == owner && signed.body.get("request")?.asString == "read" &&
-                                                        scope.get("space_id")?.asString == target.community.spaceId &&
-                                                        scope.get("channel_id")?.asString == target.channel &&
-                                                        scope.get("thread_id")?.asString == target.thread &&
-                                                        scope.get("destination_kind")?.asString == target.kind.wire &&
-                                                        scope.get("record_id")?.asString == target.record
+                                                        scope.get("space_id")?.asString == destination.community.spaceId &&
+                                                        scope.get("channel_id")?.asString == destination.channel &&
+                                                        scope.get("thread_id")?.asString == destination.thread &&
+                                                        scope.get("destination_kind")?.asString == destination.kind.wire &&
+                                                        scope.get("record_id")?.asString == destination.record
                                                 }
                                             }
-                                            JsonObject().apply { add("ids", JsonArray().apply { ids.forEach { add(it) } }) }
+                                            JsonObject().apply {
+                                                add("ids", JsonArray().apply { reads(target).forEach { add(it) } })
+                                                val search = target.copy(record = expected.get("root").asString, thread = null)
+                                                add("searchIds", JsonArray().apply { reads(search).forEach { add(it) } })
+                                            }
                                         }
                                         "/moderation-config" -> requireNotNull(moderation).configuration()
                                         "/moderation-report-status" -> requireNotNull(moderation).observeReport()

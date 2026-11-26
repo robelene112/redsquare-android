@@ -65,6 +65,13 @@ class SpaceRoomJourneyTest {
             withFailureCapture({ capture("room-draft-attachment-failure") }) {
                 waitText("0 people here", 25_000)
                 activity.onActivity { assertEquals(Configuration.ORIENTATION_LANDSCAPE, it.resources.configuration.orientation) }
+                val switcher = hasContentDescription("Switch Space or channel") and hasClickAction()
+                val spaceName = ui.onNode(hasText("Room proof Space") and hasAnyAncestor(switcher), useUnmergedTree = true)
+                val channelName = ui.onNode(hasText("Open lounge") and hasAnyAncestor(switcher), useUnmergedTree = true)
+                spaceName.assertIsDisplayed(); channelName.assertIsDisplayed()
+                assertTrue(spaceName.getUnclippedBoundsInRoot().bottom <= channelName.getUnclippedBoundsInRoot().top)
+                ui.onNode(switcher).assertHeightIsAtLeast(48.dp)
+                capture("room-compact-option-b")
                 roomClick("Join room")
                 waitText("You’re in the room", 20_000)
                 val token = requireNotNull(TalkRuntime.call.value).token

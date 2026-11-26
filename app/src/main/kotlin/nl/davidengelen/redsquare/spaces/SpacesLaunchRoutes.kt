@@ -42,6 +42,31 @@ internal object SpacesLaunchRoutes {
         restore = { it.origin() },
     )
 
+    /** Retain the exact seen position of an Activity row while its link can still be retried. */
+    val activityGroupSaver = Saver<SpaceActivityGroup?, Bundle>(
+        save = { group -> group?.let {
+            Bundle().apply {
+                putString("id", it.id)
+                putString("link", it.target.link())
+                putString("kind", it.kind.name)
+                putString("actor", it.latestActor)
+                putLong("actors", it.actorCount)
+                putLong("acceptedAt", it.acceptedAt)
+                putLong("position", it.position)
+                putBoolean("unread", it.unread)
+            }
+        } },
+        restore = { saved ->
+            val link = saved.getString("link")?.let { runCatching { SpaceDestination.parse(it) }.getOrNull() }
+            val kind = SpaceActivityKind.entries.firstOrNull { it.name == saved.getString("kind") }
+            val id = saved.getString("id")
+            val actor = saved.getString("actor")
+            if (link == null || kind == null || id == null || actor == null) null
+            else SpaceActivityGroup(id, link, kind, actor, saved.getLong("actors"), saved.getLong("acceptedAt"),
+                saved.getLong("position"), saved.getBoolean("unread"))
+        },
+    )
+
     /** Only an exact read address survives recreation. Membership invitations remain transient. */
     data class PendingDestination(val link: String, val owner: String, val backend: SaitoBackend,
         val cold: Boolean, val fromNotification: Boolean, val origin: SpacesAccount.Target? = null) {

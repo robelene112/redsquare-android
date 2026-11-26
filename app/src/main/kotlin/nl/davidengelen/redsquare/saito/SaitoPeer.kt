@@ -250,15 +250,17 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                     if (bytes.size >= 5 && (bytes[0] == 13.toByte() || bytes[0] == 14.toByte()) &&
                         ready.isCompleted && !ready.isCancelled) {
                         val index = ByteBuffer.wrap(bytes.substring(1, 5).toByteArray()).int
-                        if (BuildConfig.DEBUG && address.endpoint.startsWith("ws://127.0.0.1:")) {
-                            ownedProofCallback.get()?.takeIf { it.index == index && !it.received }?.let { watch ->
-                                ownedProofCallback.compareAndSet(watch, watch.copy(received = true))
-                            }
-                        }
                         // A cancelled owner cannot use its late body. Discard that one
                         // known callback before it can interrupt another shared reader.
                         // Active and unknown responses retain the original receive bound.
-                        if (synchronized(retiredReplies) { retiredReplies.remove(index) }) return
+                        if (synchronized(retiredReplies) { retiredReplies.remove(index) }) {
+                            if (BuildConfig.DEBUG && address.endpoint.startsWith("ws://127.0.0.1:")) {
+                                ownedProofCallback.get()?.takeIf { it.index == index && !it.discarded }?.let { watch ->
+                                    ownedProofCallback.compareAndSet(watch, watch.copy(discarded = true))
+                                }
+                            }
+                            return
+                        }
                         if (bytes.size > MAX_RESPONSE_BYTES && bytes[0] == 13.toByte()) {
                             pending[index]?.takeIf { it.archiveRead }?.let { request ->
                                 request.oversized = ResponseTooLarge(archiveHint(bytes))
@@ -497,17 +499,17 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         // Never reuse an index during this process; a random seed also reduces, but
         // cannot eliminate, stale-callback collisions across separate process starts.
         private val nextRequestIndex = AtomicInteger(SecureRandom().nextInt(1 shl 30))
-        private data class ProofCallback(val index: Int, val received: Boolean = false)
+        private data class ProofCallback(val index: Int, val discarded: Boolean = false)
         private val ownedProofCallback = java.util.concurrent.atomic.AtomicReference<ProofCallback?>(null)
 
-        /** A disposable loopback proof can observe one exact reply even after its waiter is cancelled. */
+        /** Observe the discard of one exact loopback reply whose waiter was cancelled. */
         internal fun watchOwnedProofCallback(index: Int) {
             check(BuildConfig.DEBUG && index > 0)
             ownedProofCallback.set(ProofCallback(index))
         }
 
-        internal fun receivedOwnedProofCallback(index: Int): Boolean =
-            ownedProofCallback.get()?.let { it.index == index && it.received } == true
+        internal fun discardedOwnedProofCallback(index: Int): Boolean =
+            ownedProofCallback.get()?.let { it.index == index && it.discarded } == true
 
         /** Ownership diagnostic for native resource-handover proofs, never a transport selector. */
         internal fun incomingLeaseIds(owner: String, endpoint: String): Set<Int> = synchronized(poolLock) {
