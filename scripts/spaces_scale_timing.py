@@ -1,5 +1,7 @@
 """Collect raw OS frames, committed reaction frames and owned effects."""
 import csv
+from collections import Counter
+from contextlib import contextmanager
 import hashlib
 import io
 import json
@@ -19,10 +21,67 @@ PROFILE = '---PROFILEDATA---'
 TAG = 'SpacesScaleProof'
 PERFETTO_RELEASE = 'https://github.com/google/perfetto/releases/download/v59.1/linux-amd64.zip'
 PERFETTO_SHA256 = '7deb8c2572c6ae7ec80cd719d388041079827b0c44a1659694d5d88faa4f501e'
+FRAME_TIMELINE_TRACE = '''
+buffers { size_kb: 32768 fill_policy: RING_BUFFER }
+buffers { size_kb: 32768 fill_policy: RING_BUFFER }
+data_sources { config { name: "android.surfaceflinger.frametimeline" target_buffer: 0 } }
+data_sources { config { name: "linux.process_stats" target_buffer: 1 process_stats_config {
+  scan_all_processes_on_start: true
+  proc_stats_poll_ms: 5000
+} } }
+data_sources { config { name: "linux.ftrace" target_buffer: 0 ftrace_config {
+  atrace_categories: "gfx"
+  atrace_categories: "view"
+  atrace_apps: "nl.davidengelen.redsquare.performance"
+} } }
+'''
+
+
+def anchor_command_args(package, operation, *extras):
+    return ('am', 'start', '-W', '--activity-single-top', '-n', f'{package}/nl.davidengelen.redsquare.MainActivity',
+            '-a', 'nl.davidengelen.redsquare.performance.OBSERVE_ANCHOR', '--es', 'operation', operation, *extras)
+
+
+def anchor_frames(log, trial):
+    geometry = re.compile(r'anchor-frame (\d+) (\d+) (\d+) (\d+) (true|false) (missing|-?[\d.]+ -?[\d.]+ -?[\d.]+ -?[\d.]+)')
+    return [(int(serial), int(started), int(committed), checkpoint == 'true',
+             None if bounds == 'missing' else tuple(map(float, bounds.split())))
+            for number, serial, started, committed, checkpoint, bounds in geometry.findall(log) if int(number) == trial]
+
+
+@contextmanager
+def capture_trace(adb, evidence, config):
+    target = '/data/misc/perfetto-traces/spaces-scale.pftrace'
+    trace_config = evidence / 'perfetto-config.pbtxt'
+    trace_config.write_text(config.strip() + '\n')
+    # Perfetto reads stdin because its Android service need not have access to /data/local/tmp.
+    launch = subprocess.run(['adb', 'shell', 'perfetto', '--background-wait', '--txt', '-c', '-', '-o', target],
+                            input=trace_config.read_bytes(), capture_output=True, timeout=45)
+    (evidence / 'perfetto-start.txt').write_bytes(launch.stdout + launch.stderr)
+    launch.check_returncode()
+    pid = launch.stdout.decode().strip()
+    if not pid.isdecimal():
+        raise RuntimeError('Perfetto did not expose its owned daemon PID')
+    try:
+        yield
+    finally:
+        original_failure = sys.exception()
+        try:
+            subprocess.run(['adb', 'shell', 'kill', '-INT', pid], check=False, timeout=10)
+            adb('shell', f'while kill -0 {pid} 2>/dev/null; do sleep 0.2; done', timeout=20)
+            trace = evidence / 'native-scale.pftrace'
+            adb('pull', target, str(trace), timeout=60)
+            if trace.stat().st_size == 0:
+                raise RuntimeError('Perfetto returned an empty trace')
+        except (OSError, RuntimeError, subprocess.SubprocessError) as failure:
+            (evidence / 'perfetto-finish-error.txt').write_text(str(failure) + '\n')
+            if original_failure is None:
+                raise
 
 
 def frame_statistics(raw, allow_empty=False):
     since = int(re.search(r'Stats since: (\d+)ns', raw)[1])
+    sampled = int(re.search(r'Uptime: (\d+)', raw)[1]) * 1_000_000
     frames = []
     unavailable = []
     for section in raw.split(PROFILE)[1::2]:
@@ -35,7 +94,11 @@ def frame_statistics(raw, allow_empty=False):
             started = int(row.get('FrameStartTime') or intended)
             if max(intended, started) < since:
                 continue
-            if not (0 < intended <= completed < 2**63 - 1 and intended < deadline < 2**63 - 1):
+            # The header timestamp is captured before the duration ring is
+            # dumped. Exclude frames that may finish after its population,
+            # plus recycled completion fields from an in-progress row.
+            if not (0 < intended <= completed <= sampled and started <= completed and
+                    intended < deadline < 2**63 - 1):
                 unavailable.append(row)
                 continue
             frames.append({
@@ -58,11 +121,13 @@ def framework_coverage(raw, frames, limit):
         raise RuntimeError('HWUI did not account for every completed frame in its cumulative histogram')
     if limit not in {lower for lower, _ in histogram}:
         raise RuntimeError('HWUI lacks an exact lower bucket boundary for the frozen ceiling')
+    if len(frames) > total:
+        raise RuntimeError(f'The duration ring contains {len(frames)} frames for {total} cumulative completions')
     return {
         'startNs': int(re.search(r'Stats since: (\d+)ns', raw)[1]),
         'sampleUptimeNs': int(re.search(r'Uptime: (\d+)', raw)[1]) * 1_000_000,
         'completedFrames': total,
-        'unmatchedFrameworkFrames': max(0, total - len(frames)),
+        'unmatchedFrameworkFrames': total - len(frames),
         'framesAtOrAboveCeiling': sum(count for lower, count in histogram if lower >= limit),
         'timelineIds': sorted({frame['timelineId'] for frame in frames if frame['timelineId'] > 0}),
     }
@@ -74,19 +139,20 @@ def percentile(values, points):
 
 
 def analyse_trace(evidence, stages, anchors=()):
-    values = ',\n'.join(f"('{name}',{row['startNs']},{row['sampleUptimeNs']},{row['completedFrames']},'{json.dumps(row['timelineIds'])}')"
-                       for name, row in stages.items())
-    anchor_values = 'VALUES ' + ','.join(f"('{name}',{start},{end},{count})" for name, start, end, count in anchors) if anchors else \
+    values = 'VALUES ' + ',\n'.join(
+        f"('{name}',{row['startNs']},{row['sampleUptimeNs']},{row['completedFrames']},'{json.dumps(row['timelineIds'])}')"
+        for name, row in stages.items()) if stages else "SELECT '', 0, 0, 0, '[]' WHERE FALSE"
+    anchor_values = 'VALUES ' + ','.join(f"('{name}',{trial},{first},{last})" for name, trial, first, last in anchors) if anchors else \
         "SELECT '', 0, 0, 0 WHERE FALSE"
     sql = f"""
-WITH stages(name, start_ns, end_ns, framework_count, known_tokens) AS (VALUES {values}),
-anchor_windows(trial, start_ns, stop_ns, anchor_commits) AS ({anchor_values}),
+WITH stages(name, start_ns, end_ns, framework_count, known_tokens) AS ({values}),
+anchor_windows(trial, ordinal, first_commit, last_commit) AS ({anchor_values}),
 app AS (
   SELECT upid FROM process WHERE name = 'nl.davidengelen.redsquare.performance'
   UNION SELECT upid FROM actual_frame_timeline_slice
     WHERE layer_name GLOB '*nl.davidengelen.redsquare.performance/*'
 ), frames AS (
-  SELECT a.ts,a.dur,a.surface_frame_token,a.layer_name,(SELECT min(e.ts) FROM expected_frame_timeline_slice e
+  SELECT a.upid,a.ts,a.dur,a.surface_frame_token,a.layer_name,(SELECT min(e.ts) FROM expected_frame_timeline_slice e
       WHERE e.upid=a.upid AND e.surface_frame_token=a.surface_frame_token
   ) AS expected
   FROM actual_frame_timeline_slice a WHERE a.upid IN app AND a.dur >= 0
@@ -95,8 +161,26 @@ app AS (
     (SELECT count(*) FROM frames f WHERE f.ts <= s.end_ns AND f.ts+f.dur >= s.start_ns) AS trace_count,
     json_array_length(s.known_tokens) AS known,
     (SELECT count(*) FROM json_each(s.known_tokens) k
-      WHERE EXISTS(SELECT 1 FROM frames f WHERE f.surface_frame_token=k.value)) AS matched
+      WHERE EXISTS(SELECT 1 FROM frames f WHERE f.surface_frame_token=k.value
+        AND f.ts <= s.end_ns AND f.ts+f.dur >= s.start_ns)) AS matched
   FROM stages s
+), anchor_marks AS (
+  SELECT w.trial, p.upid, cast(substr(m.name, length('SpacesAnchor ' || w.ordinal || ' ') + 1) AS int) AS serial,
+    (SELECT cast(substr(f.name, length(CASE WHEN f.name GLOB '*resynced*'
+        THEN 'Choreographer#doFrame - resynced to ' ELSE 'Choreographer#doFrame ' END) + 1) AS int)
+      FROM ancestor_slice(m.id) f WHERE f.name GLOB 'Choreographer#doFrame [0-9]*'
+        OR f.name GLOB 'Choreographer#doFrame - resynced to [0-9]*' ORDER BY f.depth DESC LIMIT 1) AS token
+  FROM anchor_windows w JOIN slice m ON m.name GLOB 'SpacesAnchor ' || w.ordinal || ' [0-9]*'
+  JOIN thread_track tt ON tt.id=m.track_id JOIN thread t ON t.utid=tt.utid JOIN process p ON p.upid=t.upid
+  WHERE p.name='nl.davidengelen.redsquare.performance' AND t.is_main_thread=1
+), anchor_limits AS (
+  SELECT w.*, b.upid, b.token AS first_token, e.token AS last_token
+  FROM anchor_windows w LEFT JOIN anchor_marks b ON b.trial=w.trial AND b.serial=w.first_commit
+  LEFT JOIN anchor_marks e ON e.trial=w.trial AND e.serial=w.last_commit AND e.upid=b.upid
+), anchor_frames AS (
+  SELECT DISTINCT w.trial, f.surface_frame_token AS token
+  FROM anchor_limits w JOIN frames f ON f.upid=w.upid AND f.surface_frame_token BETWEEN w.first_token AND w.last_token
+  WHERE f.layer_name GLOB '*MainActivity#*'
 )
 SELECT hex(CAST(json_object(
   'completedFrames', (SELECT count(*) FROM frames),
@@ -106,9 +190,13 @@ SELECT hex(CAST(json_object(
     SELECT 1 FROM stages s WHERE s.framework_count>0 AND f.ts <= s.end_ns AND f.ts+f.dur >= s.start_ns)),
   'stageCoverage', (SELECT json_group_array(json_object('stage',name,'frameworkCount',framework_count,
      'traceCount',trace_count,'knownTokens',known,'matchedTokens',matched)) FROM coverage),
-  'anchorCoverage', (SELECT json_group_array(json_object('trial',w.trial,'anchorCommits',w.anchor_commits,
-     'nativeFrames',(SELECT count(DISTINCT f.surface_frame_token) FROM frames f
-     WHERE f.ts >= w.start_ns AND f.ts < w.stop_ns AND f.layer_name GLOB '*MainActivity#*'))) FROM anchor_windows w),
+  'anchorCoverage', (SELECT json_group_array(json_object('trial',w.trial,
+     'initialFrame', EXISTS(SELECT 1 FROM anchor_frames f WHERE f.trial=w.trial AND f.token=w.first_token),
+     'terminalFrame', EXISTS(SELECT 1 FROM anchor_frames f WHERE f.trial=w.trial AND f.token=w.last_token),
+     'nativeFrames', (SELECT count(*) FROM anchor_frames f WHERE f.trial=w.trial),
+     'geometryMatchedFrames', (SELECT count(*) FROM anchor_frames f WHERE f.trial=w.trial AND EXISTS(
+       SELECT 1 FROM anchor_marks m WHERE m.trial=w.trial AND m.upid=w.upid AND m.token=f.token
+         AND m.serial BETWEEN w.first_commit AND w.last_commit)))) FROM anchor_limits w),
   'allocationProfiles', (SELECT count(DISTINCT ts) FROM heap_profile_allocation WHERE upid IN app),
   'diagnostics', (SELECT json_group_array(json_object('name',name,'index',idx,'value',value))
     FROM stats WHERE value > 0 AND (name GLOB 'heapprofd_*' OR name GLOB 'frame_timeline_*'
@@ -132,6 +220,12 @@ SELECT hex(CAST(json_object(
     return json.loads(bytes.fromhex(row['result']))
 
 
+def complete_anchor_coverage(summary, expected):
+    return len(summary['anchorCoverage']) == expected and all(
+        row['initialFrame'] and row['terminalFrame'] and 0 < row['nativeFrames'] == row['geometryMatchedFrames']
+        for row in summary['anchorCoverage'])
+
+
 def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, reference, request):
     expected = contract['measurement']
     thresholds = contract['thresholds']
@@ -146,13 +240,21 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, ref
         shell('dumpsys', 'gfxinfo', package, 'reset')
 
     def frames(name, allow_empty=False, verify_complete=False):
-        for attempt in range(1, 6 if verify_complete else 2):
+        for attempt in range(1, 6):
             output = shell('dumpsys', 'gfxinfo', package, 'framestats')
             (evidence / f'{name}-framestats.txt').write_text(output)
-            sample, invalid, unretained = frame_statistics(output, allow_empty)
-            coverage = framework_coverage(output, sample, thresholds['noFrameAtOrAboveMs'])
-            if not coverage['unmatchedFrameworkFrames'] or not verify_complete:
-                break
+            try:
+                sample, invalid, unretained = frame_statistics(output, allow_empty)
+                if verify_complete:
+                    tokens = Counter(frame['timelineId'] for frame in sample)
+                    sample = [frame for frame in sample if frame['timelineId'] > 0 and tokens[frame['timelineId']] == 1]
+                coverage = framework_coverage(output, sample, thresholds['noFrameAtOrAboveMs'])
+            except RuntimeError:
+                if attempt == 5:
+                    raise
+            else:
+                if not coverage['unmatchedFrameworkFrames'] or not verify_complete or attempt == 5:
+                    break
             # The currently submitted frame can temporarily contain completion
             # fields from the previous ring entry. Preserve the raw snapshot and
             # sample after the renderer has time to complete it, without resetting.
@@ -202,13 +304,19 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, ref
         return adb('logcat', '-d', '-s', f'{TAG}:I', '*:S', timeout=15).decode()
 
     def anchor_command(operation, *extras):
-        return shell('am', 'start', '-W', '--activity-single-top', '-n',
-                     f'{package}/nl.davidengelen.redsquare.MainActivity', '-a',
-                     'nl.davidengelen.redsquare.performance.OBSERVE_ANCHOR', '--es', 'operation', operation, *extras)
+        return shell(*anchor_command_args(package, operation, *extras))
 
     def device_elapsed_ns():
         seconds, milliseconds = shell('cat', '/proc/uptime').split()[0].split('.')
         return int(seconds) * 10**9 + int(milliseconds.ljust(9, '0'))
+
+    def applied_reply(reply, log):
+        read = request('status').get('offscreenReplyRead')
+        received = re.search(rf'received (\d+) {re.escape(read)}\b', log) if read else None
+        projected = re.search(rf'reply-projected (\d+) {re.escape(reply)}\b', log)
+        if received and projected and int(received[1]) <= int(projected[1]):
+            return read, int(received[1]), int(projected[1])
+        return None
 
     def heap_sample(name):
         raw = shell('dumpsys', 'meminfo', '-d', package)
@@ -226,20 +334,7 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, ref
     feedback = []
     anchor_failures = []
     anchor_windows = []
-    trace_target = '/data/misc/perfetto-traces/spaces-scale.pftrace'
-    config = '''
-buffers { size_kb: 32768 fill_policy: RING_BUFFER }
-buffers { size_kb: 32768 fill_policy: RING_BUFFER }
-data_sources { config { name: "android.surfaceflinger.frametimeline" target_buffer: 0 } }
-data_sources { config { name: "linux.process_stats" target_buffer: 1 process_stats_config {
-  scan_all_processes_on_start: true
-  proc_stats_poll_ms: 5000
-} } }
-data_sources { config { name: "linux.ftrace" target_buffer: 0 ftrace_config {
-  atrace_categories: "gfx"
-  atrace_categories: "view"
-  atrace_apps: "nl.davidengelen.redsquare.performance"
-} } }
+    config = FRAME_TIMELINE_TRACE + '''
 data_sources { config { name: "android.heapprofd" target_buffer: 1 heapprofd_config {
   sampling_interval_bytes: 32768
   shmem_size_bytes: 16777216
@@ -250,20 +345,7 @@ duration_ms: 1500000
 write_into_file: true
 file_write_period_ms: 5000
 '''
-    trace_config = evidence / 'perfetto-config.pbtxt'
-    trace_config.write_text(config.strip() + '\n')
-    # Read via stdin. Android's perfetto domain need not have access to /data/local/tmp.
-    # Wait for the actual producers, and keep the command diagnostics even on failure.
-    launch = subprocess.run(['adb', 'shell', 'perfetto', '--background-wait', '--txt',
-                             '-c', '-', '-o', trace_target], input=trace_config.read_bytes(),
-                            capture_output=True, timeout=45)
-    (evidence / 'perfetto-start.txt').write_bytes(launch.stdout + launch.stderr)
-    launch.check_returncode()
-    trace_pid = launch.stdout.decode().strip()
-    if not trace_pid.isdecimal():
-        raise RuntimeError('Perfetto did not expose its owned daemon PID')
-    trace_process = int(trace_pid)
-    try:
+    with capture_trace(adb, evidence, config):
         shell('am', 'force-stop', package)
         reset_frames()
         open_channel('hotLink', 'cold', hot)
@@ -286,12 +368,6 @@ file_write_period_ms: 5000
         other_sample('mixed-media')
         reaction_frames = re.compile(r'reaction-frame (\d+) (\d+) (\d+) (\d+)')
         feedback_frames = re.compile(r'reaction-feedback-frame (\d+) (\d+) (\d+) (\d+) (saving|selected)')
-        geometry = re.compile(r'anchor-frame (\d+) (\d+) (\d+) (\d+) (true|false) (missing|-?[\d.]+ -?[\d.]+ -?[\d.]+ -?[\d.]+)')
-        def anchor_frames(log, trial):
-            return [(int(serial), int(started), int(committed), checkpoint == 'true',
-                     None if bounds == 'missing' else tuple(map(float, bounds.split())))
-                    for number, serial, started, committed, checkpoint, bounds in geometry.findall(log)
-                    if int(number) == trial]
         body = re.compile(r'General • Benchmark Space 001 • record (\d+)\.')
         durable_reactions = []
         for trial in range(expected['expectedWarmups'] + expected['expectedWarmIterations']):
@@ -329,19 +405,13 @@ file_write_period_ms: 5000
             deadline = time.monotonic() + 35
             reply = arrival['offscreenReply']
             anchor_command('receipt', '--es', 'reply', reply)
-            applied = None
-            while applied is None:
-                read = request('status').get('offscreenReplyRead')
-                log = trace_text()
-                received = re.search(rf'received (\d+) {re.escape(read)}\b', log) if read else None
-                if received:
-                    projected = re.search(rf'reply-projected (\d+) {re.escape(reply)}\b', log)
-                    if projected and int(projected[1]) >= int(received[1]):
-                        applied = int(projected[1])
+            observed_reply = applied_reply(reply, trace_text())
+            while observed_reply is None:
                 if time.monotonic() >= deadline:
                     raise RuntimeError(f'The native client did not apply the independently signed offscreen reply in {name}')
-                if applied is None:
-                    time.sleep(.2)
+                time.sleep(.2)
+                observed_reply = applied_reply(reply, trace_text())
+            read, _, applied = observed_reply
             after = view(f'{name}-arrival', lambda nodes: next((n for n in nodes if label(n) == identity), None))
             anchor_command('checkpoint')
             anchor_deadline = time.monotonic() + 10
@@ -360,7 +430,7 @@ file_write_period_ms: 5000
             # probe frame determined before requesting the arrival when needed.
             baseline = prior[-1] if prior else layouts[0]
             commits = [layout for layout in layouts if baseline[0] < layout[0] <= checkpoint[0]]
-            anchor_windows.append((name, baseline[1], checkpoint[2], len(commits) + 1))
+            anchor_windows.append((name, trial, baseline[0], checkpoint[0]))
             (evidence / f'{name}-anchor.json').write_text(json.dumps({
                 'text': identity, 'before': before, 'after': bounds(after), 'accepted': arrival,
                 'arrivalStartedNs': arrival_started, 'nativeReadRequest': read, 'replyProjectedNs': applied,
@@ -422,6 +492,49 @@ file_write_period_ms: 5000
             reset_frames()
             open_channel('unrelatedLink', f'{name}-switch', arrival['text'])
             other_sample(f'{name}-switch')
+
+        # Standalone crossed case, after the five original timing trials.
+        reset_frames()
+        open_channel('hotLink', 'scroll-arrival-hot', hot)
+        for _ in range(3):
+            shell('input', 'swipe', 410, 620, 410, 1310, 350)
+        view('scroll-arrival-before', lambda nodes: True if any(body.match(label(n)) for n in nodes) and
+             all(hot not in label(node) for node in nodes) else None)
+        reply = request('prepare-scroll-arrival')['offscreenReply']
+        anchor_command('receipt', '--es', 'reply', reply)
+        mark = device_elapsed_ns()
+        motion = re.compile(r'user-scroll (\d+) (true|false)')
+        gestures = ('for i in $(seq 1 18); do input swipe 410 620 410 1310 350 && '
+                    'input swipe 410 1310 410 620 350 || exit; done')
+        with subprocess.Popen(['adb', 'shell', gestures], stdout=subprocess.DEVNULL) as gesture:
+            deadline = time.monotonic() + 35
+            observed_reply = None
+            accepted = False
+            while time.monotonic() < deadline:
+                log = trace_text()
+                transitions = [(int(ns), status == 'true') for ns, status in motion.findall(log) if int(ns) >= mark]
+                if not accepted and transitions and transitions[-1][1]:
+                    if request('commit-scroll-arrival')['offscreenReply'] != reply:
+                        raise RuntimeError('The crossed arrival was not independently accepted')
+                    accepted = True
+                if accepted:
+                    observed_reply = applied_reply(reply, log)
+                    if observed_reply is not None:
+                        break
+                if gesture.poll() is not None and not accepted:
+                    break
+                time.sleep(.15)
+            if gesture.poll() is None:
+                gesture.terminate()
+        log = trace_text()
+        (evidence / 'scroll-arrival-observations.txt').write_text(log)
+        transitions = [(int(ns), status == 'true') for ns, status in motion.findall(log) if int(ns) >= mark]
+        crossing = {'reply': reply, 'independentAccepted': accepted, 'application': observed_reply, 'scrollTransitions': transitions}
+        (evidence / 'scroll-arrival.json').write_text(json.dumps(crossing, indent=2) + '\n')
+        if observed_reply is None or not next((moving for ns, moving in reversed(transitions)
+                                                if ns <= observed_reply[1]), False):
+            raise RuntimeError('The exact signed history response did not arrive while the reader was scrolling')
+        other_sample('scroll-arrival')
 
         started_cycles = re.compile(r'foreground (\d+) true true (-?\d+) (\d+) (\d+)')
         idle_samples = re.compile(r'idle (\d+) (-?\d+) (\d+) (\d+)')
@@ -502,20 +615,6 @@ file_write_period_ms: 5000
                 and not anchor_failures,
         }
         (evidence / 'timing.json').write_text(json.dumps(result, indent=2) + '\n')
-    finally:
-        original_failure = sys.exception()
-        try:
-            subprocess.run(['adb', 'shell', 'kill', '-INT', str(trace_process)], check=False, timeout=10)
-            await_exit = f'while kill -0 {trace_process} 2>/dev/null; do sleep 0.2; done'
-            subprocess.run(['adb', 'shell', await_exit], check=True, timeout=20)
-            trace = evidence / 'native-scale.pftrace'
-            adb('pull', trace_target, str(trace), timeout=60)
-            if trace.stat().st_size == 0:
-                raise RuntimeError('Perfetto returned an empty trace')
-        except (OSError, RuntimeError, subprocess.SubprocessError) as failure:
-            (evidence / 'perfetto-finish-error.txt').write_text(str(failure) + '\n')
-            if original_failure is None:
-                raise
     summary = analyse_trace(evidence, stages, anchor_windows)
     result['nativeTrace'] = summary
     comparable = {
@@ -527,6 +626,7 @@ file_write_period_ms: 5000
     changes = {name: (value / reference['metrics'][name] - 1) * 100 for name, value in comparable.items()}
     result['referenceComparison'] = {
         'run': reference['run'], 'source': reference['source'], 'timingSha256': reference['timingSha256'],
+        'warmFramestatsSha256': reference['warmFramestatsSha256'],
         'percentChange': changes,
         'investigate': [name for name, delta in changes.items() if delta > thresholds['baselineRegressionPercentInvestigateAbove']],
     }
@@ -534,8 +634,7 @@ file_write_period_ms: 5000
                        for item in summary['diagnostics'])
     trace_coverage = all(row['traceCount'] > 0 and row['knownTokens'] > 0 and row['knownTokens'] == row['matchedTokens']
                          for row in summary['stageCoverage'] if row['frameworkCount'] > 0)
-    anchor_coverage = len(summary['anchorCoverage']) == len(anchor_windows) and all(
-        0 < row['nativeFrames'] <= row['anchorCommits'] for row in summary['anchorCoverage'])
+    anchor_coverage = complete_anchor_coverage(summary, len(anchor_windows))
     lost_frames = any(item['name'].startswith('ftrace_') and 'overrun' in item['name'] for item in summary['diagnostics'])
     result['thresholdsPassed'] = result['sampleThresholdsPassed'] and summary['completedFrames'] > 0 and (
         summary['maximumFrameMs'] < thresholds['noFrameAtOrAboveMs'] and summary['lastFrameNs'] >= running[-1][0] and

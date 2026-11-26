@@ -50,15 +50,22 @@ internal object SpacesScaleMeasurement {
         override fun onPreDraw(): Boolean {
             val observer = view.viewTreeObserver
             if (!view.isHardwareAccelerated || !observer.isAlive || !view.isShown) return true
-            val current = visibleRows[record]?.coordinates?.takeIf { it.isAttached }?.boundsInWindow()
-                ?.takeUnless { it.isEmpty }
-            val bounds = current?.let { "${it.left} ${it.top} ${it.right} ${it.bottom}" } ?: "missing"
-            val started = SystemClock.elapsedRealtimeNanos()
-            val last = checkpoint
-            checkpoint = false
             val frame = ++sequence
-            observer.registerFrameCommitCallback {
-                Log.i(tag, "anchor-frame $trial $frame $started ${SystemClock.elapsedRealtimeNanos()} $last $bounds")
+            // A synchronous marker is nested in the Choreographer frame that
+            // measured these bounds, so the host can join its exact vsync ID.
+            Trace.beginSection("SpacesAnchor $trial $frame")
+            try {
+                val current = visibleRows[record]?.coordinates?.takeIf { it.isAttached }?.boundsInWindow()
+                    ?.takeUnless { it.isEmpty }
+                val bounds = current?.let { "${it.left} ${it.top} ${it.right} ${it.bottom}" } ?: "missing"
+                val started = SystemClock.elapsedRealtimeNanos()
+                val last = checkpoint
+                checkpoint = false
+                observer.registerFrameCommitCallback {
+                    Log.i(tag, "anchor-frame $trial $frame $started ${SystemClock.elapsedRealtimeNanos()} $last $bounds")
+                }
+            } finally {
+                Trace.endSection()
             }
             return true
         }
@@ -79,7 +86,7 @@ internal object SpacesScaleMeasurement {
                     view.invalidate()
                 }
             }
-            "receipt" -> intent.getStringExtra("reply")?.takeIf { it.length == 128 && anchorProbe?.view === view }
+            "receipt" -> intent.getStringExtra("reply")?.takeIf { it.length == 128 }
                 ?.let(watchedReply::set)
             "checkpoint" -> anchorProbe?.takeIf { it.view === view }?.let { it.checkpoint = true; view.invalidate() }
             "stop" -> stopAnchorProbe(view)
@@ -159,4 +166,7 @@ internal object SpacesScaleMeasurement {
         Log.i(tag, "received ${SystemClock.elapsedRealtimeNanos()} $request")
     }
 
+    fun scrolling(moving: Boolean) {
+        Log.i(tag, "user-scroll ${SystemClock.elapsedRealtimeNanos()} $moving")
+    }
 }

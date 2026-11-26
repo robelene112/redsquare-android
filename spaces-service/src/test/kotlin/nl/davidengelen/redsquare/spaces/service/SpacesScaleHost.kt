@@ -87,6 +87,7 @@ object SpacesScaleHost {
                 peer.start().use { socket ->
                     val control = HttpServer.create(InetSocketAddress("127.0.0.1", 0), 8)
                     var arrivals = 0
+                    var crossing: String? = null
                     control.createContext("/") { request ->
                         try {
                             require(request.requestMethod == "POST")
@@ -113,6 +114,24 @@ object SpacesScaleHost {
                                         addProperty("text", body)
                                         reply?.let { addProperty("offscreenReply", it) }
                                     }
+                                }
+                                "/prepare-scroll-arrival" -> runBlocking {
+                                    check(crossing == null)
+                                    val parent = requireNotNull(hotRoot)
+                                    val id = actor.reply(expectedHotSpace, parent, "Independent reply during scroll", expectedHotChannel)
+                                    watchedReply.set(Arrival(id))
+                                    crossing = id
+                                    JsonObject().apply { addProperty("offscreenReply", id) }
+                                }
+                                "/commit-scroll-arrival" -> runBlocking {
+                                    val id = requireNotNull(crossing)
+                                    val parent = requireNotNull(hotRoot)
+                                    actor.flush(expectedHotSpace)
+                                    check(actor.thread(expectedHotSpace, parent, channel = expectedHotChannel).any {
+                                        it.id == id && it.position != null && !it.pending && !it.rejected
+                                    })
+                                    crossing = null
+                                    JsonObject().apply { addProperty("offscreenReply", id) }
                                 }
                                 "/status" -> JsonObject().apply {
                                     addProperty("acceptedReactions", reactions.get())

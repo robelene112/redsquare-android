@@ -618,6 +618,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 if (moving != foregroundScroll) {
                                     foregroundScroll = moving
                                     account.conversationScrolling(target, moving)
+                                    if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE) SpacesScaleMeasurement.scrolling(moving)
                                 }
                                 if (viewport.automatic) userScrolling = false else {
                                     if (viewport.scrolling) userScrolling = true

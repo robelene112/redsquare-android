@@ -11,7 +11,8 @@ import sys
 import time
 import urllib.request
 from xml.etree import ElementTree
-from spaces_scale_timing import measure
+from spaces_scale_timing import (FRAME_TIMELINE_TRACE, analyse_trace, anchor_command_args, anchor_frames,
+                                capture_trace, complete_anchor_coverage, measure)
 
 repo = Path(__file__).resolve().parent.parent
 evidence = Path(sys.argv[1]).resolve()
@@ -149,25 +150,34 @@ with (evidence / 'host.log').open('wb') as host_log:
             summary['timing'] = measure(adb, evidence, package, f'ws://127.0.0.1:{local_port}/wsopen',
                                         endpoints, manifest, json.loads(contract.read_text()), reference, request)
         else:
-            observer = ['am', 'start', '-W', '--activity-single-top', '-n',
-                        f'{package}/nl.davidengelen.redsquare.MainActivity', '-a',
-                        'nl.davidengelen.redsquare.performance.OBSERVE_ANCHOR', '--es', 'operation']
-            adb('shell', shlex.join(observer + ['arm', '--ei', 'trial', '0', '--ei', 'record', str(manifest['hotChannelMessages'])]))
-            try:
-                adb('shell', shlex.join(observer + ['checkpoint']))
+            def observer(operation, *extras):
+                adb('shell', shlex.join(anchor_command_args(package, operation, *extras)))
+
+            def observe_checkpoint(checkpoint):
                 deadline = time.monotonic() + 12
                 while True:
                     observed = adb('logcat', '-d', '-s', 'SpacesScaleProof:I', '*:S').decode()
                     (evidence / 'anchor-observations.txt').write_text(observed)
-                    held = re.search(r'anchor-frame 0 \d+ \d+ \d+ true ((?:-?[\d.]+ ){3}-?[\d.]+)', observed)
-                    if held:
-                        summary['committedAnchorBounds'] = [float(value) for value in held[1].split()]
-                        break
+                    frame = next((row for row in anchor_frames(observed, 0) if row[3] == checkpoint and row[4] is not None), None)
+                    if frame is not None:
+                        return frame
                     if time.monotonic() >= deadline:
                         raise RuntimeError('Calibration did not observe the actual anchor frame commit')
                     time.sleep(.1)
-            finally:
-                adb('shell', shlex.join(observer + ['stop']))
+
+            with capture_trace(adb, evidence, FRAME_TIMELINE_TRACE + 'duration_ms: 30000\n'):
+                observer('arm', '--ei', 'trial', '0', '--ei', 'record', str(manifest['hotChannelMessages']))
+                try:
+                    first = observe_checkpoint(False)
+                    observer('checkpoint')
+                    last = observe_checkpoint(True)
+                finally:
+                    observer('stop')
+            native = analyse_trace(evidence, {}, [('calibration', 0, first[0], last[0])])
+            if not complete_anchor_coverage(native, 1):
+                raise RuntimeError('Calibration could not match all presented anchor frames to their geometry')
+            summary['committedAnchorBounds'] = last[4]
+            summary['anchorCoverage'] = native['anchorCoverage']
         stopping()
         stopping = None
         if host.wait(timeout=15) != 0:
