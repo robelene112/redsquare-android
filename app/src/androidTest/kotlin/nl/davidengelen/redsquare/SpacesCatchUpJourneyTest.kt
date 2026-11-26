@@ -372,9 +372,11 @@ class SpacesCatchUpJourneyTest {
                 assertTarget(hasText("Community information") and hasClickAction())
                 assertTarget(hasText("My Spaces") and hasClickAction())
                 val stableBounds = button.getUnclippedBoundsInRoot()
-                val nativeSwitcher = device.wait(Until.findObject(By.desc("Switch Space or channel")), 5_000)
+                val switcherDescription = By.desc("Switch Space or channel")
+                // Advance Compose's test clock while the native dialog relinquishes its window.
+                ui.waitUntil(8_000) { device.findObject(switcherDescription) != null }
                 captureNativeScreen(observations.resolve("channel.png"))
-                requireNotNull(nativeSwitcher).click()
+                requireNotNull(device.findObject(switcherDescription)).click()
                 waitText("Your communities")
                 val drawerClose = hasText(context.getString(R.string.spaces_navigation_close)) and hasClickAction()
                 assertTarget(drawerClose)
