@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare
 import android.app.Activity
 import android.app.Instrumentation
 import android.content.Intent
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -125,8 +126,10 @@ class PublisherUserReportPreviewTest {
                                 ui.onNodeWithText("Cancel").performClick()
                                 assertEquals(before, external().size)
                                 openReport()
+                                assertEquals("", ui.onNode(hasSetTextAction()).fetchSemanticsNode().config[SemanticsProperties.EditableText].text)
                                 val description = "Please review this public account on $serverUrl"
                                 ui.onNode(hasSetTextAction()).performTextReplacement(description)
+                                ui.onNode(hasSetTextAction()).assertTextContains(description)
                                 activity.recreate()
                                 shownContext()
                                 ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed()

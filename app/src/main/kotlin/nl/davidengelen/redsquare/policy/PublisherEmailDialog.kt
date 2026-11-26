@@ -11,6 +11,7 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -27,9 +28,26 @@ import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.ui.AppDialogWindow
 
+internal class PublisherEmailDraft {
+    var description by mutableStateOf("")
+    var requested by mutableStateOf(false)
+    var handoffFailed by mutableStateOf(false)
+
+    companion object {
+        val Saver = listSaver<PublisherEmailDraft, Any>(
+            save = { listOf(it.description, it.requested, it.handoffFailed) },
+            restore = { values -> PublisherEmailDraft().apply {
+                description = values[0] as String
+                requested = values[1] as Boolean
+                handoffFailed = values[2] as Boolean
+            } }
+        )
+    }
+}
+
 @Composable
 internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, report: PublisherUserReport? = null,
-    onClose: () -> Unit) {
+    retainedDraft: PublisherEmailDraft? = null, onClose: () -> Unit) {
     require(report == null || purpose == PublisherContactPurpose.SAFETY)
     val context = LocalContext.current
     val routes = remember(context) { PublisherRoutes.load(context) }
@@ -55,13 +73,11 @@ internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, report: Publ
             confirmButton = { TextButton(onClick = onClose) { Text(stringResource(R.string.publisher_done)) } })
         return
     }
-    var description by rememberSaveable { mutableStateOf("") }
-    var draftRequested by rememberSaveable { mutableStateOf(false) }
-    var handoffFailed by rememberSaveable { mutableStateOf(false) }
+    val draft = retainedDraft ?: rememberSaveable(saver = PublisherEmailDraft.Saver) { PublisherEmailDraft() }
     val appContext = stringResource(R.string.publisher_app_context, BuildConfig.VERSION_NAME)
     val subject = stringResource(if (report != null) R.string.publisher_user_report_subject else purpose.subject)
     val publicContext = listOfNotNull(appContext, accountText, serverText).joinToString("\n")
-    val body = stringResource(R.string.publisher_email_body, publicContext, description)
+    val body = stringResource(R.string.publisher_email_body, publicContext, draft.description)
     Dialog(onDismissRequest = onClose, properties = DialogProperties(
         usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
         val keyboard = LocalSoftwareKeyboardController.current
@@ -86,32 +102,32 @@ internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, report: Publ
                     if (report != null) Text(stringResource(R.string.publisher_user_report_explanation),
                         style = MaterialTheme.typography.bodyMedium)
                     Text(stringResource(R.string.publisher_email_explanation), style = MaterialTheme.typography.bodyMedium)
-                    OutlinedTextField(description, onValueChange = { description = it }, shape = RoundedCornerShape(AppSpacing.controlRadius),
+                    OutlinedTextField(draft.description, onValueChange = { draft.description = it }, shape = RoundedCornerShape(AppSpacing.controlRadius),
                         label = { Text(stringResource(R.string.publisher_description)) },
                         modifier = Modifier.fillMaxWidth(), minLines = 4)
                 }
-                if (handoffFailed || draftRequested) Text(stringResource(if (handoffFailed)
+                if (draft.handoffFailed || draft.requested) Text(stringResource(if (draft.handoffFailed)
                     R.string.publisher_email_unavailable else R.string.publisher_email_requested),
                     Modifier.padding(horizontal = 20.dp, vertical = 8.dp).semantics { liveRegion = LiveRegionMode.Polite },
                     style = MaterialTheme.typography.bodyMedium,
-                    color = if (handoffFailed) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)
+                    color = if (draft.handoffFailed) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)
                 HorizontalDivider()
                 Row(Modifier.fillMaxWidth().padding(12.dp), horizontalArrangement = Arrangement.SpaceBetween) {
                     TextButton(onClick = onClose) {
-                        Text(stringResource(if (draftRequested) R.string.publisher_done else R.string.publisher_cancel))
+                        Text(stringResource(if (draft.requested) R.string.publisher_done else R.string.publisher_cancel))
                     }
-                    Button(enabled = description.isNotBlank(), onClick = {
+                    Button(enabled = draft.description.isNotBlank(), onClick = {
                         keyboard?.hide()
-                        handoffFailed = false
-                        draftRequested = false
+                        draft.handoffFailed = false
+                        draft.requested = false
                         try {
                             context.startActivity(Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", email, null))
                                 .putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
                                 .putExtra(Intent.EXTRA_SUBJECT, subject)
                                 .putExtra(Intent.EXTRA_TEXT, body))
-                            draftRequested = true
-                        } catch (_: ActivityNotFoundException) { handoffFailed = true }
-                        catch (_: SecurityException) { handoffFailed = true }
+                            draft.requested = true
+                        } catch (_: ActivityNotFoundException) { draft.handoffFailed = true }
+                        catch (_: SecurityException) { draft.handoffFailed = true }
                     }) { Text(stringResource(R.string.publisher_compose_email)) }
                 }
             }

@@ -8,6 +8,7 @@ import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.AccountControls
 import nl.davidengelen.redsquare.policy.PublisherContactPurpose
 import nl.davidengelen.redsquare.policy.PublisherEmailDialog
+import nl.davidengelen.redsquare.policy.PublisherEmailDraft
 import nl.davidengelen.redsquare.policy.PublisherUserReport
 
 import androidx.activity.compose.BackHandler
@@ -47,12 +48,13 @@ internal enum class ProfileTab(val label: Int) {
 }
 
 internal class ProfileViewState {
+    class Report(val account: PublisherUserReport, val draft: PublisherEmailDraft = PublisherEmailDraft())
     var tab by mutableStateOf(ProfileTab.POSTS)
     var editing by mutableStateOf(false)
     val position = LazyListState()
     val shownPosts = mutableStateMapOf<ProfileTab, List<FeedPost>>()
     var history = AndroidProfileCache.SavedProfile(emptyList(), emptyList(), false)
-    var publisherReport by mutableStateOf<PublisherUserReport?>(null)
+    var publisherReport by mutableStateOf<Report?>(null)
 }
 
 private data class ProfileHistoryPage(val posts: List<FeedPost>, val likes: List<ProfileLike>, val unreadable: Boolean,
@@ -344,7 +346,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                         TextButton(enabled = actionsOpen, onClick = {
                             if (!actionsOpen) return@TextButton
                             actionsOpen = false
-                            view.publisherReport = PublisherUserReport(author, backend)
+                            view.publisherReport = ProfileViewState.Report(PublisherUserReport(author, backend))
                         }, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) {
                             Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                 Text(stringResource(R.string.publisher_report_user_action),
@@ -363,7 +365,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     }
     if (identityOpen) IdentityDetailsDialog(author) { identityOpen = false }
     view.publisherReport?.let { report ->
-        PublisherEmailDialog(PublisherContactPurpose.SAFETY, report) { view.publisherReport = null }
+        PublisherEmailDialog(PublisherContactPurpose.SAFETY, report.account, report.draft) { view.publisherReport = null }
     }
 }
 
