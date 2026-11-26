@@ -41,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
@@ -116,6 +117,14 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         }
     }
     val drawer = rememberDrawerState(DrawerValue.Closed)
+    val drawerList = rememberLazyListState()
+    var drawerWidthPx by remember { mutableIntStateOf(0) }
+    val showDrawerRows by remember(drawer) {
+        derivedStateOf {
+            drawer.currentValue == DrawerValue.Open || drawer.targetValue == DrawerValue.Open || drawer.isAnimationRunning ||
+                drawerWidthPx > 0 && drawer.currentOffset > -drawerWidthPx + .5f
+        }
+    }
     DisposableEffect(account, drawer.isOpen) {
         account.channelDrawerVisible(drawer.isOpen)
         onDispose { account.channelDrawerVisible(false) }
@@ -370,10 +379,14 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     ModalNavigationDrawer(drawerState = drawer, gesturesEnabled = state.selected != null, modifier = modifier,
         drawerContent = {
-            val menuState = closingDrawerContent ?: state
-            val menuCommunity = menuState.current
-            ModalDrawerSheet(Modifier.widthIn(max = 360.dp).fillMaxHeight().semantics { paneTitle = navigationTitle }) {
-                LazyColumn(contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            // Keep the measured gesture anchors while the closed panel has no rows to lay out or decode.
+            ModalDrawerSheet(Modifier.widthIn(max = DrawerDefaults.MaximumDrawerWidth).fillMaxWidth().fillMaxHeight()
+                .onSizeChanged { drawerWidthPx = it.width }.semantics { paneTitle = navigationTitle }) {
+                if (!showDrawerRows) return@ModalDrawerSheet
+                val menuState = closingDrawerContent ?: state
+                val menuCommunity = menuState.current
+                LazyColumn(state = drawerList, contentPadding = PaddingValues(AppSpacing.screen),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     item { Text(stringResource(R.string.spaces_your_communities), style = MaterialTheme.typography.headlineSmall,
                         modifier = Modifier.semantics { heading() }) }
                     if (menuState.ready && !menuState.communityListLoaded) item { LoadingCommunities() }

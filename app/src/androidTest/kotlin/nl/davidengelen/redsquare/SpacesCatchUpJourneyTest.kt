@@ -355,6 +355,18 @@ class SpacesCatchUpJourneyTest {
                     !ui.onNodeWithText("Your communities").isDisplayed() && button.isDisplayed()
                 }
                 assertEquals(stableBounds, button.getUnclippedBoundsInRoot())
+                if (viewportId == "V04" || viewportId == "V05") {
+                    val middle = device.displayHeight / 2
+                    assertTrue(device.swipe(device.displayWidth / 8, middle, device.displayWidth * 7 / 8, middle, 35))
+                    waitText("Your communities")
+                    captureNativeScreen(observations.resolve("drawer-opened-by-swipe.png"))
+                    device.executeShellCommand("input keyevent KEYCODE_BACK")
+                    ui.waitUntil(12_000) {
+                        !ui.onNodeWithText("Your communities").isDisplayed() && button.isDisplayed()
+                    }
+                    assertEquals(stableBounds, button.getUnclippedBoundsInRoot())
+                    checked.addProperty("drawerSwipe", true)
+                }
                 val composer = ui.onNode(hasSetTextAction())
                 composer.assertIsDisplayed()
                 if (useKeyboard) {
