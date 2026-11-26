@@ -47,8 +47,10 @@ still shows the edited draft, the enabled Save draft control and the open
 IME. The following focused retests on
 [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45776222650)
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45776222555)
-tap the enabled control through native touch input. The ten-second home
-deadline and the saved-text and status assertions remain in place.
+both pass. Each taps the enabled control through native touch input and
+records saved, edited and restored text at 320dp in both themes. The
+ten-second home deadline stays in place. The unsuccessful parent still
+supplies no whole-app Android 17 acceptance for this candidate.
 
 Full scale measurements [18](https://github.com/robelene112/redsquare-android/actions/runs/45753375523),
 [19](https://github.com/robelene112/redsquare-android/actions/runs/45757606956)
@@ -81,8 +83,24 @@ link reached that transition before the previous coroutine released it.
 Source `eb848d099` waits for the active navigation guard before admitting the
 latest signed route and defers full list projection when the overview and drawer
 are hidden. The updated lifecycle observer requires the exact linked message
-on each return to the hot channel. [The complete retest](https://github.com/robelene112/redsquare-android/actions/runs/45772264500)
-uses the original workload and budgets.
+on each return to the hot channel. The exact-link checks pass on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45772264522)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45772264418).
+
+[The full-scale retest](https://github.com/robelene112/redsquare-android/actions/runs/45772264500)
+stops in the crossed-scroll capture before the 100 lifecycle switches. An
+offscreen row retains its prior measured position for one frame. The two
+other shared rows move with the 157.71px native scroll. The expected new
+position of the exiting row is 1651.71px, below the 1522px viewport edge.
+The fixture observes only attached rows whose message keys are present in the
+current drawn lazy-list layout. The frame joins and 2px limit remain in place.
+
+The same run has all 20 warm swipe snapshots. The independent replay counts
+230 missed deadlines among 713 observed frames, with five more frames absent
+from the retained scroll samples. The conservative bound is 32.73% against
+the required 5%. A retained cold sample reaches 1089.04ms against the 700ms
+ceiling. This failed run supplies diagnostic timing only. The ordinary beta
+remains at 0.1.142.
 
 The [compact exact-reply run](https://github.com/robelene112/redsquare-android/actions/runs/45669562341)
 confirms that both lines of the reply body fit the 320dp conversation at

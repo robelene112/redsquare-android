@@ -9,6 +9,7 @@ import android.view.ViewTreeObserver
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.geometry.Offset
@@ -49,28 +50,29 @@ internal object SpacesScaleMeasurement {
             return Offset.Zero
         }
     }
-    val viewportModifier: Modifier = Modifier.nestedScroll(scrollObserver).then(ViewportElement)
+    fun viewportModifier(list: LazyListState): Modifier = Modifier.nestedScroll(scrollObserver).then(ViewportElement(list))
 
-    private data object ViewportElement : ModifierNodeElement<ViewportNode>() {
-        override fun create() = ViewportNode()
-        override fun update(node: ViewportNode) = Unit
+    private data class ViewportElement(val list: LazyListState) : ModifierNodeElement<ViewportNode>() {
+        override fun create() = ViewportNode(list)
+        override fun update(node: ViewportNode) { node.list = list }
         override fun InspectorInfo.inspectableProperties() { name = "spacesProofViewport" }
     }
 
-    private class ViewportNode : Modifier.Node(), DrawModifierNode {
+    private class ViewportNode(var list: LazyListState) : Modifier.Node(), DrawModifierNode {
         override fun onAttach() { viewportNode = this }
         override fun onDetach() { if (viewportNode === this) viewportNode = null }
         override fun ContentDrawScope.draw() {
             drawContent()
-            anchorProbe?.viewportDrawn()
+            anchorProbe?.viewportDrawn(list)
         }
     }
 
-    class AnchorRow(val record: Int) {
+    class AnchorRow(val key: String, val record: Int) {
         var coordinates: LayoutCoordinates? = null
     }
 
-    fun anchorRow(body: String?): AnchorRow? = body?.let(hotRecord::find)?.groupValues?.get(1)?.toIntOrNull()?.let(::AnchorRow)
+    fun anchorRow(key: String, body: String?): AnchorRow? =
+        body?.let(hotRecord::find)?.groupValues?.get(1)?.toIntOrNull()?.let { AnchorRow(key, it) }
 
     fun attachAnchorRow(row: AnchorRow) { visibleRows[row.record] = row }
 
@@ -83,17 +85,21 @@ internal object SpacesScaleMeasurement {
         var checkpoint = false
         var scrollDisplacement = 0.0
 
-        private fun scrollGeometry(): String {
+        private fun scrollGeometry(list: LazyListState): String {
+            // A prefetched or retained item can keep attached coordinates from its
+            // last placement after scrolling out of this frame's visible list.
+            val visibleKeys = list.layoutInfo.visibleItemsInfo.mapTo(mutableSetOf()) { it.key }
             val positions = visibleRows.values.mapNotNull { row ->
-                row.coordinates?.takeIf { bounds(row) != null }?.let { row.record to it.positionInWindow().y }
+                row.coordinates?.takeIf { row.key in visibleKeys && bounds(row) != null }
+                    ?.let { row.record to it.positionInWindow().y }
             }.sortedBy { it.second }
             return "$scrollDisplacement " + positions.joinToString(",") { "${it.first}:${it.second}" }.ifEmpty { "missing" }
         }
 
-        fun viewportDrawn() {
+        fun viewportDrawn(list: LazyListState) {
             // Lazy placement can finish within Compose's drawing pass after
             // ViewRoot's pre-draw callback. Sample the positions actually drawn.
-            currentDraw?.value = if (record == 0) scrollGeometry() else visibleRows[record]?.let(::bounds)
+            currentDraw?.value = if (record == 0) scrollGeometry(list) else visibleRows[record]?.let(::bounds)
                 ?.let { "${it.left} ${it.top} ${it.right} ${it.bottom}" } ?: "missing"
         }
 

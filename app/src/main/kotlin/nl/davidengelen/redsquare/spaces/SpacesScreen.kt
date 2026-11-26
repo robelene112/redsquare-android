@@ -778,7 +778,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant)
                         } else LazyColumn(Modifier.weight(1f).fillMaxWidth().then(
                             if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE)
-                                SpacesScaleMeasurement.viewportModifier else Modifier), state = list,
+                                SpacesScaleMeasurement.viewportModifier(list) else Modifier), state = list,
                             contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = 8.dp),
                             verticalArrangement = Arrangement.spacedBy(16.dp)) {
                             if (earlierInList) item(key = "spaces-earlier-messages") {
@@ -1274,7 +1274,7 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
     val name = registeredIdentity(message.author).name
     val time = remember(message.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(message.createdAt)) }
     val measuredBody = if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE) {
-        val anchor = remember(message.text) { SpacesScaleMeasurement.anchorRow(message.text) }
+        val anchor = remember(message.id, message.text) { SpacesScaleMeasurement.anchorRow(message.id, message.text) }
         if (anchor != null) {
             DisposableEffect(anchor) {
                 SpacesScaleMeasurement.attachAnchorRow(anchor)
