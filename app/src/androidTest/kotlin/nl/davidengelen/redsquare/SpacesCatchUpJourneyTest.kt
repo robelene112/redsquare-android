@@ -349,6 +349,8 @@ class SpacesCatchUpJourneyTest {
                 captureNativeScreen(observations.resolve("channel.png"))
                 button.performTouchInput { click() }
                 waitText("Your communities")
+                val drawerClose = hasText(context.getString(R.string.spaces_navigation_close)) and hasClickAction()
+                assertTarget(drawerClose)
                 captureNativeScreen(observations.resolve("drawer.png"))
                 device.executeShellCommand("input keyevent KEYCODE_BACK")
                 ui.waitUntil(12_000) {
@@ -360,7 +362,7 @@ class SpacesCatchUpJourneyTest {
                     assertTrue(device.swipe(device.displayWidth / 8, middle, device.displayWidth * 7 / 8, middle, 35))
                     waitText("Your communities")
                     captureNativeScreen(observations.resolve("drawer-opened-by-swipe.png"))
-                    device.executeShellCommand("input keyevent KEYCODE_BACK")
+                    ui.onNode(drawerClose).performTouchInput { click() }
                     ui.waitUntil(12_000) {
                         !ui.onNodeWithText("Your communities").isDisplayed() && button.isDisplayed()
                     }

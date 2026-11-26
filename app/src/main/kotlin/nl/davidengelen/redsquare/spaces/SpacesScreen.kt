@@ -39,6 +39,7 @@ import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import nl.davidengelen.redsquare.feed.LocalPostNavigation
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
@@ -374,21 +375,26 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !channelCreator.open && !publicRulesOpen) {
         backFromConversation()
     }
-    BackHandler(showDrawerRows) {
-        scope.launch { drawer.close() }
-    }
     ModalNavigationDrawer(drawerState = drawer, gesturesEnabled = state.selected != null, modifier = modifier,
         drawerContent = {
             // Keep the measured gesture anchors while the closed panel has no rows to lay out or decode.
-            ModalDrawerSheet(Modifier.widthIn(max = DrawerDefaults.MaximumDrawerWidth).fillMaxWidth().fillMaxHeight()
+            ModalDrawerSheet(drawer, Modifier.widthIn(max = DrawerDefaults.MaximumDrawerWidth).fillMaxWidth().fillMaxHeight()
                 .onSizeChanged { drawerWidthPx = it.width }.semantics { paneTitle = navigationTitle }) {
                 if (!showDrawerRows) return@ModalDrawerSheet
                 val menuState = closingDrawerContent ?: state
                 val menuCommunity = menuState.current
                 LazyColumn(state = drawerList, contentPadding = PaddingValues(AppSpacing.screen),
                     verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    item { Text(stringResource(R.string.spaces_your_communities), style = MaterialTheme.typography.headlineSmall,
-                        modifier = Modifier.semantics { heading() }) }
+                    item {
+                        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text(stringResource(R.string.spaces_your_communities), style = MaterialTheme.typography.headlineSmall,
+                                modifier = Modifier.weight(1f).semantics { heading() })
+                            FrameIconButton(R.drawable.ic_close, stringResource(R.string.spaces_navigation_close)) {
+                                scope.launch { drawer.close() }
+                            }
+                        }
+                    }
                     if (menuState.ready && !menuState.communityListLoaded) item { LoadingCommunities() }
                     items(menuState.communities, key = { "space:${it.id}" }) { community ->
                         SpaceCommunityRow(menuState.profiles[community.id] ?: SpaceProfile(community.name), community.id, account.avatarImages,
@@ -747,7 +753,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant)
                         } else LazyColumn(Modifier.weight(1f).fillMaxWidth().then(
                             if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE)
-                                Modifier.nestedScroll(SpacesScaleMeasurement.scrollObserver) else Modifier), state = list,
+                                Modifier.nestedScroll(SpacesScaleMeasurement.scrollObserver).drawWithContent {
+                                    drawContent()
+                                    SpacesScaleMeasurement.scrollViewportDrawn()
+                                } else Modifier), state = list,
                             contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = 8.dp),
                             verticalArrangement = Arrangement.spacedBy(16.dp)) {
                             if (earlierInList) item(key = "spaces-earlier-messages") {

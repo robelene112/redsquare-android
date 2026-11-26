@@ -53,10 +53,31 @@ internal object SpacesScaleMeasurement {
 
     fun detachAnchorRow(row: AnchorRow) { if (visibleRows[row.record] === row) visibleRows.remove(row.record) }
 
+    fun scrollViewportDrawn() { anchorProbe?.viewportDrawn() }
+
     private class AnchorProbe(val trial: Int, val record: Int, val view: View) : ViewTreeObserver.OnPreDrawListener {
+        private class DrawnScroll(var geometry: String)
         private var sequence = 0
+        private var currentDraw: DrawnScroll? = null
+        private var lastDrawnScroll: String? = null
         var checkpoint = false
         var scrollDisplacement = 0.0
+
+        private fun scrollGeometry(): String {
+            val positions = visibleRows.values.mapNotNull { row ->
+                row.coordinates?.takeIf { bounds(row) != null }?.let { row.record to it.positionInWindow().y }
+            }.sortedBy { it.second }
+            return "$scrollDisplacement " + positions.joinToString(",") { "${it.first}:${it.second}" }.ifEmpty { "missing" }
+        }
+
+        fun viewportDrawn() {
+            if (record != 0) return
+            // Lazy placement can finish within Compose's drawing pass after
+            // ViewRoot's pre-draw callback. Sample the positions actually drawn.
+            val actual = scrollGeometry()
+            lastDrawnScroll = actual
+            currentDraw?.geometry = actual
+        }
 
         override fun onPreDraw(): Boolean {
             val observer = view.viewTreeObserver
@@ -66,24 +87,16 @@ internal object SpacesScaleMeasurement {
             // measured these bounds, so the host can join its exact vsync ID.
             Trace.beginSection("SpacesAnchor $trial $frame")
             try {
-                val mode: String
-                val geometry: String
-                if (record == 0) {
-                    mode = "scroll-frame"
-                    val positions = visibleRows.values.mapNotNull { row ->
-                        row.coordinates?.takeIf { bounds(row) != null }?.let { row.record to it.positionInWindow().y }
-                    }.sortedBy { it.second }
-                    geometry = "$scrollDisplacement " + positions.joinToString(",") { "${it.first}:${it.second}" }
-                        .ifEmpty { "missing" }
-                } else {
-                    mode = "anchor-frame"
-                    geometry = visibleRows[record]?.let(::bounds)
-                        ?.let { "${it.left} ${it.top} ${it.right} ${it.bottom}" } ?: "missing"
-                }
+                val mode = if (record == 0) "scroll-frame" else "anchor-frame"
+                val scrolling = if (record == 0) DrawnScroll(lastDrawnScroll ?: scrollGeometry()) else null
+                currentDraw = scrolling
+                val anchored = visibleRows[record]?.let(::bounds)
+                    ?.let { "${it.left} ${it.top} ${it.right} ${it.bottom}" } ?: "missing"
                 val started = SystemClock.elapsedRealtimeNanos()
                 val last = checkpoint
                 checkpoint = false
                 observer.registerFrameCommitCallback {
+                    val geometry = scrolling?.geometry ?: anchored
                     Log.i(tag, "$mode $trial $frame $started ${SystemClock.elapsedRealtimeNanos()} $last $geometry")
                 }
             } finally {

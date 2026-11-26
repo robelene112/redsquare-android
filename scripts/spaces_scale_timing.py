@@ -185,11 +185,13 @@ app AS (
   SELECT upid FROM process WHERE name = 'nl.davidengelen.redsquare.performance'
   UNION SELECT upid FROM actual_frame_timeline_slice
     WHERE layer_name GLOB '*nl.davidengelen.redsquare.performance/*'
-), frames AS (
-  SELECT a.upid,a.ts,a.dur,a.surface_frame_token,a.layer_name,(SELECT min(e.ts) FROM expected_frame_timeline_slice e
-      WHERE e.upid=a.upid AND e.surface_frame_token=a.surface_frame_token
-  ) AS expected
-  FROM actual_frame_timeline_slice a WHERE a.upid IN app AND a.dur >= 0
+), expected_frames AS MATERIALIZED (
+  SELECT upid,surface_frame_token,min(ts) AS expected
+  FROM expected_frame_timeline_slice WHERE upid IN app GROUP BY upid,surface_frame_token
+), frames AS MATERIALIZED (
+  SELECT a.upid,a.ts,a.dur,a.surface_frame_token,a.layer_name,e.expected
+  FROM actual_frame_timeline_slice a LEFT JOIN expected_frames e USING (upid,surface_frame_token)
+  WHERE a.upid IN app AND a.dur >= 0
 ), coverage AS (
   SELECT s.name, s.framework_count,
     (SELECT count(*) FROM frames f WHERE f.ts <= s.end_ns AND f.ts+f.dur >= s.start_ns) AS trace_count,
@@ -245,8 +247,11 @@ SELECT hex(CAST(json_object(
         member = next(name for name in archive.namelist() if name.endswith('/trace_processor_shell'))
         binary = archive.extract(member, directory)
         os.chmod(binary, 0o700)
-        query = subprocess.run([binary, '--quiet', '--no-agent', 'query', '-f', str(evidence / 'perfetto-validation.sql'),
-                                str(evidence / 'native-scale.pftrace')], capture_output=True, text=True, timeout=120)
+        # The proof uses structured slices and frame timelines. The raw trace
+        # stays on disk; duplicating typed ftrace rows in SQLite is unnecessary.
+        query = subprocess.run([binary, '--quiet', '--no-agent', '--no-ftrace-raw', 'query', '-f',
+                                str(evidence / 'perfetto-validation.sql'), str(evidence / 'native-scale.pftrace')],
+                               capture_output=True, text=True, timeout=180)
     (evidence / 'perfetto-validation.log').write_text(query.stdout + query.stderr)
     query.check_returncode()
     (row,) = csv.DictReader(io.StringIO(query.stdout))
