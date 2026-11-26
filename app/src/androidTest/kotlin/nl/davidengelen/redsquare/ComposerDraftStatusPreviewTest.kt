@@ -88,10 +88,15 @@ class ComposerDraftStatusPreviewTest {
                 fun home() {
                     ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
                 }
+                fun saveDraft() {
+                    ui.onNode(hasText("Save draft") and hasClickAction())
+                        .assertIsEnabled()
+                        .performTouchInput { click() }
+                    home()
+                }
                 open()
                 ui.onNode(editor).performTextReplacement(original)
-                ui.onNodeWithText("Save draft").performClick()
-                home()
+                saveDraft()
                 open()
                 ui.onNode(editor).assertEditableTextEquals(original)
                 captureNativeScreen(File(folder, "$label-saved.png"))
@@ -107,8 +112,7 @@ class ComposerDraftStatusPreviewTest {
                 ui.onNodeWithText("Saved on this device").assertIsDisplayed()
                 ui.onNodeWithText("Unsaved changes").assertDoesNotExist()
                 captureNativeScreen(File(folder, "$label-returned.png"))
-                ui.onNodeWithText("Save draft").performClick()
-                home()
+                saveDraft()
             }
         }
     }
