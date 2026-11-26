@@ -46,7 +46,7 @@ import org.webrtc.VideoTrack
 
 @Composable
 internal fun SpaceRoomChannel(account: SpacesAccount, state: SpacesAccount.State, channel: SpaceClient.Channel,
-    onBrowse: () -> Unit, modifier: Modifier = Modifier) {
+    onBrowse: () -> Unit, modifier: Modifier = Modifier, compact: Boolean = false) {
     val target = SpacesAccount.Target(requireNotNull(state.selected), channel.id)
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -113,15 +113,17 @@ internal fun SpaceRoomChannel(account: SpacesAccount, state: SpacesAccount.State
         }
     }
 
-    LazyColumn(modifier.fillMaxWidth().testTag("spaces-room-content"), contentPadding = PaddingValues(AppSpacing.screen),
-        verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    LazyColumn(modifier.fillMaxWidth().testTag("spaces-room-content"),
+        contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = if (compact) 12.dp else AppSpacing.screen),
+        verticalArrangement = Arrangement.spacedBy(if (compact) 8.dp else 12.dp)) {
         item {
             Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = RoundedCornerShape(16.dp)) {
-                Row(Modifier.fillMaxWidth().padding(16.dp), horizontalArrangement = Arrangement.spacedBy(12.dp),
+                Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = if (compact) 10.dp else 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.CenterVertically) {
                     Icon(painterResource(R.drawable.ic_video), null, Modifier.size(24.dp), tint = MaterialTheme.colorScheme.primary)
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Text(channel.profile.name, style = MaterialTheme.typography.titleLarge)
+                        if (!compact) Text(channel.profile.name, style = MaterialTheme.typography.titleLarge)
                         Text(if (roomStatus != 0) stringResource(roomStatus)
                             else pluralStringResource(R.plurals.spaces_room_participants, participantCount, participantCount),
                             style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)

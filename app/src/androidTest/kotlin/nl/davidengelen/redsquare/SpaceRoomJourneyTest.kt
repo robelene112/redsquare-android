@@ -71,6 +71,11 @@ class SpaceRoomJourneyTest {
                 spaceName.assertIsDisplayed(); channelName.assertIsDisplayed()
                 assertTrue(spaceName.getUnclippedBoundsInRoot().bottom <= channelName.getUnclippedBoundsInRoot().top)
                 ui.onNode(switcher).assertHeightIsAtLeast(48.dp)
+                val prejoin = ui.onNodeWithTag("spaces-room-content").getUnclippedBoundsInRoot()
+                val join = ui.onNode(hasText("Join room") and hasClickAction() and isEnabled())
+                ui.waitUntil(8_000) { join.isDisplayed() }
+                join.assertIsDisplayed().assertHeightIsAtLeast(48.dp)
+                assertTrue("Join room must fit before scrolling", join.getUnclippedBoundsInRoot().bottom <= prejoin.bottom)
                 capture("room-compact-option-b")
                 roomClick("Join room")
                 waitText("You’re in the room", 20_000)

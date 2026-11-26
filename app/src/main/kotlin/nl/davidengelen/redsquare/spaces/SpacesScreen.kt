@@ -572,7 +572,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     } else if (channel?.profile?.kind == SpaceChannelKind.FILE) {
                         SpaceFileChannel(account, state, channel, Modifier.weight(1f))
                     } else if (channel?.profile?.kind == SpaceChannelKind.VOICE) {
-                        SpaceRoomChannel(account, state, channel, onBrowse = { choose(null) }, modifier = Modifier.weight(1f))
+                        SpaceRoomChannel(account, state, channel, onBrowse = { choose(null) }, modifier = Modifier.weight(1f),
+                            compact = compactRoom)
                     } else if (state.messages.any { it.isArticle }) {
                         Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
                             Text(stringResource(R.string.spaces_article_unavailable), color = MaterialTheme.colorScheme.onSurfaceVariant)

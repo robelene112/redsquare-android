@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Process
@@ -433,12 +434,7 @@ class SpacesCatchUpJourneyTest {
                             }
                         }
                         assertTrue("The rendered drawer must enter only partway before Back", entering)
-                        val frame = requireNotNull(instrumentation.uiAutomation.takeScreenshot())
-                        try {
-                            observations.resolve("drawer-interrupted-before-back.png").outputStream().use {
-                                check(frame.compress(Bitmap.CompressFormat.PNG, 100, it))
-                            }
-                        } finally { frame.recycle() }
+                        captureEnteringDrawer(observations)
                         instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
                     } finally { ui.mainClock.autoAdvance = true }
                     ui.waitUntil(12_000) {
@@ -483,6 +479,28 @@ class SpacesCatchUpJourneyTest {
         val minimum = context.resources.displayMetrics.density * 48f
         assertTrue("Touch target must be at least 48dp in both directions: $bounds",
             bounds.width + .5f >= minimum && bounds.height + .5f >= minimum)
+    }
+
+    private fun captureEnteringDrawer(observations: File) {
+        val closed = requireNotNull(BitmapFactory.decodeFile(observations.resolve("channel.png").path))
+        val open = requireNotNull(BitmapFactory.decodeFile(observations.resolve("drawer.png").path))
+        try {
+            // This column lies inside the first visible part of the panel and outside its row text.
+            val x = 4
+            val samples = (2..4).map { closed.height * it / 6 }
+                .filter { y -> closed.getPixel(x, y) != open.getPixel(x, y) }
+            assertTrue("Open and closed drawer captures must contain distinct pixels", samples.isNotEmpty())
+            ui.waitUntil(3_000) {
+                val frame = instrumentation.uiAutomation.takeScreenshot() ?: return@waitUntil false
+                try {
+                    val drawn = samples.any { y -> frame.getPixel(x, y) == open.getPixel(x, y) }
+                    if (drawn) observations.resolve("drawer-interrupted-before-back.png").outputStream().use {
+                        check(frame.compress(Bitmap.CompressFormat.PNG, 100, it))
+                    }
+                    drawn
+                } finally { frame.recycle() }
+            }
+        } finally { closed.recycle(); open.recycle() }
     }
 
     private fun observeSystemDrawerBack(activity: ActivityScenario<MainActivity>, observations: File, closed: () -> Boolean) {
