@@ -24,6 +24,7 @@ internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit
     content: @Composable ColumnScope.(Modifier) -> Unit) {
     val firstAction = remember { FocusRequester() }
     val hidden by rememberUpdatedState(onHidden)
+    val requestedOpen by rememberUpdatedState(expanded)
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var mounted by remember { mutableStateOf(false) }
     var dismissalRequest by remember { mutableIntStateOf(0) }
@@ -34,14 +35,16 @@ internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit
             // A caller reviewing unsaved work can keep it open.
             if (mounted) state.show() else mounted = true
         }
-        else {
-            if (mounted) {
-                state.hide()
-                mounted = false
+        else if (mounted) {
+            try { state.hide() }
+            finally {
+                // Material's initial show can interrupt a fast navigation
+                // completion. A closed request must release the modal window.
+                if (!requestedOpen) mounted = false
             }
-            hidden()
         }
     }
+    LaunchedEffect(expanded, mounted) { if (!expanded && !mounted) hidden() }
     if (mounted) ModalBottomSheet(onDismissRequest = requestDismiss, sheetState = state,
         containerColor = MaterialTheme.colorScheme.surfaceContainerLow) {
         SheetKeyboardWindow(requestDismiss) { firstAction.requestFocus(FocusDirection.Enter) }
