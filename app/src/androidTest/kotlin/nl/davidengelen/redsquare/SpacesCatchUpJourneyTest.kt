@@ -6,6 +6,8 @@ import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Process
+import android.view.KeyEvent
+import android.view.Window
 import android.view.accessibility.AccessibilityNodeInfo
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
@@ -376,8 +378,7 @@ class SpacesCatchUpJourneyTest {
                 val drawerClose = hasText(context.getString(R.string.spaces_navigation_close)) and hasClickAction()
                 assertTarget(drawerClose)
                 captureNativeScreen(observations.resolve("drawer.png"))
-                Espresso.pressBack()
-                ui.waitUntil(12_000) {
+                observeSystemDrawerBack(activity, observations) {
                     !ui.onNodeWithText("Your communities").isDisplayed() && button.isDisplayed()
                 }
                 assertEquals(stableBounds, button.getUnclippedBoundsInRoot())
@@ -430,6 +431,39 @@ class SpacesCatchUpJourneyTest {
         val minimum = context.resources.displayMetrics.density * 48f
         assertTrue("Touch target must be at least 48dp in both directions: $bounds",
             bounds.width + .5f >= minimum && bounds.height + .5f >= minimum)
+    }
+
+    private fun observeSystemDrawerBack(activity: ActivityScenario<MainActivity>, observations: File, closed: () -> Boolean) {
+        val events = StringBuilder()
+        var callback: Window.Callback? = null
+        activity.onActivity { native ->
+            events.appendLine("focus=${native.hasWindowFocus()} enabled=${native.onBackPressedDispatcher.hasEnabledCallbacks()}")
+            val original = native.window.callback
+            callback = original
+            native.window.callback = object : Window.Callback by original {
+                override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+                    val handled = original.dispatchKeyEvent(event)
+                    if (event.keyCode == KeyEvent.KEYCODE_BACK) events.appendLine("back action=${event.action} handled=$handled")
+                    return handled
+                }
+            }
+        }
+        try {
+            Espresso.pressBack()
+            ui.waitUntil(12_000, closed)
+        } catch (failure: Throwable) {
+            runCatching {
+                captureNativeScreen(observations.resolve("before-dispatcher-diagnostic.png"))
+                activity.onActivity { it.onBackPressedDispatcher.onBackPressed() }
+                ui.waitForIdle()
+                events.appendLine("closedAfterDispatcher=${closed()}")
+                captureNativeScreen(observations.resolve("after-dispatcher-diagnostic.png"))
+            }
+            throw failure
+        } finally {
+            activity.onActivity { native -> callback?.let { native.window.callback = it } }
+            observations.resolve("native-back-dispatch.txt").writeText(events.toString())
+        }
     }
 
     private fun prepareWallet(config: JsonObject) {
