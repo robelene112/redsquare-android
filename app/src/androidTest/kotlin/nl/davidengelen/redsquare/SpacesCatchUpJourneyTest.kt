@@ -163,6 +163,7 @@ class SpacesCatchUpJourneyTest {
                 ui.waitUntil(10_000) {
                     !ui.onNodeWithText(context.getString(R.string.spaces_destination_opening)).isDisplayed()
                 }
+                ui.waitUntil(2_500) { SaitoPeer.retiredOwnedProofCallback(cancelledCallback) }
                 waitForWholeMessage("Unrelated proof reply")
                 assertTrue(request("release-destination").get("released").asBoolean)
                 ui.waitUntil(10_000) { SaitoPeer.discardedOwnedProofCallback(cancelledCallback) }

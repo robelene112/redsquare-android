@@ -100,6 +100,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val selection = AtomicLong()
     private val navigationVersion = AtomicLong()
     private val navigationChanges = Any()
+    private var referenceRequest: Job? = null
     private val wasVisible = AtomicBoolean()
     private val previews = AtomicLong()
     private val directoryRequests = AtomicLong()
@@ -537,6 +538,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         synchronized(navigationChanges) {
             initialDestinationPending.set(false)
             navigationVersion.incrementAndGet()
+            referenceRequest?.cancel()
             mutable.update { if (it.projectingDestination) it.copy(projectingDestination = false) else it }
         }
         visible(false)
@@ -1687,6 +1689,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     fun dismissPublicReference() = synchronized(navigationChanges) {
         navigationVersion.incrementAndGet()
+        referenceRequest?.cancel()
         mutable.update { it.copy(projectingDestination = false) }
     }
     fun consumePublicReference(link: String) { mutable.update { if (it.openedPublicReference == link) it.copy(openedPublicReference = null) else it } }
@@ -1920,32 +1923,42 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     fun clearProblem() { mutable.update { it.copy(problem = null) } }
     private fun localAction(problem: Problem = Problem.SAVE, isCurrent: () -> Boolean = { true }, reference: String? = null,
         action: suspend () -> Unit): Boolean {
-        if (closed.get() || navigationSaving.get() || mutable.value.working || mutable.value.loading) return false
-        mutable.update { state ->
-            val working = state.copy(working = true, problem = null)
-            if (reference == null) working else working.copy(openingPublicReference = reference, previewIssue = null, requiredNode = null)
-        }
         fun report(update: (State) -> State) = synchronized(navigationChanges) {
             if (isCurrent()) mutable.update(update)
         }
-        scope.launch {
-            try { action() }
-            catch (cancelled: CancellationException) { throw cancelled }
-            catch (denied: SpaceClient.ReadDenied) {
-                report { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem),
-                    previewIssue = if (problem == Problem.INVITATION) denied.problem else it.previewIssue) }
+        val request = synchronized(navigationChanges) {
+            if (closed.get() || navigationSaving.get() || mutable.value.working || mutable.value.loading) return false
+            mutable.update { state ->
+                val working = state.copy(working = true, problem = null)
+                if (reference == null) working else working.copy(openingPublicReference = reference, previewIssue = null, requiredNode = null)
             }
-            catch (different: SpaceClient.DifferentNode) { report { it.copy(requiredNode = different.node) } }
-            catch (_: ChangedIdentity) { report { it.copy(availability = Availability.CHANGED_IDENTITY) } }
-            catch (_: MissingService) { report { it.copy(availability = Availability.UNSUPPORTED) } }
-            catch (_: SpaceClient.ProtectedChatUnsupported) { report { it.copy(problem = Problem.PROTECTED_CHAT_UNSUPPORTED) } }
-            catch (_: SpaceClient.DeviceReplacementUnsupported) { report { it.copy(problem = Problem.DEVICE_RECOVERY_UNSUPPORTED) } }
-            catch (_: SpaceClient.NoReplacementApprover) { report { it.copy(problem = Problem.DEVICE_RECOVERY_NO_APPROVER) } }
-            catch (_: SpaceClient.ActiveDeviceAlreadyPresent) { report { it.copy(problem = Problem.DEVICE_ALREADY_ACTIVE) } }
-            catch (_: SpaceClient.RecoveredHistoryOtherModule) { report { it.copy(problem = Problem.RECOVERY_OTHER_MODULE) } }
-            catch (_: Exception) { report { it.copy(problem = problem) } }
-            finally { mutable.update { it.copy(working = false, openingPublicReference = null) } }
+            val job = scope.launch(start = CoroutineStart.LAZY) {
+                try { action() }
+                catch (cancelled: CancellationException) { throw cancelled }
+                catch (denied: SpaceClient.ReadDenied) {
+                    report { it.copy(accessProblems = it.accessProblems + (denied.spaceId to denied.problem),
+                        previewIssue = if (problem == Problem.INVITATION) denied.problem else it.previewIssue) }
+                }
+                catch (different: SpaceClient.DifferentNode) { report { it.copy(requiredNode = different.node) } }
+                catch (_: ChangedIdentity) { report { it.copy(availability = Availability.CHANGED_IDENTITY) } }
+                catch (_: MissingService) { report { it.copy(availability = Availability.UNSUPPORTED) } }
+                catch (_: SpaceClient.ProtectedChatUnsupported) { report { it.copy(problem = Problem.PROTECTED_CHAT_UNSUPPORTED) } }
+                catch (_: SpaceClient.DeviceReplacementUnsupported) { report { it.copy(problem = Problem.DEVICE_RECOVERY_UNSUPPORTED) } }
+                catch (_: SpaceClient.NoReplacementApprover) { report { it.copy(problem = Problem.DEVICE_RECOVERY_NO_APPROVER) } }
+                catch (_: SpaceClient.ActiveDeviceAlreadyPresent) { report { it.copy(problem = Problem.DEVICE_ALREADY_ACTIVE) } }
+                catch (_: SpaceClient.RecoveredHistoryOtherModule) { report { it.copy(problem = Problem.RECOVERY_OTHER_MODULE) } }
+                catch (_: Exception) { report { it.copy(problem = problem) } }
+            }
+            if (reference != null) referenceRequest = job
+            job.invokeOnCompletion {
+                synchronized(navigationChanges) {
+                    if (referenceRequest === job) referenceRequest = null
+                    mutable.update { it.copy(working = false, openingPublicReference = null) }
+                }
+            }
+            job
         }
+        request.start()
         return true
     }
     /** Match the existing application's guard: save and commit under one
