@@ -400,6 +400,41 @@ and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/4
 and from 142 on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45745126432)
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45745126431).
 
+The complete catalogues at `858cee25f` passed on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45734872206)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45734872222).
+The catalogue comparison of each single parent found 922 and 923 case
+identities, respectively, with no missing or extra cases or archive aliases.
+The earlier 149 candidate passed three signed checks. Its remaining Android 17
+upgrade from 139 was cancelled when changes to destination restoration
+superseded it. The beta is still 0.1.142. The complete reruns for `58ae05391`
+are [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45747373385)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45747373412).
+
+The [14th scale attempt](https://github.com/robelene112/redsquare-android/actions/runs/45740617065)
+recorded a 772.886ms cold frame. Compose measure and the first render-thread
+shader work dominated that frame. The closed channel selector now composes its
+rows only when the sheet moves onscreen. A
+[new scale attempt](https://github.com/robelene112/redsquare-android/actions/runs/45747243869)
+uses the frozen workload. The paired
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45747243789)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45747243991)
+native viewport runs include the actual swipe to open the selector. The
+[short diagnostic](https://github.com/robelene112/redsquare-android/actions/runs/45746333576)
+used a 320-pixel display with the 824-pixel gesture coordinates and ended
+before the terminal surface frame was written. Its
+[replacement](https://github.com/robelene112/redsquare-android/actions/runs/45748224910)
+uses the scale viewport, starts a fresh Activity under the trace and awaits
+the final file write. The short runs supply no timing qualification.
+
+The [warm-link regression](https://github.com/robelene112/redsquare-android/actions/runs/45746333670)
+opened the real Android notification and returned to Activity. It later
+timed out opening a shared link while an unrelated thread was visible. The
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45748327194)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45748327409)
+diagnostics record Android's Activity delivery, the application guard and
+the independently held signed read separately. The original run is retained.
+
 The exact signed 0.1.143 candidate from `8928b2e4a` was staged before these
 corrections. The full public 111720869-byte download matches the retained APK,
 notes, application identity and established certificate. Clean installation,
