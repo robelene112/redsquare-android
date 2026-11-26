@@ -374,12 +374,24 @@ class SpacesCatchUpJourneyTest {
                 val drawerClose = hasText(context.getString(R.string.spaces_navigation_close)) and hasClickAction()
                 assertTarget(drawerClose)
                 captureNativeScreen(observations.resolve("drawer.png"))
-                device.executeShellCommand("input keyevent KEYCODE_BACK")
+                Espresso.pressBack()
                 ui.waitUntil(12_000) {
                     !ui.onNodeWithText("Your communities").isDisplayed() && button.isDisplayed()
                 }
                 assertEquals(stableBounds, button.getUnclippedBoundsInRoot())
                 if (viewportId == "V04" || viewportId == "V05") {
+                    ui.mainClock.autoAdvance = false
+                    try {
+                        button.performClick()
+                        repeat(3) { ui.mainClock.advanceTimeByFrame() }
+                        activity.onActivity { it.onBackPressedDispatcher.onBackPressed() }
+                    } finally { ui.mainClock.autoAdvance = true }
+                    ui.waitUntil(12_000) {
+                        !ui.onNodeWithText("Your communities").isDisplayed() && button.isDisplayed()
+                    }
+                    assertEquals(stableBounds, button.getUnclippedBoundsInRoot())
+                    checked.addProperty("interruptedDrawerOpening", true)
+
                     val middle = device.displayHeight / 2
                     assertTrue(device.swipe(device.displayWidth / 8, middle, device.displayWidth * 7 / 8, middle, 35))
                     waitText("Your communities")
