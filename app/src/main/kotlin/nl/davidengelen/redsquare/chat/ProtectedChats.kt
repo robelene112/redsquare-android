@@ -40,8 +40,8 @@ internal class ProtectedChatAccess(val account: SpacesAccount?, val activate: ()
 internal val LocalProtectedChats = staticCompositionLocalOf<ProtectedChatAccess?> { null }
 
 @Composable
-internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, startingName: String?,
-    startingPeer: String?, legacyGroup: String?, legacyMembers: List<String>, modifier: Modifier,
+internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, entry: ProtectedChatEntry,
+    selectedConversation: MutableState<String?>, modifier: Modifier,
     initialInvitation: String?, onInvitationConsumed: () -> Unit,
     onBack: () -> Unit) {
     LaunchedEffect(Unit) { access.activate() }
@@ -75,11 +75,15 @@ internal fun ProtectedChats(access: ProtectedChatAccess, owner: String, starting
             account.visible(false)
         }
     }
-    var selected by rememberSaveable(owner, account.backend) { mutableStateOf<String?>(null) }
+    var selected by selectedConversation
     var dialog by rememberSaveable(owner, account.backend) { mutableStateOf<String?>(null) }
+    val startingName = entry.name
+    val startingPeer = entry.peer
+    val legacyGroup = entry.legacyGroup
+    val legacyMembers = entry.members
     val legacyId = legacyGroup ?: startingPeer
     val legacyChat = if (legacyGroup != null) "group:$legacyGroup" else startingPeer?.let { "direct:$it" }
-    var openingLegacy by rememberSaveable(owner, account.backend, legacyId) { mutableStateOf(legacyId != null) }
+    var openingLegacy by rememberSaveable(owner, account.backend, legacyId) { mutableStateOf(legacyId != null && selected == null) }
     var migrating by rememberSaveable(owner, account.backend) { mutableStateOf(false) }
     var name by rememberSaveable(owner, account.backend) { mutableStateOf(startingName.orEmpty()) }
     var peer by rememberSaveable(owner, account.backend) { mutableStateOf(startingPeer.orEmpty()) }

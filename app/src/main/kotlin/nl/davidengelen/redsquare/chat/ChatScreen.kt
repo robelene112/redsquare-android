@@ -49,16 +49,37 @@ import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.identity.IdentityDetailsDialog
 import nl.davidengelen.redsquare.saito.*
 
+internal data class ProtectedChatEntry(val name: String?, val peer: String?, val legacyGroup: String?,
+    val members: ArrayList<String>) : java.io.Serializable
+
+@Stable
+internal class ProtectedChatSelection(
+    private val entryState: MutableState<ProtectedChatEntry?> = mutableStateOf(null),
+    val conversation: MutableState<String?> = mutableStateOf(null),
+) {
+    val entry get() = entryState.value
+    fun open(name: String?, peer: String?, legacyGroup: String?, members: List<String>) {
+        entryState.value = ProtectedChatEntry(name, peer, legacyGroup, ArrayList(members))
+    }
+
+    fun clear() {
+        entryState.value = null
+        conversation.value = null
+    }
+}
+
 @Stable
 internal class ChatSelection(
     val contact: MutableState<String?>,
-    val group: MutableState<String?>,
-    val showingGroups: MutableState<Boolean>,
+    val group: MutableState<String?> = mutableStateOf(null),
+    val showingGroups: MutableState<Boolean> = mutableStateOf(false),
+    val protectedChats: ProtectedChatSelection = ProtectedChatSelection(),
 ) {
     fun clear() {
         contact.value = null
         group.value = null
         showingGroups.value = false
+        protectedChats.clear()
     }
 }
 
@@ -68,7 +89,11 @@ internal fun rememberChatSelection(owner: String?, backend: SaitoBackend, contac
     val selectedContact = rememberSaveable(owner, backend, generation) { mutableStateOf(contact) }
     val selectedGroup = rememberSaveable(owner, backend, generation) { mutableStateOf(group) }
     val showingGroups = rememberSaveable(owner, backend, generation) { mutableStateOf(group != null) }
-    return remember(selectedContact, selectedGroup, showingGroups) { ChatSelection(selectedContact, selectedGroup, showingGroups) }
+    val protectedEntry = rememberSaveable(owner, backend, generation) { mutableStateOf<ProtectedChatEntry?>(null) }
+    val conversation = rememberSaveable(owner, backend, generation) { mutableStateOf<String?>(null) }
+    return remember(selectedContact, selectedGroup, showingGroups, protectedEntry, conversation) {
+        ChatSelection(selectedContact, selectedGroup, showingGroups, ProtectedChatSelection(protectedEntry, conversation))
+    }
 }
 
 /** Private Chat has its own navigation and verified history, sharing only the active Saito foundation. */
@@ -82,36 +107,25 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var reviewingGroups by selection.showingGroups
     var counterparty by selection.contact
     val protectedChats = LocalProtectedChats.current
-    var reviewingProtected by rememberSaveable(wallet.publicKey, backend) { mutableStateOf(false) }
-    var protectedName by rememberSaveable(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
-    var protectedPeer by rememberSaveable(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
-    var legacyGroup by rememberSaveable(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
-    var legacyMembers by rememberSaveable(wallet.publicKey, backend) { mutableStateOf(arrayListOf<String>()) }
+    val protectedSelection = selection.protectedChats
+    val protectedEntry = protectedSelection.entry
     fun openProtected(name: String? = null, peer: String? = null, legacyId: String? = null, candidates: List<String> = emptyList()) {
-        protectedName = name; protectedPeer = peer; reviewingProtected = true
-        legacyGroup = legacyId
-        legacyMembers = ArrayList(candidates)
+        protectedSelection.open(name, peer, legacyId, candidates)
     }
     LaunchedEffect(initialProtectedInvitation) {
         if (initialProtectedInvitation != null && protectedChats != null) openProtected()
     }
-    if (!reviewingProtected && initialProtectedInvitation == null) {
+    if (protectedEntry == null && initialProtectedInvitation == null) {
         val promptContext = LocalContext.current.applicationContext
         nl.davidengelen.redsquare.NotificationPermissionPrompt(detail = R.string.chat_background_offer_detail,
             onEnable = { withContext(Dispatchers.IO) {
                 nl.davidengelen.redsquare.notifications.ChatPushSettings(promptContext, wallet.publicKey).setEnabled(true)
             } })
     }
-    SingleOwnerReveal(if (reviewingProtected) "protected" else if (reviewingGroups) "groups" else "direct", modifier) {
-    if (reviewingProtected && protectedChats != null) {
-        ProtectedChats(protectedChats, wallet.publicKey, protectedName, protectedPeer, legacyGroup, legacyMembers,
-            Modifier.fillMaxSize(), initialProtectedInvitation, onProtectedInvitationConsumed) {
-            reviewingProtected = false
-            protectedName = null
-            protectedPeer = null
-            legacyGroup = null
-            legacyMembers = arrayListOf()
-        }
+    SingleOwnerReveal(if (protectedEntry != null) "protected" else if (reviewingGroups) "groups" else "direct", modifier) {
+    if (protectedEntry != null && protectedChats != null) {
+        ProtectedChats(protectedChats, wallet.publicKey, protectedEntry, protectedSelection.conversation, Modifier.fillMaxSize(),
+            initialProtectedInvitation, onProtectedInvitationConsumed, onBack = protectedSelection::clear)
         return@SingleOwnerReveal
     }
     if (reviewingGroups) {

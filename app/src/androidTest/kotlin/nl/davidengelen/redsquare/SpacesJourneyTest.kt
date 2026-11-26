@@ -89,6 +89,7 @@ class SpacesJourneyTest {
                     switchModule("Red Square", "Spaces")
                     switchModule("Spaces", "Red Square")
                     ui.waitUntil(15_000) { ui.onNode(hasSetTextAction() and hasText(draft)).isDisplayed() }
+                    ui.onNodeWithText("Protected native conversation").assertIsDisplayed()
                     capture("protected-chat-awaiting-confirmation", text)
                     val saved = JsonObject().apply {
                         addProperty("phase", "ready-for-process-kill")

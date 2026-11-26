@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import nl.davidengelen.redsquare.chat.ChatSelection
 import nl.davidengelen.redsquare.saito.FeedPost
 import nl.davidengelen.redsquare.saito.AuthorActionKind
 
@@ -12,7 +13,9 @@ internal sealed interface BrowseDestination {
     class Search(val view: SearchViewState = SearchViewState()) : BrowseDestination
     data object Notifications : BrowseDestination
     data class Reference(val target: String, val view: ConversationViewState = ConversationViewState()) : BrowseDestination
-    data class PrivateConversation(val contact: String) : BrowseDestination
+    data class PrivateConversation(val contact: String) : BrowseDestination {
+        val selection = ChatSelection(mutableStateOf(contact))
+    }
     data class Conversation(val post: FeedPost, val view: ConversationViewState = ConversationViewState()) : BrowseDestination
     data class Quote(val post: FeedPost) : BrowseDestination
     data class Author(val post: FeedPost, val kind: AuthorActionKind) : BrowseDestination

@@ -570,7 +570,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 if (wallet != null) CompositionLocalProvider(nl.davidengelen.redsquare.media.LocalGiphyConfiguration provides
                     nl.davidengelen.redsquare.media.LocalChatGiphyConfiguration.current) {
                     nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, childModifier, onWalletMetadata,
-                        initialContact = destination.contact, onInitialDestinationClosed = { back() }, onBack = { back() })
+                        initialContact = destination.contact, chatSelection = destination.selection,
+                        onInitialDestinationClosed = { back() }, onBack = { back() })
                 }
                 return@content
             }
