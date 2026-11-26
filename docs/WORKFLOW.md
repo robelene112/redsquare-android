@@ -263,6 +263,21 @@ and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/4
 parents use the frozen [inherited catalogue plus native Spaces additions](evidence/ticket147/native-regression-contract.json).
 The signed product and those parents differ only in test and evidence files.
 
+The edited report passed the complete focused publisher route on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45726021291)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45726021113).
+The next [Android 17 photo-page run](https://github.com/robelene112/redsquare-android/actions/runs/45726021225)
+found a distinct heap failure. Its 192MiB app process ran out of space while
+converting a bounded cache to a whole string and parsing its large row values.
+The cache now reads the same JSON incrementally. It also reuses the exact
+envelope object already retained by each verified post. A constrained JVM
+reproduced the old allocation failure and read all 16 large cached values with
+the streaming parser. Wrong-typed entries, trailing data and row limits were
+checked separately. The native [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45729490890)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45729490494)
+photo results for the change are pending. Candidate 145 remains an installation
+checkpoint for the earlier signed source.
+
 The exact signed 0.1.143 candidate from `8928b2e4a` was staged before these
 corrections. The full public 111720869-byte download matches the retained APK,
 notes, application identity and established certificate. Clean installation,
