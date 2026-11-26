@@ -364,8 +364,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
 
     private fun canRefreshCommunityList(): Boolean {
         val state = mutable.value
-        return !initialDestinationPending.get() && !state.openingDestination() &&
-            (state.selected == null || channelDrawerVisible.get() || !wasVisible.get())
+        return wasVisible.get() && !initialDestinationPending.get() && !state.openingDestination() &&
+            (state.selected == null || channelDrawerVisible.get())
     }
 
     private suspend fun refreshBackground(current: SpaceClient, space: String) {

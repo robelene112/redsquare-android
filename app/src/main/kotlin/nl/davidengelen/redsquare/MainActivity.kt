@@ -331,6 +331,8 @@ class MainActivity : ComponentActivity() {
                     openingInitialSpace = false
                     return@LaunchedEffect
                 }
+                postNavigation.awaitSettled()
+                if (spaceUris.value != incoming) return@LaunchedEffect
                 val moved = postNavigation.navigate {
                     if (wallet?.publicKey != owner || backend != node || spaceUris.value != incoming) false
                     else {

@@ -655,7 +655,8 @@ file_write_period_ms: 5000
         running = []
         for cycle in range(expected['idleReturnSwitchCycles']):
             key = 'hotLink' if cycle % 2 == 0 else 'unrelatedLink'
-            channel = 'Benchmark Space 001' if cycle % 2 == 0 else 'Benchmark Space 002'
+            # The first return starts in the same channel after scrolling away from the linked record.
+            channel = hot if cycle % 2 == 0 else 'Benchmark Space 002'
             open_channel(key, f'lifecycle-{cycle + 1:03d}', channel)
             opened = [tuple(map(int, row)) for row in started_cycles.findall(trace_text()) if int(row[0]) > profile[-1][0]]
             if len(opened) != 1:
