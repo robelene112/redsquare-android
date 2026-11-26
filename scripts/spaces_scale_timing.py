@@ -139,10 +139,14 @@ def frame_statistics(raw, allow_empty=False):
 
 
 def framework_coverage(raw, frames, limit):
-    total = int(re.search(r'Total frames rendered:\s*(\d+)', raw)[1])
+    reported = int(re.search(r'Total frames rendered:\s*(\d+)', raw)[1])
     samples = re.search(r'^HISTOGRAM:(.*)$', raw, re.M)[1]
     histogram = [(int(lower), int(count)) for lower, count in re.findall(r'(\d+)ms=(\d+)', samples)]
-    if len(histogram) < 100 or sum(count for _, count in histogram) != total:
+    total = sum(count for _, count in histogram)
+    # The process header is printed before its cumulative duration census.
+    # Frames completing in between remain covered by the later histogram.
+    # A deficit, or any newer census row missing a warm timing, cannot pass unnoticed.
+    if len(histogram) < 100 or total < reported:
         raise RuntimeError('HWUI did not account for every completed frame in its cumulative histogram')
     if limit not in {lower for lower, _ in histogram}:
         raise RuntimeError('HWUI lacks an exact lower bucket boundary for the frozen ceiling')
@@ -151,6 +155,7 @@ def framework_coverage(raw, frames, limit):
     return {
         'startNs': int(re.search(r'Stats since: (\d+)ns', raw)[1]),
         'sampleUptimeNs': int(re.search(r'Uptime: (\d+)', raw)[1]) * 1_000_000,
+        'reportedBeforeHistogram': reported,
         'completedFrames': total,
         'unmatchedFrameworkFrames': total - len(frames),
         'framesAtOrAboveCeiling': sum(count for lower, count in histogram if lower >= limit),
