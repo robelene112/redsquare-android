@@ -227,6 +227,21 @@ keeps the real deadline of queued frames drawn after a reset and preserves all
 raw snapshots while bounded retries let in-flight frames settle. The same
 thresholds, whole-trace maximum and independent effects remain release gates.
 
+The inherited complete chats on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45718081781)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45718081787)
+reached the actual keyboard and physical Send targets. Five private methods
+per SDK then expected the former privacy label. All ten original UI trees show
+the current legacy-encryption label below the status bar, and the five group
+cases on each SDK passed. The observer now selects the legacy label for that
+route while retaining the privacy geometry, IME, history, Send and independently
+received result. Both original Chat partitions remain failed.
+
+The same parents reproduced loss of a filled user report after Activity
+recreation. The report draft now lives with its retained profile session and
+the original test checks that entry succeeds before recreating the Activity.
+The focused oversized photo and cached revision checks pass on both SDKs at
+`2fd263336`, including the Android 17 original photo deadline.
+
 The exact signed 0.1.143 candidate from `8928b2e4a` was staged before these
 corrections. The full public 111720869-byte download matches the retained APK,
 notes, application identity and established certificate. Clean installation,

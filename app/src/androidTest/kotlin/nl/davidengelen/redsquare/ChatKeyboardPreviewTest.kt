@@ -187,8 +187,10 @@ class ChatKeyboardPreviewTest {
                             ui.waitUntil(10_000) { displayed(send) }
                             ui.onNode(send).assertIsDisplayed()
                             val bounds = physicalSend(scenario,File(folder,"$kind-physical-send-ime.png"),requireIme=true)
-                            val privacy = requireNotNull(device.findObject(androidx.test.uiautomator.By.text(
-                                context.getString(if (group) R.string.chat_unencrypted else R.string.chat_encrypted)))).visibleBounds
+                            val privacyLabel = context.getString(if (group) R.string.chat_unencrypted else R.string.protected_chat_legacy_direct)
+                            val privacy = requireNotNull(device.findObject(androidx.test.uiautomator.By.text(privacyLabel))) {
+                                "Chat privacy indication is missing with the keyboard open: $privacyLabel"
+                            }.visibleBounds
                             check(privacy.height() > 0 && privacy.top >= statusTop.get()) {
                                 "Chat privacy indication must remain below the status bar: $privacy"
                             }
