@@ -233,11 +233,25 @@ class ImagePreviewTest {
                         val returnedOrConfirmed = android.os.SystemClock.uptimeMillis() + 10_000
                         fun pickerClosed() = !device.hasObject(androidx.test.uiautomator.By.pkg(pickerPackage)) &&
                             device.hasObject(androidx.test.uiautomator.By.pkg(context.packageName))
+                        val dragHandle = androidx.test.uiautomator.By.desc("Drag handle").pkg(pickerPackage)
+                        var expandedPicker = false
                         while (!device.hasObject(confirm) && !pickerClosed() &&
                             android.os.SystemClock.uptimeMillis() < returnedOrConfirmed) {
+                            if (android.os.Build.VERSION.SDK_INT >= 33 && !expandedPicker) {
+                                val bounds = try { device.findObject(dragHandle)?.visibleBounds }
+                                    catch (_: androidx.test.uiautomator.StaleObjectException) { null }
+                                if (bounds != null && bounds.centerY() > device.displayHeight / 5) {
+                                    // The half-height Google picker can clip its confirmation after rotation.
+                                    device.swipe(bounds.centerX(), bounds.centerY(), bounds.centerX(), device.displayHeight / 12, 12)
+                                    expandedPicker = true
+                                }
+                            }
                             device.waitForIdle(250)
                         }
-                        if (device.hasObject(confirm)) requireNotNull(device.findObject(confirm)).click()
+                        if (device.hasObject(confirm)) {
+                            capture("images-evidence/system-picker-confirmation.png")
+                            requireNotNull(device.findObject(confirm)).click()
+                        }
                         else assertTrue("Picker should return to the app", pickerClosed())
                         ui.waitUntil(20_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() &&
                             ui.onAllNodes(hasText("Remove image 1") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -267,7 +281,7 @@ class ImagePreviewTest {
                             scenario.onActivity { current ->
                                 val owner = AndroidWalletStore(context).loadExisting().publicKey
                                 val memory = androidx.lifecycle.ViewModelProvider(current)[
-                                    "post:$owner:${SaitoBackend.OWNER.id}::quote:",
+                                    "post:$owner:${SaitoBackend.OWNER.id}::quote::recovery:",
                                     nl.davidengelen.redsquare.feed.PostComposerMemory::class.java]
                                 val selected = memory.imagePreparation.pending
                                 val result = selected?.result

@@ -113,7 +113,13 @@ internal fun ComposeTestRule.openStorePurchaseProduct(quantity: String = "1", il
     val descriptionRemaining = 15_000 - (android.os.SystemClock.elapsedRealtime() - descriptionStart)
     check(descriptionRemaining > 0) { "Original product-description deadline elapsed" }
     waitUntil(descriptionRemaining) { onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
-    if (quantity != "1") onNodeWithText("Quantity").performScrollTo().performTextReplacement(quantity)
+    if (quantity != "1") {
+        val field = onNode(hasText("Quantity") and hasSetTextAction())
+        field.performScrollTo().performTextReplacement(quantity)
+        field.assertTextContains(quantity)
+        // Commit the edited quantity before tapping below the numeric IME.
+        androidx.test.espresso.Espresso.closeSoftKeyboard()
+    }
     if (illustrated) onNode(hasScrollAction()).performScrollToNode(hasText("Review purchase"))
     onNodeWithText("Review purchase").performScrollTo().performClick()
 }
