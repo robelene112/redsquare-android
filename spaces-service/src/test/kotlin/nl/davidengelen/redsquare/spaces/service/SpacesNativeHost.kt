@@ -199,6 +199,11 @@ object SpacesNativeHost {
                                             check(catchUpMode)
                                             JsonObject().apply { addProperty("id", peer.heldSpacesDestinationReadId()) }
                                         }
+                                        "/catch-up-hold-recreated-destination" -> {
+                                            check(catchUpMode)
+                                            peer.holdRecreatedSpacesDestinationRead()
+                                            JsonObject()
+                                        }
                                         "/catch-up-release-destination" -> {
                                             check(catchUpMode)
                                             JsonObject().apply { addProperty("released", peer.releaseSpacesDestinationRead()) }

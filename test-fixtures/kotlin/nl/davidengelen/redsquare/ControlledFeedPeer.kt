@@ -47,6 +47,10 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     }
     fun heldSpacesDestinationReadId(): String? = heldDestinationReply.get()?.request
     fun releaseSpacesDestinationRead(): Boolean = heldDestinationReply.getAndSet(null)?.send?.invoke() == true
+    fun holdRecreatedSpacesDestinationRead() {
+        check(heldDestinationReply.getAndSet(null) != null)
+        holdNextSpacesDestinationRead()
+    }
     val withholdNextSpacesReadReply = java.util.concurrent.atomic.AtomicBoolean(false)
     val withheldSpacesReads = java.util.concurrent.CopyOnWriteArrayList<String>()
     val withholdNextSpacesControlReply = java.util.concurrent.atomic.AtomicReference<String?>(null)

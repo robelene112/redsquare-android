@@ -25,6 +25,7 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -176,6 +177,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     SideEffect { state.preview?.let { reviewedInvitation = it } }
     fun clearInvitationReview() { reviewedInvitation = null; account.dismissPreview() }
     var savedSelection by rememberSaveable { mutableStateOf<String?>(null) }
+    var savedConversation by rememberSaveable(stateSaver = SpacesLaunchRoutes.conversationSaver) {
+        mutableStateOf<SpacesAccount.Target?>(null)
+    }
     val selected = state.current
     val inviteOpen = invitationSpace != null && invitationSpace == state.selected
     fun showInvitation(space: String) {
@@ -211,37 +215,53 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         }
     }
     val imeVisible = keyboardOccupiesWindow()
+    fun leaveExternalDestination() { if (externalDestination != null) onInvitationConsumed() }
     fun choose(space: String?, channel: String? = null) {
         if (articleEditorGuard.get()?.invoke() == false) return
+        leaveExternalDestination()
         // Selection is immediate; the panel keeps its rows until its exit ends.
         if (drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed)
             closingDrawerContent = closingDrawerContent ?: state
         categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false; channelCreator.open = false; channelAccessRoute = null
-        savedSelection = space; account.select(space, channel); tab = SpacesTab.MY_SPACES
+        savedSelection = space
+        savedConversation = if (space != null && channel != null) SpacesAccount.Target(space, channel) else null
+        account.select(space, channel); tab = SpacesTab.MY_SPACES
         scope.launch { drawer.close() }
     }
     fun selectTab(target: SpacesTab) {
         if (articleEditorGuard.get()?.invoke() == false) return
+        leaveExternalDestination()
         activityReturn = false
         categoryEditorPending = false; categoryEditor.open = false; channelEditorPending = false; channelEditor.open = false
-        channelCreator.open = false; channelAccessRoute = null; account.select(null); savedSelection = null; tab = target
+        channelCreator.open = false; channelAccessRoute = null; account.select(null); savedSelection = null
+        savedConversation = null; tab = target
     }
-    LaunchedEffect(account, state.ready, state.loading) {
+    val canRestoreConversation = initialInvitation == null && state.ready && !state.loading && !state.working &&
+        !state.projectingDestination && !state.savingNavigation && state.selected == null && savedSelection != null
+    LaunchedEffect(account, canRestoreConversation, savedSelection, savedConversation) {
         // A verified public visitor has local context without My Spaces membership.
-        if (initialInvitation == null && state.ready && !state.loading && !state.working &&
-            !state.projectingDestination && state.selected == null &&
-            savedSelection != null) account.select(savedSelection)
+        if (canRestoreConversation) {
+            val saved = savedConversation?.takeIf { it.space == savedSelection }
+            if (saved != null) account.restoreOrigin(saved) else account.select(savedSelection)
+        }
     }
-    LaunchedEffect(state.selected) {
+    LaunchedEffect(state.selected, state.selectedChannel, state.threadParent?.id, state.exactDestination, state.loadingChannel) {
         if (overlaySpace != state.selected) {
             informationOpen = false; invitationSpace = null; invitationAfterInformation = null
             membersOpen = false; reportsSpace = null; publicRulesOpen = false
             searchSpace = null; searchResultOpen = false; searchLink = null
             overlaySpace = state.selected
         }
-        state.selected?.let { savedSelection = it; tab = SpacesTab.MY_SPACES }
+        state.selected?.let { space ->
+            if (!state.exactDestination && !state.loadingChannel) {
+                savedSelection = space
+                savedConversation = state.selectedChannel?.let { SpacesAccount.Target(space, it, state.threadParent?.id) }
+            }
+            tab = SpacesTab.MY_SPACES
+        }
     }
     var requestedDestination by remember(account, initialInvitation, fromNotification) { mutableStateOf(false) }
+    var openedDestination by remember(account, initialInvitation, fromNotification) { mutableStateOf(false) }
     val coldDestinationReady = state.exactDestination && state.current != null &&
         !state.working && !state.loadingChannel && !state.projectingDestination
     val coldDestinationBlocked = state.problem != null || state.previewIssue != null || state.requiredNode != null ||
@@ -250,12 +270,13 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         state.availability == SpacesAccount.Availability.STORAGE_UNAVAILABLE ||
         !state.ready && state.availability == SpacesAccount.Availability.OFFLINE
     LaunchedEffect(initialInvitation, fromNotification, state.ready, state.loading, state.working, state.savingNavigation,
-        requestedDestination, coldDestinationReady, coldDestinationBlocked) {
+        requestedDestination, openedDestination, coldDestinationReady, coldDestinationBlocked) {
         val link = initialInvitation ?: return@LaunchedEffect
         val uri = android.net.Uri.parse(link)
         val destination = SpacesLaunchRoutes.isDestination(uri)
         if (requestedDestination) {
-            if (coldDestinationReady || coldDestinationBlocked) onInvitationConsumed()
+            if (!openedDestination && coldDestinationBlocked) onInvitationConsumed()
+            else if (coldDestinationReady) openedDestination = true
             return@LaunchedEffect
         }
         if ((state.loading && !destination) || !state.ready || state.working || state.savingNavigation) return@LaunchedEffect
@@ -264,6 +285,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         informationOpen = false; invitationSpace = null; invitationAfterInformation = null
         membersOpen = false; reportsSpace = null; publicRulesOpen = false
         searchSpace = null; searchResultOpen = false; searchLink = null
+        val fromActivity = activityReturn || tab == SpacesTab.ACTIVITY || coldStartDestination
         activityReturn = false; activityLink = null; activityGroup = null
         clearInvitationReview()
         replacingDevice = false
@@ -272,9 +294,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             publicReference = link
             when {
                 destination -> {
-                    if (fromNotification) activityLink = link
+                    if (fromNotification && fromActivity) activityLink = link
                     if (!account.openDestinationLink(link, fromNotification = fromNotification,
-                            origin = externalDestination?.origin)) return@LaunchedEffect
+                            origin = externalDestination?.origin ?: savedConversation?.takeUnless { coldStartDestination })) return@LaunchedEffect
                     requestedDestination = true
                     return@LaunchedEffect
                 }
@@ -286,11 +308,12 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     }
     var waitingForColdDestination by remember(account) { mutableStateOf(coldStartDestination) }
     if (waitingForColdDestination) {
-        if (coldDestinationReady || coldDestinationBlocked) SideEffect { waitingForColdDestination = false }
+        if (initialInvitation == null || coldDestinationReady || coldDestinationBlocked) SideEffect { waitingForColdDestination = false }
         else {
             // A direct launch has no previous screen to preserve. Keep the existing
             // loading view until the destination or a recovery action can render.
             val cancel = {
+                waitingForColdDestination = false
                 publicReference = null
                 account.dismissPublicReference()
                 onInvitationConsumed()
@@ -322,6 +345,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     LaunchedEffect(joinOpen) { if (!joinOpen) replacingDevice = false }
     LaunchedEffect(selected?.joined) { if (selected?.joined == true) publicRulesOpen = false }
     fun backFromConversation() {
+        leaveExternalDestination()
         when {
             searchResultOpen && searchSpace == state.selected -> {
                 account.returnFromDestination()
@@ -407,6 +431,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             else if (searchOpen && selected != null) routeStates.SaveableStateProvider("$routeScope/search/${selected.id}") {
                 SpaceSearchPage(account, state, selected.id, Modifier.weight(1f),
                     onBack = { searchSpace = null; informationOpen = true }, onOpen = { destination ->
+                        leaveExternalDestination()
                         focusManager.clearFocus()
                         keyboardController?.hide()
                         val link = destination.link()
@@ -418,6 +443,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             else if (state.selected == null) routeStates.SaveableStateProvider("$routeScope/overview/${tab.name}") {
                 SpacesOverview(account, state, tab, { choose(it) }, { createOpen = true },
                     { clearInvitationReview(); joinOpen = true }, onActivity = { group ->
+                        leaveExternalDestination()
                         val link = group.target.link()
                         activityLink = link; activityGroup = group
                         publicReference = link
@@ -706,7 +732,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         } else if (state.messages.isEmpty()) Box(Modifier.weight(1f).fillMaxWidth().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
                             Text(stringResource(if (state.hasEarlier) R.string.spaces_no_recent_messages else R.string.spaces_no_messages),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        } else LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = list,
+                        } else LazyColumn(Modifier.weight(1f).fillMaxWidth().then(
+                            if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE)
+                                Modifier.nestedScroll(SpacesScaleMeasurement.scrollObserver) else Modifier), state = list,
                             contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = 8.dp),
                             verticalArrangement = Arrangement.spacedBy(16.dp)) {
                             if (earlierInList) item(key = "spaces-earlier-messages") {
@@ -720,7 +748,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                     bodyModifier = if (showBody) Modifier.bringIntoViewRequester(messageBody) else Modifier,
                                     restore = { account.restoreUnsentDraft(message.id) },
                                     reply = if (accepted && threadParent == null && (!message.deleted || message.replyCount > 0))
-                                        ({ account.openThread(message) }) else null,
+                                        ({ leaveExternalDestination(); account.openThread(message) }) else null,
                                     canEdit = accepted && !message.deleted && own && canWrite,
                                     canRemove = accepted && !message.deleted && canWrite && (own || selected.canManage),
                                     canReport = accepted && !message.deleted && reportingAvailable,

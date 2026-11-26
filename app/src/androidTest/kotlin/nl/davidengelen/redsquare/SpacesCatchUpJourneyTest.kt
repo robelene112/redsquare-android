@@ -114,6 +114,13 @@ class SpacesCatchUpJourneyTest {
                 ui.waitUntil(15_000) { community.isDisplayed() }
                 community.performClick()
                 waitText("Separate proof conversation")
+                val separateThread = ui.onNode(hasText("1 reply") and hasClickAction() and
+                    hasAnyAncestor(hasTestTag("spaces-message") and hasAnyDescendant(hasText("Separate proof conversation"))))
+                ui.waitUntil(15_000) {
+                    separateThread.isDisplayed() || runCatching { separateThread.performScrollTo().isDisplayed() }.getOrDefault(false)
+                }
+                separateThread.performClick()
+                waitForWholeMessage("Unrelated proof reply")
                 val link = observed.get("link").asString
                 request("hold-destination")
                 openWarmLink(link)
@@ -121,22 +128,27 @@ class SpacesCatchUpJourneyTest {
                 scenario.recreate()
                 request("release-destination")
                 waitForWholeMessage("Latest exact proof reply")
+                scenario.recreate()
+                waitForWholeMessage("Latest exact proof reply")
                 device.executeShellCommand("input keyevent KEYCODE_BACK")
-                waitText("Separate proof conversation")
+                waitForWholeMessage("Unrelated proof reply")
                 ui.onNodeWithText("Latest exact proof reply").assertDoesNotExist()
                 capture("warm-recreated-return-origin")
 
                 request("hold-destination")
                 openWarmLink(link)
                 observed.addProperty("heldWarmReadBeforeBack", awaitHeldDestination())
+                request("hold-recreated-destination")
+                scenario.recreate()
+                observed.addProperty("heldRestoredWarmReadBeforeBack", awaitHeldDestination())
                 device.executeShellCommand("input keyevent KEYCODE_BACK")
                 ui.waitUntil(10_000) {
                     !ui.onNodeWithText(context.getString(R.string.spaces_destination_opening)).isDisplayed()
                 }
-                waitText("Separate proof conversation")
+                waitForWholeMessage("Unrelated proof reply")
                 request("release-destination")
                 scenario.recreate()
-                waitText("Separate proof conversation")
+                waitForWholeMessage("Unrelated proof reply")
                 ui.onNodeWithText("Latest exact proof reply").assertDoesNotExist()
                 capture("warm-dismissed-recreated-origin")
                 save("notification-result", observed)
@@ -166,6 +178,8 @@ class SpacesCatchUpJourneyTest {
                 assertTrue(request("release-destination").get("released").asBoolean)
                 device.executeShellCommand("am start -W --activity-single-top -n ${context.packageName}/${MainActivity::class.java.name}")
                 assertExactReply()
+                ui.onNodeWithText(context.getString(R.string.spaces_destination_saved)).assertDoesNotExist()
+                ui.onNodeWithText("Showing saved history.", substring = true).assertDoesNotExist()
                 observed.addProperty("heldReadResumedAfterHome", held)
                 capture("cold-exact-reply")
             }
@@ -384,7 +398,7 @@ class SpacesCatchUpJourneyTest {
             addProperty("root", observed.get("root").asString)
             addProperty("privateDenied", observed.get("privateDenied").asBoolean)
             for (field in listOf("heldReadResumedAfterHome", "heldReadBeforeRecreation", "heldReadBeforeBack",
-                "heldWarmReadBeforeRecreation", "heldWarmReadBeforeBack"))
+                "heldWarmReadBeforeRecreation", "heldWarmReadBeforeBack", "heldRestoredWarmReadBeforeBack"))
                 observed.get(field)?.let { add(field, it) }
         }.toString())
     }

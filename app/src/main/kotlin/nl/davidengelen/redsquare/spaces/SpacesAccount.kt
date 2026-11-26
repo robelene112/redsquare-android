@@ -141,9 +141,11 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
 
     fun returnFromDestination(): Boolean {
         val visit = destinationVisit ?: return false
-        val origin = visit.origin
-        selectRoute(origin?.space, origin?.channel, restoreThread = origin?.thread)
+        restoreOrigin(visit.origin)
         return true
+    }
+    fun restoreOrigin(origin: Target?) {
+        selectRoute(origin?.space, origin?.channel, restoreThread = origin?.thread)
     }
     fun destinationOrigin(): Target? {
         val visit = destinationVisit
