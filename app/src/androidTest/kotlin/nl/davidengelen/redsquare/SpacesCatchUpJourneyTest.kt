@@ -317,6 +317,8 @@ class SpacesCatchUpJourneyTest {
                     val group = hasText("and 1 more replied to your message", substring = true) and hasClickAction()
                     ui.waitUntil(25_000) { ui.onNode(group).isDisplayed() }
                     assertTarget(group)
+                    // Let TalkBack finish restoring focus to the Activity tab before moving to the card.
+                    waitForInitialAppFocus()
                     val summary = "and 1 more replied to your message"
                     fun findGroup(node: AccessibilityNodeInfo): AccessibilityNodeInfo? {
                         if (node.isVisibleToUser && node.text?.contains(summary) == true) {
