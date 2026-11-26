@@ -11,7 +11,7 @@ import sys
 import time
 import urllib.request
 from xml.etree import ElementTree
-from spaces_scale_timing import (FRAME_TIMELINE_TRACE, analyse_trace, anchor_command_args, anchor_frames,
+from spaces_scale_timing import (FRAME_TIMELINE_TRACE, TRACE_TARGET, analyse_trace, anchor_command_args, anchor_frames,
                                 capture_trace, complete_anchor_coverage, fresh_hierarchy, measure, moving_frames,
                                 unexplained_displacement)
 
@@ -199,6 +199,21 @@ with (evidence / 'host.log').open('wb') as host_log:
 
                 moving = observe_anchor('scroll-observations.txt', through_checkpoint)
                 observer('stop')
+                # The background PID can disappear before the final service
+                # flush. Require another file write after the terminal commit.
+                def trace_size():
+                    return int(adb('shell', 'stat', '-c', '%s', TRACE_TARGET).strip())
+
+                initial_bytes = trace_size()
+                deadline = time.monotonic() + 13
+                while True:
+                    updated_bytes = trace_size()
+                    (evidence / 'perfetto-checkpoint-flush.txt').write_text(f'{initial_bytes} {updated_bytes}\n')
+                    if updated_bytes > initial_bytes:
+                        break
+                    if time.monotonic() >= deadline:
+                        raise RuntimeError('Perfetto did not flush another packet after the terminal calibration frame')
+                    time.sleep(.2)
             native = analyse_trace(evidence, {}, [('calibration', 0, first[0], last[0]),
                 ('moving-calibration', 6, moving[0]['sequence'], moving[-1]['sequence'])])
             if not complete_anchor_coverage(native, 2):
