@@ -15,6 +15,7 @@ import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
+import java.util.concurrent.atomic.AtomicReference
 import nl.davidengelen.redsquare.saito.EncryptedLocalFile
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoPeer
@@ -86,6 +87,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private var attentionAfterSpace: String? = null
     private var backgroundAfterSpace: String? = null
     private val channelDrawerVisible = AtomicBoolean()
+    private val userScrollingConversation = AtomicReference<Target?>()
     private val wake = Channel<Unit>(Channel.CONFLATED)
     private val network = Mutex()
     private val localAccess = Mutex()
@@ -366,15 +368,27 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
 
     private suspend fun refreshOtherSpaces(current: SpaceClient, communities: List<String>, selected: String?) {
+        fun canContinue(): Boolean {
+            val view = mutable.value
+            val scrolling = userScrollingConversation.get()
+            return !view.openingDestination() && (scrolling == null || scrolling != view.target())
+        }
+        if (!canContinue()) return
         val ids = communities.filterNot { it == selected }.sorted()
         if (ids.isEmpty()) return
         val previous = backgroundAfterSpace
         val start = ids.indexOfFirst { previous == null || it > previous }.coerceAtLeast(0)
         var refreshed = false
         for (offset in 0 until minOf(ids.size, 4)) {
-            if (mutable.value.openingDestination()) break
+            if (!canContinue()) break
             val space = ids[(start + offset) % ids.size]
-            network.withLock { refreshBackground(current, space) }
+            val refreshedSpace = network.withLock {
+                if (!canContinue()) false else {
+                    refreshBackground(current, space)
+                    true
+                }
+            }
+            if (!refreshedSpace) break
             backgroundAfterSpace = space
             refreshed = true
         }
@@ -492,9 +506,22 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         if (channelDrawerVisible.getAndSet(visible) != visible && visible) wake.trySend(Unit)
     }
 
+    fun conversationScrolling(target: Target, scrolling: Boolean) {
+        // The selected channel and queued sends keep their normal refresh.
+        // Let the reader's gesture settle before starting another Space's pass.
+        userScrollingConversation.updateAndGet { previous ->
+            when {
+                scrolling && wasVisible.get() && mutable.value.target() == target -> target
+                previous == target -> null
+                else -> previous
+            }
+        }
+    }
+
     fun visible(active: Boolean) {
         if (wasVisible.getAndSet(active) == active) return
         if (!active) synchronized(navigationChanges) {
+            userScrollingConversation.set(null)
             initialDestinationPending.set(false)
             navigationVersion.incrementAndGet()
         }
