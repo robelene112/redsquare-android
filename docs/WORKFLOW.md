@@ -2,6 +2,42 @@
 
 ## Integrating Spaces and the next ordinary beta in #147
 
+Signed 0.1.155 is staged at product source `b8c332de1`. The complete HTTP
+response matched the rebuilt 111,806,885-byte APK and the established signing
+certificate. Its SHA256 is `a9f3c53f217f4f46c56dcd84cc9122e3ccb9832be7e8531eb9901b0867e690fb`.
+Fresh signed upgrades from 139 and 142 and cold installs are running on both
+Android versions. Whole-catalogue parents preserve the recorded case inventory
+on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45764683719)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45764683534).
+The ordinary beta channel serves 0.1.142 while these checks run.
+
+The held Search and Activity reads re-open the same exact target after native
+recreation on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45763478050)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45763478145).
+Both originals include the actual notification, two separately verified Search
+reads, 13 exact reply reads, Back cancellation before the exit animation can
+advance, the late callback rejection and a different cold process. The signed
+service test verifies that opening an older captured row preserves newer unread
+activity and that a retraction can move the group to an older position. Both
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45764628360)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45764628043)
+show the Space name above its channel and the complete Join room control in
+landscape, including 200% text on Android 17. The crossed test also retains the
+independent live room session, attachment and actual keyboard.
+
+Full scale measurements [18](https://github.com/robelene112/redsquare-android/actions/runs/45753375523),
+[19](https://github.com/robelene112/redsquare-android/actions/runs/45757606956)
+and [20](https://github.com/robelene112/redsquare-android/actions/runs/45760630273)
+complete all 100 lifecycle switches with matched rendered reading geometry.
+Their conservative warm miss bounds were 17.16%, 13.68% and 8.75%, above the
+original 5% limit. Slowest cold samples were 672.78ms, 771.82ms and 613.66ms.
+In run 19 the main thread waits 575.14ms for a frame whose render thread
+spends 500.17ms flushing Skia commands, including shader compilation.
+The [candidate run](https://github.com/robelene112/redsquare-android/actions/runs/45764628265)
+and [isolated avatar render comparison](https://github.com/robelene112/redsquare-android/actions/runs/45765669722)
+use the same frozen workload and thresholds. The release gate requires a
+passing complete run on the selected source.
+
 The [compact exact-reply run](https://github.com/robelene112/redsquare-android/actions/runs/45669562341)
 confirms that both lines of the reply body fit the 320dp conversation at
 200% text. The native proof opens the actual Android notification and the
