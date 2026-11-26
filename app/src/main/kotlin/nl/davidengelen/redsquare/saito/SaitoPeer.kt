@@ -310,8 +310,13 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                         }
                         13, 14 -> {
                             require(frame.size >= 5)
-                            if (!ready.isCompleted || ready.isCancelled) return
                             val index = ByteBuffer.wrap(frame, 1, 4).int
+                            if (BuildConfig.DEBUG && address.endpoint.startsWith("ws://127.0.0.1:")) {
+                                ownedProofCallback.get()?.takeIf { it.index == index && !it.received }?.let { watch ->
+                                    ownedProofCallback.compareAndSet(watch, watch.copy(received = true))
+                                }
+                            }
+                            if (!ready.isCompleted || ready.isCancelled) return
                             val request = pending[index] ?: return
                             // The Registry relay may send its dispatcher fallback before the registrar callback.
                             // Only this exact type13 body is provisional; type14 and all other responses are final.
@@ -492,6 +497,17 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         // Never reuse an index during this process; a random seed also reduces, but
         // cannot eliminate, stale-callback collisions across separate process starts.
         private val nextRequestIndex = AtomicInteger(SecureRandom().nextInt(1 shl 30))
+        private data class ProofCallback(val index: Int, val received: Boolean = false)
+        private val ownedProofCallback = java.util.concurrent.atomic.AtomicReference<ProofCallback?>(null)
+
+        /** A disposable loopback proof can observe one exact reply even after its waiter is cancelled. */
+        internal fun watchOwnedProofCallback(index: Int) {
+            check(BuildConfig.DEBUG && index > 0)
+            ownedProofCallback.set(ProofCallback(index))
+        }
+
+        internal fun receivedOwnedProofCallback(index: Int): Boolean =
+            ownedProofCallback.get()?.let { it.index == index && it.received } == true
 
         /** Ownership diagnostic for native resource-handover proofs, never a transport selector. */
         internal fun incomingLeaseIds(owner: String, endpoint: String): Set<Int> = synchronized(poolLock) {

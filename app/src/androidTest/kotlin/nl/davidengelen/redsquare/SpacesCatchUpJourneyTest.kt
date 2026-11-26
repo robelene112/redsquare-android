@@ -24,6 +24,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.saito.SaitoPeer
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import org.junit.Assert.*
 import org.junit.Rule
@@ -142,16 +143,17 @@ class SpacesCatchUpJourneyTest {
                 scenario.recreate()
                 val dismissedRead = awaitHeldDestination()
                 observed.addProperty("heldRestoredWarmReadBeforeBack", dismissedRead)
+                val heldReply = request("held-destination")
+                assertEquals(dismissedRead, heldReply.get("id").asString)
+                val cancelledCallback = heldReply.get("index").asInt
+                SaitoPeer.watchOwnedProofCallback(cancelledCallback)
                 device.executeShellCommand("input keyevent KEYCODE_BACK")
                 ui.waitUntil(10_000) {
                     !ui.onNodeWithText(context.getString(R.string.spaces_destination_opening)).isDisplayed()
                 }
                 waitForWholeMessage("Unrelated proof reply")
                 assertTrue(request("release-destination").get("released").asBoolean)
-                ui.waitUntil(10_000) {
-                    device.executeShellCommand("logcat -d -s SpacesAccount138:D")
-                        .contains("request=${dismissedRead.take(10)} returnedMs=")
-                }
+                ui.waitUntil(10_000) { SaitoPeer.receivedOwnedProofCallback(cancelledCallback) }
                 waitForWholeMessage("Unrelated proof reply")
                 ui.onNodeWithText("Latest exact proof reply").assertDoesNotExist()
                 scenario.recreate()

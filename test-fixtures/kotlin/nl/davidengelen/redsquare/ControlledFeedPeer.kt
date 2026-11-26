@@ -34,7 +34,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     var withheldSpacesContentKind = "message"
     private val holdNextArticleRead = java.util.concurrent.atomic.AtomicBoolean()
     private val holdNextDestinationRead = java.util.concurrent.atomic.AtomicBoolean()
-    private data class HeldSpacesReply(val request: String, val send: () -> Boolean)
+    private data class HeldSpacesReply(val request: String, val index: Int, val send: () -> Boolean)
     private val heldArticleReply = java.util.concurrent.atomic.AtomicReference<HeldSpacesReply?>(null)
     private val heldDestinationReply = java.util.concurrent.atomic.AtomicReference<HeldSpacesReply?>(null)
     fun holdNextSpacesArticleRead() {
@@ -45,7 +45,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     fun holdNextSpacesDestinationRead() {
         check(heldDestinationReply.get() == null && holdNextDestinationRead.compareAndSet(false, true))
     }
-    fun heldSpacesDestinationReadId(): String? = heldDestinationReply.get()?.request
+    fun heldSpacesDestinationRead(): Pair<String, Int>? = heldDestinationReply.get()?.let { it.request to it.index }
     fun releaseSpacesDestinationRead(): Boolean = heldDestinationReply.getAndSet(null)?.send?.invoke() == true
     fun holdRecreatedSpacesDestinationRead() {
         check(heldDestinationReply.getAndSet(null) != null)
@@ -388,7 +388,8 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             } else null
                             if (heldReply != null) {
                                 val frameBytes = (byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()
-                                check(heldReply.compareAndSet(null, HeldSpacesReply(original.id) { webSocket.send(frameBytes) }))
+                                val index = ByteBuffer.wrap(frame, 1, 4).int
+                                check(heldReply.compareAndSet(null, HeldSpacesReply(original.id, index) { webSocket.send(frameBytes) }))
                                 return
                             }
                             val dropRead = body.get("request")?.asString == "read" && withholdNextSpacesReadReply.compareAndSet(true, false)

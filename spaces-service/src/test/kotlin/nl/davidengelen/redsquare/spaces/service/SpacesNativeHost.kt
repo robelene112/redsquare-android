@@ -197,7 +197,11 @@ object SpacesNativeHost {
                                         }
                                         "/catch-up-held-destination" -> {
                                             check(catchUpMode)
-                                            JsonObject().apply { addProperty("id", peer.heldSpacesDestinationReadId()) }
+                                            val held = peer.heldSpacesDestinationRead()
+                                            JsonObject().apply {
+                                                addProperty("id", held?.first)
+                                                addProperty("index", held?.second)
+                                            }
                                         }
                                         "/catch-up-hold-recreated-destination" -> {
                                             check(catchUpMode)
