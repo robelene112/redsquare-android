@@ -310,6 +310,27 @@ KVM device, measured paths, frame/tap/anchor limits and app deadlines stay fixed
 The corresponding [short calibration](https://github.com/robelene112/redsquare-android/actions/runs/45733560749)
 covers setup only.
 
+Both incremental photo catalogue reruns pass at `f803f2025`. The original
+Android 17 larger-row and cached-revision checks also pass. The protected Chat
+reruns at `c2db16d81` complete on both SDKs, with the same draft and original
+selected after changing module. A fresh Android process reconciles the same
+independently received encrypted original and sends a separate screen-tapped
+message. Android 10 records PID 3537 to 6146. The native scale calibration
+independently counts and imports all 295 rows of its signed smoke fixture.
+
+Signed 0.1.147 is the current staged candidate at `858cee25f`.
+Its 111737253-byte public body equals the signed local APK, with SHA256
+`872b38c71b8c07120a09e7d28c1bce8889b23eb4660c8c4c7032972d5e3d2432`, the
+ordinary package and established certificate. The latest public manifest
+reports 0.1.142. The exact candidate has fresh complete parents on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45734872206)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45734872222).
+Clean and signed upgrade checks are running from 139 on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45735512924)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45735513266),
+and from 142 on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45735513523)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45735512863).
+
 The exact signed 0.1.143 candidate from `8928b2e4a` was staged before these
 corrections. The full public 111720869-byte download matches the retained APK,
 notes, application identity and established certificate. Clean installation,
