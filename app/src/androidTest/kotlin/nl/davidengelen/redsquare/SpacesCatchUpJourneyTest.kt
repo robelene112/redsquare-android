@@ -417,17 +417,24 @@ class SpacesCatchUpJourneyTest {
 
     private fun awaitHeldDestination(): String {
         var held: String? = null
-        ui.waitUntil(10_000) {
-            held = request("held-destination").get("id")?.takeUnless { it.isJsonNull }?.asString
-            held != null && ui.onNodeWithText(context.getString(R.string.spaces_destination_opening)).isDisplayed()
+        try {
+            ui.waitUntil(10_000) {
+                held = request("held-destination").get("id")?.takeUnless { it.isJsonNull }?.asString
+                held != null && ui.onNodeWithText(context.getString(R.string.spaces_destination_opening)).isDisplayed()
+            }
+        } finally {
+            File(evidence, "held-destination-observations.txt").appendText("held=$held\n")
         }
         return requireNotNull(held)
     }
 
     private fun openWarmLink(link: String) {
         check(link.matches(Regex("saito://spaces/target#[A-Za-z0-9_-]+")))
-        device.executeShellCommand("am start -W --activity-single-top -a android.intent.action.VIEW -d '$link' " +
+        val delivery = device.executeShellCommand("am start -W --activity-single-top -a android.intent.action.VIEW -d '$link' " +
             "-n ${context.packageName}/${MainActivity::class.java.name}")
+        File(evidence, "warm-activity-delivery.txt").appendText(delivery + "\n")
+        assertTrue("Android should deliver the shared link to the running Activity: $delivery",
+            delivery.contains("delivered to currently running top-most instance"))
     }
 
     private fun launch(link: String, owner: String? = null, backend: SaitoBackend? = null): ActivityScenario<MainActivity> {

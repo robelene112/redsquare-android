@@ -139,6 +139,8 @@ class MainActivity : ComponentActivity() {
         // Preserve the original launch configuration, including controlled peer endpoints.
         if (incomingVaultFiles.receive(this, intent)) return
         val space = nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.from(intent)
+        if (BuildConfig.DEBUG && intent.data?.host == "spaces") android.util.Log.d("SpacesAccount138",
+            "new Space intent accepted=${space != null} exact=${SpacesLaunchRoutes.isDestination(intent.data)}")
         if (space != null) spaceUris.value = space
         else if (nl.davidengelen.redsquare.saito.StoreLink.parse(intent.data?.toString().orEmpty()) != null) storeUris.value = intent.data
         else if (nl.davidengelen.redsquare.talk.TalkLaunchRoutes.accepts(intent.data)) talkRoutes.enqueue(intent.data) else notificationRoutes.enqueue(intent.data)
@@ -357,6 +359,7 @@ class MainActivity : ComponentActivity() {
                 }
                 openingInitialSpace = false
                 moduleSwitchFailed = !moved
+                if (BuildConfig.DEBUG) android.util.Log.d("SpacesAccount138", "Space intent navigation committed=$moved")
             }
             LaunchedEffect(address, backend) {
                 receivedFilesScope?.let { saved ->
