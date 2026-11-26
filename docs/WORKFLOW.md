@@ -435,6 +435,35 @@ and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/4
 diagnostics record Android's Activity delivery, the application guard and
 the independently held signed read separately. The original run is retained.
 
+[Android's captured launch](https://github.com/robelene112/redsquare-android/actions/runs/45748327194)
+showed that UiAutomation passed the single quote in the test command as part
+of the URI. Without those quotes the [Android 10 journey](https://github.com/robelene112/redsquare-android/actions/runs/45749957302)
+opens the exact reply and restores the original thread after warm Back and
+recreation. The [matching Android 17 run](https://github.com/robelene112/redsquare-android/actions/runs/45749957439)
+captured a normal thread at 200% text with only the reply's footer visible.
+The compact initial viewport now brings the most recent reply body into view.
+The review also restored the pending exact route across Retry, retires it when
+the user leaves via the thread header or a pinned message, and retains Android
+Back during drawer entry. A visible Close control uses a 48dp target.
+
+The [15th scale attempt](https://github.com/robelene112/redsquare-android/actions/runs/45743187265)
+completed all six scroll trials and all 100 lifecycle cycles. Its observed
+first feedback p95 was 66.66ms and the conservative warm miss bound was 3.45%.
+The raw trace still has a 703.476ms cold frame. The original offline parser
+timed out. A replay over the same raw input completed in 28.884s after
+materializing the relevant frame and anchor sets. The
+[17th scale attempt](https://github.com/robelene112/redsquare-android/actions/runs/45747243869)
+still failed the original performance criteria. Its slowest cold frame was
+1163.44ms, with render-thread shader compilation and queueing. Its original
+scroll observer also paired pending input with geometry from before Compose
+finished placing rows. The [updated small capture](https://github.com/robelene112/redsquare-android/actions/runs/45752307658)
+observed 23 moving frames with less than one pixel of unexplained drift,
+but its trace file ended before the terminal frame was written. The
+[fresh calibration](https://github.com/robelene112/redsquare-android/actions/runs/45753375461)
+requires a file write after that terminal observation. The
+[18th full workload](https://github.com/robelene112/redsquare-android/actions/runs/45753375523)
+uses the original frozen frame and time budgets.
+
 The exact signed 0.1.143 candidate from `8928b2e4a` was staged before these
 corrections. The full public 111720869-byte download matches the retained APK,
 notes, application identity and established certificate. Clean installation,
