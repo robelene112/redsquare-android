@@ -331,6 +331,32 @@ and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/4
 and from 142 on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45735513523)
 and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45735512863).
 
+Independent review of `858cee25f` found that a temporary native Home transition
+could retire an in-flight cold link. It also found gaps in the evidence for
+transient anchor loss, complete timing coverage and baseline comparison.
+Polling now pauses on Home and retires navigation on an actual screen detach.
+The cold route holds the original link through a terminal projection. The
+exact destination test on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45736801159)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45736800933)
+holds the signed read across the actual Home transition and checks the same
+reply text, original scope and resumed entry. Candidate 147 is a
+staged signed checkpoint for the source before these corrections.
+
+The isolated [scroll-priority run](https://github.com/robelene112/redsquare-android/actions/runs/45729001512)
+recorded 66.07ms first-feedback p95 and 4.07% matched warm budget misses.
+Durable reaction p95 was 2313.25ms. The 718.27ms native maximum, an incomplete
+individual frame buffer and the earlier anchor observer leave it failed.
+Replaying its exact raw framework snapshots gives eight unaccounted warm
+completions among 1582 frames. The next full run records the cumulative HWUI
+duration histogram for every stage, counts missing warm timings against the
+miss bound, and matches known frame IDs against Perfetto. The anchor probe
+registers each committed Activity frame during the arrival and verifies the
+same signed reply from local state. It sees a removed row as missing.
+The [short observer calibration](https://github.com/robelene112/redsquare-android/actions/runs/45737812120)
+and [next full run](https://github.com/robelene112/redsquare-android/actions/runs/45737813911)
+include the new data collection. The required fixture, app deadlines and
+performance thresholds remain fixed.
+
 The exact signed 0.1.143 candidate from `8928b2e4a` was staged before these
 corrections. The full public 111720869-byte download matches the retained APK,
 notes, application identity and established certificate. Clean installation,
