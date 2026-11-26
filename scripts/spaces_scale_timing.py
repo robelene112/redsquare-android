@@ -50,6 +50,31 @@ def anchor_frames(log, trial):
             for number, serial, started, committed, checkpoint, bounds in geometry.findall(log) if int(number) == trial]
 
 
+def moving_frames(log):
+    samples = re.findall(r'scroll-frame 6 (\d+) (\d+) (\d+) (true|false) (\S+) (\S+)', log)
+    return [{'sequence': int(serial), 'startNs': int(started), 'commitNs': int(committed),
+             'checkpoint': checkpoint == 'true', 'scrollPx': float(displacement),
+             'visibleTopsPx': {int(record): float(top) for record, top in
+                               (row.split(':') for row in rows.split(',') if row != 'missing')}}
+            for serial, started, committed, checkpoint, displacement, rows in samples]
+
+
+def unexplained_displacement(frames):
+    if len(frames) < 2:
+        raise RuntimeError('The moving native viewport has fewer than two committed frames')
+    errors = []
+    for previous, current in zip(frames, frames[1:]):
+        old_rows, new_rows = previous['visibleTopsPx'], current['visibleTopsPx']
+        shared = old_rows.keys() & new_rows.keys()
+        if current['sequence'] != previous['sequence'] + 1 or not shared:
+            raise RuntimeError('The moving viewport lost frame coverage or all visible row identities')
+        movement = current['scrollPx'] - previous['scrollPx']
+        errors.extend(abs(new_rows[record] - old_rows[record] - movement) for record in shared)
+    if not all(map(math.isfinite, errors)):
+        raise RuntimeError('The moving viewport returned non-finite native geometry')
+    return max(errors)
+
+
 @contextmanager
 def capture_trace(adb, evidence, config):
     trace_config = evidence / 'perfetto-config.pbtxt'
@@ -502,20 +527,12 @@ file_write_period_ms: 5000
              all(hot not in label(node) for node in nodes) else None)
         reply = request('prepare-scroll-arrival')['offscreenReply']
         motion = re.compile(r'user-scroll (\d+) (true|false)')
-        scroll_frame = re.compile(r'scroll-frame 6 (\d+) (\d+) (\d+) (true|false) (\S+) (\S+)')
-        def scroll_frames(log):
-            return [{'sequence': int(serial), 'startNs': int(started), 'commitNs': int(committed),
-                     'checkpoint': checkpoint == 'true', 'scrollPx': float(displacement),
-                     'visibleTopsPx': {int(record): float(top) for record, top in
-                                      (row.split(':') for row in rows.split(',') if row != 'missing')}}
-                    for serial, started, committed, checkpoint, displacement, rows in scroll_frame.findall(log)]
-
         def scroll_transitions(log, start):
             return [(int(ns), status == 'true') for ns, status in motion.findall(log) if int(ns) >= start]
 
         anchor_command('arm', '--ei', 'trial', 6, '--ei', 'record', 0)
         anchor_deadline = time.monotonic() + 10
-        while not scroll_frames(trace_text()):
+        while not moving_frames(trace_text()):
             if time.monotonic() >= anchor_deadline:
                 raise RuntimeError('The native scrolling probe did not commit before starting the crossed case')
             time.sleep(.1)
@@ -553,7 +570,7 @@ file_write_period_ms: 5000
                         anchor_deadline = time.monotonic() + 10
                         while time.monotonic() < anchor_deadline:
                             log = trace_text()
-                            checkpoint = next((frame for frame in scroll_frames(log)
+                            checkpoint = next((frame for frame in moving_frames(log)
                                                if frame['checkpoint'] and frame['startNs'] >= observed_reply['projectedNs']), None)
                             if checkpoint is not None:
                                 break
@@ -566,7 +583,7 @@ file_write_period_ms: 5000
         log = trace_text()
         (evidence / 'scroll-arrival-observations.txt').write_text(log)
         transitions = scroll_transitions(log, mark)
-        layouts = sorted(scroll_frames(log), key=lambda frame: frame['sequence'])
+        layouts = sorted(moving_frames(log), key=lambda frame: frame['sequence'])
         crossing = {'reply': reply, 'independentAccepted': True, 'releasedDuringScroll': released, 'application': observed_reply,
                     'scrollTransitions': transitions, 'committedFrames': layouts, 'checkpoint': checkpoint}
         (evidence / 'scroll-arrival.json').write_text(json.dumps(crossing, indent=2) + '\n')
@@ -580,21 +597,12 @@ file_write_period_ms: 5000
         baseline = before_receipt[-1]
         first, last = baseline['sequence'], checkpoint['sequence']
         during_arrival = [frame for frame in layouts if first <= frame['sequence'] <= last]
-        if ([frame['sequence'] for frame in during_arrival] != list(range(first, last + 1)) or
-                any(manifest['hotChannelMessages'] in frame['visibleTopsPx'] for frame in during_arrival)):
-            raise RuntimeError('The moving channel interrupted its frame sequence or returned to latest')
-        errors = []
-        for previous, current in zip(during_arrival, during_arrival[1:]):
-            old_rows, new_rows = previous['visibleTopsPx'], current['visibleTopsPx']
-            shared = old_rows.keys() & new_rows.keys()
-            if not shared:
-                raise RuntimeError('The moving viewport lost all visible row identities between frames')
-            movement = current['scrollPx'] - previous['scrollPx']
-            errors.extend(abs(new_rows[record] - old_rows[record] - movement) for record in shared)
-        crossing['maximumUnexplainedDisplacementPx'] = max(errors)
+        if any(manifest['hotChannelMessages'] in frame['visibleTopsPx'] for frame in during_arrival):
+            raise RuntimeError('The moving channel returned to latest during the signed arrival')
+        crossing['maximumUnexplainedDisplacementPx'] = unexplained_displacement(during_arrival)
         (evidence / 'scroll-arrival.json').write_text(json.dumps(crossing, indent=2) + '\n')
         # Allow one pixel of integer rounding at either end of a native frame.
-        if not all(math.isfinite(error) and error <= 2 for error in errors):
+        if crossing['maximumUnexplainedDisplacementPx'] > 2:
             raise RuntimeError('The visible rows moved independently of the consumed native scroll')
         anchor_windows.append(('scroll-arrival', 6, first, last))
         view('scroll-arrival-after', lambda nodes: True if any(body.match(label(n)) for n in nodes) and

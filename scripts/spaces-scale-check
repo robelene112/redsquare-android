@@ -12,7 +12,7 @@ import time
 import urllib.request
 from xml.etree import ElementTree
 from spaces_scale_timing import (FRAME_TIMELINE_TRACE, TRACE_TARGET, analyse_trace, anchor_command_args, anchor_frames,
-                                capture_trace, complete_anchor_coverage, measure)
+                                capture_trace, complete_anchor_coverage, measure, moving_frames, unexplained_displacement)
 
 repo = Path(__file__).resolve().parent.parent
 evidence = Path(sys.argv[1]).resolve()
@@ -153,37 +153,61 @@ with (evidence / 'host.log').open('wb') as host_log:
             def observer(operation, *extras):
                 adb('shell', shlex.join(anchor_command_args(package, operation, *extras)))
 
-            def observe_checkpoint(checkpoint):
+            def observe_anchor(filename, read):
                 deadline = time.monotonic() + 12
                 while True:
                     observed = adb('logcat', '-d', '-s', 'SpacesScaleProof:I', '*:S').decode()
-                    (evidence / 'anchor-observations.txt').write_text(observed)
-                    frame = next((row for row in anchor_frames(observed, 0) if row[3] == checkpoint and row[4] is not None), None)
-                    if frame is not None:
-                        return frame
+                    (evidence / filename).write_text(observed)
+                    result = read(observed)
+                    if result is not None:
+                        return result
                     if time.monotonic() >= deadline:
                         raise RuntimeError('Calibration did not observe the actual anchor frame commit')
                     time.sleep(.1)
 
             config = FRAME_TIMELINE_TRACE + 'duration_ms: 30000\nwrite_into_file: true\nfile_write_period_ms: 1000\n'
             with capture_trace(adb, evidence, config):
+                def fixed(checkpoint):
+                    return observe_anchor('anchor-observations.txt', lambda raw: next(
+                        (row for row in anchor_frames(raw, 0) if row[3] == checkpoint and row[4] is not None), None))
+
                 observer('arm', '--ei', 'trial', '0', '--ei', 'record', str(manifest['hotChannelMessages']))
-                try:
-                    first = observe_checkpoint(False)
-                    observer('checkpoint')
-                    last = observe_checkpoint(True)
-                finally:
-                    observer('stop')
+                first = fixed(False)
+                observer('checkpoint')
+                last = fixed(True)
+                observer('stop')
+
+                observer('arm', '--ei', 'trial', '6', '--ei', 'record', '0')
+                observe_anchor('scroll-observations.txt', lambda raw: next(
+                    (row for row in moving_frames(raw) if row['visibleTopsPx']), None))
+                adb('shell', 'input swipe 410 620 410 1310 350')
+                observer('checkpoint')
+
+                def through_checkpoint(raw):
+                    rows = moving_frames(raw)
+                    for index, row in enumerate(rows):
+                        if row['checkpoint']:
+                            return rows[:index + 1]
+                    return None
+
+                moving = observe_anchor('scroll-observations.txt', through_checkpoint)
+                observer('stop')
                 deadline = time.monotonic() + 12
                 while int(adb('shell', f'stat -c %s {TRACE_TARGET}').strip()) == 0:
                     if time.monotonic() >= deadline:
                         raise RuntimeError('Calibration trace did not flush after the native checkpoints')
                     time.sleep(.2)
-            native = analyse_trace(evidence, {}, [('calibration', 0, first[0], last[0])])
-            if not complete_anchor_coverage(native, 1):
+            native = analyse_trace(evidence, {}, [('calibration', 0, first[0], last[0]),
+                ('moving-calibration', 6, moving[0]['sequence'], moving[-1]['sequence'])])
+            if not complete_anchor_coverage(native, 2):
                 raise RuntimeError('Calibration could not match all presented anchor frames to their geometry')
+            (evidence / 'scroll-calibration.json').write_text(json.dumps(moving, indent=2) + '\n')
+            displacement = unexplained_displacement(moving)
+            if abs(moving[-1]['scrollPx'] - moving[0]['scrollPx']) < 5 or displacement > 2:
+                raise RuntimeError('Calibration could not reconcile actual row movement with the native swipe')
             summary['committedAnchorBounds'] = last[4]
             summary['anchorCoverage'] = native['anchorCoverage']
+            summary['maximumUnexplainedDisplacementPx'] = displacement
         stopping()
         stopping = None
         if host.wait(timeout=15) != 0:
