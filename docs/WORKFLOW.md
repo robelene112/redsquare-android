@@ -357,6 +357,49 @@ and [next full run](https://github.com/robelene112/redsquare-android/actions/run
 include the new data collection. The required fixture, app deadlines and
 performance thresholds remain fixed.
 
+The first held-Home Android journeys render their correct reply on both SDKs.
+Their host verdict fails because the app evidence writer drops the held ID.
+At `b1d8426b4` both native journeys additionally render the exact scoped reply
+after the Activity is recreated. They stop at the old Back input check. The
+subsequent sources give the cold screen an explicit Cancel action, retire warm
+destination sheets when dismissed, and retain the scoped previous conversation
+through recreation. The independently authenticated read IDs must also rule
+out an extra request after warm Back or Home. Both `0393e92c5` catch-up attempts
+stop when the test sees two community nodes, including one inside the closed
+drawer. The resumed tests choose the on-screen row on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45745126565)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45745126605).
+Their source delta is restricted to that native test selector.
+
+The `bb78346a9` [complete scale attempt](https://github.com/robelene112/redsquare-android/actions/runs/45733560721)
+records 681.998ms maximum native frame, 84.67ms first-feedback p95 and 5.959%
+matched warm budget misses. It fails the frozen timing checks. The revised
+observer compares each anchor to presented Android vsync IDs, reconciles the
+exact warm populations and re-scores the recorded baseline with the same
+parser. The additive crossed case holds an independently accepted reply on
+the wire until the native list is scrolling, then checks receipt, local
+application and visible row continuity. The frozen workload has the same
+digest. Current [observer calibration](https://github.com/robelene112/redsquare-android/actions/runs/45742547657)
+and [full scale run](https://github.com/robelene112/redsquare-android/actions/runs/45743187265)
+are pending. The preceding short trace attempt failed while Maven Central
+returned HTTP 429, before a device was started.
+
+Signed 0.1.147 passed clean install and in-place upgrade from both earlier
+versions on both SDKs. It is superseded. Version 0.1.148 was signed locally
+before the latest navigation changes. The current staged package is
+0.1.149 at `0393e92c5694f556cd6b038a6bb59170019d70fc`. Its complete
+111770021-byte download equals the locally signed ordinary APK and carries
+SHA256 `61186e02bd2c8431791727fe02ac4cd11523a5dadbd83be8a72850f9cb3b583c`
+and the established certificate. The public latest manifest remains 0.1.142.
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45743167521)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45743165861)
+have exact complete runs pending. The signed continuity checks for 149 are
+separately dispatched from 139 on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45745126474)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45745126576),
+and from 142 on [Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45745126432)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45745126431).
+
 The exact signed 0.1.143 candidate from `8928b2e4a` was staged before these
 corrections. The full public 111720869-byte download matches the retained APK,
 notes, application identity and established certificate. Clean installation,
