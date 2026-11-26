@@ -34,11 +34,21 @@ shows the restored first-use draft with the editor focused, then reaches the
 ten-second IME deadline after a semantic click. The
 [targeted real touchscreen test](https://github.com/robelene112/redsquare-android/actions/runs/45769385315)
 completes both widths, including the restored large-text draft and actual IME,
-with the same deadline. Keep the original failed outcome. The complete
+with the same deadline.
+
+The complete
 [Android 10 catalogue](https://github.com/robelene112/redsquare-android/actions/runs/45764683719)
-and the fresh product-equivalent
-[Android 17 catalogue](https://github.com/robelene112/redsquare-android/actions/runs/45770548373)
-each require all three original partitions in one successful parent.
+passes all three partitions on the 0.1.155 product source. Independent
+comparison of all three original archives finds the exact 922 contracted test
+identities, 347 test classes and 280 retained evidence archives. The next
+[Android 17 Social partition](https://github.com/robelene112/redsquare-android/actions/runs/45770548373)
+times out waiting for Home after selecting Save draft. Its captured screen
+still shows the edited draft, the enabled Save draft control and the open
+IME. The following focused retests on
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/45776222650)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/45776222555)
+tap the enabled control through native touch input. The ten-second home
+deadline and the saved-text and status assertions remain in place.
 
 Full scale measurements [18](https://github.com/robelene112/redsquare-android/actions/runs/45753375523),
 [19](https://github.com/robelene112/redsquare-android/actions/runs/45757606956)
@@ -53,6 +63,11 @@ completes all 100 switches and measures a 12.10% warm miss bound, a 657.59ms
 maximum cold sample and 60.21ms reaction feedback at p95. During warm scroll
 the render thread spends 11.09ms on average in DrawFrames and 8.92ms in EGL
 swap. The main thread averages 0.54ms for Compose measurement and layout.
+Across the same 20 swipe windows, the system's FrameTimeline attributes 50
+app records to an app deadline miss, including combined causes, and records
+two late SurfaceFlinger CPU deadline misses. This attribution is diagnostic.
+The release calculation uses the frozen app frame deadlines and missing-frame
+bound.
 
 The [isolated avatar render comparison](https://github.com/robelene112/redsquare-android/actions/runs/45765669722)
 stops on the second background return. Its retained warm snapshots measure a
