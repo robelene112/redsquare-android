@@ -1032,8 +1032,15 @@ try:
         cold = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/cold-result.json').stdout)
         if cold['pid'] == notified['pid'] or any(cold[field] != observed[field] for field in ('reply', 'root', 'privateDenied')):
             raise RuntimeError('Cold identity or destination diverged from the independent observer')
-        if not re.fullmatch(r'[0-9a-f]{128}', cold.get('heldReadResumedAfterHome') or ''):
-            raise RuntimeError('Cold link did not resume the held native read after the real Home transition')
+        exact_reads = command(control_port, 'catch-up-destination-reads')['ids']
+        held = [cold.get(field) for field in ('heldReadResumedAfterHome', 'heldReadBeforeRecreation', 'heldReadBeforeBack')]
+        if any(not value or value not in exact_reads for value in held) or len(set(held)) != 3:
+            raise RuntimeError('The held native exact reads did not match the independently verified destinations')
+        home_index, recreation_index, back_index = (exact_reads.index(value) for value in held)
+        if not home_index < recreation_index < back_index or not set(exact_reads[recreation_index + 1:back_index]) - set(held):
+            raise RuntimeError('The recreated Activity did not revalidate the exact destination')
+        if back_index != len(exact_reads) - 1:
+            raise RuntimeError('Returning to Spaces repeated the cancelled exact destination')
         finish_record(*movies[-1])
         command(control_port, 'stop')
         host.wait(timeout=15)
@@ -1041,7 +1048,8 @@ try:
             raise RuntimeError('Owned catch-up host did not finish')
         (evidence / 'journey-outcome.json').write_text(json.dumps({
             'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
-            'notification': notified, 'cold': cold, 'nativeTerminalPasses': 2, 'compactViewport': compact,
+            'notification': notified, 'cold': cold, 'independentExactReads': exact_reads,
+            'nativeTerminalPasses': 2, 'compactViewport': compact,
             'transport': 'owned local signed service; application-observed Android delivery',
             'livePushOrOemVerified': False, 'productionNodeActivated': False, 'ordinaryBetaChanged': False,
         }, indent=2))

@@ -2,6 +2,8 @@ package nl.davidengelen.redsquare.spaces
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
+import androidx.compose.runtime.saveable.Saver
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
 
@@ -15,6 +17,34 @@ internal object SpacesLaunchRoutes {
         val fromNotification get() = owner != null
         fun matches(wallet: String, node: SaitoBackend) = owner == null || owner == wallet && backend == node
         override fun toString() = "Space launch"
+    }
+
+    /** Only an exact read address survives recreation. Membership invitations remain transient. */
+    data class PendingDestination(val link: String, val owner: String, val backend: SaitoBackend,
+        val cold: Boolean, val fromNotification: Boolean) {
+        fun matches(wallet: String, node: SaitoBackend) = owner == wallet && backend == node
+        override fun toString() = "Pending Space destination"
+
+        companion object {
+            val saver = Saver<PendingDestination?, Bundle>(
+                save = { pending -> pending?.let { destination ->
+                    Bundle().apply {
+                        putString("link", destination.link)
+                        putString("owner", destination.owner)
+                        putString("node", destination.backend.id)
+                        putBoolean("cold", destination.cold)
+                        putBoolean("notification", destination.fromNotification)
+                    }
+                } },
+                restore = { saved ->
+                    val link = saved.getString("link")?.takeIf { isDestination(Uri.parse(it)) }
+                    val owner = saved.getString("owner")?.takeIf(SaitoWallet::isPublicKey)
+                    val backend = SaitoBackend.entries.firstOrNull { it.id == saved.getString("node") }
+                    if (link == null || owner == null || backend == null) null
+                    else PendingDestination(link, owner, backend, saved.getBoolean("cold"), saved.getBoolean("notification"))
+                },
+            )
+        }
     }
 
     fun from(intent: Intent): Open? {

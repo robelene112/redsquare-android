@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare.spaces.service
 
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.sun.net.httpserver.HttpServer
@@ -12,6 +13,7 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceArticleContent
 import nl.davidengelen.redsquare.spaces.SpaceChannelKind
 import nl.davidengelen.redsquare.spaces.SpaceChannelProfile
+import nl.davidengelen.redsquare.spaces.SpaceDestination
 import nl.davidengelen.redsquare.spaces.SpaceProfile
 import nl.davidengelen.redsquare.spaces.SpaceRole
 import nl.davidengelen.redsquare.spaces.SpaceClient
@@ -200,6 +202,24 @@ object SpacesNativeHost {
                                         "/catch-up-release-destination" -> {
                                             check(catchUpMode)
                                             JsonObject().apply { addProperty("released", peer.releaseSpacesDestinationRead()) }
+                                        }
+                                        "/catch-up-destination-reads" -> {
+                                            val expected = requireNotNull(catchUp).observe()
+                                            val target = SpaceDestination.parse(expected.get("link").asString)
+                                            val owner = catchUp.config().get("nativeWallet").asString
+                                            val ids = peer.spacesRequests.mapNotNull { original ->
+                                                val signed = SaitoEnvelope.decode(original.envelope())
+                                                val scope = signed.body.getAsJsonObject("scope") ?: return@mapNotNull null
+                                                signed.id.takeIf {
+                                                    signed.author == owner && signed.body.get("request")?.asString == "read" &&
+                                                        scope.get("space_id")?.asString == target.community.spaceId &&
+                                                        scope.get("channel_id")?.asString == target.channel &&
+                                                        scope.get("thread_id")?.asString == target.thread &&
+                                                        scope.get("destination_kind")?.asString == target.kind.wire &&
+                                                        scope.get("record_id")?.asString == target.record
+                                                }
+                                            }
+                                            JsonObject().apply { add("ids", JsonArray().apply { ids.forEach { add(it) } }) }
                                         }
                                         "/moderation-config" -> requireNotNull(moderation).configuration()
                                         "/moderation-report-status" -> requireNotNull(moderation).observeReport()

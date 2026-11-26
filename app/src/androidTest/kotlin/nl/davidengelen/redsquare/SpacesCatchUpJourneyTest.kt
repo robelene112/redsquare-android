@@ -118,23 +118,64 @@ class SpacesCatchUpJourneyTest {
         assertNotEquals(prior.get("pid").asInt, Process.myPid())
         assertEquals(prior.get("reply").asString, observed.get("reply").asString)
         assertEquals(config.get("nativeWallet").asString, AndroidWalletStore(context).loadExisting().publicKey)
+        val link = observed.get("link").asString
+        fun awaitHeldRead(): String {
+            var held: String? = null
+            ui.waitUntil(10_000) {
+                held = request("held-destination").get("id")?.takeUnless { it.isJsonNull }?.asString
+                held != null && ui.onNodeWithText(context.getString(R.string.spaces_destination_opening)).isDisplayed()
+            }
+            return requireNotNull(held)
+        }
+        fun assertExactReply() {
+            waitForWholeMessage("Latest exact proof reply")
+            waitText("First proof Needle")
+            ui.onNodeWithText("Unrelated proof reply").assertDoesNotExist()
+        }
         request("hold-destination")
-        launch(observed.get("link").asString).use {
+        launch(link).use {
             withFailureCapture({ capture("cold-exact-failure") }) {
-                var held: String? = null
-                ui.waitUntil(10_000) {
-                    held = request("held-destination").get("id")?.takeUnless { it.isJsonNull }?.asString
-                    held != null && ui.onNodeWithText(context.getString(R.string.spaces_destination_opening)).isDisplayed()
-                }
+                val held = awaitHeldRead()
                 assertTrue(device.pressHome())
                 assertTrue(device.wait(Until.gone(By.pkg(context.packageName).depth(0)), 5_000))
                 assertTrue(request("release-destination").get("released").asBoolean)
                 device.executeShellCommand("am start -W --activity-single-top -n ${context.packageName}/${MainActivity::class.java.name}")
-                waitForWholeMessage("Latest exact proof reply")
-                waitText("First proof Needle")
-                ui.onNodeWithText("Unrelated proof reply").assertDoesNotExist()
+                assertExactReply()
                 observed.addProperty("heldReadResumedAfterHome", held)
                 capture("cold-exact-reply")
+            }
+        }
+        val owner = config.get("nativeWallet").asString
+        request("hold-destination")
+        launch(link, owner, SaitoBackend.OWNER).use { scenario ->
+            withFailureCapture({ capture("recreated-exact-failure") }) {
+                observed.addProperty("heldReadBeforeRecreation", awaitHeldRead())
+                var originalActivity = 0
+                scenario.onActivity { originalActivity = System.identityHashCode(it) }
+                scenario.recreate()
+                scenario.onActivity { assertNotEquals(originalActivity, System.identityHashCode(it)) }
+                request("release-destination")
+                assertExactReply()
+                capture("recreated-exact-reply")
+            }
+        }
+        request("hold-destination")
+        launch(link).use {
+            withFailureCapture({ capture("dismissed-exact-failure") }) {
+                observed.addProperty("heldReadBeforeBack", awaitHeldRead())
+                assertTrue(device.pressBack())
+                waitText("All posts")
+                request("release-destination")
+                ui.revealAppNavigation()
+                val switch = ui.onNodeWithContentDescription("Switch app: Red Square")
+                ui.waitUntil(10_000) { switch.isDisplayed() && ui.onNodeWithText("Home").isDisplayed() }
+                switch.performTouchInput { click() }
+                val spaces = ui.onNode(hasText("Spaces") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog()))
+                ui.waitUntil(5_000) { spaces.isDisplayed() }
+                spaces.performClick()
+                waitText("My Spaces")
+                ui.onNodeWithText("Latest exact proof reply").assertDoesNotExist()
+                capture("dismissed-exact-module-return")
             }
         }
         launch(config.get("privateLink").asString).use {
@@ -317,6 +358,8 @@ class SpacesCatchUpJourneyTest {
             addProperty("reply", observed.get("reply").asString)
             addProperty("root", observed.get("root").asString)
             addProperty("privateDenied", observed.get("privateDenied").asBoolean)
+            for (field in listOf("heldReadResumedAfterHome", "heldReadBeforeRecreation", "heldReadBeforeBack"))
+                observed.get(field)?.let { add(field, it) }
         }.toString())
     }
 

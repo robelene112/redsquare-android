@@ -75,6 +75,7 @@ import nl.davidengelen.redsquare.registry.UsernameScreen
 import nl.davidengelen.redsquare.registry.RegistryAuthority
 import nl.davidengelen.redsquare.registry.RegisteredIdentityScope
 import nl.davidengelen.redsquare.registry.LocalRegistryAuthority
+import nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes
 import nl.davidengelen.redsquare.moderation.PersonalControlsScope
 import nl.davidengelen.redsquare.moderation.PersonalControlsDialog
 import nl.davidengelen.redsquare.ui.AndroidAppearanceStore
@@ -181,10 +182,14 @@ class MainActivity : ComponentActivity() {
         } else if (!nl.davidengelen.redsquare.talk.TalkLaunchRoutes.accepts(intent.data)) notificationRoutes.initialize(intent.data)
         videoDiagnostics = VideoDiagnostics.fromIntent(this, intent)
         setContent {
-            var openingInitialSpace by remember {
+            var openingInitialSpace by rememberSaveable {
                 mutableStateOf(savedInstanceState == null && initialSpace?.uri?.let {
-                    nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.isDestination(it)
+                    SpacesLaunchRoutes.isDestination(it)
                 } == true)
+            }
+            LaunchedEffect(Unit) {
+                if (openingInitialSpace && spaceUris.value == null && initialSpace != null)
+                    spaceUris.value = initialSpace
             }
             val appearanceStore = remember { AndroidAppearanceStore(applicationContext) }
             var appearance by remember { mutableStateOf(Appearance.SYSTEM) }
@@ -223,6 +228,9 @@ class MainActivity : ComponentActivity() {
             val settingsStates = rememberSaveableStateHolder()
             val settingsOverviewScroll = rememberScrollState()
             var module by rememberSaveable { mutableStateOf(AppModule.RED_SQUARE) }
+            var pendingSpaceDestination by rememberSaveable(stateSaver = SpacesLaunchRoutes.PendingDestination.saver) {
+                mutableStateOf<SpacesLaunchRoutes.PendingDestination?>(null)
+            }
             var spacesReturnDepth by rememberSaveable { mutableStateOf<Int?>(null) }
             var spacesReturnOwner by rememberSaveable { mutableStateOf<String?>(null) }
             var spacesReturnBackend by rememberSaveable { mutableStateOf<String?>(null) }
@@ -254,7 +262,11 @@ class MainActivity : ComponentActivity() {
             fun selectModule(selected: AppModule, onSelected: () -> Unit = {}) {
                 if (selected == module && stackLinkEntry == null && storeLinkEntry == null) { clearSpacesReturn(); onSelected() }
                 else scope.launch {
-                    val moved = postNavigation.navigate { clearSpacesReturn(); stackLinkEntry = null; storeLinkEntry = null; vaultRentalEntry = null; module = selected; onSelected(); true }
+                    val moved = postNavigation.navigate {
+                        clearSpacesReturn(); stackLinkEntry = null; storeLinkEntry = null; vaultRentalEntry = null
+                        if (selected != AppModule.SPACES) pendingSpaceDestination = null
+                        module = selected; onSelected(); true
+                    }
                     moduleSwitchFailed = !moved
                 }
             }
@@ -276,28 +288,27 @@ class MainActivity : ComponentActivity() {
                 )
             }
             var pendingSpaceInvitation by rememberSaveable(stateSaver = articleRouteSaver) { mutableStateOf<String?>(null) }
-            var pendingSpaceNotification by remember { mutableStateOf<nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.Open?>(null) }
-            val scopedSpaceNotification = pendingSpaceNotification?.takeIf {
+            val scopedSpaceDestination = pendingSpaceDestination?.takeIf {
                 address != null && backend != null && it.matches(address, requireNotNull(backend))
             }
             var pendingProtectedInvitation by remember { mutableStateOf<ProtectedInvitationRoute?>(null) }
             LaunchedEffect(address, backend) {
                 val pending = pendingProtectedInvitation
                 if (pending != null && (pending.owner != address || pending.backend != backend)) pendingProtectedInvitation = null
-                if (scopedSpaceNotification == null) pendingSpaceNotification = null
+                if (address != null && backend != null && scopedSpaceDestination == null) pendingSpaceDestination = null
             }
             val incomingSpaceUri by spaceUris.collectAsState()
-            LaunchedEffect(module) { if (module == AppModule.SPACES) spacesActivated = true }
+            LaunchedEffect(module) {
+                if (module == AppModule.SPACES) spacesActivated = true
+                else pendingSpaceDestination = null
+            }
             val spacesAccount = remember(address, backend, spacesActivated) {
                 val current = wallet
                 val node = backend
                 if (!spacesActivated || current == null || node == null) null
                 else {
-                    val initialRoute = scopedSpaceNotification?.uri ?: pendingSpaceInvitation?.let(Uri::parse)
                     nl.davidengelen.redsquare.spaces.SpacesAccount(applicationContext, current, node,
-                        FeedEndpoints.fromIntent(intent, node), scope, prioritiseInitialDestination = initialRoute?.let {
-                            nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.isDestination(it)
-                        } == true)
+                        FeedEndpoints.fromIntent(intent, node), scope, prioritiseInitialDestination = scopedSpaceDestination != null)
                 }
             }
             DisposableEffect(spacesAccount, module) {
@@ -330,8 +341,12 @@ class MainActivity : ComponentActivity() {
                             pendingProtectedInvitation = ProtectedInvitationRoute(owner, node, incoming.uri.toString())
                             module = AppModule.RED_SQUARE
                         } else {
-                            pendingSpaceInvitation = incoming.uri.toString().takeUnless { incoming.fromNotification }
-                            pendingSpaceNotification = incoming.takeIf { it.fromNotification }
+                            val link = incoming.uri.toString()
+                            val exact = SpacesLaunchRoutes.isDestination(incoming.uri)
+                            pendingSpaceInvitation = link.takeUnless { exact }
+                            pendingSpaceDestination = if (exact) SpacesLaunchRoutes.PendingDestination(
+                                link, owner, node, openingInitialSpace && incoming == initialSpace, incoming.fromNotification)
+                            else null
                             module = AppModule.SPACES
                         }
                         spaceUris.value = null
@@ -852,7 +867,11 @@ class MainActivity : ComponentActivity() {
                                                                 backendSaveError = true; false
                                                             } else {
                                                                 clearSpacesReturn(); backend = choice; spacesActivated = true
-                                                                pendingSpaceInvitation = link; pendingSpaceNotification = null
+                                                                val exact = SpacesLaunchRoutes.isDestination(Uri.parse(link))
+                                                                pendingSpaceInvitation = link.takeUnless { exact }
+                                                                pendingSpaceDestination = if (exact) SpacesLaunchRoutes.PendingDestination(
+                                                                    link, owner, choice, cold = false, fromNotification = false)
+                                                                else null
                                                                 module = AppModule.SPACES; true
                                                             }
                                                         }
@@ -873,16 +892,19 @@ class MainActivity : ComponentActivity() {
                                                             RegisteredIdentityScope(currentWallet, endpoint, selected,
                                                                 RegistryAuthority.directoryPeer(intent, endpoint).takeIf { nameDirectoryEnabled == true }) {
                                                                 spacesScreenStates.SaveableStateProvider("${currentWallet.publicKey}:${selected.id}") {
-                                                                    val spaceLink = scopedSpaceNotification?.uri?.toString() ?: pendingSpaceInvitation
+                                                                    val spaceDestination = scopedSpaceDestination
+                                                                    val spaceLink = spaceDestination?.link ?: pendingSpaceInvitation
                                                                     nl.davidengelen.redsquare.spaces.SpacesScreen(account, Modifier.fillMaxSize(),
                                                                         chrome = { keyboardInLayout, room, compactRoom -> renderChrome(false, keyboardInLayout, room, compactRoom, false) },
                                                                         onProfile = { openSpaceMember(it, false) }, onMessage = { openSpaceMember(it, true) },
                                                                         onOpenNode = ::openSpaceNode, initialInvitation = spaceLink,
-                                                                        coldStartDestination = spaceLink != null &&
-                                                                            initialSpace?.uri?.toString() == spaceLink &&
-                                                                            nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.isDestination(initialSpace?.uri),
-                                                                        fromNotification = scopedSpaceNotification != null,
-                                                                        onInvitationConsumed = { pendingSpaceInvitation = null; pendingSpaceNotification = null })
+                                                                        coldStartDestination = spaceDestination?.cold == true,
+                                                                        fromNotification = spaceDestination?.fromNotification == true,
+                                                                        onInvitationConsumed = {
+                                                                            if (spaceDestination != null) {
+                                                                                if (pendingSpaceDestination === spaceDestination) pendingSpaceDestination = null
+                                                                            } else if (pendingSpaceInvitation == spaceLink) pendingSpaceInvitation = null
+                                                                        })
                                                                 }
                                                             }
                                                         }

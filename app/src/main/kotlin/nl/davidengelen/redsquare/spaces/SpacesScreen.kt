@@ -237,19 +237,20 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         }
         state.selected?.let { savedSelection = it; tab = SpacesTab.MY_SPACES }
     }
-    var requestedColdLink by remember(account, initialInvitation) { mutableStateOf(false) }
-    val coldDestinationReady = state.exactDestination && state.current != null && !state.loadingChannel && !state.projectingDestination
+    var requestedDestination by remember(account, initialInvitation, fromNotification) { mutableStateOf(false) }
+    val coldDestinationReady = state.exactDestination && state.current != null &&
+        !state.working && !state.loadingChannel && !state.projectingDestination
     val coldDestinationBlocked = state.problem != null || state.previewIssue != null || state.requiredNode != null ||
         state.availability == SpacesAccount.Availability.UNSUPPORTED ||
         state.availability == SpacesAccount.Availability.CHANGED_IDENTITY ||
         state.availability == SpacesAccount.Availability.STORAGE_UNAVAILABLE ||
         !state.ready && state.availability == SpacesAccount.Availability.OFFLINE
     LaunchedEffect(initialInvitation, fromNotification, state.ready, state.loading, state.working, state.savingNavigation,
-        requestedColdLink, coldDestinationReady, coldDestinationBlocked) {
+        requestedDestination, coldDestinationReady, coldDestinationBlocked) {
         val link = initialInvitation ?: return@LaunchedEffect
         val uri = android.net.Uri.parse(link)
         val destination = SpacesLaunchRoutes.isDestination(uri)
-        if (requestedColdLink) {
+        if (requestedDestination) {
             if (coldDestinationReady || coldDestinationBlocked) onInvitationConsumed()
             return@LaunchedEffect
         }
@@ -269,10 +270,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                 destination -> {
                     if (fromNotification) activityLink = link
                     if (!account.openDestinationLink(link, fromNotification = fromNotification)) return@LaunchedEffect
-                    if (coldStartDestination) {
-                        requestedColdLink = true
-                        return@LaunchedEffect
-                    }
+                    requestedDestination = true
+                    return@LaunchedEffect
                 }
                 SpacesLaunchRoutes.isArticle(uri) -> account.openArticleLink(link)
                 else -> account.openPublicLink(link)
