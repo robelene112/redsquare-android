@@ -1,0 +1,39 @@
+{
+  "inheritedAcceptedSource": "90b5aadb7f60d511feee776546f3bbbf35f9a407",
+  "inheritedCatalogue": {
+    "path": "docs/evidence/ticket135/full-contract.json",
+    "sha256": "428e93ead74107488620c29f6e10673a15056630439a8667dde02a53318074dc",
+    "qualificationPath": "docs/evidence/ticket131/catalog-erratum/inputs.json",
+    "qualificationSha256": "cad1d6b3973d618324f3b4bd4dc8c64ee0a5d9634bf6a5e16f3e3561dbec906b"
+  },
+  "wholeAppParents": {
+    "scopes": ["full-android10", "full-android17"],
+    "requiredPartitionsPerParent": ["chat", "social", "wallet"],
+    "requiredPublicReadGoals": ["live-owner-feed.txt", "live-official-feed.txt", "public-chat.txt"],
+    "addedIdentities": [
+      {
+        "path": "spaces-mls-ui.txt",
+        "testClass": "nl.davidengelen.redsquare.SpaceMlsRuntimeTest",
+        "test": "actualJniAndKeystoreRecoverAdmittedHistoryWithoutWritingAnUnprotectedKeyring",
+        "occurrences": 1
+      },
+      {
+        "path": "spaces-mls-ui.txt",
+        "testClass": "nl.davidengelen.redsquare.SpaceMlsRuntimeTest",
+        "test": "concurrentAccountStoresWaitForTheSameEncryptedTransactionAndKeepCommittedRows",
+        "occurrences": 1
+      }
+    ],
+    "addedRequiredArchive": "chat/spaces-mls-evidence.tar",
+    "classDeadlineSeconds": 180,
+    "expectedTotals": {
+      "10": { "identities": 922, "classes": 347, "normalCompletions": 394, "deliberateInterruptions": 55, "continuityRecords": 54, "physicalArchives": 280 },
+      "17": { "identities": 923, "classes": 347, "normalCompletions": 395, "deliberateInterruptions": 55, "continuityRecords": 54, "physicalArchives": 280 }
+    }
+  },
+  "spacesComplement": {
+    "requirements": ["story-coverage.md", "native-visual-matrix.md", "../../quality/SPACES_SCALE_CONTRACT.json"],
+    "retainFocusedJourneys": ["access and discovery", "management and moderated permissions", "threads, message actions and history", "protected one-to-one and group chats", "protected wallet backup and recovery", "private articles", "file library and offline storage", "room media, real permissions and capacity", "search, activity and exact cold links", "TalkBack, viewport and real keyboard"],
+    "requireNativeAndIndependentEvidence": true
+  }
+}
