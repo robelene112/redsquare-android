@@ -430,7 +430,9 @@ class SpacesCatchUpJourneyTest {
 
     private fun openWarmLink(link: String) {
         check(link.matches(Regex("saito://spaces/target#[A-Za-z0-9_-]+")))
-        val delivery = device.executeShellCommand("am start -W --activity-single-top -a android.intent.action.VIEW -d '$link' " +
+        // UiAutomation dispatches arguments directly. Quotation marks would
+        // become part of the URI instead of escaping the checked Base64 token.
+        val delivery = device.executeShellCommand("am start -W --activity-single-top -a android.intent.action.VIEW -d $link " +
             "-n ${context.packageName}/${MainActivity::class.java.name}")
         File(evidence, "warm-activity-delivery.txt").appendText(delivery + "\n")
         assertTrue("Android should deliver the shared link to the running Activity: $delivery",
