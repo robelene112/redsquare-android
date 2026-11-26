@@ -107,7 +107,10 @@ class SpacesCatchUpJourneyTest {
                 ui.waitUntil(15_000) { ui.onNode(grouped).isDisplayed() }
                 assertNotEquals("Unread", ui.onNode(grouped).fetchSemanticsNode().config.getOrNull(SemanticsProperties.StateDescription))
                 click("My Spaces")
-                val community = ui.onNodeWithContentDescription("Open Catch up proof Space")
+                val community = ui.onNode(hasContentDescription("Open Catch up proof Space") and
+                    SemanticsMatcher("on-screen community") {
+                        it.boundsInRoot.right > 0f && it.boundsInRoot.left >= 0f && it.boundsInRoot.bottom > 0f
+                    })
                 ui.waitUntil(15_000) { community.isDisplayed() }
                 community.performClick()
                 waitText("Separate proof conversation")
