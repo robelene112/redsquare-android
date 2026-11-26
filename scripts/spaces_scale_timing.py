@@ -52,11 +52,13 @@ def anchor_frames(log, trial):
 
 def moving_frames(log):
     samples = re.findall(r'scroll-frame 6 (\d+) (\d+) (\d+) (true|false) (\S+) (\S+)', log)
-    return [{'sequence': int(serial), 'startNs': int(started), 'commitNs': int(committed),
-             'checkpoint': checkpoint == 'true', 'scrollPx': float(displacement),
-             'visibleTopsPx': {int(record): float(top) for record, top in
-                               (row.split(':') for row in rows.split(',') if row != 'missing')}}
-            for serial, started, committed, checkpoint, displacement, rows in samples]
+    # Frame callbacks for queued renders can reach logcat out of draw order.
+    return sorted(({'sequence': int(serial), 'startNs': int(started), 'commitNs': int(committed),
+                    'checkpoint': checkpoint == 'true', 'scrollPx': float(displacement),
+                    'visibleTopsPx': {int(record): float(top) for record, top in
+                                      (row.split(':') for row in rows.split(',') if row != 'missing')}}
+                   for serial, started, committed, checkpoint, displacement, rows in samples),
+                  key=lambda frame: frame['sequence'])
 
 
 def unexplained_displacement(frames):
@@ -198,10 +200,9 @@ app AS (
   FROM stages s
 ), anchor_marks AS (
   SELECT w.trial, p.upid, cast(substr(m.name, length('SpacesAnchor ' || w.ordinal || ' ') + 1) AS int) AS serial,
-    (SELECT cast(substr(f.name, length(CASE WHEN f.name GLOB '*resynced*'
-        THEN 'Choreographer#doFrame - resynced to ' ELSE 'Choreographer#doFrame ' END) + 1) AS int)
-      FROM ancestor_slice(m.id) f WHERE f.name GLOB 'Choreographer#doFrame [0-9]*'
-        OR f.name GLOB 'Choreographer#doFrame - resynced to [0-9]*' ORDER BY f.depth DESC LIMIT 1) AS token
+    -- RenderThread sends the original doFrame token with the surface buffer.
+    (SELECT cast(substr(f.name, length('Choreographer#doFrame ') + 1) AS int)
+      FROM ancestor_slice(m.id) f WHERE f.name GLOB 'Choreographer#doFrame [0-9]*' ORDER BY f.depth DESC LIMIT 1) AS token
   FROM anchor_windows w JOIN slice m ON m.name GLOB 'SpacesAnchor ' || w.ordinal || ' [0-9]*'
   JOIN thread_track tt ON tt.id=m.track_id JOIN thread t ON t.utid=tt.utid JOIN process p ON p.upid=t.upid
   WHERE p.name='nl.davidengelen.redsquare.performance' AND t.is_main_thread=1
@@ -590,7 +591,7 @@ file_write_period_ms: 5000
         log = trace_text()
         (evidence / 'scroll-arrival-observations.txt').write_text(log)
         transitions = scroll_transitions(log, mark)
-        layouts = sorted(moving_frames(log), key=lambda frame: frame['sequence'])
+        layouts = moving_frames(log)
         crossing = {'reply': reply, 'independentAccepted': True, 'releasedDuringScroll': released, 'application': observed_reply,
                     'scrollTransitions': transitions, 'committedFrames': layouts, 'checkpoint': checkpoint}
         (evidence / 'scroll-arrival.json').write_text(json.dumps(crossing, indent=2) + '\n')

@@ -374,7 +374,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         !createOpen && !joinOpen && !inviteOpen && !informationOpen && !channelEditor.open && !channelCreator.open && !publicRulesOpen) {
         backFromConversation()
     }
-    BackHandler(drawer.currentValue != DrawerValue.Closed || drawer.targetValue != DrawerValue.Closed || drawer.isAnimationRunning) {
+    BackHandler(showDrawerRows) {
         scope.launch { drawer.close() }
     }
     ModalNavigationDrawer(drawerState = drawer, gesturesEnabled = state.selected != null, modifier = modifier,

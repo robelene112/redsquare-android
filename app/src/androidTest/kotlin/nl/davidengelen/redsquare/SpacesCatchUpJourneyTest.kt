@@ -350,7 +350,7 @@ class SpacesCatchUpJourneyTest {
                 button.performTouchInput { click() }
                 waitText("Your communities")
                 captureNativeScreen(observations.resolve("drawer.png"))
-                device.pressBack()
+                device.executeShellCommand("input keyevent KEYCODE_BACK")
                 ui.waitUntil(12_000) {
                     !ui.onNodeWithText("Your communities").isDisplayed() && button.isDisplayed()
                 }

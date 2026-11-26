@@ -169,7 +169,7 @@ with (evidence / 'host.log').open('wb') as host_log:
                         raise RuntimeError('Calibration did not observe the actual anchor frame commit')
                     time.sleep(.1)
 
-            config = FRAME_TIMELINE_TRACE + 'duration_ms: 45000\nwrite_into_file: true\nfile_write_period_ms: 1000\n'
+            config = FRAME_TIMELINE_TRACE + 'duration_ms: 45000\n'
             # Capture the app's surface creation and let Perfetto flush the
             # terminal presented frames before the trace file is pulled.
             with capture_trace(adb, evidence, config, wait_for_duration=True):
