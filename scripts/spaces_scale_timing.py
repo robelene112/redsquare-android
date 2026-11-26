@@ -73,17 +73,20 @@ def percentile(values, points):
     return {p: ordered[math.ceil(len(ordered) * p / 100) - 1] for p in points}
 
 
-def analyse_trace(evidence, stages):
+def analyse_trace(evidence, stages, anchors=()):
     values = ',\n'.join(f"('{name}',{row['startNs']},{row['sampleUptimeNs']},{row['completedFrames']},'{json.dumps(row['timelineIds'])}')"
                        for name, row in stages.items())
+    anchor_values = 'VALUES ' + ','.join(f"('{name}',{start},{end},{count})" for name, start, end, count in anchors) if anchors else \
+        "SELECT '', 0, 0, 0 WHERE FALSE"
     sql = f"""
 WITH stages(name, start_ns, end_ns, framework_count, known_tokens) AS (VALUES {values}),
+anchor_windows(trial, start_ns, stop_ns, anchor_commits) AS ({anchor_values}),
 app AS (
   SELECT upid FROM process WHERE name = 'nl.davidengelen.redsquare.performance'
   UNION SELECT upid FROM actual_frame_timeline_slice
     WHERE layer_name GLOB '*nl.davidengelen.redsquare.performance/*'
 ), frames AS (
-  SELECT a.ts,a.dur,a.surface_frame_token,(SELECT min(e.ts) FROM expected_frame_timeline_slice e
+  SELECT a.ts,a.dur,a.surface_frame_token,a.layer_name,(SELECT min(e.ts) FROM expected_frame_timeline_slice e
       WHERE e.upid=a.upid AND e.surface_frame_token=a.surface_frame_token
   ) AS expected
   FROM actual_frame_timeline_slice a WHERE a.upid IN app AND a.dur >= 0
@@ -103,6 +106,9 @@ SELECT hex(CAST(json_object(
     SELECT 1 FROM stages s WHERE s.framework_count>0 AND f.ts <= s.end_ns AND f.ts+f.dur >= s.start_ns)),
   'stageCoverage', (SELECT json_group_array(json_object('stage',name,'frameworkCount',framework_count,
      'traceCount',trace_count,'knownTokens',known,'matchedTokens',matched)) FROM coverage),
+  'anchorCoverage', (SELECT json_group_array(json_object('trial',w.trial,'anchorCommits',w.anchor_commits,
+     'nativeFrames',(SELECT count(DISTINCT f.surface_frame_token) FROM frames f
+     WHERE f.ts >= w.start_ns AND f.ts < w.stop_ns AND f.layer_name GLOB '*MainActivity#*'))) FROM anchor_windows w),
   'allocationProfiles', (SELECT count(DISTINCT ts) FROM heap_profile_allocation WHERE upid IN app),
   'diagnostics', (SELECT json_group_array(json_object('name',name,'index',idx,'value',value))
     FROM stats WHERE value > 0 AND (name GLOB 'heapprofd_*' OR name GLOB 'frame_timeline_*'
@@ -219,6 +225,7 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, ref
     missing_other = []
     feedback = []
     anchor_failures = []
+    anchor_windows = []
     trace_target = '/data/misc/perfetto-traces/spaces-scale.pftrace'
     config = '''
 buffers { size_kb: 32768 fill_policy: RING_BUFFER }
@@ -319,9 +326,9 @@ file_write_period_ms: 5000
             reset_frames()
             arrival_started = device_elapsed_ns()
             arrival = request('arrival')
+            deadline = time.monotonic() + 35
             reply = arrival['offscreenReply']
             anchor_command('receipt', '--es', 'reply', reply)
-            deadline = time.monotonic() + 35
             applied = None
             while applied is None:
                 read = request('status').get('offscreenReplyRead')
@@ -353,6 +360,7 @@ file_write_period_ms: 5000
             # probe frame determined before requesting the arrival when needed.
             baseline = prior[-1] if prior else layouts[0]
             commits = [layout for layout in layouts if baseline[0] < layout[0] <= checkpoint[0]]
+            anchor_windows.append((name, baseline[1], checkpoint[2], len(commits) + 1))
             (evidence / f'{name}-anchor.json').write_text(json.dumps({
                 'text': identity, 'before': before, 'after': bounds(after), 'accepted': arrival,
                 'arrivalStartedNs': arrival_started, 'nativeReadRequest': read, 'replyProjectedNs': applied,
@@ -508,7 +516,7 @@ file_write_period_ms: 5000
             (evidence / 'perfetto-finish-error.txt').write_text(str(failure) + '\n')
             if original_failure is None:
                 raise
-    summary = analyse_trace(evidence, stages)
+    summary = analyse_trace(evidence, stages, anchor_windows)
     result['nativeTrace'] = summary
     comparable = {
         'reactionCommittedFrameP95Ms': result['reactionCommittedFrameMs'][95],
@@ -526,10 +534,12 @@ file_write_period_ms: 5000
                        for item in summary['diagnostics'])
     trace_coverage = all(row['traceCount'] > 0 and row['knownTokens'] > 0 and row['knownTokens'] == row['matchedTokens']
                          for row in summary['stageCoverage'] if row['frameworkCount'] > 0)
+    anchor_coverage = len(summary['anchorCoverage']) == len(anchor_windows) and all(
+        0 < row['nativeFrames'] <= row['anchorCommits'] for row in summary['anchorCoverage'])
     lost_frames = any(item['name'].startswith('ftrace_') and 'overrun' in item['name'] for item in summary['diagnostics'])
     result['thresholdsPassed'] = result['sampleThresholdsPassed'] and summary['completedFrames'] > 0 and (
         summary['maximumFrameMs'] < thresholds['noFrameAtOrAboveMs'] and summary['lastFrameNs'] >= running[-1][0] and
-        summary['allocationProfiles'] >= 2 and not lost_profile and trace_coverage and not lost_frames and
+        summary['allocationProfiles'] >= 2 and not lost_profile and trace_coverage and anchor_coverage and not lost_frames and
         not summary['unmatchedExpectedOutsideFramework'])
     (evidence / 'timing.json').write_text(json.dumps(result, indent=2) + '\n')
     if not result['thresholdsPassed']:
