@@ -125,7 +125,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     }
     private val historyWindows = ConcurrentHashMap<Target, Long>()
     private data class DestinationVisit(val origin: Target?, val target: Target, val address: SpaceDestination, val windowFrom: Long?)
-    private data class ExactRoute(val link: String, val activity: SpaceActivityGroup?, val fromNotification: Boolean)
+    private data class ExactRoute(val link: String, val activity: SpaceActivityGroup?, val fromNotification: Boolean, val origin: Target?)
     @Volatile private var destinationVisit: DestinationVisit? = null
 
     private fun windowFrom(target: Target): Long? {
@@ -144,6 +144,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val origin = visit.origin
         selectRoute(origin?.space, origin?.channel, restoreThread = origin?.thread)
         return true
+    }
+    fun destinationOrigin(): Target? {
+        val visit = destinationVisit
+        return if (visit == null) mutable.value.target() else visit.origin
     }
     val ownerKey: String get() = wallet.publicKey
     val avatarImages = SpaceAvatarImages(wallet.publicKey, backend)
@@ -580,8 +584,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             if (expected != null && navigationVersion.get() != expected) return@synchronized null
             val route = navigationVersion.incrementAndGet()
             val token = selection.incrementAndGet()
-            val visit = destinationVisit
-            val origin = if (exact == null) null else if (visit != null) visit.origin else mutable.value.target()
+            val origin = if (exact == null) null else exact.origin ?: destinationOrigin()
             if (exact == null) destinationVisit = null
             fun currentRoute() = selection.get() == token && (exact == null || navigationVersion.get() == route)
             fun reset(state: State) = state.copy(selected = space, selectedChannel = channel, threadParent = null, current = null,
@@ -1640,7 +1643,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             }
         }
 
-    fun openDestinationLink(link: String, activity: SpaceActivityGroup? = null, fromNotification: Boolean = false): Boolean {
+    fun openDestinationLink(link: String, activity: SpaceActivityGroup? = null, fromNotification: Boolean = false,
+        origin: Target? = null): Boolean {
         val route = navigationVersion.get()
         var activeRoute = route
         mutable.update { it.copy(previewIssue = null, requiredNode = null, problem = null) }
@@ -1671,7 +1675,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             val article = opened.record?.takeIf { address.kind == SpaceDestination.Kind.ARTICLE }?.let { ArticleFocus(it.id, cached) }
             activeRoute = selectRoute(address.community.spaceId, address.channel, expected = route,
                 thread = opened.parent, jump = opened.record, article = article, requestChannelKeys = false, savedDestination = cached,
-                exact = ExactRoute(link, activity, fromNotification)) ?: return@localAction
+                exact = ExactRoute(link, activity, fromNotification, origin)) ?: return@localAction
         }
     }
 

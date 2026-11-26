@@ -129,7 +129,7 @@ class MainActivity : ComponentActivity() {
     private val incomingVaultFiles by lazy {
         androidx.lifecycle.ViewModelProvider(this)[nl.davidengelen.redsquare.vault.VaultIncomingFiles::class.java]
     }
-    private val spaceUris = kotlinx.coroutines.flow.MutableStateFlow<nl.davidengelen.redsquare.spaces.SpacesLaunchRoutes.Open?>(null)
+    private val spaceUris by lazy { routeModels[SpacesLaunchRoutes.Incoming::class.java].pending }
     private val storeUris = kotlinx.coroutines.flow.MutableStateFlow<Uri?>(null)
 
     override fun onNewIntent(intent: Intent) {
@@ -345,7 +345,9 @@ class MainActivity : ComponentActivity() {
                             val exact = SpacesLaunchRoutes.isDestination(incoming.uri)
                             pendingSpaceInvitation = link.takeUnless { exact }
                             pendingSpaceDestination = if (exact) SpacesLaunchRoutes.PendingDestination(
-                                link, owner, node, openingInitialSpace && incoming == initialSpace, incoming.fromNotification)
+                                link, owner, node, openingInitialSpace && incoming == initialSpace, incoming.fromNotification,
+                                spacesAccount?.takeIf { module == AppModule.SPACES && it.ownerKey == owner && it.backend == node }
+                                    ?.destinationOrigin())
                             else null
                             module = AppModule.SPACES
                         }
@@ -893,17 +895,17 @@ class MainActivity : ComponentActivity() {
                                                                 RegistryAuthority.directoryPeer(intent, endpoint).takeIf { nameDirectoryEnabled == true }) {
                                                                 spacesScreenStates.SaveableStateProvider("${currentWallet.publicKey}:${selected.id}") {
                                                                     val spaceDestination = scopedSpaceDestination
-                                                                    val spaceLink = spaceDestination?.link ?: pendingSpaceInvitation
+                                                                    val invitation = pendingSpaceInvitation
                                                                     nl.davidengelen.redsquare.spaces.SpacesScreen(account, Modifier.fillMaxSize(),
                                                                         chrome = { keyboardInLayout, room, compactRoom -> renderChrome(false, keyboardInLayout, room, compactRoom, false) },
                                                                         onProfile = { openSpaceMember(it, false) }, onMessage = { openSpaceMember(it, true) },
-                                                                        onOpenNode = ::openSpaceNode, initialInvitation = spaceLink,
-                                                                        coldStartDestination = spaceDestination?.cold == true,
-                                                                        fromNotification = spaceDestination?.fromNotification == true,
+                                                                        onOpenNode = ::openSpaceNode, invitation = invitation,
+                                                                        externalDestination = spaceDestination,
+                                                                        onLeaveColdDestination = { selectModule(AppModule.RED_SQUARE) },
                                                                         onInvitationConsumed = {
                                                                             if (spaceDestination != null) {
                                                                                 if (pendingSpaceDestination === spaceDestination) pendingSpaceDestination = null
-                                                                            } else if (pendingSpaceInvitation == spaceLink) pendingSpaceInvitation = null
+                                                                            } else if (pendingSpaceInvitation == invitation) pendingSpaceInvitation = null
                                                                         })
                                                                 }
                                                             }

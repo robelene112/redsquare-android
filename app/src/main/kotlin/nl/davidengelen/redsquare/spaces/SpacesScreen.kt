@@ -90,8 +90,12 @@ internal const val SHORT_SPACES_WINDOW_DP = 420
 @Composable
 internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     chrome: @Composable (Boolean, SpacesAccount.Target?, Boolean) -> Unit, onProfile: (String) -> Unit, onMessage: (String) -> Unit,
-    onOpenNode: (String, String) -> Unit, initialInvitation: String? = null, coldStartDestination: Boolean = false,
-    fromNotification: Boolean = false, onInvitationConsumed: () -> Unit = {}) {
+    onOpenNode: (String, String) -> Unit, invitation: String? = null,
+    externalDestination: SpacesLaunchRoutes.PendingDestination? = null, onInvitationConsumed: () -> Unit = {},
+    onLeaveColdDestination: () -> Unit) {
+    val initialInvitation = externalDestination?.link ?: invitation
+    val coldStartDestination = externalDestination?.cold == true
+    val fromNotification = externalDestination?.fromNotification == true
     val sharedState by account.state.collectAsState()
     val communities = remember(sharedState.communities) { sharedState.communities.filter { it.protectedChat == null } }
     val state = sharedState.copy(communities = communities)
@@ -269,7 +273,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
             when {
                 destination -> {
                     if (fromNotification) activityLink = link
-                    if (!account.openDestinationLink(link, fromNotification = fromNotification)) return@LaunchedEffect
+                    if (!account.openDestinationLink(link, fromNotification = fromNotification,
+                            origin = externalDestination?.origin)) return@LaunchedEffect
                     requestedDestination = true
                     return@LaunchedEffect
                 }
@@ -285,8 +290,18 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         else {
             // A direct launch has no previous screen to preserve. Keep the existing
             // loading view until the destination or a recovery action can render.
+            val cancel = {
+                publicReference = null
+                account.dismissPublicReference()
+                onInvitationConsumed()
+                onLeaveColdDestination()
+            }
+            BackHandler(onBack = cancel)
             Box(modifier, contentAlignment = Alignment.Center) {
-                Text(stringResource(R.string.spaces_destination_opening))
+                Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(stringResource(R.string.spaces_destination_opening))
+                    TextButton(onClick = cancel, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.spaces_cancel)) }
+                }
             }
             return
         }
@@ -822,8 +837,14 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
         openingArticle -> R.string.spaces_article_open
         else -> R.string.spaces_open_public_community
     }
-    DesignSheet(publicReference != null && publicReference != state.openedPublicReference, stringResource(referenceTitle),
-        { publicReference = null; account.dismissPublicReference() }) { first ->
+    DesignSheet(publicReference != null && publicReference != state.openedPublicReference, stringResource(referenceTitle), {
+        val dismissed = publicReference
+        publicReference = null
+        account.dismissPublicReference()
+        if (dismissed != null && dismissed == initialInvitation) onInvitationConsumed()
+        if (dismissed == activityLink) { activityLink = null; activityGroup = null }
+        if (dismissed == searchLink) searchLink = null
+    }) { first ->
         val node = state.requiredNode
         val choice = nl.davidengelen.redsquare.saito.SaitoBackend.entries.firstOrNull { it.webUrl == node }
         when {

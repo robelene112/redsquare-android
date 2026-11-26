@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.compose.runtime.saveable.Saver
+import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
 
@@ -19,9 +21,13 @@ internal object SpacesLaunchRoutes {
         override fun toString() = "Space launch"
     }
 
+    class Incoming : ViewModel() {
+        val pending = MutableStateFlow<Open?>(null)
+    }
+
     /** Only an exact read address survives recreation. Membership invitations remain transient. */
     data class PendingDestination(val link: String, val owner: String, val backend: SaitoBackend,
-        val cold: Boolean, val fromNotification: Boolean) {
+        val cold: Boolean, val fromNotification: Boolean, val origin: SpacesAccount.Target? = null) {
         fun matches(wallet: String, node: SaitoBackend) = owner == wallet && backend == node
         override fun toString() = "Pending Space destination"
 
@@ -34,14 +40,22 @@ internal object SpacesLaunchRoutes {
                         putString("node", destination.backend.id)
                         putBoolean("cold", destination.cold)
                         putBoolean("notification", destination.fromNotification)
+                        destination.origin?.let {
+                            putString("originSpace", it.space)
+                            putString("originChannel", it.channel)
+                            putString("originThread", it.thread)
+                        }
                     }
                 } },
                 restore = { saved ->
                     val link = saved.getString("link")?.takeIf { isDestination(Uri.parse(it)) }
                     val owner = saved.getString("owner")?.takeIf(SaitoWallet::isPublicKey)
                     val backend = SaitoBackend.entries.firstOrNull { it.id == saved.getString("node") }
+                    val space = saved.getString("originSpace")
+                    val channel = saved.getString("originChannel")
+                    val origin = if (space != null && channel != null) SpacesAccount.Target(space, channel, saved.getString("originThread")) else null
                     if (link == null || owner == null || backend == null) null
-                    else PendingDestination(link, owner, backend, saved.getBoolean("cold"), saved.getBoolean("notification"))
+                    else PendingDestination(link, owner, backend, saved.getBoolean("cold"), saved.getBoolean("notification"), origin)
                 },
             )
         }

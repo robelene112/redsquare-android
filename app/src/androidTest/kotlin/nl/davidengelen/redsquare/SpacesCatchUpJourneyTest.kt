@@ -44,7 +44,7 @@ class SpacesCatchUpJourneyTest {
     @Test fun searchAndOpenRealSystemNotification() {
         val config = request("config")
         prepareWallet(config)
-        launch(config.get("link").asString).use {
+        launch(config.get("link").asString).use { scenario ->
             withFailureCapture({ capture("search-and-activity-failure") }) {
                 waitText("Separate proof conversation")
                 click("Community information")
@@ -106,6 +106,36 @@ class SpacesCatchUpJourneyTest {
                 click("Back to Activity")
                 ui.waitUntil(15_000) { ui.onNode(grouped).isDisplayed() }
                 assertNotEquals("Unread", ui.onNode(grouped).fetchSemanticsNode().config.getOrNull(SemanticsProperties.StateDescription))
+                click("My Spaces")
+                val community = ui.onNodeWithContentDescription("Open Catch up proof Space")
+                ui.waitUntil(15_000) { community.isDisplayed() }
+                community.performClick()
+                waitText("Separate proof conversation")
+                val link = observed.get("link").asString
+                request("hold-destination")
+                openWarmLink(link)
+                observed.addProperty("heldWarmReadBeforeRecreation", awaitHeldDestination())
+                scenario.recreate()
+                request("release-destination")
+                waitForWholeMessage("Latest exact proof reply")
+                device.executeShellCommand("input keyevent KEYCODE_BACK")
+                waitText("Separate proof conversation")
+                ui.onNodeWithText("Latest exact proof reply").assertDoesNotExist()
+                capture("warm-recreated-return-origin")
+
+                request("hold-destination")
+                openWarmLink(link)
+                observed.addProperty("heldWarmReadBeforeBack", awaitHeldDestination())
+                device.executeShellCommand("input keyevent KEYCODE_BACK")
+                ui.waitUntil(10_000) {
+                    !ui.onNodeWithText(context.getString(R.string.spaces_destination_opening)).isDisplayed()
+                }
+                waitText("Separate proof conversation")
+                request("release-destination")
+                scenario.recreate()
+                waitText("Separate proof conversation")
+                ui.onNodeWithText("Latest exact proof reply").assertDoesNotExist()
+                capture("warm-dismissed-recreated-origin")
                 save("notification-result", observed)
             }
         }
@@ -119,14 +149,6 @@ class SpacesCatchUpJourneyTest {
         assertEquals(prior.get("reply").asString, observed.get("reply").asString)
         assertEquals(config.get("nativeWallet").asString, AndroidWalletStore(context).loadExisting().publicKey)
         val link = observed.get("link").asString
-        fun awaitHeldRead(): String {
-            var held: String? = null
-            ui.waitUntil(10_000) {
-                held = request("held-destination").get("id")?.takeUnless { it.isJsonNull }?.asString
-                held != null && ui.onNodeWithText(context.getString(R.string.spaces_destination_opening)).isDisplayed()
-            }
-            return requireNotNull(held)
-        }
         fun assertExactReply() {
             waitForWholeMessage("Latest exact proof reply")
             waitText("First proof Needle")
@@ -135,7 +157,7 @@ class SpacesCatchUpJourneyTest {
         request("hold-destination")
         launch(link).use {
             withFailureCapture({ capture("cold-exact-failure") }) {
-                val held = awaitHeldRead()
+                val held = awaitHeldDestination()
                 assertTrue(device.pressHome())
                 assertTrue(device.wait(Until.gone(By.pkg(context.packageName).depth(0)), 5_000))
                 assertTrue(request("release-destination").get("released").asBoolean)
@@ -149,7 +171,7 @@ class SpacesCatchUpJourneyTest {
         request("hold-destination")
         launch(link, owner, SaitoBackend.OWNER).use { scenario ->
             withFailureCapture({ capture("recreated-exact-failure") }) {
-                observed.addProperty("heldReadBeforeRecreation", awaitHeldRead())
+                observed.addProperty("heldReadBeforeRecreation", awaitHeldDestination())
                 var originalActivity = 0
                 scenario.onActivity { originalActivity = System.identityHashCode(it) }
                 scenario.recreate()
@@ -162,8 +184,8 @@ class SpacesCatchUpJourneyTest {
         request("hold-destination")
         launch(link).use {
             withFailureCapture({ capture("dismissed-exact-failure") }) {
-                observed.addProperty("heldReadBeforeBack", awaitHeldRead())
-                assertTrue(device.pressBack())
+                observed.addProperty("heldReadBeforeBack", awaitHeldDestination())
+                device.executeShellCommand("input keyevent KEYCODE_BACK")
                 waitText("All posts")
                 request("release-destination")
                 ui.revealAppNavigation()
@@ -358,9 +380,25 @@ class SpacesCatchUpJourneyTest {
             addProperty("reply", observed.get("reply").asString)
             addProperty("root", observed.get("root").asString)
             addProperty("privateDenied", observed.get("privateDenied").asBoolean)
-            for (field in listOf("heldReadResumedAfterHome", "heldReadBeforeRecreation", "heldReadBeforeBack"))
+            for (field in listOf("heldReadResumedAfterHome", "heldReadBeforeRecreation", "heldReadBeforeBack",
+                "heldWarmReadBeforeRecreation", "heldWarmReadBeforeBack"))
                 observed.get(field)?.let { add(field, it) }
         }.toString())
+    }
+
+    private fun awaitHeldDestination(): String {
+        var held: String? = null
+        ui.waitUntil(10_000) {
+            held = request("held-destination").get("id")?.takeUnless { it.isJsonNull }?.asString
+            held != null && ui.onNodeWithText(context.getString(R.string.spaces_destination_opening)).isDisplayed()
+        }
+        return requireNotNull(held)
+    }
+
+    private fun openWarmLink(link: String) {
+        check(link.matches(Regex("saito://spaces/target#[A-Za-z0-9_-]+")))
+        device.executeShellCommand("am start -W --activity-single-top -a android.intent.action.VIEW -d '$link' " +
+            "-n ${context.packageName}/${MainActivity::class.java.name}")
     }
 
     private fun launch(link: String, owner: String? = null, backend: SaitoBackend? = null): ActivityScenario<MainActivity> {

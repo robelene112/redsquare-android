@@ -1034,11 +1034,19 @@ try:
             raise RuntimeError('Cold identity or destination diverged from the independent observer')
         exact_reads = command(control_port, 'catch-up-destination-reads')['ids']
         held = [cold.get(field) for field in ('heldReadResumedAfterHome', 'heldReadBeforeRecreation', 'heldReadBeforeBack')]
-        if any(not value or value not in exact_reads for value in held) or len(set(held)) != 3:
+        warm_held = [notified.get(field) for field in ('heldWarmReadBeforeRecreation', 'heldWarmReadBeforeBack')]
+        all_held = warm_held + held
+        if any(not value or value not in exact_reads for value in all_held) or len(set(all_held)) != len(all_held):
             raise RuntimeError('The held native exact reads did not match the independently verified destinations')
+        warm_recreation, warm_back = (exact_reads.index(value) for value in warm_held)
         home_index, recreation_index, back_index = (exact_reads.index(value) for value in held)
-        if not home_index < recreation_index < back_index or not set(exact_reads[recreation_index + 1:back_index]) - set(held):
+        if not warm_recreation < warm_back < home_index < recreation_index < back_index:
+            raise RuntimeError('The independently verified exact reads departed from the native journey order')
+        if any(not set(exact_reads[start + 1:end]) - set(all_held)
+               for start, end in ((warm_recreation, warm_back), (recreation_index, back_index))):
             raise RuntimeError('The recreated Activity did not revalidate the exact destination')
+        if warm_back + 1 != home_index or home_index + 1 != recreation_index:
+            raise RuntimeError('Warm Back or Home caused a replacement exact read')
         if back_index != len(exact_reads) - 1:
             raise RuntimeError('Returning to Spaces repeated the cancelled exact destination')
         finish_record(*movies[-1])
