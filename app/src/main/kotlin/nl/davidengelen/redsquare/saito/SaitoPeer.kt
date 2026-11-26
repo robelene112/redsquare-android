@@ -250,6 +250,11 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                     if (bytes.size >= 5 && (bytes[0] == 13.toByte() || bytes[0] == 14.toByte()) &&
                         ready.isCompleted && !ready.isCancelled) {
                         val index = ByteBuffer.wrap(bytes.substring(1, 5).toByteArray()).int
+                        if (BuildConfig.DEBUG && address.endpoint.startsWith("ws://127.0.0.1:")) {
+                            ownedProofCallback.get()?.takeIf { it.index == index && !it.received }?.let { watch ->
+                                ownedProofCallback.compareAndSet(watch, watch.copy(received = true))
+                            }
+                        }
                         // A cancelled owner cannot use its late body. Discard that one
                         // known callback before it can interrupt another shared reader.
                         // Active and unknown responses retain the original receive bound.
@@ -310,13 +315,8 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                         }
                         13, 14 -> {
                             require(frame.size >= 5)
-                            val index = ByteBuffer.wrap(frame, 1, 4).int
-                            if (BuildConfig.DEBUG && address.endpoint.startsWith("ws://127.0.0.1:")) {
-                                ownedProofCallback.get()?.takeIf { it.index == index && !it.received }?.let { watch ->
-                                    ownedProofCallback.compareAndSet(watch, watch.copy(received = true))
-                                }
-                            }
                             if (!ready.isCompleted || ready.isCancelled) return
+                            val index = ByteBuffer.wrap(frame, 1, 4).int
                             val request = pending[index] ?: return
                             // The Registry relay may send its dispatcher fallback before the registrar callback.
                             // Only this exact type13 body is provisional; type14 and all other responses are final.
