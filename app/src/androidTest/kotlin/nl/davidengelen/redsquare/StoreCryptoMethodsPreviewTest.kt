@@ -71,10 +71,13 @@ internal fun ComposeTestRule.openNativeStoreOtherMethods(quantity: String = "2",
     val remaining = 15_000 - (android.os.SystemClock.elapsedRealtime() - started)
     check(remaining > 0)
     waitUntil(remaining) { onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
+    val methods = hasText("Other payment methods") and hasClickAction()
+    // A rental's terms can fill the viewport before the lazy actions row is mounted.
+    onNode(hasScrollToIndexAction()).performScrollToNode(methods)
     if (quantity != "1") {
         enterNativeStoreQuantity(quantity)
     }
-    onNodeWithText("Other payment methods").performScrollTo().performClick()
+    onNode(methods).performScrollTo().performClick()
 }
 
 /** Focus and observe the real keyboard before editing; never race a new input connection with SetText. */
