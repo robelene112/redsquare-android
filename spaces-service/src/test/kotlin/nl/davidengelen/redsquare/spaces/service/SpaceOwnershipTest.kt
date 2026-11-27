@@ -176,10 +176,13 @@ class SpaceOwnershipTest {
                     assertFalse("An ownership offer alone must not disclose the private channel", recipient.channels(space).any { it.id == channel })
                     creator.refresh(space)
                     assertEquals("OWNER", creator.members(space).single { it.publicKey == owner.publicKey }.role.name)
+                    val beforeConsent = recipient.readScopeRevision
                     assertEquals("control", SaitoEnvelope.decode(deliver(original(member, "accept-owner") { addProperty("proposal_id", proposal.id) })).body.get("stream").asString)
                     // Drive the normal client workers through consent, actual
                     // key admission and the acknowledged completion of handover.
-                    recipient.refresh(space); recipient.flush(space)
+                    recipient.refresh(space)
+                    assertEquals("Consent changes the revision before any key admission", beforeConsent + 1, recipient.readScopeRevision)
+                    recipient.flush(space)
                     creator.refresh(space); creator.admitPending(space)
                     if (loseAdmissionReply) {
                         try { creator.flush(space); fail("The actual accepted admission reply is lost") } catch (_: java.io.IOException) { }
@@ -204,7 +207,11 @@ class SpaceOwnershipTest {
                             nl.davidengelen.redsquare.spaces.SpaceCrypto.restore(java.util.Base64.getDecoder().decode(saved.get("crypto").asString))
                         }
                         val consentId = recipient.ownershipOffer(space)!!.acceptedId!!
+                        val beforeCancellation = recipient.readScopeRevision
                         assertEquals("control", SaitoEnvelope.decode(deliver(original(owner, "cancel-owner") { addProperty("proposal_id", proposal.id) })).body.get("stream").asString)
+                        recipient.refresh(space)
+                        assertEquals("Cancellation invalidates access before key rotation", beforeCancellation + 1, recipient.readScopeRevision)
+                        assertFalse(channel in recipient.searchAvailableChannels(space, recipient.channels(space)))
                         creator.refresh(space); creator.flush(space); recipient.refresh(space)
                         assertNull(recipient.ownershipOffer(space))
                         assertEquals("OWNER", creator.members(space).single { it.publicKey == owner.publicKey }.role.name)

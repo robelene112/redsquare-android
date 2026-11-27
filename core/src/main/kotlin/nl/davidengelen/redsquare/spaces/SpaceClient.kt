@@ -4925,7 +4925,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         const val ATTENTION_PROJECTION_VERSION = 2L
         val ACCESS_CHANGING_CONTROLS = setOf("create-channel", "admit", "join-public", "set-visibility", "dissolve",
             "archive-channel", "set-role", "grant-channel-access", "revoke-channel-access", "rotate-access",
-            "leave", "remove-member", "ban-member", "unban-member", "complete-owner")
+            "leave", "remove-member", "ban-member", "unban-member", "accept-owner", "cancel-owner", "decline-owner", "complete-owner")
         val ROOT_CONTENT_KINDS = setOf("message", "article", "file")
         val TIMELINE_CONTENT_KINDS = ROOT_CONTENT_KINDS + "thread-reply"
         val CONTROL_KINDS = setOf("create", "invite", "admit", "set-listed", "set-visibility", "dissolve", "join-public", "revoke-invite", "create-channel", "create-category", "edit-category",
