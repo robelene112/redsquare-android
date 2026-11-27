@@ -220,12 +220,25 @@ unreadable old edit could interrupt the deleted-message placeholder during
 prefetch. Source `f2f5c5142` checks row visibility before prefetch and falls
 back to ordinary point reads after a batch failure. A signed service test
 injects an unreadable old edit and verifies the corrected placeholder.
-Native [Android 10 encrypted storage](https://github.com/robelene112/redsquare-android/actions/runs/46070182392)
-and [Android 17 overlays](https://github.com/robelene112/redsquare-android/actions/runs/46070182425)
-pass on the corrected source. [Full scale](https://github.com/robelene112/redsquare-android/actions/runs/46070384379),
-[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/46071882786)
-and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/46071882359)
-continue on that exact source.
+Native encrypted storage on Android 10 and conversation overlays on Android 17
+pass on the corrected source. The native viewport suites complete eight Android 10
+and six Android 17 configurations on that source. [Storage](https://github.com/robelene112/redsquare-android/actions/runs/46070182392),
+[overlays](https://github.com/robelene112/redsquare-android/actions/runs/46070182425),
+[Android 10 viewports](https://github.com/robelene112/redsquare-android/actions/runs/46074584590),
+[Android 17 viewports](https://github.com/robelene112/redsquare-android/actions/runs/46074584524).
+
+The original batch scale run records a 47.15% warm miss bound and a 1,021.88ms
+cold maximum. The corrected batch records 16.10% and 840.47ms. Both complete
+all 100 lifecycle cycles and the crossed signed arrival with under 1px of
+unexplained movement. Both exceed the frozen frame limits. [Original batch](https://github.com/robelene112/redsquare-android/actions/runs/46069132792),
+[corrected batch](https://github.com/robelene112/redsquare-android/actions/runs/46070384379).
+
+The corrected batch fails the Android 10 composer image-removal fault fixture
+at 320dp and 130% text in dark mode. The screen retains the image and caption.
+A text recovery warning appears while the image action is below the visible
+viewport. Candidate `438a5f439` schedules a text checkpoint only when newer
+text differs from the verified saved draft. The native removal case asserts the
+image error and the absence of a misleading text recovery warning. [Android 10 catalogue](https://github.com/robelene112/redsquare-android/actions/runs/46071882786).
 
 The [compact exact-reply run](https://github.com/robelene112/redsquare-android/actions/runs/45669562341)
 confirms that both lines of the reply body fit the 320dp conversation at
