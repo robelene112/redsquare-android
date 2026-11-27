@@ -16,6 +16,31 @@ class SpacePresentationStoreTest {
         } }
     }
 
+    @Test fun repeatedHistoryPageReusesTheSameRowsUntilAnOverlappingWrite() {
+        val disk = AtomicRows()
+        disk.transaction { put("history/1", byteArrayOf(1)); put("history/2", byteArrayOf(2)) }
+        val store = SpacePresentationStore(disk)
+        store.project { store.transaction {
+            val row = page("history/", "history/1", 10).first()
+            row.value[0] = 9
+            assertTrue(page("history/", "history/3", 1).isEmpty())
+            put("reactions/1", byteArrayOf(1))
+            assertArrayEquals(byteArrayOf(1), page("history/", "history/1", 10).first().value)
+            assertEquals(2, disk.pageReads)
+            remove("history/1")
+            assertEquals(listOf("history/2"), page("history/", "history/1", 10).map { it.key })
+            assertEquals(3, disk.pageReads)
+            put("history/3", byteArrayOf(3))
+            assertEquals(listOf("history/2", "history/3"), page("history/", "history/1", 10).map { it.key })
+            assertEquals(4, disk.pageReads)
+        } }
+        disk.transaction { put("history/4", byteArrayOf(4)) }
+        store.project { store.transaction {
+            assertEquals(listOf("history/2", "history/3", "history/4"), page("history/", "history/1", 10).map { it.key })
+            assertEquals(5, disk.pageReads)
+        } }
+    }
+
     @Test fun preloadedRowsShareTheSnapshotIncludingMissingRowsAndWrites() {
         val disk = AtomicRows()
         disk.transaction { put("present", byteArrayOf(1)) }
@@ -107,6 +132,7 @@ class SpacePresentationStoreTest {
     private class AtomicRows : SpaceClientStore {
         private var committed = mutableMapOf<String, ByteArray>()
         val reads = mutableMapOf<String, Int>()
+        var pageReads = 0
         var failAfterRemoval = false
         var unreadableKey: String? = null
         override fun <T> transaction(action: SpaceClientStore.Transaction.() -> T): T {
@@ -126,7 +152,7 @@ class SpacePresentationStoreTest {
                 }
                 override fun page(prefix: String, cursor: String, limit: Int) = working.entries
                     .filter { it.key.startsWith(prefix) && it.key >= cursor }.sortedBy { it.key }.take(limit)
-                    .map { SpaceClientStore.Entry(it.key, it.value.copyOf()) }
+                    .map { SpaceClientStore.Entry(it.key, it.value.copyOf()) }.also { pageReads++ }
                 override fun pageBefore(prefix: String, before: String, limit: Int) = working.entries
                     .filter { it.key.startsWith(prefix) && it.key < before }.sortedByDescending { it.key }.take(limit)
                     .map { SpaceClientStore.Entry(it.key, it.value.copyOf()) }

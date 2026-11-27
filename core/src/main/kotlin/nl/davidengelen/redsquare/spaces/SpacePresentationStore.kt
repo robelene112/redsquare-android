@@ -33,7 +33,9 @@ internal class SpacePresentationStore(private val backing: SpaceClientStore) : S
     /** Repeated identity/state reads share this one atomic snapshot, including
      * disposable index writes. Never retain plaintext or authority between transactions. */
     private class SnapshotRows(private val backing: SpaceClientStore.Transaction) : SpaceClientStore.Transaction {
+        private data class PageRequest(val prefix: String, val cursor: String, val limit: Int)
         private val values = LinkedHashMap<String, ByteArray?>(16, .75f, true)
+        private val forwardPages = LinkedHashMap<PageRequest, List<String>>(4, .75f, true)
         private var bytes = 0
 
         override fun get(key: String): ByteArray? {
@@ -56,22 +58,40 @@ internal class SpacePresentationStore(private val backing: SpaceClientStore) : S
         }
 
         override fun put(key: String, value: ByteArray) {
+            invalidatePage(key)
             forget(key)
             backing.put(key, value)
             remember(key, value)
         }
 
         override fun remove(key: String) {
+            invalidatePage(key)
             forget(key)
             backing.remove(key)
             remember(key, null)
         }
 
-        override fun page(prefix: String, cursor: String, limit: Int): List<SpaceClientStore.Entry> =
-            backing.page(prefix, cursor, limit).also { rows -> rows.forEach { remember(it.key, it.value) } }
+        override fun page(prefix: String, cursor: String, limit: Int): List<SpaceClientStore.Entry> {
+            val request = PageRequest(prefix, cursor, limit)
+            val previous = forwardPages[request]
+            if (previous != null && previous.all(values::containsKey)) {
+                return previous.map { SpaceClientStore.Entry(it, requireNotNull(values[it]).copyOf()) }
+            }
+            return backing.page(prefix, cursor, limit).also { rows ->
+                rows.forEach { remember(it.key, it.value) }
+                // History first checks the window and its one-key boundaries,
+                // then reads the same window for the visible messages.
+                if (limit > 1 && rows.isNotEmpty()) {
+                    forwardPages[request] = rows.map { it.key }
+                    if (forwardPages.size > MAX_PAGES) forwardPages.remove(forwardPages.keys.first())
+                }
+            }
+        }
 
         override fun pageBefore(prefix: String, before: String, limit: Int): List<SpaceClientStore.Entry> =
             backing.pageBefore(prefix, before, limit).also { rows -> rows.forEach { remember(it.key, it.value) } }
+
+        private fun invalidatePage(key: String) { forwardPages.keys.removeAll { key.startsWith(it.prefix) && key >= it.cursor } }
 
         private fun forget(key: String) { bytes -= values.remove(key)?.size ?: 0 }
 
@@ -85,6 +105,7 @@ internal class SpacePresentationStore(private val backing: SpaceClientStore) : S
 
         companion object {
             private const val MAX_ROWS = 128
+            private const val MAX_PAGES = 4
             private const val MAX_BYTES = 1024 * 1024
         }
     }
