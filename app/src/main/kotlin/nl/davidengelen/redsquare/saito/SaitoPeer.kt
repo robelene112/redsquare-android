@@ -161,10 +161,10 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
 
     /** Verify the peer and write our proof before making a durable operation non-cancellable. */
     suspend fun authenticate() = withTimeout(12_000) {
-        val proof = await(connection.ready)
+        val requiredWriteOffset = await(connection.handshakeWriteTarget)
         // A policy check can close its only lease immediately after authentication.
         // Do not let that close cancel the still-queued signed response.
-        while (!connection.hasWritten(proof)) {
+        while (!connection.hasWritten(requiredWriteOffset)) {
             requireActive()
             delay(10)
         }
@@ -231,7 +231,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
 
     private data class Address(val owner: String, val endpoint: String)
     private class Connection(private val wallet: SaitoWallet, val address: Address) {
-        val ready = CompletableDeferred<Long>()
+        val handshakeWriteTarget = CompletableDeferred<Long>()
         val advertised = CompletableDeferred<Set<String>>()
         val closed = CompletableDeferred<Unit>()
         val disconnected = AtomicBoolean(false)
@@ -306,7 +306,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                             if (counter.any { it != 0.toByte() }) {
                                 handshakeWriteOffset = send(webSocket, SaitoWire.handshakeReply(wallet, counter, ByteArray(32)))
                             }
-                            ready.complete(handshakeWriteOffset)
+                            handshakeWriteTarget.complete(handshakeWriteOffset)
                         }
                         7 -> send(webSocket, byteArrayOf(16))
                         20 -> send(webSocket, byteArrayOf(9)) // This reader advertises no server services.
@@ -500,7 +500,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                 disconnected.set(true)
                 incomingWorker.shutdownNow().forEach { (it as IncomingDelivery).release() }
                 connections.remove(address, this)
-                ready.completeExceptionally(IOException("Peer disconnected"))
+                handshakeWriteTarget.completeExceptionally(IOException("Peer disconnected"))
                 advertised.completeExceptionally(IOException("Peer disconnected"))
                 pending.values.forEach { it.response.completeExceptionally(IOException("Peer disconnected")) }
                 pending.clear()
