@@ -1064,6 +1064,7 @@ try:
         if back_index != len(exact_reads) - 1:
             raise RuntimeError('Returning to Spaces repeated the cancelled exact destination')
         finish_record(*movies[-1])
+        record(3)
         revoked = instrument('visibleSearchDiscardsRevokedPrivateDataBeforeAnUnrelatedReply', 'search-revocation.txt', peer_port, control_port)
         revoked.wait(timeout=145)
         if revoked.returncode or len(re.findall(r'^OK \(1 test\)\s*$', (evidence / 'search-revocation.txt').read_text(), re.M)) != 1:
@@ -1072,6 +1073,7 @@ try:
         for field, size in [('control', 128), ('channel', 64), ('heldRead', 128)]:
             if not re.fullmatch('[0-9a-f]{' + str(size) + '}', revoked_access.get(field, '')):
                 raise RuntimeError('The crossed Search evidence omitted the signed scope or held read')
+        finish_record(*movies[-1])
         command(control_port, 'stop')
         host.wait(timeout=15)
         if host.returncode:

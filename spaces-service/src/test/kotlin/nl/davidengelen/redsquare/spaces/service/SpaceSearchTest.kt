@@ -29,7 +29,8 @@ class SpaceSearchTest {
         val authority = SaitoWallet.create()
         SpacesServiceStore(files.newFolder().toPath(), authority, clock).use { service ->
             SqliteClientFixture(files.newFile().absolutePath).use { ownerStore ->
-                SqliteClientFixture(files.newFile().absolutePath).use { readerStore ->
+                val readerDatabase = files.newFile().absolutePath
+                SqliteClientFixture(readerDatabase).use { readerStore ->
                     val owner = SpaceClient(SaitoWallet.create(), "https://spaces.example.test", authority.publicKey, ownerStore, clock) {
                         service.exchange(it.envelope())
                     }
@@ -129,6 +130,15 @@ class SpaceSearchTest {
                     assertFalse(reader.destinationAccessAllowed(saved.address))
                     assertNull(reader.cachedDestination(saved.address))
                     assertEquals(setOf(first, reply, queued), find(reader, SpaceSearchFilter(channel = chat)).map { it.address.record }.toSet())
+                    SqliteClientFixture(readerDatabase).use { reopened ->
+                        val offline = SpaceClient(readerWallet, "https://spaces.example.test", authority.publicKey, reopened, clock) {
+                            error("Opening a saved Search view must not contact the node")
+                        }
+                        assertFalse(offline.searchChannels(space).any { it.id == hidden })
+                        assertFalse(offline.destinationAccessAllowed(saved.address))
+                        assertNull(offline.cachedDestination(saved.address))
+                        assertEquals(setOf(first, reply, queued), find(offline, SpaceSearchFilter(channel = chat)).map { it.address.record }.toSet())
+                    }
                 }
             }
         }

@@ -216,37 +216,42 @@ class SpacesCatchUpJourneyTest {
     @Test fun visibleSearchDiscardsRevokedPrivateDataBeforeAnUnrelatedReply() {
         val config = request("config")
         prepareWallet(config)
-        launch(config.get("link").asString).use {
-            withFailureCapture({ capture("search-revocation-failure") }) {
-                val privateChannel = "Temporary search channel"
-                val privateMessage = "Temporary authorized Needle"
-                waitText("Separate proof conversation")
-                val target = request("search-channel").get("channel").asString
-                ui.waitUntil(25_000) { request("search-admit").get("ready").asBoolean }
-                val switcher = ui.onNode(hasContentDescription("Switch Space or channel") and hasClickAction())
-                ui.waitUntil(12_000) { switcher.isDisplayed() }
-                switcher.performClick()
-                click(privateChannel)
-                waitText(privateMessage)
-                ui.waitUntil(12_000) { switcher.isDisplayed() }
-                switcher.performClick()
-                click("General")
-                waitText("Separate proof conversation")
-                click("Community information")
-                click("Search this Space")
-                val field = ui.onNode(hasSetTextAction() and hasText("Search saved history"))
-                ui.waitUntil(12_000) { field.isDisplayed() }
-                field.performTouchInput { click() }
-                field.performTextReplacement("Needle")
-                Espresso.closeSoftKeyboard()
-                click("All available channels")
-                click(privateChannel, popup = true)
-                waitText(privateMessage)
-                ui.onNodeWithText(privateChannel).assertIsDisplayed()
-                capture("search-before-revocation")
+        var armed = false
+        var released = false
+        var primary: Throwable? = null
+        try {
+            launch(config.get("link").asString).use {
+                withFailureCapture({ capture("search-revocation-failure") }) {
+                    val privateChannel = "Temporary search channel"
+                    val privateMessage = "Temporary authorized Needle"
+                    waitText("Separate proof conversation")
+                    val target = request("search-channel").get("channel").asString
+                    ui.waitUntil(25_000) { request("search-admit").get("ready").asBoolean }
+                    val switcher = ui.onNode(hasContentDescription("Switch Space or channel") and hasClickAction())
+                    ui.waitUntil(12_000) { switcher.isDisplayed() }
+                    switcher.performClick()
+                    click(privateChannel)
+                    waitText(privateMessage)
+                    ui.waitUntil(12_000) { switcher.isDisplayed() }
+                    switcher.performClick()
+                    click("General")
+                    waitText("Separate proof conversation")
+                    click("Community information")
+                    click("Search this Space")
+                    val field = ui.onNode(hasSetTextAction() and hasText("Search saved history"))
+                    ui.waitUntil(12_000) { field.isDisplayed() }
+                    field.performTouchInput { click() }
+                    field.performTextReplacement("Needle")
+                    Espresso.closeSoftKeyboard()
+                    click("All available channels")
+                    val privateOption = ui.onNode(hasText(privateChannel) and hasAnyAncestor(isPopup()))
+                    ui.waitUntil(12_000) { privateOption.isDisplayed() }
+                    click(privateChannel, popup = true)
+                    val results = ui.onNodeWithTag("spaces-search-list")
+                    waitText(privateMessage)
+                    capture("search-before-revocation")
 
-                var released = false
-                try {
+                    armed = true
                     val revoked = request("search-revoke")
                     assertEquals(target, revoked.get("channel").asString)
                     var held: String? = null
@@ -254,20 +259,40 @@ class SpacesCatchUpJourneyTest {
                         held = request("search-held").get("id")?.takeUnless { it.isJsonNull }?.asString
                         held != null
                     }
+                    val read = requireNotNull(held)
                     ui.waitUntil(6_000) {
-                        ui.onNodeWithText("First proof Needle").isDisplayed() && !ui.onNodeWithText(privateMessage).isDisplayed()
+                        val publicResult = runCatching {
+                            results.performScrollToNode(hasText("First proof Needle"))
+                            ui.onNodeWithText("First proof Needle").isDisplayed()
+                        }.getOrDefault(false)
+                        publicResult && !ui.onNodeWithText(privateMessage).isDisplayed()
                     }
-                    ui.onNodeWithText(privateChannel).assertDoesNotExist()
                     ui.onNodeWithText(privateMessage).assertDoesNotExist()
-                    assertEquals(held, request("search-held").get("id").asString)
+                    results.performScrollToIndex(0)
+                    click("All available channels")
+                    ui.onNode(hasText("General") and hasAnyAncestor(isPopup())).assertIsDisplayed()
+                    privateOption.assertDoesNotExist()
+                    assertEquals(read, request("search-held").get("id").asString)
                     capture("search-revoked-during-held-reply")
+                    device.pressBack()
                     released = request("search-release").get("released").asBoolean
                     assertTrue(released)
-                    revoked.addProperty("heldRead", held)
+                    ui.waitUntil(10_000) {
+                        device.executeShellCommand("logcat -d -s SpacesAccount138:D '*:S'").contains("request=${read.take(10)} returnedMs=")
+                    }
+                    waitText("First proof Needle")
+                    ui.onNodeWithText(privateMessage).assertDoesNotExist()
+                    results.performScrollToIndex(0)
+                    click("All available channels")
+                    ui.onNode(hasText("General") and hasAnyAncestor(isPopup())).assertIsDisplayed()
+                    privateOption.assertDoesNotExist()
+                    device.pressBack()
+                    revoked.addProperty("heldRead", read)
                     File(evidence, "search-revocation-result.json").writeText(revoked.toString())
-                } finally { if (!released) request("search-release") }
+                }
             }
-        }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally { cleanupAfterTest(primary, { if (armed && !released) request("search-release") }) }
     }
 
     @Test fun coldExactLinkAndRestrictedLink() {

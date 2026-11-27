@@ -45,12 +45,28 @@ class SpacePresentationStoreTest {
         val keys = (0 until 8).map { "receipt-$it" }
         disk.transaction { keys.forEachIndexed { index, key -> put(key, ByteArray(180 * 1024) { index.toByte() }) } }
         val store = SpacePresentationStore(disk)
-        store.transaction {
+        val checkRows = { store.transaction {
             val rows = store.readRows(this, keys.reversed() + listOf("missing", keys.last()))
             assertEquals((7 downTo 0).map { it.toByte() } + listOf(null, 7.toByte()), rows.map { it?.first() })
             rows.first()!![0] = 9
             assertEquals(7.toByte(), rows.last()?.first())
             assertEquals((keys + "missing").associateWith { 1 }, disk.reads)
+            assertEquals(1, disk.batchReads)
+        } }
+        checkRows()
+        disk.reads.clear(); disk.batchReads = 0
+        store.project(checkRows)
+    }
+
+    @Test fun demandedBatchFallsBackWhenOnlyTheBulkReadFails() {
+        val disk = AtomicRows()
+        disk.transaction { put("row", byteArrayOf(7)) }
+        disk.failBatchRead = true
+        val store = SpacePresentationStore(disk)
+        store.transaction {
+            assertArrayEquals(byteArrayOf(7), store.readRows(this, listOf("row")).single())
+            assertEquals(1, disk.batchReads)
+            assertEquals(mapOf("row" to 1), disk.reads)
         }
     }
 
@@ -122,6 +138,8 @@ class SpacePresentationStoreTest {
     private class AtomicRows : SpaceClientStore {
         private var committed = mutableMapOf<String, ByteArray>()
         val reads = mutableMapOf<String, Int>()
+        var batchReads = 0
+        var failBatchRead = false
         var failAfterRemoval = false
         var unreadableKey: String? = null
         override fun <T> transaction(action: SpaceClientStore.Transaction.() -> T): T {
@@ -131,6 +149,11 @@ class SpacePresentationStoreTest {
                     reads[key] = (reads[key] ?: 0) + 1
                     if (key == unreadableKey) throw StorageFailure()
                     return working[key]?.copyOf()
+                }
+                override fun getAll(keys: List<String>): Map<String, ByteArray> {
+                    batchReads++
+                    if (failBatchRead) throw StorageFailure()
+                    return super.getAll(keys)
                 }
                 override fun put(key: String, value: ByteArray) {
                     remove(key); working[key] = value.copyOf()

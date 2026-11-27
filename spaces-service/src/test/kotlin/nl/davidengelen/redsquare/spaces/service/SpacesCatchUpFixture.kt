@@ -6,6 +6,7 @@ import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceChannelProfile
 import nl.davidengelen.redsquare.spaces.SpaceClient
+import nl.davidengelen.redsquare.spaces.SpaceClientStore
 import nl.davidengelen.redsquare.spaces.SpaceDestination
 import nl.davidengelen.redsquare.spaces.SpaceProfile
 import nl.davidengelen.redsquare.spaces.SpacePublicReference
@@ -14,7 +15,7 @@ import java.nio.file.Path
 import java.time.Clock
 
 internal class SpacesCatchUpFixture(root: Path, node: SaitoWallet, private val other: SpaceClient,
-    service: SpacesServiceStore, clock: Clock) : AutoCloseable {
+    private val authorityView: SpaceClientStore, service: SpacesServiceStore, clock: Clock) : AutoCloseable {
     private val nodeUrl = "https://saito.davidengelen.nl"
     private val authority = node.publicKey
     private val nativeWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
@@ -69,20 +70,29 @@ internal class SpacesCatchUpFixture(root: Path, node: SaitoWallet, private val o
 
     suspend fun admitSearchDevice(requests: List<SaitoTransaction>): JsonObject {
         val target = requireNotNull(revocableSearchChannel)
-        val joined = requests.any { tx ->
-            val original = SaitoEnvelope.decode(tx.envelope())
+        val joined = requests.asSequence().map { SaitoEnvelope.decode(it.envelope()) }.firstOrNull { original ->
             original.author == nativeWallet.publicKey && original.body.get("kind")?.asString == "join-channel" &&
                 original.body.get("channel_id")?.asString == target
         }
-        if (joined) {
+        if (joined != null && revocableSearchMessage == null) {
             other.admitPending(space)
             other.flush(space)
-            if (revocableSearchMessage == null) {
+            val device = joined.body.getAsJsonObject("key_package").get("device").asString
+            val admitted = authorityView.transaction {
+                page("$space/control/").any { row ->
+                    val receipt = SaitoEnvelope.decode(row.value.toString(Charsets.UTF_8))
+                    check(receipt.author == authority)
+                    val event = SaitoEnvelope.decode(receipt.body.get("event").asString).body
+                    event.get("kind")?.asString == "admit" && event.get("channel_id")?.asString == target &&
+                        event.getAsJsonObject("devices").has("$device:${nativeWallet.publicKey}")
+                }
+            }
+            if (admitted) {
                 revocableSearchMessage = other.send(space, "Temporary authorized Needle", target)
                 other.flush(space)
             }
         }
-        return JsonObject().apply { addProperty("ready", joined && revocableSearchMessage != null) }
+        return JsonObject().apply { addProperty("ready", revocableSearchMessage != null) }
     }
 
     suspend fun revokeSearchChannel(hold: (String, String, String) -> Unit): JsonObject {

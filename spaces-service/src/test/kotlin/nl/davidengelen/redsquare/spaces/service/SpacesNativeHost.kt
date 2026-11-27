@@ -69,7 +69,7 @@ object SpacesNativeHost {
                         fixture.seed()
                     }
                     if (catchUpMode) {
-                        val fixture = SpacesCatchUpFixture(root, service, client, remote, clock)
+                        val fixture = SpacesCatchUpFixture(root, service, client, local, remote, clock)
                         catchUp = fixture
                         fixture.seed()
                     }
