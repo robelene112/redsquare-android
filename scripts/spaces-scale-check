@@ -131,24 +131,18 @@ with host_dir as temporary, (evidence / 'host.log').open('wb') as host_log:
         receipt = json.loads(observed[0])
         if receipt['manifestSha256'] != sha(fixture / 'fixture.json') or receipt['authenticatedLocalRows'] != expected_rows:
             raise RuntimeError('Android imported a different fixture')
-        def open_fixture(open_log, screen_log, seconds, cold=True, route='hotLink'):
-            if cold:
-                adb('shell', 'am', 'force-stop', package)
+        def open_fixture(open_log, screen_log, seconds):
+            adb('shell', 'am', 'force-stop', package)
             reads_before_open = request('status')['readRequests']
-            launch = ['am', 'start', '-W', '-a', 'android.intent.action.VIEW', '-d', endpoints[route],
+            launch = ['am', 'start', '-W', '-a', 'android.intent.action.VIEW', '-d', endpoints['hotLink'],
                       '-p', package, '--es', 'feedPeerUrl', f'ws://127.0.0.1:{local_port}/wsopen']
             (evidence / open_log).write_bytes(adb('shell', shlex.join(launch), timeout=seconds))
             deadline = time.monotonic() + seconds
-            if route == 'hotLink':
-                community = b'Benchmark Space 001'
-                latest = f"record {manifest['hotChannelMessages']}.".encode()
-            else:
-                community = b'Benchmark Space 002'
-                latest = 'General • Benchmark Space 002 • record 2.'.encode()
+            latest = f"record {manifest['hotChannelMessages']}.".encode()
             while True:
                 document = fresh_hierarchy(adb, '/sdcard/spaces-scale-smoke.xml', evidence / screen_log)
-                if (document is not None and community in document and latest in document and
-                        (not cold or request('status')['readRequests'] > reads_before_open)):
+                if (document is not None and b'Benchmark Space 001' in document and latest in document and
+                        request('status')['readRequests'] > reads_before_open):
                     return
                 if time.monotonic() >= deadline:
                     raise RuntimeError('Cold launch did not render the signed latest fixture message')
@@ -175,6 +169,8 @@ with host_dir as temporary, (evidence / 'host.log').open('wb') as host_log:
                 raise RuntimeError('Diagnostic image differs from the frozen timing environment')
             summary['diagnostic'] = diagnose_scroll(adb, evidence, package, open_fixture,
                 json.loads(contract.read_text())['thresholds'])
+            (evidence / 'application-logcat.txt').write_bytes(adb('logcat', '-d', '-v', 'threadtime', '-s',
+                'SpacesAccount138:D', 'SpacesScaleProof:I', 'AndroidRuntime:E', '*:S'))
         elif full:
             reference = json.loads(baseline.read_text())
             if reference['device'] != summary['device'] or reference['fixtureContractSha256'] != sha(contract):

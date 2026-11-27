@@ -333,10 +333,18 @@ def diagnose_scroll(adb, evidence, package, open_fixture, thresholds):
         if len(set(cold_pids)) != len(cold_pids):
             raise RuntimeError('Cold diagnostic launches did not use distinct processes')
 
+        previous_history = 'General • Benchmark Space 001 • record '.encode()
+        latest = previous_history + b'384.'
         for trial in range(4):
             name = 'warm-up' if trial == 0 else f'warm-{trial}'
-            open_fixture(f'{name}-other-launch.txt', f'{name}-other.xml', 20, cold=False, route='unrelatedLink')
-            open_fixture(f'{name}-launch.txt', f'{name}-start.xml', 20, cold=False)
+            if trial:
+                # Rewind the same native list. Older builds can preserve a
+                # detached reading position or block a second navigation.
+                for _ in range(6):
+                    shell('input', 'swipe', '410', '1310', '410', '620', '350')
+            viewport = fresh_hierarchy(adb, '/sdcard/spaces-scale-diagnostic.xml', evidence / f'{name}-start.xml')
+            if viewport is None or latest not in viewport:
+                raise RuntimeError(f'The exact latest diagnostic message was not visible before {name}')
             for swipe in range(1, 5):
                 reset_frames()
                 shell('input', 'swipe', '410', '620', '410', '1310', '350')
@@ -345,7 +353,7 @@ def diagnose_scroll(adb, evidence, package, open_fixture, thresholds):
                 if trial:
                     measured_warm.extend(sample)
             viewport = fresh_hierarchy(adb, '/sdcard/spaces-scale-diagnostic.xml', evidence / f'{name}-end.xml')
-            if viewport is None or b'General \xe2\x80\xa2 Benchmark Space 001 \xe2\x80\xa2 record ' not in viewport or b'record 384.' in viewport:
+            if viewport is None or previous_history not in viewport or latest in viewport:
                 raise RuntimeError(f'The native scroll did not move from the exact message to earlier history in {name}')
         if int(shell('pidof', package)) != cold_pids[-1]:
             raise RuntimeError('The warm series was interrupted by a process restart')
