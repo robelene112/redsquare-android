@@ -10,7 +10,7 @@ interface SpaceClientStore {
         /** One bounded set of existing rows. Missing keys are omitted. */
         fun getAll(keys: List<String>): Map<String, ByteArray> {
             require(keys.size <= 100)
-            return buildMap { for (key in keys) get(key)?.let { put(key, it) } }
+            return buildMap { for (key in keys) this@Transaction.get(key)?.let { put(key, it) } }
         }
         fun put(key: String, value: ByteArray)
         fun remove(key: String)
