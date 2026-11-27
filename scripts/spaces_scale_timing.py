@@ -335,6 +335,7 @@ def diagnose_scroll(adb, evidence, package, open_fixture, thresholds):
 
         for trial in range(4):
             name = 'warm-up' if trial == 0 else f'warm-{trial}'
+            open_fixture(f'{name}-other-launch.txt', f'{name}-other.xml', 20, cold=False, route='unrelatedLink')
             open_fixture(f'{name}-launch.txt', f'{name}-start.xml', 20, cold=False)
             for swipe in range(1, 5):
                 reset_frames()

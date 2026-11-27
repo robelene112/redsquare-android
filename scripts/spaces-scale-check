@@ -131,18 +131,23 @@ with host_dir as temporary, (evidence / 'host.log').open('wb') as host_log:
         receipt = json.loads(observed[0])
         if receipt['manifestSha256'] != sha(fixture / 'fixture.json') or receipt['authenticatedLocalRows'] != expected_rows:
             raise RuntimeError('Android imported a different fixture')
-        launch = ['am', 'start', '-W', '-a', 'android.intent.action.VIEW', '-d', endpoints['hotLink'],
-                  '-p', package, '--es', 'feedPeerUrl', f'ws://127.0.0.1:{local_port}/wsopen']
-        def open_fixture(open_log, screen_log, seconds, cold=True):
+        def open_fixture(open_log, screen_log, seconds, cold=True, route='hotLink'):
             if cold:
                 adb('shell', 'am', 'force-stop', package)
             reads_before_open = request('status')['readRequests']
+            launch = ['am', 'start', '-W', '-a', 'android.intent.action.VIEW', '-d', endpoints[route],
+                      '-p', package, '--es', 'feedPeerUrl', f'ws://127.0.0.1:{local_port}/wsopen']
             (evidence / open_log).write_bytes(adb('shell', shlex.join(launch), timeout=seconds))
             deadline = time.monotonic() + seconds
-            latest = f"record {manifest['hotChannelMessages']}.".encode()
+            if route == 'hotLink':
+                community = b'Benchmark Space 001'
+                latest = f"record {manifest['hotChannelMessages']}.".encode()
+            else:
+                community = b'Benchmark Space 002'
+                latest = 'General • Benchmark Space 002 • record 2.'.encode()
             while True:
                 document = fresh_hierarchy(adb, '/sdcard/spaces-scale-smoke.xml', evidence / screen_log)
-                if (document is not None and b'Benchmark Space 001' in document and latest in document and
+                if (document is not None and community in document and latest in document and
                         (not cold or request('status')['readRequests'] > reads_before_open)):
                     return
                 if time.monotonic() >= deadline:
@@ -194,10 +199,10 @@ with host_dir as temporary, (evidence / 'host.log').open('wb') as host_log:
                         raise RuntimeError('Calibration did not observe the actual anchor frame commit')
                     time.sleep(.1)
 
-            config = FRAME_TIMELINE_TRACE + 'duration_ms: 45000\nwrite_into_file: true\nfile_write_period_ms: 5000\n'
-            # Capture the app's surface creation and let Perfetto flush the
-            # terminal presented frames before the trace file is pulled.
-            with capture_trace(adb, evidence, config, wait_for_duration=True):
+            config = FRAME_TIMELINE_TRACE + 'duration_ms: 120000\nwrite_into_file: true\nfile_write_period_ms: 5000\n'
+            # Capture surface creation through the moving checkpoint, then stop
+            # the owned session after the trace has written both tail batches.
+            with capture_trace(adb, evidence, config):
                 open_fixture('traced-external-open.txt', 'traced-screen.xml', 15)
 
                 def fixed(checkpoint):
@@ -225,20 +230,20 @@ with host_dir as temporary, (evidence / 'host.log').open('wb') as host_log:
 
                 moving = observe_anchor('scroll-observations.txt', through_checkpoint)
                 observer('stop')
-                # The background PID can disappear before the final service
-                # flush. Require another file write after the terminal commit.
+                # A write in progress can contain only the previous batch.
+                # Observe two subsequent file advances after the terminal commit.
                 def trace_size():
                     return int(adb('shell', 'stat', '-c', '%s', TRACE_TARGET).strip())
 
-                initial_bytes = trace_size()
-                deadline = time.monotonic() + 13
-                while True:
-                    updated_bytes = trace_size()
-                    (evidence / 'perfetto-checkpoint-flush.txt').write_text(f'{initial_bytes} {updated_bytes}\n')
-                    if updated_bytes > initial_bytes:
-                        break
+                sizes = [trace_size()]
+                deadline = time.monotonic() + 15
+                while len(sizes) < 3:
+                    current_bytes = trace_size()
+                    if current_bytes > sizes[-1]:
+                        sizes.append(current_bytes)
+                        (evidence / 'perfetto-checkpoint-flush.txt').write_text(' '.join(map(str, sizes)) + '\n')
                     if time.monotonic() >= deadline:
-                        raise RuntimeError('Perfetto did not flush another packet after the terminal calibration frame')
+                        raise RuntimeError('Perfetto did not flush the tail after the terminal calibration frame')
                     time.sleep(.2)
             native = analyse_trace(evidence, {}, [('calibration', 0, first[0], last[0]),
                 ('moving-calibration', 6, moving[0]['sequence'], moving[-1]['sequence'])])
