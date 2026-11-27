@@ -195,6 +195,38 @@ The [Android 10 control](https://github.com/robelene112/redsquare-android/action
 passes all three native overlay, pin and unread cases on the current product
 source. The read-marker variant remains on its diagnostic branch.
 
+The [full baseline retest](https://github.com/robelene112/redsquare-android/actions/runs/46065765740)
+passes 100 foreground and stopped-polling cycles with the exact linked message
+visible on return. All seven geometry windows match the native frame tokens.
+The signed arrival during the drag moves visible rows by at most 0.88px beyond
+consumed scroll. Reaction feedback reaches 44.34ms at p95 and final retained
+Java and native heap both fall from the initial settled samples. The frozen
+frame limits still fail. Of 789 warm frames, 71 miss the deadline and six are
+absent from retained samples, a conservative 9.76% bound. The slowest cold
+frame reaches 707.15ms.
+
+The [native scheduler diagnostic](https://github.com/robelene112/redsquare-android/actions/runs/46066531555)
+joins HWUI frame tokens and process IDs from two fresh installs of identical
+APK bytes. The warm miss bounds differ at 12.32% and 7.13%. On the first
+installation, two cold render intervals spend 181ms and 284ms ready to run
+while waiting for CPU time. The guest also runs app and Android system work
+in those intervals. The scheduler recording uses the smaller diagnostic data.
+
+The [batched metadata comparison](https://github.com/robelene112/redsquare-android/actions/runs/46067049982)
+measures a 3.73% warm miss bound in the second install. In the
+[reverse order](https://github.com/robelene112/redsquare-android/actions/runs/46067049906)
+the same change measures 7.54% in the first install. The review found that an
+unreadable old edit could interrupt the deleted-message placeholder during
+prefetch. Source `f2f5c5142` checks row visibility before prefetch and falls
+back to ordinary point reads after a batch failure. A signed service test
+injects an unreadable old edit and verifies the corrected placeholder.
+Native [Android 10 encrypted storage](https://github.com/robelene112/redsquare-android/actions/runs/46070182392)
+and [Android 17 overlays](https://github.com/robelene112/redsquare-android/actions/runs/46070182425)
+pass on the corrected source. [Full scale](https://github.com/robelene112/redsquare-android/actions/runs/46070384379),
+[Android 10](https://github.com/robelene112/redsquare-android/actions/runs/46071882786)
+and [Android 17](https://github.com/robelene112/redsquare-android/actions/runs/46071882359)
+continue on that exact source.
+
 The [compact exact-reply run](https://github.com/robelene112/redsquare-android/actions/runs/45669562341)
 confirms that both lines of the reply body fit the 320dp conversation at
 200% text. The native proof opens the actual Android notification and the
