@@ -142,40 +142,57 @@ if [[ "${SPACES_SCALE_SMOKE:-false}" == true || "${SPACES_SCALE_FULL:-false}" ==
         if [[ "$SPACES_SCALE_COMPARE" == paired:self ]]; then reference="$repo_dir"; fi
         diagnosis="$evidence/spaces-scale-diagnostic"
         mkdir "$diagnosis"
-        printf '%s\n' 'Paired timing on the same disposable emulator and authenticated diagnostic data.' > "$evidence/scope.txt"
-        reference_status=0
-        python3 "$repo_dir/scripts/spaces-scale-check" "$diagnosis/reference" \
-            "$reference/app/build/outputs/apk/performance/app-performance.apk" --diagnostic "$reference" || reference_status=$?
-        for package in nl.davidengelen.redsquare.performance.test nl.davidengelen.redsquare.performance; do
-            if adb shell pm list packages "$package" | tr -d '\r' | grep -Fxq "package:$package"; then
-                adb uninstall "$package"
+        printf '%s\n' 'Four ordered fresh diagnostic installs on the same disposable emulator.' > "$evidence/scope.txt"
+        order=(reference current current-repeat reference-repeat)
+        printf '%s\n' "${order[@]}" > "$diagnosis/installation-order.txt"
+        for label in "${order[@]}"; do
+            build_root="$repo_dir"
+            build_apk="$artifact"
+            if [[ "$label" == reference* ]]; then
+                build_root="$reference"
+                build_apk="$reference/app/build/outputs/apk/performance/app-performance.apk"
             fi
+            if [[ "$label" != reference ]]; then
+                for package in nl.davidengelen.redsquare.performance.test nl.davidengelen.redsquare.performance; do
+                    if adb shell pm list packages "$package" | tr -d '\r' | grep -Fxq "package:$package"; then
+                        adb uninstall "$package"
+                    fi
+                done
+            fi
+            python3 "$repo_dir/scripts/spaces-scale-check" "$diagnosis/$label" \
+                "$build_apk" --diagnostic "$build_root"
         done
-        python3 "$repo_dir/scripts/spaces-scale-check" "$diagnosis/current" "$artifact" --diagnostic "$repo_dir"
-        [[ "$reference_status" == 0 ]]
-        cmp "$diagnosis"/{reference,current}/fixture.json
-        cmp "$diagnosis"/{reference,current}/device-serial.txt
-        cmp "$diagnosis"/{reference,current}/device-size.txt
-        cmp "$diagnosis"/{reference,current}/device-density.txt
+        for label in "${order[@]:1}"; do
+            for name in fixture.json device-serial.txt device-size.txt device-density.txt; do
+                cmp "$diagnosis/reference/$name" "$diagnosis/$label/$name"
+            done
+        done
         python3 - "$diagnosis" "${SPACES_SCALE_COMPARE#paired:}" <<'PY'
 import json
 from pathlib import Path
 import sys
 
 root = Path(sys.argv[1])
-reference, current = [json.loads((root / group / 'diagnostic.json').read_text()) for group in ('reference', 'current')]
+order = (root / 'installation-order.txt').read_text().splitlines()
+assert order == ['reference', 'current', 'current-repeat', 'reference-repeat']
+groups = {label: json.loads((root / label / 'diagnostic.json').read_text()) for label in order}
+reference, current = groups['reference'], groups['current']
+identity = ('source', 'apkSha256', 'testApkSha256')
+for label in ('reference', 'current'):
+    assert all(groups[label][key] == groups[label + '-repeat'][key] for key in identity)
 if sys.argv[2] == 'self':
-    assert all(reference[key] == current[key] for key in ('source', 'apkSha256', 'testApkSha256'))
+    assert all(reference[key] == current[key] for key in identity)
 else:
     assert reference['source'] == sys.argv[2] and reference['source'] != current['source']
-assert reference['device'] == current['device']
-assert reference['seed']['databaseSha256'] == current['seed']['databaseSha256']
-assert reference['seed']['authenticatedLocalRows'] == current['seed']['authenticatedLocalRows']
-assert not reference['qualifiesForTimedRuns'] and not current['qualifiesForTimedRuns']
+for group in groups.values():
+    assert reference['device'] == group['device']
+    for key in ('databaseSha256', 'authenticatedLocalRows', 'manifestSha256'):
+        assert reference['seed'][key] == group['seed'][key]
+    assert not group['qualifiesForTimedRuns']
 metrics = ('coldMaximumFrameMsByLaunch', 'warmCompleted', 'warmObserved', 'warmMissed',
            'warmMissUpperBound', 'warmDurationMs')
 print(json.dumps({label: {'source': group['source'], **{key: group['diagnostic'][key] for key in metrics}}
-                  for label, group in (('reference', reference), ('current', current))}, indent=2))
+                  for label, group in groups.items()}, indent=2))
 PY
     else
         python3 "$repo_dir/scripts/spaces-scale-check" "$evidence/spaces-scale-calibration" "$artifact"
