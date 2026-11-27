@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.ComponentActivity
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -65,6 +66,7 @@ import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.feed.FeedScreen
 import nl.davidengelen.redsquare.feed.FeedEndpoints
 import nl.davidengelen.redsquare.feed.LocalPostNavigation
+import nl.davidengelen.redsquare.feed.PostImagePickerState
 import nl.davidengelen.redsquare.feed.PostNavigation
 import nl.davidengelen.redsquare.feed.LocalVideoFixture
 import nl.davidengelen.redsquare.feed.LocalVideoDiagnostics
@@ -157,6 +159,21 @@ class MainActivity : ComponentActivity() {
     }
     private val openWalletDocument = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
         walletImports?.documentChosen(it)
+    }
+
+    internal val postImagePicker by lazy { routeModels[PostImagePickerState::class.java] }
+    private val pickPostImage = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { image ->
+        postImagePicker.receive(listOfNotNull(image))
+    }
+    private val pickPostImages = registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(
+        nl.davidengelen.redsquare.saito.RedSquareImages.MAX_COUNT)) { images ->
+        postImagePicker.receive(images)
+    }
+
+    internal fun launchPostImagePicker(session: String, remaining: Int) = postImagePicker.launch(session) {
+        val request = PickVisualMediaRequest.Builder().setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly)
+        if (remaining == 1) pickPostImage.launch(request.build())
+        else pickPostImages.launch(request.setMaxItems(remaining).build())
     }
 
     override fun onDestroy() {

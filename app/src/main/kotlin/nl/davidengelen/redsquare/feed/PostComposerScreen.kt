@@ -6,10 +6,6 @@ import nl.davidengelen.redsquare.ui.StatusTone
 import nl.davidengelen.redsquare.registry.registeredIdentity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.ComponentActivity
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,12 +31,12 @@ import kotlinx.coroutines.Dispatchers
 import nl.davidengelen.redsquare.policy.LocalPublishingAgreement
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.CancellationException
+import nl.davidengelen.redsquare.MainActivity
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.FeedPost
 import nl.davidengelen.redsquare.saito.RedSquareImages
-import android.net.Uri
 import nl.davidengelen.redsquare.media.GiphyPicker
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.FrameIconButton
@@ -60,7 +56,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     onSubmitted: () -> Unit = LocalPostSubmissionNotice.current, onClose: () -> Unit) {
     require(parent == null || quote == null)
     val owner = wallet.publicKey
-    val activity = requireNotNull(LocalActivity.current) as ComponentActivity
+    val activity = requireNotNull(LocalActivity.current) as MainActivity
     val context = activity.applicationContext
     val memory = remember(activity, owner, backend, parent?.id, quote?.id, recovery?.recoveryId) {
         ViewModelProvider(activity)["post:$owner:${backend.id}:${parent?.id.orEmpty()}:quote:${quote?.id.orEmpty()}:recovery:${recovery?.recoveryId.orEmpty()}", PostComposerMemory::class.java]
@@ -110,37 +106,17 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     }
     var choosingGif by remember(state) { mutableStateOf(false) }
     val selection = memory.imagePreparation.pending
-    // Only public session metadata enters saved state. Wallet material and draft
-    // contents remain in their existing private stores.
-    var pickingFor by rememberSaveable(session) { mutableStateOf<String?>(null) }
-    val launchImagePicker: () -> Unit = key(session) {
-        val singlePicker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) {
-            if (pickingFor == session) {
-                pickingFor = null
-                memory.imagePreparation.select(listOfNotNull(it))
-            }
+    val picker = activity.postImagePicker
+    val pickingFor by picker.pickingFor.collectAsState()
+    val returned = picker.selection
+    val choosingImages = pickingFor != null || returned?.session == session
+    val launchImagePicker: () -> Unit = {
+        if (picker.pickingFor.value == null) state.openImagePicker {
+            activity.launchPostImagePicker(session, RedSquareImages.MAX_COUNT - state.images.size)
         }
-        val multiplePicker = rememberLauncherForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(
-            maxOf(2, RedSquareImages.MAX_COUNT - state.images.size))) {
-            if (pickingFor == session) {
-                pickingFor = null
-                memory.imagePreparation.select(it)
-            }
-        }
-        val launch: () -> Unit = {
-            if (pickingFor != session) state.openImagePicker {
-                pickingFor = session
-                try {
-                    val request = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                    if (state.images.size == RedSquareImages.MAX_COUNT - 1) singlePicker.launch(request)
-                    else multiplePicker.launch(request)
-                } catch (failure: Exception) {
-                    pickingFor = null
-                    throw failure
-                }
-            }
-        }
-        launch
+    }
+    LaunchedEffect(session, returned) {
+        if (returned?.session == session && picker.consume(returned)) memory.imagePreparation.select(returned.uris)
     }
     LaunchedEffect(state, selection) {
         if (selection != null && !memory.imagePreparation.failed) {
@@ -183,7 +159,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         val loading: () -> Boolean = { !state.ready && !state.error }
         val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
             if (navigation.saveCurrent !== save || !state.ready || state.saving || state.sending ||
-                state.preparingImages || pickingFor != null) false
+                state.preparingImages || picker.pickingFor.value == session || picker.selection?.session == session) false
             else {
                 state.saving = true
                 try {
@@ -357,10 +333,10 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 if (showActions) Row(Modifier.fillMaxWidth().padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                     if (compactTyping) closeButton()
                     FrameIconButton(R.drawable.ic_image, stringResource(R.string.image_add),
-                        ready && !saving && !sending && !preparingImages && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor != session,
+                        ready && !saving && !sending && !preparingImages && transaction == null && images.size < RedSquareImages.MAX_COUNT && !choosingImages,
                         launchImagePicker)
                     FrameIconButton(R.drawable.ic_gif, stringResource(R.string.giphy_add),
-                        ready && !saving && !sending && !preparingImages && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor == null) {
+                        ready && !saving && !sending && !preparingImages && transaction == null && images.size < RedSquareImages.MAX_COUNT && !choosingImages) {
                         openImagePicker { choosingGif = true }
                     }
                     Spacer(Modifier.weight(1f))
