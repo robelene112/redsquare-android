@@ -378,35 +378,46 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val current: Community?, val channels: List<Channel>, val members: List<Member>, val bannedMembers: Set<String>,
         val window: HistoryWindow?, val messages: List<Message>, val draft: String, val anchor: ReadingAnchor?,
         val invitation: Invitation?, val publicLink: String?, val listingIntent: Boolean?, val management: Management,
-        val categories: List<Category> = emptyList(), val threadParent: Message? = null, val channelDetails: ChannelDetails? = null)
+        val categories: List<Category>, val threadParent: Message?, val channelDetails: ChannelDetails?, val accessRevision: Long,
+        val destinationDenied: Boolean)
 
     /** A bounded, coherent read for native rendering. It authenticates control
      * history once per scope instead of independently rebuilding it for every
      * visible property. No cached authority survives this transaction. */
     fun presentation(space: String? = null, channel: String? = null, from: Long? = null, thread: Message? = null,
-        includeCommunities: Boolean = true): Presentation = store.project {
+        includeCommunities: Boolean = true, destination: SpaceDestination? = null): Presentation = store.project {
         val communities = if (includeCommunities) communities() else emptyList()
         val profiles = communities.associate { it.id to profile(it.id) }.toMutableMap()
         val current = space?.let { community(it, channel) }
         val selected = current?.channel
+        val destinationDenied = destination != null && !destinationAccessAllowed(destination)
+        val readable = space.takeUnless { destinationDenied }
         if (space != null) profiles[space] = profile(space)
-        val members = space?.let(::members).orEmpty()
-        val parent = if (space != null && thread != null) {
-            store.transaction { threadParent(space, requireNotNull(selected), thread) }
-            requireNotNull(message(space, thread.id, selected))
+        val members = readable?.let(::members).orEmpty()
+        val parent = if (readable != null && thread != null) {
+            store.transaction { threadParent(readable, requireNotNull(selected), thread) }
+            requireNotNull(message(readable, thread.id, selected))
         } else null
-        val window = space?.let { if (parent == null) historyWindow(it, from, selected) else threadHistoryWindow(it, parent, from, selected) }
+        val window = readable?.let { if (parent == null) historyWindow(it, from, selected) else threadHistoryWindow(it, parent, from, selected) }
         val channels = space?.let(::channels).orEmpty()
         Presentation(communities, profiles, current, channels, members,
             space?.let(::bannedMembers).orEmpty(), window,
-            space?.let { if (parent == null) timeline(it, from = window?.from, channel = selected) else thread(it, parent, from = window?.from, channel = selected) }.orEmpty(),
-            space?.let { if (parent == null) draft(it, selected) else threadDraft(it, parent, selected) }.orEmpty(),
-            space?.let { if (parent == null) readingAnchor(it, selected) else threadReadingAnchor(it, parent, selected) },
+            readable?.let { if (parent == null) timeline(it, from = window?.from, channel = selected) else thread(it, parent, from = window?.from, channel = selected) }.orEmpty(),
+            readable?.let { if (parent == null) draft(it, selected) else threadDraft(it, parent, selected) }.orEmpty(),
+            readable?.let { if (parent == null) readingAnchor(it, selected) else threadReadingAnchor(it, parent, selected) },
             space?.let(::invitation), space?.takeIf { profiles[it]?.visibility == SpaceVisibility.PUBLIC && members.isNotEmpty() }?.let(::publicLink),
             space?.let(::listingIntent), space?.let { management(it, selected) } ?: Management(), space?.let(::categories).orEmpty(), parent,
             if (space == null || selected == null) null else ChannelDetails(searchAvailableChannels(space, channels),
                 savedContentCheckedAt(space, selected), pinStatus(space, selected), notificationPolicy(space, selected),
-                if (channels.any { it.id == selected && it.profile.kind == SpaceChannelKind.FILE }) fileStorage(space)?.id else null))
+                if (channels.any { it.id == selected && it.profile.kind == SpaceChannelKind.FILE }) fileStorage(space)?.id else null),
+            readScopeRevision, destinationDenied)
+    }
+
+    /** Publish an already-read view before a concurrent authority change can supersede it. */
+    fun publishIfCurrent(presentation: Presentation, publish: () -> Unit): Boolean = store.project {
+        if (presentation.accessRevision != readScopeRevision) return@project false
+        publish()
+        true
     }
 
     /** Urgent delivery projects just its durable management results. */

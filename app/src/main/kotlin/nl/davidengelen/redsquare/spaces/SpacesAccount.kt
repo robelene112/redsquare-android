@@ -474,15 +474,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val before = mutable.value
         val target = before.target()
         val visit = destinationVisit?.takeIf { it.target == target }
-        val deniedDestination = visit != null && !current.destinationAccessAllowed(visit.address)
         val projection = current.presentation(target?.space, target?.channel, target?.let(::windowFrom), target?.let { current.parent(it) },
-            includeCommunities = includeCommunities)
+            includeCommunities = includeCommunities, destination = visit?.address)
+        val deniedDestination = projection.destinationDenied
         val communities = projection.communities
         val profiles = projection.profiles
         val community = projection.current
         val channels = projection.channels.filterNot { deniedDestination && it.id == target?.channel }
         val members = if (deniedDestination) emptyList() else projection.members
-        val revision = current.readScopeRevision
         val details = projection.channelDetails
         val searchChannels = details?.searchChannels.orEmpty().let { available ->
             if (deniedDestination && target != null) available - target.channel else available
@@ -499,23 +498,26 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val publicLink = projection.publicLink
         val fileLease = if (deniedDestination) null else details?.fileLeaseId
         synchronized(managementChanges) {
-            val changes = managementProjection(current, target)
-            mutable.update { previous ->
-                val updated = previous.copy(communities = if (includeCommunities) communities else previous.communities,
-                    communityListLoaded = includeCommunities || previous.communityListLoaded,
-                    profiles = if (includeCommunities) profiles else previous.profiles + profiles, accessRevision = revision)
-                if (updated.target() != target || updated.loadingChannel) updated
-                else updated.copy(
-                    searchChannels = searchChannels, savedHistoryCheckedAt = checkedAt, destinationReadDenied = deniedDestination,
-                    current = community, channels = channels, categories = projection.categories, members = members,
-                    bannedMembers = bannedMembers, notificationPolicy = notifications, pinStatus = pins,
-                    messages = messages, threadParent = projection.threadParent, invitation = invitation,
-                    publicRulesToken = publicRulesToken, fileLeaseId = fileLease,
-                    listingIntent = target?.let { dirtyListings[it.space] } ?: listingIntent, publicLink = publicLink,
-                    contentLoaded = window?.loaded == true, hasEarlier = window?.hasEarlier == true,
-                    hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0,
-                    followingLatest = target == null || windowFrom(target) == null).withManagement(changes)
+            val applied = current.publishIfCurrent(projection) {
+                val changes = managementProjection(current, target)
+                mutable.update { previous ->
+                    val updated = previous.copy(communities = if (includeCommunities) communities else previous.communities,
+                        communityListLoaded = includeCommunities || previous.communityListLoaded,
+                        profiles = if (includeCommunities) profiles else previous.profiles + profiles, accessRevision = projection.accessRevision)
+                    if (updated.target() != target || updated.loadingChannel) updated
+                    else updated.copy(
+                        searchChannels = searchChannels, savedHistoryCheckedAt = checkedAt, destinationReadDenied = deniedDestination,
+                        current = community, channels = channels, categories = projection.categories, members = members,
+                        bannedMembers = bannedMembers, notificationPolicy = notifications, pinStatus = pins,
+                        messages = messages, threadParent = projection.threadParent, invitation = invitation,
+                        publicRulesToken = publicRulesToken, fileLeaseId = fileLease,
+                        listingIntent = target?.let { dirtyListings[it.space] } ?: listingIntent, publicLink = publicLink,
+                        contentLoaded = window?.loaded == true, hasEarlier = window?.hasEarlier == true,
+                        hasLater = window?.hasLater == true, windowFrom = window?.from ?: 0,
+                        followingLatest = target == null || windowFrom(target) == null).withManagement(changes)
+                }
             }
+            if (!applied) wake.trySend(Unit)
         }
     } }
 
@@ -597,7 +599,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 notificationPolicy = null, pinStatus = null, messages = emptyList(), channels = emptyList(), members = emptyList(), draft = "", invitation = null, anchor = null,
                 problem = null, listingIntent = null, publicLink = null, archiveChange = null, roleChange = null, channelEdit = null, channelCreation = null, categoryChange = null, visibilityChange = null, dissolutionChange = null, categories = emptyList(), channelAccessChange = null, membershipChange = null, ownershipOffer = null, ownershipChange = null, bannedMembers = emptySet(),
                 contentLoaded = false, loadingChannel = space != null, scrollToMessage = null, articleFocus = article,
-                savedDestination = savedDestination, savedHistoryCheckedAt = null, searchChannels = emptySet(),
+                savedDestination = savedDestination, savedHistoryCheckedAt = null, searchChannels = emptySet(), fileLeaseId = null,
                 projectingDestination = false, destinationReadDenied = false, exactDestination = exact != null)
             mutable.update { if (exact == null) reset(it) else it.copy(projectingDestination = true) }
             scope.launch {
@@ -633,59 +635,51 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             if (anchor != null) historyWindows.putIfAbsent(target, anchor.windowFrom)
                         }
                         val start = if (exactAddress != null) jump?.position else windowFrom(target)
-                        val projection = current.presentation(space, target.channel, start, parent, includeCommunities = false)
-                        val community = requireNotNull(projection.current)
-                        val window = requireNotNull(projection.window)
-                        val draft = dirtyDrafts[target] ?: projection.draft
-                        val messages = projection.messages
-                        val channels = projection.channels
-                        val members = projection.members
-                        val profile = projection.profiles.getValue(space)
-                        val rulesToken = profile.takeIf { it.visibility == SpaceVisibility.PUBLIC }?.publicRulesToken
-                        val publicLink = projection.publicLink
-                        val invitation = projection.invitation
-                        val listingIntent = projection.listingIntent
-                        val archiveChange = projection.management.archive
-                        val roleChange = projection.management.role
-                        val membershipChange = projection.management.membership
-                        val ownershipOffer = projection.management.ownershipOffer
-                        val ownershipChange = projection.management.ownership
-                        val bannedMembers = projection.bannedMembers
-                        val channelEdit = projection.management.edit
-                        val channelCreation = projection.management.creation
-                        val channelAccessChange = projection.management.access
-                        val details = requireNotNull(projection.channelDetails)
-                        synchronized(navigationChanges) {
-                            if (!currentRoute()) return@withLock
-                            if (exactAddress != null && !current.destinationAccessAllowed(exactAddress)) {
-                                mutable.update { it.copy(previewIssue = SpaceClient.ReadProblem.UNAVAILABLE, projectingDestination = false) }
-                                return@withLock
+                        while (currentRoute()) {
+                            currentCoroutineContext().ensureActive()
+                            val projection = current.presentation(space, target.channel, start, parent,
+                                includeCommunities = false, destination = exactAddress)
+                            val community = requireNotNull(projection.current)
+                            val details = requireNotNull(projection.channelDetails)
+                            val profile = projection.profiles.getValue(space)
+                            val rulesToken = profile.takeIf { it.visibility == SpaceVisibility.PUBLIC }?.publicRulesToken
+                            val management = projection.management
+                            val applied = synchronized(navigationChanges) {
+                                if (!currentRoute()) return@withLock
+                                current.publishIfCurrent(projection) {
+                                    if (projection.destinationDenied) {
+                                        mutable.update { it.copy(previewIssue = SpaceClient.ReadProblem.UNAVAILABLE, projectingDestination = false) }
+                                    } else {
+                                        val window = requireNotNull(projection.window)
+                                        if (exact != null && exactAddress != null) {
+                                            if (exact.activity != null) current.markActivitySeen(exact.activity)
+                                            else if (exact.fromNotification) current.markDestinationActivitySeen(exactAddress)
+                                            destinationVisit = DestinationVisit(origin, target, exactAddress, start)
+                                        }
+                                        mutable.update { view ->
+                                            val next = if (exactAddress == null) view else reset(view)
+                                            if (next.selected != space) view else next.copy(
+                                                selectedChannel = target.channel, threadParent = projection.threadParent, current = community,
+                                                channels = projection.channels, accessRevision = projection.accessRevision, searchChannels = details.searchChannels,
+                                                savedHistoryCheckedAt = details.historyCheckedAt, categories = projection.categories, categoryChange = management.category,
+                                                visibilityChange = management.visibility, dissolutionChange = management.dissolution,
+                                                members = projection.members, anchor = anchor, archiveChange = management.archive, roleChange = management.role,
+                                                membershipChange = management.membership, ownershipOffer = management.ownershipOffer, ownershipChange = management.ownership,
+                                                bannedMembers = projection.bannedMembers, channelEdit = management.edit, channelCreation = management.creation,
+                                                channelAccessChange = management.access, profiles = next.profiles + (space to profile),
+                                                publicRulesToken = rulesToken, publicLink = projection.publicLink, invitation = projection.invitation,
+                                                listingIntent = dirtyListings[space] ?: projection.listingIntent,
+                                                draft = if (draftVersions[target]?.get() == version) dirtyDrafts[target] ?: projection.draft else view.draft,
+                                                notificationPolicy = details.notifications, pinStatus = details.pins, fileLeaseId = details.fileLeaseId,
+                                                scrollToMessage = jump?.let { MessageScroll(it.id, showBody = true) },
+                                                openedPublicReference = exact?.link ?: next.openedPublicReference,
+                                                messages = projection.messages, loadingChannel = false, contentLoaded = window.loaded, hasEarlier = window.hasEarlier,
+                                                hasLater = window.hasLater, windowFrom = window.from, followingLatest = start == null)
+                                        }
+                                    }
+                                }
                             }
-                            if (exact != null && exactAddress != null) {
-                                if (exact.activity != null) current.markActivitySeen(exact.activity)
-                                else if (exact.fromNotification) current.markDestinationActivitySeen(exactAddress)
-                                destinationVisit = DestinationVisit(origin, target, exactAddress, start)
-                            }
-                            mutable.update { view ->
-                                val next = if (exactAddress == null) view else reset(view)
-                                if (next.selected != space) view else next.copy(
-                                    selectedChannel = target.channel, threadParent = projection.threadParent, current = community,
-                                    channels = channels, accessRevision = current.readScopeRevision, searchChannels = details.searchChannels,
-                                    savedHistoryCheckedAt = details.historyCheckedAt, categories = projection.categories, categoryChange = projection.management.category,
-                                    visibilityChange = projection.management.visibility, dissolutionChange = projection.management.dissolution,
-                                    members = members, anchor = anchor, archiveChange = archiveChange, roleChange = roleChange,
-                                    membershipChange = membershipChange, ownershipOffer = ownershipOffer, ownershipChange = ownershipChange,
-                                    bannedMembers = bannedMembers, channelEdit = channelEdit, channelCreation = channelCreation,
-                                    channelAccessChange = channelAccessChange, profiles = next.profiles + (space to profile),
-                                    publicRulesToken = rulesToken, publicLink = publicLink, invitation = invitation,
-                                    listingIntent = dirtyListings[space] ?: listingIntent,
-                                    draft = if (draftVersions[target]?.get() == version) draft else view.draft,
-                                    notificationPolicy = details.notifications, pinStatus = details.pins,
-                                    scrollToMessage = jump?.let { MessageScroll(it.id, showBody = true) },
-                                    openedPublicReference = exact?.link ?: next.openedPublicReference,
-                                    messages = messages, loadingChannel = false, contentLoaded = window.loaded, hasEarlier = window.hasEarlier,
-                                    hasLater = window.hasLater, windowFrom = window.from, followingLatest = start == null)
-                            }
+                            if (applied) break
                         }
                     } }
                     wake.trySend(Unit)
