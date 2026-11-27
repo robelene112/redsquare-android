@@ -207,11 +207,13 @@ class SpaceOwnershipTest {
                             nl.davidengelen.redsquare.spaces.SpaceCrypto.restore(java.util.Base64.getDecoder().decode(saved.get("crypto").asString))
                         }
                         val consentId = recipient.ownershipOffer(space)!!.acceptedId!!
+                        val beforeChannels = recipient.channels(space)
+                        assertTrue(channel in recipient.searchAvailableChannels(space, beforeChannels))
                         val beforeCancellation = recipient.readScopeRevision
                         assertEquals("control", SaitoEnvelope.decode(deliver(original(owner, "cancel-owner") { addProperty("proposal_id", proposal.id) })).body.get("stream").asString)
                         recipient.refresh(space)
                         assertEquals("Cancellation invalidates access before key rotation", beforeCancellation + 1, recipient.readScopeRevision)
-                        assertFalse(channel in recipient.searchAvailableChannels(space, recipient.channels(space)))
+                        assertFalse(channel in recipient.searchAvailableChannels(space, beforeChannels))
                         creator.refresh(space); creator.flush(space); recipient.refresh(space)
                         assertNull(recipient.ownershipOffer(space))
                         assertEquals("OWNER", creator.members(space).single { it.publicKey == owner.publicKey }.role.name)

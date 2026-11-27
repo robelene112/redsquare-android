@@ -469,7 +469,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         }
     }
 
-    private suspend fun publish(includeCommunities: Boolean = true) = localAccess.withLock { traceLocalWork("publish") {
+    private suspend fun publish(includeCommunities: Boolean = true): Unit = localAccess.withLock { traceLocalWork("publish") {
         val current = client ?: return@withLock
         val before = mutable.value
         val target = before.target()
@@ -505,7 +505,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     profiles = if (includeCommunities) profiles else previous.profiles + profiles, accessRevision = revision)
                 if (updated.target() != target || updated.loadingChannel) updated
                 else updated.copy(
-                    searchChannels = searchChannels, savedHistoryCheckedAt = checkedAt, destinationReadDenied = deniedDestination,
+                    searchChannels = searchChannels.takeIf { current.readScopeRevision == revision }.orEmpty(),
+                    savedHistoryCheckedAt = checkedAt, destinationReadDenied = deniedDestination,
                     current = community, channels = channels, categories = projection.categories, members = members,
                     bannedMembers = bannedMembers, notificationPolicy = notifications, pinStatus = pins,
                     messages = messages, threadParent = projection.threadParent, invitation = invitation,
@@ -516,6 +517,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                     followingLatest = target == null || windowFrom(target) == null).withManagement(changes)
             }
         }
+        if (current.readScopeRevision != revision) wake.trySend(Unit)
     } }
 
     fun channelDrawerVisible(visible: Boolean) {
@@ -653,6 +655,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         val channelEdit = projection.management.edit
                         val channelCreation = projection.management.creation
                         val channelAccessChange = projection.management.access
+                        val revision = current.readScopeRevision
                         val searchChannels = current.searchAvailableChannels(space, channels)
                         val checkedAt = current.savedContentCheckedAt(space, target.channel)
                         val notificationPolicy = current.notificationPolicy(space, target.channel)
@@ -672,7 +675,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                                 val next = if (exactAddress == null) view else reset(view)
                                 if (next.selected != space) view else next.copy(
                                     selectedChannel = target.channel, threadParent = projection.threadParent, current = community,
-                                    channels = channels, accessRevision = current.readScopeRevision, searchChannels = searchChannels,
+                                    channels = channels, accessRevision = revision,
+                                    searchChannels = searchChannels.takeIf { current.readScopeRevision == revision }.orEmpty(),
                                     savedHistoryCheckedAt = checkedAt, categories = projection.categories, categoryChange = projection.management.category,
                                     visibilityChange = projection.management.visibility, dissolutionChange = projection.management.dissolution,
                                     members = members, anchor = anchor, archiveChange = archiveChange, roleChange = roleChange,
