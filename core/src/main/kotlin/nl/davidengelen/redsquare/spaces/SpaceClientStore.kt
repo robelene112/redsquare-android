@@ -7,6 +7,11 @@ interface SpaceClientStore {
 
     interface Transaction {
         fun get(key: String): ByteArray?
+        /** One bounded set of existing rows. Missing keys are omitted. */
+        fun getAll(keys: List<String>): Map<String, ByteArray> {
+            require(keys.size <= 100)
+            return buildMap { for (key in keys) get(key)?.let { put(key, it) } }
+        }
         fun put(key: String, value: ByteArray)
         fun remove(key: String)
         /** Lexicographic, inclusive cursor and bounded result. */

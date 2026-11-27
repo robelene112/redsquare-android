@@ -3741,8 +3741,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val mayReadArticles by lazy {
             get(articleReadDeniedKey(space, targetChannel)) == null && journal(space).canAccessChannel(wallet.publicKey, targetChannel)
         }
-        fun message(envelope: String, pending: Boolean, attempted: Boolean, rejected: Boolean = false, position: Long? = null, cancelled: Boolean = false): Message? {
-            val original = SaitoEnvelope.decode(envelope)
+        fun message(envelope: String, pending: Boolean, attempted: Boolean, rejected: Boolean = false, position: Long? = null,
+            cancelled: Boolean = false, original: SignedSaitoMessage = SaitoEnvelope.decode(envelope)): Message? {
             if (original.body.get("channel_id")?.asString != targetChannel) return null
             if (original.body.text("kind") !in setOf("content", "public-content")) return null
             val contentKind = original.body.text("content_kind")
@@ -3801,8 +3801,26 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val messages = confirmedMessageIndex(space, targetChannel, thread)
             page(messages, messages + positionKey(start), limit).map { requireNotNull(get(it.value.toString(Charsets.UTF_8))) }
         } else page(prefix, prefix + positionKey(start), limit).map { it.value }
-        val confirmed = confirmedRows.mapNotNull { row ->
-            message(originalEnvelope(row), pending = false, attempted = true, position = json(row).number("position"))
+        val confirmed = confirmedRows.chunked(7).flatMap { rows ->
+            val originals = rows.map { row ->
+                val receipt = json(row)
+                val envelope = receipt.text("event")
+                Triple(envelope, receipt.number("position"), SaitoEnvelope.decode(envelope))
+            }
+            // Bound the prefetch below the transaction's row budget. These
+            // point lookups are usually absent in a plain conversation.
+            store.prefetch(originals.flatMap { (_, _, original) ->
+                val id = original.id
+                listOf(messageChangeKey(space, targetChannel, id), reactionSummaryKey(space, targetChannel, id),
+                    reactionAppliedPrefix(space, targetChannel, id) + wallet.publicKey, reactionPendingKey(space, targetChannel, id),
+                    reactionInvalidPrefix(space, targetChannel, id) + wallet.publicKey, ownReactionVersionKey(space, targetChannel, id),
+                    messagePinKey(space, targetChannel, id), pinChoiceKey(space, targetChannel, id), pinPendingKey(space, targetChannel, id),
+                    replyCountKey(space, targetChannel, id), messageDeletionKey(space, targetChannel, id, original.author),
+                    messageModerationKey(space, targetChannel, id), messageEditKey(space, targetChannel, id, original.author))
+            })
+            originals.mapNotNull { (envelope, position, original) ->
+                message(envelope, pending = false, attempted = true, position = position, original = original)
+            }
         }
         val pending = page(messageIndex(space, targetChannel, "pending", thread), limit = limit).mapNotNull { row ->
             val saved = json(requireNotNull(get(row.value.toString(Charsets.UTF_8))))

@@ -61,12 +61,15 @@ class SpaceMlsRuntimeTest {
                     check(entered.await(5, TimeUnit.SECONDS))
                     val reader = async(Dispatchers.IO) {
                         readerStarted.countDown()
-                        readerStore.transaction { get("draft") }
+                        readerStore.transaction { getAll(listOf("draft", "absent", "draft")) }
                     }
                     check(readerStarted.await(5, TimeUnit.SECONDS))
                     assertNull("A second instance cannot observe an unfinished transaction", withTimeoutOrNull(200) { reader.await() })
                     release.countDown(); writer.await()
-                    assertArrayEquals("after".toByteArray(), reader.await())
+                    val rows = reader.await()
+                    assertEquals(setOf("draft"), rows.keys)
+                    assertArrayEquals("after".toByteArray(), rows.getValue("draft"))
+                    rows.getValue("draft")[0] = 0
                 } finally { release.countDown() }
             }
             writerStore.close()

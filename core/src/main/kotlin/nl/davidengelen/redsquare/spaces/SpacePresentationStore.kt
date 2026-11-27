@@ -4,7 +4,7 @@ package nl.davidengelen.redsquare.spaces
  * journals are reused only inside that read, never across commits or failures.
  * Readers may maintain disposable indexes, but do not receive control events. */
 internal class SpacePresentationStore(private val backing: SpaceClientStore) : SpaceClientStore {
-    private data class Read(val transaction: SpaceClientStore.Transaction,
+    private data class Read(val transaction: SnapshotRows,
         val journals: MutableMap<Triple<String, String, String?>, SpaceJournal> = mutableMapOf())
     private val active = ThreadLocal<Read?>()
 
@@ -26,6 +26,8 @@ internal class SpacePresentationStore(private val backing: SpaceClientStore) : S
         return read.journals.getOrPut(Triple(service, space, through), load)
     }
 
+    fun prefetch(keys: List<String>) { active.get()?.transaction?.prefetch(keys) }
+
     /** Repeated identity/state reads share this one atomic snapshot, including
      * disposable index writes. Never retain plaintext or authority between transactions. */
     private class SnapshotRows(private val backing: SpaceClientStore.Transaction) : SpaceClientStore.Transaction {
@@ -35,6 +37,13 @@ internal class SpacePresentationStore(private val backing: SpaceClientStore) : S
         override fun get(key: String): ByteArray? {
             if (values.containsKey(key)) return values[key]?.copyOf()
             return backing.get(key).also { remember(key, it) }
+        }
+
+        fun prefetch(keys: List<String>) {
+            val missing = keys.distinct().filterNot(values::containsKey)
+            if (missing.isEmpty()) return
+            val found = backing.getAll(missing)
+            for (key in missing) remember(key, found[key])
         }
 
         override fun put(key: String, value: ByteArray) {

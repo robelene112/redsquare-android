@@ -67,6 +67,18 @@ internal class AndroidSpaceClientStore(context: Context, owner: String, node: St
                             if (it.moveToFirst()) decrypt(readKey(), key, it.getBlob(0)) else null
                         }
                     }
+                    override fun getAll(keys: List<String>): Map<String, ByteArray> {
+                        require(keys.size <= 100)
+                        if (keys.isEmpty()) return emptyMap()
+                        keys.forEach(::validateKey)
+                        val parameters = keys.joinToString(",") { "?" }
+                        return db.rawQuery("SELECT key,value FROM entries WHERE key IN ($parameters)", keys.toTypedArray()).use { rows ->
+                            buildMap { while (rows.moveToNext()) {
+                                val key = rows.getString(0)
+                                put(key, decrypt(readKey(), key, rows.getBlob(1)))
+                            } }
+                        }
+                    }
                     override fun put(key: String, value: ByteArray) {
                         validateKey(key); require(value.size <= MAX_ROW_BYTES)
                         db.insertOrThrow("entries", null, ContentValues().apply {

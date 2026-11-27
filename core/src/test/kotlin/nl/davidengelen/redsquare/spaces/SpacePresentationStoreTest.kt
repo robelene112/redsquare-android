@@ -4,6 +4,29 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class SpacePresentationStoreTest {
+    @Test fun preloadedRowsShareTheSnapshotIncludingMissingRowsAndWrites() {
+        val disk = AtomicRows()
+        disk.transaction { put("present", byteArrayOf(1)) }
+        val store = SpacePresentationStore(disk)
+        store.project { store.transaction {
+            store.prefetch(listOf("present", "missing"))
+            assertEquals(mapOf("present" to 1, "missing" to 1), disk.reads)
+            get("present")!![0] = 9
+            assertArrayEquals(byteArrayOf(1), get("present"))
+            assertNull(get("missing"))
+            assertEquals(mapOf("present" to 1, "missing" to 1), disk.reads)
+            remove("present")
+            put("missing", byteArrayOf(2))
+            assertNull(get("present"))
+            assertArrayEquals(byteArrayOf(2), get("missing"))
+        } }
+        disk.transaction { put("present", byteArrayOf(3)); remove("missing") }
+        store.project { store.transaction {
+            assertArrayEquals(byteArrayOf(3), get("present"))
+            assertNull(get("missing"))
+        } }
+    }
+
     @Test fun snapshotReadsAndPagesKeepCallerBytesIndependentAndObserveOwnWrites() {
         val disk = AtomicRows()
         disk.transaction { put("row", byteArrayOf(1)) }
