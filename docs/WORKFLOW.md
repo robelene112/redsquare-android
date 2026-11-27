@@ -142,6 +142,16 @@ including the terminal frame, with a maximum unexplained displacement of
 lost the end of its trace. The current calibration waits for two writes after
 the terminal frame before stopping the trace.
 
+The [next full run](https://github.com/robelene112/redsquare-android/actions/runs/46051707039)
+records 124 misses among 752 observed warm frames and seven missing samples,
+a 17.26% bound. Its longest recorded cold frame is 700.48ms. The signed crossed
+arrival was received during a drag and applied 18ms after that drag ended.
+The following swipe starts 65ms after application. The 233 retained moving
+geometry samples independently reconcile to within 0.92px. The full crossing
+now holds one continuous native drag through the receipt and rendered frame
+instead of alternating separate swipes. The warm workload, time bounds and
+2px geometry limit stay in place.
+
 The [compact exact-reply run](https://github.com/robelene112/redsquare-android/actions/runs/45669562341)
 confirms that both lines of the reply body fit the 320dp conversation at
 200% text. The native proof opens the actual Android notification and the
