@@ -1597,7 +1597,7 @@ private val spaceReactionChoices = listOf("👍", "❤️", "🔥", "🎉", "�
     val shown = (visible + listOfNotNull(savingReaction?.takeIf { it in available })).distinct().mapNotNull(available::get)
     val hasMore = message.reactionsHaveMore || shown.size < message.reactions.size
     val choose: ((String) -> Unit)? = react?.let { action -> { emoji -> lastChoice = emoji; action(emoji) } }
-    FlowRow(Modifier.fillMaxWidth().animateContentSize(tween(AppSpacing.transitionMillis)),
+    FlowRow(Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         shown.forEach { reaction -> key(reaction.emoji) {
             ReactionChip(reaction, choose.takeIf { savingReaction == null }, pending = savingReaction == reaction.emoji)
