@@ -276,6 +276,94 @@ def complete_anchor_coverage(summary, expected):
         for row in summary['anchorCoverage'])
 
 
+def sample_hwui_frames(shell, evidence, package, name, ceiling, allow_empty=False, verify_complete=False):
+    for attempt in range(1, 6):
+        raw = shell('dumpsys', 'gfxinfo', package, 'framestats')
+        (evidence / f'{name}-framestats.txt').write_text(raw)
+        try:
+            sample, invalid, unretained = frame_statistics(raw, allow_empty)
+            if verify_complete:
+                tokens = Counter(frame['timelineId'] for frame in sample)
+                sample = [frame for frame in sample if frame['timelineId'] > 0 and tokens[frame['timelineId']] == 1]
+            coverage = framework_coverage(raw, sample, ceiling)
+        except RuntimeError:
+            if attempt == 5:
+                raise
+        else:
+            if not coverage['unmatchedFrameworkFrames'] or not verify_complete or attempt == 5:
+                return sample, invalid, unretained, coverage
+        # An in-flight frame can still contain fields from a recycled row.
+        (evidence / f'{name}-unsettled-framestats-{attempt}.txt').write_text(raw)
+        time.sleep(.15)
+
+
+def diagnose_scroll(adb, evidence, package, open_fixture, thresholds):
+    """Measure the native cold route and a short scroll series on one owned device."""
+    def shell(*parts):
+        return adb('shell', shlex.join(parts)).decode()
+
+    def reset_frames():
+        shell('dumpsys', 'gfxinfo', package, 'reset')
+
+    stages = {}
+    ceiling = thresholds['noFrameAtOrAboveMs']
+    measured_warm = []
+
+    def observe(name):
+        sample, _, _, coverage = sample_hwui_frames(shell, evidence, package, name, ceiling, verify_complete=True)
+        stages[name] = coverage
+        return sample
+
+    for name, args in (('display', ('dumpsys', 'display')), ('device-size', ('wm', 'size')),
+                       ('device-density', ('wm', 'density')), ('device-serial', ('get-serialno',))):
+        raw = adb(*args) if name == 'device-serial' else shell(*args).encode()
+        (evidence / f'{name}.txt').write_bytes(raw)
+
+    cold_pids = []
+    cold_frames = []
+    config = FRAME_TIMELINE_TRACE + 'duration_ms: 180000\nwrite_into_file: true\nfile_write_period_ms: 5000\n'
+    with capture_trace(adb, evidence, config):
+        for trial in range(1, 4):
+            name = f'cold-{trial}'
+            shell('am', 'force-stop', package)
+            reset_frames()
+            open_fixture(f'{name}-launch.txt', f'{name}.xml', 30)
+            cold_pids.append(int(shell('pidof', package)))
+            cold_frames.append(max(frame['durationMs'] for frame in observe(name)))
+        if len(set(cold_pids)) != len(cold_pids):
+            raise RuntimeError('Cold diagnostic launches did not use distinct processes')
+
+        for trial in range(4):
+            name = 'warm-up' if trial == 0 else f'warm-{trial}'
+            open_fixture(f'{name}-launch.txt', f'{name}-start.xml', 20, cold=False)
+            for swipe in range(1, 5):
+                reset_frames()
+                shell('input', 'swipe', '410', '620', '410', '1310', '350')
+                time.sleep(.15)
+                sample = observe(f'{name}-swipe-{swipe}')
+                if trial:
+                    measured_warm.extend(sample)
+            viewport = fresh_hierarchy(adb, '/sdcard/spaces-scale-diagnostic.xml', evidence / f'{name}-end.xml')
+            if viewport is None or b'General \xe2\x80\xa2 Benchmark Space 001 \xe2\x80\xa2 record ' not in viewport or b'record 384.' in viewport:
+                raise RuntimeError(f'The native scroll did not move from the exact message to earlier history in {name}')
+        if int(shell('pidof', package)) != cold_pids[-1]:
+            raise RuntimeError('The warm series was interrupted by a process restart')
+
+    warm_completed = sum(stage['completedFrames'] for name, stage in stages.items() if re.match(r'warm-\d+-swipe-', name))
+    warm_observed = len(measured_warm)
+    warm_missed = sum(frame['missedBudget'] for frame in measured_warm)
+    return {
+        'coldPids': cold_pids,
+        'coldMaximumFrameMsByLaunch': cold_frames,
+        'warmCompleted': warm_completed,
+        'warmObserved': warm_observed,
+        'warmMissed': warm_missed,
+        'warmMissUpperBound': (warm_missed + warm_completed - warm_observed) / warm_completed,
+        'warmDurationMs': percentile([frame['durationMs'] for frame in measured_warm], thresholds['reportPercentiles']),
+        'frameworkFramesByStage': stages,
+    }
+
+
 def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, reference, request):
     expected = contract['measurement']
     thresholds = contract['thresholds']
@@ -290,26 +378,8 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, ref
         shell('dumpsys', 'gfxinfo', package, 'reset')
 
     def frames(name, allow_empty=False, verify_complete=False):
-        for attempt in range(1, 6):
-            output = shell('dumpsys', 'gfxinfo', package, 'framestats')
-            (evidence / f'{name}-framestats.txt').write_text(output)
-            try:
-                sample, invalid, unretained = frame_statistics(output, allow_empty)
-                if verify_complete:
-                    tokens = Counter(frame['timelineId'] for frame in sample)
-                    sample = [frame for frame in sample if frame['timelineId'] > 0 and tokens[frame['timelineId']] == 1]
-                coverage = framework_coverage(output, sample, thresholds['noFrameAtOrAboveMs'])
-            except RuntimeError:
-                if attempt == 5:
-                    raise
-            else:
-                if not coverage['unmatchedFrameworkFrames'] or not verify_complete or attempt == 5:
-                    break
-            # The currently submitted frame can temporarily contain completion
-            # fields from the previous ring entry. Preserve the raw snapshot and
-            # sample after the renderer has time to complete it, without resetting.
-            (evidence / f'{name}-unsettled-framestats-{attempt}.txt').write_text(output)
-            time.sleep(.15)
+        sample, invalid, unretained, coverage = sample_hwui_frames(
+            shell, evidence, package, name, thresholds['noFrameAtOrAboveMs'], allow_empty, verify_complete)
         stages[name] = coverage
         return sample, invalid, unretained
 

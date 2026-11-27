@@ -137,6 +137,42 @@ if [[ "${SPACES_SCALE_SMOKE:-false}" == true || "${SPACES_SCALE_FULL:-false}" ==
     if [[ "${SPACES_SCALE_FULL:-false}" == true ]]; then
         python3 "$repo_dir/scripts/spaces-scale-check" "$evidence/spaces-scale" "$artifact" --full
         printf '%s\n' 'Owned release-equivalent timing against the frozen signed dataset. Physical device qualification remains separate.' > "$evidence/scope.txt"
+    elif [[ -n "${SPACES_SCALE_COMPARE:-}" ]]; then
+        reference="$repo_dir/.scratch/spaces-scale-reference"
+        diagnosis="$evidence/spaces-scale-diagnostic"
+        mkdir "$diagnosis"
+        printf '%s\n' 'Paired timing on the same disposable emulator and authenticated diagnostic data.' > "$evidence/scope.txt"
+        reference_status=0
+        python3 "$repo_dir/scripts/spaces-scale-check" "$diagnosis/reference" \
+            "$reference/app/build/outputs/apk/performance/app-performance.apk" --diagnostic "$reference" || reference_status=$?
+        for package in nl.davidengelen.redsquare.performance.test nl.davidengelen.redsquare.performance; do
+            if adb shell pm list packages "$package" | tr -d '\r' | grep -Fxq "package:$package"; then
+                adb uninstall "$package"
+            fi
+        done
+        python3 "$repo_dir/scripts/spaces-scale-check" "$diagnosis/current" "$artifact" --diagnostic "$repo_dir"
+        [[ "$reference_status" == 0 ]]
+        cmp "$diagnosis"/{reference,current}/fixture.json
+        cmp "$diagnosis"/{reference,current}/device-serial.txt
+        cmp "$diagnosis"/{reference,current}/device-size.txt
+        cmp "$diagnosis"/{reference,current}/device-density.txt
+        python3 - "$diagnosis" "$SPACES_SCALE_COMPARE" <<'PY'
+import json
+from pathlib import Path
+import sys
+
+root = Path(sys.argv[1])
+reference, current = [json.loads((root / group / 'diagnostic.json').read_text()) for group in ('reference', 'current')]
+assert reference['source'] == sys.argv[2] and reference['source'] != current['source']
+assert reference['device'] == current['device']
+assert reference['seed']['databaseSha256'] == current['seed']['databaseSha256']
+assert reference['seed']['authenticatedLocalRows'] == current['seed']['authenticatedLocalRows']
+assert not reference['qualifiesForTimedRuns'] and not current['qualifiesForTimedRuns']
+metrics = ('coldMaximumFrameMsByLaunch', 'warmCompleted', 'warmObserved', 'warmMissed',
+           'warmMissUpperBound', 'warmDurationMs')
+print(json.dumps({group['source']: {key: group['diagnostic'][key] for key in metrics}
+                  for group in (reference, current)}, indent=2))
+PY
     else
         python3 "$repo_dir/scripts/spaces-scale-check" "$evidence/spaces-scale-calibration" "$artifact"
         printf '%s\n' 'Profileable fixture calibration on small signed data. Scale acceptance and performance timing remain separate.' > "$evidence/scope.txt"

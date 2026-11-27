@@ -48,14 +48,22 @@ object SpacesScaleSeeder {
     )
 
     @JvmStatic fun main(args: Array<String>) = runBlocking<Unit> {
-        require(args.size in 2..3 && (args.size == 2 || args[2] == "--smoke"))
+        require(args.size in 2..3 && (args.size == 2 || args[2] in setOf("--smoke", "--diagnostic")))
         val root = Path.of(args[0])
         val contract = Files.readAllBytes(Path.of(args[1]))
         val volume = JsonParser.parseString(contract.toString(Charsets.UTF_8)).asJsonObject.getAsJsonObject("fixture")
-        val smoke = args.size == 3
-        val communityCount = if (smoke) 2 else volume.get("spaces").asInt
-        val filesPerSpace = if (smoke) 3 else volume.get("fileEntriesPerLibrary").asInt
-        val hotCount = if (smoke) 8 else volume.get("hotChannelMessages").asInt
+        val calibration = args.getOrNull(2)
+        val communityCount = when (calibration) {
+            "--diagnostic" -> 12
+            "--smoke" -> 2
+            else -> volume.get("spaces").asInt
+        }
+        val filesPerSpace = if (calibration == null) volume.get("fileEntriesPerLibrary").asInt else 3
+        val hotCount = when (calibration) {
+            "--diagnostic" -> 384
+            "--smoke" -> 8
+            else -> volume.get("hotChannelMessages").asInt
+        }
         val otherVolumes = volume.getAsJsonObject("otherTextChannelVolumes")
         val regular = otherVolumes.get("channelsWith129Records").asInt
         val textChannels = channels.filter { it.kind in setOf(SpaceChannelKind.CHAT, SpaceChannelKind.ANNOUNCEMENT) }
@@ -95,7 +103,7 @@ object SpacesScaleSeeder {
                             val channel = actualChannels.single { it.profile == profile }.id
                             val count = when {
                                 ordinal == 0 -> hotCount
-                                smoke -> 2
+                                calibration != null -> 2
                                 ordinal <= regular -> 129
                                 else -> 128
                             }
@@ -115,8 +123,8 @@ object SpacesScaleSeeder {
                 }
             }
         }
-        val expectedMessages = if (smoke) acceptedMessages else volume.get("messages").asInt
-        val expectedFiles = if (smoke) communityCount * filesPerSpace else volume.get("files").asInt
+        val expectedMessages = if (calibration == null) volume.get("messages").asInt else acceptedMessages
+        val expectedFiles = if (calibration == null) volume.get("files").asInt else communityCount * filesPerSpace
         DriverManager.getConnection("jdbc:sqlite:${remotePath.resolve("spaces.sqlite").toAbsolutePath()}").use { db ->
             db.createStatement().use { statement ->
                 val byKind = statement.executeQuery("SELECT kind, COUNT(*) FROM records GROUP BY kind").use { rows ->
@@ -132,7 +140,7 @@ object SpacesScaleSeeder {
             }
         }
         val manifest = JsonObject().apply {
-            addProperty("fixture", if (smoke) "spaces-147-smoke" else "spaces-147-scale")
+            addProperty("fixture", if (calibration == null) "spaces-147-scale" else "spaces-147-smoke")
             addProperty("contractSha256", MessageDigest.getInstance("SHA-256").digest(contract).joinToString("") { "%02x".format(it) })
             addProperty("node", node)
             addProperty("authority", authority.publicKey)
@@ -147,7 +155,7 @@ object SpacesScaleSeeder {
             addProperty("hotChannelMessages", hotCount)
             addProperty("unrelatedSpace", communities[1].id)
             addProperty("unrelatedChannel", communities[1].channel)
-            addProperty("qualifiesForTimedRuns", !smoke)
+            addProperty("qualifiesForTimedRuns", calibration == null)
         }
         Files.writeString(root.resolve("fixture.json"), manifest.toString() + "\n")
         println(manifest)

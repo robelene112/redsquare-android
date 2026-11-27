@@ -12,6 +12,10 @@ on:
         description: Isolated profileable Spaces scale calibration using a small signed fixture
         type: boolean
         default: false
+      spaces_scale_compare:
+        description: Exact reference commit for paired profileable diagnostics in the smoke scope
+        type: string
+        default: ''
       spaces_catch_up:
         description: Focused Spaces search, activity, Android notification and cold link journey
         type: boolean
@@ -113,7 +117,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'source' }}${{ inputs.android17_16kb && '-16kb' || '' }}${{ inputs.spaces_private_management && format('-private-{0}', inputs.spaces_private_management_case || 'process') || '' }}${{ inputs.spaces_category_management && '-categories' || '' }}${{ inputs.spaces_conversation_overlays && '-conversation' || '' }}${{ inputs.spaces_rooms && '-rooms' || '' }}${{ inputs.spaces_files && '-files' || '' }}${{ inputs.spaces_articles && '-articles' || '' }}${{ inputs.spaces_protected_chat && '-protected-chat' || '' }}${{ inputs.spaces_catch_up && '-catch-up' || '' }}${{ inputs.spaces_scale_smoke && '-scale-calibration' || '' }}${{ inputs.spaces_scale_full && '-scale-full' || '' }}${{ startsWith(inputs.scope, 'candidate-update') && format('-from-{0}', inputs.candidate_reference_version || '83') || '' }}
+  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'source' }}${{ inputs.android17_16kb && '-16kb' || '' }}${{ inputs.spaces_private_management && format('-private-{0}', inputs.spaces_private_management_case || 'process') || '' }}${{ inputs.spaces_category_management && '-categories' || '' }}${{ inputs.spaces_conversation_overlays && '-conversation' || '' }}${{ inputs.spaces_rooms && '-rooms' || '' }}${{ inputs.spaces_files && '-files' || '' }}${{ inputs.spaces_articles && '-articles' || '' }}${{ inputs.spaces_protected_chat && '-protected-chat' || '' }}${{ inputs.spaces_catch_up && '-catch-up' || '' }}${{ inputs.spaces_scale_compare && '-scale-paired' || inputs.spaces_scale_smoke && '-scale-calibration' || '' }}${{ inputs.spaces_scale_full && '-scale-full' || '' }}${{ startsWith(inputs.scope, 'candidate-update') && format('-from-{0}', inputs.candidate_reference_version || '83') || '' }}
   cancel-in-progress: true
 jobs:
   native-proof:
@@ -126,6 +130,7 @@ jobs:
     env:
       SPACES_SCALE_FULL: ${{ inputs.spaces_scale_full && 'true' || 'false' }}
       SPACES_SCALE_SMOKE: ${{ inputs.spaces_scale_smoke && 'true' || 'false' }}
+      SPACES_SCALE_COMPARE: ${{ inputs.spaces_scale_compare || '' }}
       SPACES_CATCH_UP: ${{ inputs.spaces_catch_up && 'true' || 'false' }}
       SPACES_ROOMS: ${{ inputs.spaces_rooms && 'true' || 'false' }}
       SPACES_FILES: ${{ inputs.spaces_files && 'true' || 'false' }}
@@ -140,6 +145,15 @@ jobs:
     # Individual native, host-process and UI deadlines remain in emulator-check.
     timeout-minutes: ${{ (inputs.scope == 'full' || startsWith(inputs.scope, 'full-') || inputs.spaces_scale_full) && 120 || 60 }}
     steps:
+      - name: Qualify paired Spaces diagnostics
+        if: inputs.spaces_scale_compare
+        env:
+          VERIFICATION_SCOPE: ${{ inputs.scope }}
+          TEST_16KB: ${{ inputs.android17_16kb }}
+        run: |
+          [[ "$SPACES_SCALE_COMPARE" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$SPACES_SCALE_SMOKE" == true && "$SPACES_SCALE_FULL" == false ]]
+          [[ "$VERIFICATION_SCOPE" == spaces-journey-android17 && "$TEST_16KB" == false ]]
       - name: Qualify conversation overlay scope
         if: inputs.spaces_conversation_overlays
         env:
@@ -342,6 +356,22 @@ jobs:
           else
             ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :core:test :push-gateway:test "${SPACE_SERVICE_CHECKS[@]}" :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest
           fi
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: inputs.spaces_scale_compare
+        with:
+          ref: ${{ inputs.spaces_scale_compare }}
+          path: .scratch/spaces-scale-reference
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/docs/evidence/
+      - name: Build exact Spaces diagnostic reference
+        if: inputs.spaces_scale_compare
+        working-directory: .scratch/spaces-scale-reference
+        run: |
+          [[ "$(git rev-parse HEAD)" == "$SPACES_SCALE_COMPARE" ]]
+          ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" -PspacesScaleFixture=true :app:assemblePerformance :app:assemblePerformanceAndroidTest
       - name: Lint debug sources without running a device
         if: inputs.scope == 'source-debug'
         run: ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :app:lintDebug

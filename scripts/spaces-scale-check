@@ -1,27 +1,36 @@
 #!/usr/bin/env python3
 """Check a signed Spaces fixture in the isolated profileable Android application."""
+import argparse
+from contextlib import nullcontext
 import hashlib
 import json
 from pathlib import Path
 import re
 import shlex
+import shutil
 import sqlite3
 import subprocess
-import sys
+import tempfile
 import time
 import urllib.request
 from xml.etree import ElementTree
 from spaces_scale_timing import (FRAME_TIMELINE_TRACE, TRACE_TARGET, analyse_trace, anchor_command_args, anchor_frames,
-                                capture_trace, complete_anchor_coverage, fresh_hierarchy, measure, moving_frames,
+                                capture_trace, complete_anchor_coverage, diagnose_scroll, fresh_hierarchy, measure, moving_frames,
                                 unexplained_displacement)
 
 repo = Path(__file__).resolve().parent.parent
-evidence = Path(sys.argv[1]).resolve()
-apk = Path(sys.argv[2]).resolve()
-full = len(sys.argv) == 4 and sys.argv[3] == '--full'
-if len(sys.argv) not in (3, 4) or len(sys.argv) == 4 and not full:
-    raise SystemExit('Expected evidence directory, APK and optional --full')
-tests = repo / 'app/build/outputs/apk/androidTest/performance/app-performance-androidTest.apk'
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('evidence', type=Path)
+parser.add_argument('apk', type=Path)
+mode = parser.add_mutually_exclusive_group()
+mode.add_argument('--full', action='store_true')
+mode.add_argument('--diagnostic', type=Path, metavar='BUILD_CHECKOUT')
+options = parser.parse_args()
+evidence = options.evidence.resolve()
+apk = options.apk.resolve()
+full = options.full
+build = options.diagnostic.resolve() if options.diagnostic else repo
+tests = build / 'app/build/outputs/apk/androidTest/performance/app-performance-androidTest.apk'
 package = 'nl.davidengelen.redsquare.performance'
 test_package = package + '.test'
 android = '{http://schemas.android.com/apk/res/android}'
@@ -45,18 +54,27 @@ app = parsed.find('application')
 if parsed.get('package') != package or app.get(android + 'debuggable') == 'true' or app.find('profileable').get(android + 'shell') != 'true':
     raise RuntimeError('Scale fixture requires the isolated nondebuggable profileable build')
 
-fixture = repo / '.scratch' / ('scale-full-fixture' if full else 'scale-smoke-fixture')
+fixture_kind = 'full' if full else 'diagnostic' if options.diagnostic else 'smoke'
+seed = repo / '.scratch' / f'scale-{fixture_kind}-fixture'
 java = ['java', '-Xmx640m', f'-Djava.library.path={native}', '-cp', classpath]
 prefix = 'nl.davidengelen.redsquare.spaces.service.'
-with (evidence / 'seed.log').open('wb') as seed_log:
-    command = java + [prefix + 'SpacesScaleSeeder', str(fixture), str(contract)]
-    subprocess.run(command if full else command + ['--smoke'],
-                   timeout=3600 if full else 90, check=True, stdout=seed_log, stderr=subprocess.STDOUT)
-manifest = json.loads((fixture / 'fixture.json').read_text())
+if not options.diagnostic or not seed.exists():
+    with (evidence / 'seed.log').open('wb') as seed_log:
+        command = java + [prefix + 'SpacesScaleSeeder', str(seed), str(contract)]
+        subprocess.run(command if full else command + [f'--{fixture_kind}'],
+                       timeout=3600 if full else 180 if options.diagnostic else 90,
+                       check=True, stdout=seed_log, stderr=subprocess.STDOUT)
+manifest = json.loads((seed / 'fixture.json').read_text())
 if manifest['contractSha256'] != sha(contract) or manifest['qualifiesForTimedRuns'] != full:
     raise RuntimeError('Unexpected calibration fixture')
-(evidence / 'fixture.json').write_bytes((fixture / 'fixture.json').read_bytes())
-with (evidence / 'host.log').open('wb') as host_log:
+if options.diagnostic and (manifest['spaces'], manifest['hotChannelMessages']) != (12, 384):
+    raise RuntimeError('Unexpected diagnostic dataset')
+(evidence / 'fixture.json').write_bytes((seed / 'fixture.json').read_bytes())
+host_dir = tempfile.TemporaryDirectory(prefix='spaces-diagnostic-') if options.diagnostic else nullcontext()
+with host_dir as temporary, (evidence / 'host.log').open('wb') as host_log:
+    fixture = Path(temporary) / 'fixture' if temporary else seed
+    if temporary:
+        shutil.copytree(seed, fixture)
     host = subprocess.Popen(java + [prefix + 'SpacesScaleHost', str(fixture)], stdout=host_log, stderr=subprocess.STDOUT)
     local_port = None
     stopping = None
@@ -115,8 +133,9 @@ with (evidence / 'host.log').open('wb') as host_log:
             raise RuntimeError('Android imported a different fixture')
         launch = ['am', 'start', '-W', '-a', 'android.intent.action.VIEW', '-d', endpoints['hotLink'],
                   '-p', package, '--es', 'feedPeerUrl', f'ws://127.0.0.1:{local_port}/wsopen']
-        def open_fixture(open_log, screen_log, seconds):
-            adb('shell', 'am', 'force-stop', package)
+        def open_fixture(open_log, screen_log, seconds, cold=True):
+            if cold:
+                adb('shell', 'am', 'force-stop', package)
             reads_before_open = request('status')['readRequests']
             (evidence / open_log).write_bytes(adb('shell', shlex.join(launch), timeout=seconds))
             deadline = time.monotonic() + seconds
@@ -124,7 +143,7 @@ with (evidence / 'host.log').open('wb') as host_log:
             while True:
                 document = fresh_hierarchy(adb, '/sdcard/spaces-scale-smoke.xml', evidence / screen_log)
                 if (document is not None and b'Benchmark Space 001' in document and latest in document and
-                        request('status')['readRequests'] > reads_before_open):
+                        (not cold or request('status')['readRequests'] > reads_before_open)):
                     return
                 if time.monotonic() >= deadline:
                     raise RuntimeError('Cold launch did not render the signed latest fixture message')
@@ -135,16 +154,23 @@ with (evidence / 'host.log').open('wb') as host_log:
         if pid == receipt['pid']:
             raise RuntimeError('The seed process survived the cold launch')
         (evidence / 'actual-screen.png').write_bytes(adb('exec-out', 'screencap', '-p'))
-        accepted = request('arrival')
         summary = {
-            'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo, text=True).strip(),
+            'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=build, text=True).strip(),
             'apkSha256': sha(apk), 'testApkSha256': sha(tests), 'seed': receipt, 'appPid': pid,
-            'nativeAndIndependentService': request('status'), 'independentArrival': accepted,
+            'independentArrival': None if options.diagnostic else request('arrival'),
+            'nativeAndIndependentService': request('status'),
             'device': adb('shell', 'getprop', 'ro.build.fingerprint').decode().strip(),
-            'mode': 'owned release-equivalent timing' if full else 'profileable calibration only',
+            'mode': 'paired performance diagnostics only' if options.diagnostic else
+                'owned release-equivalent timing' if full else 'profileable calibration only',
             'qualifiesForTimedRuns': full,
         }
-        if full:
+        if options.diagnostic:
+            reference = json.loads(baseline.read_text())
+            if reference['device'] != summary['device']:
+                raise RuntimeError('Diagnostic image differs from the frozen timing environment')
+            summary['diagnostic'] = diagnose_scroll(adb, evidence, package, open_fixture,
+                json.loads(contract.read_text())['thresholds'])
+        elif full:
             reference = json.loads(baseline.read_text())
             if reference['device'] != summary['device'] or reference['fixtureContractSha256'] != sha(contract):
                 raise RuntimeError('The paced workload does not match the recorded reference environment')
@@ -229,7 +255,8 @@ with (evidence / 'host.log').open('wb') as host_log:
         stopping = None
         if host.wait(timeout=15) != 0:
             raise RuntimeError('Owned scale peer terminated with errors')
-        (evidence / ('scale-result.json' if full else 'calibration.json')).write_text(json.dumps(summary, indent=2) + '\n')
+        result_name = 'diagnostic.json' if options.diagnostic else 'scale-result.json' if full else 'calibration.json'
+        (evidence / result_name).write_text(json.dumps(summary, indent=2) + '\n')
     except Exception:
         captures = {
             'failure-logcat.txt': lambda: adb('logcat', '-d', '-v', 'threadtime', '-s',
