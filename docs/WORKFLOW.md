@@ -52,6 +52,12 @@ records saved, edited and restored text at 320dp in both themes. The
 ten-second home deadline stays in place. The unsuccessful parent still
 supplies no whole-app Android 17 acceptance for this candidate.
 
+The fresh [full Android 17 run](https://github.com/robelene112/redsquare-android/actions/runs/46049875014)
+passes all three partitions at `d4b134c6e`. The independent archive
+comparison matches all 923 test identities, 347 classes and 280 evidence
+archives. The three originals include 395 normal completions, 55 deliberate
+process interruptions and 54 continuity records.
+
 Full scale measurements [18](https://github.com/robelene112/redsquare-android/actions/runs/45753375523),
 [19](https://github.com/robelene112/redsquare-android/actions/runs/45757606956)
 and [20](https://github.com/robelene112/redsquare-android/actions/runs/45760630273)
@@ -145,6 +151,9 @@ records 14.01% with the change installed first and 8.37% with the original
 installed second. The [same-source control](https://github.com/robelene112/redsquare-android/actions/runs/46060626141)
 records 9.07% then 5.88% with unchanged app code and separate APK builds.
 Use `paired:self` to reinstall the same APK and test APK within one comparison.
+The [exact-APK control](https://github.com/robelene112/redsquare-android/actions/runs/46062271420)
+records 8.32% then 7.55%. The highest observed cold frames are 923.59ms and
+683.02ms even though both APK hashes and the authenticated dataset match.
 
 The [short geometry calibration](https://github.com/robelene112/redsquare-android/actions/runs/46051921256)
 matches the two stationary and all 13 moving frames to their geometry,
@@ -162,6 +171,22 @@ geometry samples independently reconcile to within 0.92px. The full crossing
 now holds one continuous native drag through the receipt and rendered frame
 instead of alternating separate swipes. The warm workload, time bounds and
 2px geometry limit stay in place.
+
+The [full read-marker variant](https://github.com/robelene112/redsquare-android/actions/runs/46058820341)
+records 238 misses among 712 observed warm frames and six missing samples,
+a 33.98% bound. The highest recorded cold frame is 1128.00ms. The signed
+crossing succeeds during the continuous native drag with 0.95px of
+unexplained movement. The first lifecycle launch brings the existing task
+forward at its retained older reading position. The measured hot return now
+uses the independently observed exact message link before asserting its body.
+Both performance limits still block release.
+
+The [Android 17 native badge journey](https://github.com/robelene112/redsquare-android/actions/runs/46061206503)
+verifies the ordinary unread dot, personal count, acknowledgement on reading
+and restoration of the Silent preference. The [Android 10 variant journey](https://github.com/robelene112/redsquare-android/actions/runs/46061206570)
+stops earlier on the moderation placeholder. The host removes the message,
+while the device still displays the pending change at the deadline.
+The read-marker variant remains on its diagnostic branch.
 
 The [compact exact-reply run](https://github.com/robelene112/redsquare-android/actions/runs/45669562341)
 confirms that both lines of the reply body fit the 320dp conversation at

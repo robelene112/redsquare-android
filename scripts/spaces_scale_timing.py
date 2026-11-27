@@ -737,8 +737,9 @@ file_write_period_ms: 5000
         heap = [{'cycle': 0, 'kilobytes': heap_sample('heap-before-lifecycle')}]
         running = []
         for cycle in range(expected['idleReturnSwitchCycles']):
-            key = 'hotLink' if cycle % 2 == 0 else 'unrelatedLink'
-            # The first return starts in the same channel after scrolling away from the linked record.
+            # A channel link can reuse the current reading position. Use the
+            # independently observed message link when asserting its exact body.
+            key = 'hotMessageLink' if cycle % 2 == 0 else 'unrelatedLink'
             channel = hot if cycle % 2 == 0 else 'Benchmark Space 002'
             open_channel(key, f'lifecycle-{cycle + 1:03d}', channel)
             opened = [tuple(map(int, row)) for row in started_cycles.findall(trace_text()) if int(row[0]) > profile[-1][0]]

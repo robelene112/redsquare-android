@@ -169,6 +169,12 @@ object SpacesScaleHost {
                             addProperty("peerPort", socket.port)
                             addProperty("controlPort", control.address.port)
                             addProperty("hotLink", channelLink(expectedHotSpace, expectedHotChannel))
+                            hotRoot?.let { message ->
+                                val reference = SpacePublicReference(node, service.publicKey, expectedHotSpace)
+                                addProperty("hotMessageLink", SpaceDestination(
+                                    reference, expectedHotChannel, SpaceDestination.Kind.MESSAGE, message.id
+                                ).link())
+                            }
                             addProperty("unrelatedLink", channelLink(unrelatedSpace, unrelatedChannel))
                             addProperty("libraryLink", channelLink(expectedHotSpace, manifest.get("hotLibrary").asString))
                         }
