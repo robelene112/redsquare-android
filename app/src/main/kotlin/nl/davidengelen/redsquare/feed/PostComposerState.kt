@@ -63,6 +63,13 @@ internal class PostComposerState(
     var confirmClear by mutableStateOf(false)
     val recoveryError: Boolean get() = memory.unfinished?.failed == true
     fun retryRecovery() { memory.unfinished?.retry() }
+
+    // An explicit save has retired the checkpoint. Requeue only a newer editor value.
+    private fun checkpointNewerText(persisted: PostDraftStore.Saved) {
+        val current = memory.text ?: text
+        if (current != persisted.text) memory.unfinished?.update(current)
+    }
+
     val locallySaved: Boolean get() = savedContent?.let {
         it.text == text && it.images == images && it.gifAttributions == gifAttributions
     } == true
@@ -414,8 +421,7 @@ internal class PostComposerState(
                         savedContent = null
                         val persisted = withContext(Dispatchers.IO) { store.saveComposer(prior) }
                         savedContent = persisted
-                        val currentText = memory.text ?: text
-                        if (currentText != persisted.text) memory.unfinished?.update(currentText)
+                        checkpointNewerText(persisted)
                     }
                     val remaining = withContext(Dispatchers.IO) {
                         SaitoTransaction.MAX_MESSAGE_BYTES - RedSquarePosts.message(text, images, parent, quote)
@@ -448,9 +454,7 @@ internal class PostComposerState(
                         memory.images = persisted.images
                         memory.gifAttributions = persisted.gifAttributions
                         text = memory.text ?: latest
-                        // The explicit save has retired the text checkpoint.
-                        // Requeue only a newer edit from the retained editor.
-                        if (text != persisted.text) memory.unfinished?.update(text)
+                        checkpointNewerText(persisted)
                         operation.complete(selection)
                     }
                     error = false
