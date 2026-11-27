@@ -3741,14 +3741,19 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val mayReadArticles by lazy {
             get(articleReadDeniedKey(space, targetChannel)) == null && journal(space).canAccessChannel(wallet.publicKey, targetChannel)
         }
-        fun message(envelope: String, pending: Boolean, attempted: Boolean, rejected: Boolean = false, position: Long? = null,
-            cancelled: Boolean = false, original: SignedSaitoMessage = SaitoEnvelope.decode(envelope)): Message? {
+        fun visibleKind(original: SignedSaitoMessage): String? {
             if (original.body.get("channel_id")?.asString != targetChannel) return null
             if (original.body.text("kind") !in setOf("content", "public-content")) return null
             val contentKind = original.body.text("content_kind")
             if (contentKind !in (if (thread == null) ROOT_CONTENT_KINDS else setOf("thread-reply"))) return null
             if (contentKind in setOf("article", "file") && !mayReadArticles) return null
             if (thread != null && original.body.text("target_message_id") != thread) return null
+            return contentKind
+        }
+        fun message(envelope: String, pending: Boolean, attempted: Boolean, rejected: Boolean = false, position: Long? = null,
+            cancelled: Boolean = false, original: SignedSaitoMessage = SaitoEnvelope.decode(envelope),
+            contentKind: String? = visibleKind(original)): Message? {
+            if (contentKind == null) return null
             var missing = false
             fun read(source: String, signed: SignedSaitoMessage): String? =
                 if (signed.body.text("kind") == "public-content") signed.body.text("text") else
@@ -3801,11 +3806,14 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             val messages = confirmedMessageIndex(space, targetChannel, thread)
             page(messages, messages + positionKey(start), limit).map { requireNotNull(get(it.value.toString(Charsets.UTF_8))) }
         } else page(prefix, prefix + positionKey(start), limit).map { it.value }
+        data class VisibleReceipt(val envelope: String, val position: Long, val original: SignedSaitoMessage, val kind: String)
         val confirmed = confirmedRows.chunked(7).flatMap { rows ->
-            val originals = rows.map { row ->
+            val originals = rows.mapNotNull { row ->
                 val receipt = json(row)
                 val envelope = receipt.text("event")
-                Triple(envelope, receipt.number("position"), SaitoEnvelope.decode(envelope))
+                val position = receipt.number("position")
+                val original = SaitoEnvelope.decode(envelope)
+                visibleKind(original)?.let { VisibleReceipt(envelope, position, original, it) }
             }
             // Bound the prefetch below the transaction's row budget. These
             // point lookups are usually absent in a plain conversation.
@@ -3818,8 +3826,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                     replyCountKey(space, targetChannel, id), messageDeletionKey(space, targetChannel, id, original.author),
                     messageModerationKey(space, targetChannel, id), messageEditKey(space, targetChannel, id, original.author))
             })
-            originals.mapNotNull { (envelope, position, original) ->
-                message(envelope, pending = false, attempted = true, position = position, original = original)
+            originals.mapNotNull { (envelope, position, original, kind) ->
+                message(envelope, pending = false, attempted = true, position = position, original = original, contentKind = kind)
             }
         }
         val pending = page(messageIndex(space, targetChannel, "pending", thread), limit = limit).mapNotNull { row ->

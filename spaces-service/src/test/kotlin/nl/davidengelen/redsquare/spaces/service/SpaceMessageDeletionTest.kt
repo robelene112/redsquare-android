@@ -6,6 +6,7 @@ import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.spaces.SpaceChannelProfile
 import nl.davidengelen.redsquare.spaces.SpaceClient
+import nl.davidengelen.redsquare.spaces.SpaceClientStore
 import nl.davidengelen.redsquare.spaces.SpaceProfile
 import nl.davidengelen.redsquare.spaces.SpaceVisibility
 import org.junit.Assert.*
@@ -135,14 +136,35 @@ class SpaceMessageDeletionTest {
         SpacesServiceStore(files.newFolder("deletion-service").toPath(), service, clock).use { remote ->
             SqliteClientFixture(files.newFile("deletion-owner.sqlite").absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile("deletion-author.sqlite").absolutePath).use { authorStore ->
-                    val manager = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { remote.exchange(it.envelope()) }
+                    var unreadableEdit: String? = null
+                    val readingStore = object : SpaceClientStore {
+                        override fun <T> transaction(action: SpaceClientStore.Transaction.() -> T): T = ownerStore.transaction {
+                            val rows = this
+                            action(object : SpaceClientStore.Transaction by rows {
+                                override fun get(key: String): ByteArray? {
+                                    if (key == unreadableEdit) throw IOException("Unreadable saved edit")
+                                    return rows.get(key)
+                                }
+                                override fun getAll(keys: List<String>): Map<String, ByteArray> =
+                                    super<SpaceClientStore.Transaction>.getAll(keys)
+                            })
+                        }
+                    }
+                    val manager = SpaceClient(owner, "fixture-node", service.publicKey, readingStore, clock) { remote.exchange(it.envelope()) }
                     val writer = SpaceClient(member, "fixture-node", service.publicKey, authorStore, clock) { remote.exchange(it.envelope()) }
                     val space = manager.create(SpaceProfile("Message history", visibility = SpaceVisibility.PUBLIC)); manager.flush(space)
                     writer.openPublic(space); writer.joinPublic(space); writer.flush(space); manager.refresh(space)
                     val originalId = writer.send(space, "Text the author later removes"); writer.flush(space); manager.refresh(space)
                     val before = manager.timeline(space).single()
+                    writer.editMessage(space, writer.timeline(space).single(), "Edited text the author later removes")
+                    writer.flush(space); manager.refresh(space)
+                    val channel = manager.community(space).channel
+                    val editKey = "$space/channels/$channel/message-edits/$originalId/${member.publicKey}"
+                    assertNotNull(ownerStore.transaction { get(editKey) })
+                    assertEquals("Edited text the author later removes", manager.presentation(space, channel).messages.single().text)
                     writer.deleteMessage(space, writer.timeline(space).single()); writer.flush(space); manager.refresh(space)
-                    val removed = manager.timeline(space).single()
+                    unreadableEdit = editKey
+                    val removed = manager.presentation(space, channel).messages.single()
                     assertEquals(originalId, removed.id); assertEquals(before.position, removed.position)
                     assertEquals(member.publicKey, removed.author)
                     assertTrue(removed.deleted); assertNull(removed.text)

@@ -45,7 +45,10 @@ class SpaceMlsRuntimeTest {
         try {
             val writerStore = AndroidSpaceClientStore(context, owner, node, service).also { first = it }
             val readerStore = AndroidSpaceClientStore(context, owner, node, service).also { second = it }
-            writerStore.transaction { put("draft", "before".toByteArray()) }
+            writerStore.transaction {
+                put("draft", "before".toByteArray())
+                put("anchor", "before-anchor".toByteArray())
+            }
             supervisorScope {
                 val entered = CountDownLatch(1)
                 val release = CountDownLatch(1)
@@ -55,20 +58,22 @@ class SpaceMlsRuntimeTest {
                         entered.countDown()
                         check(release.await(5, TimeUnit.SECONDS))
                         put("draft", "after".toByteArray())
+                        put("anchor", "after-anchor".toByteArray())
                     }
                 }
                 try {
                     check(entered.await(5, TimeUnit.SECONDS))
                     val reader = async(Dispatchers.IO) {
                         readerStarted.countDown()
-                        readerStore.transaction { getAll(listOf("draft", "absent", "draft")) }
+                        readerStore.transaction { getAll(listOf("draft", "absent", "anchor", "draft")) }
                     }
                     check(readerStarted.await(5, TimeUnit.SECONDS))
                     assertNull("A second instance cannot observe an unfinished transaction", withTimeoutOrNull(200) { reader.await() })
                     release.countDown(); writer.await()
                     val rows = reader.await()
-                    assertEquals(setOf("draft"), rows.keys)
+                    assertEquals(setOf("draft", "anchor"), rows.keys)
                     assertArrayEquals("after".toByteArray(), rows.getValue("draft"))
+                    assertArrayEquals("after-anchor".toByteArray(), rows.getValue("anchor"))
                     rows.getValue("draft")[0] = 0
                 } finally { release.countDown() }
             }

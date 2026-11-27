@@ -1,5 +1,7 @@
 package nl.davidengelen.redsquare.spaces
 
+import java.util.concurrent.CancellationException
+
 /** One synchronous presentation borrows one actual store transaction. Verified
  * journals are reused only inside that read, never across commits or failures.
  * Readers may maintain disposable indexes, but do not receive control events. */
@@ -42,7 +44,14 @@ internal class SpacePresentationStore(private val backing: SpaceClientStore) : S
         fun prefetch(keys: List<String>) {
             val missing = keys.distinct().filterNot(values::containsKey)
             if (missing.isEmpty()) return
-            val found = backing.getAll(missing)
+            val found = try { backing.getAll(missing) }
+            catch (failure: Exception) {
+                if (failure is CancellationException || failure is InterruptedException) throw failure
+                // A hint can encounter a row not needed by this presentation,
+                // such as an old edit on a deleted message. Ordinary lookups
+                // still decide which rows to read and report their failures.
+                return
+            }
             for (key in missing) remember(key, found[key])
         }
 

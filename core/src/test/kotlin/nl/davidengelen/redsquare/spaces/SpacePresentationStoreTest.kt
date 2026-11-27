@@ -4,6 +4,18 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class SpacePresentationStoreTest {
+    @Test fun failedPrefetchLeavesOptionalRowsUnreadAndDemandedFailuresIntact() {
+        val disk = AtomicRows()
+        disk.transaction { put("message", byteArrayOf(1)); put("old-edit", byteArrayOf(2)) }
+        disk.unreadableKey = "old-edit"
+        val store = SpacePresentationStore(disk)
+        store.project { store.transaction {
+            store.prefetch(listOf("message", "old-edit"))
+            assertArrayEquals(byteArrayOf(1), get("message"))
+            assertThrows(StorageFailure::class.java) { get("old-edit") }
+        } }
+    }
+
     @Test fun preloadedRowsShareTheSnapshotIncludingMissingRowsAndWrites() {
         val disk = AtomicRows()
         disk.transaction { put("present", byteArrayOf(1)) }
@@ -96,11 +108,13 @@ class SpacePresentationStoreTest {
         private var committed = mutableMapOf<String, ByteArray>()
         val reads = mutableMapOf<String, Int>()
         var failAfterRemoval = false
+        var unreadableKey: String? = null
         override fun <T> transaction(action: SpaceClientStore.Transaction.() -> T): T {
             val working = committed.mapValues { it.value.copyOf() }.toMutableMap()
             val result = action(object : SpaceClientStore.Transaction {
                 override fun get(key: String): ByteArray? {
                     reads[key] = (reads[key] ?: 0) + 1
+                    if (key == unreadableKey) throw StorageFailure()
                     return working[key]?.copyOf()
                 }
                 override fun put(key: String, value: ByteArray) {
