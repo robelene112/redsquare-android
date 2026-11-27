@@ -4,6 +4,25 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class SpaceAttentionIndexTest {
+    @Test fun reopeningASavedPositionSkipsOnlyCompletedReadProgress() {
+        val rows = Rows()
+        rows.transaction {
+            val index = SpaceAttentionIndex(this, "channel-a")
+            repeat(101) { index.observe("reply-$it", it.toLong(), "parent-a", personal = true) }
+            assertTrue(index.markRead("parent-a", 100))
+            assertTrue(index.markRead("parent-a", 100))
+            assertTrue(index.markRead("parent-a", 98))
+            assertFalse(index.markRead("parent-a", 100))
+            assertFalse(index.markRead("parent-a", 98))
+            assertEquals(0L, index.counts().personal)
+            index.observe("later", 101, "parent-a", personal = true)
+            assertFalse(index.markRead("parent-a", 100))
+            assertEquals(1L, index.counts().personal)
+            assertTrue(index.markRead("parent-a", 101))
+            assertEquals(0L, index.counts().personal)
+        }
+    }
+
     @Test fun ordinaryActivityAndPersonalCountsAreSeparateAndThreadReadsDoNotEraseOtherScopes() {
         val rows = Rows()
         rows.transaction {

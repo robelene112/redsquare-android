@@ -42,13 +42,15 @@ internal class SpaceAttentionIndex(private val store: SpaceClientStore.Transacti
         if (current.unread && personal == null) store.put(missing(id), byteArrayOf(1)) else store.remove(missing(id))
     }
 
-    /** The caller has actually displayed this accepted position. Cleanup is
-     * bounded; callers never receive an inflated count while it is incomplete. */
-    fun markRead(thread: String?, through: Long) {
+    /** The caller has actually displayed this accepted position. Return true
+     * when the cursor advances or a pending batch of read records is cleaned. */
+    fun markRead(thread: String?, through: Long): Boolean {
         require(through >= 0)
         val target = scope(thread)
-        store.put(cursor(target), maxOf(through, readPosition(target)).toString().toByteArray(Charsets.UTF_8))
+        if (through > readPosition(target)) store.put(cursor(target), through.toString().toByteArray(Charsets.UTF_8))
+        else if (store.get(pending(target)) == null) return false
         clean(target)
+        return true
     }
     fun counts(): Counts {
         store.page("${prefix}pending-read/", limit = 1).firstOrNull()?.let { clean(it.key.substringAfterLast('/')) }

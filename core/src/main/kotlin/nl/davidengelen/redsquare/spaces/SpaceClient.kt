@@ -3913,9 +3913,12 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val original = SaitoEnvelope.decode(receipt.text("event"))
         require(original.body.text("channel_id") == target && original.body.text("content_kind") == "thread-reply" && messageThread(original.body) == parent.id)
         val data = conversationState(space, target, parent.id)
-        data.addProperty("read_cursor", maxOf(data.get("read_cursor")?.asLong ?: 0, Math.addExact(position, 1)))
+        val cursor = Math.addExact(position, 1)
+        val indexed = SpaceAttentionIndex(this, "$space/channels/$target").markRead(parent.id, position)
+        if (cursor <= (data.get("read_cursor")?.asLong ?: 0)) return@transaction indexed
+        data.addProperty("read_cursor", cursor)
         putConversationState(space, target, parent.id, data)
-        SpaceAttentionIndex(this, "$space/channels/$target").markRead(parent.id, position)
+        true
     }
     private fun SpaceClientStore.Transaction.attentionReader(space: String, channel: String): (String) -> String? {
         val readPrivate = protectedHistoryReader(space, channel)
@@ -4032,13 +4035,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val original = SaitoEnvelope.decode(record.text("event"))
         require(original.body.text("channel_id") == channel && original.body.text("content_kind") == "message")
         val cursor = Math.addExact(position, 1)
-        SpaceAttentionIndex(this, "$space/channels/$channel").markRead(null, position)
-        if (cursor > (data.get("read_cursor")?.asLong ?: 0)) {
-            data.addProperty("read_cursor", cursor)
-            if (data.get("unread_message_end")?.asLong?.let { cursor >= it } == true) data.addProperty("unread", 0)
-            else data.remove("unread")
-            putChannelState(space, channel, data)
-        }
+        val indexed = SpaceAttentionIndex(this, "$space/channels/$channel").markRead(null, position)
+        if (cursor <= (data.get("read_cursor")?.asLong ?: 0)) return@transaction indexed
+        data.addProperty("read_cursor", cursor)
+        if (data.get("unread_message_end")?.asLong?.let { cursor >= it } == true) data.addProperty("unread", 0)
+        else data.remove("unread")
+        putChannelState(space, channel, data)
+        true
     }
     /** Bounded summaries count other authors' actual message records. They do
      * not download history, decrypt content or treat key grants as messages. */

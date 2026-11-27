@@ -1394,11 +1394,14 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     fun markRead(space: String, channel: String, position: Long, thread: String? = null) {
         val target = Target(space, channel, thread)
         scope.launch {
-            try { localAccess.withLock {
-                val current = requireNotNull(client)
-                if (thread == null) current.markRead(space, channel, position)
-                else current.markThreadRead(space, requireNotNull(current.message(space, thread, channel)), position, channel)
-            }; publish(includeCommunities = canRefreshCommunityList()) }
+            try {
+                val changed = localAccess.withLock { traceLocalWork("mark-read") {
+                    val current = requireNotNull(client)
+                    if (thread == null) current.markRead(space, channel, position)
+                    else current.markThreadRead(space, requireNotNull(current.message(space, thread, channel)), position, channel)
+                } }
+                if (changed) publish(includeCommunities = canRefreshCommunityList())
+            }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
         }
