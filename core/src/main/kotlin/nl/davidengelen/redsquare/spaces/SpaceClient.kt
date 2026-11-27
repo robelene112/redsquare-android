@@ -3278,14 +3278,17 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     private suspend fun syncControls(space: String) {
         while (true) {
-            val before = store.transaction { owned(); state(space) }
-            val invitation = before.get("joining_invitation")?.asString?.let(SpaceInvitation::parse)?.takeIf { link ->
-                // Accepted membership outlives the capability that requested it.
-                // Once that capability expires, use the actual wallet's member
-                // read authority to recover its already accepted Welcome.
-                store.transaction { journal(space).snapshot.invitations[link.invitationId]?.expiresAt ?: 0 } > clock.millis()
+            val (invitation, controlCursor) = store.transaction {
+                owned()
+                val before = state(space)
+                val snapshot = journal(space).snapshot
+                val capability = before.get("joining_invitation")?.asString?.let(SpaceInvitation::parse)?.takeIf { link ->
+                    // Expiry ends the invitation's read authority. The actual
+                    // member can still recover an already accepted Welcome.
+                    (snapshot.invitations[link.invitationId]?.expiresAt ?: 0) > clock.millis()
+                }
+                capability to snapshot.nextPosition
             }
-            val controlCursor = store.transaction { journal(space).snapshot.nextPosition }
             suspend fun readControls(capability: SpaceInvitation?) = readPage(JsonObject().apply {
                 addProperty("space_id", space); addProperty("stream", if (capability == null) "control" else "invitation")
                 addProperty("cursor", controlCursor)
@@ -3297,13 +3300,18 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 // admission. Only a fresh wallet-member read can recover it.
                 readControls(null)
             }
+            val next = controls.number("next_cursor")
+            val items = controls.getAsJsonArray("items")
+            // An authenticated empty page has nothing to apply. Another read
+            // may already have committed a newer head while this was in flight.
+            if (items.isEmpty && next == controlCursor) return
             store.transaction {
                 owned()
                 val accepted = journal(space)
-                controls.getAsJsonArray("items").forEach { accept(space, it.asString, controlJournal = accepted) }
-                require(accepted.snapshot.nextPosition == controls.number("next_cursor"))
+                items.forEach { accept(space, it.asString, controlJournal = accepted) }
+                require(accepted.snapshot.nextPosition == next)
             }
-            if (controls.number("next_cursor") == controlCursor) return
+            if (next == controlCursor) return
         }
     }
 
