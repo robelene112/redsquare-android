@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import nl.davidengelen.redsquare.R
+import nl.davidengelen.redsquare.spaces.SpaceClient
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.FrameIconButton
 import nl.davidengelen.redsquare.ui.InlineStatus
@@ -30,7 +31,16 @@ internal fun SpaceSearchPage(account: SpacesAccount, state: SpacesAccount.State,
     var query by rememberSaveable(space) { mutableStateOf("") }
     var channelFilter by rememberSaveable(space) { mutableStateOf<String?>(null) }
     var kindFilter by rememberSaveable(space) { mutableStateOf<String?>(null) }
-    val channels = state.channels.filter { it.id in state.searchChannels }
+    val revision = state.accessRevision
+    val listedNames = remember(state.channels) { state.channels.map { it.id to it.profile.name } }
+    var attempt by remember(account, space) { mutableIntStateOf(0) }
+    var options by remember(account, space, revision, listedNames) { mutableStateOf<Result<List<SpaceClient.Channel>>?>(null) }
+    LaunchedEffect(account, space, revision, listedNames, attempt) {
+        options = try { Result.success(account.searchChannels(space, revision)) }
+        catch (cancelled: CancellationException) { throw cancelled }
+        catch (failure: Exception) { Result.failure(failure) }
+    }
+    val channels = options?.getOrNull().orEmpty()
     val access = channels.map { it.id }
     val channel = channelFilter?.takeIf { it in access }
     val kind = kindFilter?.let(SpaceDestination.Kind::read)
@@ -43,14 +53,15 @@ internal fun SpaceSearchPage(account: SpacesAccount, state: SpacesAccount.State,
         cursorChannel = page?.channel
         cursorBefore = page?.before
     }
-    var attempt by remember(account, space, term, filter, access) { mutableIntStateOf(0) }
-    var result by remember(account, space, term, filter, access, cursor, state.accessRevision) { mutableStateOf<SpaceSearchPage?>(null) }
-    var failed by remember(account, space, term, filter, access, cursor, state.accessRevision) { mutableStateOf(false) }
-    LaunchedEffect(account, space, term, filter, access, cursor, attempt, state.accessRevision) {
-        if (term.isBlank()) return@LaunchedEffect
+    var result by remember(account, space, term, filter, access, cursor, revision) { mutableStateOf<SpaceSearchPage?>(null) }
+    var failed by remember(account, space, term, filter, access, cursor, revision) { mutableStateOf(false) }
+    val optionsReady = options?.isSuccess == true
+    val optionsFailed = options?.isFailure == true
+    LaunchedEffect(account, space, term, filter, access, cursor, attempt, revision, optionsReady) {
+        if (term.isBlank() || !optionsReady) return@LaunchedEffect
         failed = false
         delay(200)
-        try { result = account.searchCached(space, term, filter, cursor, state.accessRevision) }
+        try { result = account.searchCached(space, term, filter, cursor, revision) }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
     }
@@ -81,8 +92,8 @@ internal fun SpaceSearchPage(account: SpacesAccount, state: SpacesAccount.State,
                 Text(stringResource(R.string.spaces_search_saved_history), style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
-            if (term.isNotBlank() && result == null && !failed) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
-            if (failed) item {
+            if (term.isNotBlank() && result == null && !failed && !optionsFailed) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
+            if (failed || optionsFailed) item {
                 InlineStatus(stringResource(R.string.spaces_search_failed), StatusTone.WARNING)
                 TextButton(onClick = { attempt++ }, modifier = Modifier.heightIn(min = 48.dp)) {
                     Text(stringResource(R.string.spaces_retry))

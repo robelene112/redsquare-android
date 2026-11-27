@@ -1,6 +1,10 @@
 package nl.davidengelen.redsquare.spaces.service
 
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
+import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceArticleContent
 import nl.davidengelen.redsquare.spaces.SpaceChannelKind
@@ -26,13 +30,27 @@ class SpaceSearchTest {
         SpacesServiceStore(files.newFolder().toPath(), authority, clock).use { service ->
             SqliteClientFixture(files.newFile().absolutePath).use { ownerStore ->
                 SqliteClientFixture(files.newFile().absolutePath).use { readerStore ->
-                    fun client(store: SqliteClientFixture, wallet: SaitoWallet = SaitoWallet.create()) = SpaceClient(wallet,
-                        "https://spaces.example.test", authority.publicKey, store, clock) {
+                    val owner = SpaceClient(SaitoWallet.create(), "https://spaces.example.test", authority.publicKey, ownerStore, clock) {
                         service.exchange(it.envelope())
                     }
-                    val owner = client(ownerStore)
                     val readerWallet = SaitoWallet.create()
-                    val reader = client(readerStore, readerWallet)
+                    val held = CompletableDeferred<Unit>()
+                    val release = CompletableDeferred<Unit>()
+                    val invalidations = mutableListOf<Long>()
+                    var holdContent = false
+                    val reader = SpaceClient(readerWallet, "https://spaces.example.test", authority.publicKey, readerStore, clock,
+                        onReadScopeChanged = { invalidations.add(it) }) { request ->
+                        val envelope = request.envelope()
+                        val response = service.exchange(envelope)
+                        if (holdContent) {
+                            val body = SaitoEnvelope.decode(envelope).body
+                            if (body.get("request")?.asString == "read" && body.getAsJsonObject("scope")?.get("stream")?.asString == "messages") {
+                                held.complete(Unit)
+                                release.await()
+                            }
+                        }
+                        response
+                    }
                     val space = owner.create(SpaceProfile("Searchable Space", visibility = SpaceVisibility.PUBLIC), listOf(
                         SpaceChannelProfile("General", SpaceChannelKind.CHAT),
                         SpaceChannelProfile("Articles", SpaceChannelKind.ARTICLE)))
@@ -90,8 +108,21 @@ class SpaceSearchTest {
                     val saved = find(reader, SpaceSearchFilter(channel = hidden)).single { it.address.record == permitted }
                     val beforeRevocation = reader.readScopeRevision
                     assertNotNull(reader.cachedDestination(saved.address))
+                    assertTrue(reader.searchChannels(space).any { it.id == hidden })
                     owner.revokeChannelAccess(space, hidden, readerWallet.publicKey)
                     owner.flush(space)
+                    holdContent = true
+                    val refreshing = async { reader.refresh(space, channel = chat) }
+                    try {
+                        withTimeout(5_000) { held.await() }
+                        assertFalse("The unrelated content read is still waiting", refreshing.isCompleted)
+                        assertTrue(reader.readScopeRevision > beforeRevocation)
+                        assertEquals(reader.readScopeRevision, invalidations.last())
+                        assertFalse(reader.searchChannels(space).any { it.id == hidden })
+                        assertTrue(find(reader, SpaceSearchFilter(channel = hidden)).isEmpty())
+                        assertEquals(setOf(first, reply, queued), find(reader, SpaceSearchFilter(channel = chat)).map { it.address.record }.toSet())
+                    } finally { release.complete(Unit) }
+                    refreshing.await()
                     assertTrue(runCatching { reader.openDestination(saved.address) }.exceptionOrNull() is SpaceClient.ReadDenied)
                     assertTrue(reader.readScopeRevision > beforeRevocation)
                     assertTrue(find(reader, SpaceSearchFilter(channel = hidden)).isEmpty())

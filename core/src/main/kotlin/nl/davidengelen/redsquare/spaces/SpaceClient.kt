@@ -21,12 +21,15 @@ import java.util.concurrent.atomic.AtomicLong
 class SpaceClient(private val wallet: SaitoWallet, private val node: String, private val service: String,
     store: SpaceClientStore, private val clock: Clock,
     private val onDeliveryAttempt: suspend (Delivery) -> Unit = {},
+    private val onReadScopeChanged: (Long) -> Unit = {},
     private val exchange: suspend (SaitoTransaction) -> String) {
     init { require(node.isNotBlank() && node.length <= 2048 && SaitoWallet.isPublicKey(service)) }
 
     private val store = SpacePresentationStore(store)
     private val readScope = AtomicLong()
     val readScopeRevision: Long get() = readScope.get()
+    // Consumers clear old read views in memory. They may read the new scope once the transaction releases.
+    private fun invalidateReadScope() { onReadScopeChanged(readScope.incrementAndGet()) }
     private var supportsMessageHistory = false
     private var supportsMessageReactions = false
     private var supportsMessagePins = false
@@ -1142,7 +1145,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val key = destinationDenialKey(space, channel)
         if (get(key) == null) {
             put(key, byteArrayOf(1))
-            readScope.incrementAndGet()
+            invalidateReadScope()
         }
     }
 
@@ -1150,7 +1153,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         val denied = destinationDenialKey(space, channel)
         if (get(denied) != null) {
             remove(denied)
-            readScope.incrementAndGet()
+            invalidateReadScope()
         }
         if (readContent) put(lastCheckedKey(space, channel), clock.millis().toString().toByteArray(Charsets.UTF_8))
     }
@@ -1170,6 +1173,12 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 journal.canAccessChannel(wallet.publicKey, channel.id)
         }.mapTo(linkedSetOf()) { it.id }
     } }
+
+    fun searchChannels(space: String): List<Channel> = store.project {
+        val candidates = channels(space)
+        val available = searchAvailableChannels(space, candidates)
+        candidates.filter { it.id in available }
+    }
 
     fun destinationLink(space: String, channel: String, kind: SpaceDestination.Kind, record: String? = null, thread: String? = null): String {
         val address = SpaceDestination(SpacePublicReference(node, service, space), channel, kind, record, thread)
@@ -4229,7 +4238,7 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 val existing = get(key)
                 if (existing != null) require(SaitoEnvelope.decode(existing.toString(Charsets.UTF_8)).body.text("event") == body.text("event"))
                 else {
-                    if (original.body.text("kind") in ACCESS_CHANGING_CONTROLS) readScope.incrementAndGet()
+                    if (original.body.text("kind") in ACCESS_CHANGING_CONTROLS) invalidateReadScope()
                     when (original.body.text("kind")) {
                         "create-category", "edit-category" -> recordCategoryResult(state, original, ChangeStatus.ACCEPTED)
                         "create" -> {
