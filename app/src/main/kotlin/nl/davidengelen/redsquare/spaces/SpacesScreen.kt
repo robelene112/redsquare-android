@@ -82,6 +82,7 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
 import nl.davidengelen.redsquare.ui.keyboardOccupiesWindow
 import java.text.DateFormat
 import java.util.Date
+import java.util.TimeZone
 import java.util.concurrent.atomic.AtomicReference
 
 internal const val SHORT_SPACES_WINDOW_DP = 420
@@ -770,6 +771,9 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             }
                         }
                         val reportingAvailable = selected.joined && !selected.dissolved && account.moderationReportsSupported()
+                        val messageTimeFormat = remember(LocalConfiguration.current, TimeZone.getDefault().id) {
+                            DateFormat.getTimeInstance(DateFormat.SHORT)
+                        }
                         if (state.messages.isEmpty() && !state.contentLoaded) Box(Modifier.weight(1f).fillMaxWidth().clipToBounds().padding(AppSpacing.screen), contentAlignment = Alignment.Center) {
                             if (state.refreshing) CircularProgressIndicator(Modifier.size(28.dp))
                             else Text(stringResource(R.string.spaces_history_not_loaded), color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -789,7 +793,8 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 val own = message.author == account.ownerKey
                                 val requestedBody = state.scrollToMessage?.takeIf { it.showBody }?.id
                                 val showBody = message.id == (requestedBody ?: initialThreadBody?.takeIf { initialPage })
-                                MessageRow(message, state.draft.isEmpty() && !state.working,
+                                val time = remember(message.createdAt, messageTimeFormat) { messageTimeFormat.format(Date(message.createdAt)) }
+                                MessageRow(message, time, state.draft.isEmpty() && !state.working,
                                     bodyModifier = if (showBody) Modifier.bringIntoViewRequester(messageBody) else Modifier,
                                     restore = { account.restoreUnsentDraft(message.id) },
                                     reply = if (accepted && threadParent == null && (!message.deleted || message.replyCount > 0))
@@ -1267,12 +1272,11 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
     }
 }
 
-@Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, bodyModifier: Modifier, restore: () -> Unit,
+@Composable private fun MessageRow(message: SpaceClient.Message, time: String, canRestore: Boolean, bodyModifier: Modifier, restore: () -> Unit,
     reply: (() -> Unit)?, canEdit: Boolean, canRemove: Boolean, canReport: Boolean, canCopyLink: Boolean, canCancel: Boolean, openOverlay: (MessageOverlay) -> Unit,
     cancelChange: ((String, (Boolean) -> Unit) -> Unit)?, react: ((String) -> Unit)?, savingReaction: String?, working: Boolean) {
     val savedEdit = message.change?.takeIf { it.kind == SpaceClient.MessageChangeKind.EDIT }?.text
     val name = registeredIdentity(message.author).name
-    val time = remember(message.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(message.createdAt)) }
     val measuredBody = if (nl.davidengelen.redsquare.BuildConfig.SPACES_SCALE_FIXTURE) {
         val anchor = remember(message.id, message.text) { SpacesScaleMeasurement.anchorRow(message.id, message.text) }
         if (anchor != null) {
