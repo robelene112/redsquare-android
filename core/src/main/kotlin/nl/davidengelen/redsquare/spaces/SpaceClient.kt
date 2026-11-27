@@ -3819,9 +3819,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     data class ReadingAnchor(val messageId: String, val position: Long, val offset: Int, val windowFrom: Long) {
         init {
-            require(messageId.matches(Regex("[0-9a-f]{128}")) && position >= 0 && windowFrom >= 0 &&
+            require(messageId.matches(messageIdPattern) && position >= 0 && windowFrom >= 0 &&
                 windowFrom <= position)
         }
+
+        private companion object { val messageIdPattern = Regex("[0-9a-f]{128}") }
     }
     fun readingAnchor(space: String, channel: String? = null): ReadingAnchor? = store.transaction {
         owned(); val target = channel ?: selectedChannel(state(space)); channelState(space, target)
