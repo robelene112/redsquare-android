@@ -156,7 +156,7 @@ if [[ "${SPACES_SCALE_SMOKE:-false}" == true || "${SPACES_SCALE_FULL:-false}" ==
         cmp "$diagnosis"/{reference,current}/device-serial.txt
         cmp "$diagnosis"/{reference,current}/device-size.txt
         cmp "$diagnosis"/{reference,current}/device-density.txt
-        python3 - "$diagnosis" "$SPACES_SCALE_COMPARE" <<'PY'
+        python3 - "$diagnosis" "${SPACES_SCALE_COMPARE#paired:}" <<'PY'
 import json
 from pathlib import Path
 import sys
