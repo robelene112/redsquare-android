@@ -57,6 +57,11 @@ passes all three partitions at `d4b134c6e`. The independent archive
 comparison matches all 923 test identities, 347 classes and 280 evidence
 archives. The three originals include 395 normal completions, 55 deliberate
 process interruptions and 54 continuity records.
+The fresh [full Android 10 run](https://github.com/robelene112/redsquare-android/actions/runs/46055503716)
+checks out the same `d4b134c6e` source. All three partitions pass. Independent
+comparison matches 922 test identities, 347 classes and 280 evidence archives.
+Both Android versions have a complete successful parent for this product
+source.
 
 Full scale measurements [18](https://github.com/robelene112/redsquare-android/actions/runs/45753375523),
 [19](https://github.com/robelene112/redsquare-android/actions/runs/45757606956)
@@ -186,7 +191,9 @@ verifies the ordinary unread dot, personal count, acknowledgement on reading
 and restoration of the Silent preference. The [Android 10 variant journey](https://github.com/robelene112/redsquare-android/actions/runs/46061206570)
 stops earlier on the moderation placeholder. The host removes the message,
 while the device still displays the pending change at the deadline.
-The read-marker variant remains on its diagnostic branch.
+The [Android 10 control](https://github.com/robelene112/redsquare-android/actions/runs/46063585040)
+passes all three native overlay, pin and unread cases on the current product
+source. The read-marker variant remains on its diagnostic branch.
 
 The [compact exact-reply run](https://github.com/robelene112/redsquare-android/actions/runs/45669562341)
 confirms that both lines of the reply body fit the 320dp conversation at
