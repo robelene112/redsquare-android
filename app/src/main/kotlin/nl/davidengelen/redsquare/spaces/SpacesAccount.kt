@@ -1615,26 +1615,21 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             markPublicReferenceOpened(link, accepted)
         }
     }
-    suspend fun searchChannels(space: String, accessRevision: Long): List<SpaceClient.Channel> = withContext(Dispatchers.IO) {
-        localAccess.withLock {
-            if (closed.get() || mutable.value.selected != space) throw CancellationException("Space changed")
-            val current = requireNotNull(client)
-            val channels = current.searchChannels(space)
-            if (closed.get() || mutable.value.selected != space || current.readScopeRevision != accessRevision)
-                throw CancellationException("Search scope changed")
-            channels
-        }
-    }
+    suspend fun searchChannels(space: String, accessRevision: Long): List<SpaceClient.Channel> =
+        searchRead(space, accessRevision) { searchChannels(space) }
 
     suspend fun searchCached(space: String, query: String, filter: SpaceSearchFilter, after: SpaceSearchCursor?, accessRevision: Long): SpaceSearchPage =
+        searchRead(space, accessRevision) { searchCached(space, query, filter, after) }
+
+    private suspend fun <T> searchRead(space: String, accessRevision: Long, read: SpaceClient.() -> T): T =
         withContext(Dispatchers.IO) {
             localAccess.withLock {
                 if (closed.get() || mutable.value.selected != space) throw CancellationException("Space changed")
                 val current = requireNotNull(client)
-                val page = current.searchCached(space, query, filter, after)
+                val result = current.read()
                 if (closed.get() || mutable.value.selected != space || current.readScopeRevision != accessRevision)
                     throw CancellationException("Search scope changed")
-                page
+                result
             }
         }
 
