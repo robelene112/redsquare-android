@@ -132,8 +132,19 @@ overlap and leaves the effect of reducing it to a separate comparison.
 The [forward avatar comparison](https://github.com/robelene112/redsquare-android/actions/runs/46052761473)
 reduces the highest observed cold frame from 912.66ms to 584.73ms.
 Its conservative warm deadline miss bound rises from 10.49% to 12.69%.
-The raster change remains on its diagnostic branch while the reverse-order
-comparison controls for installation order.
+In the [reverse comparison](https://github.com/robelene112/redsquare-android/actions/runs/46055457426)
+the raster records 960.20ms and 31.74%, and the normal renderer records
+902.20ms and 33.93%. The change remains on its diagnostic branch.
+
+The [read-marker comparison](https://github.com/robelene112/redsquare-android/actions/runs/46056132497)
+updates the stored read marker and channel badge without reprojecting the
+visible conversation. Its local read-marker operations take 44 to 58ms over
+the three observed cold starts. The conservative warm bound falls from 10.99%
+to 6.82% in that order. The [reverse comparison](https://github.com/robelene112/redsquare-android/actions/runs/46058849369)
+records 14.01% with the change installed first and 8.37% with the original
+installed second. The [same-source control](https://github.com/robelene112/redsquare-android/actions/runs/46060626141)
+records 9.07% then 5.88% with unchanged app code and separate APK builds.
+Use `paired:self` to reinstall the same APK and test APK within one comparison.
 
 The [short geometry calibration](https://github.com/robelene112/redsquare-android/actions/runs/46051921256)
 matches the two stationary and all 13 moving frames to their geometry,

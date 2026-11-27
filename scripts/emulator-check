@@ -139,6 +139,7 @@ if [[ "${SPACES_SCALE_SMOKE:-false}" == true || "${SPACES_SCALE_FULL:-false}" ==
         printf '%s\n' 'Owned release-equivalent timing against the frozen signed dataset. Physical device qualification remains separate.' > "$evidence/scope.txt"
     elif [[ -n "${SPACES_SCALE_COMPARE:-}" ]]; then
         reference="$repo_dir/.scratch/spaces-scale-reference"
+        if [[ "$SPACES_SCALE_COMPARE" == paired:self ]]; then reference="$repo_dir"; fi
         diagnosis="$evidence/spaces-scale-diagnostic"
         mkdir "$diagnosis"
         printf '%s\n' 'Paired timing on the same disposable emulator and authenticated diagnostic data.' > "$evidence/scope.txt"
@@ -163,15 +164,18 @@ import sys
 
 root = Path(sys.argv[1])
 reference, current = [json.loads((root / group / 'diagnostic.json').read_text()) for group in ('reference', 'current')]
-assert reference['source'] == sys.argv[2] and reference['source'] != current['source']
+if sys.argv[2] == 'self':
+    assert all(reference[key] == current[key] for key in ('source', 'apkSha256', 'testApkSha256'))
+else:
+    assert reference['source'] == sys.argv[2] and reference['source'] != current['source']
 assert reference['device'] == current['device']
 assert reference['seed']['databaseSha256'] == current['seed']['databaseSha256']
 assert reference['seed']['authenticatedLocalRows'] == current['seed']['authenticatedLocalRows']
 assert not reference['qualifiesForTimedRuns'] and not current['qualifiesForTimedRuns']
 metrics = ('coldMaximumFrameMsByLaunch', 'warmCompleted', 'warmObserved', 'warmMissed',
            'warmMissUpperBound', 'warmDurationMs')
-print(json.dumps({group['source']: {key: group['diagnostic'][key] for key in metrics}
-                  for group in (reference, current)}, indent=2))
+print(json.dumps({label: {'source': group['source'], **{key: group['diagnostic'][key] for key in metrics}}
+                  for label, group in (('reference', reference), ('current', current))}, indent=2))
 PY
     else
         python3 "$repo_dir/scripts/spaces-scale-check" "$evidence/spaces-scale-calibration" "$artifact"
