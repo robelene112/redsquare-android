@@ -102,6 +102,30 @@ the required 5%. A retained cold sample reaches 1089.04ms against the 700ms
 ceiling. This failed run supplies diagnostic timing only. The ordinary beta
 remains at 0.1.142.
 
+The short performance comparison uses the existing Android 17 scale smoke
+scope with a `paired:<exact commit>` source override. It installs both builds
+on one KVM emulator and imports the same authenticated fixture database into
+each fresh installation. It observes three cold processes and three measured
+scroll rounds after warm-up. The 12 Spaces and 384 records in the hot channel
+make this a diagnostic workload. The full scale contract controls acceptance.
+
+The [first paired run](https://github.com/robelene112/redsquare-android/actions/runs/46050530338)
+completes three cold launches and one warm-up per build. Reopening the same
+channel preserves its earlier reading position in both builds. The
+[second run](https://github.com/robelene112/redsquare-android/actions/runs/46052680500)
+switches to an unrelated channel between timed scroll series. The newer build
+completes all three series. The older build remains at Checking access on the
+first switch. The diagnostic now rewinds the same conversation with real
+swipes, then verifies the exact latest message before the next timed round.
+The separate full workload continues to require real cross-channel navigation.
+
+The [short geometry calibration](https://github.com/robelene112/redsquare-android/actions/runs/46051921256)
+matches the two stationary and all 13 moving frames to their geometry,
+including the terminal frame, with a maximum unexplained displacement of
+0.87px. The [original calibration](https://github.com/robelene112/redsquare-android/actions/runs/46050891550)
+lost the end of its trace. The current calibration waits for two writes after
+the terminal frame before stopping the trace.
+
 The [compact exact-reply run](https://github.com/robelene112/redsquare-android/actions/runs/45669562341)
 confirms that both lines of the reply body fit the 320dp conversation at
 200% text. The native proof opens the actual Android notification and the
