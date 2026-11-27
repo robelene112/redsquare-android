@@ -30,8 +30,8 @@ internal class SpacePresentationStore(private val backing: SpaceClientStore) : S
 
     fun prefetch(keys: List<String>) { active.get()?.transaction?.prefetch(keys) }
 
-    fun readRows(keys: List<String>): List<ByteArray?> =
-        active.get()?.transaction?.readRows(keys) ?: transaction { keys.map(::get) }
+    fun readRows(transaction: SpaceClientStore.Transaction, keys: List<String>): List<ByteArray?> =
+        (active.get()?.transaction ?: SnapshotRows(transaction)).readRows(keys)
 
     /** Repeated identity/state reads share this one atomic snapshot, including
      * disposable index writes. Never retain plaintext or authority between transactions. */

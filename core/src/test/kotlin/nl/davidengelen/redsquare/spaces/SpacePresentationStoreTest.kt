@@ -13,7 +13,7 @@ class SpacePresentationStoreTest {
             store.prefetch(listOf("message", "old-edit"))
             assertArrayEquals(byteArrayOf(1), get("message"))
             assertThrows(StorageFailure::class.java) { get("old-edit") }
-            assertThrows(StorageFailure::class.java) { store.readRows(listOf("message", "old-edit")) }
+            assertThrows(StorageFailure::class.java) { store.readRows(this, listOf("message", "old-edit")) }
         } }
     }
 
@@ -45,8 +45,8 @@ class SpacePresentationStoreTest {
         val keys = (0 until 8).map { "receipt-$it" }
         disk.transaction { keys.forEachIndexed { index, key -> put(key, ByteArray(180 * 1024) { index.toByte() }) } }
         val store = SpacePresentationStore(disk)
-        store.project {
-            val rows = store.readRows(keys.reversed() + listOf("missing", keys.last()))
+        store.transaction {
+            val rows = store.readRows(this, keys.reversed() + listOf("missing", keys.last()))
             assertEquals((7 downTo 0).map { it.toByte() } + listOf(null, 7.toByte()), rows.map { it?.first() })
             rows.first()!![0] = 9
             assertEquals(7.toByte(), rows.last()?.first())
