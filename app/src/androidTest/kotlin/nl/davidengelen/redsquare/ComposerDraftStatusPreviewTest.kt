@@ -1,10 +1,12 @@
 package nl.davidengelen.redsquare
 
+import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Rule
 import org.junit.Test
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import java.io.File
 
@@ -33,19 +35,28 @@ class ComposerDraftStatusPreviewTest {
                 var primary: Throwable? = null
                 try {
                     synchronized(nl.davidengelen.redsquare.saito.SaitoLocalState.lock) {
+                        assertNull("An explicitly saved caption must not be written as unfinished text",
+                            unfinishedTextCheckpoint(context)?.text)
                         check(record.delete())
                         replaced = true
                         check(record.mkdir())
                     }
                     ui.onNodeWithText("Remove image 1").performScrollTo().assertIsEnabled().performClick()
                     val failure = context.getString(R.string.image_prepare_failed)
+                    val recoveryFailure = context.getString(R.string.unfinished_text_recovery_failed)
                     ui.waitUntil(10_000) {
                         ui.onAllNodesWithText(failure).fetchSemanticsNodes().isNotEmpty() &&
                             ui.onAllNodes(hasText("Remove image 1") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
                     }
+                    // Keep the fault in place past the asynchronous checkpoint debounce.
+                    val checkpointDeadline = SystemClock.elapsedRealtime() + 600
+                    do {
+                        ui.onNodeWithText(recoveryFailure).assertDoesNotExist()
+                        SystemClock.sleep(25)
+                    } while (SystemClock.elapsedRealtime() < checkpointDeadline)
                     ui.onNodeWithText(failure).performScrollTo().assertIsDisplayed()
                     captureNativeScreen(File(folder, "$label-unconfirmed-images.png"))
-                    ui.onNodeWithText(context.getString(R.string.unfinished_text_recovery_failed)).assertDoesNotExist()
+                    ui.onNodeWithText(recoveryFailure).assertDoesNotExist()
                     ui.onNodeWithText("Saved on this device").assertDoesNotExist()
                     ui.onNodeWithText("Unsaved changes").assertIsDisplayed()
                     ui.onNode(editor).assertEditableTextEquals(draft)
