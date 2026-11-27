@@ -412,8 +412,10 @@ internal class PostComposerState(
                     val prior = PostDraftStore.Saved(text, images = images, gifAttributions = gifAttributions)
                     withContext(NonCancellable) {
                         savedContent = null
-                        savedContent = withContext(Dispatchers.IO) { store.saveComposer(prior) }
-                        memory.unfinished?.update(memory.text ?: text)
+                        val persisted = withContext(Dispatchers.IO) { store.saveComposer(prior) }
+                        savedContent = persisted
+                        val currentText = memory.text ?: text
+                        if (currentText != persisted.text) memory.unfinished?.update(currentText)
                     }
                     val remaining = withContext(Dispatchers.IO) {
                         SaitoTransaction.MAX_MESSAGE_BYTES - RedSquarePosts.message(text, images, parent, quote)
@@ -446,7 +448,9 @@ internal class PostComposerState(
                         memory.images = persisted.images
                         memory.gifAttributions = persisted.gifAttributions
                         text = memory.text ?: latest
-                        memory.unfinished?.update(text)
+                        // The explicit save has retired the text checkpoint.
+                        // Requeue only a newer edit from the retained editor.
+                        if (text != persisted.text) memory.unfinished?.update(text)
                         operation.complete(selection)
                     }
                     error = false

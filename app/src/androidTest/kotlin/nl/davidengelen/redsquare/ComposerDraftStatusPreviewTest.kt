@@ -45,6 +45,7 @@ class ComposerDraftStatusPreviewTest {
                     }
                     ui.onNodeWithText(failure).performScrollTo().assertIsDisplayed()
                     captureNativeScreen(File(folder, "$label-unconfirmed-images.png"))
+                    ui.onNodeWithText(context.getString(R.string.unfinished_text_recovery_failed)).assertDoesNotExist()
                     ui.onNodeWithText("Saved on this device").assertDoesNotExist()
                     ui.onNodeWithText("Unsaved changes").assertIsDisplayed()
                     ui.onNode(editor).assertEditableTextEquals(draft)
