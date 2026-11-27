@@ -145,7 +145,8 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
                     val paused = requireNotNull(pending) {
                         "No authenticated headless pause within the deadline. " +
                             "Work state=${lastWork?.state}, attempts=${lastWork?.runAttemptCount}, " +
-                            "loopback upgrades=${peer.connectionAttempts.get()}, authenticated=${wallet.publicKey in peer.clientKeys}"
+                            "loopback upgrades=${peer.connectionAttempts.get()}, " +
+                            "answered challenges=${peer.servedChallenges.get()}, authenticated=${wallet.publicKey in peer.clientKeys}"
                     }
                     assertTrue(wallet.exportJson() == wallets.loadExisting().exportJson())
                     File(context.cacheDir, "agreement-${kind.capture}-queue-evidence/$label-worker-paused.json").apply {

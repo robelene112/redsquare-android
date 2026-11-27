@@ -159,9 +159,15 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         }
     }
 
-    /** Establish readiness before making a durable operation non-cancellable. */
+    /** Verify the peer and write our proof before making a durable operation non-cancellable. */
     suspend fun authenticate() = withTimeout(12_000) {
-        await(connection.ready)
+        val proof = await(connection.ready)
+        // A policy check can close its only lease immediately after authentication.
+        // Do not let that close cancel the still-queued signed response.
+        while (!connection.hasWritten(proof)) {
+            requireActive()
+            delay(10)
+        }
         requireActive()
     }
 
@@ -225,7 +231,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
 
     private data class Address(val owner: String, val endpoint: String)
     private class Connection(private val wallet: SaitoWallet, val address: Address) {
-        val ready = CompletableDeferred<Unit>()
+        val ready = CompletableDeferred<Long>()
         val advertised = CompletableDeferred<Set<String>>()
         val closed = CompletableDeferred<Unit>()
         val disconnected = AtomicBoolean(false)
@@ -251,6 +257,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
             }
         }
         private val challenges = mutableListOf(randomNonce())
+        private var handshakeWriteOffset = 0L
         var identifiedKey: String? = null
         lateinit var socket: WebSocket
             private set
@@ -285,7 +292,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                             require(frame.size == 33)
                             val counter = randomNonce()
                             challenges.add(counter)
-                            send(webSocket, SaitoWire.handshakeReply(wallet, frame.copyOfRange(1, 33), counter))
+                            handshakeWriteOffset = send(webSocket, SaitoWire.handshakeReply(wallet, frame.copyOfRange(1, 33), counter))
                         }
                         2 -> {
                             require(frame.size == 130)
@@ -297,9 +304,9 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                             identifiedKey = peerKey
                             val counter = frame.copyOfRange(98, 130)
                             if (counter.any { it != 0.toByte() }) {
-                                send(webSocket, SaitoWire.handshakeReply(wallet, counter, ByteArray(32)))
+                                handshakeWriteOffset = send(webSocket, SaitoWire.handshakeReply(wallet, counter, ByteArray(32)))
                             }
-                            ready.complete(Unit)
+                            ready.complete(handshakeWriteOffset)
                         }
                         7 -> send(webSocket, byteArrayOf(16))
                         20 -> send(webSocket, byteArrayOf(9)) // This reader advertises no server services.
