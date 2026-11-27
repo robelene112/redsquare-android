@@ -37,6 +37,11 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private data class HeldSpacesReply(val request: String, val index: Int, val send: () -> Boolean)
     private val heldArticleReply = java.util.concurrent.atomic.AtomicReference<HeldSpacesReply?>(null)
     private val heldDestinationReply = java.util.concurrent.atomic.AtomicReference<HeldSpacesReply?>(null)
+    private class ContentReadGate(val caller: String, val channel: String, val afterControl: String) {
+        val controlDelivered = java.util.concurrent.atomic.AtomicBoolean()
+    }
+    private val contentReadGate = java.util.concurrent.atomic.AtomicReference<ContentReadGate?>(null)
+    private val heldContentReply = java.util.concurrent.atomic.AtomicReference<HeldSpacesReply?>(null)
     fun holdNextSpacesArticleRead() {
         check(heldArticleReply.get() == null && holdNextArticleRead.compareAndSet(false, true))
     }
@@ -50,6 +55,28 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     fun holdRecreatedSpacesDestinationRead() {
         check(heldDestinationReply.getAndSet(null) != null)
         holdNextSpacesDestinationRead()
+    }
+    fun holdSpacesMessagesAfterControl(caller: String, channel: String, control: String) {
+        check(heldContentReply.get() == null && contentReadGate.compareAndSet(null, ContentReadGate(caller, channel, control)))
+    }
+    fun heldSpacesContentReadId(): String? = heldContentReply.get()?.request
+    fun releaseSpacesContentRead(): Boolean {
+        contentReadGate.set(null)
+        return heldContentReply.getAndSet(null)?.send?.invoke() == true
+    }
+
+    private fun holdScopedContentRead(caller: String?, scope: com.google.gson.JsonObject?, response: String): Boolean {
+        val gate = contentReadGate.get() ?: return false
+        if (caller != gate.caller || scope == null) return false
+        if (scope.get("stream")?.asString == "control" && !gate.controlDelivered.get()) {
+            val signed = SaitoEnvelope.decode(response).body
+            if (signed.getAsJsonArray("items")?.any { item ->
+                    val receipt = SaitoEnvelope.decode(item.asString).body
+                    receipt.get("event")?.asString?.let(SaitoEnvelope::decode)?.id == gate.afterControl
+                } == true) gate.controlDelivered.set(true)
+        }
+        return gate.controlDelivered.get() && scope.get("stream")?.asString == "messages" &&
+            scope.get("channel_id")?.asString == gate.channel && !scope.has("destination_kind") && contentReadGate.compareAndSet(gate, null)
     }
     val withholdNextSpacesReadReply = java.util.concurrent.atomic.AtomicBoolean(false)
     val withheldSpacesReads = java.util.concurrent.CopyOnWriteArrayList<String>()
@@ -383,6 +410,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                                 when {
                                     scope?.has("article_id") == true && holdNextArticleRead.compareAndSet(true, false) -> heldArticleReply
                                     scope?.has("destination_kind") == true && holdNextDestinationRead.compareAndSet(true, false) -> heldDestinationReply
+                                    holdScopedContentRead(authenticatedKey, scope, response) -> heldContentReply
                                     else -> null
                                 }
                             } else null

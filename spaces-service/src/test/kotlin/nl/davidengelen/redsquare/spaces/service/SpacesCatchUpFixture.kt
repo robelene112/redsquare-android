@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare.spaces.service
 
 import com.google.gson.JsonObject
+import nl.davidengelen.redsquare.saito.SaitoEnvelope
+import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.spaces.SpaceChannelProfile
 import nl.davidengelen.redsquare.spaces.SpaceClient
@@ -27,6 +29,8 @@ internal class SpacesCatchUpFixture(root: Path, node: SaitoWallet, private val o
     private lateinit var secondThread: String
     private lateinit var hidden: SpaceDestination
     private var latest: SpaceDestination? = null
+    private var revocableSearchChannel: String? = null
+    private var revocableSearchMessage: String? = null
 
     suspend fun seed() {
         space = other.create(SpaceProfile("Catch up proof Space", visibility = SpaceVisibility.PUBLIC), listOf(SpaceChannelProfile("General")))
@@ -54,6 +58,40 @@ internal class SpacesCatchUpFixture(root: Path, node: SaitoWallet, private val o
         addProperty("link", other.publicLink(space))
         addProperty("nativeWallet", nativeWallet.publicKey)
         addProperty("privateLink", hidden.link())
+    }
+
+    suspend fun createRevocableSearchChannel(): JsonObject {
+        check(revocableSearchChannel == null)
+        revocableSearchChannel = other.createPrivateChannel(space, SpaceChannelProfile("Temporary search channel"), setOf(nativeWallet.publicKey))
+        other.flush(space)
+        return JsonObject().apply { addProperty("channel", revocableSearchChannel) }
+    }
+
+    suspend fun admitSearchDevice(requests: List<SaitoTransaction>): JsonObject {
+        val target = requireNotNull(revocableSearchChannel)
+        val joined = requests.any { tx ->
+            val original = SaitoEnvelope.decode(tx.envelope())
+            original.author == nativeWallet.publicKey && original.body.get("kind")?.asString == "join-channel" &&
+                original.body.get("channel_id")?.asString == target
+        }
+        if (joined) {
+            other.admitPending(space)
+            other.flush(space)
+            if (revocableSearchMessage == null) {
+                revocableSearchMessage = other.send(space, "Temporary authorized Needle", target)
+                other.flush(space)
+            }
+        }
+        return JsonObject().apply { addProperty("ready", joined && revocableSearchMessage != null) }
+    }
+
+    suspend fun revokeSearchChannel(hold: (String, String, String) -> Unit): JsonObject {
+        val target = requireNotNull(revocableSearchChannel)
+        check(revocableSearchMessage != null)
+        val control = other.revokeChannelAccess(space, target, nativeWallet.publicKey)
+        hold(nativeWallet.publicKey, channel, control)
+        other.flush(space)
+        return JsonObject().apply { addProperty("control", control); addProperty("channel", target) }
     }
 
     suspend fun initialReplies(): JsonObject {

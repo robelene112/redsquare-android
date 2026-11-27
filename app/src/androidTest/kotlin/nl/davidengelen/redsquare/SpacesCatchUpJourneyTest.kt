@@ -213,6 +213,63 @@ class SpacesCatchUpJourneyTest {
         }
     }
 
+    @Test fun visibleSearchDiscardsRevokedPrivateDataBeforeAnUnrelatedReply() {
+        val config = request("config")
+        prepareWallet(config)
+        launch(config.get("link").asString).use {
+            withFailureCapture({ capture("search-revocation-failure") }) {
+                val privateChannel = "Temporary search channel"
+                val privateMessage = "Temporary authorized Needle"
+                waitText("Separate proof conversation")
+                val target = request("search-channel").get("channel").asString
+                ui.waitUntil(25_000) { request("search-admit").get("ready").asBoolean }
+                val switcher = ui.onNode(hasContentDescription("Switch Space or channel") and hasClickAction())
+                ui.waitUntil(12_000) { switcher.isDisplayed() }
+                switcher.performClick()
+                click(privateChannel)
+                waitText(privateMessage)
+                ui.waitUntil(12_000) { switcher.isDisplayed() }
+                switcher.performClick()
+                click("General")
+                waitText("Separate proof conversation")
+                click("Community information")
+                click("Search this Space")
+                val field = ui.onNode(hasSetTextAction() and hasText("Search saved history"))
+                ui.waitUntil(12_000) { field.isDisplayed() }
+                field.performTouchInput { click() }
+                field.performTextReplacement("Needle")
+                Espresso.closeSoftKeyboard()
+                click("All available channels")
+                click(privateChannel, popup = true)
+                waitText(privateMessage)
+                ui.onNodeWithText(privateChannel).assertIsDisplayed()
+                capture("search-before-revocation")
+
+                var released = false
+                try {
+                    val revoked = request("search-revoke")
+                    assertEquals(target, revoked.get("channel").asString)
+                    var held: String? = null
+                    ui.waitUntil(15_000) {
+                        held = request("search-held").get("id")?.takeUnless { it.isJsonNull }?.asString
+                        held != null
+                    }
+                    ui.waitUntil(6_000) {
+                        ui.onNodeWithText("First proof Needle").isDisplayed() && !ui.onNodeWithText(privateMessage).isDisplayed()
+                    }
+                    ui.onNodeWithText(privateChannel).assertDoesNotExist()
+                    ui.onNodeWithText(privateMessage).assertDoesNotExist()
+                    assertEquals(held, request("search-held").get("id").asString)
+                    capture("search-revoked-during-held-reply")
+                    released = request("search-release").get("released").asBoolean
+                    assertTrue(released)
+                    revoked.addProperty("heldRead", held)
+                    File(evidence, "search-revocation-result.json").writeText(revoked.toString())
+                } finally { if (!released) request("search-release") }
+            }
+        }
+    }
+
     @Test fun coldExactLinkAndRestrictedLink() {
         val config = request("config")
         val prior = JsonParser.parseString(File(evidence, "notification-result.json").readText()).asJsonObject

@@ -1064,6 +1064,14 @@ try:
         if back_index != len(exact_reads) - 1:
             raise RuntimeError('Returning to Spaces repeated the cancelled exact destination')
         finish_record(*movies[-1])
+        revoked = instrument('visibleSearchDiscardsRevokedPrivateDataBeforeAnUnrelatedReply', 'search-revocation.txt', peer_port, control_port)
+        revoked.wait(timeout=145)
+        if revoked.returncode or len(re.findall(r'^OK \(1 test\)\s*$', (evidence / 'search-revocation.txt').read_text(), re.M)) != 1:
+            raise RuntimeError('Visible Search did not complete the crossed permission change')
+        revoked_access = json.loads(adb('exec-out', 'run-as', pkg, 'cat', f'cache/{folder}/search-revocation-result.json').stdout)
+        for field, size in [('control', 128), ('channel', 64), ('heldRead', 128)]:
+            if not re.fullmatch('[0-9a-f]{' + str(size) + '}', revoked_access.get(field, '')):
+                raise RuntimeError('The crossed Search evidence omitted the signed scope or held read')
         command(control_port, 'stop')
         host.wait(timeout=15)
         if host.returncode:
@@ -1071,7 +1079,7 @@ try:
         (evidence / 'journey-outcome.json').write_text(json.dumps({
             'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo).decode().strip(),
             'notification': notified, 'cold': cold, 'independentExactReads': exact_reads, 'independentSearchReads': search_reads,
-            'nativeTerminalPasses': 2, 'compactViewport': compact,
+            'nativeTerminalPasses': 3, 'compactViewport': compact, 'revokedSearch': revoked_access,
             'transport': 'owned local signed service; application-observed Android delivery',
             'livePushOrOemVerified': False, 'productionNodeActivated': False, 'ordinaryBetaChanged': False,
         }, indent=2))

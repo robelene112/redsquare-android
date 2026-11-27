@@ -190,6 +190,11 @@ object SpacesNativeHost {
                                         "/catch-up-initial" -> requireNotNull(catchUp).initialReplies()
                                         "/catch-up-latest" -> requireNotNull(catchUp).latestReply()
                                         "/catch-up-observe" -> requireNotNull(catchUp).observe()
+                                        "/catch-up-search-channel" -> requireNotNull(catchUp).createRevocableSearchChannel()
+                                        "/catch-up-search-admit" -> requireNotNull(catchUp).admitSearchDevice(peer.spacesRequests)
+                                        "/catch-up-search-revoke" -> requireNotNull(catchUp).revokeSearchChannel(peer::holdSpacesMessagesAfterControl)
+                                        "/catch-up-search-held" -> JsonObject().apply { addProperty("id", peer.heldSpacesContentReadId()) }
+                                        "/catch-up-search-release" -> JsonObject().apply { addProperty("released", peer.releaseSpacesContentRead()) }
                                         "/catch-up-hold-destination" -> {
                                             check(catchUpMode)
                                             peer.holdNextSpacesDestinationRead()
