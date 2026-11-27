@@ -240,6 +240,27 @@ viewport. Candidate `438a5f439` schedules a text checkpoint only when newer
 text differs from the verified saved draft. The native removal case asserts the
 image error and the absence of a misleading text recovery warning. [Android 10 catalogue](https://github.com/robelene112/redsquare-android/actions/runs/46071882786).
 
+Both native image-removal retests pass in light and dark mode. The focused
+process runs independently confirm that the app recovers retained captions
+and other unfinished text after an Android process stop. [Android 10 image removal](https://github.com/robelene112/redsquare-android/actions/runs/46076359229),
+[Android 17 image removal](https://github.com/robelene112/redsquare-android/actions/runs/46076359327),
+[Android 10 process recovery](https://github.com/robelene112/redsquare-android/actions/runs/46076359517),
+[Android 17 process recovery](https://github.com/robelene112/redsquare-android/actions/runs/46076359368).
+
+A four-install comparison on one Android instance alternates the previous
+product and the corrected batch in both orders. The original APK records
+15.26% and 12.01%, and the batched APK records 11.45% and 7.78%. All four
+short diagnostic runs exceed the full contract's 5% warm limit. [Balanced comparison](https://github.com/robelene112/redsquare-android/actions/runs/46075617939).
+
+Source review found a race in the combined channel projection. A signed access
+change could leave a stale Search filter eligible for publication. The first guard
+introduced a denied-thread fallback and could hold the navigation lock while
+waiting for storage. Those revisions stay on diagnostic branches. Candidate
+`5b7418f38` retains the original Search and exact-link access checks and the
+verified composer fix. It invalidates search when temporary handover access
+changes and reads the selected channel without rebuilding the Space. The 13
+focused signed service cases pass locally. Full verification remains open.
+
 The [compact exact-reply run](https://github.com/robelene112/redsquare-android/actions/runs/45669562341)
 confirms that both lines of the reply body fit the 320dp conversation at
 200% text. The native proof opens the actual Android notification and the
