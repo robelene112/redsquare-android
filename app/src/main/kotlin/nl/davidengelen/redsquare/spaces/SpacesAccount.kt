@@ -621,9 +621,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                             if (selectedParent != null) current.selectThread(space, selectedParent, channel, requestChannelKeys)
                             else if (channel != null) current.selectChannel(space, channel, requestChannelKeys)
                         }
-                        val selectedCommunity = current.community(space, channel.takeIf { exact != null })
-                        val parent = if (exact != null) thread else current.selectedThread(space, selectedCommunity.channel)
-                        val target = Target(space, selectedCommunity.channel, parent?.id)
+                        val selectedChannel = channel ?: current.selectedChannelId(space)
+                        val parent = if (exact != null) thread else current.selectedThread(space, selectedChannel)
+                        val target = Target(space, selectedChannel, parent?.id)
                         val version = draftVersions.getOrPut(target) { AtomicLong() }.get()
                         val anchor = if (jump == null && exact == null) current.anchor(target) else null
                         if (exactAddress == null) synchronized(navigationChanges) {

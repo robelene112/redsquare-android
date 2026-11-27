@@ -1033,6 +1033,8 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         put(stateKey(space), bytes(state))
     }
 
+    fun selectedChannelId(space: String): String = store.transaction { owned(); selectedChannel(state(space)) }
+
     fun selectedThread(space: String, channel: String? = null): Message? = store.project { store.transaction {
         owned()
         val state = state(space); val target = channel ?: selectedChannel(state)

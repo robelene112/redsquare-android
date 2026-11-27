@@ -26,8 +26,12 @@ class SpacePresentationTest {
                     val reader = SpaceClient(member, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
                     val space = creator.create(SpaceProfile("A coherent community", visibility = SpaceVisibility.PUBLIC)); creator.flush(space)
                     val general = creator.community(space).channel
+                    assertEquals(general, creator.selectedChannelId(space))
                     reader.openPublic(space); reader.joinPublic(space); reader.flush(space); creator.refresh(space)
                     val hidden = creator.createPrivateChannel(space, SpaceChannelProfile("Staff notes"), emptySet()); creator.flush(space)
+                    creator.selectChannel(space, hidden)
+                    assertEquals(hidden, creator.selectedChannelId(space))
+                    creator.selectChannel(space, general)
                     creator.send(space, "An independently received message"); creator.flush(space); reader.refresh(space)
                     reader.saveDraft(space, "Keep writing through management changes")
                     val received = reader.timeline(space).single()
