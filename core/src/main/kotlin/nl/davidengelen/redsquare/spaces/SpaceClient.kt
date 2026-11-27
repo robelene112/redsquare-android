@@ -3806,7 +3806,11 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
         }
         val confirmedRows = if (indexed) {
             val messages = confirmedMessageIndex(space, targetChannel, thread)
-            page(messages, messages + positionKey(start), limit).map { requireNotNull(get(it.value.toString(Charsets.UTF_8))) }
+            val receiptKeys = page(messages, messages + positionKey(start), limit).map { it.value.toString(Charsets.UTF_8) }
+            receiptKeys.chunked(8).flatMap { keys ->
+                store.prefetch(keys)
+                keys.map { requireNotNull(get(it)) }
+            }
         } else page(prefix, prefix + positionKey(start), limit).map { it.value }
         data class VisibleReceipt(val envelope: String, val position: Long, val original: SignedSaitoMessage, val kind: String)
         val confirmed = confirmedRows.chunked(7).flatMap { rows ->
