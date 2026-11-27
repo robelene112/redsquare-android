@@ -648,13 +648,14 @@ file_write_period_ms: 5000
                 raise RuntimeError('The selected channel did not request the signed crossed arrival')
             time.sleep(.1)
         mark = device_elapsed_ns()
-        gestures = ('for i in $(seq 1 18); do input swipe 410 620 410 1310 350 && '
-                    'input swipe 410 1310 410 620 350 || exit; done')
+        # Hold one real drag through the signed read and rendered checkpoint.
+        # Separate swipes leave brief idle gaps between Android touch streams.
+        drag = 'input swipe 410 620 410 1310 16000'
         released = False
         observed_reply = None
         checkpoint = None
         try:
-            with subprocess.Popen(['adb', 'shell', gestures], stdout=subprocess.DEVNULL) as gesture:
+            with subprocess.Popen(['adb', 'shell', drag], stdout=subprocess.DEVNULL) as gesture:
                 try:
                     while time.monotonic() < deadline:
                         log = trace_text()
@@ -680,7 +681,10 @@ file_write_period_ms: 5000
                             time.sleep(.1)
                 finally:
                     if gesture.poll() is None:
-                        gesture.terminate()
+                        if checkpoint is None:
+                            gesture.terminate()
+                        elif gesture.wait(timeout=20) != 0:
+                            raise RuntimeError('The native crossed-history drag did not finish')
         finally:
             anchor_command('stop')
         log = trace_text()
