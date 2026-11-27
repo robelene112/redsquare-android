@@ -30,6 +30,9 @@ internal class SpacePresentationStore(private val backing: SpaceClientStore) : S
 
     fun prefetch(keys: List<String>) { active.get()?.transaction?.prefetch(keys) }
 
+    fun readRows(keys: List<String>): List<ByteArray?> =
+        active.get()?.transaction?.readRows(keys) ?: transaction { keys.map(::get) }
+
     /** Repeated identity/state reads share this one atomic snapshot, including
      * disposable index writes. Never retain plaintext or authority between transactions. */
     private class SnapshotRows(private val backing: SpaceClientStore.Transaction) : SpaceClientStore.Transaction {
@@ -44,15 +47,23 @@ internal class SpacePresentationStore(private val backing: SpaceClientStore) : S
         fun prefetch(keys: List<String>) {
             val missing = keys.distinct().filterNot(values::containsKey)
             if (missing.isEmpty()) return
-            val found = try { backing.getAll(missing) }
-            catch (failure: Exception) {
-                if (failure is CancellationException || failure is InterruptedException) throw failure
-                // A hint can encounter a row not needed by this presentation,
-                // such as an old edit on a deleted message. Ordinary lookups
-                // still decide which rows to read and report their failures.
-                return
-            }
+            // A hint can encounter an old edit on a deleted message. Only the
+            // ordinary reads determine which failures the caller observes.
+            val found = readBatch(missing) ?: return
             for (key in missing) remember(key, found[key])
+        }
+
+        fun readRows(keys: List<String>): List<ByteArray?> {
+            val missing = keys.distinct().filterNot(values::containsKey)
+            val found = if (missing.isEmpty()) emptyMap() else readBatch(missing) ?: return keys.map(::get)
+            // Deliver the result directly. A valid page can exceed the memo budget.
+            return keys.map { key -> (if (values.containsKey(key)) values[key] else found[key])?.copyOf() }
+        }
+
+        private fun readBatch(keys: List<String>): Map<String, ByteArray>? = try { backing.getAll(keys) }
+        catch (failure: Exception) {
+            if (failure is CancellationException || failure is InterruptedException) throw failure
+            null
         }
 
         override fun put(key: String, value: ByteArray) {
