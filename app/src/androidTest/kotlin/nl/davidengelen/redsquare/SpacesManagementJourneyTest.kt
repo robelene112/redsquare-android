@@ -72,7 +72,15 @@ class SpacesManagementJourneyTest {
         launch(fixtures.get("link").asString).use { _ -> withFailureCapture({ capture("membership-ban-failure") }) {
             waitText("Membership message 17")
             ui.onNode(hasSetTextAction()).performTextReplacement(membershipDraft); closeKeyboard()
-            history().performScrollToNode(hasText("Membership message 5"))
+            val earlier = ui.onNode(hasText("Membership message 5") and onScreen)
+            val scrollDeadline = SystemClock.elapsedRealtime() + 15_000
+            while (!earlier.isDisplayed() && SystemClock.elapsedRealtime() < scrollDeadline) {
+                history().performTouchInput {
+                    swipeDown(startY = height * .25f, endY = height * .75f, durationMillis = 350)
+                }
+                ui.waitForIdle()
+            }
+            earlier.assertIsDisplayed()
             waitUntil(15_000) {
                 var committed = false
                 membershipClient { client -> committed = client.readingAnchor(fixtures.get("space").asString, fixtures.get("general").asString) != null }
