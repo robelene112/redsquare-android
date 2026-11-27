@@ -483,20 +483,21 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val channels = projection.channels.filterNot { deniedDestination && it.id == target?.channel }
         val members = if (deniedDestination) emptyList() else projection.members
         val revision = current.readScopeRevision
-        val searchChannels = target?.let { current.searchAvailableChannels(it.space, channels) }.orEmpty()
-        val checkedAt = target?.let { current.savedContentCheckedAt(it.space, it.channel) }
+        val details = projection.channelDetails
+        val searchChannels = details?.searchChannels.orEmpty().let { available ->
+            if (deniedDestination && target != null) available - target.channel else available
+        }
+        val checkedAt = details?.historyCheckedAt
         val bannedMembers = projection.bannedMembers
         val window = projection.window
         val messages = if (deniedDestination) emptyList() else projection.messages
-        val pins = target?.let { current.pinStatus(it.space, it.channel) }
-        val notifications = target?.let { current.notificationPolicy(it.space, it.channel) }
+        val pins = details?.pins
+        val notifications = details?.notifications
         val invitation = projection.invitation
         val publicRulesToken = target?.let { profiles[it.space] }?.takeIf { it.visibility == SpaceVisibility.PUBLIC }?.publicRulesToken
         val listingIntent = projection.listingIntent
         val publicLink = projection.publicLink
-        val fileLease = target?.takeIf { route ->
-            channels.any { it.id == route.channel && it.profile.kind == SpaceChannelKind.FILE }
-        }?.let { current.fileStorage(it.space)?.id }
+        val fileLease = if (deniedDestination) null else details?.fileLeaseId
         synchronized(managementChanges) {
             val changes = managementProjection(current, target)
             mutable.update { previous ->
@@ -653,10 +654,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                         val channelEdit = projection.management.edit
                         val channelCreation = projection.management.creation
                         val channelAccessChange = projection.management.access
-                        val searchChannels = current.searchAvailableChannels(space, channels)
-                        val checkedAt = current.savedContentCheckedAt(space, target.channel)
-                        val notificationPolicy = current.notificationPolicy(space, target.channel)
-                        val pinStatus = current.pinStatus(space, target.channel)
+                        val details = requireNotNull(projection.channelDetails)
                         synchronized(navigationChanges) {
                             if (!currentRoute()) return@withLock
                             if (exactAddress != null && !current.destinationAccessAllowed(exactAddress)) {
@@ -672,8 +670,8 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                                 val next = if (exactAddress == null) view else reset(view)
                                 if (next.selected != space) view else next.copy(
                                     selectedChannel = target.channel, threadParent = projection.threadParent, current = community,
-                                    channels = channels, accessRevision = current.readScopeRevision, searchChannels = searchChannels,
-                                    savedHistoryCheckedAt = checkedAt, categories = projection.categories, categoryChange = projection.management.category,
+                                    channels = channels, accessRevision = current.readScopeRevision, searchChannels = details.searchChannels,
+                                    savedHistoryCheckedAt = details.historyCheckedAt, categories = projection.categories, categoryChange = projection.management.category,
                                     visibilityChange = projection.management.visibility, dissolutionChange = projection.management.dissolution,
                                     members = members, anchor = anchor, archiveChange = archiveChange, roleChange = roleChange,
                                     membershipChange = membershipChange, ownershipOffer = ownershipOffer, ownershipChange = ownershipChange,
@@ -682,7 +680,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                                     publicRulesToken = rulesToken, publicLink = publicLink, invitation = invitation,
                                     listingIntent = dirtyListings[space] ?: listingIntent,
                                     draft = if (draftVersions[target]?.get() == version) draft else view.draft,
-                                    notificationPolicy = notificationPolicy, pinStatus = pinStatus,
+                                    notificationPolicy = details.notifications, pinStatus = details.pins,
                                     scrollToMessage = jump?.let { MessageScroll(it.id, showBody = true) },
                                     openedPublicReference = exact?.link ?: next.openedPublicReference,
                                     messages = messages, loadingChannel = false, contentLoaded = window.loaded, hasEarlier = window.hasEarlier,

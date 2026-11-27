@@ -372,10 +372,13 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
     data class Management(val archive: ArchiveChange? = null, val role: RoleChange? = null,
         val edit: ChannelEdit? = null, val creation: ChannelCreation? = null, val access: ChannelAccessChange? = null,
         val membership: MembershipChange? = null, val ownership: OwnershipChange? = null, val ownershipOffer: SpaceOwnershipOffer? = null, val category: CategoryChange? = null, val visibility: VisibilityChange? = null, val dissolution: DissolutionChange? = null)
+    data class ChannelDetails(val searchChannels: Set<String>, val historyCheckedAt: Long?, val pins: PinStatus,
+        val notifications: SpaceNotificationPolicy, val fileLeaseId: String?)
     data class Presentation(val communities: List<Community>, val profiles: Map<String, SpaceProfile>,
         val current: Community?, val channels: List<Channel>, val members: List<Member>, val bannedMembers: Set<String>,
         val window: HistoryWindow?, val messages: List<Message>, val draft: String, val anchor: ReadingAnchor?,
-        val invitation: Invitation?, val publicLink: String?, val listingIntent: Boolean?, val management: Management, val categories: List<Category> = emptyList(), val threadParent: Message? = null)
+        val invitation: Invitation?, val publicLink: String?, val listingIntent: Boolean?, val management: Management,
+        val categories: List<Category> = emptyList(), val threadParent: Message? = null, val channelDetails: ChannelDetails? = null)
 
     /** A bounded, coherent read for native rendering. It authenticates control
      * history once per scope instead of independently rebuilding it for every
@@ -393,13 +396,17 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             requireNotNull(message(space, thread.id, selected))
         } else null
         val window = space?.let { if (parent == null) historyWindow(it, from, selected) else threadHistoryWindow(it, parent, from, selected) }
-        Presentation(communities, profiles, current, space?.let(::channels).orEmpty(), members,
+        val channels = space?.let(::channels).orEmpty()
+        Presentation(communities, profiles, current, channels, members,
             space?.let(::bannedMembers).orEmpty(), window,
             space?.let { if (parent == null) timeline(it, from = window?.from, channel = selected) else thread(it, parent, from = window?.from, channel = selected) }.orEmpty(),
             space?.let { if (parent == null) draft(it, selected) else threadDraft(it, parent, selected) }.orEmpty(),
             space?.let { if (parent == null) readingAnchor(it, selected) else threadReadingAnchor(it, parent, selected) },
             space?.let(::invitation), space?.takeIf { profiles[it]?.visibility == SpaceVisibility.PUBLIC && members.isNotEmpty() }?.let(::publicLink),
-            space?.let(::listingIntent), space?.let { management(it, selected) } ?: Management(), space?.let(::categories).orEmpty(), parent)
+            space?.let(::listingIntent), space?.let { management(it, selected) } ?: Management(), space?.let(::categories).orEmpty(), parent,
+            if (space == null || selected == null) null else ChannelDetails(searchAvailableChannels(space, channels),
+                savedContentCheckedAt(space, selected), pinStatus(space, selected), notificationPolicy(space, selected),
+                if (channels.any { it.id == selected && it.profile.kind == SpaceChannelKind.FILE }) fileStorage(space)?.id else null))
     }
 
     /** Urgent delivery projects just its durable management results. */
