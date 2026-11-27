@@ -119,6 +119,22 @@ first switch. The diagnostic now rewinds the same conversation with real
 swipes, then verifies the exact latest message before the next timed round.
 The separate full workload continues to require real cross-channel navigation.
 
+The [same-conversation comparison](https://github.com/robelene112/redsquare-android/actions/runs/46054929850)
+completes both builds and matches all 827 observed warm frames to their native
+render slices. The earlier build records 93 deadline misses among 407 observed
+frames and four missing samples, a 23.60% bound. The current build records 84
+misses among 420 observed frames and five missing samples, a 20.94% bound.
+The highest observed cold frame is 1592.46ms in the first installation and
+1152.91ms in the second. Existing local publication overlaps the slowest
+recorded frame in every one of the six cold launches. The run measures this
+overlap and leaves the effect of reducing it to a separate comparison.
+
+The [forward avatar comparison](https://github.com/robelene112/redsquare-android/actions/runs/46052761473)
+reduces the highest observed cold frame from 912.66ms to 584.73ms.
+Its conservative warm deadline miss bound rises from 10.49% to 12.69%.
+The raster change remains on its diagnostic branch while the reverse-order
+comparison controls for installation order.
+
 The [short geometry calibration](https://github.com/robelene112/redsquare-android/actions/runs/46051921256)
 matches the two stationary and all 13 moving frames to their geometry,
 including the terminal frame, with a maximum unexplained displacement of
