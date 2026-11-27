@@ -22,7 +22,16 @@ TAG = 'SpacesScaleProof'
 PERFETTO_RELEASE = 'https://github.com/google/perfetto/releases/download/v59.1/linux-amd64.zip'
 PERFETTO_SHA256 = '7deb8c2572c6ae7ec80cd719d388041079827b0c44a1659694d5d88faa4f501e'
 TRACE_TARGET = '/data/misc/perfetto-traces/spaces-scale.pftrace'
-FRAME_TIMELINE_TRACE = '''
+
+
+def frame_timeline_trace(scheduler=False):
+    scheduling = '''
+  compact_sched { enabled: true }
+  ftrace_events: "sched/sched_switch"
+  ftrace_events: "sched/sched_waking"
+  ftrace_events: "sched/sched_wakeup_new"
+''' if scheduler else ''
+    return '''
 buffers { size_kb: 32768 fill_policy: RING_BUFFER }
 buffers { size_kb: 32768 fill_policy: RING_BUFFER }
 data_sources { config { name: "android.surfaceflinger.frametimeline" target_buffer: 0 } }
@@ -30,12 +39,15 @@ data_sources { config { name: "linux.process_stats" target_buffer: 1 process_sta
   scan_all_processes_on_start: true
   proc_stats_poll_ms: 5000
 } } }
-data_sources { config { name: "linux.ftrace" target_buffer: 0 ftrace_config {
+data_sources { config { name: "linux.ftrace" target_buffer: 0 ftrace_config {''' + scheduling + '''
   atrace_categories: "gfx"
   atrace_categories: "view"
   atrace_apps: "nl.davidengelen.redsquare.performance"
 } } }
 '''
+
+
+FRAME_TIMELINE_TRACE = frame_timeline_trace()
 
 
 def anchor_command_args(package, operation, *extras):
@@ -321,7 +333,7 @@ def diagnose_scroll(adb, evidence, package, open_fixture, thresholds):
 
     cold_pids = []
     cold_frames = []
-    config = FRAME_TIMELINE_TRACE + 'duration_ms: 180000\nwrite_into_file: true\nfile_write_period_ms: 5000\n'
+    config = frame_timeline_trace(scheduler=True) + 'duration_ms: 180000\nwrite_into_file: true\nfile_write_period_ms: 5000\n'
     with capture_trace(adb, evidence, config):
         for trial in range(1, 4):
             name = f'cold-{trial}'
