@@ -261,6 +261,33 @@ verified composer fix. It invalidates search when temporary handover access
 changes and reads the selected channel without rebuilding the Space. The 13
 focused signed service cases pass locally. Full verification remains open.
 
+The full combined-projection experiment records 19.48% warm misses and a
+805.02ms cold maximum. It completes all 100 lifecycle cycles, retains the
+crossed reading position to 0.99px and measures 52.59ms at p95 for local
+reaction feedback. Both frame limits still block release. [Full measurement](https://github.com/robelene112/redsquare-android/actions/runs/46077386435).
+
+In the four-install receipt comparison, the two reference APK installs record
+16.93% and 13.49% warm misses. The batched installs record 12.53% and 9.63%.
+The experiment that disables the reaction row's size animation records 8.84%
+and 7.12%, with reference results of 11.76% and 7.59%. All samples exceed the
+5% limit. The reaction animation remains in the candidate. [Receipt comparison](https://github.com/robelene112/redsquare-android/actions/runs/46079965991),
+[reaction layout comparison](https://github.com/robelene112/redsquare-android/actions/runs/46080202577).
+
+In candidate `8033c266`, Search clears its previous result scope when a signed
+access change arrives. It builds new filter choices from the local store while
+unrelated network reads can still be pending. The revised ordered receipt
+batch uses the caller's SQLite transaction and can return pages larger than
+the memo budget. Twenty focused JVM cases pass, including a held unrelated
+reply, an offline read from reopened SQLite, large receipt ordering and the
+point-read fallback after a bulk lookup failure. Native and scale tests for
+this source remain open.
+
+The [Android 17 Wallet run](https://github.com/robelene112/redsquare-android/actions/runs/46078115552)
+retains a queued private message across two attempts. Its loopback server
+observes two socket upgrades without recording the wallet handshake before
+the worker retries. A focused comparison is checking the local signed-handshake
+write boundary. The failed parent supplies no complete regression acceptance.
+
 The [compact exact-reply run](https://github.com/robelene112/redsquare-android/actions/runs/45669562341)
 confirms that both lines of the reply body fit the 320dp conversation at
 200% text. The native proof opens the actual Android notification and the
