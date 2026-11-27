@@ -46,6 +46,20 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
 
     data class Channel(val id: String, val profile: SpaceChannelProfile, val visibility: SpaceVisibility, val ready: Boolean, val unread: Long? = null, val hasUnread: Boolean? = null,
         val archived: Boolean = false, val allowedMembers: Set<String>? = null, val metadataReady: Boolean = false, val categoryId: String? = null, val personalUnread: Long? = null)
+
+    data class ChannelReadStatus(val unread: Long?, val hasUnread: Boolean?, val personalUnread: Long?)
+
+    fun channelReadStatus(space: String, channel: String): ChannelReadStatus = store.transaction {
+        owned()
+        channelReadStatus(space, channel, channelState(space, channel))
+    }
+
+    private fun SpaceClientStore.Transaction.channelReadStatus(space: String, channel: String, data: JsonObject): ChannelReadStatus {
+        val attention = cachedAttention(space, channel)
+        return ChannelReadStatus(data.get("unread")?.asLong,
+            attention.hasUnread ?: unreadActivity(data)?.takeIf { it }, attention.personal)
+    }
+
     fun channels(space: String): List<Channel> = store.transaction {
         owned()
         val state = state(space)
@@ -62,10 +76,10 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
                 channelState(space, metadataGroupId, state).get("joined")?.asBoolean == true
             profile?.let { visible ->
                 val category = record.categoryId?.let { categoryProfile(space, it, state, journal)?.name }
-                val attention = cachedAttention(space, id)
+                val read = channelReadStatus(space, id, data)
                 Channel(id, visible.copy(category = category ?: visible.category), record.visibility, record.visibility == SpaceVisibility.PUBLIC ||
                 data.get("joined")?.asBoolean == true && record.retiredDevices.isEmpty(),
-                data.get("unread")?.asLong, attention.hasUnread ?: unreadActivity(data)?.takeIf { it }, record.archived, record.allowedMembers, metadataReady, record.categoryId, attention.personal) }
+                read.unread, read.hasUnread, record.archived, record.allowedMembers, metadataReady, record.categoryId, read.personalUnread) }
         }
     }
     data class Category(val id: String, val profile: SpaceCategoryProfile, val isPrivate: Boolean)

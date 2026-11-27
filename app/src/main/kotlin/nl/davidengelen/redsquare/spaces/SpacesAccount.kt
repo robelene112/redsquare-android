@@ -1394,11 +1394,25 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     fun markRead(space: String, channel: String, position: Long, thread: String? = null) {
         val target = Target(space, channel, thread)
         scope.launch {
-            try { localAccess.withLock {
-                val current = requireNotNull(client)
-                if (thread == null) current.markRead(space, channel, position)
-                else current.markThreadRead(space, requireNotNull(current.message(space, thread, channel)), position, channel)
-            }; publish(includeCommunities = canRefreshCommunityList()) }
+            try {
+                localAccess.withLock { traceLocalWork("mark-read") {
+                    val current = requireNotNull(client)
+                    if (thread == null) current.markRead(space, channel, position)
+                    else current.markThreadRead(space, requireNotNull(current.message(space, thread, channel)), position, channel)
+                    if (mutable.value.selected == space) {
+                        val read = current.channelReadStatus(space, channel)
+                        mutable.update { state ->
+                            if (state.selected != space) state else state.copy(channels = state.channels.map { entry ->
+                                if (entry.id != channel) entry else entry.copy(
+                                    unread = read.unread, hasUnread = read.hasUnread, personalUnread = read.personalUnread)
+                            })
+                        }
+                    }
+                } }
+                // The read marker changes a badge. The displayed conversation
+                // already contains the authenticated message that advanced it.
+                if (canRefreshCommunityList()) publish()
+            }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
         }
