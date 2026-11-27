@@ -34,7 +34,7 @@ internal fun SpaceSearchPage(account: SpacesAccount, state: SpacesAccount.State,
     val revision = state.accessRevision
     val listedNames = remember(state.channels) { state.channels.map { it.id to it.profile.name } }
     var attempt by remember(account, space) { mutableIntStateOf(0) }
-    var options by remember(account, space, revision, listedNames) { mutableStateOf<Result<List<SpaceClient.Channel>>?>(null) }
+    var options by remember(account, space, revision) { mutableStateOf<Result<List<SpaceClient.Channel>>?>(null) }
     LaunchedEffect(account, space, revision, listedNames, attempt) {
         options = try { Result.success(account.searchChannels(space, revision)) }
         catch (cancelled: CancellationException) { throw cancelled }
