@@ -13,10 +13,6 @@ if [[ "$has_jvm_tests" == true && "$has_app_build" == true ]]; then
     printf '%s\n' 'Run core/service tests and Android compilation in separate android-build invocations on this bounded VPS.' >&2
     exit 64
 fi
-image=redsquare-android-build:agp8.10.1
-if ! docker image inspect "$image" >/dev/null 2>&1; then
-    docker build --memory=2g -t "$image" "$repo_dir/build-support"
-fi
 # Keep the vendored editor compiler lifetime separate from the app compiler in
 # this bounded local container. Hosted CI retains its existing complete task graph.
 warm_debug=false
@@ -37,10 +33,19 @@ fi
 if [[ "$warm_release" == true ]]; then "$repo_dir/scripts/android-build" :rich-editor-compat:compileReleaseKotlin; fi
 cache_dir="$repo_dir/.scratch/gradle-cache"
 mkdir -p "$cache_dir"
-# Gradle cannot coordinate identical container PIDs across separate namespaces.
-# Serialize its shared cache after recursive warmups, so those cannot deadlock.
-exec 9> "$cache_dir/.redsquare-android-build.lock"
+# Serialize local Gradle containers across worktrees. Acquire the lock after the
+# recursive warmups, so an invocation can never wait on itself.
+build_state="${XDG_STATE_HOME:-$HOME/.local/state}/redsquare-android"
+mkdir -p "$build_state"
+exec 9> "$build_state/android-build.lock"
 flock 9
+# Older checkouts still coordinate through this cache-specific lock.
+exec 8> "$cache_dir/.redsquare-android-build.lock"
+flock 8
+image=redsquare-android-build:agp8.10.1
+if ! docker image inspect "$image" >/dev/null 2>&1; then
+    docker build --memory=2g -t "$image" "$repo_dir/build-support"
+fi
 docker run --rm --cpus=2 --memory=2500m \
     --user "$(id -u):$(id -g)" \
     -e GRADLE_USER_HOME=/gradle-cache -e ANDROID_USER_HOME=/gradle-cache/android-user \

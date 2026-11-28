@@ -1160,8 +1160,9 @@ checksum. Check free space again at the end of the work and clear superseded
 generated builds and duplicate downloads before starting another round.
 Check available RAM before local builds or trace analysis. Keep large APKs and
 test archives on the additional disk because `/tmp` and `/dev/shm` on this VPS
-use RAM. Stream checksums and archive members, use hosted emulator jobs, and
-remove temporary trace extracts as soon as their analysis finishes.
+use RAM. `scripts/android-build` runs one bounded Gradle container at a time
+across the user's worktrees. Stream checksums and archive members, use hosted
+emulator jobs, and remove temporary trace extracts as soon as analysis finishes.
 
 ## Sequential implementation and review
 
