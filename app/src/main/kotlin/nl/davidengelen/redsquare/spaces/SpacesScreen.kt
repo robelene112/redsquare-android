@@ -17,6 +17,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.relocation.BringIntoViewRequester
@@ -25,7 +26,9 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.layout.LazyLayoutCacheWindow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.KeyboardActions
@@ -90,7 +93,7 @@ import java.util.concurrent.atomic.AtomicReference
 internal const val SHORT_SPACES_WINDOW_DP = 420
 
 /** Production routes use only account-owned received/durable state. */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
     chrome: @Composable (Boolean, SpacesAccount.Target?, Boolean) -> Unit, onProfile: (String) -> Unit, onMessage: (String) -> Unit,
@@ -661,7 +664,13 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         val leadingItems = if (earlierInList) 1 else 0
                         val anchorIndex = state.anchor?.let { anchor -> state.messages.indexOfFirst { it.id == anchor.messageId } } ?: -1
                         val initialIndex = leadingItems + if (anchorIndex >= 0) anchorIndex else state.messages.size
-                        val list = remember { androidx.compose.foundation.lazy.LazyListState(initialIndex, if (anchorIndex >= 0) state.anchor?.offset?.coerceAtLeast(0) ?: 0 else 0) }
+                        val list = remember {
+                            LazyListState(
+                                cacheWindow = LazyLayoutCacheWindow(aheadFraction = 0.5f, behindFraction = 0.25f),
+                                firstVisibleItemIndex = initialIndex,
+                                firstVisibleItemScrollOffset = if (anchorIndex >= 0) state.anchor?.offset?.coerceAtLeast(0) ?: 0 else 0,
+                            )
+                        }
                         var initialPage by remember { mutableStateOf(true) }
                         var focusedThreadBody by remember { mutableStateOf<String?>(null) }
                         val latestMessage = state.messages.lastOrNull()
