@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.spaces
 
 import android.content.Context
 import android.net.Uri
+import android.os.SystemClock
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +24,8 @@ import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.io.IOException
 import java.time.Clock
+
+private const val READING_POSITION_SETTLE_MILLIS = 150L
 
 /** Account-owned work survives navigation. Local writes never wait for a held
  * read callback; only network work is serialized. Every snapshot keeps its scope. */
@@ -158,9 +161,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
     private val draftVersions = ConcurrentHashMap<Target, AtomicLong>()
     private val dirtyDrafts = ConcurrentHashMap<Target, String>()
     private val dirtyArticleDrafts = ConcurrentHashMap<ArticleDraftTarget, SpaceArticleDraft>()
-    private data class SavedViewport(val anchor: SpaceClient.ReadingAnchor?)
+    private class SavedViewport(val anchor: SpaceClient.ReadingAnchor?, val saveAfter: Long? = null)
     private val dirtyAnchors = ConcurrentHashMap<Target, SavedViewport>()
-    private val anchorVersions = ConcurrentHashMap<Target, AtomicLong>()
+    private val writingAnchors = AtomicBoolean()
     private val dirtyListings = ConcurrentHashMap<String, Boolean>()
     private val listingVersions = ConcurrentHashMap<String, AtomicLong>()
     private val navigationSaving = AtomicBoolean()
@@ -1152,7 +1155,6 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
                 wake.trySend(Unit)
                 updateWindow(target, null)
                 if (destinationVisit?.target != target) {
-                    anchorVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
                     dirtyAnchors.remove(target)
                     current.saveAnchor(target, null)
                 }
@@ -1309,19 +1311,40 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             else it.copy(followingLatest = latest, anchor = presented)
         }
         if (visiting || !latest && anchor == null) return
-        val snapshot = SavedViewport(if (latest) null else anchor)
-        dirtyAnchors[target] = snapshot
-        val version = anchorVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
+        dirtyAnchors[target] = SavedViewport(if (latest) null else anchor, SystemClock.elapsedRealtime() + READING_POSITION_SETTLE_MILLIS)
+        scheduleAnchorWrites()
+    }
+
+    private fun scheduleAnchorWrites() {
+        if (!writingAnchors.compareAndSet(false, true)) return
         scope.launch {
-            delay(150)
-            try { localAccess.withLock {
-                if (anchorVersions[target]?.get() == version) {
-                    requireNotNull(client).saveAnchor(target, snapshot.anchor)
-                    dirtyAnchors.remove(target, snapshot)
+            try {
+                while (true) {
+                    val next = dirtyAnchors.entries.asSequence().filter { it.value.saveAfter != null }
+                        .minByOrNull { requireNotNull(it.value.saveAfter) } ?: break
+                    val (target, snapshot) = next
+                    val remaining = requireNotNull(snapshot.saveAfter) - SystemClock.elapsedRealtime()
+                    if (remaining > 0) delay(remaining)
+                    else saveSettledAnchor(target, snapshot)
                 }
-            } }
-            catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it } }
+            } finally {
+                writingAnchors.set(false)
+                if (scope.isActive && dirtyAnchors.values.any { it.saveAfter != null }) scheduleAnchorWrites()
+            }
+        }
+    }
+
+    private suspend fun saveSettledAnchor(target: Target, snapshot: SavedViewport) = localAccess.withLock {
+        if (dirtyAnchors[target] !== snapshot) return@withLock
+        try {
+            requireNotNull(client).saveAnchor(target, snapshot.anchor)
+            dirtyAnchors.remove(target, snapshot)
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) {
+            // Keep the anchor for the regular navigation save without spinning on a failed store.
+            if (dirtyAnchors.replace(target, snapshot, SavedViewport(snapshot.anchor))) {
+                mutable.update { if (it.target() == target) it.copy(problem = Problem.SAVE) else it }
+            }
         }
     }
     private fun persistLocal(current: SpaceClient) = traceLocalWork("persist-local") {
@@ -1377,11 +1400,10 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         }
         val snapshot = SavedViewport(null)
         dirtyAnchors[target] = snapshot
-        val version = anchorVersions.getOrPut(target) { AtomicLong() }.incrementAndGet()
         mutable.update { if (it.target() == target) it.copy(anchor = null, followingLatest = true) else it }
         localAction {
             localAccess.withLock {
-                if (anchorVersions[target]?.get() == version) {
+                if (dirtyAnchors[target] === snapshot) {
                     requireNotNull(client).saveAnchor(target, null)
                     dirtyAnchors.remove(target, snapshot)
                 }
