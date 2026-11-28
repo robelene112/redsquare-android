@@ -11,6 +11,7 @@ import android.os.Process
 import android.view.KeyEvent
 import android.view.Window
 import android.view.accessibility.AccessibilityNodeInfo
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
@@ -275,8 +276,10 @@ class SpacesCatchUpJourneyTest {
                         observations().filter { backgroundChange in it }.drop(earlierRoles).any()
                     }
                     ui.onNodeWithText(privateMessage).assertIsDisplayed()
-                    results.performScrollToIndex(0)
-                    ui.onNode(hasText(privateChannel) and hasClickAction()).assertIsDisplayed()
+                    val selectedFilter = hasText(privateChannel) and hasClickAction() and
+                        SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Button)
+                    results.performScrollToNode(selectedFilter)
+                    ui.onNode(selectedFilter).assertIsDisplayed()
                     ui.waitUntil(5_000) { scrollToResult(privateMessage) }
                     assertEquals("An unrelated Space change restarted this Search", earlierSearchReads,
                         observations().count { "search read " in it })
