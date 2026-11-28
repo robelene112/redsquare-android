@@ -133,6 +133,14 @@ class MainActivity : ComponentActivity() {
     }
     private val spaceUris by lazy { routeModels[SpacesLaunchRoutes.Incoming::class.java].pending }
     private val storeUris = kotlinx.coroutines.flow.MutableStateFlow<Uri?>(null)
+    private var windowInsetsNeedRefresh = false
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        // A separate window can dismiss its IME while this Activity lacks focus.
+        if (hasFocus && windowInsetsNeedRefresh) window.decorView.requestApplyInsets()
+        windowInsetsNeedRefresh = !hasFocus
+    }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
