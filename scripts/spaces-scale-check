@@ -25,7 +25,10 @@ parser.add_argument('apk', type=Path)
 mode = parser.add_mutually_exclusive_group()
 mode.add_argument('--full', action='store_true')
 mode.add_argument('--diagnostic', type=Path, metavar='BUILD_CHECKOUT')
+parser.add_argument('--diagnostic-allocations', action='store_true', help='Add the full heap observer to a diagnostic arm')
 options = parser.parse_args()
+if options.diagnostic_allocations and not options.diagnostic:
+    parser.error('--diagnostic-allocations requires --diagnostic')
 evidence = options.evidence.resolve()
 apk = options.apk.resolve()
 full = options.full
@@ -168,7 +171,7 @@ with host_dir as temporary, (evidence / 'host.log').open('wb') as host_log:
             if reference['device'] != summary['device']:
                 raise RuntimeError('Diagnostic image differs from the frozen timing environment')
             summary['diagnostic'] = diagnose_scroll(adb, evidence, package, open_fixture,
-                json.loads(contract.read_text())['thresholds'])
+                json.loads(contract.read_text())['thresholds'], profile_allocations=options.diagnostic_allocations)
             (evidence / 'application-logcat.txt').write_bytes(adb('logcat', '-d', '-v', 'threadtime', '-s',
                 'SpacesAccount138:D', 'SpacesScaleProof:I', 'AndroidRuntime:E', '*:S'))
         elif full:

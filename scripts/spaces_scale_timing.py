@@ -36,6 +36,14 @@ data_sources { config { name: "linux.ftrace" target_buffer: 0 ftrace_config {
   atrace_apps: "nl.davidengelen.redsquare.performance"
 } } }
 '''
+ALLOCATION_PROFILE_TRACE = '''
+data_sources { config { name: "android.heapprofd" target_buffer: 1 heapprofd_config {
+  sampling_interval_bytes: 32768
+  shmem_size_bytes: 16777216
+  process_cmdline: "nl.davidengelen.redsquare.performance"
+  continuous_dump_config { dump_interval_ms: 15000 }
+} } }
+'''
 
 
 def anchor_command_args(package, operation, *extras):
@@ -297,7 +305,7 @@ def sample_hwui_frames(shell, evidence, package, name, ceiling, allow_empty=Fals
         time.sleep(.15)
 
 
-def diagnose_scroll(adb, evidence, package, open_fixture, thresholds):
+def diagnose_scroll(adb, evidence, package, open_fixture, thresholds, *, profile_allocations=False):
     """Measure the native cold route and a short scroll series on one owned device."""
     def shell(*parts):
         return adb('shell', shlex.join(parts)).decode()
@@ -321,7 +329,10 @@ def diagnose_scroll(adb, evidence, package, open_fixture, thresholds):
 
     cold_pids = []
     cold_frames = []
-    config = FRAME_TIMELINE_TRACE + 'duration_ms: 180000\nwrite_into_file: true\nfile_write_period_ms: 5000\n'
+    config = FRAME_TIMELINE_TRACE
+    if profile_allocations:
+        config += ALLOCATION_PROFILE_TRACE
+    config += 'duration_ms: 180000\nwrite_into_file: true\nfile_write_period_ms: 5000\n'
     with capture_trace(adb, evidence, config):
         for trial in range(1, 4):
             name = f'cold-{trial}'
@@ -362,6 +373,7 @@ def diagnose_scroll(adb, evidence, package, open_fixture, thresholds):
     warm_observed = len(measured_warm)
     warm_missed = sum(frame['missedBudget'] for frame in measured_warm)
     return {
+        'heapProfiling': profile_allocations,
         'coldPids': cold_pids,
         'coldMaximumFrameMsByLaunch': cold_frames,
         'warmCompleted': warm_completed,
@@ -462,14 +474,7 @@ def measure(adb, evidence, package, endpoint, endpoints, manifest, contract, ref
     feedback = []
     anchor_failures = []
     anchor_windows = []
-    config = FRAME_TIMELINE_TRACE + '''
-data_sources { config { name: "android.heapprofd" target_buffer: 1 heapprofd_config {
-  sampling_interval_bytes: 32768
-  shmem_size_bytes: 16777216
-  process_cmdline: "nl.davidengelen.redsquare.performance"
-  continuous_dump_config { dump_interval_ms: 15000 }
-} } }
-duration_ms: 1500000
+    config = FRAME_TIMELINE_TRACE + ALLOCATION_PROFILE_TRACE + '''duration_ms: 1500000
 write_into_file: true
 file_write_period_ms: 5000
 '''
