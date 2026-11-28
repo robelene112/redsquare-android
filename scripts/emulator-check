@@ -532,10 +532,6 @@ verify_talk_browser_native() {
     if ! wait "$browser_runner"; then result=1; fi
     return "$result"
 }
-if [[ "${TEST_SCOPE:-full}" == fileshare-receive* ]]; then
-    verify_group_chat_native FileshareReceivePreviewTest 180 fileshare-receive fileshare-evidence
-    exit 0
-fi
 if [[ "${TEST_SCOPE:-full}" == talk-permission* ]]; then
     verify_talk_permissions_native
     exit 0
@@ -962,33 +958,82 @@ verify_fileshare() {
     python3 "$repo_dir/scripts/fileshare-process-check" --evidence "$evidence/fileshare-process"
     verify_fileshare_case FileshareLargeReceivePreviewTest fileshare-large-receive
 }
+fileshare_notification_command() {
+    local log=$1 operation=$2 status=0
+    shift 2
+    printf '%s started\n' "$operation" >> "$log"
+    timeout --kill-after=5 15 adb shell "$@" 2>> "$log" || status=$?
+    printf '%s exit=%s\n' "$operation" "$status" >> "$log"
+    return "$status"
+}
 verify_fileshare_case() {
-    local case_class=$1 case_prefix=$2 mode=${3:-ordinary} case_exit=0
-    local old_notification_permission old_notification_op
-    old_notification_permission=$(adb shell dumpsys package nl.davidengelen.redsquare.dev | python3 -c '
+    local case_class=$1 case_prefix=$2 mode=${3:-ordinary} case_exit=0 restore_exit=0
+    local notification_log="$evidence/$case_prefix-notification-commands.log"
+    local old_notification_permission old_notification_op permission_output app_op_output
+    if [[ "$TEST_DEVICE_API" != 29 ]]; then
+        permission_output=$(fileshare_notification_command "$notification_log" read-permission \
+            dumpsys package nl.davidengelen.redsquare.dev) || return $?
+        old_notification_permission=$(python3 -c '
 import re,sys
-text=sys.stdin.read()
-print("granted" if re.search(r"android.permission.POST_NOTIFICATIONS: granted=true",text) else "denied")')
-    old_notification_op=$(adb shell appops get nl.davidengelen.redsquare.dev POST_NOTIFICATION | python3 -c '
-import re,sys
-match=re.search(r"POST_NOTIFICATION: (allow|ignore|deny|default)",sys.stdin.read())
-print(match.group(1) if match else "default")')
-    if [[ "$mode" == denied ]]; then
-        if [[ "$TEST_DEVICE_API" != 29 ]]; then adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS; fi
-        adb shell appops set nl.davidengelen.redsquare.dev POST_NOTIFICATION deny
+granted = re.findall(r"^\s*android\.permission\.POST_NOTIFICATIONS: granted=(true|false)\b", sys.stdin.read(), re.M)
+if len(granted) != 1:
+    raise SystemExit("Cannot identify the original notification permission")
+print("granted" if granted[0] == "true" else "denied")' <<< "$permission_output" 2>> "$notification_log") || return $?
     fi
-    verify_group_chat_native "$case_class" 180 "$case_prefix" fileshare-evidence || case_exit=$?
+    app_op_output=$(fileshare_notification_command "$notification_log" read-app-op \
+        appops get nl.davidengelen.redsquare.dev POST_NOTIFICATION) || return $?
+    old_notification_op=$(python3 -c '
+import re,sys
+lines = sys.stdin.read().strip().splitlines()
+modes = r"(allow|ignore|deny|default|foreground)"
+package_lines = [line for line in lines if line.startswith("POST_NOTIFICATION:")]
+if len(package_lines) == 1:
+    match = re.match(r"POST_NOTIFICATION: " + modes + r"(?:;|$)", package_lines[0])
+    if match:
+        print(match[1])
+        raise SystemExit(0)
+elif not package_lines:
+    default = re.fullmatch(r"Default mode: " + modes, lines[1]) if len(lines) == 2 and lines[0] == "No operations." else None
+    if default:
+        print(default[1])
+        raise SystemExit(0)
+    if lines == ["No operations."] or (len(lines) == 1 and re.match(r"Uid mode: POST_NOTIFICATION: " + modes + r"(?:;|$)", lines[0])):
+        # No package override is present. POST_NOTIFICATION defaults to allow on the owned images.
+        print("allow")
+        raise SystemExit(0)
+raise SystemExit("Cannot identify the original package notification app-op")' <<< "$app_op_output" 2>> "$notification_log") || return $?
+    if [[ "$mode" == denied ]]; then
+        if [[ "$TEST_DEVICE_API" != 29 ]]; then
+            fileshare_notification_command "$notification_log" revoke-permission \
+                pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || case_exit=$?
+        fi
+        if [[ "$case_exit" == 0 ]]; then
+            fileshare_notification_command "$notification_log" deny-app-op \
+                appops set nl.davidengelen.redsquare.dev POST_NOTIFICATION deny || case_exit=$?
+        fi
+    fi
+    if [[ "$case_exit" == 0 ]]; then
+        verify_group_chat_native "$case_class" 180 "$case_prefix" fileshare-evidence || case_exit=$?
+    fi
     # Revocation intentionally terminates the UID. Restore only after JUnit has returned its real outcome.
     if [[ "$TEST_DEVICE_API" != 29 ]]; then
         if [[ "$old_notification_permission" == granted ]]; then
-            adb shell pm grant nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS
+            fileshare_notification_command "$notification_log" restore-permission \
+                pm grant nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || restore_exit=$?
         else
-            adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS
+            fileshare_notification_command "$notification_log" restore-permission \
+                pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || restore_exit=$?
         fi
     fi
-    adb shell appops set nl.davidengelen.redsquare.dev POST_NOTIFICATION "$old_notification_op"
-    return "$case_exit"
+    fileshare_notification_command "$notification_log" restore-app-op \
+        appops set nl.davidengelen.redsquare.dev POST_NOTIFICATION "$old_notification_op" || restore_exit=$?
+    if [[ "$case_exit" != 0 ]]; then return "$case_exit"; fi
+    return "$restore_exit"
 }
+if [[ "${TEST_SCOPE:-full}" == fileshare-receive* ]]; then
+    verify_fileshare_case FileshareReceivePreviewTest fileshare-receive
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == fileshare-large* ]]; then
     verify_fileshare_case FileshareLargeReceivePreviewTest fileshare-large-receive
     printf '%s\n' 'Large Fileshare controlled interoperability only; not complete application acceptance.' > "$evidence/scope.txt"
