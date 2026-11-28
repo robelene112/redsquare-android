@@ -94,8 +94,10 @@ private class RegisteredIdentities(
     fun close() { scope.cancel(); pending.close(); directoryPending.close() }
 
     fun retain(publicKey: String) {
-        if (!SaitoWallet.isPublicKey(publicKey)) return
-        visible[publicKey] = (visible[publicKey] ?: 0) + 1
+        val references = visible[publicKey]
+        // A visible key was already validated by its first retained row.
+        if (references == null && !SaitoWallet.isPublicKey(publicKey)) return
+        visible[publicKey] = (references ?: 0) + 1
         request(publicKey)
     }
 
