@@ -63,6 +63,7 @@ internal class SpacesCatchUpFixture(root: Path, node: SaitoWallet, private val o
 
     suspend fun createRevocableSearchChannel(): JsonObject {
         check(revocableSearchChannel == null)
+        other.refresh(space, channel = channel)
         revocableSearchChannel = other.createPrivateChannel(space, SpaceChannelProfile("Temporary search channel"), setOf(nativeWallet.publicKey))
         other.flush(space)
         return JsonObject().apply { addProperty("channel", revocableSearchChannel) }
@@ -70,21 +71,20 @@ internal class SpacesCatchUpFixture(root: Path, node: SaitoWallet, private val o
 
     suspend fun admitSearchDevice(requests: List<SaitoTransaction>): JsonObject {
         val target = requireNotNull(revocableSearchChannel)
-        val joined = requests.asSequence().map { SaitoEnvelope.decode(it.envelope()) }.firstOrNull { original ->
+        val joinIds = requests.asSequence().map { SaitoEnvelope.decode(it.envelope()) }.filter { original ->
             original.author == nativeWallet.publicKey && original.body.get("kind")?.asString == "join-channel" &&
                 original.body.get("channel_id")?.asString == target
-        }
-        if (joined != null && revocableSearchMessage == null) {
+        }.map { it.id }.toSet()
+        if (joinIds.isNotEmpty() && revocableSearchMessage == null) {
             other.admitPending(space)
             other.flush(space)
-            val device = joined.body.getAsJsonObject("key_package").get("device").asString
             val admitted = authorityView.transaction {
                 page("$space/control/").any { row ->
                     val receipt = SaitoEnvelope.decode(row.value.toString(Charsets.UTF_8))
                     check(receipt.author == authority)
                     val event = SaitoEnvelope.decode(receipt.body.get("event").asString).body
                     event.get("kind")?.asString == "admit" && event.get("channel_id")?.asString == target &&
-                        event.getAsJsonObject("devices").has("$device:${nativeWallet.publicKey}")
+                        SaitoEnvelope.decode(event.get("join").asString).id in joinIds
                 }
             }
             if (admitted) {
