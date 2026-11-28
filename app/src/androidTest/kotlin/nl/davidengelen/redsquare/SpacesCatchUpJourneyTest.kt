@@ -248,7 +248,12 @@ class SpacesCatchUpJourneyTest {
                     ui.waitUntil(12_000) { privateOption.isDisplayed() }
                     click(privateChannel, popup = true)
                     val results = ui.onNodeWithTag("spaces-search-list")
-                    waitText(privateMessage)
+                    fun scrollToResult(text: String): Boolean = runCatching {
+                        results.performScrollToNode(hasText(text))
+                        ui.onNodeWithText(text).isDisplayed()
+                    }.getOrDefault(false)
+                    // At the compact font scale, the filters can fill the first viewport.
+                    ui.waitUntil(25_000) { scrollToResult(privateMessage) }
                     capture("search-before-revocation")
 
                     armed = true
@@ -261,12 +266,9 @@ class SpacesCatchUpJourneyTest {
                     }
                     val read = requireNotNull(held)
                     ui.waitUntil(6_000) {
-                        val publicResult = runCatching {
-                            results.performScrollToNode(hasText("First proof Needle"))
-                            ui.onNodeWithText("First proof Needle").isDisplayed()
-                        }.getOrDefault(false)
-                        publicResult && !ui.onNodeWithText(privateMessage).isDisplayed()
+                        scrollToResult("First proof Needle") && !ui.onNodeWithText(privateMessage).isDisplayed()
                     }
+                    assertFalse("The revoked result can still be scrolled into view", scrollToResult(privateMessage))
                     ui.onNodeWithText(privateMessage).assertDoesNotExist()
                     results.performScrollToIndex(0)
                     click("All available channels")
@@ -280,7 +282,8 @@ class SpacesCatchUpJourneyTest {
                     ui.waitUntil(10_000) {
                         device.executeShellCommand("logcat -d -s SpacesAccount138:D '*:S'").contains("request=${read.take(10)} returnedMs=")
                     }
-                    waitText("First proof Needle")
+                    ui.waitUntil(25_000) { scrollToResult("First proof Needle") }
+                    assertFalse("The delayed reply restored the revoked result", scrollToResult(privateMessage))
                     ui.onNodeWithText(privateMessage).assertDoesNotExist()
                     results.performScrollToIndex(0)
                     click("All available channels")
