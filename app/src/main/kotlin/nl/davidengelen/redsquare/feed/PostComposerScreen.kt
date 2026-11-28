@@ -41,6 +41,7 @@ import nl.davidengelen.redsquare.media.GiphyPicker
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.FrameIconButton
 import nl.davidengelen.redsquare.ui.keyboardOccupiesWindow
+import java.util.UUID
 
 @Composable
 internal fun compactPostWindow(): Boolean = LocalConfiguration.current.screenHeightDp < 400
@@ -64,6 +65,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     val store = remember(owner, backend, parent?.id, quote?.id, recovery) { recovery ?: PostDraftStore(context, owner, backend, parent, quote) }
     val navigation = requireNotNull(LocalPostNavigation.current)
     val session = "$owner:${backend.id}:${parent?.id.orEmpty()}:quote:${quote?.id.orEmpty()}:$endpoint:recovery:${recovery?.recoveryId.orEmpty()}"
+    val pickerSession = key(session) { rememberSaveable { UUID.randomUUID().toString() } }
     val editorView = remember(session) { BringIntoViewRequester() }
     var editorPlaced by remember(session) { mutableStateOf(false) }
     val state = key(session) {
@@ -109,14 +111,16 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     val picker = activity.postImagePicker
     val pickingFor by picker.pickingFor.collectAsState()
     val returned = picker.selection
-    val choosingImages = pickingFor != null || returned?.session == session
+    val choosingImages = pickingFor != null || returned?.session == pickerSession
     val launchImagePicker: () -> Unit = {
         if (picker.pickingFor.value == null) state.openImagePicker {
-            activity.launchPostImagePicker(session, RedSquareImages.MAX_COUNT - state.images.size)
+            activity.launchPostImagePicker(pickerSession, RedSquareImages.MAX_COUNT - state.images.size)
         }
     }
-    LaunchedEffect(session, returned) {
-        if (returned?.session == session && picker.consume(returned)) memory.imagePreparation.select(returned.uris)
+    LaunchedEffect(pickerSession, returned) {
+        if (returned != null && picker.consume(returned) && returned.session == pickerSession) {
+            memory.imagePreparation.select(returned.uris)
+        }
     }
     LaunchedEffect(state, selection) {
         if (selection != null && !memory.imagePreparation.failed) {
@@ -159,7 +163,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         val loading: () -> Boolean = { !state.ready && !state.error }
         val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
             if (navigation.saveCurrent !== save || !state.ready || state.saving || state.sending ||
-                state.preparingImages || picker.pickingFor.value == session || picker.selection?.session == session) false
+                state.preparingImages || picker.pickingFor.value == pickerSession ||
+                picker.selection?.session == pickerSession) false
             else {
                 state.saving = true
                 try {
