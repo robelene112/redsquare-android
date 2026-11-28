@@ -236,8 +236,13 @@ class SpacesCatchUpJourneyTest {
                     fun openChannel(name: String) {
                         ui.waitUntil(12_000) { switcher.isDisplayed() }
                         switcher.performClick()
-                        ui.waitUntil(12_000) { drawer.isDisplayed() }
-                        drawer.performScrollToNode(hasText(name) and hasClickAction())
+                        val row = hasText(name) and hasClickAction()
+                        ui.waitUntil(12_000) {
+                            drawer.isDisplayed() && runCatching {
+                                drawer.performScrollToNode(row)
+                                ui.onNode(row).isDisplayed()
+                            }.getOrDefault(false)
+                        }
                         click(name)
                     }
                     openChannel(privateChannel)
