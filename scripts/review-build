@@ -109,6 +109,10 @@ import sys
 import xml.etree.ElementTree as ET
 directory, code, name, repo, application_id, variant, artifact_format, checked_apk = sys.argv[1:]
 artifact = Path(directory)
+def sha256(path):
+    with path.open('rb') as stream:
+        return hashlib.file_digest(stream, 'sha256').hexdigest()
+
 fingerprint = re.search(r'certificate SHA-256 digest: ([0-9a-f]+)', (artifact / 'signature.txt').read_text())
 if not fingerprint:
     raise SystemExit('APK signing certificate could not be verified')
@@ -133,7 +137,7 @@ else:
         raise SystemExit('Ordinary Release application must not be shell-profileable')
 filename = 'redsquare.aab' if artifact_format == 'aab' else checked_apk
 metadata = dict(versionCode=int(package[2]), versionName=package[3], applicationId=package[1],
-                certificateSha256=fingerprint[1], sha256=hashlib.sha256((artifact / filename).read_bytes()).hexdigest(),
+                certificateSha256=fingerprint[1], sha256=sha256(artifact / filename),
                 commit=subprocess.check_output(['git', '-C', repo, 'rev-parse', 'HEAD'], text=True).strip(), variant=variant)
 if artifact_format == 'aab':
     bundle_manifest = ET.parse(artifact / 'bundle-manifest.xml').getroot()
@@ -166,7 +170,7 @@ if artifact_format == 'aab':
     if configured_boolean('REVIEW_BUILD'):
         raise SystemExit('Play release must not enable review updates')
     metadata.update(artifactType='aab', filename=filename,
-                    derivedApk=dict(filename=checked_apk, sha256=hashlib.sha256((artifact / checked_apk).read_bytes()).hexdigest()),
+                    derivedApk=dict(filename=checked_apk, sha256=sha256(artifact / checked_apk)),
                     bundletoolVersion='1.18.3', bundletoolSha256='a099cfa1543f55593bc2ed16a70a7c67fe54b1747bb7301f37fdfd6d91028e29',
                     generatedConfiguration=dict(reviewBuild=False, pushConfigured=configured_boolean('PUSH_CONFIGURED'),
                         giphyPostsConfigured=configured_key('GIPHY_POSTS_API_KEY'),
