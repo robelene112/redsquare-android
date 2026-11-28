@@ -14,6 +14,7 @@ import nl.davidengelen.redsquare.spaces.SpacePublicReference
 import java.net.InetSocketAddress
 import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.StandardCopyOption.ATOMIC_MOVE
 import java.time.Clock
 import java.time.Duration
 import java.util.concurrent.CountDownLatch
@@ -178,7 +179,13 @@ object SpacesScaleHost {
                             addProperty("unrelatedLink", channelLink(unrelatedSpace, unrelatedChannel))
                             addProperty("libraryLink", channelLink(expectedHotSpace, manifest.get("hotLibrary").asString))
                         }
-                        Files.writeString(ready, config.toString())
+                        val unpublished = Files.createTempFile(root, "host-ready-", ".tmp")
+                        try {
+                            Files.writeString(unpublished, config.toString())
+                            Files.move(unpublished, ready, ATOMIC_MOVE)
+                        } finally {
+                            Files.deleteIfExists(unpublished)
+                        }
                         val deadline = System.nanoTime() + Duration.ofHours(2).toNanos()
                         while (!stopping.get()) {
                             check(System.nanoTime() < deadline) { "Owned scale host exceeded its bounded lifetime" }
