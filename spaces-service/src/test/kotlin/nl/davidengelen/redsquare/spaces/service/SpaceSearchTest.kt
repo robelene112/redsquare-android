@@ -37,10 +37,10 @@ class SpaceSearchTest {
                     val readerWallet = SaitoWallet.create()
                     val held = CompletableDeferred<Unit>()
                     val release = CompletableDeferred<Unit>()
-                    val invalidations = mutableListOf<Long>()
+                    val invalidations = mutableListOf<Pair<String, Long>>()
                     var holdContent = false
                     val reader = SpaceClient(readerWallet, "https://spaces.example.test", authority.publicKey, readerStore, clock,
-                        onReadScopeChanged = { invalidations.add(it) }) { request ->
+                        onReadScopeChanged = { changed, revision -> invalidations.add(changed to revision) }) { request ->
                         val envelope = request.envelope()
                         val response = service.exchange(envelope)
                         if (holdContent) {
@@ -107,7 +107,24 @@ class SpaceSearchTest {
                     owner.flush(space)
                     reader.refresh(space, channel = hidden)
                     val saved = find(reader, SpaceSearchFilter(channel = hidden)).single { it.address.record == permitted }
-                    val beforeRevocation = reader.readScopeRevision
+                    val otherSpace = owner.create(SpaceProfile("Other community", visibility = SpaceVisibility.PUBLIC))
+                    owner.flush(otherSpace)
+                    reader.openPublic(otherSpace)
+                    reader.joinPublic(otherSpace)
+                    reader.flush(otherSpace)
+                    owner.refresh(otherSpace)
+                    val searchedRevision = reader.readScopeRevision(space)
+                    val otherRevision = reader.readScopeRevision(otherSpace)
+                    val activityRevision = reader.readScopeRevision
+                    owner.setAdministrator(otherSpace, readerWallet.publicKey, administrator = true)
+                    owner.flush(otherSpace)
+                    reader.refresh(otherSpace)
+                    assertEquals("ADMIN", reader.members(otherSpace).single { it.publicKey == readerWallet.publicKey }.role.name)
+                    assertTrue(reader.readScopeRevision(otherSpace) > otherRevision)
+                    assertTrue(reader.readScopeRevision > activityRevision)
+                    assertEquals("A role change in the other Space leaves this Search valid", searchedRevision, reader.readScopeRevision(space))
+                    assertEquals(saved.address, find(reader, SpaceSearchFilter(channel = hidden)).single { it.address.record == permitted }.address)
+                    val beforeRevocation = reader.readScopeRevision(space)
                     assertNotNull(reader.cachedDestination(saved.address))
                     assertTrue(reader.searchChannels(space).any { it.id == hidden })
                     owner.revokeChannelAccess(space, hidden, readerWallet.publicKey)
@@ -117,15 +134,15 @@ class SpaceSearchTest {
                     try {
                         withTimeout(5_000) { held.await() }
                         assertFalse("The unrelated content read is still waiting", refreshing.isCompleted)
-                        assertTrue(reader.readScopeRevision > beforeRevocation)
-                        assertEquals(reader.readScopeRevision, invalidations.last())
+                        assertTrue(reader.readScopeRevision(space) > beforeRevocation)
+                        assertEquals(space to reader.readScopeRevision(space), invalidations.last())
                         assertFalse(reader.searchChannels(space).any { it.id == hidden })
                         assertTrue(find(reader, SpaceSearchFilter(channel = hidden)).isEmpty())
                         assertEquals(setOf(first, reply, queued), find(reader, SpaceSearchFilter(channel = chat)).map { it.address.record }.toSet())
                     } finally { release.complete(Unit) }
                     refreshing.await()
                     assertTrue(runCatching { reader.openDestination(saved.address) }.exceptionOrNull() is SpaceClient.ReadDenied)
-                    assertTrue(reader.readScopeRevision > beforeRevocation)
+                    assertTrue(reader.readScopeRevision(space) > beforeRevocation)
                     assertTrue(find(reader, SpaceSearchFilter(channel = hidden)).isEmpty())
                     assertFalse(reader.destinationAccessAllowed(saved.address))
                     assertNull(reader.cachedDestination(saved.address))

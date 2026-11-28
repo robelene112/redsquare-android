@@ -32,6 +32,7 @@ internal class SpacesCatchUpFixture(root: Path, node: SaitoWallet, private val o
     private var latest: SpaceDestination? = null
     private var revocableSearchChannel: String? = null
     private var revocableSearchMessage: String? = null
+    private var otherSearchSpace: String? = null
 
     suspend fun seed() {
         space = other.create(SpaceProfile("Catch up proof Space", visibility = SpaceVisibility.PUBLIC), listOf(SpaceChannelProfile("General")))
@@ -59,6 +60,34 @@ internal class SpacesCatchUpFixture(root: Path, node: SaitoWallet, private val o
         addProperty("link", other.publicLink(space))
         addProperty("nativeWallet", nativeWallet.publicKey)
         addProperty("privateLink", hidden.link())
+    }
+
+    suspend fun createOtherSearchSpace(): JsonObject {
+        check(otherSearchSpace == null)
+        val background = other.create(SpaceProfile("Other Search proof Space", visibility = SpaceVisibility.PUBLIC))
+        other.flush(background)
+        sender.openPublic(background)
+        sender.joinPublic(background)
+        sender.flush(background)
+        other.refresh(background)
+        other.setAdministrator(background, nativeWallet.publicKey, administrator = true)
+        other.flush(background)
+        other.send(background, "Other Space discussion")
+        other.flush(background)
+        otherSearchSpace = background
+        return JsonObject().apply {
+            addProperty("space", background)
+            addProperty("link", other.publicLink(background))
+        }
+    }
+
+    suspend fun changeOtherSearchSpaceRole(): JsonObject {
+        val background = requireNotNull(otherSearchSpace)
+        val control = other.setAdministrator(background, nativeWallet.publicKey, administrator = false)
+        other.flush(background)
+        val role = other.members(background).single { it.publicKey == nativeWallet.publicKey }.role
+        check(role.name == "MEMBER")
+        return JsonObject().apply { addProperty("control", control); addProperty("role", role.name) }
     }
 
     suspend fun createRevocableSearchChannel(): JsonObject {

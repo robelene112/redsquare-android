@@ -71,6 +71,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         val projectingDestination: Boolean = false, val destinationReadDenied: Boolean = false,
         val exactDestination: Boolean = false,
         val accessRevision: Long = 0,
+        val spaceAccessRevisions: Map<String, Long> = emptyMap(),
         val ready: Boolean = false, val savingNavigation: Boolean = false, val loadingChannel: Boolean = false, val hasEarlier: Boolean = false, val hasLater: Boolean = false, val scrollToMessage: MessageScroll? = null, val windowFrom: Long = 0, val followingLatest: Boolean = true)
     private val appContext = context.applicationContext
     private val fixtureTrace = (nl.davidengelen.redsquare.BuildConfig.DEBUG ||
@@ -301,8 +302,12 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
             if (delivery == SpaceClient.Delivery.CONTROL) publishManagement() else publish(includeCommunities = canRefreshCommunityList())
             if (fixtureTrace) trace("delivery projectionMs=${android.os.SystemClock.elapsedRealtime() - started}")
-        }, onReadScopeChanged = { revision ->
-            mutable.update { if (it.accessRevision < revision) it.copy(accessRevision = revision) else it }
+        }, onReadScopeChanged = { space, revision ->
+            mutable.update {
+                if (revision <= (it.spaceAccessRevisions[space] ?: 0L)) it
+                else it.copy(accessRevision = maxOf(it.accessRevision, revision), spaceAccessRevisions = it.spaceAccessRevisions + (space to revision))
+            }
+            if (fixtureTrace) trace("access changed ${space.take(10)} revision=$revision")
         }) { original -> peerCall {
             val started = if (fixtureTrace) android.os.SystemClock.elapsedRealtime() else 0L
             val connection = authenticatedPeer()
@@ -1648,8 +1653,9 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
             localAccess.withLock {
                 if (closed.get() || mutable.value.selected != space) throw CancellationException("Space changed")
                 val current = requireNotNull(client)
+                if (fixtureTrace) trace("search read ${space.take(10)} revision=$accessRevision")
                 val result = current.read()
-                if (closed.get() || mutable.value.selected != space || current.readScopeRevision != accessRevision)
+                if (closed.get() || mutable.value.selected != space || current.readScopeRevision(space) != accessRevision)
                     throw CancellationException("Search scope changed")
                 result
             }

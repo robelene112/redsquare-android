@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Process
 import android.os.SystemClock
 import androidx.compose.ui.test.*
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
@@ -235,6 +236,16 @@ class SpacesManagementJourneyTest {
             val multiline = "$membershipDraft\nStill editing"
             editor.performTextReplacement(multiline)
             waitUntil(5_000) { hasSavedAndDisplayedDraft(multiline) }
+            editor.performClick()
+            editor.performSemanticsAction(SemanticsActions.SetSelection) { check(it(0, 0, false)) }
+            editor.performTextInput("First: ")
+            val editedFirstLine = "First: $multiline"
+            waitUntil(5_000) { hasSavedAndDisplayedDraft(editedFirstLine) }
+            capture("12a-compact-edit-first-draft-line")
+            editor.performSemanticsAction(SemanticsActions.SetSelection) { check(it(editedFirstLine.length, editedFirstLine.length, false)) }
+            editor.performTextInput(" now")
+            waitUntil(5_000) { hasSavedAndDisplayedDraft("$editedFirstLine now") }
+            capture("12b-compact-edit-second-draft-line")
             editor.performTextReplacement(membershipDraft)
             waitUntil(5_000) { hasSavedAndDisplayedDraft(membershipDraft) }
             closeKeyboard()

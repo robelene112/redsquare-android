@@ -31,7 +31,7 @@ internal fun SpaceSearchPage(account: SpacesAccount, state: SpacesAccount.State,
     var query by rememberSaveable(space) { mutableStateOf("") }
     var channelFilter by rememberSaveable(space) { mutableStateOf<String?>(null) }
     var kindFilter by rememberSaveable(space) { mutableStateOf<String?>(null) }
-    val revision = state.accessRevision
+    val revision = state.spaceAccessRevisions[space] ?: 0L
     val listedNames = remember(state.channels) { state.channels.map { it.id to it.profile.name } }
     var attempt by remember(account, space) { mutableIntStateOf(0) }
     var options by remember(account, space, revision) { mutableStateOf<Result<List<SpaceClient.Channel>>?>(null) }

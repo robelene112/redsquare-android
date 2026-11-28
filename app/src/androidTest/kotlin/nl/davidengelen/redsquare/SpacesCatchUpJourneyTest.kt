@@ -220,6 +220,8 @@ class SpacesCatchUpJourneyTest {
         var released = false
         var primary: Throwable? = null
         try {
+            val otherSpace = request("search-other-community")
+            launch(otherSpace.get("link").asString).use { waitText("Other Space discussion") }
             launch(config.get("link").asString).use {
                 withFailureCapture({ capture("search-revocation-failure") }) {
                     val privateChannel = "Temporary search channel"
@@ -256,6 +258,26 @@ class SpacesCatchUpJourneyTest {
                     ui.waitUntil(25_000) { scrollToResult(privateMessage) }
                     capture("search-before-revocation")
 
+                    val backgroundSpace = otherSpace.get("space").asString.take(10)
+                    val backgroundChange = "access changed $backgroundSpace revision="
+                    fun observations() = device.executeShellCommand("logcat -d -s SpacesAccount138:D '*:S'").lineSequence()
+                    val earlierRoles = observations().count { backgroundChange in it }
+                    val earlierSearchReads = observations().count { "search read " in it }
+                    val backgroundRole = request("search-change-other")
+                    assertEquals("MEMBER", backgroundRole.get("role").asString)
+                    ui.waitUntil(25_000) {
+                        ui.onNodeWithText(privateMessage).assertIsDisplayed()
+                        observations().filter { backgroundChange in it }.drop(earlierRoles).any()
+                    }
+                    ui.onNodeWithText(privateMessage).assertIsDisplayed()
+                    results.performScrollToIndex(0)
+                    ui.onNode(hasText(privateChannel) and hasClickAction()).assertIsDisplayed()
+                    ui.waitUntil(5_000) { scrollToResult(privateMessage) }
+                    assertEquals("An unrelated Space change restarted this Search", earlierSearchReads,
+                        observations().count { "search read " in it })
+                    capture("search-retained-during-other-space-role")
+                    File(evidence, "search-other-space-role.json").writeText(backgroundRole.toString())
+
                     armed = true
                     val revoked = request("search-revoke")
                     assertEquals(target, revoked.get("channel").asString)
@@ -280,7 +302,9 @@ class SpacesCatchUpJourneyTest {
                     released = request("search-release").get("released").asBoolean
                     assertTrue(released)
                     ui.waitUntil(10_000) {
-                        device.executeShellCommand("logcat -d -s SpacesAccount138:D '*:S'").contains("request=${read.take(10)} returnedMs=")
+                        device.executeShellCommand("logcat -d -s SpacesAccount138:D '*:S'").lineSequence()
+                            .dropWhile { "request=${read.take(10)} returnedMs=" !in it }
+                            .drop(1).any { it.endsWith("refresh projected") }
                     }
                     ui.waitUntil(25_000) { scrollToResult("First proof Needle") }
                     assertFalse("The delayed reply restored the revoked result", scrollToResult(privateMessage))
