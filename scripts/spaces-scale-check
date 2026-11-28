@@ -28,8 +28,9 @@ mode.add_argument('--diagnostic', type=Path, metavar='BUILD_CHECKOUT')
 adjustment = parser.add_mutually_exclusive_group()
 adjustment.add_argument('--diagnostic-allocations', action='store_true', help='Add the full heap observer to a diagnostic arm')
 adjustment.add_argument('--diagnostic-compile', action='store_true', help='Measure the upper bound of ahead-of-time ART compilation')
+adjustment.add_argument('--collect-profile', action='store_true', help='Collect the ART rules for the real diagnostic route')
 options = parser.parse_args()
-if (options.diagnostic_allocations or options.diagnostic_compile) and not options.diagnostic:
+if (options.diagnostic_allocations or options.diagnostic_compile or options.collect_profile) and not options.diagnostic:
     parser.error('Observer adjustments require --diagnostic')
 evidence = options.evidence.resolve()
 apk = options.apk.resolve()
@@ -46,6 +47,14 @@ baseline = repo / 'docs/quality/SPACES_SCALE_REFERENCE.json'
 
 def adb(*parts, timeout=25):
     return subprocess.run(['adb', *parts], check=True, capture_output=True, timeout=timeout).stdout
+
+
+def profile_installer(action, expected_code, log, *extras):
+    receiver = f'{package}/androidx.profileinstaller.ProfileInstallReceiver'
+    result = adb('shell', 'am', 'broadcast', '-a', f'androidx.profileinstaller.action.{action}', '-n', receiver, *extras)
+    log.write_bytes(result)
+    if not re.search(rb'Broadcast completed: result=' + str(expected_code).encode() + rb'\b', result):
+        raise RuntimeError(f'ProfileInstaller did not complete {action}')
 
 def sha(path):
     with path.open('rb') as content:
@@ -136,6 +145,15 @@ with host_dir as temporary, (evidence / 'host.log').open('wb') as host_log:
         receipt = json.loads(observed[0])
         if receipt['manifestSha256'] != sha(fixture / 'fixture.json') or receipt['authenticatedLocalRows'] != expected_rows:
             raise RuntimeError('Android imported a different fixture')
+        if options.collect_profile:
+            profile_installer('SKIP_FILE', 10, evidence / 'art-skip-existing.txt',
+                              '--es', 'EXTRA_SKIP_FILE_OPERATION', 'WRITE_SKIP_FILE')
+            adb('shell', 'am', 'force-stop', package)
+            reset = adb('shell', 'cmd', 'package', 'compile', '-m', 'verify', '-f', package, timeout=100)
+            (evidence / 'art-reset-compilation.txt').write_bytes(reset)
+            if reset.strip() != b'Success':
+                raise RuntimeError('Android did not reset compilation for the profile collection')
+            adb('shell', 'pm', 'art', 'clear-app-profiles', package)
         if options.diagnostic_compile:
             adb('shell', 'am', 'force-stop', package)
             compiled = adb('shell', 'cmd', 'package', 'compile', '-m', 'speed', '-f', package, timeout=100)
@@ -182,6 +200,18 @@ with host_dir as temporary, (evidence / 'host.log').open('wb') as host_log:
                 raise RuntimeError('Diagnostic image differs from the frozen timing environment')
             summary['diagnostic'] = diagnose_scroll(adb, evidence, package, open_fixture,
                 json.loads(contract.read_text())['thresholds'], profile_allocations=options.diagnostic_allocations)
+            if options.collect_profile:
+                time.sleep(5)
+                profile_installer('SAVE_PROFILE', 12, evidence / 'art-save.txt')
+                time.sleep(1)
+                adb('shell', 'am', 'force-stop', package)
+                adb('shell', 'pm', 'dump-profiles', '--dump-classes-and-methods', package)
+                profile = evidence / 'observed-prof.txt'
+                adb('pull', f'/data/misc/profman/{package}-primary.prof.txt', str(profile))
+                rules = profile.read_text().splitlines()
+                if not any('Lnl/davidengelen/redsquare/spaces/' in rule for rule in rules):
+                    raise RuntimeError('The saved profile did not observe the native Spaces route')
+                summary['observedArtProfile'] = {'sha256': sha(profile), 'rules': len(rules)}
             if options.diagnostic_compile:
                 dexopt = adb('shell', 'dumpsys', 'package', 'dexopt').decode()
                 status = re.search(rf'^\s*\[{re.escape(package)}\]\s*\n(.*?)(?=^\s*\[|\Z)', dexopt, re.M | re.S)

@@ -137,6 +137,10 @@ if [[ "${SPACES_SCALE_SMOKE:-false}" == true || "${SPACES_SCALE_FULL:-false}" ==
     if [[ "${SPACES_SCALE_FULL:-false}" == true ]]; then
         python3 "$repo_dir/scripts/spaces-scale-check" "$evidence/spaces-scale" "$artifact" --full
         printf '%s\n' 'Owned release-equivalent timing against the frozen signed dataset. Physical device qualification remains separate.' > "$evidence/scope.txt"
+    elif [[ "${SPACES_SCALE_COMPARE:-}" == paired:profile-collect ]]; then
+        python3 "$repo_dir/scripts/spaces-scale-check" "$evidence/spaces-art-profile" "$artifact" \
+            --diagnostic "$repo_dir" --collect-profile
+        printf '%s\n' 'ART profile collection via a short native Spaces journey on a disposable emulator.' > "$evidence/scope.txt"
     elif [[ -n "${SPACES_SCALE_COMPARE:-}" ]]; then
         reference="$repo_dir/.scratch/spaces-scale-reference"
         case "$SPACES_SCALE_COMPARE" in
