@@ -270,7 +270,7 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
             override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
                 try {
                     if (bytes.size >= 5 && (bytes[0] == 13.toByte() || bytes[0] == 14.toByte()) &&
-                        ready.isCompleted && !ready.isCancelled) {
+                        handshakeWriteTarget.isCompleted && !handshakeWriteTarget.isCancelled) {
                         val index = ByteBuffer.wrap(bytes.substring(1, 5).toByteArray()).int
                         // A cancelled owner cannot use its late body. Discard that one
                         // known callback before it can interrupt another shared reader.
@@ -326,16 +326,20 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                         }
                         12 -> {
                             require(frame.size >= 5)
-                            if (!ready.isCompleted || ready.isCancelled || disconnected.get() || !hasIncomingReceiver()) return
+                            if (!handshakeWriteTarget.isCompleted || handshakeWriteTarget.isCancelled ||
+                                disconnected.get() || !hasIncomingReceiver()
+                            ) return
                             enqueueIncoming(webSocket, frame)
                         }
                         4 -> {
-                            if (!ready.isCompleted || ready.isCancelled || disconnected.get() || !hasIncomingReceiver()) return
+                            if (!handshakeWriteTarget.isCompleted || handshakeWriteTarget.isCancelled ||
+                                disconnected.get() || !hasIncomingReceiver()
+                            ) return
                             enqueueIncoming(webSocket, frame)
                         }
                         13, 14 -> {
                             require(frame.size >= 5)
-                            if (!ready.isCompleted || ready.isCancelled) return
+                            if (!handshakeWriteTarget.isCompleted || handshakeWriteTarget.isCancelled) return
                             val index = ByteBuffer.wrap(frame, 1, 4).int
                             val request = pending[index] ?: return
                             // The Registry relay may send its dispatcher fallback before the registrar callback.
