@@ -230,13 +230,18 @@ class SpacesCatchUpJourneyTest {
                     val target = request("search-channel").get("channel").asString
                     ui.waitUntil(25_000) { request("search-admit").get("ready").asBoolean }
                     val switcher = ui.onNode(hasContentDescription("Switch Space or channel") and hasClickAction())
-                    ui.waitUntil(12_000) { switcher.isDisplayed() }
-                    switcher.performClick()
-                    click(privateChannel)
+                    val drawer = ui.onNode(hasScrollToNodeAction() and hasAnyAncestor(SemanticsMatcher.expectValue(
+                        SemanticsProperties.PaneTitle, context.getString(R.string.spaces_navigation_panel))))
+                    fun openChannel(name: String) {
+                        ui.waitUntil(12_000) { switcher.isDisplayed() }
+                        switcher.performClick()
+                        ui.waitUntil(12_000) { drawer.isDisplayed() }
+                        drawer.performScrollToNode(hasText(name) and hasClickAction())
+                        click(name)
+                    }
+                    openChannel(privateChannel)
                     waitText(privateMessage)
-                    ui.waitUntil(12_000) { switcher.isDisplayed() }
-                    switcher.performClick()
-                    click("General")
+                    openChannel("General")
                     waitText("Separate proof conversation")
                     click("Community information")
                     click("Search this Space")
