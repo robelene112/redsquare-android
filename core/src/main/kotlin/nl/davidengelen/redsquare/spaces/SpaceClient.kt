@@ -2310,9 +2310,19 @@ class SpaceClient(private val wallet: SaitoWallet, private val node: String, pri
             if (store.transaction { page("$space/pending/", limit = 1).isNotEmpty() }) return
             val deferred = store.transaction { deferredJoin(space) }
             val cursor = store.transaction { state(space).get("join_cursor")?.asLong ?: 0 }
-            val result = if (deferred == null) readPage(JsonObject().apply {
-                addProperty("space_id", space); addProperty("stream", "join"); addProperty("cursor", cursor)
-            }) else null
+            val result = if (deferred == null) {
+                try {
+                    readPage(JsonObject().apply {
+                        addProperty("space_id", space); addProperty("stream", "join"); addProperty("cursor", cursor)
+                    })
+                } catch (denied: ReadDenied) {
+                    if (denied.spaceId != space || denied.problem != ReadProblem.UNAVAILABLE) throw denied
+                    // Approval authority can change after the local role check and before the join read.
+                    syncControls(space)
+                    if (!store.transaction { journal(space).canApproveDeviceRequests(wallet.publicKey) }) return
+                    throw denied
+                }
+            } else null
             val next = result?.number("next_cursor")?.also { require(it >= cursor) } ?: cursor
             val request = deferred?.receipt ?: result?.getAsJsonArray("items")?.firstOrNull()?.asString
             if (request == null) {

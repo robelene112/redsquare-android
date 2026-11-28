@@ -116,6 +116,57 @@ class SpaceOwnershipTest {
         }
     }
 
+    @Test(timeout = 45_000) fun anOwnershipChangeDuringThePendingJoinReadKeepsPublicConversationAvailable() = runBlocking<Unit> {
+        SpacesServiceStore(files.newFolder("crossed-ownership-service").toPath(), service, clock).use { remote ->
+            SqliteClientFixture(files.newFile("crossed-ownership-owner.sqlite").absolutePath).use { ownerStore ->
+                SqliteClientFixture(files.newFile("crossed-ownership-member.sqlite").absolutePath).use { memberStore ->
+                    val recipient = SpaceClient(member, "fixture-node", service.publicKey, memberStore, clock) { remote.exchange(it.envelope()) }
+                    var crossJoinRead: (suspend () -> Unit)? = null
+                    var signedDenial = false
+                    val creator = SpaceClient(owner, "fixture-node", service.publicKey, ownerStore, clock) { request ->
+                        val body = SaitoEnvelope.decode(request.envelope()).body
+                        val crossover = crossJoinRead?.takeIf {
+                            body.get("request")?.asString == "read" && body.getAsJsonObject("scope")?.get("stream")?.asString == "join"
+                        }
+                        if (crossover != null) {
+                            crossJoinRead = null
+                            crossover()
+                        }
+                        remote.exchange(request.envelope()).also { reply ->
+                            if (crossover != null) {
+                                val response = SaitoEnvelope.decode(reply)
+                                assertEquals(service.publicKey, response.author)
+                                assertEquals("denied", response.body.get("request").asString)
+                                signedDenial = true
+                            }
+                        }
+                    }
+                    val space = creator.create(SpaceProfile("Crossed ownership read", visibility = SpaceVisibility.PUBLIC))
+                    creator.flush(space)
+                    creator.send(space, "The public conversation stays available")
+                    creator.flush(space)
+                    recipient.openPublic(space)
+                    recipient.joinPublic(space)
+                    recipient.flush(space)
+                    creator.refresh(space)
+                    val offer = creator.offerOwnership(space, member.publicKey)
+                    creator.flush(space)
+                    recipient.refresh(space)
+                    crossJoinRead = {
+                        recipient.acceptOwnership(space, offer)
+                        recipient.flush(space)
+                    }
+
+                    creator.admitPending(space)
+
+                    assertTrue(signedDenial)
+                    assertEquals(mapOf(owner.publicKey to "MEMBER", member.publicKey to "OWNER"),
+                        creator.members(space).associate { it.publicKey to it.role.name })
+                    assertEquals(listOf("The public conversation stays available"), creator.messages(space))
+                }
+            }
+        }
+    }
 
     @Test(timeout = 45_000) fun aConfirmedHandoverDeliversPrivateKeysAndExcludesTheFormerOwnersFutureAccess() = runBlocking<Unit> {
         privateHandoverWithAvailableHistory(loseAdmissionReply = false)
