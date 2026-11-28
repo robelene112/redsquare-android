@@ -1334,7 +1334,7 @@ internal class SpacesAccount(context: Context, private val wallet: SaitoWallet, 
         }
     }
 
-    private suspend fun saveSettledAnchor(target: Target, snapshot: SavedViewport) = localAccess.withLock {
+    private suspend fun saveSettledAnchor(target: Target, snapshot: SavedViewport): Unit = localAccess.withLock {
         if (dirtyAnchors[target] !== snapshot) return@withLock
         try {
             requireNotNull(client).saveAnchor(target, snapshot.anchor)
