@@ -139,7 +139,9 @@ if [[ "${SPACES_SCALE_SMOKE:-false}" == true || "${SPACES_SCALE_FULL:-false}" ==
         printf '%s\n' 'Owned release-equivalent timing against the frozen signed dataset. Physical device qualification remains separate.' > "$evidence/scope.txt"
     elif [[ -n "${SPACES_SCALE_COMPARE:-}" ]]; then
         reference="$repo_dir/.scratch/spaces-scale-reference"
-        if [[ "$SPACES_SCALE_COMPARE" == paired:self || "$SPACES_SCALE_COMPARE" == paired:heap-profiler ]]; then reference="$repo_dir"; fi
+        case "$SPACES_SCALE_COMPARE" in
+            paired:self|paired:heap-profiler|paired:compiled-art) reference="$repo_dir" ;;
+        esac
         diagnosis="$evidence/spaces-scale-diagnostic"
         mkdir "$diagnosis"
         printf '%s\n' 'Four ordered fresh diagnostic installs on the same disposable emulator.' > "$evidence/scope.txt"
@@ -159,12 +161,15 @@ if [[ "${SPACES_SCALE_SMOKE:-false}" == true || "${SPACES_SCALE_FULL:-false}" ==
                     fi
                 done
             fi
-            profiler=()
-            if [[ "$SPACES_SCALE_COMPARE" == paired:heap-profiler && "$label" == current* ]]; then
-                profiler=(--diagnostic-allocations)
+            extra_diagnostic=()
+            if [[ "$label" == current* ]]; then
+                case "$SPACES_SCALE_COMPARE" in
+                    paired:heap-profiler) extra_diagnostic=(--diagnostic-allocations) ;;
+                    paired:compiled-art) extra_diagnostic=(--diagnostic-compile) ;;
+                esac
             fi
             python3 "$repo_dir/scripts/spaces-scale-check" "$diagnosis/$label" \
-                "$build_apk" --diagnostic "$build_root" "${profiler[@]}"
+                "$build_apk" --diagnostic "$build_root" "${extra_diagnostic[@]}"
         done
         for label in "${order[@]:1}"; do
             for name in fixture.json device-serial.txt device-size.txt device-density.txt; do
@@ -184,7 +189,7 @@ reference, current = groups['reference'], groups['current']
 identity = ('source', 'apkSha256', 'testApkSha256')
 for label in ('reference', 'current'):
     assert all(groups[label][key] == groups[label + '-repeat'][key] for key in identity)
-if sys.argv[2] in ('self', 'heap-profiler'):
+if sys.argv[2] in ('self', 'heap-profiler', 'compiled-art'):
     assert all(reference[key] == current[key] for key in identity)
 else:
     assert reference['source'] == sys.argv[2] and reference['source'] != current['source']
@@ -194,6 +199,7 @@ for label, group in groups.items():
         assert reference['seed'][key] == group['seed'][key]
     assert not group['qualifiesForTimedRuns']
     assert group['diagnostic']['heapProfiling'] == (sys.argv[2] == 'heap-profiler' and label.startswith('current'))
+    assert group['artAheadOfTime'] == (sys.argv[2] == 'compiled-art' and label.startswith('current'))
 metrics = ('coldMaximumFrameMsByLaunch', 'warmCompleted', 'warmObserved', 'warmMissed',
            'warmMissUpperBound', 'warmDurationMs')
 print(json.dumps({label: {'source': group['source'], **{key: group['diagnostic'][key] for key in metrics}}

@@ -59,7 +59,7 @@ on:
         options: [ubuntu-24.04, ubuntu-22.04]
         default: ubuntu-24.04
       source_ref:
-        description: Exact source override, or paired:<commit> / paired:self / paired:heap-profiler for Spaces diagnostics
+        description: Exact source override, or paired:<commit> / paired:self / paired:heap-profiler / paired:compiled-art for Spaces diagnostics
         type: string
         default: ''
       scope:
@@ -148,7 +148,7 @@ jobs:
           VERIFICATION_SCOPE: ${{ inputs.scope }}
           TEST_16KB: ${{ inputs.android17_16kb }}
         run: |
-          [[ "$SPACES_SCALE_COMPARE" =~ ^paired:([0-9a-f]{40}|self|heap-profiler)$ ]]
+          [[ "$SPACES_SCALE_COMPARE" =~ ^paired:([0-9a-f]{40}|self|heap-profiler|compiled-art)$ ]]
           [[ "$SPACES_SCALE_SMOKE" == true && "$SPACES_SCALE_FULL" == false ]]
           [[ "$VERIFICATION_SCOPE" == spaces-journey-android17 && "$TEST_16KB" == false ]]
           printf 'commit=%s\n' "${SPACES_SCALE_COMPARE#paired:}" >> "$GITHUB_OUTPUT"
@@ -355,7 +355,7 @@ jobs:
             ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :core:test :push-gateway:test "${SPACE_SERVICE_CHECKS[@]}" :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest
           fi
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        if: startsWith(inputs.source_ref, 'paired:') && inputs.source_ref != 'paired:self' && inputs.source_ref != 'paired:heap-profiler'
+        if: startsWith(inputs.source_ref, 'paired:') && inputs.source_ref != 'paired:self' && inputs.source_ref != 'paired:heap-profiler' && inputs.source_ref != 'paired:compiled-art'
         with:
           ref: ${{ steps.scale-reference.outputs.commit }}
           path: .scratch/spaces-scale-reference
@@ -365,7 +365,7 @@ jobs:
             /*
             !/docs/evidence/
       - name: Build exact Spaces diagnostic reference
-        if: startsWith(inputs.source_ref, 'paired:') && inputs.source_ref != 'paired:self' && inputs.source_ref != 'paired:heap-profiler'
+        if: startsWith(inputs.source_ref, 'paired:') && inputs.source_ref != 'paired:self' && inputs.source_ref != 'paired:heap-profiler' && inputs.source_ref != 'paired:compiled-art'
         working-directory: .scratch/spaces-scale-reference
         run: |
           [[ "$(git rev-parse HEAD)" == "${SPACES_SCALE_COMPARE#paired:}" ]]
