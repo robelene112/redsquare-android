@@ -14,6 +14,7 @@ import tempfile
 import time
 import urllib.request
 from xml.etree import ElementTree
+from zipfile import ZipFile
 from spaces_scale_timing import (FRAME_TIMELINE_TRACE, TRACE_TARGET, analyse_trace, anchor_command_args, anchor_frames,
                                 capture_trace, complete_anchor_coverage, diagnose_scroll, fresh_hierarchy, measure, moving_frames,
                                 unexplained_displacement)
@@ -167,8 +168,23 @@ with host_dir as temporary, (evidence / 'host.log').open('wb') as host_log:
             reference = json.loads(baseline.read_text())
             if reference['device'] != summary['device']:
                 raise RuntimeError('Diagnostic image differs from the frozen timing environment')
+            with ZipFile(apk) as installed:
+                rules_path = 'assets/dexopt/baseline.prof'
+                if rules_path in installed.namelist():
+                    rule = installed.getinfo(rules_path)
+                    with installed.open(rule) as profile:
+                        summary['packagedArtProfile'] = {'bytes': rule.file_size,
+                                                         'sha256': hashlib.file_digest(profile, 'sha256').hexdigest()}
+            def capture_art_status(stage):
+                dexopt = adb('shell', 'dumpsys', 'package', 'dexopt').decode()
+                status = re.search(rf'^\s*\[{re.escape(package)}\]\s*\n(.*?)(?=^\s*\[|\Z)', dexopt, re.M | re.S)
+                if status:
+                    (evidence / f'art-profile-{stage}.txt').write_text(status[0])
+                return re.findall(r'\[status=([a-z-]+)\]', status[1]) if status else []
+            summary['artCompilationBefore'] = capture_art_status('before')
             summary['diagnostic'] = diagnose_scroll(adb, evidence, package, open_fixture,
                 json.loads(contract.read_text())['thresholds'])
+            summary['artCompilationAfter'] = capture_art_status('after')
             (evidence / 'application-logcat.txt').write_bytes(adb('logcat', '-d', '-v', 'threadtime', '-s',
                 'SpacesAccount138:D', 'SpacesScaleProof:I', 'AndroidRuntime:E', '*:S'))
         elif full:
