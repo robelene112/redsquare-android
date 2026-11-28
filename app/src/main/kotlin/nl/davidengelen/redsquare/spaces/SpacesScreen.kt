@@ -53,12 +53,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.paneTitle
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -480,7 +483,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                     if (selected?.articleReadDenied == true) R.string.spaces_kind_article else R.string.spaces_kind_chat)
                 val menu = stringResource(R.string.spaces_switch_channel)
                 if (!compactTyping) Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small,
-                    vertical = if (shortWindow) 4.dp else 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                    vertical = if (compactReading) 4.dp else 8.dp), verticalAlignment = Alignment.CenterVertically) {
                     FrameIconButton(R.drawable.ic_back, stringResource(when {
                         activityReturn -> R.string.spaces_activity_back
                         searchResultOpen -> R.string.spaces_search_back
@@ -492,7 +495,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                         color = MaterialTheme.colorScheme.surfaceContainerLow,
                         modifier = Modifier.weight(1f).semantics { contentDescription = menu; role = Role.Button; heading(); stateDescription = title }) {
                         Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(horizontal = 12.dp,
-                            vertical = if (compactRoom) 2.dp else if (shortWindow) 6.dp else 12.dp), verticalAlignment = Alignment.CenterVertically,
+                            vertical = if (compactRoom) 2.dp else if (compactReading) 6.dp else 12.dp), verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                             Column(Modifier.weight(1f)) {
                                 Text(selected?.name ?: profile?.name.orEmpty(), style = MaterialTheme.typography.labelSmall,
@@ -789,7 +792,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 val own = message.author == account.ownerKey
                                 val requestedBody = state.scrollToMessage?.takeIf { it.showBody }?.id
                                 val showBody = message.id == (requestedBody ?: initialThreadBody?.takeIf { initialPage })
-                                MessageRow(message, state.draft.isEmpty() && !state.working,
+                                MessageRow(message, state.draft.isEmpty() && !state.working, compact = compactReading,
                                     bodyModifier = if (showBody) Modifier.bringIntoViewRequester(messageBody) else Modifier,
                                     restore = { account.restoreUnsentDraft(message.id) },
                                     reply = if (accepted && threadParent == null && (!message.deleted || message.replyCount > 0))
@@ -848,6 +851,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                             working = state.working)
                         if ((state.hasLater || !state.followingLatest && !state.exactDestination) && !compactTyping) {
                             val newerActivity = stringResource(R.string.spaces_newer_messages_available)
+                            val latestMessages = stringResource(R.string.spaces_latest_messages)
                             OutlinedButton(onClick = account::latestMessages,
                                 modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).heightIn(min = 48.dp)
                                     .semantics { if (state.hasLater) stateDescription = newerActivity }) {
@@ -855,7 +859,10 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                     if (state.hasLater) Box(Modifier.size(7.dp).background(MaterialTheme.colorScheme.primary, CircleShape))
                                 }
                                 Spacer(Modifier.width(6.dp))
-                                Text(stringResource(R.string.spaces_latest_messages))
+                                if (compactReading) Text(stringResource(R.string.spaces_latest_messages_short),
+                                    Modifier.clearAndSetSemantics { text = AnnotatedString(latestMessages) },
+                                    maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                else Text(latestMessages)
                             }
                         }
                         if (!compactTyping) state.problem?.let { ProblemNotice(it, account::clearProblem) }
@@ -878,7 +885,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 else OutlinedTextField(state.draft, edit, Modifier.weight(1f),
                                     enabled = enabled, placeholder = {
                                         Text(hint, maxLines = if (compactReading) 1 else Int.MAX_VALUE, overflow = TextOverflow.Ellipsis)
-                                    }, shape = RoundedCornerShape(18.dp), minLines = 1, maxLines = if (compactConfiguration) 2 else 4)
+                                    }, shape = RoundedCornerShape(18.dp), minLines = 1, maxLines = if (compactConfiguration) 1 else 4)
                                 FilledIconButton(onClick = account::send, enabled = canWrite && state.draft.isNotBlank() && !state.working &&
                                     state.accessProblems[selected.id] == null, modifier = Modifier.size(48.dp)) {
                                     Icon(painterResource(R.drawable.ic_send), stringResource(R.string.spaces_send), Modifier.size(22.dp))
@@ -1267,7 +1274,7 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
     }
 }
 
-@Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, bodyModifier: Modifier, restore: () -> Unit,
+@Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, compact: Boolean, bodyModifier: Modifier, restore: () -> Unit,
     reply: (() -> Unit)?, canEdit: Boolean, canRemove: Boolean, canReport: Boolean, canCopyLink: Boolean, canCancel: Boolean, openOverlay: (MessageOverlay) -> Unit,
     cancelChange: ((String, (Boolean) -> Unit) -> Unit)?, react: ((String) -> Unit)?, savingReaction: String?, working: Boolean) {
     val savedEdit = message.change?.takeIf { it.kind == SpaceClient.MessageChangeKind.EDIT }?.text
@@ -1288,7 +1295,8 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
         ProfileAvatar(message.author, Modifier.size(38.dp))
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text(name, Modifier.weight(1f), style = MaterialTheme.typography.titleSmall)
+                Text(name, Modifier.weight(1f), style = MaterialTheme.typography.titleSmall,
+                    maxLines = if (compact) 1 else Int.MAX_VALUE, overflow = TextOverflow.Ellipsis)
                 if (canEdit || canRemove || canReport || canCopyLink || savedEdit != null || message.pinChange != null)
                     FrameIconButton(R.drawable.ic_more, stringResource(R.string.spaces_message_actions)) { openOverlay(MessageOverlay.ACTIONS) }
             }
