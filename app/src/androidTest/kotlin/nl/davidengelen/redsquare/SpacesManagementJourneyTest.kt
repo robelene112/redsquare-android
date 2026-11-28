@@ -229,12 +229,15 @@ class SpacesManagementJourneyTest {
             waitText(membershipDraft)
             assertEquals(membershipDraft, savedDraft(fixtures, "general"))
             val editor = ui.onNode(hasSetTextAction() and isEnabled())
+            fun hasSavedAndDisplayedDraft(text: String): Boolean =
+                editor.fetchSemanticsNode().config.getOrNull(SemanticsProperties.EditableText)?.text == text &&
+                    savedDraft(fixtures, "general") == text
             val multiline = "$membershipDraft\nStill editing"
             editor.performTextReplacement(multiline)
-            waitUntil(5_000) { savedDraft(fixtures, "general") == multiline }
-            assertEquals(multiline, editor.fetchSemanticsNode().config[SemanticsProperties.EditableText].text)
+            waitUntil(5_000) { hasSavedAndDisplayedDraft(multiline) }
             editor.performTextReplacement(membershipDraft)
-            waitUntil(5_000) { savedDraft(fixtures, "general") == membershipDraft }
+            waitUntil(5_000) { hasSavedAndDisplayedDraft(membershipDraft) }
+            closeKeyboard()
             openInformation()
             clickDialog(context.getString(R.string.spaces_leave)); capture("13-compact-leave-review")
             governanceConfirmation(context.getString(R.string.spaces_leave), context.getString(R.string.spaces_leave_title)).clickReady()
