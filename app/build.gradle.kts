@@ -76,6 +76,8 @@ android {
             matchingFallbacks += listOf("release")
             isDebuggable = false
             isProfileable = true
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "spaces-r8-diagnostic.pro")
             signingConfig = if (spacesScaleFixture.get()) signingConfigs.getByName("debug") else null
             buildConfigField("boolean", "SPACES_SCALE_FIXTURE", spacesScaleFixture.get().toString())
             configurePush("Performance", "nl.davidengelen.redsquare.performance")
