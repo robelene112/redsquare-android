@@ -1151,6 +1151,14 @@ emit an explicitly qualified result from its first report. Use the exact input
 snapshot for each accepted SDK. Never substitute a newer harness/contract into an
 older source-bound assessment or assemble successful prefixes from failed parents.
 
+On the VPS, check the actual mount and free space before a large build or proof
+download. Reuse the pinned build cache and keep one verified compressed original
+per proof that needs local retention. Read only the needed members or use one
+temporary extraction, then remove it once the original and result are verified.
+Keep short receipts with the run and artifact IDs, source revision, and archive
+checksum. Check free space again at the end of the work and clear superseded
+generated builds and duplicate downloads before starting another round.
+
 ## Sequential implementation and review
 
 ### Development completion and parked release work
