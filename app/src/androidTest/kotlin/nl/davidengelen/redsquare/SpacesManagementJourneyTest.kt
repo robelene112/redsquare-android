@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Process
 import android.os.SystemClock
 import androidx.compose.ui.test.*
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -227,6 +228,13 @@ class SpacesManagementJourneyTest {
         membershipAs("3", fixtures) { _ ->
             waitText(membershipDraft)
             assertEquals(membershipDraft, savedDraft(fixtures, "general"))
+            val editor = ui.onNode(hasSetTextAction() and isEnabled())
+            val multiline = "$membershipDraft\nStill editing"
+            editor.performTextReplacement(multiline)
+            waitUntil(5_000) { savedDraft(fixtures, "general") == multiline }
+            assertEquals(multiline, editor.fetchSemanticsNode().config[SemanticsProperties.EditableText].text)
+            editor.performTextReplacement(membershipDraft)
+            waitUntil(5_000) { savedDraft(fixtures, "general") == membershipDraft }
             openInformation()
             clickDialog(context.getString(R.string.spaces_leave)); capture("13-compact-leave-review")
             governanceConfirmation(context.getString(R.string.spaces_leave), context.getString(R.string.spaces_leave_title)).clickReady()

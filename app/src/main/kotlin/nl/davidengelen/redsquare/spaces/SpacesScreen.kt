@@ -792,7 +792,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                 val own = message.author == account.ownerKey
                                 val requestedBody = state.scrollToMessage?.takeIf { it.showBody }?.id
                                 val showBody = message.id == (requestedBody ?: initialThreadBody?.takeIf { initialPage })
-                                MessageRow(message, state.draft.isEmpty() && !state.working, compact = compactReading,
+                                MessageRow(message, state.draft.isEmpty() && !state.working,
                                     bodyModifier = if (showBody) Modifier.bringIntoViewRequester(messageBody) else Modifier,
                                     restore = { account.restoreUnsentDraft(message.id) },
                                     reply = if (accepted && threadParent == null && (!message.deleted || message.replyCount > 0))
@@ -859,7 +859,7 @@ internal fun SpacesScreen(account: SpacesAccount, modifier: Modifier = Modifier,
                                     if (state.hasLater) Box(Modifier.size(7.dp).background(MaterialTheme.colorScheme.primary, CircleShape))
                                 }
                                 Spacer(Modifier.width(6.dp))
-                                if (compactReading) Text(stringResource(R.string.spaces_latest_messages_short),
+                                if (compactConfiguration) Text(stringResource(R.string.spaces_latest_messages_short),
                                     Modifier.clearAndSetSemantics { text = AnnotatedString(latestMessages) },
                                     maxLines = 1, overflow = TextOverflow.Ellipsis)
                                 else Text(latestMessages)
@@ -1274,7 +1274,7 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
     }
 }
 
-@Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, compact: Boolean, bodyModifier: Modifier, restore: () -> Unit,
+@Composable private fun MessageRow(message: SpaceClient.Message, canRestore: Boolean, bodyModifier: Modifier, restore: () -> Unit,
     reply: (() -> Unit)?, canEdit: Boolean, canRemove: Boolean, canReport: Boolean, canCopyLink: Boolean, canCancel: Boolean, openOverlay: (MessageOverlay) -> Unit,
     cancelChange: ((String, (Boolean) -> Unit) -> Unit)?, react: ((String) -> Unit)?, savingReaction: String?, working: Boolean) {
     val savedEdit = message.change?.takeIf { it.kind == SpaceClient.MessageChangeKind.EDIT }?.text
@@ -1295,8 +1295,7 @@ private fun EarlierSpaceMessages(onClick: () -> Unit, enabled: Boolean, modifier
         ProfileAvatar(message.author, Modifier.size(38.dp))
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text(name, Modifier.weight(1f), style = MaterialTheme.typography.titleSmall,
-                    maxLines = if (compact) 1 else Int.MAX_VALUE, overflow = TextOverflow.Ellipsis)
+                Text(name, Modifier.weight(1f), style = MaterialTheme.typography.titleSmall)
                 if (canEdit || canRemove || canReport || canCopyLink || savedEdit != null || message.pinChange != null)
                     FrameIconButton(R.drawable.ic_more, stringResource(R.string.spaces_message_actions)) { openOverlay(MessageOverlay.ACTIONS) }
             }
